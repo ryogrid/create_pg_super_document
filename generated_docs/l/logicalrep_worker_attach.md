@@ -1,7 +1,7 @@
 # logicalrep_worker_attach
 
 ## Location
-src/backend/replication/logical/launcher.c: 720 - 756
+[src/backend/replication/logical/launcher.c:720-756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L720-L756)
 
 ## Overview
 Attaches the current process to a specified logical replication worker slot, establishing the connection between the process and the shared memory worker state.

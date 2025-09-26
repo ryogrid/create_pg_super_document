@@ -1,7 +1,7 @@
 # pg_is_ascii
 
 ## Location
-src/common/string.c: 133 - 154
+[src/common/string.c:133-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/string.c#L133-L154)
 
 ## Overview
 A utility function that determines whether a string contains only ASCII characters by checking if any bytes have the high bit set.

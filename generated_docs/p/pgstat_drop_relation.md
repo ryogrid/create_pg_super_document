@@ -1,7 +1,7 @@
 # pgstat_drop_relation
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 180 - 210
+[src/backend/utils/activity/pgstat_relation.c:180-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L180-L210)
 
 ## Overview
 Ensures statistics for a relation are dropped when the current transaction commits and resets transactional counters to zero.

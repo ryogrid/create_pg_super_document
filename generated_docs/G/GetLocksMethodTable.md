@@ -1,7 +1,7 @@
 # GetLocksMethodTable
 
 ## Location
-src/backend/storage/lmgr/lock.c: 474 - 485
+[src/backend/storage/lmgr/lock.c:474-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L474-L485)
 
 ## Overview
 GetLocksMethodTable retrieves the lock method table associated with a given lock by extracting the lock method ID from the lock and returning the corresponding LockMethod structure.

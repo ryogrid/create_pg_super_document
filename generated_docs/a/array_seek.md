@@ -1,7 +1,7 @@
 # array_seek
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4854 - 4901
+[src/backend/utils/adt/arrayfuncs.c:4854-4901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4854-L4901)
 
 ## Overview
 A static utility function that advances a pointer through an array by skipping over a specified number of array elements, handling both fixed and variable-length types with proper alignment.

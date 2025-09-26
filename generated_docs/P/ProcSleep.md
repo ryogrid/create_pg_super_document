@@ -1,7 +1,7 @@
 # ProcSleep
 
 ## Location
-src/backend/storage/lmgr/proc.c: 1071 - 1682
+[src/backend/storage/lmgr/proc.c:1071-1682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L1071-L1682)
 
 ## Overview
 ProcSleep puts a process to sleep waiting for the specified lock, handling deadlock detection, recovery conflicts, and autovacuum cancellation during the wait.

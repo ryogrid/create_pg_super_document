@@ -1,7 +1,7 @@
 # path_decode
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 266 - 339
+[src/backend/utils/adt/geo_ops.c:266-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L266-L339)
 
 ## Overview
 A comprehensive function that parses sequences of coordinate pairs from string representations, handling both open and closed path formats for various PostgreSQL geometric data types.

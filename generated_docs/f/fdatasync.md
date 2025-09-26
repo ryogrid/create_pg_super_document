@@ -1,7 +1,7 @@
 # fdatasync
 
 ## Location
-src/port/win32fdatasync.c: 23 - 51
+[src/port/win32fdatasync.c:23-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32fdatasync.c#L23-L51)
 
 ## Overview
 The  function is a Windows-specific implementation that provides POSIX  functionality for synchronizing a file's data to storage without flushing metadata.

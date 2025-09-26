@@ -1,7 +1,7 @@
 # check_for_freed_segments
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 2252 - 2287
+[src/backend/utils/mmgr/dsa.c:2252-2287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L2252-L2287)
 
 ## Overview
 Detects and handles segments that have been freed by other processes to ensure dsa_pointer resolution remains consistent and prevents access to stale segment mappings.

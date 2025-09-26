@@ -1,7 +1,7 @@
 # call_real_check_hook
 
 ## Location
-src/backend/utils/misc/guc.c: 6880 - 6913
+[src/backend/utils/misc/guc.c:6880-6913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6880-L6913)
 
 ## Overview
 A static function that validates real (floating-point) GUC parameters by calling their associated check hooks and handling validation errors with proper error reporting.

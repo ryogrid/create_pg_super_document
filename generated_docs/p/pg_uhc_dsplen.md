@@ -1,7 +1,7 @@
 # pg_uhc_dsplen
 
 ## Location
-src/common/wchar.c: 988 - 1014
+[src/common/wchar.c:988-1014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L988-L1014)
 
 ## Overview
 Returns the display length (width) of a UHC-encoded character for proper terminal display formatting and alignment.

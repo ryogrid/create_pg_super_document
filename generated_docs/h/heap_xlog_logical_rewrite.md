@@ -1,7 +1,7 @@
 # heap_xlog_logical_rewrite
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 1073 - 1154
+[src/backend/access/heap/rewriteheap.c:1073-1154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L1073-L1154)
 
 ## Overview
 Replays XLOG_HEAP2_REWRITE records during WAL recovery by reconstructing logical rewrite mapping files used for logical decoding after table rewrites.

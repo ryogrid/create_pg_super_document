@@ -1,7 +1,7 @@
 # quote_qualified_identifier
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12783 - 12802
+[src/backend/utils/adt/ruleutils.c:12783-12802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12783-L12802)
 
 ## Overview
 A utility function that constructs a possibly-qualified identifier string by combining a qualifier and an identifier, quoting each component as necessary for safe SQL usage.

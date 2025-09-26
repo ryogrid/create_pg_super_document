@@ -1,7 +1,7 @@
 # dsm_backend_startup
 
 ## Location
-src/backend/storage/ipc/dsm.c: 423 - 458
+[src/backend/storage/ipc/dsm.c:423-458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L423-L458)
 
 ## Overview
 Initializes dynamic shared memory functionality for a backend process by attaching to the control segment when running under EXEC_BACKEND mode.

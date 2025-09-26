@@ -1,7 +1,7 @@
 # process_directory_recursively
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 823 - 1153
+[src/bin/pg_combinebackup/pg_combinebackup.c:823-1153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L823-L1153)
 
 ## Overview
 Recursively processes directory structures to reconstruct full files from incremental backup files and copies regular files, handling the complete directory tree traversal for backup combination operations.

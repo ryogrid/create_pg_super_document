@@ -1,7 +1,7 @@
 # DropdbStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3800 - 3806
+[src/include/nodes/parsenodes.h:3800-3806](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3800-L3806)
 
 ## Overview
 A parse node structure representing the DROP DATABASE statement, used to remove a database from the PostgreSQL cluster.

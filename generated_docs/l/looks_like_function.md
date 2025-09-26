@@ -1,7 +1,7 @@
 # looks_like_function
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10396 - 10424
+[src/backend/utils/adt/ruleutils.c:10396-10424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10396-L10424)
 
 ## Overview
 A helper function that determines whether a parse tree node will deparse as a function-like expression that satisfies PostgreSQL's func_expr_windowless grammar rule.

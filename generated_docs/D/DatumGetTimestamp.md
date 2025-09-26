@@ -1,7 +1,7 @@
 # DatumGetTimestamp
 
 ## Location
-src/include/utils/timestamp.h: 28 - 33
+[src/include/utils/timestamp.h:28-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/timestamp.h#L28-L33)
 
 ## Overview
 Converts a PostgreSQL Datum to a Timestamp value by leveraging int64 conversion routines, since Timestamp is internally represented as an int64 value.

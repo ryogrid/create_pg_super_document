@@ -1,7 +1,7 @@
 # FormData_pg_sequence_data
 
 ## Location
-src/include/commands/sequence.h: 25 - 30
+[src/include/commands/sequence.h:25-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/sequence.h#L25-L30)
 
 ## Overview
 FormData_pg_sequence_data represents the runtime state of a PostgreSQL sequence object, storing the current sequence values and status information.

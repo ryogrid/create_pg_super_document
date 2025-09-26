@@ -1,7 +1,7 @@
 # TidNext
 
 ## Location
-src/backend/executor/nodeTidscan.c: 312 - 402
+[src/backend/executor/nodeTidscan.c:312-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidscan.c#L312-L402)
 
 ## Overview
 TidNext is a static function that retrieves the next tuple from a TID scan by iterating through a pre-computed list of TIDs and fetching the corresponding tuples from the relation.

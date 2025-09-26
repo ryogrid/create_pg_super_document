@@ -1,7 +1,7 @@
 # pg_wchar2single_with_len
 
 ## Location
-src/common/wchar.c: 861 - 875
+[src/common/wchar.c:861-875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L861-L875)
 
 ## Overview
 Converts PostgreSQL wide characters to single-byte encoding by truncating high bits with length limit.

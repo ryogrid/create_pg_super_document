@@ -1,7 +1,7 @@
 # oadd
 
 ## Location
-src/timezone/zic.c: 3764 - 3771
+[src/timezone/zic.c:3764-3771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3764-L3771)
 
 ## Overview
 An overflow-safe addition function that performs arithmetic on zic_t values while detecting and preventing integer overflow conditions.

@@ -1,7 +1,7 @@
 # FreePageManagerLargestContiguous
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 324 - 365
+[src/backend/utils/mmgr/freepage.c:324-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L324-L365)
 
 ## Overview
 Computes and returns the size of the largest contiguous run of pages that could be successfully allocated from the free page manager.

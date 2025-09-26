@@ -1,7 +1,7 @@
 # get_stack_depth_rlimit
 
 ## Location
-src/backend/tcop/postgres.c: 5048 - 5079
+[src/backend/tcop/postgres.c:5048-5079](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L5048-L5079)
 
 ## Overview
 This function obtains the platform-specific stack depth limit in bytes, providing a portable way to determine the maximum stack size available to the PostgreSQL backend process.

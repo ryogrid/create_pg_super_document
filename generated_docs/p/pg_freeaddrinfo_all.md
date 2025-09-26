@@ -1,7 +1,7 @@
 # pg_freeaddrinfo_all
 
 ## Location
-src/common/ip.c: 82 - 113
+[src/common/ip.c:82-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ip.c#L82-L113)
 
 ## Overview
 Provides a unified interface for freeing addrinfo structures allocated by either the system's getaddrinfo() or PostgreSQL's custom getaddrinfo_unix() function.

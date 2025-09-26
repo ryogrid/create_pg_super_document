@@ -1,7 +1,7 @@
 # ECPGgeneric_bytea
 
 ## Location
-src/interfaces/ecpg/ecpglib/ecpglib_extern.h: 45 - 54
+[src/interfaces/ecpg/ecpglib/ecpglib_extern.h:45-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/ecpglib_extern.h#L45-L54)
 
 ## Overview
 A generic binary data structure used by ECPG (Embedded SQL in C) to handle BYTEA data types with variable length binary content.

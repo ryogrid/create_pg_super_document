@@ -1,7 +1,7 @@
 # unlink_segment
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1978 - 2009
+[src/backend/utils/mmgr/dsa.c:1978-2009](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1978-L2009)
 
 ## Overview
 Removes a segment from the linked list bin that contains it by updating the previous and next pointers in the doubly-linked list structure.

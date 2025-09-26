@@ -1,7 +1,7 @@
 # BufFileTell
 
 ## Location
-src/backend/storage/file/buffile.c: 833 - 850
+[src/backend/storage/file/buffile.c:833-850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L833-L850)
 
 ## Overview
 Returns the current file position within a BufFile, providing both the file number and byte offset within that file for multi-file buffered I/O operations.

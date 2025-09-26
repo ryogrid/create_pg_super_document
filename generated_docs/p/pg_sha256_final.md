@@ -1,7 +1,7 @@
 # pg_sha256_final
 
 ## Location
-src/common/sha2.c: 577 - 604
+[src/common/sha2.c:577-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L577-L604)
 
 ## Overview
 Finalizes SHA-256 hash computation by processing remaining buffered data and extracting the final digest value.

@@ -1,7 +1,7 @@
 # NamedLWLockTrancheRequest
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 212 - 216
+[src/backend/storage/lmgr/lwlock.c:212-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L212-L216)
 
 ## Overview
 NamedLWLockTrancheRequest is a structure that represents a request for creating a named tranche of lightweight locks (LWLocks), specifying the tranche name and the number of locks needed.

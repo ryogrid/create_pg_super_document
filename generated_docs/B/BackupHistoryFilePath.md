@@ -1,7 +1,7 @@
 # BackupHistoryFilePath
 
 ## Location
-src/include/access/xlog_internal.h: 261 - 272
+[src/include/access/xlog_internal.h:261-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L261-L272)
 
 ## Overview
 BackupHistoryFilePath is a static inline function that constructs the complete file system path for backup history files in PostgreSQL's WAL directory.

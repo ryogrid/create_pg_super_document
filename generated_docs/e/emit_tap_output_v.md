@@ -1,7 +1,7 @@
 # emit_tap_output_v
 
 ## Location
-src/test/regress/pg_regress.c: 340 - 431
+[src/test/regress/pg_regress.c:340-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L340-L431)
 
 ## Overview
 Core function that formats and outputs TAP protocol messages to appropriate streams with proper prefixing, errno handling, and dual output to both console and log file.

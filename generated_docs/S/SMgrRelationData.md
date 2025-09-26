@@ -1,7 +1,7 @@
 # SMgrRelationData
 
 ## Location
-src/include/storage/smgr.h: 34 - 69
+[src/include/storage/smgr.h:34-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/smgr.h#L34-L69)
 
 ## Overview
 A structure that represents a cached file handle in PostgreSQL's storage manager, containing metadata and state information for managing I/O operations on relation files.

@@ -1,7 +1,7 @@
 # RelationCacheInitializePhase3
 
 ## Location
-src/backend/utils/cache/relcache.c: 4102 - 4137
+[src/backend/utils/cache/relcache.c:4102-4137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4102-L4137)
 
 ## Overview
 RelationCacheInitializePhase3 completes the relation cache initialization by loading critical system indexes and updating relation descriptors once the catcache and transaction systems are functional.

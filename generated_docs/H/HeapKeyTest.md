@@ -1,7 +1,7 @@
 # HeapKeyTest
 
 ## Location
-src/include/access/valid.h: 28 - 58
+[src/include/access/valid.h:28-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/valid.h#L28-L58)
 
 ## Overview
 HeapKeyTest is an inline function that tests whether a heap tuple satisfies a scan key condition, returning true if all specified scan key conditions are met and false otherwise.

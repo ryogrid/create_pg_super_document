@@ -1,7 +1,7 @@
 # esc_dec_len
 
 ## Location
-src/backend/utils/adt/encode.c: 523 - 602
+[src/backend/utils/adt/encode.c:523-602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L523-L602)
 
 ## Overview
 Calculates the length of the decoded byte array that would result from decoding an escape-encoded string representation.

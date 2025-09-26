@@ -1,7 +1,7 @@
 # convert_real_from_base_unit
 
 ## Location
-src/backend/utils/misc/guc.c: 2773 - 2815
+[src/backend/utils/misc/guc.c:2773-2815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2773-L2815)
 
 ## Overview
 Converts a floating-point configuration value from its base unit to a human-friendly unit representation for display purposes.

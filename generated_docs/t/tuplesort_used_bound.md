@@ -1,7 +1,7 @@
 # tuplesort_used_bound
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 891 - 901
+[src/backend/utils/sort/tuplesort.c:891-901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L891-L901)
 
 ## Overview
 Allows callers to determine if the sort state was able to successfully use a bound optimization.

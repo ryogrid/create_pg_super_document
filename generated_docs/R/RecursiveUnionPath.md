@@ -1,7 +1,7 @@
 # RecursiveUnionPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2347 - 2355
+[src/include/nodes/pathnodes.h:2347-2355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2347-L2355)
 
 ## Overview
 RecursiveUnionPath represents a path for recursive UNION operations in PostgreSQL, used to implement Common Table Expressions (CTEs) with recursive queries.

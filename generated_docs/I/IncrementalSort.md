@@ -1,7 +1,7 @@
 # IncrementalSort
 
 ## Location
-src/include/nodes/plannodes.h: 955 - 959
+[src/include/nodes/plannodes.h:955-959](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L955-L959)
 
 ## Overview
 IncrementalSort is a specialized plan node that optimizes sorting operations by taking advantage of input data that is already partially sorted, reducing memory usage and improving performance compared to full sorting.

@@ -1,7 +1,7 @@
 # ecpg_clear_auto_mem
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 151 - 167
+[src/interfaces/ecpg/ecpglib/memory.c:151-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L151-L167)
 
 ## Overview
 Clears the automatic memory management tracking structures without freeing the user data pointers tracked by the ECPG library.

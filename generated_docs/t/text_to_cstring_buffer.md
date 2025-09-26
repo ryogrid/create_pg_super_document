@@ -1,7 +1,7 @@
 # text_to_cstring_buffer
 
 ## Location
-src/backend/utils/adt/varlena.c: 248 - 274
+[src/backend/utils/adt/varlena.c:248-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L248-L274)
 
 ## Overview
 Copies a PostgreSQL text value into a caller-supplied buffer with safe truncation and null-termination, supporting compressed and toasted text values.

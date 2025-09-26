@@ -1,7 +1,7 @@
 # pg_sha384_update
 
 ## Location
-src/common/sha2.c: 944 - 949
+[src/common/sha2.c:944-949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L944-L949)
 
 ## Overview
 Processes input data for SHA-384 hash computation by delegating to the SHA-512 update function, leveraging the shared algorithm structure between SHA-384 and SHA-512.

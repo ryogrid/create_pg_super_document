@@ -1,7 +1,7 @@
 # DeleteAllExportedSnapshotFiles
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1567 - 1605
+[src/backend/utils/time/snapmgr.c:1567-1605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1567-L1605)
 
 ## Overview
 DeleteAllExportedSnapshotFiles cleans up snapshot export files left behind by crashed backend processes during database startup or recovery.

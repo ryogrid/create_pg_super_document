@@ -1,7 +1,7 @@
 # make_bounded_heap
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2625 - 2673
+[src/backend/utils/sort/tuplesort.c:2625-2673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2625-L2673)
 
 ## Overview
 Converts an unordered array of SortTuples into a bounded heap structure, retaining only the smallest N tuples as specified by the sort's bound limit for efficient LIMIT query processing.

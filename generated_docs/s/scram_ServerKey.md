@@ -1,7 +1,7 @@
 # scram_ServerKey
 
 ## Location
-src/common/scram-common.c: 172 - 208
+[src/common/scram-common.c:172-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/scram-common.c#L172-L208)
 
 ## Overview
 Computes the ServerKey component used in SCRAM authentication by applying HMAC to the salted password with the "Server Key" string.

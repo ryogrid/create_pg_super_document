@@ -1,7 +1,7 @@
 # TidRecheck
 
 ## Location
-src/backend/executor/nodeTidscan.c: 403 - 432
+[src/backend/executor/nodeTidscan.c:403-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidscan.c#L403-L432)
 
 ## Overview
 TidRecheck is a static function that serves as the recheck method for TID scans during EvalPlanQual operations, but currently implements a placeholder that always returns true.

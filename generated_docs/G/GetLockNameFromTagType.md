@@ -1,7 +1,7 @@
 # GetLockNameFromTagType
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1336 - 1341
+[src/backend/storage/lmgr/lmgr.c:1336-1341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1336-L1341)
 
 ## Overview
 Returns the string name corresponding to a given lock tag type, providing a human-readable identifier for different types of lockable objects.

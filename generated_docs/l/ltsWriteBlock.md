@@ -1,7 +1,7 @@
 # ltsWriteBlock
 
 ## Location
-src/backend/utils/sort/logtape.c: 238 - 281
+[src/backend/utils/sort/logtape.c:238-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L238-L281)
 
 ## Overview
 Writes a block-sized buffer to a specified block position in the underlying BufFile of a LogicalTapeSet, handling file gaps by filling them with zeros.

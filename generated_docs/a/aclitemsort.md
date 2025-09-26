@@ -1,7 +1,7 @@
 # aclitemsort
 
 ## Location
-src/backend/utils/adt/acl.c: 545 - 558
+[src/backend/utils/adt/acl.c:545-558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L545-L558)
 
 ## Overview
 Sorts the entries in an Access Control List (ACL) into a consistent canonical order to enable reliable comparison and processing.

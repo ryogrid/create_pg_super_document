@@ -1,7 +1,7 @@
 # datadir_fsync_fname
 
 ## Location
-src/backend/storage/file/fd.c: 3756 - 3768
+[src/backend/storage/file/fd.c:3756-3768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3756-L3768)
 
 ## Overview
 A callback function that performs actual fsync operations on files and directories during data directory synchronization, with built-in progress reporting and error tolerance for unreadable files.

@@ -1,7 +1,7 @@
 # UnpinBufferNoOwner
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2804 - 2882
+[src/backend/storage/buffer/bufmgr.c:2804-2882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2804-L2882)
 
 ## Overview
 UnpinBufferNoOwner decrements both the private and shared reference counts of a buffer without resource owner tracking, handling complex pin count management and waiter notification.

@@ -1,7 +1,7 @@
 # table_tuple_tid_valid
 
 ## Location
-src/include/access/tableam.h: 1315 - 1335
+[src/include/access/tableam.h:1315-1335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1315-L1335)
 
 ## Overview
 Verifies that a TID is potentially valid for tuple access operations without guaranteeing the tuple exists or is visible.

@@ -1,7 +1,7 @@
 # tuplestore_puttupleslot
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 708 - 729
+[src/backend/utils/sort/tuplestore.c:708-729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L708-L729)
 
 ## Overview
 A convenience routine that accepts a TupleTableSlot and appends its tuple to the tuplestore without requiring an extra copy operation.

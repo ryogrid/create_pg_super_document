@@ -1,7 +1,7 @@
 # estimate_hash_bucket_stats
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 3811 - 3929
+[src/backend/utils/adt/selfuncs.c:3811-3929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L3811-L3929)
 
 ## Overview
 Estimates hash bucket statistics for a given expression when used as a hash key, determining the frequency of the most common value and the bucketsize fraction for hash join cost estimation.

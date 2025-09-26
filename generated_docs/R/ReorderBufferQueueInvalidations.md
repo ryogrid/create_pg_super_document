@@ -1,7 +1,7 @@
 # ReorderBufferQueueInvalidations
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3358 - 3380
+[src/backend/replication/logical/reorderbuffer.c:3358-3380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3358-L3380)
 
 ## Overview
 A static helper function that adds invalidation messages to the reorder buffer queue as a change entry.

@@ -1,7 +1,7 @@
 # BufFileSeek
 
 ## Location
-src/backend/storage/file/buffile.c: 740 - 832
+[src/backend/storage/file/buffile.c:740-832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L740-L832)
 
 ## Overview
 Positions the file pointer within a buffered file, supporting both single-file and multi-segment file operations with large file size handling.

@@ -1,7 +1,7 @@
 # pg_locale_t
 
 ## Location
-src/include/utils/pg_locale.h: 99 - 141
+[src/include/utils/pg_locale.h:99-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pg_locale.h#L99-L141)
 
 ## Overview
 A pointer type that provides a handle to PostgreSQL's locale structure, serving as the primary interface for locale-aware string operations throughout the database system.

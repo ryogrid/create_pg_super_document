@@ -1,7 +1,7 @@
 # pairingheap_remove
 
 ## Location
-src/backend/lib/pairingheap.c: 170 - 233
+[src/backend/lib/pairingheap.c:170-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/pairingheap.c#L170-L233)
 
 ## Overview
 Removes a specific node from anywhere within a pairing heap while maintaining the heap property and structure.

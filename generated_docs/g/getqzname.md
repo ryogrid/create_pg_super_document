@@ -1,7 +1,7 @@
 # getqzname
 
 ## Location
-src/timezone/localtime.c: 663 - 679
+[src/timezone/localtime.c:663-679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L663-L679)
 
 ## Overview
 The  function scans a timezone string until it finds a specified delimiter character, used for parsing quoted or delimited timezone abbreviations.

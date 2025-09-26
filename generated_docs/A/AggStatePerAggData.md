@@ -1,7 +1,7 @@
 # AggStatePerAggData
 
 ## Location
-src/include/executor/nodeAgg.h: 187 - 232
+[src/include/executor/nodeAgg.h:187-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/nodeAgg.h#L187-L232)
 
 ## Overview
 AggStatePerAggData contains per-aggregate information needed to produce final aggregate results from transition state values, with support for sharing among multiple identical Aggrefs.

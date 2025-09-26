@@ -1,7 +1,7 @@
 # typesequiv
 
 ## Location
-src/timezone/localtime.c: 602 - 641
+[src/timezone/localtime.c:602-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L602-L641)
 
 ## Overview
 The  function determines whether two timezone type entries in a timezone state structure are equivalent by comparing all their properties.

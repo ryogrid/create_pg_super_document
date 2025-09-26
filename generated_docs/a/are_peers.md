@@ -1,7 +1,7 @@
 # are_peers
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 3043 - 3065
+[src/backend/executor/nodeWindowAgg.c:3043-3065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L3043-L3065)
 
 ## Overview
 are_peers compares two rows to determine if they are equal according to the ORDER BY clause in a window function definition.

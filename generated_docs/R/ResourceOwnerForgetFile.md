@@ -1,7 +1,7 @@
 # ResourceOwnerForgetFile
 
 ## Location
-src/backend/storage/file/fd.c: 377 - 385
+[src/backend/storage/file/fd.c:377-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L377-L385)
 
 ## Overview
 Convenience wrapper function that unregisters a file descriptor from a resource owner, removing it from automatic cleanup tracking.

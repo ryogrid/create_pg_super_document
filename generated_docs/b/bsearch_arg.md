@@ -1,7 +1,7 @@
 # bsearch_arg
 
 ## Location
-src/port/bsearch_arg.c: 55 - 78
+[src/port/bsearch_arg.c:55-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/bsearch_arg.c#L55-L78)
 
 ## Overview
 A variant of the standard binary search algorithm that accepts an additional user-supplied argument to pass to the comparison function, enabling more flexible comparison operations.

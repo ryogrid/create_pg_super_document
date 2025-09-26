@@ -1,7 +1,7 @@
 # add_file_to_manifest
 
 ## Location
-src/bin/pg_combinebackup/write_manifest.c: 76 - 141
+[src/bin/pg_combinebackup/write_manifest.c:76-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/write_manifest.c#L76-L141)
 
 ## Overview
 Adds a file entry to the backup manifest, encoding file metadata including path, size, modification time, and optional checksum information in JSON format.

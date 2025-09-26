@@ -1,7 +1,7 @@
 # replace_text_regexp
 
 ## Location
-src/backend/utils/adt/varlena.c: 4206 - 4367
+[src/backend/utils/adt/varlena.c:4206-4367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4206-L4367)
 
 ## Overview
 The core function that implements regular expression-based text replacement in PostgreSQL, supporting pattern matching with capture groups and sophisticated replacement text processing.

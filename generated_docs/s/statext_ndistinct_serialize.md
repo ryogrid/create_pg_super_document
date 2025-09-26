@@ -1,7 +1,7 @@
 # statext_ndistinct_serialize
 
 ## Location
-src/backend/statistics/mvdistinct.c: 179 - 249
+[src/backend/statistics/mvdistinct.c:179-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L179-L249)
 
 ## Overview
 Serializes an MVNDistinct structure to a binary bytea format suitable for storage in the PostgreSQL system catalog.

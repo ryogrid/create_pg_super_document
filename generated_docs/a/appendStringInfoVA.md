@@ -1,7 +1,7 @@
 # appendStringInfoVA
 
 ## Location
-src/common/stringinfo.c: 139 - 181
+[src/common/stringinfo.c:139-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L139-L181)
 
 ## Overview
 Low-level function that attempts to format text using a va_list and append it to a StringInfo, returning space needed if the buffer is insufficient.

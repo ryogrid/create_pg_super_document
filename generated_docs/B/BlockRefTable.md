@@ -1,7 +1,7 @@
 # BlockRefTable
 
 ## Location
-src/common/blkreftable.c: 144 - 154
+[src/common/blkreftable.c:144-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L144-L154)
 
 ## Overview
 BlockRefTable is the main container structure that encapsulates a hash table for tracking block reference information across relation forks, along with memory management context.

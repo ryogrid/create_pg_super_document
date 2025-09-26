@@ -1,7 +1,7 @@
 # pgstat_read_statsfile
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1493 - 1693
+[src/backend/utils/activity/pgstat.c:1493-1693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1493-L1693)
 
 ## Overview
 The  function reads an existing statistics file from disk and loads all statistics data into the shared memory hash table, restoring previously persisted statistics after a PostgreSQL restart.

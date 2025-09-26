@@ -1,7 +1,7 @@
 # tbm_intersect_page
 
 ## Location
-src/backend/nodes/tidbitmap.c: 589 - 669
+[src/backend/nodes/tidbitmap.c:589-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L589-L669)
 
 ## Overview
 Intersects a single page entry from one TIDBitmap with another during intersection operations, returning whether the page becomes empty and should be deleted.

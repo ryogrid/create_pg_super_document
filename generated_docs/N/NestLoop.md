@@ -1,7 +1,7 @@
 # NestLoop
 
 ## Location
-src/include/nodes/plannodes.h: 807 - 811
+[src/include/nodes/plannodes.h:807-811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L807-L811)
 
 ## Overview
 NestLoop is a concrete join plan node that implements nested loop join algorithm, executing the inner relation once for each tuple from the outer relation with parameterized execution.

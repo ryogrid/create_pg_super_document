@@ -1,7 +1,7 @@
 # logicalrep_rel_close
 
 ## Location
-src/backend/replication/logical/relation.c: 473 - 491
+[src/backend/replication/logical/relation.c:473-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L473-L491)
 
 ## Overview
 Closes a previously opened logical replication relation by releasing the table lock and clearing the local relation reference to prevent resource leaks.

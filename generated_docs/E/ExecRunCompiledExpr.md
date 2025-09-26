@@ -1,7 +1,7 @@
 # ExecRunCompiledExpr
 
 ## Location
-src/backend/jit/llvm/llvmjit_expr.c: 2684 - 2703
+[src/backend/jit/llvm/llvmjit_expr.c:2684-2703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit_expr.c#L2684-L2703)
 
 ## Overview
 Executes a JIT-compiled expression for the first time, performing validation and optimization before redirecting future calls directly to the compiled function.

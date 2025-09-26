@@ -1,7 +1,7 @@
 # ClosePortalStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3305 - 3310
+[src/include/nodes/parsenodes.h:3305-3310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3305-L3310)
 
 ## Overview
 ClosePortalStmt represents the parsed form of SQL CLOSE statements, which are used to close cursors (portals) in PostgreSQL.

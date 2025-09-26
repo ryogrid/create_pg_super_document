@@ -1,7 +1,7 @@
 # PQchangePassword
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 1401 - 1454
+[src/interfaces/libpq/fe-auth.c:1401-1454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L1401-L1454)
 
 ## Overview
 High-level function that securely changes a PostgreSQL user's password by encrypting it client-side and executing an ALTER USER statement.

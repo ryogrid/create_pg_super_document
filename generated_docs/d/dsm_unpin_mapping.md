@@ -1,7 +1,7 @@
 # dsm_unpin_mapping
 
 ## Location
-src/backend/storage/ipc/dsm.c: 934 - 954
+[src/backend/storage/ipc/dsm.c:934-954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L934-L954)
 
 ## Overview
 Reverses the effect of dsm_pin_mapping by placing a dynamic shared memory mapping back under resource owner control, allowing it to be automatically cleaned up when the current resource owner is released.

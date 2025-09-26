@@ -1,7 +1,7 @@
 # _variable
 
 ## Location
-src/bin/psql/variables.h: 62 - 71
+[src/bin/psql/variables.h:62-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.h#L62-L71)
 
 ## Overview
 The  struct represents a single variable in PostgreSQL's psql command-line client, implementing a key-value store with hook functions for validation and value transformation.

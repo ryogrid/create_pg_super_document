@@ -1,7 +1,7 @@
 # TimeADTGetDatum
 
 ## Location
-src/include/utils/date.h: 78 - 83
+[src/include/utils/date.h:78-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/date.h#L78-L83)
 
 ## Overview
 TimeADTGetDatum is a static inline function that converts a TimeADT value to a PostgreSQL Datum, providing a type-safe conversion mechanism for returning time values in PostgreSQL's function manager interface.

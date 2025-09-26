@@ -1,7 +1,7 @@
 # WalSummaryFile
 
 ## Location
-src/include/backup/walsummary.h: 27 - 32
+[src/include/backup/walsummary.h:27-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/walsummary.h#L27-L32)
 
 ## Overview
 WalSummaryFile is a structure that represents metadata for a WAL summary file, containing the LSN range and timeline information that the summary covers.

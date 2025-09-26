@@ -1,7 +1,7 @@
 # list_length
 
 ## Location
-src/include/nodes/pg_list.h: 152 - 171
+[src/include/nodes/pg_list.h:152-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pg_list.h#L152-L171)
 
 ## Overview
 Returns the number of elements in a PostgreSQL list structure, or 0 if the list is NULL.

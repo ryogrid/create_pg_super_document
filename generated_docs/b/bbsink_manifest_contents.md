@@ -1,7 +1,7 @@
 # bbsink_manifest_contents
 
 ## Location
-src/include/backup/basebackup_sink.h: 234 - 245
+[src/include/backup/basebackup_sink.h:234-245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L234-L245)
 
 ## Overview
 Processes a chunk of backup manifest data through the base backup sink pipeline, delegating the actual processing to sink-specific implementations.

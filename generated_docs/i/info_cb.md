@@ -1,7 +1,7 @@
 # info_cb
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1272 - 1322
+[src/backend/libpq/be-secure-openssl.c:1272-1322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1272-L1322)
 
 ## Overview
 A static callback function that logs SSL connection state information and events to the PostgreSQL server log for debugging purposes.

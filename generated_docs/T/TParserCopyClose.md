@@ -1,7 +1,7 @@
 # TParserCopyClose
 
 ## Location
-src/backend/tsearch/wparser_def.c: 397 - 423
+[src/backend/tsearch/wparser_def.c:397-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L397-L423)
 
 ## Overview
 Cleans up and deallocates a TParser copy created with TParserCopyInit, freeing only the parser structure and state stack while leaving shared string data intact.

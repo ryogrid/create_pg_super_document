@@ -1,7 +1,7 @@
 # ReserveExternalFD
 
 ## Location
-src/backend/storage/file/fd.c: 1218 - 1235
+[src/backend/storage/file/fd.c:1218-1235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1218-L1235)
 
 ## Overview
 ReserveExternalFD is a function that reports external consumption of a file descriptor to PostgreSQL's file descriptor management system, ensuring sufficient reserved FDs remain available.

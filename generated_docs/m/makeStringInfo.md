@@ -1,7 +1,7 @@
 # makeStringInfo
 
 ## Location
-src/common/stringinfo.c: 41 - 58
+[src/common/stringinfo.c:41-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L41-L58)
 
 ## Overview
 Creates a new empty StringInfo data structure by allocating memory and initializing it for dynamic string operations.

@@ -1,7 +1,7 @@
 # ProcSignalBarrierType
 
 ## Location
-src/include/storage/procsignal.h: 57 - 75
+[src/include/storage/procsignal.h:57-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/procsignal.h#L57-L75)
 
 ## Overview
 ProcSignalBarrierType is an enumeration that defines the types of global barrier operations that can be performed across all PostgreSQL processes to coordinate system-wide state changes.

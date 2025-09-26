@@ -1,7 +1,7 @@
 # errcode_for_dynamic_shared_memory
 
 ## Location
-src/backend/storage/ipc/dsm_impl.c: 1047 - 1053
+[src/backend/storage/ipc/dsm_impl.c:1047-1053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_impl.c#L1047-L1053)
 
 ## Overview
 Maps errno values from dynamic shared memory operations to appropriate PostgreSQL error codes for consistent error reporting.

@@ -1,7 +1,7 @@
 # sha1_step
 
 ## Location
-src/common/sha1.c: 90 - 232
+[src/common/sha1.c:90-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha1.c#L90-L232)
 
 ## Overview
 Performs the core SHA-1 compression function, processing a single 512-bit (64-byte) block of data through 80 rounds of operations according to the SHA-1 algorithm specification.

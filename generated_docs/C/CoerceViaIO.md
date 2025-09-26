@@ -1,7 +1,7 @@
 # CoerceViaIO
 
 ## Location
-src/include/nodes/primnodes.h: 1204 - 1215
+[src/include/nodes/primnodes.h:1204-1215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1204-L1215)
 
 ## Overview
 CoerceViaIO is a PostgreSQL expression node that performs type coercion through input/output functions, converting values by serializing them to text and then parsing them back as the target type.

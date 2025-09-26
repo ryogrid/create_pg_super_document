@@ -1,7 +1,7 @@
 # PQputnbytes
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2928 - 2948
+[src/interfaces/libpq/fe-exec.c:2928-2948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2928-L2948)
 
 ## Overview
 PQputnbytes is a PostgreSQL libpq function that sends a specified number of bytes to the backend during COPY IN operations, providing an alternative to PQputline that doesn't require null-terminated strings.

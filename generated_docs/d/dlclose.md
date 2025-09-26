@@ -1,7 +1,7 @@
 # dlclose
 
 ## Location
-src/port/win32dlopen.c: 49 - 60
+[src/port/win32dlopen.c:49-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32dlopen.c#L49-L60)
 
 ## Overview
 Closes a dynamically loaded library handle on Windows, providing POSIX-compatible dynamic library unloading functionality for PostgreSQL.

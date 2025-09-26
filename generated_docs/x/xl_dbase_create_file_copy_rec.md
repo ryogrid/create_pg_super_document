@@ -1,7 +1,7 @@
 # xl_dbase_create_file_copy_rec
 
 ## Location
-src/include/commands/dbcommands_xlog.h: 29 - 35
+[src/include/commands/dbcommands_xlog.h:29-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/dbcommands_xlog.h#L29-L35)
 
 ## Overview
 WAL record structure used to log an entire CREATE DATABASE operation when using the FILE_COPY strategy, containing identifiers for source and target databases and tablespaces.

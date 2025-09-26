@@ -1,7 +1,7 @@
 # FreePageBtreeFindRightSibling
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 819 - 862
+[src/backend/utils/mmgr/freepage.c:819-862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L819-L862)
 
 ## Overview
 Finds the right sibling of a given B-tree page at the same level, which is the page whose keyspace immediately follows the current page's keyspace.

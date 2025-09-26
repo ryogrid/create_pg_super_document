@@ -1,7 +1,7 @@
 # gistbufferinginserttuples
 
 ## Location
-src/backend/access/gist/gistbuild.c: 1054 - 1222
+[src/backend/access/gist/gistbuild.c:1054-1222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L1054-L1222)
 
 ## Overview
 Inserts tuples to a given page during GiST index buffering-based construction, handling page splits and maintaining parent-child relationships in the internal data structures.

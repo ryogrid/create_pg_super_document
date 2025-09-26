@@ -1,7 +1,7 @@
 # AcquireExternalFD
 
 ## Location
-src/backend/storage/file/fd.c: 1183 - 1217
+[src/backend/storage/file/fd.c:1183-1217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1183-L1217)
 
 ## Overview
 Attempts to reserve an external file descriptor with built-in resource limits, providing safe acquisition of file descriptors that will be held for extended periods outside PostgreSQL's VFD system.

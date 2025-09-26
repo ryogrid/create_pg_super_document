@@ -1,7 +1,7 @@
 # proclist_node
 
 ## Location
-src/include/storage/proclist_types.h: 28 - 32
+[src/include/storage/proclist_types.h:28-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/proclist_types.h#L28-L32)
 
 ## Overview
 A structure representing a node in a doubly-linked list of PostgreSQL processes, using 0-based PGPROC indexes for linking rather than memory pointers.

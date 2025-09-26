@@ -1,7 +1,7 @@
 # LookupTupleHashEntry
 
 ## Location
-src/backend/executor/execGrouping.c: 304 - 335
+[src/backend/executor/execGrouping.c:304-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execGrouping.c#L304-L335)
 
 ## Overview
 Finds or creates a hashtable entry for the tuple group containing the given tuple, serving as the primary interface for tuple hash table lookups in PostgreSQL's execution engine.

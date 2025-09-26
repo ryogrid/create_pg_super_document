@@ -1,7 +1,7 @@
 # ecpg_hex_enc_len
 
 ## Location
-src/interfaces/ecpg/ecpglib/data.c: 128 - 133
+[src/interfaces/ecpg/ecpglib/data.c:128-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/data.c#L128-L133)
 
 ## Overview
 Calculates the required buffer length for hexadecimal encoding of binary data in the ECPG library.

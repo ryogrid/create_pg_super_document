@@ -1,7 +1,7 @@
 # tuplestore_clear
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 418 - 452
+[src/backend/utils/sort/tuplestore.c:418-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L418-L452)
 
 ## Overview
 Function to delete all contents from a tuplestore and reset all read pointers to their initial state, effectively returning the tuplestore to its empty condition.

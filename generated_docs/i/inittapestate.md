@@ -1,7 +1,7 @@
 # inittapestate
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1942 - 1975
+[src/backend/utils/sort/tuplesort.c:1942-1975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1942-L1975)
 
 ## Overview
 Initializes generic tape management state by calculating and allocating memory space for tape buffers and preparing temporary tablespaces for disk-based sorting operations.

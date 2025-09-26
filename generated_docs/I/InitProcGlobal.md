@@ -1,7 +1,7 @@
 # InitProcGlobal
 
 ## Location
-src/backend/storage/lmgr/proc.c: 157 - 297
+[src/backend/storage/lmgr/proc.c:157-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L157-L297)
 
 ## Overview
 Initializes the global process table and associated data structures during postmaster or standalone backend startup, including creation of all per-process semaphores needed to support the configured number of backends.

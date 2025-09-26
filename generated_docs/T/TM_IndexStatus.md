@@ -1,7 +1,7 @@
 # TM_IndexStatus
 
 ## Location
-src/include/access/tableam.h: 218 - 226
+[src/include/access/tableam.h:218-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L218-L226)
 
 ## Overview
 TM_IndexStatus is a structure that holds status information for individual index tuples during index deletion operations, tracking their deletability status and providing optimization hints for bottom-up deletion strategies.

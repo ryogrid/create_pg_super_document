@@ -1,7 +1,7 @@
 # pgstat_init_entry
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 267 - 300
+[src/backend/utils/activity/pgstat_shmem.c:267-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L267-L300)
 
 ## Overview
 Initializes a new shared memory statistics entry with proper reference counting, generation tracking, and DSA memory allocation for PostgreSQL's statistics collection system.

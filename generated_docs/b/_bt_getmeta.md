@@ -1,7 +1,7 @@
 # _bt_getmeta
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 142 - 178
+[src/backend/access/nbtree/nbtpage.c:142-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L142-L178)
 
 ## Overview
 _bt_getmeta retrieves and validates metadata from a share-locked buffer containing a B-tree metapage, performing standard sanity checks to ensure index integrity.

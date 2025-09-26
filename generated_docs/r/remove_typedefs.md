@@ -1,7 +1,7 @@
 # remove_typedefs
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 260 - 288
+[src/interfaces/ecpg/preproc/variable.c:260-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L260-L288)
 
 ## Overview
 Removes all typedef definitions from the global types list that were defined at or deeper than the specified brace level, performing proper memory cleanup.

@@ -1,7 +1,7 @@
 # PortalDrop
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 468 - 606
+[src/backend/utils/mmgr/portalmem.c:468-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L468-L606)
 
 ## Overview
 Destroys a portal completely, performing comprehensive cleanup of all associated resources including memory contexts, tuple stores, snapshots, and cached plans.

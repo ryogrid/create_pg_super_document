@@ -1,7 +1,7 @@
 # scram_H
 
 ## Location
-src/common/scram-common.c: 112 - 141
+[src/common/scram-common.c:112-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/scram-common.c#L112-L141)
 
 ## Overview
 Calculates a cryptographic hash of input data using a specified hash algorithm, primarily used in SCRAM authentication for hashing keys and passwords.

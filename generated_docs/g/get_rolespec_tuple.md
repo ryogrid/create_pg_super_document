@@ -1,7 +1,7 @@
 # get_rolespec_tuple
 
 ## Location
-src/backend/utils/adt/acl.c: 5510 - 5555
+[src/backend/utils/adt/acl.c:5510-5555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5510-L5555)
 
 ## Overview
 Converts a RoleSpec node to its corresponding pg_authid HeapTuple, providing access to the full role catalog entry rather than just the OID.

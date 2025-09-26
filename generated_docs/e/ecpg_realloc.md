@@ -1,7 +1,7 @@
 # ecpg_realloc
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 33 - 46
+[src/interfaces/ecpg/ecpglib/memory.c:33-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L33-L46)
 
 ## Overview
 Resizes previously allocated memory blocks with error handling and line number tracking for debugging purposes in the ECPG library.

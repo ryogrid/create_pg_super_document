@@ -1,7 +1,7 @@
 # smgrread
 
 ## Location
-src/include/storage/smgr.h: 117 - 123
+[src/include/storage/smgr.h:117-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/smgr.h#L117-L123)
 
 ## Overview
 A lightweight inline wrapper function that reads a single block from a storage manager relation into a buffer.

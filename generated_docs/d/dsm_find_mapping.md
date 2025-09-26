@@ -1,7 +1,7 @@
 # dsm_find_mapping
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1076 - 1094
+[src/backend/storage/ipc/dsm.c:1076-1094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1076-L1094)
 
 ## Overview
 Searches for an existing dsm_segment mapping in the current process for a given dsm_handle, returning the segment if found or NULL if not currently mapped.

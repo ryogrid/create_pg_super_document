@@ -1,7 +1,7 @@
 # EncodeTimeOnly
 
 ## Location
-src/backend/utils/adt/datetime.c: 4312 - 4341
+[src/backend/utils/adt/datetime.c:4312-4341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L4312-L4341)
 
 ## Overview
 EncodeTimeOnly formats time components (hours, minutes, seconds, fractional seconds) into a string representation, optionally including timezone information.

@@ -1,7 +1,7 @@
 # dsm_impl_sysv
 
 ## Location
-src/backend/storage/ipc/dsm_impl.c: 423 - 609
+[src/backend/storage/ipc/dsm_impl.c:423-609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_impl.c#L423-L609)
 
 ## Overview
 System V shared memory implementation for PostgreSQL's dynamic shared memory system, using shmget(), shmat(), shmdt(), and shmctl() for cross-process shared memory segments.

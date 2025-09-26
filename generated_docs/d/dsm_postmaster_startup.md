@@ -1,7 +1,7 @@
 # dsm_postmaster_startup
 
 ## Location
-src/backend/storage/ipc/dsm.c: 177 - 237
+[src/backend/storage/ipc/dsm.c:177-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L177-L237)
 
 ## Overview
 Initializes the dynamic shared memory system during postmaster startup, creating and configuring the control segment that manages all DSM segments in the PostgreSQL cluster.

@@ -1,7 +1,7 @@
 # plan_recursive_revoke
 
 ## Location
-src/backend/commands/user.c: 2413 - 2502
+[src/backend/commands/user.c:2413-2502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L2413-L2502)
 
 ## Overview
 Recursively plans the revocation of role grants and their dependent privileges, handling complex cascading scenarios where grants depend on other grants through the grantor hierarchy.

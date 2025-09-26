@@ -1,7 +1,7 @@
 # pg_johab_mblen
 
 ## Location
-src/common/wchar.c: 423 - 428
+[src/common/wchar.c:423-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L423-L428)
 
 ## Overview
 Determines the byte length of a single multibyte character in JOHAB (Korean standard) encoding.

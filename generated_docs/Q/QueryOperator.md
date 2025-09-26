@@ -1,7 +1,7 @@
 # QueryOperator
 
 ## Location
-src/include/tsearch/ts_type.h: 202 - 212
+[src/include/tsearch/ts_type.h:202-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_type.h#L202-L212)
 
 ## Overview
 QueryOperator represents operator nodes in PostgreSQL's tsquery parse tree, storing information about logical operations (AND, OR, NOT, PHRASE) that combine search terms in text search queries.

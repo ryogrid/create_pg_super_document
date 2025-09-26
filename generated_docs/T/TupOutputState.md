@@ -1,7 +1,7 @@
 # TupOutputState
 
 ## Location
-src/include/executor/executor.h: 505 - 509
+[src/include/executor/executor.h:505-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/executor.h#L505-L509)
 
 ## Overview
 TupOutputState is a simple state structure used to manage tuple output operations in PostgreSQL, encapsulating a tuple slot and destination receiver for sending result tuples to the frontend or other specified destinations.

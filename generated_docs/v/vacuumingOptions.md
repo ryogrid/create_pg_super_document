@@ -1,7 +1,7 @@
 # vacuumingOptions
 
 ## Location
-src/bin/scripts/vacuumdb.c: 30 - 50
+[src/bin/scripts/vacuumdb.c:30-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/vacuumdb.c#L30-L50)
 
 ## Overview
 A structure that encapsulates all user-controllable options for vacuum and analyze operations in the vacuumdb command-line utility.

@@ -1,7 +1,7 @@
 # AtProcExit_LocalBuffers
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 830 - 838
+[src/backend/storage/buffer/localbuf.c:830-838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L830-L838)
 
 ## Overview
 AtProcExit_LocalBuffers ensures that no local buffer pins are held when a backend process is exiting, serving as a critical consistency check during process termination to prevent buffer leaks and potential system issues.

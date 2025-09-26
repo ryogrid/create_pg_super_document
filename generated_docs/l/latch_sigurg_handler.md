@@ -1,7 +1,7 @@
 # latch_sigurg_handler
 
 ## Location
-src/backend/storage/ipc/latch.c: 2282 - 2289
+[src/backend/storage/ipc/latch.c:2282-2289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L2282-L2289)
 
 ## Overview
 latch_sigurg_handler is a signal handler function that responds to SIGURG signals to wake up processes waiting on latches by writing to the self-pipe.

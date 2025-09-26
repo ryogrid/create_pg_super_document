@@ -1,7 +1,7 @@
 # SetupHistoricSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1649 - 1664
+[src/backend/utils/time/snapmgr.c:1649-1664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1649-L1664)
 
 ## Overview
 SetupHistoricSnapshot establishes a snapshot that replaces normal catalog snapshots, allowing catalog access to behave as it did at a specific point in the past, primarily needed for logical decoding operations.

@@ -1,7 +1,7 @@
 # appendStringInfo
 
 ## Location
-src/common/stringinfo.c: 97 - 138
+[src/common/stringinfo.c:97-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L97-L138)
 
 ## Overview
 Formats text data using printf-style formatting and appends it to an existing StringInfo, automatically handling buffer resizing as needed.

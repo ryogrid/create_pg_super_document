@@ -1,7 +1,7 @@
 # bbsink_end_archive
 
 ## Location
-src/include/backup/basebackup_sink.h: 216 - 224
+[src/include/backup/basebackup_sink.h:216-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L216-L224)
 
 ## Overview
 Completes and finalizes an archive within a backup sink by calling the sink-specific archive completion operation.

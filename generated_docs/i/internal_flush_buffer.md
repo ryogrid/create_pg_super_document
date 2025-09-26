@@ -1,7 +1,7 @@
 # internal_flush_buffer
 
 ## Location
-src/backend/libpq/pqcomm.c: 1359 - 1431
+[src/backend/libpq/pqcomm.c:1359-1431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1359-L1431)
 
 ## Overview
 The core low-level function that performs actual data transmission to PostgreSQL clients, handling partial writes, error conditions, and connection management.

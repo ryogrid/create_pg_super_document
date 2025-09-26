@@ -1,7 +1,7 @@
 # drain
 
 ## Location
-src/backend/storage/ipc/latch.c: 2331 - 2382
+[src/backend/storage/ipc/latch.c:2331-2382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L2331-L2382)
 
 ## Overview
 Reads and discards all available data from the self-pipe or signalfd to clear pending wakeup notifications in PostgreSQL's latch system.

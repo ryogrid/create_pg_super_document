@@ -1,7 +1,7 @@
 # DCH_prevent_counter_overflow
 
 ## Location
-src/backend/utils/adt/formatting.c: 3962 - 3975
+[src/backend/utils/adt/formatting.c:3962-3975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L3962-L3975)
 
 ## Overview
 Prevents integer overflow in the DCH (Date/Time formatting Cache) counter by halving all age values when approaching the maximum integer value.

@@ -1,7 +1,7 @@
 # create_internal
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1218 - 1325
+[src/backend/utils/mmgr/dsa.c:1218-1325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1218-L1325)
 
 ## Overview
 Internal workhorse function for creating Dynamic Shared Area (DSA) objects, handling the initialization of DSA control structures, memory management, and segment mapping for both  and  operations.

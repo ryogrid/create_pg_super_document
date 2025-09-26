@@ -1,7 +1,7 @@
 # BufferIsDirty
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2488 - 2519
+[src/backend/storage/buffer/bufmgr.c:2488-2519](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2488-L2519)
 
 ## Overview
 BufferIsDirty checks whether a buffer has been modified (marked as dirty) and needs to be written to storage during the next checkpoint or when evicted from the buffer pool.

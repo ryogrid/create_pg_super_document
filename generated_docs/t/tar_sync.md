@@ -1,7 +1,7 @@
 # tar_sync
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 1017 - 1041
+[src/bin/pg_basebackup/walmethods.c:1017-1041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L1017-L1041)
 
 ## Overview
 Synchronizes a TAR-based WAL file to persistent storage by flushing the entire TAR file to disk.

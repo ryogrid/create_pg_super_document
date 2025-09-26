@@ -1,7 +1,7 @@
 # lappend_int
 
 ## Location
-src/backend/nodes/list.c: 357 - 374
+[src/backend/nodes/list.c:357-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L357-L374)
 
 ## Overview
 Appends an integer value to a PostgreSQL IntList data structure, returning a pointer to the modified list.

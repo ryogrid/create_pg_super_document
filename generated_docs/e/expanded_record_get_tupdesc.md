@@ -1,7 +1,7 @@
 # expanded_record_get_tupdesc
 
 ## Location
-src/include/utils/expandedrecord.h: 218 - 227
+[src/include/utils/expandedrecord.h:218-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/expandedrecord.h#L218-L227)
 
 ## Overview
 Retrieves the tuple descriptor (TupleDesc) for an expanded record, using an optimized fast path when available.

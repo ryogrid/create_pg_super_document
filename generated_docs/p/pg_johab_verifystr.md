@@ -1,7 +1,7 @@
 # pg_johab_verifystr
 
 ## Location
-src/common/wchar.c: 1331 - 1359
+[src/common/wchar.c:1331-1359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1331-L1359)
 
 ## Overview
 Validates the byte sequence of a JOHAB (Korean Industrial Standard) encoded string and returns the number of valid bytes processed.

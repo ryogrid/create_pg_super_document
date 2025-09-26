@@ -1,7 +1,7 @@
 # fsm_get_heap_blk
 
 ## Location
-src/backend/storage/freespace/freespace.c: 506 - 516
+[src/backend/storage/freespace/freespace.c:506-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L506-L516)
 
 ## Overview
 Converts an FSM (Free Space Map) address and slot position back to the corresponding heap block number, performing the inverse operation of fsm_get_location.

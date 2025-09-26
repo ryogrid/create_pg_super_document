@@ -1,7 +1,7 @@
 # UnlockApplyTransactionForSession
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1217 - 1238
+[src/backend/storage/lmgr/lmgr.c:1217-1238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1217-L1238)
 
 ## Overview
 Releases a lock on a specific apply transaction for a logical replication subscription, allowing other processes to access the transaction.

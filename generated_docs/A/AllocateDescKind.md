@@ -1,7 +1,7 @@
 # AllocateDescKind
 
 ## Location
-src/backend/storage/file/fd.c: 253 - 264
+[src/backend/storage/file/fd.c:253-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L253-L264)
 
 ## Overview
 AllocateDescKind is an enumeration type that categorizes different types of OS handles (file descriptors, file pointers, directory pointers) managed by PostgreSQL's file descriptor management system in fd.c.

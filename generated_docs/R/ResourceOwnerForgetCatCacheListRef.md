@@ -1,7 +1,7 @@
 # ResourceOwnerForgetCatCacheListRef
 
 ## Location
-src/backend/utils/cache/catcache.c: 174 - 190
+[src/backend/utils/cache/catcache.c:174-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L174-L190)
 
 ## Overview
 A convenience wrapper function that unregisters a catalog cache list reference from a resource owner when the list reference is explicitly released.

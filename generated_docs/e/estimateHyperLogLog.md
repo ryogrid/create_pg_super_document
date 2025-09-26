@@ -1,7 +1,7 @@
 # estimateHyperLogLog
 
 ## Location
-src/backend/lib/hyperloglog.c: 186 - 241
+[src/backend/lib/hyperloglog.c:186-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/hyperloglog.c#L186-L241)
 
 ## Overview
 Computes the final cardinality estimate from a HyperLogLog state, applying range corrections for improved accuracy in small and large cardinality ranges.

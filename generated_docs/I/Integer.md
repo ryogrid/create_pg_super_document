@@ -1,7 +1,7 @@
 # Integer
 
 ## Location
-src/include/nodes/value.h: 28 - 34
+[src/include/nodes/value.h:28-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/value.h#L28-L34)
 
 ## Overview
 The Integer node type represents integer literal constants in PostgreSQL's parser and lexer, providing a way to encapsulate integer values within the node tree structure.

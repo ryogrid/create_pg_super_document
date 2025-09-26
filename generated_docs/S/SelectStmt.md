@@ -1,7 +1,7 @@
 # SelectStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2116 - 2163
+[src/include/nodes/parsenodes.h:2116-2163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2116-L2163)
 
 ## Overview
 SelectStmt represents the parsed structure of a SELECT statement in PostgreSQL, containing all necessary information for querying data including projections, joins, filtering, grouping, ordering, and set operations.

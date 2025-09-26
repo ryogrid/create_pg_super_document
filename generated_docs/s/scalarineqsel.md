@@ -1,7 +1,7 @@
 # scalarineqsel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 581 - 732
+[src/backend/utils/adt/selfuncs.c:581-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L581-L732)
 
 ## Overview
 Core selectivity estimation function for scalar inequality operators (<, <=, >, >=) that combines statistics from most-common-values (MCV) and histogram data to estimate the fraction of rows satisfying inequality conditions.

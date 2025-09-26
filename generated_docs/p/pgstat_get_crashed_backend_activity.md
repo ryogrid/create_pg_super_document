@@ -1,7 +1,7 @@
 # pgstat_get_crashed_backend_activity
 
 ## Location
-src/backend/utils/activity/backend_status.c: 963 - 1026
+[src/backend/utils/activity/backend_status.c:963-1026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L963-L1026)
 
 ## Overview
 Safely retrieves the activity string of a crashed backend process for postmaster logging, with special handling for potentially corrupted shared memory.

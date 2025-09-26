@@ -1,7 +1,7 @@
 # ExecReScanMergeAppend
 
 ## Location
-src/backend/executor/nodeMergeAppend.c: 340 - 377
+[src/backend/executor/nodeMergeAppend.c:340-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergeAppend.c#L340-L377)
 
 ## Overview
 Resets a MergeAppend node to its initial state for re-execution, handling parameter changes, re-scanning subplans, and reinitializing the binary heap for a fresh merge operation.

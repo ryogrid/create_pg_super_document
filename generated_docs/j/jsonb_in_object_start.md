@@ -1,7 +1,7 @@
 # jsonb_in_object_start
 
 ## Location
-src/backend/utils/adt/jsonb.c: 290 - 300
+[src/backend/utils/adt/jsonb.c:290-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L290-L300)
 
 ## Overview
 A callback function used during JSONB parsing to handle the start of JSON objects, initializing the parsing state for object processing.

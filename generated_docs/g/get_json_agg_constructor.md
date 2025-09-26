@@ -1,7 +1,7 @@
 # get_json_agg_constructor
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11438 - 11462
+[src/backend/utils/adt/ruleutils.c:11438-11462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11438-L11462)
 
 ## Overview
 A static helper function that deparses aggregate JSON constructor expressions, handling both aggregate functions and window functions with JSON constructor semantics.

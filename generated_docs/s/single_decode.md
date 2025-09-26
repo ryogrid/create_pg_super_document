@@ -1,7 +1,7 @@
 # single_decode
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 194 - 202
+[src/backend/utils/adt/geo_ops.c:194-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L194-L202)
 
 ## Overview
 A helper function that decodes a single floating-point number from a string representation with error handling for geometric data types.

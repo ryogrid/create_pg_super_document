@@ -1,7 +1,7 @@
 # pg_extension_config_dump
 
 ## Location
-src/backend/commands/extension.c: 2424 - 2606
+[src/backend/commands/extension.c:2424-2606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L2424-L2606)
 
 ## Overview
 Records information about a configuration table that belongs to an extension being created, specifying that its contents should be dumped in whole or in part during pg_dump operations.

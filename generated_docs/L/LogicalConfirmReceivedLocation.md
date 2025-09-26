@@ -1,7 +1,7 @@
 # LogicalConfirmReceivedLocation
 
 ## Location
-src/backend/replication/logical/logical.c: 1839 - 1968
+[src/backend/replication/logical/logical.c:1839-1968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1839-L1968)
 
 ## Overview
 Handles a logical replication consumer's confirmation that it has received all changes up to a specified LSN, updating the slot's confirmed flush position and applying any pending candidate xmin/restart LSN values.

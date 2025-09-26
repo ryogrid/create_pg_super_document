@@ -1,7 +1,7 @@
 # numeric_cmp_abbrev
 
 ## Location
-src/backend/utils/adt/numeric.c: 2219 - 2280
+[src/backend/utils/adt/numeric.c:2219-2280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2219-L2280)
 
 ## Overview
 Compares abbreviated numeric values for sorting operations, providing an optimized comparison function for PostgreSQL's sort support infrastructure.

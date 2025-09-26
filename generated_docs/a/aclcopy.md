@@ -1,7 +1,7 @@
 # aclcopy
 
 ## Location
-src/backend/utils/adt/acl.c: 457 - 476
+[src/backend/utils/adt/acl.c:457-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L457-L476)
 
 ## Overview
 Creates a deep copy of an existing Access Control List (ACL), duplicating all entries and structure in newly allocated memory.

@@ -1,7 +1,7 @@
 # TS_execute_recurse
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 1883 - 2006
+[src/backend/utils/adt/tsvector_op.c:1883-2006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L1883-L2006)
 
 ## Overview
 TS_execute_recurse handles recursive execution of tsquery operators above phrase-level operations, focusing on boolean logic without requiring lexeme position tracking until OP_PHRASE operators are encountered.

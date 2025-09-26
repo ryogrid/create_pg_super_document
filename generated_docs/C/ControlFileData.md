@@ -1,7 +1,7 @@
 # ControlFileData
 
 ## Location
-src/include/catalog/pg_control.h: 104 - 233
+[src/include/catalog/pg_control.h:104-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_control.h#L104-L233)
 
 ## Overview
 ControlFileData is the central data structure that defines the complete contents of PostgreSQL's pg_control file, serving as the authoritative source of cluster-wide configuration and state information essential for database startup, recovery, and compatibility verification.

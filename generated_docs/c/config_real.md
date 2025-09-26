@@ -1,7 +1,7 @@
 # config_real
 
 ## Location
-src/include/utils/guc_tables.h: 228 - 253
+[src/include/utils/guc_tables.h:228-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc_tables.h#L228-L253)
 
 ## Overview
 The `config_real` struct represents a floating-point configuration parameter in PostgreSQL's Grand Unified Configuration (GUC) system, managing runtime parameters that accept double-precision values with optional min/max constraints.

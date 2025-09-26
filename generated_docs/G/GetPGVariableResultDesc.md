@@ -1,7 +1,7 @@
 # GetPGVariableResultDesc
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 394 - 427
+[src/backend/utils/misc/guc_funcs.c:394-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L394-L427)
 
 ## Overview
 GetPGVariableResultDesc creates and returns a tuple descriptor that defines the structure of result tuples for SHOW commands, with different column layouts depending on whether all variables or a single variable is being requested.

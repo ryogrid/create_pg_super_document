@@ -1,7 +1,7 @@
 # set_config_option
 
 ## Location
-src/backend/utils/misc/guc.c: 3345 - 3384
+[src/backend/utils/misc/guc.c:3345-3384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L3345-L3384)
 
 ## Overview
 Primary external interface for setting PostgreSQL configuration parameters with comprehensive access control, validation, and context management.

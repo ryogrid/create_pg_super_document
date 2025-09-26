@@ -1,7 +1,7 @@
 # can_skip_gucvar
 
 ## Location
-src/backend/utils/misc/guc.c: 5822 - 5855
+[src/backend/utils/misc/guc.c:5822-5855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5822-L5855)
 
 ## Overview
 Determines whether SerializeGUCState can skip sending a GUC variable or whether RestoreGUCState can skip resetting a GUC to default during parallel worker communication.

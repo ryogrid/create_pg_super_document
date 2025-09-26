@@ -1,7 +1,7 @@
 # pgstat_report_analyze
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 277 - 359
+[src/backend/utils/activity/pgstat_relation.c:277-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L277-L359)
 
 ## Overview
 Reports that a table has been analyzed and updates the relation's statistics with adjusted live/dead tuple counts, handling transaction-level modifications to avoid double-counting.

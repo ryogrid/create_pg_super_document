@@ -1,7 +1,7 @@
 # XLogReadBufferExtended
 
 ## Location
-src/backend/access/transam/xlogutils.c: 471 - 562
+[src/backend/access/transam/xlogutils.c:471-562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L471-L562)
 
 ## Overview
 Low-level function that reads pages during WAL replay with extended functionality, handling buffer caching, relation extension, and invalid page detection with various buffer reading modes.

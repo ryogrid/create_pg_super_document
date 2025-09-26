@@ -1,7 +1,7 @@
 # text_position_next
 
 ## Location
-src/backend/utils/adt/varlena.c: 1336 - 1399
+[src/backend/utils/adt/varlena.c:1336-1399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1336-L1399)
 
 ## Overview
 The  function advances the search to find the next occurrence of a pattern, handling multibyte character boundaries correctly.

@@ -1,7 +1,7 @@
 # hexdecode_string
 
 ## Location
-src/common/parse_manifest.c: 918 - 938
+[src/common/parse_manifest.c:918-938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L918-L938)
 
 ## Overview
 A static function that converts a hexadecimal string representation into a byte array, processing two hexadecimal characters per output byte.

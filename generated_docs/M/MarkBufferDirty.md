@@ -1,7 +1,7 @@
 # MarkBufferDirty
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2520 - 2582
+[src/backend/storage/buffer/bufmgr.c:2520-2582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2520-L2582)
 
 ## Overview
 MarkBufferDirty marks a buffer's contents as modified (dirty), indicating that the data needs to be written to disk during the next checkpoint or buffer eviction, and updates vacuum accounting statistics.

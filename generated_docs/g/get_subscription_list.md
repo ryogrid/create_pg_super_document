@@ -1,7 +1,7 @@
 # get_subscription_list
 
 ## Location
-src/backend/replication/logical/launcher.c: 112 - 182
+[src/backend/replication/logical/launcher.c:112-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L112-L182)
 
 ## Overview
 Retrieves a list of all active logical replication subscriptions from the pg_subscription catalog, filtering for fields relevant to worker start/stop operations.

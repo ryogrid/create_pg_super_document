@@ -1,7 +1,7 @@
 # PgStat_FunctionCounts
 
 ## Location
-src/include/pgstat.h: 107 - 112
+[src/include/pgstat.h:107-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L107-L112)
 
 ## Overview
 PgStat_FunctionCounts is a structure that stores per-function execution statistics in backend local memory while accumulating counts during function execution.

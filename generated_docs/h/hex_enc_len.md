@@ -1,7 +1,7 @@
 # hex_enc_len
 
 ## Location
-src/backend/utils/adt/encode.c: 237 - 242
+[src/backend/utils/adt/encode.c:237-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L237-L242)
 
 ## Overview
 Calculates the required buffer length for hexadecimal encoding of binary data.

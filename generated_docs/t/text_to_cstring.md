@@ -1,7 +1,7 @@
 # text_to_cstring
 
 ## Location
-src/backend/utils/adt/varlena.c: 217 - 247
+[src/backend/utils/adt/varlena.c:217-247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L217-L247)
 
 ## Overview
 Converts a PostgreSQL text data type value into a null-terminated C string, supporting compressed and toasted text values with automatic detoasting.

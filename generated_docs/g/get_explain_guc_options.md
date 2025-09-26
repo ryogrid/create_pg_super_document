@@ -1,7 +1,7 @@
 # get_explain_guc_options
 
 ## Location
-src/backend/utils/misc/guc.c: 5339 - 5439
+[src/backend/utils/misc/guc.c:5339-5439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5339-L5439)
 
 ## Overview
 Returns an array of GUC configuration parameters that are relevant to query planning and have been modified from their default values, specifically for display in EXPLAIN output.

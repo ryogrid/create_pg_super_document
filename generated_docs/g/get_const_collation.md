@@ -1,7 +1,7 @@
 # get_const_collation
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11265 - 11284
+[src/backend/utils/adt/ruleutils.c:11265-11284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11265-L11284)
 
 ## Overview
 A static helper function within the rule decompilation system that appends a COLLATE clause to the output buffer when a constant value has a non-default collation.

@@ -1,7 +1,7 @@
 # pg_getnameinfo_all
 
 ## Location
-src/common/ip.c: 114 - 152
+[src/common/ip.c:114-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ip.c#L114-L152)
 
 ## Overview
 Provides a unified interface for reverse name resolution across Unix domain sockets, IPv4, and IPv6 connections, serving as PostgreSQL's enhanced wrapper around the standard getnameinfo() function.

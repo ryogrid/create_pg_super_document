@@ -1,7 +1,7 @@
 # xl_xact_assignment
 
 ## Location
-src/include/access/xact.h: 218 - 223
+[src/include/access/xact.h:218-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L218-L223)
 
 ## Overview
 WAL record structure used to log transaction ID assignments for subtransactions to limit shared memory requirements on hot standby servers.

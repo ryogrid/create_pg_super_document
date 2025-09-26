@@ -1,7 +1,7 @@
 # ReorderBufferToastEnt
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 176 - 186
+[src/backend/replication/logical/reorderbuffer.c:176-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L176-L186)
 
 ## Overview
 ReorderBufferToastEnt is a structure that manages TOAST (The Oversized-Attribute Storage Technique) data reconstruction during logical replication in PostgreSQL.

@@ -1,7 +1,7 @@
 # tuplesort_heap_replace_top
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2836 - 2875
+[src/backend/utils/sort/tuplesort.c:2836-2875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2836-L2875)
 
 ## Overview
 Replaces the top element of a heap with a new tuple and restores the heap invariant through a sift-down operation.

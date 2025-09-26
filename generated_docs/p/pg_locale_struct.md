@@ -1,7 +1,7 @@
 # pg_locale_struct
 
 ## Location
-src/include/utils/pg_locale.h: 78 - 98
+[src/include/utils/pg_locale.h:78-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pg_locale.h#L78-L98)
 
 ## Overview
 A discriminated union structure that holds locale information for different collation providers (builtin, libc locale_t, or ICU collator) in PostgreSQL's locale system.

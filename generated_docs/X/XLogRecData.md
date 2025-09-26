@@ -1,7 +1,7 @@
 # XLogRecData
 
 ## Location
-src/include/access/xlog_internal.h: 312 - 317
+[src/include/access/xlog_internal.h:312-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L312-L317)
 
 ## Overview
 XLogRecData is a structure used to build a chain of data segments that represent the final WAL (Write-Ahead Log) record during WAL record insertion.

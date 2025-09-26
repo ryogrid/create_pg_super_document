@@ -1,7 +1,7 @@
 # breakconstraintloop
 
 ## Location
-src/backend/regex/regc_nfa.c: 2558 - 2703
+[src/backend/regex/regc_nfa.c:2558-2703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L2558-L2703)
 
 ## Overview
 Breaks constraint loops in the NFA by cloning successor states and redirecting constraint arcs to prevent infinite looping while preserving all useful state sequences.

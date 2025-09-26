@@ -1,7 +1,7 @@
 # BackendPidGetProc
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3195 - 3217
+[src/backend/storage/ipc/procarray.c:3195-3217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3195-L3217)
 
 ## Overview
 Retrieves a backend's PGPROC structure given its process ID (PID), providing a thread-safe way to look up process information by PID.

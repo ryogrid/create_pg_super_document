@@ -1,7 +1,7 @@
 # Numeric
 
 ## Location
-src/include/utils/numeric.h: 54 - 60
+[src/include/utils/numeric.h:54-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/numeric.h#L54-L60)
 
 ## Overview
 Numeric is a typedef that represents PostgreSQL's exact numeric data type, defined as a pointer to the NumericData structure. It serves as the primary interface for PostgreSQL's arbitrary precision decimal numbers.

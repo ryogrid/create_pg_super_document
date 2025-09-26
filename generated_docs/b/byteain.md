@@ -1,7 +1,7 @@
 # byteain
 
 ## Location
-src/backend/utils/adt/varlena.c: 290 - 387
+[src/backend/utils/adt/varlena.c:290-387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L290-L387)
 
 ## Overview
 PostgreSQL input function that converts printable text representations into internal bytea (byte array) format, supporting both hexadecimal and traditional escaped octal formats.

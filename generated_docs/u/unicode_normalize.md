@@ -1,7 +1,7 @@
 # unicode_normalize
 
 ## Location
-src/common/unicode_norm.c: 402 - 542
+[src/common/unicode_norm.c:402-542](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_norm.c#L402-L542)
 
 ## Overview
 Normalizes a Unicode string to the specified normalization form (NFC, NFD, NFKC, or NFKD) according to Unicode Standard Annex #15.

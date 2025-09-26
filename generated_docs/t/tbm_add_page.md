@@ -1,7 +1,7 @@
 # tbm_add_page
 
 ## Location
-src/backend/nodes/tidbitmap.c: 443 - 457
+[src/backend/nodes/tidbitmap.c:443-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L443-L457)
 
 ## Overview
 Adds a whole page to a TIDBitmap, marking it as requiring a recheck when scanned.

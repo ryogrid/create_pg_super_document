@@ -1,7 +1,7 @@
 # LWLockRegisterTranche
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 630 - 671
+[src/backend/storage/lmgr/lwlock.c:630-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L630-L671)
 
 ## Overview
 Registers a dynamic tranche name in the lookup table of the current process for user-defined lightweight lock tranches.

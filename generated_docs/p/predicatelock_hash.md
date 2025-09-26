@@ -1,7 +1,7 @@
 # predicatelock_hash
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1409 - 1434
+[src/backend/storage/lmgr/predicate.c:1409-1434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1409-L1434)
 
 ## Overview
 A specialized hash function that computes hash codes for PREDICATELOCKTAG structures, ensuring partition consistency between PREDICATELOCKTARGET and PREDICATELOCK hash tables.

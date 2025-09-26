@@ -1,7 +1,7 @@
 # table_tuple_satisfies_snapshot
 
 ## Location
-src/include/access/tableam.h: 1336 - 1356
+[src/include/access/tableam.h:1336-1356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1336-L1356)
 
 ## Overview
 This function checks whether a tuple stored in a slot satisfies the visibility requirements of a given snapshot, providing a table access method-agnostic interface for snapshot-based visibility checks.

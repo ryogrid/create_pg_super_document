@@ -1,7 +1,7 @@
 # pg_clean_ascii
 
 ## Location
-src/common/string.c: 86 - 132
+[src/common/string.c:86-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/string.c#L86-L132)
 
 ## Overview
 A security-focused utility function that creates a sanitized copy of a string by replacing non-ASCII characters with hexadecimal escape sequences to prevent control characters from corrupting log files or terminals.

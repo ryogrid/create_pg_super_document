@@ -1,7 +1,7 @@
 # LogicalTapeClose
 
 ## Location
-src/backend/utils/sort/logtape.c: 733 - 749
+[src/backend/utils/sort/logtape.c:733-749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L733-L749)
 
 ## Overview
 Closes a LogicalTape by freeing its associated memory resources, including the I/O buffer and the tape structure itself.

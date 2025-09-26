@@ -1,7 +1,7 @@
 # SetConstraintStateData
 
 ## Location
-src/backend/commands/trigger.c: 3650 - 3657
+[src/backend/commands/trigger.c:3650-3657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3650-L3657)
 
 ## Overview
 SetConstraintStateData is a structure that maintains the complete constraint deferral state for a transaction, tracking both global SET CONSTRAINTS ALL settings and individual trigger-specific constraint states.

@@ -1,7 +1,7 @@
 # ShowUsage
 
 ## Location
-src/backend/tcop/postgres.c: 5087 - 5195
+[src/backend/tcop/postgres.c:5087-5195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L5087-L5195)
 
 ## Overview
 This function displays detailed resource usage statistics by comparing current system resource consumption against a previously established baseline set by `ResetUsage`.

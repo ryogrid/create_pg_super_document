@@ -1,7 +1,7 @@
 # cntsize
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 292 - 315
+[src/backend/utils/adt/tsquery_util.c:292-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L292-L315)
 
 ## Overview
 cntsize is a recursive helper function that counts the total length of operand strings and the total number of nodes in a QTNode tree.

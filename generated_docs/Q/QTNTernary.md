@@ -1,7 +1,7 @@
 # QTNTernary
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 201 - 249
+[src/backend/utils/adt/tsquery_util.c:201-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L201-L249)
 
 ## Overview
 QTNTernary is a recursive function that removes unnecessary intermediate nodes from a QTNode tree by flattening associative operations (AND/OR) to optimize query tree structure.

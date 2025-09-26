@@ -1,7 +1,7 @@
 # pqCommandQueueAdvance
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3142 - 3179
+[src/interfaces/libpq/fe-exec.c:3142-3179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3142-L3179)
 
 ## Overview
 Removes a completed query from the head of the command queue when all corresponding results have been received, with protocol-specific synchronization handling.

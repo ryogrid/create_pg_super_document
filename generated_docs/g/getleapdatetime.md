@@ -1,7 +1,7 @@
 # getleapdatetime
 
 ## Location
-src/timezone/zic.c: 1666 - 1754
+[src/timezone/zic.c:1666-1754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1666-L1754)
 
 ## Overview
 Parses and validates leap second date/time fields and converts them to a zic_t timestamp value for leap second processing.

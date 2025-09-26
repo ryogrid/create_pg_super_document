@@ -1,7 +1,7 @@
 # TransactionIdIsInProgress
 
 ## Location
-src/backend/storage/ipc/procarray.c: 1402 - 1633
+[src/backend/storage/ipc/procarray.c:1402-1633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L1402-L1633)
 
 ## Overview
 TransactionIdIsInProgress determines whether a given transaction is currently running in any backend process, using multiple optimization strategies and fallback mechanisms.

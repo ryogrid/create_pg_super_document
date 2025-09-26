@@ -1,7 +1,7 @@
 # freeJsonLexContext
 
 ## Location
-src/common/jsonapi.c: 483 - 521
+[src/common/jsonapi.c:483-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L483-L521)
 
 ## Overview
 Frees memory allocated for a JsonLexContext structure and its associated components.

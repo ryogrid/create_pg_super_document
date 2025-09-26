@@ -1,7 +1,7 @@
 # logicalrep_worker_wakeup_ptr
 
 ## Location
-src/backend/replication/logical/launcher.c: 709 - 719
+[src/backend/replication/logical/launcher.c:709-719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L709-L719)
 
 ## Overview
 Low-level function that directly wakes up a logical replication worker using its process latch.

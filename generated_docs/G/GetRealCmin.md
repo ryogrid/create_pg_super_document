@@ -1,7 +1,7 @@
 # GetRealCmin
 
 ## Location
-src/backend/utils/time/combocid.c: 279 - 285
+[src/backend/utils/time/combocid.c:279-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/combocid.c#L279-L285)
 
 ## Overview
 GetRealCmin is an internal function that retrieves the original cmin (command ID of insertion) from a combo command ID in PostgreSQL's combo CID system.

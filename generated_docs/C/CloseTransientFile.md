@@ -1,7 +1,7 @@
 # CloseTransientFile
 
 ## Location
-src/backend/storage/file/fd.c: 2806 - 2839
+[src/backend/storage/file/fd.c:2806-2839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2806-L2839)
 
 ## Overview
 CloseTransientFile closes a file descriptor that was previously opened by OpenTransientFile and removes it from the internal list of allocated file descriptors managed by PostgreSQL's file descriptor management system.

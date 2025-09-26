@@ -1,7 +1,7 @@
 # _bt_do_singleval
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 782 - 821
+[src/backend/access/nbtree/nbtdedup.c:782-821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L782-L821)
 
 ## Overview
 Determines if all non-pivot tuples on a page are duplicates of the same value to decide whether deduplication's "single value" strategy should be applied.

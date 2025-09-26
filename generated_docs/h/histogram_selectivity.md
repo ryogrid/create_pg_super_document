@@ -1,7 +1,7 @@
 # histogram_selectivity
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 824 - 914
+[src/backend/utils/adt/selfuncs.c:824-914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L824-L914)
 
 ## Overview
 Examines histogram statistics to estimate selectivity for predicates by treating histogram entries as a representative sample of column values.

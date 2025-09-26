@@ -1,7 +1,7 @@
 # ActiveSnapshotSet
 
 ## Location
-src/backend/utils/time/snapmgr.c: 782 - 793
+[src/backend/utils/time/snapmgr.c:782-793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L782-L793)
 
 ## Overview
 Checks whether there is at least one snapshot in the active snapshot stack.

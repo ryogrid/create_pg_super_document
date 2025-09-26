@@ -1,7 +1,7 @@
 # QT2QTN
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 25 - 63
+[src/backend/utils/adt/tsquery_util.c:25-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L25-L63)
 
 ## Overview
 Builds a QTNode tree structure for a tsquery given in QueryItem array format, providing a recursive tree representation for text search query processing.

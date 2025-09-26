@@ -1,7 +1,7 @@
 # CatalogIndexState
 
 ## Location
-src/include/catalog/indexing.h: 27 - 32
+[src/include/catalog/indexing.h:27-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/indexing.h#L27-L32)
 
 ## Overview
 CatalogIndexState is a type alias for ResultRelInfo that provides an abstraction layer for managing system catalog index operations, decoupling callers from the executor's internal ResultRelInfo structure.

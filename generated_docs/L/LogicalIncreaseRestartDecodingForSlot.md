@@ -1,7 +1,7 @@
 # LogicalIncreaseRestartDecodingForSlot
 
 ## Location
-src/backend/replication/logical/logical.c: 1763 - 1838
+[src/backend/replication/logical/logical.c:1763-1838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1763-L1838)
 
 ## Overview
 Updates the minimal LSN (restart_lsn) needed to replay all uncommitted transactions at a given current_lsn for logical replication slots, taking effect only after the client confirms receipt of the current_lsn.

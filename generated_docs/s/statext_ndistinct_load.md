@@ -1,7 +1,7 @@
 # statext_ndistinct_load
 
 ## Location
-src/backend/statistics/mvdistinct.c: 148 - 178
+[src/backend/statistics/mvdistinct.c:148-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L148-L178)
 
 ## Overview
 Loads ndistinct statistics from the system catalog pg_statistic_ext_data for a specified multivariate statistics object.

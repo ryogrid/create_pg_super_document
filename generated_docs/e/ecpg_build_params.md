@@ -1,7 +1,7 @@
 # ecpg_build_params
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 1213 - 1580
+[src/interfaces/ecpg/ecpglib/execute.c:1213-1580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L1213-L1580)
 
 ## Overview
 Builds statement parameters by converting user variables into arrays compatible with PQexecParams(), handling various data types including descriptors, SQLDA structures, and regular variables.

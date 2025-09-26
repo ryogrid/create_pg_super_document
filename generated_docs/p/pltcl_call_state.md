@@ -1,7 +1,7 @@
 # pltcl_call_state
 
 ## Location
-src/pl/tcl/pltcl.c: 212 - 235
+[src/pl/tcl/pltcl.c:212-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L212-L235)
 
 ## Overview
 A per-call state structure that maintains all necessary context and data for a single PL/Tcl function or trigger invocation, including parameter information, return value handling, and tuple store management for set-returning functions.

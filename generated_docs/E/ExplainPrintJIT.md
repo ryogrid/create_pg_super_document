@@ -1,7 +1,7 @@
 # ExplainPrintJIT
 
 ## Location
-src/backend/commands/explain.c: 1011 - 1108
+[src/backend/commands/explain.c:1011-1108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L1011-L1108)
 
 ## Overview
 Formats and appends JIT compilation information to EXPLAIN output, displaying JIT statistics, options, and timing details in both text and structured formats.

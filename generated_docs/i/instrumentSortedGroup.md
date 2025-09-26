@@ -1,7 +1,7 @@
 # instrumentSortedGroup
 
 ## Location
-src/backend/executor/nodeIncrementalSort.c: 127 - 163
+[src/backend/executor/nodeIncrementalSort.c:127-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIncrementalSort.c#L127-L163)
 
 ## Overview
 A static function that captures and accumulates instrumentation statistics from a completed tuplesort operation within an incremental sort node for later EXPLAIN ANALYZE output.

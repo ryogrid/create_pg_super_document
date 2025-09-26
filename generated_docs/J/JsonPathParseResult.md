@@ -1,7 +1,7 @@
 # JsonPathParseResult
 
 ## Location
-src/include/utils/jsonpath.h: 272 - 276
+[src/include/utils/jsonpath.h:272-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/jsonpath.h#L272-L276)
 
 ## Overview
 JsonPathParseResult is a structure that encapsulates the complete result of parsing a JSON path expression, containing both the parsed expression tree and execution mode information.

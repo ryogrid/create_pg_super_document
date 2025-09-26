@@ -1,7 +1,7 @@
 # get_controlfile_by_exact_path
 
 ## Location
-src/common/controldata_utils.c: 68 - 188
+[src/common/controldata_utils.c:68-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/controldata_utils.c#L68-L188)
 
 ## Overview
 The get_controlfile_by_exact_path function reads PostgreSQL's control file from a specified file path, performing CRC validation and handling concurrent write scenarios with retry logic in frontend environments.

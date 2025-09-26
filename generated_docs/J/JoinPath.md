@@ -1,7 +1,7 @@
 # JoinPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2065 - 2086
+[src/include/nodes/pathnodes.h:2065-2086](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2065-L2086)
 
 ## Overview
 JoinPath is an abstract base structure for all join-type paths in PostgreSQL query planning, containing common fields shared by all join algorithms.

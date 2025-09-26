@@ -1,7 +1,7 @@
 # Aggref
 
 ## Location
-src/include/nodes/primnodes.h: 439 - 508
+[src/include/nodes/primnodes.h:439-508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L439-L508)
 
 ## Overview
 The Aggref structure represents an aggregate function call in PostgreSQL's expression tree, encapsulating all information needed for aggregate computation including arguments, ordering, grouping, and execution context.

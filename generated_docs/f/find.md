@@ -1,7 +1,7 @@
 # find
 
 ## Location
-src/backend/regex/regexec.c: 419 - 508
+[src/backend/regex/regexec.c:419-508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L419-L508)
 
 ## Overview
 Finds a match for the main NFA in the no-complications case during regex execution.

@@ -1,7 +1,7 @@
 # IndexFreeSpaceMapVacuum
 
 ## Location
-src/backend/storage/freespace/indexfsm.c: 71 - 74
+[src/backend/storage/freespace/indexfsm.c:71-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/indexfsm.c#L71-L74)
 
 ## Overview
 IndexFreeSpaceMapVacuum scans and fixes any inconsistencies in the Free Space Map (FSM) for index relations.

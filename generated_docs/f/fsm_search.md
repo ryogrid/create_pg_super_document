@@ -1,7 +1,7 @@
 # fsm_search
 
 ## Location
-src/backend/storage/freespace/freespace.c: 678 - 811
+[src/backend/storage/freespace/freespace.c:678-811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L678-L811)
 
 ## Overview
 Searches the FSM tree structure to find a heap page with at least the specified minimum amount of free space, handling inconsistencies and stale information through automatic correction and retry mechanisms.

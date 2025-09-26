@@ -1,7 +1,7 @@
 # SortCoordinateData
 
 ## Location
-src/include/utils/tuplesort.h: 45 - 59
+[src/include/utils/tuplesort.h:45-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/tuplesort.h#L45-L59)
 
 ## Overview
 SortCoordinateData is a structure used for coordinating parallel tuple sorting operations among multiple worker processes and a leader process in PostgreSQL.

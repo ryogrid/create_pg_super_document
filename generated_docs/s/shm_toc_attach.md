@@ -1,7 +1,7 @@
 # shm_toc_attach
 
 ## Location
-src/backend/storage/ipc/shm_toc.c: 64 - 87
+[src/backend/storage/ipc/shm_toc.c:64-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_toc.c#L64-L87)
 
 ## Overview
 Attaches to an existing shared memory table of contents by validating the magic number and returning a pointer to the TOC structure if valid.

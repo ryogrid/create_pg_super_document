@@ -1,7 +1,7 @@
 # ExecEndHash
 
 ## Location
-src/backend/executor/nodeHash.c: 413 - 431
+[src/backend/executor/nodeHash.c:413-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L413-L431)
 
 ## Overview
 Cleanup routine for Hash node that shuts down the subplan and deallocates associated resources during query execution termination.

@@ -1,7 +1,7 @@
 # pg_johab_dsplen
 
 ## Location
-src/common/wchar.c: 429 - 440
+[src/common/wchar.c:429-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L429-L440)
 
 ## Overview
 A display length function for JOHAB encoding that determines the number of display columns required for a character sequence.

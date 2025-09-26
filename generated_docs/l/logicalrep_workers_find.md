@@ -1,7 +1,7 @@
 # logicalrep_workers_find
 
 ## Location
-src/backend/replication/logical/launcher.c: 288 - 312
+[src/backend/replication/logical/launcher.c:288-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L288-L312)
 
 ## Overview  
 Searches the logical replication worker array to find all workers associated with a specific subscription, returning them as a list rather than just the first match.

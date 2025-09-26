@@ -1,7 +1,7 @@
 # pg_get_user_home_dir
 
 ## Location
-src/port/user.c: 64 - 89
+[src/port/user.c:64-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/user.c#L64-L89)
 
 ## Overview
 Retrieves the home directory path associated with a given user ID (UID) from the system's user database, providing thread-safe user home directory lookup functionality.

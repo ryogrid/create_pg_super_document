@@ -1,7 +1,7 @@
 # GetTransactionSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 216 - 290
+[src/backend/utils/time/snapmgr.c:216-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L216-L290)
 
 ## Overview
 Obtains the appropriate snapshot for a new query in a transaction, handling various isolation levels and transaction states.

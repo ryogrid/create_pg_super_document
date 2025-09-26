@@ -1,7 +1,7 @@
 # pltcl_commit
 
 ## Location
-src/pl/tcl/pltcl.c: 2939 - 2977
+[src/pl/tcl/pltcl.c:2939-2977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2939-L2977)
 
 ## Overview
 pltcl_commit is a static function in the PL/Tcl extension that commits the current transaction and starts a new one, providing transaction control capabilities to Tcl code.

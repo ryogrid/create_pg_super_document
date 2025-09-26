@@ -1,7 +1,7 @@
 # pg_mule_verifystr
 
 ## Location
-src/common/wchar.c: 1381 - 1409
+[src/common/wchar.c:1381-1409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1381-L1409)
 
 ## Overview
 Verifies the validity of a MULE-encoded string by iterating through characters and validating each multi-byte character sequence until a null terminator or invalid character is encountered.

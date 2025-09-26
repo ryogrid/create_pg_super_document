@@ -1,7 +1,7 @@
 # logicalrep_worker_detach
 
 ## Location
-src/backend/replication/logical/launcher.c: 757 - 798
+[src/backend/replication/logical/launcher.c:757-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L757-L798)
 
 ## Overview
 Detaches the current logical replication worker process from its slot, stopping any associated parallel apply workers and cleaning up the worker state information.

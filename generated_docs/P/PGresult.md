@@ -1,7 +1,7 @@
 # PGresult
 
 ## Location
-src/interfaces/libpq/libpq-fe.h: 198 - 203
+[src/interfaces/libpq/libpq-fe.h:198-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-fe.h#L198-L203)
 
 ## Overview
 PGresult encapsulates the result of a query execution, representing a single SQL command's result set including data rows, column metadata, status information, and any error details.

@@ -1,7 +1,7 @@
 # _SPI_checktuples
 
 ## Location
-src/backend/executor/spi.c: 3117 - 3140
+[src/backend/executor/spi.c:3117-3140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L3117-L3140)
 
 ## Overview
 _SPI_checktuples is a static internal function that validates the consistency between the number of processed tuples and the tuple table contents after a SPI operation.

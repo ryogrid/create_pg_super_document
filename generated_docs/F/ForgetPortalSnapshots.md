@@ -1,7 +1,7 @@
 # ForgetPortalSnapshots
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 1256 - 1293
+[src/backend/utils/mmgr/portalmem.c:1256-1293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L1256-L1293)
 
 ## Overview
 Drops all active snapshots associated with portals during transaction control operations (COMMIT/ROLLBACK) inside procedures, ensuring no snapshots remain active.

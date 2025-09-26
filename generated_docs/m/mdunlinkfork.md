@@ -1,7 +1,7 @@
 # mdunlinkfork
 
 ## Location
-src/backend/storage/smgr/md.c: 344 - 459
+[src/backend/storage/smgr/md.c:344-459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L344-L459)
 
 ## Overview
 A static function that removes a relation fork by truncating and unlinking its segments, with special handling for different execution contexts like recovery, binary upgrade, and temporary relations.

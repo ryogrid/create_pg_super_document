@@ -1,7 +1,7 @@
 # bbsink_begin_manifest
 
 ## Location
-src/include/backup/basebackup_sink.h: 225 - 233
+[src/include/backup/basebackup_sink.h:225-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L225-L233)
 
 ## Overview
 Initiates the creation of a backup manifest within a backup sink by calling the sink-specific manifest initialization operation.

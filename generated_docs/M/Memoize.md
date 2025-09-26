@@ -1,7 +1,7 @@
 # Memoize
 
 ## Location
-src/include/nodes/plannodes.h: 889 - 925
+[src/include/nodes/plannodes.h:889-925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L889-L925)
 
 ## Overview
 Memoize is a caching plan node that stores results from parameterized child nodes to avoid re-scanning when the same parameter values are encountered again.

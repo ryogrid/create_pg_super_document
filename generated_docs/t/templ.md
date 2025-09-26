@@ -1,7 +1,7 @@
 # templ
 
 ## Location
-src/tools/pg_bsd_indent/lexi.c: 60 - 141
+[src/tools/pg_bsd_indent/lexi.c:60-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/lexi.c#L60-L141)
 
 ## Overview
 The `templ` struct is a simple template structure used by the pg_bsd_indent tool to store C language keyword information for lexical analysis and code formatting.

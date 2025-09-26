@@ -1,7 +1,7 @@
 # pg_euctw_dsplen
 
 ## Location
-src/common/wchar.c: 355 - 376
+[src/common/wchar.c:355-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L355-L376)
 
 ## Overview
 Determines the display width (number of column positions) that a single EUC-TW encoded character occupies when displayed.

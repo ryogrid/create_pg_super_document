@@ -1,7 +1,7 @@
 # ExecParallelHashTableInsert
 
 ## Location
-src/backend/executor/nodeHash.c: 1721 - 1786
+[src/backend/executor/nodeHash.c:1721-1786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1721-L1786)
 
 ## Overview
 Inserts a tuple into a shared hash table during parallel hash joins, coordinating memory allocation across multiple worker processes and handling both current batch insertion and future batch storage.

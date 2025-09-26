@@ -1,7 +1,7 @@
 # convert_case
 
 ## Location
-src/common/unicode_case.c: 137 - 202
+[src/common/unicode_case.c:137-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_case.c#L137-L202)
 
 ## Overview
 Core function that performs Unicode case conversion (lowercase, uppercase, or titlecase) on UTF-8 encoded strings with support for word boundary detection.

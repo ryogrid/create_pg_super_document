@@ -1,7 +1,7 @@
 # PartitionPruneStepOp
 
 ## Location
-src/include/nodes/plannodes.h: 1527 - 1535
+[src/include/nodes/plannodes.h:1527-1535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1527-L1535)
 
 ## Overview
 PartitionPruneStepOp is a concrete implementation of PartitionPruneStep that contains information for pruning partitions using a set of mutually ANDed OpExpr clauses, representing operator-based partition elimination logic.

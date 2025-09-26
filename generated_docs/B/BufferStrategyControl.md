@@ -1,7 +1,7 @@
 # BufferStrategyControl
 
 ## Location
-src/backend/storage/buffer/freelist.c: 62 - 71
+[src/backend/storage/buffer/freelist.c:62-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L62-L71)
 
 ## Overview
 BufferStrategyControl is a shared memory control structure that manages PostgreSQL's buffer replacement strategy, implementing the clock sweep algorithm for buffer allocation and maintaining statistics about buffer pool usage.

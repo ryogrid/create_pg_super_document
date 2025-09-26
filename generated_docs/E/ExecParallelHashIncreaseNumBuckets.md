@@ -1,7 +1,7 @@
 # ExecParallelHashIncreaseNumBuckets
 
 ## Location
-src/backend/executor/nodeHash.c: 1532 - 1630
+[src/backend/executor/nodeHash.c:1532-1630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1532-L1630)
 
 ## Overview
 Coordinates bucket array expansion in parallel hash joins by doubling the number of buckets and redistributing existing tuples across the new bucket structure using barrier synchronization.

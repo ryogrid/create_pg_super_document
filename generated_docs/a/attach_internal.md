@@ -1,7 +1,7 @@
 # attach_internal
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1326 - 1376
+[src/backend/utils/mmgr/dsa.c:1326-1376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1326-L1376)
 
 ## Overview
 Internal workhorse function for attaching to an existing Dynamic Shared Area (DSA), creating a local backend interface to access a previously created shared memory area.

@@ -1,7 +1,7 @@
 # TimeLineHistoryEntry
 
 ## Location
-src/include/access/timeline.h: 30 - 44
+[src/include/access/timeline.h:30-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/timeline.h#L30-L44)
 
 ## Overview
 A data structure that represents a single entry in PostgreSQL's timeline history, tracking the validity range of a timeline within the Write-Ahead Log (WAL) sequence.

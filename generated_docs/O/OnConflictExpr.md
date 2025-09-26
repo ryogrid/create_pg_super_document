@@ -1,7 +1,7 @@
 # OnConflictExpr
 
 ## Location
-src/include/nodes/primnodes.h: 2321 - 2337
+[src/include/nodes/primnodes.h:2321-2337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2321-L2337)
 
 ## Overview
 OnConflictExpr represents an ON CONFLICT DO ... expression in PostgreSQL, handling conflict resolution for INSERT statements by specifying actions when unique constraint violations occur.

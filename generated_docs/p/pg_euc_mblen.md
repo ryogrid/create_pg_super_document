@@ -1,7 +1,7 @@
 # pg_euc_mblen
 
 ## Location
-src/common/wchar.c: 144 - 159
+[src/common/wchar.c:144-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L144-L159)
 
 ## Overview
 Determines the byte length of an EUC (Extended Unix Code) encoded character by examining its first byte to identify the character set and corresponding length.

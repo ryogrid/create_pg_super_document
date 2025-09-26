@@ -1,7 +1,7 @@
 # LogicalTapeRewindForRead
 
 ## Location
-src/backend/utils/sort/logtape.c: 846 - 927
+[src/backend/utils/sort/logtape.c:846-927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L846-L927)
 
 ## Overview
 Rewinds a logical tape to the beginning and transitions it from writing mode to reading mode, with configurable buffer size optimization.

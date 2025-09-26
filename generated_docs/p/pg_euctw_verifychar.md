@@ -1,7 +1,7 @@
 # pg_euctw_verifychar
 
 ## Location
-src/common/wchar.c: 1228 - 1277
+[src/common/wchar.c:1228-1277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1228-L1277)
 
 ## Overview
 Validates a single character in EUC-TW (Extended Unix Code for Traditional Chinese) encoding and returns the number of bytes consumed if valid.

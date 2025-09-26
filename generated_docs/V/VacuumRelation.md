@@ -1,7 +1,7 @@
 # VacuumRelation
 
 ## Location
-src/include/nodes/parsenodes.h: 3852 - 3858
+[src/include/nodes/parsenodes.h:3852-3858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3852-L3858)
 
 ## Overview
 VacuumRelation is a structure that represents information about a single target table for VACUUM/ANALYZE operations in PostgreSQL.

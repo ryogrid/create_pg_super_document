@@ -1,7 +1,7 @@
 # JsonArgument
 
 ## Location
-src/include/nodes/parsenodes.h: 1762 - 1767
+[src/include/nodes/parsenodes.h:1762-1767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1762-L1767)
 
 ## Overview
 A structure representing named arguments from the JSON PASSING clause in SQL/JSON expressions, providing parameter binding for JSON operations.

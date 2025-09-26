@@ -1,7 +1,7 @@
 # WalUsage
 
 ## Location
-src/include/executor/instrument.h: 51 - 56
+[src/include/executor/instrument.h:51-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/instrument.h#L51-L56)
 
 ## Overview
 WalUsage is a struct that tracks Write-Ahead Log (WAL) activity statistics per query, specifically focusing on WAL records generation that can be measured and displayed by EXPLAIN, pg_stat_statements, and similar tools.

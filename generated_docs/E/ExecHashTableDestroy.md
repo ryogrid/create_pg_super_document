@@ -1,7 +1,7 @@
 # ExecHashTableDestroy
 
 ## Location
-src/backend/executor/nodeHash.c: 883 - 915
+[src/backend/executor/nodeHash.c:883-915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L883-L915)
 
 ## Overview
 Destroys a hash table by closing temporary files, deallocating memory contexts, and freeing the control structure.

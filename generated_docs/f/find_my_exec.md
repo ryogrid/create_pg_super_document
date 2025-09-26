@@ -1,7 +1,7 @@
 # find_my_exec
 
 ## Location
-src/common/exec.c: 160 - 240
+[src/common/exec.c:160-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L160-L240)
 
 ## Overview
 Finds the absolute path to the current program's executable by searching through the system PATH or validating a direct path, essential for PostgreSQL processes that need to locate themselves and related binaries.

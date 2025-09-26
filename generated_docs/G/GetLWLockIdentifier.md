@@ -1,7 +1,7 @@
 # GetLWLockIdentifier
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 769 - 785
+[src/backend/storage/lmgr/lwlock.c:769-785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L769-L785)
 
 ## Overview
 Returns an identifier string for an LWLock based on wait class and event information, serving as a bridge between the wait event system and LWLock tranche names.

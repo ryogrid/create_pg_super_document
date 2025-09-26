@@ -1,7 +1,7 @@
 # pgstat_report_wal
 
 ## Location
-src/backend/utils/activity/pgstat_wal.c: 48 - 66
+[src/backend/utils/activity/pgstat_wal.c:48-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_wal.c#L48-L66)
 
 ## Overview
 Reports WAL (Write-Ahead Log) and IO usage statistics to the shared statistics collector, designed for processes that generate WAL but don't call the general pgstat_report_stat() function.

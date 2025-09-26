@@ -1,7 +1,7 @@
 # BlockSampler_HasMore
 
 ## Location
-src/backend/utils/misc/sampling.c: 58 - 63
+[src/backend/utils/misc/sampling.c:58-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/sampling.c#L58-L63)
 
 ## Overview
 Checks whether the BlockSampler has more blocks to sample, determining if the sampling process should continue.

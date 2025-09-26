@@ -1,7 +1,7 @@
 # _bt_initmetapage
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 67 - 106
+[src/backend/access/nbtree/nbtpage.c:67-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L67-L106)
 
 ## Overview
 _bt_initmetapage initializes a B-tree metapage by filling a page buffer with the correct metapage structure and metadata for a B-tree index.

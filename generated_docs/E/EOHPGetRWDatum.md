@@ -1,7 +1,7 @@
 # EOHPGetRWDatum
 
 ## Location
-src/include/utils/expandeddatum.h: 139 - 144
+[src/include/utils/expandeddatum.h:139-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/expandeddatum.h#L139-L144)
 
 ## Overview
 EOHPGetRWDatum is an inline function that extracts a read-write TOAST pointer from an ExpandedObjectHeader and returns it as a Datum.

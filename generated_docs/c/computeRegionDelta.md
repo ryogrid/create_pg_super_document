@@ -1,7 +1,7 @@
 # computeRegionDelta
 
 ## Location
-src/backend/access/transam/generic_xlog.c: 121 - 227
+[src/backend/access/transam/generic_xlog.c:121-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/generic_xlog.c#L121-L227)
 
 ## Overview
 Computes the XLOG fragments needed to transform a region of the current page into the corresponding region of the target page, optimizing for efficiency by identifying matching byte sequences and only logging differences.

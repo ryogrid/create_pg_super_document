@@ -1,7 +1,7 @@
 # TupleHashTableHash_internal
 
 ## Location
-src/backend/executor/execGrouping.c: 424 - 493
+[src/backend/executor/execGrouping.c:424-493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execGrouping.c#L424-L493)
 
 ## Overview
 Internal hash computation function that calculates hash values for tuples using column-wise hashing with rotation and bit perturbation, serving as the core hash algorithm for tuple hash tables.

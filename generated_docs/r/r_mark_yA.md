@@ -1,7 +1,7 @@
 # r_mark_yA
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 703 - 714
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:703-714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L703-L714)
 
 ## Overview
 Marks and processes Turkish suffix patterns ending with 'yA' (where A represents vowel harmony variations between 'a' and 'e') in the Snowball stemming algorithm for Turkish text processing.

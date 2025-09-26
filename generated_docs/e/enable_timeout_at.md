@@ -1,7 +1,7 @@
 # enable_timeout_at
 
 ## Location
-src/backend/utils/misc/timeout.c: 607 - 629
+[src/backend/utils/misc/timeout.c:607-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L607-L629)
 
 ## Overview
 Enables a timeout to fire at a specific absolute timestamp, providing precise control over when the timeout should trigger.

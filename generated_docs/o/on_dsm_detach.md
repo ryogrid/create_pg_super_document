@@ -1,7 +1,7 @@
 # on_dsm_detach
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1132 - 1146
+[src/backend/storage/ipc/dsm.c:1132-1146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1132-L1146)
 
 ## Overview
 Registers a callback function that will be executed when a dynamic shared memory segment is detached from the current process.

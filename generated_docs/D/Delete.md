@@ -1,7 +1,7 @@
 # Delete
 
 ## Location
-src/backend/storage/file/fd.c: 1265 - 1283
+[src/backend/storage/file/fd.c:1265-1283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1265-L1283)
 
 ## Overview
 Delete is a static function that removes a virtual file descriptor from the LRU (Least Recently Used) doubly-linked list in PostgreSQL's VFD cache management system.

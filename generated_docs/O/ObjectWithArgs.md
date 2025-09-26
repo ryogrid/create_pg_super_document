@@ -1,7 +1,7 @@
 # ObjectWithArgs
 
 ## Location
-src/include/nodes/parsenodes.h: 2524 - 2531
+[src/include/nodes/parsenodes.h:2524-2531](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2524-L2531)
 
 ## Overview
 ObjectWithArgs represents a function, procedure, or operator name combined with parameter identification, providing a complete specification for objects that can be overloaded based on their argument signatures.

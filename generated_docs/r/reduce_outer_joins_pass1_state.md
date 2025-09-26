@@ -1,7 +1,7 @@
 # reduce_outer_joins_pass1_state
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 71 - 76
+[src/backend/optimizer/prep/prepjointree.c:71-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L71-L76)
 
 ## Overview
 The reduce_outer_joins_pass1_state struct maintains state information during the first pass of outer join reduction optimization, tracking relation sets and outer join presence within query subtrees to enable intelligent join simplification.

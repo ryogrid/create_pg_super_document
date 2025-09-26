@@ -1,7 +1,7 @@
 # getrusage
 
 ## Location
-src/port/win32getrusage.c: 21 - 61
+[src/port/win32getrusage.c:21-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32getrusage.c#L21-L61)
 
 ## Overview
 A Windows-specific implementation of the POSIX  function that retrieves resource usage information for the current process, providing user and system CPU time statistics.

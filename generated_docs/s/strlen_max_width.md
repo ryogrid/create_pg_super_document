@@ -1,7 +1,7 @@
 # strlen_max_width
 
 ## Location
-src/fe_utils/print.c: 3746 - 3776
+[src/fe_utils/print.c:3746-3776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3746-L3776)
 
 ## Overview
 Computes the byte distance to the end of a string or a target display width limit, whichever comes first, while accounting for multibyte character encodings.

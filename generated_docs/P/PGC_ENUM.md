@@ -1,7 +1,7 @@
 # PGC_ENUM
 
 ## Location
-src/include/utils/guc_tables.h: 29 - 31
+[src/include/utils/guc_tables.h:29-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc_tables.h#L29-L31)
 
 ## Overview
 PGC_ENUM is an enumeration constant that represents the enum configuration variable type in PostgreSQL's Grand Unified Configuration (GUC) system.

@@ -1,7 +1,7 @@
 # get_from_clause_coldeflist
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12436 - 12486
+[src/backend/utils/adt/ruleutils.c:12436-12486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12436-L12486)
 
 ## Overview
 Reconstructs a column definition list for function range table entries, including column names, types, and collations in SQL format.

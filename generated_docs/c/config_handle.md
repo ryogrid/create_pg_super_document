@@ -1,7 +1,7 @@
 # config_handle
 
 ## Location
-src/include/utils/guc.h: 147 - 168
+[src/include/utils/guc.h:147-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc.h#L147-L168)
 
 ## Overview
 config_handle is a typedef alias for struct config_generic, providing an opaque handle to configuration variables in PostgreSQL's GUC (Grand Unified Configuration) system.

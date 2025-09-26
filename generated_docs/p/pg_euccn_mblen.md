@@ -1,7 +1,7 @@
 # pg_euccn_mblen
 
 ## Location
-src/common/wchar.c: 271 - 282
+[src/common/wchar.c:271-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L271-L282)
 
 ## Overview
 A static function that determines the byte length of a multi-byte character sequence in EUC-CN (Extended Unix Code for Chinese) encoding.

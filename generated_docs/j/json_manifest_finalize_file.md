@@ -1,7 +1,7 @@
 # json_manifest_finalize_file
 
 ## Location
-src/common/parse_manifest.c: 649 - 750
+[src/common/parse_manifest.c:649-750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L649-L750)
 
 ## Overview
 Performs comprehensive parsing, validation, and processing of file information from JSON manifest data, including pathname decoding, size parsing, and checksum validation before invoking a per-file callback.

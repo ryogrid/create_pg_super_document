@@ -1,7 +1,7 @@
 # getzname
 
 ## Location
-src/timezone/localtime.c: 642 - 662
+[src/timezone/localtime.c:642-662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L642-L662)
 
 ## Overview
 The  function scans a timezone string to find the end of a timezone abbreviation by advancing until it encounters a character that is invalid for timezone names.

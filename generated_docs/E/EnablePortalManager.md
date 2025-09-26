@@ -1,7 +1,7 @@
 # EnablePortalManager
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 104 - 129
+[src/backend/utils/mmgr/portalmem.c:104-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L104-L129)
 
 ## Overview
 Initializes the portal management module during backend startup by creating the top-level portal memory context and hash table for storing portal objects.

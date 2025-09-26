@@ -1,7 +1,7 @@
 # pg_getaddrinfo_all
 
 ## Location
-src/common/ip.c: 53 - 81
+[src/common/ip.c:53-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ip.c#L53-L81)
 
 ## Overview
 Provides a unified interface for getting address information across Unix domain sockets, IPv4, and IPv6 connections, serving as PostgreSQL's wrapper around the standard getaddrinfo() function.

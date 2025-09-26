@@ -1,7 +1,7 @@
 # ltsGetBlock
 
 ## Location
-src/backend/utils/sort/logtape.c: 358 - 370
+[src/backend/utils/sort/logtape.c:358-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L358-L370)
 
 ## Overview
 A block allocation dispatcher function that selects the appropriate block allocation strategy based on the tape set's preallocation settings.

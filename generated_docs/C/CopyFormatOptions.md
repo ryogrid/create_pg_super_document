@@ -1,7 +1,7 @@
 # CopyFormatOptions
 
 ## Location
-src/include/commands/copy.h: 57 - 87
+[src/include/commands/copy.h:57-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/copy.h#L57-L87)
 
 ## Overview
 CopyFormatOptions is a struct that holds parsed COPY command options related to formatting and behavior, serving as a centralized configuration structure for PostgreSQL's COPY functionality.

@@ -1,7 +1,7 @@
 # pqPipelineProcessQueue
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3180 - 3271
+[src/interfaces/libpq/fe-exec.c:3180-3271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3180-L3271)
 
 ## Overview
 Processes the next query in the pipeline queue, managing state transitions and error handling for pipelined command execution.

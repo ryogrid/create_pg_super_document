@@ -1,7 +1,7 @@
 # _bt_bottomupdel_finish_pending
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 648 - 781
+[src/backend/access/nbtree/nbtdedup.c:648-781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L648-L781)
 
 ## Overview
 Finalizes an interval during bottom-up index deletion by moving TIDs from deduplication state to deletion state and determining which entries are duplicates for the tableam delete infrastructure.

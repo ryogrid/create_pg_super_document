@@ -1,7 +1,7 @@
 # wait_result_to_exit_code
 
 ## Location
-src/common/wait_error.c: 138 - 148
+[src/common/wait_error.c:138-148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wait_error.c#L138-L148)
 
 ## Overview
 Converts a wait status value into a shell-compatible exit code, normalizing different termination scenarios into the standard 0-255 exit code range.

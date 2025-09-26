@@ -1,7 +1,7 @@
 # PQfformat
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3708 - 3718
+[src/interfaces/libpq/fe-exec.c:3708-3718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3708-L3718)
 
 ## Overview
 Returns the format code indicating whether the specified field in a query result is in text or binary format.

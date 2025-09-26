@@ -1,7 +1,7 @@
 # VacAttrStatsP
 
 ## Location
-src/include/commands/vacuum.h: 106 - 115
+[src/include/commands/vacuum.h:106-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/vacuum.h#L106-L115)
 
 ## Overview
 VacAttrStatsP is a pointer type to the VacAttrStats structure, used throughout PostgreSQL's ANALYZE operation to pass statistical analysis context between functions.

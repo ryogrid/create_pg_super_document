@@ -1,7 +1,7 @@
 # transfer_first_span
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1432 - 1471
+[src/backend/utils/mmgr/dsa.c:1432-1471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1432-L1471)
 
 ## Overview
 Transfers the first span from one fullness class to another within a DSA pool, updating the doubly-linked list structure to maintain span organization by allocation density.

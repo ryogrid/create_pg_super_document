@@ -1,7 +1,7 @@
 # FileSetCreate
 
 ## Location
-src/backend/storage/file/fileset.c: 92 - 118
+[src/backend/storage/file/fileset.c:92-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fileset.c#L92-L118)
 
 ## Overview
 Creates a new temporary file within a FileSet, automatically handling directory creation if needed and distributing files across configured tablespaces.

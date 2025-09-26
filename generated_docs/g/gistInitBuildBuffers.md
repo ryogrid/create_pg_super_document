@@ -1,7 +1,7 @@
 # gistInitBuildBuffers
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 44 - 112
+[src/backend/access/gist/gistbuildbuffers.c:44-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L44-L112)
 
 ## Overview
 gistInitBuildBuffers initializes and creates the buffer management structure used during GiST index construction to handle temporary storage of index pages when they exceed memory limits.

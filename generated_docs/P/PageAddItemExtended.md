@@ -1,7 +1,7 @@
 # PageAddItemExtended
 
 ## Location
-src/backend/storage/page/bufpage.c: 194 - 364
+[src/backend/storage/page/bufpage.c:194-364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L194-L364)
 
 ## Overview
 Adds an item to a PostgreSQL page at a specified or automatically determined offset, handling space allocation, line pointer management, and data placement with comprehensive validation.

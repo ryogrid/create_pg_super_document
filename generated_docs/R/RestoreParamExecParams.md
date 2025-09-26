@@ -1,7 +1,7 @@
 # RestoreParamExecParams
 
 ## Location
-src/backend/executor/execParallel.c: 409 - 437
+[src/backend/executor/execParallel.c:409-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L409-L437)
 
 ## Overview
 Deserializes PARAM_EXEC parameters from shared memory and restores them into a parallel worker's executor state.

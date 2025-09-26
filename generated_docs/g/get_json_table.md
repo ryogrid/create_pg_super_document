@@ -1,7 +1,7 @@
 # get_json_table
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11852 - 11920
+[src/backend/utils/adt/ruleutils.c:11852-11920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11852-L11920)
 
 ## Overview
 Reconstructs the complete JSON_TABLE function call syntax from its internal representation during SQL query deparsing, including document expression, path, passing clauses, columns, and error handling.

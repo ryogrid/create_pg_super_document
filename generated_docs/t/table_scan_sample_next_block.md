@@ -1,7 +1,7 @@
 # table_scan_sample_next_block
 
 ## Location
-src/include/access/tableam.h: 2013 - 2034
+[src/include/access/tableam.h:2013-2034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L2013-L2034)
 
 ## Overview
 Prepares to fetch tuples from the next block in a table sample scan, coordinating with TABLESAMPLE sampling methods.

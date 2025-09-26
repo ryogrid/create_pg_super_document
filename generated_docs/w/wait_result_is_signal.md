@@ -1,7 +1,7 @@
 # wait_result_is_signal
 
 ## Location
-src/common/wait_error.c: 102 - 120
+[src/common/wait_error.c:102-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wait_error.c#L102-L120)
 
 ## Overview
 Determines if a child process terminated due to a specific signal, handling both direct signal termination and shell-mediated signal reporting.

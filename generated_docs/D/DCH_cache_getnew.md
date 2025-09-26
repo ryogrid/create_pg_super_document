@@ -1,7 +1,7 @@
 # DCH_cache_getnew
 
 ## Location
-src/backend/utils/adt/formatting.c: 4073 - 4132
+[src/backend/utils/adt/formatting.c:4073-4132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4073-L4132)
 
 ## Overview
 Selects and prepares a DCHCacheEntry to hold a given format pattern string, either by recycling an existing entry or allocating a new one.

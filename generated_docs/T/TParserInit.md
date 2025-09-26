@@ -1,7 +1,7 @@
 # TParserInit
 
 ## Location
-src/backend/tsearch/wparser_def.c: 289 - 345
+[src/backend/tsearch/wparser_def.c:289-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L289-L345)
 
 ## Overview
 Initializes a new TParser structure for parsing text in PostgreSQL's text search word parser, handling both single-byte and multi-byte character encodings.

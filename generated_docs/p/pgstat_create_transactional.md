@@ -1,7 +1,7 @@
 # pgstat_create_transactional
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 357 - 378
+[src/backend/utils/activity/pgstat_xact.c:357-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L357-L378)
 
 ## Overview
 Creates a statistics entry for a newly created database object in a transactional manner, ensuring that if the current transaction or sub-transaction aborts, the stats entry will also be dropped.

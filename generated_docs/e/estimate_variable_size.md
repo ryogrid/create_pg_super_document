@@ -1,7 +1,7 @@
 # estimate_variable_size
 
 ## Location
-src/backend/utils/misc/guc.c: 5856 - 5955
+[src/backend/utils/misc/guc.c:5856-5955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5856-L5955)
 
 ## Overview
 Computes the space needed for dumping a given GUC variable during parallel worker serialization, providing size estimates for different GUC data types.

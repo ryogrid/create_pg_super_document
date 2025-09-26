@@ -1,7 +1,7 @@
 # get_rolespec_oid
 
 ## Location
-src/backend/utils/adt/acl.c: 5471 - 5509
+[src/backend/utils/adt/acl.c:5471-5509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5471-L5509)
 
 ## Overview
 Converts a RoleSpec node from the parser into its corresponding role OID, handling various role specification types including current user references.

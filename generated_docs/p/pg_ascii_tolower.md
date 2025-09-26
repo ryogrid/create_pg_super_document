@@ -1,7 +1,7 @@
 # pg_ascii_tolower
 
 ## Location
-src/port/pgstrcasecmp.c: 146 - 151
+[src/port/pgstrcasecmp.c:146-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pgstrcasecmp.c#L146-L151)
 
 ## Overview
 Converts an ASCII uppercase character to its lowercase equivalent following C/POSIX locale rules, providing a locale-independent character case conversion for the ASCII character set.

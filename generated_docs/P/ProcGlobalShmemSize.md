@@ -1,7 +1,7 @@
 # ProcGlobalShmemSize
 
 ## Location
-src/backend/storage/lmgr/proc.c: 100 - 121
+[src/backend/storage/lmgr/proc.c:100-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L100-L121)
 
 ## Overview
 Reports the amount of shared memory space needed by InitProcGlobal for process management data structures.

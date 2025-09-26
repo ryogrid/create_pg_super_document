@@ -1,7 +1,7 @@
 # push_prediction
 
 ## Location
-src/common/jsonapi.c: 425 - 431
+[src/common/jsonapi.c:425-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L425-L431)
 
 ## Overview
 Adds a production rule to the JSON parser's prediction stack by copying the production sequence from a table entry.

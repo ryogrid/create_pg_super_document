@@ -1,7 +1,7 @@
 # BuildTupleHashTable
 
 ## Location
-src/backend/executor/execGrouping.c: 253 - 282
+[src/backend/executor/execGrouping.c:253-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execGrouping.c#L253-L282)
 
 ## Overview
 A backwards-compatibility wrapper function that creates a TupleHashTable by calling BuildTupleHashTableExt with simplified memory context management.

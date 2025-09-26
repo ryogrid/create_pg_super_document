@@ -1,7 +1,7 @@
 # fmtptr
 
 ## Location
-src/port/snprintf.c: 993 - 1006
+[src/port/snprintf.c:993-1006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L993-L1006)
 
 ## Overview
 Formats and outputs a pointer value using the %p format specifier in PostgreSQL's portable snprintf implementation.

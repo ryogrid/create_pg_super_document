@@ -1,7 +1,7 @@
 # pg_atomic_monotonic_advance_u64
 
 ## Location
-src/include/port/atomics.h: 580 - 603
+[src/include/port/atomics.h:580-603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L580-L603)
 
 ## Overview
 Atomically advances a 64-bit unsigned integer to at least a specified target value using only atomic operations, ensuring monotonic progression.

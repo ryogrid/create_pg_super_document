@@ -1,7 +1,7 @@
 # NestLoopParam
 
 ## Location
-src/include/nodes/plannodes.h: 813 - 820
+[src/include/nodes/plannodes.h:813-820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L813-L820)
 
 ## Overview
 NestLoopParam represents a parameter used in nested loop joins to pass values from outer relation tuples to the inner scan, enabling parameterized nested loop execution.

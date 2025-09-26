@@ -1,7 +1,7 @@
 # AtEOXact_ApplyLauncher
 
 ## Location
-src/backend/replication/logical/launcher.c: 1099 - 1117
+[src/backend/replication/logical/launcher.c:1099-1117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L1099-L1117)
 
 ## Overview
 Transaction end callback that conditionally wakes up the logical replication launcher when a transaction commits, ensuring that subscription changes take effect promptly.

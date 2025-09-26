@@ -1,7 +1,7 @@
 # stream_abort_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1384 - 1424
+[src/backend/replication/logical/logical.c:1384-1424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1384-L1424)
 
 ## Overview
 A wrapper function that sets up error handling context and calls the plugin's stream_abort callback to notify about the abortion of a streaming transaction in logical replication.

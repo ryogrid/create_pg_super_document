@@ -1,7 +1,7 @@
 # PQfsize
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3730 - 3740
+[src/interfaces/libpq/fe-exec.c:3730-3740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3730-L3740)
 
 ## Overview
 Returns the size in bytes of the specified field's PostgreSQL data type.

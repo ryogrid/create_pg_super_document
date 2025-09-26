@@ -1,7 +1,7 @@
 # table_tuple_delete
 
 ## Location
-src/include/access/tableam.h: 1492 - 1535
+[src/include/access/tableam.h:1492-1535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1492-L1535)
 
 ## Overview
 Deletes a single tuple from a table, providing low-level tuple deletion functionality with support for concurrent update handling and MVCC visibility checks.

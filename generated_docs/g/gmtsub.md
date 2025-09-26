@@ -1,7 +1,7 @@
 # gmtsub
 
 ## Location
-src/timezone/localtime.c: 1357 - 1388
+[src/timezone/localtime.c:1357-1388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L1357-L1388)
 
 ## Overview
 Converts a UTC timestamp to GMT representation with optional offset adjustment, serving as the GMT equivalent of the  function for local time conversion.

@@ -1,7 +1,7 @@
 # elog_node_display
 
 ## Location
-src/backend/nodes/print.c: 72 - 96
+[src/backend/nodes/print.c:72-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/print.c#L72-L96)
 
 ## Overview
 A utility function that sends formatted PostgreSQL Node contents to the postmaster log with configurable formatting and logging levels.

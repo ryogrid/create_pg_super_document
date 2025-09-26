@@ -1,7 +1,7 @@
 # config_enum_lookup_by_value
 
 ## Location
-src/backend/utils/misc/guc.c: 3025 - 3047
+[src/backend/utils/misc/guc.c:3025-3047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L3025-L3047)
 
 ## Overview
 Performs reverse lookup to find the string name corresponding to a given integer value in a PostgreSQL configuration enum.

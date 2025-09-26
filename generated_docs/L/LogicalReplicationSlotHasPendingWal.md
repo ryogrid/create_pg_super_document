@@ -1,7 +1,7 @@
 # LogicalReplicationSlotHasPendingWal
 
 ## Location
-src/backend/replication/logical/logical.c: 2026 - 2107
+[src/backend/replication/logical/logical.c:2026-2107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L2026-L2107)
 
 ## Overview
 Determines if a logical replication slot has pending WAL records that contain meaningful decodable changes by reading from the slot's restart LSN to the end of WAL in fast-forward mode.

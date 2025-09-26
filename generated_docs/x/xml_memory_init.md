@@ -1,7 +1,7 @@
 # xml_memory_init
 
 ## Location
-src/backend/utils/adt/xml.c: 1946 - 1961
+[src/backend/utils/adt/xml.c:1946-1961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1946-L1961)
 
 ## Overview
 Initializes or reinitializes the special memory context used for libxml allocations and sets up custom memory management callbacks for the libxml library.

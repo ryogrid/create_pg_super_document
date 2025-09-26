@@ -1,7 +1,7 @@
 # list_second_cell
 
 ## Location
-src/include/nodes/pg_list.h: 142 - 151
+[src/include/nodes/pg_list.h:142-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pg_list.h#L142-L151)
 
 ## Overview
 Returns the second cell in a PostgreSQL list structure, or NULL if the list has fewer than two elements.

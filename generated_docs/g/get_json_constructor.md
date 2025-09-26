@@ -1,7 +1,7 @@
 # get_json_constructor
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11342 - 11407
+[src/backend/utils/adt/ruleutils.c:11342-11407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11342-L11407)
 
 ## Overview
 A static function within the rule decompilation system that parses back a JsonConstructorExpr node into its corresponding SQL JSON constructor function representation.

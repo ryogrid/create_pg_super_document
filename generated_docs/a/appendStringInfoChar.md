@@ -1,7 +1,7 @@
 # appendStringInfoChar
 
 ## Location
-src/common/stringinfo.c: 194 - 211
+[src/common/stringinfo.c:194-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L194-L211)
 
 ## Overview
 A utility function that appends a single character to a StringInfo buffer, providing an optimized alternative to using appendStringInfo with a "%c" format specifier.

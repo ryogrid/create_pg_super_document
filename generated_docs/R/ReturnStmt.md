@@ -1,7 +1,7 @@
 # ReturnStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2210 - 2214
+[src/include/nodes/parsenodes.h:2210-2214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2210-L2214)
 
 ## Overview
 ReturnStmt represents a RETURN statement inside a SQL function body, used to return a value from a function.

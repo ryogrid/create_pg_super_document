@@ -1,7 +1,7 @@
 # numeric_ne
 
 ## Location
-src/backend/utils/adt/numeric.c: 2446 - 2460
+[src/backend/utils/adt/numeric.c:2446-2460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2446-L2460)
 
 ## Overview
 PostgreSQL built-in function that tests inequality between two numeric values, returning a boolean result.

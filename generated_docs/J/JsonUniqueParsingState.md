@@ -1,7 +1,7 @@
 # JsonUniqueParsingState
 
 ## Location
-src/backend/utils/adt/json.c: 57 - 64
+[src/backend/utils/adt/json.c:57-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L57-L64)
 
 ## Overview
 JsonUniqueParsingState is a comprehensive context structure that manages all state information required for JSON key uniqueness validation during JSON parsing operations.

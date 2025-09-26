@@ -1,7 +1,7 @@
 # readdir
 
 ## Location
-src/port/dirent.c: 78 - 126
+[src/port/dirent.c:78-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/dirent.c#L78-L126)
 
 ## Overview
 The readdir function provides a Windows-compatible implementation of the POSIX readdir() function, enabling directory traversal by returning successive directory entries from an opened DIR structure.

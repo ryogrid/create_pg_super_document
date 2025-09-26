@@ -1,7 +1,7 @@
 # enable_timeout_every
 
 ## Location
-src/backend/utils/misc/timeout.c: 584 - 606
+[src/backend/utils/misc/timeout.c:584-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L584-L606)
 
 ## Overview
 Enables a timeout to fire periodically at regular intervals, with a specified delay between each firing.

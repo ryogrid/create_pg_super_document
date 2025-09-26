@@ -1,7 +1,7 @@
 # fsm_readbuf
 
 ## Location
-src/backend/storage/freespace/freespace.c: 554 - 628
+[src/backend/storage/freespace/freespace.c:554-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L554-L628)
 
 ## Overview
 Reads a Free Space Map (FSM) page from storage, handling cases where the page doesn't exist and optionally extending the FSM file when needed.

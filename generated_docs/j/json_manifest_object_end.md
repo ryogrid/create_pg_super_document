@@ -1,7 +1,7 @@
 # json_manifest_object_end
 
 ## Location
-src/common/parse_manifest.c: 317 - 350
+[src/common/parse_manifest.c:317-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L317-L350)
 
 ## Overview
 Handles the end of JSON objects during PostgreSQL backup manifest parsing, managing state transitions and finalizing file or WAL range entries.

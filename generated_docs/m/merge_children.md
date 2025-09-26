@@ -1,7 +1,7 @@
 # merge_children
 
 ## Location
-src/backend/lib/pairingheap.c: 234 - 295
+[src/backend/lib/pairingheap.c:234-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/pairingheap.c#L234-L295)
 
 ## Overview
 Merges a list of sibling subheaps into a single heap using the two-pass pairing heap merge strategy.

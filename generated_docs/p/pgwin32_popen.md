@@ -1,7 +1,7 @@
 # pgwin32_popen
 
 ## Location
-src/port/system.c: 86 - 117
+[src/port/system.c:86-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/system.c#L86-L117)
 
 ## Overview
 A Windows-specific wrapper function that opens a pipe to execute system commands, automatically adding quotes around the command string to handle arguments with spaces safely.

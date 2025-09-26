@@ -1,7 +1,7 @@
 # auto_mem_destructor
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 75 - 81
+[src/interfaces/ecpg/ecpglib/memory.c:75-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L75-L81)
 
 ## Overview
 A static callback function that automatically cleans up thread-local memory allocations when a thread terminates in ECPG's automatic memory management system.

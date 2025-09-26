@@ -1,7 +1,7 @@
 # set_auto_allocs
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 95 - 100
+[src/interfaces/ecpg/ecpglib/memory.c:95-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L95-L100)
 
 ## Overview
 Sets the thread-specific linked list head for automatically allocated memory blocks for the current thread.

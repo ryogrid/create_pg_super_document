@@ -1,7 +1,7 @@
 # emptyreachable
 
 ## Location
-src/backend/regex/regc_nfa.c: 2303 - 2330
+[src/backend/regex/regc_nfa.c:2303-2330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L2303-L2330)
 
 ## Overview
 Recursively finds all states that can reach a given state through chains of EMPTY arcs in PostgreSQL's regex NFA implementation.

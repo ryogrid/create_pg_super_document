@@ -1,7 +1,7 @@
 # ArrayCast
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4804 - 4814
+[src/backend/utils/adt/arrayfuncs.c:4804-4814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4804-L4814)
 
 ## Overview
 A static utility function that fetches an array element value from memory and converts it correctly to a PostgreSQL Datum type.

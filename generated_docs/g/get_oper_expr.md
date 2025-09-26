@@ -1,7 +1,7 @@
 # get_oper_expr
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10425 - 10464
+[src/backend/utils/adt/ruleutils.c:10425-10464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10425-L10464)
 
 ## Overview
 Parses back an OpExpr (operator expression) node into its human-readable string representation for rule deparsing.

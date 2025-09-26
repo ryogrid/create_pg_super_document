@@ -1,7 +1,7 @@
 # xml_ereport
 
 ## Location
-src/backend/utils/adt/xml.c: 2022 - 2058
+[src/backend/utils/adt/xml.c:2022-2058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2022-L2058)
 
 ## Overview
 A centralized error reporting function that generates PostgreSQL errors for XML-related operations, combining SQL-level messages with detailed libxml error information.

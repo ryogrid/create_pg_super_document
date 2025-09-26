@@ -1,7 +1,7 @@
 # attype
 
 ## Location
-src/timezone/zic.c: 390 - 410
+[src/timezone/zic.c:390-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L390-L410)
 
 ## Overview
 A structure that represents a timezone transition point, containing the time of the transition, its timezone type, and merging control information used by the timezone compiler (zic).

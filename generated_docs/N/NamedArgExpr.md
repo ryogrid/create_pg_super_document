@@ -1,7 +1,7 @@
 # NamedArgExpr
 
 ## Location
-src/include/nodes/primnodes.h: 787 - 798
+[src/include/nodes/primnodes.h:787-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L787-L798)
 
 ## Overview
 NamedArgExpr represents a named argument of a function call in PostgreSQL's query tree, supporting both positional and named function argument notation.

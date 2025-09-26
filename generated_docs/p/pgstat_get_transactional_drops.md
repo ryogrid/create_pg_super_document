@@ -1,7 +1,7 @@
 # pgstat_get_transactional_drops
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 270 - 311
+[src/backend/utils/activity/pgstat_xact.c:270-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L270-L311)
 
 ## Overview
 Extracts statistics items that need to be dropped during transaction commit or abort, used for WAL record construction to ensure stats consistency across crashes and standby servers.

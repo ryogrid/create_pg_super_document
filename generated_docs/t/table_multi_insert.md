@@ -1,7 +1,7 @@
 # table_multi_insert
 
 ## Location
-src/include/access/tableam.h: 1458 - 1491
+[src/include/access/tableam.h:1458-1491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1458-L1491)
 
 ## Overview
 Inserts multiple tuples into a table in a single operation, providing performance benefits over individual tuple insertions by reducing WAL logging and page locking overhead.

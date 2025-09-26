@@ -1,7 +1,7 @@
 # Edge
 
 ## Location
-src/include/optimizer/geqo_recombination.h: 35 - 40
+[src/include/optimizer/geqo_recombination.h:35-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/geqo_recombination.h#L35-L40)
 
 ## Overview
 The Edge struct is a core data structure used in PostgreSQL's Genetic Query Optimizer (GEQO) for edge recombination crossover (ERX) operations during genetic algorithm-based query optimization.

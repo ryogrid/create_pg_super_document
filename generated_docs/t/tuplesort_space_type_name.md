@@ -1,7 +1,7 @@
 # tuplesort_space_type_name
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2604 - 2624
+[src/backend/utils/sort/tuplesort.c:2604-2624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2604-L2624)
 
 ## Overview
 Converts a TuplesortSpaceType enumeration value to a human-readable string representation indicating whether the sort operation used memory or disk storage.

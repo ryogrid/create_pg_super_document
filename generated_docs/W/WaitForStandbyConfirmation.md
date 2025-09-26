@@ -1,7 +1,7 @@
 # WaitForStandbyConfirmation
 
 ## Location
-src/backend/replication/slot.c: 2746 - 2782
+[src/backend/replication/slot.c:2746-2782](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L2746-L2782)
 
 ## Overview
 WaitForStandbyConfirmation waits for physical standby servers to confirm receipt of WAL data up to a specified LSN, used specifically by logical decoding SQL functions to ensure data consistency across synchronized standby slots.

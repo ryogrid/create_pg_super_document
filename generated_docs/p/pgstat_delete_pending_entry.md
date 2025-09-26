@@ -1,7 +1,7 @@
 # pgstat_delete_pending_entry
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1158 - 1181
+[src/backend/utils/activity/pgstat.c:1158-1181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1158-L1181)
 
 ## Overview
 Deletes a pending statistics entry and cleans up associated resources, calling kind-specific deletion callbacks if available and removing the entry from the pending list.

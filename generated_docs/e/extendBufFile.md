@@ -1,7 +1,7 @@
 # extendBufFile
 
 ## Location
-src/backend/storage/file/buffile.c: 156 - 192
+[src/backend/storage/file/buffile.c:156-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L156-L192)
 
 ## Overview
 Adds a new component file to an existing BufFile, expanding its capacity when the current files become full.

@@ -1,7 +1,7 @@
 # get_float8_infinity
 
 ## Location
-src/interfaces/ecpg/ecpglib/data.c: 80 - 89
+[src/interfaces/ecpg/ecpglib/data.c:80-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/data.c#L80-L89)
 
 ## Overview
 A utility function that returns the IEEE 754 representation of positive infinity as a double-precision floating-point value, with fallback implementation for systems that don't support the INFINITY macro.

@@ -1,7 +1,7 @@
 # is_alpha
 
 ## Location
-src/timezone/zic.c: 3486 - 3550
+[src/timezone/zic.c:3486-3550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3486-L3550)
 
 ## Overview
 A utility function that determines whether a given character is alphabetic in the C locale, used specifically in PostgreSQL's timezone handling code.

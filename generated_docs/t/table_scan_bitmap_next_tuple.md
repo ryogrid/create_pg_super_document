@@ -1,7 +1,7 @@
 # table_scan_bitmap_next_tuple
 
 ## Location
-src/include/access/tableam.h: 1986 - 2012
+[src/include/access/tableam.h:1986-2012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1986-L2012)
 
 ## Overview
 Fetches the next tuple from a bitmap table scan into a slot and returns whether a visible tuple was found.

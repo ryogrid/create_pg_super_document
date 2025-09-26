@@ -1,7 +1,7 @@
 # declared_list
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 150 - 156
+[src/interfaces/ecpg/preproc/type.h:150-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L150-L156)
 
 ## Overview
 The `declared_list` struct maintains a linked list of declared statements or entities in PostgreSQL's ECPG preprocessor, tracking names and their associated database connections.

@@ -1,7 +1,7 @@
 # test_rb_tree
 
 ## Location
-src/test/modules/test_rbtree/test_rbtree.c: 503 - 516
+[src/test/modules/test_rbtree/test_rbtree.c:503-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_rbtree/test_rbtree.c#L503-L516)
 
 ## Overview
 The main entry point function for the PostgreSQL Red-Black Tree test suite that orchestrates all comprehensive tests to validate the Red-Black Tree implementation.

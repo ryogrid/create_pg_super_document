@@ -1,7 +1,7 @@
 # TS_execute_locations
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2007 - 2024
+[src/backend/utils/adt/tsvector_op.c:2007-2024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2007-L2024)
 
 ## Overview
 TS_execute_locations evaluates tsquery expressions and returns detailed location information for matching terms, providing both match success/failure status and precise lexeme position data for all matched components.

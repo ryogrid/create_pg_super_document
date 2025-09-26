@@ -1,7 +1,7 @@
 # ReadControlFile
 
 ## Location
-src/backend/access/transam/xlog.c: 4298 - 4513
+[src/backend/access/transam/xlog.c:4298-4513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4298-L4513)
 
 ## Overview
 Reads and validates the pg_control file during database startup, performing extensive compatibility checks to ensure the database files match the server executable's compilation parameters.

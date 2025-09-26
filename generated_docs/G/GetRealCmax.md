@@ -1,7 +1,7 @@
 # GetRealCmax
 
 ## Location
-src/backend/utils/time/combocid.c: 286 - 296
+[src/backend/utils/time/combocid.c:286-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/combocid.c#L286-L296)
 
 ## Overview
 GetRealCmax is an internal function that retrieves the original cmax (command ID of deletion) from a combo command ID in PostgreSQL's combo CID system.

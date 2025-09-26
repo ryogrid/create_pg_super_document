@@ -1,7 +1,7 @@
 # SerializeComboCIDState
 
 ## Location
-src/backend/utils/time/combocid.c: 316 - 341
+[src/backend/utils/time/combocid.c:316-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/combocid.c#L316-L341)
 
 ## Overview
 SerializeComboCIDState serializes the current combo command ID state into a memory buffer for sharing with parallel worker processes in PostgreSQL.

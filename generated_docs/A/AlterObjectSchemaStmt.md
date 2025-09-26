@@ -1,7 +1,7 @@
 # AlterObjectSchemaStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3557 - 3565
+[src/include/nodes/parsenodes.h:3557-3565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3557-L3565)
 
 ## Overview
 AlterObjectSchemaStmt is a PostgreSQL parse node structure that represents an ALTER object SET SCHEMA statement for moving database objects between schemas.

@@ -1,7 +1,7 @@
 # FreePageBtreeRemovePage
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 987 - 1063
+[src/backend/utils/mmgr/freepage.c:987-1063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L987-L1063)
 
 ## Overview
 Removes an entire page from the btree structure, handling parent updates, root removal, and recycling the page for future use.

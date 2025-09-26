@@ -1,7 +1,7 @@
 # json_manifest_finalize_version
 
 ## Location
-src/common/parse_manifest.c: 596 - 623
+[src/common/parse_manifest.c:596-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L596-L623)
 
 ## Overview
 Performs additional parsing and validation of the manifest version field and invokes a callback to notify the caller about the version details.

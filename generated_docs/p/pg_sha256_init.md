@@ -1,7 +1,7 @@
 # pg_sha256_init
 
 ## Location
-src/common/sha2.c: 279 - 291
+[src/common/sha2.c:279-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L279-L291)
 
 ## Overview
 Initializes a SHA-256 context structure to prepare it for hashing operations by setting the initial hash values, clearing the buffer, and resetting the bit count.

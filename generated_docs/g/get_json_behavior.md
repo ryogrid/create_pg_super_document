@@ -1,7 +1,7 @@
 # get_json_behavior
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8877 - 8914
+[src/backend/utils/adt/ruleutils.c:8877-8914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8877-L8914)
 
 ## Overview
 Formats and outputs JSON behavior specifications (NULL, ERROR, EMPTY, etc.) for SQL/JSON functions in PostgreSQL rule decompilation.

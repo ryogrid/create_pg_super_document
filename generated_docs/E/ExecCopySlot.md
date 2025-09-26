@@ -1,7 +1,7 @@
 # ExecCopySlot
 
 ## Location
-src/include/executor/tuptable.h: 509 - 523
+[src/include/executor/tuptable.h:509-523](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L509-L523)
 
 ## Overview
 ExecCopySlot is a static inline function that efficiently copies the contents from one tuple table slot to another, utilizing the slot's specific copy implementation through its operation interface.

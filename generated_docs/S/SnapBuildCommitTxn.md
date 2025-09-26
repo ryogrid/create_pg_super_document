@@ -1,7 +1,7 @@
 # SnapBuildCommitTxn
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 1078 - 1243
+[src/backend/replication/logical/snapbuild.c:1078-1243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L1078-L1243)
 
 ## Overview
 Handles all necessary processing when a transaction commits in the logical replication snapshot building context, managing snapshot state transitions, catalog change tracking, and timeline visibility.

@@ -1,7 +1,7 @@
 # parse_compress_algorithm
 
 ## Location
-src/common/compression.c: 49 - 68
+[src/common/compression.c:49-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/compression.c#L49-L68)
 
 ## Overview
 A utility function that parses a compression algorithm name string and converts it to the corresponding  enumeration value.

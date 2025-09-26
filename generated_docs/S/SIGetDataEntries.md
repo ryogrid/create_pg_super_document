@@ -1,7 +1,7 @@
 # SIGetDataEntries
 
 ## Location
-src/backend/storage/ipc/sinvaladt.c: 473 - 576
+[src/backend/storage/ipc/sinvaladt.c:473-576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinvaladt.c#L473-L576)
 
 ## Overview
 Retrieves the next shared invalidation message(s) for the current backend from the shared invalidation queue, providing a mechanism for backends to receive cache invalidation notifications.

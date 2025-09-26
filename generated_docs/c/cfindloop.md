@@ -1,7 +1,7 @@
 # cfindloop
 
 ## Location
-src/backend/regex/regexec.c: 549 - 662
+[src/backend/regex/regexec.c:549-662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L549-L662)
 
 ## Overview
 The core matching engine for complex regex patterns with complications like backreferences.

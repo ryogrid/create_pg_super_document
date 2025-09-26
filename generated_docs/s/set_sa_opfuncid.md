@@ -1,7 +1,7 @@
 # set_sa_opfuncid
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 1873 - 1899
+[src/backend/nodes/nodeFuncs.c:1873-1899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L1873-L1899)
 
 ## Overview
 Sets the operator function ID (procedure OID) in a ScalarArrayOpExpr node if it hasn't been set already.

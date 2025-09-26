@@ -1,7 +1,7 @@
 # QualCost
 
 ## Location
-src/include/nodes/pathnodes.h: 45 - 49
+[src/include/nodes/pathnodes.h:45-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L45-L49)
 
 ## Overview
 QualCost is a structure that represents cost estimates for query qualifiers (WHERE clauses, join conditions, etc.), containing both one-time startup costs and per-tuple evaluation costs.

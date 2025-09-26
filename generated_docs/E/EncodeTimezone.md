@@ -1,7 +1,7 @@
 # EncodeTimezone
 
 ## Location
-src/backend/utils/adt/datetime.c: 4189 - 4226
+[src/backend/utils/adt/datetime.c:4189-4226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L4189-L4226)
 
 ## Overview
 EncodeTimezone formats a numeric timezone offset into a string representation, handling different formatting styles for date/time output.

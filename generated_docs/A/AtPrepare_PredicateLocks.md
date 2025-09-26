@@ -1,7 +1,7 @@
 # AtPrepare_PredicateLocks
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 4780 - 4848
+[src/backend/storage/lmgr/predicate.c:4780-4848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L4780-L4848)
 
 ## Overview
 Prepares predicate locks for two-phase commit by serializing the current transaction's serializable state and all held predicate locks into 2PC state file records.

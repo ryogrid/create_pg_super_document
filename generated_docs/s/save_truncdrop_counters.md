@@ -1,7 +1,7 @@
 # save_truncdrop_counters
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 963 - 977
+[src/backend/utils/activity/pgstat_relation.c:963-977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L963-L977)
 
 ## Overview
 Saves the current insert/update/delete counter values before a table truncation or drop operation, enabling restoration of these counters if the transaction is later rolled back.

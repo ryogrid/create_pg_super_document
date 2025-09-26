@@ -1,7 +1,7 @@
 # FreePageBtreeRemove
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 955 - 986
+[src/backend/utils/mmgr/freepage.c:955-986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L955-L986)
 
 ## Overview
 Removes an item from a btree leaf page at a specified index, handling page removal, key adjustments, and consolidation as needed.

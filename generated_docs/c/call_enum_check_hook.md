@@ -1,7 +1,7 @@
 # call_enum_check_hook
 
 ## Location
-src/backend/utils/misc/guc.c: 6964 - 6996
+[src/backend/utils/misc/guc.c:6964-6996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6964-L6996)
 
 ## Overview
 A static function that validates enumeration GUC parameters by calling their associated check hooks and providing enum-specific error reporting with value name lookup.

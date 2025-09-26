@@ -1,7 +1,7 @@
 # get_json_constructor_options
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11408 - 11437
+[src/backend/utils/adt/ruleutils.c:11408-11437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11408-L11437)
 
 ## Overview
 A static helper function that appends JSON constructor options to a StringInfo buffer during rule deparsing operations.

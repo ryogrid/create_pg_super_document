@@ -1,7 +1,7 @@
 # pg_euctw_mblen
 
 ## Location
-src/common/wchar.c: 339 - 354
+[src/common/wchar.c:339-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L339-L354)
 
 ## Overview
 Determines the byte length of a single multibyte character in EUC-TW (Extended Unix Code for Taiwan) encoding.

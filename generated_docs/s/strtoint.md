@@ -1,7 +1,7 @@
 # strtoint
 
 ## Location
-src/common/string.c: 51 - 85
+[src/common/string.c:51-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/string.c#L51-L85)
 
 ## Overview
 A wrapper function around the standard C library's  that converts strings to integer values, providing additional range checking to ensure the result fits within the  data type.

@@ -1,7 +1,7 @@
 # _hash_get_indextuple_hashkey
 
 ## Location
-src/backend/access/hash/hashutil.c: 291 - 317
+[src/backend/access/hash/hashutil.c:291-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L291-L317)
 
 ## Overview
 Extracts the hash key value from a hash index tuple, providing fast access to the stored hash value.

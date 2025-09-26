@@ -1,7 +1,7 @@
 # XLogInitBufferForRedo
 
 ## Location
-src/backend/access/transam/xlogutils.c: 326 - 350
+[src/backend/access/transam/xlogutils.c:326-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L326-L350)
 
 ## Overview
 Pins and locks a buffer referenced by a WAL record for the purpose of re-initializing it with zeroed content, typically used when creating new pages during WAL replay.

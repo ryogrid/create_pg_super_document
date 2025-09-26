@@ -1,7 +1,7 @@
 # inzcont
 
 ## Location
-src/timezone/zic.c: 1556 - 1566
+[src/timezone/zic.c:1556-1566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1556-L1566)
 
 ## Overview
 Processes a timezone Zone continuation line from input by validating field count and delegating to inzsub for detailed processing.

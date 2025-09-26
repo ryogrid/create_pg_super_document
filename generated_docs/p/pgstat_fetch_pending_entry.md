@@ -1,7 +1,7 @@
 # pgstat_fetch_pending_entry
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1145 - 1157
+[src/backend/utils/activity/pgstat.c:1145-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1145-L1157)
 
 ## Overview
 Fetches an existing pending statistics entry without creating a new one, primarily used as a helper function for pgstatfuncs.c to retrieve statistics entries that are already in the pending state.

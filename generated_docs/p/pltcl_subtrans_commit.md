@@ -1,7 +1,7 @@
 # pltcl_subtrans_commit
 
 ## Location
-src/pl/tcl/pltcl.c: 2287 - 2295
+[src/pl/tcl/pltcl.c:2287-2295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2287-L2295)
 
 ## Overview
 Commits a subtransaction and restores the original transaction context, memory context, and resource owner in PL/Tcl operations.

@@ -1,7 +1,7 @@
 # TableSpaceOpts
 
 ## Location
-src/include/commands/tablespace.h: 39 - 46
+[src/include/commands/tablespace.h:39-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/tablespace.h#L39-L46)
 
 ## Overview
 A structure that defines configuration options and cost parameters for tablespaces, used to customize I/O behavior and performance characteristics on a per-tablespace basis.

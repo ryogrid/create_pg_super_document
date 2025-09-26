@@ -1,7 +1,7 @@
 # itemptr_encode
 
 ## Location
-src/include/catalog/index.h: 189 - 209
+[src/include/catalog/index.h:189-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/index.h#L189-L209)
 
 ## Overview
 Encodes an ItemPointer (TID) as a 64-bit integer value that preserves the sorting order of the original TID values for performance optimization during index validation.

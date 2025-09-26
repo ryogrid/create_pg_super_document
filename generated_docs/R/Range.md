@@ -1,7 +1,7 @@
 # Range
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 107 - 112
+[src/backend/utils/adt/geo_spgist.c:107-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L107-L112)
 
 ## Overview
 Range is a simple structure used in PostgreSQL's geometric SP-GiST index implementation to represent a one-dimensional range with low and high boundaries.

@@ -1,7 +1,7 @@
 # UpdateActiveSnapshotCommandId
 
 ## Location
-src/backend/utils/time/snapmgr.c: 712 - 742
+[src/backend/utils/time/snapmgr.c:712-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L712-L742)
 
 ## Overview
 Updates the command ID of the active snapshot to the current command ID, ensuring visibility consistency during command execution.

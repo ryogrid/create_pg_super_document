@@ -1,7 +1,7 @@
 # IsQueryIdEnabled
 
 ## Location
-src/include/nodes/queryjumble.h: 77 - 86
+[src/include/nodes/queryjumble.h:77-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/queryjumble.h#L77-L86)
 
 ## Overview
 IsQueryIdEnabled is a static inline function that determines whether query identifier computation is currently enabled based on the compute_query_id GUC setting and module-specific enablement.

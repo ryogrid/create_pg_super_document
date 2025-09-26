@@ -1,7 +1,7 @@
 # transformXmlSerialize
 
 ## Location
-src/backend/parser/parse_expr.c: 2484 - 2527
+[src/backend/parser/parse_expr.c:2484-2527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2484-L2527)
 
 ## Overview
 Transforms XMLSERIALIZE expressions during parsing by converting them into XmlExpr nodes with proper type coercion to the target output type.

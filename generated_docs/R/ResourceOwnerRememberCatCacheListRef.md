@@ -1,7 +1,7 @@
 # ResourceOwnerRememberCatCacheListRef
 
 ## Location
-src/backend/utils/cache/catcache.c: 169 - 173
+[src/backend/utils/cache/catcache.c:169-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L169-L173)
 
 ## Overview
 A convenience wrapper function that registers a catalog cache list reference with a resource owner to ensure proper cleanup during transaction abort or error recovery.

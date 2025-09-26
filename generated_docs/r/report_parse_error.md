@@ -1,7 +1,7 @@
 # report_parse_error
 
 ## Location
-src/common/jsonapi.c: 2056 - 2099
+[src/common/jsonapi.c:2056-2099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L2056-L2099)
 
 ## Overview
 Reports parsing errors during JSON parsing by determining the appropriate error type based on the current parsing context and lexical state.

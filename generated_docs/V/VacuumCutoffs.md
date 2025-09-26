@@ -1,7 +1,7 @@
 # VacuumCutoffs
 
 ## Location
-src/include/commands/vacuum.h: 246 - 284
+[src/include/commands/vacuum.h:246-284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/vacuum.h#L246-L284)
 
 ## Overview
 VacuumCutoffs is an immutable structure that holds the transaction ID and multixact ID cutoff values established at the beginning of each VACUUM operation.

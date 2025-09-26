@@ -1,7 +1,7 @@
 # RowMarkClause
 
 ## Location
-src/include/nodes/parsenodes.h: 1576 - 1583
+[src/include/nodes/parsenodes.h:1576-1583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1576-L1583)
 
 ## Overview
 RowMarkClause represents the parser output for FOR UPDATE, FOR SHARE, FOR KEY UPDATE, and FOR KEY SHARE clauses, specifying row-level locking requirements for specific relations in a query.

@@ -1,7 +1,7 @@
 # pqConnectOptions2
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 1120 - 1880
+[src/interfaces/libpq/fe-connect.c:1120-1880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L1120-L1880)
 
 ## Overview
 Computes derived connection options after absorbing all user-supplied information and validates them for PostgreSQL connections.

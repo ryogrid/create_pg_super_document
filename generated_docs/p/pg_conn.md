@@ -1,7 +1,7 @@
 # pg_conn
 
 ## Location
-src/interfaces/libpq/libpq-int.h: 365 - 650
+[src/interfaces/libpq/libpq-int.h:365-650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-int.h#L365-L650)
 
 ## Overview
 The core structure that stores all state data associated with a single PostgreSQL database connection, encompassing connection parameters, authentication state, I/O buffers, and protocol management.

@@ -1,7 +1,7 @@
 # GetConflictingVirtualXIDs
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3416 - 3489
+[src/backend/storage/ipc/procarray.c:3416-3489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3416-L3489)
 
 ## Overview
 Returns an array of currently active Virtual Transaction IDs (VXIDs) that may conflict with recovery operations, specifically designed for conflict resolution during recovery on standby servers.

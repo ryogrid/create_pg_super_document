@@ -1,7 +1,7 @@
 # surrogate_pair_to_codepoint
 
 ## Location
-src/include/mb/pg_wchar.h: 553 - 564
+[src/include/mb/pg_wchar.h:553-564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/mb/pg_wchar.h#L553-L564)
 
 ## Overview
 Converts a UTF-16 surrogate pair (high and low surrogate) into the corresponding Unicode code point value.

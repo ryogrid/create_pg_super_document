@@ -1,7 +1,7 @@
 # pg_euckr_dsplen
 
 ## Location
-src/common/wchar.c: 222 - 231
+[src/common/wchar.c:222-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L222-L231)
 
 ## Overview
 A static function that determines the display width of a character sequence in EUC-KR (Extended Unix Code for Korean) encoding.

@@ -1,7 +1,7 @@
 # DSMRegistryShmemSize
 
 ## Location
-src/backend/storage/ipc/dsm_registry.c: 63 - 68
+[src/backend/storage/ipc/dsm_registry.c:63-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_registry.c#L63-L68)
 
 ## Overview
 DSMRegistryShmemSize calculates the required shared memory size for the DSM registry system that manages named dynamic shared memory segments.

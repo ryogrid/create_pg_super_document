@@ -1,7 +1,7 @@
 # BlockRefTableBuffer
 
 ## Location
-src/common/blkreftable.c: 171 - 179
+[src/common/blkreftable.c:171-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L171-L179)
 
 ## Overview
 BlockRefTableBuffer provides an ad-hoc buffering mechanism for file I/O operations in block reference table serialization, managing data buffering, cursor tracking, and CRC calculation.

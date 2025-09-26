@@ -1,7 +1,7 @@
 # JsonParserStack
 
 ## Location
-src/common/jsonapi.c: 84 - 101
+[src/common/jsonapi.c:84-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L84-L101)
 
 ## Overview
 JsonParserStack is a structure containing the three stacks used in non-recursive JSON parsing, along with token and value storage for scalars that need to be preserved across parsing calls.

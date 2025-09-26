@@ -1,7 +1,7 @@
 # JsonBehavior
 
 ## Location
-src/include/nodes/primnodes.h: 1786 - 1794
+[src/include/nodes/primnodes.h:1786-1794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1786-L1794)
 
 ## Overview
 JsonBehavior specifies the ON ERROR and ON EMPTY behavior handling for SQL/JSON query functions, defining what expressions to evaluate when error or empty conditions occur.

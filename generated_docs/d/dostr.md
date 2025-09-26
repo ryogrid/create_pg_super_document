@@ -1,7 +1,7 @@
 # dostr
 
 ## Location
-src/port/snprintf.c: 1374 - 1410
+[src/port/snprintf.c:1374-1410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1374-L1410)
 
 ## Overview
 A utility function that efficiently outputs string data to a PrintfTarget, handling buffer management and providing a fast path for single-character strings.

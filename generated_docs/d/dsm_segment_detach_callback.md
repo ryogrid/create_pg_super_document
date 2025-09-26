@@ -1,7 +1,7 @@
 # dsm_segment_detach_callback
 
 ## Location
-src/backend/storage/ipc/dsm.c: 58 - 63
+[src/backend/storage/ipc/dsm.c:58-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L58-L63)
 
 ## Overview
 A backend-local structure that tracks callback functions to be executed when a dynamic shared memory (DSM) segment is detached.

@@ -1,7 +1,7 @@
 # ReplicaIdentityStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2419 - 2424
+[src/include/nodes/parsenodes.h:2419-2424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2419-L2424)
 
 ## Overview
 ReplicaIdentityStmt represents an ALTER TABLE ... REPLICA IDENTITY statement that configures how rows are identified for logical replication purposes.

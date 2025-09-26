@@ -1,7 +1,7 @@
 # ExecQualAndReset
 
 ## Location
-src/include/executor/executor.h: 441 - 504
+[src/include/executor/executor.h:441-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/executor.h#L441-L504)
 
 ## Overview
 ExecQualAndReset evaluates a qualification expression and immediately resets the per-tuple memory context, combining expression evaluation with memory management for optimal performance in tuple-processing loops.

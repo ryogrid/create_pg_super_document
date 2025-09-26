@@ -1,7 +1,7 @@
 # dshash_dump
 
 ## Location
-src/backend/lib/dshash.c: 778 - 831
+[src/backend/lib/dshash.c:778-831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L778-L831)
 
 ## Overview
 A debugging function that prints detailed internal state information about a dynamic shared hash table to stderr, including partition counts and bucket chain lengths.

@@ -1,7 +1,7 @@
 # _outBoolean
 
 ## Location
-src/backend/nodes/outfuncs.c: 664 - 669
+[src/backend/nodes/outfuncs.c:664-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L664-L669)
 
 ## Overview
 _outBoolean is a static helper function that serializes a Boolean node to its string representation in PostgreSQL's node output format.

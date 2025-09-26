@@ -1,7 +1,7 @@
 # hostname_match
 
 ## Location
-src/backend/libpq/hba.c: 1052 - 1071
+[src/backend/libpq/hba.c:1052-1071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L1052-L1071)
 
 ## Overview
 Compares a hostname pattern against an actual hostname, supporting both exact matches and suffix-based domain matching.

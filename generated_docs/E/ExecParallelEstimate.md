@@ -1,7 +1,7 @@
 # ExecParallelEstimate
 
 ## Location
-src/backend/executor/execParallel.c: 229 - 309
+[src/backend/executor/execParallel.c:229-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L229-L309)
 
 ## Overview
 Traverses a plan state tree to estimate shared memory requirements for parallel execution and counts instrumentation nodes for parallel query coordination.

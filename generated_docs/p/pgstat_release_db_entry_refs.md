@@ -1,7 +1,7 @@
 # pgstat_release_db_entry_refs
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 787 - 800
+[src/backend/utils/activity/pgstat_shmem.c:787-800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L787-L800)
 
 ## Overview
 Releases all local references to shared statistics entries that belong to a specific database, discarding any pending updates.

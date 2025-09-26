@@ -1,7 +1,7 @@
 # ltsReadBlock
 
 ## Location
-src/backend/utils/sort/logtape.c: 282 - 297
+[src/backend/utils/sort/logtape.c:282-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L282-L297)
 
 ## Overview
 Reads a block-sized buffer from a specified block position in the underlying BufFile of a LogicalTapeSet.

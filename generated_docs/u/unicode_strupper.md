@@ -1,7 +1,7 @@
 # unicode_strupper
 
 ## Location
-src/common/unicode_case.c: 124 - 136
+[src/common/unicode_case.c:124-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_case.c#L124-L136)
 
 ## Overview
 Converts a UTF-8 encoded string to uppercase and returns the result length without the terminating NUL.

@@ -1,7 +1,7 @@
 # LogicalTapeBackspace
 
 ## Location
-src/backend/utils/sort/logtape.c: 1062 - 1132
+[src/backend/utils/sort/logtape.c:1062-1132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L1062-L1132)
 
 ## Overview
 LogicalTapeBackspace moves the read position backward on a frozen logical tape by a specified number of bytes, enabling backward traversal of tape contents during merge operations.

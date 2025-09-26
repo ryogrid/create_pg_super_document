@@ -1,7 +1,7 @@
 # chooseNextStatEntry
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2381 - 2412
+[src/backend/utils/adt/tsvector_op.c:2381-2412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2381-L2412)
 
 ## Overview
 A recursive static function that implements a sampling strategy to process a subset of words from a TSVector for statistical analysis, using a divide-and-conquer approach to select representative entries.

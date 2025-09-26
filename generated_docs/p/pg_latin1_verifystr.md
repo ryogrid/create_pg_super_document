@@ -1,7 +1,7 @@
 # pg_latin1_verifystr
 
 ## Location
-src/common/wchar.c: 1416 - 1426
+[src/common/wchar.c:1416-1426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1416-L1426)
 
 ## Overview
 Verifies a Latin-1 encoded string by finding the first null byte, since all non-null bytes in Latin-1 encoding are valid characters.

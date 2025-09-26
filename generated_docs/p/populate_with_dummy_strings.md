@@ -1,7 +1,7 @@
 # populate_with_dummy_strings
 
 ## Location
-src/test/modules/test_bloomfilter/test_bloomfilter.c: 32 - 51
+[src/test/modules/test_bloomfilter/test_bloomfilter.c:32-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_bloomfilter/test_bloomfilter.c#L32-L51)
 
 ## Overview
 Populates an empty Bloom filter with a specified number of dummy string elements for testing purposes.

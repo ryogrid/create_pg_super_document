@@ -1,7 +1,7 @@
 # WordEntry
 
 ## Location
-src/include/tsearch/ts_type.h: 47 - 48
+[src/include/tsearch/ts_type.h:47-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_type.h#L47-L48)
 
 ## Overview
 WordEntry is a compact data structure representing individual word entries within PostgreSQL's text search vectors (tsvector), storing word position information and whether the word has positional data.

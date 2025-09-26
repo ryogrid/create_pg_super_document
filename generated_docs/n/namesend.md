@@ -1,7 +1,7 @@
 # namesend
 
 ## Location
-src/backend/utils/adt/name.c: 106 - 134
+[src/backend/utils/adt/name.c:106-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L106-L134)
 
 ## Overview
 The  function converts PostgreSQL's internal Name data type to external binary format for transmission through the binary protocol.

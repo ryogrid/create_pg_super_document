@@ -1,7 +1,7 @@
 # StandbyReleaseLockTree
 
 ## Location
-src/backend/storage/ipc/standby.c: 1091 - 1104
+[src/backend/storage/ipc/standby.c:1091-1104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1091-L1104)
 
 ## Overview
 StandbyReleaseLockTree releases all AccessExclusiveLocks held by a transaction tree (main transaction and its subtransactions) during WAL replay in hot standby mode.

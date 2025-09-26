@@ -1,7 +1,7 @@
 # ExecPhraseData
 
 ## Location
-src/include/tsearch/ts_utils.h: 161 - 168
+[src/include/tsearch/ts_utils.h:161-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_utils.h#L161-L168)
 
 ## Overview
 ExecPhraseData is a structure passed to TSExecuteCallback functions to provide lexeme position data when processing phrase-match operators in tsquery expressions.

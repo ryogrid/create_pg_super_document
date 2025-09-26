@@ -1,7 +1,7 @@
 # superuser
 
 ## Location
-src/backend/utils/misc/superuser.c: 46 - 55
+[src/backend/utils/misc/superuser.c:46-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/superuser.c#L46-L55)
 
 ## Overview
 Checks whether the current user has PostgreSQL superuser privileges by delegating to `superuser_arg` with the current user ID.

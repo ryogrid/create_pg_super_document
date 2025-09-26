@@ -1,7 +1,7 @@
 # pgstat_lock_entry_shared
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 637 - 648
+[src/backend/utils/activity/pgstat_shmem.c:637-648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L637-L648)
 
 ## Overview
 Acquires a shared lock on a statistics entry for safe read-only access to its data.

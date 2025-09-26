@@ -1,7 +1,7 @@
 # find_childrel_parents
 
 ## Location
-src/backend/optimizer/util/relnode.c: 1521 - 1556
+[src/backend/optimizer/util/relnode.c:1521-1556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L1521-L1556)
 
 ## Overview
 Computes the set of all parent relation IDs for an appendrel child relation, handling nested appendrel hierarchies.

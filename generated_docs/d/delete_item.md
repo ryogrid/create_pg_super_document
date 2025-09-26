@@ -1,7 +1,7 @@
 # delete_item
 
 ## Location
-src/backend/lib/dshash.c: 832 - 857
+[src/backend/lib/dshash.c:832-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L832-L857)
 
 ## Overview
 A static helper function that removes a locked item from a dynamic shared hash table and updates the corresponding partition count.

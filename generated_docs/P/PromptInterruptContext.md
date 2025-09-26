@@ -1,7 +1,7 @@
 # PromptInterruptContext
 
 ## Location
-src/include/common/string.h: 17 - 23
+[src/include/common/string.h:17-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/string.h#L17-L23)
 
 ## Overview
 PromptInterruptContext is a structure that provides a mechanism for safely canceling interactive prompts through signal handling, specifically SIGINT interrupts, using longjmp-based control flow.

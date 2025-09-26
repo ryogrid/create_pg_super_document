@@ -1,7 +1,7 @@
 # JoinExpr
 
 ## Location
-src/include/nodes/primnodes.h: 2277 - 2294
+[src/include/nodes/primnodes.h:2277-2294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2277-L2294)
 
 ## Overview
 JoinExpr represents SQL JOIN expressions in PostgreSQL's internal query tree, handling various types of joins including NATURAL, USING, and ON clauses with their respective semantics.

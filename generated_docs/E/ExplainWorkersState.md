@@ -1,7 +1,7 @@
 # ExplainWorkersState
 
 ## Location
-src/include/commands/explain.h: 35 - 42
+[src/include/commands/explain.h:35-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/explain.h#L35-L42)
 
 ## Overview
 A structure that manages per-worker output state for parallel query execution plans in PostgreSQL EXPLAIN output, allowing separate collection and formatting of execution statistics from each worker process.

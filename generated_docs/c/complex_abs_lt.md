@@ -1,7 +1,7 @@
 # complex_abs_lt
 
 ## Location
-src/tutorial/complex.c: 148 - 158
+[src/tutorial/complex.c:148-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L148-L158)
 
 ## Overview
 A PostgreSQL function that implements the "less than" comparison operator for the absolute values (magnitudes) of two complex numbers.

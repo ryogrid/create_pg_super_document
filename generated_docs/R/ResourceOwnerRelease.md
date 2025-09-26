@@ -1,7 +1,7 @@
 # ResourceOwnerRelease
 
 ## Location
-src/backend/utils/resowner/resowner.c: 648 - 667
+[src/backend/utils/resowner/resowner.c:648-667](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L648-L667)
 
 ## Overview
 Releases all resources owned by a ResourceOwner and its descendants in a specific phase of the multi-phase cleanup process.

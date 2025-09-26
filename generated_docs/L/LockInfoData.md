@@ -1,7 +1,7 @@
 # LockInfoData
 
 ## Location
-src/include/utils/rel.h: 44 - 47
+[src/include/utils/rel.h:44-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rel.h#L44-L47)
 
 ## Overview
 LockInfoData is a simple wrapper structure that encapsulates lock-related information for a relation, primarily containing the LockRelId used for locking operations.

@@ -1,7 +1,7 @@
 # DefineStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3140 - 3150
+[src/include/nodes/parsenodes.h:3140-3150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3140-L3150)
 
 ## Overview
 DefineStmt represents CREATE statements for user-defined database objects like aggregates, operators, and types in PostgreSQL parse tree.

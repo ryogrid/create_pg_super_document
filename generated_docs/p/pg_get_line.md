@@ -1,7 +1,7 @@
 # pg_get_line
 
 ## Location
-src/common/pg_get_line.c: 59 - 94
+[src/common/pg_get_line.c:59-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_get_line.c#L59-L94)
 
 ## Overview
 A dynamic string reading function that reads a line from a file stream into a palloc'd string buffer, automatically resizing the buffer to handle arbitrarily long input lines.

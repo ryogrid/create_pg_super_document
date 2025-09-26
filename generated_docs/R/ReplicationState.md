@@ -1,7 +1,7 @@
 # ReplicationState
 
 ## Location
-src/backend/replication/logical/origin.c: 101 - 134
+[src/backend/replication/logical/origin.c:101-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L101-L134)
 
 ## Overview
 ReplicationState is a structure that tracks the replay progress of a single remote node in PostgreSQL's logical replication system.

@@ -1,7 +1,7 @@
 # output_plugin_error_callback
 
 ## Location
-src/backend/replication/logical/logical.c: 774 - 792
+[src/backend/replication/logical/logical.c:774-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L774-L792)
 
 ## Overview
 output_plugin_error_callback is a static error callback function that provides detailed context information when errors occur within logical replication output plugin callbacks.

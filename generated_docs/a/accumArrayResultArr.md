@@ -1,7 +1,7 @@
 # accumArrayResultArr
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5538 - 5690
+[src/backend/utils/adt/arrayfuncs.c:5538-5690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5538-L5690)
 
 ## Overview
 Accumulates one sub-array into an ArrayBuildStateArr structure, building up data for creating a multi-dimensional array result.

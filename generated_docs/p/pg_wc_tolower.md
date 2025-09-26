@@ -1,7 +1,7 @@
 # pg_wc_tolower
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 651 - 707
+[src/backend/regex/regc_pg_locale.c:651-707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L651-L707)
 
 ## Overview
 Converts a wide character to its lowercase equivalent according to the current regex locale strategy.

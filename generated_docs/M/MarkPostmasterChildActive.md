@@ -1,7 +1,7 @@
 # MarkPostmasterChildActive
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 323 - 338
+[src/backend/storage/ipc/pmsignal.c:323-338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L323-L338)
 
 ## Overview
 Marks a postmaster child process as actively using shared memory, transitioning the child's status from assigned to active state.

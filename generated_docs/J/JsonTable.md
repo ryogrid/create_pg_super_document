@@ -1,7 +1,7 @@
 # JsonTable
 
 ## Location
-src/include/nodes/parsenodes.h: 1821 - 1832
+[src/include/nodes/parsenodes.h:1821-1832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1821-L1832)
 
 ## Overview
 JsonTable represents the untransformed parse tree representation of a JSON_TABLE expression, which allows querying JSON data as relational table rows and columns in PostgreSQL.

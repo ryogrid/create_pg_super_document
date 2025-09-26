@@ -1,7 +1,7 @@
 # PathHashStack
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 73 - 77
+[src/backend/utils/adt/jsonb_gin.c:73-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L73-L77)
 
 ## Overview
 PathHashStack is a simple stack data structure used to maintain a hierarchy of hash values during JSON path-based GIN index key extraction for the jsonb_path_ops operator class.

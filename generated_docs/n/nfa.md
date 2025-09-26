@@ -1,7 +1,7 @@
 # nfa
 
 ## Location
-src/include/regex/regguts.h: 348 - 399
+[src/include/regex/regguts.h:348-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/regex/regguts.h#L348-L399)
 
 ## Overview
 The `nfa` structure represents a Non-deterministic Finite Automaton in PostgreSQL's regular expression engine, containing all states, transitions, and management information needed to represent and process regular expression patterns.

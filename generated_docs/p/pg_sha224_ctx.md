@@ -1,7 +1,7 @@
 # pg_sha224_ctx
 
 ## Location
-src/common/sha2_int.h: 67 - 67
+[src/common/sha2_int.h:67-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2_int.h#L67-L67)
 
 ## Overview
 The pg_sha224_ctx is a type alias for pg_sha256_ctx, representing the context for SHA-224 hash computation in PostgreSQL, which reuses SHA-256's internal structure.

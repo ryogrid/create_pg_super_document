@@ -1,7 +1,7 @@
 # pg_sha512_init
 
 ## Location
-src/common/sha2.c: 605 - 617
+[src/common/sha2.c:605-617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L605-L617)
 
 ## Overview
 Initializes a SHA-512 cryptographic hash context structure with the standard initial hash values and resets all state variables.

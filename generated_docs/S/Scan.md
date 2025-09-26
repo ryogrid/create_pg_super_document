@@ -1,7 +1,7 @@
 # Scan
 
 ## Location
-src/include/nodes/plannodes.h: 384 - 390
+[src/include/nodes/plannodes.h:384-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L384-L390)
 
 ## Overview
 Scan is an abstract base type that all relation scan plan types inherit from in PostgreSQL's query execution plan tree.

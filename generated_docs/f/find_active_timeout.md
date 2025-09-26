@@ -1,7 +1,7 @@
 # find_active_timeout
 
 ## Location
-src/backend/utils/misc/timeout.c: 96 - 113
+[src/backend/utils/misc/timeout.c:96-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L96-L113)
 
 ## Overview
 Searches the active timeout array to find the index of a timeout with the specified ID.

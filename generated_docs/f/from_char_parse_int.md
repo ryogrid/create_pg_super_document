@@ -1,7 +1,7 @@
 # from_char_parse_int
 
 ## Location
-src/backend/utils/adt/formatting.c: 2560 - 2577
+[src/backend/utils/adt/formatting.c:2560-2577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2560-L2577)
 
 ## Overview
 A convenience wrapper function that parses integers from strings using the format keyword length as the expected field length.

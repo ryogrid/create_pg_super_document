@@ -1,7 +1,7 @@
 # cancel_on_dsm_detach
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1147 - 1169
+[src/backend/storage/ipc/dsm.c:1147-1169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1147-L1169)
 
 ## Overview
 Removes a previously registered callback function from a dynamic shared memory segment's detach callback list.

@@ -1,7 +1,7 @@
 # check_data_directory
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 377 - 408
+[src/bin/pg_basebackup/pg_createsubscriber.c:377-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L377-L408)
 
 ## Overview
 Performs preliminary validation to verify that a given directory is a PostgreSQL cluster data directory by checking for its existence and the presence of the PG_VERSION file.

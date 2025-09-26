@@ -1,7 +1,7 @@
 # pltcl_proc_desc
 
 ## Location
-src/pl/tcl/pltcl.c: 140 - 162
+[src/pl/tcl/pltcl.c:140-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L140-L162)
 
 ## Overview
 A comprehensive structure that caches information about loaded PL/Tcl procedures, managing their metadata, type information, memory context, and execution state.

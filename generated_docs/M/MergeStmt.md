@@ -1,7 +1,7 @@
 # MergeStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2084 - 2093
+[src/include/nodes/parsenodes.h:2084-2093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2084-L2093)
 
 ## Overview
 MergeStmt represents the parsed structure of a MERGE statement in PostgreSQL, containing all necessary information to perform conditional INSERT, UPDATE, or DELETE operations based on whether source rows match target table rows.

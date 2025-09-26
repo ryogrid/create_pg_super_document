@@ -1,7 +1,7 @@
 # KnownAssignedTransactionIdsIdleMaintenance
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4563 - 4663
+[src/backend/storage/ipc/procarray.c:4563-4663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4563-L4663)
 
 ## Overview
 Performs opportunistic maintenance on the KnownAssignedXids data structure when the startup process is about to go idle during recovery.

@@ -1,7 +1,7 @@
 # StandbyReleaseAllLocks
 
 ## Location
-src/backend/storage/ipc/standby.c: 1105 - 1125
+[src/backend/storage/ipc/standby.c:1105-1125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1105-L1125)
 
 ## Overview
 StandbyReleaseAllLocks releases all AccessExclusiveLocks held by any transactions in the recovery lock hash table, typically called at the end of recovery or when a shutdown checkpoint is encountered.

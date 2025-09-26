@@ -1,7 +1,7 @@
 # xl_xact_stats_items
 
 ## Location
-src/include/access/xact.h: 289 - 293
+[src/include/access/xact.h:289-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L289-L293)
 
 ## Overview
 A structure used in PostgreSQL's WAL to store multiple transactionally dropped statistics entries as a collection, enabling efficient logging of statistics cleanup operations during transaction processing.

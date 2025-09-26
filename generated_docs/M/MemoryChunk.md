@@ -1,7 +1,7 @@
 # MemoryChunk
 
 ## Location
-src/include/utils/memutils_memorychunk.h: 124 - 132
+[src/include/utils/memutils_memorychunk.h:124-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/memutils_memorychunk.h#L124-L132)
 
 ## Overview
 MemoryChunk is a lightweight header structure that PostgreSQL's MemoryContexts use to store metadata for allocated memory chunks, including references to the containing block and additional context-specific information.

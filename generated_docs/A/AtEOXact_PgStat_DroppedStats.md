@@ -1,7 +1,7 @@
 # AtEOXact_PgStat_DroppedStats
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 67 - 111
+[src/backend/utils/activity/pgstat_xact.c:67-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L67-L111)
 
 ## Overview
 Processes pending dropped statistics entries at end of transaction, either dropping stats for deleted objects on commit or for created objects on abort.

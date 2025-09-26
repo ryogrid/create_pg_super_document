@@ -1,7 +1,7 @@
 # SnapBuildState
 
 ## Location
-src/include/replication/snapbuild.h: 47 - 50
+[src/include/replication/snapbuild.h:47-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/snapbuild.h#L47-L50)
 
 ## Overview
 SnapBuildState is an enumeration that tracks the progression stages of snapshot building machinery used in PostgreSQL's logical replication system to build historic catalog snapshots from WAL records.

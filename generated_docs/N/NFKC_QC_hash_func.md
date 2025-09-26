@@ -1,7 +1,7 @@
 # NFKC_QC_hash_func
 
 ## Location
-src/include/common/unicode_normprops_table.h: 6641 - 7926
+[src/include/common/unicode_normprops_table.h:6641-7926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/unicode_normprops_table.h#L6641-L7926)
 
 ## Overview
 A perfect hash function used to efficiently look up Unicode normalization properties for NFKC (Normalization Form KC - Compatibility Composed) quick check operations.

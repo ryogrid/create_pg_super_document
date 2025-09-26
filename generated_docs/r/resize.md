@@ -1,7 +1,7 @@
 # resize
 
 ## Location
-src/backend/lib/dshash.c: 858 - 936
+[src/backend/lib/dshash.c:858-936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L858-L936)
 
 ## Overview
 A static function that grows a dynamic shared hash table by doubling its bucket array size and redistributing all existing items across the new bucket layout.

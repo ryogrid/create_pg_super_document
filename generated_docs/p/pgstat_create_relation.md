@@ -1,7 +1,7 @@
 # pgstat_create_relation
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 169 - 179
+[src/backend/utils/activity/pgstat_relation.c:169-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L169-L179)
 
 ## Overview
 Registers a newly created relation with the statistics system in a transactional manner, ensuring that statistics entries are properly cleaned up if the creating transaction aborts.

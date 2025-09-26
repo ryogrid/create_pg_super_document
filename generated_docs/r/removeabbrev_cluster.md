@@ -1,7 +1,7 @@
 # removeabbrev_cluster
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1208 - 1226
+[src/backend/utils/sort/tuplesortvariants.c:1208-1226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1208-L1226)
 
 ## Overview
 Removes abbreviation optimization for cluster sorting by extracting and caching the first sort key attribute from each HeapTuple for direct comparison operations.

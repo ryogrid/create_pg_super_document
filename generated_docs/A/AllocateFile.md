@@ -1,7 +1,7 @@
 # AllocateFile
 
 ## Location
-src/backend/storage/file/fd.c: 2580 - 2629
+[src/backend/storage/file/fd.c:2580-2629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2580-L2629)
 
 ## Overview
 AllocateFile is PostgreSQL's managed wrapper around the standard C library fopen() function, providing automatic file descriptor management and transaction-aware cleanup.

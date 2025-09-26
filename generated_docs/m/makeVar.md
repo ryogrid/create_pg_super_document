@@ -1,7 +1,7 @@
 # makeVar
 
 ## Location
-src/backend/nodes/makefuncs.c: 66 - 104
+[src/backend/nodes/makefuncs.c:66-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L66-L104)
 
 ## Overview
 Creates and initializes a Var node, which represents variable references to table columns or expressions in PostgreSQL's expression tree.

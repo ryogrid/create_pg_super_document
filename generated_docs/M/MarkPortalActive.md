@@ -1,7 +1,7 @@
 # MarkPortalActive
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 395 - 413
+[src/backend/utils/mmgr/portalmem.c:395-413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L395-L413)
 
 ## Overview
 Transitions a portal from READY to ACTIVE state, ensuring proper state management and subtransaction tracking for PostgreSQL's portal execution system.

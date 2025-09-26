@@ -1,7 +1,7 @@
 # get_tablefunc
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11921 - 11939
+[src/backend/utils/adt/ruleutils.c:11921-11939](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11921-L11939)
 
 ## Overview
 Dispatches table function deparsing to the appropriate specialized handler based on the table function type (XMLTABLE or JSON_TABLE).

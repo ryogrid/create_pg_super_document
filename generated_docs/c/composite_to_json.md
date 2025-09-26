@@ -1,7 +1,7 @@
 # composite_to_json
 
 ## Location
-src/backend/utils/adt/json.c: 512 - 592
+[src/backend/utils/adt/json.c:512-592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L512-L592)
 
 ## Overview
 Converts PostgreSQL composite types (records/rows) into JSON object format by iterating through tuple attributes and converting each field to its appropriate JSON representation.

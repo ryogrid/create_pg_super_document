@@ -1,7 +1,7 @@
 # get_from_clause_item
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12034 - 12324
+[src/backend/utils/adt/ruleutils.c:12034-12324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12034-L12324)
 
 ## Overview
 Generates SQL text representation of a single FROM clause item (table, subquery, function, join, etc.) for query deparsing.

@@ -1,7 +1,7 @@
 # Tuplesortstate
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 186 - 345
+[src/backend/utils/sort/tuplesort.c:186-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L186-L345)
 
 ## Overview
 Tuplesortstate is the core private state structure for PostgreSQL's tuple sorting operations, managing all aspects of tuple sorting including memory management, disk-based merging, parallel coordination, and optimization strategies.

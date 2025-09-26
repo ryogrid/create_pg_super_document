@@ -1,7 +1,7 @@
 # create_and_test_bloom
 
 ## Location
-src/test/modules/test_bloomfilter/test_bloomfilter.c: 72 - 112
+[src/test/modules/test_bloomfilter/test_bloomfilter.c:72-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_bloomfilter/test_bloomfilter.c#L72-L112)
 
 ## Overview
 Creates and performs comprehensive testing of a Bloom filter with specified parameters, measuring its false positive rate and reporting performance metrics.

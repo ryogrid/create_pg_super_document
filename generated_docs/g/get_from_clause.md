@@ -1,7 +1,7 @@
 # get_from_clause
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11940 - 12033
+[src/backend/utils/adt/ruleutils.c:11940-12033](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11940-L12033)
 
 ## Overview
 Reconstructs FROM clauses (or USING clauses for DELETE) from the query's join tree during SQL statement deparsing, handling formatting, line wrapping, and filtering of auto-added range table entries.

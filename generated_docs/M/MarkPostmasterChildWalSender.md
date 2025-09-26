@@ -1,7 +1,7 @@
 # MarkPostmasterChildWalSender
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 339 - 355
+[src/backend/storage/ipc/pmsignal.c:339-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L339-L355)
 
 ## Overview
 Marks a postmaster child process as a WAL sender, transitioning the child's status from active to WAL sender state.

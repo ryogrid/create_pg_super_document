@@ -1,7 +1,7 @@
 # AggClauseCosts
 
 ## Location
-src/include/nodes/pathnodes.h: 58 - 63
+[src/include/nodes/pathnodes.h:58-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L58-L63)
 
 ## Overview
 AggClauseCosts is a structure that contains cost statistics for aggregate function execution, including both transition costs (per input row) and finalization costs (per aggregated row).

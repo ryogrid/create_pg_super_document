@@ -1,7 +1,7 @@
 # CreateCastStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4002 - 4010
+[src/include/nodes/parsenodes.h:4002-4010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4002-L4010)
 
 ## Overview
 CreateCastStmt represents the parsed form of a CREATE CAST SQL statement, which defines a conversion mechanism between two data types in PostgreSQL.

@@ -1,7 +1,7 @@
 # hash_resource_elem
 
 ## Location
-src/backend/utils/resowner/resowner.c: 214 - 236
+[src/backend/utils/resowner/resowner.c:214-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L214-L236)
 
 ## Overview
 The  function is an internal hash function that computes a hash value for a resource element based on its value and kind, used in PostgreSQL's resource ownership tracking system.

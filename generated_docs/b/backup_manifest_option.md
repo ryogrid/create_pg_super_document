@@ -1,7 +1,7 @@
 # backup_manifest_option
 
 ## Location
-src/include/backup/backup_manifest.h: 25 - 26
+[src/include/backup/backup_manifest.h:25-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/backup_manifest.h#L25-L26)
 
 ## Overview
 The backup_manifest_option enumeration defines the available options for controlling backup manifest generation during PostgreSQL base backup operations.

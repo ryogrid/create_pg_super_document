@@ -1,7 +1,7 @@
 # check_subtrans_buffers
 
 ## Location
-src/backend/access/transam/subtrans.c: 254 - 269
+[src/backend/access/transam/subtrans.c:254-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/subtrans.c#L254-L269)
 
 ## Overview
 check_subtrans_buffers is a GUC (Grand Unified Configuration) check hook function that validates the subtransaction_buffers configuration parameter.

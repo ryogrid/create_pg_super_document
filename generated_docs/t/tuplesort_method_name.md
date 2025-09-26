@@ -1,7 +1,7 @@
 # tuplesort_method_name
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2581 - 2603
+[src/backend/utils/sort/tuplesort.c:2581-2603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2581-L2603)
 
 ## Overview
 Converts a TuplesortMethod enumeration value to a human-readable string representation for display in query execution reports and debugging output.

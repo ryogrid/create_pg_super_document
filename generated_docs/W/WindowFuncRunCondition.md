@@ -1,7 +1,7 @@
 # WindowFuncRunCondition
 
 ## Location
-src/include/nodes/primnodes.h: 596 - 616
+[src/include/nodes/primnodes.h:596-616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L596-L616)
 
 ## Overview
 WindowFuncRunCondition represents intermediate comparison expressions used by WindowAgg nodes to enable short-circuit execution optimizations during window function evaluation.

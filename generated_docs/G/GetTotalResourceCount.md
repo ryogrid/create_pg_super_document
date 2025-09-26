@@ -1,7 +1,7 @@
 # GetTotalResourceCount
 
 ## Location
-src/test/modules/test_resowner/test_resowner_many.c: 185 - 203
+[src/test/modules/test_resowner/test_resowner_many.c:185-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_many.c#L185-L203)
 
 ## Overview
 Calculates and returns the total number of currently active resources across multiple resource types in the test_resowner_many test module.

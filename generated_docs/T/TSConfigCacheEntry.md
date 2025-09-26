@@ -1,7 +1,7 @@
 # TSConfigCacheEntry
 
 ## Location
-src/include/tsearch/ts_cache.h: 81 - 96
+[src/include/tsearch/ts_cache.h:81-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_cache.h#L81-L96)
 
 ## Overview
 A cache entry structure that stores text search configuration metadata and token-to-dictionary mappings for efficient text search processing in PostgreSQL.

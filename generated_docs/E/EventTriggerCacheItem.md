@@ -1,7 +1,7 @@
 # EventTriggerCacheItem
 
 ## Location
-src/include/utils/evtcache.h: 34 - 38
+[src/include/utils/evtcache.h:34-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/evtcache.h#L34-L38)
 
 ## Overview
 EventTriggerCacheItem represents a cached entry for an event trigger in PostgreSQL's event trigger cache system, storing the essential information needed to determine when and how to execute an event trigger function.

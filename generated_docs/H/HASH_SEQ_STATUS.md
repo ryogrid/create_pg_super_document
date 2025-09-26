@@ -1,7 +1,7 @@
 # HASH_SEQ_STATUS
 
 ## Location
-src/include/utils/hsearch.h: 125 - 153
+[src/include/utils/hsearch.h:125-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/hsearch.h#L125-L153)
 
 ## Overview
 HASH_SEQ_STATUS is a state structure that maintains the current position during sequential iteration through all entries in a PostgreSQL hash table.

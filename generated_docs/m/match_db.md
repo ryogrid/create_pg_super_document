@@ -1,7 +1,7 @@
 # match_db
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 779 - 786
+[src/backend/utils/activity/pgstat_shmem.c:779-786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L779-L786)
 
 ## Overview
 A callback function used to match statistics entry references by database OID during selective reference release operations.

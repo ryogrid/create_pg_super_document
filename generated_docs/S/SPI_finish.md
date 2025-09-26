@@ -1,7 +1,7 @@
 # SPI_finish
 
 ## Location
-src/backend/executor/spi.c: 182 - 221
+[src/backend/executor/spi.c:182-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L182-L221)
 
 ## Overview
 SPI_finish terminates an active SPI connection, cleaning up memory contexts and restoring the previous connection state on the SPI stack.

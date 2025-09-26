@@ -1,7 +1,7 @@
 # comparetup_datum
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1794 - 1808
+[src/backend/utils/sort/tuplesortvariants.c:1794-1808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1794-L1808)
 
 ## Overview
 Compares two SortTuple structures containing datum values for sorting operations, serving as the primary comparison function for datum-based tuple sorting.

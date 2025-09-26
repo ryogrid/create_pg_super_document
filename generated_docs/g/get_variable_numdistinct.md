@@ -1,7 +1,7 @@
 # get_variable_numdistinct
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 5830 - 5962
+[src/backend/utils/adt/selfuncs.c:5830-5962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L5830-L5962)
 
 ## Overview
 Estimates the number of distinct values for a variable using statistical data from pg_statistic, with special handling for specific data types and fallback strategies when statistics are unavailable.

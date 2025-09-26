@@ -1,7 +1,7 @@
 # PgStat_CheckpointerStats
 
 ## Location
-src/include/pgstat.h: 261 - 272
+[src/include/pgstat.h:261-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L261-L272)
 
 ## Overview
 PgStat_CheckpointerStats tracks comprehensive performance and activity statistics for PostgreSQL's checkpointer process, including checkpoint and restartpoint operations, timing metrics, and buffer I/O statistics.

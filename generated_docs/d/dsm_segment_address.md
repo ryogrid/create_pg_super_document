@@ -1,7 +1,7 @@
 # dsm_segment_address
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1095 - 1104
+[src/backend/storage/ipc/dsm.c:1095-1104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1095-L1104)
 
 ## Overview
 Returns the memory address at which a dynamic shared memory segment is mapped in the current process's address space.

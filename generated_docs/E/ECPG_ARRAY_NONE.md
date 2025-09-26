@@ -1,7 +1,7 @@
 # ECPG_ARRAY_NONE
 
 ## Location
-src/interfaces/ecpg/ecpglib/ecpglib_extern.h: 32 - 34
+[src/interfaces/ecpg/ecpglib/ecpglib_extern.h:32-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/ecpglib_extern.h#L32-L34)
 
 ## Overview
 ECPG_ARRAY_NONE is an enumeration value that indicates a PostgreSQL data type is not treated as an array type within the ECPG (Embedded C PostgreSQL) system, representing scalar data types.

@@ -1,7 +1,7 @@
 # ecpg_free_params
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 1106 - 1126
+[src/interfaces/ecpg/ecpglib/execute.c:1106-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L1106-L1126)
 
 ## Overview
 Frees all parameter-related memory allocations for an ECPG statement and optionally logs parameter values for debugging purposes.

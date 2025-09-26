@@ -1,7 +1,7 @@
 # parse_format
 
 ## Location
-src/backend/utils/adt/formatting.c: 1328 - 1475
+[src/backend/utils/adt/formatting.c:1328-1475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1328-L1475)
 
 ## Overview
 Main format parser that processes format strings and builds a FormatNode tree by identifying keywords, suffixes, and separators for both date-time and numeric formatting.

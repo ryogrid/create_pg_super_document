@@ -1,7 +1,7 @@
 # dopr_outch
 
 ## Location
-src/port/snprintf.c: 1411 - 1426
+[src/port/snprintf.c:1411-1426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1411-L1426)
 
 ## Overview
 A fundamental output function that writes a single character to a PrintfTarget, handling buffer overflow by either flushing to a stream or counting lost characters.

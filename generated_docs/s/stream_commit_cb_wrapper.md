@@ -1,7 +1,7 @@
 # stream_commit_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1470 - 1510
+[src/backend/replication/logical/logical.c:1470-1510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1470-L1510)
 
 ## Overview
 A wrapper function that sets up error handling context and calls the plugin's stream_commit callback to notify about the commit of a streaming transaction in logical replication.

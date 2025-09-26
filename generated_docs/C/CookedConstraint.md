@@ -1,7 +1,7 @@
 # CookedConstraint
 
 ## Location
-src/include/catalog/heap.h: 35 - 47
+[src/include/catalog/heap.h:35-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/heap.h#L35-L47)
 
 ## Overview
 CookedConstraint is a structure that represents processed (cooked) constraint definitions for DEFAULT and CHECK constraints in PostgreSQL table creation and modification operations.

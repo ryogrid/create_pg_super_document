@@ -1,7 +1,7 @@
 # charhashfast
 
 ## Location
-src/backend/utils/cache/catcache.c: 197 - 202
+[src/backend/utils/cache/catcache.c:197-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L197-L202)
 
 ## Overview
 The `charhashfast` function provides a fast hash function for character (char) data types, used internally by PostgreSQL's catalog cache system for efficient hash table operations.

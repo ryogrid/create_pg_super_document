@@ -1,7 +1,7 @@
 # RelfilenumberMapInvalidateCallback
 
 ## Location
-src/backend/utils/cache/relfilenumbermap.c: 52 - 85
+[src/backend/utils/cache/relfilenumbermap.c:52-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relfilenumbermap.c#L52-L85)
 
 ## Overview
 RelfilenumberMapInvalidateCallback is a static callback function that flushes mapping entries from the relfilenumber-to-relid cache when pg_class is updated in a relevant fashion.

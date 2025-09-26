@@ -1,7 +1,7 @@
 # dsm_control_header
 
 ## Location
-src/backend/storage/ipc/dsm.c: 90 - 96
+[src/backend/storage/ipc/dsm.c:90-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L90-L96)
 
 ## Overview
 The header structure that defines the layout of PostgreSQL's dynamic shared memory control segment, containing metadata and an array of control items for managing DSM segments.

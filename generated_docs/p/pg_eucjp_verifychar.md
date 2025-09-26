@@ -1,7 +1,7 @@
 # pg_eucjp_verifychar
 
 ## Location
-src/common/wchar.c: 1082 - 1136
+[src/common/wchar.c:1082-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1082-L1136)
 
 ## Overview
 Validates a single multibyte character in EUC-JP (Extended Unix Code for Japanese) encoding by checking character sequence validity and returning the character length in bytes.

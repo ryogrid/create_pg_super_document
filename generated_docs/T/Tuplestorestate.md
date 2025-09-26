@@ -1,7 +1,7 @@
 # Tuplestorestate
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 103 - 182
+[src/backend/utils/sort/tuplestore.c:103-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L103-L182)
 
 ## Overview
 Tuplestorestate is the private state structure that manages tuple storage operations in PostgreSQL, providing functionality to store, retrieve, and manage tuples both in memory and on disk with support for multiple read pointers and various operational modes.

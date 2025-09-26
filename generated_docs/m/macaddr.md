@@ -1,7 +1,7 @@
 # macaddr
 
 ## Location
-src/include/utils/inet.h: 94 - 102
+[src/include/utils/inet.h:94-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/inet.h#L94-L102)
 
 ## Overview
 The  struct represents the internal storage format for MAC (Media Access Control) addresses in PostgreSQL, providing a 6-byte structure to store standard 48-bit MAC addresses used in network interfaces.

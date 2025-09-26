@@ -1,7 +1,7 @@
 # MergeSupportFunc
 
 ## Location
-src/include/nodes/primnodes.h: 628 - 637
+[src/include/nodes/primnodes.h:628-637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L628-L637)
 
 ## Overview
 MergeSupportFunc represents a merge support function expression that can only appear in the RETURNING list of a MERGE command, providing information about the currently executing merge action.

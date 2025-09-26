@@ -1,7 +1,7 @@
 # FileSetDeleteAll
 
 ## Location
-src/backend/storage/file/fileset.c: 150 - 171
+[src/backend/storage/file/fileset.c:150-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fileset.c#L150-L171)
 
 ## Overview
 Deletes all files and directories associated with a FileSet across all configured tablespaces, providing complete cleanup of the fileset's resources.

@@ -1,7 +1,7 @@
 # getfields
 
 ## Location
-src/timezone/zic.c: 3717 - 3756
+[src/timezone/zic.c:3717-3756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3717-L3756)
 
 ## Overview
 A string parsing function that splits input lines into whitespace-separated fields while handling quoted strings and comments, primarily used for processing timezone rule files.

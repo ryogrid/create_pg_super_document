@@ -1,7 +1,7 @@
 # ExecParallelHashJoinPartitionOuter
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 1498 - 1543
+[src/backend/executor/nodeHashjoin.c:1498-1543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L1498-L1543)
 
 ## Overview
 Partitions outer relation tuples across multiple shared tuplestores for parallel hash join processing by reading all outer tuples and distributing them based on hash values.

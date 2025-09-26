@@ -1,7 +1,7 @@
 # fillQT
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 323 - 362
+[src/backend/utils/adt/tsquery_util.c:323-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L323-L362)
 
 ## Overview
 fillQT is a recursive helper function that converts a QTNode tree into flat tsquery format by filling pre-allocated arrays with the tree's contents in the appropriate binary representation.

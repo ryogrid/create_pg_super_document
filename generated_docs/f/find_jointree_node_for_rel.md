@@ -1,7 +1,7 @@
 # find_jointree_node_for_rel
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 4159 - 4207
+[src/backend/optimizer/prep/prepjointree.c:4159-4207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L4159-L4207)
 
 ## Overview
 Recursively searches through a join tree structure to locate the specific node that corresponds to a given base relation or join relation table index.

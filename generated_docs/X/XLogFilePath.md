@@ -1,7 +1,7 @@
 # XLogFilePath
 
 ## Location
-src/include/access/xlog_internal.h: 210 - 217
+[src/include/access/xlog_internal.h:210-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L210-L217)
 
 ## Overview
 XLogFilePath is an inline function that constructs the full file system path for a specific WAL (Write-Ahead Log) segment file based on timeline ID, segment number, and WAL segment size.

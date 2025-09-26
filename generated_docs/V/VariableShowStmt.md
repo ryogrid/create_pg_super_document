@@ -1,7 +1,7 @@
 # VariableShowStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2631 - 2635
+[src/include/nodes/parsenodes.h:2631-2635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2631-L2635)
 
 ## Overview
 VariableShowStmt is a parse tree node structure that represents a SHOW statement used to display configuration parameter values or runtime information in PostgreSQL.

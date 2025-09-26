@@ -1,7 +1,7 @@
 # dshash_seq_init
 
 ## Location
-src/backend/lib/dshash.c: 638 - 656
+[src/backend/lib/dshash.c:638-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L638-L656)
 
 ## Overview
 Initializes a sequential scan status structure for iterating through all elements in a dynamic shared hash table.

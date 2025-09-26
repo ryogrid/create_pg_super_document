@@ -1,7 +1,7 @@
 # ExecHashGetSkewBucket
 
 ## Location
-src/backend/executor/nodeHash.c: 2535 - 2580
+[src/backend/executor/nodeHash.c:2535-2580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2535-L2580)
 
 ## Overview
 Retrieves the index of the skew bucket associated with a given hash value, or returns INVALID_SKEW_BUCKET_NO if no active skew bucket matches.

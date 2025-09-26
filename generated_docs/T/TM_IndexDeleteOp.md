@@ -1,7 +1,7 @@
 # TM_IndexDeleteOp
 
 ## Location
-src/include/access/tableam.h: 246 - 257
+[src/include/access/tableam.h:246-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L246-L257)
 
 ## Overview
 TM_IndexDeleteOp is a comprehensive structure that orchestrates index tuple deletion operations, containing both operation parameters and mutable arrays of deletion candidates with their associated status information.

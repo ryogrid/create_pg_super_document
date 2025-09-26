@@ -1,7 +1,7 @@
 # ExecHashJoinInitializeDSM
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 1551 - 1608
+[src/backend/executor/nodeHashjoin.c:1551-1608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L1551-L1608)
 
 ## Overview
 Initializes the dynamic shared memory (DSM) structures required for parallel hash join execution by setting up shared state and synchronization primitives.

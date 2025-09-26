@@ -1,7 +1,7 @@
 # SplitIdentifierString
 
 ## Location
-src/backend/utils/adt/varlena.c: 3457 - 3583
+[src/backend/utils/adt/varlena.c:3457-3583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3457-L3583)
 
 ## Overview
 Parses a string containing identifiers separated by a specified character, handling SQL identifier quoting rules and case conversion for use throughout PostgreSQL's configuration and name parsing.

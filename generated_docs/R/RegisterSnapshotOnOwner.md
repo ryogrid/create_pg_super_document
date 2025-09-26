@@ -1,7 +1,7 @@
 # RegisterSnapshotOnOwner
 
 ## Location
-src/backend/utils/time/snapmgr.c: 807 - 835
+[src/backend/utils/time/snapmgr.c:807-835](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L807-L835)
 
 ## Overview
 Registers a snapshot as being in use by a specified resource owner, handling snapshot copying, reference counting, and pairing heap management.

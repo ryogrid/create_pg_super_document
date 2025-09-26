@@ -1,7 +1,7 @@
 # pq_beginmessage
 
 ## Location
-src/backend/libpq/pqformat.c: 88 - 108
+[src/backend/libpq/pqformat.c:88-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L88-L108)
 
 ## Overview
 Initializes a StringInfo buffer for sending a PostgreSQL protocol message by setting up the buffer and storing the message type.

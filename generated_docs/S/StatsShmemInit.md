@@ -1,7 +1,7 @@
 # StatsShmemInit
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 141 - 217
+[src/backend/utils/activity/pgstat_shmem.c:141-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L141-L217)
 
 ## Overview
 Function that initializes the PostgreSQL cumulative statistics system during startup, creating shared memory structures and dynamic shared hash tables for statistics collection.

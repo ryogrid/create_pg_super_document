@@ -1,7 +1,7 @@
 # dshash_strcpy
 
 ## Location
-src/backend/lib/dshash.c: 622 - 637
+[src/backend/lib/dshash.c:622-637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L622-L637)
 
 ## Overview
 A utility function that provides a wrapper around strcpy() specifically designed for use as a copy function in dynamic shared hash table operations.

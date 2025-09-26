@@ -1,7 +1,7 @@
 # _hash_get_totalbuckets
 
 ## Location
-src/backend/access/hash/hashutil.c: 174 - 209
+[src/backend/access/hash/hashutil.c:174-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L174-L209)
 
 ## Overview
 Calculates and returns the total number of buckets allocated up to a given splitpoint phase in PostgreSQL's hash index structure.

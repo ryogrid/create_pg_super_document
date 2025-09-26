@@ -1,7 +1,7 @@
 # ArrayGetNItems
 
 ## Location
-src/backend/utils/adt/arrayutils.c: 57 - 66
+[src/backend/utils/adt/arrayutils.c:57-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayutils.c#L57-L66)
 
 ## Overview
 Calculates the total number of elements in a multidimensional array by multiplying all dimension sizes together.

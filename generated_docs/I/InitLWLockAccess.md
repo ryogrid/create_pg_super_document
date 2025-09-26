@@ -1,7 +1,7 @@
 # InitLWLockAccess
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 560 - 575
+[src/backend/storage/lmgr/lwlock.c:560-575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L560-L575)
 
 ## Overview
 Initializes backend-local state needed for a process to hold and use LWLocks, primarily for statistics collection when enabled.

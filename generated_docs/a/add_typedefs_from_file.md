@@ -1,7 +1,7 @@
 # add_typedefs_from_file
 
 ## Location
-src/tools/pg_bsd_indent/args.c: 335 - 350
+[src/tools/pg_bsd_indent/args.c:335-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/args.c#L335-L350)
 
 ## Overview
 Reads a file containing type names line-by-line and adds each type name to the global typename list used by pg_bsd_indent for proper code formatting.

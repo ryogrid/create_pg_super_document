@@ -1,7 +1,7 @@
 # optimizebracket
 
 ## Location
-src/backend/regex/regcomp.c: 1937 - 1992
+[src/backend/regex/regcomp.c:1937-1992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L1937-L1992)
 
 ## Overview
 Optimizes bracket expressions by converting certain patterns (like "[\s\S]") into a single RAINBOW arc, which represents all possible character matches for improved efficiency.

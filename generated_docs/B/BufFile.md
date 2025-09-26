@@ -1,7 +1,7 @@
 # BufFile
 
 ## Location
-src/backend/storage/file/buffile.c: 70 - 117
+[src/backend/storage/file/buffile.c:70-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L70-L117)
 
 ## Overview
 BufFile is a data structure that represents a buffered file consisting of one or more physical files, each accessed through virtual file descriptors managed by fd.c. It provides a high-level abstraction for handling large files that may be split across multiple physical segments.

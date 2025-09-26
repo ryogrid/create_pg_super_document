@@ -1,7 +1,7 @@
 # complex_abs_cmp_internal
 
 ## Location
-src/tutorial/complex.c: 132 - 147
+[src/tutorial/complex.c:132-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L132-L147)
 
 ## Overview
 A static internal comparison function that compares the absolute values (magnitudes) of two complex numbers and returns a three-way comparison result (-1, 0, or 1).

@@ -1,7 +1,7 @@
 # WorkTableScan
 
 ## Location
-src/include/nodes/plannodes.h: 661 - 665
+[src/include/nodes/plannodes.h:661-665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L661-L665)
 
 ## Overview
 WorkTableScan is a plan node type that scans the working table of a recursive Common Table Expression (CTE) during recursive query execution.

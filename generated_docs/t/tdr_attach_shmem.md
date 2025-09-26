@@ -1,7 +1,7 @@
 # tdr_attach_shmem
 
 ## Location
-src/test/modules/test_dsm_registry/test_dsm_registry.c: 39 - 51
+[src/test/modules/test_dsm_registry/test_dsm_registry.c:39-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_dsm_registry/test_dsm_registry.c#L39-L51)
 
 ## Overview
 Attaches to a named dynamic shared memory segment for the test_dsm_registry module and registers the associated lightweight lock tranche.

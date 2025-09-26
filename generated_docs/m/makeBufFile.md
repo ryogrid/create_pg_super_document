@@ -1,7 +1,7 @@
 # makeBufFile
 
 ## Location
-src/backend/storage/file/buffile.c: 139 - 155
+[src/backend/storage/file/buffile.c:139-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L139-L155)
 
 ## Overview
 Creates a BufFile structure for a single underlying physical file, providing buffered I/O operations on top of PostgreSQL File handles.

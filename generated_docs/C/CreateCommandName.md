@@ -1,7 +1,7 @@
 # CreateCommandName
 
 ## Location
-src/include/tcop/utility.h: 103 - 112
+[src/include/tcop/utility.h:103-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tcop/utility.h#L103-L112)
 
 ## Overview
 CreateCommandName is a static inline utility function that returns the human-readable name of a SQL command by converting a parse tree node to its corresponding command tag string.

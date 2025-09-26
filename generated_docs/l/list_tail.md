@@ -1,7 +1,7 @@
 # list_tail
 
 ## Location
-src/include/nodes/pg_list.h: 135 - 141
+[src/include/nodes/pg_list.h:135-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pg_list.h#L135-L141)
 
 ## Overview
 Returns the last cell in a PostgreSQL list structure, or NULL if the list is empty.

@@ -1,7 +1,7 @@
 # irbt_free
 
 ## Location
-src/test/modules/test_rbtree/test_rbtree.c: 71 - 79
+[src/test/modules/test_rbtree/test_rbtree.c:71-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_rbtree/test_rbtree.c#L71-L79)
 
 ## Overview
 A static node deallocation function used in PostgreSQL's Red-Black Tree test module to free memory for IntRBTreeNode instances.

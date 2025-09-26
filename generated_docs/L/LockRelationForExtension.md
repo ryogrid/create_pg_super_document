@@ -1,7 +1,7 @@
 # LockRelationForExtension
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 420 - 437
+[src/backend/storage/lmgr/lmgr.c:420-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L420-L437)
 
 ## Overview
 Acquires an extension lock on a relation to interlock addition of pages to relations, preventing race conditions when multiple processes attempt to extend a relation simultaneously.

@@ -1,7 +1,7 @@
 # ReadNextTransactionId
 
 ## Location
-src/include/access/transam.h: 315 - 321
+[src/include/access/transam.h:315-321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/transam.h#L315-L321)
 
 ## Overview
 Returns the 32-bit transaction ID portion of the next available full transaction ID, providing a convenient interface for callers that only need the XID part.

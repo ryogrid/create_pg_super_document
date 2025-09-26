@@ -1,7 +1,7 @@
 # writetup_datum
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1824 - 1857
+[src/backend/utils/sort/tuplesortvariants.c:1824-1857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1824-L1857)
 
 ## Overview
 Writes a datum-based SortTuple to a logical tape during external sorting operations, handling both NULL values and different datum storage formats.

@@ -1,7 +1,7 @@
 # PGLZ_HistEntry
 
 ## Location
-src/common/pg_lzcompress.c: 210 - 216
+[src/common/pg_lzcompress.c:210-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_lzcompress.c#L210-L216)
 
 ## Overview
 A structure used in PostgreSQL's PGLZ compression algorithm to maintain a doubly-linked list of history entries for backward reference lookup during LZ77-style compression.

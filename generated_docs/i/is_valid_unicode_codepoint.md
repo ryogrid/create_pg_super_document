@@ -1,7 +1,7 @@
 # is_valid_unicode_codepoint
 
 ## Location
-src/include/mb/pg_wchar.h: 535 - 540
+[src/include/mb/pg_wchar.h:535-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/mb/pg_wchar.h#L535-L540)
 
 ## Overview
 Validates whether a given wide character value represents a valid Unicode code point within the allowed Unicode range.

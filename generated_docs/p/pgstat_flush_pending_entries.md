@@ -1,7 +1,7 @@
 # pgstat_flush_pending_entries
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1182 - 1243
+[src/backend/utils/activity/pgstat.c:1182-1243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1182-L1243)
 
 ## Overview
 Flushes all pending statistics entries to shared memory by iterating through the pending list and calling kind-specific flush callbacks, handling the complexity of list modification during iteration.

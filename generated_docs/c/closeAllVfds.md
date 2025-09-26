@@ -1,7 +1,7 @@
 # closeAllVfds
 
 ## Location
-src/backend/storage/file/fd.c: 3017 - 3045
+[src/backend/storage/file/fd.c:3017-3045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3017-L3045)
 
 ## Overview
 Forces all Virtual File Descriptors (VFDs) into the physically-closed state to minimize the number of kernel file descriptors in use, while preserving their logical state.

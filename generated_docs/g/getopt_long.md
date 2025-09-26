@@ -1,7 +1,7 @@
 # getopt_long
 
 ## Location
-src/port/getopt_long.c: 60 - 241
+[src/port/getopt_long.c:60-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/getopt_long.c#L60-L241)
 
 ## Overview
 A GNU-style command line option parser that handles both short options (like -h) and long options (like --help) in PostgreSQL applications.

@@ -1,7 +1,7 @@
 # ParallelHashJoinState
 
 ## Location
-src/include/executor/hashjoin.h: 246 - 266
+[src/include/executor/hashjoin.h:246-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/hashjoin.h#L246-L266)
 
 ## Overview
 ParallelHashJoinState is a shared structure stored in DSM (Dynamic Shared Memory) that coordinates the execution of parallel hash joins across multiple worker processes, managing batches, buckets, growth operations, and synchronization.

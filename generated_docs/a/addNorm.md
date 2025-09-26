@@ -1,7 +1,7 @@
 # addNorm
 
 ## Location
-src/backend/tsearch/spell.c: 2524 - 2539
+[src/backend/tsearch/spell.c:2524-2539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L2524-L2539)
 
 ## Overview
 Adds a normalized word lexeme to the result array during PostgreSQL's text search normalization process, managing the dynamic allocation and population of TSLexeme structures.

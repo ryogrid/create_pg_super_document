@@ -1,7 +1,7 @@
 # pgstat_get_backend_current_activity
 
 ## Location
-src/backend/utils/activity/backend_status.c: 885 - 962
+[src/backend/utils/activity/backend_status.c:885-962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L885-L962)
 
 ## Overview
 Retrieves the current activity string of a specific backend process by PID, reading directly from shared memory to provide real-time information for diagnostic purposes.

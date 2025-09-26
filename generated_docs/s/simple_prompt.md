@@ -1,7 +1,7 @@
 # simple_prompt
 
 ## Location
-src/common/sprompt.c: 38 - 52
+[src/common/sprompt.c:38-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sprompt.c#L38-L52)
 
 ## Overview
 A generalized function for reading usernames and passwords interactively from the user, with support for hiding input (echo off) when needed.

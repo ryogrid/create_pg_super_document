@@ -1,7 +1,7 @@
 # pglz_decompress
 
 ## Location
-src/common/pg_lzcompress.c: 692 - 845
+[src/common/pg_lzcompress.c:692-845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_lzcompress.c#L692-L845)
 
 ## Overview
 Decompresses PostgreSQL LZ-compressed data by interpreting control bytes and reconstructing the original data from literal bytes and back-reference match tags.

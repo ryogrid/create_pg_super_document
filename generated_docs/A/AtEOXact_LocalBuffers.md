@@ -1,7 +1,7 @@
 # AtEOXact_LocalBuffers
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 819 - 829
+[src/backend/storage/buffer/localbuf.c:819-829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L819-L829)
 
 ## Overview
 AtEOXact_LocalBuffers performs cleanup operations at the end of a transaction for local buffers, specifically checking for and reporting any local buffer pin leaks that may have occurred during transaction execution.

@@ -1,7 +1,7 @@
 # tbm_lossify
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1355 - 1423
+[src/backend/nodes/tidbitmap.c:1355-1423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1355-L1423)
 
 ## Overview
 Reduces memory usage of a TID bitmap by converting some exact page entries to lossy format when memory limits are exceeded.

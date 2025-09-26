@@ -1,7 +1,7 @@
 # ExprState
 
 ## Location
-src/include/nodes/execnodes.h: 78 - 141
+[src/include/nodes/execnodes.h:78-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L78-L141)
 
 ## Overview
 ExprState is the core runtime state structure for expression evaluation in PostgreSQL's executor, containing compiled instructions and storage for expression results.

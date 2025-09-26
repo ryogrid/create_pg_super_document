@@ -1,7 +1,7 @@
 # nullingrel_info
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 45 - 54
+[src/backend/optimizer/prep/prepjointree.c:45-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L45-L54)
 
 ## Overview
 The nullingrel_info struct tracks which outer joins potentially null each relation in a query's range table, providing essential information for correct null-handling during query optimization.

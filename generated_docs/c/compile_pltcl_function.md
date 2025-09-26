@@ -1,7 +1,7 @@
 # compile_pltcl_function
 
 ## Location
-src/pl/tcl/pltcl.c: 1400 - 1758
+[src/pl/tcl/pltcl.c:1400-1758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L1400-L1758)
 
 ## Overview
 Compiles or retrieves a cached PL/Tcl function descriptor, handling function metadata extraction, Tcl procedure creation, and proper memory management.

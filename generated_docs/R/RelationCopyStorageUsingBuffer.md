@@ -1,7 +1,7 @@
 # RelationCopyStorageUsingBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4680 - 4770
+[src/backend/storage/buffer/bufmgr.c:4680-4770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4680-L4770)
 
 ## Overview
 RelationCopyStorageUsingBuffer copies fork data between two relations using buffer manager APIs instead of direct storage manager calls, providing better integration with PostgreSQL's buffer management system.

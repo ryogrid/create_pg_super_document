@@ -1,7 +1,7 @@
 # connect_database
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 505 - 544
+[src/bin/pg_basebackup/pg_createsubscriber.c:505-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L505-L544)
 
 ## Overview
 Establishes a new PostgreSQL database connection with secure configuration and provides flexible error handling based on the caller's requirements.

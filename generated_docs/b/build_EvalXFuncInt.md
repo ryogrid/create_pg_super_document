@@ -1,7 +1,7 @@
 # build_EvalXFuncInt
 
 ## Location
-src/backend/jit/llvm/llvmjit_expr.c: 2755 - 2784
+[src/backend/jit/llvm/llvmjit_expr.c:2755-2784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit_expr.c#L2755-L2784)
 
 ## Overview
 Generates LLVM IR code to call a PostgreSQL expression evaluation function, providing a low-level interface for implementing expression steps that require external function calls.

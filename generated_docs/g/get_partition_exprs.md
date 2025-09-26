@@ -1,7 +1,7 @@
 # get_partition_exprs
 
 ## Location
-src/include/utils/partcache.h: 71 - 79
+[src/include/utils/partcache.h:71-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/partcache.h#L71-L79)
 
 ## Overview
 Returns the list of partition expressions used by a partitioned table for non-simple column partitioning.

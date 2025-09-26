@@ -1,7 +1,7 @@
 # subxids_array_status
 
 ## Location
-src/include/storage/standby.h: 84 - 85
+[src/include/storage/standby.h:84-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/standby.h#L84-L85)
 
 ## Overview
 subxids_array_status is an enumeration that indicates the completeness and storage location of subtransaction information in running transaction snapshots.

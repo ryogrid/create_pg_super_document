@@ -1,7 +1,7 @@
 # ROLERECURSE_SETROLE
 
 ## Location
-src/backend/utils/adt/acl.c: 76 - 87
+[src/backend/utils/adt/acl.c:76-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L76-L87)
 
 ## Overview
 ROLERECURSE_SETROLE is an enumeration constant that specifies role membership recursion through grants with the SET ROLE option, allowing role membership traversal only through role grants that explicitly permit SET ROLE privilege.

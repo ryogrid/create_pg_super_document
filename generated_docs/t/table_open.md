@@ -1,7 +1,7 @@
 # table_open
 
 ## Location
-src/backend/access/table/table.c: 40 - 59
+[src/backend/access/table/table.c:40-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/table.c#L40-L59)
 
 ## Overview
 Opens a table relation by its object identifier (OID) and ensures that the relation is specifically a table, not an index or composite type.

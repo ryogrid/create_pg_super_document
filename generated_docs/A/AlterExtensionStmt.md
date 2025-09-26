@@ -1,7 +1,7 @@
 # AlterExtensionStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2828 - 2833
+[src/include/nodes/parsenodes.h:2828-2833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2828-L2833)
 
 ## Overview
 AlterExtensionStmt represents the parsed structure for an ALTER EXTENSION statement, currently used specifically for UPDATE operations to upgrade extensions to newer versions.

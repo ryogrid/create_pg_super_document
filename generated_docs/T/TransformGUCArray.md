@@ -1,7 +1,7 @@
 # TransformGUCArray
 
 ## Location
-src/backend/utils/misc/guc.c: 6407 - 6463
+[src/backend/utils/misc/guc.c:6407-6463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6407-L6463)
 
 ## Overview
 TransformGUCArray converts a PostgreSQL array of GUC settings into separate lists of parameter names and values, optimized for scenarios where the settings need to be applied repeatedly.

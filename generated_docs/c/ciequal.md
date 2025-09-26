@@ -1,7 +1,7 @@
 # ciequal
 
 ## Location
-src/timezone/zic.c: 3614 - 3622
+[src/timezone/zic.c:3614-3622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3614-L3622)
 
 ## Overview
 A case-insensitive string equality comparison function used in PostgreSQL's timezone compilation utilities to compare strings without regard to letter case.

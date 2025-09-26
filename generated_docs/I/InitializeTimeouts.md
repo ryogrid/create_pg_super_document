@@ -1,7 +1,7 @@
 # InitializeTimeouts
 
 ## Location
-src/backend/utils/misc/timeout.c: 470 - 504
+[src/backend/utils/misc/timeout.c:470-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L470-L504)
 
 ## Overview
 Initializes the PostgreSQL timeout module, setting up all internal data structures and establishing the SIGALRM signal handler for timeout processing.

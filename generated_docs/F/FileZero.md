@@ -1,7 +1,7 @@
 # FileZero
 
 ## Location
-src/backend/storage/file/fd.c: 2321 - 2365
+[src/backend/storage/file/fd.c:2321-2365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2321-L2365)
 
 ## Overview
 FileZero fills a specified region of a file with zero bytes, providing efficient zeroing functionality for file operations.

@@ -1,7 +1,7 @@
 # SharedInvalidationMessage
 
 ## Location
-src/include/storage/sinval.h: 122 - 153
+[src/include/storage/sinval.h:122-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/sinval.h#L122-L153)
 
 ## Overview
 SharedInvalidationMessage is a union structure that encapsulates all types of shared invalidation messages in PostgreSQL, enabling efficient cache invalidation across multiple processes when database objects are modified.

@@ -1,7 +1,7 @@
 # itemptr_comparator
 
 ## Location
-src/backend/executor/nodeTidscan.c: 283 - 311
+[src/backend/executor/nodeTidscan.c:283-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidscan.c#L283-L311)
 
 ## Overview
 itemptr_comparator is a static comparison function used for sorting ItemPointerData (TID) values in ascending order by block number first, then by offset number within the block.

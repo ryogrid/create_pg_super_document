@@ -1,7 +1,7 @@
 # CachedPlanSource
 
 ## Location
-src/include/utils/plancache.h: 96 - 135
+[src/include/utils/plancache.h:96-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/plancache.h#L96-L135)
 
 ## Overview
 CachedPlanSource represents a SQL query that is expected to be used multiple times, storing the query source text, raw parse tree, and analyzed-and-rewritten query tree along with adjunct data for cache invalidation handling.

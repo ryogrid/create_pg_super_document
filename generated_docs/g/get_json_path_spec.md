@@ -1,7 +1,7 @@
 # get_json_path_spec
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11285 - 11296
+[src/backend/utils/adt/ruleutils.c:11285-11296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11285-L11296)
 
 ## Overview
 A static helper function within the rule decompilation system that parses back a JSON path specification node into its SQL text representation.

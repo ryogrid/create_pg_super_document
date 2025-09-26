@@ -1,7 +1,7 @@
 # LockTagHashCode
 
 ## Location
-src/backend/storage/lmgr/lock.c: 504 - 520
+[src/backend/storage/lmgr/lock.c:504-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L504-L520)
 
 ## Overview
 LockTagHashCode computes the hash code for a given LOCKTAG structure, which is used for hash table operations and lock partition determination in PostgreSQL's lock manager.

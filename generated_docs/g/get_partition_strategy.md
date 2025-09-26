@@ -1,7 +1,7 @@
 # get_partition_strategy
 
 ## Location
-src/include/utils/partcache.h: 59 - 64
+[src/include/utils/partcache.h:59-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/partcache.h#L59-L64)
 
 ## Overview
 Returns the partitioning strategy used by a partitioned table (e.g., range, hash, list partitioning).

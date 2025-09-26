@@ -1,7 +1,7 @@
 # SerializedSnapshotData
 
 ## Location
-src/backend/utils/time/snapmgr.c: 193 - 204
+[src/backend/utils/time/snapmgr.c:193-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L193-L204)
 
 ## Overview
 A structure containing the essential fields from a PostgreSQL Snapshot that need to be serialized for transmission to cooperating backend processes.

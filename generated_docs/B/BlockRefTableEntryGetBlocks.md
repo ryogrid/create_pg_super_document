@@ -1,7 +1,7 @@
 # BlockRefTableEntryGetBlocks
 
 ## Location
-src/common/blkreftable.c: 369 - 473
+[src/common/blkreftable.c:369-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L369-L473)
 
 ## Overview
 Extracts modified block numbers from a block reference table entry within a specified range, handling both bitmap and offset array storage formats.

@@ -1,7 +1,7 @@
 # Gather
 
 ## Location
-src/include/nodes/plannodes.h: 1140 - 1149
+[src/include/nodes/plannodes.h:1140-1149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1140-L1149)
 
 ## Overview
 The Gather node implements parallel query execution by launching multiple worker processes to execute a subplan and collecting the results from all workers into a single stream.

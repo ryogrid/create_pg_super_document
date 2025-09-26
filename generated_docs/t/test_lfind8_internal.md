@@ -1,7 +1,7 @@
 # test_lfind8_internal
 
 ## Location
-src/test/modules/test_lfind/test_lfind.c: 30 - 58
+[src/test/modules/test_lfind/test_lfind.c:30-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_lfind/test_lfind.c#L30-L58)
 
 ## Overview
 A static helper function that serves as the workhorse for test_lfind8, performing comprehensive testing of the pg_lfind8 function with various search scenarios and boundary conditions.

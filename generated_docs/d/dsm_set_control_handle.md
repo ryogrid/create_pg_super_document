@@ -1,7 +1,7 @@
 # dsm_set_control_handle
 
 ## Location
-src/backend/storage/ipc/dsm.c: 459 - 469
+[src/backend/storage/ipc/dsm.c:459-469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L459-L469)
 
 ## Overview
 A callback function used under EXEC_BACKEND to set the DSM control handle when the main shared memory segment is re-attached.

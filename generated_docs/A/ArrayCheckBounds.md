@@ -1,7 +1,7 @@
 # ArrayCheckBounds
 
 ## Location
-src/backend/utils/adt/arrayutils.c: 117 - 126
+[src/backend/utils/adt/arrayutils.c:117-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayutils.c#L117-L126)
 
 ## Overview
 Validates that array lower-bound values will not cause integer overflow when calculating array subscripts.

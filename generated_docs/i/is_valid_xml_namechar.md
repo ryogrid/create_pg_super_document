@@ -1,7 +1,7 @@
 # is_valid_xml_namechar
 
 ## Location
-src/backend/utils/adt/xml.c: 2364 - 2379
+[src/backend/utils/adt/xml.c:2364-2379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2364-L2379)
 
 ## Overview
 A static validation function that determines whether a Unicode character is valid as any character (non-first) in an XML name according to XML naming rules.

@@ -1,7 +1,7 @@
 # pg_sjis_verifychar
 
 ## Location
-src/common/wchar.c: 1427 - 1449
+[src/common/wchar.c:1427-1449](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1427-L1449)
 
 ## Overview
 Verifies the validity of a single Shift JIS (SJIS) encoded character by checking proper lead byte and trail byte combinations for multi-byte characters.

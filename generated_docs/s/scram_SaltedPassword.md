@@ -1,7 +1,7 @@
 # scram_SaltedPassword
 
 ## Location
-src/common/scram-common.c: 38 - 111
+[src/common/scram-common.c:38-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/scram-common.c#L38-L111)
 
 ## Overview
 Calculates the SaltedPassword component used in SCRAM authentication by implementing PBKDF2 with HMAC as the pseudorandom function.

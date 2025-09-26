@@ -1,7 +1,7 @@
 # _bt_vacuum_needs_cleanup
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 179 - 231
+[src/backend/access/nbtree/nbtpage.c:179-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L179-L231)
 
 ## Overview
 _bt_vacuum_needs_cleanup determines whether a B-tree index requires cleanup processing during vacuum operations when no index tuples were deleted.

@@ -1,7 +1,7 @@
 # CompositeTypeStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3685 - 3690
+[src/include/nodes/parsenodes.h:3685-3690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3685-L3690)
 
 ## Overview
 CompositeTypeStmt represents a CREATE TYPE statement for defining composite (record) types in PostgreSQL's parse tree structure.

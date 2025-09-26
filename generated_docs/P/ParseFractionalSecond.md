@@ -1,7 +1,7 @@
 # ParseFractionalSecond
 
 ## Location
-src/backend/utils/adt/datetime.c: 709 - 753
+[src/backend/utils/adt/datetime.c:709-753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L709-L753)
 
 ## Overview
 Parses fractional seconds from a string and converts the result to integer microseconds for PostgreSQL's internal time representation.

@@ -1,7 +1,7 @@
 # finish_spin_delay
 
 ## Location
-src/backend/storage/lmgr/s_lock.c: 192 - 212
+[src/backend/storage/lmgr/s_lock.c:192-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/s_lock.c#L192-L212)
 
 ## Overview
 finish_spin_delay adaptively tunes the spins_per_delay parameter based on lock acquisition success, optimizing spinlock performance for different hardware configurations.

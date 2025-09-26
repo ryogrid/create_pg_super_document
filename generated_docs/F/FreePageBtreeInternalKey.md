@@ -1,7 +1,7 @@
 # FreePageBtreeInternalKey
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 86 - 90
+[src/backend/utils/mmgr/freepage.c:86-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L86-L90)
 
 ## Overview
 FreePageBtreeInternalKey represents an entry in internal (non-leaf) btree pages, providing navigation to child pages with a key boundary for efficient btree traversal.

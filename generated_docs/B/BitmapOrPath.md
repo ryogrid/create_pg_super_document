@@ -1,7 +1,7 @@
 # BitmapOrPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1809 - 1814
+[src/include/nodes/pathnodes.h:1809-1814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1809-L1814)
 
 ## Overview
 BitmapOrPath represents a BitmapOr plan node that performs logical OR operations on multiple TID bitmaps as part of a BitmapHeapPath execution plan.

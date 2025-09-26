@@ -1,7 +1,7 @@
 # makeTypeNameFromOid
 
 ## Location
-src/backend/nodes/makefuncs.c: 521 - 538
+[src/backend/nodes/makefuncs.c:521-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L521-L538)
 
 ## Overview
 Creates a TypeName node to represent a type that is already known by its OID and type modifier, bypassing the need for name resolution.

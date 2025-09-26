@@ -1,7 +1,7 @@
 # CommitTsShmemBuffers
 
 ## Location
-src/backend/access/transam/commit_ts.c: 506 - 518
+[src/backend/access/transam/commit_ts.c:506-518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L506-L518)
 
 ## Overview
 Determines the number of shared memory buffers to allocate for the CommitTS (commit timestamp) SLRU, either by auto-tuning based on shared buffers or using a configured value within allowed limits.

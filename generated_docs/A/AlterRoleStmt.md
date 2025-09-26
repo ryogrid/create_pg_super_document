@@ -1,7 +1,7 @@
 # AlterRoleStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3089 - 3095
+[src/include/nodes/parsenodes.h:3089-3095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3089-L3095)
 
 ## Overview
 AlterRoleStmt is a parse tree node structure that represents ALTER ROLE SQL statements used to modify existing database roles and their properties or memberships.

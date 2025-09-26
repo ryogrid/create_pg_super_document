@@ -1,7 +1,7 @@
 # PgStat_TableCounts
 
 ## Location
-src/include/pgstat.h: 160 - 180
+[src/include/pgstat.h:160-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L160-L180)
 
 ## Overview
 PgStat_TableCounts is a structure that contains actual per-table event counters maintained by a backend for tracking table access and modification statistics.

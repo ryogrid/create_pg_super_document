@@ -1,7 +1,7 @@
 # PrefetchLocalBuffer
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 69 - 115
+[src/backend/storage/buffer/localbuf.c:69-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L69-L115)
 
 ## Overview
 PrefetchLocalBuffer initiates asynchronous read operations for blocks of temporary relations, serving as the local buffer equivalent of PrefetchBuffer for non-shared temporary relations.

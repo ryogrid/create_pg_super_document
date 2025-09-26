@@ -1,7 +1,7 @@
 # AlterTableMoveAllStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2804 - 2812
+[src/include/nodes/parsenodes.h:2804-2812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2804-L2812)
 
 ## Overview
 AlterTableMoveAllStmt represents the parsed structure for an ALTER TABLE/INDEX/MATERIALIZED VIEW ALL IN TABLESPACE ... SET TABLESPACE statement, used to move all objects of a specific type from one tablespace to another.

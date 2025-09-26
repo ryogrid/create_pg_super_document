@@ -1,7 +1,7 @@
 # addHyperLogLog
 
 ## Location
-src/backend/lib/hyperloglog.c: 167 - 185
+[src/backend/lib/hyperloglog.c:167-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/hyperloglog.c#L167-L185)
 
 ## Overview
 Processes a hash value and updates the HyperLogLog state to incorporate a new element for cardinality estimation.

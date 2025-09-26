@@ -1,7 +1,7 @@
 # ResourceOwnerEnlarge
 
 ## Location
-src/backend/utils/resowner/resowner.c: 442 - 513
+[src/backend/utils/resowner/resowner.c:442-513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L442-L513)
 
 ## Overview
 Ensures there is sufficient space in a ResourceOwner's internal storage structures to accommodate at least one more resource entry.

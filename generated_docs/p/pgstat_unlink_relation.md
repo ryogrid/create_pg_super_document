@@ -1,7 +1,7 @@
 # pgstat_unlink_relation
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 153 - 168
+[src/backend/utils/activity/pgstat_relation.c:153-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L153-L168)
 
 ## Overview
 Breaks the bidirectional link between a relation cache entry and its associated statistics entry, ensuring clean disconnection when either end of the relationship is being removed.

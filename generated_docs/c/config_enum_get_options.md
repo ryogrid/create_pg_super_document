@@ -1,7 +1,7 @@
 # config_enum_get_options
 
 ## Location
-src/backend/utils/misc/guc.c: 3074 - 3131
+[src/backend/utils/misc/guc.c:3074-3131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L3074-L3131)
 
 ## Overview
 Returns a dynamically allocated string containing all available options for an enum GUC parameter, formatted with custom prefix, suffix, and separator.

@@ -1,7 +1,7 @@
 # expanded_record_get_field
 
 ## Location
-src/include/utils/expandedrecord.h: 228 - 241
+[src/include/utils/expandedrecord.h:228-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/expandedrecord.h#L228-L241)
 
 ## Overview
 Retrieves the value of a specific field from an expanded record, with optimized fast path access when field data is cached.

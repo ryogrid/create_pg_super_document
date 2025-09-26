@@ -1,7 +1,7 @@
 # _SPI_make_plan_non_temp
 
 ## Location
-src/backend/executor/spi.c: 3141 - 3208
+[src/backend/executor/spi.c:3141-3208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L3141-L3208)
 
 ## Overview
 _SPI_make_plan_non_temp converts a temporary SPIPlan into a persistent plan by moving it from the executor context to the procedure context to survive SPI operation completion.

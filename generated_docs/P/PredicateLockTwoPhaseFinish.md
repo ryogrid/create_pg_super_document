@@ -1,7 +1,7 @@
 # PredicateLockTwoPhaseFinish
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 4872 - 4898
+[src/backend/storage/lmgr/predicate.c:4872-4898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L4872-L4898)
 
 ## Overview
 Releases predicate locks and cleans up serializable transaction state when a prepared transaction either commits or aborts in two-phase commit.

@@ -1,7 +1,7 @@
 # JsonReturning
 
 ## Location
-src/include/nodes/primnodes.h: 1660 - 1666
+[src/include/nodes/primnodes.h:1660-1666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1660-L1666)
 
 ## Overview
 JsonReturning represents the transformed representation of a JSON RETURNING clause, used to specify the output format and type information for JSON operations.

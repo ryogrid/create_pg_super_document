@@ -1,7 +1,7 @@
 # SharedTuplestoreAccessor
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 71 - 103
+[src/backend/utils/sort/sharedtuplestore.c:71-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L71-L103)
 
 ## Overview
 SharedTuplestoreAccessor is the per-participant local state structure that provides an interface for reading from and writing to shared tuple stores in PostgreSQL parallel query execution.

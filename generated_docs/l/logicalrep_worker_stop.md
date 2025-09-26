@@ -1,7 +1,7 @@
 # logicalrep_worker_stop
 
 ## Location
-src/backend/replication/logical/launcher.c: 622 - 645
+[src/backend/replication/logical/launcher.c:622-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L622-L645)
 
 ## Overview
 Public function that stops a logical replication worker for a specific subscription and relation pair.

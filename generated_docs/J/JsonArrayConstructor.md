@@ -1,7 +1,7 @@
 # JsonArrayConstructor
 
 ## Location
-src/include/nodes/parsenodes.h: 1934 - 1941
+[src/include/nodes/parsenodes.h:1934-1941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1934-L1941)
 
 ## Overview
 JsonArrayConstructor represents the untransformed representation of the JSON_ARRAY() constructor function in PostgreSQL's SQL/JSON implementation, used to build JSON arrays from a list of elements.

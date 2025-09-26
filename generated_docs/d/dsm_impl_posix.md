@@ -1,7 +1,7 @@
 # dsm_impl_posix
 
 ## Location
-src/backend/storage/ipc/dsm_impl.c: 212 - 350
+[src/backend/storage/ipc/dsm_impl.c:212-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_impl.c#L212-L350)
 
 ## Overview
 POSIX shared memory implementation for PostgreSQL's dynamic shared memory system, using shm_open() and memory mapping for cross-process shared memory segments.

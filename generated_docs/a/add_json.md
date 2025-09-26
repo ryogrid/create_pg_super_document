@@ -1,7 +1,7 @@
 # add_json
 
 ## Location
-src/backend/utils/adt/json.c: 593 - 620
+[src/backend/utils/adt/json.c:593-620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L593-L620)
 
 ## Overview
 A convenience wrapper function that converts a PostgreSQL Datum value to JSON and appends it to a StringInfo buffer, handling type categorization and null values automatically.

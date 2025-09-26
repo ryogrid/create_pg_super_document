@@ -1,7 +1,7 @@
 # AttributeOpts
 
 ## Location
-src/include/utils/attoptcache.h: 19 - 24
+[src/include/utils/attoptcache.h:19-24](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/attoptcache.h#L19-L24)
 
 ## Overview
 AttributeOpts is a structure that stores cached attribute-specific options in PostgreSQL, primarily containing statistics estimates for query optimization purposes.

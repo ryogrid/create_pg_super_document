@@ -1,7 +1,7 @@
 # GatherMerge
 
 ## Location
-src/include/nodes/plannodes.h: 1155 - 1187
+[src/include/nodes/plannodes.h:1155-1187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1155-L1187)
 
 ## Overview
 The GatherMerge node implements parallel query execution with ordered results by launching multiple worker processes to execute a sorted subplan and merging their sorted outputs into a single ordered stream.

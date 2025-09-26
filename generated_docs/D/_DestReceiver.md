@@ -1,7 +1,7 @@
 # _DestReceiver
 
 ## Location
-src/include/tcop/dest.h: 115 - 148
+[src/include/tcop/dest.h:115-148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tcop/dest.h#L115-L148)
 
 ## Overview
 _DestReceiver is the actual struct definition that implements PostgreSQL's destination receiver interface, containing function pointers and state for handling tuple output to various destinations during query execution.

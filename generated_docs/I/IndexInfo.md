@@ -1,7 +1,7 @@
 # IndexInfo
 
 ## Location
-src/include/nodes/execnodes.h: 183 - 211
+[src/include/nodes/execnodes.h:183-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L183-L211)
 
 ## Overview
 IndexInfo is a comprehensive data structure that holds all necessary information for constructing and managing index entries in PostgreSQL, used in both bulk index builds and individual tuple insertions.

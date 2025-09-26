@@ -1,7 +1,7 @@
 # CaseKind
 
 ## Location
-src/include/common/unicode_case_table.h: 29 - 34
+[src/include/common/unicode_case_table.h:29-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/unicode_case_table.h#L29-L34)
 
 ## Overview
 CaseKind is an enumeration that defines the three primary Unicode case transformation types used in PostgreSQL string case conversion operations.

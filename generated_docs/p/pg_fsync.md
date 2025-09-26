@@ -1,7 +1,7 @@
 # pg_fsync
 
 ## Location
-src/backend/storage/file/fd.c: 386 - 437
+[src/backend/storage/file/fd.c:386-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L386-L437)
 
 ## Overview
 PostgreSQL's main fsync wrapper function that performs file synchronization with or without writethrough mode based on configuration.

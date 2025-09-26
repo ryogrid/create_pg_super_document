@@ -1,7 +1,7 @@
 # pgtls_init
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 769 - 854
+[src/interfaces/libpq/fe-secure-openssl.c:769-854](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L769-L854)
 
 ## Overview
 Initializes the SSL/TLS library (OpenSSL) with proper thread safety mechanisms, setting up both libcrypto and libssl components as needed.

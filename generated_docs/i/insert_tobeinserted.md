@@ -1,7 +1,7 @@
 # insert_tobeinserted
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 1127 - 1158
+[src/interfaces/ecpg/ecpglib/execute.c:1127-1158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L1127-L1158)
 
 ## Overview
 A static helper function that replaces a placeholder in an SQL command string with the actual parameter value or expression.

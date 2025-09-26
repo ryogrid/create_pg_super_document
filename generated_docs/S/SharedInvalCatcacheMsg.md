@@ -1,7 +1,7 @@
 # SharedInvalCatcacheMsg
 
 ## Location
-src/include/storage/sinval.h: 65 - 66
+[src/include/storage/sinval.h:65-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/sinval.h#L65-L66)
 
 ## Overview
 SharedInvalCatcacheMsg is a structure that represents a shared invalidation message for invalidating a specific tuple in a specific catcache (catalog cache) across PostgreSQL processes.

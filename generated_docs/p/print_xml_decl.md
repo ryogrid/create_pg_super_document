@@ -1,7 +1,7 @@
 # print_xml_decl
 
 ## Location
-src/backend/utils/adt/xml.c: 1606 - 1671
+[src/backend/utils/adt/xml.c:1606-1671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1606-L1671)
 
 ## Overview
 Generates and appends an XML declaration to a StringInfo buffer following SQL standard serialization rules, avoiding unnecessary declarations when possible.

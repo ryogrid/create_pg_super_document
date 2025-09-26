@@ -1,7 +1,7 @@
 # BufferUsage
 
 ## Location
-src/include/executor/instrument.h: 24 - 42
+[src/include/executor/instrument.h:24-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/instrument.h#L24-L42)
 
 ## Overview
 BufferUsage is a struct that tracks buffer I/O statistics and timing information for shared, local, and temporary buffers in PostgreSQL. It maintains counters that are never reset to allow calculation of incremental usage over arbitrary periods.

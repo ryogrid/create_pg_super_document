@@ -1,7 +1,7 @@
 # dsm_control_item
 
 ## Location
-src/backend/storage/ipc/dsm.c: 79 - 87
+[src/backend/storage/ipc/dsm.c:79-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L79-L87)
 
 ## Overview
 A shared-memory structure that maintains global state information for a single dynamic shared memory segment, coordinating its lifecycle across all PostgreSQL backend processes.

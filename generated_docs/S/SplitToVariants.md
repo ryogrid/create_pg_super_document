@@ -1,7 +1,7 @@
 # SplitToVariants
 
 ## Location
-src/backend/tsearch/spell.c: 2374 - 2523
+[src/backend/tsearch/spell.c:2374-2523](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L2374-L2523)
 
 ## Overview
 A recursive function that splits compound words into component parts and generates all possible variants for spell checking in PostgreSQL's text search functionality.

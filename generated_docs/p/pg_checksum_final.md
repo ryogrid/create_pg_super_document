@@ -1,7 +1,7 @@
 # pg_checksum_final
 
 ## Location
-src/common/checksum_helper.c: 176 - 232
+[src/common/checksum_helper.c:176-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/checksum_helper.c#L176-L232)
 
 ## Overview
 Finalizes a checksum computation and outputs the computed checksum value to a provided buffer.

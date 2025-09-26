@@ -1,7 +1,7 @@
 # ProcNumberGetProc
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3137 - 3158
+[src/backend/storage/ipc/procarray.c:3137-3158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3137-L3158)
 
 ## Overview
 Returns a backend's PGPROC structure given its process number, providing access to process-specific information for active PostgreSQL backends.

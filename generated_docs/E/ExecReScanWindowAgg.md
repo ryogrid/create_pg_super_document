@@ -1,7 +1,7 @@
 # ExecReScanWindowAgg
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 2708 - 2747
+[src/backend/executor/nodeWindowAgg.c:2708-2747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L2708-L2747)
 
 ## Overview
 ExecReScanWindowAgg resets the WindowAgg executor node state to restart execution from the beginning, clearing all cached data and partition state.

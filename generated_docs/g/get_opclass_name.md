@@ -1,7 +1,7 @@
 # get_opclass_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12531 - 12568
+[src/backend/utils/adt/ruleutils.c:12531-12568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12531-L12568)
 
 ## Overview
 Fetches the name of an index operator class and appends it to a string buffer, with automatic suppression when the opclass is the default for the given data type.

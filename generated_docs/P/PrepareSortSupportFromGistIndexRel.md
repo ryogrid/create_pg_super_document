@@ -1,7 +1,7 @@
 # PrepareSortSupportFromGistIndexRel
 
 ## Location
-src/backend/utils/sort/sortsupport.c: 188 - 210
+[src/backend/utils/sort/sortsupport.c:188-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sortsupport.c#L188-L210)
 
 ## Overview
 Initializes a SortSupportData structure for sorting operations during GiST index builds by setting up the appropriate comparison function from the index's operator family.

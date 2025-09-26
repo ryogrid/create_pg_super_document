@@ -1,7 +1,7 @@
 # FreePageBtreeSearchLeaf
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 1170 - 1200
+[src/backend/utils/mmgr/freepage.c:1170-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L1170-L1200)
 
 ## Overview
 Performs binary search on a leaf btree page to find the first key greater than or equal to a given page number.

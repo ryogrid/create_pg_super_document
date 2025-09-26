@@ -1,7 +1,7 @@
 # domain_check_internal
 
 ## Location
-src/backend/utils/adt/domains.c: 371 - 406
+[src/backend/utils/adt/domains.c:371-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/domains.c#L371-L406)
 
 ## Overview
 The core workhorse function that performs domain constraint validation for both error-throwing and error-safe variants of domain checking.

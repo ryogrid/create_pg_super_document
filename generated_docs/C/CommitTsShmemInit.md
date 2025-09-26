@@ -1,7 +1,7 @@
 # CommitTsShmemInit
 
 ## Location
-src/backend/access/transam/commit_ts.c: 530 - 583
+[src/backend/access/transam/commit_ts.c:530-583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L530-L583)
 
 ## Overview
 Initializes the CommitTS (commit timestamp) shared memory structures during PostgreSQL system startup, including SLRU control structure setup and configuration of buffer auto-tuning.

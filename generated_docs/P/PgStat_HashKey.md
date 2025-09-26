@@ -1,7 +1,7 @@
 # PgStat_HashKey
 
 ## Location
-src/include/utils/pgstat_internal.h: 52 - 57
+[src/include/utils/pgstat_internal.h:52-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L52-L57)
 
 ## Overview
 PgStat_HashKey is the key structure used for the shared statistics hashtable that stores per-object statistics in PostgreSQL's statistics subsystem.

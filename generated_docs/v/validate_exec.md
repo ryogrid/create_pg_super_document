@@ -1,7 +1,7 @@
 # validate_exec
 
 ## Location
-src/common/exec.c: 88 - 159
+[src/common/exec.c:88-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L88-L159)
 
 ## Overview
 Validates whether a given path points to an executable file that can be both read and executed, used throughout PostgreSQL to verify program executability before attempting to run external processes.

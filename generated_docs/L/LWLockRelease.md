@@ -1,7 +1,7 @@
 # LWLockRelease
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1783 - 1855
+[src/backend/storage/lmgr/lwlock.c:1783-1855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1783-L1855)
 
 ## Overview
 LWLockRelease releases a previously acquired lightweight lock and wakes up waiting processes as necessary.

@@ -1,7 +1,7 @@
 # get_canonical_class
 
 ## Location
-src/common/unicode_norm.c: 112 - 133
+[src/common/unicode_norm.c:112-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_norm.c#L112-L133)
 
 ## Overview
 Retrieves the Unicode combining class value for a given codepoint, which is used to determine the canonical ordering of characters during normalization.

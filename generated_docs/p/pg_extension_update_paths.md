@@ -1,7 +1,7 @@
 # pg_extension_update_paths
 
 ## Location
-src/backend/commands/extension.c: 2339 - 2423
+[src/backend/commands/extension.c:2339-2423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L2339-L2423)
 
 ## Overview
 Reports the version update paths that exist for a specified extension, providing information about how to upgrade or downgrade between different extension versions.

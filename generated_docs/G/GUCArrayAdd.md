@@ -1,7 +1,7 @@
 # GUCArrayAdd
 
 ## Location
-src/backend/utils/misc/guc.c: 6496 - 6573
+[src/backend/utils/misc/guc.c:6496-6573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6496-L6573)
 
 ## Overview
 GUCArrayAdd adds or updates a GUC setting entry in a PostgreSQL array, creating a new array with the added/modified entry while handling parameter validation and name normalization.

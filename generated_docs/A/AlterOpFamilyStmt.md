@@ -1,7 +1,7 @@
 # AlterOpFamilyStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3212 - 3219
+[src/include/nodes/parsenodes.h:3212-3219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3212-L3219)
 
 ## Overview
 AlterOpFamilyStmt represents an ALTER OPERATOR FAMILY statement in the PostgreSQL parser, allowing addition or removal of operators and functions from an existing operator family.

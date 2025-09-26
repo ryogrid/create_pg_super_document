@@ -1,7 +1,7 @@
 # mbms_is_member
 
 ## Location
-src/backend/nodes/multibitmapset.c: 126 - 145
+[src/backend/nodes/multibitmapset.c:126-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/multibitmapset.c#L126-L145)
 
 ## Overview
 Tests whether a specific member (identified by list index and bit index) is present in a multibitmapset.

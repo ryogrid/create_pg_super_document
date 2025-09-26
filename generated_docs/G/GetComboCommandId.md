@@ -1,7 +1,7 @@
 # GetComboCommandId
 
 ## Location
-src/backend/utils/time/combocid.c: 204 - 278
+[src/backend/utils/time/combocid.c:204-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/combocid.c#L204-L278)
 
 ## Overview
 Creates or reuses a combo command ID that represents a combination of insertion (Cmin) and deletion/modification (Cmax) command IDs within a single transaction.

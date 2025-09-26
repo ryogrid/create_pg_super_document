@@ -1,7 +1,7 @@
 # roles_is_member_of
 
 ## Location
-src/backend/utils/adt/acl.c: 5019 - 5150
+[src/backend/utils/adt/acl.c:5019-5150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5019-L5150)
 
 ## Overview
 Gets a list of all roles that a specified role is a member of, with configurable recursion types and caching for performance optimization.

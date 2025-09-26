@@ -1,7 +1,7 @@
 # ecpg_gettext
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 482 - 535
+[src/interfaces/ecpg/ecpglib/misc.c:482-535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L482-L535)
 
 ## Overview
 A thread-safe internationalization function for the ECPG library that initializes text domain binding and retrieves localized messages using gettext.

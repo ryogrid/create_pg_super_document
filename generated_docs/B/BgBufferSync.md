@@ -1,7 +1,7 @@
 # BgBufferSync
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3177 - 3474
+[src/backend/storage/buffer/bufmgr.c:3177-3474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3177-L3474)
 
 ## Overview
 BgBufferSync periodically writes out dirty buffers in the background, implementing PostgreSQL's LRU-based buffer cleaning strategy with sophisticated allocation rate tracking and adaptive scanning.

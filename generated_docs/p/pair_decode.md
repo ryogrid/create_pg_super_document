@@ -1,7 +1,7 @@
 # pair_decode
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 212 - 254
+[src/backend/utils/adt/geo_ops.c:212-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L212-L254)
 
 ## Overview  
 A helper function that parses a coordinate pair (x,y) from a string representation, handling optional parentheses and proper delimiter validation for geometric data types.

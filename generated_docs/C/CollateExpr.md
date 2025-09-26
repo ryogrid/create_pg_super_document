@@ -1,7 +1,7 @@
 # CollateExpr
 
 ## Location
-src/include/nodes/primnodes.h: 1276 - 1282
+[src/include/nodes/primnodes.h:1276-1282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1276-L1282)
 
 ## Overview
 CollateExpr represents a COLLATE clause in SQL expressions, specifying the collation to be used for string comparison and sorting operations on the wrapped expression.

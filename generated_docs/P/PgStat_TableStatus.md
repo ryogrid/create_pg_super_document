@@ -1,7 +1,7 @@
 # PgStat_TableStatus
 
 ## Location
-src/include/pgstat.h: 197 - 204
+[src/include/pgstat.h:197-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L197-L204)
 
 ## Overview
 PgStat_TableStatus represents per-table status information within a backend, managing both transactional and non-transactional event counters for table statistics.

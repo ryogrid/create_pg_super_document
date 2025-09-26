@@ -1,7 +1,7 @@
 # SlotSyncShmemSize
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1659 - 1667
+[src/backend/replication/logical/slotsync.c:1659-1667](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1659-L1667)
 
 ## Overview
 Calculates the amount of shared memory required for slot synchronization infrastructure.

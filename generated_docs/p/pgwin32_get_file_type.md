@@ -1,7 +1,7 @@
 # pgwin32_get_file_type
 
 ## Location
-src/port/win32common.c: 31 - 64
+[src/port/win32common.c:31-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32common.c#L31-L64)
 
 ## Overview
 A convenience wrapper function for the Windows GetFileType() API that provides standardized error handling across PostgreSQL's Windows port implementations. This function determines the type of file associated with a given Windows file handle.

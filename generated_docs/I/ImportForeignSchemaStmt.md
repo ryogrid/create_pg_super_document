@@ -1,7 +1,7 @@
 # ImportForeignSchemaStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2944 - 2953
+[src/include/nodes/parsenodes.h:2944-2953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2944-L2953)
 
 ## Overview
 ImportForeignSchemaStmt is a parse node structure that represents an IMPORT FOREIGN SCHEMA SQL statement, which imports table definitions from a remote schema through a foreign data wrapper into a local PostgreSQL schema.

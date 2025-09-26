@@ -1,7 +1,7 @@
 # tadd
 
 ## Location
-src/timezone/zic.c: 3772 - 3800
+[src/timezone/zic.c:3772-3800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3772-L3800)
 
 ## Overview
 A time-bounded addition function that performs overflow-safe arithmetic on zic_t values while clamping results to valid time range boundaries instead of failing on overflow.

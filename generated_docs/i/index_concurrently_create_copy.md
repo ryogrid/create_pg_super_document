@@ -1,7 +1,7 @@
 # index_concurrently_create_copy
 
 ## Location
-src/backend/catalog/index.c: 1298 - 1481
+[src/backend/catalog/index.c:1298-1481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L1298-L1481)
 
 ## Overview
 index_concurrently_create_copy creates a concurrent copy of an existing index based on its definition, used primarily during concurrent reindex operations.

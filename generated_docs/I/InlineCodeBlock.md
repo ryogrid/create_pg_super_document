@@ -1,7 +1,7 @@
 # InlineCodeBlock
 
 ## Location
-src/include/nodes/parsenodes.h: 3480 - 3489
+[src/include/nodes/parsenodes.h:3480-3489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3480-L3489)
 
 ## Overview
 InlineCodeBlock is a node structure representing the execution-time information for DO statements in PostgreSQL. It contains the processed code block ready for execution by a procedural language handler.

@@ -1,7 +1,7 @@
 # ReorderBufferGetOldestXmin
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1068 - 1082
+[src/backend/replication/logical/reorderbuffer.c:1068-1082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1068-L1082)
 
 ## Overview
 Returns the oldest Xmin value from base snapshots in the reorder buffer, representing the oldest possibly running transaction ID from the perspective of stored snapshots.

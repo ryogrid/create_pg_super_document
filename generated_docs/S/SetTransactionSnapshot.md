@@ -1,7 +1,7 @@
 # SetTransactionSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 477 - 573
+[src/backend/utils/time/snapmgr.c:477-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L477-L573)
 
 ## Overview
 Sets the transaction's snapshot from an imported MVCC snapshot, ensuring proper isolation and consistency for transaction-snapshot mode operations.

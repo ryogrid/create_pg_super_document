@@ -1,7 +1,7 @@
 # map_sql_type_to_xml_name
 
 ## Location
-src/backend/utils/adt/xml.c: 3751 - 3855
+[src/backend/utils/adt/xml.c:3751-3855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3751-L3855)
 
 ## Overview
 Maps PostgreSQL data types to XML names according to SQL/XML:2008 section 9.4 specification, creating standardized XML type names for database types.

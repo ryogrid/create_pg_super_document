@@ -1,7 +1,7 @@
 # pg_encoding
 
 ## Location
-src/backend/utils/adt/encode.c: 33 - 47
+[src/backend/utils/adt/encode.c:33-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L33-L47)
 
 ## Overview
 The pg_encoding struct defines a generic interface for encoding conversion operations in PostgreSQL, providing function pointers for length estimation and actual encoding/decoding of binary data.

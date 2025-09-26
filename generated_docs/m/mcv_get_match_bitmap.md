@@ -1,7 +1,7 @@
 # mcv_get_match_bitmap
 
 ## Location
-src/backend/statistics/mcv.c: 1599 - 2005
+[src/backend/statistics/mcv.c:1599-2005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L1599-L2005)
 
 ## Overview
 Evaluates clauses using the MCV (Most Common Values) list and generates a match bitmap indicating which MCV items satisfy the given conditions.

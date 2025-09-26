@@ -1,7 +1,7 @@
 # recompose_code
 
 ## Location
-src/common/unicode_norm.c: 218 - 320
+[src/common/unicode_norm.c:218-320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_norm.c#L218-L320)
 
 ## Overview
 Attempts to recompose two Unicode codepoints into a single composite character, handling both Hangul characters algorithmically and other characters through decomposition table lookup.

@@ -1,7 +1,7 @@
 # dsa_area_pool
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 281 - 318
+[src/backend/utils/mmgr/dsa.c:281-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L281-L318)
 
 ## Overview
 The dsa_area_pool structure represents a set of objects of a given size class in PostgreSQL's Dynamic Shared Memory Areas (DSA) allocator. It manages memory allocation and organization within specific size classes using spans organized by fullness levels.

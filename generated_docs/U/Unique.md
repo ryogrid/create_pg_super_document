@@ -1,7 +1,7 @@
 # Unique
 
 ## Location
-src/include/nodes/plannodes.h: 1112 - 1127
+[src/include/nodes/plannodes.h:1112-1127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1112-L1127)
 
 ## Overview
 The Unique node is a plan node used to eliminate duplicate tuples from a sorted stream of data by comparing consecutive tuples and only returning the first tuple of each group of duplicates.

@@ -1,7 +1,7 @@
 # logicalrep_worker_cleanup
 
 ## Location
-src/backend/replication/logical/launcher.c: 799 - 819
+[src/backend/replication/logical/launcher.c:799-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L799-L819)
 
 ## Overview
 Cleans up and resets all fields of a logical replication worker structure to their default/invalid states, making the worker slot available for reuse.

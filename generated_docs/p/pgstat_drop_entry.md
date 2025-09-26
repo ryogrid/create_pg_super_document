@@ -1,7 +1,7 @@
 # pgstat_drop_entry
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 927 - 970
+[src/backend/utils/activity/pgstat_shmem.c:927-970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L927-L970)
 
 ## Overview
 This function drops a single statistics entry from both the local reference cache and shared statistics hash table, with special handling for database entries.

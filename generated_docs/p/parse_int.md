@@ -1,7 +1,7 @@
 # parse_int
 
 ## Location
-src/backend/utils/misc/guc.c: 2873 - 2962
+[src/backend/utils/misc/guc.c:2873-2962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2873-L2962)
 
 ## Overview
 Parses a string value into an integer, supporting various number formats and optional unit suffixes for PostgreSQL configuration parameters.

@@ -1,7 +1,7 @@
 # QueryEnvironment
 
 ## Location
-src/backend/utils/misc/queryenvironment.c: 32 - 38
+[src/backend/utils/misc/queryenvironment.c:32-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/queryenvironment.c#L32-L38)
 
 ## Overview
 QueryEnvironment is an opaque data structure that provides a query execution context for managing ephemeral named relations (ENRs), particularly for temporary relations like trigger transition tables and named tuplestores that exist only during query execution.

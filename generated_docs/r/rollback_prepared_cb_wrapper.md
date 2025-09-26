@@ -1,7 +1,7 @@
 # rollback_prepared_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1058 - 1104
+[src/backend/replication/logical/logical.c:1058-1104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1058-L1104)
 
 ## Overview  
 A wrapper function that handles the rollback of previously prepared transactions in logical decoding, managing error context and state for two-phase commit abort operations.

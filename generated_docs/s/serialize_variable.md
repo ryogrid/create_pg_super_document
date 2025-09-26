@@ -1,7 +1,7 @@
 # serialize_variable
 
 ## Location
-src/backend/utils/misc/guc.c: 6032 - 6108
+[src/backend/utils/misc/guc.c:6032-6108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6032-L6108)
 
 ## Overview
 Serializes a single GUC (Grand Unified Configuration) variable into a binary format for storage or transmission, handling all PostgreSQL configuration parameter types.

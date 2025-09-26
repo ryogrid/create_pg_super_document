@@ -1,7 +1,7 @@
 # SearchStmtCache
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 415 - 450
+[src/interfaces/ecpg/ecpglib/prepare.c:415-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L415-L450)
 
 ## Overview
 Searches the ECPG prepared statement cache for a matching SQL statement and returns the cache entry number if found.

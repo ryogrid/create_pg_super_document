@@ -1,7 +1,7 @@
 # guc_restore_error_context_callback
 
 ## Location
-src/backend/utils/misc/guc.c: 6179 - 6200
+[src/backend/utils/misc/guc.c:6179-6200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6179-L6200)
 
 ## Overview
 An error context callback function that provides detailed context information when errors occur during GUC state restoration in parallel workers.

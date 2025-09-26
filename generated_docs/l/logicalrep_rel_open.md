@@ -1,7 +1,7 @@
 # logicalrep_rel_open
 
 ## Location
-src/backend/replication/logical/relation.c: 327 - 472
+[src/backend/replication/logical/relation.c:327-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L327-L472)
 
 ## Overview
 Opens the local relation associated with a remote relation in logical replication, establishing and maintaining the mapping between local and remote relation attributes while handling cache invalidation and relation validation.

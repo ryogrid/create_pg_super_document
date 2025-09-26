@@ -1,7 +1,7 @@
 # BarrierDetach
 
 ## Location
-src/backend/storage/ipc/barrier.c: 256 - 264
+[src/backend/storage/ipc/barrier.c:256-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/barrier.c#L256-L264)
 
 ## Overview
 BarrierDetach is a function that allows a backend process to detach from a barrier synchronization point, potentially releasing other waiting participants and advancing the barrier phase.

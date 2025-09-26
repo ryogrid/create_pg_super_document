@@ -1,7 +1,7 @@
 # BufFileClose
 
 ## Location
-src/backend/storage/file/buffile.c: 412 - 433
+[src/backend/storage/file/buffile.c:412-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L412-L433)
 
 ## Overview
 BufFileClose closes a BufFile and releases all associated resources, including flushing unwritten data and closing underlying files.

@@ -1,7 +1,7 @@
 # SnapBuildFindSnapshot
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 1376 - 1572
+[src/backend/replication/logical/snapbuild.c:1376-1572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L1376-L1572)
 
 ## Overview
 Incrementally builds catalog decoding snapshots by processing running transaction records and managing state transitions through the snapshot building phases until reaching consistency.

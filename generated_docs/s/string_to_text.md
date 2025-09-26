@@ -1,7 +1,7 @@
 # string_to_text
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 13245 - 13257
+[src/backend/utils/adt/ruleutils.c:13245-13257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L13245-L13257)
 
 ## Overview
 A static utility function that converts a C string to a PostgreSQL TEXT datum, automatically freeing the input string memory.

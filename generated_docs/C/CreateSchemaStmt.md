@@ -1,7 +1,7 @@
 # CreateSchemaStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2320 - 2327
+[src/include/nodes/parsenodes.h:2320-2327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2320-L2327)
 
 ## Overview
 CreateSchemaStmt represents a CREATE SCHEMA statement that creates a new schema namespace and optionally executes embedded SQL statements within that schema context.

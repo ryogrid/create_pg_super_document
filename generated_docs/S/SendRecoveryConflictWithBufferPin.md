@@ -1,7 +1,7 @@
 # SendRecoveryConflictWithBufferPin
 
 ## Location
-src/backend/storage/ipc/standby.c: 876 - 903
+[src/backend/storage/ipc/standby.c:876-903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L876-L903)
 
 ## Overview
 Sends signals to all database backends to ask them to check if they are holding buffer pins that are delaying the startup process during recovery conflicts.

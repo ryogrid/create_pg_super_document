@@ -1,7 +1,7 @@
 # logicalrep_write_delete
 
 ## Location
-src/backend/replication/logical/proto.c: 533 - 563
+[src/backend/replication/logical/proto.c:533-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L533-L563)
 
 ## Overview
 Writes a DELETE message to the logical replication output stream, encoding the old tuple data according to the logical replication protocol.

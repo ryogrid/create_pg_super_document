@@ -1,7 +1,7 @@
 # IndexClause
 
 ## Location
-src/include/nodes/pathnodes.h: 1755 - 1765
+[src/include/nodes/pathnodes.h:1755-1765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1755-L1765)
 
 ## Overview
 IndexClause is a structure that represents how a WHERE or JOIN clause can be applied to a particular index during query planning, including both directly-usable and transformed index conditions.

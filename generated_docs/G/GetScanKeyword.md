@@ -1,7 +1,7 @@
 # GetScanKeyword
 
 ## Location
-src/include/common/kwlookup.h: 39 - 44
+[src/include/common/kwlookup.h:39-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/kwlookup.h#L39-L44)
 
 ## Overview
 GetScanKeyword is an inline utility function that retrieves the text representation of a keyword by its index from a ScanKeywordList structure.

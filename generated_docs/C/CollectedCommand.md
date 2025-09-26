@@ -1,7 +1,7 @@
 # CollectedCommand
 
 ## Location
-src/include/tcop/deparse_utility.h: 44 - 106
+[src/include/tcop/deparse_utility.h:44-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tcop/deparse_utility.h#L44-L106)
 
 ## Overview
 CollectedCommand is a comprehensive structure that represents a DDL (Data Definition Language) command collected during event trigger processing, supporting various command types through a discriminated union design.

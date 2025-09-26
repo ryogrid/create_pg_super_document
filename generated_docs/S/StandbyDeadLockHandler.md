@@ -1,7 +1,7 @@
 # StandbyDeadLockHandler
 
 ## Location
-src/backend/storage/ipc/standby.c: 935 - 943
+[src/backend/storage/ipc/standby.c:935-943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L935-L943)
 
 ## Overview
 A simple timeout handler that sets a flag when the STANDBY_DEADLOCK_TIMEOUT period has been exceeded during recovery conflict resolution.

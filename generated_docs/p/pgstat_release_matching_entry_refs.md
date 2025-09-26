@@ -1,7 +1,7 @@
 # pgstat_release_matching_entry_refs
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 737 - 766
+[src/backend/utils/activity/pgstat_shmem.c:737-766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L737-L766)
 
 ## Overview
 A static function that releases statistics entry references that match specific criteria defined by a callback function.

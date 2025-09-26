@@ -1,7 +1,7 @@
 # dsa_detach
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1952 - 1977
+[src/backend/utils/mmgr/dsa.c:1952-1977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1952-L1977)
 
 ## Overview
 Detaches from a dynamic shared area (DSA) that was either created or attached to by the current process, cleaning up all associated dynamic shared memory segments.

@@ -1,7 +1,7 @@
 # getaddrinfo_unix
 
 ## Location
-src/common/ip.c: 153 - 227
+[src/common/ip.c:153-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ip.c#L153-L227)
 
 ## Overview
 Provides getaddrinfo-compatible address resolution functionality specifically for Unix domain sockets, creating addrinfo structures for local socket connections.

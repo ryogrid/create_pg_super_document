@@ -1,7 +1,7 @@
 # pg_xmlCharStrndup
 
 ## Location
-src/backend/utils/adt/xml.c: 1387 - 1403
+[src/backend/utils/adt/xml.c:1387-1403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1387-L1403)
 
 ## Overview
 Converts a regular C string to a null-terminated xmlChar string with a specified length, enabling conversion from char* to xmlChar* for libxml compatibility.

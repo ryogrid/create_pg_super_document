@@ -1,7 +1,7 @@
 # BlockRefTableEntry
 
 ## Location
-src/common/blkreftable.c: 110 - 121
+[src/common/blkreftable.c:110-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L110-L121)
 
 ## Overview
 BlockRefTableEntry represents the state and tracking information for one specific relation fork within PostgreSQL's block reference table system, managing block modification status using a chunked storage approach.

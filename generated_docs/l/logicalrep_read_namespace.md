@@ -1,7 +1,7 @@
 # logicalrep_read_namespace
 
 ## Location
-src/backend/replication/logical/proto.c: 1055 - 1068
+[src/backend/replication/logical/proto.c:1055-1068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L1055-L1068)
 
 ## Overview
 Reads namespace name information from a logical replication message stream and handles the space-saving optimization for pg_catalog namespace.

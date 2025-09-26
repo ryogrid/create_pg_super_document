@@ -1,7 +1,7 @@
 # get_rule_expr
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8956 - 10324
+[src/backend/utils/adt/ruleutils.c:8956-10324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8956-L10324)
 
 ## Overview
 The main recursive function for converting PostgreSQL parse tree nodes back into SQL expressions during rule deparsing.

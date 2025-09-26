@@ -1,7 +1,7 @@
 # am_propname
 
 ## Location
-src/backend/utils/adt/amutils.c: 25 - 89
+[src/backend/utils/adt/amutils.c:25-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/amutils.c#L25-L89)
 
 ## Overview
 A simple structure that maps string property names to their corresponding IndexAMProperty enum values for efficient property lookup in index access method operations.

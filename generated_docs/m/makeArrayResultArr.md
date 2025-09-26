@@ -1,7 +1,7 @@
 # makeArrayResultArr
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5691 - 5769
+[src/backend/utils/adt/arrayfuncs.c:5691-5769](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5691-L5769)
 
 ## Overview
 Produces the final N+1-dimensional array result from an accumulated ArrayBuildStateArr structure.

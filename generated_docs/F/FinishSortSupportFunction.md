@@ -1,7 +1,7 @@
 # FinishSortSupportFunction
 
 ## Location
-src/backend/utils/sort/sortsupport.c: 94 - 133
+[src/backend/utils/sort/sortsupport.c:94-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sortsupport.c#L94-L133)
 
 ## Overview
 A static function that attempts to set up an optimal SortSupport comparator by first trying to find a native sort support function, and falling back to a compatibility shim if needed.

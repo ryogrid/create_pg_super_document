@@ -1,7 +1,7 @@
 # NIImportAffixes
 
 ## Location
-src/backend/tsearch/spell.c: 1428 - 1574
+[src/backend/tsearch/spell.c:1428-1574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1428-L1574)
 
 ## Overview
 Parses ispell affix files, automatically detecting and handling both old-format (ispell) and new-format (MySpell/Hunspell) affix files.

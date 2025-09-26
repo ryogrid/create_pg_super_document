@@ -1,7 +1,7 @@
 # FindTupleHashEntry
 
 ## Location
-src/backend/executor/execGrouping.c: 391 - 423
+[src/backend/executor/execGrouping.c:391-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execGrouping.c#L391-L423)
 
 ## Overview
 Searches for a hashtable entry matching the given tuple without creating new entries, supporting cross-type comparisons with custom hash and equality functions.

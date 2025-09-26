@@ -1,7 +1,7 @@
 # get_code_entry
 
 ## Location
-src/common/unicode_norm.c: 72 - 111
+[src/common/unicode_norm.c:72-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_norm.c#L72-L111)
 
 ## Overview
 Retrieves the decomposition entry for a given Unicode codepoint from the decomposition lookup table using either a perfect hash function (backend) or binary search (frontend).

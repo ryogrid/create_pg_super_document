@@ -1,7 +1,7 @@
 # bbsink_ops
 
 ## Location
-src/include/backup/basebackup_sink.h: 37 - 65
+[src/include/backup/basebackup_sink.h:37-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L37-L65)
 
 ## Overview
 A typedef for the callback operations structure that defines the interface methods for base backup sink objects, enabling polymorphic behavior in the bbsink chain-of-responsibility pattern.

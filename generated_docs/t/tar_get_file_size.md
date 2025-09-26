@@ -1,7 +1,7 @@
 # tar_get_file_size
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 1007 - 1016
+[src/bin/pg_basebackup/walmethods.c:1007-1016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L1007-L1016)
 
 ## Overview
 A placeholder function in the TAR-based WAL method implementation that is currently not implemented and always returns an error.

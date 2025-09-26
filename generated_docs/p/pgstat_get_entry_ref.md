@@ -1,7 +1,7 @@
 # pgstat_get_entry_ref
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 418 - 549
+[src/backend/utils/activity/pgstat_shmem.c:418-549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L418-L549)
 
 ## Overview
 Gets a shared statistics reference, creating the shared statistics object if requested and it does not exist.

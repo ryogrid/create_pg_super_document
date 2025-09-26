@@ -1,7 +1,7 @@
 # BufferAccessStrategyData
 
 ## Location
-src/backend/storage/buffer/freelist.c: 72 - 92
+[src/backend/storage/buffer/freelist.c:72-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L72-L92)
 
 ## Overview
 BufferAccessStrategyData is a private struct that manages a ring of shared buffers for reuse, implementing PostgreSQL's buffer access strategy mechanism to optimize buffer allocation patterns for specific workloads.

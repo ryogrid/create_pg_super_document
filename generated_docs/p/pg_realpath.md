@@ -1,7 +1,7 @@
 # pg_realpath
 
 ## Location
-src/common/exec.c: 282 - 328
+[src/common/exec.c:282-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L282-L328)
 
 ## Overview
 PostgreSQL's cross-platform implementation of realpath() that resolves symlinks and returns absolute paths, providing POSIX.1-2008 semantics across different operating systems including Windows.

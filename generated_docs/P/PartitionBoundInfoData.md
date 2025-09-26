@@ -1,7 +1,7 @@
 # PartitionBoundInfoData
 
 ## Location
-src/include/partitioning/partbounds.h: 79 - 96
+[src/include/partitioning/partbounds.h:79-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/partitioning/partbounds.h#L79-L96)
 
 ## Overview
 PartitionBoundInfoData is a core data structure that encapsulates a set of partition bounds for PostgreSQL's table partitioning feature. It supports hash, list, and range partitioning strategies and is used both for actual partitioned tables and virtual partitioned joinrels within the query planner.

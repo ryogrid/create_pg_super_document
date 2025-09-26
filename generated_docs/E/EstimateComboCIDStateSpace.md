@@ -1,7 +1,7 @@
 # EstimateComboCIDStateSpace
 
 ## Location
-src/backend/utils/time/combocid.c: 297 - 315
+[src/backend/utils/time/combocid.c:297-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/combocid.c#L297-L315)
 
 ## Overview
 EstimateComboCIDStateSpace calculates the amount of memory space required to serialize the current combo command ID state for parallel processing in PostgreSQL.

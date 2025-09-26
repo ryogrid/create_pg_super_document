@@ -1,7 +1,7 @@
 # lappend_oid
 
 ## Location
-src/backend/nodes/list.c: 375 - 392
+[src/backend/nodes/list.c:375-392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L375-L392)
 
 ## Overview
 Appends an OID (Object Identifier) value to a PostgreSQL OidList data structure, returning a pointer to the modified list.

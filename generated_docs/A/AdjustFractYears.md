@@ -1,7 +1,7 @@
 # AdjustFractYears
 
 ## Location
-src/backend/utils/adt/datetime.c: 601 - 617
+[src/backend/utils/adt/datetime.c:601-617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L601-L617)
 
 ## Overview
 A static helper function that converts fractional years to months and adds them to the months field of a pg_itm_in structure, handling potential overflow.

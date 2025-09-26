@@ -1,7 +1,7 @@
 # mbms_add_member
 
 ## Location
-src/backend/nodes/multibitmapset.c: 44 - 70
+[src/backend/nodes/multibitmapset.c:44-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/multibitmapset.c#L44-L70)
 
 ## Overview
 Adds a new member to a multibitmapset by setting a specific bit in a specific Bitmapset within the List structure.

@@ -1,7 +1,7 @@
 # PgStat_BktypeIO
 
 ## Location
-src/include/pgstat.h: 310 - 314
+[src/include/pgstat.h:310-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L310-L314)
 
 ## Overview
 PgStat_BktypeIO tracks detailed I/O statistics across different types of database objects, I/O contexts, and operation types, providing comprehensive metrics for PostgreSQL's buffer management and storage I/O performance analysis.

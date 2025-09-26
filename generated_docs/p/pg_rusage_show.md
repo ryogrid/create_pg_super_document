@@ -1,7 +1,7 @@
 # pg_rusage_show
 
 ## Location
-src/backend/utils/misc/pg_rusage.c: 40 - 73
+[src/backend/utils/misc/pg_rusage.c:40-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/pg_rusage.c#L40-L73)
 
 ## Overview
 Computes and formats the elapsed time and resource usage difference between a baseline snapshot and the current time into a human-readable string.

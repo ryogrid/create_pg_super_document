@@ -1,7 +1,7 @@
 # s_lock_stuck
 
 ## Location
-src/backend/storage/lmgr/s_lock.c: 80 - 98
+[src/backend/storage/lmgr/s_lock.c:80-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/s_lock.c#L80-L98)
 
 ## Overview
 s_lock_stuck is a static function that reports and handles situations where a spinlock has become stuck (unable to be acquired after excessive waiting).

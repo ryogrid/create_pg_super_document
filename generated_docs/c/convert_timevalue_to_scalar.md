@@ -1,7 +1,7 @@
 # convert_timevalue_to_scalar
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 4830 - 4895
+[src/backend/utils/adt/selfuncs.c:4830-4895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L4830-L4895)
 
 ## Overview
 Converts various PostgreSQL timevalue data types to a scalar double value for use in statistical calculations and selectivity estimation.

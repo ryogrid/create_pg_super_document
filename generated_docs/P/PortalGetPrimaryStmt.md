@@ -1,7 +1,7 @@
 # PortalGetPrimaryStmt
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 151 - 174
+[src/backend/utils/mmgr/portalmem.c:151-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L151-L174)
 
 ## Overview
 Retrieves the primary PlannedStmt from a portal's statement list, specifically the statement that is marked with canSetTag flag.

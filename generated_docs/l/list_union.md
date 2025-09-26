@@ -1,7 +1,7 @@
 # list_union
 
 ## Location
-src/backend/nodes/list.c: 1066 - 1089
+[src/backend/nodes/list.c:1066-1089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1066-L1089)
 
 ## Overview
 Creates a new list containing the union of two PostgreSQL pointer lists, adding elements from the second list that are not already present in the first list.

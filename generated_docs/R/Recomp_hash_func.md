@@ -1,7 +1,7 @@
 # Recomp_hash_func
 
 ## Location
-src/include/common/unicode_norm_hashfunc.h: 2712 - 2974
+[src/include/common/unicode_norm_hashfunc.h:2712-2974](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/unicode_norm_hashfunc.h#L2712-L2974)
 
 ## Overview
 A perfect hash function used for fast Unicode character recomposition lookups in PostgreSQL's Unicode normalization system.

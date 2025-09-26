@@ -1,7 +1,7 @@
 # tuplestore_putvalues
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 750 - 764
+[src/backend/utils/sort/tuplestore.c:750-764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L750-L764)
 
 ## Overview
 A function that constructs and stores a tuple from separate arrays of values and null indicators, avoiding the overhead of intermediate tuple construction.

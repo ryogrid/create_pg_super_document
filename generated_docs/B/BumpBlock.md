@@ -1,7 +1,7 @@
 # BumpBlock
 
 ## Location
-src/backend/utils/mmgr/bump.c: 86 - 99
+[src/backend/utils/mmgr/bump.c:86-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L86-L99)
 
 ## Overview
 BumpBlock represents a memory block unit obtained from malloc() that serves as the storage container for bump pointer allocations within a BumpContext.

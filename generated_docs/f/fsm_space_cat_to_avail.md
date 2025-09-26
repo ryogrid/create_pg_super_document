@@ -1,7 +1,7 @@
 # fsm_space_cat_to_avail
 
 ## Location
-src/backend/storage/freespace/freespace.c: 418 - 431
+[src/backend/storage/freespace/freespace.c:418-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L418-L431)
 
 ## Overview
 fsm_space_cat_to_avail converts a Free Space Map category code (0-255) back to the lower bound of the byte range it represents, serving as the inverse operation of fsm_space_avail_to_cat.

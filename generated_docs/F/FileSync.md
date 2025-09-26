@@ -1,7 +1,7 @@
 # FileSync
 
 ## Location
-src/backend/storage/file/fd.c: 2294 - 2320
+[src/backend/storage/file/fd.c:2294-2320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2294-L2320)
 
 ## Overview
 FileSync synchronizes a virtual file descriptor to persistent storage, ensuring that all buffered data is written to disk.

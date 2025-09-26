@@ -1,7 +1,7 @@
 # SendPostmasterSignal
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 181 - 197
+[src/backend/storage/ipc/pmsignal.c:181-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L181-L197)
 
 ## Overview
 Sends a signal from a backend child process to the postmaster process, using shared memory flags and SIGUSR1 to communicate specific events or requests.

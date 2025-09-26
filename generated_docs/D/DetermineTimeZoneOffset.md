@@ -1,7 +1,7 @@
 # DetermineTimeZoneOffset
 
 ## Location
-src/backend/utils/adt/datetime.c: 1585 - 1606
+[src/backend/utils/adt/datetime.c:1585-1606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L1585-L1606)
 
 ## Overview
 Determines the GMT offset and daylight-savings status for a specific date/time in a given timezone, serving as a public wrapper for the internal timezone offset calculation.

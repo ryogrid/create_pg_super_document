@@ -1,7 +1,7 @@
 # HotStandbyState
 
 ## Location
-src/include/access/xlogutils.h: 53 - 56
+[src/include/access/xlogutils.h:53-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogutils.h#L53-L56)
 
 ## Overview
 An enumeration that tracks the current state of Hot Standby functionality during WAL recovery, controlling when read-only queries can be accepted on a standby server.

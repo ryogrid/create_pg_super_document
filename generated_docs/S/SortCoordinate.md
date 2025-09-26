@@ -1,7 +1,7 @@
 # SortCoordinate
 
 ## Location
-src/include/utils/tuplesort.h: 61 - 76
+[src/include/utils/tuplesort.h:61-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/tuplesort.h#L61-L76)
 
 ## Overview
 SortCoordinate is a pointer type to SortCoordinateData used for passing coordination state in parallel tuplesort operations.

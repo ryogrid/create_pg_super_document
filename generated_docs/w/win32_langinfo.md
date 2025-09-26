@@ -1,7 +1,7 @@
 # win32_langinfo
 
 ## Location
-src/port/chklocale.c: 202 - 269
+[src/port/chklocale.c:202-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/chklocale.c#L202-L269)
 
 ## Overview
 A Windows-specific helper function that extracts codepage information from locale strings to convert them into PostgreSQL-compatible encoding names.

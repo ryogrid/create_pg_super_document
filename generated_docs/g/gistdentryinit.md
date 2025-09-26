@@ -1,7 +1,7 @@
 # gistdentryinit
 
 ## Location
-src/backend/access/gist/gistutil.c: 546 - 573
+[src/backend/access/gist/gistutil.c:546-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L546-L573)
 
 ## Overview
 The `gistdentryinit` function initializes a GISTENTRY structure with a decompressed version of a GiST key value, handling both compressed and uncompressed data appropriately.

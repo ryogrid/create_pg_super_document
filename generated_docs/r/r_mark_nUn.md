@@ -1,7 +1,7 @@
 # r_mark_nUn
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 691 - 702
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:691-702](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L691-L702)
 
 ## Overview
 Marks and processes Turkish suffix patterns ending with 'nUn' (where U represents vowel harmony variations) in the Snowball stemming algorithm for Turkish text processing.

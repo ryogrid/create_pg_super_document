@@ -1,7 +1,7 @@
 # pg_big5_verifychar
 
 ## Location
-src/common/wchar.c: 1479 - 1503
+[src/common/wchar.c:1479-1503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1479-L1503)
 
 ## Overview
 Verifies the validity of a single Big5 encoded character by checking its byte sequence and ensuring it conforms to Big5 encoding rules.

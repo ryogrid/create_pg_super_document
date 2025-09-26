@@ -1,7 +1,7 @@
 # PGTYPESnumeric_to_decimal
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1547 - 1569
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1547-1569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1547-L1569)
 
 ## Overview
 Converts a PostgreSQL numeric value to a decimal structure by copying all numeric fields with overflow checking.

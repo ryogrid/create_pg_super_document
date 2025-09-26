@@ -1,7 +1,7 @@
 # pgstat_request_entry_refs_gc
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 674 - 679
+[src/backend/utils/activity/pgstat_shmem.c:674-679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L674-L679)
 
 ## Overview
 A function that requests garbage collection of statistics entry references by incrementing an atomic counter in shared memory.

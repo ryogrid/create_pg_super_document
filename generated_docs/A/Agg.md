@@ -1,7 +1,7 @@
 # Agg
 
 ## Location
-src/include/nodes/plannodes.h: 996 - 1032
+[src/include/nodes/plannodes.h:996-1032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L996-L1032)
 
 ## Overview
 Agg is a fundamental plan node that implements aggregation operations in PostgreSQL, supporting both plain aggregates (without GROUP BY) and grouped aggregation with various execution strategies including hash-based and sort-based approaches.

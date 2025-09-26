@@ -1,7 +1,7 @@
 # PrepareSortSupportFromOrderingOp
 
 ## Location
-src/backend/utils/sort/sortsupport.c: 134 - 160
+[src/backend/utils/sort/sortsupport.c:134-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sortsupport.c#L134-L160)
 
 ## Overview
 Sets up a SortSupport structure using a btree ordering operator ("<" or ">" operator) to determine the appropriate comparison function and sort direction.

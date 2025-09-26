@@ -1,7 +1,7 @@
 # GetBufferFromRing
 
 ## Location
-src/backend/storage/buffer/freelist.c: 695 - 747
+[src/backend/storage/buffer/freelist.c:695-747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L695-L747)
 
 ## Overview
 Attempts to retrieve a buffer from a ring-based buffer access strategy, advancing through the ring and checking buffer availability based on reference count and usage patterns.

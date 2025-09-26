@@ -1,7 +1,7 @@
 # logicalrep_partmap_invalidate_cb
 
 ## Location
-src/backend/replication/logical/relation.c: 492 - 539
+[src/backend/replication/logical/relation.c:492-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L492-L539)
 
 ## Overview
 A relation cache invalidation callback function that invalidates partition map entries when the underlying relations are modified or dropped, ensuring consistency between the logical replication partition cache and the actual database state.

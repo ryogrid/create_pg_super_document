@@ -1,7 +1,7 @@
 # CheckDeadLock
 
 ## Location
-src/backend/storage/lmgr/proc.c: 1759 - 1844
+[src/backend/storage/lmgr/proc.c:1759-1844](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L1759-L1844)
 
 ## Overview
 CheckDeadLock performs deadlock detection when the deadlock timeout fires, analyzing lock dependencies and removing the current process from wait queues if a hard deadlock is detected.

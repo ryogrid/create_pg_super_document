@@ -1,7 +1,7 @@
 # transformSubLink
 
 ## Location
-src/backend/parser/parse_expr.c: 1772 - 2014
+[src/backend/parser/parse_expr.c:1772-2014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L1772-L2014)
 
 ## Overview
 Transforms a sublink (subquery) node during parsing by validating context appropriateness, analyzing the subquery, and setting up proper parameter handling based on sublink type.

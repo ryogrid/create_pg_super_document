@@ -1,7 +1,7 @@
 # DateTimeParseError
 
 ## Location
-src/backend/utils/adt/datetime.c: 4092 - 4152
+[src/backend/utils/adt/datetime.c:4092-4152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L4092-L4152)
 
 ## Overview
 Reports detailed error messages for various types of datetime input processing errors, with support for both exception throwing and soft error handling.

@@ -1,7 +1,7 @@
 # PGconn
 
 ## Location
-src/interfaces/libpq/libpq-fe.h: 186 - 190
+[src/interfaces/libpq/libpq-fe.h:186-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-fe.h#L186-L190)
 
 ## Overview
 PGconn is the main opaque structure that encapsulates a connection to a PostgreSQL backend server. It stores all state data associated with a single database connection including connection parameters, authentication state, communication buffers, and query results.

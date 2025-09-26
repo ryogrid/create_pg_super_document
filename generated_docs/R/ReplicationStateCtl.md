@@ -1,7 +1,7 @@
 # ReplicationStateCtl
 
 ## Location
-src/backend/replication/logical/origin.c: 146 - 152
+[src/backend/replication/logical/origin.c:146-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L146-L152)
 
 ## Overview
 ReplicationStateCtl is the control structure that manages an array of replication states for all logical replication origins in shared memory.

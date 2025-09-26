@@ -1,7 +1,7 @@
 # VirtualXactLock
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4560 - 4670
+[src/backend/storage/lmgr/lock.c:4560-4670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4560-L4670)
 
 ## Overview
 Waits for a virtual transaction to complete, handling both active transactions and prepared transactions, with support for fast-path and materialized lock mechanisms.

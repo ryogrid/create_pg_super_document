@@ -1,7 +1,7 @@
 # RecordPageWithFreeSpace
 
 ## Location
-src/backend/storage/freespace/freespace.c: 194 - 210
+[src/backend/storage/freespace/freespace.c:194-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L194-L210)
 
 ## Overview
 RecordPageWithFreeSpace is a core FSM function that updates the Free Space Map with the current amount of free space available on a specific page.

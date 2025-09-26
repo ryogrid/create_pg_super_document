@@ -1,7 +1,7 @@
 # getrule
 
 ## Location
-src/timezone/localtime.c: 778 - 838
+[src/timezone/localtime.c:778-838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L778-L838)
 
 ## Overview
 Extracts a timezone rule in the POSIX format date[/time] from a timezone string, supporting Julian days, month/week/day specifications, and day-of-year formats.

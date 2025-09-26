@@ -1,7 +1,7 @@
 # s_unlock
 
 ## Location
-src/backend/storage/lmgr/s_lock.c: 117 - 131
+[src/backend/storage/lmgr/s_lock.c:117-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/s_lock.c#L117-L131)
 
 ## Overview
 s_unlock is the platform-independent function for releasing a spinlock, with architecture-specific optimizations for different processor families.

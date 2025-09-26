@@ -1,7 +1,7 @@
 # test_resowner_leak
 
 ## Location
-src/test/modules/test_resowner/test_resowner_basic.c: 142 - 164
+[src/test/modules/test_resowner/test_resowner_basic.c:142-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_basic.c#L142-L164)
 
 ## Overview
 test_resowner_leak is a PostgreSQL SQL-callable function that deliberately creates a resource leak scenario to test the resource owner's handling of unreleased resources during cleanup.

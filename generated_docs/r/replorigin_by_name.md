@@ -1,7 +1,7 @@
 # replorigin_by_name
 
 ## Location
-src/backend/replication/logical/origin.c: 221 - 251
+[src/backend/replication/logical/origin.c:221-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L221-L251)
 
 ## Overview
 Looks up a replication origin by its name in the system catalog and returns its unique identifier, with optional error handling for missing origins.

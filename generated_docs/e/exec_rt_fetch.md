@@ -1,7 +1,7 @@
 # exec_rt_fetch
 
 ## Location
-src/include/executor/executor.h: 588 - 682
+[src/include/executor/executor.h:588-682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/executor.h#L588-L682)
 
 ## Overview
 exec_rt_fetch retrieves a specific RangeTblEntry from the executor state's range table by index, providing access to table metadata and query information during query execution.

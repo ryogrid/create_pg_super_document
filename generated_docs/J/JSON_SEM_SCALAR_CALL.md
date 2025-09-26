@@ -1,7 +1,7 @@
 # JSON_SEM_SCALAR_CALL
 
 ## Location
-src/common/jsonapi.c: 74 - 83
+[src/common/jsonapi.c:74-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L74-L83)
 
 ## Overview
 An enumeration value in the JsonParserSem enum that represents a semantic action for invoking scalar value callbacks during JSON parsing.

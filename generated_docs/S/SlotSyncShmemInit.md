@@ -1,7 +1,7 @@
 # SlotSyncShmemInit
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1668 - 1687
+[src/backend/replication/logical/slotsync.c:1668-1687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1668-L1687)
 
 ## Overview
 Allocates and initializes the shared memory structure used for coordinating slot synchronization between processes.

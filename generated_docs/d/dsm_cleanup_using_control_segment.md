@@ -1,7 +1,7 @@
 # dsm_cleanup_using_control_segment
 
 ## Location
-src/backend/storage/ipc/dsm.c: 238 - 319
+[src/backend/storage/ipc/dsm.c:238-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L238-L319)
 
 ## Overview
 Cleans up leftover dynamic shared memory segments from a previous postmaster invocation by using an old control segment to locate and destroy orphaned DSM segments.

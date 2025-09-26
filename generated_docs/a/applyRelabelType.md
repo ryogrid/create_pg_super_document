@@ -1,7 +1,7 @@
 # applyRelabelType
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 631 - 683
+[src/backend/nodes/nodeFuncs.c:631-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L631-L683)
 
 ## Overview
 Adds a RelabelType node if needed to make an expression expose the specified type, typmod, and collation, while maintaining post-optimization invariants.

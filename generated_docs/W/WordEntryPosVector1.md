@@ -1,7 +1,7 @@
 # WordEntryPosVector1
 
 ## Location
-src/include/tsearch/ts_type.h: 76 - 78
+[src/include/tsearch/ts_type.h:76-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_type.h#L76-L78)
 
 ## Overview
 WordEntryPosVector1 is a specialized variant of WordEntryPosVector with a fixed-size array containing exactly one position entry, optimized for the common case of single-position words.

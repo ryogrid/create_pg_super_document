@@ -1,7 +1,7 @@
 # ltsGetFreeBlock
 
 ## Location
-src/backend/utils/sort/logtape.c: 371 - 430
+[src/backend/utils/sort/logtape.c:371-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L371-L430)
 
 ## Overview
 Manages allocation of free blocks from the LogicalTapeSet's global free list using a min-heap data structure to efficiently retrieve the lowest available block number.

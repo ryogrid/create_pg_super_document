@@ -1,7 +1,7 @@
 # BitmapAnd
 
 ## Location
-src/include/nodes/plannodes.h: 356 - 360
+[src/include/nodes/plannodes.h:356-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L356-L360)
 
 ## Overview
 The BitmapAnd node generates the intersection of tuple bitmaps from multiple sub-plans, implementing AND operations in bitmap index scans.

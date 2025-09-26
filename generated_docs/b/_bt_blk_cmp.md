@@ -1,7 +1,7 @@
 # _bt_blk_cmp
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 3011 - 3017
+[src/backend/access/nbtree/nbtinsert.c:3011-3017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L3011-L3017)
 
 ## Overview
 A static inline comparison function used as a qsort callback for sorting arrays of BlockNumber values during B-tree simple deletion operations.

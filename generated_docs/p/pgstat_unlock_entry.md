@@ -1,7 +1,7 @@
 # pgstat_unlock_entry
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 649 - 657
+[src/backend/utils/activity/pgstat_shmem.c:649-657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L649-L657)
 
 ## Overview
 Releases a lock on a statistics entry that was previously acquired through pgstat_lock_entry() or pgstat_lock_entry_shared().

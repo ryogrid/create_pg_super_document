@@ -1,7 +1,7 @@
 # set_max_safe_fds
 
 ## Location
-src/backend/storage/file/fd.c: 1041 - 1083
+[src/backend/storage/file/fd.c:1041-1083](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1041-L1083)
 
 ## Overview
 Determines and sets the maximum number of file descriptors that PostgreSQL's fd.c subsystem is allowed to use, ensuring safe operation within system limits while reserving descriptors for other purposes.

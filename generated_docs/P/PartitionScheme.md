@@ -1,7 +1,7 @@
 # PartitionScheme
 
 ## Location
-src/include/nodes/pathnodes.h: 598 - 816
+[src/include/nodes/pathnodes.h:598-816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L598-L816)
 
 ## Overview
 PartitionScheme is a pointer type (typedef) that references PartitionSchemeData structures, providing a handle to shared partition scheme information across multiple partitioned relations.

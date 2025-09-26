@@ -1,7 +1,7 @@
 # ExecCopySlotMinimalTuple
 
 ## Location
-src/include/executor/tuptable.h: 492 - 508
+[src/include/executor/tuptable.h:492-508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L492-L508)
 
 ## Overview
 Returns a MinimalTuple allocated in the caller's memory context by copying the tuple data from a TupleTableSlot.

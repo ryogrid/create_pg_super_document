@@ -1,7 +1,7 @@
 # esc_decode
 
 ## Location
-src/backend/utils/adt/encode.c: 454 - 501
+[src/backend/utils/adt/encode.c:454-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L454-L501)
 
 ## Overview
 Decodes escape sequence encoded data back to its original binary format, reversing the encoding performed by esc_encode.

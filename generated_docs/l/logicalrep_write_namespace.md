@@ -1,7 +1,7 @@
 # logicalrep_write_namespace
 
 ## Location
-src/backend/replication/logical/proto.c: 1035 - 1054
+[src/backend/replication/logical/proto.c:1035-1054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L1035-L1054)
 
 ## Overview
 Writes namespace name information to a logical replication message stream, using space-saving optimization for the pg_catalog namespace.

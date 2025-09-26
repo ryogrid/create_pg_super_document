@@ -1,7 +1,7 @@
 # ExecEndRecursiveUnion
 
 ## Location
-src/backend/executor/nodeRecursiveunion.c: 272 - 297
+[src/backend/executor/nodeRecursiveunion.c:272-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeRecursiveunion.c#L272-L297)
 
 ## Overview
 Performs cleanup and resource deallocation for a RecursiveUnion plan node, releasing all memory and storage allocated during recursive query execution.

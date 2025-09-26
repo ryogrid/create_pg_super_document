@@ -1,7 +1,7 @@
 # strnlen
 
 ## Location
-src/port/strnlen.c: 26 - 33
+[src/port/strnlen.c:26-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/strnlen.c#L26-L33)
 
 ## Overview
 A portable implementation of the POSIX strnlen() function for systems where it's not natively available, providing safe string length calculation with a maximum boundary.

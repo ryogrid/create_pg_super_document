@@ -1,7 +1,7 @@
 # ECPGtype_information_cache
 
 ## Location
-src/interfaces/ecpg/ecpglib/ecpglib_extern.h: 55 - 66
+[src/interfaces/ecpg/ecpglib/ecpglib_extern.h:55-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/ecpglib_extern.h#L55-L66)
 
 ## Overview
 A cache structure used by ECPG to store PostgreSQL type information, specifically tracking whether database types are arrays or not.

@@ -1,7 +1,7 @@
 # pgstat_report_wait_end
 
 ## Location
-src/include/utils/wait_event.h: 101 - 108
+[src/include/utils/wait_event.h:101-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/wait_event.h#L101-L108)
 
 ## Overview
 Reports the end of a wait event by clearing the wait event information, indicating that the server process is no longer waiting.

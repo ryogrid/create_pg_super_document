@@ -1,7 +1,7 @@
 # bbsink_begin_backup
 
 ## Location
-src/include/backup/basebackup_sink.h: 175 - 190
+[src/include/backup/basebackup_sink.h:175-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L175-L190)
 
 ## Overview
 Initializes a backup sink by setting up the state and buffer configuration, then calling the sink's begin_backup operation.

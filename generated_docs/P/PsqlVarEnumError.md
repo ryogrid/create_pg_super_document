@@ -1,7 +1,7 @@
 # PsqlVarEnumError
 
 ## Location
-src/bin/psql/variables.c: 416 - 421
+[src/bin/psql/variables.c:416-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L416-L421)
 
 ## Overview
 Emits standardized error messages with suggestions for variables or commands that accept enum-style arguments, providing consistent error reporting across psql.

@@ -1,7 +1,7 @@
 # PgStat_FunctionCallUsage
 
 ## Location
-src/include/pgstat.h: 117 - 128
+[src/include/pgstat.h:117-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L117-L128)
 
 ## Overview
 PgStat_FunctionCallUsage is a working state structure used to accumulate per-function-call timing statistics during function execution in PostgreSQL.

@@ -1,7 +1,7 @@
 # index
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 94 - 100
+[src/interfaces/ecpg/preproc/type.h:94-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L94-L100)
 
 ## Overview
 The 'index' struct is used in the ECPG parser to track array dimension and string length information during preprocessing of C variable declarations with embedded SQL.

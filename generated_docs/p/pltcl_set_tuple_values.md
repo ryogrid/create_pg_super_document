@@ -1,7 +1,7 @@
 # pltcl_set_tuple_values
 
 ## Location
-src/pl/tcl/pltcl.c: 3018 - 3103
+[src/pl/tcl/pltcl.c:3018-3103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L3018-L3103)
 
 ## Overview
 pltcl_set_tuple_values is a static function in the PL/Tcl extension that sets Tcl variables for all attributes of a given PostgreSQL tuple, making tuple data accessible to Tcl code.

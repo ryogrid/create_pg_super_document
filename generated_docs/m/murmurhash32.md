@@ -1,7 +1,7 @@
 # murmurhash32
 
 ## Location
-src/include/common/hashfn.h: 92 - 105
+[src/include/common/hashfn.h:92-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn.h#L92-L105)
 
 ## Overview
 A simple inline implementation of the MurmurHash hash function optimized for 32-bit integer input, designed for high-performance hashing operations.

@@ -1,7 +1,7 @@
 # ComboCidEntryData
 
 ## Location
-src/backend/utils/time/combocid.c: 68 - 69
+[src/backend/utils/time/combocid.c:68-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/combocid.c#L68-L69)
 
 ## Overview
 ComboCidEntryData is a structure that represents an entry in the hash table used to store the mapping between (cmin, cmax) command ID pairs and their corresponding combo command IDs in PostgreSQL's combo command ID system.

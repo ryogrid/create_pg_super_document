@@ -1,7 +1,7 @@
 # GetAccessStrategyPinLimit
 
 ## Location
-src/backend/storage/buffer/freelist.c: 647 - 680
+[src/backend/storage/buffer/freelist.c:647-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L647-L680)
 
 ## Overview
 Returns the maximum number of buffers that should be pinned simultaneously when using a buffer access strategy, preventing excessive pinning that could escape the ring or cause excessive disk writes.

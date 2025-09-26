@@ -1,7 +1,7 @@
 # get_best_segment
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 2010 - 2080
+[src/backend/utils/mmgr/dsa.c:2010-2080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L2010-L2080)
 
 ## Overview
 Searches through segment bins to find a segment that can satisfy a memory allocation request for a specified number of contiguous pages.

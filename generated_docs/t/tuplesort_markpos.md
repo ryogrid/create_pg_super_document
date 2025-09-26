@@ -1,7 +1,7 @@
 # tuplesort_markpos
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2473 - 2503
+[src/backend/utils/sort/tuplesort.c:2473-2503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2473-L2503)
 
 ## Overview
 Saves the current read position in a completed tuple sort, creating a bookmark that can be returned to later using tuplesort_restorepos.

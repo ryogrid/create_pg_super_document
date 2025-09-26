@@ -1,7 +1,7 @@
 # AffixNode
 
 ## Location
-src/include/tsearch/dicts/spell.h: 138 - 143
+[src/include/tsearch/dicts/spell.h:138-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/dicts/spell.h#L138-L143)
 
 ## Overview
 AffixNode is a structure that represents a node in a prefix tree (Trie) used to store and efficiently lookup affix rules in PostgreSQL's Ispell dictionary system.

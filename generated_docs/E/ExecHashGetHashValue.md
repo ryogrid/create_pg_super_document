@@ -1,7 +1,7 @@
 # ExecHashGetHashValue
 
 ## Location
-src/backend/executor/nodeHash.c: 1831 - 1938
+[src/backend/executor/nodeHash.c:1831-1938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1831-L1938)
 
 ## Overview
 Computes hash values for tuples in hash joins by evaluating hash key expressions and combining them using rotation and XOR operations, with support for null handling and strict/non-strict join semantics.

@@ -1,7 +1,7 @@
 # tuplesort_end
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 971 - 987
+[src/backend/utils/sort/tuplesort.c:971-987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L971-L987)
 
 ## Overview
 Public function that completely terminates a tuplesort operation by releasing all resources and destroying the main memory context.

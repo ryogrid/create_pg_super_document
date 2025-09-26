@@ -1,7 +1,7 @@
 # pg_unicode_decomposition
 
 ## Location
-src/include/common/unicode_norm_table.h: 26 - 27
+[src/include/common/unicode_norm_table.h:26-27](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/unicode_norm_table.h#L26-L27)
 
 ## Overview
 A structure that represents a Unicode character's decomposition information, storing the codepoint, combining class, and decomposition data for Unicode normalization operations.

@@ -1,7 +1,7 @@
 # MarkLocalBufferDirty
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 449 - 488
+[src/backend/storage/buffer/localbuf.c:449-488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L449-L488)
 
 ## Overview
 Marks a local buffer as dirty, indicating that its contents have been modified and need to be written to disk during the next checkpoint or buffer replacement.

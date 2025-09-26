@@ -1,7 +1,7 @@
 # LauncherLastStartTimesEntry
 
 ## Location
-src/backend/replication/logical/launcher.c: 72 - 76
+[src/backend/replication/logical/launcher.c:72-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L72-L76)
 
 ## Overview
 LauncherLastStartTimesEntry represents an entry in the shared hash table that tracks the last start times of logical replication apply workers for each subscription, enabling restart throttling and preventing rapid worker restart loops.

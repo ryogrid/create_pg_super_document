@@ -1,7 +1,7 @@
 # SpinlockSemaInit
 
 ## Location
-src/backend/storage/lmgr/spin.c: 77 - 113
+[src/backend/storage/lmgr/spin.c:77-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/spin.c#L77-L113)
 
 ## Overview
 Initializes spinlock emulation by allocating and creating the required semaphores in shared memory.

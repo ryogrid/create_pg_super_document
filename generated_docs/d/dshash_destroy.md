@@ -1,7 +1,7 @@
 # dshash_destroy
 
 ## Location
-src/backend/lib/dshash.c: 323 - 366
+[src/backend/lib/dshash.c:323-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L323-L366)
 
 ## Overview
 Completely destroys a dynamic shared hash table, freeing all associated memory including entries, buckets, and control structures from the dynamic shared area.

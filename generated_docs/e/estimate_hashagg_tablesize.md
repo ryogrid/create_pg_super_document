@@ -1,7 +1,7 @@
 # estimate_hashagg_tablesize
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 3930 - 3966
+[src/backend/utils/adt/selfuncs.c:3930-3966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L3930-L3966)
 
 ## Overview
 Estimates the total memory size in bytes required for a hash aggregate hashtable based on aggregation costs, path width, and the expected number of groups.

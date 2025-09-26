@@ -1,7 +1,7 @@
 # pg_strsignal
 
 ## Location
-src/port/pgstrsignal.c: 39 - 61
+[src/port/pgstrsignal.c:39-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pgstrsignal.c#L39-L61)
 
 ## Overview
 Provides a string representation of a Unix signal number, serving as a portable wrapper around the system's strsignal() function with guaranteed non-NULL return values.

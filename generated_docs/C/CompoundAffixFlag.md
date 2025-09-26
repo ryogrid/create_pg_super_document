@@ -1,7 +1,7 @@
 # CompoundAffixFlag
 
 ## Location
-src/include/tsearch/dicts/spell.h: 168 - 180
+[src/include/tsearch/dicts/spell.h:168-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/dicts/spell.h#L168-L180)
 
 ## Overview
 CompoundAffixFlag is a structure that stores Hunspell options for compound word support, handling different flag representations based on the dictionary's flag encoding mode.

@@ -1,7 +1,7 @@
 # GUC_check_errcode
 
 ## Location
-src/backend/utils/misc/guc.c: 6799 - 6811
+[src/backend/utils/misc/guc.c:6799-6811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6799-L6811)
 
 ## Overview
 Sets a custom SQL error code for GUC check hook failures, allowing hooks to override the default ERRCODE_INVALID_PARAMETER_VALUE.

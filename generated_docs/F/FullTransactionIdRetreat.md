@@ -1,7 +1,7 @@
 # FullTransactionIdRetreat
 
 ## Location
-src/include/access/transam.h: 103 - 127
+[src/include/access/transam.h:103-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/transam.h#L103-L127)
 
 ## Overview
 Decrements a FullTransactionId while skipping over transaction IDs that would appear special when viewed as 32-bit XIDs, ensuring proper handling of transaction ID space navigation.

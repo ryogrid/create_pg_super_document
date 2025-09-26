@@ -1,7 +1,7 @@
 # get_rule_expr_funccall
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10373 - 10395
+[src/backend/utils/adt/ruleutils.c:10373-10395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10373-L10395)
 
 ## Overview
 Ensures that deparsed expressions look like function calls by wrapping non-function-like expressions in CAST() when necessary.

@@ -1,7 +1,7 @@
 # PQpipelineSync
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3272 - 3281
+[src/interfaces/libpq/fe-exec.c:3272-3281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3272-L3281)
 
 ## Overview
 Sends a Sync message as part of a pipeline and immediately flushes the data to the server.

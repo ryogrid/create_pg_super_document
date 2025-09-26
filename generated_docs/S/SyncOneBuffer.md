@@ -1,7 +1,7 @@
 # SyncOneBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3475 - 3547
+[src/backend/storage/buffer/bufmgr.c:3475-3547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3475-L3547)
 
 ## Overview
 SyncOneBuffer processes a single buffer during checkpoint or background writer operations, determining if the buffer needs writing and performing the actual I/O operation while tracking buffer reusability.

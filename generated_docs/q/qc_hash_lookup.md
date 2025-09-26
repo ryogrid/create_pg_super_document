@@ -1,7 +1,7 @@
 # qc_hash_lookup
 
 ## Location
-src/common/unicode_norm.c: 543 - 573
+[src/common/unicode_norm.c:543-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_norm.c#L543-L573)
 
 ## Overview
 Performs a perfect hash table lookup to find Unicode normalization properties for a given codepoint, used for Quick Check optimization.

@@ -1,7 +1,7 @@
 # logicalrep_launcher_attach_dshmem
 
 ## Location
-src/backend/replication/logical/launcher.c: 1002 - 1045
+[src/backend/replication/logical/launcher.c:1002-1045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L1002-L1045)
 
 ## Overview
 Initializes or attaches to the dynamic shared hash table that stores worker last-start times for logical replication, ensuring thread-safe access to worker timing information.

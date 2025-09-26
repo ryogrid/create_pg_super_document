@@ -1,7 +1,7 @@
 # config_var_value
 
 ## Location
-src/include/utils/guc_tables.h: 45 - 49
+[src/include/utils/guc_tables.h:45-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc_tables.h#L45-L49)
 
 ## Overview
 Represents the actual value of a GUC (Grand Unified Configuration) variable, including both the value itself and optional extra data created by hooks.

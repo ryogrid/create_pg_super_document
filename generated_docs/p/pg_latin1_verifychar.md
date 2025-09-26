@@ -1,7 +1,7 @@
 # pg_latin1_verifychar
 
 ## Location
-src/common/wchar.c: 1410 - 1415
+[src/common/wchar.c:1410-1415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1410-L1415)
 
 ## Overview
 A trivial character verification function for Latin-1 encoding that always validates any single byte as a valid character.

@@ -1,7 +1,7 @@
 # UnpinLocalBuffer
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 681 - 687
+[src/backend/storage/buffer/localbuf.c:681-687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L681-L687)
 
 ## Overview
 UnpinLocalBuffer is a function that decrements the pin count of a local buffer and removes it from the current resource owner's tracking list.

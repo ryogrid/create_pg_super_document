@@ -1,7 +1,7 @@
 # transformMinMaxExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 2263 - 2301
+[src/backend/parser/parse_expr.c:2263-2301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2263-L2301)
 
 ## Overview
 Transforms GREATEST and LEAST expressions from parse tree format into executable format, determining a common result type and applying necessary type coercions to all arguments.

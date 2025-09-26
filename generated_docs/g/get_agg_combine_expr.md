@@ -1,7 +1,7 @@
 # get_agg_combine_expr
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10699 - 10714
+[src/backend/utils/adt/ruleutils.c:10699-10714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10699-L10714)
 
 ## Overview
 A specialized callback function used in PostgreSQL's parallel query execution to deparse combining aggregate expressions by locating and formatting the corresponding partial aggregate.

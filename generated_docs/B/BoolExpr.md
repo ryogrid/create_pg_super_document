@@ -1,7 +1,7 @@
 # BoolExpr
 
 ## Location
-src/include/nodes/primnodes.h: 934 - 942
+[src/include/nodes/primnodes.h:934-942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L934-L942)
 
 ## Overview
 BoolExpr represents boolean logical operations (AND, OR, NOT) in PostgreSQL's expression tree, supporting multiple arguments for AND/OR and exactly one argument for NOT.

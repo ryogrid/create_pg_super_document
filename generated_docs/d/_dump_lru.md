@@ -1,7 +1,7 @@
 # _dump_lru
 
 ## Location
-src/backend/storage/file/fd.c: 1246 - 1264
+[src/backend/storage/file/fd.c:1246-1264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1246-L1264)
 
 ## Overview
 _dump_lru is a debugging function that logs the current state of the LRU (Least Recently Used) chain for virtual file descriptors in PostgreSQL's VFD cache.

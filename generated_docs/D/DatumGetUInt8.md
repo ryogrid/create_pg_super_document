@@ -1,7 +1,7 @@
 # DatumGetUInt8
 
 ## Location
-src/include/postgres.h: 142 - 151
+[src/include/postgres.h:142-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L142-L151)
 
 ## Overview
 DatumGetUInt8 is an inline function that extracts an 8-bit unsigned integer value from a PostgreSQL Datum type.

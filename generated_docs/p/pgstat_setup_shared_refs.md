@@ -1,7 +1,7 @@
 # pgstat_setup_shared_refs
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 326 - 341
+[src/backend/utils/activity/pgstat_shmem.c:326-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L326-L341)
 
 ## Overview
 Initializes the local hash table for caching references to shared memory statistics entries, setting up the infrastructure needed for efficient entry reference management.

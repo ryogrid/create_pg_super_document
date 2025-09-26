@@ -1,7 +1,7 @@
 # fsm_extend
 
 ## Location
-src/backend/storage/freespace/freespace.c: 629 - 645
+[src/backend/storage/freespace/freespace.c:629-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L629-L645)
 
 ## Overview
 Extends the Free Space Map (FSM) fork to at least the specified number of blocks, creating new empty pages filled with zeros to indicate no free space.

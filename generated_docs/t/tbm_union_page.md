@@ -1,7 +1,7 @@
 # tbm_union_page
 
 ## Location
-src/backend/nodes/tidbitmap.c: 481 - 539
+[src/backend/nodes/tidbitmap.c:481-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L481-L539)
 
 ## Overview
 Merges a single page entry from one TIDBitmap into another during union operations, handling both exact and lossy page representations.

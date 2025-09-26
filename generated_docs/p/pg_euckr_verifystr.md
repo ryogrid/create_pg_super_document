@@ -1,7 +1,7 @@
 # pg_euckr_verifystr
 
 ## Location
-src/common/wchar.c: 1195 - 1223
+[src/common/wchar.c:1195-1223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1195-L1223)
 
 ## Overview
 Validates the byte sequence of an EUC-KR (Extended Unix Code for Korean) encoded string and returns the number of valid bytes processed.

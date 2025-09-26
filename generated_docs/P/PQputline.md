@@ -1,7 +1,7 @@
 # PQputline
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2918 - 2927
+[src/interfaces/libpq/fe-exec.c:2918-2927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2918-L2927)
 
 ## Overview
 PQputline is a deprecated PostgreSQL libpq function that sends a string to the backend during COPY IN operations, providing a simple wrapper around PQputnbytes for backwards compatibility.

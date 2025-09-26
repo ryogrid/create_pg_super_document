@@ -1,7 +1,7 @@
 # AllocateVfd
 
 ## Location
-src/backend/storage/file/fd.c: 1411 - 1468
+[src/backend/storage/file/fd.c:1411-1468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1411-L1468)
 
 ## Overview
 Allocates a virtual file descriptor (VFD) from the free list, expanding the VFD cache array if necessary.

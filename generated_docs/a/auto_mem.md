@@ -1,7 +1,7 @@
 # auto_mem
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 65 - 74
+[src/interfaces/ecpg/ecpglib/memory.c:65-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L65-L74)
 
 ## Overview
 A simple linked list node structure used by the ECPG library to track memory allocations that should be automatically freed when a thread terminates.

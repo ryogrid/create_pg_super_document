@@ -1,7 +1,7 @@
 # TmFromChar
 
 ## Location
-src/backend/utils/adt/formatting.c: 430 - 431
+[src/backend/utils/adt/formatting.c:430-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L430-L431)
 
 ## Overview
 A structure used to store intermediate parsing results when converting formatted date/time strings to internal timestamp representations in PostgreSQL's formatting system.

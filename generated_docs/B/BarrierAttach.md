@@ -1,7 +1,7 @@
 # BarrierAttach
 
 ## Location
-src/backend/storage/ipc/barrier.c: 236 - 255
+[src/backend/storage/ipc/barrier.c:236-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/barrier.c#L236-L255)
 
 ## Overview
 Attaches a new participant to a dynamic barrier, increasing the participant count and requiring the new participant to synchronize with other participants.

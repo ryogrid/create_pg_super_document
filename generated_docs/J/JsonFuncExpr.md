@@ -1,7 +1,7 @@
 # JsonFuncExpr
 
 ## Location
-src/include/nodes/parsenodes.h: 1785 - 1800
+[src/include/nodes/parsenodes.h:1785-1800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1785-L1800)
 
 ## Overview
 A structure representing untransformed function expressions for SQL/JSON query functions, providing comprehensive support for JSON path-based operations with various behavioral options.

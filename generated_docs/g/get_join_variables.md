@@ -1,7 +1,7 @@
 # get_join_variables
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 4956 - 4983
+[src/backend/utils/adt/selfuncs.c:4956-4983](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L4956-L4983)
 
 ## Overview
 Analyzes both sides of a join clause by applying examine_variable() to each argument and determines the orientation (normal or reversed) of the join relative to the SpecialJoinInfo structure.

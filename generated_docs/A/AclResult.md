@@ -1,7 +1,7 @@
 # AclResult
 
 ## Location
-src/include/utils/acl.h: 186 - 290
+[src/include/utils/acl.h:186-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/acl.h#L186-L290)
 
 ## Overview
 AclResult is an enumeration that represents the possible outcomes of access control (permission) checks in PostgreSQL, indicating whether a requested operation is allowed or why it was denied.

@@ -1,7 +1,7 @@
 # xml_doctype_in_content
 
 ## Location
-src/backend/utils/adt/xml.c: 1672 - 1747
+[src/backend/utils/adt/xml.c:1672-1747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1672-L1747)
 
 ## Overview
 Detects whether an XML CONTENT input contains a Document Type Declaration (DTD), enabling SQL/XML:2006+ compliant parsing behavior.

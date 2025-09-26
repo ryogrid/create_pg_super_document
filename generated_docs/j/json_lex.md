@@ -1,7 +1,7 @@
 # json_lex
 
 ## Location
-src/common/jsonapi.c: 1309 - 1671
+[src/common/jsonapi.c:1309-1671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L1309-L1671)
 
 ## Overview
 The core lexical analyzer function that tokenizes JSON input, handling both streaming and incremental parsing while identifying and classifying JSON tokens.

@@ -1,7 +1,7 @@
 # TempTablespacePath
 
 ## Location
-src/backend/storage/file/fd.c: 1776 - 1800
+[src/backend/storage/file/fd.c:1776-1800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1776-L1800)
 
 ## Overview
 TempTablespacePath constructs the filesystem path for the temporary files directory within a specified tablespace.

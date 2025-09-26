@@ -1,7 +1,7 @@
 # config_int
 
 ## Location
-src/include/utils/guc_tables.h: 212 - 227
+[src/include/utils/guc_tables.h:212-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc_tables.h#L212-L227)
 
 ## Overview
 A specialized GUC variable structure for integer-type configuration parameters, extending the base config_generic structure with integer-specific fields and validation hooks.

@@ -1,7 +1,7 @@
 # PathKey
 
 ## Location
-src/include/nodes/pathnodes.h: 1463 - 1474
+[src/include/nodes/pathnodes.h:1463-1474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1463-L1474)
 
 ## Overview
 PathKey represents a single sort ordering component within PostgreSQL's query optimization, defining how values are ordered by referencing an EquivalenceClass and specifying the sort direction and null handling.

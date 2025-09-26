@@ -1,7 +1,7 @@
 # PushCopiedSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 700 - 711
+[src/backend/utils/time/snapmgr.c:700-711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L700-L711)
 
 ## Overview
 Pushes a copy of the provided snapshot onto the active snapshot stack, ensuring the new active snapshot is modifiable.

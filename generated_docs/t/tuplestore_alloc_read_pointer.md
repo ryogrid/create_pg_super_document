@@ -1,7 +1,7 @@
 # tuplestore_alloc_read_pointer
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 383 - 417
+[src/backend/utils/sort/tuplestore.c:383-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L383-L417)
 
 ## Overview
 Function to allocate an additional read pointer for a tuplestore, enabling multiple concurrent reading positions within the same tuplestore.

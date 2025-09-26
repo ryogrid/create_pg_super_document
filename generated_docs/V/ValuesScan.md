@@ -1,7 +1,7 @@
 # ValuesScan
 
 ## Location
-src/include/nodes/plannodes.h: 620 - 624
+[src/include/nodes/plannodes.h:620-624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L620-L624)
 
 ## Overview
 ValuesScan represents a plan node for scanning literal value lists in PostgreSQL's query execution tree, typically used for VALUES clauses that provide constant data rows.

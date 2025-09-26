@@ -1,7 +1,7 @@
 # r_mark_sU
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 655 - 665
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:655-665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L655-L665)
 
 ## Overview
 A static function in the Turkish stemmer that identifies and marks suffixes containing the Turkish vowel 'U' with proper vowel harmony checking and optional 's' consonant handling.

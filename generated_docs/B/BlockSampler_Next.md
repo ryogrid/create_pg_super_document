@@ -1,7 +1,7 @@
 # BlockSampler_Next
 
 ## Location
-src/backend/utils/misc/sampling.c: 64 - 132
+[src/backend/utils/misc/sampling.c:64-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/sampling.c#L64-L132)
 
 ## Overview
 Returns the next block number to be sampled using Knuth's Algorithm S, implementing an optimized version that reduces random number generation calls.

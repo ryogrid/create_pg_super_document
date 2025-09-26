@@ -1,7 +1,7 @@
 # dshash_detach
 
 ## Location
-src/backend/lib/dshash.c: 307 - 322
+[src/backend/lib/dshash.c:307-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L307-L322)
 
 ## Overview
 Detaches from a dynamic shared hash table by freeing the backend-local resources while leaving the shared hash table data intact for other processes.

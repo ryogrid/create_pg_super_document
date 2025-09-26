@@ -1,7 +1,7 @@
 # ts_tokentype
 
 ## Location
-src/backend/utils/adt/tsquery.c: 58 - 77
+[src/backend/utils/adt/tsquery.c:58-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L58-L77)
 
 ## Overview
 An enumeration type that defines the token types returned by tsquery tokenizer functions during parsing of text search query strings.

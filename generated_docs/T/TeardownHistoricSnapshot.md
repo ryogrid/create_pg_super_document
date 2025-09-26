@@ -1,7 +1,7 @@
 # TeardownHistoricSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1665 - 1671
+[src/backend/utils/time/snapmgr.c:1665-1671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1665-L1671)
 
 ## Overview
 TeardownHistoricSnapshot restores catalog snapshots to normal behavior by clearing the historical snapshot setup, effectively ending the timetravel snapshot mode used for logical decoding.

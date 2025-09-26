@@ -1,7 +1,7 @@
 # localsub
 
 ## Location
-src/timezone/localtime.c: 1259 - 1343
+[src/timezone/localtime.c:1259-1343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L1259-L1343)
 
 ## Overview
 Converts a UTC timestamp to local time using timezone state information, implementing the core logic for local time conversion with support for historical and future timezone transitions.

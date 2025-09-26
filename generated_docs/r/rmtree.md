@@ -1,7 +1,7 @@
 # rmtree
 
 ## Location
-src/common/rmtree.c: 50 - 132
+[src/common/rmtree.c:50-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/rmtree.c#L50-L132)
 
 ## Overview
 Recursively deletes a directory tree, optionally including the top-level directory itself. This is a utility function used throughout PostgreSQL for cleanup operations.

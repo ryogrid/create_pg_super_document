@@ -1,7 +1,7 @@
 # PlaceHolderInfo
 
 ## Location
-src/include/nodes/pathnodes.h: 3074 - 3100
+[src/include/nodes/pathnodes.h:3074-3100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L3074-L3100)
 
 ## Overview
 PlaceHolderInfo is a centralized data structure that stores metadata for placeholder expressions during query planning, managing where placeholders should be evaluated and where their values are needed in the join tree.

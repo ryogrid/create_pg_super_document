@@ -1,7 +1,7 @@
 # ltsCreateTape
 
 ## Location
-src/backend/utils/sort/logtape.c: 696 - 732
+[src/backend/utils/sort/logtape.c:696-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L696-L732)
 
 ## Overview
 Creates and initializes a new LogicalTape structure within a LogicalTapeSet, setting up the initial state for a logical tape used in external sorting operations.

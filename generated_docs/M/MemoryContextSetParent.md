@@ -1,7 +1,7 @@
 # MemoryContextSetParent
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 637 - 693
+[src/backend/utils/mmgr/mcxt.c:637-693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L637-L693)
 
 ## Overview
 Changes a memory context to belong to a new parent context (or no parent), allowing modification of a context's lifespan after creation.

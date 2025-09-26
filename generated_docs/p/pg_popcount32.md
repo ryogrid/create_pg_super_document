@@ -1,7 +1,7 @@
 # pg_popcount32
 
 ## Location
-src/port/pg_bitutils.c: 499 - 504
+[src/port/pg_bitutils.c:499-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L499-L504)
 
 ## Overview
 An external interface function for 32-bit population count operations that provides a consistent API regardless of whether hardware-optimized instructions are available.

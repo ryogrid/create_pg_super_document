@@ -1,7 +1,7 @@
 # TimeZoneAbbrevTable
 
 ## Location
-src/include/utils/datetime.h: 215 - 221
+[src/include/utils/datetime.h:215-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/datetime.h#L215-L221)
 
 ## Overview
 TimeZoneAbbrevTable is a data structure that stores a table of time zone abbreviations, providing efficient lookup and storage of timezone abbreviation information in PostgreSQL.

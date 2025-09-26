@@ -1,7 +1,7 @@
 # uint32_hash
 
 ## Location
-src/common/hashfn.c: 688 - 692
+[src/common/hashfn.c:688-692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hashfn.c#L688-L692)
 
 ## Overview
 The `uint32_hash` function is an optimized hash function specifically designed for hashing 32-bit unsigned or signed integer keys, providing better performance than the generic `tag_hash` function for this common use case.

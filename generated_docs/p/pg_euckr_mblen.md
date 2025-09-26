@@ -1,7 +1,7 @@
 # pg_euckr_mblen
 
 ## Location
-src/common/wchar.c: 216 - 221
+[src/common/wchar.c:216-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L216-L221)
 
 ## Overview
 A static function that determines the byte length of a multi-byte character sequence in EUC-KR (Extended Unix Code for Korean) encoding.

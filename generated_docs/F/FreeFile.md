@@ -1,7 +1,7 @@
 # FreeFile
 
 ## Location
-src/backend/storage/file/fd.c: 2778 - 2805
+[src/backend/storage/file/fd.c:2778-2805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2778-L2805)
 
 ## Overview
 FreeFile closes a file that was previously opened by AllocateFile and removes it from the internal list of allocated file descriptors managed by PostgreSQL's file descriptor management system.

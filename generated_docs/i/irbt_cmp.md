@@ -1,7 +1,7 @@
 # irbt_cmp
 
 ## Location
-src/test/modules/test_rbtree/test_rbtree.c: 39 - 51
+[src/test/modules/test_rbtree/test_rbtree.c:39-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_rbtree/test_rbtree.c#L39-L51)
 
 ## Overview
 A static node comparator function used by the Red-Black Tree test module to compare IntRBTreeNode instances based on their integer key values.

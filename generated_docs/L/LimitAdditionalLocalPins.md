@@ -1,7 +1,7 @@
 # LimitAdditionalLocalPins
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 290 - 312
+[src/backend/storage/buffer/localbuf.c:290-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L290-L312)
 
 ## Overview
 LimitAdditionalLocalPins limits the number of additional local buffer pins that can be acquired, serving as the local buffer equivalent of LimitAdditionalPins for temporary relations.

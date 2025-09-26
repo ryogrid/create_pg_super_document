@@ -1,7 +1,7 @@
 # RemoveHead
 
 ## Location
-src/backend/tsearch/ts_parse.c: 112 - 119
+[src/backend/tsearch/ts_parse.c:112-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L112-L119)
 
 ## Overview
 RemoveHead removes the first element from the work queue and moves it to the waste queue, resetting dictionary processing position for lexeme management.

@@ -1,7 +1,7 @@
 # ZeroSUBTRANSPage
 
 ## Location
-src/backend/access/transam/subtrans.c: 296 - 308
+[src/backend/access/transam/subtrans.c:296-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/subtrans.c#L296-L308)
 
 ## Overview
 ZeroSUBTRANSPage initializes or reinitializes a page of the SUBTRANS (subtransaction) log to contain all zeros.

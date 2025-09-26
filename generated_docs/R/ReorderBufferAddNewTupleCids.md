@@ -1,7 +1,7 @@
 # ReorderBufferAddNewTupleCids
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3331 - 3357
+[src/backend/replication/logical/reorderbuffer.c:3331-3357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3331-L3357)
 
 ## Overview
 Adds new tuple Command ID (CID) mappings to the reorder buffer, associating tuple identifiers with their command IDs for transaction processing.

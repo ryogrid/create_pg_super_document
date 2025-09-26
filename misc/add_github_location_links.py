@@ -1,4 +1,5 @@
 import re
+import sys
 from pathlib import Path
 
 # --- Configuration ---
@@ -47,15 +48,40 @@ def create_github_link_and_clean_text(match: re.Match) -> str:
         return match.group(0)
 
 
+def load_symbol_list(file_path: str) -> set:
+    """
+    Load symbol names from a text file, one per line.
+    Returns a set of symbol names.
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            # Read lines, strip whitespace, and filter out empty lines
+            symbols = {line.strip() for line in f if line.strip()}
+        print(f"Loaded {len(symbols)} symbols from '{file_path}'")
+        return symbols
+    except Exception as e:
+        print(f"Error reading symbol file '{file_path}': {e}")
+        sys.exit(1)
+
+
 def main():
     """
     Main function to find and update location lines with GitHub links.
     """
+    # Check for command line argument
+    target_symbols = None
+    if len(sys.argv) > 1:
+        symbol_file = sys.argv[1]
+        target_symbols = load_symbol_list(symbol_file)
+        print(f"Processing only files for symbols specified in '{symbol_file}'")
+    else:
+        print("Processing all markdown files in the directory")
+
     if not ROOT_DIR.is_dir():
         print(f"Error: Directory not found at '{ROOT_DIR}'. Please run this script from the correct location.")
         return
 
-    print(f"Scanning all markdown files in '{ROOT_DIR}' to add and clean location links...")
+    print(f"Scanning markdown files in '{ROOT_DIR}' to add and clean location links...")
 
     # Regex to find the "Location" section and the specific line format.
     # This remains the same as it correctly identifies the target line.
@@ -68,6 +94,13 @@ def main():
 
     # Recursively find all .md files in the directory
     for file_path in ROOT_DIR.rglob('*.md'):
+        # If target symbols are specified, check if this file should be processed
+        if target_symbols is not None:
+            # Extract symbol name from filename (remove .md extension)
+            symbol_name = file_path.stem
+            if symbol_name not in target_symbols:
+                continue  # Skip this file
+
         files_scanned += 1
         try:
             content = file_path.read_text(encoding='utf-8')

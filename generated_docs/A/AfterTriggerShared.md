@@ -1,7 +1,7 @@
 # AfterTriggerShared
 
 ## Location
-src/backend/commands/trigger.c: 3716 - 3717
+[src/backend/commands/trigger.c:3716-3717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3716-L3717)
 
 ## Overview
 AfterTriggerShared is a type alias that represents a pointer to AfterTriggerSharedData structure, used for managing shared data among multiple after-trigger events in PostgreSQL.

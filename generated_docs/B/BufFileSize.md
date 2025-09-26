@@ -1,7 +1,7 @@
 # BufFileSize
 
 ## Location
-src/backend/storage/file/buffile.c: 866 - 904
+[src/backend/storage/file/buffile.c:866-904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L866-L904)
 
 ## Overview
 Returns the total size of a fileset-based BufFile by calculating the combined size across all component files, including any holes created by BufFileAppend operations.

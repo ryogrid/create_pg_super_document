@@ -1,7 +1,7 @@
 # _stringlist
 
 ## Location
-src/bin/initdb/initdb.c: 90 - 94
+[src/bin/initdb/initdb.c:90-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L90-L94)
 
 ## Overview
 A simple linked list data structure used to store a sequence of strings, commonly used in PostgreSQL utility programs for managing lists of configuration values, test names, and other string collections.

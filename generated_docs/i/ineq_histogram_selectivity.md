@@ -1,7 +1,7 @@
 # ineq_histogram_selectivity
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 1042 - 1400
+[src/backend/utils/adt/selfuncs.c:1042-1400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L1042-L1400)
 
 ## Overview
 Specialized histogram analysis function for inequality operators that uses binary search and linear interpolation within histogram bins to provide precise selectivity estimates for scalar inequality conditions.

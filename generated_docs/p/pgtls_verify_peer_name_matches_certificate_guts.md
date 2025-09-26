@@ -1,7 +1,7 @@
 # pgtls_verify_peer_name_matches_certificate_guts
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 574 - 724
+[src/interfaces/libpq/fe-secure-openssl.c:574-724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L574-L724)
 
 ## Overview
 Core function that verifies whether a server certificate matches the hostname that a client connected to, implementing certificate name validation according to RFC 2818 and RFC 6125 with some practical deviations.

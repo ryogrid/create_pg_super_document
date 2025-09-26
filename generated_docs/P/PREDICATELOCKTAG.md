@@ -1,7 +1,7 @@
 # PREDICATELOCKTAG
 
 ## Location
-src/include/storage/predicate_internals.h: 302 - 306
+[src/include/storage/predicate_internals.h:302-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L302-L306)
 
 ## Overview
 PREDICATELOCKTAG uniquely identifies an individual predicate lock by combining a lockable target object with the serializable transaction that holds the lock.

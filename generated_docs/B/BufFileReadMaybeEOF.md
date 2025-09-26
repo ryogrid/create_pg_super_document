@@ -1,7 +1,7 @@
 # BufFileReadMaybeEOF
 
 ## Location
-src/backend/storage/file/buffile.c: 664 - 675
+[src/backend/storage/file/buffile.c:664-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L664-L675)
 
 ## Overview
 Reads exactly the specified number of bytes from a buffered file, with an option to allow end-of-file conditions without raising an error.

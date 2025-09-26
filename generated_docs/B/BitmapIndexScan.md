@@ -1,7 +1,7 @@
 # BitmapIndexScan
 
 ## Location
-src/include/nodes/plannodes.h: 520 - 527
+[src/include/nodes/plannodes.h:520-527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L520-L527)
 
 ## Overview
 BitmapIndexScan is a PostgreSQL plan node that scans an index to generate a bitmap of potential tuple locations without accessing the heap directly.

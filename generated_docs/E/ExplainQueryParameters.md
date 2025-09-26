@@ -1,7 +1,7 @@
 # ExplainQueryParameters
 
 ## Location
-src/backend/commands/explain.c: 1184 - 1201
+[src/backend/commands/explain.c:1184-1201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L1184-L1201)
 
 ## Overview
 Adds query parameter information to EXPLAIN output as a "Query Parameters" property, displaying the values of parameters used in parameterized queries.

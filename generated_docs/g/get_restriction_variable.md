@@ -1,7 +1,7 @@
 # get_restriction_variable
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 4896 - 4955
+[src/backend/utils/adt/selfuncs.c:4896-4955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L4896-L4955)
 
 ## Overview
 Analyzes the arguments of a restriction clause to identify if it follows the pattern (variable op pseudoconstant) or (pseudoconstant op variable) and extracts information about the variable and the constant side.

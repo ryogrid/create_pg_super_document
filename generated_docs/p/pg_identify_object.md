@@ -1,7 +1,7 @@
 # pg_identify_object
 
 ## Location
-src/backend/catalog/objectaddress.c: 4233 - 4349
+[src/backend/catalog/objectaddress.c:4233-4349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4233-L4349)
 
 ## Overview
 SQL-level callable function that obtains object type and identity information for a given database object specified by its catalog class ID, object ID, and sub-object ID.

@@ -1,7 +1,7 @@
 # exprType
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 42 - 297
+[src/backend/nodes/nodeFuncs.c:42-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L42-L297)
 
 ## Overview
 Returns the Oid of the type of the given expression's result, handling all PostgreSQL expression node types.

@@ -1,7 +1,7 @@
 # ExecCreateScanSlotFromOuterPlan
 
 ## Location
-src/backend/executor/execUtils.c: 659 - 683
+[src/backend/executor/execUtils.c:659-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L659-L683)
 
 ## Overview
 Creates and initializes a scan tuple slot for a scan node by deriving the tuple descriptor from its outer plan's result type.

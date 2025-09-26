@@ -1,7 +1,7 @@
 # UnlockRelationForExtension
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 470 - 486
+[src/backend/storage/lmgr/lmgr.c:470-486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L470-L486)
 
 ## Overview
 Releases a previously acquired extension lock on a relation, allowing other processes to proceed with relation extension operations.

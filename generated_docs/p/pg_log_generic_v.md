@@ -1,7 +1,7 @@
 # pg_log_generic_v
 
 ## Location
-src/common/logging.c: 216 - 334
+[src/common/logging.c:216-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/logging.c#L216-L334)
 
 ## Overview
 The core logging function in PostgreSQL's common logging system that handles formatted message output with level filtering, callback execution, and various formatting options.

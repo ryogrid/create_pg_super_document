@@ -1,7 +1,7 @@
 # ReplicationStateOnDisk
 
 ## Location
-src/backend/replication/logical/origin.c: 139 - 143
+[src/backend/replication/logical/origin.c:139-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L139-L143)
 
 ## Overview
 ReplicationStateOnDisk is a simplified structure representing the persistent, on-disk version of replication state information for logical replication origins.

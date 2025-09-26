@@ -1,7 +1,7 @@
 # ensure_active_superblock
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1560 - 1756
+[src/backend/utils/mmgr/dsa.c:1560-1756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1560-L1756)
 
 ## Overview
 Ensures that fullness class 1 contains an active superblock suitable for allocations, moving spans between fullness classes or allocating new superblocks as necessary.

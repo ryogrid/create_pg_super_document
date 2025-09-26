@@ -1,7 +1,7 @@
 # PgStat_KindInfo
 
 ## Location
-src/include/utils/pgstat_internal.h: 201 - 279
+[src/include/utils/pgstat_internal.h:201-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L201-L279)
 
 ## Overview
 PgStat_KindInfo is a metadata structure that defines the characteristics and behavior of different kinds of PostgreSQL statistics, providing configuration and callback functions for managing various types of statistical data.

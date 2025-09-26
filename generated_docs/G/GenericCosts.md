@@ -1,7 +1,7 @@
 # GenericCosts
 
 ## Location
-src/include/utils/selfuncs.h: 138 - 246
+[src/include/utils/selfuncs.h:138-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/selfuncs.h#L138-L246)
 
 ## Overview
 GenericCosts is a structure that holds cost estimation data for index operations, used by PostgreSQL's cost estimator functions to provide intermediate calculations and final cost estimates to the query planner.

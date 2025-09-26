@@ -1,7 +1,7 @@
 # makeFuncCall
 
 ## Location
-src/backend/nodes/makefuncs.c: 650 - 674
+[src/backend/nodes/makefuncs.c:650-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L650-L674)
 
 ## Overview
 Creates a FuncCall node representing function calls in PostgreSQL's parse tree, initializing all essential fields with sensible defaults.

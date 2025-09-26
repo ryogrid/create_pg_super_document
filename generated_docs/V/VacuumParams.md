@@ -1,7 +1,7 @@
 # VacuumParams
 
 ## Location
-src/include/commands/vacuum.h: 217 - 240
+[src/include/commands/vacuum.h:217-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/vacuum.h#L217-L240)
 
 ## Overview
 VacuumParams is a configuration structure that customizes the behavior of PostgreSQL's VACUUM and ANALYZE operations by holding various options and parameters.

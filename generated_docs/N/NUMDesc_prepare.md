@@ -1,7 +1,7 @@
 # NUMDesc_prepare
 
 ## Location
-src/backend/utils/adt/formatting.c: 1153 - 1327
+[src/backend/utils/adt/formatting.c:1153-1327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1153-L1327)
 
 ## Overview
 Prepares and validates a NUMDesc (number description) structure by processing format nodes and setting appropriate flags and counters based on numeric formatting patterns.

@@ -1,7 +1,7 @@
 # mdopenfork
 
 ## Location
-src/backend/storage/smgr/md.c: 637 - 679
+[src/backend/storage/smgr/md.c:637-679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L637-L679)
 
 ## Overview
 A static function that opens the first segment of a specified relation fork, handling various behaviors for file existence and providing the foundation for relation access.

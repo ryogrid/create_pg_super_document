@@ -1,7 +1,7 @@
 # table_index_fetch_end
 
 ## Location
-src/include/access/tableam.h: 1212 - 1241
+[src/include/access/tableam.h:1212-1241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1212-L1241)
 
 ## Overview
 Releases resources and deallocates an index fetch operation by cleaning up the IndexFetchTableData structure.

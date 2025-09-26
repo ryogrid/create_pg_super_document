@@ -1,7 +1,7 @@
 # pg_prng_int64
 
 ## Location
-src/common/pg_prng.c: 173 - 181
+[src/common/pg_prng.c:173-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L173-L181)
 
 ## Overview
 Generates a random 64-bit signed integer uniformly distributed across the full range [PG_INT64_MIN, PG_INT64_MAX].

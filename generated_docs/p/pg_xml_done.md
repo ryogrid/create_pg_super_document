@@ -1,7 +1,7 @@
 # pg_xml_done
 
 ## Location
-src/backend/utils/adt/xml.c: 1292 - 1339
+[src/backend/utils/adt/xml.c:1292-1339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1292-L1339)
 
 ## Overview
 Restores previous libxml error handling state and cleans up XML error context allocated by pg_xml_init().

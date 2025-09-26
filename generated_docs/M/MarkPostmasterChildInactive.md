@@ -1,7 +1,7 @@
 # MarkPostmasterChildInactive
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 356 - 375
+[src/backend/storage/ipc/pmsignal.c:356-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L356-L375)
 
 ## Overview
 Marks a postmaster child process as done using shared memory, transitioning the child's status back to assigned state during cleanup.

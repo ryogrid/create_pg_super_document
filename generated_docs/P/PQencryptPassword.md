@@ -1,7 +1,7 @@
 # PQencryptPassword
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 1233 - 1275
+[src/interfaces/libpq/fe-auth.c:1233-1275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L1233-L1275)
 
 ## Overview
 Legacy function that encrypts a password using MD5 hashing for PostgreSQL authentication, superseded by the more flexible PQencryptPasswordConn function.

@@ -1,7 +1,7 @@
 # CreateRoleStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3081 - 3087
+[src/include/nodes/parsenodes.h:3081-3087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3081-L3087)
 
 ## Overview
 CreateRoleStmt is a parse tree node structure that represents CREATE ROLE, CREATE USER, or CREATE GROUP SQL statements used to create database roles with specified options.

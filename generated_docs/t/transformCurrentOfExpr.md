@@ -1,7 +1,7 @@
 # transformCurrentOfExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 2568 - 2619
+[src/backend/parser/parse_expr.c:2568-2619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2568-L2619)
 
 ## Overview
 Transforms CURRENT OF expressions used in UPDATE/DELETE statements by resolving cursor references and optionally converting cursor names to parameter references for PL/pgSQL compatibility.

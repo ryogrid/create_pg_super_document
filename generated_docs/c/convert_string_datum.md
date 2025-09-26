@@ -1,7 +1,7 @@
 # convert_string_datum
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 4658 - 4738
+[src/backend/utils/adt/selfuncs.c:4658-4738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L4658-L4738)
 
 ## Overview
 Converts a string-type Datum into a palloc'd, null-terminated C string, handling multiple PostgreSQL string types and applying locale-specific transformations when necessary.

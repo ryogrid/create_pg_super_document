@@ -1,7 +1,7 @@
 # pltcl_process_SPI_result
 
 ## Location
-src/pl/tcl/pltcl.c: 2434 - 2546
+[src/pl/tcl/pltcl.c:2434-2546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2434-L2546)
 
 ## Overview
 Processes the results from SPI_execute or SPI_execute_plan operations, converting PostgreSQL query results into appropriate Tcl interpreter values and handling optional loop body evaluation for result sets.

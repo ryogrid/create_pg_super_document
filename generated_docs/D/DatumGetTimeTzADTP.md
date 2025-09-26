@@ -1,7 +1,7 @@
 # DatumGetTimeTzADTP
 
 ## Location
-src/include/utils/date.h: 66 - 71
+[src/include/utils/date.h:66-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/date.h#L66-L71)
 
 ## Overview
 DatumGetTimeTzADTP is a static inline function that extracts a TimeTzADT pointer from a PostgreSQL Datum, providing a type-safe conversion mechanism for time-with-timezone values in PostgreSQL's function manager interface.

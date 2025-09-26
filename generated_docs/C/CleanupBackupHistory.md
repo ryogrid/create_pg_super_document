@@ -1,7 +1,7 @@
 # CleanupBackupHistory
 
 ## Location
-src/backend/access/transam/xlog.c: 4138 - 4180
+[src/backend/access/transam/xlog.c:4138-4180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4138-L4180)
 
 ## Overview
 Removes archived backup history files from the WAL directory after confirming they have been successfully archived, helping manage disk space and maintaining WAL directory cleanliness.

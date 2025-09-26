@@ -1,7 +1,7 @@
 # PlanRowMark
 
 ## Location
-src/include/nodes/plannodes.h: 1377 - 1390
+[src/include/nodes/plannodes.h:1377-1390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1377-L1390)
 
 ## Overview
 PlanRowMark represents plan-time information for FOR [KEY] UPDATE/SHARE clauses, specifying how rows should be marked or locked during query execution.

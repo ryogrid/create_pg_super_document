@@ -1,7 +1,7 @@
 # MemoryContextCallResetCallbacks
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 585 - 611
+[src/backend/utils/mmgr/mcxt.c:585-611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L585-L611)
 
 ## Overview
 Internal function that executes all registered reset callbacks for a memory context before the context is reset or deleted.

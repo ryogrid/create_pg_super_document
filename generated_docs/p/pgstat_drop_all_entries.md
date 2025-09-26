@@ -1,7 +1,7 @@
 # pgstat_drop_all_entries
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 971 - 992
+[src/backend/utils/activity/pgstat_shmem.c:971-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L971-L992)
 
 ## Overview
 This function drops all statistics entries from the shared statistics hash table, effectively clearing all collected statistics data.

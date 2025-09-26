@@ -1,7 +1,7 @@
 # makeVarFromTargetEntry
 
 ## Location
-src/backend/nodes/makefuncs.c: 105 - 134
+[src/backend/nodes/makefuncs.c:105-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L105-L134)
 
 ## Overview
 Creates a Var node from a TargetEntry, extracting type information from the target's expression to build a same-level variable reference.

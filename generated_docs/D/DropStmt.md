@@ -1,7 +1,7 @@
 # DropStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3226 - 3234
+[src/include/nodes/parsenodes.h:3226-3234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3226-L3234)
 
 ## Overview
 DropStmt represents various DROP statements in the PostgreSQL parser, providing a unified structure for dropping tables, sequences, views, indexes, types, domains, conversions, schemas, and other database objects.

@@ -1,7 +1,7 @@
 # AfterTriggerSharedData
 
 ## Location
-src/backend/commands/trigger.c: 3718 - 3726
+[src/backend/commands/trigger.c:3718-3726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3718-L3726)
 
 ## Overview
 AfterTriggerSharedData is a structure that stores common information shared among multiple after-trigger events to optimize memory usage in PostgreSQL's trigger execution system.

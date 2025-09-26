@@ -1,7 +1,7 @@
 # prepare_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 968 - 1012
+[src/backend/replication/logical/logical.c:968-1012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L968-L1012)
 
 ## Overview
 A wrapper function that manages the prepare phase of two-phase commit transactions in logical decoding, providing error handling and state setup before calling the prepare callback.

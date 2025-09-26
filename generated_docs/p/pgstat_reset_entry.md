@@ -1,7 +1,7 @@
 # pgstat_reset_entry
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 1009 - 1028
+[src/backend/utils/activity/pgstat_shmem.c:1009-1028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L1009-L1028)
 
 ## Overview
 This function resets a single variable-numbered statistics entry, clearing its collected data while preserving the entry structure.

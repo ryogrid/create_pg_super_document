@@ -1,7 +1,7 @@
 # InitProcess
 
 ## Location
-src/backend/storage/lmgr/proc.c: 298 - 492
+[src/backend/storage/lmgr/proc.c:298-492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L298-L492)
 
 ## Overview
 Initializes a per-process PGPROC entry for the current backend, obtaining a process slot from the appropriate free list and setting up all process-local state needed for participation in PostgreSQL's multi-process system.

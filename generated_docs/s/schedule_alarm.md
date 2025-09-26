@@ -1,7 +1,7 @@
 # schedule_alarm
 
 ## Location
-src/backend/utils/misc/timeout.c: 210 - 363
+[src/backend/utils/misc/timeout.c:210-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L210-L363)
 
 ## Overview
 Schedules an alarm signal for the next active timeout using the system timer facilities.

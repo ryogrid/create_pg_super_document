@@ -1,7 +1,7 @@
 # ExecEndMergeAppend
 
 ## Location
-src/backend/executor/nodeMergeAppend.c: 320 - 339
+[src/backend/executor/nodeMergeAppend.c:320-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergeAppend.c#L320-L339)
 
 ## Overview
 Shuts down a MergeAppend node by recursively calling ExecEndNode on all of its child subplans to ensure proper cleanup and resource deallocation.

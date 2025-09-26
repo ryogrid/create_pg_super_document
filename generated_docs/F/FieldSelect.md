@@ -1,7 +1,7 @@
 # FieldSelect
 
 ## Location
-src/include/nodes/primnodes.h: 1125 - 1136
+[src/include/nodes/primnodes.h:1125-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1125-L1136)
 
 ## Overview
 FieldSelect represents the operation of extracting one field from a tuple value, taking a rowtype Datum as input and returning the specified field as a Datum.

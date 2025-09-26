@@ -1,7 +1,7 @@
 # ExecQual
 
 ## Location
-src/include/executor/executor.h: 414 - 440
+[src/include/executor/executor.h:414-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/executor.h#L414-L440)
 
 ## Overview
 ExecQual evaluates a qualification (boolean) expression and returns true or false, serving as the core function for WHERE clause evaluation and other boolean condition checking throughout PostgreSQL's executor.

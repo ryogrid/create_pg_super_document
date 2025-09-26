@@ -1,7 +1,7 @@
 # complex_abs_gt
 
 ## Location
-src/tutorial/complex.c: 192 - 202
+[src/tutorial/complex.c:192-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L192-L202)
 
 ## Overview
 A PostgreSQL operator function that compares the absolute magnitudes of two complex numbers and returns true if the first is greater than the second.

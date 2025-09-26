@@ -1,7 +1,7 @@
 # StandbySlotsHaveCaughtup
 
 ## Location
-src/backend/replication/slot.c: 2592 - 2745
+[src/backend/replication/slot.c:2592-2745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L2592-L2745)
 
 ## Overview
 StandbySlotsHaveCaughtup checks whether all standby replication slots specified in the synchronized_standby_slots configuration have caught up to a given WAL location, returning true if all specified slots have progressed beyond the target position.

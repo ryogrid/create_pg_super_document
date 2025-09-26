@@ -1,7 +1,7 @@
 # refresh_utf8format
 
 ## Location
-src/fe_utils/print.c: 3691 - 3745
+[src/fe_utils/print.c:3691-3745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3691-L3745)
 
 ## Overview
 Configures the global UTF-8 unicode table formatting structure based on provided print options, setting up border characters and line styles for Unicode-based table output.

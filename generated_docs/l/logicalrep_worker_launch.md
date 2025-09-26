@@ -1,7 +1,7 @@
 # logicalrep_worker_launch
 
 ## Location
-src/backend/replication/logical/launcher.c: 313 - 539
+[src/backend/replication/logical/launcher.c:313-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L313-L539)
 
 ## Overview
 Launches a new logical replication background worker of the specified type, handling slot allocation, worker configuration, and process startup with proper cleanup on failures.

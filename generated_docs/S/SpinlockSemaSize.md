@@ -1,7 +1,7 @@
 # SpinlockSemaSize
 
 ## Location
-src/backend/storage/lmgr/spin.c: 55 - 63
+[src/backend/storage/lmgr/spin.c:55-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/spin.c#L55-L63)
 
 ## Overview
 Reports the amount of shared memory needed to store semaphores for spinlock support when hardware spinlocks are not available.

@@ -1,7 +1,7 @@
 # JsonValueExpr
 
 ## Location
-src/include/nodes/primnodes.h: 1680 - 1686
+[src/include/nodes/primnodes.h:1680-1686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1680-L1686)
 
 ## Overview
 JsonValueExpr represents a JSON value expression with optional FORMAT clause, containing both the original user-specified expression and a formatted version for execution.

@@ -1,7 +1,7 @@
 # check_replace_text_has_escape
 
 ## Location
-src/backend/utils/adt/varlena.c: 4073 - 4105
+[src/backend/utils/adt/varlena.c:4073-4105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4073-L4105)
 
 ## Overview
 A static helper function that analyzes replacement text for backslash escape sequences to determine the optimal processing strategy for regular expression text replacement operations.

@@ -1,7 +1,7 @@
 # QueryDesc
 
 ## Location
-src/include/executor/execdesc.h: 33 - 56
+[src/include/executor/execdesc.h:33-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/execdesc.h#L33-L56)
 
 ## Overview
 QueryDesc is a central data structure that encapsulates everything the PostgreSQL executor needs to execute a query, serving as a complete descriptor containing query metadata, execution state, and result handling information.

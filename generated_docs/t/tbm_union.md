@@ -1,7 +1,7 @@
 # tbm_union
 
 ## Location
-src/backend/nodes/tidbitmap.c: 458 - 480
+[src/backend/nodes/tidbitmap.c:458-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L458-L480)
 
 ## Overview
 Performs a set union operation between two TIDBitmaps, merging all pages from the second bitmap into the first.

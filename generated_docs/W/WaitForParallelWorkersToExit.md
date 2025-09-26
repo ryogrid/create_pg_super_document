@@ -1,7 +1,7 @@
 # WaitForParallelWorkersToExit
 
 ## Location
-src/backend/access/transam/parallel.c: 906 - 945
+[src/backend/access/transam/parallel.c:906-945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L906-L945)
 
 ## Overview
 Waits for all parallel workers to completely shut down and handles cleanup of background worker resources.

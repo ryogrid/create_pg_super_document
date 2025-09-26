@@ -1,7 +1,7 @@
 # array_to_json_internal
 
 ## Location
-src/backend/utils/adt/json.c: 465 - 511
+[src/backend/utils/adt/json.c:465-511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L465-L511)
 
 ## Overview
 Converts a PostgreSQL array into JSON array format by extracting array metadata, deconstructing the array into individual elements, and recursively processing dimensions.

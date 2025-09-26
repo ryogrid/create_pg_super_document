@@ -1,7 +1,7 @@
 # get_coercion_expr
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11071 - 11134
+[src/backend/utils/adt/ruleutils.c:11071-11134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11071-L11134)
 
 ## Overview
 Generates string representation of value coercion expressions, formatting type casts using PostgreSQL's '::typename' notation while optimizing display for constants and handling pretty-printing preferences.

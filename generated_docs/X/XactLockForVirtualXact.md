@@ -1,7 +1,7 @@
 # XactLockForVirtualXact
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4509 - 4559
+[src/backend/storage/lmgr/lock.c:4509-4559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4509-L4559)
 
 ## Overview
 A static helper function that waits for completion of prepared transactions associated with a virtual transaction ID, handling both specific transaction IDs and discovery of multiple prepared transactions.

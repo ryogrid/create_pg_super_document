@@ -1,7 +1,7 @@
 # transformAExprDistinct
 
 ## Location
-src/backend/parser/parse_expr.c: 1032 - 1082
+[src/backend/parser/parse_expr.c:1032-1082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L1032-L1082)
 
 ## Overview
 Transforms A_Expr nodes representing DISTINCT and NOT DISTINCT operations into appropriate DistinctExpr nodes or NullTest nodes, handling special cases for NULL constants and row expressions.

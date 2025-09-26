@@ -1,7 +1,7 @@
 # WaitEventSetCanReportClosed
 
 ## Location
-src/backend/storage/ipc/latch.c: 2254 - 2268
+[src/backend/storage/ipc/latch.c:2254-2268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L2254-L2268)
 
 ## Overview
 WaitEventSetCanReportClosed is a capability detection function that returns whether the current platform and build configuration supports reporting WL_SOCKET_CLOSED events.

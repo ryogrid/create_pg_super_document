@@ -1,7 +1,7 @@
 # HashMemoryChunk
 
 ## Location
-src/include/executor/hashjoin.h: 148 - 149
+[src/include/executor/hashjoin.h:148-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/hashjoin.h#L148-L149)
 
 ## Overview
 HashMemoryChunk is a typedef that provides a convenient pointer type for accessing HashMemoryChunkData structures in PostgreSQL's hash join memory management system.

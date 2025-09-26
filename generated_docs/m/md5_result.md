@@ -1,7 +1,7 @@
 # md5_result
 
 ## Location
-src/common/md5.c: 348 - 381
+[src/common/md5.c:348-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5.c#L348-L381)
 
 ## Overview
 Extracts the final MD5 hash digest from the completed MD5 context and formats it as a 16-byte binary output.

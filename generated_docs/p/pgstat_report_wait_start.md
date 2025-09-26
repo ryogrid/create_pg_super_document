@@ -1,7 +1,7 @@
 # pgstat_report_wait_start
 
 ## Location
-src/include/utils/wait_event.h: 85 - 100
+[src/include/utils/wait_event.h:85-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/wait_event.h#L85-L100)
 
 ## Overview
 Reports the start of a wait event by storing wait event information that can be monitored by system activity tracking.

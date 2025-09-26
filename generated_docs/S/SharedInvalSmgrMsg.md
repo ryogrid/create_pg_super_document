@@ -1,7 +1,7 @@
 # SharedInvalSmgrMsg
 
 ## Location
-src/include/storage/sinval.h: 94 - 95
+[src/include/storage/sinval.h:94-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/sinval.h#L94-L95)
 
 ## Overview
 SharedInvalSmgrMsg is a structure that represents a shared invalidation message for invalidating smgr (storage manager) cache entries for specific physical relations across PostgreSQL processes.

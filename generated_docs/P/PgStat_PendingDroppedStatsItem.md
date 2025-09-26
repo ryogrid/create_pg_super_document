@@ -1,7 +1,7 @@
 # PgStat_PendingDroppedStatsItem
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 21 - 26
+[src/backend/utils/activity/pgstat_xact.c:21-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L21-L26)
 
 ## Overview
 A structure representing a pending statistics item that needs to be dropped or created transactionally, used to track statistics changes within transaction context for proper rollback handling.

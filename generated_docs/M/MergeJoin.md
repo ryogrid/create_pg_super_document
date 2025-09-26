@@ -1,7 +1,7 @@
 # MergeJoin
 
 ## Location
-src/include/nodes/plannodes.h: 833 - 856
+[src/include/nodes/plannodes.h:833-856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L833-L856)
 
 ## Overview
 MergeJoin is a plan node that implements the merge join algorithm, which efficiently joins two sorted input streams by merging them based on equality conditions over their sort keys.

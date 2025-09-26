@@ -1,7 +1,7 @@
 # GetTokenUser
 
 ## Location
-src/common/exec.c: 680 - 731
+[src/common/exec.c:680-731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L680-L731)
 
 ## Overview
 A Windows-specific utility function that retrieves user token information from a process token, returning the TOKEN_USER structure containing the user SID and attributes.

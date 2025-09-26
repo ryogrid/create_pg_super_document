@@ -1,7 +1,7 @@
 # gistLoadNodeBuffer
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 221 - 245
+[src/backend/access/gist/gistbuildbuffers.c:221-245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L221-L245)
 
 ## Overview
 gistLoadNodeBuffer loads the last page of a node buffer from temporary file storage into main memory during GiST index construction.

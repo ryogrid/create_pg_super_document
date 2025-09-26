@@ -1,7 +1,7 @@
 # InstrStartNode
 
 ## Location
-src/backend/executor/instrument.c: 68 - 83
+[src/backend/executor/instrument.c:68-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L68-L83)
 
 ## Overview
 InstrStartNode captures the starting state for performance instrumentation when entering a plan node execution, recording timing, buffer usage, and WAL usage baselines.

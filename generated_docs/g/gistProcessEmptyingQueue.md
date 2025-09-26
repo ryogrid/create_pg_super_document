@@ -1,7 +1,7 @@
 # gistProcessEmptyingQueue
 
 ## Location
-src/backend/access/gist/gistbuild.c: 1297 - 1369
+[src/backend/access/gist/gistbuild.c:1297-1369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L1297-L1369)
 
 ## Overview
 Processes the buffer emptying queue during GiST index construction, handling cascading buffer emptying until the queue is fully drained.

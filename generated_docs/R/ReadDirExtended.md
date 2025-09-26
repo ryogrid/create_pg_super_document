@@ -1,7 +1,7 @@
 # ReadDirExtended
 
 ## Location
-src/backend/storage/file/fd.c: 2921 - 2957
+[src/backend/storage/file/fd.c:2921-2957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2921-L2957)
 
 ## Overview
 ReadDirExtended provides configurable error-level directory reading functionality, serving as the core implementation for directory traversal operations with flexible error handling.

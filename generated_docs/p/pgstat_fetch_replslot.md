@@ -1,7 +1,7 @@
 # pgstat_fetch_replslot
 
 ## Location
-src/backend/utils/activity/pgstat_replslot.c: 170 - 188
+[src/backend/utils/activity/pgstat_replslot.c:170-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_replslot.c#L170-L188)
 
 ## Overview
 Retrieves the statistics entry for a named replication slot, serving as a support function for SQL-callable pgstat functions.

@@ -1,7 +1,7 @@
 # HASHCTL
 
 ## Location
-src/include/utils/hsearch.h: 65 - 89
+[src/include/utils/hsearch.h:65-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/hsearch.h#L65-L89)
 
 ## Overview
 HASHCTL is a parameter structure used to configure hash table creation in PostgreSQL, allowing customization of various aspects like partitioning, memory allocation, hash functions, and sizing parameters.

@@ -1,7 +1,7 @@
 # vacuum
 
 ## Location
-src/backend/commands/vacuum.c: 479 - 716
+[src/backend/commands/vacuum.c:479-716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L479-L716)
 
 ## Overview
 Internal entry point for autovacuum and the VACUUM/ANALYZE commands that orchestrates the processing of specified relations or all relevant tables in the database.

@@ -1,7 +1,7 @@
 # alpn_cb
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1323 - 1374
+[src/backend/libpq/be-secure-openssl.c:1323-1374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1323-L1374)
 
 ## Overview
 A static callback function that handles Application-Layer Protocol Negotiation (ALPN) during SSL/TLS handshake to select the appropriate application protocol for PostgreSQL connections.

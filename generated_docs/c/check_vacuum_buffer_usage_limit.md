@@ -1,7 +1,7 @@
 # check_vacuum_buffer_usage_limit
 
 ## Location
-src/backend/commands/vacuum.c: 126 - 147
+[src/backend/commands/vacuum.c:126-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L126-L147)
 
 ## Overview
 A GUC (Grand Unified Configuration) check function that validates the vacuum_buffer_usage_limit configuration parameter to ensure it falls within acceptable ranges.

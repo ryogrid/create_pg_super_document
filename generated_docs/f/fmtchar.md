@@ -1,7 +1,7 @@
 # fmtchar
 
 ## Location
-src/port/snprintf.c: 1118 - 1135
+[src/port/snprintf.c:1118-1135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1118-L1135)
 
 ## Overview
 Formats and outputs a single character value with specified padding and alignment for the %c format specifier.

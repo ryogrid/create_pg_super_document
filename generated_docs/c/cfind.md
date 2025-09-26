@@ -1,7 +1,7 @@
 # cfind
 
 ## Location
-src/backend/regex/regexec.c: 509 - 548
+[src/backend/regex/regexec.c:509-548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L509-L548)
 
 ## Overview
 Finds a match for the main NFA when complications such as backreferences are present.

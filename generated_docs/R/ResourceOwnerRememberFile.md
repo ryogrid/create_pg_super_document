@@ -1,7 +1,7 @@
 # ResourceOwnerRememberFile
 
 ## Location
-src/backend/storage/file/fd.c: 372 - 376
+[src/backend/storage/file/fd.c:372-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L372-L376)
 
 ## Overview
 Convenience wrapper function that registers a file descriptor with a resource owner for automatic cleanup when the resource owner is released.

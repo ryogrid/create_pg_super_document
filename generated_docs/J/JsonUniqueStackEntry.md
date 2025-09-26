@@ -1,7 +1,7 @@
 # JsonUniqueStackEntry
 
 ## Location
-src/backend/utils/adt/json.c: 50 - 54
+[src/backend/utils/adt/json.c:50-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L50-L54)
 
 ## Overview
 JsonUniqueStackEntry is a structure that represents a stack element used to track nested JSON object scopes during JSON parsing for hierarchical key uniqueness checking.

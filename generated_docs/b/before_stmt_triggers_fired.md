@@ -1,7 +1,7 @@
 # before_stmt_triggers_fired
 
 ## Location
-src/backend/commands/trigger.c: 6545 - 6590
+[src/backend/commands/trigger.c:6545-6590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L6545-L6590)
 
 ## Overview
 Detects whether BEFORE STATEMENT triggers have already been queued for a given relation and operation, ensuring triggers fire only once per statement while setting a flag for subsequent calls.

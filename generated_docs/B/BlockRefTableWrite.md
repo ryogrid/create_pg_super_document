@@ -1,7 +1,7 @@
 # BlockRefTableWrite
 
 ## Location
-src/common/blkreftable.c: 1261 - 1291
+[src/common/blkreftable.c:1261-1291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L1261-L1291)
 
 ## Overview
 A static function that supplies data to a BlockRefTableBuffer for writing to the underlying file and updates the running CRC calculation for that data.

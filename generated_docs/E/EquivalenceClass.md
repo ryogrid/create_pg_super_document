@@ -1,7 +1,7 @@
 # EquivalenceClass
 
 ## Location
-src/include/nodes/pathnodes.h: 1379 - 1399
+[src/include/nodes/pathnodes.h:1379-1399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1379-L1399)
 
 ## Overview
 EquivalenceClass represents a set of expressions that are known to be transitively equal to each other based on mergejoinable equality clauses, serving as the foundation for optimization decisions and PathKey generation.

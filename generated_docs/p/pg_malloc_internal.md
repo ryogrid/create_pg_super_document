@@ -1,7 +1,7 @@
 # pg_malloc_internal
 
 ## Location
-src/common/fe_memutils.c: 23 - 46
+[src/common/fe_memutils.c:23-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/fe_memutils.c#L23-L46)
 
 ## Overview
 Internal function that performs memory allocation with optional flags for zero-initialization and out-of-memory handling.

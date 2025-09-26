@@ -1,7 +1,7 @@
 # QueryRepresentation
 
 ## Location
-src/backend/utils/adt/tsrank.c: 554 - 555
+[src/backend/utils/adt/tsrank.c:554-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L554-L555)
 
 ## Overview
 A container structure that combines a text search query with corresponding operand data, used for efficient text search ranking calculations in PostgreSQL.

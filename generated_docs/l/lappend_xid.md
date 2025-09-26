@@ -1,7 +1,7 @@
 # lappend_xid
 
 ## Location
-src/backend/nodes/list.c: 393 - 414
+[src/backend/nodes/list.c:393-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L393-L414)
 
 ## Overview
 Appends a TransactionId (XID) value to a PostgreSQL XidList data structure, returning a pointer to the modified list.

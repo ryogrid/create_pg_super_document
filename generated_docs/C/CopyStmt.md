@@ -1,7 +1,7 @@
 # CopyStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2586 - 2599
+[src/include/nodes/parsenodes.h:2586-2599](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2586-L2599)
 
 ## Overview
 CopyStmt is a parse tree node structure that represents SQL COPY statements, supporting data import/export operations between PostgreSQL tables and files or programs.

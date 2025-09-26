@@ -1,7 +1,7 @@
 # ConditionVariableSignal
 
 ## Location
-src/backend/storage/lmgr/condition_variable.c: 259 - 281
+[src/backend/storage/lmgr/condition_variable.c:259-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/condition_variable.c#L259-L281)
 
 ## Overview
 Wakes up the oldest process sleeping on a condition variable, if there is any.

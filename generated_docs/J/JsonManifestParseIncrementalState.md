@@ -1,7 +1,7 @@
 # JsonManifestParseIncrementalState
 
 ## Location
-src/common/parse_manifest.c: 95 - 128
+[src/common/parse_manifest.c:95-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L95-L128)
 
 ## Overview
 A structure that maintains state for incremental parsing of PostgreSQL backup manifest files in JSON format, enabling the processing of large manifest files in chunks rather than loading them entirely into memory.

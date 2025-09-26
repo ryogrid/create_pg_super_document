@@ -1,7 +1,7 @@
 # JsonConstructorExprState
 
 ## Location
-src/include/executor/execExpr.h: 768 - 780
+[src/include/executor/execExpr.h:768-780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/execExpr.h#L768-L780)
 
 ## Overview
 JsonConstructorExprState manages the execution state for JSON constructor expressions, providing workspace for argument evaluation and type conversion caching during JSON object and array construction.

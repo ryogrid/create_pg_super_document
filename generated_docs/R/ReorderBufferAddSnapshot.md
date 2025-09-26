@@ -1,7 +1,7 @@
 # ReorderBufferAddSnapshot
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3183 - 3200
+[src/backend/replication/logical/reorderbuffer.c:3183-3200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3183-L3200)
 
 ## Overview
 ReorderBufferAddSnapshot adds a new snapshot to a transaction in the reorder buffer, ensuring catalog visibility is correctly maintained for rows processed after a specific LSN.

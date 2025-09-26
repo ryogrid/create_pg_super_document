@@ -1,7 +1,7 @@
 # init_ttinfo
 
 ## Location
-src/timezone/localtime.c: 108 - 117
+[src/timezone/localtime.c:108-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L108-L117)
 
 ## Overview
 Initializes a timezone transition type information structure with specified UTC offset, DST status, and time zone abbreviation index.

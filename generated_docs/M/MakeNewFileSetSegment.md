@@ -1,7 +1,7 @@
 # MakeNewFileSetSegment
 
 ## Location
-src/backend/storage/file/buffile.c: 231 - 266
+[src/backend/storage/file/buffile.c:231-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L231-L266)
 
 ## Overview
 Creates a new segment file for a fileset-based BufFile, handling cleanup of any pre-existing segments to avoid confusion during recovery operations.

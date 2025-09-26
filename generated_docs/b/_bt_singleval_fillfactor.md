@@ -1,7 +1,7 @@
 # _bt_singleval_fillfactor
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 822 - 863
+[src/backend/access/nbtree/nbtdedup.c:822-863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L822-L863)
 
 ## Overview
 Reduces the maximum posting list size when using the "single value" strategy to ensure proper page fill factor coordination with the page splitting logic.

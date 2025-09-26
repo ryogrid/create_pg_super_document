@@ -1,7 +1,7 @@
 # DropRoleStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3105 - 3110
+[src/include/nodes/parsenodes.h:3105-3110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3105-L3110)
 
 ## Overview
 DropRoleStmt is a parse tree node structure that represents DROP ROLE, DROP USER, or DROP GROUP SQL statements used to remove one or more database roles from the system.

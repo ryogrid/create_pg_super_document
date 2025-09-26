@@ -1,7 +1,7 @@
 # DeleteStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2055 - 2063
+[src/include/nodes/parsenodes.h:2055-2063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2055-L2063)
 
 ## Overview
 DeleteStmt represents the parsed structure of a DELETE statement in PostgreSQL, containing all necessary information to delete rows from a table with optional conditions, joins, and return values.

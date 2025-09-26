@@ -1,7 +1,7 @@
 # config_enum_entry
 
 ## Location
-src/include/utils/guc.h: 169 - 198
+[src/include/utils/guc.h:169-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc.h#L169-L198)
 
 ## Overview
 config_enum_entry is a structure that defines the possible values for enum-type configuration variables in PostgreSQL's GUC system, mapping human-readable names to internal integer values.

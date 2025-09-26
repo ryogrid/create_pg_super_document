@@ -1,7 +1,7 @@
 # CreateTableSpaceStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2780 - 2787
+[src/include/nodes/parsenodes.h:2780-2787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2780-L2787)
 
 ## Overview
 CreateTableSpaceStmt is a parse tree node structure that represents a CREATE TABLESPACE statement, used to define a new tablespace with specified location, owner, and configuration options.

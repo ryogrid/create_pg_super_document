@@ -1,7 +1,7 @@
 # parse_xml_decl
 
 ## Location
-src/backend/utils/adt/xml.c: 1433 - 1605
+[src/backend/utils/adt/xml.c:1433-1605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1433-L1605)
 
 ## Overview
 Parses an XML declaration from the beginning of an XML document string, extracting version, encoding, and standalone attributes according to XML specification.

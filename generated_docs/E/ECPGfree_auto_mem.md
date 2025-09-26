@@ -1,7 +1,7 @@
 # ECPGfree_auto_mem
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 131 - 150
+[src/interfaces/ecpg/ecpglib/memory.c:131-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L131-L150)
 
 ## Overview
 Frees all automatically allocated memory tracked by the ECPG (Embedded SQL in C) library for the current thread.

@@ -1,7 +1,7 @@
 # AlterRoleSetStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3097 - 3103
+[src/include/nodes/parsenodes.h:3097-3103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3097-L3103)
 
 ## Overview
 AlterRoleSetStmt is a parse tree node structure that represents ALTER ROLE ... SET/RESET statements used to configure default values for configuration parameters for specific roles and databases.

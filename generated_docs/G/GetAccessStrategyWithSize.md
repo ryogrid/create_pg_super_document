@@ -1,7 +1,7 @@
 # GetAccessStrategyWithSize
 
 ## Location
-src/backend/storage/buffer/freelist.c: 584 - 623
+[src/backend/storage/buffer/freelist.c:584-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L584-L623)
 
 ## Overview
 Creates a BufferAccessStrategy object with a specific ring buffer size in kilobytes, providing fine-grained control over buffer ring allocation.

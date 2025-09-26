@@ -1,7 +1,7 @@
 # get_compress_algorithm_name
 
 ## Location
-src/common/compression.c: 69 - 106
+[src/common/compression.c:69-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/compression.c#L69-L106)
 
 ## Overview
 A utility function that converts a  enumeration value to its corresponding human-readable string representation.

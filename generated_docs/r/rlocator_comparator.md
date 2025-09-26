@@ -1,7 +1,7 @@
 # rlocator_comparator
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5708 - 5734
+[src/backend/storage/buffer/bufmgr.c:5708-5734](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5708-L5734)
 
 ## Overview
 A comparator function for RelFileLocator structures used in sorting and binary search operations within PostgreSQL buffer management.

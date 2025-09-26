@@ -1,7 +1,7 @@
 # CheckPointLogicalRewriteHeap
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 1155 - 1253
+[src/backend/access/heap/rewriteheap.c:1155-1253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L1155-L1253)
 
 ## Overview
 Performs checkpoint operations for logical rewrite mapping files by removing obsolete mappings and flushing remaining ones to disk to ensure recovery consistency.

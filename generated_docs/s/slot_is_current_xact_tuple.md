@@ -1,7 +1,7 @@
 # slot_is_current_xact_tuple
 
 ## Location
-src/include/executor/tuptable.h: 445 - 453
+[src/include/executor/tuptable.h:445-453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L445-L453)
 
 ## Overview
 Checks if the tuple currently stored in a TupleTableSlot was created by the current transaction.

@@ -1,7 +1,7 @@
 # BufFileCreateTemp
 
 ## Location
-src/backend/storage/file/buffile.c: 193 - 221
+[src/backend/storage/file/buffile.c:193-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L193-L221)
 
 ## Overview
 Creates a new BufFile for temporary file operations that can automatically expand to multiple physical files as data grows beyond file size limits.

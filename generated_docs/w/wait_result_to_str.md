@@ -1,7 +1,7 @@
 # wait_result_to_str
 
 ## Location
-src/common/wait_error.c: 33 - 101
+[src/common/wait_error.c:33-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wait_error.c#L33-L101)
 
 ## Overview
 Converts a wait status value returned by wait(2), waitpid(2), pclose(3), or system(3) into a human-readable string explaining why a child process terminated.

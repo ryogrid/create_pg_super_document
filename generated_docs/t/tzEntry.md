@@ -1,7 +1,7 @@
 # tzEntry
 
 ## Location
-src/include/utils/tzparser.h: 23 - 34
+[src/include/utils/tzparser.h:23-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/tzparser.h#L23-L34)
 
 ## Overview
 The `tzEntry` struct represents a parsed timezone abbreviation entry from timezone configuration files, containing both timezone offset data and source location information for error reporting.

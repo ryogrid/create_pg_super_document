@@ -1,7 +1,7 @@
 # logicalrep_relmap_free_entry
 
 ## Location
-src/backend/replication/logical/relation.c: 132 - 163
+[src/backend/replication/logical/relation.c:132-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L132-L163)
 
 ## Overview
 Properly deallocates all memory associated with a logical replication relation map cache entry, including nested structures and attribute mappings.

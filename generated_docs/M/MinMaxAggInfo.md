@@ -1,7 +1,7 @@
 # MinMaxAggInfo
 
 ## Location
-src/include/nodes/pathnodes.h: 3107 - 3136
+[src/include/nodes/pathnodes.h:3107-3136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L3107-L3136)
 
 ## Overview
 MinMaxAggInfo describes a potentially index-optimizable MIN/MAX aggregate function, storing the metadata needed to implement efficient index-based lookups instead of full table scans for MIN/MAX operations.

@@ -1,7 +1,7 @@
 # tag_hash
 
 ## Location
-src/common/hashfn.c: 677 - 687
+[src/common/hashfn.c:677-687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hashfn.c#L677-L687)
 
 ## Overview
 The `tag_hash` function is a general-purpose hash function wrapper designed for hashing fixed-size tag values, providing a convenient interface to hash arbitrary data structures used as hash table keys.

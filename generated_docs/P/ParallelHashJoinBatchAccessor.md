@@ -1,7 +1,7 @@
 # ParallelHashJoinBatchAccessor
 
 ## Location
-src/include/executor/hashjoin.h: 207 - 222
+[src/include/executor/hashjoin.h:207-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/hashjoin.h#L207-L222)
 
 ## Overview
 ParallelHashJoinBatchAccessor is a structure that provides per-backend state for interacting with shared ParallelHashJoinBatch objects in parallel hash joins, maintaining local counters and state to reduce contention while coordinating batch processing.

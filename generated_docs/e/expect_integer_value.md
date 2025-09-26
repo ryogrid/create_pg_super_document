@@ -1,7 +1,7 @@
 # expect_integer_value
 
 ## Location
-src/common/compression.c: 275 - 310
+[src/common/compression.c:275-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/compression.c#L275-L310)
 
 ## Overview
 A static utility function that parses and validates integer values for compression options within compression specification parsing.

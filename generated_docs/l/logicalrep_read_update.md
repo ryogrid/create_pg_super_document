@@ -1,7 +1,7 @@
 # logicalrep_read_update
 
 ## Location
-src/backend/replication/logical/proto.c: 492 - 532
+[src/backend/replication/logical/proto.c:492-532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L492-L532)
 
 ## Overview
 Reads an UPDATE message from a logical replication stream and populates tuple data structures with both old and new tuple information.

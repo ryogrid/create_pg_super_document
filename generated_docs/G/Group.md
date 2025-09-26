@@ -1,7 +1,7 @@
 # Group
 
 ## Location
-src/include/nodes/plannodes.h: 967 - 980
+[src/include/nodes/plannodes.h:967-980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L967-L980)
 
 ## Overview
 Group is a plan node that implements GROUP BY operations without aggregates, designed to eliminate duplicate rows and produce one output row per distinct group from presorted input data.

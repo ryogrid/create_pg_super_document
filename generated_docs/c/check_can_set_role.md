@@ -1,7 +1,7 @@
 # check_can_set_role
 
 ## Location
-src/backend/utils/adt/acl.c: 5208 - 5230
+[src/backend/utils/adt/acl.c:5208-5230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5208-L5230)
 
 ## Overview
 A validation wrapper that raises a permission violation error if a member role cannot use SET ROLE to assume a target role.

@@ -1,7 +1,7 @@
 # test_copy_to_callback
 
 ## Location
-src/test/modules/test_copy_callbacks/test_copy_callbacks.c: 34 - 51
+[src/test/modules/test_copy_callbacks/test_copy_callbacks.c:34-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_copy_callbacks/test_copy_callbacks.c#L34-L51)
 
 ## Overview
 A PostgreSQL function that demonstrates and tests the COPY TO callback mechanism by performing a complete COPY TO operation with a custom callback on a specified relation.

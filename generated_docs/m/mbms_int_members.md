@@ -1,7 +1,7 @@
 # mbms_int_members
 
 ## Location
-src/backend/nodes/multibitmapset.c: 100 - 125
+[src/backend/nodes/multibitmapset.c:100-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/multibitmapset.c#L100-L125)
 
 ## Overview
 Performs an INTERSECT operation between two multibitmapsets by reducing the first set to its intersection with the second set, modifying the first set in-place.

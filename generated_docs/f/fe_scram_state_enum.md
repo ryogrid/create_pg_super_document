@@ -1,7 +1,7 @@
 # fe_scram_state_enum
 
 ## Location
-src/interfaces/libpq/fe-auth-scram.c: 49 - 79
+[src/interfaces/libpq/fe-auth-scram.c:49-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-scram.c#L49-L79)
 
 ## Overview
 An enumeration that tracks the state of the SCRAM authentication exchange process in PostgreSQL's libpq client library.

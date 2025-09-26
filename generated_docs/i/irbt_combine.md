@@ -1,7 +1,7 @@
 # irbt_combine
 
 ## Location
-src/test/modules/test_rbtree/test_rbtree.c: 52 - 63
+[src/test/modules/test_rbtree/test_rbtree.c:52-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_rbtree/test_rbtree.c#L52-L63)
 
 ## Overview
 A static node combiner function used in PostgreSQL's Red-Black Tree test module to handle duplicate key insertions by validating that only identical keys are combined.

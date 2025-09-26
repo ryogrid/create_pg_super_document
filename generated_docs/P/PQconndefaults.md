@@ -1,7 +1,7 @@
 # PQconndefaults
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 1881 - 1918
+[src/interfaces/libpq/fe-connect.c:1881-1918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L1881-L1918)
 
 ## Overview
 Constructs a default connection options array that identifies all available connection options and shows default values from environment variables and system settings.

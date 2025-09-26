@@ -1,7 +1,7 @@
 # InsertStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2039 - 2049
+[src/include/nodes/parsenodes.h:2039-2049](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2039-L2049)
 
 ## Overview
 InsertStmt represents the parsed form of SQL INSERT statements, containing all components needed to specify data insertion into a table.

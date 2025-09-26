@@ -1,7 +1,7 @@
 # ECPGstruct_member
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 10 - 16
+[src/interfaces/ecpg/preproc/type.h:10-16](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L10-L16)
 
 ## Overview
 ECPGstruct_member is a struct type that represents a single member within a PostgreSQL ECPG (Embedded SQL in C) struct definition, forming a linked list of struct members.

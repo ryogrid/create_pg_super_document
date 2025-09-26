@@ -1,7 +1,7 @@
 # Limit
 
 ## Location
-src/include/nodes/plannodes.h: 1270 - 1294
+[src/include/nodes/plannodes.h:1270-1294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1270-L1294)
 
 ## Overview
 Limit is a plan node structure that implements LIMIT and OFFSET clauses in PostgreSQL queries, controlling the number of rows returned from the execution pipeline.

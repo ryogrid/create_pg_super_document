@@ -1,7 +1,7 @@
 # strip_array_coercion
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 1784 - 1816
+[src/backend/utils/adt/selfuncs.c:1784-1816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L1784-L1816)
 
 ## Overview
 Strips binary-compatible type relabeling operations from array expressions to reveal the underlying array structure.

@@ -1,7 +1,7 @@
 # MergePath
 
 ## Location
-src/include/nodes/pathnodes.h: 2132 - 2140
+[src/include/nodes/pathnodes.h:2132-2140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2132-L2140)
 
 ## Overview
 MergePath represents a merge join algorithm path that can efficiently join two sorted inputs by merging them in order, potentially incorporating multiple execution nodes.

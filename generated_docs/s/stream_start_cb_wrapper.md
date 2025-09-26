@@ -1,7 +1,7 @@
 # stream_start_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1286 - 1334
+[src/backend/replication/logical/logical.c:1286-1334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1286-L1334)
 
 ## Overview
 A wrapper function that sets up error handling context and calls the plugin's stream_start callback to notify about the start of a streaming transaction in logical replication.

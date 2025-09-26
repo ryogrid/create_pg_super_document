@@ -1,7 +1,7 @@
 # VariableStatData
 
 ## Location
-src/include/utils/selfuncs.h: 87 - 100
+[src/include/utils/selfuncs.h:87-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/selfuncs.h#L87-L100)
 
 ## Overview
 VariableStatData is a structure that holds statistical information about a variable or expression, used by PostgreSQL's query planner to estimate selectivity and costs during query optimization.

@@ -1,7 +1,7 @@
 # _bt_form_posting
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 864 - 923
+[src/backend/access/nbtree/nbtdedup.c:864-923](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L864-L923)
 
 ## Overview
 Builds a posting list tuple or standard non-pivot tuple based on a base index tuple and an array of heap TIDs, handling both single TID and multiple TID cases.

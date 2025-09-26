@@ -1,7 +1,7 @@
 # ExecHashTableInsert
 
 ## Location
-src/backend/executor/nodeHash.c: 1631 - 1720
+[src/backend/executor/nodeHash.c:1631-1720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1631-L1720)
 
 ## Overview
 Inserts a tuple into a hash table for hash joins, either storing it in the current batch's bucket or deferring it to a temporary file for future batches based on the hash value.

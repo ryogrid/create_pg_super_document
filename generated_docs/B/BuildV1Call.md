@@ -1,7 +1,7 @@
 # BuildV1Call
 
 ## Location
-src/backend/jit/llvm/llvmjit_expr.c: 2704 - 2754
+[src/backend/jit/llvm/llvmjit_expr.c:2704-2754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit_expr.c#L2704-L2754)
 
 ## Overview
 Generates LLVM IR code to call a PostgreSQL function through the FunctionCallInfo interface, handling function resolution, null flag management, and optimization hints.

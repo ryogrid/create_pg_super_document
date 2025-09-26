@@ -1,7 +1,7 @@
 # PostPrepare_PgStat
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 209 - 235
+[src/backend/utils/activity/pgstat_xact.c:209-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L209-L235)
 
 ## Overview
 Performs cleanup operations for PostgreSQL statistics after a successful PREPARE statement in a two-phase commit protocol, ensuring proper handling of transactional statistics state.

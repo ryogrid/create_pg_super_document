@@ -1,7 +1,7 @@
 # index_seq_search
 
 ## Location
-src/backend/utils/adt/formatting.c: 1099 - 1122
+[src/backend/utils/adt/formatting.c:1099-1122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1099-L1122)
 
 ## Overview
 Fast sequential search function that uses an index for data selection to optimize format parsing by quickly filtering out unwanted strings.

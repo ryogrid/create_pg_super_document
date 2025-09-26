@@ -1,7 +1,7 @@
 # sprintf_float_value
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 472 - 487
+[src/interfaces/ecpg/ecpglib/execute.c:472-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L472-L487)
 
 ## Overview
 A static utility function that formats a single-precision floating-point value into a string representation, handling special IEEE 754 values like NaN and infinity with PostgreSQL-compatible formatting.

@@ -1,7 +1,7 @@
 # table_relation_set_new_filelocator
 
 ## Location
-src/include/access/tableam.h: 1622 - 1639
+[src/include/access/tableam.h:1622-1639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1622-L1639)
 
 ## Overview
 A table access method (tableam) wrapper function that creates new storage for a relation with a new filelocator, used during relation creation and DDL operations that need to establish fresh storage.

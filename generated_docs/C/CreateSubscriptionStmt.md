@@ -1,7 +1,7 @@
 # CreateSubscriptionStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4194 - 4201
+[src/include/nodes/parsenodes.h:4194-4201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4194-L4201)
 
 ## Overview
 A parse tree node structure representing a CREATE SUBSCRIPTION SQL statement, which establishes a new subscription for logical replication in PostgreSQL to receive data from remote publications.

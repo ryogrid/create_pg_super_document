@@ -1,7 +1,7 @@
 # read_gucstate_binary
 
 ## Location
-src/backend/utils/misc/guc.c: 6165 - 6178
+[src/backend/utils/misc/guc.c:6165-6178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6165-L6178)
 
 ## Overview
 A utility function that reads binary data from serialized GUC state, copying a specified number of bytes to a destination and advancing the source pointer.

@@ -1,7 +1,7 @@
 # TableAmRoutine
 
 ## Location
-src/include/access/tableam.h: 291 - 877
+[src/include/access/tableam.h:291-877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L291-L877)
 
 ## Overview
 TableAmRoutine is a comprehensive structure that defines the API interface for table access methods in PostgreSQL, containing function pointers for all operations that a table access method must implement.

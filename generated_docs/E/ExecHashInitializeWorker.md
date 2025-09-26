@@ -1,7 +1,7 @@
 # ExecHashInitializeWorker
 
 ## Location
-src/backend/executor/nodeHash.c: 2785 - 2810
+[src/backend/executor/nodeHash.c:2785-2810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2785-L2810)
 
 ## Overview
 ExecHashInitializeWorker locates and connects a parallel worker to its designated shared memory space for hash table instrumentation data collection.

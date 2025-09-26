@@ -1,7 +1,7 @@
 # to_chars_df
 
 ## Location
-src/common/d2s.c: 631 - 786
+[src/common/d2s.c:631-786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s.c#L631-L786)
 
 ## Overview
 Converts a floating-point decimal representation to its fixed-point string format, handling decimal point placement and zero padding as needed.

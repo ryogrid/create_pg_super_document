@@ -1,7 +1,7 @@
 # pgstat_get_my_query_id
 
 ## Location
-src/backend/utils/activity/backend_status.c: 1027 - 1048
+[src/backend/utils/activity/backend_status.c:1027-1048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L1027-L1048)
 
 ## Overview
 Returns the current backend's query identifier for tracking and logging purposes.

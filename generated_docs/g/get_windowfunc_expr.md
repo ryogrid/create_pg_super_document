@@ -1,7 +1,7 @@
 # get_windowfunc_expr
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10715 - 10725
+[src/backend/utils/adt/ruleutils.c:10715-10725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10715-L10725)
 
 ## Overview
 A wrapper function that parses back a WindowFunc node into its string representation by delegating to the more comprehensive get_windowfunc_expr_helper function.

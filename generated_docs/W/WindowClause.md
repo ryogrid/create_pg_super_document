@@ -1,7 +1,7 @@
 # WindowClause
 
 ## Location
-src/include/nodes/parsenodes.h: 1536 - 1562
+[src/include/nodes/parsenodes.h:1536-1562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1536-L1562)
 
 ## Overview
 WindowClause represents the transformed representation of WINDOW and OVER clauses, providing the complete specification for window function processing including partitioning, ordering, and framing information.

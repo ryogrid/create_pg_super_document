@@ -1,7 +1,7 @@
 # tuplestore_set_eflags
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 359 - 382
+[src/backend/utils/sort/tuplestore.c:359-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L359-L382)
 
 ## Overview
 Function to set execution capability flags for the primary read pointer of a tuplestore, providing finer control over scanning capabilities than the initial tuplestore creation functions.

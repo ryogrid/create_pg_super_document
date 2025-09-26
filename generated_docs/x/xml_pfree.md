@@ -1,7 +1,7 @@
 # xml_pfree
 
 ## Location
-src/backend/utils/adt/xml.c: 1976 - 1984
+[src/backend/utils/adt/xml.c:1976-1984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1976-L1984)
 
 ## Overview
 A memory deallocation wrapper function that safely frees memory allocated for libxml operations, with NULL pointer safety handling.

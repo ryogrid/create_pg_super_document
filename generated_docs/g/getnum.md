@@ -1,7 +1,7 @@
 # getnum
 
 ## Location
-src/timezone/localtime.c: 680 - 709
+[src/timezone/localtime.c:680-709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L680-L709)
 
 ## Overview
 The  function extracts and validates an integer from a timezone string, ensuring it falls within specified bounds.

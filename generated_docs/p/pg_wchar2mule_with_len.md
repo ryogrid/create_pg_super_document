@@ -1,7 +1,7 @@
 # pg_wchar2mule_with_len
 
 ## Location
-src/common/wchar.c: 727 - 792
+[src/common/wchar.c:727-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L727-L792)
 
 ## Overview
 Converts PostgreSQL's wide character representation (pg_wchar) back to MULE internal encoding, performing the reverse operation of pg_mule2wchar_with_len.

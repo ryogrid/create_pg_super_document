@@ -1,7 +1,7 @@
 # CheckPoint
 
 ## Location
-src/include/catalog/pg_control.h: 35 - 65
+[src/include/catalog/pg_control.h:35-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_control.h#L35-L65)
 
 ## Overview
 CheckPoint is a critical data structure that represents the body of checkpoint XLOG records in PostgreSQL, containing essential recovery and consistency information that is stored both in WAL records and in pg_control for disaster recovery purposes.

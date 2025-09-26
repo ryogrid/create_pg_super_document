@@ -1,7 +1,7 @@
 # ShutdownLatchSupport
 
 ## Location
-src/backend/storage/ipc/latch.c: 364 - 393
+[src/backend/storage/ipc/latch.c:364-393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L364-L393)
 
 ## Overview
 Cleans up and shuts down the process-local latch infrastructure, releasing all associated resources and file descriptors.

@@ -1,7 +1,7 @@
 # hashoptions
 
 ## Location
-src/backend/access/hash/hashutil.c: 275 - 290
+[src/backend/access/hash/hashutil.c:275-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L275-L290)
 
 ## Overview
 Parses and builds hash index relation options from a Datum, specifically handling the fillfactor parameter for hash indexes.

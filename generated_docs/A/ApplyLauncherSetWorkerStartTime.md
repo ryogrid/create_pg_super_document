@@ -1,7 +1,7 @@
 # ApplyLauncherSetWorkerStartTime
 
 ## Location
-src/backend/replication/logical/launcher.c: 1046 - 1061
+[src/backend/replication/logical/launcher.c:1046-1061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L1046-L1061)
 
 ## Overview
 Records the start time of a logical replication worker for a specific subscription in the shared hash table, enabling tracking of worker launch frequency and preventing rapid restarts.

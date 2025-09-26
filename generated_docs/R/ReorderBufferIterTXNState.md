@@ -1,7 +1,7 @@
 # ReorderBufferIterTXNState
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 167 - 173
+[src/backend/replication/logical/reorderbuffer.c:167-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L167-L173)
 
 ## Overview
 ReorderBufferIterTXNState is a structure that manages the iteration state for processing changes across multiple transactions in PostgreSQL's logical replication reorder buffer.

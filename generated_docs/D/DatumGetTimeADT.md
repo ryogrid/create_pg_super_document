@@ -1,7 +1,7 @@
 # DatumGetTimeADT
 
 ## Location
-src/include/utils/date.h: 60 - 65
+[src/include/utils/date.h:60-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/date.h#L60-L65)
 
 ## Overview
 DatumGetTimeADT is a static inline function that extracts a TimeADT value from a PostgreSQL Datum, providing a type-safe conversion mechanism for time values in PostgreSQL's function manager interface.

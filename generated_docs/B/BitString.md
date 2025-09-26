@@ -1,7 +1,7 @@
 # BitString
 
 ## Location
-src/include/nodes/value.h: 71 - 77
+[src/include/nodes/value.h:71-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/value.h#L71-L77)
 
 ## Overview
 The BitString node type represents bit string literal constants in PostgreSQL's parser, providing a node-based wrapper for binary string values.

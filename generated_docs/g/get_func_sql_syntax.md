@@ -1,7 +1,7 @@
 # get_func_sql_syntax
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10819 - 11070
+[src/backend/utils/adt/ruleutils.c:10819-11070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10819-L11070)
 
 ## Overview
 A comprehensive function that converts built-in SQL function calls with special syntax into their standard SQL string representation, handling functions like EXTRACT, OVERLAY, SUBSTRING, TRIM, and timezone operations.

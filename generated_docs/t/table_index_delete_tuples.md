@@ -1,7 +1,7 @@
 # table_index_delete_tuples
 
 ## Location
-src/include/access/tableam.h: 1357 - 1402
+[src/include/access/tableam.h:1357-1402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1357-L1402)
 
 ## Overview
 This function determines which index tuples are safe to delete based on their table TID by checking the vacuumability of corresponding table tuples and returns a snapshot conflict horizon for WAL logging.

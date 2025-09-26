@@ -1,7 +1,7 @@
 # shutdown_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 821 - 853
+[src/backend/replication/logical/logical.c:821-853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L821-L853)
 
 ## Overview
 shutdown_cb_wrapper is a static wrapper function that safely calls the output plugin's shutdown callback with proper error handling and context management during plugin cleanup.

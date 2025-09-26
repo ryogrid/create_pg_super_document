@@ -1,7 +1,7 @@
 # smgrwriteback
 
 ## Location
-src/backend/storage/smgr/smgr.c: 643 - 654
+[src/backend/storage/smgr/smgr.c:643-654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L643-L654)
 
 ## Overview
 Triggers kernel writeback for a specified range of blocks in a storage manager relation, facilitating efficient memory management by encouraging the OS to write dirty pages to disk.

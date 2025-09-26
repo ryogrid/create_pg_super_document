@@ -1,7 +1,7 @@
 # size_pretty_unit
 
 ## Location
-src/backend/utils/adt/dbsize.c: 38 - 59
+[src/backend/utils/adt/dbsize.c:38-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L38-L59)
 
 ## Overview
 A structure that defines units of measurement used in PostgreSQL's size formatting functions, specifically for converting byte counts into human-readable formats with appropriate units (bytes, kB, MB, GB, etc.).

@@ -1,7 +1,7 @@
 # illegal_instruction_handler
 
 ## Location
-src/port/pg_crc32c_armv8_choose.c: 40 - 45
+[src/port/pg_crc32c_armv8_choose.c:40-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_crc32c_armv8_choose.c#L40-L45)
 
 ## Overview
 A static signal handler function used to detect ARMv8 CRC instruction availability by catching SIGILL (illegal instruction) signals during runtime probing.

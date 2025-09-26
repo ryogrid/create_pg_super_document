@@ -1,7 +1,7 @@
 # CopySnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 574 - 629
+[src/backend/utils/time/snapmgr.c:574-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L574-L629)
 
 ## Overview
 Creates a deep copy of an MVCC snapshot structure, allocating new memory and copying all transaction ID arrays.

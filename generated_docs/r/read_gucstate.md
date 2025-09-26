@@ -1,7 +1,7 @@
 # read_gucstate
 
 ## Location
-src/backend/utils/misc/guc.c: 6142 - 6164
+[src/backend/utils/misc/guc.c:6142-6164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6142-L6164)
 
 ## Overview
 A utility function that advances a source pointer past a null-terminated string in serialized GUC state data, returning the current string position.

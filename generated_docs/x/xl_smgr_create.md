@@ -1,7 +1,7 @@
 # xl_smgr_create
 
 ## Location
-src/include/catalog/storage_xlog.h: 33 - 37
+[src/include/catalog/storage_xlog.h:33-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/storage_xlog.h#L33-L37)
 
 ## Overview
 A WAL record structure that represents the creation of a storage manager file in PostgreSQL's Write-Ahead Logging (WAL) system.

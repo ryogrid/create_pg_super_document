@@ -1,7 +1,7 @@
 # TimeTzADTPGetDatum
 
 ## Location
-src/include/utils/date.h: 84 - 88
+[src/include/utils/date.h:84-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/date.h#L84-L88)
 
 ## Overview
 TimeTzADTPGetDatum is a static inline function that converts a TimeTzADT pointer to a PostgreSQL Datum representation, enabling time with time zone values to be passed through the PostgreSQL function call interface.

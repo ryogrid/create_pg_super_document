@@ -1,7 +1,7 @@
 # WindowAgg
 
 ## Location
-src/include/nodes/plannodes.h: 1038 - 1106
+[src/include/nodes/plannodes.h:1038-1106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1038-L1106)
 
 ## Overview
 WindowAgg is a specialized plan node that implements window functions in PostgreSQL, processing data within sliding windows defined by PARTITION BY and ORDER BY clauses with optional frame specifications.

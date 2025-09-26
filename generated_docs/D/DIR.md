@@ -1,7 +1,7 @@
 # DIR
 
 ## Location
-src/port/dirent.c: 25 - 32
+[src/port/dirent.c:25-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/dirent.c#L25-L32)
 
 ## Overview
 The DIR structure provides a Windows-compatible implementation of directory reading functionality, encapsulating the necessary state for iterating through directory entries on Windows systems.

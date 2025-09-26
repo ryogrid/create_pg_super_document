@@ -1,7 +1,7 @@
 # FileBackupMethod
 
 ## Location
-src/include/backup/basebackup_incremental.h: 26 - 28
+[src/include/backup/basebackup_incremental.h:26-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_incremental.h#L26-L28)
 
 ## Overview
 An enumeration that specifies how a file should be backed up during incremental backup operations in PostgreSQL.

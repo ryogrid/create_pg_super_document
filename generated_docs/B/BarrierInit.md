@@ -1,7 +1,7 @@
 # BarrierInit
 
 ## Location
-src/backend/storage/ipc/barrier.c: 100 - 124
+[src/backend/storage/ipc/barrier.c:100-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/barrier.c#L100-L124)
 
 ## Overview
 Initializes a barrier synchronization structure to coordinate multiple backend processes, supporting both static and dynamic participant counts.

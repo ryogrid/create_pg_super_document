@@ -1,7 +1,7 @@
 # EphemeralNamedRelationData
 
 ## Location
-src/include/utils/queryenvironment.h: 50 - 54
+[src/include/utils/queryenvironment.h:50-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/queryenvironment.h#L50-L54)
 
 ## Overview
 EphemeralNamedRelationData is the complete data structure for ephemeral named relations (ENRs), combining metadata with actual execution-time data access mechanisms for temporary named relations like trigger transition tables.

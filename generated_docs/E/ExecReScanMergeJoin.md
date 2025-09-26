@@ -1,7 +1,7 @@
 # ExecReScanMergeJoin
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 1657 - 1678
+[src/backend/executor/nodeMergejoin.c:1657-1678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L1657-L1678)
 
 ## Overview
 Resets a merge join node to its initial state and optionally rescans its child plans, enabling the merge join to be re-executed from the beginning.

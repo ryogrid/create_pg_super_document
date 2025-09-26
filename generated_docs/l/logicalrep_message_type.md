@@ -1,7 +1,7 @@
 # logicalrep_message_type
 
 ## Location
-src/backend/replication/logical/proto.c: 1217 - 1271
+[src/backend/replication/logical/proto.c:1217-1271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L1217-L1271)
 
 ## Overview
 A utility function that converts LogicalRepMsgType enumeration values to their corresponding string representations for debugging and error reporting purposes.

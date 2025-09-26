@@ -1,7 +1,7 @@
 # ResourceOwnerForgetSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 182 - 192
+[src/backend/utils/time/snapmgr.c:182-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L182-L192)
 
 ## Overview
 A convenience wrapper function that unregisters a snapshot from a ResourceOwner, removing it from automatic cleanup tracking.

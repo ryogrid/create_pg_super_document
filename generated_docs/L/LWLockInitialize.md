@@ -1,7 +1,7 @@
 # LWLockInitialize
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 709 - 726
+[src/backend/storage/lmgr/lwlock.c:709-726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L709-L726)
 
 ## Overview
 Initializes a new lightweight lock to its unlocked state, setting up all necessary fields for proper operation.

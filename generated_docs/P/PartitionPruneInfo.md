@@ -1,7 +1,7 @@
 # PartitionPruneInfo
 
 ## Location
-src/include/nodes/plannodes.h: 1423 - 1430
+[src/include/nodes/plannodes.h:1423-1430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1423-L1430)
 
 ## Overview
 PartitionPruneInfo provides the executor with essential information needed to perform runtime partition pruning in partitioned table operations.

@@ -1,7 +1,7 @@
 # JSON_NT_MORE_KEY_PAIRS
 
 ## Location
-src/common/jsonapi.c: 59 - 61
+[src/common/jsonapi.c:59-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L59-L61)
 
 ## Overview
 An enumeration value in the JsonNonTerminal enum that represents additional key-value pairs in JSON objects during incremental JSON parsing.

@@ -1,7 +1,7 @@
 # AlterObjectDependsStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3543 - 3551
+[src/include/nodes/parsenodes.h:3543-3551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3543-L3551)
 
 ## Overview
 AlterObjectDependsStmt is a PostgreSQL parse node structure that represents an ALTER object DEPENDS ON EXTENSION statement for managing extension dependencies of database objects.

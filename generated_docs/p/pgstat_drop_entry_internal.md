@@ -1,7 +1,7 @@
 # pgstat_drop_entry_internal
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 826 - 865
+[src/backend/utils/activity/pgstat_shmem.c:826-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L826-L865)
 
 ## Overview
 Internal helper function that handles the dropping of shared statistics entries, managing reference counting and coordinating entry deletion across multiple backends.

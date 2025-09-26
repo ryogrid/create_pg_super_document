@@ -1,7 +1,7 @@
 # logicalrep_worker_wakeup
 
 ## Location
-src/backend/replication/logical/launcher.c: 689 - 708
+[src/backend/replication/logical/launcher.c:689-708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L689-L708)
 
 ## Overview
 Wakes up a logical replication worker for a specified subscription and relation pair using its latch mechanism.

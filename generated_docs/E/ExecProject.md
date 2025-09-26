@@ -1,7 +1,7 @@
 # ExecProject
 
 ## Location
-src/include/executor/executor.h: 377 - 413
+[src/include/executor/executor.h:377-413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/executor.h#L377-L413)
 
 ## Overview
 ExecProject performs tuple projection operations by evaluating a set of expressions and constructing a result tuple with the computed values in the target slot.

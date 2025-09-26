@@ -1,7 +1,7 @@
 # RLS_ENABLED
 
 ## Location
-src/include/utils/rls.h: 45 - 50
+[src/include/utils/rls.h:45-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rls.h#L45-L50)
 
 ## Overview
 RLS_ENABLED is an enumeration value in the CheckEnableRlsResult enum that indicates Row Level Security (RLS) should be actively applied to queries on a table and that query plan invalidation is required when the security environment changes.

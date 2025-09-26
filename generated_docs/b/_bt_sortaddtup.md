@@ -1,7 +1,7 @@
 # _bt_sortaddtup
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 714 - 783
+[src/backend/access/nbtree/nbtsort.c:714-783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L714-L783)
 
 ## Overview
 A static function that adds an item to a page being built during B-tree index construction, with special handling for first data items and proper error checking.

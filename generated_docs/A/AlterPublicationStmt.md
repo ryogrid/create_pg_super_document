@@ -1,7 +1,7 @@
 # AlterPublicationStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4176 - 4192
+[src/include/nodes/parsenodes.h:4176-4192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4176-L4192)
 
 ## Overview
 A parse tree node structure representing an ALTER PUBLICATION SQL statement, which modifies an existing publication's configuration or object membership in PostgreSQL's logical replication system.

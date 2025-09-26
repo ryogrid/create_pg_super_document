@@ -1,7 +1,7 @@
 # PartitionPruneStepCombine
 
 ## Location
-src/include/nodes/plannodes.h: 1549 - 1555
+[src/include/nodes/plannodes.h:1549-1555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1549-L1555)
 
 ## Overview
 PartitionPruneStepCombine is a concrete implementation of PartitionPruneStep that combines partition sets from multiple pruning steps using Boolean operations, handling BoolExpr clauses in partition pruning logic.

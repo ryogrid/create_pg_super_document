@@ -1,7 +1,7 @@
 # CreateForeignServerStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2870 - 2879
+[src/include/nodes/parsenodes.h:2870-2879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2870-L2879)
 
 ## Overview
 CreateForeignServerStmt represents the parsed representation of a CREATE FOREIGN SERVER SQL statement, used to create a new foreign server definition that connects to an external data source through a foreign data wrapper.

@@ -1,7 +1,7 @@
 # ResourceOwnerDesc
 
 ## Location
-src/include/utils/resowner.h: 91 - 120
+[src/include/utils/resowner.h:91-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/resowner.h#L91-L120)
 
 ## Overview
 ResourceOwnerDesc is a structure that encapsulates the callbacks and metadata needed for the resource owner system to manage a specific kind of resource.

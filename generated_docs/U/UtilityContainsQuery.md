@@ -1,7 +1,7 @@
 # UtilityContainsQuery
 
 ## Location
-src/backend/tcop/utility.c: 2177 - 2213
+[src/backend/tcop/utility.c:2177-2213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L2177-L2213)
 
 ## Overview
 UtilityContainsQuery extracts and returns the plannable Query contained within utility statements, enabling the system to access and process nested queries for planning and execution.

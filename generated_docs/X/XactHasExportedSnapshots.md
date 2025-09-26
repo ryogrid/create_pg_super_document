@@ -1,7 +1,7 @@
 # XactHasExportedSnapshots
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1554 - 1566
+[src/backend/utils/time/snapmgr.c:1554-1566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1554-L1566)
 
 ## Overview
 XactHasExportedSnapshots checks whether the current transaction has exported any snapshots that are available for other transactions to import.

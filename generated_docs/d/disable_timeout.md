@@ -1,7 +1,7 @@
 # disable_timeout
 
 ## Location
-src/backend/utils/misc/timeout.c: 685 - 717
+[src/backend/utils/misc/timeout.c:685-717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L685-L717)
 
 ## Overview
 Cancels a specific timeout, removing it from the active timeout list and optionally resetting its firing indicator.

@@ -1,7 +1,7 @@
 # llvm_create_jit_instance
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 1312 - 1363
+[src/backend/jit/llvm/llvmjit.c:1312-1363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L1312-L1363)
 
 ## Overview
 A static function that creates and configures a complete LLVM LLJIT (Lazy Layer JIT) instance with symbol resolution capabilities for PostgreSQL's JIT compilation infrastructure.

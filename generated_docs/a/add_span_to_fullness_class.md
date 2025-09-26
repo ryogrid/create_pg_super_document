@@ -1,7 +1,7 @@
 # add_span_to_fullness_class
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1929 - 1951
+[src/backend/utils/mmgr/dsa.c:1929-1951](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1929-L1951)
 
 ## Overview
 Adds a span to the head of a specified fullness class list, updating all necessary pointers to maintain the doubly-linked list structure.

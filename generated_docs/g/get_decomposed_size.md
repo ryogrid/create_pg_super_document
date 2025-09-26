@@ -1,7 +1,7 @@
 # get_decomposed_size
 
 ## Location
-src/common/unicode_norm.c: 159 - 217
+[src/common/unicode_norm.c:159-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_norm.c#L159-L217)
 
 ## Overview
 Calculates the total number of characters that a given Unicode character will expand to after complete recursive decomposition.

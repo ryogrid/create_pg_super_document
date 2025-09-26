@@ -1,7 +1,7 @@
 # CountDBBackends
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3598 - 3626
+[src/backend/storage/ipc/procarray.c:3598-3626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3598-L3626)
 
 ## Overview
 Counts the number of backends that are currently using a specified database, providing a way to determine database usage for administrative and recovery conflict resolution purposes.

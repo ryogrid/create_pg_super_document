@@ -1,7 +1,7 @@
 # unicode_is_normalized_quickcheck
 
 ## Location
-src/common/unicode_norm.c: 598 - 634
+[src/common/unicode_norm.c:598-634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_norm.c#L598-L634)
 
 ## Overview
 Performs a quick normalization check on a Unicode string to determine whether it is already in the specified normalization form without performing the full normalization process.

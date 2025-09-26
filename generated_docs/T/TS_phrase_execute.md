@@ -1,7 +1,7 @@
 # TS_phrase_execute
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 1609 - 1853
+[src/backend/utils/adt/tsvector_op.c:1609-1853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L1609-L1853)
 
 ## Overview
 TS_phrase_execute is a recursive function that executes tsquery operations at or below an OP_PHRASE operator, handling text search execution at recursion levels where match locations are crucial for phrase matching and position-aware operations.

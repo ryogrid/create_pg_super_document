@@ -1,7 +1,7 @@
 # pullup_replace_vars_context
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 56 - 69
+[src/backend/optimizer/prep/prepjointree.c:56-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L56-L69)
 
 ## Overview
 The pullup_replace_vars_context struct serves as a comprehensive context structure for variable replacement operations during subquery pullup optimization, containing all necessary information to correctly transform variable references when flattening subqueries into their parent queries.

@@ -1,7 +1,7 @@
 # TSParserCacheEntry
 
 ## Location
-src/include/tsearch/ts_cache.h: 30 - 49
+[src/include/tsearch/ts_cache.h:30-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_cache.h#L30-L49)
 
 ## Overview
 TSParserCacheEntry is a cache structure that stores precompiled function call information for text search parsers, optimizing performance by avoiding repeated function lookups during parsing operations.

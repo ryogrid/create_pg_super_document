@@ -1,7 +1,7 @@
 # XmlExpr
 
 ## Location
-src/include/nodes/primnodes.h: 1596 - 1618
+[src/include/nodes/primnodes.h:1596-1618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1596-L1618)
 
 ## Overview
 XmlExpr represents various SQL/XML functions that require special grammar productions, providing a unified structure for XML-related operations like XMLCONCAT, XMLELEMENT, XMLPARSE, etc.

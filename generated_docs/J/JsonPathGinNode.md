@@ -1,7 +1,7 @@
 # JsonPathGinNode
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 94 - 97
+[src/backend/utils/adt/jsonb_gin.c:94-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L94-L97)
 
 ## Overview
 JsonPathGinNode represents a node in an expression tree structure used for processing JSON path queries in GIN index operations, supporting logical operations (AND/OR) and entry matching for JSONB data.

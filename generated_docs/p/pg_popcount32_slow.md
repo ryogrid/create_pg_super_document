@@ -1,7 +1,7 @@
 # pg_popcount32_slow
 
 ## Location
-src/port/pg_bitutils.c: 348 - 369
+[src/port/pg_bitutils.c:348-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L348-L369)
 
 ## Overview
 A fallback implementation for counting the number of 1 bits in a 32-bit unsigned integer, used when fast hardware instructions are not available.

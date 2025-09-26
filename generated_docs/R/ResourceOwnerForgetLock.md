@@ -1,7 +1,7 @@
 # ResourceOwnerForgetLock
 
 ## Location
-src/backend/utils/resowner/resowner.c: 1065 - 1084
+[src/backend/utils/resowner/resowner.c:1065-1084](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L1065-L1084)
 
 ## Overview
 ResourceOwnerForgetLock removes a LOCALLOCK from a ResourceOwner's tracking cache, implementing efficient removal through backward linear search with swap-based deletion.

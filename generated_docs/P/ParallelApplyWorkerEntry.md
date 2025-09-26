@@ -1,7 +1,7 @@
 # ParallelApplyWorkerEntry
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 215 - 219
+[src/backend/replication/logical/applyparallelworker.c:215-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L215-L219)
 
 ## Overview
 ParallelApplyWorkerEntry is a hash table entry structure used to map transaction IDs (xid) to parallel apply worker state information in PostgreSQL's logical replication system.

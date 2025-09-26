@@ -1,7 +1,7 @@
 # generate_operator_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 13032 - 13108
+[src/backend/utils/adt/ruleutils.c:13032-13108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L13032-L13108)
 
 ## Overview
 Computes the name to display for an operator specified by OID, given that it is being called with the specified actual argument types.

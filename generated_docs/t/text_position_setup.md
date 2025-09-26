@@ -1,7 +1,7 @@
 # text_position_setup
 
 ## Location
-src/backend/utils/adt/varlena.c: 1216 - 1335
+[src/backend/utils/adt/varlena.c:1216-1335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1216-L1335)
 
 ## Overview
 The  function initializes the state for efficient substring searching, including Boyer-Moore-Horspool skip table preparation and collation handling.

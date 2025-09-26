@@ -1,7 +1,7 @@
 # getConstraintTypeDescription
 
 ## Location
-src/backend/catalog/objectaddress.c: 4666 - 4702
+[src/backend/catalog/objectaddress.c:4666-4702](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4666-L4702)
 
 ## Overview
 A helper function that determines and appends the specific type description for a constraint object to a StringInfo buffer, distinguishing between table constraints and domain constraints.

@@ -1,7 +1,7 @@
 # pgstat_have_pending_wal
 
 ## Location
-src/backend/utils/activity/pgstat_wal.c: 159 - 166
+[src/backend/utils/activity/pgstat_wal.c:159-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_wal.c#L159-L166)
 
 ## Overview
 Determines whether any WAL (Write-Ahead Log) activity has occurred since the last statistics flush by checking for changes in WAL record generation, writes, and sync operations.

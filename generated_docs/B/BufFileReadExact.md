@@ -1,7 +1,7 @@
 # BufFileReadExact
 
 ## Location
-src/backend/storage/file/buffile.c: 654 - 663
+[src/backend/storage/file/buffile.c:654-663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L654-L663)
 
 ## Overview
 Reads exactly the specified number of bytes from a buffered file, raising an error if the requested amount cannot be read completely.

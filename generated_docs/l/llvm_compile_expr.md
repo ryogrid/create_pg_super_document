@@ -1,7 +1,7 @@
 # llvm_compile_expr
 
 ## Location
-src/backend/jit/llvm/llvmjit_expr.c: 78 - 2683
+[src/backend/jit/llvm/llvmjit_expr.c:78-2683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit_expr.c#L78-L2683)
 
 ## Overview
 Compiles an ExprState into optimized LLVM IR code for high-performance expression evaluation, serving as the main entry point for PostgreSQL's JIT expression compilation.

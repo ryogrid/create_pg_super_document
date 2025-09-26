@@ -1,7 +1,7 @@
 # RecordFreeIndexPage
 
 ## Location
-src/backend/storage/freespace/indexfsm.c: 52 - 61
+[src/backend/storage/freespace/indexfsm.c:52-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/indexfsm.c#L52-L61)
 
 ## Overview
 RecordFreeIndexPage marks a page as completely free in the Free Space Map (FSM), indicating it has maximum available free space.

@@ -1,7 +1,7 @@
 # makeDefElem
 
 ## Location
-src/backend/nodes/makefuncs.c: 611 - 628
+[src/backend/nodes/makefuncs.c:611-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L611-L628)
 
 ## Overview
 Creates a DefElem node for representing definition elements, typically used for option specifications in DDL statements and other SQL constructs.

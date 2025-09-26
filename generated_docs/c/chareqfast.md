@@ -1,7 +1,7 @@
 # chareqfast
 
 ## Location
-src/backend/utils/cache/catcache.c: 191 - 196
+[src/backend/utils/cache/catcache.c:191-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L191-L196)
 
 ## Overview
 A fast equality comparison function for single-byte character (char) data types used as catalog cache keys in PostgreSQL.

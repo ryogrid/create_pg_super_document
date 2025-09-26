@@ -1,7 +1,7 @@
 # pg_link_canary_is_frontend
 
 ## Location
-src/common/link-canary.c: 29 - 36
+[src/common/link-canary.c:29-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/link-canary.c#L29-L36)
 
 ## Overview
 A diagnostic function that reports whether the current compilation context is frontend or backend environment, used to detect and prevent incorrect symbol resolution issues in shared libraries.

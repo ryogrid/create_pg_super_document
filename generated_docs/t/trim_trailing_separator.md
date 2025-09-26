@@ -1,7 +1,7 @@
 # trim_trailing_separator
 
 ## Location
-src/port/path.c: 1102 - 1123
+[src/port/path.c:1102-1123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L1102-L1123)
 
 ## Overview
 Removes trailing directory separator characters (slashes) from a path string while preserving any leading slash.

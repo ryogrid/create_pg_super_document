@@ -1,7 +1,7 @@
 # rebin_segment
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 2316 - 2342
+[src/backend/utils/mmgr/dsa.c:2316-2342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L2316-L2342)
 
 ## Overview
 Moves a DSA segment to the appropriate bin based on its current largest contiguous free space, maintaining optimal segment organization for allocation efficiency.

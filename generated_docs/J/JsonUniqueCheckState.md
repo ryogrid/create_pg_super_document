@@ -1,7 +1,7 @@
 # JsonUniqueCheckState
 
 ## Location
-src/backend/utils/adt/json.c: 39 - 41
+[src/backend/utils/adt/json.c:39-41](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L39-L41)
 
 ## Overview
 JsonUniqueCheckState is a typedef for a hash table pointer (HTAB *) used to maintain fast key uniqueness checking in JSON objects by tracking used key names to detect duplicates efficiently.

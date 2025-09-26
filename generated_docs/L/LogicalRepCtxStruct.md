@@ -1,7 +1,7 @@
 # LogicalRepCtxStruct
 
 ## Location
-src/backend/replication/logical/launcher.c: 56 - 67
+[src/backend/replication/logical/launcher.c:56-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L56-L67)
 
 ## Overview
 LogicalRepCtxStruct is a shared memory structure that manages the logical replication launcher context, coordinating the supervisor process and background worker processes for PostgreSQL's logical replication system.

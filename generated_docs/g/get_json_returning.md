@@ -1,7 +1,7 @@
 # get_json_returning
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11322 - 11341
+[src/backend/utils/adt/ruleutils.c:11322-11341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11322-L11341)
 
 ## Overview
 A static helper function within the rule decompilation system that parses back a JsonReturning structure into its SQL RETURNING clause representation.

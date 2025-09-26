@@ -1,7 +1,7 @@
 # InvalidateAttoptCacheCallback
 
 ## Location
-src/backend/utils/cache/attoptcache.c: 55 - 77
+[src/backend/utils/cache/attoptcache.c:55-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/attoptcache.c#L55-L77)
 
 ## Overview
 A cache invalidation callback function that flushes all cached attribute options when the pg_attribute system catalog is updated.

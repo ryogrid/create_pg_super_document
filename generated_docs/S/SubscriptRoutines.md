@@ -1,7 +1,7 @@
 # SubscriptRoutines
 
 ## Location
-src/include/nodes/subscripting.h: 158 - 165
+[src/include/nodes/subscripting.h:158-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/subscripting.h#L158-L165)
 
 ## Overview
 The  struct defines the interface for type-specific subscripting operations in PostgreSQL, providing function pointers and behavior flags that allow data types to customize how array-style subscripting (e.g., ) is handled during parsing and execution.

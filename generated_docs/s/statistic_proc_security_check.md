@@ -1,7 +1,7 @@
 # statistic_proc_security_check
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 5801 - 5829
+[src/backend/utils/adt/selfuncs.c:5801-5829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L5801-L5829)
 
 ## Overview
 Determines whether it is safe to call a function with pg_statistic data, ensuring that statistical information is only exposed to authorized users or through leak-proof functions.

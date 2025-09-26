@@ -1,7 +1,7 @@
 # array_get_isnull
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4769 - 4785
+[src/backend/utils/adt/arrayfuncs.c:4769-4785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4769-L4785)
 
 ## Overview
 A static utility function that checks whether a specific array element is NULL by examining the array's null bitmap.

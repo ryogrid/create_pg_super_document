@@ -1,7 +1,7 @@
 # MarkPortalFailed
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 442 - 467
+[src/backend/utils/mmgr/portalmem.c:442-467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L442-L467)
 
 ## Overview
 Transitions a portal into FAILED state when execution encounters an error, ensuring proper cleanup and preventing further portal execution attempts.

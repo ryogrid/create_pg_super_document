@@ -1,7 +1,7 @@
 # ecpg_process_output
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 1671 - 1943
+[src/interfaces/ecpg/ecpglib/execute.c:1671-1943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L1671-L1943)
 
 ## Overview
 Processes SQL statement results and transfers data into application variables, handling various result types and output formats.

@@ -1,7 +1,7 @@
 # init_slab_allocator
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2009 - 2044
+[src/backend/utils/sort/tuplesort.c:2009-2044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2009-L2044)
 
 ## Overview
 Initializes a slab allocation arena with a specified number of slots for efficient memory management during tuple sorting operations.

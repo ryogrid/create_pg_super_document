@@ -1,7 +1,7 @@
 # SnapBuildProcessRunningXacts
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 1274 - 1375
+[src/backend/replication/logical/snapbuild.c:1274-1375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L1274-L1375)
 
 ## Overview
 Processes running transaction records from WAL to build historic snapshots and manages transaction cleanup and replication slot advancement during logical replication.

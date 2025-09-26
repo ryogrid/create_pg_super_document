@@ -1,7 +1,7 @@
 # detzcode64
 
 ## Location
-src/timezone/localtime.c: 144 - 169
+[src/timezone/localtime.c:144-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L144-L169)
 
 ## Overview
 Decodes an 8-byte big-endian signed 64-bit integer from a byte array, handling two's-complement representation across different machine architectures.

@@ -1,7 +1,7 @@
 # AlterSubscriptionStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4215 - 4223
+[src/include/nodes/parsenodes.h:4215-4223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4215-L4223)
 
 ## Overview
 A parse tree node structure representing an ALTER SUBSCRIPTION SQL statement, which modifies various aspects of an existing subscription in PostgreSQL's logical replication system.

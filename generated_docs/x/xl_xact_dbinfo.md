@@ -1,7 +1,7 @@
 # xl_xact_dbinfo
 
 ## Location
-src/include/access/xact.h: 255 - 259
+[src/include/access/xact.h:255-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L255-L259)
 
 ## Overview
 WAL record sub-structure that stores database and tablespace information for commit and abort transaction records when database context is needed.

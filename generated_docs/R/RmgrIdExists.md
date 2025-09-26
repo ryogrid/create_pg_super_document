@@ -1,7 +1,7 @@
 # RmgrIdExists
 
 ## Location
-src/include/access/xlog_internal.h: 370 - 375
+[src/include/access/xlog_internal.h:370-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L370-L375)
 
 ## Overview
 RmgrIdExists is a static inline function that checks whether a given resource manager ID corresponds to a valid, registered resource manager in PostgreSQL's WAL system.

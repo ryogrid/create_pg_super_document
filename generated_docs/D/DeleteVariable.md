@@ -1,7 +1,7 @@
 # DeleteVariable
 
 ## Location
-src/bin/psql/variables.c: 404 - 415
+[src/bin/psql/variables.c:404-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L404-L415)
 
 ## Overview
 Attempts to delete a variable from the specified variable space, with deletion of nonexistent variables considered a non-error operation.

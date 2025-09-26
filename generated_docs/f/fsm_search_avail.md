@@ -1,7 +1,7 @@
 # fsm_search_avail
 
 ## Location
-src/backend/storage/freespace/fsmpage.c: 158 - 312
+[src/backend/storage/freespace/fsmpage.c:158-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/fsmpage.c#L158-L312)
 
 ## Overview
 The fsm_search_avail function searches for a slot within a Free Space Map page that has at least the specified minimum free space available, using an efficient binary tree traversal algorithm.

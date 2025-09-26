@@ -1,7 +1,7 @@
 # DescribeLockTag
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1239 - 1335
+[src/backend/storage/lmgr/lmgr.c:1239-1335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1239-L1335)
 
 ## Overview
 Generates a human-readable description of a lockable object from its lock tag, primarily used for error reporting and debugging deadlock situations.

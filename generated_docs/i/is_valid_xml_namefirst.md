@@ -1,7 +1,7 @@
 # is_valid_xml_namefirst
 
 ## Location
-src/backend/utils/adt/xml.c: 2355 - 2363
+[src/backend/utils/adt/xml.c:2355-2363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2355-L2363)
 
 ## Overview
 A static validation function that determines whether a Unicode character is valid as the first character of an XML name according to XML naming rules.

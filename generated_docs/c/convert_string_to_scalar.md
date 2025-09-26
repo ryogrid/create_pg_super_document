@@ -1,7 +1,7 @@
 # convert_string_to_scalar
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 4527 - 4606
+[src/backend/utils/adt/selfuncs.c:4527-4606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L4527-L4606)
 
 ## Overview
 Converts character-string data to a normalized scalar value between 0 and 1 for selectivity estimation purposes, optimizing the conversion by analyzing the byte value range and stripping common prefixes.

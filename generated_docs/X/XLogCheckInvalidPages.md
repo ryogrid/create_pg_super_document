@@ -1,7 +1,7 @@
 # XLogCheckInvalidPages
 
 ## Location
-src/backend/access/transam/xlogutils.c: 245 - 313
+[src/backend/access/transam/xlogutils.c:245-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L245-L313)
 
 ## Overview
 Checks for and reports any remaining invalid page entries in the invalid page hash table, typically called during recovery consistency checking to ensure all WAL references to invalid pages have been resolved.

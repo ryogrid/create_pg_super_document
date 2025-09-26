@@ -1,7 +1,7 @@
 # ExecShutdownHashJoin
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 1483 - 1497
+[src/backend/executor/nodeHashjoin.c:1483-1497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L1483-L1497)
 
 ## Overview
 Performs cleanup operations when shutting down a hash join node by detaching from shared memory structures before they are destroyed.

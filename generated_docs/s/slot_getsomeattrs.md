@@ -1,7 +1,7 @@
 # slot_getsomeattrs
 
 ## Location
-src/include/executor/tuptable.h: 355 - 367
+[src/include/executor/tuptable.h:355-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L355-L367)
 
 ## Overview
 A lightweight inline function that ensures a TupleTableSlot has valid values for all attributes up to a specified attribute number.

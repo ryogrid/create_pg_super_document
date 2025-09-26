@@ -1,7 +1,7 @@
 # generate_collation_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 13213 - 13244
+[src/backend/utils/adt/ruleutils.c:13213-13244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L13213-L13244)
 
 ## Overview
 Computes the name to display for a collation specified by OID, with necessary quoting and schema-prefixing.

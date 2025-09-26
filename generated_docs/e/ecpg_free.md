@@ -1,7 +1,7 @@
 # ecpg_free
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 13 - 18
+[src/interfaces/ecpg/ecpglib/memory.c:13-18](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L13-L18)
 
 ## Overview
 A simple wrapper function that frees memory previously allocated by ECPG memory management functions, providing a consistent interface for memory deallocation in the ECPG library.

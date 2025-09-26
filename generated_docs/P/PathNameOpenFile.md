@@ -1,7 +1,7 @@
 # PathNameOpenFile
 
 ## Location
-src/backend/storage/file/fd.c: 1572 - 1584
+[src/backend/storage/file/fd.c:1572-1584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1572-L1584)
 
 ## Overview
 PathNameOpenFile is a convenience wrapper function that opens a file using default file permissions, simplifying the interface compared to the more flexible PathNameOpenFilePerm function.

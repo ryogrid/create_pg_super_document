@@ -1,7 +1,7 @@
 # text_isequal
 
 ## Location
-src/backend/utils/adt/varlena.c: 4500 - 4513
+[src/backend/utils/adt/varlena.c:4500-4513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4500-L4513)
 
 ## Overview
 A static convenience function that provides a simple boolean interface for comparing two text values for equality using a specified collation.

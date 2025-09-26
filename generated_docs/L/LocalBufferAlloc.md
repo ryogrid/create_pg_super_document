@@ -1,7 +1,7 @@
 # LocalBufferAlloc
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 116 - 176
+[src/backend/storage/buffer/localbuf.c:116-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L116-L176)
 
 ## Overview
 LocalBufferAlloc finds or creates a local buffer for a specified page of a temporary relation, serving as the local buffer equivalent of BufferAlloc for non-shared temporary relations.

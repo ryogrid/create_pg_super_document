@@ -1,7 +1,7 @@
 # numeric_eq
 
 ## Location
-src/backend/utils/adt/numeric.c: 2431 - 2445
+[src/backend/utils/adt/numeric.c:2431-2445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2431-L2445)
 
 ## Overview
 PostgreSQL built-in function that tests equality between two numeric values, returning a boolean result.

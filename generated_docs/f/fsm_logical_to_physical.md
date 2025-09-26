@@ -1,7 +1,7 @@
 # fsm_logical_to_physical
 
 ## Location
-src/backend/storage/freespace/freespace.c: 455 - 490
+[src/backend/storage/freespace/freespace.c:455-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L455-L490)
 
 ## Overview
 Converts a logical FSM (Free Space Map) address to its corresponding physical block number in the FSM file.

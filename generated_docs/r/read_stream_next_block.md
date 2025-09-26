@@ -1,7 +1,7 @@
 # read_stream_next_block
 
 ## Location
-src/backend/storage/aio/read_stream.c: 784 - 796
+[src/backend/storage/aio/read_stream.c:784-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/aio/read_stream.c#L784-L796)
 
 ## Overview
 Provides transitional support for code that wants to obtain the next block number from a read stream's lookahead algorithm without actually reading the buffer.

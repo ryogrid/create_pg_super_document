@@ -1,7 +1,7 @@
 # gettimeofday
 
 ## Location
-src/port/win32gettimeofday.c: 53 - 75
+[src/port/win32gettimeofday.c:53-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32gettimeofday.c#L53-L75)
 
 ## Overview
 A Windows-specific replacement for the POSIX  system call that provides current system time with microsecond precision.

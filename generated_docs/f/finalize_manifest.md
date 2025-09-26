@@ -1,7 +1,7 @@
 # finalize_manifest
 
 ## Location
-src/bin/pg_combinebackup/write_manifest.c: 142 - 194
+[src/bin/pg_combinebackup/write_manifest.c:142-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/write_manifest.c#L142-L194)
 
 ## Overview
 Completes the backup manifest by adding WAL range information, computing the manifest checksum, and closing the JSON structure.

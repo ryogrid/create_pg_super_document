@@ -1,7 +1,7 @@
 # r_mark_possessives
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 646 - 654
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:646-654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L646-L654)
 
 ## Overview
 A static function in the Turkish stemmer that identifies and marks possessive suffixes in Turkish words as part of the Snowball stemming algorithm.

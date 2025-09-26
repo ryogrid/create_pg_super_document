@@ -1,7 +1,7 @@
 # transformBooleanTest
 
 ## Location
-src/backend/parser/parse_expr.c: 2528 - 2567
+[src/backend/parser/parse_expr.c:2528-2567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2528-L2567)
 
 ## Overview
 Transforms Boolean test expressions (IS TRUE, IS FALSE, IS UNKNOWN, etc.) during parsing by applying proper type coercion to ensure the argument is boolean-compatible.

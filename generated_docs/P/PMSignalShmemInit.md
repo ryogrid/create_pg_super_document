@@ -1,7 +1,7 @@
 # PMSignalShmemInit
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 144 - 180
+[src/backend/storage/ipc/pmsignal.c:144-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L144-L180)
 
 ## Overview
 Initializes the postmaster signaling system's shared memory structures during PostgreSQL startup, setting up the infrastructure for inter-process communication between postmaster and backend processes.

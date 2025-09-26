@@ -1,7 +1,7 @@
 # FileSetSegmentName
 
 ## Location
-src/backend/storage/file/buffile.c: 222 - 230
+[src/backend/storage/file/buffile.c:222-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L222-L230)
 
 ## Overview
 Constructs the filename for a specific segment of a named BufFile within a FileSet by appending a segment number to the base filename.

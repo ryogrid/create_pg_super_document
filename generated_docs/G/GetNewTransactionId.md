@@ -1,7 +1,7 @@
 # GetNewTransactionId
 
 ## Location
-src/backend/access/transam/varsup.c: 77 - 287
+[src/backend/access/transam/varsup.c:77-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/varsup.c#L77-L287)
 
 ## Overview
 GetNewTransactionId allocates the next FullTransactionId for a new transaction or subtransaction while implementing critical safety checks to prevent XID wraparound.

@@ -1,7 +1,7 @@
 # xml_pnstrdup
 
 ## Location
-src/backend/utils/adt/xml.c: 1375 - 1386
+[src/backend/utils/adt/xml.c:1375-1386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1375-L1386)
 
 ## Overview
 Creates a null-terminated copy of an xmlChar string with a specified length, similar to PostgreSQL's pnstrdup but for xmlChar data.

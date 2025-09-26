@@ -1,7 +1,7 @@
 # get_param_path_clause_serials
 
 ## Location
-src/backend/optimizer/util/relnode.c: 1922 - 2016
+[src/backend/optimizer/util/relnode.c:1922-2016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L1922-L2016)
 
 ## Overview
 Extract the set of pushed-down clause serial numbers that are enforced within a parameterized path, handling different path types with appropriate aggregation logic.

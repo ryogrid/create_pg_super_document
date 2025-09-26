@@ -1,7 +1,7 @@
 # HeapTupleHeaderAdjustCmax
 
 ## Location
-src/backend/utils/time/combocid.c: 153 - 181
+[src/backend/utils/time/combocid.c:153-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/combocid.c#L153-L181)
 
 ## Overview
 Determines the correct command ID value to store in a tuple's t_cid field when the tuple is about to be deleted, creating a combo command ID if necessary.

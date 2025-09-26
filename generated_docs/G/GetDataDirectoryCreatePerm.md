@@ -1,7 +1,7 @@
 # GetDataDirectoryCreatePerm
 
 ## Location
-src/common/file_perm.c: 66 - 87
+[src/common/file_perm.c:66-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_perm.c#L66-L87)
 
 ## Overview
 Examines the permissions of a PostgreSQL data directory and automatically configures global file creation permissions to match, providing a convenient wrapper around SetDataDirectoryCreatePerm.

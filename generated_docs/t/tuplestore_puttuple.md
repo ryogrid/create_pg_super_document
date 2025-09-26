@@ -1,7 +1,7 @@
 # tuplestore_puttuple
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 730 - 749
+[src/backend/utils/sort/tuplestore.c:730-749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L730-L749)
 
 ## Overview
 A standard function that accepts a HeapTuple and appends it to the tuplestore, though it's considered somewhat deprecated in favor of slot-based alternatives.

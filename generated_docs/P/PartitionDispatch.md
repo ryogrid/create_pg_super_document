@@ -1,7 +1,7 @@
 # PartitionDispatch
 
 ## Location
-src/include/executor/execPartition.h: 22 - 22
+[src/include/executor/execPartition.h:22-22](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/execPartition.h#L22-L22)
 
 ## Overview
 PartitionDispatch is a type definition for a pointer to PartitionDispatchData structure, which contains information about one partitioned table in a partition hierarchy required to route tuples to any of its partitions.

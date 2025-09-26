@@ -1,7 +1,7 @@
 # pg_sha1_final
 
 ## Location
-src/common/sha1.c: 365 - 369
+[src/common/sha1.c:365-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha1.c#L365-L369)
 
 ## Overview
 Finalizes a SHA1 cryptographic hash computation by applying padding and extracting the final 160-bit hash digest from the context.

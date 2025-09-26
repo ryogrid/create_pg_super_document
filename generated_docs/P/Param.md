@@ -1,7 +1,7 @@
 # Param
 
 ## Location
-src/include/nodes/primnodes.h: 373 - 385
+[src/include/nodes/primnodes.h:373-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L373-L385)
 
 ## Overview
 The Param structure represents a parameter placeholder in PostgreSQL's expression tree, used for prepared statements, parameterized queries, and subquery parameter passing.

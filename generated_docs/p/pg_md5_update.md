@@ -1,7 +1,7 @@
 # pg_md5_update
 
 ## Location
-src/common/md5.c: 400 - 431
+[src/common/md5.c:400-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5.c#L400-L431)
 
 ## Overview
 Processes input data incrementally for MD5 hash computation, buffering data and invoking the core MD5 algorithm on complete 64-byte blocks.

@@ -1,7 +1,7 @@
 # ecpg_get_connection
 
 ## Location
-src/interfaces/ecpg/ecpglib/connect.c: 76 - 107
+[src/interfaces/ecpg/ecpglib/connect.c:76-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/connect.c#L76-L107)
 
 ## Overview
 Retrieves a database connection object by name from the ECPG library's connection pool, supporting both thread-specific and globally shared connection management.

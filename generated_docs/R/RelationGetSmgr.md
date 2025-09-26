@@ -1,7 +1,7 @@
 # RelationGetSmgr
 
 ## Location
-src/include/utils/rel.h: 567 - 581
+[src/include/utils/rel.h:567-581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rel.h#L567-L581)
 
 ## Overview
 Returns the storage manager (smgr) file handle for a relation, opening it if needed. This function provides controlled access to the relation's storage manager handle.

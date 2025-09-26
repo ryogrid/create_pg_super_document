@@ -1,7 +1,7 @@
 # SHA256_Last
 
 ## Location
-src/common/sha2.c: 529 - 576
+[src/common/sha2.c:529-576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L529-L576)
 
 ## Overview
 Performs the final padding and processing steps required to complete a SHA-256 hash computation according to the cryptographic specification.

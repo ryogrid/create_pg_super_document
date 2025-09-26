@@ -1,7 +1,7 @@
 # ReturnSetInfo
 
 ## Location
-src/include/nodes/execnodes.h: 330 - 343
+[src/include/nodes/execnodes.h:330-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L330-L343)
 
 ## Overview
 ReturnSetInfo is a communication structure passed to functions that return multiple rows, allowing the function to communicate return status and result data back to the caller.

@@ -1,7 +1,7 @@
 # ECPGgeneric_varchar
 
 ## Location
-src/interfaces/ecpg/ecpglib/ecpglib_extern.h: 38 - 44
+[src/interfaces/ecpg/ecpglib/ecpglib_extern.h:38-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/ecpglib_extern.h#L38-L44)
 
 ## Overview
 A generic variable-length character string structure used by ECPG (Embedded SQL in C) to handle VARCHAR data types with dynamic length.

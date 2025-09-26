@@ -1,7 +1,7 @@
 # pg_big5_verifystr
 
 ## Location
-src/common/wchar.c: 1504 - 1532
+[src/common/wchar.c:1504-1532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1504-L1532)
 
 ## Overview
 Verifies the validity of a Big5 encoded string by iterating through each character and ensuring the entire string conforms to Big5 encoding rules.

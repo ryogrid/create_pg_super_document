@@ -1,7 +1,7 @@
 # statext_ndistinct_build
 
 ## Location
-src/backend/statistics/mvdistinct.c: 88 - 147
+[src/backend/statistics/mvdistinct.c:88-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L88-L147)
 
 ## Overview
 Computes ndistinct coefficients for all possible combinations of attributes in a multivariate statistics object, using the same estimator used in analyze.c.

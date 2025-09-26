@@ -1,7 +1,7 @@
 # json_manifest_finalize_wal_range
 
 ## Location
-src/common/parse_manifest.c: 751 - 811
+[src/common/parse_manifest.c:751-811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L751-L811)
 
 ## Overview
 Performs parsing, validation, and processing of WAL (Write-Ahead Log) range information from JSON manifest data and invokes a callback to notify the caller about the processed WAL range details.

@@ -1,7 +1,7 @@
 # _yconv
 
 ## Location
-src/timezone/strftime.c: 541 - 546
+[src/timezone/strftime.c:541-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/strftime.c#L541-L546)
 
 ## Overview
 A static helper function that handles year conversion for strftime formatting, specifically managing the %C (century) and %y (year within century) format specifiers with proper handling of negative years and years exceeding 9999.

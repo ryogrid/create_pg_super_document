@@ -1,7 +1,7 @@
 # TriggerDesc
 
 ## Location
-src/include/utils/reltrigger.h: 47 - 79
+[src/include/utils/reltrigger.h:47-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/reltrigger.h#L47-L79)
 
 ## Overview
 TriggerDesc is a comprehensive descriptor structure that contains an array of triggers for a relation along with optimization flags that indicate the presence of specific trigger types to avoid unnecessary array scanning.

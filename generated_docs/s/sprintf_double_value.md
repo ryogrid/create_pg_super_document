@@ -1,7 +1,7 @@
 # sprintf_double_value
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 456 - 471
+[src/interfaces/ecpg/ecpglib/execute.c:456-471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L456-L471)
 
 ## Overview
 A static utility function that formats a double-precision floating-point value into a string representation, handling special IEEE 754 values like NaN and infinity with PostgreSQL-compatible formatting.

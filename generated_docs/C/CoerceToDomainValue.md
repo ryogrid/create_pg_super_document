@@ -1,7 +1,7 @@
 # CoerceToDomainValue
 
 ## Location
-src/include/nodes/primnodes.h: 2048 - 2059
+[src/include/nodes/primnodes.h:2048-2059](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2048-L2059)
 
 ## Overview
 CoerceToDomainValue is a placeholder node representing the value to be processed by a domain's check constraint during domain type validation in PostgreSQL.

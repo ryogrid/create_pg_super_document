@@ -1,7 +1,7 @@
 # removeStringInfoSpaces
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8840 - 8858
+[src/backend/utils/adt/ruleutils.c:8840-8858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8840-L8858)
 
 ## Overview
 Removes trailing spaces from a StringInfo buffer by adjusting the length and null-terminating appropriately.

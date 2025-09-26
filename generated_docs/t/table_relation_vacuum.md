@@ -1,7 +1,7 @@
 # table_relation_vacuum
 
 ## Location
-src/include/access/tableam.h: 1708 - 1722
+[src/include/access/tableam.h:1708-1722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1708-L1722)
 
 ## Overview
 A table access method wrapper function that performs regular VACUUM operations on a relation, with the specific actions depending on the individual access method implementation.

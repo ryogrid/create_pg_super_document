@@ -1,7 +1,7 @@
 # xl_dbase_create_wal_log_rec
 
 ## Location
-src/include/commands/dbcommands_xlog.h: 42 - 46
+[src/include/commands/dbcommands_xlog.h:42-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/dbcommands_xlog.h#L42-L46)
 
 ## Overview
 WAL record structure used to log the beginning of a CREATE DATABASE operation when using the WAL_LOG strategy, where individual blocks are logged separately afterward.

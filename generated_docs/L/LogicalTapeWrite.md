@@ -1,7 +1,7 @@
 # LogicalTapeWrite
 
 ## Location
-src/backend/utils/sort/logtape.c: 761 - 845
+[src/backend/utils/sort/logtape.c:761-845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L761-L845)
 
 ## Overview
 Writes data to a logical tape, handling buffer management, block allocation, and chaining of tape blocks during external sorting operations.

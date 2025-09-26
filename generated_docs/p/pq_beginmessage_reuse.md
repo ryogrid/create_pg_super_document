@@ -1,7 +1,7 @@
 # pq_beginmessage_reuse
 
 ## Location
-src/backend/libpq/pqformat.c: 109 - 125
+[src/backend/libpq/pqformat.c:109-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L109-L125)
 
 ## Overview
 Initializes a StringInfo buffer for sending a PostgreSQL protocol message by reusing an existing buffer, providing better performance by avoiding memory allocation overhead.

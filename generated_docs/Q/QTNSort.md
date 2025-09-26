@@ -1,7 +1,7 @@
 # QTNSort
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 163 - 182
+[src/backend/utils/adt/tsquery_util.c:163-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L163-L182)
 
 ## Overview
 Canonicalizes a QTNode tree by recursively sorting the children of AND/OR operator nodes into a well-defined order, excluding phrase operators which must maintain operand order.

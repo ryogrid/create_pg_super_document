@@ -1,7 +1,7 @@
 # json_lex_number
 
 ## Location
-src/common/jsonapi.c: 1946 - 2055
+[src/common/jsonapi.c:1946-2055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L1946-L2055)
 
 ## Overview
 A specialized lexical analyzer function that parses and validates JSON numeric tokens according to JSON specification rules for number format.

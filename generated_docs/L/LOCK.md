@@ -1,7 +1,7 @@
 # LOCK
 
 ## Location
-src/include/storage/lock.h: 308 - 322
+[src/include/storage/lock.h:308-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L308-L322)
 
 ## Overview
 LOCK represents a lockable object in PostgreSQL's shared memory lock manager. It contains all information about granted and pending locks on a specific resource, including wait queues and lock mode statistics.

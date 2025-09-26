@@ -1,7 +1,7 @@
 # _bt_update_posting
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 924 - 1021
+[src/backend/access/nbtree/nbtdedup.c:924-1021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L924-L1021)
 
 ## Overview
 Generates a replacement tuple by updating a posting list tuple to remove TIDs that need to be deleted, used by both VACUUM and index deletion operations.

@@ -1,7 +1,7 @@
 # remove_variables
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 289 - 366
+[src/interfaces/ecpg/preproc/variable.c:289-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L289-L366)
 
 ## Overview
 Removes all variables from the global variable list that were defined at or deeper than the specified brace level, ensuring proper cleanup of cursor references before deallocation.

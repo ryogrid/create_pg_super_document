@@ -1,7 +1,7 @@
 # ConvertRowtypeExpr
 
 ## Location
-src/include/nodes/primnodes.h: 1258 - 1267
+[src/include/nodes/primnodes.h:1258-1267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1258-L1267)
 
 ## Overview
 ConvertRowtypeExpr represents a type coercion from one composite type to another, where columns are matched by name rather than position, primarily used for inheritance relationships.

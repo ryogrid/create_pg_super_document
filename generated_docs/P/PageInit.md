@@ -1,7 +1,7 @@
 # PageInit
 
 ## Location
-src/backend/storage/page/bufpage.c: 42 - 87
+[src/backend/storage/page/bufpage.c:42-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L42-L87)
 
 ## Overview
 Initializes the contents of a page in PostgreSQL's buffer pool, setting up the basic page structure and metadata without calculating an initial checksum.

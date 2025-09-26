@@ -1,7 +1,7 @@
 # FunctionScan
 
 ## Location
-src/include/nodes/plannodes.h: 609 - 614
+[src/include/nodes/plannodes.h:609-614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L609-L614)
 
 ## Overview
 FunctionScan represents a plan node for scanning the results of function calls in PostgreSQL's query execution tree, supporting table-valued functions and optionally providing row ordinality information.

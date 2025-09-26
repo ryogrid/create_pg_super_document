@@ -1,7 +1,7 @@
 # check_db
 
 ## Location
-src/backend/libpq/hba.c: 987 - 1030
+[src/backend/libpq/hba.c:987-1030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L987-L1030)
 
 ## Overview
 Validates whether a database/role combination matches a list of authentication tokens from HBA (Host-Based Authentication) configuration entries.

@@ -1,7 +1,7 @@
 # ECPGprepared_statement
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 368 - 378
+[src/interfaces/ecpg/ecpglib/prepare.c:368-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L368-L378)
 
 ## Overview
 Retrieves a previously prepared SQL statement by name from the statement cache for a given database connection.

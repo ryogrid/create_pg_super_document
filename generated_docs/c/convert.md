@@ -1,7 +1,7 @@
 # convert
 
 ## Location
-src/timezone/zic.c: 1992 - 2002
+[src/timezone/zic.c:1992-2002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1992-L2002)
 
 ## Overview
 Converts a 32-bit integer value to big-endian byte order for storage in timezone database files.

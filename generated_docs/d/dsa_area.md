@@ -1,7 +1,7 @@
 # dsa_area
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 347 - 374
+[src/backend/utils/mmgr/dsa.c:347-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L347-L374)
 
 ## Overview
 The  struct represents the per-backend state for a dynamic shared area (DSA) storage region, tracking how segments of shared memory are mapped into a specific backend process.

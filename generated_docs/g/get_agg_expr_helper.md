@@ -1,7 +1,7 @@
 # get_agg_expr_helper
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10573 - 10698
+[src/backend/utils/adt/ruleutils.c:10573-10698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10573-L10698)
 
 ## Overview
 The core implementation function for deparsing aggregate expressions (Aggref nodes), supporting various aggregate types including standard aggregates, ordered-set aggregates, combining aggregates, and JSON aggregates.

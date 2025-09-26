@@ -1,7 +1,7 @@
 # InitLocks
 
 ## Location
-src/backend/storage/lmgr/lock.c: 392 - 473
+[src/backend/storage/lmgr/lock.c:392-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L392-L473)
 
 ## Overview
 InitLocks initializes the PostgreSQL lock manager's data structures, including shared memory hash tables for locks and proclocks, as well as per-backend local lock hash tables.

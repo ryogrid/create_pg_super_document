@@ -1,7 +1,7 @@
 # pg_latin1_mblen
 
 ## Location
-src/common/wchar.c: 876 - 881
+[src/common/wchar.c:876-881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L876-L881)
 
 ## Overview
 Returns the byte length of a character in ISO8859-1 (Latin-1) encoding, which is always 1 byte.

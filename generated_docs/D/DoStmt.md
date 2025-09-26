@@ -1,7 +1,7 @@
 # DoStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3474 - 3478
+[src/include/nodes/parsenodes.h:3474-3478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3474-L3478)
 
 ## Overview
 DoStmt is a node structure representing an SQL DO statement in PostgreSQL's parse tree. It serves as the raw parser output for DO statements that execute anonymous code blocks in procedural languages.

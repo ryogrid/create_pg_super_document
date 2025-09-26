@@ -1,7 +1,7 @@
 # map_sql_type_to_xmlschema_type
 
 ## Location
-src/backend/utils/adt/xml.c: 3911 - 4085
+[src/backend/utils/adt/xml.c:3911-4085](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3911-L4085)
 
 ## Overview
 Maps PostgreSQL data types to complete XML Schema type definitions with restrictions and constraints according to SQL/XML:2008 sections 9.5 and 9.6.

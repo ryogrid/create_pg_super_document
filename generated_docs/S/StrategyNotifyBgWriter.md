@@ -1,7 +1,7 @@
 # StrategyNotifyBgWriter
 
 ## Location
-src/backend/storage/buffer/freelist.c: 431 - 452
+[src/backend/storage/buffer/freelist.c:431-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L431-L452)
 
 ## Overview
 Sets or clears allocation notification latch for the background writer process to enable wake-up from hibernation when buffer allocation occurs.

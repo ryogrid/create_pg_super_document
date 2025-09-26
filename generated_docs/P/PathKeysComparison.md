@@ -1,7 +1,7 @@
 # PathKeysComparison
 
 ## Location
-src/include/optimizer/paths.h: 206 - 271
+[src/include/optimizer/paths.h:206-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/paths.h#L206-L271)
 
 ## Overview
 An enumeration type that represents the relationship between two sets of pathkeys, used by the PostgreSQL optimizer to determine ordering relationships and path selection strategies.

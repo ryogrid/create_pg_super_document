@@ -1,7 +1,7 @@
 # SpGistState
 
 ## Location
-src/include/access/spgist_private.h: 144 - 162
+[src/include/access/spgist_private.h:144-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L144-L162)
 
 ## Overview
 SpGistState is the central state structure for SP-GiST index operations, containing all necessary information for both insertion and search operations within a SP-GiST index.

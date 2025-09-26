@@ -1,7 +1,7 @@
 # PGcancel
 
 ## Location
-src/interfaces/libpq/libpq-fe.h: 204 - 211
+[src/interfaces/libpq/libpq-fe.h:204-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-fe.h#L204-L211)
 
 ## Overview
 PGcancel encapsulates the information needed to cancel a running query on an existing PostgreSQL connection. It stores the network and authentication details required to send a cancellation request to a specific backend process.

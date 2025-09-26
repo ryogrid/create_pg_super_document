@@ -1,7 +1,7 @@
 # FlushOneBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4877 - 4896
+[src/backend/storage/buffer/bufmgr.c:4877-4896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4877-L4896)
 
 ## Overview
 FlushOneBuffer flushes a previously locked and pinned buffer to the operating system, providing a simple interface for flushing a single specific buffer.

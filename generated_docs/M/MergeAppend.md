@@ -1,7 +1,7 @@
 # MergeAppend
 
 ## Location
-src/include/nodes/plannodes.h: 287 - 315
+[src/include/nodes/plannodes.h:287-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L287-L315)
 
 ## Overview
 The MergeAppend node merges the results of pre-sorted sub-plans to preserve the ordering, commonly used in partitioned table queries where sorted output is required.

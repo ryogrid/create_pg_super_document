@@ -1,7 +1,7 @@
 # ecpg_auto_alloc
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 101 - 116
+[src/interfaces/ecpg/ecpglib/memory.c:101-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L101-L116)
 
 ## Overview
 Allocates memory that is automatically tracked and will be freed when the thread terminates or when explicitly cleared.

@@ -1,7 +1,7 @@
 # superuser_arg
 
 ## Location
-src/backend/utils/misc/superuser.c: 56 - 102
+[src/backend/utils/misc/superuser.c:56-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/superuser.c#L56-L102)
 
 ## Overview
 Determines whether a specified role (identified by OID) has PostgreSQL superuser privileges, with caching for performance optimization.

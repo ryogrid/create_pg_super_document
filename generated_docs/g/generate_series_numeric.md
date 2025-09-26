@@ -1,7 +1,7 @@
 # generate_series_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 1701 - 1706
+[src/backend/utils/adt/numeric.c:1701-1706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1701-L1706)
 
 ## Overview
 A wrapper function that generates a series of numeric values by delegating to the step-based generate_series_step_numeric function.

@@ -1,7 +1,7 @@
 # DropRelationAllLocalBuffers
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 537 - 579
+[src/backend/storage/buffer/localbuf.c:537-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L537-L579)
 
 ## Overview
 Removes all pages of all forks of a specified relation from the local buffer pool without writing dirty pages to disk first.

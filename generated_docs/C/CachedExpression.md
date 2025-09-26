@@ -1,7 +1,7 @@
 # CachedExpression
 
 ## Location
-src/include/utils/plancache.h: 175 - 185
+[src/include/utils/plancache.h:175-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/plancache.h#L175-L185)
 
 ## Overview
 CachedExpression is a low-overhead mechanism for caching the planned form of standalone scalar expressions, handling cache invalidation while optimizing for typical single-session usage patterns.

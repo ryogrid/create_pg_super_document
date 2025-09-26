@@ -1,7 +1,7 @@
 # ResourceOwnerRememberLock
 
 ## Location
-src/backend/utils/resowner/resowner.c: 1045 - 1064
+[src/backend/utils/resowner/resowner.c:1045-1064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L1045-L1064)
 
 ## Overview
 ResourceOwnerRememberLock registers a LOCALLOCK with a ResourceOwner to track lock ownership, implementing a lossy cache mechanism that can hold up to 15 locks before overflowing.

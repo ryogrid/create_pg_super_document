@@ -1,7 +1,7 @@
 # namehashfast
 
 ## Location
-src/backend/utils/cache/catcache.c: 212 - 219
+[src/backend/utils/cache/catcache.c:212-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L212-L219)
 
 ## Overview
 The `namehashfast` function provides a fast hash function for PostgreSQL's `name` data type, used internally by the catalog cache system for efficient hash table operations on name-based keys.

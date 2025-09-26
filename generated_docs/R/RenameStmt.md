@@ -1,7 +1,7 @@
 # RenameStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3525 - 3537
+[src/include/nodes/parsenodes.h:3525-3537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3525-L3537)
 
 ## Overview
 RenameStmt is a PostgreSQL parse node structure that represents an ALTER statement for renaming database objects such as tables, columns, constraints, triggers, and other schema elements.

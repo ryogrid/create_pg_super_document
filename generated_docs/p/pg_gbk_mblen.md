@@ -1,7 +1,7 @@
 # pg_gbk_mblen
 
 ## Location
-src/common/wchar.c: 949 - 960
+[src/common/wchar.c:949-960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L949-L960)
 
 ## Overview
 Determines the byte length of a single character in the GBK multibyte encoding.

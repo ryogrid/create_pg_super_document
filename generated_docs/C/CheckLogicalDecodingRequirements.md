@@ -1,7 +1,7 @@
 # CheckLogicalDecodingRequirements
 
 ## Location
-src/backend/replication/logical/logical.c: 111 - 151
+[src/backend/replication/logical/logical.c:111-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L111-L151)
 
 ## Overview
 CheckLogicalDecodingRequirements validates that the current PostgreSQL environment and configuration settings are capable of performing logical decoding operations.

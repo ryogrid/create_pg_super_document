@@ -1,7 +1,7 @@
 # sha1_result
 
 ## Location
-src/common/sha1.c: 276 - 315
+[src/common/sha1.c:276-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha1.c#L276-L315)
 
 ## Overview
 Extracts the final 20-byte SHA-1 hash digest from the context's hash state, handling endianness conversion to produce the standard big-endian output format.

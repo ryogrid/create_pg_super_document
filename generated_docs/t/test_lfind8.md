@@ -1,7 +1,7 @@
 # test_lfind8
 
 ## Location
-src/test/modules/test_lfind/test_lfind.c: 59 - 74
+[src/test/modules/test_lfind/test_lfind.c:59-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_lfind/test_lfind.c#L59-L74)
 
 ## Overview
 A PostgreSQL SQL-callable test function that comprehensively tests the pg_lfind8 linear search functionality across a range of carefully selected boundary and edge case values.

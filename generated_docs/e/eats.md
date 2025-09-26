@@ -1,7 +1,7 @@
 # eats
 
 ## Location
-src/timezone/zic.c: 473 - 481
+[src/timezone/zic.c:473-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L473-L481)
 
 ## Overview
 A function in the PostgreSQL timezone compiler that sets up error context information for enhanced error reporting.

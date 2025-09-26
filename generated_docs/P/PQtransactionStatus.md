@@ -1,7 +1,7 @@
 # PQtransactionStatus
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7114 - 7123
+[src/interfaces/libpq/fe-connect.c:7114-7123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7114-L7123)
 
 ## Overview
 PQtransactionStatus returns the current transaction status of a PostgreSQL database connection, indicating whether the connection is idle, has an active command, or is within a transaction block.

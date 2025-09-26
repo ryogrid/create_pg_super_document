@@ -1,7 +1,7 @@
 # pg_mule_verifychar
 
 ## Location
-src/common/wchar.c: 1360 - 1380
+[src/common/wchar.c:1360-1380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1360-L1380)
 
 ## Overview
 Verifies the validity of a single multi-byte character in MULE (Multi-lingual Emacs) encoding by checking that all continuation bytes have the high bit set.

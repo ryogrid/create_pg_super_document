@@ -1,7 +1,7 @@
 # CancelDBBackends
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3658 - 3698
+[src/backend/storage/ipc/procarray.c:3658-3698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3658-L3698)
 
 ## Overview
 Cancels all backends connected to a specified database by sending them signals, primarily used during recovery conflict resolution to terminate conflicting transactions.

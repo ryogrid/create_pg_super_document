@@ -1,7 +1,7 @@
 # logicalrep_report_missing_attrs
 
 ## Location
-src/backend/replication/logical/relation.c: 226 - 273
+[src/backend/replication/logical/relation.c:226-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L226-L273)
 
 ## Overview
 Reports an error with the names of missing local relation columns when logical replication encounters attributes that exist in the remote relation but are missing in the local target relation.

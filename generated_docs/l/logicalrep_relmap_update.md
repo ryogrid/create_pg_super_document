@@ -1,7 +1,7 @@
 # logicalrep_relmap_update
 
 ## Location
-src/backend/replication/logical/relation.c: 164 - 208
+[src/backend/replication/logical/relation.c:164-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L164-L208)
 
 ## Overview
 Updates or creates a new entry in the logical replication relation map cache with the latest relation metadata received from the publisher.

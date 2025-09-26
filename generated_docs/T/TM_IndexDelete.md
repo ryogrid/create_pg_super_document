@@ -1,7 +1,7 @@
 # TM_IndexDelete
 
 ## Location
-src/include/access/tableam.h: 212 - 216
+[src/include/access/tableam.h:212-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L212-L216)
 
 ## Overview
 TM_IndexDelete is a structure that represents individual table tuples to be deleted during index tuple deletion operations, containing a table TID and an offset into a corresponding status array.

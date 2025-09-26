@@ -1,7 +1,7 @@
 # HistoricSnapshotActive
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1672 - 1677
+[src/backend/utils/time/snapmgr.c:1672-1677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1672-L1677)
 
 ## Overview
 HistoricSnapshotActive is a utility function that checks whether a historical snapshot is currently active for catalog access during logical decoding operations.

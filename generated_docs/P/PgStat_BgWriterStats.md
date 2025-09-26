@@ -1,7 +1,7 @@
 # PgStat_BgWriterStats
 
 ## Location
-src/include/pgstat.h: 253 - 259
+[src/include/pgstat.h:253-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L253-L259)
 
 ## Overview
 PgStat_BgWriterStats tracks performance statistics for PostgreSQL's background writer process, which manages buffer pool maintenance and memory allocation counters.

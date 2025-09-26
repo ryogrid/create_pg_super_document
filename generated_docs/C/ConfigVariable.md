@@ -1,7 +1,7 @@
 # ConfigVariable
 
 ## Location
-src/include/utils/guc.h: 135 - 145
+[src/include/utils/guc.h:135-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc.h#L135-L145)
 
 ## Overview
 ConfigVariable is a structure used to represent configuration file entries during parsing and processing, including name-value pairs with source location information and error handling capabilities.

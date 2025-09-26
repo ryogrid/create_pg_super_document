@@ -1,7 +1,7 @@
 # PgStatShared_BgWriter
 
 ## Location
-src/include/utils/pgstat_internal.h: 333 - 340
+[src/include/utils/pgstat_internal.h:333-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L333-L340)
 
 ## Overview
 PgStatShared_BgWriter is a shared memory structure that maintains background writer statistics using a changecount mechanism for high-performance single-writer updates while ensuring thread-safe access to buffer management statistical data.

@@ -1,7 +1,7 @@
 # PredicateLockExists
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2035 - 2061
+[src/backend/storage/lmgr/predicate.c:2035-2061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2035-L2061)
 
 ## Overview
 A static function that checks whether a particular predicate lock is held by the current transaction using the local lock table.

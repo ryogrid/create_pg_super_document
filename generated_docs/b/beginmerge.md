@@ -1,7 +1,7 @@
 # beginmerge
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2292 - 2319
+[src/backend/utils/sort/tuplesort.c:2292-2319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2292-L2319)
 
 ## Overview
 Initializes the merge phase by filling the merge heap with the first tuple from each active input tape during a merge pass in the tuplesort algorithm.

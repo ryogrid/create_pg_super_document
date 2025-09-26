@@ -1,7 +1,7 @@
 # BufFileFlush
 
 ## Location
-src/backend/storage/file/buffile.c: 720 - 739
+[src/backend/storage/file/buffile.c:720-739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L720-L739)
 
 ## Overview
 Forces any buffered write data to be written to disk, ensuring data persistence and buffer consistency.

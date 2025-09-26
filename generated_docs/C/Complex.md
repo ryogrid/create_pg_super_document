@@ -1,7 +1,7 @@
 # Complex
 
 ## Location
-src/tutorial/complex.c: 17 - 21
+[src/tutorial/complex.c:17-21](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L17-L21)
 
 ## Overview
 Complex is a custom data type structure representing complex numbers in PostgreSQL's tutorial extension, designed to demonstrate how to create user-defined data types with complete input/output functionality and operator support.

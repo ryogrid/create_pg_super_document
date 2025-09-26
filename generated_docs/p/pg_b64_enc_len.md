@@ -1,7 +1,7 @@
 # pg_b64_enc_len
 
 ## Location
-src/common/base64.c: 224 - 238
+[src/common/base64.c:224-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/base64.c#L224-L238)
 
 ## Overview
 Calculates the required buffer size for base64 encoding a given amount of binary data.

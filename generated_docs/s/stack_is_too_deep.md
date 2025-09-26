@@ -1,7 +1,7 @@
 # stack_is_too_deep
 
 ## Location
-src/backend/tcop/postgres.c: 3572 - 3604
+[src/backend/tcop/postgres.c:3572-3604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3572-L3604)
 
 ## Overview
 stack_is_too_deep determines whether the current call stack depth exceeds the configured safety limit, providing a boolean check for stack overflow prevention without immediately throwing an error.

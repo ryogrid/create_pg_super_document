@@ -1,7 +1,7 @@
 # AlterForeignServerStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2881 - 2888
+[src/include/nodes/parsenodes.h:2881-2888](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2881-L2888)
 
 ## Overview
 AlterForeignServerStmt represents the parsed representation of an ALTER FOREIGN SERVER SQL statement, used to modify configuration properties of an existing foreign server.

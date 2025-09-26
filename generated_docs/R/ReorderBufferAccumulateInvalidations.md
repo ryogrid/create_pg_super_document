@@ -1,7 +1,7 @@
 # ReorderBufferAccumulateInvalidations
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3381 - 3418
+[src/backend/replication/logical/reorderbuffer.c:3381-3418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3381-L3418)
 
 ## Overview
 A static helper function that accumulates invalidation messages into an existing array, handling memory allocation and reallocation as needed.

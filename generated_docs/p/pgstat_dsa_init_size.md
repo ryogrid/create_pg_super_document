@@ -1,7 +1,7 @@
 # pgstat_dsa_init_size
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 106 - 126
+[src/backend/utils/activity/pgstat_shmem.c:106-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L106-L126)
 
 ## Overview
 Static function that determines the size of shared memory allocation for the dynamic shared hash table used by PostgreSQL's statistics system.

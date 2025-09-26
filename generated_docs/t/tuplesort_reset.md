@@ -1,7 +1,7 @@
 # tuplesort_reset
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1039 - 1071
+[src/backend/utils/sort/tuplesort.c:1039-1071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1039-L1071)
 
 ## Overview
 Resets a tuplesort state to prepare it for a new sorting operation while preserving meta-information and resources, allowing efficient reuse of the sort state for multiple small batches.

@@ -1,7 +1,7 @@
 # BumpContext
 
 ## Location
-src/backend/utils/mmgr/bump.c: 66 - 78
+[src/backend/utils/mmgr/bump.c:66-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L66-L78)
 
 ## Overview
 BumpContext is a memory context structure that implements a bump pointer allocation strategy, designed for efficient allocation of temporary memory with minimal overhead and fast reset capabilities.

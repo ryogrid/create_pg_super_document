@@ -1,7 +1,7 @@
 # GlobalTransaction
 
 ## Location
-src/include/access/twophase.h: 26 - 65
+[src/include/access/twophase.h:26-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/twophase.h#L26-L65)
 
 ## Overview
 GlobalTransaction is a typedef for a pointer to GlobalTransactionData, representing a global transaction that is in prepared state or attempting to become prepared in PostgreSQL's two-phase commit protocol.

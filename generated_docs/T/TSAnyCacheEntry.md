@@ -1,7 +1,7 @@
 # TSAnyCacheEntry
 
 ## Location
-src/include/tsearch/ts_cache.h: 23 - 27
+[src/include/tsearch/ts_cache.h:23-27](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_cache.h#L23-L27)
 
 ## Overview
 TSAnyCacheEntry is a common header structure shared by all text search cache entry types in PostgreSQL, providing a standardized interface for cache invalidation operations.

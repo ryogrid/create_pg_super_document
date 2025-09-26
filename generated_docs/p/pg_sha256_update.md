@@ -1,7 +1,7 @@
 # pg_sha256_update
 
 ## Location
-src/common/sha2.c: 476 - 528
+[src/common/sha2.c:476-528](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L476-L528)
 
 ## Overview
 Incrementally processes input data for SHA-256 hashing by managing buffering and calling the transformation function when complete blocks are available.

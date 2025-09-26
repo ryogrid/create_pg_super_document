@@ -1,7 +1,7 @@
 # FileSize
 
 ## Location
-src/backend/storage/file/fd.c: 2406 - 2422
+[src/backend/storage/file/fd.c:2406-2422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2406-L2422)
 
 ## Overview
 FileSize determines the current size of a file in bytes by seeking to the end of the file and returning the position.

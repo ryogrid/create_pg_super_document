@@ -1,7 +1,7 @@
 # TSDictionaryCacheEntry
 
 ## Location
-src/include/tsearch/ts_cache.h: 51 - 63
+[src/include/tsearch/ts_cache.h:51-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_cache.h#L51-L63)
 
 ## Overview
 TSDictionaryCacheEntry is a cache structure that stores precompiled function information and private data for text search dictionaries, optimizing dictionary operations by avoiding repeated lookups and maintaining persistent dictionary state.

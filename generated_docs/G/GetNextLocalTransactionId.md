@@ -1,7 +1,7 @@
 # GetNextLocalTransactionId
 
 ## Location
-src/backend/storage/ipc/sinvaladt.c: 743 - 754
+[src/backend/storage/ipc/sinvaladt.c:743-754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinvaladt.c#L743-L754)
 
 ## Overview
 Allocates a new LocalTransactionId for building VirtualTransactionIds without requiring shared memory contention during normal operation.

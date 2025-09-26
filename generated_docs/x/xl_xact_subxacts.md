@@ -1,7 +1,7 @@
 # xl_xact_subxacts
 
 ## Location
-src/include/access/xact.h: 261 - 265
+[src/include/access/xact.h:261-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L261-L265)
 
 ## Overview
 WAL record sub-structure that stores information about subtransactions that were part of a commit or abort transaction record.

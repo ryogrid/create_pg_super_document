@@ -1,7 +1,7 @@
 # gistBufferingFindCorrectParent
 
 ## Location
-src/backend/access/gist/gistbuild.c: 1223 - 1296
+[src/backend/access/gist/gistbuild.c:1223-1296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L1223-L1296)
 
 ## Overview
 Locates the correct parent page and downlink offset for a given child page during GiST buffering-based index construction.

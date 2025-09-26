@@ -1,7 +1,7 @@
 # ECPGtemp_type
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 67 - 75
+[src/interfaces/ecpg/preproc/type.h:67-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L67-L75)
 
 ## Overview
 ECPGtemp_type is a simple structure that pairs an ECPGtype with a variable name, used for temporary type-name associations in the ECPG preprocessor.

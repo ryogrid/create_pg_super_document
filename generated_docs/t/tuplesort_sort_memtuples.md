@@ -1,7 +1,7 @@
 # tuplesort_sort_memtuples
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2714 - 2776
+[src/backend/utils/sort/tuplesort.c:2714-2776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2714-L2776)
 
 ## Overview
 Sorts all in-memory tuples using optimized quicksort routines, selecting the most efficient sorting algorithm based on the data type and structure of the sort keys.

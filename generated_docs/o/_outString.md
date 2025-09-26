@@ -1,7 +1,7 @@
 # _outString
 
 ## Location
-src/backend/nodes/outfuncs.c: 670 - 683
+[src/backend/nodes/outfuncs.c:670-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L670-L683)
 
 ## Overview
 _outString is a static helper function that serializes a String node to its quoted string representation in PostgreSQL's node output format.

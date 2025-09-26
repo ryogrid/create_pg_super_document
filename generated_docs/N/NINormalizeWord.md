@@ -1,7 +1,7 @@
 # NINormalizeWord
 
 ## Location
-src/backend/tsearch/spell.c: 2540 - 2606
+[src/backend/tsearch/spell.c:2540-2606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L2540-L2606)
 
 ## Overview
 The main entry point for normalizing words using PostgreSQL's Ispell dictionary, producing all possible lexical forms including compound word variants.

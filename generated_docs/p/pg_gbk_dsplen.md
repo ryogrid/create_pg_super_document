@@ -1,7 +1,7 @@
 # pg_gbk_dsplen
 
 ## Location
-src/common/wchar.c: 961 - 975
+[src/common/wchar.c:961-975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L961-L975)
 
 ## Overview
 Returns the display length (width) of a GBK-encoded character for proper terminal display formatting.

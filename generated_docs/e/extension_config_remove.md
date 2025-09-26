@@ -1,7 +1,7 @@
 # extension_config_remove
 
 ## Location
-src/backend/commands/extension.c: 2607 - 2771
+[src/backend/commands/extension.c:2607-2771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L2607-L2771)
 
 ## Overview
 Removes a specified table OID from an extension's extconfig array, effectively unregistering the table as a configuration table that should be dumped during pg_dump operations.

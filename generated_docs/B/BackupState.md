@@ -1,7 +1,7 @@
 # BackupState
 
 ## Location
-src/include/access/xlogbackup.h: 21 - 38
+[src/include/access/xlogbackup.h:21-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogbackup.h#L21-L38)
 
 ## Overview
 BackupState is a structure that holds comprehensive state information during PostgreSQL backup operations, tracking both the beginning and end phases of backup procedures including incremental backup support.

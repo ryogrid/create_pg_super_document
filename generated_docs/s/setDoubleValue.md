@@ -1,7 +1,7 @@
 # setDoubleValue
 
 ## Location
-src/bin/pgbench/pgbench.c: 2118 - 2124
+[src/bin/pgbench/pgbench.c:2118-2124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2118-L2124)
 
 ## Overview
 A utility function that sets a PgBenchValue structure to hold a double-precision floating-point value.

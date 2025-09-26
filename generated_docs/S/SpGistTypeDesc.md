@@ -1,7 +1,7 @@
 # SpGistTypeDesc
 
 ## Location
-src/include/access/spgist_private.h: 135 - 142
+[src/include/access/spgist_private.h:135-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L135-L142)
 
 ## Overview
 SpGistTypeDesc is a structure that stores per-datatype information needed by SP-GiST operations, encapsulating essential type characteristics for efficient data handling.

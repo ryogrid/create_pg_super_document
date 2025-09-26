@@ -1,7 +1,7 @@
 # add_cast_to
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 13149 - 13179
+[src/backend/utils/adt/ruleutils.c:13149-13179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L13149-L13179)
 
 ## Overview
 Adds a type cast specification to a StringInfo buffer using fully-qualified type names to avoid truncation issues.

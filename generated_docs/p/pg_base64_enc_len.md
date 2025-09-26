@@ -1,7 +1,7 @@
 # pg_base64_enc_len
 
 ## Location
-src/backend/utils/adt/encode.c: 385 - 391
+[src/backend/utils/adt/encode.c:385-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L385-L391)
 
 ## Overview
 Calculates the required buffer length for Base64 encoding of binary data, accounting for both encoded output and line feed characters inserted for formatting.

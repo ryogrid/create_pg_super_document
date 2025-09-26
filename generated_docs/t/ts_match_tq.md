@@ -1,7 +1,7 @@
 # ts_match_tq
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2266 - 2294
+[src/backend/utils/adt/tsvector_op.c:2266-2294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2266-L2294)
 
 ## Overview
 A PostgreSQL function that performs text search matching between a text input and a TSQuery, converting the text to a TSVector internally before comparison.

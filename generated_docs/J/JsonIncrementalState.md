@@ -1,7 +1,7 @@
 # JsonIncrementalState
 
 ## Location
-src/common/jsonapi.c: 102 - 111
+[src/common/jsonapi.c:102-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L102-L111)
 
 ## Overview
 JsonIncrementalState is a structure that maintains state information for handling partial tokens at the end of JSON chunks during incremental parsing operations.

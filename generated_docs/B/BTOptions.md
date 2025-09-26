@@ -1,7 +1,7 @@
 # BTOptions
 
 ## Location
-src/include/access/nbtree.h: 1130 - 1136
+[src/include/access/nbtree.h:1130-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L1130-L1136)
 
 ## Overview
 BTOptions is a structure that holds configuration options for B-tree indexes, including storage parameters like fill factor and deduplication settings.

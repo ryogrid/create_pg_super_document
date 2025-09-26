@@ -1,7 +1,7 @@
 # from_char_set_mode
 
 ## Location
-src/backend/utils/adt/formatting.c: 2400 - 2426
+[src/backend/utils/adt/formatting.c:2400-2426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2400-L2426)
 
 ## Overview
 A static function that sets the date mode for from-char conversion operations, with validation to prevent conflicting date mode combinations.

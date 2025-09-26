@@ -1,7 +1,7 @@
 # connectNoDelay
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2034 - 2059
+[src/interfaces/libpq/fe-connect.c:2034-2059](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2034-L2059)
 
 ## Overview
 Sets the TCP_NODELAY socket option to disable Nagle's algorithm for immediate packet transmission on the connection socket.

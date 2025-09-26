@@ -1,7 +1,7 @@
 # pltcl_SPI_prepare
 
 ## Location
-src/pl/tcl/pltcl.c: 2547 - 2674
+[src/pl/tcl/pltcl.c:2547-2674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2547-L2674)
 
 ## Overview
 Implements the built-in SPI_prepare Tcl command for PL/Tcl, allowing preparation and permanent storage of SQL execution plans with parameter type information for later reuse.

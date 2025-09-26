@@ -1,7 +1,7 @@
 # expression_tree_walker_impl
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 2083 - 2096
+[src/backend/nodes/nodeFuncs.c:2083-2096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L2083-L2096)
 
 ## Overview
 The core implementation function that provides generic tree-walking logic for traversing PostgreSQL expression trees in a read-only fashion.

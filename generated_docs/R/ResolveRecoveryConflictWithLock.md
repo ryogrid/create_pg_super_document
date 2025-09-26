@@ -1,7 +1,7 @@
 # ResolveRecoveryConflictWithLock
 
 ## Location
-src/backend/storage/ipc/standby.c: 622 - 791
+[src/backend/storage/ipc/standby.c:622-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L622-L791)
 
 ## Overview
 Resolves recovery conflicts with other backends holding relation locks by either canceling conflicting backends immediately or waiting with deadlock detection capabilities.

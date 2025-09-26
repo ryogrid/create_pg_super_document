@@ -1,7 +1,7 @@
 # logicalrep_read_attrs
 
 ## Location
-src/backend/replication/logical/proto.c: 993 - 1034
+[src/backend/replication/logical/proto.c:993-1034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L993-L1034)
 
 ## Overview
 Reads relation attribute metadata from a logical replication message stream and populates the LogicalRepRelation structure with attribute names, types, and replica identity information.

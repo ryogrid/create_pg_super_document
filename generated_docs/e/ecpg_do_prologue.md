@@ -1,7 +1,7 @@
 # ecpg_do_prologue
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 1944 - 2210
+[src/interfaces/ecpg/ecpglib/execute.c:1944-2210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L1944-L2210)
 
 ## Overview
 Initializes the execution infrastructure for ECPG statements by creating statement structures, setting numeric locale, and preprocessing variable lists.

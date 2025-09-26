@@ -1,7 +1,7 @@
 # generate_opclass_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12569 - 12590
+[src/backend/utils/adt/ruleutils.c:12569-12590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12569-L12590)
 
 ## Overview
 Computes the display name for an operator class specified by OID, including all necessary quoting and schema-prefixing.

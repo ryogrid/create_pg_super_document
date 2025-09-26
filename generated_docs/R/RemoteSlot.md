@@ -1,7 +1,7 @@
 # RemoteSlot
 
 ## Location
-src/backend/replication/logical/slotsync.c: 135 - 148
+[src/backend/replication/logical/slotsync.c:135-148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L135-L148)
 
 ## Overview
 RemoteSlot is a structure that holds information about a logical replication slot fetched from the primary server, used during slot synchronization operations in PostgreSQL logical replication.

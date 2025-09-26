@@ -1,7 +1,7 @@
 # namein
 
 ## Location
-src/backend/utils/adt/name.c: 48 - 70
+[src/backend/utils/adt/name.c:48-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L48-L70)
 
 ## Overview
 The  function converts a C string (cstring) to PostgreSQL's internal Name data type representation, handling proper truncation and null-termination for PostgreSQL identifier names.

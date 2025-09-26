@@ -1,7 +1,7 @@
 # pgstat_release_all_entry_refs
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 767 - 778
+[src/backend/utils/activity/pgstat_shmem.c:767-778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L767-L778)
 
 ## Overview
 Releases all local references to shared stats entries in the current process to allow proper cleanup during process exit.

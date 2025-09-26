@@ -1,7 +1,7 @@
 # array_iter_setup
 
 ## Location
-src/include/utils/arrayaccess.h: 49 - 80
+[src/include/utils/arrayaccess.h:49-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/arrayaccess.h#L49-L80)
 
 ## Overview
 Initializes an array_iter structure for sequential element access from either a flat or expanded PostgreSQL array, setting up appropriate pointers based on the array storage format.

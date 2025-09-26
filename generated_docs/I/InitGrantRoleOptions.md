@@ -1,7 +1,7 @@
 # InitGrantRoleOptions
 
 ## Location
-src/backend/commands/user.c: 2503 - 2514
+[src/backend/commands/user.c:2503-2514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L2503-L2514)
 
 ## Overview
 Initializes a GrantRoleOptions structure with default values for role grant operations.

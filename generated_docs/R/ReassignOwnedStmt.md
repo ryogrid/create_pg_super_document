@@ -1,7 +1,7 @@
 # ReassignOwnedStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4085 - 4090
+[src/include/nodes/parsenodes.h:4085-4090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4085-L4090)
 
 ## Overview
 ReassignOwnedStmt represents the parsed representation of a REASSIGN OWNED statement, which transfers ownership of database objects from specified roles to a new owner role.

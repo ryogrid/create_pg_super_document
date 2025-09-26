@@ -1,7 +1,7 @@
 # get_json_expr_options
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8915 - 8955
+[src/backend/utils/adt/ruleutils.c:8915-8955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8915-L8955)
 
 ## Overview
 Formats common options for SQL/JSON functions (JSON_QUERY, JSON_VALUE, JSON_EXISTS, JSON_TABLE) including wrapper options, quote handling, and error/empty behaviors.

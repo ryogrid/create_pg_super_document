@@ -1,7 +1,7 @@
 # pltcl_returnnext
 
 ## Location
-src/pl/tcl/pltcl.c: 2155 - 2277
+[src/pl/tcl/pltcl.c:2155-2277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2155-L2277)
 
 ## Overview
 Adds a row to the result tuplestore in a set-returning function, enabling PL/Tcl functions to return multiple rows.

@@ -1,7 +1,7 @@
 # pgstat_fetch_stat_wal
 
 ## Location
-src/backend/utils/activity/pgstat_wal.c: 67 - 81
+[src/backend/utils/activity/pgstat_wal.c:67-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_wal.c#L67-L81)
 
 ## Overview
 Retrieves a pointer to the current WAL statistics structure, serving as a support function for SQL-callable pgstat* functions that need access to WAL usage data.

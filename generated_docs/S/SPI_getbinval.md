@@ -1,7 +1,7 @@
 # SPI_getbinval
 
 ## Location
-src/backend/executor/spi.c: 1252 - 1267
+[src/backend/executor/spi.c:1252-1267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1252-L1267)
 
 ## Overview
 Extracts a column value from a tuple as a Datum, with support for null value detection and attribute number validation.

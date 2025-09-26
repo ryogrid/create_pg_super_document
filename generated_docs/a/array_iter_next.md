@@ -1,7 +1,7 @@
 # array_iter_next
 
 ## Location
-src/include/utils/arrayaccess.h: 81 - 118
+[src/include/utils/arrayaccess.h:81-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/arrayaccess.h#L81-L118)
 
 ## Overview
 Retrieves the next element from a PostgreSQL array during sequential iteration, handling both expanded and flat array storage formats while managing null values and element alignment.

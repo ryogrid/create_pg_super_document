@@ -1,7 +1,7 @@
 # dsm_impl_windows
 
 ## Location
-src/backend/storage/ipc/dsm_impl.c: 610 - 791
+[src/backend/storage/ipc/dsm_impl.c:610-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_impl.c#L610-L791)
 
 ## Overview
 Windows-specific implementation for PostgreSQL's dynamic shared memory system using Windows file mapping objects backed by the system paging file.

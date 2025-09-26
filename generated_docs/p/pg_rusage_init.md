@@ -1,7 +1,7 @@
 # pg_rusage_init
 
 ## Location
-src/backend/utils/misc/pg_rusage.c: 27 - 39
+[src/backend/utils/misc/pg_rusage.c:27-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/pg_rusage.c#L27-L39)
 
 ## Overview
 Initializes a resource usage snapshot by capturing current process resource usage statistics and wall clock time.

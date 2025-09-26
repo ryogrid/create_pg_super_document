@@ -1,7 +1,7 @@
 # PgStatShared_HashEntry
 
 ## Location
-src/include/utils/pgstat_internal.h: 64 - 115
+[src/include/utils/pgstat_internal.h:64-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L64-L115)
 
 ## Overview
 PgStatShared_HashEntry represents an entry in PostgreSQL's shared statistics hashtable, containing metadata and a pointer to the actual variable-sized statistics data rather than the data itself.

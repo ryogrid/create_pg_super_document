@@ -1,7 +1,7 @@
 # LWLockWaitForVar
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1586 - 1721
+[src/backend/storage/lmgr/lwlock.c:1586-1721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1586-L1721)
 
 ## Overview
 LWLockWaitForVar waits until a lock is free or until a monitored atomic variable changes its value, providing sophisticated coordination for WAL insertion operations.

@@ -1,7 +1,7 @@
 # DCH_cache_fetch
 
 ## Location
-src/backend/utils/adt/formatting.c: 4154 - 4180
+[src/backend/utils/adt/formatting.c:4154-4180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4154-L4180)
 
 ## Overview
 High-level cache interface that finds an existing parsed format entry or creates and parses a new one, returning a valid DCHCacheEntry ready for use.

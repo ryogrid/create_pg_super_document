@@ -1,7 +1,7 @@
 # LogicalErrorCallbackState
 
 ## Location
-src/backend/replication/logical/logical.c: 50 - 55
+[src/backend/replication/logical/logical.c:50-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L50-L55)
 
 ## Overview
 LogicalErrorCallbackState is a structure used to maintain context information for error reporting during logical replication callback execution, providing detailed error messages that include slot name, plugin name, callback type, and LSN location.

@@ -1,7 +1,7 @@
 # pg_fe_sendauth
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 961 - 1168
+[src/interfaces/libpq/fe-auth.c:961-1168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L961-L1168)
 
 ## Overview
 Core client-side authentication dispatcher that processes authentication requests from the PostgreSQL server and sends appropriate responses based on the authentication method requested.

@@ -1,7 +1,7 @@
 # ProcessInterrupts
 
 ## Location
-src/backend/tcop/postgres.c: 3271 - 3507
+[src/backend/tcop/postgres.c:3271-3507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3271-L3507)
 
 ## Overview
 ProcessInterrupts is the core interrupt handling function in PostgreSQL that processes pending interrupt conditions when it's safe to do so, handling various types of interrupts including process termination, query cancellation, timeouts, and client connection issues.

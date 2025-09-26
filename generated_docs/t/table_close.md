@@ -1,7 +1,7 @@
 # table_close
 
 ## Location
-src/backend/access/table/table.c: 126 - 137
+[src/backend/access/table/table.c:126-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/table.c#L126-L137)
 
 ## Overview
 Closes a table relation and optionally releases the specified lock, serving as the table-specific counterpart to the table opening functions.

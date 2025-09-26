@@ -1,7 +1,7 @@
 # StrategyInitialize
 
 ## Location
-src/backend/storage/buffer/freelist.c: 474 - 540
+[src/backend/storage/buffer/freelist.c:474-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L474-L540)
 
 ## Overview
 Initializes the buffer cache replacement strategy, including the buffer lookup hashtable and shared strategy control structures.

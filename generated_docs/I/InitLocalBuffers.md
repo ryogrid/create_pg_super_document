@@ -1,7 +1,7 @@
 # InitLocalBuffers
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 580 - 654
+[src/backend/storage/buffer/localbuf.c:580-654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L580-L654)
 
 ## Overview
 Initializes the local buffer cache system by allocating buffer headers, auxiliary arrays, and creating the lookup hash table for temporary table/index buffers.

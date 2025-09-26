@@ -1,7 +1,7 @@
 # PlanInvalItem
 
 ## Location
-src/include/nodes/plannodes.h: 1567 - 1574
+[src/include/nodes/plannodes.h:1567-1574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1567-L1574)
 
 ## Overview
 PlanInvalItem represents plan invalidation information that tracks dependencies of PlannedStmt on system catalog objects, enabling PostgreSQL plan cache invalidation when dependent objects change.

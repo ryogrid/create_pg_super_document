@@ -1,7 +1,7 @@
 # UnpinLocalBufferNoOwner
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 688 - 703
+[src/backend/storage/buffer/localbuf.c:688-703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L688-L703)
 
 ## Overview
 UnpinLocalBufferNoOwner decrements the reference count of a local buffer without involving resource owner tracking, used for low-level buffer management operations.

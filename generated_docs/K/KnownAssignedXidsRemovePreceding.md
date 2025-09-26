@@ -1,7 +1,7 @@
 # KnownAssignedXidsRemovePreceding
 
 ## Location
-src/backend/storage/ipc/procarray.c: 5034 - 5111
+[src/backend/storage/ipc/procarray.c:5034-5111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L5034-L5111)
 
 ## Overview
 Prunes the KnownAssignedXids array by removing all transaction IDs that precede a specified cutoff point, while preserving prepared transactions.

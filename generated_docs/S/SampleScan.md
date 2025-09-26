@@ -1,7 +1,7 @@
 # SampleScan
 
 ## Location
-src/include/nodes/plannodes.h: 405 - 410
+[src/include/nodes/plannodes.h:405-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L405-L410)
 
 ## Overview
 SampleScan represents a table sample scan plan node that retrieves a statistical sample of tuples from a relation using various sampling methods.

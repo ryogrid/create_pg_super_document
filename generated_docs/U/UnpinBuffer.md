@@ -1,7 +1,7 @@
 # UnpinBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2795 - 2803
+[src/backend/storage/buffer/bufmgr.c:2795-2803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2795-L2803)
 
 ## Overview
 UnpinBuffer decrements the pin count of a shared buffer and removes it from the current resource owner's buffer tracking, making the buffer available for potential replacement.

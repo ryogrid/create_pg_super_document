@@ -1,7 +1,7 @@
 # pg_fsync_no_writethrough
 
 ## Location
-src/backend/storage/file/fd.c: 438 - 457
+[src/backend/storage/file/fd.c:438-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L438-L457)
 
 ## Overview
 PostgreSQL's standard fsync implementation that performs file synchronization without writethrough mode, respecting the enableFsync configuration setting.

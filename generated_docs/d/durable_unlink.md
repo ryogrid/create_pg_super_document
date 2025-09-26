@@ -1,7 +1,7 @@
 # durable_unlink
 
 ## Location
-src/backend/storage/file/fd.c: 869 - 899
+[src/backend/storage/file/fd.c:869-899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L869-L899)
 
 ## Overview
 A crash-safe wrapper around the unlink(2) system call that ensures file deletion is durably persisted to storage by synchronizing the parent directory after the unlink operation.

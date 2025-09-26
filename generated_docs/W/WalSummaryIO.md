@@ -1,7 +1,7 @@
 # WalSummaryIO
 
 ## Location
-src/include/backup/walsummary.h: 21 - 25
+[src/include/backup/walsummary.h:21-25](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/walsummary.h#L21-L25)
 
 ## Overview
 WalSummaryIO is a structure used for managing I/O operations on WAL summary files, providing a file handle and position tracking for reading and writing WAL summary data.

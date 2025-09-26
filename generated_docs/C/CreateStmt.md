@@ -1,7 +1,7 @@
 # CreateStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2648 - 2664
+[src/include/nodes/parsenodes.h:2648-2664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2648-L2664)
 
 ## Overview
 CreateStmt is a parse tree node structure that represents a CREATE TABLE statement, containing all the necessary information to define a new table including columns, constraints, inheritance, partitioning, and storage options.

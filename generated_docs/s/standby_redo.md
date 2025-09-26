@@ -1,7 +1,7 @@
 # standby_redo
 
 ## Location
-src/backend/storage/ipc/standby.c: 1159 - 1284
+[src/backend/storage/ipc/standby.c:1159-1284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1159-L1284)
 
 ## Overview
 standby_redo is the main WAL record processing function for standby-related operations during recovery, handling lock acquisition, running transaction snapshots, and cache invalidations.

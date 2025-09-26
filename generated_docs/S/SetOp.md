@@ -1,7 +1,7 @@
 # SetOp
 
 ## Location
-src/include/nodes/plannodes.h: 1217 - 1245
+[src/include/nodes/plannodes.h:1217-1245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1217-L1245)
 
 ## Overview
 The SetOp node implements SQL set operations (INTERSECT, INTERSECT ALL, EXCEPT, EXCEPT ALL) by processing sorted or hashed input to find matching or non-matching tuples between datasets.

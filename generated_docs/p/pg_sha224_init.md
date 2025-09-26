@@ -1,7 +1,7 @@
 # pg_sha224_init
 
 ## Location
-src/common/sha2.c: 978 - 987
+[src/common/sha2.c:978-987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L978-L987)
 
 ## Overview
 Initializes a SHA-224 context structure by setting the SHA-224 specific initial hash values, clearing the input buffer, and resetting the bit counter to prepare for hash computation.

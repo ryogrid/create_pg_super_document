@@ -1,7 +1,7 @@
 # find_case_map
 
 ## Location
-src/common/unicode_case.c: 203 - 234
+[src/common/unicode_case.c:203-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_case.c#L203-L234)
 
 ## Overview
 Locates the Unicode case mapping entry for a given Unicode codepoint using optimized lookup for ASCII characters and binary search for higher codepoints.

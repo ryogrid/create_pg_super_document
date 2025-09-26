@@ -1,7 +1,7 @@
 # do_serialize
 
 ## Location
-src/backend/utils/misc/guc.c: 5987 - 6016
+[src/backend/utils/misc/guc.c:5987-6016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5987-L6016)
 
 ## Overview
 Copies a formatted string into a destination buffer while updating the buffer pointer and remaining space counter during GUC state serialization.

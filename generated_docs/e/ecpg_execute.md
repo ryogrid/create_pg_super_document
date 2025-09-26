@@ -1,7 +1,7 @@
 # ecpg_execute
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 1602 - 1670
+[src/interfaces/ecpg/ecpglib/execute.c:1602-1670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L1602-L1670)
 
 ## Overview
 Executes SQL statements using the appropriate libpq function based on statement type and parameter presence.

@@ -1,7 +1,7 @@
 # RemovePgTempFilesInDir
 
 ## Location
-src/backend/storage/file/fd.c: 3330 - 3389
+[src/backend/storage/file/fd.c:3330-3389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3330-L3389)
 
 ## Overview
 Processes one pgsql_tmp directory to remove temporary files and directories, with options for handling missing directories and selective removal of files.

@@ -1,7 +1,7 @@
 # initialize_dh
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1375 - 1412
+[src/backend/libpq/be-secure-openssl.c:1375-1412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1375-L1412)
 
 ## Overview
 Configures Diffie-Hellman (DH) parameters for SSL/TLS connections, enabling ephemeral DH key exchange for perfect forward secrecy.

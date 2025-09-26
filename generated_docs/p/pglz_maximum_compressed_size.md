@@ -1,7 +1,7 @@
 # pglz_maximum_compressed_size
 
 ## Location
-src/common/pg_lzcompress.c: 846 - 876
+[src/common/pg_lzcompress.c:846-876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_lzcompress.c#L846-L876)
 
 ## Overview
 Calculates the theoretical maximum compressed size for a given amount of raw data, accounting for worst-case compression scenarios and encoding overhead.

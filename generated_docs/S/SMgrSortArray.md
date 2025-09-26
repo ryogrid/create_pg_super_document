@@ -1,7 +1,7 @@
 # SMgrSortArray
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 132 - 136
+[src/backend/storage/buffer/bufmgr.c:132-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L132-L136)
 
 ## Overview
 SMgrSortArray is a structure designed for sorting SMgrRelations and ensuring compatibility with RelFileLocator for shared comparator functions in buffer management operations.

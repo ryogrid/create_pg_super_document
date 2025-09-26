@@ -1,7 +1,7 @@
 # SerialInit
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 806 - 846
+[src/backend/storage/lmgr/predicate.c:806-846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L806-L846)
 
 ## Overview
 Initializes the tracking system for old serializable committed transaction IDs, setting up SLRU management and control structures.

@@ -1,7 +1,7 @@
 # ResetUnloggedRelationsInDbspaceDir
 
 ## Location
-src/backend/storage/file/reinit.c: 161 - 379
+[src/backend/storage/file/reinit.c:161-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/reinit.c#L161-L379)
 
 ## Overview
 ResetUnloggedRelationsInDbspaceDir is the core function that processes unlogged relations within a specific database directory, performing both cleanup and initialization operations on relation files with advanced hash-based tracking for efficiency.

@@ -1,7 +1,7 @@
 # PartitionKeyData
 
 ## Location
-src/include/utils/partcache.h: 25 - 48
+[src/include/utils/partcache.h:25-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/partcache.h#L25-L48)
 
 ## Overview
 PartitionKeyData is a struct that stores comprehensive information about the partition key of a relation, including partitioning strategy, attributes, operators, and type information necessary for PostgreSQL's table partitioning functionality.

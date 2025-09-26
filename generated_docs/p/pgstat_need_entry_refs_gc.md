@@ -1,7 +1,7 @@
 # pgstat_need_entry_refs_gc
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 680 - 695
+[src/backend/utils/activity/pgstat_shmem.c:680-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L680-L695)
 
 ## Overview
 A static helper function that determines whether garbage collection of statistics entry references is needed by comparing local and shared reference ages.

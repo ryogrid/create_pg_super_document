@@ -1,7 +1,7 @@
 # MakePGDirectory
 
 ## Location
-src/backend/storage/file/fd.c: 3910 - 3932
+[src/backend/storage/file/fd.c:3910-3932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3910-L3932)
 
 ## Overview
 A wrapper function for creating PostgreSQL data subdirectories with consistent permissions according to the configured directory creation mode.

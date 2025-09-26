@@ -1,7 +1,7 @@
 # pltcl_init_tuple_store
 
 ## Location
-src/pl/tcl/pltcl.c: 3264 - 3300
+[src/pl/tcl/pltcl.c:3264-3300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L3264-L3300)
 
 ## Overview
 Initializes the result tuplestore for a Set Returning Function (SRF), setting up the necessary data structures to collect and store multiple result tuples.

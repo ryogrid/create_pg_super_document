@@ -1,7 +1,7 @@
 # _add
 
 ## Location
-src/timezone/strftime.c: 525 - 540
+[src/timezone/strftime.c:525-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/strftime.c#L525-L540)
 
 ## Overview
 Low-level utility function that safely copies a null-terminated string to the output buffer with bounds checking to prevent buffer overflows.

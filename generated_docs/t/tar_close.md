@@ -1,7 +1,7 @@
 # tar_close
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 1042 - 1218
+[src/bin/pg_basebackup/walmethods.c:1042-1218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L1042-L1218)
 
 ## Overview
 Closes a WAL file within a TAR archive, performing final operations including padding, header updates, and synchronization to persistent storage.

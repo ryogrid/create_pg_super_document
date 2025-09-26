@@ -1,7 +1,7 @@
 # pg_utf_mblen
 
 ## Location
-src/common/wchar.c: 538 - 572
+[src/common/wchar.c:538-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L538-L572)
 
 ## Overview
 Returns the byte length of a UTF-8 character sequence pointed to by the given byte pointer.

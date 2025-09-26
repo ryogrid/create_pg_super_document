@@ -1,7 +1,7 @@
 # HashStmt
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 379 - 414
+[src/interfaces/ecpg/ecpglib/prepare.c:379-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L379-L414)
 
 ## Overview
 Computes a hash value for SQL statements to determine their bucket position in the ECPG prepared statement cache.

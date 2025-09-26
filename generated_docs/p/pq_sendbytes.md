@@ -1,7 +1,7 @@
 # pq_sendbytes
 
 ## Location
-src/backend/libpq/pqformat.c: 126 - 141
+[src/backend/libpq/pqformat.c:126-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L126-L141)
 
 ## Overview
 Appends raw binary data to a StringInfo buffer as part of PostgreSQL protocol message construction.

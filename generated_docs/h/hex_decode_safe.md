@@ -1,7 +1,7 @@
 # hex_decode_safe
 
 ## Location
-src/backend/utils/adt/encode.c: 196 - 236
+[src/backend/utils/adt/encode.c:196-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L196-L236)
 
 ## Overview
 Safely decodes hexadecimal-encoded data into binary format with error context support, skipping whitespace characters and validating hexadecimal digit pairs.

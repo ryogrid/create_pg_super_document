@@ -1,7 +1,7 @@
 # getopt
 
 ## Location
-src/port/getopt.c: 71 - 136
+[src/port/getopt.c:71-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/getopt.c#L71-L136)
 
 ## Overview
 Parse command-line arguments from an argc/argv vector, following POSIX getopt conventions.

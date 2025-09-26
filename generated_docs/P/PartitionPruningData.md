@@ -1,7 +1,7 @@
 # PartitionPruningData
 
 ## Location
-src/include/executor/execPartition.h: 78 - 82
+[src/include/executor/execPartition.h:78-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/execPartition.h#L78-L82)
 
 ## Overview
 PartitionPruningData holds all the run-time pruning information for a single partitioning hierarchy containing one or more partitions, organizing the data in a parent-before-children array structure.

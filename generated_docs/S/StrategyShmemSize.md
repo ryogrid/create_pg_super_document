@@ -1,7 +1,7 @@
 # StrategyShmemSize
 
 ## Location
-src/backend/storage/buffer/freelist.c: 453 - 473
+[src/backend/storage/buffer/freelist.c:453-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L453-L473)
 
 ## Overview
 Estimates the size of shared memory required by buffer management freelist-related structures and buffer lookup hashtable.

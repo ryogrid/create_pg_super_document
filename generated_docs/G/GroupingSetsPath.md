@@ -1,7 +1,7 @@
 # GroupingSetsPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2295 - 2303
+[src/include/nodes/pathnodes.h:2295-2303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2295-L2303)
 
 ## Overview
 GroupingSetsPath represents a GROUPING SETS aggregation path node in PostgreSQL's query planner, used to handle complex aggregation operations involving multiple grouping sets.

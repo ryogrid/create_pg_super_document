@@ -1,7 +1,7 @@
 # enable_timeout
 
 ## Location
-src/backend/utils/misc/timeout.c: 158 - 209
+[src/backend/utils/misc/timeout.c:158-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L158-L209)
 
 ## Overview
 Enables a specified timeout by inserting it into the active timeouts array in sorted order by finish time.

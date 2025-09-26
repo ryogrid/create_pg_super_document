@@ -1,7 +1,7 @@
 # datum_to_jsonb_internal
 
 ## Location
-src/backend/utils/adt/jsonb.c: 638 - 861
+[src/backend/utils/adt/jsonb.c:638-861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L638-L861)
 
 ## Overview
 Converts a PostgreSQL Datum value into a JsonbValue and adds it to the result JsonbInState, handling all data types that can be represented in JSONB format.

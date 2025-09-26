@@ -1,7 +1,7 @@
 # pg_sha1_init
 
 ## Location
-src/common/sha1.c: 316 - 331
+[src/common/sha1.c:316-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha1.c#L316-L331)
 
 ## Overview
 Initializes a SHA-1 context structure with the standard initial hash values and resets all state variables to prepare for a new hash computation.

@@ -1,7 +1,7 @@
 # JsonEncodeDateTime
 
 ## Location
-src/backend/utils/adt/json.c: 301 - 421
+[src/backend/utils/adt/json.c:301-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L301-L421)
 
 ## Overview
 Encodes datetime values into JSON-compatible string format using ISO standards, supporting various PostgreSQL datetime types with optional timezone handling.

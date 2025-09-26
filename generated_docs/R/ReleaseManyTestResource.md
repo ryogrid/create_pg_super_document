@@ -1,7 +1,7 @@
 # ReleaseManyTestResource
 
 ## Location
-src/test/modules/test_resowner/test_resowner_many.c: 68 - 82
+[src/test/modules/test_resowner/test_resowner_many.c:68-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_many.c#L68-L82)
 
 ## Overview
 A ResourceOwner callback function that properly releases ManyTestResource objects when they are no longer needed, ensuring cleanup and maintaining proper release priority ordering.

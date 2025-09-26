@@ -1,7 +1,7 @@
 # pg_euc2wchar_with_len
 
 ## Location
-src/common/wchar.c: 105 - 143
+[src/common/wchar.c:105-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L105-L143)
 
 ## Overview
 Converts EUC (Extended Unix Code) encoded multi-byte characters to PostgreSQL's wide character format, handling the complex multi-byte structure of EUC encodings.

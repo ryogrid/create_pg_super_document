@@ -1,7 +1,7 @@
 # tuplesort_get_stats
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2537 - 2580
+[src/backend/utils/sort/tuplesort.c:2537-2580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2537-L2580)
 
 ## Overview
 Extracts summary statistics from a completed tuplesort operation, providing information about the sorting method used and space consumption for performance analysis and debugging.

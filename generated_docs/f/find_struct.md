@@ -1,7 +1,7 @@
 # find_struct
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 126 - 176
+[src/interfaces/ecpg/preproc/variable.c:126-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L126-L176)
 
 ## Overview
 Resolves struct/union variable references by parsing pointer and member access syntax, validating type compatibility, and delegating to find_struct_member for detailed member traversal.

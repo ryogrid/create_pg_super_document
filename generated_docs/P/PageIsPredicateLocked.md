@@ -1,7 +1,7 @@
 # PageIsPredicateLocked
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1998 - 2034
+[src/backend/storage/lmgr/predicate.c:1998-2034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1998-L2034)
 
 ## Overview
 Checks whether there are any predicate locks held by any transaction for a specific page in a PostgreSQL relation, used primarily for serializable snapshot isolation support.

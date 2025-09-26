@@ -1,7 +1,7 @@
 # get_partition_natts
 
 ## Location
-src/include/utils/partcache.h: 65 - 70
+[src/include/utils/partcache.h:65-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/partcache.h#L65-L70)
 
 ## Overview
 Returns the number of attributes (columns) used in the partition key of a partitioned table.

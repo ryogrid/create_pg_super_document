@@ -1,7 +1,7 @@
 # index_concurrently_build
 
 ## Location
-src/backend/catalog/index.c: 1482 - 1548
+[src/backend/catalog/index.c:1482-1548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L1482-L1548)
 
 ## Overview
 index_concurrently_build performs the actual data building phase for a concurrent index operation, constructing the index data while allowing concurrent table access.

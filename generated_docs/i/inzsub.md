@@ -1,7 +1,7 @@
 # inzsub
 
 ## Location
-src/timezone/zic.c: 1567 - 1665
+[src/timezone/zic.c:1567-1665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1567-L1665)
 
 ## Overview
 Processes the detailed parsing and validation of timezone zone data fields for both initial zone lines and zone continuation lines in the zic compiler.

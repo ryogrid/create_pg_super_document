@@ -1,7 +1,7 @@
 # CaseExpr
 
 ## Location
-src/include/nodes/primnodes.h: 1306 - 1317
+[src/include/nodes/primnodes.h:1306-1317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1306-L1317)
 
 ## Overview
 CaseExpr represents a SQL CASE expression, supporting both simple and searched CASE forms with conditional evaluation of multiple branches and an optional default result.

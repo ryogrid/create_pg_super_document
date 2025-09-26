@@ -1,7 +1,7 @@
 # generate_operator_clause
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 13109 - 13148
+[src/backend/utils/adt/ruleutils.c:13109-13148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L13109-L13148)
 
 ## Overview
 Generates a binary-operator WHERE clause for internally-generated SQL queries, ensuring precise operator resolution and type casting.

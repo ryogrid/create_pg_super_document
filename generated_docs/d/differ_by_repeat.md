@@ -1,7 +1,7 @@
 # differ_by_repeat
 
 ## Location
-src/timezone/localtime.c: 170 - 177
+[src/timezone/localtime.c:170-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L170-L177)
 
 ## Overview
 Determines whether two timestamps differ by exactly one repeat cycle (approximately 400 years) in timezone calculations.

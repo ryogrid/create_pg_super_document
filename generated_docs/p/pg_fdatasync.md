@@ -1,7 +1,7 @@
 # pg_fdatasync
 
 ## Location
-src/backend/storage/file/fd.c: 477 - 499
+[src/backend/storage/file/fd.c:477-499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L477-L499)
 
 ## Overview
 A PostgreSQL wrapper around the system fdatasync() call that respects the global enableFsync setting and handles EINTR interrupts gracefully.

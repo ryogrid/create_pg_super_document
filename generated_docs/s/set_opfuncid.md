@@ -1,7 +1,7 @@
 # set_opfuncid
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 1862 - 1872
+[src/backend/nodes/nodeFuncs.c:1862-1872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L1862-L1872)
 
 ## Overview
 Sets the operator function ID (procedure OID) in an OpExpr node if it hasn't been set already.

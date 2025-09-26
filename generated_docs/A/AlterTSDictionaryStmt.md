@@ -1,7 +1,7 @@
 # AlterTSDictionaryStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4095 - 4100
+[src/include/nodes/parsenodes.h:4095-4100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4095-L4100)
 
 ## Overview
 AlterTSDictionaryStmt represents the parsed representation of an ALTER TEXT SEARCH DICTIONARY statement, which modifies the configuration options of an existing text search dictionary.

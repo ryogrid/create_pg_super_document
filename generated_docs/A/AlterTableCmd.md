@@ -1,7 +1,7 @@
 # AlterTableCmd
 
 ## Location
-src/include/nodes/parsenodes.h: 2426 - 2440
+[src/include/nodes/parsenodes.h:2426-2440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2426-L2440)
 
 ## Overview
 AlterTableCmd represents a single subcommand within an ALTER TABLE statement, defining one specific alteration operation to be performed on a table.

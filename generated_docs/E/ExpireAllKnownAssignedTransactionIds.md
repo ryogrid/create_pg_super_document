@@ -1,7 +1,7 @@
 # ExpireAllKnownAssignedTransactionIds
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4497 - 4530
+[src/backend/storage/ipc/procarray.c:4497-4530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4497-L4530)
 
 ## Overview
 Removes all entries from the KnownAssignedXids data structure and resets related transaction tracking state, effectively clearing all known assigned transactions during recovery shutdown.

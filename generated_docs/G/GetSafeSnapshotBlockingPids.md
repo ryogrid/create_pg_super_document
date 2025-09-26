@@ -1,7 +1,7 @@
 # GetSafeSnapshotBlockingPids
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1618 - 1671
+[src/backend/storage/lmgr/predicate.c:1618-1671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1618-L1671)
 
 ## Overview
 Returns the process IDs of all transactions blocking a specified process that is currently waiting in GetSafeSnapshot.

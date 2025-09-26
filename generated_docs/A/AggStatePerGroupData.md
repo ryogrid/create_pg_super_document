@@ -1,7 +1,7 @@
 # AggStatePerGroupData
 
 ## Location
-src/include/executor/nodeAgg.h: 250 - 267
+[src/include/executor/nodeAgg.h:250-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/nodeAgg.h#L250-L267)
 
 ## Overview
 AggStatePerGroupData represents per-aggregate-per-group working state that tracks the current transition value and its status for each group in aggregate processing.

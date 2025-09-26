@@ -1,7 +1,7 @@
 # fmtint
 
 ## Location
-src/port/snprintf.c: 1007 - 1117
+[src/port/snprintf.c:1007-1117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1007-L1117)
 
 ## Overview
 Formats and outputs integer values for various numeric format specifiers (%d, %i, %o, %u, %x, %X) with support for padding, alignment, precision, and sign handling.

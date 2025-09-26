@@ -1,7 +1,7 @@
 # pgstat_release_entry_ref
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 550 - 620
+[src/backend/utils/activity/pgstat_shmem.c:550-620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L550-L620)
 
 ## Overview
 Releases a reference to a shared statistics entry and performs cleanup when the reference count reaches zero.

@@ -1,7 +1,7 @@
 # clonesuccessorstates
 
 ## Location
-src/backend/regex/regc_nfa.c: 2704 - 2937
+[src/backend/regex/regc_nfa.c:2704-2937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L2704-L2937)
 
 ## Overview
 Recursively creates a tree structure of cloned successor states while handling constraint arcs to break loops without losing regex functionality.

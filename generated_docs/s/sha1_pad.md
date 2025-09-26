@@ -1,7 +1,7 @@
 # sha1_pad
 
 ## Location
-src/common/sha1.c: 233 - 275
+[src/common/sha1.c:233-275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha1.c#L233-L275)
 
 ## Overview
 Applies the required padding to the SHA-1 message according to the algorithm specification, ensuring the final message length is congruent to 448 modulo 512 bits before appending the 64-bit message length.

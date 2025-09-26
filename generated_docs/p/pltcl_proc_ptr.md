@@ -1,7 +1,7 @@
 # pltcl_proc_ptr
 
 ## Location
-src/pl/tcl/pltcl.c: 202 - 206
+[src/pl/tcl/pltcl.c:202-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L202-L206)
 
 ## Overview
 A hash table entry structure that maps PL/Tcl function keys to their corresponding procedure descriptors, serving as the container for hash table storage.

@@ -1,7 +1,7 @@
 # SPNode
 
 ## Location
-src/include/tsearch/dicts/spell.h: 50 - 54
+[src/include/tsearch/dicts/spell.h:50-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/dicts/spell.h#L50-L54)
 
 ## Overview
 SPNode is a structure that represents a node in a prefix tree (Trie) used to store word lists for PostgreSQL's text search spell checking functionality.

@@ -1,7 +1,7 @@
 # examine_simple_variable
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 5351 - 5617
+[src/backend/utils/adt/selfuncs.c:5351-5617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L5351-L5617)
 
 ## Overview
 Handles examination of a simple Var for the examine_variable function, recursively processing variables that reference subqueries or CTEs to extract statistical information.

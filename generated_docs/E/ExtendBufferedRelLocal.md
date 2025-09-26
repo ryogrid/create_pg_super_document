@@ -1,7 +1,7 @@
 # ExtendBufferedRelLocal
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 313 - 448
+[src/backend/storage/buffer/localbuf.c:313-448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L313-L448)
 
 ## Overview
 ExtendBufferedRelLocal extends temporary relations by allocating new blocks and associated local buffers, serving as the local buffer implementation of ExtendBufferedRelBy() and ExtendBufferedRelTo().

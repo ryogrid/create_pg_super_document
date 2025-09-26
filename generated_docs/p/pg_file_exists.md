@@ -1,7 +1,7 @@
 # pg_file_exists
 
 ## Location
-src/backend/storage/file/fd.c: 500 - 521
+[src/backend/storage/file/fd.c:500-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L500-L521)
 
 ## Overview
 A PostgreSQL utility function that checks whether a file exists at a given absolute path and ensures it is not a directory.

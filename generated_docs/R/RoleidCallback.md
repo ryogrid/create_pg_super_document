@@ -1,7 +1,7 @@
 # RoleidCallback
 
 ## Location
-src/backend/utils/misc/superuser.c: 103 - 107
+[src/backend/utils/misc/superuser.c:103-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/superuser.c#L103-L107)
 
 ## Overview
 A syscache invalidation callback function that clears the cached superuser status when role information changes in the pg_authid catalog.

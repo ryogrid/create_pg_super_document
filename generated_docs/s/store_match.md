@@ -1,7 +1,7 @@
 # store_match
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 722 - 765
+[src/backend/regex/regc_pg_locale.c:722-765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L722-L765)
 
 ## Overview
 Adds a character or character range to a character class vector (cvec) in a ctype cache, dynamically expanding storage as needed.

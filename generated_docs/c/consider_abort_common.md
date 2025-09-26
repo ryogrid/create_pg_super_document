@@ -1,7 +1,7 @@
 # consider_abort_common
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1341 - 1384
+[src/backend/utils/sort/tuplesort.c:1341-1384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1341-L1384)
 
 ## Overview
 Evaluates the effectiveness of abbreviated key optimization and determines whether to abort the abbreviation strategy based on opclass-provided feedback and tuple processing progress.

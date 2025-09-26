@@ -1,7 +1,7 @@
 # hexdecode_char
 
 ## Location
-src/common/parse_manifest.c: 900 - 917
+[src/common/parse_manifest.c:900-917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L900-L917)
 
 ## Overview
 A static utility function that converts a single hexadecimal character (0-9, a-f, A-F) to its corresponding integer value, returning -1 for invalid characters.

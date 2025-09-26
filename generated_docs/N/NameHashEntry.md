@@ -1,7 +1,7 @@
 # NameHashEntry
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 307 - 527
+[src/backend/utils/adt/ruleutils.c:307-527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L307-L527)
 
 ## Overview
 NameHashEntry is a hash table entry structure used in PostgreSQL's rule utility system to track table name usage and generate unique aliases during SQL deparsing operations.

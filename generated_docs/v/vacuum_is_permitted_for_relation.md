@@ -1,7 +1,7 @@
 # vacuum_is_permitted_for_relation
 
 ## Location
-src/backend/commands/vacuum.c: 717 - 768
+[src/backend/commands/vacuum.c:717-768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L717-L768)
 
 ## Overview
 Checks if the current user has sufficient privileges to vacuum or analyze a specific relation, issuing warnings and returning false if permission is denied.

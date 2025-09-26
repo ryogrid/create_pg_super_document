@@ -1,7 +1,7 @@
 # find_other_exec
 
 ## Location
-src/common/exec.c: 329 - 370
+[src/common/exec.c:329-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L329-L370)
 
 ## Overview
 Locates another PostgreSQL executable in the same directory as the current program and verifies it matches the expected version, ensuring compatibility between related PostgreSQL utilities.

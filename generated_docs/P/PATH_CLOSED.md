@@ -1,7 +1,7 @@
 # PATH_CLOSED
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 75 - 156
+[src/backend/utils/adt/geo_ops.c:75-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L75-L156)
 
 ## Overview
 PATH_CLOSED is an enumeration constant that represents a closed geometric path in PostgreSQL's geometric data type system.

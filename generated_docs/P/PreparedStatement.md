@@ -1,7 +1,7 @@
 # PreparedStatement
 
 ## Location
-src/include/commands/prepare.h: 34 - 61
+[src/include/commands/prepare.h:34-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/prepare.h#L34-L61)
 
 ## Overview
 PreparedStatement is a data structure representing a prepared SQL statement in PostgreSQL, serving as a thin wrapper around a plancache entry with the addition of a statement name and metadata for tracking prepared statements in the database system.

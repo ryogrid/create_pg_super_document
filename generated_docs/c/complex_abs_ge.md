@@ -1,7 +1,7 @@
 # complex_abs_ge
 
 ## Location
-src/tutorial/complex.c: 181 - 191
+[src/tutorial/complex.c:181-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L181-L191)
 
 ## Overview
 A PostgreSQL function that implements the "greater than or equal to" comparison operator for the absolute values (magnitudes) of two complex numbers.

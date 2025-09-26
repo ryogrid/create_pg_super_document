@@ -1,7 +1,7 @@
 # d2d
 
 ## Location
-src/common/d2s.c: 346 - 630
+[src/common/d2s.c:346-630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s.c#L346-L630)
 
 ## Overview
 Converts IEEE 754 double-precision floating-point components (mantissa and exponent) into the shortest decimal representation that can round-trip back to the original double value.

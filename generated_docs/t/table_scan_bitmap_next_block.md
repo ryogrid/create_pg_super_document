@@ -1,7 +1,7 @@
 # table_scan_bitmap_next_block
 
 ## Location
-src/include/access/tableam.h: 1962 - 1985
+[src/include/access/tableam.h:1962-1985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1962-L1985)
 
 ## Overview
 Prepares to fetch, check, or return tuples from a specific block as part of a bitmap table scan operation.

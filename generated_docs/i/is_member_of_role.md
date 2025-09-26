@@ -1,7 +1,7 @@
 # is_member_of_role
 
 ## Location
-src/backend/utils/adt/acl.c: 5231 - 5258
+[src/backend/utils/adt/acl.c:5231-5258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5231-L5258)
 
 ## Overview
 Determines whether a given user/role is a member of another role, either directly or indirectly through role inheritance chains.

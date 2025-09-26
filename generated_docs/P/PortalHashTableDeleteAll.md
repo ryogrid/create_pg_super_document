@@ -1,7 +1,7 @@
 # PortalHashTableDeleteAll
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 607 - 635
+[src/backend/utils/mmgr/portalmem.c:607-635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L607-L635)
 
 ## Overview
 Deletes all declared cursors/portals from the portal hash table, used to implement the CLOSE ALL and DISCARD ALL SQL commands.

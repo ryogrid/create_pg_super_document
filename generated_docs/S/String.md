@@ -1,7 +1,7 @@
 # String
 
 ## Location
-src/include/nodes/value.h: 63 - 69
+[src/include/nodes/value.h:63-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/value.h#L63-L69)
 
 ## Overview
 The String node type represents string literal constants in PostgreSQL's parser, providing a node-based wrapper for character string values.

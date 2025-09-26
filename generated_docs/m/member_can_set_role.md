@@ -1,7 +1,7 @@
 # member_can_set_role
 
 ## Location
-src/backend/utils/adt/acl.c: 5185 - 5207
+[src/backend/utils/adt/acl.c:5185-5207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5185-L5207)
 
 ## Overview
 Determines whether a member role can use SET ROLE to assume the identity and privileges of a target role.

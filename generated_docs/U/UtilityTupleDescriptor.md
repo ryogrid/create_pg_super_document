@@ -1,7 +1,7 @@
 # UtilityTupleDescriptor
 
 ## Location
-src/backend/tcop/utility.c: 2082 - 2134
+[src/backend/tcop/utility.c:2082-2134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L2082-L2134)
 
 ## Overview
 UtilityTupleDescriptor fetches the actual output tuple descriptor for utility statements that return tuples, providing the structure definition needed for query result processing.

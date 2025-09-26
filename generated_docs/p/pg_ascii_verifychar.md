@@ -1,7 +1,7 @@
 # pg_ascii_verifychar
 
 ## Location
-src/common/wchar.c: 1063 - 1068
+[src/common/wchar.c:1063-1068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1063-L1068)
 
 ## Overview
 Validates a single character in ASCII encoding by always returning 1, indicating that any single byte is a valid ASCII character.

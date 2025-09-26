@@ -1,7 +1,7 @@
 # ExecAssignExprContext
 
 ## Location
-src/backend/executor/execUtils.c: 483 - 492
+[src/backend/executor/execUtils.c:483-492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L483-L492)
 
 ## Overview
 Initializes the ps_ExprContext field of a PlanState by creating and assigning a new ExprContext for expression evaluation.

@@ -1,7 +1,7 @@
 # InitializeLatchWaitSet
 
 ## Location
-src/backend/storage/ipc/latch.c: 346 - 363
+[src/backend/storage/ipc/latch.c:346-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L346-L363)
 
 ## Overview
 Initializes the global LatchWaitSet used by WaitLatch() function for efficient latch waiting across PostgreSQL processes.

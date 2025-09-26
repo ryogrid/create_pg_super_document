@@ -1,7 +1,7 @@
 # Hash
 
 ## Location
-src/include/nodes/plannodes.h: 1197 - 1211
+[src/include/nodes/plannodes.h:1197-1211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1197-L1211)
 
 ## Overview
 The Hash node is the build-side component of hash joins that creates and populates an in-memory hash table from tuples produced by its child plan, optimized for efficient probing during the join operation.

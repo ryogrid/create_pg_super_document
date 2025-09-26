@@ -1,7 +1,7 @@
 # replace_variables
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 104 - 158
+[src/interfaces/ecpg/ecpglib/prepare.c:104-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L104-L158)
 
 ## Overview
 A static function that processes SQL text to replace named parameters (e.g., :param or ?param) with PostgreSQL-style positional parameters (e.g., $1, $2).

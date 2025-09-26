@@ -1,7 +1,7 @@
 # dshash_get_hash_table_handle
 
 ## Location
-src/backend/lib/dshash.c: 367 - 389
+[src/backend/lib/dshash.c:367-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L367-L389)
 
 ## Overview
 Returns a handle that allows other processes to attach to an existing dynamic shared hash table.

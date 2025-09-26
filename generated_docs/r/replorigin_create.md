@@ -1,7 +1,7 @@
 # replorigin_create
 
 ## Location
-src/backend/replication/logical/origin.c: 252 - 340
+[src/backend/replication/logical/origin.c:252-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L252-L340)
 
 ## Overview
 Creates a new replication origin with the specified name by finding an unused 16-bit identifier and inserting a new row into the pg_replication_origin system catalog.

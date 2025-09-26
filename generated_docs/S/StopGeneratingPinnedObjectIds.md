@@ -1,7 +1,7 @@
 # StopGeneratingPinnedObjectIds
 
 ## Location
-src/backend/access/transam/varsup.c: 652 - 672
+[src/backend/access/transam/varsup.c:652-672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/varsup.c#L652-L672)
 
 ## Overview
 Forces the OID counter to advance to FirstUnpinnedObjectId during initdb, ensuring that subsequent object creation produces unpinned objects rather than pinned ones.

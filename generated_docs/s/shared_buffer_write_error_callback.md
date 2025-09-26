@@ -1,7 +1,7 @@
 # shared_buffer_write_error_callback
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5668 - 5687
+[src/backend/storage/buffer/bufmgr.c:5668-5687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5668-L5687)
 
 ## Overview
 Provides error context information for errors occurring during shared buffer write operations in PostgreSQL buffer management.

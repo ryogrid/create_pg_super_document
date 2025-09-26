@@ -1,7 +1,7 @@
 # ResourceReleaseCallbackItem
 
 ## Location
-src/backend/utils/resowner/resowner.c: 180 - 185
+[src/backend/utils/resowner/resowner.c:180-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L180-L185)
 
 ## Overview
 ResourceReleaseCallbackItem represents an entry in a linked list of callbacks that are invoked during resource owner release operations, enabling dynamically loaded modules to participate in resource cleanup.

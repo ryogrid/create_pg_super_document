@@ -1,7 +1,7 @@
 # ParallelContextActive
 
 ## Location
-src/backend/access/transam/parallel.c: 1020 - 1032
+[src/backend/access/transam/parallel.c:1020-1032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L1020-L1032)
 
 ## Overview
 Checks whether any parallel contexts are currently active in the system.

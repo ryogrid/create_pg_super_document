@@ -1,7 +1,7 @@
 # UpdateDecodingStats
 
 ## Location
-src/backend/replication/logical/logical.c: 1979 - 2025
+[src/backend/replication/logical/logical.c:1979-2025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1979-L2025)
 
 ## Overview
 Reports statistics for a logical replication slot by collecting accumulated metrics from the reorder buffer and sending them to the PostgreSQL statistics collector.

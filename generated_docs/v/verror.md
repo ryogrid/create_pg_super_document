@@ -1,7 +1,7 @@
 # verror
 
 ## Location
-src/timezone/zic.c: 488 - 503
+[src/timezone/zic.c:488-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L488-L503)
 
 ## Overview
 A variadic error reporting function in the PostgreSQL timezone compiler that formats and displays error messages with file and line context.

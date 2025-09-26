@@ -1,7 +1,7 @@
 # llvm_error_message
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 1364 - 1379
+[src/backend/jit/llvm/llvmjit.c:1364-1379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L1364-L1379)
 
 ## Overview
 A static utility function that converts LLVM error references into PostgreSQL-managed string copies for safe error reporting.

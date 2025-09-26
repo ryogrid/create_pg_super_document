@@ -1,7 +1,7 @@
 # appendBinaryPQExpBuffer
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 397 - 412
+[src/interfaces/libpq/pqexpbuffer.c:397-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L397-L412)
 
 ## Overview
 Appends arbitrary binary data to a PQExpBuffer, handling memory allocation and ensuring proper buffer management for binary content.

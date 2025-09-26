@@ -1,7 +1,7 @@
 # pg_sjis_verifystr
 
 ## Location
-src/common/wchar.c: 1450 - 1478
+[src/common/wchar.c:1450-1478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1450-L1478)
 
 ## Overview
 Verifies the validity of a Shift JIS encoded string by checking each character for proper encoding compliance.

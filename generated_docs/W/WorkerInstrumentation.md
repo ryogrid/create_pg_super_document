@@ -1,7 +1,7 @@
 # WorkerInstrumentation
 
 ## Location
-src/include/executor/instrument.h: 95 - 99
+[src/include/executor/instrument.h:95-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/instrument.h#L95-L99)
 
 ## Overview
 WorkerInstrumentation is a container struct that holds instrumentation data from multiple parallel worker processes, enabling aggregation and reporting of statistics from parallel query execution.

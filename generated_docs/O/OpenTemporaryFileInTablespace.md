@@ -1,7 +1,7 @@
 # OpenTemporaryFileInTablespace
 
 ## Location
-src/backend/storage/file/fd.c: 1801 - 1857
+[src/backend/storage/file/fd.c:1801-1857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1801-L1857)
 
 ## Overview
 OpenTemporaryFileInTablespace creates and opens a temporary file within a specified tablespace, handling directory creation and file naming automatically.

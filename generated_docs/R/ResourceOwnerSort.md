@@ -1,7 +1,7 @@
 # ResourceOwnerSort
 
 ## Location
-src/backend/utils/resowner/resowner.c: 284 - 339
+[src/backend/utils/resowner/resowner.c:284-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L284-L339)
 
 ## Overview
 The  function sorts all resources owned by a ResourceOwner in reverse release priority order, consolidating resources from both the fixed-size array and hash table into a single sorted array for efficient cleanup processing.

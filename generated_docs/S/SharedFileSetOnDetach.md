@@ -1,7 +1,7 @@
 # SharedFileSetOnDetach
 
 ## Location
-src/backend/storage/file/sharedfileset.c: 96 - 114
+[src/backend/storage/file/sharedfileset.c:96-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/sharedfileset.c#L96-L114)
 
 ## Overview
 A cleanup callback function that automatically manages shared file set lifecycle when processes detach from DSM segments, ensuring files are deleted when the last process exits.

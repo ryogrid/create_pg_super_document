@@ -1,7 +1,7 @@
 # pthread_self
 
 ## Location
-src/interfaces/libpq/pthread-win32.c: 18 - 23
+[src/interfaces/libpq/pthread-win32.c:18-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pthread-win32.c#L18-L23)
 
 ## Overview
 A Windows-specific implementation of the POSIX pthread_self() function that returns the thread identifier of the calling thread.

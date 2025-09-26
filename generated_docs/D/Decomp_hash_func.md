@@ -1,7 +1,7 @@
 # Decomp_hash_func
 
 ## Location
-src/include/common/unicode_norm_hashfunc.h: 42 - 2711
+[src/include/common/unicode_norm_hashfunc.h:42-2711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/unicode_norm_hashfunc.h#L42-L2711)
 
 ## Overview
 A perfect hash function used for fast Unicode character decomposition lookups in PostgreSQL's Unicode normalization system.

@@ -1,7 +1,7 @@
 # size_bytes_unit_alias
 
 ## Location
-src/backend/utils/adt/dbsize.c: 60 - 73
+[src/backend/utils/adt/dbsize.c:60-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L60-L73)
 
 ## Overview
 A structure that defines alternative unit names (aliases) accepted by the  function, mapping them to corresponding entries in the main size units array.

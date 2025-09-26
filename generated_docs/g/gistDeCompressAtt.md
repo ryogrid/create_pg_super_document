@@ -1,7 +1,7 @@
 # gistDeCompressAtt
 
 ## Location
-src/backend/access/gist/gistutil.c: 295 - 314
+[src/backend/access/gist/gistutil.c:295-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L295-L314)
 
 ## Overview
 The `gistDeCompressAtt` function decompresses all key attributes in a GiST index tuple, preparing them for further processing during index operations.

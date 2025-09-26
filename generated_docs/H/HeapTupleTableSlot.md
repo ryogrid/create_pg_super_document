@@ -1,7 +1,7 @@
 # HeapTupleTableSlot
 
 ## Location
-src/include/executor/tuptable.h: 253 - 264
+[src/include/executor/tuptable.h:253-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L253-L264)
 
 ## Overview
 HeapTupleTableSlot is a TupleTableSlot implementation that holds references to HeapTuple structures, supporting efficient access to tuples stored in heap table format.

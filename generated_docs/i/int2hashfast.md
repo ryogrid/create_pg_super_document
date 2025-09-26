@@ -1,7 +1,7 @@
 # int2hashfast
 
 ## Location
-src/backend/utils/cache/catcache.c: 226 - 231
+[src/backend/utils/cache/catcache.c:226-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L226-L231)
 
 ## Overview
 The `int2hashfast` function provides a fast hash function for PostgreSQL's `int2` (smallint) data type, used internally by the catalog cache system for efficient hash table operations on 16-bit integer keys.

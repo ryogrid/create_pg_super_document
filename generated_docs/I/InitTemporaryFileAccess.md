@@ -1,7 +1,7 @@
 # InitTemporaryFileAccess
 
 ## Location
-src/backend/storage/file/fd.c: 930 - 960
+[src/backend/storage/file/fd.c:930-960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L930-L960)
 
 ## Overview
 Initializes the temporary file access subsystem during backend startup and registers cleanup hooks to ensure proper temporary file cleanup during shutdown while statistics reporting is still available.

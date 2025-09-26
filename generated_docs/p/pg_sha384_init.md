@@ -1,7 +1,7 @@
 # pg_sha384_init
 
 ## Location
-src/common/sha2.c: 934 - 943
+[src/common/sha2.c:934-943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L934-L943)
 
 ## Overview
 Initializes a SHA-384 context structure by setting the initial hash values, clearing the input buffer, and resetting bit counters to prepare for hash computation.

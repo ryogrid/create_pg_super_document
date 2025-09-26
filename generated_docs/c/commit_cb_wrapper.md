@@ -1,7 +1,7 @@
 # commit_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 885 - 923
+[src/backend/replication/logical/logical.c:885-923](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L885-L923)
 
 ## Overview
 A wrapper function that provides error handling context and state management when executing commit callbacks during logical decoding of transaction commits.

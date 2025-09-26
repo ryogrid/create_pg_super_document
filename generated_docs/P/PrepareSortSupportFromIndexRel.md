@@ -1,7 +1,7 @@
 # PrepareSortSupportFromIndexRel
 
 ## Location
-src/backend/utils/sort/sortsupport.c: 161 - 187
+[src/backend/utils/sort/sortsupport.c:161-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sortsupport.c#L161-L187)
 
 ## Overview
 Sets up a SortSupport structure using information from an index relation and a specified strategy to configure sorting for index-related operations.

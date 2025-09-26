@@ -1,7 +1,7 @@
 # is_projection_capable_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 7284 - 7319
+[src/backend/optimizer/plan/createplan.c:7284-7319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L7284-L7319)
 
 ## Overview
 Determines whether a given Plan node is capable of performing projection (selecting specific columns and computing expressions) as part of its execution.

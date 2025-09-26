@@ -1,7 +1,7 @@
 # _resultmap
 
 ## Location
-src/test/regress/pg_regress.c: 42 - 48
+[src/test/regress/pg_regress.c:42-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L42-L48)
 
 ## Overview
 A linked list structure used by the PostgreSQL regression test framework to map test names and file types to platform-specific expected result files.

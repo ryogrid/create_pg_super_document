@@ -1,7 +1,7 @@
 # exprIsLengthCoercion
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 552 - 630
+[src/backend/nodes/nodeFuncs.c:552-630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L552-L630)
 
 ## Overview
 Detects whether an expression tree is an application of a datatype's typmod-coercion function and optionally extracts the result's typmod.

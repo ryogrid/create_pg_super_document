@@ -1,7 +1,7 @@
 # replorigin_state_clear
 
 ## Location
-src/backend/replication/logical/origin.c: 341 - 410
+[src/backend/replication/logical/origin.c:341-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L341-L410)
 
 ## Overview
 A static helper function that clears the in-memory replication state for a given replication origin, handling concurrency and creating appropriate WAL log entries during the cleanup process.

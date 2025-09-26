@@ -1,7 +1,7 @@
 # LockRelId
 
 ## Location
-src/include/utils/rel.h: 38 - 42
+[src/include/utils/rel.h:38-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rel.h#L38-L42)
 
 ## Overview
 LockRelId is a structure that identifies a specific relation (table/index) within a database for locking purposes, containing both relation and database identifiers.

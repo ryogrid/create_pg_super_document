@@ -1,7 +1,7 @@
 # get_rolespec_name
 
 ## Location
-src/backend/utils/adt/acl.c: 5556 - 5577
+[src/backend/utils/adt/acl.c:5556-5577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5556-L5577)
 
 ## Overview
 Retrieves and returns a palloc'ed copy of the role name corresponding to a given RoleSpec structure.

@@ -1,7 +1,7 @@
 # EstimateSnapshotSpace
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1692 - 1715
+[src/backend/utils/time/snapmgr.c:1692-1715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1692-L1715)
 
 ## Overview
 EstimateSnapshotSpace calculates the memory space required to store a serialized representation of a given snapshot, including all its transaction ID arrays.

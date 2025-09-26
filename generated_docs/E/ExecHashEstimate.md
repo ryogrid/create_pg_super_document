@@ -1,7 +1,7 @@
 # ExecHashEstimate
 
 ## Location
-src/backend/executor/nodeHash.c: 2741 - 2759
+[src/backend/executor/nodeHash.c:2741-2759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2741-L2759)
 
 ## Overview
 Reserves space in the Dynamic Shared Memory (DSM) segment for hash join instrumentation data when executing parallel hash joins.

@@ -1,7 +1,7 @@
 # ProjectionPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2173 - 2178
+[src/include/nodes/pathnodes.h:2173-2178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2173-L2178)
 
 ## Overview
 ProjectionPath represents a projection operation (targetlist computation) in PostgreSQL's query planner, handling column selection and expression evaluation that may or may not require a separate Result plan node.

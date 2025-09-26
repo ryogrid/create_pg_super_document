@@ -1,7 +1,7 @@
 # ExecHashInitializeDSM
 
 ## Location
-src/backend/executor/nodeHash.c: 2760 - 2784
+[src/backend/executor/nodeHash.c:2760-2784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2760-L2784)
 
 ## Overview
 ExecHashInitializeDSM sets up a shared memory space in the Dynamic Shared Memory (DSM) for all parallel workers to record instrumentation data about their hash table operations.

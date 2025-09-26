@@ -1,7 +1,7 @@
 # ECPGtype
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 17 - 66
+[src/interfaces/ecpg/preproc/type.h:17-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L17-L66)
 
 ## Overview
 ECPGtype is a comprehensive structure that represents data type information in the ECPG (Embedded SQL in C) preprocessor, supporting both simple and complex types including arrays and structs.

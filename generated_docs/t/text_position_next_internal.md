@@ -1,7 +1,7 @@
 # text_position_next_internal
 
 ## Location
-src/backend/utils/adt/varlena.c: 1400 - 1467
+[src/backend/utils/adt/varlena.c:1400-1467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1400-L1467)
 
 ## Overview
 The  function implements the raw Boyer-Moore-Horspool string search algorithm, performing efficient byte-level pattern matching.

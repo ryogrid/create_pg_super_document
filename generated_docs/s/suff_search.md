@@ -1,7 +1,7 @@
 # suff_search
 
 ## Location
-src/backend/utils/adt/formatting.c: 1123 - 1138
+[src/backend/utils/adt/formatting.c:1123-1138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1123-L1138)
 
 ## Overview
 Searches through an array of KeySuffix structures to find a suffix that matches both the input string and the specified type.

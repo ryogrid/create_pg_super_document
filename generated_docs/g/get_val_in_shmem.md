@@ -1,7 +1,7 @@
 # get_val_in_shmem
 
 ## Location
-src/test/modules/test_dsm_registry/test_dsm_registry.c: 65 - 76
+[src/test/modules/test_dsm_registry/test_dsm_registry.c:65-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_dsm_registry/test_dsm_registry.c#L65-L76)
 
 ## Overview
 A PostgreSQL SQL-callable function that retrieves an integer value from the test DSM registry's shared memory with proper locking for safe concurrent access.

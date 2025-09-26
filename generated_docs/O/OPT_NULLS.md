@@ -1,7 +1,7 @@
 # OPT_NULLS
 
 ## Location
-src/pl/tcl/pltcl.c: 2698 - 2890
+[src/pl/tcl/pltcl.c:2698-2890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2698-L2890)
 
 ## Overview
 OPT_NULLS is an enumeration constant used in the PL/Tcl extension to identify the `-nulls` command line option in the `pltcl_SPI_execute_plan` function.

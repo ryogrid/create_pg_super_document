@@ -1,7 +1,7 @@
 # MemoryContextAllowInCriticalSection
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 694 - 706
+[src/backend/utils/mmgr/mcxt.c:694-706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L694-L706)
 
 ## Overview
 Controls whether memory allocations are allowed within critical sections for a specific memory context, providing exceptions to the normal prohibition.

@@ -1,7 +1,7 @@
 # find_simple
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 177 - 192
+[src/interfaces/ecpg/preproc/variable.c:177-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L177-L192)
 
 ## Overview
 Performs a linear search through the global variable list to find and return a variable by its exact name.

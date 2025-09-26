@@ -1,7 +1,7 @@
 # pg_pwrite_zeros
 
 ## Location
-src/common/file_utils.c: 687 - 728
+[src/common/file_utils.c:687-728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_utils.c#L687-L728)
 
 ## Overview
 Efficiently writes a specified amount of zero-filled data to a file at a given offset using vectored I/O operations.

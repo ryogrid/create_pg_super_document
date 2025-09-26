@@ -1,7 +1,7 @@
 # HeapTupleHeaderGetCmin
 
 ## Location
-src/backend/utils/time/combocid.c: 104 - 117
+[src/backend/utils/time/combocid.c:104-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/combocid.c#L104-L117)
 
 ## Overview
 Extracts the command ID (Cmin) from a heap tuple header, handling combo command IDs appropriately to return the actual minimum command ID within the current transaction.

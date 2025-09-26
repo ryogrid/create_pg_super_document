@@ -1,7 +1,7 @@
 # AfterTriggerPendingOnRel
 
 ## Location
-src/backend/commands/trigger.c: 6061 - 6147
+[src/backend/commands/trigger.c:6061-6147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L6061-L6147)
 
 ## Overview
 Tests whether there are any pending after-trigger events for a specified relation, used by DDL operations like TRUNCATE, CLUSTER, and ALTER TABLE to detect if major structural changes would be unsafe.

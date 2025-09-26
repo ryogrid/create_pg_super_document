@@ -1,7 +1,7 @@
 # dsm_impl_pin_segment
 
 ## Location
-src/backend/storage/ipc/dsm_impl.c: 963 - 1013
+[src/backend/storage/ipc/dsm_impl.c:963-1013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_impl.c#L963-L1013)
 
 ## Overview
 Performs implementation-specific actions to preserve a dynamic shared memory segment when no backend process has it attached, primarily for Windows platforms.

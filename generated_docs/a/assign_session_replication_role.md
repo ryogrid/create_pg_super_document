@@ -1,7 +1,7 @@
 # assign_session_replication_role
 
 ## Location
-src/backend/commands/trigger.c: 6666 - 6679
+[src/backend/commands/trigger.c:6666-6679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L6666-L6679)
 
 ## Overview
 A GUC assign hook function that manages plan cache invalidation when the session_replication_role configuration parameter changes, ensuring trigger behavior changes are properly reflected in cached execution plans.

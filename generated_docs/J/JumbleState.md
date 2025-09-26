@@ -1,7 +1,7 @@
 # JumbleState
 
 ## Location
-src/include/nodes/queryjumble.h: 32 - 51
+[src/include/nodes/queryjumble.h:32-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/queryjumble.h#L32-L51)
 
 ## Overview
 JumbleState is a working state structure used for computing query jumbles (fingerprints) and producing normalized query strings during PostgreSQL's query analysis and fingerprinting process.

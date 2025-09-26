@@ -1,7 +1,7 @@
 # initialize_peragg
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 2748 - 3020
+[src/backend/executor/nodeWindowAgg.c:2748-3020](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L2748-L3020)
 
 ## Overview
 initialize_peragg initializes per-aggregate execution state for window functions by setting up transition and final functions, memory contexts, and determining whether to use moving aggregates optimization.

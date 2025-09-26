@@ -1,7 +1,7 @@
 # ExpandedObjectMethods
 
 ## Location
-src/include/utils/expandeddatum.h: 74 - 78
+[src/include/utils/expandeddatum.h:74-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/expandeddatum.h#L74-L78)
 
 ## Overview
 A struct containing function pointers that define the required methods for managing expanded object types in PostgreSQL, specifically for converting between expanded and flattened representations.

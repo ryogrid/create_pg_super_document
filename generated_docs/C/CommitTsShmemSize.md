@@ -1,7 +1,7 @@
 # CommitTsShmemSize
 
 ## Location
-src/backend/access/transam/commit_ts.c: 519 - 529
+[src/backend/access/transam/commit_ts.c:519-529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L519-L529)
 
 ## Overview
 Calculates the total shared memory size required for the CommitTS (commit timestamp) subsystem, including both SLRU buffers and shared control structure.

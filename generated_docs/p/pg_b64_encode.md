@@ -1,7 +1,7 @@
 # pg_b64_encode
 
 ## Location
-src/common/base64.c: 49 - 115
+[src/common/base64.c:49-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/base64.c#L49-L115)
 
 ## Overview
 Encodes binary data into base64 format using the standard base64 character set without whitespace support.

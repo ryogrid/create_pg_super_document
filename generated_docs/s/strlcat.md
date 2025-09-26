@@ -1,7 +1,7 @@
 # strlcat
 
 ## Location
-src/port/strlcat.c: 33 - 60
+[src/port/strlcat.c:33-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/strlcat.c#L33-L60)
 
 ## Overview
 `strlcat` is a safe string concatenation function that appends the source string to the destination string while ensuring buffer bounds safety and null termination.

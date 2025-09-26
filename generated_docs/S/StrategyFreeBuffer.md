@@ -1,7 +1,7 @@
 # StrategyFreeBuffer
 
 ## Location
-src/backend/storage/buffer/freelist.c: 363 - 393
+[src/backend/storage/buffer/freelist.c:363-393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L363-L393)
 
 ## Overview
 StrategyFreeBuffer adds a buffer to the free list, making it available for immediate reuse by future buffer allocation requests.

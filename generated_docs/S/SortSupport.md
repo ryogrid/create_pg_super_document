@@ -1,7 +1,7 @@
 # SortSupport
 
 ## Location
-src/include/utils/sortsupport.h: 58 - 59
+[src/include/utils/sortsupport.h:58-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/sortsupport.h#L58-L59)
 
 ## Overview
 SortSupport is a typedef pointer to the SortSupportData structure that provides a framework for accelerated sorting in PostgreSQL with reduced overhead compared to traditional comparison function calls.

@@ -1,7 +1,7 @@
 # ResourceOwnerRememberWaitEventSet
 
 ## Location
-src/backend/storage/ipc/latch.c: 214 - 218
+[src/backend/storage/ipc/latch.c:214-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L214-L218)
 
 ## Overview
 A convenience wrapper function that registers a WaitEventSet with a ResourceOwner for automatic cleanup when the resource owner is released.

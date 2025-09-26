@@ -1,7 +1,7 @@
 # BarrierArriveAndDetachExceptLast
 
 ## Location
-src/backend/storage/ipc/barrier.c: 213 - 235
+[src/backend/storage/ipc/barrier.c:213-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/barrier.c#L213-L235)
 
 ## Overview
 Arrives at a barrier and detaches all but the last participant, implementing a "winner-takes-all" synchronization pattern where only one participant remains attached.

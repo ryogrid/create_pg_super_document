@@ -1,7 +1,7 @@
 # OpenTransientFile
 
 ## Location
-src/backend/storage/file/fd.c: 2630 - 2638
+[src/backend/storage/file/fd.c:2630-2638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2630-L2638)
 
 ## Overview
 OpenTransientFile is a convenience wrapper that opens a file with default permissions using PostgreSQL's transient file management system.

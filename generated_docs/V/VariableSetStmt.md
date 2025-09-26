@@ -1,7 +1,7 @@
 # VariableSetStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2618 - 2625
+[src/include/nodes/parsenodes.h:2618-2625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2618-L2625)
 
 ## Overview
 VariableSetStmt is a parse tree node structure that represents SQL SET and RESET statements for modifying PostgreSQL configuration parameters and session variables.

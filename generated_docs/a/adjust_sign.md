@@ -1,7 +1,7 @@
 # adjust_sign
 
 ## Location
-src/port/snprintf.c: 1464 - 1477
+[src/port/snprintf.c:1464-1477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1464-L1477)
 
 ## Overview
 Determines the sign character for numeric formatting and sets the appropriate sign value based on whether the number is negative or if a positive sign is forced.

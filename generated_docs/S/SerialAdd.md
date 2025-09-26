@@ -1,7 +1,7 @@
 # SerialAdd
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 858 - 948
+[src/backend/storage/lmgr/predicate.c:858-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L858-L948)
 
 ## Overview
 Records a committed read-write serializable transaction ID and its minimum conflict commit sequence number in the pg_serial SLRU system.

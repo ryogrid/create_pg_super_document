@@ -1,7 +1,7 @@
 # DropTableSpaceStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2789 - 2794
+[src/include/nodes/parsenodes.h:2789-2794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2789-L2794)
 
 ## Overview
 DropTableSpaceStmt is a parse tree node structure that represents a DROP TABLESPACE statement, used to remove an existing tablespace from the PostgreSQL database system.

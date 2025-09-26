@@ -1,7 +1,7 @@
 # NormalTransactionIdOlder
 
 ## Location
-src/include/access/transam.h: 349 - 359
+[src/include/access/transam.h:349-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/transam.h#L349-L359)
 
 ## Overview
 Returns the chronologically older of two normal transaction IDs, optimized for cases where both IDs are guaranteed to be normal (non-special) transaction IDs.

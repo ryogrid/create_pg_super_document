@@ -1,7 +1,7 @@
 # leader_takeover_tapes
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 3107 - 3165
+[src/backend/utils/sort/tuplesort.c:3107-3165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L3107-L3165)
 
 ## Overview
 Creates a tapeset for the leader process from worker tapes in parallel tuplesort operations, allowing the leader to take over sorting operations after all workers have completed.

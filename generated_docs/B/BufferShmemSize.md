@@ -1,7 +1,7 @@
 # BufferShmemSize
 
 ## Location
-src/backend/storage/buffer/buf_init.c: 160 - 186
+[src/backend/storage/buffer/buf_init.c:160-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/buf_init.c#L160-L186)
 
 ## Overview
 BufferShmemSize calculates the total amount of shared memory required for PostgreSQL's buffer pool, including buffer descriptors, data pages, condition variables, and related structures.

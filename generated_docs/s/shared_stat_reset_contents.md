@@ -1,7 +1,7 @@
 # shared_stat_reset_contents
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 993 - 1008
+[src/backend/utils/activity/pgstat_shmem.c:993-1008](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L993-L1008)
 
 ## Overview
 This static helper function resets the contents of a statistics entry to zero and optionally updates its reset timestamp.

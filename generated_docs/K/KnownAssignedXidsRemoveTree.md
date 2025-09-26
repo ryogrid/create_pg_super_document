@@ -1,7 +1,7 @@
 # KnownAssignedXidsRemoveTree
 
 ## Location
-src/backend/storage/ipc/procarray.c: 5012 - 5033
+[src/backend/storage/ipc/procarray.c:5012-5033](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L5012-L5033)
 
 ## Overview
 Removes a main transaction ID and all its associated subtransaction IDs from the KnownAssignedXids array in a single operation.

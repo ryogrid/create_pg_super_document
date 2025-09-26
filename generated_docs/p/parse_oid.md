@@ -1,7 +1,7 @@
 # parse_oid
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 789 - 822
+[src/bin/pg_combinebackup/pg_combinebackup.c:789-822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L789-L822)
 
 ## Overview
 Parses a string representation of an Object Identifier (OID) with validation to ensure it represents a valid non-zero OID value.

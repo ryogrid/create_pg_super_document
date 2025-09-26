@@ -1,7 +1,7 @@
 # Sort
 
 ## Location
-src/include/nodes/plannodes.h: 931 - 949
+[src/include/nodes/plannodes.h:931-949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L931-L949)
 
 ## Overview
 Sort is a plan node structure that represents sorting operations in PostgreSQL's query execution tree, responsible for ordering tuples according to specified sort keys and criteria.

@@ -1,7 +1,7 @@
 # Trigger
 
 ## Location
-src/include/utils/reltrigger.h: 23 - 45
+[src/include/utils/reltrigger.h:23-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/reltrigger.h#L23-L45)
 
 ## Overview
 The Trigger struct represents a database trigger definition containing metadata and configuration information for trigger functions that execute in response to specific database events.

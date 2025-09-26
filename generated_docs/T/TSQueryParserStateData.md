@@ -1,7 +1,7 @@
 # TSQueryParserStateData
 
 ## Location
-src/backend/utils/adt/tsquery.c: 78 - 113
+[src/backend/utils/adt/tsquery.c:78-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L78-L113)
 
 ## Overview
 TSQueryParserStateData is a comprehensive parser state structure that maintains all necessary information during tsquery parsing operations, including tokenization state, operator management, and error handling context.

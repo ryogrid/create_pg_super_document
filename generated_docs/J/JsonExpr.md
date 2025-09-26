@@ -1,7 +1,7 @@
 # JsonExpr
 
 ## Location
-src/include/nodes/primnodes.h: 1813 - 1860
+[src/include/nodes/primnodes.h:1813-1860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1813-L1860)
 
 ## Overview
 JsonExpr represents the transformed representation of JSON_VALUE(), JSON_QUERY(), and JSON_EXISTS() functions in PostgreSQL's execution tree.

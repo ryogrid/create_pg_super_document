@@ -1,7 +1,7 @@
 # ExecFilterJunk
 
 ## Location
-src/backend/executor/execJunk.c: 247 - 304
+[src/backend/executor/execJunk.c:247-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execJunk.c#L247-L304)
 
 ## Overview
 Constructs and returns a "clean" tuple slot with all junk attributes removed from the input tuple, using the mapping information stored in the JunkFilter to transpose only the non-junk attributes.

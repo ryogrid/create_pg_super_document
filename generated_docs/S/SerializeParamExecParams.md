@@ -1,7 +1,7 @@
 # SerializeParamExecParams
 
 ## Location
-src/backend/executor/execParallel.c: 354 - 408
+[src/backend/executor/execParallel.c:354-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L354-L408)
 
 ## Overview
 Serializes specified PARAM_EXEC parameters into shared memory for transmission to parallel worker processes in PostgreSQL's parallel query execution.

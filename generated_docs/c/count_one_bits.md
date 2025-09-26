@@ -1,7 +1,7 @@
 # count_one_bits
 
 ## Location
-src/backend/utils/adt/acl.c: 5321 - 5360
+[src/backend/utils/adt/acl.c:5321-5360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5321-L5360)
 
 ## Overview
 A utility function that counts the number of set bits (1s) in an AclMode bitmask, used for analyzing access control permissions.

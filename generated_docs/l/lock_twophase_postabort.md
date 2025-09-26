@@ -1,7 +1,7 @@
 # lock_twophase_postabort
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4413 - 4436
+[src/backend/storage/lmgr/lock.c:4413-4436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4413-L4436)
 
 ## Overview
 A two-phase commit processing routine that handles lock cleanup during the ROLLBACK PREPARED phase of a prepared transaction.

@@ -1,7 +1,7 @@
 # GetActiveSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 770 - 781
+[src/backend/utils/time/snapmgr.c:770-781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L770-L781)
 
 ## Overview
 Returns a pointer to the topmost snapshot in the active snapshot stack.

@@ -1,7 +1,7 @@
 # PredicateLockData
 
 ## Location
-src/include/storage/predicate_internals.h: 375 - 380
+[src/include/storage/predicate_internals.h:375-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L375-L380)
 
 ## Overview
 PredicateLockData is a structure used to capture a snapshot of all predicate locks for reporting purposes, primarily serving the pg_locks view and related status functions.

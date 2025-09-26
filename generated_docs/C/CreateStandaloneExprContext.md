@@ -1,7 +1,7 @@
 # CreateStandaloneExprContext
 
 ## Location
-src/backend/executor/execUtils.c: 355 - 413
+[src/backend/executor/execUtils.c:355-413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L355-L413)
 
 ## Overview
 Creates a standalone ExprContext for expression evaluation that operates independently of an executor state, suitable for evaluating expressions without Params, subplans, or Var references.

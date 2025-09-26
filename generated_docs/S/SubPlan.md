@@ -1,7 +1,7 @@
 # SubPlan
 
 ## Location
-src/include/nodes/primnodes.h: 1059 - 1095
+[src/include/nodes/primnodes.h:1059-1095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1059-L1095)
 
 ## Overview
 SubPlan represents an executable expression node for a subplan (sub-SELECT) that replaces SubLink nodes in expression trees after the planner has finished planning the subquery.

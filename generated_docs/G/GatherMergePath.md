@@ -1,7 +1,7 @@
 # GatherMergePath
 
 ## Location
-src/include/nodes/pathnodes.h: 2053 - 2058
+[src/include/nodes/pathnodes.h:2053-2058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2053-L2058)
 
 ## Overview
 GatherMergePath represents a path node for parallel query execution that runs multiple copies of a plan in parallel and collects the results while preserving their common sort order.

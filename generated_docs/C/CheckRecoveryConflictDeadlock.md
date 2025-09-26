@@ -1,7 +1,7 @@
 # CheckRecoveryConflictDeadlock
 
 ## Location
-src/backend/storage/ipc/standby.c: 904 - 934
+[src/backend/storage/ipc/standby.c:904-934](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L904-L934)
 
 ## Overview
 Performs early deadlock detection in Hot Standby by checking if the current process is about to sleep while holding buffer pins that the startup process needs.

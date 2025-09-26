@@ -1,7 +1,7 @@
 # PQftablecol
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3697 - 3707
+[src/interfaces/libpq/fe-exec.c:3697-3707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3697-L3707)
 
 ## Overview
 Returns the column number of the source table column that corresponds to the given field in a query result.

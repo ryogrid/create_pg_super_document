@@ -1,7 +1,7 @@
 # gistGetNodeBuffer
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 113 - 180
+[src/backend/access/gist/gistbuildbuffers.c:113-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L113-L180)
 
 ## Overview
 gistGetNodeBuffer retrieves or creates a node buffer for a specific block number during GiST index construction, managing the association between index blocks and their corresponding buffers.

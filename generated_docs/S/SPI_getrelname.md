@@ -1,7 +1,7 @@
 # SPI_getrelname
 
 ## Location
-src/backend/executor/spi.c: 1326 - 1331
+[src/backend/executor/spi.c:1326-1331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1326-L1331)
 
 ## Overview
 Retrieves the relation name from a Relation structure as a dynamically allocated string.

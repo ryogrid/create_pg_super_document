@@ -1,7 +1,7 @@
 # PQenterPipelineMode
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3042 - 3072
+[src/interfaces/libpq/fe-exec.c:3042-3072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3042-L3072)
 
 ## Overview
 PQenterPipelineMode puts an idle PostgreSQL connection into pipeline mode, enabling multiple commands to be queued and sent without waiting for individual command completion, improving performance for batch operations.

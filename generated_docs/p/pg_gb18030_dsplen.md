@@ -1,7 +1,7 @@
 # pg_gb18030_dsplen
 
 ## Location
-src/common/wchar.c: 1029 - 1062
+[src/common/wchar.c:1029-1062](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1029-L1062)
 
 ## Overview
 Returns the display length (width) of a GB18030-encoded character for proper terminal display formatting and text alignment.

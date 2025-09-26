@@ -1,7 +1,7 @@
 # restore_truncdrop_counters
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 978 - 986
+[src/backend/utils/activity/pgstat_relation.c:978-986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L978-L986)
 
 ## Overview
 Restores previously saved insert/update/delete counter values when a transaction containing truncate or drop operations is rolled back, ensuring statistics consistency.

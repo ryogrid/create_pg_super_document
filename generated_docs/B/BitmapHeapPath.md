@@ -1,7 +1,7 @@
 # BitmapHeapPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1784 - 1788
+[src/include/nodes/pathnodes.h:1784-1788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1784-L1788)
 
 ## Overview
 BitmapHeapPath represents a query execution path that uses one or more index scans to generate TID bitmaps, combines them with AND/OR operations, and then performs a heap scan using the resulting bitmap.

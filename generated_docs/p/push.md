@@ -1,7 +1,7 @@
 # push
 
 ## Location
-src/backend/regex/regc_nfa.c: 1891 - 1986
+[src/backend/regex/regc_nfa.c:1891-1986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1891-L1986)
 
 ## Overview
 Pushes a forward constraint forward past its destination state in the PostgreSQL regex NFA (Non-deterministic Finite Automaton) implementation.

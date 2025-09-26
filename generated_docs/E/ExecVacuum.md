@@ -1,7 +1,7 @@
 # ExecVacuum
 
 ## Location
-src/backend/commands/vacuum.c: 148 - 478
+[src/backend/commands/vacuum.c:148-478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L148-L478)
 
 ## Overview
 Primary entry point for manual VACUUM and ANALYZE commands, serving as a preparation wrapper that parses options and delegates to the vacuum() function.

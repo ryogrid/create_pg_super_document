@@ -1,7 +1,7 @@
 # xl_smgr_truncate
 
 ## Location
-src/include/catalog/storage_xlog.h: 46 - 51
+[src/include/catalog/storage_xlog.h:46-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/storage_xlog.h#L46-L51)
 
 ## Overview
 A WAL record structure that represents the truncation of a storage manager file in PostgreSQL's Write-Ahead Logging (WAL) system.

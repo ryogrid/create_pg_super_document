@@ -1,7 +1,7 @@
 # isconstraintarc
 
 ## Location
-src/backend/regex/regc_nfa.c: 2331 - 2348
+[src/backend/regex/regc_nfa.c:2331-2348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L2331-L2348)
 
 ## Overview
 Determines whether an arc represents a constraint type (assertion) rather than a character-matching transition in PostgreSQL's regex NFA.

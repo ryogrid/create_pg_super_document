@@ -1,7 +1,7 @@
 # CreateDomainStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3156 - 3163
+[src/include/nodes/parsenodes.h:3156-3163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3156-L3163)
 
 ## Overview
 CreateDomainStmt represents a CREATE DOMAIN statement in PostgreSQL parse tree, used to define a new domain type based on an existing data type with optional constraints.

@@ -1,7 +1,7 @@
 # get_float8_nan
 
 ## Location
-src/interfaces/ecpg/ecpglib/data.c: 90 - 100
+[src/interfaces/ecpg/ecpglib/data.c:90-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/data.c#L90-L100)
 
 ## Overview
 A utility function that returns the IEEE 754 representation of "Not a Number" (NaN) as a double-precision floating-point value, with platform-specific workarounds for NetBSD/MIPS compatibility issues.

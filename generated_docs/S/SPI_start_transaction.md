@@ -1,7 +1,7 @@
 # SPI_start_transaction
 
 ## Location
-src/backend/executor/spi.c: 222 - 226
+[src/backend/executor/spi.c:222-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L222-L226)
 
 ## Overview
 SPI_start_transaction is a deprecated no-op function maintained for backwards compatibility, as SPI callers are always already within a transaction context.

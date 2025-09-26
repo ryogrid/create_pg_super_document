@@ -1,7 +1,7 @@
 # GetNamedDSMSegment
 
 ## Location
-src/backend/storage/ipc/dsm_registry.c: 131 - 200
+[src/backend/storage/ipc/dsm_registry.c:131-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_registry.c#L131-L200)
 
 ## Overview
 GetNamedDSMSegment creates or attaches to a named dynamic shared memory segment, providing a persistent, named interface for accessing shared memory across PostgreSQL processes.

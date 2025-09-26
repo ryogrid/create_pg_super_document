@@ -1,7 +1,7 @@
 # TriggerData
 
 ## Location
-src/include/commands/trigger.h: 31 - 44
+[src/include/commands/trigger.h:31-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/trigger.h#L31-L44)
 
 ## Overview
 TriggerData is a structure that encapsulates all the context information needed when executing a trigger function, including the triggering event details, affected tuples, and transition tables.

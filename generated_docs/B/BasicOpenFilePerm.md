@@ -1,7 +1,7 @@
 # BasicOpenFilePerm
 
 ## Location
-src/backend/storage/file/fd.c: 1106 - 1182
+[src/backend/storage/file/fd.c:1106-1182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1106-L1182)
 
 ## Overview
 A robust file opening function that acts as a safe replacement for the standard open() system call, with automatic file descriptor recovery and platform-specific direct I/O handling.

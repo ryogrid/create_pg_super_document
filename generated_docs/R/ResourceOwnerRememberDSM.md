@@ -1,7 +1,7 @@
 # ResourceOwnerRememberDSM
 
 ## Location
-src/backend/storage/ipc/dsm.c: 160 - 164
+[src/backend/storage/ipc/dsm.c:160-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L160-L164)
 
 ## Overview
 A convenience wrapper function that registers a DSM (Dynamic Shared Memory) segment with a resource owner for automatic cleanup on transaction abort or process exit.

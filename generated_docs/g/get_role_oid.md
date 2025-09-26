@@ -1,7 +1,7 @@
 # get_role_oid
 
 ## Location
-src/backend/utils/adt/acl.c: 5437 - 5454
+[src/backend/utils/adt/acl.c:5437-5454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5437-L5454)
 
 ## Overview
 Looks up a role's OID given its name, with optional error handling for missing roles.

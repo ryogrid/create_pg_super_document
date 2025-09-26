@@ -1,7 +1,7 @@
 # ArrayCoerceExpr
 
 ## Location
-src/include/nodes/primnodes.h: 1230 - 1243
+[src/include/nodes/primnodes.h:1230-1243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1230-L1243)
 
 ## Overview
 ArrayCoerceExpr represents a type coercion from one array type to another, implemented by applying per-element coercion to each array element using a specified element expression.

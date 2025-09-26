@@ -1,7 +1,7 @@
 # generate_qualified_relation_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12883 - 12926
+[src/backend/utils/adt/ruleutils.c:12883-12926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12883-L12926)
 
 ## Overview
 Computes the fully schema-qualified name to display for a relation specified by OID, always including the schema prefix regardless of search path visibility.

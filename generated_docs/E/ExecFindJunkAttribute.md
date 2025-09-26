@@ -1,7 +1,7 @@
 # ExecFindJunkAttribute
 
 ## Location
-src/backend/executor/execJunk.c: 210 - 221
+[src/backend/executor/execJunk.c:210-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execJunk.c#L210-L221)
 
 ## Overview
 Locates a specified junk attribute by name within a JunkFilter's target list and returns its result number, serving as a convenient wrapper around ExecFindJunkAttributeInTlist.

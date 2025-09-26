@@ -1,7 +1,7 @@
 # SharedInvalSnapshotMsg
 
 ## Location
-src/include/storage/sinval.h: 111 - 121
+[src/include/storage/sinval.h:111-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/sinval.h#L111-L121)
 
 ## Overview
 SharedInvalSnapshotMsg is a structure that represents a shared invalidation message for snapshots, used to invalidate snapshot-related cache entries across PostgreSQL processes when certain database objects are modified.

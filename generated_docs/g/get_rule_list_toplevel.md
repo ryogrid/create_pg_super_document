@@ -1,7 +1,7 @@
 # get_rule_list_toplevel
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10343 - 10372
+[src/backend/utils/adt/ruleutils.c:10343-10372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10343-L10372)
 
 ## Overview
 Applies get_rule_expr_toplevel() to each element of a list, formatting them as comma-separated expressions.

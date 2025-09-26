@@ -1,7 +1,7 @@
 # SlotSyncCtxStruct
 
 ## Location
-src/backend/replication/logical/slotsync.c: 97 - 104
+[src/backend/replication/logical/slotsync.c:97-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L97-L104)
 
 ## Overview
 SlotSyncCtxStruct is a shared memory structure that controls slot synchronization between the slot sync worker process and other PostgreSQL processes, particularly during standby server promotion scenarios.

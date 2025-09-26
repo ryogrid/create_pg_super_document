@@ -1,7 +1,7 @@
 # plan_member_revoke
 
 ## Location
-src/backend/commands/user.c: 2389 - 2412
+[src/backend/commands/user.c:2389-2412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L2389-L2412)
 
 ## Overview
 Plans the revocation of all role grants for a specific member, handling dependent privileges by cascading the revocation to all related grants.

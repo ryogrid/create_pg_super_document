@@ -1,7 +1,7 @@
 # get_partition_col_typid
 
 ## Location
-src/include/utils/partcache.h: 86 - 91
+[src/include/utils/partcache.h:86-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/partcache.h#L86-L91)
 
 ## Overview
 Returns the data type OID for a specific partition key column in a partitioned table.

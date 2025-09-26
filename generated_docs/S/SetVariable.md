@@ -1,7 +1,7 @@
 # SetVariable
 
 ## Location
-src/bin/psql/variables.c: 211 - 313
+[src/bin/psql/variables.c:211-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L211-L313)
 
 ## Overview
 Sets the value of a named variable in a VariableSpace, creates a new variable if it doesn't exist, or deletes it if the value is NULL.

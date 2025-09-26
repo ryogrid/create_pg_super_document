@@ -1,7 +1,7 @@
 # tzhead
 
 ## Location
-src/timezone/tzfile.h: 39 - 99
+[src/timezone/tzfile.h:39-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/tzfile.h#L39-L99)
 
 ## Overview
 The tzhead structure represents the header portion of TZif (time zone information) files, containing metadata about timezone data format and counts for various timezone components.

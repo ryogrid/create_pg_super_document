@@ -1,7 +1,7 @@
 # transformMergeSupportFunc
 
 ## Location
-src/backend/parser/parse_expr.c: 1378 - 1402
+[src/backend/parser/parse_expr.c:1378-1402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L1378-L1402)
 
 ## Overview
 Validates that MergeSupportFunc nodes (MERGE_ACTION() expressions) are only used in appropriate contexts and returns them unchanged if valid.

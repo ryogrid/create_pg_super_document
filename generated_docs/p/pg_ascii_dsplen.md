@@ -1,7 +1,7 @@
 # pg_ascii_dsplen
 
 ## Location
-src/common/wchar.c: 91 - 104
+[src/common/wchar.c:91-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L91-L104)
 
 ## Overview
 Returns the display width of an ASCII character, handling special cases for null terminators and control characters according to Unicode display standards.

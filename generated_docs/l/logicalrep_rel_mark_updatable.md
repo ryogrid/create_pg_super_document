@@ -1,7 +1,7 @@
 # logicalrep_rel_mark_updatable
 
 ## Location
-src/backend/replication/logical/relation.c: 274 - 326
+[src/backend/replication/logical/relation.c:274-326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L274-L326)
 
 ## Overview
 Checks if replica identity matches between local and remote relations and marks the relation entry as updatable or not based on the compatibility of replica identity keys.

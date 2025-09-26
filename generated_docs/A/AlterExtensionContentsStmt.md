@@ -1,7 +1,7 @@
 # AlterExtensionContentsStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2835 - 2842
+[src/include/nodes/parsenodes.h:2835-2842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2835-L2842)
 
 ## Overview
 AlterExtensionContentsStmt represents the parsed structure for an ALTER EXTENSION ADD/DROP statement, used to dynamically add or remove database objects from an extension's membership.

@@ -1,7 +1,7 @@
 # namerecv
 
 ## Location
-src/backend/utils/adt/name.c: 82 - 105
+[src/backend/utils/adt/name.c:82-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L82-L105)
 
 ## Overview
 The  function converts external binary format data to PostgreSQL's internal Name data type, used for receiving Name values through the binary protocol.

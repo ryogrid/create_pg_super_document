@@ -1,7 +1,7 @@
 # EphemeralNamedRelationMetadataData
 
 ## Location
-src/include/utils/queryenvironment.h: 32 - 42
+[src/include/utils/queryenvironment.h:32-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/queryenvironment.h#L32-L42)
 
 ## Overview
 EphemeralNamedRelationMetadataData is a structure that holds metadata for ephemeral named relations (ENRs) in PostgreSQL, which are temporary relations used for features like trigger transition tables that exist only during query execution.

@@ -1,7 +1,7 @@
 # CopyToState
 
 ## Location
-src/include/commands/copy.h: 91 - 127
+[src/include/commands/copy.h:91-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/copy.h#L91-L127)
 
 ## Overview
 CopyToState is a typedef for CopyToStateData pointer, representing the state structure used throughout PostgreSQL's COPY TO operations for bulk data export.

@@ -1,7 +1,7 @@
 # add_indent
 
 ## Location
-src/backend/utils/adt/jsonb.c: 615 - 637
+[src/backend/utils/adt/jsonb.c:615-637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L615-L637)
 
 ## Overview
 A utility function that adds indentation formatting to a StringInfo buffer when pretty-printing JSON output.

@@ -1,7 +1,7 @@
 # dsm_cleanup_for_mmap
 
 ## Location
-src/backend/storage/ipc/dsm.c: 320 - 357
+[src/backend/storage/ipc/dsm.c:320-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L320-L357)
 
 ## Overview
 Cleans up leftover memory-mapped files from previous PostgreSQL invocations by scanning and removing all mmap-based DSM segment files from the dynamic shared memory directory.

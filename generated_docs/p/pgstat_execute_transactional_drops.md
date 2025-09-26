@@ -1,7 +1,7 @@
 # pgstat_execute_transactional_drops
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 312 - 331
+[src/backend/utils/activity/pgstat_xact.c:312-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L312-L331)
 
 ## Overview
 Executes scheduled statistics drops after transaction commit or abort, handling both recovery scenarios and normal two-phase commit processing.

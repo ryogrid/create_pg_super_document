@@ -1,7 +1,7 @@
 # RemovePgTempRelationFiles
 
 ## Location
-src/backend/storage/file/fd.c: 3390 - 3417
+[src/backend/storage/file/fd.c:3390-3417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3390-L3417)
 
 ## Overview
 Processes one tablespace directory to find and clean up temporary relation files in per-database subdirectories.

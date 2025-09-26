@@ -1,7 +1,7 @@
 # RegisNode
 
 ## Location
-src/include/tsearch/dicts/regis.h: 17 - 25
+[src/include/tsearch/dicts/regis.h:17-25](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/dicts/regis.h#L17-L25)
 
 ## Overview
 RegisNode is a compact data structure that represents a node in a fast regular expression subset engine used by the ISpell dictionary implementation in PostgreSQL's text search functionality.

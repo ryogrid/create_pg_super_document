@@ -1,7 +1,7 @@
 # PathNameOpenTemporaryFile
 
 ## Location
-src/backend/storage/file/fd.c: 1898 - 1928
+[src/backend/storage/file/fd.c:1898-1928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1898-L1928)
 
 ## Overview
 PathNameOpenTemporaryFile opens an existing temporary file that was previously created, typically by another backend process.

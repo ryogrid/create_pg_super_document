@@ -1,7 +1,7 @@
 # double_to_bits
 
 ## Location
-src/common/ryu_common.h: 125 - 133
+[src/common/ryu_common.h:125-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ryu_common.h#L125-L133)
 
 ## Overview
 Extracts the IEEE 754 binary representation of a double-precision floating-point number as a 64-bit unsigned integer for bit-level manipulation in the Ryu floating-point output algorithm.

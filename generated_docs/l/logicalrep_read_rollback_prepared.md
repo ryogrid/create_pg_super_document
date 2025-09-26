@@ -1,7 +1,7 @@
 # logicalrep_read_rollback_prepared
 
 ## Location
-src/backend/replication/logical/proto.c: 336 - 363
+[src/backend/replication/logical/proto.c:336-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L336-L363)
 
 ## Overview
 Reads a ROLLBACK PREPARED message from the logical replication stream and populates the provided LogicalRepRollbackPreparedTxnData structure with the rollback information.

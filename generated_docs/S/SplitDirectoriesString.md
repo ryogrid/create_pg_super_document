@@ -1,7 +1,7 @@
 # SplitDirectoriesString
 
 ## Location
-src/backend/utils/adt/varlena.c: 3584 - 3704
+[src/backend/utils/adt/varlena.c:3584-3704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3584-L3704)
 
 ## Overview
 Parses a string containing file/directory paths separated by a delimiter, handling pathname-specific parsing rules including path canonicalization and embedded spaces.

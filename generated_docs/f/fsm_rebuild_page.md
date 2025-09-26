@@ -1,7 +1,7 @@
 # fsm_rebuild_page
 
 ## Location
-src/backend/storage/freespace/fsmpage.c: 342 - 374
+[src/backend/storage/freespace/fsmpage.c:342-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/fsmpage.c#L342-L374)
 
 ## Overview
 Reconstructs the upper levels of a Free Space Map (FSM) page by recalculating non-leaf node values based on their children to maintain the FSM tree structure integrity.

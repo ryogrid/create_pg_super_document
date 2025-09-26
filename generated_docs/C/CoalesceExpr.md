@@ -1,7 +1,7 @@
 # CoalesceExpr
 
 ## Location
-src/include/nodes/primnodes.h: 1484 - 1495
+[src/include/nodes/primnodes.h:1484-1495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1484-L1495)
 
 ## Overview
 CoalesceExpr represents a COALESCE expression in PostgreSQL's expression tree, which returns the first non-null value from a list of expressions.

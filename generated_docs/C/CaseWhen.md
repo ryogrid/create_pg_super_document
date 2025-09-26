@@ -1,7 +1,7 @@
 # CaseWhen
 
 ## Location
-src/include/nodes/primnodes.h: 1322 - 1328
+[src/include/nodes/primnodes.h:1322-1328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1322-L1328)
 
 ## Overview
 CaseWhen represents one arm of a CASE expression in PostgreSQL's expression tree, containing a condition and its corresponding result value.

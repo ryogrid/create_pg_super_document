@@ -1,7 +1,7 @@
 # tbm_comparator
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1424 - 1437
+[src/backend/nodes/tidbitmap.c:1424-1437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1424-L1437)
 
 ## Overview
 A qsort-compatible comparator function that sorts PagetableEntry pointers by their block numbers in ascending order.

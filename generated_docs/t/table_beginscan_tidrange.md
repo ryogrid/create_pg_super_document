@@ -1,7 +1,7 @@
 # table_beginscan_tidrange
 
 ## Location
-src/include/access/tableam.h: 1085 - 1105
+[src/include/access/tableam.h:1085-1105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1085-L1105)
 
 ## Overview
 Entry point for setting up a TableScanDesc for a TID range scan, allowing scanning of tuples within a specified range of tuple identifiers.

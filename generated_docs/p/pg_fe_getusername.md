@@ -1,7 +1,7 @@
 # pg_fe_getusername
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 1169 - 1213
+[src/interfaces/libpq/fe-auth.c:1169-1213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L1169-L1213)
 
 ## Overview
 Retrieves the username associated with a specified user ID, providing cross-platform user name resolution for PostgreSQL client authentication.

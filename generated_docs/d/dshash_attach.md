@@ -1,7 +1,7 @@
 # dshash_attach
 
 ## Location
-src/backend/lib/dshash.c: 270 - 306
+[src/backend/lib/dshash.c:270-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L270-L306)
 
 ## Overview
 Attaches to an existing dynamic shared hash table using a handle, creating a backend-local representation for accessing the shared hash table data.

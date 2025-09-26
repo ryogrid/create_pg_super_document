@@ -1,7 +1,7 @@
 # JsonPath
 
 ## Location
-src/include/utils/jsonpath.h: 28 - 29
+[src/include/utils/jsonpath.h:28-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/jsonpath.h#L28-L29)
 
 ## Overview
 JsonPath is a struct that represents the PostgreSQL jsonpath datatype in binary format, used for querying and navigating JSON data structures using JSONPath expressions.

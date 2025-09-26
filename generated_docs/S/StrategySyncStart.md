@@ -1,7 +1,7 @@
 # StrategySyncStart
 
 ## Location
-src/backend/storage/buffer/freelist.c: 394 - 430
+[src/backend/storage/buffer/freelist.c:394-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L394-L430)
 
 ## Overview
 StrategySyncStart provides the background buffer synchronization process (bgwriter) with the optimal starting point for buffer synchronization, along with statistics about buffer allocation activity.

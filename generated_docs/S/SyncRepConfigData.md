@@ -1,7 +1,7 @@
 # SyncRepConfigData
 
 ## Location
-src/include/replication/syncrep.h: 63 - 72
+[src/include/replication/syncrep.h:63-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/syncrep.h#L63-L72)
 
 ## Overview
 SyncRepConfigData is a struct that holds the configuration data for PostgreSQL synchronous replication, storing the parsed representation of the synchronous_standby_names GUC parameter.

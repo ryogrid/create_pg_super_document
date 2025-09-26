@@ -1,7 +1,7 @@
 # BufferSync
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2901 - 3176
+[src/backend/storage/buffer/bufmgr.c:2901-3176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2901-L3176)
 
 ## Overview
 BufferSync writes out all dirty buffers in the shared buffer pool to disk, implementing the core checkpoint buffer synchronization with load balancing across tablespaces.

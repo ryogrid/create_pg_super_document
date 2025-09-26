@@ -1,7 +1,7 @@
 # ExecHashSkewTableInsert
 
 ## Location
-src/backend/executor/nodeHash.c: 2581 - 2626
+[src/backend/executor/nodeHash.c:2581-2626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2581-L2626)
 
 ## Overview
 Inserts a tuple into a skew hashtable bucket, managing memory allocation and space limits while maintaining the skew bucket's linked list structure.

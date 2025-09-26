@@ -1,7 +1,7 @@
 # LOCALPREDICATELOCK
 
 ## Location
-src/include/storage/predicate_internals.h: 347 - 355
+[src/include/storage/predicate_internals.h:347-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L347-L355)
 
 ## Overview
 LOCALPREDICATELOCK represents a local optimization copy of predicate lock data, maintained per-transaction for fast access without acquiring shared memory locks.

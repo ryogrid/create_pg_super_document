@@ -1,7 +1,7 @@
 # inexpires
 
 ## Location
-src/timezone/zic.c: 1787 - 1797
+[src/timezone/zic.c:1787-1797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1787-L1797)
 
 ## Overview
 Processes leap second expiration information from timezone database files, setting when leap second data becomes invalid.

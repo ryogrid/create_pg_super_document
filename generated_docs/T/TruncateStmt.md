@@ -1,7 +1,7 @@
 # TruncateStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3240 - 3246
+[src/include/nodes/parsenodes.h:3240-3246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3240-L3246)
 
 ## Overview
 TruncateStmt represents a TRUNCATE TABLE statement in the PostgreSQL parser, providing efficient removal of all rows from one or more tables.

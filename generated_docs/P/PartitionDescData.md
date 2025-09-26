@@ -1,7 +1,7 @@
 # PartitionDescData
 
 ## Location
-src/include/partitioning/partdesc.h: 29 - 64
+[src/include/partitioning/partdesc.h:29-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/partitioning/partdesc.h#L29-L64)
 
 ## Overview
 PartitionDescData is a struct that contains comprehensive information about partitions of a partitioned table, including metadata about partition OIDs, bounds, leaf status, and caching fields to optimize partition lookup operations.

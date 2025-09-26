@@ -1,7 +1,7 @@
 # SetQueryCompletion
 
 ## Location
-src/include/tcop/cmdtag.h: 37 - 44
+[src/include/tcop/cmdtag.h:37-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tcop/cmdtag.h#L37-L44)
 
 ## Overview
 A static inline function that initializes a QueryCompletion structure with a command tag and the number of rows processed.

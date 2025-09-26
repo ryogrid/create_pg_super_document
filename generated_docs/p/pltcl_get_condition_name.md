@@ -1,7 +1,7 @@
 # pltcl_get_condition_name
 
 ## Location
-src/pl/tcl/pltcl.c: 1991 - 2008
+[src/pl/tcl/pltcl.c:1991-2008](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L1991-L2008)
 
 ## Overview
 Maps PostgreSQL SQLSTATE error codes to human-readable condition names for PL/Tcl error handling.

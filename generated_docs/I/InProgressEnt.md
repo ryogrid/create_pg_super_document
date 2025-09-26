@@ -1,7 +1,7 @@
 # InProgressEnt
 
 ## Location
-src/backend/utils/cache/relcache.c: 168 - 183
+[src/backend/utils/cache/relcache.c:168-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L168-L183)
 
 ## Overview
 InProgressEnt is a structure that tracks ongoing RelationBuildDesc() operations, ensuring proper handling of relation cache invalidation during concurrent CREATE INDEX operations.

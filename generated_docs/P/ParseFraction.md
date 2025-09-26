@@ -1,7 +1,7 @@
 # ParseFraction
 
 ## Location
-src/backend/utils/adt/datetime.c: 680 - 708
+[src/backend/utils/adt/datetime.c:680-708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L680-L708)
 
 ## Overview
 Parses the fractional part of a number (decimal point and optional digits) and converts it to a double value, handling edge cases like standalone decimal points.

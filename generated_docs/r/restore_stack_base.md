@@ -1,7 +1,7 @@
 # restore_stack_base
 
 ## Location
-src/backend/tcop/postgres.c: 3541 - 3557
+[src/backend/tcop/postgres.c:3541-3557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3541-L3557)
 
 ## Overview
 restore_stack_base restores a previously saved stack depth checking reference point, primarily used for multi-threaded environments like PL/Java where different threads have different stack locations.

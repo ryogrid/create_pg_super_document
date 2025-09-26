@@ -1,7 +1,7 @@
 # CLOGShmemBuffers
 
 ## Location
-src/backend/access/transam/clog.c: 768 - 780
+[src/backend/access/transam/clog.c:768-780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L768-L780)
 
 ## Overview
 Calculates the number of shared memory buffers to allocate for the Commit Log (CLOG) subsystem, with automatic tuning based on shared_buffers or manual configuration.

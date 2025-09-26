@@ -1,7 +1,7 @@
 # next_prediction
 
 ## Location
-src/common/jsonapi.c: 439 - 445
+[src/common/jsonapi.c:439-445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L439-L445)
 
 ## Overview
 Peeks at the top prediction token on the JSON parser's prediction stack without removing it.

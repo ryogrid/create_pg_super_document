@@ -1,7 +1,7 @@
 # commit_prepared_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1013 - 1057
+[src/backend/replication/logical/logical.c:1013-1057](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1013-L1057)
 
 ## Overview
 A wrapper function that handles the final commit phase of previously prepared transactions in logical decoding, managing error context and state for two-phase commit completion.

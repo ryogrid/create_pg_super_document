@@ -1,7 +1,7 @@
 # smgrnblocks_cached
 
 ## Location
-src/backend/storage/smgr/smgr.c: 679 - 700
+[src/backend/storage/smgr/smgr.c:679-700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L679-L700)
 
 ## Overview
 Returns the cached number of blocks in the supplied storage manager relation, providing efficient access to relation size information during recovery operations.

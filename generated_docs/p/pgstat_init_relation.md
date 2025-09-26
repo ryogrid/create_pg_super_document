@@ -1,7 +1,7 @@
 # pgstat_init_relation
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 92 - 131
+[src/backend/utils/activity/pgstat_relation.c:92-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L92-L131)
 
 ## Overview
 Initializes a relation cache entry to enable statistics tracking whenever a relation is opened, setting up the basic framework for collecting access statistics.

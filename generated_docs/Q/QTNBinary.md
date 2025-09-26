@@ -1,7 +1,7 @@
 # QTNBinary
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 250 - 291
+[src/backend/utils/adt/tsquery_util.c:250-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L250-L291)
 
 ## Overview
 QTNBinary is a recursive function that converts a QTNode tree to binary tree structure by inserting intermediate nodes, serving as the opposite operation to QTNTernary.

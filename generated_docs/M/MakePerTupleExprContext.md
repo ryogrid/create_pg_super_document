@@ -1,7 +1,7 @@
 # MakePerTupleExprContext
 
 ## Location
-src/backend/executor/execUtils.c: 456 - 482
+[src/backend/executor/execUtils.c:456-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L456-L482)
 
 ## Overview
 Creates or returns the shared per-tuple ExprContext for an EState, providing a reusable context for per-tuple expression evaluation.

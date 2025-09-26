@@ -1,7 +1,7 @@
 # ConditionalLockBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5158 - 5178
+[src/backend/storage/buffer/bufmgr.c:5158-5178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5158-L5178)
 
 ## Overview
 ConditionalLockBuffer is a non-blocking function that attempts to acquire exclusive content lock on a buffer without waiting if the lock is not immediately available.

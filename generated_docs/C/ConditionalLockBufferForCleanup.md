@@ -1,7 +1,7 @@
 # ConditionalLockBufferForCleanup
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5373 - 5428
+[src/backend/storage/buffer/bufmgr.c:5373-5428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5373-L5428)
 
 ## Overview
 ConditionalLockBufferForCleanup is a non-blocking version of LockBufferForCleanup that attempts to acquire exclusive buffer lock with pin count verification but returns immediately if conditions are not met.

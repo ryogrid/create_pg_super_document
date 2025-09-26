@@ -1,7 +1,7 @@
 # pq_sendcountedtext
 
 ## Location
-src/backend/libpq/pqformat.c: 142 - 171
+[src/backend/libpq/pqformat.c:142-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L142-L171)
 
 ## Overview
 Appends a counted text string with character set conversion to a StringInfo buffer, formatting it according to PostgreSQL protocol version 3.0 requirements.

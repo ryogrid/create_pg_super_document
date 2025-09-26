@@ -1,7 +1,7 @@
 # logicalrep_pa_worker_stop
 
 ## Location
-src/backend/replication/logical/launcher.c: 646 - 688
+[src/backend/replication/logical/launcher.c:646-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L646-L688)
 
 ## Overview
 Stops a logical replication parallel apply worker, handling the special cleanup requirements for parallel worker termination.

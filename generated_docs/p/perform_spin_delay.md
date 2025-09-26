@@ -1,7 +1,7 @@
 # perform_spin_delay
 
 ## Location
-src/backend/storage/lmgr/s_lock.c: 132 - 191
+[src/backend/storage/lmgr/s_lock.c:132-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/s_lock.c#L132-L191)
 
 ## Overview
 perform_spin_delay implements intelligent delay handling during spinlock contention, using exponential backoff with randomization to balance CPU efficiency and responsiveness.

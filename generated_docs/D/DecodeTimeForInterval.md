@@ -1,7 +1,7 @@
 # DecodeTimeForInterval
 
 ## Location
-src/backend/utils/adt/datetime.c: 2701 - 2726
+[src/backend/utils/adt/datetime.c:2701-2726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L2701-L2726)
 
 ## Overview
 DecodeTimeForInterval is an interval-specific wrapper around DecodeTimeCommon that converts parsed time components into a single microsecond value suitable for PostgreSQL interval calculations.

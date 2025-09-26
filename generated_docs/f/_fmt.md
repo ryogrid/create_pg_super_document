@@ -1,7 +1,7 @@
 # _fmt
 
 ## Location
-src/timezone/strftime.c: 151 - 515
+[src/timezone/strftime.c:151-515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/strftime.c#L151-L515)
 
 ## Overview
 Core internal formatting function that processes strftime format specifiers and converts timestamp components into their string representations according to POSIX and C99 standards.

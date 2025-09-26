@@ -1,7 +1,7 @@
 # BootStrapCommitTs
 
 ## Location
-src/backend/access/transam/commit_ts.c: 596 - 614
+[src/backend/access/transam/commit_ts.c:596-614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L596-L614)
 
 ## Overview
 A bootstrap function called once during PostgreSQL system installation to initialize the CommitTS (commit timestamp) subsystem, though it currently performs no operations.

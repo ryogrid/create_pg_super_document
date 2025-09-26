@@ -1,7 +1,7 @@
 # do_serialize_binary
 
 ## Location
-src/backend/utils/misc/guc.c: 6017 - 6031
+[src/backend/utils/misc/guc.c:6017-6031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6017-L6031)
 
 ## Overview
 Performs binary data copying into a destination buffer while updating the buffer pointer and remaining space counter during GUC state serialization.

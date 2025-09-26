@@ -1,7 +1,7 @@
 # reservoir_init_selection_state
 
 ## Location
-src/backend/utils/misc/sampling.c: 133 - 146
+[src/backend/utils/misc/sampling.c:133-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/sampling.c#L133-L146)
 
 ## Overview
 Initializes the reservoir sampling state by computing the initial W value required for Algorithm Z from Vitter's reservoir sampling algorithm.

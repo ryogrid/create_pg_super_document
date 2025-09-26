@@ -1,7 +1,7 @@
 # pg_sha1_update
 
 ## Location
-src/common/sha1.c: 332 - 364
+[src/common/sha1.c:332-364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha1.c#L332-L364)
 
 ## Overview
 Processes input data of arbitrary length by buffering incomplete blocks and calling the SHA-1 compression function for each complete 64-byte block, while maintaining accurate bit counts for the message length.

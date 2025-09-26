@@ -1,7 +1,7 @@
 # get_role_oid_or_public
 
 ## Location
-src/backend/utils/adt/acl.c: 5455 - 5470
+[src/backend/utils/adt/acl.c:5455-5470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5455-L5470)
 
 ## Overview
 Extends get_role_oid to handle the special "public" pseudo-role by returning ACL_ID_PUBLIC for the string "public".

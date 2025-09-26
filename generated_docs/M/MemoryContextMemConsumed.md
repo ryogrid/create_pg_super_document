@@ -1,7 +1,7 @@
 # MemoryContextMemConsumed
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 786 - 813
+[src/backend/utils/mmgr/mcxt.c:786-813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L786-L813)
 
 ## Overview
 MemoryContextMemConsumed collects comprehensive memory consumption statistics for a memory context and all its children, providing detailed memory usage information through a MemoryContextCounters structure.

@@ -1,7 +1,7 @@
 # pgstat_lock_entry
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 621 - 636
+[src/backend/utils/activity/pgstat_shmem.c:621-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L621-L636)
 
 ## Overview
 Acquires an exclusive lock on a statistics entry for safe modification of its data.

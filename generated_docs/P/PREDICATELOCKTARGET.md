@@ -1,7 +1,7 @@
 # PREDICATELOCKTARGET
 
 ## Location
-src/include/storage/predicate_internals.h: 284 - 292
+[src/include/storage/predicate_internals.h:284-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L284-L292)
 
 ## Overview
 PREDICATELOCKTARGET represents a database object on which predicate locks are maintained, serving as a shared memory structure that tracks all predicate locks associated with a specific lockable object.

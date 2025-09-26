@@ -1,7 +1,7 @@
 # outNode
 
 ## Location
-src/backend/nodes/outfuncs.c: 716 - 769
+[src/backend/nodes/outfuncs.c:716-769](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L716-L769)
 
 ## Overview
 outNode is the main public function that converts PostgreSQL Node objects into their ASCII string representation for serialization and debugging purposes.

@@ -1,7 +1,7 @@
 # EOH_get_flat_size
 
 ## Location
-src/backend/utils/adt/expandeddatum.c: 75 - 80
+[src/backend/utils/adt/expandeddatum.c:75-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandeddatum.c#L75-L80)
 
 ## Overview
 A convenience function that invokes the get_flat_size method of an expanded object to determine the size needed for its flattened representation.

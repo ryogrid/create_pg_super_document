@@ -1,7 +1,7 @@
 # dsm_impl_op
 
 ## Location
-src/backend/storage/ipc/dsm_impl.c: 159 - 211
+[src/backend/storage/ipc/dsm_impl.c:159-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_impl.c#L159-L211)
 
 ## Overview
 Platform-independent dispatcher function that routes dynamic shared memory operations to the appropriate platform-specific implementation based on the configured dynamic shared memory type.

@@ -1,7 +1,7 @@
 # pg_next_dst_boundary
 
 ## Location
-src/timezone/localtime.c: 1610 - 1756
+[src/timezone/localtime.c:1610-1756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L1610-L1756)
 
 ## Overview
 Finds the next daylight saving time (DST) transition boundary after a given timestamp within a specified timezone.

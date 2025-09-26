@@ -1,7 +1,7 @@
 # SpinlockSemas
 
 ## Location
-src/backend/storage/lmgr/spin.c: 64 - 76
+[src/backend/storage/lmgr/spin.c:64-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/spin.c#L64-L76)
 
 ## Overview
 Reports the number of semaphores needed to support spinlock emulation when hardware spinlocks are not available.

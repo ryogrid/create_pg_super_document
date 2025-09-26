@@ -1,7 +1,7 @@
 # JsonObjectConstructor
 
 ## Location
-src/include/nodes/parsenodes.h: 1920 - 1928
+[src/include/nodes/parsenodes.h:1920-1928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1920-L1928)
 
 ## Overview
 JsonObjectConstructor represents the untransformed representation of the JSON_OBJECT() constructor function in PostgreSQL's SQL/JSON implementation, used to build JSON objects from key-value pairs.

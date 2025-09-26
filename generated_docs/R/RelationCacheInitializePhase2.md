@@ -1,7 +1,7 @@
 # RelationCacheInitializePhase2
 
 ## Location
-src/backend/utils/cache/relcache.c: 4043 - 4080
+[src/backend/utils/cache/relcache.c:4043-4080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4043-L4080)
 
 ## Overview
 RelationCacheInitializePhase2 prepares access to shared catalogs during PostgreSQL startup by setting up relation descriptors for critical shared system catalogs.

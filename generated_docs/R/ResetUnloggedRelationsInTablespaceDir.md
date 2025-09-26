@@ -1,7 +1,7 @@
 # ResetUnloggedRelationsInTablespaceDir
 
 ## Location
-src/backend/storage/file/reinit.c: 106 - 160
+[src/backend/storage/file/reinit.c:106-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/reinit.c#L106-L160)
 
 ## Overview
 ResetUnloggedRelationsInTablespaceDir processes a single tablespace directory to reset unlogged relations, iterating through database directories within the tablespace and delegating the actual reset work to individual database processing.

@@ -1,7 +1,7 @@
 # tuplesort_heap_insert
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2777 - 2811
+[src/backend/utils/sort/tuplesort.c:2777-2811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2777-L2811)
 
 ## Overview
 Inserts a new tuple into a heap data structure while maintaining the heap invariant property through a sift-up operation.

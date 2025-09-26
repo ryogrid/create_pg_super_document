@@ -1,7 +1,7 @@
 # LruDelete
 
 ## Location
-src/backend/storage/file/fd.c: 1284 - 1309
+[src/backend/storage/file/fd.c:1284-1309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1284-L1309)
 
 ## Overview
 LruDelete closes a virtual file descriptor and removes it from the LRU chain, performing both physical file closure and VFD cache cleanup.

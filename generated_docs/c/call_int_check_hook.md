@@ -1,7 +1,7 @@
 # call_int_check_hook
 
 ## Location
-src/backend/utils/misc/guc.c: 6846 - 6879
+[src/backend/utils/misc/guc.c:6846-6879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6846-L6879)
 
 ## Overview
 A static function that validates integer GUC (Grand Unified Configuration) parameters by calling their associated check hooks and handling validation errors with proper error reporting.

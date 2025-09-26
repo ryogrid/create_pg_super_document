@@ -1,7 +1,7 @@
 # JsonTablePathSpec
 
 ## Location
-src/include/nodes/parsenodes.h: 1807 - 1815
+[src/include/nodes/parsenodes.h:1807-1815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1807-L1815)
 
 ## Overview
 JsonTablePathSpec represents an untransformed specification of a JSON path expression with an optional name, used in JSON table functionality to define path expressions for accessing JSON data.

@@ -1,7 +1,7 @@
 # coerceToInt
 
 ## Location
-src/bin/pgbench/pgbench.c: 2045 - 2072
+[src/bin/pgbench/pgbench.c:2045-2072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2045-L2072)
 
 ## Overview
 A utility function in pgbench that converts a PgBenchValue to a 64-bit integer, performing type coercion with overflow checking and error handling.

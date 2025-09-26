@@ -1,7 +1,7 @@
 # SyncDataDirectory
 
 ## Location
-src/backend/storage/file/fd.c: 3541 - 3654
+[src/backend/storage/file/fd.c:3541-3654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3541-L3654)
 
 ## Overview
 Issues fsync recursively on PGDATA and all its contents, or alternatively uses syncfs for filesystem-wide synchronization, ensuring that all pending writes reach disk during database startup recovery.

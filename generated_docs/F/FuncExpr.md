@@ -1,7 +1,7 @@
 # FuncExpr
 
 ## Location
-src/include/nodes/primnodes.h: 746 - 771
+[src/include/nodes/primnodes.h:746-771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L746-L771)
 
 ## Overview
 FuncExpr represents a function call expression node in PostgreSQL's query tree, encapsulating all information needed to execute function calls including arguments, result types, and display formatting.

@@ -1,7 +1,7 @@
 # LogicalTapeSetCreate
 
 ## Location
-src/backend/utils/sort/logtape.c: 556 - 608
+[src/backend/utils/sort/logtape.c:556-608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L556-L608)
 
 ## Overview
 Creates and initializes a new logical tape set backed by a temporary file, supporting both single-process and parallel sorting operations with optional block preallocation for performance optimization.

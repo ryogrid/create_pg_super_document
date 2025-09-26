@@ -1,7 +1,7 @@
 # pq_lockingcallback
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 738 - 768
+[src/interfaces/libpq/fe-secure-openssl.c:738-768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L738-L768)
 
 ## Overview
 A callback function that provides mutex locking/unlocking operations for OpenSSL's internal thread safety mechanism in older OpenSSL versions (pre-1.1.0).

@@ -1,7 +1,7 @@
 # ShowAllGUCConfig
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 456 - 541
+[src/backend/utils/misc/guc_funcs.c:456-541](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L456-L541)
 
 ## Overview
 ShowAllGUCConfig implements the "SHOW ALL" command by retrieving all visible GUC parameters, formatting them into a three-column result set (name, setting, description), and sending the results to the specified destination receiver.

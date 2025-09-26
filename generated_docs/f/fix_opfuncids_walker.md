@@ -1,7 +1,7 @@
 # fix_opfuncids_walker
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 1838 - 1861
+[src/backend/nodes/nodeFuncs.c:1838-1861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L1838-L1861)
 
 ## Overview
 A recursive walker function that traverses an expression tree to set operator function IDs for various types of operator expressions.

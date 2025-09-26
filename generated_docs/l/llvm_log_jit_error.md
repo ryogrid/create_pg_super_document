@@ -1,7 +1,7 @@
 # llvm_log_jit_error
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 1265 - 1274
+[src/backend/jit/llvm/llvmjit.c:1265-1274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L1265-L1274)
 
 ## Overview
 A static error logging callback function used by LLVM JIT compilation to handle and log errors that occur during the JIT process.

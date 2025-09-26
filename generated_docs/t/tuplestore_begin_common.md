@@ -1,7 +1,7 @@
 # tuplestore_begin_common
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 253 - 317
+[src/backend/utils/sort/tuplestore.c:253-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L253-L317)
 
 ## Overview
 Internal common initialization function for creating a new tuplestore operation, setting up the basic data structures and memory management for tuple storage.

@@ -1,7 +1,7 @@
 # PgStat_EntryRef
 
 ## Location
-src/include/utils/pgstat_internal.h: 134 - 163
+[src/include/utils/pgstat_internal.h:134-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L134-L163)
 
 ## Overview
 PgStat_EntryRef is a backend-local reference to a shared statistics entry that provides caching and pending update management while ensuring the referenced shared entry remains valid.

@@ -1,7 +1,7 @@
 # StatsElem
 
 ## Location
-src/include/nodes/parsenodes.h: 3403 - 3408
+[src/include/nodes/parsenodes.h:3403-3408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3403-L3408)
 
 ## Overview
 StatsElem represents a single column or expression element within a CREATE STATISTICS statement, specifying what data should be analyzed for extended statistics collection.

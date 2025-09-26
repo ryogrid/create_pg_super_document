@@ -1,7 +1,7 @@
 # int2eqfast
 
 ## Location
-src/backend/utils/cache/catcache.c: 220 - 225
+[src/backend/utils/cache/catcache.c:220-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L220-L225)
 
 ## Overview
 The `int2eqfast` function provides a fast equality comparison for PostgreSQL's `int2` (smallint) data type, used internally by the catalog cache system for efficient key matching in hash tables.

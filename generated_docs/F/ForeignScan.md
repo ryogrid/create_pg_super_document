@@ -1,7 +1,7 @@
 # ForeignScan
 
 ## Location
-src/include/nodes/plannodes.h: 707 - 722
+[src/include/nodes/plannodes.h:707-722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L707-L722)
 
 ## Overview
 ForeignScan is a plan node that represents scanning data from foreign tables through PostgreSQL's Foreign Data Wrapper (FDW) interface, supporting both simple scans and direct modifications.

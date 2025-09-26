@@ -1,7 +1,7 @@
 # AlterFdwStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2857 - 2863
+[src/include/nodes/parsenodes.h:2857-2863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2857-L2863)
 
 ## Overview
 AlterFdwStmt represents the parsed representation of an ALTER FOREIGN DATA WRAPPER SQL statement, used to modify an existing foreign data wrapper definition in PostgreSQL.

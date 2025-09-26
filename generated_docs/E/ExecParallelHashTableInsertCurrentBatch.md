@@ -1,7 +1,7 @@
 # ExecParallelHashTableInsertCurrentBatch
 
 ## Location
-src/backend/executor/nodeHash.c: 1787 - 1830
+[src/backend/executor/nodeHash.c:1787-1830](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1787-L1830)
 
 ## Overview
 Inserts a tuple directly into the current batch of a parallel hash table without retry logic, designed for use when growth is disabled and memory allocation is guaranteed to succeed.

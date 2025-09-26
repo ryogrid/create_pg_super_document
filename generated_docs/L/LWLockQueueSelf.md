@@ -1,7 +1,7 @@
 # LWLockQueueSelf
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1038 - 1080
+[src/backend/storage/lmgr/lwlock.c:1038-1080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1038-L1080)
 
 ## Overview
 Internal function that adds the current process to the wait queue of a lightweight lock when the lock cannot be immediately acquired.

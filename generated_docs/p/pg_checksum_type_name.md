@@ -1,7 +1,7 @@
 # pg_checksum_type_name
 
 ## Location
-src/common/checksum_helper.c: 56 - 82
+[src/common/checksum_helper.c:56-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/checksum_helper.c#L56-L82)
 
 ## Overview
 Converts a pg_checksum_type enumeration value to its canonical human-readable string representation.

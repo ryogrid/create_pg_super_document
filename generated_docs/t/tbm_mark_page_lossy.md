@@ -1,7 +1,7 @@
 # tbm_mark_page_lossy
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1283 - 1354
+[src/backend/nodes/tidbitmap.c:1283-1354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1283-L1354)
 
 ## Overview
 Marks a specific page number as lossily stored in a TID bitmap by creating or updating chunk entries in the hash table.

@@ -1,7 +1,7 @@
 # IndexStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3348 - 3378
+[src/include/nodes/parsenodes.h:3348-3378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3348-L3378)
 
 ## Overview
 IndexStmt represents the parsed form of SQL CREATE INDEX statements and related constraint creation operations, encapsulating all information needed to create indexes and associated constraints in PostgreSQL.

@@ -1,7 +1,7 @@
 # array_boundary
 
 ## Location
-src/interfaces/ecpg/ecpglib/data.c: 33 - 45
+[src/interfaces/ecpg/ecpglib/data.c:33-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/data.c#L33-L45)
 
 ## Overview
 A utility function that determines if a given character marks the boundary (end) for a specific array type in PostgreSQL's ECPG (Embedded SQL in C) interface.

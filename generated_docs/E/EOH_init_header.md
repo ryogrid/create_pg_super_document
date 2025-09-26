@@ -1,7 +1,7 @@
 # EOH_init_header
 
 ## Location
-src/backend/utils/adt/expandeddatum.c: 48 - 74
+[src/backend/utils/adt/expandeddatum.c:48-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandeddatum.c#L48-L74)
 
 ## Overview
 Initializes the common header fields of an expanded object, setting up the TOAST pointers and basic metadata required for expanded object functionality.

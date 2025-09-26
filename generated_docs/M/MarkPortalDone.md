@@ -1,7 +1,7 @@
 # MarkPortalDone
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 414 - 441
+[src/backend/utils/mmgr/portalmem.c:414-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L414-L441)
 
 ## Overview
 Transitions a portal from ACTIVE to DONE state and performs necessary cleanup operations for completed portal execution.

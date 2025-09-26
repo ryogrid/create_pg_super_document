@@ -1,7 +1,7 @@
 # ResetUnloggedRelations
 
 ## Location
-src/backend/storage/file/reinit.c: 47 - 105
+[src/backend/storage/file/reinit.c:47-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/reinit.c#L47-L105)
 
 ## Overview
 ResetUnloggedRelations is the main entry point function that resets unlogged relations from before the last PostgreSQL restart, processing both cleanup and initialization operations across all tablespaces.

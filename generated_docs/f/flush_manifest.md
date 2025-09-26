@@ -1,7 +1,7 @@
 # flush_manifest
 
 ## Location
-src/bin/pg_combinebackup/write_manifest.c: 244 - 279
+[src/bin/pg_combinebackup/write_manifest.c:244-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/write_manifest.c#L244-L279)
 
 ## Overview
 Flushes buffered backup manifest data to disk, creating the manifest file on first call and updating the running checksum.

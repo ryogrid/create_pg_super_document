@@ -1,7 +1,7 @@
 # ExecEvalExpr
 
 ## Location
-src/include/executor/executor.h: 334 - 348
+[src/include/executor/executor.h:334-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/executor.h#L334-L348)
 
 ## Overview
 ExecEvalExpr is the primary interface function for evaluating SQL expressions in PostgreSQL, delegating to compiled expression evaluation functions for optimal performance.

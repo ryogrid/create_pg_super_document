@@ -1,7 +1,7 @@
 # validate_option_array_item
 
 ## Location
-src/backend/utils/misc/guc.c: 6716 - 6798
+[src/backend/utils/misc/guc.c:6716-6798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6716-L6798)
 
 ## Overview
 Validates a proposed GUC parameter setting for array operations, checking both parameter validity and user permissions before allowing modification.

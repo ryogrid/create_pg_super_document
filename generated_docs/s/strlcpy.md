@@ -1,7 +1,7 @@
 # strlcpy
 
 ## Location
-src/port/strlcpy.c: 45 - 71
+[src/port/strlcpy.c:45-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/strlcpy.c#L45-L71)
 
 ## Overview
 A safe string copying function that provides bounds-checking and guaranteed null termination, serving as a secure alternative to strcpy and strncpy in PostgreSQL's portability layer.

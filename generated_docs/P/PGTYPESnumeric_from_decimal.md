@@ -1,7 +1,7 @@
 # PGTYPESnumeric_from_decimal
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1570 - 1588
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1570-1588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1570-L1588)
 
 ## Overview
 Converts a decimal structure to a PostgreSQL numeric value by initializing the numeric and copying all decimal fields with proper memory allocation.

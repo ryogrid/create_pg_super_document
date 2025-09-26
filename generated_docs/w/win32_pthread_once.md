@@ -1,7 +1,7 @@
 # win32_pthread_once
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 464 - 481
+[src/interfaces/ecpg/ecpglib/misc.c:464-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L464-L481)
 
 ## Overview
 A Windows-specific implementation of the pthread_once mechanism that ensures a given function is executed exactly once across multiple threads in ECPG library.

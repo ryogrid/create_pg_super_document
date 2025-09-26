@@ -1,7 +1,7 @@
 # PrintString
 
 ## Location
-src/test/modules/test_resowner/test_resowner_basic.c: 44 - 51
+[src/test/modules/test_resowner/test_resowner_basic.c:44-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_basic.c#L44-L51)
 
 ## Overview
 PrintString is a static callback function used in PostgreSQL resource owner testing that formats a string resource into a printable representation for debugging and logging purposes.

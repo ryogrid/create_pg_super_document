@@ -1,7 +1,7 @@
 # DatumGetDateADT
 
 ## Location
-src/include/utils/date.h: 54 - 59
+[src/include/utils/date.h:54-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/date.h#L54-L59)
 
 ## Overview
 DatumGetDateADT is a static inline function that extracts a DateADT value from a PostgreSQL Datum, providing a type-safe conversion mechanism for date values in PostgreSQL's function manager interface.

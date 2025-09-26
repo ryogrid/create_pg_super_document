@@ -1,7 +1,7 @@
 # map_sql_catalog_to_xmlschema_types
 
 ## Location
-src/backend/utils/adt/xml.c: 3694 - 3750
+[src/backend/utils/adt/xml.c:3694-3750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3694-L3750)
 
 ## Overview
 Maps an SQL catalog (database) to XML Schema data types according to the SQL/XML:2008 section 9.15 specification, generating XML Schema complex type definitions for database catalogs.

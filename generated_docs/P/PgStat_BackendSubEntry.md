@@ -1,7 +1,7 @@
 # PgStat_BackendSubEntry
 
 ## Location
-src/include/pgstat.h: 134 - 138
+[src/include/pgstat.h:134-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L134-L138)
 
 ## Overview
 PgStat_BackendSubEntry is a structure that stores non-flushed subscription statistics in backend local memory for logical replication subscriptions.

@@ -1,7 +1,7 @@
 # logicalrep_worker_stop_internal
 
 ## Location
-src/backend/replication/logical/launcher.c: 540 - 621
+[src/backend/replication/logical/launcher.c:540-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L540-L621)
 
 ## Overview
 Internal function that safely terminates a logical replication worker process and waits for it to fully detach from its replication slot.

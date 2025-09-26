@@ -1,7 +1,7 @@
 # ecpg_store_input
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 506 - 1075
+[src/interfaces/ecpg/ecpglib/execute.c:506-1075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L506-L1075)
 
 ## Overview
 Converts ECPG variable data into string representations suitable for PostgreSQL SQL statements, handling type conversion, array formatting, null indicators, and memory management for all supported ECPG data types.

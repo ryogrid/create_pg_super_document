@@ -1,7 +1,7 @@
 # DCH_datetime_type
 
 ## Location
-src/backend/utils/adt/formatting.c: 3976 - 4072
+[src/backend/utils/adt/formatting.c:3976-4072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L3976-L4072)
 
 ## Overview
 Analyzes a format node chain to determine which types of date/time components are present, returning a bitmask indicating whether the format contains date, time, or timezone information.

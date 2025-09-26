@@ -1,7 +1,7 @@
 # QTNodeCompare
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 97 - 152
+[src/backend/utils/adt/tsquery_util.c:97-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L97-L152)
 
 ## Overview
 Provides a recursive comparison function for QTNode structures, implementing a deterministic sort order for text search query tree nodes.

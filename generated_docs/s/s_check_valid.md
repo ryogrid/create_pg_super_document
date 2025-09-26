@@ -1,7 +1,7 @@
 # s_check_valid
 
 ## Location
-src/backend/storage/lmgr/spin.c: 114 - 120
+[src/backend/storage/lmgr/spin.c:114-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/spin.c#L114-L120)
 
 ## Overview
 Validates that a spinlock index is within the valid range for spinlock emulation semaphores.

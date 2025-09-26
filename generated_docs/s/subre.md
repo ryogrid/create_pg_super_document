@@ -1,7 +1,7 @@
 # subre
 
 ## Location
-src/backend/regex/regcomp.c: 2095 - 2151
+[src/backend/regex/regcomp.c:2095-2151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2095-L2151)
 
 ## Overview
 Allocates and initializes a new subre (sub-regular expression) structure, which represents a node in the parse tree of a regular expression during compilation.

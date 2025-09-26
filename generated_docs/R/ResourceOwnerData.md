@@ -1,7 +1,7 @@
 # ResourceOwnerData
 
 ## Location
-src/backend/utils/resowner/resowner.c: 110 - 179
+[src/backend/utils/resowner/resowner.c:110-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L110-L179)
 
 ## Overview
 ResourceOwnerData is the main data structure that implements PostgreSQL's resource ownership tracking system, managing hierarchical resource ownership with efficient storage and cleanup mechanisms.

@@ -1,7 +1,7 @@
 # pg_itm
 
 ## Location
-src/include/datatype/timestamp.h: 65 - 81
+[src/include/datatype/timestamp.h:65-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/datatype/timestamp.h#L65-L81)
 
 ## Overview
 The  struct represents a broken-down interval in PostgreSQL, providing a structured way to work with individual time components (microseconds, seconds, minutes, hours, days, months, years) for temporal calculations.

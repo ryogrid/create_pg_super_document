@@ -1,7 +1,7 @@
 # fixempties
 
 ## Location
-src/backend/regex/regc_nfa.c: 2076 - 2302
+[src/backend/regex/regc_nfa.c:2076-2302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L2076-L2302)
 
 ## Overview
 Eliminates EMPTY arcs from the NFA (Non-deterministic Finite Automaton) by consolidating states and creating equivalent non-EMPTY transitions in PostgreSQL's regex engine.

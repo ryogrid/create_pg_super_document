@@ -1,7 +1,7 @@
 # VacuumStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3837 - 3843
+[src/include/nodes/parsenodes.h:3837-3843](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3837-L3843)
 
 ## Overview
 A parse node structure representing both VACUUM and ANALYZE statements, used to reclaim storage and update table statistics.

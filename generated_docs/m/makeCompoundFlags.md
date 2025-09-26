@@ -1,7 +1,7 @@
 # makeCompoundFlags
 
 ## Location
-src/backend/tsearch/spell.c: 1622 - 1638
+[src/backend/tsearch/spell.c:1622-1638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1622-L1638)
 
 ## Overview
 Extracts compound word formation flags from an affix flag set, returning only the compound-related flags.

@@ -1,7 +1,7 @@
 # simple_prompt_extended
 
 ## Location
-src/common/sprompt.c: 53 - 181
+[src/common/sprompt.c:53-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sprompt.c#L53-L181)
 
 ## Overview
 An extended version of interactive user input function that supports cancellation via SIGINT signal handling through a provided interrupt context.

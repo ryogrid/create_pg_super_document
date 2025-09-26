@@ -1,7 +1,7 @@
 # get_nullingrels_recurse
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 4228 - 4290
+[src/backend/optimizer/prep/prepjointree.c:4228-4290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L4228-L4290)
 
 ## Overview
 Recursively traverses the join tree to build nulling relationship information, tracking which outer joins can null each base relation based on join types and tree structure.

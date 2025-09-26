@@ -1,7 +1,7 @@
 # FreeSpaceMapVacuum
 
 ## Location
-src/backend/storage/freespace/freespace.c: 358 - 376
+[src/backend/storage/freespace/freespace.c:358-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L358-L376)
 
 ## Overview
 FreeSpaceMapVacuum updates upper-level pages in the relation's Free Space Map after bottom-level pages have been updated with new free-space information.

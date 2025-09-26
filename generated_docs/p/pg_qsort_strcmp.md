@@ -1,7 +1,7 @@
 # pg_qsort_strcmp
 
 ## Location
-src/port/qsort.c: 19 - 22
+[src/port/qsort.c:19-22](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/qsort.c#L19-L22)
 
 ## Overview
 A qsort comparator wrapper function that provides string comparison functionality for the standard qsort() algorithm, comparing string pointers using strcmp().

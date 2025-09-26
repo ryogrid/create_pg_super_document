@@ -1,7 +1,7 @@
 # BarrierPhase
 
 ## Location
-src/backend/storage/ipc/barrier.c: 265 - 280
+[src/backend/storage/ipc/barrier.c:265-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/barrier.c#L265-L280)
 
 ## Overview
 BarrierPhase is a function that returns the current phase number of a barrier synchronization point, providing a way for attached participants to query the barrier's state.

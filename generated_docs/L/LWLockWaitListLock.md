@@ -1,7 +1,7 @@
 # LWLockWaitListLock
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 857 - 908
+[src/backend/storage/lmgr/lwlock.c:857-908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L857-L908)
 
 ## Overview
 Acquires a spinlock on an LWLock's wait list to enable safe concurrent manipulation of waiting processes while allowing non-conflicting lock operations to continue.

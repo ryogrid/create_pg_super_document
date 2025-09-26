@@ -1,7 +1,7 @@
 # estimate_multivariate_ndistinct
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 3967 - 4317
+[src/backend/utils/adt/selfuncs.c:3967-4317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L3967-L4317)
 
 ## Overview
 Finds applicable multivariate ndistinct statistics for a given list of variables/expressions belonging to a relation and estimates the number of distinct values using the best matching statistics object.

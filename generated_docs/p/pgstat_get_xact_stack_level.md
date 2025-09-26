@@ -1,7 +1,7 @@
 # pgstat_get_xact_stack_level
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 236 - 269
+[src/backend/utils/activity/pgstat_xact.c:236-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L236-L269)
 
 ## Overview
 Ensures that a statistics transaction stack entry exists for the specified transaction nesting level, creating and initializing it if necessary.

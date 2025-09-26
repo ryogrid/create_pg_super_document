@@ -1,7 +1,7 @@
 # store_input_from_desc
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 1159 - 1212
+[src/interfaces/ecpg/ecpglib/execute.c:1159-1212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L1159-L1212)
 
 ## Overview
 Converts data from a descriptor item into a format suitable for parameter insertion in SQL statements, handling both binary and text data.

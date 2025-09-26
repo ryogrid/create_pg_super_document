@@ -1,7 +1,7 @@
 # WriteControlFile
 
 ## Location
-src/backend/access/transam/xlog.c: 4216 - 4297
+[src/backend/access/transam/xlog.c:4216-4297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4216-L4297)
 
 ## Overview
 Creates and writes the pg_control file to disk with system compatibility information, configuration parameters, and data integrity checksums during database initialization.

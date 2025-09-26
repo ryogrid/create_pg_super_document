@@ -1,7 +1,7 @@
 # ExportedSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 148 - 152
+[src/backend/utils/time/snapmgr.c:148-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L148-L152)
 
 ## Overview
 A structure that holds information about PostgreSQL snapshots that have been exported to files for sharing between backend processes.

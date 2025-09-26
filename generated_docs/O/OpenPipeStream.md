@@ -1,7 +1,7 @@
 # OpenPipeStream
 
 ## Location
-src/backend/storage/file/fd.c: 2683 - 2738
+[src/backend/storage/file/fd.c:2683-2738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2683-L2738)
 
 ## Overview
 OpenPipeStream is PostgreSQL's managed wrapper around the popen() system call, providing automatic file descriptor management and proper SIGPIPE signal handling for pipe operations.

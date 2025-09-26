@@ -1,7 +1,7 @@
 # ExecAlterExtensionStmt
 
 ## Location
-src/backend/commands/extension.c: 2987 - 3133
+[src/backend/commands/extension.c:2987-3133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L2987-L3133)
 
 ## Overview
 Executes ALTER EXTENSION UPDATE command to update an extension from its current version to a specified target version by running the appropriate sequence of update scripts.

@@ -1,7 +1,7 @@
 # TsmRoutine
 
 ## Location
-src/include/access/tsmapi.h: 56 - 76
+[src/include/access/tsmapi.h:56-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tsmapi.h#L56-L76)
 
 ## Overview
 TsmRoutine is a structure that encapsulates the callback functions and metadata required by PostgreSQL's tablesample method handlers for implementing custom table sampling techniques.

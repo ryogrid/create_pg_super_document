@@ -1,7 +1,7 @@
 # FullTransactionId
 
 ## Location
-src/include/access/transam.h: 65 - 68
+[src/include/access/transam.h:65-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/transam.h#L65-L68)
 
 ## Overview
 A 64-bit wrapped structure that contains both an epoch and a TransactionId to extend the range of transaction IDs beyond the 32-bit TransactionId limit.

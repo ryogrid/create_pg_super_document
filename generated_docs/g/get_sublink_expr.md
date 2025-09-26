@@ -1,7 +1,7 @@
 # get_sublink_expr
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11490 - 11614
+[src/backend/utils/adt/ruleutils.c:11490-11614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11490-L11614)
 
 ## Overview
 A static function that deparses PostgreSQL SubLink nodes (subqueries) back into their SQL text representation, handling various sublink types and their associated comparison operators.

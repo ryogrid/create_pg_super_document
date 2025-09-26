@@ -1,7 +1,7 @@
 # qc_is_allowed
 
 ## Location
-src/common/unicode_norm.c: 574 - 597
+[src/common/unicode_norm.c:574-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_norm.c#L574-L597)
 
 ## Overview
 Determines the Quick Check property of a Unicode codepoint for specific normalization forms (NFC/NFKC) to optimize normalization validation.

@@ -1,7 +1,7 @@
 # Append
 
 ## Location
-src/include/nodes/plannodes.h: 265 - 280
+[src/include/nodes/plannodes.h:265-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L265-L280)
 
 ## Overview
 The Append node generates the concatenation of results from multiple sub-plans, used primarily in UNION operations and partitioned table queries.

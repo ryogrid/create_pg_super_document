@@ -1,7 +1,7 @@
 # trim_directory
 
 ## Location
-src/port/path.c: 1070 - 1101
+[src/port/path.c:1070-1101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L1070-L1101)
 
 ## Overview
 Removes trailing directory components from a path string, including trailing slashes and the last pathname component, while preserving leading slashes.

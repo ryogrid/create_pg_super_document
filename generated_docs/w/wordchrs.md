@@ -1,7 +1,7 @@
 # wordchrs
 
 ## Location
-src/backend/regex/regcomp.c: 1993 - 2028
+[src/backend/regex/regcomp.c:1993-2028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L1993-L2028)
 
 ## Overview
 Sets up a cached word-character list for word-boundary processing by creating circular arcs on a dedicated state to represent all characters that match the \w character class.

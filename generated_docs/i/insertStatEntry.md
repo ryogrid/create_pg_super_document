@@ -1,7 +1,7 @@
 # insertStatEntry
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2316 - 2380
+[src/backend/utils/adt/tsvector_op.c:2316-2380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2316-L2380)
 
 ## Overview
 A static function that inserts or updates statistical entries for words from a TSVector into a binary search tree structure used by PostgreSQL's text search statistics system.

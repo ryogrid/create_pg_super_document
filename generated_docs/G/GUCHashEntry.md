@@ -1,7 +1,7 @@
 # GUCHashEntry
 
 ## Location
-src/backend/utils/misc/guc.c: 212 - 261
+[src/backend/utils/misc/guc.c:212-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L212-L261)
 
 ## Overview
 GUCHashEntry is a hash table entry structure that serves as a wrapper for PostgreSQL's Grand Unified Configuration (GUC) variables in the global hash table used for efficient GUC variable lookup by name.

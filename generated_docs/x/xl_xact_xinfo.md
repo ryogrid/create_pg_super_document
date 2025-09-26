@@ -1,7 +1,7 @@
 # xl_xact_xinfo
 
 ## Location
-src/include/access/xact.h: 244 - 253
+[src/include/access/xact.h:244-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L244-L253)
 
 ## Overview
 WAL record sub-structure that contains extended information flags for commit and abort transaction records, indicating which optional data chunks are present.

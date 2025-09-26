@@ -1,7 +1,7 @@
 # PopActiveSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 743 - 769
+[src/backend/utils/time/snapmgr.c:743-769](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L743-L769)
 
 ## Overview
 Removes the topmost snapshot from the active snapshot stack, decrements its reference count, and frees it if no longer referenced.

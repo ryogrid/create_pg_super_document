@@ -1,7 +1,7 @@
 # AlternativeSubPlan
 
 ## Location
-src/include/nodes/primnodes.h: 1108 - 1114
+[src/include/nodes/primnodes.h:1108-1114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1108-L1114)
 
 ## Overview
 AlternativeSubPlan is a transient expression node used during planning to represent a choice among equivalent SubPlans, removed before execution.

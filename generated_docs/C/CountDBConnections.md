@@ -1,7 +1,7 @@
 # CountDBConnections
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3627 - 3657
+[src/backend/storage/ipc/procarray.c:3627-3657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3627-L3657)
 
 ## Overview
 Counts regular database backends (excluding background workers) that are connected to a specified database, providing an accurate count of user connections for administrative and connection limit enforcement purposes.

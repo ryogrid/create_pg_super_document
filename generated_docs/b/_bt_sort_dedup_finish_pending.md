@@ -1,7 +1,7 @@
 # _bt_sort_dedup_finish_pending
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 1029 - 1062
+[src/backend/access/nbtree/nbtsort.c:1029-1062](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L1029-L1062)
 
 ## Overview
 A function that finalizes a pending posting list tuple during B-tree index construction and adds it to the index, handling both single items and multi-item posting lists.

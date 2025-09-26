@@ -1,7 +1,7 @@
 # pg_checksum_parse_type
 
 ## Location
-src/common/checksum_helper.c: 28 - 55
+[src/common/checksum_helper.c:28-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/checksum_helper.c#L28-L55)
 
 ## Overview
 Parses a string representation of a checksum type and converts it to the corresponding pg_checksum_type enumeration value.

@@ -1,7 +1,7 @@
 # GetLWTrancheName
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 745 - 768
+[src/backend/storage/lmgr/lwlock.c:745-768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L745-L768)
 
 ## Overview
 Returns the name of an LWLock tranche, handling both built-in tranches and user-defined extension tranches.

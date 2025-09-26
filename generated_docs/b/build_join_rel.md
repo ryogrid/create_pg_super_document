@@ -1,7 +1,7 @@
 # build_join_rel
 
 ## Location
-src/backend/optimizer/util/relnode.c: 665 - 880
+[src/backend/optimizer/util/relnode.c:665-880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L665-L880)
 
 ## Overview
 Creates and initializes a RelOptInfo structure representing the join of two relations, handling both the creation of new join relations and retrieval of existing ones.

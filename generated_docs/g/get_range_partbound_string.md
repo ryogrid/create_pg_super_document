@@ -1,7 +1,7 @@
 # get_range_partbound_string
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 13346 - 13379
+[src/backend/utils/adt/ruleutils.c:13346-13379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L13346-L13379)
 
 ## Overview
 A utility function that creates a C string representation of range partition boundary values, formatting them as a parenthesized, comma-separated list suitable for SQL output.

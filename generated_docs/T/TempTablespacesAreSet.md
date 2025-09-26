@@ -1,7 +1,7 @@
 # TempTablespacesAreSet
 
 ## Location
-src/backend/storage/file/fd.c: 3075 - 3089
+[src/backend/storage/file/fd.c:3075-3089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3075-L3089)
 
 ## Overview
 Returns a boolean indicating whether temporary tablespaces have been configured for the current transaction via SetTempTablespaces.

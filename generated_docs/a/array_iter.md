@@ -1,7 +1,7 @@
 # array_iter
 
 ## Location
-src/include/utils/arrayaccess.h: 33 - 45
+[src/include/utils/arrayaccess.h:33-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/arrayaccess.h#L33-L45)
 
 ## Overview
 A state structure that maintains iteration context for sequentially accessing elements in PostgreSQL arrays, supporting both expanded and flat array storage formats.

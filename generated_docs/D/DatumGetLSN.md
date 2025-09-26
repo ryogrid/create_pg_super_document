@@ -1,7 +1,7 @@
 # DatumGetLSN
 
 ## Location
-src/include/utils/pg_lsn.h: 22 - 27
+[src/include/utils/pg_lsn.h:22-27](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pg_lsn.h#L22-L27)
 
 ## Overview
 DatumGetLSN is an inline function that converts a PostgreSQL Datum value to an XLogRecPtr (Log Sequence Number), providing a type-safe way to extract LSN values from the PostgreSQL type system.

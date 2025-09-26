@@ -1,7 +1,7 @@
 # GenericXLogRegisterBuffer
 
 ## Location
-src/backend/access/transam/generic_xlog.c: 299 - 336
+[src/backend/access/transam/generic_xlog.c:299-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/generic_xlog.c#L299-L336)
 
 ## Overview
 Registers a buffer with the generic XLOG state and returns a pointer to a modifiable copy of the page data that will be used for delta computation.

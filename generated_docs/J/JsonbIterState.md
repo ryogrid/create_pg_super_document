@@ -1,7 +1,7 @@
 # JsonbIterState
 
 ## Location
-src/include/utils/jsonb.h: 339 - 340
+[src/include/utils/jsonb.h:339-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/jsonb.h#L339-L340)
 
 ## Overview
 JsonbIterState is an enumeration that defines the current state of iteration through a JSONB structure, tracking whether the iterator is processing array elements, object keys, object values, or container boundaries.

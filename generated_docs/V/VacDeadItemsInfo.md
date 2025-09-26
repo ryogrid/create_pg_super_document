@@ -1,7 +1,7 @@
 # VacDeadItemsInfo
 
 ## Location
-src/include/commands/vacuum.h: 285 - 289
+[src/include/commands/vacuum.h:285-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/vacuum.h#L285-L289)
 
 ## Overview
 VacDeadItemsInfo stores supplemental information and constraints for managing dead tuple TID storage during VACUUM operations using TidStore.

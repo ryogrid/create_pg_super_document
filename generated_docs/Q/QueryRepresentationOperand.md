@@ -1,7 +1,7 @@
 # QueryRepresentationOperand
 
 ## Location
-src/backend/utils/adt/tsrank.c: 548 - 553
+[src/backend/utils/adt/tsrank.c:548-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L548-L553)
 
 ## Overview
 Represents the positional and existence data for a single operand within a text search query, used in PostgreSQL full-text search ranking calculations.

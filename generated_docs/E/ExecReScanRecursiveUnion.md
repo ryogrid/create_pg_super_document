@@ -1,7 +1,7 @@
 # ExecReScanRecursiveUnion
 
 ## Location
-src/backend/executor/nodeRecursiveunion.c: 298 - 331
+[src/backend/executor/nodeRecursiveunion.c:298-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeRecursiveunion.c#L298-L331)
 
 ## Overview
 Resets and rescans a RecursiveUnion plan node, clearing all accumulated state and preparing the node for a fresh execution of the recursive query.

@@ -1,7 +1,7 @@
 # PQftype
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3719 - 3729
+[src/interfaces/libpq/fe-exec.c:3719-3729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3719-L3729)
 
 ## Overview
 Returns the PostgreSQL type OID for the specified field in a query result.

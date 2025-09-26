@@ -1,7 +1,7 @@
 # BarrierArriveAndDetach
 
 ## Location
-src/backend/storage/ipc/barrier.c: 203 - 212
+[src/backend/storage/ipc/barrier.c:203-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/barrier.c#L203-L212)
 
 ## Overview
 Arrives at a barrier and immediately detaches from it without waiting, allowing a participant to signal arrival and leave the synchronization group atomically.

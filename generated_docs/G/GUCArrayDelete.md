@@ -1,7 +1,7 @@
 # GUCArrayDelete
 
 ## Location
-src/backend/utils/misc/guc.c: 6574 - 6643
+[src/backend/utils/misc/guc.c:6574-6643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6574-L6643)
 
 ## Overview
 Deletes a specific GUC (Grand Unified Configuration) parameter entry from a configuration array by name, returning a new array without the specified entry.

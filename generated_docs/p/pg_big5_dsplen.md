@@ -1,7 +1,7 @@
 # pg_big5_dsplen
 
 ## Location
-src/common/wchar.c: 934 - 948
+[src/common/wchar.c:934-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L934-L948)
 
 ## Overview
 Determines the display width of a single character in the Big5 multibyte encoding.

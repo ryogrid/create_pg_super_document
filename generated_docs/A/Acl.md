@@ -1,7 +1,7 @@
 # Acl
 
 ## Location
-src/include/utils/acl.h: 106 - 107
+[src/include/utils/acl.h:106-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/acl.h#L106-L107)
 
 ## Overview
 Acl represents an Access Control List as a one-dimensional PostgreSQL array of AclItem structures, used to manage permissions and privileges for database objects.

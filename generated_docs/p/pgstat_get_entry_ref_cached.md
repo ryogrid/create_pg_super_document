@@ -1,7 +1,7 @@
 # pgstat_get_entry_ref_cached
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 362 - 417
+[src/backend/utils/activity/pgstat_shmem.c:362-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L362-L417)
 
 ## Overview
 Helper function that manages the local cache for statistics entry references, handling cache hits, misses, and entry allocation for PostgreSQL's statistics collection system.

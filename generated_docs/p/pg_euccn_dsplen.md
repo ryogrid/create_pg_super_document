@@ -1,7 +1,7 @@
 # pg_euccn_dsplen
 
 ## Location
-src/common/wchar.c: 283 - 298
+[src/common/wchar.c:283-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L283-L298)
 
 ## Overview
 A static function that determines the display width of a character sequence in EUC-CN (Extended Unix Code for Chinese) encoding.

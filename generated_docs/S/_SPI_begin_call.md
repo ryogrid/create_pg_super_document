@@ -1,7 +1,7 @@
 # _SPI_begin_call
 
 ## Location
-src/backend/executor/spi.c: 3077 - 3100
+[src/backend/executor/spi.c:3077-3100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L3077-L3100)
 
 ## Overview
 _SPI_begin_call is a static internal function that initiates a SPI operation within a connected procedure, managing memory context and subtransaction tracking.

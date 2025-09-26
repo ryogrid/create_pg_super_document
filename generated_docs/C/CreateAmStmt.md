@@ -1,7 +1,7 @@
 # CreateAmStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2989 - 2995
+[src/include/nodes/parsenodes.h:2989-2995](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2989-L2995)
 
 ## Overview
 CreateAmStmt represents the parsed structure of a CREATE ACCESS METHOD SQL statement, used to register new access methods in PostgreSQL.

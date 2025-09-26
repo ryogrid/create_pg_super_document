@@ -1,7 +1,7 @@
 # slot_getattr
 
 ## Location
-src/include/executor/tuptable.h: 395 - 415
+[src/include/executor/tuptable.h:395-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L395-L415)
 
 ## Overview
 The primary inline function for fetching a single attribute value and its null status from a TupleTableSlot with lazy evaluation.

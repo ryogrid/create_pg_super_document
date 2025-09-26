@@ -1,7 +1,7 @@
 # LWLockReleaseAll
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1878 - 1894
+[src/backend/storage/lmgr/lwlock.c:1878-1894](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1878-L1894)
 
 ## Overview
 Releases all currently-held LWLocks by the current process, primarily used for cleanup during error recovery without affecting the interrupt holdoff count.

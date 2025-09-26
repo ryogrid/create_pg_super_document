@@ -1,7 +1,7 @@
 # termPQExpBuffer
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 129 - 145
+[src/interfaces/libpq/pqexpbuffer.c:129-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L129-L145)
 
 ## Overview
 Frees the data buffer of a PQExpBuffer and resets it to an empty but valid state, serving as the inverse operation to initPQExpBuffer.

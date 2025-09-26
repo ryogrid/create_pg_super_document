@@ -1,7 +1,7 @@
 # pg_utf8_verifystr
 
 ## Location
-src/common/wchar.c: 1891 - 1901
+[src/common/wchar.c:1891-1901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1891-L1901)
 
 ## Overview
 Validates UTF-8 encoded string data by checking each byte sequence for conformance to UTF-8 encoding rules and returns the number of valid bytes found.

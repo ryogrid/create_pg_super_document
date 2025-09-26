@@ -1,7 +1,7 @@
 # LWLockAnyHeldByMe
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1913 - 1938
+[src/backend/storage/lmgr/lwlock.c:1913-1938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1913-L1938)
 
 ## Overview
 A debugging function that checks whether the current process holds any LWLock from a specified array of locks, useful for verifying that no locks from a particular set are held.

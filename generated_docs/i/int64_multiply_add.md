@@ -1,7 +1,7 @@
 # int64_multiply_add
 
 ## Location
-src/backend/utils/adt/datetime.c: 522 - 536
+[src/backend/utils/adt/datetime.c:522-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L522-L536)
 
 ## Overview
 int64_multiply_add is a utility function that safely performs multiplication and addition operations on 64-bit integers with overflow detection and prevention.

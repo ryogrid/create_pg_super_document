@@ -1,7 +1,7 @@
 # AlterOperatorStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3584 - 3589
+[src/include/nodes/parsenodes.h:3584-3589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3584-L3589)
 
 ## Overview
 AlterOperatorStmt is a PostgreSQL parse node structure that represents an ALTER OPERATOR SET statement for modifying operator properties and attributes.

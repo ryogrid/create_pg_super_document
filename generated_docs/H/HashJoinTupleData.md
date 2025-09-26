@@ -1,7 +1,7 @@
 # HashJoinTupleData
 
 ## Location
-src/include/executor/hashjoin.h: 78 - 88
+[src/include/executor/hashjoin.h:78-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/hashjoin.h#L78-L88)
 
 ## Overview
 HashJoinTupleData is a fundamental data structure that represents an individual tuple (row) stored in PostgreSQL's hash join hash table, containing the tuple's hash value and a pointer to the next tuple in the same hash bucket.

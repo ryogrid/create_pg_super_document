@@ -1,7 +1,7 @@
 # RefreshMatViewStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3902 - 3908
+[src/include/nodes/parsenodes.h:3902-3908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3902-L3908)
 
 ## Overview
 RefreshMatViewStmt represents the parsed structure of a REFRESH MATERIALIZED VIEW statement, which is used to update the contents of a materialized view with fresh data from its underlying query.

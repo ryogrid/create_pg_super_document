@@ -1,7 +1,7 @@
 # BlockRefTableFileTerminate
 
 ## Location
-src/common/blkreftable.c: 1292 - 1311
+[src/common/blkreftable.c:1292-1311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L1292-L1311)
 
 ## Overview
 A static function that finalizes a block reference table file by writing a sentinel entry, calculating and writing the final CRC checksum, and flushing any remaining buffered data.

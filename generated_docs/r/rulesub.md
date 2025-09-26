@@ -1,7 +1,7 @@
 # rulesub
 
 ## Location
-src/timezone/zic.c: 1823 - 1991
+[src/timezone/zic.c:1823-1991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1823-L1991)
 
 ## Overview
 Parses and validates individual timezone rule components including years, months, days, and time specifications for daylight saving time transitions.

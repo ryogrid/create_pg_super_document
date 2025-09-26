@@ -1,7 +1,7 @@
 # TS_execute
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 1854 - 1870
+[src/backend/utils/adt/tsvector_op.c:1854-1870](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L1854-L1870)
 
 ## Overview
 TS_execute is a high-level wrapper function that evaluates tsquery boolean expressions, providing a simplified interface for text search execution without requiring position information.

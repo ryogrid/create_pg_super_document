@@ -1,7 +1,7 @@
 # array_dim_to_json
 
 ## Location
-src/backend/utils/adt/json.c: 422 - 464
+[src/backend/utils/adt/json.c:422-464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L422-L464)
 
 ## Overview
 Recursively processes a single dimension of a multi-dimensional array to convert it into JSON array format with proper nesting and element conversion.

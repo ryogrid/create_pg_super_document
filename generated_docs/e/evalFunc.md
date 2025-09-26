@@ -1,7 +1,7 @@
 # evalFunc
 
 ## Location
-src/bin/pgbench/pgbench.c: 2821 - 2836
+[src/bin/pgbench/pgbench.c:2821-2836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2821-L2836)
 
 ## Overview
 A dispatcher function that routes pgbench function calls to the appropriate evaluation strategy based on whether lazy or eager evaluation is required.

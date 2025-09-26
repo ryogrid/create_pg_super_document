@@ -1,7 +1,7 @@
 # GetRecordedFreeSpace
 
 ## Location
-src/backend/storage/freespace/freespace.c: 244 - 274
+[src/backend/storage/freespace/freespace.c:244-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L244-L274)
 
 ## Overview
 GetRecordedFreeSpace retrieves the amount of free space recorded in the FSM for a specific page, providing a way to query stored free space information without searching for pages.

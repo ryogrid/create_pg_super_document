@@ -1,7 +1,7 @@
 # pairingheap_free
 
 ## Location
-src/backend/lib/pairingheap.c: 63 - 78
+[src/backend/lib/pairingheap.c:63-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/pairingheap.c#L63-L78)
 
 ## Overview
 Releases the memory allocated for a pairing heap structure, but does not free the individual nodes contained within the heap.

@@ -1,7 +1,7 @@
 # dsm_estimate_size
 
 ## Location
-src/backend/storage/ipc/dsm.c: 470 - 478
+[src/backend/storage/ipc/dsm.c:470-478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L470-L478)
 
 ## Overview
 Calculates the amount of shared memory space to reserve for dynamic shared memory segment management based on configuration settings.

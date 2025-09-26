@@ -1,7 +1,7 @@
 # ecpg_do_epilogue
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 2211 - 2242
+[src/interfaces/ecpg/ecpglib/execute.c:2211-2242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L2211-L2242)
 
 ## Overview
 Restores the application locale settings and frees statement structures during cleanup phase of ECPG statement execution.

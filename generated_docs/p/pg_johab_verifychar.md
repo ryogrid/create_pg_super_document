@@ -1,7 +1,7 @@
 # pg_johab_verifychar
 
 ## Location
-src/common/wchar.c: 1307 - 1330
+[src/common/wchar.c:1307-1330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1307-L1330)
 
 ## Overview
 Validates a single character in JOHAB (Korean Industrial Standard) encoding and returns the number of bytes consumed if valid.

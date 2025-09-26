@@ -1,7 +1,7 @@
 # conv_compare
 
 ## Location
-src/common/unicode_norm.c: 52 - 71
+[src/common/unicode_norm.c:52-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_norm.c#L52-L71)
 
 ## Overview
 A comparison function used by bsearch() to locate entries in the Unicode decomposition lookup table by comparing codepoints.

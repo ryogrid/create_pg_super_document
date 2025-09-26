@@ -1,7 +1,7 @@
 # get_timeout_finish_time
 
 ## Location
-src/backend/utils/misc/timeout.c: 827 - 830
+[src/backend/utils/misc/timeout.c:827-830](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L827-L830)
 
 ## Overview
 Returns the timestamp when the specified timeout is scheduled to fire or most recently was due to fire.

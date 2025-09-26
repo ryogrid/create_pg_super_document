@@ -1,7 +1,7 @@
 # pg_wc_isspace
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 575 - 608
+[src/backend/regex/regc_pg_locale.c:575-608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L575-L608)
 
 ## Overview
 Determines whether a wide character is a whitespace character according to the current regex locale strategy.

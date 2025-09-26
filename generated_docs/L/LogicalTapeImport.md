@@ -1,7 +1,7 @@
 # LogicalTapeImport
 
 ## Location
-src/backend/utils/sort/logtape.c: 609 - 666
+[src/backend/utils/sort/logtape.c:609-666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L609-L666)
 
 ## Overview
 Claims ownership of a logical tape from a worker process's shared BufFile and imports it into the leader's tape set, creating a concatenated view of multiple BufFiles for parallel sort operations.

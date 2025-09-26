@@ -1,7 +1,7 @@
 # SerializeGUCState
 
 ## Location
-src/backend/utils/misc/guc.c: 6109 - 6141
+[src/backend/utils/misc/guc.c:6109-6141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6109-L6141)
 
 ## Overview
 Serializes the complete GUC (Grand Unified Configuration) state by dumping all non-default configuration variables into a memory buffer for transfer to parallel workers or other processes.

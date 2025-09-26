@@ -1,7 +1,7 @@
 # SupportRequestCost
 
 ## Location
-src/include/nodes/supportnodes.h: 131 - 143
+[src/include/nodes/supportnodes.h:131-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/supportnodes.h#L131-L143)
 
 ## Overview
 SupportRequestCost is a structure that allows support functions to provide custom execution cost estimates for their target functions, enabling more accurate query planning by the PostgreSQL optimizer.

@@ -1,7 +1,7 @@
 # ExpireTreeKnownAssignedTransactionIds
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4471 - 4496
+[src/backend/storage/ipc/procarray.c:4471-4496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4471-L4496)
 
 ## Overview
 Removes a transaction and its subtransactions from the KnownAssignedXids data structure during recovery, analogous to ProcArrayEndTransaction() but for standby servers.

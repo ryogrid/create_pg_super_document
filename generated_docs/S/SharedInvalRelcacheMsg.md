@@ -1,7 +1,7 @@
 # SharedInvalRelcacheMsg
 
 ## Location
-src/include/storage/sinval.h: 83 - 84
+[src/include/storage/sinval.h:83-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/sinval.h#L83-L84)
 
 ## Overview
 SharedInvalRelcacheMsg is a structure that represents a shared invalidation message for invalidating relcache (relation cache) entries for specific logical relations or the entire relcache across PostgreSQL processes.

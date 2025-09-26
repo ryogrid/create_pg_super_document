@@ -1,7 +1,7 @@
 # PostPrepare_PredicateLocks
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 4849 - 4871
+[src/backend/storage/lmgr/predicate.c:4849-4871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L4849-L4871)
 
 ## Overview
 Cleans up local predicate lock state after successful transaction preparation in two-phase commit, while preserving the global serializable transaction structure.

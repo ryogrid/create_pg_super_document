@@ -1,7 +1,7 @@
 # gistchoose
 
 ## Location
-src/backend/access/gist/gistutil.c: 373 - 545
+[src/backend/access/gist/gistutil.c:373-545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L373-L545)
 
 ## Overview
 The `gistchoose` function searches an upper index page to find the entry with the lowest penalty for insertion of a new index key, implementing the GiST choose algorithm.

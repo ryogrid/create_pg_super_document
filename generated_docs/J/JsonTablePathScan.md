@@ -1,7 +1,7 @@
 # JsonTablePathScan
 
 ## Location
-src/include/nodes/primnodes.h: 1893 - 1916
+[src/include/nodes/primnodes.h:1893-1916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1893-L1916)
 
 ## Overview
 JsonTablePathScan is a concrete JSON_TABLE plan type that evaluates a JSON path expression and handles nested paths for JSON_TABLE operations.

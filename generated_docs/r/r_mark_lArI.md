@@ -1,7 +1,7 @@
 # r_mark_lArI
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 666 - 671
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:666-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L666-L671)
 
 ## Overview
 A static function in the Turkish stemmer that identifies and marks the specific Turkish suffix pattern 'lArI' and its vowel harmony variants.

@@ -1,7 +1,7 @@
 # scalararraysel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 1817 - 2139
+[src/backend/utils/adt/selfuncs.c:1817-2139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L1817-L2139)
 
 ## Overview
 Computes the selectivity of ScalarArrayOpExpr nodes, handling SQL operations like 'value = ANY(array)' and 'value <> ALL(array)' with sophisticated array analysis.

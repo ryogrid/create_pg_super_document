@@ -1,7 +1,7 @@
 # fsm_get_child
 
 ## Location
-src/backend/storage/freespace/freespace.c: 535 - 553
+[src/backend/storage/freespace/freespace.c:535-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L535-L553)
 
 ## Overview
 Computes the logical address of a child page in the Free Space Map (FSM) tree structure given a parent page's logical address and a slot number.

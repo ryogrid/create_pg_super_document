@@ -1,7 +1,7 @@
 # tuplesort_heap_delete_top
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2812 - 2835
+[src/backend/utils/sort/tuplesort.c:2812-2835](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2812-L2835)
 
 ## Overview
 Removes the top element from a heap by replacing it with the last element and performing a sift-down operation to restore the heap property.

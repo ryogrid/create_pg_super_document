@@ -1,7 +1,7 @@
 # GetPredicateLockStatusData
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1435 - 1492
+[src/backend/storage/lmgr/predicate.c:1435-1492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1435-L1492)
 
 ## Overview
 Returns internal state of the predicate lock manager as a structured table for use in pg_lock_status system view.

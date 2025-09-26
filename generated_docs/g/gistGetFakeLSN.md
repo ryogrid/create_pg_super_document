@@ -1,7 +1,7 @@
 # gistGetFakeLSN
 
 ## Location
-src/backend/access/gist/gistutil.c: 1015 - 1057
+[src/backend/access/gist/gistutil.c:1015-1057](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L1015-L1057)
 
 ## Overview
 Provides fake LSN (Log Sequence Number) sequences for GiST indexes that are not WAL-logged, enabling detection of concurrent page splits even without actual WAL logging.

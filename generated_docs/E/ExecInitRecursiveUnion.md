@@ -1,7 +1,7 @@
 # ExecInitRecursiveUnion
 
 ## Location
-src/backend/executor/nodeRecursiveunion.c: 167 - 271
+[src/backend/executor/nodeRecursiveunion.c:167-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeRecursiveunion.c#L167-L271)
 
 ## Overview
 Initializes the execution state for a RecursiveUnion plan node, setting up all necessary data structures, memory contexts, and child nodes required for recursive UNION query execution.

@@ -1,7 +1,7 @@
 # get_rule_expr_paren
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8859 - 8876
+[src/backend/utils/adt/ruleutils.c:8859-8876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8859-L8876)
 
 ## Overview
 Deparses a PostgreSQL expression node using get_rule_expr, automatically adding parentheses when necessary for pretty printing based on the node's complexity and context.

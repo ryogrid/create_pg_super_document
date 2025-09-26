@@ -1,7 +1,7 @@
 # JsonManifestWALRangeField
 
 ## Location
-src/common/parse_manifest.c: 62 - 91
+[src/common/parse_manifest.c:62-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L62-L91)
 
 ## Overview
 JsonManifestWALRangeField is an enumerated type that identifies the different field types within a WAL range object when parsing JSON-format backup manifests in PostgreSQL.

@@ -1,7 +1,7 @@
 # TupleHashTableHash
 
 ## Location
-src/backend/executor/execGrouping.c: 336 - 358
+[src/backend/executor/execGrouping.c:336-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execGrouping.c#L336-L358)
 
 ## Overview
 Computes the hash value for a tuple in a tuple hash table, providing a standalone interface for hash calculation without lookup or insertion operations.

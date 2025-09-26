@@ -1,7 +1,7 @@
 # RemoveScratchTarget
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2130 - 2150
+[src/backend/storage/lmgr/predicate.c:2130-2150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2130-L2150)
 
 ## Overview
 Removes a dummy entry from the predicate lock target hash table to free up scratch space, as part of PostgreSQL's predicate locking memory management.

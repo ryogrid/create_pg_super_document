@@ -1,7 +1,7 @@
 # dsm_impl_unpin_segment
 
 ## Location
-src/backend/storage/ipc/dsm_impl.c: 1014 - 1046
+[src/backend/storage/ipc/dsm_impl.c:1014-1046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_impl.c#L1014-L1046)
 
 ## Overview
 Performs implementation-specific cleanup actions when a dynamic shared memory segment is no longer pinned and can be cleaned up after all backends detach.

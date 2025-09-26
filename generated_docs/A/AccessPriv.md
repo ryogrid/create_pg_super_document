@@ -1,7 +1,7 @@
 # AccessPriv
 
 ## Location
-src/include/nodes/parsenodes.h: 2540 - 2545
+[src/include/nodes/parsenodes.h:2540-2545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2540-L2545)
 
 ## Overview
 AccessPriv is a parse tree node structure that represents an access privilege specification with an optional list of column names, used in SQL privilege grant/revoke statements.

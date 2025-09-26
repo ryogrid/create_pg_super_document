@@ -1,7 +1,7 @@
 # _outBitString
 
 ## Location
-src/backend/nodes/outfuncs.c: 684 - 695
+[src/backend/nodes/outfuncs.c:684-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L684-L695)
 
 ## Overview
 _outBitString is a static helper function that serializes a BitString node to its string representation in PostgreSQL's node output format.

@@ -1,7 +1,7 @@
 # MemoryContextMemAllocated
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 762 - 785
+[src/backend/utils/mmgr/mcxt.c:762-785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L762-L785)
 
 ## Overview
 MemoryContextMemAllocated reports the amount of memory allocated in a memory context, with optional recursion to include all child contexts in the calculation.

@@ -1,7 +1,7 @@
 # WORK_AROUND_QTBUG_53071
 
 ## Location
-src/timezone/zic.c: 172 - 201
+[src/timezone/zic.c:172-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L172-L201)
 
 ## Overview
 A compile-time configuration constant that enables a workaround for a bug in Qt 5.6.1 and earlier versions that mishandles TZif (timezone information format) files containing '<' characters in their POSIX-TZ-style strings.

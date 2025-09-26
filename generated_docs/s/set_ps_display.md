@@ -1,7 +1,7 @@
 # set_ps_display
 
 ## Location
-src/include/utils/ps_status.h: 40 - 47
+[src/include/utils/ps_status.h:40-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/ps_status.h#L40-L47)
 
 ## Overview
 A static inline function that provides a convenient wrapper for updating the PostgreSQL process status display by calculating the string length at compile time when string constants are passed.

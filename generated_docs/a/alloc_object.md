@@ -1,7 +1,7 @@
 # alloc_object
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1472 - 1559
+[src/backend/utils/mmgr/dsa.c:1472-1559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1472-L1559)
 
 ## Overview
 Allocates a single object of the specified size class from a DSA area, managing span utilization and free object tracking within the dynamic shared memory allocation system.

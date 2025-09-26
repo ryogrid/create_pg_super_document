@@ -1,7 +1,7 @@
 # TSVectorData
 
 ## Location
-src/include/tsearch/ts_type.h: 96 - 97
+[src/include/tsearch/ts_type.h:96-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_type.h#L96-L97)
 
 ## Overview
 TSVectorData is the complete data structure representing a PostgreSQL tsvector datum, containing the varlena header, size information, and arrays of word entries with their associated text data.

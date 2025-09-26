@@ -1,7 +1,7 @@
 # DropUserMappingStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2924 - 2930
+[src/include/nodes/parsenodes.h:2924-2930](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2924-L2930)
 
 ## Overview
 DropUserMappingStmt is a parse node structure that represents a DROP USER MAPPING SQL statement, which removes an existing mapping between a PostgreSQL user and a foreign server.

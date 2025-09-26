@@ -1,7 +1,7 @@
 # ecpg_add_mem
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 117 - 130
+[src/interfaces/ecpg/ecpglib/memory.c:117-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L117-L130)
 
 ## Overview
 Adds a memory pointer to the thread-specific automatic memory tracking list for later cleanup.

@@ -1,7 +1,7 @@
 # bbsink_archive_contents
 
 ## Location
-src/include/backup/basebackup_sink.h: 200 - 215
+[src/include/backup/basebackup_sink.h:200-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L200-L215)
 
 ## Overview
 Processes and outputs archive data from the sink's buffer by calling the sink-specific archive contents operation.

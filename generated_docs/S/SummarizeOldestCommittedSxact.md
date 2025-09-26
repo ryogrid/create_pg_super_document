@@ -1,7 +1,7 @@
 # SummarizeOldestCommittedSxact
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1493 - 1547
+[src/backend/storage/lmgr/predicate.c:1493-1547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1493-L1547)
 
 ## Overview
 Frees shared memory by converting the oldest committed serializable transaction into summary form and releasing associated data structures.

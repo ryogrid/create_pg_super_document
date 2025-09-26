@@ -1,7 +1,7 @@
 # IsReservedOriginName
 
 ## Location
-src/backend/replication/logical/origin.c: 204 - 220
+[src/backend/replication/logical/origin.c:204-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L204-L220)
 
 ## Overview
 A static helper function that determines whether a given replication origin name is reserved by checking if it matches the special names "none" or "any".

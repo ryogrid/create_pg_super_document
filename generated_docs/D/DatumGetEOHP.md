@@ -1,7 +1,7 @@
 # DatumGetEOHP
 
 ## Location
-src/backend/utils/adt/expandeddatum.c: 29 - 47
+[src/backend/utils/adt/expandeddatum.c:29-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandeddatum.c#L29-L47)
 
 ## Overview
 Extracts an ExpandedObjectHeader pointer from a Datum that contains an expanded-object reference, handling potential alignment issues in the process.

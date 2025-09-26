@@ -1,7 +1,7 @@
 # makeWholeRowVar
 
 ## Location
-src/backend/nodes/makefuncs.c: 135 - 286
+[src/backend/nodes/makefuncs.c:135-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L135-L286)
 
 ## Overview
 Creates a Var node representing a whole-row reference to a range table entry, handling different RTE types and determining the appropriate row type for the variable.

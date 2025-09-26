@@ -1,7 +1,7 @@
 # PartitionedRelPruningData
 
 ## Location
-src/include/executor/execPartition.h: 59 - 69
+[src/include/executor/execPartition.h:59-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/execPartition.h#L59-L69)
 
 ## Overview
 PartitionedRelPruningData contains per-partitioned-table data for run-time pruning of partitions, with one instance for the topmost partition plus one for each non-leaf child partition in multilevel partitioned tables.

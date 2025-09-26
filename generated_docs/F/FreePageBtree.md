@@ -1,7 +1,7 @@
 # FreePageBtree
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 108 - 118
+[src/backend/utils/mmgr/freepage.c:108-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L108-L118)
 
 ## Overview
 FreePageBtree represents a complete btree page that can function as either an internal or leaf node, providing the unified structure for PostgreSQL's free page management btree.

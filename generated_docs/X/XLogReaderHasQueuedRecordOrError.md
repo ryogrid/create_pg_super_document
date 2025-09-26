@@ -1,7 +1,7 @@
 # XLogReaderHasQueuedRecordOrError
 
 ## Location
-src/include/access/xlogreader.h: 325 - 348
+[src/include/access/xlogreader.h:325-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogreader.h#L325-L348)
 
 ## Overview
 A static inline function that checks whether an XLogReaderState has queued decoded records or a deferred error message that can be returned by XLogNextRecord().

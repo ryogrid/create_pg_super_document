@@ -1,7 +1,7 @@
 # pg_gb18030_mblen
 
 ## Location
-src/common/wchar.c: 1015 - 1028
+[src/common/wchar.c:1015-1028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1015-L1028)
 
 ## Overview
 Returns the byte length of a GB18030-encoded character, supporting both 2-byte and 4-byte Chinese character sequences.

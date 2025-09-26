@@ -1,7 +1,7 @@
 # ecpg_autostart_transaction
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 1581 - 1601
+[src/interfaces/ecpg/ecpglib/execute.c:1581-1601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L1581-L1601)
 
 ## Overview
 Automatically starts a database transaction in non-autocommit mode when the connection is in an idle state.

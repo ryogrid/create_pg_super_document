@@ -1,7 +1,7 @@
 # FreeDir
 
 ## Location
-src/backend/storage/file/fd.c: 2958 - 2987
+[src/backend/storage/file/fd.c:2958-2987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2958-L2987)
 
 ## Overview
 FreeDir closes a directory handle that was previously opened by AllocateDir and removes it from the internal list of allocated directory descriptors managed by PostgreSQL's file descriptor management system.

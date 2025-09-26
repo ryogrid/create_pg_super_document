@@ -1,7 +1,7 @@
 # LWLockUpdateVar
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1722 - 1782
+[src/backend/storage/lmgr/lwlock.c:1722-1782](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1722-L1782)
 
 ## Overview
 LWLockUpdateVar atomically updates a variable and wakes up all processes waiting for that variable change while holding an exclusive lock.

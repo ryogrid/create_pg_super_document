@@ -1,7 +1,7 @@
 # UniquePath
 
 ## Location
-src/include/nodes/pathnodes.h: 2027 - 2034
+[src/include/nodes/pathnodes.h:2027-2034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2027-L2034)
 
 ## Overview
 UniquePath represents elimination of distinct rows from the output of its subpath, using hash-based, sort-based, or no-op implementation depending on the input characteristics.

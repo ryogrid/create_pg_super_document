@@ -1,7 +1,7 @@
 # int4hashfast
 
 ## Location
-src/backend/utils/cache/catcache.c: 238 - 243
+[src/backend/utils/cache/catcache.c:238-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L238-L243)
 
 ## Overview
 A fast hash function for 32-bit integers used in PostgreSQL's catalog cache system to generate hash values for INT4OID type keys.

@@ -1,7 +1,7 @@
 # get_code_decomposition
 
 ## Location
-src/common/unicode_norm.c: 134 - 158
+[src/common/unicode_norm.c:134-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_norm.c#L134-L158)
 
 ## Overview
 Retrieves the actual decomposed characters for a Unicode codepoint from a decomposition entry, handling both inline and external decomposition storage.

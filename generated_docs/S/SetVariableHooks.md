@@ -1,7 +1,7 @@
 # SetVariableHooks
 
 ## Location
-src/bin/psql/variables.c: 314 - 366
+[src/bin/psql/variables.c:314-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L314-L366)
 
 ## Overview
 Attaches substitute and/or assign hook functions to a named variable, creating the variable if it doesn't exist.

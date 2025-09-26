@@ -1,7 +1,7 @@
 # pltcl_interp_desc
 
 ## Location
-src/pl/tcl/pltcl.c: 117 - 122
+[src/pl/tcl/pltcl.c:117-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L117-L122)
 
 ## Overview
 A struct representing information associated with a Tcl interpreter in the PostgreSQL PL/Tcl procedural language extension, managing separate interpreters for trusted and untrusted functions.

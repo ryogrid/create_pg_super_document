@@ -1,7 +1,7 @@
 # InstrUpdateTupleCount
 
 ## Location
-src/backend/executor/instrument.c: 132 - 139
+[src/backend/executor/instrument.c:132-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L132-L139)
 
 ## Overview
 InstrUpdateTupleCount provides a lightweight method to update tuple count statistics in an Instrumentation structure without performing full timing or resource usage measurements.

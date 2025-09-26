@@ -1,7 +1,7 @@
 # pg_unicode_decompinfo
 
 ## Location
-src/include/common/unicode_norm_hashfunc.h: 31 - 37
+[src/include/common/unicode_norm_hashfunc.h:31-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/unicode_norm_hashfunc.h#L31-L37)
 
 ## Overview
 A data structure that encapsulates Unicode character decomposition information along with the associated hash function for efficient lookups in PostgreSQL's Unicode normalization system.

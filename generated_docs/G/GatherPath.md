@@ -1,7 +1,7 @@
 # GatherPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2041 - 2047
+[src/include/nodes/pathnodes.h:2041-2047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2041-L2047)
 
 ## Overview
 GatherPath represents a path node for parallel query execution that runs multiple copies of a plan in parallel and collects the results from worker processes.

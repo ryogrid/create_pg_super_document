@@ -1,7 +1,7 @@
 # pgstat_is_kind_valid
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1259 - 1264
+[src/backend/utils/activity/pgstat.c:1259-1264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1259-L1264)
 
 ## Overview
 A simple inline validation function that checks whether an integer value represents a valid statistics kind within the defined range of PostgreSQL statistics types.

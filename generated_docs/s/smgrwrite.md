@@ -1,7 +1,7 @@
 # smgrwrite
 
 ## Location
-src/include/storage/smgr.h: 124 - 130
+[src/include/storage/smgr.h:124-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/smgr.h#L124-L130)
 
 ## Overview
 A lightweight inline wrapper function that writes a single block from a buffer to a storage manager relation.

@@ -1,7 +1,7 @@
 # pg_checksum_init
 
 ## Location
-src/common/checksum_helper.c: 83 - 144
+[src/common/checksum_helper.c:83-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/checksum_helper.c#L83-L144)
 
 ## Overview
 Initializes a checksum context for computing checksums of a specified algorithm type.

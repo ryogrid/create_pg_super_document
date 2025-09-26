@@ -1,7 +1,7 @@
 # gistAddLoadedBuffer
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 198 - 220
+[src/backend/access/gist/gistbuildbuffers.c:198-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L198-L220)
 
 ## Overview
 gistAddLoadedBuffer adds a node buffer to the array that tracks buffers currently loaded in memory during GiST index construction.

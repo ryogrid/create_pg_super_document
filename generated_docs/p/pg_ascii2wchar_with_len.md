@@ -1,7 +1,7 @@
 # pg_ascii2wchar_with_len
 
 ## Location
-src/common/wchar.c: 70 - 84
+[src/common/wchar.c:70-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L70-L84)
 
 ## Overview
 Converts ASCII-encoded string to wide character representation with length constraint, providing a safe conversion mechanism that respects buffer boundaries.

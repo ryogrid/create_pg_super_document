@@ -1,7 +1,7 @@
 # processIndirection
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12591 - 12668
+[src/backend/utils/adt/ruleutils.c:12591-12668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12591-L12668)
 
 ## Overview
 Processes array and subfield assignment indirection by stripping top-level FieldStore or assignment SubscriptingRef nodes and printing them as decoration for the base column name.

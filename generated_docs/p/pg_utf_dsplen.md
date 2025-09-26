@@ -1,7 +1,7 @@
 # pg_utf_dsplen
 
 ## Location
-src/common/wchar.c: 662 - 673
+[src/common/wchar.c:662-673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L662-L673)
 
 ## Overview
 Calculates the display column width of a UTF-8 encoded character by converting it to Unicode and determining its visual width.

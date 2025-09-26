@@ -1,7 +1,7 @@
 # stream_prepare_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1425 - 1469
+[src/backend/replication/logical/logical.c:1425-1469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1425-L1469)
 
 ## Overview
 A wrapper function that sets up error handling context and calls the plugin's stream_prepare callback to notify about the preparation phase of a streaming two-phase commit transaction in logical replication.

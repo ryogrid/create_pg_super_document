@@ -1,7 +1,7 @@
 # _bt_set_cleanup_info
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 232 - 343
+[src/backend/access/nbtree/nbtpage.c:232-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L232-L343)
 
 ## Overview
 _bt_set_cleanup_info updates the B-tree metapage with cleanup statistics at the end of btvacuumcleanup operations, including the number of deleted pages and performing version upgrades if necessary.

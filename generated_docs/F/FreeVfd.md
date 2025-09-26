@@ -1,7 +1,7 @@
 # FreeVfd
 
 ## Location
-src/backend/storage/file/fd.c: 1469 - 1488
+[src/backend/storage/file/fd.c:1469-1488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1469-L1488)
 
 ## Overview
 FreeVfd is a static function that releases a virtual file descriptor (VFD) back to the free list, cleaning up its associated resources and making it available for reuse.

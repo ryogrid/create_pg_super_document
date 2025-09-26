@@ -1,7 +1,7 @@
 # ExecRecursiveUnion
 
 ## Location
-src/backend/executor/nodeRecursiveunion.c: 75 - 166
+[src/backend/executor/nodeRecursiveunion.c:75-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeRecursiveunion.c#L75-L166)
 
 ## Overview
 Executes recursive UNION queries by processing non-recursive and recursive terms iteratively, implementing PostgreSQL's recursive Common Table Expression (CTE) functionality.

@@ -1,7 +1,7 @@
 # WaitBufHdrUnlocked
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5765 - 5788
+[src/backend/storage/buffer/bufmgr.c:5765-5788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5765-L5788)
 
 ## Overview
 Waits until the BM_LOCKED flag is cleared from a buffer header and returns the buffer state at that point.

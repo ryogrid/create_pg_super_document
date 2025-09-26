@@ -1,7 +1,7 @@
 # dsm_segment_map_length
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1105 - 1122
+[src/backend/storage/ipc/dsm.c:1105-1122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1105-L1122)
 
 ## Overview
 Returns the size in bytes of a mapped dynamic shared memory segment.

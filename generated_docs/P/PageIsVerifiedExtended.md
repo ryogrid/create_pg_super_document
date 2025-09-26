@@ -1,7 +1,7 @@
 # PageIsVerifiedExtended
 
 ## Location
-src/backend/storage/page/bufpage.c: 88 - 193
+[src/backend/storage/page/bufpage.c:88-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L88-L193)
 
 ## Overview
 Validates that a page header and checksum appear correct when a page is read from disk, providing protection against corrupted data before processing page contents.

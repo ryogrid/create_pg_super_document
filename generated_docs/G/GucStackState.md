@@ -1,7 +1,7 @@
 # GucStackState
 
 ## Location
-src/include/utils/guc_tables.h: 115 - 116
+[src/include/utils/guc_tables.h:115-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc_tables.h#L115-L116)
 
 ## Overview
 GucStackState is an enumeration that defines the different states for GUC (Grand Unified Configuration) stack entries, tracking how configuration parameter values were set during transaction processing.

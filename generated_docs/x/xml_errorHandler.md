@@ -1,7 +1,7 @@
 # xml_errorHandler
 
 ## Location
-src/backend/utils/adt/xml.c: 2088 - 2275
+[src/backend/utils/adt/xml.c:2088-2275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2088-L2275)
 
 ## Overview
 The central error handler callback function for libxml2 that captures, processes, and formats XML parsing errors according to PostgreSQL's error reporting standards.

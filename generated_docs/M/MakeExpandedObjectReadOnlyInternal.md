@@ -1,7 +1,7 @@
 # MakeExpandedObjectReadOnlyInternal
 
 ## Location
-src/backend/utils/adt/expandeddatum.c: 95 - 117
+[src/backend/utils/adt/expandeddatum.c:95-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandeddatum.c#L95-L117)
 
 ## Overview
 Converts a read-write expanded object Datum to its read-only equivalent, or returns the original Datum unchanged if it's not a read-write expanded object.

@@ -1,7 +1,7 @@
 # transtime
 
 ## Location
-src/timezone/localtime.c: 839 - 935
+[src/timezone/localtime.c:839-935](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L839-L935)
 
 ## Overview
 Calculates the exact year-relative time (in seconds from start of year) when a timezone rule takes effect, given a specific year, rule, and UTC offset.

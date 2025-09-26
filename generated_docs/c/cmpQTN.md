@@ -1,7 +1,7 @@
 # cmpQTN
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 153 - 162
+[src/backend/utils/adt/tsquery_util.c:153-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L153-L162)
 
 ## Overview
 A qsort-compatible wrapper function that enables sorting arrays of QTNode pointers using the QTNodeCompare comparison logic.

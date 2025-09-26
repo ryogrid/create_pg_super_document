@@ -1,7 +1,7 @@
 # RowIdentityVarInfo
 
 ## Location
-src/include/nodes/pathnodes.h: 3036 - 3046
+[src/include/nodes/pathnodes.h:3036-3046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L3036-L3046)
 
 ## Overview
 RowIdentityVarInfo is a data structure that tracks row-identity "resjunk" columns in UPDATE/DELETE/MERGE operations, particularly for partitioned tables where sharing identity columns across child partitions is important to optimize targetlist usage.

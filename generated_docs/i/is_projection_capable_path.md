@@ -1,7 +1,7 @@
 # is_projection_capable_path
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 7234 - 7283
+[src/backend/optimizer/plan/createplan.c:7234-7283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L7234-L7283)
 
 ## Overview
 Determines whether a given Path node is capable of performing projection (selecting specific columns and computing expressions) as part of its execution.

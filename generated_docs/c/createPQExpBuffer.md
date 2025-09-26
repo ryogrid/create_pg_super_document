@@ -1,7 +1,7 @@
 # createPQExpBuffer
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 72 - 89
+[src/interfaces/libpq/pqexpbuffer.c:72-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L72-L89)
 
 ## Overview
 Creates and returns a new PQExpBuffer by allocating memory for both the PQExpBufferData structure and initializing it with an empty buffer.

@@ -1,7 +1,7 @@
 # inlink
 
 ## Location
-src/timezone/zic.c: 1798 - 1822
+[src/timezone/zic.c:1798-1822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1798-L1822)
 
 ## Overview
 Processes timezone link entries from database files, creating symbolic links between timezone names and their target zones.

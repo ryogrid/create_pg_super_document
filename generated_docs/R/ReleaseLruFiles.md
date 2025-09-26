@@ -1,7 +1,7 @@
 # ReleaseLruFiles
 
 ## Location
-src/backend/storage/file/fd.c: 1401 - 1410
+[src/backend/storage/file/fd.c:1401-1410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1401-L1410)
 
 ## Overview
 Releases multiple kernel file descriptors by closing least-recently-used files until the system is under the safe file descriptor limit.

@@ -1,7 +1,7 @@
 # d2d_small_int
 
 ## Location
-src/common/d2s.c: 962 - 1014
+[src/common/d2s.c:962-1014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s.c#L962-L1014)
 
 ## Overview
 Optimized fast path for converting IEEE 754 double-precision floating-point numbers that represent small integers to decimal form without expensive arithmetic operations.

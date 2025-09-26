@@ -1,7 +1,7 @@
 # TBMIterateResult
 
 ## Location
-src/include/nodes/tidbitmap.h: 40 - 47
+[src/include/nodes/tidbitmap.h:40-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/tidbitmap.h#L40-L47)
 
 ## Overview
 TBMIterateResult is a structure that represents the result of iterating over a TID (Tuple ID) bitmap, containing information about tuples found on a specific database page during bitmap heap scans.

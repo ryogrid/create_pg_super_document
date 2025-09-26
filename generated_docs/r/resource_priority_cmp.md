@@ -1,7 +1,7 @@
 # resource_priority_cmp
 
 ## Location
-src/backend/utils/resowner/resowner.c: 261 - 283
+[src/backend/utils/resowner/resowner.c:261-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L261-L283)
 
 ## Overview
 The  function is a comparison function used for sorting resource elements by their release phase and priority, ensuring proper cleanup order during resource owner destruction.

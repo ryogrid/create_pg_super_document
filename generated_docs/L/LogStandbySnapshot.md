@@ -1,7 +1,7 @@
 # LogStandbySnapshot
 
 ## Location
-src/backend/storage/ipc/standby.c: 1285 - 1344
+[src/backend/storage/ipc/standby.c:1285-1344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1285-L1344)
 
 ## Overview
 LogStandbySnapshot logs the current transaction snapshot state to WAL, enabling standby servers to reconstruct the correct recovery snapshot and supporting logical decoding operations.

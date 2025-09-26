@@ -1,7 +1,7 @@
 # pgstat_flush_wal
 
 ## Location
-src/backend/utils/activity/pgstat_wal.c: 82 - 109
+[src/backend/utils/activity/pgstat_wal.c:82-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_wal.c#L82-L109)
 
 ## Overview
 Calculates WAL usage counter differences and flushes the accumulated WAL statistics to shared memory, serving as the core mechanism for updating WAL statistics in PostgreSQL's statistics collection system.

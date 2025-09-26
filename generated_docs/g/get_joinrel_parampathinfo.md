@@ -1,7 +1,7 @@
 # get_joinrel_parampathinfo
 
 ## Location
-src/backend/optimizer/util/relnode.c: 1671 - 1867
+[src/backend/optimizer/util/relnode.c:1671-1867](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L1671-L1867)
 
 ## Overview
 Get or construct the ParamPathInfo for a parameterized join path, determining which join clauses can be moved down to the join level and estimating rowcount for the parameterized join.

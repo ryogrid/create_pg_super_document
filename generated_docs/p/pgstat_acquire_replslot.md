@@ -1,7 +1,7 @@
 # pgstat_acquire_replslot
 
 ## Location
-src/backend/utils/activity/pgstat_replslot.c: 146 - 155
+[src/backend/utils/activity/pgstat_replslot.c:146-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_replslot.c#L146-L155)
 
 ## Overview
 Reports that a replication slot has been acquired and ensures a statistics entry exists for subsequent statistics reporting calls.

@@ -1,7 +1,7 @@
 # PublicationObjSpec
 
 ## Location
-src/include/nodes/parsenodes.h: 4151 - 4158
+[src/include/nodes/parsenodes.h:4151-4158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4151-L4158)
 
 ## Overview
 A structure that represents a specification for objects that can be included in a PostgreSQL publication, supporting various types of publishable objects including individual tables, all tables in a schema, or continuation objects.

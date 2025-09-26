@@ -1,7 +1,7 @@
 # xl_tblspc_create_rec
 
 ## Location
-src/include/commands/tablespace.h: 28 - 32
+[src/include/commands/tablespace.h:28-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/tablespace.h#L28-L32)
 
 ## Overview
 A structure representing the WAL (Write-Ahead Log) record for tablespace creation operations, used to log the creation of a tablespace to ensure recoverability and consistency.

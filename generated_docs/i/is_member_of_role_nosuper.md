@@ -1,7 +1,7 @@
 # is_member_of_role_nosuper
 
 ## Location
-src/backend/utils/adt/acl.c: 5259 - 5280
+[src/backend/utils/adt/acl.c:5259-5280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5259-L5280)
 
 ## Overview
 Determines whether a given user/role is a member of another role, either directly or indirectly through role inheritance chains, but explicitly ignores superuser privileges.

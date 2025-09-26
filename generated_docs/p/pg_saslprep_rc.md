@@ -1,7 +1,7 @@
 # pg_saslprep_rc
 
 ## Location
-src/include/common/saslprep.h: 26 - 30
+[src/include/common/saslprep.h:26-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/saslprep.h#L26-L30)
 
 ## Overview
  is an enumeration type that defines return codes for the  function, which implements SASLprep password normalization for SCRAM authentication in PostgreSQL.

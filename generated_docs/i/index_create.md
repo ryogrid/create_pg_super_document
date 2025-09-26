@@ -1,7 +1,7 @@
 # index_create
 
 ## Location
-src/backend/catalog/index.c: 724 - 1297
+[src/backend/catalog/index.c:724-1297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L724-L1297)
 
 ## Overview
 index_create is the primary function for creating a new index relation in PostgreSQL, handling all aspects from relation creation to catalog entries and dependency management.

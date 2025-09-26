@@ -1,7 +1,7 @@
 # init_span
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1377 - 1431
+[src/backend/utils/mmgr/dsa.c:1377-1431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1377-L1431)
 
 ## Overview
 Initializes a new span structure and adds it to fullness class 1 of a specified DSA pool for managing small object allocations within the Dynamic Shared Area.

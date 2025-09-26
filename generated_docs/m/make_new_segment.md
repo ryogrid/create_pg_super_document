@@ -1,7 +1,7 @@
 # make_new_segment
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 2081 - 2251
+[src/backend/utils/mmgr/dsa.c:2081-2251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L2081-L2251)
 
 ## Overview
 Creates a new dynamic shared memory segment within a DSA area with at least the requested number of pages, implementing geometric growth strategy and comprehensive size validation.

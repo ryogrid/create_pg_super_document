@@ -1,7 +1,7 @@
 # FormatNode
 
 ## Location
-src/backend/utils/adt/formatting.c: 159 - 160
+[src/backend/utils/adt/formatting.c:159-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L159-L160)
 
 ## Overview
 A structure representing a single node in PostgreSQL's parsed format template, used to store individual formatting elements during date/time and numeric formatting operations.

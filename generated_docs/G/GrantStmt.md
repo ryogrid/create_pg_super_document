@@ -1,7 +1,7 @@
 # GrantStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2491 - 2505
+[src/include/nodes/parsenodes.h:2491-2505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2491-L2505)
 
 ## Overview
 GrantStmt represents the parsed form of GRANT and REVOKE statements, which control access privileges to database objects in PostgreSQL's access control system.

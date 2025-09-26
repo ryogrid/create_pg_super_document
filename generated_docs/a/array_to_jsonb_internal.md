@@ -1,7 +1,7 @@
 # array_to_jsonb_internal
 
 ## Location
-src/backend/utils/adt/jsonb.c: 894 - 941
+[src/backend/utils/adt/jsonb.c:894-941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L894-L941)
 
 ## Overview
 Converts a PostgreSQL ArrayType datum into JSONB format, handling multi-dimensional arrays by extracting array metadata and delegating to dimension processing.

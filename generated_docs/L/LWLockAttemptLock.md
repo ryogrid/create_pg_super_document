@@ -1,7 +1,7 @@
 # LWLockAttemptLock
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 786 - 856
+[src/backend/storage/lmgr/lwlock.c:786-856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L786-L856)
 
 ## Overview
 Internal function that attempts to atomically acquire an LWLock in the specified mode without blocking, using compare-and-swap operations for thread safety.

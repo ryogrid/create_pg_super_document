@@ -1,7 +1,7 @@
 # make_opclause
 
 ## Location
-src/backend/nodes/makefuncs.c: 675 - 700
+[src/backend/nodes/makefuncs.c:675-700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L675-L700)
 
 ## Overview
 Creates an OpExpr node representing operator expressions in PostgreSQL's expression tree, supporting both binary and unary operators with collation information.

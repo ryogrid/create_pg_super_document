@@ -1,7 +1,7 @@
 # _outA_Const
 
 ## Location
-src/backend/nodes/outfuncs.c: 696 - 715
+[src/backend/nodes/outfuncs.c:696-715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L696-L715)
 
 ## Overview
 _outA_Const is a static helper function that serializes an A_Const node (representing SQL constants) to its string representation in PostgreSQL's node output format.

@@ -1,7 +1,7 @@
 # DCH_cache_search
 
 ## Location
-src/backend/utils/adt/formatting.c: 4133 - 4153
+[src/backend/utils/adt/formatting.c:4133-4153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4133-L4153)
 
 ## Overview
 Searches the DCH cache for an existing entry that matches the specified format pattern string and standard flag, updating its access time if found.

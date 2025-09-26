@@ -1,7 +1,7 @@
 # CopyQueryCompletion
 
 ## Location
-src/include/tcop/cmdtag.h: 45 - 62
+[src/include/tcop/cmdtag.h:45-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tcop/cmdtag.h#L45-L62)
 
 ## Overview
 A static inline function that copies the contents of one QueryCompletion structure to another, transferring both the command tag and the number of processed rows.

@@ -1,7 +1,7 @@
 # fsm_truncate_avail
 
 ## Location
-src/backend/storage/freespace/fsmpage.c: 313 - 341
+[src/backend/storage/freespace/fsmpage.c:313-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/fsmpage.c#L313-L341)
 
 ## Overview
 Sets the available space to zero for all slots numbered >= nslots in a Free Space Map (FSM) page, effectively truncating the available space tracking for removed relation blocks.

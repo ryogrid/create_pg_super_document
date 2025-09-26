@@ -1,7 +1,7 @@
 # pgstat_free_entry
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 801 - 825
+[src/backend/utils/activity/pgstat_shmem.c:801-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L801-L825)
 
 ## Overview
 Frees a shared statistics entry by deleting it from the shared hash table and releasing its associated dynamic shared memory.

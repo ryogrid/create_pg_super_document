@@ -1,7 +1,7 @@
 # JsonConstructorExpr
 
 ## Location
-src/include/nodes/primnodes.h: 1703 - 1714
+[src/include/nodes/primnodes.h:1703-1714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1703-L1714)
 
 ## Overview
 JsonConstructorExpr is a wrapper over FuncExpr/Aggref/WindowFunc for SQL/JSON constructor functions, providing a unified interface for JSON object and array construction operations.

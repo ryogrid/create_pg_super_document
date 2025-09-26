@@ -1,7 +1,7 @@
 # JsonKeyValue
 
 ## Location
-src/include/nodes/parsenodes.h: 1872 - 1877
+[src/include/nodes/parsenodes.h:1872-1877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1872-L1877)
 
 ## Overview
 JsonKeyValue represents the untransformed parse tree representation of a key-value pair used in JSON object construction functions like JSON_OBJECT() and JSON_OBJECTAGG().

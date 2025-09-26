@@ -1,7 +1,7 @@
 # jsonb_in_object_field_start
 
 ## Location
-src/backend/utils/adt/jsonb.c: 331 - 348
+[src/backend/utils/adt/jsonb.c:331-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L331-L348)
 
 ## Overview
 A callback function used during JSONB parsing to handle the start of object field names, processing and validating field keys before their corresponding values.

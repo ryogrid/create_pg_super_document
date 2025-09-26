@@ -1,7 +1,7 @@
 # pair_encode
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 255 - 265
+[src/backend/utils/adt/geo_ops.c:255-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L255-L265)
 
 ## Overview
 A helper function that converts a coordinate pair (x,y) to its comma-separated string representation for output formatting of geometric data types.

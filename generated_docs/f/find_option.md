@@ -1,7 +1,7 @@
 # find_option
 
 ## Location
-src/backend/utils/misc/guc.c: 1237 - 1289
+[src/backend/utils/misc/guc.c:1237-1289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1237-L1289)
 
 ## Overview
 Looks up a GUC configuration parameter by name and returns its configuration record, with support for creating placeholders for custom variables and handling obsolete parameter names.

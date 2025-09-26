@@ -1,7 +1,7 @@
 # test_resowner_priorities
 
 ## Location
-src/test/modules/test_resowner/test_resowner_basic.c: 52 - 141
+[src/test/modules/test_resowner/test_resowner_basic.c:52-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_basic.c#L52-L141)
 
 ## Overview
 test_resowner_priorities is a PostgreSQL SQL-callable function that tests the resource owner priority system by creating resources with different release priorities and phases, then demonstrating their ordered cleanup.

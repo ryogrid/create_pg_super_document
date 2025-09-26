@@ -1,7 +1,7 @@
 # dshash_seq_term
 
 ## Location
-src/backend/lib/dshash.c: 747 - 756
+[src/backend/lib/dshash.c:747-756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L747-L756)
 
 ## Overview
 Terminates a sequential scan of a dynamic shared hash table and releases all partition locks held during the scan.

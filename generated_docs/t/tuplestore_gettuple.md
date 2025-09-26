@@ -1,7 +1,7 @@
 # tuplestore_gettuple
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 903 - 1077
+[src/backend/utils/sort/tuplestore.c:903-1077](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L903-L1077)
 
 ## Overview
 The core internal function that retrieves the next tuple from a tuplestore in either forward or backward direction, handling both memory-based and file-based storage modes.

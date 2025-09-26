@@ -1,7 +1,7 @@
 # do_header
 
 ## Location
-src/interfaces/libpq/fe-print.c: 445 - 530
+[src/interfaces/libpq/fe-print.c:445-530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-print.c#L445-L530)
 
 ## Overview
 Generates and formats the header row for PostgreSQL query result output, including column names and optional border decorations based on the specified print options.

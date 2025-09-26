@@ -1,7 +1,7 @@
 # BlockRefTableReader
 
 ## Location
-src/common/blkreftable.c: 200 - 216
+[src/common/blkreftable.c:200-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L200-L216)
 
 ## Overview
 The `BlockRefTableReader` struct maintains state for incrementally reading block reference table files from disk, tracking progress through chunks of block information for RelFileLocator/ForkNumber combinations.

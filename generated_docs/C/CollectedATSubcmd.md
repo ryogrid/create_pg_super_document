@@ -1,7 +1,7 @@
 # CollectedATSubcmd
 
 ## Location
-src/include/tcop/deparse_utility.h: 38 - 42
+[src/include/tcop/deparse_utility.h:38-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tcop/deparse_utility.h#L38-L42)
 
 ## Overview
 CollectedATSubcmd represents a single subcommand within an ALTER TABLE operation that is collected during event trigger processing for DDL command tracking and logging.

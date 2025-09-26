@@ -1,7 +1,7 @@
 # pltcl_returnnull
 
 ## Location
-src/pl/tcl/pltcl.c: 2117 - 2154
+[src/pl/tcl/pltcl.c:2117-2154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2117-L2154)
 
 ## Overview
 Causes the current PL/Tcl function to return a NULL value by setting the NULL flag and returning from the procedure.

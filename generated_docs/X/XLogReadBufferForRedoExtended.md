@@ -1,7 +1,7 @@
 # XLogReadBufferForRedoExtended
 
 ## Location
-src/backend/access/transam/xlogutils.c: 351 - 470
+[src/backend/access/transam/xlogutils.c:351-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L351-L470)
 
 ## Overview
 Extended version of XLogReadBufferForRedo that provides additional control over buffer reading modes and locking behavior during WAL replay, supporting page extension and specialized locking modes.

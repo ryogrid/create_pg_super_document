@@ -1,7 +1,7 @@
 # pgstat_copy_relation_stats
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 58 - 91
+[src/backend/utils/activity/pgstat_relation.c:58-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L58-L91)
 
 ## Overview
 Copies statistics data from one relation to another, primarily used for operations like REINDEX CONCURRENTLY where a new relation needs to inherit the statistics of the original relation.

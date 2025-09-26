@@ -1,7 +1,7 @@
 # copydir
 
 ## Location
-src/backend/storage/file/copydir.c: 37 - 116
+[src/backend/storage/file/copydir.c:37-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/copydir.c#L37-L116)
 
 ## Overview
 Recursively copies a directory and its contents from one location to another, with optional subdirectory recursion and comprehensive data integrity guarantees through filesystem synchronization.

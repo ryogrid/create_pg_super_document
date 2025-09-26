@@ -1,7 +1,7 @@
 # BuildRestoreCommand
 
 ## Location
-src/common/archive.c: 39 - 60
+[src/common/archive.c:39-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/archive.c#L39-L60)
 
 ## Overview
 Builds a restore command to retrieve a file from WAL archives by replacing supported aliases with values supplied by the caller as defined by the GUC parameter restore_command.

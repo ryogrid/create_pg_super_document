@@ -1,7 +1,7 @@
 # xl_xact_twophase
 
 ## Location
-src/include/access/xact.h: 303 - 306
+[src/include/access/xact.h:303-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L303-L306)
 
 ## Overview
 A simple structure used in PostgreSQL's WAL to record transaction identifiers associated with two-phase commit operations during transaction logging.

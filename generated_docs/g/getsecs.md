@@ -1,7 +1,7 @@
 # getsecs
 
 ## Location
-src/timezone/localtime.c: 710 - 750
+[src/timezone/localtime.c:710-750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L710-L750)
 
 ## Overview
 Extracts a number of seconds in hh[:mm[:ss]] format from a timezone string and returns a pointer to the first character not part of the time specification.

@@ -1,7 +1,7 @@
 # ParseLongOption
 
 ## Location
-src/backend/utils/misc/guc.c: 6370 - 6406
+[src/backend/utils/misc/guc.c:6370-6406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6370-L6406)
 
 ## Overview
 ParseLongOption is a utility function that parses long command-line arguments in the format "name=value" and returns the separated name and value components in palloc'ed storage.

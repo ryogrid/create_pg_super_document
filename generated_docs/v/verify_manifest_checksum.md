@@ -1,7 +1,7 @@
 # verify_manifest_checksum
 
 ## Location
-src/common/parse_manifest.c: 812 - 888
+[src/common/parse_manifest.c:812-888](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L812-L888)
 
 ## Overview
 Verifies the integrity of a JSON manifest file by computing and comparing its SHA256 checksum against the expected checksum stored in the manifest's last line.

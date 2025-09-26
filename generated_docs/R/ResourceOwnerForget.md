@@ -1,7 +1,7 @@
 # ResourceOwnerForget
 
 ## Location
-src/backend/utils/resowner/resowner.c: 554 - 647
+[src/backend/utils/resowner/resowner.c:554-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L554-L647)
 
 ## Overview
 Removes a resource from a ResourceOwner's tracking system, preventing automatic cleanup of that resource.

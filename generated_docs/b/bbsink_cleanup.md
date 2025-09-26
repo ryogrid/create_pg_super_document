@@ -1,7 +1,7 @@
 # bbsink_cleanup
 
 ## Location
-src/include/backup/basebackup_sink.h: 265 - 301
+[src/include/backup/basebackup_sink.h:265-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L265-L301)
 
 ## Overview
 Initiates cleanup and resource deallocation for a bbsink object, ensuring proper resource management regardless of whether the backup completed successfully or failed.

@@ -1,7 +1,7 @@
 # SyncRepStandbyData
 
 ## Location
-src/include/replication/syncrep.h: 42 - 54
+[src/include/replication/syncrep.h:42-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/syncrep.h#L42-L54)
 
 ## Overview
 SyncRepStandbyData is a struct that represents data about a candidate synchronous standby server in PostgreSQL's synchronous replication system. It is used to collect and compare information about standby servers when determining which standbys are eligible for synchronous replication.

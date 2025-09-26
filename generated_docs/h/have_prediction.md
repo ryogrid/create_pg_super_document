@@ -1,7 +1,7 @@
 # have_prediction
 
 ## Location
-src/common/jsonapi.c: 446 - 451
+[src/common/jsonapi.c:446-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L446-L451)
 
 ## Overview
 Checks whether the JSON parser's prediction stack contains any prediction tokens.

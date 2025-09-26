@@ -1,7 +1,7 @@
 # CheckForLocalBufferLeaks
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 786 - 818
+[src/backend/storage/buffer/localbuf.c:786-818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L786-L818)
 
 ## Overview
 CheckForLocalBufferLeaks is a debugging function that detects and reports local buffer reference count leaks during assert checking builds.

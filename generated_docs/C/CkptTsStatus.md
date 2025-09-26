@@ -1,7 +1,7 @@
 # CkptTsStatus
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 101 - 123
+[src/backend/storage/buffer/bufmgr.c:101-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L101-L123)
 
 ## Overview
 CkptTsStatus is a structure used internally by BufferSync to track the checkpoint progress and status for individual tablespaces during buffer synchronization operations.

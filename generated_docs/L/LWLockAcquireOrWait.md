@@ -1,7 +1,7 @@
 # LWLockAcquireOrWait
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1398 - 1524
+[src/backend/storage/lmgr/lwlock.c:1398-1524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1398-L1524)
 
 ## Overview
 LWLockAcquireOrWait attempts to acquire a lightweight lock in the specified mode, but if the lock is not immediately available, it waits until the lock is released without actually acquiring it.

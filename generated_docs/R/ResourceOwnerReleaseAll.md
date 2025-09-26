@@ -1,7 +1,7 @@
 # ResourceOwnerReleaseAll
 
 ## Location
-src/backend/utils/resowner/resowner.c: 340 - 412
+[src/backend/utils/resowner/resowner.c:340-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L340-L412)
 
 ## Overview
 The  function releases all resources of a specific phase from a ResourceOwner, calling the appropriate cleanup callbacks and optionally reporting resource leaks.

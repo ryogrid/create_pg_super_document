@@ -1,7 +1,7 @@
 # ipv4eq
 
 ## Location
-src/backend/libpq/hba.c: 1031 - 1036
+[src/backend/libpq/hba.c:1031-1036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L1031-L1036)
 
 ## Overview
 Compares two IPv4 socket addresses for equality by checking if their IP addresses are identical.

@@ -1,7 +1,7 @@
 # pairingheap_add
 
 ## Location
-src/backend/lib/pairingheap.c: 112 - 129
+[src/backend/lib/pairingheap.c:112-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/pairingheap.c#L112-L129)
 
 ## Overview
 Adds a new node to a pairing heap in O(1) time by merging it with the current root.

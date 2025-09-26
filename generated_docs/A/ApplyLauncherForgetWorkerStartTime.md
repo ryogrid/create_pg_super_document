@@ -1,7 +1,7 @@
 # ApplyLauncherForgetWorkerStartTime
 
 ## Location
-src/backend/replication/logical/launcher.c: 1088 - 1098
+[src/backend/replication/logical/launcher.c:1088-1098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L1088-L1098)
 
 ## Overview
 Removes the last-start-time entry for a subscription from the shared hash table, allowing immediate worker restart and preventing memory leaks for deleted subscriptions.

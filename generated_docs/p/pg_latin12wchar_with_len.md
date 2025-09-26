@@ -1,7 +1,7 @@
 # pg_latin12wchar_with_len
 
 ## Location
-src/common/wchar.c: 839 - 860
+[src/common/wchar.c:839-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L839-L860)
 
 ## Overview
 Converts ISO8859-1 (Latin-1) encoded characters to PostgreSQL wide character format with length limit.

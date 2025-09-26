@@ -1,7 +1,7 @@
 # SubscriptingRefState
 
 ## Location
-src/include/executor/execExpr.h: 728 - 755
+[src/include/executor/execExpr.h:728-755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/execExpr.h#L728-L755)
 
 ## Overview
 SubscriptingRefState provides workspace and state management for container subscripting operations (array and JSONB indexing) during expression evaluation, supporting both fetch and assignment operations.

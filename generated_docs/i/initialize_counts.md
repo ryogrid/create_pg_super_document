@@ -1,7 +1,7 @@
 # initialize_counts
 
 ## Location
-src/backend/executor/nodeSetOp.c: 80 - 88
+[src/backend/executor/nodeSetOp.c:80-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L80-L88)
 
 ## Overview
 Initializes the tuple counting state for a new group of input values in SetOp operations, resetting both left and right input duplicate counters to zero.

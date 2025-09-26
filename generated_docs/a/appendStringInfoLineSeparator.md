@@ -1,7 +1,7 @@
 # appendStringInfoLineSeparator
 
 ## Location
-src/backend/utils/adt/xml.c: 2324 - 2335
+[src/backend/utils/adt/xml.c:2324-2335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2324-L2335)
 
 ## Overview
 A static utility function that ensures clean line separation in StringInfo buffers by removing any trailing newlines and appending exactly one newline character if the string is non-empty.

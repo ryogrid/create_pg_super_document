@@ -1,7 +1,7 @@
 # pgstat_reset_after_failure
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1694 - 1716
+[src/backend/utils/activity/pgstat.c:1694-1716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1694-L1716)
 
 ## Overview
 The  function provides a recovery mechanism that resets all statistics to a clean state after a crash or when statistics file restoration fails.

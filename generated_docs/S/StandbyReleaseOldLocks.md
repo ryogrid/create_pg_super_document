@@ -1,7 +1,7 @@
 # StandbyReleaseOldLocks
 
 ## Location
-src/backend/storage/ipc/standby.c: 1126 - 1158
+[src/backend/storage/ipc/standby.c:1126-1158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1126-L1158)
 
 ## Overview
 StandbyReleaseOldLocks selectively releases standby locks held by top-level transaction IDs that are no longer running and are not prepared transactions.

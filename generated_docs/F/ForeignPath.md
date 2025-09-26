@@ -1,7 +1,7 @@
 # ForeignPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1869 - 1875
+[src/include/nodes/pathnodes.h:1869-1875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1869-L1875)
 
 ## Overview
 ForeignPath represents a potential scan of a foreign table, foreign join, or foreign upper-relation, enabling Foreign Data Wrapper (FDW) extensions to integrate external data sources into PostgreSQL's query planning process.

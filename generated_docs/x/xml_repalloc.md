@@ -1,7 +1,7 @@
 # xml_repalloc
 
 ## Location
-src/backend/utils/adt/xml.c: 1969 - 1975
+[src/backend/utils/adt/xml.c:1969-1975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1969-L1975)
 
 ## Overview
 A memory reallocation wrapper function that resizes previously allocated memory blocks for use by libxml operations through PostgreSQL's memory management system.

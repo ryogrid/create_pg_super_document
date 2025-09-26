@@ -1,7 +1,7 @@
 # TAPtype
 
 ## Location
-src/test/regress/pg_regress.c: 95 - 161
+[src/test/regress/pg_regress.c:95-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L95-L161)
 
 ## Overview
 TAPtype is an enumeration that defines different types of Test Anything Protocol (TAP) output messages used in PostgreSQL regression testing framework to categorize and format test output messages.

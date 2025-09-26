@@ -1,7 +1,7 @@
 # mkSPNode
 
 ## Location
-src/backend/tsearch/spell.c: 1639 - 1720
+[src/backend/tsearch/spell.c:1639-1720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1639-L1720)
 
 ## Overview
 Recursively constructs a prefix tree (trie) structure for spell-checking, organizing dictionary words by character prefixes at each level.

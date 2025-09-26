@@ -1,7 +1,7 @@
 # SortShimExtra
 
 ## Location
-src/backend/utils/sort/sortsupport.c: 31 - 32
+[src/backend/utils/sort/sortsupport.c:31-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sortsupport.c#L31-L32)
 
 ## Overview
 SortShimExtra is a structure used to store information needed to use an old-style comparison function as a sort comparator, providing a bridge between traditional PostgreSQL btree comparison functions and the modern SortSupport framework.

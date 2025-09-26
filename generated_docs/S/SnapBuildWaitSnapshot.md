@@ -1,7 +1,7 @@
 # SnapBuildWaitSnapshot
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 1573 - 1619
+[src/backend/replication/logical/snapbuild.c:1573-1619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L1573-L1619)
 
 ## Overview
 Waits for all transactions older than a specified cutoff to finish and optionally logs a new xl_running_xacts record to assist with isolation testing and timely WAL record generation.

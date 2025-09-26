@@ -1,7 +1,7 @@
 # pgstat_attach_shmem
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 218 - 237
+[src/backend/utils/activity/pgstat_shmem.c:218-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L218-L237)
 
 ## Overview
 Function that attaches a backend process to the shared memory statistics system by establishing connections to the DSA and shared hash table.

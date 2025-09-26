@@ -1,7 +1,7 @@
 # flush_ps_display
 
 ## Location
-src/backend/utils/misc/ps_status.c: 486 - 529
+[src/backend/utils/misc/ps_status.c:486-529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/ps_status.c#L486-L529)
 
 ## Overview
 Updates the actual process title display on the system using the current contents of the process status buffer across different platform-specific mechanisms.

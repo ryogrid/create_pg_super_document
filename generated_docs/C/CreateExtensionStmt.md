@@ -1,7 +1,7 @@
 # CreateExtensionStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2819 - 2825
+[src/include/nodes/parsenodes.h:2819-2825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2819-L2825)
 
 ## Overview
 CreateExtensionStmt represents the parsed structure for a CREATE EXTENSION statement, used to install PostgreSQL extensions that provide additional functionality to the database.

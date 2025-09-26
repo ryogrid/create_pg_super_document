@@ -1,7 +1,7 @@
 # BuildTupleHashTableExt
 
 ## Location
-src/backend/executor/execGrouping.c: 153 - 252
+[src/backend/executor/execGrouping.c:153-252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execGrouping.c#L153-L252)
 
 ## Overview
 Constructs an empty TupleHashTable with extended memory context control for hash-based grouping operations in PostgreSQL execution engine.

@@ -1,7 +1,7 @@
 # MemoizePath
 
 ## Location
-src/include/nodes/pathnodes.h: 1992 - 2006
+[src/include/nodes/pathnodes.h:1992-2006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1992-L2006)
 
 ## Overview
 MemoizePath represents a Memoize plan node that caches tuples from parameterized paths to avoid rescanning for parameter values that are already cached.

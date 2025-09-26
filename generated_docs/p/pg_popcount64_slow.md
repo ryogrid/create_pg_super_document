@@ -1,7 +1,7 @@
 # pg_popcount64_slow
 
 ## Location
-src/port/pg_bitutils.c: 370 - 397
+[src/port/pg_bitutils.c:370-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L370-L397)
 
 ## Overview
 A fallback implementation for counting the number of 1 bits in a 64-bit unsigned integer, used when fast hardware instructions are not available.

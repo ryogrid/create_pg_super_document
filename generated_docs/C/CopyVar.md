@@ -1,7 +1,7 @@
 # CopyVar
 
 ## Location
-src/backend/tsearch/spell.c: 2336 - 2360
+[src/backend/tsearch/spell.c:2336-2360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L2336-L2360)
 
 ## Overview
 Creates a copy of a SplitVar structure, which is used in PostgreSQL's text search spell checking functionality to manage collections of word stems during dictionary processing.

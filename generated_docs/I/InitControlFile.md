@@ -1,7 +1,7 @@
 # InitControlFile
 
 ## Location
-src/backend/access/transam/xlog.c: 4181 - 4215
+[src/backend/access/transam/xlog.c:4181-4215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4181-L4215)
 
 ## Overview
 Initializes the pg_control buffer with default values and essential PostgreSQL configuration parameters needed for database startup and WAL replay operations.

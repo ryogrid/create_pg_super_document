@@ -1,7 +1,7 @@
 # CreateTrigStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3001 - 3023
+[src/include/nodes/parsenodes.h:3001-3023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3001-L3023)
 
 ## Overview
 CreateTrigStmt represents the parsed structure of a CREATE TRIGGER SQL statement, used to define database triggers that execute automatically in response to table events.

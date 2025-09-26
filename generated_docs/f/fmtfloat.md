@@ -1,7 +1,7 @@
 # fmtfloat
 
 ## Location
-src/port/snprintf.c: 1136 - 1281
+[src/port/snprintf.c:1136-1281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1136-L1281)
 
 ## Overview
 Formats floating-point numbers for printf-style output, handling special cases like NaN, infinity, and platform-specific formatting requirements while supporting various precision and padding options.

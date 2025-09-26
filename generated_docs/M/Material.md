@@ -1,7 +1,7 @@
 # Material
 
 ## Location
-src/include/nodes/plannodes.h: 880 - 883
+[src/include/nodes/plannodes.h:880-883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L880-L883)
 
 ## Overview
 Material is a plan node that materializes the output of its subplan into a tuplestore, enabling multiple passes over the data and supporting backward scanning operations.

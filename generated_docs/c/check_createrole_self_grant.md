@@ -1,7 +1,7 @@
 # check_createrole_self_grant
 
 ## Location
-src/backend/commands/user.c: 2515 - 2567
+[src/backend/commands/user.c:2515-2567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L2515-L2567)
 
 ## Overview
 GUC check hook function that validates and parses the createrole_self_grant configuration parameter, ensuring it contains only valid role option keywords.

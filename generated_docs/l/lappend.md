@@ -1,7 +1,7 @@
 # lappend
 
 ## Location
-src/backend/nodes/list.c: 339 - 356
+[src/backend/nodes/list.c:339-356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L339-L356)
 
 ## Overview
 Appends a pointer to a PostgreSQL List data structure, returning a pointer to the modified list.

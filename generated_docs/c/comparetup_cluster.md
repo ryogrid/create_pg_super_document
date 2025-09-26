@@ -1,7 +1,7 @@
 # comparetup_cluster
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1227 - 1247
+[src/backend/utils/sort/tuplesortvariants.c:1227-1247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1227-L1247)
 
 ## Overview
 Compares two tuples during cluster sorting operations by first comparing the leading sort key and then delegating to tiebreak comparison for comprehensive ordering.

@@ -1,7 +1,7 @@
 # ExecClearTuple
 
 ## Location
-src/include/executor/tuptable.h: 454 - 471
+[src/include/executor/tuptable.h:454-471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L454-L471)
 
 ## Overview
 Clears the contents of a TupleTableSlot, making it empty and ready for reuse.

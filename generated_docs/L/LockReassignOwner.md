@@ -1,7 +1,7 @@
 # LockReassignOwner
 
 ## Location
-src/backend/storage/lmgr/lock.c: 2599 - 2644
+[src/backend/storage/lmgr/lock.c:2599-2644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L2599-L2644)
 
 ## Overview
 LockReassignOwner is an internal subroutine that transfers ownership of a specific lock from the current resource owner to its parent resource owner, handling both simple reassignment and count merging scenarios.

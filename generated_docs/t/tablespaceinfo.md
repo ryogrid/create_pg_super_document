@@ -1,7 +1,7 @@
 # tablespaceinfo
 
 ## Location
-src/include/backup/basebackup.h: 35 - 42
+[src/include/backup/basebackup.h:35-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup.h#L35-L42)
 
 ## Overview
 The `tablespaceinfo` structure represents metadata about PostgreSQL tablespaces during backup operations, storing essential information needed for base backup processes and tablespace mapping.

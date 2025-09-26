@@ -1,7 +1,7 @@
 # makeSimpleA_Expr
 
 ## Location
-src/backend/nodes/makefuncs.c: 48 - 65
+[src/backend/nodes/makefuncs.c:48-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L48-L65)
 
 ## Overview
 Creates and initializes an A_Expr node with a simple (unqualified) operator name, providing a convenient wrapper around makeA_Expr for common use cases.

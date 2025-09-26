@@ -1,7 +1,7 @@
 # MinimalTupleTableSlot
 
 ## Location
-src/include/executor/tuptable.h: 282 - 301
+[src/include/executor/tuptable.h:282-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L282-L301)
 
 ## Overview
 MinimalTupleTableSlot is a specialized table slot structure designed to handle MinimalTuple objects, providing an interface that allows minimal tuples to be accessed using the same column extraction mechanisms as regular heap tuples.

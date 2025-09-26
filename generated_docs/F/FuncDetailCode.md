@@ -1,7 +1,7 @@
 # FuncDetailCode
 
 ## Location
-src/include/parser/parse_func.h: 31 - 74
+[src/include/parser/parse_func.h:31-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/parser/parse_func.h#L31-L74)
 
 ## Overview
 FuncDetailCode is an enumeration that represents the result codes returned by the PostgreSQL function lookup system, specifically the `func_get_detail` function.

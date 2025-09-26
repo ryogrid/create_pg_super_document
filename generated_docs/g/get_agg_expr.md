@@ -1,7 +1,7 @@
 # get_agg_expr
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10561 - 10572
+[src/backend/utils/adt/ruleutils.c:10561-10572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10561-L10572)
 
 ## Overview
 A simple wrapper function that parses back an Aggref (aggregate reference) node into its human-readable string representation by delegating to the more comprehensive get_agg_expr_helper function.

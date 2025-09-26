@@ -1,7 +1,7 @@
 # HoldPinnedPortals
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 1207 - 1255
+[src/backend/utils/mmgr/portalmem.c:1207-1255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L1207-L1255)
 
 ## Overview
 Converts all pinned portals to held cursors during transaction control operations (COMMIT/ROLLBACK) inside procedures to prevent their destruction during transaction shutdown.

@@ -1,7 +1,7 @@
 # ReorderBufferGetOldestTXN
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1040 - 1067
+[src/backend/replication/logical/reorderbuffer.c:1040-1067](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1040-L1067)
 
 ## Overview
 Returns the oldest transaction in the reorder buffer based on LSN ordering, used for determining transaction processing order in logical replication.

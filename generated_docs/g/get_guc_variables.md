@@ -1,7 +1,7 @@
 # get_guc_variables
 
 ## Location
-src/backend/utils/misc/guc.c: 874 - 904
+[src/backend/utils/misc/guc.c:874-904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L874-L904)
 
 ## Overview
 Retrieves all GUC (Grand Unified Configuration) variables from the hash table as a sorted array, providing a convenient way to access all configuration options in PostgreSQL.

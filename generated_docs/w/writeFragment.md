@@ -1,7 +1,7 @@
 # writeFragment
 
 ## Location
-src/backend/access/transam/generic_xlog.c: 90 - 120
+[src/backend/access/transam/generic_xlog.c:90-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/generic_xlog.c#L90-L120)
 
 ## Overview
 Writes the next fragment into a PageData structure's delta buffer, storing the offset, length, and actual data of a modified region within a database page.

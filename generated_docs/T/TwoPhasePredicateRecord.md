@@ -1,7 +1,7 @@
 # TwoPhasePredicateRecord
 
 ## Location
-src/include/storage/predicate_internals.h: 454 - 462
+[src/include/storage/predicate_internals.h:454-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L454-L462)
 
 ## Overview
 TwoPhasePredicateRecord is a union structure that serves as a container for different types of predicate lock information stored in two-phase commit state files.

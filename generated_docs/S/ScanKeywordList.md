@@ -1,7 +1,7 @@
 # ScanKeywordList
 
 ## Location
-src/include/common/kwlookup.h: 25 - 32
+[src/include/common/kwlookup.h:25-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/kwlookup.h#L25-L32)
 
 ## Overview
 ScanKeywordList is a data structure that encapsulates all information needed for efficient keyword lookup operations in PostgreSQL's lexical analysis system.

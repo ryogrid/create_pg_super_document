@@ -1,7 +1,7 @@
 # JsonArrayAgg
 
 ## Location
-src/include/nodes/parsenodes.h: 1989 - 1995
+[src/include/nodes/parsenodes.h:1989-1995](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1989-L1995)
 
 ## Overview
 JsonArrayAgg represents the untransformed (parse tree) representation of the JSON_ARRAYAGG() aggregate function, which constructs JSON arrays from aggregated values.

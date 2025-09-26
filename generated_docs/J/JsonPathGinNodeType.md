@@ -1,7 +1,7 @@
 # JsonPathGinNodeType
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 92 - 93
+[src/backend/utils/adt/jsonb_gin.c:92-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L92-L93)
 
 ## Overview
 An enumeration type that defines the different node types used in the internal representation of JSON path expressions for GIN (Generalized Inverted Index) operations.

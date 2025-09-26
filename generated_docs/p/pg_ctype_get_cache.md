@@ -1,7 +1,7 @@
 # pg_ctype_get_cache
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 766 - 922
+[src/backend/regex/regc_pg_locale.c:766-922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L766-L922)
 
 ## Overview
 Builds and caches character class vectors (cvec) for character classification functions, scanning character ranges to determine which characters satisfy a given probe function.

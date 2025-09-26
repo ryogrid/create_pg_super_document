@@ -1,7 +1,7 @@
 # pg_md5_init
 
 ## Location
-src/common/md5.c: 382 - 399
+[src/common/md5.c:382-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5.c#L382-L399)
 
 ## Overview
 Initializes an MD5 context structure with the standard MD5 initial values and resets all state variables to begin a new MD5 hash computation.

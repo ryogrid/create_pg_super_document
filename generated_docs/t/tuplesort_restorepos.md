@@ -1,7 +1,7 @@
 # tuplesort_restorepos
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2504 - 2536
+[src/backend/utils/sort/tuplesort.c:2504-2536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2504-L2536)
 
 ## Overview
 Restores the current position in a tuplesort to a previously saved position, enabling backward navigation within sorted results when random access is enabled.

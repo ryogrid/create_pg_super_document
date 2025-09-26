@@ -1,7 +1,7 @@
 # floating_decimal_64
 
 ## Location
-src/common/d2s.c: 339 - 343
+[src/common/d2s.c:339-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s.c#L339-L343)
 
 ## Overview
 A data structure representing a floating-point number in decimal form as mantissa * 10^exponent, used internally by the Ryu algorithm for efficient double-to-string conversion.

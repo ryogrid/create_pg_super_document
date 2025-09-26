@@ -1,7 +1,7 @@
 # JsonFormat
 
 ## Location
-src/include/nodes/primnodes.h: 1648 - 1654
+[src/include/nodes/primnodes.h:1648-1654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1648-L1654)
 
 ## Overview
 JsonFormat represents a JSON FORMAT clause in PostgreSQL, specifying the format type and encoding for JSON operations and expressions.

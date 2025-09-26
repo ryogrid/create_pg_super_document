@@ -1,7 +1,7 @@
 # isLazyFunc
 
 ## Location
-src/bin/pgbench/pgbench.c: 2125 - 2131
+[src/bin/pgbench/pgbench.c:2125-2131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2125-L2131)
 
 ## Overview
 A predicate function that determines whether a given PgBench function requires lazy evaluation semantics.

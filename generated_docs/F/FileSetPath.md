@@ -1,7 +1,7 @@
 # FileSetPath
 
 ## Location
-src/backend/storage/file/fileset.c: 172 - 185
+[src/backend/storage/file/fileset.c:172-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fileset.c#L172-L185)
 
 ## Overview
 The FileSetPath function builds the complete path for the directory that holds the files backing a FileSet in a given tablespace.

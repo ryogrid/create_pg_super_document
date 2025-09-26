@@ -1,7 +1,7 @@
 # SpGistSearchItem
 
 ## Location
-src/include/access/spgist_private.h: 165 - 181
+[src/include/access/spgist_private.h:165-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L165-L181)
 
 ## Overview
 SpGistSearchItem represents a work item for SP-GiST index scans, containing information about index entries that need to be examined during search operations.

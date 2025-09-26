@@ -1,7 +1,7 @@
 # examine_variable
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 5025 - 5350
+[src/backend/utils/adt/selfuncs.c:5025-5350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L5025-L5350)
 
 ## Overview
 Analyzes an expression tree to extract statistical information and fill a VariableStatData structure with details about the variable, its type, uniqueness, and associated statistics.

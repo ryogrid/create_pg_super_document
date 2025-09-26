@@ -1,7 +1,7 @@
 # ManyTestResourceKind
 
 ## Location
-src/test/modules/test_resowner/test_resowner_many.c: 38 - 43
+[src/test/modules/test_resowner/test_resowner_many.c:38-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_many.c#L38-L43)
 
 ## Overview
 ManyTestResourceKind is a custom resource type definition used in PostgreSQL's resource owner testing framework to track multiple test resources and verify that ResourceOwner callback functions work correctly.

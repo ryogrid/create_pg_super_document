@@ -1,7 +1,7 @@
 # errdetail_for_xml_code
 
 ## Location
-src/backend/utils/adt/xml.c: 2276 - 2312
+[src/backend/utils/adt/xml.c:2276-2312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2276-L2312)
 
 ## Overview
 A utility function that converts libxml2 error codes into user-friendly, localized error detail messages for PostgreSQL error reporting.

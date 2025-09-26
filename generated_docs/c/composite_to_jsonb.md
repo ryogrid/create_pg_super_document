@@ -1,7 +1,7 @@
 # composite_to_jsonb
 
 ## Location
-src/backend/utils/adt/jsonb.c: 942 - 1015
+[src/backend/utils/adt/jsonb.c:942-1015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L942-L1015)
 
 ## Overview
 Converts a PostgreSQL composite type (record/row) datum into JSONB object format, mapping each field to a key-value pair.

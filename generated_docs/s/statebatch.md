@@ -1,7 +1,7 @@
 # statebatch
 
 ## Location
-src/include/regex/regguts.h: 337 - 342
+[src/include/regex/regguts.h:337-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/regex/regguts.h#L337-L342)
 
 ## Overview
 The `statebatch` structure is used for bulk allocation of state structures in PostgreSQL's regular expression engine, providing efficient memory management for NFA states similar to how `arcbatch` manages arcs.

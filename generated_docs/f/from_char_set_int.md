@@ -1,7 +1,7 @@
 # from_char_set_int
 
 ## Location
-src/backend/utils/adt/formatting.c: 2427 - 2462
+[src/backend/utils/adt/formatting.c:2427-2462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2427-L2462)
 
 ## Overview
 A utility function that safely sets an integer value while preventing conflicting assignments during date/time parsing operations.

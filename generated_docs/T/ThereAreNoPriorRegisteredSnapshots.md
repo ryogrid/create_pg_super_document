@@ -1,7 +1,7 @@
 # ThereAreNoPriorRegisteredSnapshots
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1606 - 1623
+[src/backend/utils/time/snapmgr.c:1606-1623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1606-L1623)
 
 ## Overview
 ThereAreNoPriorRegisteredSnapshots checks whether there are zero or one registered snapshots in the system, indicating relative snapshot inactivity.

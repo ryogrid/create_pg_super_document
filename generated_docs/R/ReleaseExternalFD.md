@@ -1,7 +1,7 @@
 # ReleaseExternalFD
 
 ## Location
-src/backend/storage/file/fd.c: 1236 - 1245
+[src/backend/storage/file/fd.c:1236-1245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1236-L1245)
 
 ## Overview
 ReleaseExternalFD reports the release of an external file descriptor back to PostgreSQL's file descriptor management system, decrementing the count of externally held descriptors.

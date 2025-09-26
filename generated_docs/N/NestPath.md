@@ -1,7 +1,7 @@
 # NestPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2092 - 2095
+[src/include/nodes/pathnodes.h:2092-2095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2092-L2095)
 
 ## Overview
 NestPath represents a nested loop join algorithm path in PostgreSQL query planning, implementing the simplest and most general join method.

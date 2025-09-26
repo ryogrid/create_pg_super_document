@@ -1,7 +1,7 @@
 # StatsShmemSize
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 127 - 140
+[src/backend/utils/activity/pgstat_shmem.c:127-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L127-L140)
 
 ## Overview
 Function that computes the total shared memory space needed for PostgreSQL's cumulative statistics system.

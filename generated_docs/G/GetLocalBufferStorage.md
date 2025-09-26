@@ -1,7 +1,7 @@
 # GetLocalBufferStorage
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 728 - 785
+[src/backend/storage/buffer/localbuf.c:728-785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L728-L785)
 
 ## Overview
 GetLocalBufferStorage allocates memory for local buffers using an efficient block allocation strategy to minimize memory management overhead.

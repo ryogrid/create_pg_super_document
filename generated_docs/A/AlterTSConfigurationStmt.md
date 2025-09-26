@@ -1,7 +1,7 @@
 # AlterTSConfigurationStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4114 - 4129
+[src/include/nodes/parsenodes.h:4114-4129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4114-L4129)
 
 ## Overview
 AlterTSConfigurationStmt represents the parsed representation of an ALTER TEXT SEARCH CONFIGURATION statement, which modifies token-to-dictionary mappings in an existing text search configuration.

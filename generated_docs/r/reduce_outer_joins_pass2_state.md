@@ -1,7 +1,7 @@
 # reduce_outer_joins_pass2_state
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 78 - 82
+[src/backend/optimizer/prep/prepjointree.c:78-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L78-L82)
 
 ## Overview
 The reduce_outer_joins_pass2_state struct tracks the results of outer join reduction during the second pass, recording which outer joins have been successfully converted to inner joins and which full joins have been partially reduced.

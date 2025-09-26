@@ -1,7 +1,7 @@
 # check_rolespec_name
 
 ## Location
-src/backend/utils/adt/acl.c: 5578 - 5600
+[src/backend/utils/adt/acl.c:5578-5600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5578-L5600)
 
 ## Overview
 Validates that a RoleSpec's name is not a reserved PostgreSQL role name, throwing an error with optional detail message if it is reserved.

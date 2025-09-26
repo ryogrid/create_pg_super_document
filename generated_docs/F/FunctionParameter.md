@@ -1,7 +1,7 @@
 # FunctionParameter
 
 ## Location
-src/include/nodes/parsenodes.h: 3451 - 3458
+[src/include/nodes/parsenodes.h:3451-3458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3451-L3458)
 
 ## Overview
 FunctionParameter represents a single parameter definition within a CREATE FUNCTION or CREATE PROCEDURE statement, encapsulating the parameter's name, type, mode, and default value.

@@ -1,7 +1,7 @@
 # mulShiftAll
 
 ## Location
-src/common/d2s.c: 208 - 220
+[src/common/d2s.c:208-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s.c#L208-L220)
 
 ## Overview
 Computes three related mulShift operations simultaneously for floating-point boundary calculations in the Ryu algorithm.

@@ -1,7 +1,7 @@
 # ExecMergeAppend
 
 ## Location
-src/backend/executor/nodeMergeAppend.c: 200 - 272
+[src/backend/executor/nodeMergeAppend.c:200-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergeAppend.c#L200-L272)
 
 ## Overview
 The main execution function for MergeAppend nodes that merges pre-sorted tuples from multiple subplans into a single sorted output stream using a binary heap for efficient ordering.

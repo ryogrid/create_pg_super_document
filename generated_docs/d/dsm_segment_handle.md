@@ -1,7 +1,7 @@
 # dsm_segment_handle
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1123 - 1131
+[src/backend/storage/ipc/dsm.c:1123-1131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1123-L1131)
 
 ## Overview
 Returns a handle that uniquely identifies a dynamic shared memory segment for inter-process communication.

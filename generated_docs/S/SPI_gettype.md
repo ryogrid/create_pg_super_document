@@ -1,7 +1,7 @@
 # SPI_gettype
 
 ## Location
-src/backend/executor/spi.c: 1268 - 1307
+[src/backend/executor/spi.c:1268-1307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1268-L1307)
 
 ## Overview
 Retrieves the type name of a specified column from a tuple descriptor as a dynamically allocated string.

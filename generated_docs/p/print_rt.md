@@ -1,7 +1,7 @@
 # print_rt
 
 ## Location
-src/backend/nodes/print.c: 254 - 320
+[src/backend/nodes/print.c:254-320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/print.c#L254-L320)
 
 ## Overview
 A debugging utility function that prints the contents of a PostgreSQL range table in a tabular format to stdout.

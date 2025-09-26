@@ -1,7 +1,7 @@
 # QTNEq
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 183 - 200
+[src/backend/utils/adt/tsquery_util.c:183-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L183-L200)
 
 ## Overview
 QTNEq is a function that determines if two QTNode trees are equal according to the QTNodeCompare function, used in PostgreSQL's text search query processing.

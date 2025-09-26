@@ -1,7 +1,7 @@
 # pg_ndistinct_in
 
 ## Location
-src/backend/statistics/mvdistinct.c: 339 - 354
+[src/backend/statistics/mvdistinct.c:339-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L339-L354)
 
 ## Overview
 Input function for the pg_ndistinct data type that explicitly disallows input operations by raising an error.

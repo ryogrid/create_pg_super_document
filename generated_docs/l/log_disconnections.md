@@ -1,7 +1,7 @@
 # log_disconnections
 
 ## Location
-src/backend/tcop/postgres.c: 5196 - 5231
+[src/backend/tcop/postgres.c:5196-5231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L5196-L5231)
 
 ## Overview
 This function serves as an `on_proc_exit` handler that logs session disconnection information, including session duration and client connection details when a PostgreSQL backend process terminates.

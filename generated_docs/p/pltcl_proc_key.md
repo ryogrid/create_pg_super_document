@@ -1,7 +1,7 @@
 # pltcl_proc_key
 
 ## Location
-src/pl/tcl/pltcl.c: 190 - 200
+[src/pl/tcl/pltcl.c:190-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L190-L200)
 
 ## Overview
 A hash key structure used for fast lookup of cached PL/Tcl procedure descriptors, combining function identity with user context and trigger status.

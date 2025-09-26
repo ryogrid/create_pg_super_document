@@ -1,7 +1,7 @@
 # ECPGset_var
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 536 - 590
+[src/interfaces/ecpg/ecpglib/misc.c:536-590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L536-L590)
 
 ## Overview
 Sets or updates a variable in the ECPG variable list, maintaining a mapping between variable numbers and their memory pointers for ECPG SQL operations.

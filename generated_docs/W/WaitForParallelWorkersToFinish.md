@@ -1,7 +1,7 @@
 # WaitForParallelWorkersToFinish
 
 ## Location
-src/backend/access/transam/parallel.c: 792 - 905
+[src/backend/access/transam/parallel.c:792-905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L792-L905)
 
 ## Overview
 Waits for all parallel workers to complete their computations and handles any errors they may have encountered during execution or shutdown.

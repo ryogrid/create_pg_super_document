@@ -1,7 +1,7 @@
 # table_tuple_insert_speculative
 
 ## Location
-src/include/access/tableam.h: 1422 - 1435
+[src/include/access/tableam.h:1422-1435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1422-L1435)
 
 ## Overview
 This function performs a speculative tuple insertion that can be backed out without aborting the entire transaction, primarily used to implement INSERT .. ON CONFLICT functionality by providing short-duration value locks.

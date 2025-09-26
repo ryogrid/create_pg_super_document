@@ -1,7 +1,7 @@
 # scram_build_secret
 
 ## Location
-src/common/scram-common.c: 209 - 329
+[src/common/scram-common.c:209-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/scram-common.c#L209-L329)
 
 ## Overview
 Constructs a complete SCRAM secret string suitable for storage in pg_authid.rolpassword by performing all necessary SCRAM key derivations and encoding the result.

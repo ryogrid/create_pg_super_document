@@ -1,7 +1,7 @@
 # PrepareSortSupportComparisonShim
 
 ## Location
-src/backend/utils/sort/sortsupport.c: 68 - 93
+[src/backend/utils/sort/sortsupport.c:68-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sortsupport.c#L68-L93)
 
 ## Overview
 Sets up a shim function to allow old-style btree comparison functions to work seamlessly with PostgreSQL's modern SortSupport framework.

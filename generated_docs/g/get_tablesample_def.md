@@ -1,7 +1,7 @@
 # get_tablesample_def
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12487 - 12530
+[src/backend/utils/adt/ruleutils.c:12487-12530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12487-L12530)
 
 ## Overview
 Generates SQL text for a TABLESAMPLE clause, including the sampling method, arguments, and optional REPEATABLE specification.

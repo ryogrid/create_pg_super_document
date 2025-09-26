@@ -1,7 +1,7 @@
 # InitializeAttoptCache
 
 ## Location
-src/backend/utils/cache/attoptcache.c: 78 - 103
+[src/backend/utils/cache/attoptcache.c:78-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/attoptcache.c#L78-L103)
 
 ## Overview
 Initializes the attribute options cache system, setting up the hash table structure and registering invalidation callbacks.

@@ -1,7 +1,7 @@
 # parse_filename_for_nontemp_relation
 
 ## Location
-src/backend/storage/file/reinit.c: 380 - 453
+[src/backend/storage/file/reinit.c:380-453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/reinit.c#L380-L453)
 
 ## Overview
 parse_filename_for_nontemp_relation is a utility function that parses PostgreSQL relation filenames to extract the relation number, fork type, and segment number, ensuring the filename follows the correct format for non-temporary relations.

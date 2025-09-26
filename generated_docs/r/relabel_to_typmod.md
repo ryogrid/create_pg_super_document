@@ -1,7 +1,7 @@
 # relabel_to_typmod
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 684 - 699
+[src/backend/nodes/nodeFuncs.c:684-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L684-L699)
 
 ## Overview
 Adds a RelabelType node that changes only the typmod of an expression, preserving its type and collation.

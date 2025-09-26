@@ -1,7 +1,7 @@
 # ProjectSetPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2185 - 2189
+[src/include/nodes/pathnodes.h:2185-2189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2185-L2189)
 
 ## Overview
 ProjectSetPath represents the evaluation of a targetlist containing set-returning functions (SRFs), which requires a ProjectSet plan node to handle the expansion of single input rows into multiple output rows.

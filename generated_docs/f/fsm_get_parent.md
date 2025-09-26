@@ -1,7 +1,7 @@
 # fsm_get_parent
 
 ## Location
-src/backend/storage/freespace/freespace.c: 517 - 534
+[src/backend/storage/freespace/freespace.c:517-534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L517-L534)
 
 ## Overview
 Calculates the parent FSM address and slot position for a given child page in the FSM tree hierarchy.

@@ -1,7 +1,7 @@
 # pg_euctw_verifystr
 
 ## Location
-src/common/wchar.c: 1278 - 1306
+[src/common/wchar.c:1278-1306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1278-L1306)
 
 ## Overview
 Validates the byte sequence of an EUC-TW (Extended Unix Code for Traditional Chinese) encoded string and returns the number of valid bytes processed.

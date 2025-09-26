@@ -1,7 +1,7 @@
 # ExecHashBuildSkewHash
 
 ## Location
-src/backend/executor/nodeHash.c: 2382 - 2534
+[src/backend/executor/nodeHash.c:2382-2534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2382-L2534)
 
 ## Overview
 Sets up skew optimization for hash joins by creating specialized hash buckets for the most common values (MCVs) of the outer relation's join key to improve hash table performance.

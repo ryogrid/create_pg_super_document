@@ -1,7 +1,7 @@
 # ExecSerializePlan
 
 ## Location
-src/backend/executor/execParallel.c: 145 - 228
+[src/backend/executor/execParallel.c:145-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L145-L228)
 
 ## Overview
 Creates a serialized representation of a query execution plan to be sent to parallel worker processes in PostgreSQL's parallel query execution framework.

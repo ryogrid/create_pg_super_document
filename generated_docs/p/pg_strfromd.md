@@ -1,7 +1,7 @@
 # pg_strfromd
 
 ## Location
-src/port/snprintf.c: 1282 - 1373
+[src/port/snprintf.c:1282-1373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1282-L1373)
 
 ## Overview
 A PostgreSQL-specific function that efficiently formats double-precision floating-point numbers to strings, designed as an optimized alternative to strfromd() with an API tailored for PostgreSQL's float output needs.

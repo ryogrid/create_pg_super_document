@@ -1,7 +1,7 @@
 # PROCLOCKTAG
 
 ## Location
-src/include/storage/lock.h: 362 - 367
+[src/include/storage/lock.h:362-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L362-L367)
 
 ## Overview
 PROCLOCKTAG is the key data structure used to identify individual lock holdings in PostgreSQL's shared memory. It uniquely identifies the combination of a lockable object and the backend process that holds or awaits that lock.

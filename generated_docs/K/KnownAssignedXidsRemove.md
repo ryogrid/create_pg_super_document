@@ -1,7 +1,7 @@
 # KnownAssignedXidsRemove
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4986 - 5011
+[src/backend/storage/ipc/procarray.c:4986-5011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4986-L5011)
 
 ## Overview
 Removes a specific transaction ID from the KnownAssignedXids array by delegating to the search function with removal enabled.

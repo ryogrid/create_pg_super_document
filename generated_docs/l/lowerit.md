@@ -1,7 +1,7 @@
 # lowerit
 
 ## Location
-src/timezone/zic.c: 3551 - 3613
+[src/timezone/zic.c:3551-3613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3551-L3613)
 
 ## Overview
 A locale-independent function that converts ASCII uppercase characters to their lowercase equivalents, used in PostgreSQL's timezone compilation utilities.

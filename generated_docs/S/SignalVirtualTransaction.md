@@ -1,7 +1,7 @@
 # SignalVirtualTransaction
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3496 - 3544
+[src/backend/storage/ipc/procarray.c:3496-3544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3496-L3544)
 
 ## Overview
 Locates a backend process by its Virtual Transaction ID and sends a specified signal to it, with optional recovery conflict flagging.

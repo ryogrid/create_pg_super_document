@@ -1,7 +1,7 @@
 # AlterStatsStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3415 - 3421
+[src/include/nodes/parsenodes.h:3415-3421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3415-L3421)
 
 ## Overview
 AlterStatsStmt represents a parsed ALTER STATISTICS statement, used to modify properties of existing extended statistics objects, primarily their statistics target values.

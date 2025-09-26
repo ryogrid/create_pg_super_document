@@ -1,7 +1,7 @@
 # pg_wchar2utf_with_len
 
 ## Location
-src/common/wchar.c: 507 - 537
+[src/common/wchar.c:507-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L507-L537)
 
 ## Overview
 Converts an array of pg_wchar (UCS-4) wide characters to UTF-8 encoded byte string with a specified input character count limit.

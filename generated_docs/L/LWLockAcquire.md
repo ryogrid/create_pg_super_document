@@ -1,7 +1,7 @@
 # LWLockAcquire
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1170 - 1340
+[src/backend/storage/lmgr/lwlock.c:1170-1340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1170-L1340)
 
 ## Overview
 Primary public function for acquiring a lightweight lock in either shared or exclusive mode, blocking until the lock becomes available.

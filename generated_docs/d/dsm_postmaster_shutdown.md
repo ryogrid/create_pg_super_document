@@ -1,7 +1,7 @@
 # dsm_postmaster_shutdown
 
 ## Location
-src/backend/storage/ipc/dsm.c: 358 - 422
+[src/backend/storage/ipc/dsm.c:358-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L358-L422)
 
 ## Overview
 A cleanup function called during postmaster shutdown to remove all remaining dynamic shared memory segments and destroy the control segment itself.

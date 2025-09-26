@@ -1,7 +1,7 @@
 # dsm_pin_segment
 
 ## Location
-src/backend/storage/ipc/dsm.c: 955 - 987
+[src/backend/storage/ipc/dsm.c:955-987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L955-L987)
 
 ## Overview
 Prevents a dynamic shared memory segment from being destroyed by keeping it alive until postmaster shutdown or until explicitly unpinned, even when no sessions are attached to it.

@@ -1,7 +1,7 @@
 # JsonUniqueBuilderState
 
 ## Location
-src/backend/utils/adt/json.c: 67 - 72
+[src/backend/utils/adt/json.c:67-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L67-L72)
 
 ## Overview
 JsonUniqueBuilderState is a context structure that manages key uniqueness checking and NULL value handling during JSON object construction and building operations.

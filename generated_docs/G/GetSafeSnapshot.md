@@ -1,7 +1,7 @@
 # GetSafeSnapshot
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1548 - 1617
+[src/backend/storage/lmgr/predicate.c:1548-1617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1548-L1617)
 
 ## Overview
 Obtains and registers a snapshot for READ ONLY DEFERRABLE transactions that is guaranteed to be "safe" for serializable execution without further conflict checks.

@@ -1,7 +1,7 @@
 # transformWholeRowRef
 
 ## Location
-src/backend/parser/parse_expr.c: 2620 - 2691
+[src/backend/parser/parse_expr.c:2620-2691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2620-L2691)
 
 ## Overview
 Constructs a whole-row reference to represent the notation "relation.*" by creating either a whole-row Var or expanding to a RowExpr for JOIN USING aliases.

@@ -1,7 +1,7 @@
 # ResourceOwner
 
 ## Location
-src/include/utils/resowner.h: 27 - 53
+[src/include/utils/resowner.h:27-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/resowner.h#L27-L53)
 
 ## Overview
 ResourceOwner is an opaque handle type that represents a resource management object used to track and automatically clean up query-lifespan resources in PostgreSQL.

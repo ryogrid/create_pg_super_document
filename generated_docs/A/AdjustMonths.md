@@ -1,7 +1,7 @@
 # AdjustMonths
 
 ## Location
-src/backend/utils/adt/datetime.c: 649 - 660
+[src/backend/utils/adt/datetime.c:649-660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L649-L660)
 
 ## Overview
 A static helper function that adds a month value to the months field of a pg_itm_in structure with range and overflow checking.

@@ -1,7 +1,7 @@
 # MaterialPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1981 - 1985
+[src/include/nodes/pathnodes.h:1981-1985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1981-L1985)
 
 ## Overview
 MaterialPath represents use of a Material plan node for caching the output of its subpath, used when the subpath is expensive and needs to be scanned repeatedly or when mark/restore ability is required.

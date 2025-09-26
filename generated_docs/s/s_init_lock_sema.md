@@ -1,7 +1,7 @@
 # s_init_lock_sema
 
 ## Location
-src/backend/storage/lmgr/spin.c: 121 - 151
+[src/backend/storage/lmgr/spin.c:121-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/spin.c#L121-L151)
 
 ## Overview
 Initializes a spinlock by assigning it a semaphore index from the available pool, with support for nested atomic operations.

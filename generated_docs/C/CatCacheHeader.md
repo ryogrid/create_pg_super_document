@@ -1,7 +1,7 @@
 # CatCacheHeader
 
 ## Location
-src/include/utils/catcache.h: 188 - 231
+[src/include/utils/catcache.h:188-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/catcache.h#L188-L231)
 
 ## Overview
 CatCacheHeader is the global management structure that coordinates all catalog caches in PostgreSQL, maintaining a linked list of all CatCache instances and tracking overall cache statistics.

@@ -1,7 +1,7 @@
 # concat_conninfo_dbname
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 409 - 432
+[src/bin/pg_basebackup/pg_createsubscriber.c:409-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L409-L432)
 
 ## Overview
 Appends a database name to a base connection string to build a complete PostgreSQL connection string suitable for establishing database connections.

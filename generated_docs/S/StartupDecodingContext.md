@@ -1,7 +1,7 @@
 # StartupDecodingContext
 
 ## Location
-src/backend/replication/logical/logical.c: 152 - 331
+[src/backend/replication/logical/logical.c:152-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L152-L331)
 
 ## Overview
 StartupDecodingContext is a static helper function that performs the common initialization tasks for both CreateInitDecodingContext and CreateDecodingContext, setting up a complete logical decoding environment.

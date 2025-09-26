@@ -1,7 +1,7 @@
 # PathNameCreateTemporaryDir
 
 ## Location
-src/backend/storage/file/fd.c: 1657 - 1687
+[src/backend/storage/file/fd.c:1657-1687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1657-L1687)
 
 ## Overview
 PathNameCreateTemporaryDir creates a temporary directory and its parent directory if necessary, designed specifically for PostgreSQL's temporary file management system with proper cleanup integration.

@@ -1,7 +1,7 @@
 # array_set_isnull
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4786 - 4803
+[src/backend/utils/adt/arrayfuncs.c:4786-4803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4786-L4803)
 
 ## Overview
 A static utility function that sets the null status of a specific array element by modifying the array's null bitmap.

@@ -1,7 +1,7 @@
 # parse_and_validate_value
 
 ## Location
-src/backend/utils/misc/guc.c: 3132 - 3344
+[src/backend/utils/misc/guc.c:3132-3344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L3132-L3344)
 
 ## Overview
 Comprehensive validation function that parses and validates a proposed configuration parameter value according to its data type and built-in constraints.

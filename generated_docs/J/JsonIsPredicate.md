@@ -1,7 +1,7 @@
 # JsonIsPredicate
 
 ## Location
-src/include/nodes/primnodes.h: 1732 - 1740
+[src/include/nodes/primnodes.h:1732-1740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1732-L1740)
 
 ## Overview
 JsonIsPredicate represents the IS JSON predicate used to test whether an expression contains valid JSON data, with options for format specification and item type checking.

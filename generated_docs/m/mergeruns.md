@@ -1,7 +1,7 @@
 # mergeruns
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2045 - 2231
+[src/backend/utils/sort/tuplesort.c:2045-2231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2045-L2231)
 
 ## Overview
 Implements the balanced k-way merge algorithm to merge all completed initial runs into a final sorted result, handling both single-pass and multi-pass external sorting scenarios.

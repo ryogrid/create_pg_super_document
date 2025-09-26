@@ -1,7 +1,7 @@
 # ExplainPrintSerialize
 
 ## Location
-src/backend/commands/explain.c: 1109 - 1168
+[src/backend/commands/explain.c:1109-1168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L1109-L1168)
 
 ## Overview
 Formats and appends query output serialization metrics to EXPLAIN output, displaying serialization timing, output volume, and format information.

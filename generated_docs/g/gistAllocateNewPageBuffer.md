@@ -1,7 +1,7 @@
 # gistAllocateNewPageBuffer
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 181 - 197
+[src/backend/access/gist/gistbuildbuffers.c:181-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L181-L197)
 
 ## Overview
 gistAllocateNewPageBuffer allocates and initializes a new buffer page for storing index tuples during GiST index construction.

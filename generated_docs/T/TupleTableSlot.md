@@ -1,7 +1,7 @@
 # TupleTableSlot
 
 ## Location
-src/include/executor/tuptable.h: 114 - 131
+[src/include/executor/tuptable.h:114-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L114-L131)
 
 ## Overview
 TupleTableSlot is the base structure representing a tuple in PostgreSQL's executor, providing a uniform interface for accessing tuple data regardless of the underlying storage format.

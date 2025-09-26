@@ -1,7 +1,7 @@
 # pgstat_drop_transactional
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 379 - 382
+[src/backend/utils/activity/pgstat_xact.c:379-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L379-L382)
 
 ## Overview
 Drops a statistics entry for a database object that has been dropped, in a transactional manner, ensuring that if the current transaction or sub-transaction aborts, the stats entry will remain alive.

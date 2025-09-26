@@ -1,7 +1,7 @@
 # namestrcmp
 
 ## Location
-src/backend/utils/adt/name.c: 247 - 262
+[src/backend/utils/adt/name.c:247-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L247-L262)
 
 ## Overview
 The  function compares a PostgreSQL  value with a C string using C collation, with proper handling of NULL values.

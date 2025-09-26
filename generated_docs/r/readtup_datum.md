@@ -1,7 +1,7 @@
 # readtup_datum
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1858 - 1890
+[src/backend/utils/sort/tuplesortvariants.c:1858-1890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1858-L1890)
 
 ## Overview
 Reads a datum-based SortTuple from a logical tape during external sorting operations, reconstructing the appropriate datum format and handling NULL values.

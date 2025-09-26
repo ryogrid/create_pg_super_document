@@ -1,7 +1,7 @@
 # TidScan
 
 ## Location
-src/include/nodes/plannodes.h: 552 - 556
+[src/include/nodes/plannodes.h:552-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L552-L556)
 
 ## Overview
 TidScan is a PostgreSQL plan node that directly accesses specific tuples using their CTID (tuple identifier) values, providing the fastest possible access to known tuple locations.

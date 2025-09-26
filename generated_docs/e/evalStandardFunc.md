@@ -1,7 +1,7 @@
 # evalStandardFunc
 
 ## Location
-src/bin/pgbench/pgbench.c: 2249 - 2820
+[src/bin/pgbench/pgbench.c:2249-2820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2249-L2820)
 
 ## Overview
 A comprehensive function evaluation engine that handles eager evaluation of all standard pgbench functions, including arithmetic, logical, comparison, mathematical, random, and utility operations.

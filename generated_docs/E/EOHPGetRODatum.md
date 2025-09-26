@@ -1,7 +1,7 @@
 # EOHPGetRODatum
 
 ## Location
-src/include/utils/expandeddatum.h: 145 - 150
+[src/include/utils/expandeddatum.h:145-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/expandeddatum.h#L145-L150)
 
 ## Overview
 EOHPGetRODatum is an inline function that extracts a read-only TOAST pointer from an ExpandedObjectHeader and returns it as a Datum.

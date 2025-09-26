@@ -1,7 +1,7 @@
 # rt_node_class_test_elem
 
 ## Location
-src/test/modules/test_radixtree/test_radixtree.c: 66 - 70
+[src/test/modules/test_radixtree/test_radixtree.c:66-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_radixtree/test_radixtree.c#L66-L70)
 
 ## Overview
 A test structure that defines test parameters for different radix tree node classes, associating each node class with its name and the number of keys needed to grow nodes into that size class.

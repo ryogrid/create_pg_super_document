@@ -1,7 +1,7 @@
 # JsonUniqueHashEntry
 
 ## Location
-src/backend/utils/adt/json.c: 42 - 47
+[src/backend/utils/adt/json.c:42-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L42-L47)
 
 ## Overview
 JsonUniqueHashEntry is a structure that represents individual hash table entries used to store JSON object key information for fast duplicate key detection in PostgreSQL's JSON processing system.

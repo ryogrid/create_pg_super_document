@@ -1,7 +1,7 @@
 # smgrtruncate2
 
 ## Location
-src/backend/storage/smgr/smgr.c: 727 - 782
+[src/backend/storage/smgr/smgr.c:727-782](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L727-L782)
 
 ## Overview
 Truncates the specified forks of a supplied relation to given numbers of blocks, performing immediate truncation with proper buffer management and cache invalidation.

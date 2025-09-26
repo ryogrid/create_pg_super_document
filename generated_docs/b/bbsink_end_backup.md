@@ -1,7 +1,7 @@
 # bbsink_end_backup
 
 ## Location
-src/include/backup/basebackup_sink.h: 255 - 264
+[src/include/backup/basebackup_sink.h:255-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L255-L264)
 
 ## Overview
 Signals the completion of an entire base backup operation, allowing sink implementations to perform final cleanup and record the backup's end point in the WAL stream.

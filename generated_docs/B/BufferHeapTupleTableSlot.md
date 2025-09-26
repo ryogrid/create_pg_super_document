@@ -1,7 +1,7 @@
 # BufferHeapTupleTableSlot
 
 ## Location
-src/include/executor/tuptable.h: 267 - 280
+[src/include/executor/tuptable.h:267-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L267-L280)
 
 ## Overview
 BufferHeapTupleTableSlot is a specialized table slot structure for heap tuples that reside in shared buffer pages, extending HeapTupleTableSlot to manage buffer pin relationships.

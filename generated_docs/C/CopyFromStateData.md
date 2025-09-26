@@ -1,7 +1,7 @@
 # CopyFromStateData
 
 ## Location
-src/include/commands/copyfrom_internal.h: 59 - 181
+[src/include/commands/copyfrom_internal.h:59-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/copyfrom_internal.h#L59-L181)
 
 ## Overview
 CopyFromStateData is a comprehensive structure that contains all the state variables used throughout a COPY FROM operation in PostgreSQL, managing everything from input parsing to error handling and data conversion.

@@ -1,7 +1,7 @@
 # CoerceToDomain
 
 ## Location
-src/include/nodes/primnodes.h: 2025 - 2037
+[src/include/nodes/primnodes.h:2025-2037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2025-L2037)
 
 ## Overview
 CoerceToDomain represents the operation of coercing a value to a domain type in PostgreSQL, performing runtime constraint validation and returning the coerced result or raising an error if constraints are violated.

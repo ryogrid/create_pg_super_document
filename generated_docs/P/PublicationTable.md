@@ -1,7 +1,7 @@
 # PublicationTable
 
 ## Location
-src/include/nodes/parsenodes.h: 4131 - 4137
+[src/include/nodes/parsenodes.h:4131-4137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4131-L4137)
 
 ## Overview
 PublicationTable represents a table specification within a logical replication publication, including the table reference, optional WHERE clause for row filtering, and optional column list for column filtering.

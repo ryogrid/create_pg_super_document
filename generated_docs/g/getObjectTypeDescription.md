@@ -1,7 +1,7 @@
 # getObjectTypeDescription
 
 ## Location
-src/backend/catalog/objectaddress.c: 4413 - 4602
+[src/backend/catalog/objectaddress.c:4413-4602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4413-L4602)
 
 ## Overview
 Returns a human-readable string that describes the type of PostgreSQL database object specified by an ObjectAddress, supporting all major object classes in the system catalog.

@@ -1,7 +1,7 @@
 # _bt_load
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 1135 - 1395
+[src/backend/access/nbtree/nbtsort.c:1135-1395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L1135-L1395)
 
 ## Overview
 The main function that reads sorted tuples from tuplesort and loads them into B-tree leaf pages, handling merging of multiple tuple sources, deduplication, and progress reporting.

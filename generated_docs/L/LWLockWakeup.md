@@ -1,7 +1,7 @@
 # LWLockWakeup
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 922 - 1037
+[src/backend/storage/lmgr/lwlock.c:922-1037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L922-L1037)
 
 ## Overview
 Internal function that wakes up all waiting processes that currently have a chance to acquire a lightweight lock when the lock is being released.

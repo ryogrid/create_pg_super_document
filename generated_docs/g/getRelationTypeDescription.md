@@ -1,7 +1,7 @@
 # getRelationTypeDescription
 
 ## Location
-src/backend/catalog/objectaddress.c: 4603 - 4665
+[src/backend/catalog/objectaddress.c:4603-4665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4603-L4665)
 
 ## Overview
 A helper function that determines and appends the specific type description for a relation object to a StringInfo buffer, based on the relation's kind (table, index, view, etc.).

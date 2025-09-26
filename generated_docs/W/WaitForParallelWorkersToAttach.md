@@ -1,7 +1,7 @@
 # WaitForParallelWorkersToAttach
 
 ## Location
-src/backend/access/transam/parallel.c: 689 - 791
+[src/backend/access/transam/parallel.c:689-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L689-L791)
 
 ## Overview
 Waits for all parallel workers to attach to their error message queues and validates they have initialized successfully.

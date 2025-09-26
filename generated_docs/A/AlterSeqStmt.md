@@ -1,7 +1,7 @@
 # AlterSeqStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3127 - 3134
+[src/include/nodes/parsenodes.h:3127-3134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3127-L3134)
 
 ## Overview
 AlterSeqStmt represents an ALTER SEQUENCE statement in PostgreSQL parse tree, used to modify properties of an existing sequence object.

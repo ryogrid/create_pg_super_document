@@ -1,7 +1,7 @@
 # PartitionPruneStep
 
 ## Location
-src/include/nodes/plannodes.h: 1492 - 1498
+[src/include/nodes/plannodes.h:1492-1498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1492-L1498)
 
 ## Overview
 PartitionPruneStep is an abstract base struct for partition pruning steps in PostgreSQL's partitioning system, serving as the foundation for concrete pruning step types like PartitionPruneStepOp and PartitionPruneStepCombine.

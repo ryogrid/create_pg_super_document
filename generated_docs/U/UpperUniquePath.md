@@ -1,7 +1,7 @@
 # UpperUniquePath
 
 ## Location
-src/include/nodes/pathnodes.h: 2239 - 2244
+[src/include/nodes/pathnodes.h:2239-2244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2239-L2244)
 
 ## Overview
 UpperUniquePath represents a query execution path node that performs adjacent-duplicate removal on presorted input data, implementing DISTINCT operations efficiently on already sorted data.

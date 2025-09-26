@@ -1,7 +1,7 @@
 # normalize_exec_path
 
 ## Location
-src/common/exec.c: 241 - 281
+[src/common/exec.c:241-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L241-L281)
 
 ## Overview
 Resolves symlinks and converts executable paths to absolute form, ensuring PostgreSQL utilities can reliably locate their true installation directory for finding related files.

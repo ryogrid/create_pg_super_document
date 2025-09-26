@@ -1,7 +1,7 @@
 # auto_mem_key_init
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 82 - 87
+[src/interfaces/ecpg/ecpglib/memory.c:82-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L82-L87)
 
 ## Overview
 Initializes a pthread thread-specific data key for automatic memory management in ECPG library.

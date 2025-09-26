@@ -1,7 +1,7 @@
 # destroyPQExpBuffer
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 114 - 128
+[src/interfaces/libpq/pqexpbuffer.c:114-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L114-L128)
 
 ## Overview
 Completely deallocates a PQExpBuffer by freeing both the data buffer and the PQExpBufferData structure itself, serving as the inverse operation to createPQExpBuffer.

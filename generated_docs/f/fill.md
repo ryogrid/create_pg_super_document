@@ -1,7 +1,7 @@
 # fill
 
 ## Location
-src/interfaces/libpq/fe-print.c: 755 - 762
+[src/interfaces/libpq/fe-print.c:755-762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-print.c#L755-L762)
 
 ## Overview
 A simple utility function that outputs a specified number of filler characters to a file stream for padding and alignment purposes.

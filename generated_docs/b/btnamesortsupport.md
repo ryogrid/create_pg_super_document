@@ -1,7 +1,7 @@
 # btnamesortsupport
 
 ## Location
-src/backend/utils/adt/name.c: 211 - 232
+[src/backend/utils/adt/name.c:211-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L211-L232)
 
 ## Overview
 The  function provides optimized sorting support for PostgreSQL's  data type by configuring sort acceleration infrastructure for improved performance in sorting operations.

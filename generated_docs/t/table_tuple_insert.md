@@ -1,7 +1,7 @@
 # table_tuple_insert
 
 ## Location
-src/include/access/tableam.h: 1403 - 1421
+[src/include/access/tableam.h:1403-1421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1403-L1421)
 
 ## Overview
 This function inserts a tuple from a slot into a table using the table access method abstraction, with support for various insertion options including bulk operations, frozen tuples, and logical replication control.

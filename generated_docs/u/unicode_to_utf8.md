@@ -1,7 +1,7 @@
 # unicode_to_utf8
 
 ## Location
-src/include/mb/pg_wchar.h: 591 - 622
+[src/include/mb/pg_wchar.h:591-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/mb/pg_wchar.h#L591-L622)
 
 ## Overview
 Converts a Unicode code point to its UTF-8 byte sequence representation in a provided buffer.

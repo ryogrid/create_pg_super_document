@@ -1,7 +1,7 @@
 # _bt_upgrademetapage
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 107 - 141
+[src/backend/access/nbtree/nbtpage.c:107-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L107-L141)
 
 ## Overview
 _bt_upgrademetapage upgrades a B-tree metapage from an older format to version 3, which is the last version that can be updated without requiring a full REINDEX operation.

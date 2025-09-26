@@ -1,7 +1,7 @@
 # InitManyTestResourceKind
 
 ## Location
-src/test/modules/test_resowner/test_resowner_many.c: 97 - 116
+[src/test/modules/test_resowner/test_resowner_many.c:97-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_many.c#L97-L116)
 
 ## Overview
 Initializes a ManyTestResourceKind structure by setting up its resource descriptor, callback functions, and internal state for resource management testing.

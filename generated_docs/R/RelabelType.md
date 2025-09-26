@@ -1,7 +1,7 @@
 # RelabelType
 
 ## Location
-src/include/nodes/primnodes.h: 1181 - 1193
+[src/include/nodes/primnodes.h:1181-1193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1181-L1193)
 
 ## Overview
 RelabelType represents a "dummy" type coercion between two binary-compatible datatypes, serving as a no-op at runtime that provides a place to store the correct result type during type resolution.

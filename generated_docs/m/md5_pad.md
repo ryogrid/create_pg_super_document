@@ -1,7 +1,7 @@
 # md5_pad
 
 ## Location
-src/common/md5.c: 310 - 347
+[src/common/md5.c:310-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5.c#L310-L347)
 
 ## Overview
 Handles the padding phase of MD5 computation by appending the required padding bits and length information to complete the final block(s) for processing.

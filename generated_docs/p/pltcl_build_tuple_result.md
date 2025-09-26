@@ -1,7 +1,7 @@
 # pltcl_build_tuple_result
 
 ## Location
-src/pl/tcl/pltcl.c: 3180 - 3263
+[src/pl/tcl/pltcl.c:3180-3263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L3180-L3263)
 
 ## Overview
 Builds a HeapTuple from a Tcl list of column names and values, converting Tcl function return data into PostgreSQL's internal tuple format for functions and triggers.

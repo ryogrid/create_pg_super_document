@@ -1,7 +1,7 @@
 # ScalarArrayOpExpr
 
 ## Location
-src/include/nodes/primnodes.h: 893 - 920
+[src/include/nodes/primnodes.h:893-920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L893-L920)
 
 ## Overview
 ScalarArrayOpExpr represents "scalar op ANY/ALL (array)" expressions in PostgreSQL, combining a scalar value with array elements using boolean operators.

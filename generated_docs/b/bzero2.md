@@ -1,7 +1,7 @@
 # bzero2
 
 ## Location
-src/port/explicit_bzero.c: 44 - 51
+[src/port/explicit_bzero.c:44-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/explicit_bzero.c#L44-L51)
 
 ## Overview
 A static helper function that provides a simple memory zeroing implementation for use with explicit_bzero when more secure alternatives are not available.

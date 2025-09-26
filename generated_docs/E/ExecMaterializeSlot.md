@@ -1,7 +1,7 @@
 # ExecMaterializeSlot
 
 ## Location
-src/include/executor/tuptable.h: 472 - 480
+[src/include/executor/tuptable.h:472-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L472-L480)
 
 ## Overview
 Forces a TupleTableSlot into the "materialized" state, creating a local copy of the tuple that is independent of any external storage.

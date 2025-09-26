@@ -1,7 +1,7 @@
 # get_ps_display
 
 ## Location
-src/backend/utils/misc/ps_status.c: 530 - 549
+[src/backend/utils/misc/ps_status.c:530-549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/ps_status.c#L530-L549)
 
 ## Overview
 Retrieves the current activity portion of the process status display string, returning both the string content and its effective length for systems where the string may not be null-terminated.

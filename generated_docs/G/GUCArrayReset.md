@@ -1,7 +1,7 @@
 # GUCArrayReset
 
 ## Location
-src/backend/utils/misc/guc.c: 6644 - 6715
+[src/backend/utils/misc/guc.c:6644-6715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6644-L6715)
 
 ## Overview
 Resets GUC configuration entries in an array based on the current user's permission level, removing all entries that the user has permission to delete.

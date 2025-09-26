@@ -1,7 +1,7 @@
 # CreateEmptyBlockRefTable
 
 ## Location
-src/common/blkreftable.c: 235 - 261
+[src/common/blkreftable.c:235-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L235-L261)
 
 ## Overview
 Creates an empty block reference table with an initial hash table capacity optimized for typical database usage patterns.

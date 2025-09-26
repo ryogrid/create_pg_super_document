@@ -1,7 +1,7 @@
 # pg_comp_crc32c_armv8
 
 ## Location
-src/port/pg_crc32c_armv8.c: 22 - 75
+[src/port/pg_crc32c_armv8.c:22-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_crc32c_armv8.c#L22-L75)
 
 ## Overview
 ARMv8-specific implementation of CRC-32C checksum computation that utilizes ARMv8 CRC Extension instructions for hardware-accelerated checksum calculation.

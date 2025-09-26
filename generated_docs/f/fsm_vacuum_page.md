@@ -1,7 +1,7 @@
 # fsm_vacuum_page
 
 ## Location
-src/backend/storage/freespace/freespace.c: 812 - 925
+[src/backend/storage/freespace/freespace.c:812-925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L812-L925)
 
 ## Overview
 Recursive function that examines FSM (Free Space Map) pages and their children, updating upper-level nodes that cover a specified heap block range during vacuum operations.

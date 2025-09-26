@@ -1,7 +1,7 @@
 # HashMemoryChunkData
 
 ## Location
-src/include/executor/hashjoin.h: 128 - 146
+[src/include/executor/hashjoin.h:128-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/hashjoin.h#L128-L146)
 
 ## Overview
 HashMemoryChunkData is a memory management structure that optimizes tuple storage in PostgreSQL hash joins by packing multiple HashJoinTuples into large 32KB buffers to reduce palloc overhead and improve memory allocation efficiency.

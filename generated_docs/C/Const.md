@@ -1,7 +1,7 @@
 # Const
 
 ## Location
-src/include/nodes/primnodes.h: 306 - 336
+[src/include/nodes/primnodes.h:306-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L306-L336)
 
 ## Overview
 The Const structure represents a constant literal value in PostgreSQL's expression tree, storing typed constant data that appears in SQL queries.

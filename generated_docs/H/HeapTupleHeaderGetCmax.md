@@ -1,7 +1,7 @@
 # HeapTupleHeaderGetCmax
 
 ## Location
-src/backend/utils/time/combocid.c: 118 - 152
+[src/backend/utils/time/combocid.c:118-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/combocid.c#L118-L152)
 
 ## Overview
 Extracts the command ID (Cmax) from a heap tuple header, handling combo command IDs appropriately to return the actual maximum command ID within the current transaction.

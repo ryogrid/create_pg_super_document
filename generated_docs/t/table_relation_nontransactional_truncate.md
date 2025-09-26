@@ -1,7 +1,7 @@
 # table_relation_nontransactional_truncate
 
 ## Location
-src/include/access/tableam.h: 1640 - 1651
+[src/include/access/tableam.h:1640-1651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1640-L1651)
 
 ## Overview
 A table access method wrapper function that removes all contents from a relation in a non-transactional manner, typically used for truncating storage created within the current transaction.

@@ -1,7 +1,7 @@
 # table_tuple_lock
 
 ## Location
-src/include/access/tableam.h: 1581 - 1595
+[src/include/access/tableam.h:1581-1595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1581-L1595)
 
 ## Overview
 Locks a tuple in a specified mode for concurrent access control, supporting various locking strategies and update chain following capabilities.

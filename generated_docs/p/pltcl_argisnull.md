@@ -1,7 +1,7 @@
 # pltcl_argisnull
 
 ## Location
-src/pl/tcl/pltcl.c: 2063 - 2116
+[src/pl/tcl/pltcl.c:2063-2116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2063-L2116)
 
 ## Overview
 Determines whether a specific function argument is NULL, providing NULL-checking functionality for PL/Tcl functions.

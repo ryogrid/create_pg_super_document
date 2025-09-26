@@ -1,7 +1,7 @@
 # ExecProcNode
 
 ## Location
-src/include/executor/executor.h: 270 - 333
+[src/include/executor/executor.h:270-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/executor.h#L270-L333)
 
 ## Overview
 ExecProcNode is the central function in PostgreSQL's query executor that processes a single plan node and returns the next tuple from that node, implementing the iterator model of query execution.

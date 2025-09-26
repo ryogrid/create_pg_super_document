@@ -1,7 +1,7 @@
 # xoroshiro128ss
 
 ## Location
-src/common/pg_prng.c: 54 - 71
+[src/common/pg_prng.c:54-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L54-L71)
 
 ## Overview
 The `xoroshiro128ss` function implements the core xoroshiro128** pseudo-random number generator algorithm, producing high-quality 64-bit uniformly distributed random numbers.

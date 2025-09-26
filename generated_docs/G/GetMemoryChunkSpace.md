@@ -1,7 +1,7 @@
 # GetMemoryChunkSpace
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 721 - 730
+[src/backend/utils/mmgr/mcxt.c:721-730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L721-L730)
 
 ## Overview
 GetMemoryChunkSpace determines the total space occupied by a memory chunk, including all memory allocation overhead.

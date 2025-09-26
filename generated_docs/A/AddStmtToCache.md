@@ -1,7 +1,7 @@
 # AddStmtToCache
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 491 - 552
+[src/interfaces/ecpg/ecpglib/prepare.c:491-552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L491-L552)
 
 ## Overview
 Adds a new prepared statement entry to the ECPG statement cache, handling cache allocation, collision resolution, and LRU replacement.

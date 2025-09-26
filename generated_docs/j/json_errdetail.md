@@ -1,7 +1,7 @@
 # json_errdetail
 
 ## Location
-src/common/jsonapi.c: 2100 - 2110
+[src/common/jsonapi.c:2100-2110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L2100-L2110)
 
 ## Overview
 A function that constructs detailed, human-readable error messages for JSON parsing errors based on error type and lexical context.

@@ -1,7 +1,7 @@
 # errdatatype
 
 ## Location
-src/backend/utils/adt/domains.c: 407 - 430
+[src/backend/utils/adt/domains.c:407-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/domains.c#L407-L430)
 
 ## Overview
 A utility function that stores schema name and datatype name information of a specified datatype within the current error data context.

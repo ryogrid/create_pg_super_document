@@ -1,7 +1,7 @@
 # make_project_set
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 7010 - 7028
+[src/backend/optimizer/plan/createplan.c:7010-7028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L7010-L7028)
 
 ## Overview
 Creates and initializes a ProjectSet plan node, which is used to handle set-returning functions (SRFs) that return multiple rows from a single input row.

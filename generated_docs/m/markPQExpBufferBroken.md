@@ -1,7 +1,7 @@
 # markPQExpBufferBroken
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 50 - 71
+[src/interfaces/libpq/pqexpbuffer.c:50-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L50-L71)
 
 ## Overview
 A static function that puts a PQExpBuffer into a "broken" (out-of-memory) state by cleaning up any existing buffer and setting it to point to a static empty buffer.

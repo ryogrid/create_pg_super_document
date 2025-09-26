@@ -1,7 +1,7 @@
 # SharedTuplestore
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 59 - 70
+[src/backend/utils/sort/sharedtuplestore.c:59-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L59-L70)
 
 ## Overview
 SharedTuplestore is the main control structure that lives in shared memory for managing tuple storage operations across multiple participating processes in PostgreSQL parallel query execution.

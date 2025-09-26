@@ -1,7 +1,7 @@
 # GetNamedLWLockTranche
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 576 - 605
+[src/backend/storage/lmgr/lwlock.c:576-605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L576-L605)
 
 ## Overview
 Returns the base address of the first LWLock in a named tranche, allowing extensions to access their requested LWLock groups.

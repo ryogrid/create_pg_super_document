@@ -1,7 +1,7 @@
 # pgstat_slru_flush
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 156 - 173
+[src/backend/utils/activity/pgstat_slru.c:156-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L156-L173)
 
 ## Overview
 Flushes locally pending SLRU (Simple LRU) statistics entries to shared memory, accumulating the statistics from local pending counters into global shared statistics.

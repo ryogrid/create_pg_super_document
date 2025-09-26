@@ -1,7 +1,7 @@
 # PartitionPruneContext
 
 ## Location
-src/include/partitioning/partprune.h: 49 - 62
+[src/include/partitioning/partprune.h:49-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/partitioning/partprune.h#L49-L62)
 
 ## Overview
 PartitionPruneContext is a PostgreSQL data structure that stores information needed at runtime for pruning computations related to a single partitioned table, enabling the elimination of irrelevant partitions during query execution.

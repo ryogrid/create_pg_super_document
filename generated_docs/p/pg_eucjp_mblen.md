@@ -1,7 +1,7 @@
 # pg_eucjp_mblen
 
 ## Location
-src/common/wchar.c: 185 - 190
+[src/common/wchar.c:185-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L185-L190)
 
 ## Overview
 Determines the byte length of a single EUC-JP (Extended Unix Code for Japanese) encoded character.

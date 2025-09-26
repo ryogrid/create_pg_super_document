@@ -1,7 +1,7 @@
 # ExecShutdownHash
 
 ## Location
-src/backend/executor/nodeHash.c: 2811 - 2825
+[src/backend/executor/nodeHash.c:2811-2825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2811-L2825)
 
 ## Overview
 ExecShutdownHash collects and saves hash table instrumentation statistics before the node shuts down, ensuring data is preserved in both parallel and non-parallel execution contexts.

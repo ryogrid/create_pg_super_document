@@ -1,7 +1,7 @@
 # textToQualifiedNameList
 
 ## Location
-src/backend/utils/adt/varlena.c: 3399 - 3456
+[src/backend/utils/adt/varlena.c:3399-3456](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3399-L3456)
 
 ## Overview
 Converts a text object containing a qualified name into a list of String nodes, parsing dotted identifiers while handling quoting and case conversion rules.

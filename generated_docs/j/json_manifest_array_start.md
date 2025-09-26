@@ -1,7 +1,7 @@
 # json_manifest_array_start
 
 ## Location
-src/common/parse_manifest.c: 351 - 377
+[src/common/parse_manifest.c:351-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L351-L377)
 
 ## Overview
 Handles the start of JSON arrays during PostgreSQL backup manifest parsing, specifically for "Files" and "WAL-Ranges" arrays.

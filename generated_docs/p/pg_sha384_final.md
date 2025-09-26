@@ -1,7 +1,7 @@
 # pg_sha384_final
 
 ## Location
-src/common/sha2.c: 950 - 977
+[src/common/sha2.c:950-977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L950-L977)
 
 ## Overview
 Finalizes SHA-384 hash computation by processing remaining data, outputting the final 48-byte hash digest, and securely clearing the context structure.

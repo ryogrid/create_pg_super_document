@@ -1,7 +1,7 @@
 # DSMRegistryShmemInit
 
 ## Location
-src/backend/storage/ipc/dsm_registry.c: 69 - 90
+[src/backend/storage/ipc/dsm_registry.c:69-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_registry.c#L69-L90)
 
 ## Overview
 DSMRegistryShmemInit initializes the shared memory structure for the DSM registry system that manages named dynamic shared memory segments.

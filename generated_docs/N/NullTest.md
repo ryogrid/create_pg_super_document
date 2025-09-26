@@ -1,7 +1,7 @@
 # NullTest
 
 ## Location
-src/include/nodes/primnodes.h: 1955 - 1963
+[src/include/nodes/primnodes.h:1955-1963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1955-L1963)
 
 ## Overview
 NullTest represents the operation of testing a value for NULLness in PostgreSQL, implementing both simple NULL tests and row-level NULL checks per SQL standard.

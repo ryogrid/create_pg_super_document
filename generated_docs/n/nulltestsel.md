@@ -1,7 +1,7 @@
 # nulltestsel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 1699 - 1783
+[src/backend/utils/adt/selfuncs.c:1699-1783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L1699-L1783)
 
 ## Overview
 Computes the selectivity of NULL test operations (IS NULL and IS NOT NULL) using statistical data about null value frequency.

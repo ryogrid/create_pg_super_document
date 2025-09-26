@@ -1,7 +1,7 @@
 # NFC_QC_hash_func
 
 ## Location
-src/include/common/unicode_normprops_table.h: 1262 - 6640
+[src/include/common/unicode_normprops_table.h:1262-6640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/unicode_normprops_table.h#L1262-L6640)
 
 ## Overview
 A perfect hash function used to efficiently look up Unicode normalization properties for NFC (Normalization Form Composed) quick check operations.

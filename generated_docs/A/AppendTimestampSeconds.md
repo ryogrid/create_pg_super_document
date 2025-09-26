@@ -1,7 +1,7 @@
 # AppendTimestampSeconds
 
 ## Location
-src/backend/utils/adt/datetime.c: 511 - 521
+[src/backend/utils/adt/datetime.c:511-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L511-L521)
 
 ## Overview
 AppendTimestampSeconds is a specialized wrapper function that formats seconds and fractional seconds for timestamp output with maximum timestamp precision and zero padding enabled.

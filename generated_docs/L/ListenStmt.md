@@ -1,7 +1,7 @@
 # ListenStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3633 - 3637
+[src/include/nodes/parsenodes.h:3633-3637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3633-L3637)
 
 ## Overview
 ListenStmt represents the parsed structure of a LISTEN SQL statement used to subscribe to asynchronous notification channels in PostgreSQL.

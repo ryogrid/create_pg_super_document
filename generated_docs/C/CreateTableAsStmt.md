@@ -1,7 +1,7 @@
 # CreateTableAsStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3888 - 3896
+[src/include/nodes/parsenodes.h:3888-3896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3888-L3896)
 
 ## Overview
 CreateTableAsStmt represents the parsed structure of CREATE TABLE AS and SELECT INTO statements, as well as CREATE MATERIALIZED VIEW statements, which all share similar functionality for creating tables from query results.

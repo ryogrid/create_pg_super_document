@@ -1,7 +1,7 @@
 # SharedTuplestoreParticipant
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 50 - 56
+[src/backend/utils/sort/sharedtuplestore.c:50-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L50-L56)
 
 ## Overview
 SharedTuplestoreParticipant represents the per-participant shared state in PostgreSQL shared tuple store system, managing individual participant access to the shared tuple data with synchronization and page tracking.

@@ -1,7 +1,7 @@
 # pg_prng_uint64
 
 ## Location
-src/common/pg_prng.c: 134 - 143
+[src/common/pg_prng.c:134-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L134-L143)
 
 ## Overview
 Generates a random 64-bit unsigned integer uniformly distributed across the full range [0, PG_UINT64_MAX].

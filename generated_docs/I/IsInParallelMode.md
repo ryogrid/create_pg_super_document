@@ -1,7 +1,7 @@
 # IsInParallelMode
 
 ## Location
-src/backend/access/transam/xact.c: 1086 - 1096
+[src/backend/access/transam/xact.c:1086-1096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1086-L1096)
 
 ## Overview
 IsInParallelMode determines whether the current backend is operating in parallel mode, either as a leader or worker process in a parallel operation.

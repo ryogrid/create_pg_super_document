@@ -1,7 +1,7 @@
 # try_table_open
 
 ## Location
-src/backend/access/table/table.c: 60 - 82
+[src/backend/access/table/table.c:60-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/table.c#L60-L82)
 
 ## Overview
 Opens a table relation by its object identifier (OID) with graceful error handling, returning NULL instead of raising an error if the relation does not exist.

@@ -1,7 +1,7 @@
 # from_char_parse_int_len
 
 ## Location
-src/backend/utils/adt/formatting.c: 2463 - 2559
+[src/backend/utils/adt/formatting.c:2463-2559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2463-L2559)
 
 ## Overview
 A comprehensive function that parses integer values from strings during date/time formatting operations, with support for both fixed-width and flexible parsing modes.

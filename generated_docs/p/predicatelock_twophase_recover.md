@@ -1,7 +1,7 @@
 # predicatelock_twophase_recover
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 4899 - 5035
+[src/backend/storage/lmgr/predicate.c:4899-5035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L4899-L5035)
 
 ## Overview
 Reconstructs serializable transaction state and predicate locks during recovery from two-phase commit state file records.

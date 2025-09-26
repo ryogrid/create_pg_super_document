@@ -1,7 +1,7 @@
 # dec_lex_level
 
 ## Location
-src/common/jsonapi.c: 419 - 424
+[src/common/jsonapi.c:419-424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L419-L424)
 
 ## Overview
 Decrements the lexical nesting level counter in a JSON parsing context to track the depth of nested JSON structures.

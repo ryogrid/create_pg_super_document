@@ -1,7 +1,7 @@
 # SetDataDirectoryCreatePerm
 
 ## Location
-src/common/file_perm.c: 34 - 65
+[src/common/file_perm.c:34-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_perm.c#L34-L65)
 
 ## Overview
 Sets global permission variables for creating files and directories in PostgreSQL's data directory based on the provided directory mode, enabling group access permissions when appropriate.

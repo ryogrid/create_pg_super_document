@@ -1,7 +1,7 @@
 # PQtty
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7090 - 7097
+[src/interfaces/libpq/fe-connect.c:7090-7097](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7090-L7097)
 
 ## Overview
 PQtty is a deprecated libpq function that originally returned the TTY associated with a PostgreSQL connection but now exists solely for API backwards compatibility.

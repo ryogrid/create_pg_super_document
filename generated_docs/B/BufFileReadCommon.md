@@ -1,7 +1,7 @@
 # BufFileReadCommon
 
 ## Location
-src/backend/storage/file/buffile.c: 593 - 644
+[src/backend/storage/file/buffile.c:593-644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L593-L644)
 
 ## Overview
 BufFileReadCommon is the core internal function that implements buffered reading from BufFiles with flexible EOF and exact-read handling options.

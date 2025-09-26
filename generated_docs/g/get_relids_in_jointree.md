@@ -1,7 +1,7 @@
 # get_relids_in_jointree
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 4081 - 4141
+[src/backend/optimizer/prep/prepjointree.c:4081-4141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L4081-L4141)
 
 ## Overview
 Recursively traverses a join tree structure to extract the set of range table (RT) indexes present within it, with control over whether to include outer joins and inner joins.

@@ -1,7 +1,7 @@
 # RangeTypePGetDatum
 
 ## Location
-src/include/utils/rangetypes.h: 86 - 90
+[src/include/utils/rangetypes.h:86-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rangetypes.h#L86-L90)
 
 ## Overview
 A static inline function that converts a RangeType pointer to a Datum value for use in PostgreSQL's function manager interface.

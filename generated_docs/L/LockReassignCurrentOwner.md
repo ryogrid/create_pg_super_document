@@ -1,7 +1,7 @@
 # LockReassignCurrentOwner
 
 ## Location
-src/backend/storage/lmgr/lock.c: 2569 - 2598
+[src/backend/storage/lmgr/lock.c:2569-2598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L2569-L2598)
 
 ## Overview
 LockReassignCurrentOwner reassigns all locks belonging to the current resource owner to its parent resource owner, supporting both optimized array-based and hash table scan modes.

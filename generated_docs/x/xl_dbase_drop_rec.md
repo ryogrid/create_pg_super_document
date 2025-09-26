@@ -1,7 +1,7 @@
 # xl_dbase_drop_rec
 
 ## Location
-src/include/commands/dbcommands_xlog.h: 48 - 53
+[src/include/commands/dbcommands_xlog.h:48-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/dbcommands_xlog.h#L48-L53)
 
 ## Overview
 WAL record structure used to log DROP DATABASE operations, containing the database OID and variable-length array of tablespace OIDs where database files need to be removed.

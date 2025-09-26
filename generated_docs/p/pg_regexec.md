@@ -1,7 +1,7 @@
 # pg_regexec
 
 ## Location
-src/backend/regex/regexec.c: 185 - 200
+[src/backend/regex/regexec.c:185-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L185-L200)
 
 ## Overview
 pg_regexec is the main entry point for executing regular expression matches against text strings in PostgreSQL, providing comprehensive pattern matching with support for subexpression capture and advanced regex features.

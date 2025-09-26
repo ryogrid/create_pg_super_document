@@ -1,7 +1,7 @@
 # AggStatePerTransData
 
 ## Location
-src/include/executor/nodeAgg.h: 30 - 176
+[src/include/executor/nodeAgg.h:30-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/nodeAgg.h#L30-L176)
 
 ## Overview
 AggStatePerTransData represents per-aggregate transition state value information, containing working state for updating an aggregate's state value by calling the transition function with input rows.

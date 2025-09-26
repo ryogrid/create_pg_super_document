@@ -1,7 +1,7 @@
 # pg_get_line_buf
 
 ## Location
-src/common/pg_get_line.c: 95 - 123
+[src/common/pg_get_line.c:95-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_get_line.c#L95-L123)
 
 ## Overview
 A line reading function that collects data from a file stream into a caller-supplied StringInfo buffer, providing a convenient API for processing one line at a time without artificial line length limits.

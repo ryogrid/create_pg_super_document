@@ -1,7 +1,7 @@
 # pg_sha224_final
 
 ## Location
-src/common/sha2.c: 994 - 1017
+[src/common/sha2.c:994-1017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L994-L1017)
 
 ## Overview
 Finalizes a SHA-224 hash computation and produces the final 224-bit digest output, then securely cleans up the context structure.

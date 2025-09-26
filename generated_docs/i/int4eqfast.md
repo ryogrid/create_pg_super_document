@@ -1,7 +1,7 @@
 # int4eqfast
 
 ## Location
-src/backend/utils/cache/catcache.c: 232 - 237
+[src/backend/utils/cache/catcache.c:232-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L232-L237)
 
 ## Overview
 A fast equality comparison function for 32-bit integers used in PostgreSQL's catalog cache system to quickly compare INT4OID type keys.

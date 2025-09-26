@@ -1,7 +1,7 @@
 # freesubre
 
 ## Location
-src/backend/regex/regcomp.c: 2152 - 2170
+[src/backend/regex/regcomp.c:2152-2170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2152-L2170)
 
 ## Overview
 Frees a subre (sub-regular expression) subtree by recursively freeing all child nodes while preserving sibling relationships in the parse tree.

@@ -1,7 +1,7 @@
 # IndexScan
 
 ## Location
-src/include/nodes/plannodes.h: 449 - 459
+[src/include/nodes/plannodes.h:449-459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L449-L459)
 
 ## Overview
 IndexScan represents an index scan plan node that retrieves tuples from a relation by traversing one or more indexes to locate qualifying rows efficiently.

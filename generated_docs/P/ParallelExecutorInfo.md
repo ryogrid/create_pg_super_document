@@ -1,7 +1,7 @@
 # ParallelExecutorInfo
 
 ## Location
-src/include/executor/execParallel.h: 24 - 38
+[src/include/executor/execParallel.h:24-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/execParallel.h#L24-L38)
 
 ## Overview
 ParallelExecutorInfo is a central coordination structure that manages the execution of parallel queries in PostgreSQL, coordinating communication between the leader process and worker processes through shared memory and tuple queues.

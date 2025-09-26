@@ -1,7 +1,7 @@
 # Insert
 
 ## Location
-src/backend/storage/file/fd.c: 1310 - 1331
+[src/backend/storage/file/fd.c:1310-1331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1310-L1331)
 
 ## Overview
 Inserts a file descriptor into the LRU (Least Recently Used) cache list, placing it at the most recently used position.

@@ -1,7 +1,7 @@
 # prepared_statement
 
 ## Location
-src/interfaces/ecpg/ecpglib/ecpglib_extern.h: 95 - 103
+[src/interfaces/ecpg/ecpglib/ecpglib_extern.h:95-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/ecpglib_extern.h#L95-L103)
 
 ## Overview
 A structure that manages prepared SQL statements in ECPG, maintaining a linked list of prepared statements associated with database connections.

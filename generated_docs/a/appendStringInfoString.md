@@ -1,7 +1,7 @@
 # appendStringInfoString
 
 ## Location
-src/common/stringinfo.c: 182 - 193
+[src/common/stringinfo.c:182-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L182-L193)
 
 ## Overview
 A utility function that appends a null-terminated string to a StringInfo buffer, providing an optimized alternative to using appendStringInfo with a "%s" format specifier.

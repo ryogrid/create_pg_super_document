@@ -1,7 +1,7 @@
 # EOH_flatten_into
 
 ## Location
-src/backend/utils/adt/expandeddatum.c: 81 - 94
+[src/backend/utils/adt/expandeddatum.c:81-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandeddatum.c#L81-L94)
 
 ## Overview
 A convenience function that invokes the flatten_into method of an expanded object to convert it from its expanded form into its flattened representation in a provided buffer.

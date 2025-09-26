@@ -1,7 +1,7 @@
 # CreatePublicationStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4160 - 4167
+[src/include/nodes/parsenodes.h:4160-4167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4160-L4167)
 
 ## Overview
 A parse tree node structure representing a CREATE PUBLICATION SQL statement, which defines a new publication for logical replication in PostgreSQL.

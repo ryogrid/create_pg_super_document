@@ -1,7 +1,7 @@
 # _SPI_plan
 
 ## Location
-src/include/executor/spi_priv.h: 90 - 103
+[src/include/executor/spi_priv.h:90-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/spi_priv.h#L90-L103)
 
 ## Overview
 The  struct is the core data structure representing execution plans in PostgreSQL's Server Programming Interface (SPI). It encapsulates prepared SQL statements with their associated metadata, argument types, and execution context for efficient query execution and reuse.

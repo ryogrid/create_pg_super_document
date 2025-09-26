@@ -1,7 +1,7 @@
 # dsm_impl_posix_resize
 
 ## Location
-src/backend/storage/ipc/dsm_impl.c: 351 - 422
+[src/backend/storage/ipc/dsm_impl.c:351-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_impl.c#L351-L422)
 
 ## Overview
 Platform-specific helper function that sets the size of a POSIX shared memory segment file descriptor, with special handling for Linux tmpfs allocation to prevent SIGBUS errors.

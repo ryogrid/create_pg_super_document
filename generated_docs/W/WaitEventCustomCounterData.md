@@ -1,7 +1,7 @@
 # WaitEventCustomCounterData
 
 ## Location
-src/backend/utils/activity/wait_event.c: 85 - 89
+[src/backend/utils/activity/wait_event.c:85-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/wait_event.c#L85-L89)
 
 ## Overview
 A shared memory structure that manages the dynamic allocation counter for custom wait events, ensuring thread-safe generation of unique wait event IDs.

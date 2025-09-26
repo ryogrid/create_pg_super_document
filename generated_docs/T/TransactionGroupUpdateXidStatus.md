@@ -1,7 +1,7 @@
 # TransactionGroupUpdateXidStatus
 
 ## Location
-src/backend/access/transam/clog.c: 441 - 660
+[src/backend/access/transam/clog.c:441-660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L441-L660)
 
 ## Overview
 A group commit optimization function that allows multiple concurrent processes to batch their transaction status updates in CLOG, reducing lock contention during high concurrency commit scenarios.

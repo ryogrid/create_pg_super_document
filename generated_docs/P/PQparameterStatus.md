@@ -1,7 +1,7 @@
 # PQparameterStatus
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7124 - 7138
+[src/interfaces/libpq/fe-connect.c:7124-7138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7124-L7138)
 
 ## Overview
 PQparameterStatus retrieves the current value of a server parameter that was reported by the PostgreSQL server during connection establishment or via parameter change notifications.

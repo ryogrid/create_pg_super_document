@@ -1,7 +1,7 @@
 # pg_mcv_list_send
 
 ## Location
-src/backend/statistics/mcv.c: 1523 - 1534
+[src/backend/statistics/mcv.c:1523-1534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L1523-L1534)
 
 ## Overview
 Binary output routine for the pg_mcv_list data type that converts MCV (Most Common Values) list data to its binary representation for network transmission.

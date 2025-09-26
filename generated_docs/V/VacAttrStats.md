@@ -1,7 +1,7 @@
 # VacAttrStats
 
 ## Location
-src/include/commands/vacuum.h: 116 - 177
+[src/include/commands/vacuum.h:116-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/vacuum.h#L116-L177)
 
 ## Overview
 VacAttrStats is the central data structure used during PostgreSQL's ANALYZE operation to hold statistical information about a single column or expression being analyzed.

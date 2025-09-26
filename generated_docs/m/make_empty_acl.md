@@ -1,7 +1,7 @@
 # make_empty_acl
 
 ## Location
-src/backend/utils/adt/acl.c: 448 - 456
+[src/backend/utils/adt/acl.c:448-456](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L448-L456)
 
 ## Overview
 Creates and returns an empty Access Control List (ACL) with zero entries for initialization purposes.

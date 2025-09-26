@@ -1,7 +1,7 @@
 # replace_percent_placeholders
 
 ## Location
-src/common/percentrepl.c: 59 - 137
+[src/common/percentrepl.c:59-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/percentrepl.c#L59-L137)
 
 ## Overview
 A utility function that replaces percent-letter placeholders in strings with supplied values, primarily used for GUC parameters like archive_command.

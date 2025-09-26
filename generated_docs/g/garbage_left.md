@@ -1,7 +1,7 @@
 # garbage_left
 
 ## Location
-src/interfaces/ecpg/ecpglib/data.c: 46 - 75
+[src/interfaces/ecpg/ecpglib/data.c:46-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/data.c#L46-L75)
 
 ## Overview
 A validation function that detects unwanted trailing characters ("garbage") after parsing data values in PostgreSQL's ECPG (Embedded SQL in C) interface, with special handling for INFORMIX compatibility mode.

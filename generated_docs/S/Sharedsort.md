@@ -1,7 +1,7 @@
 # Sharedsort
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 346 - 377
+[src/backend/utils/sort/tuplesort.c:346-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L346-L377)
 
 ## Overview
 Sharedsort is the shared memory coordination structure for PostgreSQL's parallel tuple sorting operations, managing worker synchronization, file sharing, and tape allocation across multiple parallel sorting processes.

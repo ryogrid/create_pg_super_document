@@ -1,7 +1,7 @@
 # set_fnull
 
 ## Location
-src/common/jsonapi.c: 464 - 469
+[src/common/jsonapi.c:464-469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L464-L469)
 
 ## Overview
 Sets the null flag for the current lexical level in a JSON lexical context structure.

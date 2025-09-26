@@ -1,7 +1,7 @@
 # AtPrepare_PgStat
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 189 - 208
+[src/backend/utils/activity/pgstat_xact.c:189-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L189-L208)
 
 ## Overview
 Saves the transactional statistics state during two-phase commit (2PC) transaction preparation, preserving statistics information for later commit or abort operations.

@@ -1,7 +1,7 @@
 # PgStat_ArchiverStats
 
 ## Location
-src/include/pgstat.h: 240 - 251
+[src/include/pgstat.h:240-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L240-L251)
 
 ## Overview
 PgStat_ArchiverStats tracks statistics for PostgreSQL's WAL (Write-Ahead Logging) archiver process, maintaining counters and metadata for both successful and failed archival operations.

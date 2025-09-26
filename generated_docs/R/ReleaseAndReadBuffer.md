@@ -1,7 +1,7 @@
 # ReleaseAndReadBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2583 - 2640
+[src/backend/storage/buffer/bufmgr.c:2583-2640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2583-L2640)
 
 ## Overview
 ReleaseAndReadBuffer combines the operations of releasing a currently pinned buffer and reading a new buffer, providing an optimization when the same buffer is already loaded with the desired block.

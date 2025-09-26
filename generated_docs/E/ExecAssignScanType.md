@@ -1,7 +1,7 @@
 # ExecAssignScanType
 
 ## Location
-src/backend/executor/execUtils.c: 647 - 658
+[src/backend/executor/execUtils.c:647-658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L647-L658)
 
 ## Overview
 Assigns a tuple descriptor to a scan node's scan tuple slot, establishing the type information for tuples produced by the scan operation.

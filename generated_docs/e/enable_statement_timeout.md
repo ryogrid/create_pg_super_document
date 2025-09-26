@@ -1,7 +1,7 @@
 # enable_statement_timeout
 
 ## Location
-src/backend/tcop/postgres.c: 5232 - 5253
+[src/backend/tcop/postgres.c:5232-5253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L5232-L5253)
 
 ## Overview
 This function conditionally starts or manages the statement timeout timer based on current configuration settings and transaction state, ensuring statements don't run longer than the configured time limit.

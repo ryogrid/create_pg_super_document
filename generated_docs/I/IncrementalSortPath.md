@@ -1,7 +1,7 @@
 # IncrementalSortPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2211 - 2215
+[src/include/nodes/pathnodes.h:2211-2215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2211-L2215)
 
 ## Overview
 IncrementalSortPath represents an incremental sort operation that optimizes sorting performance when the input data is already partially sorted on leading key columns.

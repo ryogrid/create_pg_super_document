@@ -1,7 +1,7 @@
 # AggPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2253 - 2263
+[src/include/nodes/pathnodes.h:2253-2263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2253-L2263)
 
 ## Overview
 AggPath represents a query execution path node that performs aggregate function computation and grouping operations, supporting both sorted and hashed grouping strategies.

@@ -1,7 +1,7 @@
 # PartitionPruneState
 
 ## Location
-src/include/executor/execPartition.h: 113 - 122
+[src/include/executor/execPartition.h:113-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/execPartition.h#L113-L122)
 
 ## Overview
 PartitionPruneState is a state object that enables plan nodes to perform run-time partition pruning by eliminating subplans that cannot produce matching tuples based on query clauses.

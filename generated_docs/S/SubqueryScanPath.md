@@ -1,7 +1,7 @@
 # SubqueryScanPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1849 - 1853
+[src/include/nodes/pathnodes.h:1849-1853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1849-L1853)
 
 ## Overview
 SubqueryScanPath represents an access path for scanning an unflattened subquery in the FROM clause, enabling the planner to treat subqueries as separate planning domains with their own execution paths.

@@ -1,7 +1,7 @@
 # disable_all_timeouts
 
 ## Location
-src/backend/utils/misc/timeout.c: 751 - 779
+[src/backend/utils/misc/timeout.c:751-779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L751-L779)
 
 ## Overview
 Disables the timeout signal handler, removes all active timeouts from the system, and optionally resets timeout indicators.

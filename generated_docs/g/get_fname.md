@@ -1,7 +1,7 @@
 # get_fname
 
 ## Location
-src/common/jsonapi.c: 458 - 463
+[src/common/jsonapi.c:458-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L458-L463)
 
 ## Overview
 Retrieves the field name for the current lexical level from a JSON lexical context structure.

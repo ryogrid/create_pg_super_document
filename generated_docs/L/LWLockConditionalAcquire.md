@@ -1,7 +1,7 @@
 # LWLockConditionalAcquire
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1341 - 1397
+[src/backend/storage/lmgr/lwlock.c:1341-1397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1341-L1397)
 
 ## Overview
 Non-blocking version of lightweight lock acquisition that returns immediately with success or failure rather than waiting for the lock to become available.

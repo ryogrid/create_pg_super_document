@@ -1,7 +1,7 @@
 # HASHELEMENT
 
 ## Location
-src/include/utils/hsearch.h: 51 - 55
+[src/include/utils/hsearch.h:51-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/hsearch.h#L51-L55)
 
 ## Overview
 HASHELEMENT is the private header structure that prefixes every entry in PostgreSQL's hash tables, providing linkage and hash value storage for efficient bucket-based organization.

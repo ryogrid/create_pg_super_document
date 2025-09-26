@@ -1,7 +1,7 @@
 # leaps_thru_end_of
 
 ## Location
-src/timezone/localtime.c: 1406 - 1413
+[src/timezone/localtime.c:1406-1413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L1406-L1413)
 
 ## Overview
 Calculates the number of leap years from year 0 through the end of any given year, supporting both positive and negative years through delegation to specialized helper functions.

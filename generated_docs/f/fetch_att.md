@@ -1,7 +1,7 @@
 # fetch_att
 
 ## Location
-src/include/access/tupmacs.h: 52 - 85
+[src/include/access/tupmacs.h:52-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tupmacs.h#L52-L85)
 
 ## Overview
 Extracts attribute data from tuple storage and converts it to a Datum based on the attribute's byval and length properties.

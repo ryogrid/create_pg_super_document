@@ -1,7 +1,7 @@
 # pg_log_generic
 
 ## Location
-src/common/logging.c: 205 - 215
+[src/common/logging.c:205-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/logging.c#L205-L215)
 
 ## Overview
 A variadic wrapper function that provides a convenient interface for logging messages with different levels and parts in PostgreSQL's common logging system.

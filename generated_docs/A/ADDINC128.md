@@ -1,7 +1,7 @@
 # ADDINC128
 
 ## Location
-src/common/sha2.c: 115 - 131
+[src/common/sha2.c:115-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L115-L131)
 
 ## Overview
 A macro for incrementally adding a 64-bit unsigned integer to a 128-bit unsigned integer represented as a two-element array of 64-bit words.

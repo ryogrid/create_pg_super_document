@@ -1,7 +1,7 @@
 # closedir
 
 ## Location
-src/port/dirent.c: 127 - 137
+[src/port/dirent.c:127-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/dirent.c#L127-L137)
 
 ## Overview
 PostgreSQL's Windows-specific implementation of the POSIX closedir() function that closes a directory stream and frees associated resources.

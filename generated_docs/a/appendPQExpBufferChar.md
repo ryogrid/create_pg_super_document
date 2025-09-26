@@ -1,7 +1,7 @@
 # appendPQExpBufferChar
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 378 - 396
+[src/interfaces/libpq/pqexpbuffer.c:378-396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L378-L396)
 
 ## Overview
 Appends a single character to a PQExpBuffer string with optimized performance compared to the general appendPQExpBuffer function.

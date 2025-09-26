@@ -1,7 +1,7 @@
 # GetLocalVictimBuffer
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 177 - 289
+[src/backend/storage/buffer/localbuf.c:177-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L177-L289)
 
 ## Overview
 GetLocalVictimBuffer selects and prepares a local buffer for reuse using a clock sweep algorithm, handling dirty page write-out and buffer state transitions as needed.

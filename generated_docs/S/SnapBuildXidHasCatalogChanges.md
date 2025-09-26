@@ -1,7 +1,7 @@
 # SnapBuildXidHasCatalogChanges
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 1244 - 1273
+[src/backend/replication/logical/snapbuild.c:1244-1273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L1244-L1273)
 
 ## Overview
 Determines whether a given transaction has modified system catalogs by checking both the reorder buffer and the snapshot builder's catalog change tracking structures.

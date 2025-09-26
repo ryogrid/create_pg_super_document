@@ -1,7 +1,7 @@
 # local_buffer_write_error_callback
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5688 - 5707
+[src/backend/storage/buffer/bufmgr.c:5688-5707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5688-L5707)
 
 ## Overview
 Provides error context information for errors occurring during local buffer write operations in PostgreSQL buffer management.

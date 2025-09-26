@@ -1,7 +1,7 @@
 # pg_str_endswith
 
 ## Location
-src/common/string.c: 32 - 50
+[src/common/string.c:32-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/string.c#L32-L50)
 
 ## Overview
 A utility function that checks whether a given string ends with a specified suffix, commonly used for file extension or pattern matching in PostgreSQL.

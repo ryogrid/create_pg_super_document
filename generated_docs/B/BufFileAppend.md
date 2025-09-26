@@ -1,7 +1,7 @@
 # BufFileAppend
 
 ## Location
-src/backend/storage/file/buffile.c: 905 - 932
+[src/backend/storage/file/buffile.c:905-932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L905-L932)
 
 ## Overview
 Appends the contents of a source BufFile to the end of a target BufFile by manipulating segment file lists, creating a logical concatenation while transferring ownership of underlying resources.

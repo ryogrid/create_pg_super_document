@@ -1,7 +1,7 @@
 # ltsInitReadBuffer
 
 ## Location
-src/backend/utils/sort/logtape.c: 522 - 555
+[src/backend/utils/sort/logtape.c:522-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L522-L555)
 
 ## Overview
 Lazily allocates and initializes the read buffer for a LogicalTape to avoid waste when many tapes are open simultaneously but not all are actively being read between rewinding and reading operations.

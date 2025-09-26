@@ -1,7 +1,7 @@
 # GeqoPrivateData
 
 ## Location
-src/include/optimizer/geqo.h: 79 - 90
+[src/include/optimizer/geqo.h:79-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/geqo.h#L79-L90)
 
 ## Overview
 GeqoPrivateData is a structure that encapsulates private state data for a GEQO (Genetic Algorithm Query Optimizer) optimization run, providing context and random number generation state for genetic algorithm operations during query planning.

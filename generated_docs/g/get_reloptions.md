@@ -1,7 +1,7 @@
 # get_reloptions
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 13258 - 13312
+[src/backend/utils/adt/ruleutils.c:13258-13312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L13258-L13312)
 
 ## Overview
 A static utility function that converts a text array datum containing relation options into a formatted C string representation suitable for SQL output.

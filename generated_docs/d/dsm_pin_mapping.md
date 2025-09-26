@@ -1,7 +1,7 @@
 # dsm_pin_mapping
 
 ## Location
-src/backend/storage/ipc/dsm.c: 915 - 933
+[src/backend/storage/ipc/dsm.c:915-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L915-L933)
 
 ## Overview
 Prevents a dynamic shared memory mapping from being automatically released when the current resource owner is cleaned up, effectively pinning it until the end of the session.

@@ -1,7 +1,7 @@
 # ReorderBufferSetBaseSnapshot
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3201 - 3231
+[src/backend/replication/logical/reorderbuffer.c:3201-3231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3201-L3231)
 
 ## Overview
 ReorderBufferSetBaseSnapshot establishes the base snapshot for a transaction in the reorder buffer, ensuring proper catalog visibility for logical decoding and automatically handling subtransaction delegation to top-level transactions.

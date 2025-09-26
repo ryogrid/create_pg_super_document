@@ -1,7 +1,7 @@
 # table_index_fetch_tuple
 
 ## Location
-src/include/access/tableam.h: 1242 - 1288
+[src/include/access/tableam.h:1242-1288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1242-L1288)
 
 ## Overview
 Fetches a tuple at a specific TID as part of an index scan, performing visibility tests and handling multiple row versions reachable via a single index entry.

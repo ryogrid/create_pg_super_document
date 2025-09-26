@@ -1,7 +1,7 @@
 # pg_prng_seed_check
 
 ## Location
-src/common/pg_prng.c: 114 - 133
+[src/common/pg_prng.c:114-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L114-L133)
 
 ## Overview
 Validates a PRNG seed value by ensuring the state contains non-zero values to prevent degenerate random number generation.

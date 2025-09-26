@@ -1,7 +1,7 @@
 # initialize_ecdh
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1413 - 1454
+[src/backend/libpq/be-secure-openssl.c:1413-1454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1413-L1454)
 
 ## Overview
 Configures Elliptic Curve Diffie-Hellman (ECDH) parameters for SSL/TLS connections, enabling ephemeral ECDH key exchange with improved performance over traditional DH.

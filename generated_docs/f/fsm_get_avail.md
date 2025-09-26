@@ -1,7 +1,7 @@
 # fsm_get_avail
 
 ## Location
-src/backend/storage/freespace/fsmpage.c: 122 - 137
+[src/backend/storage/freespace/fsmpage.c:122-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/fsmpage.c#L122-L137)
 
 ## Overview
 The fsm_get_avail function retrieves the free space value for a specific slot from a Free Space Map page without requiring any locks.

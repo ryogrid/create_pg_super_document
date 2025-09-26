@@ -1,7 +1,7 @@
 # pg_wchar2euc_with_len
 
 ## Location
-src/common/wchar.c: 377 - 422
+[src/common/wchar.c:377-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L377-L422)
 
 ## Overview
 Converts PostgreSQL wide character representation back to EUC (Extended Unix Code) multibyte encoding format with specified length limit.

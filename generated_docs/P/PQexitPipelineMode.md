@@ -1,7 +1,7 @@
 # PQexitPipelineMode
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3073 - 3141
+[src/interfaces/libpq/fe-exec.c:3073-3141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3073-L3141)
 
 ## Overview
 Ends pipeline mode and returns the connection to normal command mode, ensuring all results have been collected before exiting.

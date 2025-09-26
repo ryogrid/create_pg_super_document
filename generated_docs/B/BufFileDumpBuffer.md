@@ -1,7 +1,7 @@
 # BufFileDumpBuffer
 
 ## Location
-src/backend/storage/file/buffile.c: 494 - 592
+[src/backend/storage/file/buffile.c:494-592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L494-L592)
 
 ## Overview
 BufFileDumpBuffer writes the contents of a BufFile's dirty buffer to the underlying file system, handling multi-file scenarios and maintaining logical file positioning.

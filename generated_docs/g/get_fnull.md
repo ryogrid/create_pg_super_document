@@ -1,7 +1,7 @@
 # get_fnull
 
 ## Location
-src/common/jsonapi.c: 470 - 482
+[src/common/jsonapi.c:470-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L470-L482)
 
 ## Overview
 Retrieves the null flag for the current lexical level from a JSON lexical context structure.

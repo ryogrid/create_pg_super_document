@@ -1,7 +1,7 @@
 # StrategyRejectBuffer
 
 ## Location
-src/backend/storage/buffer/freelist.c: 798 - 816
+[src/backend/storage/buffer/freelist.c:798-816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L798-L816)
 
 ## Overview
 StrategyRejectBuffer is a specialized function that allows the buffer manager to reconsider buffer selection when a chosen dirty buffer would require expensive WAL flushing, specifically optimized for bulk read operations.

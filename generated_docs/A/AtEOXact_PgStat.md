@@ -1,7 +1,7 @@
 # AtEOXact_PgStat
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 40 - 66
+[src/backend/utils/activity/pgstat_xact.c:40-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L40-L66)
 
 ## Overview
 Handles the end-of-transaction cleanup for PostgreSQL statistics, called during top-level transaction commit or abort to process accumulated statistics data.

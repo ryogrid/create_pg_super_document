@@ -1,7 +1,7 @@
 # check_for_freed_segments_locked
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 2288 - 2315
+[src/backend/utils/mmgr/dsa.c:2288-2315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L2288-L2315)
 
 ## Overview
 Internal workhorse function that unmaps stale segment mappings from a DSA area while holding the area lock, ensuring segment index consistency before lookups.

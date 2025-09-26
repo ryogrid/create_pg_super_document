@@ -1,7 +1,7 @@
 # BlockRefTableSetLimitBlock
 
 ## Location
-src/common/blkreftable.c: 262 - 296
+[src/common/blkreftable.c:262-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L262-L296)
 
 ## Overview
 Sets the "limit block" for a relation fork and removes any tracked modified blocks with equal or higher block numbers.

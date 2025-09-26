@@ -1,7 +1,7 @@
 # sort_bounded_heap
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2674 - 2713
+[src/backend/utils/sort/tuplesort.c:2674-2713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2674-L2713)
 
 ## Overview
 Converts a bounded heap to a properly-sorted array by repeatedly extracting the maximum element and placing it in the correct position, effectively performing heapsort on a bounded heap.

@@ -1,7 +1,7 @@
 # TransactionStartedDuringRecovery
 
 ## Location
-src/backend/access/transam/xact.c: 1039 - 1047
+[src/backend/access/transam/xact.c:1039-1047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1039-L1047)
 
 ## Overview
 TransactionStartedDuringRecovery determines whether the current transaction was initiated while the PostgreSQL server was still in recovery mode.

@@ -1,7 +1,7 @@
 # fixconstraintloops
 
 ## Location
-src/backend/regex/regc_nfa.c: 2370 - 2468
+[src/backend/regex/regc_nfa.c:2370-2468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L2370-L2468)
 
 ## Overview
 Eliminates loops containing only constraint arcs from the NFA to prevent infinite looping during regex compilation and ensure forward progress in matching.

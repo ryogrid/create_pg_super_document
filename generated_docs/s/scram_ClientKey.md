@@ -1,7 +1,7 @@
 # scram_ClientKey
 
 ## Location
-src/common/scram-common.c: 142 - 171
+[src/common/scram-common.c:142-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/scram-common.c#L142-L171)
 
 ## Overview
 Computes the ClientKey component used in SCRAM authentication by applying HMAC to the salted password with the "Client Key" string.

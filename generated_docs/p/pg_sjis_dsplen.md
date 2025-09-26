@@ -1,7 +1,7 @@
 # pg_sjis_dsplen
 
 ## Location
-src/common/wchar.c: 905 - 921
+[src/common/wchar.c:905-921](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L905-L921)
 
 ## Overview
 Determines the display width of a single character in the Shift JIS (SJIS) multibyte encoding.

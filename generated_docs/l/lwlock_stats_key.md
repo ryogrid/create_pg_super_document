@@ -1,7 +1,7 @@
 # lwlock_stats_key
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 241 - 245
+[src/backend/storage/lmgr/lwlock.c:241-245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L241-L245)
 
 ## Overview
 lwlock_stats_key is a structure that serves as a unique identifier key for lightweight lock statistics, combining tranche and instance information to uniquely identify specific locks for performance monitoring.

@@ -1,7 +1,7 @@
 # CountUserBackends
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3699 - 3748
+[src/backend/storage/ipc/procarray.c:3699-3748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3699-L3748)
 
 ## Overview
 Counts regular backends (excluding background workers) that are running under a specified user role, used for enforcing per-user connection limits and monitoring user activity.

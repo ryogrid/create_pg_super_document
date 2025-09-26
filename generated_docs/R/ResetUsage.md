@@ -1,7 +1,7 @@
 # ResetUsage
 
 ## Location
-src/backend/tcop/postgres.c: 5080 - 5086
+[src/backend/tcop/postgres.c:5080-5086](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L5080-L5086)
 
 ## Overview
 This function resets the usage statistics baseline by capturing the current resource usage and wall-clock time for subsequent performance measurements.

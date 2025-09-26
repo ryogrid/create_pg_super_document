@@ -1,7 +1,7 @@
 # ltsGetPreallocBlock
 
 ## Location
-src/backend/utils/sort/logtape.c: 431 - 468
+[src/backend/utils/sort/logtape.c:431-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L431-L468)
 
 ## Overview
 Manages per-tape block preallocation by maintaining a private cache of blocks in descending order to optimize sequential write performance.

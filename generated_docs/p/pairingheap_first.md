@@ -1,7 +1,7 @@
 # pairingheap_first
 
 ## Location
-src/backend/lib/pairingheap.c: 130 - 144
+[src/backend/lib/pairingheap.c:130-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/pairingheap.c#L130-L144)
 
 ## Overview
 Returns a pointer to the root (topmost) node of the pairing heap without modifying the heap structure, providing O(1) access to the minimum/maximum element.

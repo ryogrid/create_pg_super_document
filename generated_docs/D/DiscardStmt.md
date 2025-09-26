@@ -1,7 +1,7 @@
 # DiscardStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3932 - 3936
+[src/include/nodes/parsenodes.h:3932-3936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3932-L3936)
 
 ## Overview
 DiscardStmt represents a DISCARD statement in PostgreSQL's parse tree, which is used to discard session state information like cached plans, temporary tables, sequences, or all session state.

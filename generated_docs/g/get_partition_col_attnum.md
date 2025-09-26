@@ -1,7 +1,7 @@
 # get_partition_col_attnum
 
 ## Location
-src/include/utils/partcache.h: 80 - 85
+[src/include/utils/partcache.h:80-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/partcache.h#L80-L85)
 
 ## Overview
 Returns the attribute number (column number) for a specific partition key column in a partitioned table.

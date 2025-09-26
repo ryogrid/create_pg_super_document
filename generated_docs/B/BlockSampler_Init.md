@@ -1,7 +1,7 @@
 # BlockSampler_Init
 
 ## Location
-src/backend/utils/misc/sampling.c: 39 - 57
+[src/backend/utils/misc/sampling.c:39-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/sampling.c#L39-L57)
 
 ## Overview
 Prepares a BlockSampler for random sampling of block numbers from a relation, implementing Algorithm S from Knuth 3.4.2 for block-level sampling.

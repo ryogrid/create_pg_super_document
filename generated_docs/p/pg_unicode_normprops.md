@@ -1,7 +1,7 @@
 # pg_unicode_normprops
 
 ## Location
-src/include/common/unicode_normprops_table.h: 13 - 23
+[src/include/common/unicode_normprops_table.h:13-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/unicode_normprops_table.h#L13-L23)
 
 ## Overview
 A structure type that represents Unicode normalization quick check properties for individual Unicode code points, designed with bit fields for memory efficiency.

@@ -1,7 +1,7 @@
 # expect_boolean_value
 
 ## Location
-src/common/compression.c: 311 - 343
+[src/common/compression.c:311-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/compression.c#L311-L343)
 
 ## Overview
 A static utility function that parses and validates boolean values for compression options within compression specification parsing.

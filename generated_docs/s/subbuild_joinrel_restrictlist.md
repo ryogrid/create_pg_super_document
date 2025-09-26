@@ -1,7 +1,7 @@
 # subbuild_joinrel_restrictlist
 
 ## Location
-src/backend/optimizer/util/relnode.c: 1352 - 1417
+[src/backend/optimizer/util/relnode.c:1352-1417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L1352-L1417)
 
 ## Overview
 Processes joininfo clauses from an input relation to build the restriction clause list for a new join relation.

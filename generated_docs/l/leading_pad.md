@@ -1,7 +1,7 @@
 # leading_pad
 
 ## Location
-src/port/snprintf.c: 1492 - 1527
+[src/port/snprintf.c:1492-1527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1492-L1527)
 
 ## Overview
 Handles the output of leading padding and sign characters for formatted numeric values, supporting both zero-padding and space-padding with proper sign placement.

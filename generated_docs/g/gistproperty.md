@@ -1,7 +1,7 @@
 # gistproperty
 
 ## Location
-src/backend/access/gist/gistutil.c: 932 - 1014
+[src/backend/access/gist/gistutil.c:932-1014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L932-L1014)
 
 ## Overview
 Checks boolean properties of GiST (Generalized Search Tree) indexes, particularly for properties not supported by the core property code like distance orderability and data returnability.

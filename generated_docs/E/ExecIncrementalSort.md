@@ -1,7 +1,7 @@
 # ExecIncrementalSort
 
 ## Location
-src/backend/executor/nodeIncrementalSort.c: 495 - 975
+[src/backend/executor/nodeIncrementalSort.c:495-975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIncrementalSort.c#L495-L975)
 
 ## Overview
 The main execution function for the incremental sort executor node that efficiently sorts data by leveraging pre-sorted input on a prefix of the target sort columns.

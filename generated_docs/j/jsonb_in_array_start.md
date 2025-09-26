@@ -1,7 +1,7 @@
 # jsonb_in_array_start
 
 ## Location
-src/backend/utils/adt/jsonb.c: 311 - 320
+[src/backend/utils/adt/jsonb.c:311-320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L311-L320)
 
 ## Overview
 A callback function used during JSONB parsing to handle the start of JSON arrays, initializing the parsing state for array element processing.

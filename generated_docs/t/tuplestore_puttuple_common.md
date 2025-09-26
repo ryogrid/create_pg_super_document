@@ -1,7 +1,7 @@
 # tuplestore_puttuple_common
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 765 - 902
+[src/backend/utils/sort/tuplestore.c:765-902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L765-L902)
 
 ## Overview
 The core internal function that handles the actual storage of tuples in a tuplestore, managing the transition between memory-based and file-based storage modes.

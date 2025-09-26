@@ -1,7 +1,7 @@
 # transformXmlExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 2355 - 2483
+[src/backend/parser/parse_expr.c:2355-2483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2355-L2483)
 
 ## Overview
 Transforms XML expression nodes during parsing by converting raw XML expressions into properly typed and validated expressions with appropriate type coercion for different XML operations.

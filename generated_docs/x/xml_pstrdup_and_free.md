@@ -1,7 +1,7 @@
 # xml_pstrdup_and_free
 
 ## Location
-src/backend/utils/adt/xml.c: 1404 - 1432
+[src/backend/utils/adt/xml.c:1404-1432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1404-L1432)
 
 ## Overview
 Copies an xmlChar string to PostgreSQL-managed memory and frees the original xmlChar string, providing safe memory transfer from libxml to PostgreSQL.

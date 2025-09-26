@@ -1,7 +1,7 @@
 # PrivateRefCountEntry
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 88 - 92
+[src/backend/storage/buffer/bufmgr.c:88-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L88-L92)
 
 ## Overview
 PrivateRefCountEntry is a structure used in PostgreSQL's buffer manager to track private reference counts for individual buffers on a per-backend basis.

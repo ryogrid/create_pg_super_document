@@ -1,7 +1,7 @@
 # ssup_datum_unsigned_cmp
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 3177 - 3188
+[src/backend/utils/sort/tuplesort.c:3177-3188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L3177-L3188)
 
 ## Overview
 A generic comparison function for unsigned Datum values used in PostgreSQL's SortSupport framework for efficient sorting operations.

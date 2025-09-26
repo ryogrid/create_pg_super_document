@@ -1,7 +1,7 @@
 # ForeignKeyCacheInfo
 
 ## Location
-src/include/utils/rel.h: 273 - 296
+[src/include/utils/rel.h:273-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rel.h#L273-L296)
 
 ## Overview
 ForeignKeyCacheInfo is a structure that caches foreign key constraint information in the relation cache, providing efficient access to constraint metadata without repeated catalog lookups.

@@ -1,7 +1,7 @@
 # CoarserLockCovers
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2101 - 2129
+[src/backend/storage/lmgr/predicate.c:2101-2129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2101-L2129)
 
 ## Overview
 Checks whether a lock target is already covered by an existing coarser granularity predicate lock held by the current transaction.

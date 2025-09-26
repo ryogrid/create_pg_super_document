@@ -1,7 +1,7 @@
 # ReorderBufferAddDistributedInvalidations
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3460 - 3517
+[src/backend/replication/logical/reorderbuffer.c:3460-3517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3460-L3517)
 
 ## Overview
 Accumulates invalidation messages distributed by committed transactions to in-progress transactions, with overflow protection and memory management.

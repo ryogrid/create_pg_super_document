@@ -1,7 +1,7 @@
 # find_in_bucket
 
 ## Location
-src/backend/lib/dshash.c: 951 - 969
+[src/backend/lib/dshash.c:951-969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L951-L969)
 
 ## Overview
 A static inline function that searches for a specific key within a hash table bucket chain by traversing the linked list of items and comparing keys.

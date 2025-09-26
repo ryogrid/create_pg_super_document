@@ -1,7 +1,7 @@
 # PortalHashEnt
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 52 - 55
+[src/backend/utils/mmgr/portalmem.c:52-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L52-L55)
 
 ## Overview
 PortalHashEnt is a hash table entry structure used in PostgreSQL's portal memory management system to map portal names to their corresponding Portal objects.

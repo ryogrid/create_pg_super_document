@@ -1,7 +1,7 @@
 # slotsync_failure_callback
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1688 - 1724
+[src/backend/replication/logical/slotsync.c:1688-1724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1688-L1724)
 
 ## Overview
 Error cleanup callback function that handles proper resource cleanup when slot synchronization operations fail or encounter errors.

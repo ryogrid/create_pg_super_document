@@ -1,7 +1,7 @@
 # preparePresortedCols
 
 ## Location
-src/backend/executor/nodeIncrementalSort.c: 164 - 211
+[src/backend/executor/nodeIncrementalSort.c:164-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIncrementalSort.c#L164-L211)
 
 ## Overview
 A static initialization function that prepares comparison functions and metadata for pre-sorted columns in an incremental sort operation.

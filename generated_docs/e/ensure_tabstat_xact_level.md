@@ -1,7 +1,7 @@
 # ensure_tabstat_xact_level
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 944 - 962
+[src/backend/utils/activity/pgstat_relation.c:944-962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L944-L962)
 
 ## Overview
 Ensures that a transaction-level statistics tracking record exists for a table at the current transaction nesting level, creating one if necessary to support proper rollback of statistics changes.

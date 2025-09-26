@@ -1,7 +1,7 @@
 # PgStat_EntryRefHashEntry
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 24 - 29
+[src/backend/utils/activity/pgstat_shmem.c:24-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L24-L29)
 
 ## Overview
 A hash table entry structure used to map statistical keys to their corresponding entry references in PostgreSQL's statistics collection system.

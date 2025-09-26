@@ -1,7 +1,7 @@
 # InstrAlloc
 
 ## Location
-src/backend/executor/instrument.c: 31 - 57
+[src/backend/executor/instrument.c:31-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L31-L57)
 
 ## Overview
 InstrAlloc allocates and initializes an array of Instrumentation structures for PostgreSQL query execution performance monitoring and profiling.

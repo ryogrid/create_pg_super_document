@@ -1,7 +1,7 @@
 # s_lock
 
 ## Location
-src/backend/storage/lmgr/s_lock.c: 99 - 116
+[src/backend/storage/lmgr/s_lock.c:99-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/s_lock.c#L99-L116)
 
 ## Overview
 s_lock is the platform-independent function for acquiring a spinlock, implementing a busy-wait loop with intelligent delay handling to avoid CPU waste and detect stuck locks.

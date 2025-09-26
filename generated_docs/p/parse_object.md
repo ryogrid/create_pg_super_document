@@ -1,7 +1,7 @@
 # parse_object
 
 ## Location
-src/common/jsonapi.c: 1114 - 1187
+[src/common/jsonapi.c:1114-1187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L1114-L1187)
 
 ## Overview
 A recursive descent parsing function that processes JSON object constructs, handling the parsing of curly-brace-enclosed sequences of key-value pairs separated by commas.

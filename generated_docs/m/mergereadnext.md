@@ -1,7 +1,7 @@
 # mergereadnext
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2320 - 2338
+[src/backend/utils/sort/tuplesort.c:2320-2338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2320-L2338)
 
 ## Overview
 Reads the next tuple from a specified merge input tape during tuple sorting merge operations, returning false when end of file is reached.

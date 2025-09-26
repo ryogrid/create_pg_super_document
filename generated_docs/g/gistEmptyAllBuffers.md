@@ -1,7 +1,7 @@
 # gistEmptyAllBuffers
 
 ## Location
-src/backend/access/gist/gistbuild.c: 1370 - 1424
+[src/backend/access/gist/gistbuild.c:1370-1424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L1370-L1424)
 
 ## Overview
 Empties all node buffers from top to bottom levels at the end of GiST index construction to flush all remaining tuples to the index.

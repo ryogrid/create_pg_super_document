@@ -1,7 +1,7 @@
 # call_bool_check_hook
 
 ## Location
-src/backend/utils/misc/guc.c: 6812 - 6845
+[src/backend/utils/misc/guc.c:6812-6845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6812-L6845)
 
 ## Overview
 Executes the validation check hook for boolean GUC parameters, managing error reporting protocol and returning validation results.

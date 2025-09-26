@@ -1,7 +1,7 @@
 # config_enum
 
 ## Location
-src/include/utils/guc_tables.h: 268 - 323
+[src/include/utils/guc_tables.h:268-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc_tables.h#L268-L323)
 
 ## Overview
 The `config_enum` struct represents an enumerated configuration parameter in PostgreSQL's GUC system, managing runtime parameters that accept predefined string values mapped to integer constants.

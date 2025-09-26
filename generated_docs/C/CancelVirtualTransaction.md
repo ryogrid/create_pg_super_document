@@ -1,7 +1,7 @@
 # CancelVirtualTransaction
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3490 - 3495
+[src/backend/storage/ipc/procarray.c:3490-3495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3490-L3495)
 
 ## Overview
 Cancels a specific virtual transaction by sending a signal to the associated backend process, primarily used in recovery conflict processing scenarios.

@@ -1,7 +1,7 @@
 # DropSubscriptionStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4225 - 4231
+[src/include/nodes/parsenodes.h:4225-4231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4225-L4231)
 
 ## Overview
 DropSubscriptionStmt represents a parsed DROP SUBSCRIPTION statement in PostgreSQL's logical replication system, encapsulating the necessary information to remove a subscription including error handling behavior and cascading options.

@@ -1,7 +1,7 @@
 # xml_text2xmlChar
 
 ## Location
-src/backend/utils/adt/xml.c: 1933 - 1945
+[src/backend/utils/adt/xml.c:1933-1945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1933-L1945)
 
 ## Overview
 A simple conversion utility function that transforms PostgreSQL's text type to libxml2's xmlChar string format.

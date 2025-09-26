@@ -1,7 +1,7 @@
 # pgstat_count_heap_update
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 375 - 400
+[src/backend/utils/activity/pgstat_relation.c:375-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L375-L400)
 
 ## Overview
 Counts tuple update operations by incrementing both transactional and non-transactional counters depending on the update type (regular, HOT, or newpage).

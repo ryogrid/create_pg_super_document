@@ -1,7 +1,7 @@
 # append_subdir_to_path
 
 ## Location
-src/port/path.c: 1124 - 1133
+[src/port/path.c:1124-1133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L1124-L1133)
 
 ## Overview
 Safely appends a subdirectory name to an output path during path canonicalization, handling overlapping memory regions correctly.

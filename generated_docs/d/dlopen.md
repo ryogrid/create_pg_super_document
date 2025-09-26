@@ -1,7 +1,7 @@
 # dlopen
 
 ## Location
-src/port/win32dlopen.c: 76 - 93
+[src/port/win32dlopen.c:76-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32dlopen.c#L76-L93)
 
 ## Overview
 Opens and loads a dynamic library on Windows, providing POSIX-compatible dynamic library loading functionality for PostgreSQL with error suppression during loading.

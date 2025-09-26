@@ -1,7 +1,7 @@
 # table_tuple_complete_speculative
 
 ## Location
-src/include/access/tableam.h: 1436 - 1457
+[src/include/access/tableam.h:1436-1457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1436-L1457)
 
 ## Overview
 This function completes a speculative insertion started in the same transaction by either confirming the tuple as fully inserted or removing it entirely based on the success outcome.

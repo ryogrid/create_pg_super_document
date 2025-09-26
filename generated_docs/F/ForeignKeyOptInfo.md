@@ -1,7 +1,7 @@
 # ForeignKeyOptInfo
 
 ## Location
-src/include/nodes/pathnodes.h: 1216 - 1257
+[src/include/nodes/pathnodes.h:1216-1257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1216-L1257)
 
 ## Overview
 ForeignKeyOptInfo stores per-foreign-key information for planning and optimization, containing both basic foreign key constraint data from catalogs and derived information about how FK equality conditions match the query.

@@ -1,7 +1,7 @@
 # var_list
 
 ## Location
-src/interfaces/ecpg/ecpglib/ecpglib_extern.h: 155 - 241
+[src/interfaces/ecpg/ecpglib/ecpglib_extern.h:155-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/ecpglib_extern.h#L155-L241)
 
 ## Overview
 The `var_list` struct represents a simple linked list node used for managing numbered items with generic pointers in the ECPG library.

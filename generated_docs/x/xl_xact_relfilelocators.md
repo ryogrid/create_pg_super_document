@@ -1,7 +1,7 @@
 # xl_xact_relfilelocators
 
 ## Location
-src/include/access/xact.h: 268 - 272
+[src/include/access/xact.h:268-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L268-L272)
 
 ## Overview
 A structure used in PostgreSQL's Write-Ahead Logging (WAL) to record information about relation file locators that are being committed or aborted during transaction processing.

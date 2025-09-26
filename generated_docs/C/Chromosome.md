@@ -1,7 +1,7 @@
 # Chromosome
 
 ## Location
-src/include/optimizer/geqo_gene.h: 32 - 36
+[src/include/optimizer/geqo_gene.h:32-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/geqo_gene.h#L32-L36)
 
 ## Overview
 A structure representing a chromosome in PostgreSQL's Genetic Query Optimizer (GEQO), which contains a gene sequence and its associated fitness value.

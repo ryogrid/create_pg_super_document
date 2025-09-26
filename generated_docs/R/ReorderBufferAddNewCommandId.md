@@ -1,7 +1,7 @@
 # ReorderBufferAddNewCommandId
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3232 - 3259
+[src/backend/replication/logical/reorderbuffer.c:3232-3259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3232-L3259)
 
 ## Overview
 ReorderBufferAddNewCommandId registers a new CommandId in the reorder buffer's change stream to ensure proper catalog access timing during logical decoding.

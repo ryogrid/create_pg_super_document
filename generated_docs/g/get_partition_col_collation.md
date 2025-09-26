@@ -1,7 +1,7 @@
 # get_partition_col_collation
 
 ## Location
-src/include/utils/partcache.h: 98 - 103
+[src/include/utils/partcache.h:98-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/partcache.h#L98-L103)
 
 ## Overview
 Returns the collation OID for a specific column in a partition key, used during partition bound validation and string comparison operations.

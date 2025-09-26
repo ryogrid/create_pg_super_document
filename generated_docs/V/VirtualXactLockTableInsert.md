@@ -1,7 +1,7 @@
 # VirtualXactLockTableInsert
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4437 - 4459
+[src/backend/storage/lmgr/lock.c:4437-4459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4437-L4459)
 
 ## Overview
 Acquires a virtual transaction ID lock using PostgreSQL's fast-path locking mechanism to prevent conflicts with the current transaction's virtual transaction ID.

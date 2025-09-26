@@ -1,7 +1,7 @@
 # create_output_directory
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 718 - 756
+[src/bin/pg_combinebackup/pg_combinebackup.c:718-756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L718-L756)
 
 ## Overview
 Creates an output directory for pg_combinebackup operations, ensuring it exists and is empty, while registering it for cleanup on process exit.

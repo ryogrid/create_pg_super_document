@@ -1,7 +1,7 @@
 # test_bloomfilter
 
 ## Location
-src/test/modules/test_bloomfilter/test_bloomfilter.c: 113 - 138
+[src/test/modules/test_bloomfilter/test_bloomfilter.c:113-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_bloomfilter/test_bloomfilter.c#L113-L138)
 
 ## Overview
 SQL-callable entry point function that performs comprehensive Bloom filter testing with configurable parameters and validation.

@@ -1,7 +1,7 @@
 # CustomPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1905 - 1914
+[src/include/nodes/pathnodes.h:1905-1914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1905-L1914)
 
 ## Overview
 CustomPath represents an extensible path node that allows external extensions to implement custom scan methods and integrate them into PostgreSQL's query planning system.

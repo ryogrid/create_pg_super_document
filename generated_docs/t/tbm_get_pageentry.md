@@ -1,7 +1,7 @@
 # tbm_get_pageentry
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1202 - 1248
+[src/backend/nodes/tidbitmap.c:1202-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1202-L1248)
 
 ## Overview
 Finds or creates a PagetableEntry for a specified page number in a TID bitmap, managing the transition between different bitmap states as needed.

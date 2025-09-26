@@ -1,7 +1,7 @@
 # index_concurrently_swap
 
 ## Location
-src/backend/catalog/index.c: 1549 - 1819
+[src/backend/catalog/index.c:1549-1819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L1549-L1819)
 
 ## Overview
 index_concurrently_swap swaps the identity, dependencies, and constraints between a new concurrent index and the old index it's replacing, effectively completing the concurrent index replacement.

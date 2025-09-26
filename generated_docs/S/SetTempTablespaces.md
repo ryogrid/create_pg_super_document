@@ -1,7 +1,7 @@
 # SetTempTablespaces
 
 ## Location
-src/backend/storage/file/fd.c: 3046 - 3074
+[src/backend/storage/file/fd.c:3046-3074](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3046-L3074)
 
 ## Overview
 Sets up an array of tablespace OIDs to be used for temporary files during the current transaction, with randomized starting point for load distribution.

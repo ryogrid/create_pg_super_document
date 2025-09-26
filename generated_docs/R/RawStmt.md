@@ -1,7 +1,7 @@
 # RawStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2017 - 2025
+[src/include/nodes/parsenodes.h:2017-2025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2017-L2025)
 
 ## Overview
 RawStmt serves as a container for any single statement's raw parse tree, representing the initial output from the parser before analysis and transformation.

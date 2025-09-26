@@ -1,7 +1,7 @@
 # shm_mq_result
 
 ## Location
-src/include/storage/shm_mq.h: 41 - 86
+[src/include/storage/shm_mq.h:41-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/shm_mq.h#L41-L86)
 
 ## Overview
 An enumerated type that represents the possible results of shared memory message queue send or receive operations in PostgreSQL's inter-process communication system.

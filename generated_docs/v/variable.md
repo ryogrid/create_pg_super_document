@@ -1,7 +1,7 @@
 # variable
 
 ## Location
-src/interfaces/ecpg/ecpglib/ecpglib_extern.h: 138 - 154
+[src/interfaces/ecpg/ecpglib/ecpglib_extern.h:138-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/ecpglib_extern.h#L138-L154)
 
 ## Overview
 The `variable` struct represents variables and their associated indicator variables in ECPG, managing both data values and metadata for embedded SQL operations.

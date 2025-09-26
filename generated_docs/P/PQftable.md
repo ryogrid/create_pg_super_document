@@ -1,7 +1,7 @@
 # PQftable
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3686 - 3696
+[src/interfaces/libpq/fe-exec.c:3686-3696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3686-L3696)
 
 ## Overview
 Returns the OID of the table that is the source of the given field in a query result.

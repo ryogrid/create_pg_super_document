@@ -1,7 +1,7 @@
 # AdjustDays
 
 ## Location
-src/backend/utils/adt/datetime.c: 633 - 648
+[src/backend/utils/adt/datetime.c:633-648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L633-L648)
 
 ## Overview
 A static helper function that multiplies a value by a scale factor to produce days and adds the result to the days field of a pg_itm_in structure with comprehensive overflow checking.

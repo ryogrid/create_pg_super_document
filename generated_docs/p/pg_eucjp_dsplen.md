@@ -1,7 +1,7 @@
 # pg_eucjp_dsplen
 
 ## Location
-src/common/wchar.c: 191 - 209
+[src/common/wchar.c:191-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L191-L209)
 
 ## Overview
 Calculates the display length (number of screen columns) for EUC-JP (Extended Unix Code for Japanese) encoded characters.

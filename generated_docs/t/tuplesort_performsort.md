@@ -1,7 +1,7 @@
 # tuplesort_performsort
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1385 - 1495
+[src/backend/utils/sort/tuplesort.c:1385-1495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1385-L1495)
 
 ## Overview
 Finalizes the sort operation by executing the appropriate sorting strategy based on the current state, handling memory-based sorts, bounded heapsorts, and tape-based external sorts including parallel processing scenarios.

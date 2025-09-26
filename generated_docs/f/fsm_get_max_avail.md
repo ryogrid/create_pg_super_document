@@ -1,7 +1,7 @@
 # fsm_get_max_avail
 
 ## Location
-src/backend/storage/freespace/fsmpage.c: 138 - 157
+[src/backend/storage/freespace/fsmpage.c:138-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/fsmpage.c#L138-L157)
 
 ## Overview
 The fsm_get_max_avail function returns the maximum available free space value stored in the root node of a Free Space Map page.

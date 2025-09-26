@@ -1,7 +1,7 @@
 # TwoPhasePredicateXactRecord
 
 ## Location
-src/include/storage/predicate_internals.h: 441 - 445
+[src/include/storage/predicate_internals.h:441-445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L441-L445)
 
 ## Overview
 TwoPhasePredicateXactRecord is a struct that stores per-transaction information needed to reconstruct a SERIALIZABLEXACT during two-phase commit recovery.

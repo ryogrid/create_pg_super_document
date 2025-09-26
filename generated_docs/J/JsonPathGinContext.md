@@ -1,7 +1,7 @@
 # JsonPathGinContext
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 131 - 147
+[src/backend/utils/adt/jsonb_gin.c:131-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L131-L147)
 
 ## Overview
 JsonPathGinContext provides a callback-based framework for abstracting different JSON path extraction strategies used by jsonb_ops and jsonb_path_ops GIN operator classes.

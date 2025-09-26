@@ -1,7 +1,7 @@
 # pg_get_user_name
 
 ## Location
-src/port/user.c: 28 - 63
+[src/port/user.c:28-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/user.c#L28-L63)
 
 ## Overview
 Retrieves the username associated with a given user ID (UID) from the system's user database, providing thread-safe user lookup functionality.

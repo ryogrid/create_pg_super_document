@@ -1,7 +1,7 @@
 # ResourceOwnerForgetDSM
 
 ## Location
-src/backend/storage/ipc/dsm.c: 165 - 176
+[src/backend/storage/ipc/dsm.c:165-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L165-L176)
 
 ## Overview
 A convenience wrapper function that unregisters a DSM (Dynamic Shared Memory) segment from a resource owner, removing it from automatic cleanup tracking.

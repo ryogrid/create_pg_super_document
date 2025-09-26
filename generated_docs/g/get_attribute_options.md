@@ -1,7 +1,7 @@
 # get_attribute_options
 
 ## Location
-src/backend/utils/cache/attoptcache.c: 104 - 178
+[src/backend/utils/cache/attoptcache.c:104-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/attoptcache.c#L104-L178)
 
 ## Overview
 Retrieves and caches attribute-specific options for a given table column, providing efficient access to column-level configuration settings.

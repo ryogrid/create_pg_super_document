@@ -1,7 +1,7 @@
 # pq_sendtext
 
 ## Location
-src/backend/libpq/pqformat.c: 172 - 194
+[src/backend/libpq/pqformat.c:172-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L172-L194)
 
 ## Overview
 Appends a text string with character set conversion to a StringInfo buffer without length prefixing, primarily used for binary format conversions.

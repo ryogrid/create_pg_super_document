@@ -1,7 +1,7 @@
 # gistGetMaxLevel
 
 ## Location
-src/backend/access/gist/gistbuild.c: 1425 - 1510
+[src/backend/access/gist/gistbuild.c:1425-1510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L1425-L1510)
 
 ## Overview
 Determines the depth (maximum level) of a GiST index by traversing from the root to a leaf page.

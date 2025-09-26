@@ -1,7 +1,7 @@
 # TidRangePath
 
 ## Location
-src/include/nodes/pathnodes.h: 1835 - 1839
+[src/include/nodes/pathnodes.h:1835-1839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1835-L1839)
 
 ## Overview
 TidRangePath represents an access path for scanning a table using a contiguous range of tuple identifiers (TIDs), enabling efficient retrieval of rows based on CTID range conditions.

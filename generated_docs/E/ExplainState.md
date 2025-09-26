@@ -1,7 +1,7 @@
 # ExplainState
 
 ## Location
-src/include/commands/explain.h: 44 - 72
+[src/include/commands/explain.h:44-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/explain.h#L44-L72)
 
 ## Overview
 The central state structure for PostgreSQL EXPLAIN command execution, containing all configuration options, output formatting state, and contextual information needed to generate query execution plan explanations.

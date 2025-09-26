@@ -1,7 +1,7 @@
 # AdjustFractMicroseconds
 
 ## Location
-src/backend/utils/adt/datetime.c: 537 - 568
+[src/backend/utils/adt/datetime.c:537-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L537-L568)
 
 ## Overview
 AdjustFractMicroseconds converts a fractional value to microseconds by scaling and adds it to an interval time structure's microseconds field with overflow protection.

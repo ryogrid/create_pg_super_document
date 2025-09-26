@@ -1,7 +1,7 @@
 # getHostaddr
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2060 - 2092
+[src/interfaces/libpq/fe-connect.c:2060-2092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2060-L2092)
 
 ## Overview
 Extracts and formats the currently connected IP address from the connection socket into a string buffer.

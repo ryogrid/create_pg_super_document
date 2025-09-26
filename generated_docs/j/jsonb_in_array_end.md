@@ -1,7 +1,7 @@
 # jsonb_in_array_end
 
 ## Location
-src/backend/utils/adt/jsonb.c: 321 - 330
+[src/backend/utils/adt/jsonb.c:321-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L321-L330)
 
 ## Overview
 A callback function used during JSONB parsing to handle the end of JSON arrays, finalizing the parsing state for completed array processing.

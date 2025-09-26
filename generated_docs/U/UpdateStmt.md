@@ -1,7 +1,7 @@
 # UpdateStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2069 - 2078
+[src/include/nodes/parsenodes.h:2069-2078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2069-L2078)
 
 ## Overview
 UpdateStmt represents the parsed structure of an UPDATE statement in PostgreSQL, containing all necessary information to modify existing rows in a table with optional conditions, joins, and return values.

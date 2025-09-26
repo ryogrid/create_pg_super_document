@@ -1,7 +1,7 @@
 # wait_result_is_any_signal
 
 ## Location
-src/common/wait_error.c: 121 - 137
+[src/common/wait_error.c:121-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wait_error.c#L121-L137)
 
 ## Overview
 Determines if a child process terminated due to any signal or abnormal condition, with optional inclusion of command execution errors.

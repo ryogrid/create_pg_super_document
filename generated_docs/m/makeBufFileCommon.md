@@ -1,7 +1,7 @@
 # makeBufFileCommon
 
 ## Location
-src/backend/storage/file/buffile.c: 118 - 138
+[src/backend/storage/file/buffile.c:118-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L118-L138)
 
 ## Overview
 Creates and initializes a BufFile structure with common default settings for buffered file operations in PostgreSQL.

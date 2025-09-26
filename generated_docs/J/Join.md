@@ -1,7 +1,7 @@
 # Join
 
 ## Location
-src/include/nodes/plannodes.h: 786 - 794
+[src/include/nodes/plannodes.h:786-794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L786-L794)
 
 ## Overview
 Join is an abstract base plan node type for all join operations in PostgreSQL, providing common structure and semantics for combining tuples from two input relations.

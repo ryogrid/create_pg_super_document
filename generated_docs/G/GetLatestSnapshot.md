@@ -1,7 +1,7 @@
 # GetLatestSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 291 - 322
+[src/backend/utils/time/snapmgr.c:291-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L291-L322)
 
 ## Overview
 Obtains a snapshot that reflects the most current database state, even when executing in transaction-snapshot isolation mode.

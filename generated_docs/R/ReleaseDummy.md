@@ -1,7 +1,7 @@
 # ReleaseDummy
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 4984 - 5024
+[src/backend/utils/adt/selfuncs.c:4984-5024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L4984-L5024)
 
 ## Overview
 A simple memory cleanup function that releases heap tuples that were copied by statext_expressions_load.

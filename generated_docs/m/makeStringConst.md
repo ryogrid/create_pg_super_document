@@ -1,7 +1,7 @@
 # makeStringConst
 
 ## Location
-src/backend/nodes/makefuncs.c: 592 - 610
+[src/backend/nodes/makefuncs.c:592-610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L592-L610)
 
 ## Overview
 Creates an A_Const node with string value type for representing string literals in PostgreSQL's parse tree structure.

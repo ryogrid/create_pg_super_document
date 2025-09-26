@@ -1,7 +1,7 @@
 # get_func_expr
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10465 - 10560
+[src/backend/utils/adt/ruleutils.c:10465-10560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10465-L10560)
 
 ## Overview
 Parses back a FuncExpr (function expression) node into its human-readable string representation, handling various function call formats including implicit/explicit casts and special SQL syntaxes.

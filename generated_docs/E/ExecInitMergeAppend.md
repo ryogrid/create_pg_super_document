@@ -1,7 +1,7 @@
 # ExecInitMergeAppend
 
 ## Location
-src/backend/executor/nodeMergeAppend.c: 65 - 199
+[src/backend/executor/nodeMergeAppend.c:65-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergeAppend.c#L65-L199)
 
 ## Overview
 Initializes a MergeAppend plan node by setting up the merge state, initializing subplans, configuring partition pruning if enabled, and preparing sort key information for merging sorted streams from multiple child plans.

@@ -1,7 +1,7 @@
 # BackendPidGetProcWithLock
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3218 - 3254
+[src/backend/storage/ipc/procarray.c:3218-3254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3218-L3254)
 
 ## Overview
 Searches for and returns a backend's PGPROC structure given its PID, assuming the caller already holds the ProcArrayLock for consistent access.

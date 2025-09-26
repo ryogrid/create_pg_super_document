@@ -1,7 +1,7 @@
 # _bt_buildadd
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 784 - 1028
+[src/backend/access/nbtree/nbtsort.c:784-1028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L784-L1028)
 
 ## Overview
 A core function that adds an item to a disk page during B-tree index construction, handling page splits, high key management, and proper page layout according to B-tree conventions.

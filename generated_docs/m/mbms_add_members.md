@@ -1,7 +1,7 @@
 # mbms_add_members
 
 ## Location
-src/backend/nodes/multibitmapset.c: 71 - 99
+[src/backend/nodes/multibitmapset.c:71-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/multibitmapset.c#L71-L99)
 
 ## Overview
 Performs a UNION operation between two multibitmapsets by adding all members from the second set to the first set, modifying the first set in-place.

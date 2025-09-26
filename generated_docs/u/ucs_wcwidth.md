@@ -1,7 +1,7 @@
 # ucs_wcwidth
 
 ## Location
-src/common/wchar.c: 628 - 661
+[src/common/wchar.c:628-661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L628-L661)
 
 ## Overview
 Determines the display column width of a Unicode character (UCS code point) for proper terminal/console formatting, handling control characters, combining characters, and wide East Asian characters.

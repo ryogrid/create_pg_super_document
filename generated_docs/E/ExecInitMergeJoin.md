@@ -1,7 +1,7 @@
 # ExecInitMergeJoin
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 1444 - 1640
+[src/backend/executor/nodeMergejoin.c:1444-1640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L1444-L1640)
 
 ## Overview
 Initializes a MergeJoinState node by setting up all necessary data structures, expression contexts, child nodes, and join-specific configuration for merge join execution.

@@ -1,7 +1,7 @@
 # VacObjFilter
 
 ## Location
-src/bin/scripts/vacuumdb.c: 61 - 91
+[src/bin/scripts/vacuumdb.c:61-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/vacuumdb.c#L61-L91)
 
 ## Overview
 VacObjFilter is an enumeration that defines bitwise flags used by the vacuumdb utility to track which command-line object filtering options have been specified by the user.

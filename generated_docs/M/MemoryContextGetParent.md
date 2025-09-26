@@ -1,7 +1,7 @@
 # MemoryContextGetParent
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 731 - 742
+[src/backend/utils/mmgr/mcxt.c:731-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L731-L742)
 
 ## Overview
 MemoryContextGetParent retrieves the parent memory context of a specified memory context, supporting the hierarchical memory management structure in PostgreSQL.

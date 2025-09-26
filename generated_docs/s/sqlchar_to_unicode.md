@@ -1,7 +1,7 @@
 # sqlchar_to_unicode
 
 ## Location
-src/backend/utils/adt/xml.c: 2336 - 2354
+[src/backend/utils/adt/xml.c:2336-2354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2336-L2354)
 
 ## Overview
 A static function that converts a single character from the current server encoding to its corresponding Unicode codepoint, handling multi-byte character encodings through UTF-8 conversion.

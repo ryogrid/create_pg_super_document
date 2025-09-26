@@ -1,7 +1,7 @@
 # check_temp_buffers
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 704 - 727
+[src/backend/storage/buffer/localbuf.c:704-727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L704-L727)
 
 ## Overview
 check_temp_buffers is a GUC (Grand Unified Configuration) check hook function that validates attempts to change the temp_buffers configuration parameter.

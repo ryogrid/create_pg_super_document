@@ -1,7 +1,7 @@
 # AtEOSubXact_PgStat
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 112 - 134
+[src/backend/utils/activity/pgstat_xact.c:112-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L112-L134)
 
 ## Overview
 Handles the end-of-subtransaction cleanup for PostgreSQL statistics, merging sub-transaction statistics into the parent transaction and managing the transaction statistics stack.

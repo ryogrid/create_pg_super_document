@@ -1,7 +1,7 @@
 # findconstraintloop
 
 ## Location
-src/backend/regex/regc_nfa.c: 2469 - 2557
+[src/backend/regex/regc_nfa.c:2469-2557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L2469-L2557)
 
 ## Overview
 Recursively searches for loops of constraint arcs in the NFA and breaks them when found to prevent infinite loops during regex compilation.

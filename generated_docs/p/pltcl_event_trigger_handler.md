@@ -1,7 +1,7 @@
 # pltcl_event_trigger_handler
 
 ## Location
-src/pl/tcl/pltcl.c: 1316 - 1370
+[src/pl/tcl/pltcl.c:1316-1370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L1316-L1370)
 
 ## Overview
 Handles event trigger calls for PL/Tcl procedures, setting up the Tcl environment and executing the trigger function with proper event context.

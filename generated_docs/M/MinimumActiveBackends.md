@@ -1,7 +1,7 @@
 # MinimumActiveBackends
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3545 - 3597
+[src/backend/storage/ipc/procarray.c:3545-3597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3545-L3597)
 
 ## Overview
 Counts backends (other than the caller) that are in active transactions and returns true if the count exceeds a minimum threshold, used as a heuristic to decide if a pre-XLOG-flush delay is worthwhile during commit.

@@ -1,7 +1,7 @@
 # GetCurrentTimeUsec
 
 ## Location
-src/backend/utils/adt/datetime.c: 387 - 447
+[src/backend/utils/adt/datetime.c:387-447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L387-L447)
 
 ## Overview
 Gets the current transaction start time ("now()") as a broken-down time structure with fractional seconds and timezone offset, converted according to the session timezone setting.

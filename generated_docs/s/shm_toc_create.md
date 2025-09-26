@@ -1,7 +1,7 @@
 # shm_toc_create
 
 ## Location
-src/backend/storage/ipc/shm_toc.c: 40 - 63
+[src/backend/storage/ipc/shm_toc.c:40-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_toc.c#L40-L63)
 
 ## Overview
 Initializes a region of shared memory with a table of contents structure, setting up the fundamental metadata for shared memory object tracking and allocation.

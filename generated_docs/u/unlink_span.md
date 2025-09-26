@@ -1,7 +1,7 @@
 # unlink_span
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1906 - 1928
+[src/backend/utils/mmgr/dsa.c:1906-1928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1906-L1928)
 
 ## Overview
 Removes a span from its doubly-linked list within a fullness class, updating the appropriate pointers to maintain list integrity.

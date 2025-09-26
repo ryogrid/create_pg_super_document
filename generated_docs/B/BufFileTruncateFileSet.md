@@ -1,7 +1,7 @@
 # BufFileTruncateFileSet
 
 ## Location
-src/backend/storage/file/buffile.c: 933 - 1021
+[src/backend/storage/file/buffile.c:933-1021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L933-L1021)
 
 ## Overview
 Truncates a fileset-based BufFile to a specified file number and offset, removing excess segment files and adjusting the current buffer state accordingly.

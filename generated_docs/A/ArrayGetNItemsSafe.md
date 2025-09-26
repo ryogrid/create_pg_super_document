@@ -1,7 +1,7 @@
 # ArrayGetNItemsSafe
 
 ## Location
-src/backend/utils/adt/arrayutils.c: 67 - 116
+[src/backend/utils/adt/arrayutils.c:67-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayutils.c#L67-L116)
 
 ## Overview
 Safely calculates the total number of elements in a multidimensional array with overflow checking and optional soft error handling.

@@ -1,7 +1,7 @@
 # connection
 
 ## Location
-src/interfaces/ecpg/ecpglib/ecpglib_extern.h: 104 - 114
+[src/interfaces/ecpg/ecpglib/ecpglib_extern.h:104-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/ecpglib_extern.h#L104-L114)
 
 ## Overview
 The `connection` struct represents a database connection in the ECPG (Embedded SQL in C for PostgreSQL) library, storing connection metadata and maintaining connection state information.

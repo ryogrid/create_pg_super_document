@@ -1,7 +1,7 @@
 # RestoreGUCState
 
 ## Location
-src/backend/utils/misc/guc.c: 6201 - 6369
+[src/backend/utils/misc/guc.c:6201-6369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6201-L6369)
 
 ## Overview
 RestoreGUCState reads GUC (Grand Unified Configuration) state from a serialized address and sets the current process's GUCs to match, primarily used for parallel worker processes to inherit configuration from their leader.

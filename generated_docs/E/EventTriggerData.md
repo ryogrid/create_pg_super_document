@@ -1,7 +1,7 @@
 # EventTriggerData
 
 ## Location
-src/include/commands/event_trigger.h: 24 - 30
+[src/include/commands/event_trigger.h:24-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/event_trigger.h#L24-L30)
 
 ## Overview
 EventTriggerData is a structure that encapsulates information passed to event trigger functions when they are invoked in response to DDL events, login events, or table rewrite events.

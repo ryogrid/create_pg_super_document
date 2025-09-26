@@ -1,7 +1,7 @@
 # deparse_context
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 128 - 184
+[src/backend/utils/adt/ruleutils.c:128-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L128-L184)
 
 ## Overview
 deparse_context is a central data structure used in PostgreSQL's rule utility module to manage context information needed when deparsing (converting internal query structures back to SQL text).

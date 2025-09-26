@@ -1,7 +1,7 @@
 # name_text
 
 ## Location
-src/backend/utils/adt/varlena.c: 3382 - 3398
+[src/backend/utils/adt/varlena.c:3382-3398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3382-L3398)
 
 ## Overview
 Converts a PostgreSQL Name type to a text type, enabling interoperability between these two string data types.

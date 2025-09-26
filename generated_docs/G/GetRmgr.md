@@ -1,7 +1,7 @@
 # GetRmgr
 
 ## Location
-src/include/access/xlog_internal.h: 376 - 405
+[src/include/access/xlog_internal.h:376-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L376-L405)
 
 ## Overview
 GetRmgr is a static inline function that safely retrieves a resource manager entry from the RmgrTable, with validation to ensure the requested resource manager exists.

@@ -1,7 +1,7 @@
 # pg_strip_crlf
 
 ## Location
-src/common/string.c: 155 - 164
+[src/common/string.c:155-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/string.c#L155-L164)
 
 ## Overview
 A utility function that removes trailing newline and carriage return characters from a string in-place, commonly used for cleaning up file input and command output.

@@ -1,7 +1,7 @@
 # enlargeStringInfo
 
 ## Location
-src/common/stringinfo.c: 289 - 360
+[src/common/stringinfo.c:289-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L289-L360)
 
 ## Overview
 Enlarges a StringInfo buffer to ensure it has enough space for additional bytes beyond its current content.

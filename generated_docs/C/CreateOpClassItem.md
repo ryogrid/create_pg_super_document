@@ -1,7 +1,7 @@
 # CreateOpClassItem
 
 ## Location
-src/include/nodes/parsenodes.h: 3184 - 3195
+[src/include/nodes/parsenodes.h:3184-3195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3184-L3195)
 
 ## Overview
 CreateOpClassItem represents a single item within an operator class definition, specifying operators, functions, or storage types that comprise the operator class.

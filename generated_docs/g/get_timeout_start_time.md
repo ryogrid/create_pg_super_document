@@ -1,7 +1,7 @@
 # get_timeout_start_time
 
 ## Location
-src/backend/utils/misc/timeout.c: 813 - 826
+[src/backend/utils/misc/timeout.c:813-826](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L813-L826)
 
 ## Overview
 Returns the timestamp when the specified timeout was most recently activated, providing timing information for timeout management.

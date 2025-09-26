@@ -1,7 +1,7 @@
 # JsonOutput
 
 ## Location
-src/include/nodes/parsenodes.h: 1751 - 1756
+[src/include/nodes/parsenodes.h:1751-1756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1751-L1756)
 
 ## Overview
 A structure representing the JSON output clause (RETURNING type [FORMAT format]) used in SQL/JSON expressions to specify the return type and format for JSON operations.

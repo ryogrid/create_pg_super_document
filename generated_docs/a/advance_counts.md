@@ -1,7 +1,7 @@
 # advance_counts
 
 ## Location
-src/backend/executor/nodeSetOp.c: 89 - 101
+[src/backend/executor/nodeSetOp.c:89-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L89-L101)
 
 ## Overview
 Increments the appropriate tuple counter (left or right input) based on a flag value, tracking duplicate counts for SetOp operations.

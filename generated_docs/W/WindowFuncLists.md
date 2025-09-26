@@ -1,7 +1,7 @@
 # WindowFuncLists
 
 ## Location
-src/include/optimizer/clauses.h: 24 - 58
+[src/include/optimizer/clauses.h:24-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/clauses.h#L24-L58)
 
 ## Overview
 WindowFuncLists is a data structure used by PostgreSQL's query planner to organize and track window functions found in an expression tree, grouping them by their window reference ID (winref) for efficient processing during query optimization.

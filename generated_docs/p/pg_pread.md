@@ -1,7 +1,7 @@
 # pg_pread
 
 ## Location
-src/port/win32pread.c: 20 - 48
+[src/port/win32pread.c:20-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32pread.c#L20-L48)
 
 ## Overview
 pg_pread is a PostgreSQL wrapper function for positioned read operations that provides platform-independent behavior across Unix-like systems and Windows.

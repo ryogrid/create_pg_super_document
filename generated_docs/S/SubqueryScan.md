@@ -1,7 +1,7 @@
 # SubqueryScan
 
 ## Location
-src/include/nodes/plannodes.h: 598 - 603
+[src/include/nodes/plannodes.h:598-603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L598-L603)
 
 ## Overview
 SubqueryScan is a PostgreSQL plan node that scans the output of a subquery in the range table, providing access to results from nested query execution.

@@ -1,7 +1,7 @@
 # LWLockReportWaitStart
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 727 - 735
+[src/backend/storage/lmgr/lwlock.c:727-735](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L727-L735)
 
 ## Overview
 Reports the start of a wait event for lightweight locks to PostgreSQL's statistics collection system.

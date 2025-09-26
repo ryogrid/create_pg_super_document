@@ -1,7 +1,7 @@
 # single_encode
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 203 - 211
+[src/backend/utils/adt/geo_ops.c:203-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L203-L211)
 
 ## Overview
 A helper function that converts a single floating-point number to its string representation for output formatting of geometric data types.

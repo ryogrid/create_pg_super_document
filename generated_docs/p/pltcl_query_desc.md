@@ -1,7 +1,7 @@
 # pltcl_query_desc
 
 ## Location
-src/pl/tcl/pltcl.c: 168 - 176
+[src/pl/tcl/pltcl.c:168-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L168-L176)
 
 ## Overview
 A structure that caches information about prepared and saved SQL execution plans for PL/Tcl procedures, optimizing repeated query execution.

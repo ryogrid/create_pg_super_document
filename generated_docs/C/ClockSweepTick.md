@@ -1,7 +1,7 @@
 # ClockSweepTick
 
 ## Location
-src/backend/storage/buffer/freelist.c: 108 - 174
+[src/backend/storage/buffer/freelist.c:108-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L108-L174)
 
 ## Overview
 ClockSweepTick is a helper function for the buffer management clock sweep algorithm that atomically advances the clock hand to the next buffer position and returns the buffer ID under the new position.

@@ -1,7 +1,7 @@
 # SetConstraintTriggerData
 
 ## Location
-src/backend/commands/trigger.c: 3632 - 3636
+[src/backend/commands/trigger.c:3632-3636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3632-L3636)
 
 ## Overview
 SetConstraintTriggerData is a structure that stores the constraint status information for individual triggers in PostgreSQL's SET CONSTRAINTS implementation.

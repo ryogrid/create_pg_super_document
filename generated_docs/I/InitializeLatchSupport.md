@@ -1,7 +1,7 @@
 # InitializeLatchSupport
 
 ## Location
-src/backend/storage/ipc/latch.c: 232 - 345
+[src/backend/storage/ipc/latch.c:232-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L232-L345)
 
 ## Overview
 Initializes the process-local latch infrastructure required for efficient waiting and signaling mechanisms in PostgreSQL processes.

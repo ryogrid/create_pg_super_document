@@ -1,7 +1,7 @@
 # LogicalTapeSetForgetFreeSpace
 
 ## Location
-src/backend/utils/sort/logtape.c: 750 - 760
+[src/backend/utils/sort/logtape.c:750-760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L750-L760)
 
 ## Overview
 Sets a flag in a LogicalTapeSet to indicate that free space management is no longer needed, optimizing performance when only read operations remain.

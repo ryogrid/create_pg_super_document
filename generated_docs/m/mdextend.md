@@ -1,7 +1,7 @@
 # mdextend
 
 ## Location
-src/backend/storage/smgr/md.c: 460 - 524
+[src/backend/storage/smgr/md.c:460-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L460-L524)
 
 ## Overview
 Extends a relation by adding a block at the specified position, typically used when writing beyond the current end-of-file of a relation fork.

@@ -1,7 +1,7 @@
 # set_output_count
 
 ## Location
-src/backend/executor/nodeSetOp.c: 150 - 189
+[src/backend/executor/nodeSetOp.c:150-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L150-L189)
 
 ## Overview
 Determines how many copies of a tuple group's representative row should be emitted based on SQL set operation semantics and the duplicate counts from left and right inputs.

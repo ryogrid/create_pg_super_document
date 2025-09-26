@@ -1,7 +1,7 @@
 # assign_stats_fetch_consistency
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1717 - 1726
+[src/backend/utils/activity/pgstat.c:1717-1726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1717-L1726)
 
 ## Overview
 The  function serves as a GUC (Grand Unified Configuration) assign hook that handles changes to the  configuration parameter, ensuring statistics snapshot consistency when the parameter value changes.

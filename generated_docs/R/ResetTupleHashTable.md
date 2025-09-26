@@ -1,7 +1,7 @@
 # ResetTupleHashTable
 
 ## Location
-src/backend/executor/execGrouping.c: 283 - 303
+[src/backend/executor/execGrouping.c:283-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execGrouping.c#L283-L303)
 
 ## Overview
 Resets the contents of a TupleHashTable to be empty while preserving all non-content state and structure.

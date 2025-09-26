@@ -1,7 +1,7 @@
 # pltcl_construct_errorCode
 
 ## Location
-src/pl/tcl/pltcl.c: 1846 - 1990
+[src/pl/tcl/pltcl.c:1846-1990](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L1846-L1990)
 
 ## Overview
 Constructs a comprehensive Tcl errorCode list containing detailed PostgreSQL error information for proper error handling in PL/Tcl procedures.

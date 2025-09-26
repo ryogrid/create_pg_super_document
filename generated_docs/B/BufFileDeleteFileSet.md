@@ -1,7 +1,7 @@
 # BufFileDeleteFileSet
 
 ## Location
-src/backend/storage/file/buffile.c: 364 - 393
+[src/backend/storage/file/buffile.c:364-393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L364-L393)
 
 ## Overview
 Deletes all segments of a BufFile that was created with BufFileCreateFileSet, providing proactive cleanup rather than waiting for FileSet cleanup.

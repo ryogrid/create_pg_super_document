@@ -1,7 +1,7 @@
 # ParallelHashJoinBatch
 
 ## Location
-src/include/executor/hashjoin.h: 162 - 179
+[src/include/executor/hashjoin.h:162-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/hashjoin.h#L162-L179)
 
 ## Overview
 ParallelHashJoinBatch is a shared memory coordination structure that manages individual batches in PostgreSQL's parallel hash join execution, providing synchronization and resource tracking for multiple worker processes operating on the same batch.

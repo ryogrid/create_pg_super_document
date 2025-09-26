@@ -1,7 +1,7 @@
 # MemoryContextIsEmpty
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 743 - 761
+[src/backend/utils/mmgr/mcxt.c:743-761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L743-L761)
 
 ## Overview
 MemoryContextIsEmpty determines whether a memory context contains any allocated space or child contexts, providing a way to check if a context can be safely deleted or reset.

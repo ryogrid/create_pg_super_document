@@ -1,7 +1,7 @@
 # ts_accum
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2413 - 2447
+[src/backend/utils/adt/tsvector_op.c:2413-2447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2413-L2447)
 
 ## Overview
 An accumulator function that builds statistical information from TSVector data, serving as the core engine for PostgreSQL's ts_stat functionality by maintaining a binary search tree of word statistics.

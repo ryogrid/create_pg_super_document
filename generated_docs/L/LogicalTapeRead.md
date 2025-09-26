@@ -1,7 +1,7 @@
 # LogicalTapeRead
 
 ## Location
-src/backend/utils/sort/logtape.c: 928 - 980
+[src/backend/utils/sort/logtape.c:928-980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L928-L980)
 
 ## Overview
 LogicalTapeRead is a function that reads data from a logical tape, providing buffered sequential access to data stored in temporary files during sorting operations.

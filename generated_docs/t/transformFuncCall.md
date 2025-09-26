@@ -1,7 +1,7 @@
 # transformFuncCall
 
 ## Location
-src/backend/parser/parse_expr.c: 1439 - 1483
+[src/backend/parser/parse_expr.c:1439-1483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L1439-L1483)
 
 ## Overview
 Transforms a function call node (FuncCall) during parsing by processing its arguments and delegating to ParseFuncOrColumn for function resolution and type checking.

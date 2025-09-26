@@ -1,7 +1,7 @@
 # ReportTemporaryFileUsage
 
 ## Location
-src/backend/storage/file/fd.c: 1525 - 1543
+[src/backend/storage/file/fd.c:1525-1543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1525-L1543)
 
 ## Overview
 ReportTemporaryFileUsage is a static function that reports the usage of temporary files for statistical tracking and logging purposes when temporary files are deleted.

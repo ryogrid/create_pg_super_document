@@ -1,7 +1,7 @@
 # select_best_admin
 
 ## Location
-src/backend/utils/adt/acl.c: 5306 - 5320
+[src/backend/utils/adt/acl.c:5306-5320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5306-L5320)
 
 ## Overview
 Finds the best administrative role that grants a member administrative privileges over a target role, preferring shorter inheritance paths and ignoring superuser status.

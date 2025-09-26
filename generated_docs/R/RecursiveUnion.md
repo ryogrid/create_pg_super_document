@@ -1,7 +1,7 @@
 # RecursiveUnion
 
 ## Location
-src/include/nodes/plannodes.h: 325 - 346
+[src/include/nodes/plannodes.h:325-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L325-L346)
 
 ## Overview
 The RecursiveUnion node generates a recursive union of two subplans, implementing SQL's WITH RECURSIVE functionality for recursive queries.

@@ -1,7 +1,7 @@
 # jsonb_in_object_end
 
 ## Location
-src/backend/utils/adt/jsonb.c: 301 - 310
+[src/backend/utils/adt/jsonb.c:301-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L301-L310)
 
 ## Overview
 A callback function used during JSONB parsing to handle the end of JSON objects, finalizing the parsing state for completed object processing.

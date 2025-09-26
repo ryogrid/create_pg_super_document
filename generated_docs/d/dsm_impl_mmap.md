@@ -1,7 +1,7 @@
 # dsm_impl_mmap
 
 ## Location
-src/backend/storage/ipc/dsm_impl.c: 792 - 962
+[src/backend/storage/ipc/dsm_impl.c:792-962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_impl.c#L792-L962)
 
 ## Overview
 Implements mmap-based dynamic shared memory operations by creating and managing memory-mapped files in the pg_dynshmem directory.

@@ -1,7 +1,7 @@
 # TransactionIdIsActive
 
 ## Location
-src/backend/storage/ipc/procarray.c: 1634 - 1734
+[src/backend/storage/ipc/procarray.c:1634-1734](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L1634-L1734)
 
 ## Overview
 TransactionIdIsActive determines whether a transaction ID corresponds to the top-level XID of an active backend, excluding prepared transactions and subtransactions.

@@ -1,7 +1,7 @@
 # sts_filename
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 598 - 601
+[src/backend/utils/sort/sharedtuplestore.c:598-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L598-L601)
 
 ## Overview
 Generates the filename for a participant's temporary file in a shared tuple store, providing unique file naming for each parallel worker process.

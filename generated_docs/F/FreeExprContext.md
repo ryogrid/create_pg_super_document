@@ -1,7 +1,7 @@
 # FreeExprContext
 
 ## Location
-src/backend/executor/execUtils.c: 414 - 440
+[src/backend/executor/execUtils.c:414-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L414-L440)
 
 ## Overview
 Properly frees an ExprContext structure, including executing shutdown callbacks and releasing all associated memory resources.

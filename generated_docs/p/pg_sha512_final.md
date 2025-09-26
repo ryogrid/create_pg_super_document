@@ -1,7 +1,7 @@
 # pg_sha512_final
 
 ## Location
-src/common/sha2.c: 905 - 933
+[src/common/sha2.c:905-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L905-L933)
 
 ## Overview
 Finalizes SHA-512 hash computation by processing any remaining data, outputting the final hash digest, and securely clearing the context structure.

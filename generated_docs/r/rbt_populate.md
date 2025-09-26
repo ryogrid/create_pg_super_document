@@ -1,7 +1,7 @@
 # rbt_populate
 
 ## Location
-src/test/modules/test_rbtree/test_rbtree.c: 127 - 163
+[src/test/modules/test_rbtree/test_rbtree.c:127-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_rbtree/test_rbtree.c#L127-L163)
 
 ## Overview
 Populates an empty red-black tree with a specified number of integers in arithmetic progression, inserting them in random order to test tree operations and collision handling.

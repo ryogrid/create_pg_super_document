@@ -1,7 +1,7 @@
 # CreateFdwStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2849 - 2855
+[src/include/nodes/parsenodes.h:2849-2855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2849-L2855)
 
 ## Overview
 CreateFdwStmt represents the parsed representation of a CREATE FOREIGN DATA WRAPPER SQL statement, used to create a new foreign data wrapper definition in PostgreSQL.

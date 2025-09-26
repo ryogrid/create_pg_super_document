@@ -1,7 +1,7 @@
 # pltcl_build_tuple_argument
 
 ## Location
-src/pl/tcl/pltcl.c: 3104 - 3179
+[src/pl/tcl/pltcl.c:3104-3179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L3104-L3179)
 
 ## Overview
 Builds a Tcl list object suitable for 'array set' from all attributes of a given tuple, converting PostgreSQL tuple data into a format that can be consumed by Tcl functions.

@@ -1,7 +1,7 @@
 # GetTempTablespaces
 
 ## Location
-src/backend/storage/file/fd.c: 3090 - 3107
+[src/backend/storage/file/fd.c:3090-3107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3090-L3107)
 
 ## Overview
 Populates a caller-provided array with the tablespace OIDs configured for temporary file usage, returning the number of entries copied.

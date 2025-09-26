@@ -1,7 +1,7 @@
 # initArrayResultArr
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5492 - 5537
+[src/backend/utils/adt/arrayfuncs.c:5492-5537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5492-L5537)
 
 ## Overview
 Initializes an empty ArrayBuildStateArr structure for building arrays from input arrays, creating an output array with N+1 dimensions.

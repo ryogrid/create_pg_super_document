@@ -1,7 +1,7 @@
 # vacuum_open_relation
 
 ## Location
-src/backend/commands/vacuum.c: 769 - 880
+[src/backend/commands/vacuum.c:769-880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L769-L880)
 
 ## Overview
 Attempts to open and lock a relation for vacuum or analyze operations, providing comprehensive error handling and logging when the relation cannot be accessed.

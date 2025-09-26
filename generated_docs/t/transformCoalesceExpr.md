@@ -1,7 +1,7 @@
 # transformCoalesceExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 2214 - 2262
+[src/backend/parser/parse_expr.c:2214-2262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2214-L2262)
 
 ## Overview
 Transforms a COALESCE expression from parse tree format into executable format, determining a common result type and applying necessary type coercions to all arguments.

@@ -1,7 +1,7 @@
 # PgStat_TableXactStatus
 
 ## Location
-src/include/pgstat.h: 210 - 227
+[src/include/pgstat.h:210-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L210-L227)
 
 ## Overview
 PgStat_TableXactStatus tracks per-table statistics within the context of a specific subtransaction, maintaining counters for tuple operations and managing the hierarchical relationship of nested transactions.

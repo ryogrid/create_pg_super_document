@@ -1,7 +1,7 @@
 # UnicodeNormalizationQC
 
 ## Location
-src/include/common/unicode_norm.h: 33 - 39
+[src/include/common/unicode_norm.h:33-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/unicode_norm.h#L33-L39)
 
 ## Overview
 UnicodeNormalizationQC is an enumeration type that represents the result of Unicode normalization quick check operations, following the Unicode Standard Annex #15 (UAX #15) specification for Unicode text normalization.

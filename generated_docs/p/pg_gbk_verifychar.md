@@ -1,7 +1,7 @@
 # pg_gbk_verifychar
 
 ## Location
-src/common/wchar.c: 1533 - 1557
+[src/common/wchar.c:1533-1557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1533-L1557)
 
 ## Overview
 Verifies the validity of a single GBK encoded character by checking its byte sequence and ensuring it conforms to GBK encoding rules.

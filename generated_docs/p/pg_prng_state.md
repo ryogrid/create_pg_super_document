@@ -1,7 +1,7 @@
 # pg_prng_state
 
 ## Location
-src/include/common/pg_prng.h: 19 - 23
+[src/include/common/pg_prng.h:19-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/pg_prng.h#L19-L23)
 
 ## Overview
 `pg_prng_state` is a structure that represents the internal state vector for PostgreSQL's pseudo-random number generator (PRNG), implementing the xoroshiro128** algorithm for high-quality random number generation.

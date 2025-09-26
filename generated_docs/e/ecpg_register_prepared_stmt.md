@@ -1,7 +1,7 @@
 # ecpg_register_prepared_stmt
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 59 - 103
+[src/interfaces/ecpg/ecpglib/prepare.c:59-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L59-L103)
 
 ## Overview
 Registers a prepared statement in the ECPG library, managing the lifecycle of prepared statements within a database connection.

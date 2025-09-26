@@ -1,7 +1,7 @@
 # RecordAndGetPageWithFreeSpace
 
 ## Location
-src/backend/storage/freespace/freespace.c: 154 - 193
+[src/backend/storage/freespace/freespace.c:154-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L154-L193)
 
 ## Overview
 RecordAndGetPageWithFreeSpace is an optimized FSM function that combines updating free space information for a page with searching for a new page with sufficient free space, providing better performance through reduced locking overhead.

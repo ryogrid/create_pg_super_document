@@ -1,7 +1,7 @@
 # complex_abs_cmp
 
 ## Location
-src/tutorial/complex.c: 203 - 209
+[src/tutorial/complex.c:203-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L203-L209)
 
 ## Overview
 A PostgreSQL operator function that performs a three-way comparison of the absolute magnitudes of two complex numbers, returning -1, 0, or 1 based on their relative ordering.

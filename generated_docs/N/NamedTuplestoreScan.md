@@ -1,7 +1,7 @@
 # NamedTuplestoreScan
 
 ## Location
-src/include/nodes/plannodes.h: 651 - 655
+[src/include/nodes/plannodes.h:651-655](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L651-L655)
 
 ## Overview
 NamedTuplestoreScan represents a plan node for scanning Ephemeral Named Relations (ENRs) in PostgreSQL's query execution tree, providing access to temporary named data sets stored in tuple stores.

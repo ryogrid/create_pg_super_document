@@ -1,7 +1,7 @@
 # convert_to_scalar
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 4318 - 4464
+[src/backend/utils/adt/selfuncs.c:4318-4464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L4318-L4464)
 
 ## Overview
 Converts non-NULL values of various PostgreSQL data types to a scalar comparison scale needed by selectivity estimation functions, handling numeric, string, bytea, time, and network data types.

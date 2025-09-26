@@ -1,7 +1,7 @@
 # pgstat_assoc_relation
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 132 - 152
+[src/backend/utils/activity/pgstat_relation.c:132-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L132-L152)
 
 ## Overview
 Establishes the actual connection between a relation and its statistics tracking infrastructure by creating or finding the appropriate statistics entry and linking it to the relation.

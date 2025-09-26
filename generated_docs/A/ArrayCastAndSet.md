@@ -1,7 +1,7 @@
 # ArrayCastAndSet
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4815 - 4853
+[src/backend/utils/adt/arrayfuncs.c:4815-4853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4815-L4853)
 
 ## Overview
 A static utility function that copies a PostgreSQL Datum value to a destination buffer with proper alignment and returns the total space consumed.

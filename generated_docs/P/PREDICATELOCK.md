@@ -1,7 +1,7 @@
 # PREDICATELOCK
 
 ## Location
-src/include/storage/predicate_internals.h: 317 - 328
+[src/include/storage/predicate_internals.h:317-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L317-L328)
 
 ## Overview
 PREDICATELOCK represents an individual predicate lock within PostgreSQL's serializable isolation system, linking a specific database object with the transaction that holds the lock.

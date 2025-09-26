@@ -1,7 +1,7 @@
 # reservoir_get_next_S
 
 ## Location
-src/backend/utils/misc/sampling.c: 147 - 233
+[src/backend/utils/misc/sampling.c:147-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/sampling.c#L147-L233)
 
 ## Overview
 Computes the number of records to skip before selecting the next record in Vitter's Algorithm Z reservoir sampling implementation.

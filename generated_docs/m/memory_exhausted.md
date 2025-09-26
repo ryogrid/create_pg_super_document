@@ -1,7 +1,7 @@
 # memory_exhausted
 
 ## Location
-src/timezone/zic.c: 411 - 417
+[src/timezone/zic.c:411-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L411-L417)
 
 ## Overview
 A static error handling function in the timezone zic utility that handles memory exhaustion scenarios by printing an error message and terminating the program.

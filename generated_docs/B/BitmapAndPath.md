@@ -1,7 +1,7 @@
 # BitmapAndPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1796 - 1801
+[src/include/nodes/pathnodes.h:1796-1801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1796-L1801)
 
 ## Overview
 BitmapAndPath represents a BitmapAnd plan node that performs logical AND operations on multiple TID bitmaps as part of a BitmapHeapPath execution plan.

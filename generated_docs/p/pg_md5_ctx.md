@@ -1,7 +1,7 @@
 # pg_md5_ctx
 
 ## Location
-src/common/md5_int.h: 78 - 85
+[src/common/md5_int.h:78-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5_int.h#L78-L85)
 
 ## Overview
 The  structure is the context data structure for MD5 hash computation in PostgreSQL. It maintains the internal state needed for incremental MD5 hashing operations, allowing data to be processed in chunks.

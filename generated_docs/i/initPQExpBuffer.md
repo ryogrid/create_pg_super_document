@@ -1,7 +1,7 @@
 # initPQExpBuffer
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 90 - 113
+[src/interfaces/libpq/pqexpbuffer.c:90-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L90-L113)
 
 ## Overview
 Initializes a PQExpBufferData structure to represent an empty string by allocating the initial data buffer and setting up the structure fields.

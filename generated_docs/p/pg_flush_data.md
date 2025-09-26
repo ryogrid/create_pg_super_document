@@ -1,7 +1,7 @@
 # pg_flush_data
 
 ## Location
-src/backend/storage/file/fd.c: 522 - 699
+[src/backend/storage/file/fd.c:522-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L522-L699)
 
 ## Overview
 A PostgreSQL function that advises the operating system to flush dirty data from memory to storage, providing platform-specific optimization for write-back operations.

@@ -1,7 +1,7 @@
 # FreeSpaceMapPrepareTruncateRel
 
 ## Location
-src/backend/storage/freespace/freespace.c: 275 - 357
+[src/backend/storage/freespace/freespace.c:275-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L275-L357)
 
 ## Overview
 FreeSpaceMapPrepareTruncateRel prepares the Free Space Map (FSM) for truncation when a relation is being shortened, returning the new FSM size and ensuring FSM consistency during the truncation process.

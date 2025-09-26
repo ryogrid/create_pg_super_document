@@ -1,7 +1,7 @@
 # ecpg_strdup
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 47 - 64
+[src/interfaces/ecpg/ecpglib/memory.c:47-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L47-L64)
 
 ## Overview
 Creates a duplicate copy of a string with null pointer safety, error handling, and line number tracking for debugging in the ECPG library.

@@ -1,7 +1,7 @@
 # map_sql_schema_to_xmlschema_types
 
 ## Location
-src/backend/utils/adt/xml.c: 3621 - 3693
+[src/backend/utils/adt/xml.c:3621-3693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3621-L3693)
 
 ## Overview
 Maps an SQL schema to XML Schema data types according to the SQL/XML:2008 section 9.12 specification, generating XML Schema complex type definitions for database schemas.

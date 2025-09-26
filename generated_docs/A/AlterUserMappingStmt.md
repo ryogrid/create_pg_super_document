@@ -1,7 +1,7 @@
 # AlterUserMappingStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2916 - 2922
+[src/include/nodes/parsenodes.h:2916-2922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2916-L2922)
 
 ## Overview
 AlterUserMappingStmt is a parse node structure that represents an ALTER USER MAPPING SQL statement, which modifies the options of an existing mapping between a PostgreSQL user and a foreign server.

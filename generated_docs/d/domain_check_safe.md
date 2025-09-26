@@ -1,7 +1,7 @@
 # domain_check_safe
 
 ## Location
-src/backend/utils/adt/domains.c: 355 - 370
+[src/backend/utils/adt/domains.c:355-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/domains.c#L355-L370)
 
 ## Overview
 An error-safe variant of domain checking that validates whether a given value complies with domain constraints without throwing errors, instead reporting errors through an error context.

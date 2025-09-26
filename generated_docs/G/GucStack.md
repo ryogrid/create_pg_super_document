@@ -1,7 +1,7 @@
 # GucStack
 
 ## Location
-src/include/utils/guc_tables.h: 130 - 152
+[src/include/utils/guc_tables.h:130-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc_tables.h#L130-L152)
 
 ## Overview
 A typedef alias for the guc_stack structure, representing a stack entry that maintains GUC variable value history for transaction-aware configuration management.

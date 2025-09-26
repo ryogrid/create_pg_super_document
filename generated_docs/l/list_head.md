@@ -1,7 +1,7 @@
 # list_head
 
 ## Location
-src/include/nodes/pg_list.h: 128 - 134
+[src/include/nodes/pg_list.h:128-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pg_list.h#L128-L134)
 
 ## Overview
 Returns the first cell in a PostgreSQL list structure, or NULL if the list is empty.

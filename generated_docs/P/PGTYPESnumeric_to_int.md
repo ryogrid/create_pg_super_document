@@ -1,7 +1,7 @@
 # PGTYPESnumeric_to_int
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1494 - 1517
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1494-1517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1494-L1517)
 
 ## Overview
 Converts a PostgreSQL numeric value to a C integer type, with overflow checking for platforms where long and int have different sizes.

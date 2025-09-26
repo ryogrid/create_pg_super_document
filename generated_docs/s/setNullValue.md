@@ -1,7 +1,7 @@
 # setNullValue
 
 ## Location
-src/bin/pgbench/pgbench.c: 2094 - 2101
+[src/bin/pgbench/pgbench.c:2094-2101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2094-L2101)
 
 ## Overview
 A utility function in pgbench that initializes a PgBenchValue to represent a NULL value with proper type assignment and memory cleanup.

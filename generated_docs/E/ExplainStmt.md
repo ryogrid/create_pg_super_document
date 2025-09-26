@@ -1,7 +1,7 @@
 # ExplainStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3868 - 3873
+[src/include/nodes/parsenodes.h:3868-3873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3868-L3873)
 
 ## Overview
 ExplainStmt represents the parsed structure of an EXPLAIN statement, which is used to display the execution plan and other information about how PostgreSQL would execute a query.

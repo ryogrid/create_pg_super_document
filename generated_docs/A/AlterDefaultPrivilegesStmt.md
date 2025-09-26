@@ -1,7 +1,7 @@
 # AlterDefaultPrivilegesStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2571 - 2576
+[src/include/nodes/parsenodes.h:2571-2576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2571-L2576)
 
 ## Overview
 AlterDefaultPrivilegesStmt is a parse tree node structure that represents SQL ALTER DEFAULT PRIVILEGES statements, used to modify default privileges for future database objects.

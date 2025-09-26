@@ -1,7 +1,7 @@
 # namestrcpy
 
 ## Location
-src/backend/utils/adt/name.c: 233 - 246
+[src/backend/utils/adt/name.c:233-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L233-L246)
 
 ## Overview
 The  function safely copies a C string into a PostgreSQL  structure with proper bounds checking and null termination.

@@ -1,7 +1,7 @@
 # AlterDatabaseSetStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3789 - 3794
+[src/include/nodes/parsenodes.h:3789-3794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3789-L3794)
 
 ## Overview
 A parse node structure representing the ALTER DATABASE SET statement, used to alter configuration parameters for a specific database.

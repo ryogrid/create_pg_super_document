@@ -1,7 +1,7 @@
 # ExecDropStmt
 
 ## Location
-src/backend/tcop/utility.c: 1993 - 2025
+[src/backend/tcop/utility.c:1993-2025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L1993-L2025)
 
 ## Overview
 ExecDropStmt is a dispatch function that handles the execution of DROP statements for various database objects, routing the request to the appropriate removal function based on the object type.

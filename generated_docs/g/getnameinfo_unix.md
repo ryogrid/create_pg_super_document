@@ -1,7 +1,7 @@
 # getnameinfo_unix
 
 ## Location
-src/common/ip.c: 228 - 262
+[src/common/ip.c:228-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ip.c#L228-L262)
 
 ## Overview
 Provides reverse name resolution functionality specifically for Unix domain sockets, converting Unix socket addresses back to human-readable path and service name representations.

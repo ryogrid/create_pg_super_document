@@ -1,7 +1,7 @@
 # logicalrep_relmap_invalidate_cb
 
 ## Location
-src/backend/replication/logical/relation.c: 64 - 104
+[src/backend/replication/logical/relation.c:64-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L64-L104)
 
 ## Overview
 A relcache invalidation callback function that invalidates logical replication relation map cache entries when the underlying relations change.

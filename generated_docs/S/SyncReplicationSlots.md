@@ -1,7 +1,7 @@
 # SyncReplicationSlots
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1725 - 1742
+[src/backend/replication/logical/slotsync.c:1725-1742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1725-L1742)
 
 ## Overview
 Main function that synchronizes failover-enabled replication slots from a primary server to a standby server using the specified WAL receiver connection.

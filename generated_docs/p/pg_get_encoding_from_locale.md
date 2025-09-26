@@ -1,7 +1,7 @@
 # pg_get_encoding_from_locale
 
 ## Location
-src/port/chklocale.c: 306 - 428
+[src/port/chklocale.c:306-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/chklocale.c#L306-L428)
 
 ## Overview
 Determines the PostgreSQL encoding identifier for a given LC_CTYPE locale setting, handling platform-specific differences and providing fallback mechanisms for unknown encodings.

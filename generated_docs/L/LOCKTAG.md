@@ -1,7 +1,7 @@
 # LOCKTAG
 
 ## Location
-src/include/storage/lock.h: 164 - 172
+[src/include/storage/lock.h:164-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L164-L172)
 
 ## Overview
 LOCKTAG is the key data structure used to uniquely identify lockable objects in PostgreSQL's lock manager. It serves as the hash key for looking up locks in the shared lock hashtable.

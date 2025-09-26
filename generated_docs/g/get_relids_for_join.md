@@ -1,7 +1,7 @@
 # get_relids_for_join
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 4142 - 4158
+[src/backend/optimizer/prep/prepjointree.c:4142-4158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L4142-L4158)
 
 ## Overview
 Retrieves the set of base relation and outer join RT indexes that make up a specific join by its relation ID.

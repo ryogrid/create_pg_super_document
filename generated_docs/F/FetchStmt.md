@@ -1,7 +1,7 @@
 # FetchStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3328 - 3335
+[src/include/nodes/parsenodes.h:3328-3335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3328-L3335)
 
 ## Overview
 FetchStmt represents the parsed form of SQL FETCH and MOVE statements, which are used to retrieve rows from or advance position in cursors (portals) in PostgreSQL.

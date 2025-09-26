@@ -1,7 +1,7 @@
 # execTuplesMatchPrepare
 
 ## Location
-src/backend/executor/execGrouping.c: 58 - 94
+[src/backend/executor/execGrouping.c:58-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execGrouping.c#L58-L94)
 
 ## Overview
 Creates an ExprState that evaluates whether two tuples are NOT DISTINCT for grouping operations in PostgreSQL execution engine.

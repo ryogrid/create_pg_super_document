@@ -1,7 +1,7 @@
 # disable_timeouts
 
 ## Location
-src/backend/utils/misc/timeout.c: 718 - 750
+[src/backend/utils/misc/timeout.c:718-750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L718-L750)
 
 ## Overview
 Cancels multiple timeouts simultaneously, optimizing performance by reducing system calls when disabling multiple timeouts at once.

@@ -1,7 +1,7 @@
 # width_bucket_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 1845 - 1932
+[src/backend/utils/adt/numeric.c:1845-1932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1845-L1932)
 
 ## Overview
 Implements the numeric version of the SQL2003 width_bucket() function, which assigns a numeric operand to a bucket number in an equiwidth histogram with specified bounds and bucket count.

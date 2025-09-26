@@ -1,7 +1,7 @@
 # PQoptions
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7098 - 7105
+[src/interfaces/libpq/fe-connect.c:7098-7105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7098-L7105)
 
 ## Overview
 PQoptions returns the command-line options that were passed when establishing a PostgreSQL database connection.

@@ -1,7 +1,7 @@
 # AlterCollationStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2447 - 2451
+[src/include/nodes/parsenodes.h:2447-2451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2447-L2451)
 
 ## Overview
 AlterCollationStmt represents the parsed form of an ALTER COLLATION statement, used to modify existing collation objects in PostgreSQL.

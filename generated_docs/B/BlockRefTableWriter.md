@@ -1,7 +1,7 @@
 # BlockRefTableWriter
 
 ## Location
-src/common/blkreftable.c: 217 - 234
+[src/common/blkreftable.c:217-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L217-L234)
 
 ## Overview
 The `BlockRefTableWriter` struct maintains state for incrementally writing block reference table files to disk, providing a streamlined interface for buffered file output operations.

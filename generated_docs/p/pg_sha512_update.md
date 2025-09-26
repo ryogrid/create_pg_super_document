@@ -1,7 +1,7 @@
 # pg_sha512_update
 
 ## Location
-src/common/sha2.c: 802 - 854
+[src/common/sha2.c:802-854](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L802-L854)
 
 ## Overview
 Incrementally processes input data for SHA-512 hash computation, handling arbitrary-length data by buffering partial blocks.

@@ -1,7 +1,7 @@
 # CreatePLangStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3054 - 3063
+[src/include/nodes/parsenodes.h:3054-3063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3054-L3063)
 
 ## Overview
 CreatePLangStmt is a parse tree node structure that represents the CREATE LANGUAGE SQL statement, used to define procedural languages within PostgreSQL.

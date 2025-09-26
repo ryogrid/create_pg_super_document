@@ -1,7 +1,7 @@
 # compute_padlen
 
 ## Location
-src/port/snprintf.c: 1478 - 1491
+[src/port/snprintf.c:1478-1491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1478-L1491)
 
 ## Overview
 Calculates the amount of padding needed to achieve a minimum field width for formatted output, taking into account left-justification settings.

@@ -1,7 +1,7 @@
 # check_serial_buffers
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 847 - 857
+[src/backend/storage/lmgr/predicate.c:847-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L847-L857)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates the serializable_buffers configuration parameter.

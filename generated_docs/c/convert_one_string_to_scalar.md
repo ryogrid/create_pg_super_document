@@ -1,7 +1,7 @@
 # convert_one_string_to_scalar
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 4607 - 4657
+[src/backend/utils/adt/selfuncs.c:4607-4657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L4607-L4657)
 
 ## Overview
 Converts a single character string to a normalized scalar value between 0 and 1 using a fractional digit representation based on a specified character range.

@@ -1,7 +1,7 @@
 # OpBtreeInterpretation
 
 ## Location
-src/include/utils/lsyscache.h: 24 - 30
+[src/include/utils/lsyscache.h:24-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/lsyscache.h#L24-L30)
 
 ## Overview
 OpBtreeInterpretation is a struct that represents how a given operator is interpreted within a B-tree operator family, containing the operator family ID, strategy number, and input data types.

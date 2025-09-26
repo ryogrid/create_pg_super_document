@@ -1,7 +1,7 @@
 # FreePageBtreeGetRecycled
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 880 - 899
+[src/backend/utils/mmgr/freepage.c:880-899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L880-L899)
 
 ## Overview
 Retrieves a recycled page from the B-tree recycle list for reuse as a new B-tree page, implementing efficient page recycling within the free page manager.

@@ -1,7 +1,7 @@
 # AlterPolicyStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2975 - 2983
+[src/include/nodes/parsenodes.h:2975-2983](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2975-L2983)
 
 ## Overview
 AlterPolicyStmt represents the parsed structure of an ALTER POLICY SQL statement, used to modify existing row-level security policies in PostgreSQL.

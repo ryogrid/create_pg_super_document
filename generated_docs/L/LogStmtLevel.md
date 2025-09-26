@@ -1,7 +1,7 @@
 # LogStmtLevel
 
 ## Location
-src/include/tcop/tcopprot.h: 41 - 45
+[src/include/tcop/tcopprot.h:41-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tcop/tcopprot.h#L41-L45)
 
 ## Overview
 LogStmtLevel is an enumeration type that defines the different levels of SQL statement logging in PostgreSQL, controlling which types of statements should be logged based on their classification.

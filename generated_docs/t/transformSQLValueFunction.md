@@ -1,7 +1,7 @@
 # transformSQLValueFunction
 
 ## Location
-src/backend/parser/parse_expr.c: 2302 - 2354
+[src/backend/parser/parse_expr.c:2302-2354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2302-L2354)
 
 ## Overview
 Transforms SQL value functions (like CURRENT_DATE, CURRENT_USER, etc.) by setting their appropriate result types and validating type modifiers where needed.

@@ -1,7 +1,7 @@
 # AlterTableUtilityContext
 
 ## Location
-src/include/tcop/utility.h: 30 - 37
+[src/include/tcop/utility.h:30-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tcop/utility.h#L30-L37)
 
 ## Overview
 AlterTableUtilityContext is a structure that carries essential context information when PostgreSQL recursively processes ALTER TABLE commands, providing access to the original command's execution environment and parameters.

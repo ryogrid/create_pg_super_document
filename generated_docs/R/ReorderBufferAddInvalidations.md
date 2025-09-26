@@ -1,7 +1,7 @@
 # ReorderBufferAddInvalidations
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3419 - 3459
+[src/backend/replication/logical/reorderbuffer.c:3419-3459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3419-L3459)
 
 ## Overview
 Accumulates invalidation messages from XLOG_XACT_INVALIDATIONS records for later execution, storing them both in the transaction buffer and as reorder buffer changes.

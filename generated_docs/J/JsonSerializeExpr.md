@@ -1,7 +1,7 @@
 # JsonSerializeExpr
 
 ## Location
-src/include/nodes/parsenodes.h: 1908 - 1914
+[src/include/nodes/parsenodes.h:1908-1914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1908-L1914)
 
 ## Overview
 JsonSerializeExpr represents the untransformed representation of the JSON_SERIALIZE() function call in PostgreSQL's SQL/JSON implementation, used to serialize JSON values to text format.

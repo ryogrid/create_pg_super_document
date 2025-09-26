@@ -1,7 +1,7 @@
 # table_tuple_update
 
 ## Location
-src/include/access/tableam.h: 1536 - 1580
+[src/include/access/tableam.h:1536-1580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1536-L1580)
 
 ## Overview
 Updates a single tuple in a table by replacing an existing tuple with new data, handling concurrent update conditions and maintaining MVCC consistency.

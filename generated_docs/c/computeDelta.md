@@ -1,7 +1,7 @@
 # computeDelta
 
 ## Location
-src/backend/access/transam/generic_xlog.c: 228 - 268
+[src/backend/access/transam/generic_xlog.c:228-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/generic_xlog.c#L228-L268)
 
 ## Overview
 Computes the XLOG delta record needed to transform a current page into a target page and stores it in the PageData structure's delta field.

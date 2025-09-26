@@ -1,7 +1,7 @@
 # CheckPointStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3914 - 3917
+[src/include/nodes/parsenodes.h:3914-3917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3914-L3917)
 
 ## Overview
 CheckPointStmt represents the parsed structure of a CHECKPOINT statement, which forces an immediate checkpoint operation in PostgreSQL.

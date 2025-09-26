@@ -1,7 +1,7 @@
 # ExecOpenScanRelation
 
 ## Location
-src/backend/executor/execUtils.c: 697 - 727
+[src/backend/executor/execUtils.c:697-727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L697-L727)
 
 ## Overview
 Opens a heap relation for scanning by a base-level scan plan node, with validation to ensure the relation is scannable.

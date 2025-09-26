@@ -1,7 +1,7 @@
 # pgstat_gc_entry_refs
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 696 - 736
+[src/backend/utils/activity/pgstat_shmem.c:696-736](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L696-L736)
 
 ## Overview
 A static function that performs garbage collection of statistics entry references by iterating through the local hash table and removing stale or dropped entries.

@@ -1,7 +1,7 @@
 # pg_find_encoding
 
 ## Location
-src/backend/utils/adt/encode.c: 603 - 612
+[src/backend/utils/adt/encode.c:603-612](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L603-L612)
 
 ## Overview
 Searches for and returns a pointer to a PostgreSQL encoding structure by name, used to look up encoding/decoding functions for different data formats.

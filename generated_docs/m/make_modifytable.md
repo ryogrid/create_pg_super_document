@@ -1,7 +1,7 @@
 # make_modifytable
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 7029 - 7233
+[src/backend/optimizer/plan/createplan.c:7029-7233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L7029-L7233)
 
 ## Overview
 Creates and initializes a ModifyTable plan node that handles data modification operations (INSERT, UPDATE, DELETE, MERGE) in PostgreSQL's execution engine.

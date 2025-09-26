@@ -1,7 +1,7 @@
 # list_nth_cell
 
 ## Location
-src/include/nodes/pg_list.h: 277 - 287
+[src/include/nodes/pg_list.h:277-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pg_list.h#L277-L287)
 
 ## Overview
 Returns the nth cell (zero-indexed) from a PostgreSQL list structure, with assertion checking to ensure valid access.

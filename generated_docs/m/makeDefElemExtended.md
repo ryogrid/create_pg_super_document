@@ -1,7 +1,7 @@
 # makeDefElemExtended
 
 ## Location
-src/backend/nodes/makefuncs.c: 629 - 649
+[src/backend/nodes/makefuncs.c:629-649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L629-L649)
 
 ## Overview
 Creates a DefElem node with full control over all fields, including namespace and action specifications for complex definition elements.

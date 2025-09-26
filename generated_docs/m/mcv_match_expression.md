@@ -1,7 +1,7 @@
 # mcv_match_expression
 
 ## Location
-src/backend/statistics/mcv.c: 1535 - 1598
+[src/backend/statistics/mcv.c:1535-1598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L1535-L1598)
 
 ## Overview
 Matches an attribute or expression to a dimension of the MCV (Most Common Values) statistic and returns the zero-based index of the matching statistics dimension.

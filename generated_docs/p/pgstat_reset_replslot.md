@@ -1,7 +1,7 @@
 # pgstat_reset_replslot
 
 ## Location
-src/backend/utils/activity/pgstat_replslot.c: 42 - 77
+[src/backend/utils/activity/pgstat_replslot.c:42-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_replslot.c#L42-L77)
 
 ## Overview
 Resets statistics counters for a single replication slot, specifically targeting logical replication slots as physical slots do not collect statistics.

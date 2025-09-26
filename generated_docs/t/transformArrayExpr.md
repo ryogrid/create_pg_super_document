@@ -1,7 +1,7 @@
 # transformArrayExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 2015 - 2175
+[src/backend/parser/parse_expr.c:2015-2175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2015-L2175)
 
 ## Overview
 Transforms an array expression from parse tree format (A_ArrayExpr) to executable format (ArrayExpr), handling type inference, element coercion, and multi-dimensional array detection.

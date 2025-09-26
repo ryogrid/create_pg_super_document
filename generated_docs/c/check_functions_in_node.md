@@ -1,7 +1,7 @@
 # check_functions_in_node
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 1900 - 2082
+[src/backend/nodes/nodeFuncs.c:1900-2082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L1900-L2082)
 
 ## Overview
 Applies a checker function to each function OID contained in a given expression node to determine if any contained functions meet specific criteria.

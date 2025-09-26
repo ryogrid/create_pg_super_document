@@ -1,7 +1,7 @@
 # PinLocalBuffer
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 655 - 680
+[src/backend/storage/buffer/localbuf.c:655-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L655-L680)
 
 ## Overview
 Pins a local buffer to prevent it from being evicted, incrementing its reference count and optionally adjusting its usage count.

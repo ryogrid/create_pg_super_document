@@ -1,7 +1,7 @@
 # WithClause
 
 ## Location
-src/include/nodes/parsenodes.h: 1592 - 1598
+[src/include/nodes/parsenodes.h:1592-1598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1592-L1598)
 
 ## Overview
 WithClause represents the parser's representation of WITH clauses (Common Table Expressions), containing a list of CTEs and metadata about whether the clause is recursive.

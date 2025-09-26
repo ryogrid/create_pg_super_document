@@ -1,7 +1,7 @@
 # slot_getsysattr
 
 ## Location
-src/include/executor/tuptable.h: 416 - 444
+[src/include/executor/tuptable.h:416-444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L416-L444)
 
 ## Overview
 An inline function that fetches system attributes (such as tableoid and ctid) from a TupleTableSlot, with built-in handling for common system attributes and delegation to slot-specific implementations.

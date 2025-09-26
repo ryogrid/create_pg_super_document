@@ -1,7 +1,7 @@
 # table_parallelscan_reinitialize
 
 ## Location
-src/include/access/tableam.h: 1175 - 1192
+[src/include/access/tableam.h:1175-1192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1175-L1192)
 
 ## Overview
 Restarts a parallel table scan by reinitializing the parallel scan descriptor, intended to be called by the leader process after all workers have finished.

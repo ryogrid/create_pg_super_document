@@ -1,7 +1,7 @@
 # pg_base64_decode
 
 ## Location
-src/backend/utils/adt/encode.c: 314 - 384
+[src/backend/utils/adt/encode.c:314-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L314-L384)
 
 ## Overview
 Decodes Base64-encoded text back into binary data with comprehensive validation and error handling.

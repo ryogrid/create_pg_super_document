@@ -1,7 +1,7 @@
 # ExecEndWindowAgg
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 2681 - 2707
+[src/backend/executor/nodeWindowAgg.c:2681-2707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L2681-L2707)
 
 ## Overview
 ExecEndWindowAgg is the cleanup function for the WindowAgg executor node that releases all allocated resources and terminates the execution state.

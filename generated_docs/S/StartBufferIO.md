@@ -1,7 +1,7 @@
 # StartBufferIO
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5532 - 5588
+[src/backend/storage/buffer/bufmgr.c:5532-5588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5532-L5588)
 
 ## Overview
 StartBufferIO initiates I/O operations on a buffer by setting the BM_IO_IN_PROGRESS flag, handling race conditions and ensuring only one process performs I/O on a buffer at a time.

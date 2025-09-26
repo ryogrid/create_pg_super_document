@@ -1,7 +1,7 @@
 # get_segment_by_index
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1757 - 1836
+[src/backend/utils/mmgr/dsa.c:1757-1836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1757-L1836)
 
 ## Overview
 Returns the segment map corresponding to a given segment index, lazily mapping the segment into the current process's address space if necessary.

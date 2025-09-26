@@ -1,7 +1,7 @@
 # WaitEventCustomEntryByInfo
 
 ## Location
-src/backend/utils/activity/wait_event.c: 71 - 75
+[src/backend/utils/activity/wait_event.c:71-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/wait_event.c#L71-L75)
 
 ## Overview
 A hash table entry structure used to look up custom wait event information by wait event ID, enabling efficient mapping from wait event identifiers to their associated names.

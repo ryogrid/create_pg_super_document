@@ -1,7 +1,7 @@
 # DestReceiver
 
 ## Location
-src/include/tcop/dest.h: 113 - 114
+[src/include/tcop/dest.h:113-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tcop/dest.h#L113-L114)
 
 ## Overview
 DestReceiver is a typedef for struct _DestReceiver that serves as the base type for destination-specific local state in PostgreSQL's tuple output system, providing function pointers that the executor must call to handle query results.

@@ -1,7 +1,7 @@
 # AggStatePerHashData
 
 ## Location
-src/include/executor/nodeAgg.h: 309 - 322
+[src/include/executor/nodeAgg.h:309-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/nodeAgg.h#L309-L322)
 
 ## Overview
 AggStatePerHashData represents per-hashtable state for hash-based aggregation, supporting both simple hashed aggregation and grouping sets with hashing by maintaining one instance per grouping set.

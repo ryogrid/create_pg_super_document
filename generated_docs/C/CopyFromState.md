@@ -1,7 +1,7 @@
 # CopyFromState
 
 ## Location
-src/include/commands/copy.h: 90 - 90
+[src/include/commands/copy.h:90-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/copy.h#L90-L90)
 
 ## Overview
 CopyFromState is a typedef for CopyFromStateData pointer, representing the comprehensive state structure used throughout PostgreSQL's COPY FROM operations for bulk data import.

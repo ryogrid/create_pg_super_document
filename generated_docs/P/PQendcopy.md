@@ -1,7 +1,7 @@
 # PQendcopy
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2949 - 2979
+[src/interfaces/libpq/fe-exec.c:2949-2979](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2949-L2979)
 
 ## Overview
 PQendcopy is a deprecated PostgreSQL libpq function that finalizes the COPY command protocol after completing the data transfer portion of a copy in/out operation.

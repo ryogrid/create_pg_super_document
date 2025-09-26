@@ -1,7 +1,7 @@
 # ENRMetadataGetTupDesc
 
 ## Location
-src/backend/utils/misc/queryenvironment.c: 125 - 144
+[src/backend/utils/misc/queryenvironment.c:125-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/queryenvironment.c#L125-L144)
 
 ## Overview
 Gets the TupleDesc for an Ephemeral Named Relation based on which field was filled in its metadata structure.

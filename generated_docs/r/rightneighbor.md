@@ -1,7 +1,7 @@
 # rightneighbor
 
 ## Location
-src/backend/storage/freespace/fsmpage.c: 37 - 62
+[src/backend/storage/freespace/fsmpage.c:37-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/fsmpage.c#L37-L62)
 
 ## Overview
 The rightneighbor function finds the right neighbor of a given node position in a binary tree structure used by the Free Space Map, with wrapping behavior within the same tree level.

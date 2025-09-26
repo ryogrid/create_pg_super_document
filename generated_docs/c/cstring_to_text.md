@@ -1,7 +1,7 @@
 # cstring_to_text
 
 ## Location
-src/backend/utils/adt/varlena.c: 184 - 195
+[src/backend/utils/adt/varlena.c:184-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L184-L195)
 
 ## Overview
 Creates a PostgreSQL  data type value from a null-terminated C string, providing a bridge between C string data and PostgreSQL's variable-length text type.

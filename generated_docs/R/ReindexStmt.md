@@ -1,7 +1,7 @@
 # ReindexStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3974 - 3982
+[src/include/nodes/parsenodes.h:3974-3982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3974-L3982)
 
 ## Overview
 ReindexStmt represents a REINDEX statement in PostgreSQL's parse tree, which is used to rebuild indexes to recover from index corruption or improve performance.

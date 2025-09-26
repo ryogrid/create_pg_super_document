@@ -1,7 +1,7 @@
 # TSVectorParseStateData
 
 ## Location
-src/backend/utils/adt/tsvector_parser.c: 37 - 56
+[src/backend/utils/adt/tsvector_parser.c:37-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_parser.c#L37-L56)
 
 ## Overview
 TSVectorParseStateData is a private state structure used by PostgreSQL's tsvector parser to maintain parsing context and configuration during text search vector parsing operations.

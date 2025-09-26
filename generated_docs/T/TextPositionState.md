@@ -1,7 +1,7 @@
 # TextPositionState
 
 ## Location
-src/backend/utils/adt/varlena.c: 78 - 96
+[src/backend/utils/adt/varlena.c:78-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L78-L96)
 
 ## Overview
 TextPositionState is a structure that maintains state information for efficient text pattern searching operations using the Boyer-Moore-Horspool algorithm, with support for multibyte character handling and position tracking.

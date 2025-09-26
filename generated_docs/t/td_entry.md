@@ -1,7 +1,7 @@
 # td_entry
 
 ## Location
-src/common/jsonapi.c: 176 - 177
+[src/common/jsonapi.c:176-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L176-L177)
 
 ## Overview
 A typedef for a structure that represents entries in the JSON parser's production table, connecting grammar productions with their director sets of terminal symbols.

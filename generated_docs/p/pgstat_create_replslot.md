@@ -1,7 +1,7 @@
 # pgstat_create_replslot
 
 ## Location
-src/backend/utils/activity/pgstat_replslot.c: 111 - 145
+[src/backend/utils/activity/pgstat_replslot.c:111-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_replslot.c#L111-L145)
 
 ## Overview
 Reports the creation of a replication slot by initializing its statistics entry in the shared statistics hash table.

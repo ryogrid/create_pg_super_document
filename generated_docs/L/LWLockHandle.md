@@ -1,7 +1,7 @@
 # LWLockHandle
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 202 - 206
+[src/backend/storage/lmgr/lwlock.c:202-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L202-L206)
 
 ## Overview
 LWLockHandle is a structure that represents a lightweight lock (LWLock) currently held by a process, storing both the lock reference and the mode in which it is held.

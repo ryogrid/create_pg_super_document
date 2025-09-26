@@ -1,7 +1,7 @@
 # FreePageBtreeConsolidate
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 695 - 773
+[src/backend/utils/mmgr/freepage.c:695-773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L695-L773)
 
 ## Overview
 Consolidates a B-tree page with its left or right sibling when the page is less than one-third full, helping to reclaim unused pages in the free page manager's internal B-tree structure.

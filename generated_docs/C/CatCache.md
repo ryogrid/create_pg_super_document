@@ -1,7 +1,7 @@
 # CatCache
 
 ## Location
-src/include/utils/catcache.h: 85 - 87
+[src/include/utils/catcache.h:85-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/catcache.h#L85-L87)
 
 ## Overview
 CatCache is a core data structure that represents an individual catalog cache in PostgreSQL, providing fast access to system catalog tuples by maintaining an in-memory hash table with LRU eviction and support for both positive and negative cache entries.

@@ -1,7 +1,7 @@
 # appendBinaryStringInfoNT
 
 ## Location
-src/common/stringinfo.c: 259 - 288
+[src/common/stringinfo.c:259-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L259-L288)
 
 ## Overview
 A specialized utility function that appends arbitrary binary data to a StringInfo buffer without ensuring null termination, designed for pure binary data operations.

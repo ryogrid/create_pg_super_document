@@ -1,7 +1,7 @@
 # murmurhash64
 
 ## Location
-src/include/common/hashfn.h: 106 - 119
+[src/include/common/hashfn.h:106-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn.h#L106-L119)
 
 ## Overview
 A 64-bit variant of the MurmurHash algorithm optimized for hashing 64-bit integer values, providing high-performance hash computation with good distribution properties.

@@ -1,7 +1,7 @@
 # LWLockConflictsWithVar
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1525 - 1585
+[src/backend/storage/lmgr/lwlock.c:1525-1585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1525-L1585)
 
 ## Overview
 LWLockConflictsWithVar determines whether a lock needs to wait for a variable value to change and provides atomic checks for both lock state and variable value.

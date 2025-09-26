@@ -1,7 +1,7 @@
 # pgstat_count_heap_insert
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 360 - 374
+[src/backend/utils/activity/pgstat_relation.c:360-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L360-L374)
 
 ## Overview
 Counts tuple insertions by incrementing the transaction-level tuple insertion counter for statistical tracking.

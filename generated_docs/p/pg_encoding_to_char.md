@@ -1,7 +1,7 @@
 # pg_encoding_to_char
 
 ## Location
-src/common/encnames.c: 587 - 597
+[src/common/encnames.c:587-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/encnames.c#L587-L597)
 
 ## Overview
 Returns the canonical name of a PostgreSQL encoding given its encoding ID, or an empty string if the encoding ID is invalid.

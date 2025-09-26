@@ -1,7 +1,7 @@
 # LogicalTapeSetBlocks
 
 ## Location
-src/backend/utils/sort/logtape.c: 1181 - 1184
+[src/backend/utils/sort/logtape.c:1181-1184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L1181-L1184)
 
 ## Overview
 Returns the total disk space currently used by a LogicalTapeSet, measured in blocks, excluding any open write buffers.

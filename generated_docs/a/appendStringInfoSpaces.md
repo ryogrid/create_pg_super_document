@@ -1,7 +1,7 @@
 # appendStringInfoSpaces
 
 ## Location
-src/common/stringinfo.c: 212 - 232
+[src/common/stringinfo.c:212-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L212-L232)
 
 ## Overview
 A utility function that appends a specified number of space characters to a StringInfo buffer, commonly used for formatting and indentation purposes.

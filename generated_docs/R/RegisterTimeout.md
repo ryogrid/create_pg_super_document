@@ -1,7 +1,7 @@
 # RegisterTimeout
 
 ## Location
-src/backend/utils/misc/timeout.c: 505 - 539
+[src/backend/utils/misc/timeout.c:505-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L505-L539)
 
 ## Overview
 Registers a timeout reason with its associated callback handler function, supporting both predefined and user-defined timeout types.

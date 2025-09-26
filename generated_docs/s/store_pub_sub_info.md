@@ -1,7 +1,7 @@
 # store_pub_sub_info
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 433 - 504
+[src/bin/pg_basebackup/pg_createsubscriber.c:433-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L433-L504)
 
 ## Overview
 Initializes and stores publication and subscription information for each database, creating LogicalRepInfo structures that contain connection details and object names for both publisher and subscriber sides.

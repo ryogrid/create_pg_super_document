@@ -1,7 +1,7 @@
 # TimestampTzGetDatum
 
 ## Location
-src/include/utils/timestamp.h: 52 - 57
+[src/include/utils/timestamp.h:52-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/timestamp.h#L52-L57)
 
 ## Overview
 Converts a PostgreSQL TimestampTz (timestamp with timezone) value to a Datum by leveraging int64 conversion routines, since TimestampTz is internally represented as an int64 value.

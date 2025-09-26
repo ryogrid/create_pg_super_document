@@ -1,7 +1,7 @@
 # GroupingFunc
 
 ## Location
-src/include/nodes/primnodes.h: 537 - 555
+[src/include/nodes/primnodes.h:537-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L537-L555)
 
 ## Overview
 The GroupingFunc structure represents a GROUPING(...) expression in PostgreSQL's query processing system, used to determine which columns are included in the current grouping set when using GROUP BY with multiple grouping sets.

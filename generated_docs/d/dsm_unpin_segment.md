@@ -1,7 +1,7 @@
 # dsm_unpin_segment
 
 ## Location
-src/backend/storage/ipc/dsm.c: 988 - 1075
+[src/backend/storage/ipc/dsm.c:988-1075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L988-L1075)
 
 ## Overview
 Reverses the effect of dsm_pin_segment by allowing a previously pinned dynamic shared memory segment to be destroyed when no longer referenced, potentially triggering immediate cleanup if this was the last reference.

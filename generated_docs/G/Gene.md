@@ -1,7 +1,7 @@
 # Gene
 
 ## Location
-src/include/optimizer/geqo_gene.h: 30 - 31
+[src/include/optimizer/geqo_gene.h:30-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/geqo_gene.h#L30-L31)
 
 ## Overview
 A typedef representing a single gene in PostgreSQL's Genetic Query Optimizer (GEQO), which is an integer value used to represent a relation identifier in genetic algorithm chromosomes.

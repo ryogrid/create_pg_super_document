@@ -1,7 +1,7 @@
 # TLHistoryFilePath
 
 ## Location
-src/include/access/xlog_internal.h: 232 - 237
+[src/include/access/xlog_internal.h:232-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L232-L237)
 
 ## Overview
 TLHistoryFilePath is an inline function that constructs the complete file system path for a timeline history file based on a given timeline ID, combining the WAL directory path with the timeline history filename.

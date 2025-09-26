@@ -1,7 +1,7 @@
 # generic_restriction_selectivity
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 915 - 1041
+[src/backend/utils/adt/selfuncs.c:915-1041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L915-L1041)
 
 ## Overview
 General-purpose selectivity estimation function for operators without specialized knowledge, using standard MCV and histogram statistics to provide reasonable selectivity estimates.

@@ -1,7 +1,7 @@
 # pg_char_to_encoding
 
 ## Location
-src/common/encnames.c: 549 - 586
+[src/common/encnames.c:549-586](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/encnames.c#L549-L586)
 
 ## Overview
 Searches for an encoding by its name and returns the corresponding encoding ID, or -1 if the encoding is not recognized.

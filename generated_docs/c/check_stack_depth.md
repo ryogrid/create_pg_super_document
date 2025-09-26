@@ -1,7 +1,7 @@
 # check_stack_depth
 
 ## Location
-src/backend/tcop/postgres.c: 3558 - 3571
+[src/backend/tcop/postgres.c:3558-3571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3558-L3571)
 
 ## Overview
 check_stack_depth monitors recursion depth and throws an error when the stack depth limit is exceeded, preventing stack overflow crashes in PostgreSQL.

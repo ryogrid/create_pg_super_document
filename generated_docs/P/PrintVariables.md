@@ -1,7 +1,7 @@
 # PrintVariables
 
 ## Location
-src/bin/psql/variables.c: 186 - 210
+[src/bin/psql/variables.c:186-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L186-L210)
 
 ## Overview
 Prints the values of all variables stored in a VariableSpace to standard output.

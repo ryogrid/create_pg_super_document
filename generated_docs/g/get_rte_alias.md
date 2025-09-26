@@ -1,7 +1,7 @@
 # get_rte_alias
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12325 - 12395
+[src/backend/utils/adt/ruleutils.c:12325-12395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12325-L12395)
 
 ## Overview
 Generates the alias portion of a range table entry in SQL text, determining when an alias is necessary and formatting it appropriately.

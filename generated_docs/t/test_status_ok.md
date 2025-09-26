@@ -1,7 +1,7 @@
 # test_status_ok
 
 ## Location
-src/test/regress/pg_regress.c: 302 - 309
+[src/test/regress/pg_regress.c:302-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L302-L309)
 
 ## Overview
 Records a successful test result and prints formatted TAP output for passed tests in the PostgreSQL regression testing framework.

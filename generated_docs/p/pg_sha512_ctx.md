@@ -1,7 +1,7 @@
 # pg_sha512_ctx
 
 ## Location
-src/common/sha2_int.h: 61 - 66
+[src/common/sha2_int.h:61-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2_int.h#L61-L66)
 
 ## Overview
 The pg_sha512_ctx structure represents the context for SHA-512 hash computation in PostgreSQL, maintaining the internal state required for incremental hashing operations with 64-bit arithmetic.

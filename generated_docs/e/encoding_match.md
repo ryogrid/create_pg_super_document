@@ -1,7 +1,7 @@
 # encoding_match
 
 ## Location
-src/port/chklocale.c: 39 - 201
+[src/port/chklocale.c:39-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/chklocale.c#L39-L201)
 
 ## Overview
 The  structure defines a mapping between PostgreSQL internal encoding identifiers and their corresponding system-specific encoding names, enabling conversion between different character encoding representations across various platforms.

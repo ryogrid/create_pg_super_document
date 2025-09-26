@@ -1,7 +1,7 @@
 # pg_tzenum
 
 ## Location
-src/timezone/pgtz.c: 385 - 396
+[src/timezone/pgtz.c:385-396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.c#L385-L396)
 
 ## Overview
 The  struct is an internal data structure used for enumerating available timezone names by recursively traversing timezone directory structures in PostgreSQL's timezone system.

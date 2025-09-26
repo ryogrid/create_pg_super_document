@@ -1,7 +1,7 @@
 # SHA256_Transform
 
 ## Location
-src/common/sha2.c: 315 - 386
+[src/common/sha2.c:315-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L315-L386)
 
 ## Overview
 The core SHA-256 transformation function that processes a single 512-bit block of data through 64 rounds of cryptographic operations to update the hash state.

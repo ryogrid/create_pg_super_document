@@ -1,7 +1,7 @@
 # FreePageBtreeRecycle
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 934 - 954
+[src/backend/utils/mmgr/freepage.c:934-954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L934-L954)
 
 ## Overview
 Adds a single page to the btree recycle list for later reuse, maintaining a doubly-linked list of recycled btree pages.

@@ -1,7 +1,7 @@
 # ResourceReleasePhase
 
 ## Location
-src/include/utils/resowner.h: 57 - 58
+[src/include/utils/resowner.h:57-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/resowner.h#L57-L58)
 
 ## Overview
 ResourceReleasePhase is an enumeration that defines the three distinct phases during which resources are released in PostgreSQL resource management system.

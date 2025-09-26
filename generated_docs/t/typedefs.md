@@ -1,7 +1,7 @@
 # typedefs
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 157 - 177
+[src/interfaces/ecpg/preproc/type.h:157-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L157-L177)
 
 ## Overview
 The `typedefs` struct represents type definitions in PostgreSQL's ECPG preprocessor, managing user-defined types and their associated metadata including structure members and scope information.

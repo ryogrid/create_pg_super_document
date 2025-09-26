@@ -1,7 +1,7 @@
 # TransactionIdGetStatus
 
 ## Location
-src/backend/access/transam/clog.c: 735 - 767
+[src/backend/access/transam/clog.c:735-767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L735-L767)
 
 ## Overview
 A low-level function that queries the commit status of a transaction from the CLOG and returns the associated LSN for flush guarantees.

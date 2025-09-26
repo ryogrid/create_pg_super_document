@@ -1,7 +1,7 @@
 # lwlock_stats
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 247 - 255
+[src/backend/storage/lmgr/lwlock.c:247-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L247-L255)
 
 ## Overview
 lwlock_stats is a structure that stores comprehensive performance statistics for individual lightweight locks, including acquisition counts, blocking events, and timing metrics.

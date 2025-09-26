@@ -1,7 +1,7 @@
 # NotifyStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3622 - 3627
+[src/include/nodes/parsenodes.h:3622-3627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3622-L3627)
 
 ## Overview
 NotifyStmt represents the parsed structure of a NOTIFY SQL statement used for asynchronous inter-session communication in PostgreSQL.

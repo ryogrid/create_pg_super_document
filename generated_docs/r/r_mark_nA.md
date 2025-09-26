@@ -1,7 +1,7 @@
 # r_mark_nA
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 715 - 723
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:715-723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L715-L723)
 
 ## Overview
 Marks and processes Turkish suffix patterns ending with 'nA' (where A represents vowel harmony variations between 'a' and 'e') in the Snowball stemming algorithm for Turkish text processing.

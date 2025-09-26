@@ -1,7 +1,7 @@
 # build_joinrel_joinlist
 
 ## Location
-src/backend/optimizer/util/relnode.c: 1334 - 1351
+[src/backend/optimizer/util/relnode.c:1334-1351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L1334-L1351)
 
 ## Overview
 Builds the joininfo list for a new join relation by collecting joininfo clauses from both outer and inner input relations.

@@ -1,7 +1,7 @@
 # FullTransactionIdFromAllowableAt
 
 ## Location
-src/include/access/transam.h: 381 - 418
+[src/include/access/transam.h:381-418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/transam.h#L381-L418)
 
 ## Overview
 Computes a full 64-bit transaction ID from a 32-bit transaction ID, assuming the 32-bit ID was valid within a specific transaction ID range at a given point in time.

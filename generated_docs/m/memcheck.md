@@ -1,7 +1,7 @@
 # memcheck
 
 ## Location
-src/timezone/zic.c: 426 - 433
+[src/timezone/zic.c:426-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L426-L433)
 
 ## Overview
 A static utility function that validates the result of memory allocation operations and handles allocation failures by terminating the program with an appropriate error message.

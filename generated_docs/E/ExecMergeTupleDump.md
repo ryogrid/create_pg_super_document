@@ -1,7 +1,7 @@
 # ExecMergeTupleDump
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 582 - 598
+[src/backend/executor/nodeMergejoin.c:582-598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L582-L598)
 
 ## Overview
 A debugging utility function that prints detailed information about all tuples currently held by a merge join state, including outer, inner, and marked tuples.

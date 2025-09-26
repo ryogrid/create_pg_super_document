@@ -1,7 +1,7 @@
 # pro
 
 ## Location
-src/tools/pg_bsd_indent/args.c: 86 - 175
+[src/tools/pg_bsd_indent/args.c:86-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/args.c#L86-L175)
 
 ## Overview
 The usage: pro [-h] [--debug] [--version] <command> ...

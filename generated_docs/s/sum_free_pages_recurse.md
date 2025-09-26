@@ -1,7 +1,7 @@
 # sum_free_pages_recurse
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 252 - 273
+[src/backend/utils/mmgr/freepage.c:252-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L252-L273)
 
 ## Overview
 A recursive helper function that traverses the free page B-tree structure and counts all pages stored within the tree nodes.

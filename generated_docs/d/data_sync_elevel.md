@@ -1,7 +1,7 @@
 # data_sync_elevel
 
 ## Location
-src/backend/storage/file/fd.c: 3933 - 3938
+[src/backend/storage/file/fd.c:3933-3938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3933-L3938)
 
 ## Overview
 A critical error level filtering function that determines whether fsync failures should cause immediate PANIC or be reported at the original error level based on the data_sync_retry configuration.

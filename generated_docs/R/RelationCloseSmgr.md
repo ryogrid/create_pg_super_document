@@ -1,7 +1,7 @@
 # RelationCloseSmgr
 
 ## Location
-src/include/utils/rel.h: 582 - 600
+[src/include/utils/rel.h:582-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rel.h#L582-L600)
 
 ## Overview
 Closes the storage manager (smgr) level access for a relation, cleaning up resources and resetting the smgr handle to NULL.

@@ -1,7 +1,7 @@
 # numeric_abbrev_convert_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 2281 - 2336
+[src/backend/utils/adt/numeric.c:2281-2336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2281-L2336)
 
 ## Overview
 Converts a NumericVar into an abbreviated representation for optimized sorting operations, encoding the most significant parts of the numeric value into a 64-bit integer.

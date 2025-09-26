@@ -1,7 +1,7 @@
 # ExecHashRetrieveInstrumentation
 
 ## Location
-src/backend/executor/nodeHash.c: 2826 - 2856
+[src/backend/executor/nodeHash.c:2826-2856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2826-L2856)
 
 ## Overview
 ExecHashRetrieveInstrumentation copies hash table instrumentation data from shared memory to backend-local memory before DSM detachment, preserving worker statistics for EXPLAIN output.

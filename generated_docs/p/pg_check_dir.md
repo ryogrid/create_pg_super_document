@@ -1,7 +1,7 @@
 # pg_check_dir
 
 ## Location
-src/port/pgcheckdir.c: 33 - 92
+[src/port/pgcheckdir.c:33-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pgcheckdir.c#L33-L92)
 
 ## Overview
 Tests whether a directory exists and determines its state (nonexistent, empty, contains only dot files, contains a mount point, or not empty).

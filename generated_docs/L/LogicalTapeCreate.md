@@ -1,7 +1,7 @@
 # LogicalTapeCreate
 
 ## Location
-src/backend/utils/sort/logtape.c: 680 - 695
+[src/backend/utils/sort/logtape.c:680-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L680-L695)
 
 ## Overview
 Creates a new logical tape within an existing tape set, initialized in write state, with restrictions preventing tape creation in parallel sort leader processes.

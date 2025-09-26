@@ -1,7 +1,7 @@
 # SpGistScanOpaqueData
 
 ## Location
-src/include/access/spgist_private.h: 189 - 243
+[src/include/access/spgist_private.h:189-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L189-L243)
 
 ## Overview
 SpGistScanOpaqueData is the comprehensive private state structure for SP-GiST index scans, containing all necessary information to manage scan operations, queue processing, and result handling.

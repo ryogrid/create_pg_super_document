@@ -1,7 +1,7 @@
 # table_rescan_tidrange
 
 ## Location
-src/include/access/tableam.h: 1106 - 1121
+[src/include/access/tableam.h:1106-1121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1106-L1121)
 
 ## Overview
 Resets the scan position and sets new minimum and maximum TID range boundaries for an existing TID range scan.

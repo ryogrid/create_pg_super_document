@@ -1,7 +1,7 @@
 # PGRUsage
 
 ## Location
-src/include/utils/pg_rusage.h: 22 - 26
+[src/include/utils/pg_rusage.h:22-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pg_rusage.h#L22-L26)
 
 ## Overview
 PGRUsage is a structure that captures resource usage snapshots for performance measurement and monitoring purposes in PostgreSQL. It serves as the state container for the pg_rusage_init/pg_rusage_show utility functions that provide CPU and elapsed time measurements.

@@ -1,7 +1,7 @@
 # parse_compress_specification
 
 ## Location
-src/common/compression.c: 107 - 274
+[src/common/compression.c:107-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/compression.c#L107-L274)
 
 ## Overview
 A comprehensive parser that processes compression specification strings into structured  objects, supporting algorithm-specific options and parameters.

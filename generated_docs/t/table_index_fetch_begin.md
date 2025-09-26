@@ -1,7 +1,7 @@
 # table_index_fetch_begin
 
 ## Location
-src/include/access/tableam.h: 1193 - 1202
+[src/include/access/tableam.h:1193-1202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1193-L1202)
 
 ## Overview
 Prepares to fetch tuples from a relation as needed for index scan operations, returning an IndexFetchTableData structure for subsequent tuple fetching.

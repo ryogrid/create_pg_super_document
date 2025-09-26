@@ -1,7 +1,7 @@
 # dlsym
 
 ## Location
-src/port/win32dlopen.c: 61 - 75
+[src/port/win32dlopen.c:61-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32dlopen.c#L61-L75)
 
 ## Overview
 Retrieves the address of a named symbol (function or variable) from a dynamically loaded library on Windows, providing POSIX-compatible symbol lookup functionality for PostgreSQL.

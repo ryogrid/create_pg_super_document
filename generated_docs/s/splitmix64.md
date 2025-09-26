@@ -1,7 +1,7 @@
 # splitmix64
 
 ## Location
-src/common/pg_prng.c: 72 - 88
+[src/common/pg_prng.c:72-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L72-L88)
 
 ## Overview
 The `splitmix64` function implements the SplitMix64 pseudo-random number generator algorithm, used specifically to initialize the xoroshiro128** state vector from a 64-bit seed value.

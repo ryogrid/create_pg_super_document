@@ -1,7 +1,7 @@
 # read_stream_reset
 
 ## Location
-src/backend/storage/aio/read_stream.c: 797 - 822
+[src/backend/storage/aio/read_stream.c:797-822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/aio/read_stream.c#L797-L822)
 
 ## Overview
 Resets a read stream by releasing all queued buffers and reinitializing the stream state, allowing it to be reused for reading different blocks.

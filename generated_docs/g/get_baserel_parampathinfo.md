@@ -1,7 +1,7 @@
 # get_baserel_parampathinfo
 
 ## Location
-src/backend/optimizer/util/relnode.c: 1557 - 1670
+[src/backend/optimizer/util/relnode.c:1557-1670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L1557-L1670)
 
 ## Overview
 Get or construct the ParamPathInfo for a parameterized path for a base relation, centralizing rowcount estimation and determining which movable join clauses the path will evaluate.

@@ -1,7 +1,7 @@
 # LogicalTapeSetClose
 
 ## Location
-src/backend/utils/sort/logtape.c: 667 - 679
+[src/backend/utils/sort/logtape.c:667-679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L667-L679)
 
 ## Overview
 Closes a logical tape set and releases all associated resources, including the underlying BufFile and free block tracking memory, but does not close individual tapes within the set.

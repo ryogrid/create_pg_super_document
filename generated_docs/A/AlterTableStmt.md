@@ -1,7 +1,7 @@
 # AlterTableStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2339 - 2346
+[src/include/nodes/parsenodes.h:2339-2346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2339-L2346)
 
 ## Overview
 AlterTableStmt represents an ALTER TABLE statement that can contain multiple subcommands to modify table structure, constraints, indexes, and other properties.

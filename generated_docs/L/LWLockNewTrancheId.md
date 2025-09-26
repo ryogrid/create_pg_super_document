@@ -1,7 +1,7 @@
 # LWLockNewTrancheId
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 606 - 629
+[src/backend/storage/lmgr/lwlock.c:606-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L606-L629)
 
 ## Overview
 Allocates a new unique tranche ID for dynamically created LWLock tranches, using a thread-safe counter stored in shared memory.

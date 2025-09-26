@@ -1,7 +1,7 @@
 # appendStringInfoRegexpSubstr
 
 ## Location
-src/backend/utils/adt/varlena.c: 4106 - 4205
+[src/backend/utils/adt/varlena.c:4106-4205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4106-L4205)
 
 ## Overview
 A static helper function that processes replacement text containing regular expression back references and escape sequences, appending the processed result to a StringInfo buffer.

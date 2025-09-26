@@ -1,7 +1,7 @@
 # DropOwnedStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4075 - 4080
+[src/include/nodes/parsenodes.h:4075-4080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4075-L4080)
 
 ## Overview
 DropOwnedStmt represents the parsed representation of a DROP OWNED statement, which is used to drop all database objects owned by specified roles.

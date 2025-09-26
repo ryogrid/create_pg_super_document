@@ -1,7 +1,7 @@
 # is_ip_address
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 554 - 573
+[src/interfaces/libpq/fe-secure-openssl.c:554-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L554-L573)
 
 ## Overview
 A utility function that determines whether a given hostname string represents a valid IP address (either IPv4 or IPv6).

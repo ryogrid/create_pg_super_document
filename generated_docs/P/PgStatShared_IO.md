@@ -1,7 +1,7 @@
 # PgStatShared_IO
 
 ## Location
-src/include/utils/pgstat_internal.h: 352 - 360
+[src/include/utils/pgstat_internal.h:352-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L352-L360)
 
 ## Overview
 PgStatShared_IO is a shared memory structure that maintains I/O statistics for different backend types, using per-backend-type locks to provide fine-grained concurrency control for I/O performance monitoring across the PostgreSQL system.

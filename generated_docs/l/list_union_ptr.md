@@ -1,7 +1,7 @@
 # list_union_ptr
 
 ## Location
-src/backend/nodes/list.c: 1090 - 1112
+[src/backend/nodes/list.c:1090-1112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1090-L1112)
 
 ## Overview
 Creates a new list containing the union of two PostgreSQL pointer lists, using simple pointer comparison to determine duplicates rather than deep equality checking.

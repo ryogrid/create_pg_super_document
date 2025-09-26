@@ -1,7 +1,7 @@
 # VariableHasHook
 
 ## Location
-src/bin/psql/variables.c: 367 - 391
+[src/bin/psql/variables.c:367-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L367-L391)
 
 ## Overview
 Checks whether a named variable has substitute and/or assign hook functions attached to it.

@@ -1,7 +1,7 @@
 # AbortBufferIO
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5626 - 5667
+[src/backend/storage/buffer/bufmgr.c:5626-5667](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5626-L5667)
 
 ## Overview
 AbortBufferIO cleans up active buffer I/O operations after an error occurs, setting appropriate error flags and reporting multiple failure warnings.

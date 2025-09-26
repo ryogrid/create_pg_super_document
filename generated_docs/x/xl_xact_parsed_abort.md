@@ -1,7 +1,7 @@
 # xl_xact_parsed_abort
 
 ## Location
-src/include/access/xact.h: 404 - 426
+[src/include/access/xact.h:404-426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L404-L426)
 
 ## Overview
 A structure representing a parsed transaction abort record from PostgreSQL's Write-Ahead Log (WAL), containing all the detailed information extracted from a raw xl_xact_abort record for easier access during WAL replay and analysis.

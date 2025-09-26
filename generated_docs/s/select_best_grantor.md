@@ -1,7 +1,7 @@
 # select_best_grantor
 
 ## Location
-src/backend/utils/adt/acl.c: 5361 - 5436
+[src/backend/utils/adt/acl.c:5361-5436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5361-L5436)
 
 ## Overview
 Selects the effective grantor ID for a GRANT or REVOKE operation by finding the most suitable role with appropriate grant options when the requesting role doesn't own the object.

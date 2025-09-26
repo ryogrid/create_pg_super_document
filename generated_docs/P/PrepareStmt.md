@@ -1,7 +1,7 @@
 # PrepareStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4030 - 4036
+[src/include/nodes/parsenodes.h:4030-4036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4030-L4036)
 
 ## Overview
 PrepareStmt represents the parsed form of a PREPARE SQL statement, which creates a prepared statement that can be executed multiple times with different parameter values.

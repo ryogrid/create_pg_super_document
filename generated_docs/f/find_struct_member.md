@@ -1,7 +1,7 @@
 # find_struct_member
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 25 - 125
+[src/interfaces/ecpg/preproc/variable.c:25-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L25-L125)
 
 ## Overview
 Recursively traverses a struct member hierarchy to find and return a specific member variable based on a dot-notation path, handling nested structs, unions, and arrays.

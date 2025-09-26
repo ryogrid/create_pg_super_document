@@ -1,7 +1,7 @@
 # AddStem
 
 ## Location
-src/backend/tsearch/spell.c: 2361 - 2373
+[src/backend/tsearch/spell.c:2361-2373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L2361-L2373)
 
 ## Overview
 Adds a word stem to a SplitVar structure, automatically expanding the storage capacity when needed during PostgreSQL's text search spell checking operations.

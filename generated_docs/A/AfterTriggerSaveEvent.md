@@ -1,7 +1,7 @@
 # AfterTriggerSaveEvent
 
 ## Location
-src/backend/commands/trigger.c: 6148 - 6544
+[src/backend/commands/trigger.c:6148-6544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L6148-L6544)
 
 ## Overview
 Queues after-trigger events for execution at transaction commit, handling both row-level and statement-level triggers while managing transition table capture and cross-partition update scenarios.

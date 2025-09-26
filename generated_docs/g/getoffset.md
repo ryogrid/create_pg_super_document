@@ -1,7 +1,7 @@
 # getoffset
 
 ## Location
-src/timezone/localtime.c: 751 - 777
+[src/timezone/localtime.c:751-777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L751-L777)
 
 ## Overview
 Extracts a timezone offset in [+-]hh[:mm[:ss]] format from a timezone string, handling both positive and negative offsets.

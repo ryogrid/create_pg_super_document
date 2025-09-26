@@ -1,7 +1,7 @@
 # list_delete_first
 
 ## Location
-src/backend/nodes/list.c: 943 - 956
+[src/backend/nodes/list.c:943-956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L943-L956)
 
 ## Overview
 Removes and deallocates the first element from a PostgreSQL List, returning the modified list structure.

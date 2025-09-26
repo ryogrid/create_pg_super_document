@@ -1,7 +1,7 @@
 # ExpireOldKnownAssignedTransactionIds
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4531 - 4562
+[src/backend/storage/ipc/procarray.c:4531-4562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4531-L4562)
 
 ## Overview
 Removes KnownAssignedXids entries that precede a given transaction ID and conditionally resets the lastOverflowedXid tracking variable during recovery processing.

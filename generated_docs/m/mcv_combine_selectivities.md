@@ -1,7 +1,7 @@
 # mcv_combine_selectivities
 
 ## Location
-src/backend/statistics/mcv.c: 2006 - 2047
+[src/backend/statistics/mcv.c:2006-2047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L2006-L2047)
 
 ## Overview
 Combines per-column and multi-column MCV selectivity estimates to produce a unified selectivity estimate that accounts for both MCV-covered and non-MCV-covered portions of the data.

@@ -1,7 +1,7 @@
 # DatumGetUInt16
 
 ## Location
-src/include/postgres.h: 182 - 191
+[src/include/postgres.h:182-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L182-L191)
 
 ## Overview
 DatumGetUInt16 is an inline function that extracts a 16-bit unsigned integer value from a PostgreSQL Datum type.

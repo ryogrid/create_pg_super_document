@@ -1,7 +1,7 @@
 # update_spins_per_delay
 
 ## Location
-src/backend/storage/lmgr/s_lock.c: 224 - 246
+[src/backend/storage/lmgr/s_lock.c:224-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/s_lock.c#L224-L246)
 
 ## Overview
 Updates the shared system-wide estimate of spins_per_delay using an exponential moving average when a backend process exits.

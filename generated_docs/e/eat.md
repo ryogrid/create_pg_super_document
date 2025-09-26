@@ -1,7 +1,7 @@
 # eat
 
 ## Location
-src/timezone/zic.c: 482 - 487
+[src/timezone/zic.c:482-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L482-L487)
 
 ## Overview
 A simplified wrapper function for setting single-file error context in the PostgreSQL timezone compiler.

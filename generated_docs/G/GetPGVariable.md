@@ -1,7 +1,7 @@
 # GetPGVariable
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 382 - 393
+[src/backend/utils/misc/guc_funcs.c:382-393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L382-L393)
 
 ## Overview
 GetPGVariable is the main entry point function for the SHOW command, determining whether to display all GUC (Grand Unified Configuration) variables or a specific configuration option based on the provided variable name.

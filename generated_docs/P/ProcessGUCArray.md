@@ -1,7 +1,7 @@
 # ProcessGUCArray
 
 ## Location
-src/backend/utils/misc/guc.c: 6464 - 6495
+[src/backend/utils/misc/guc.c:6464-6495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6464-L6495)
 
 ## Overview
 ProcessGUCArray applies GUC settings from a PostgreSQL array to the current session, handling configuration arrays from sources like pg_db_role_setting.setconfig and pg_proc.proconfig.

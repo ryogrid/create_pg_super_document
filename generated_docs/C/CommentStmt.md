@@ -1,7 +1,7 @@
 # CommentStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3252 - 3258
+[src/include/nodes/parsenodes.h:3252-3258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3252-L3258)
 
 ## Overview
 CommentStmt represents the parsed form of SQL COMMENT ON statements, which are used to add or remove comments on database objects in PostgreSQL.

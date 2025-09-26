@@ -1,7 +1,7 @@
 # processlacon
 
 ## Location
-src/backend/regex/regcomp.c: 2029 - 2094
+[src/backend/regex/regcomp.c:2029-2094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2029-L2094)
 
 ## Overview
 Generates the NFA representation of a LACON (lookaround constraint) by optimizing simple cases or creating general LACON arcs for complex lookahead and lookbehind assertions.

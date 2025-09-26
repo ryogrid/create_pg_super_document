@@ -1,7 +1,7 @@
 # ConfigOptionIsVisible
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 581 - 593
+[src/backend/utils/misc/guc_funcs.c:581-593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L581-L593)
 
 ## Overview
 ConfigOptionIsVisible determines whether a GUC (Grand Unified Configuration) parameter should be visible to the current user based on security permissions and parameter flags.

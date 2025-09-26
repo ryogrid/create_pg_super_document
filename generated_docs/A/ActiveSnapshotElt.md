@@ -1,7 +1,7 @@
 # ActiveSnapshotElt
 
 ## Location
-src/backend/utils/time/snapmgr.c: 112 - 117
+[src/backend/utils/time/snapmgr.c:112-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L112-L117)
 
 ## Overview
 A data structure representing elements in PostgreSQL's active snapshot stack, managing the hierarchy of transaction snapshots and their nesting levels.

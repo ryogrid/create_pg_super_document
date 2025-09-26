@@ -1,7 +1,7 @@
 # pg_ascii_verifystr
 
 ## Location
-src/common/wchar.c: 1069 - 1078
+[src/common/wchar.c:1069-1078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1069-L1078)
 
 ## Overview
 Validates an entire ASCII-encoded string by checking for null bytes and returning the position of the first null byte or the full string length if no nulls are found.

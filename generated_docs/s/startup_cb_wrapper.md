@@ -1,7 +1,7 @@
 # startup_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 793 - 820
+[src/backend/replication/logical/logical.c:793-820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L793-L820)
 
 ## Overview
 startup_cb_wrapper is a static wrapper function that safely calls the output plugin's startup callback with proper error handling and context management.

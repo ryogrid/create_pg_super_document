@@ -1,7 +1,7 @@
 # logicalrep_write_commit_prepared
 
 ## Location
-src/backend/replication/logical/proto.c: 248 - 277
+[src/backend/replication/logical/proto.c:248-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L248-L277)
 
 ## Overview
 Writes a COMMIT PREPARED message to the logical replication output stream for a two-phase commit transaction that is being committed.

@@ -1,7 +1,7 @@
 # TS_execute_ternary
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 1871 - 1882
+[src/backend/utils/adt/tsvector_op.c:1871-1882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L1871-L1882)
 
 ## Overview
 TS_execute_ternary evaluates tsquery boolean expressions and returns the full ternary result, preserving TS_MAYBE values that indicate uncertain matches rather than converting them to boolean true.

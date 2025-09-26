@@ -1,7 +1,7 @@
 # ComboCidKeyData
 
 ## Location
-src/backend/utils/time/combocid.c: 60 - 61
+[src/backend/utils/time/combocid.c:60-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/combocid.c#L60-L61)
 
 ## Overview
 ComboCidKeyData is a structure that serves as a key in a hash table used to map (cmin, cmax) command ID pairs to combo command IDs in PostgreSQL's combo command ID system.

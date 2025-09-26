@@ -1,7 +1,7 @@
 # config_enum_lookup_by_name
 
 ## Location
-src/backend/utils/misc/guc.c: 3048 - 3073
+[src/backend/utils/misc/guc.c:3048-3073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L3048-L3073)
 
 ## Overview
 Performs case-insensitive lookup of an enum option by name and returns its corresponding integer value.

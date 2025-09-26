@@ -1,7 +1,7 @@
 # postmaster_death_handler
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 101 - 114
+[src/backend/storage/ipc/pmsignal.c:101-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L101-L114)
 
 ## Overview
 A signal handler that sets a global flag to indicate that the postmaster process may have died, enabling backend processes to detect postmaster termination.

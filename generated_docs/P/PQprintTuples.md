@@ -1,7 +1,7 @@
 # PQprintTuples
 
 ## Location
-src/interfaces/libpq/fe-print.c: 671 - 754
+[src/interfaces/libpq/fe-print.c:671-754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-print.c#L671-L754)
 
 ## Overview
 A public libpq function that prints PostgreSQL query result tuples to a file stream in a simple tabular format with optional column headers and borders.

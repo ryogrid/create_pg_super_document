@@ -1,7 +1,7 @@
 # numeric_floor
 
 ## Location
-src/backend/utils/adt/numeric.c: 1673 - 1700
+[src/backend/utils/adt/numeric.c:1673-1700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1673-L1700)
 
 ## Overview
 Implements the floor function for PostgreSQL numeric data type, returning the largest integer less than or equal to the input numeric value.

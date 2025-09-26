@@ -1,7 +1,7 @@
 # BlockRefTableKey
 
 ## Location
-src/common/blkreftable.c: 47 - 51
+[src/common/blkreftable.c:47-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L47-L51)
 
 ## Overview
 BlockRefTableKey is a structure that serves as a unique identifier for tracking the status of each relation fork individually within PostgreSQL's block reference table system.

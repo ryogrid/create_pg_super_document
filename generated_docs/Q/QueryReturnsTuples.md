@@ -1,7 +1,7 @@
 # QueryReturnsTuples
 
 ## Location
-src/backend/tcop/utility.c: 2135 - 2176
+[src/backend/tcop/utility.c:2135-2176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L2135-L2176)
 
 ## Overview
 QueryReturnsTuples determines whether a parsed query will produce tuple output, serving as the primary interface for checking if any type of SQL command returns tabular results.

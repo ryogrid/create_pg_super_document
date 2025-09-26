@@ -1,7 +1,7 @@
 # xl_xact_stats_item
 
 ## Location
-src/include/access/xact.h: 282 - 287
+[src/include/access/xact.h:282-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L282-L287)
 
 ## Overview
 A structure representing a transactionally dropped statistics entry in PostgreSQL's Write-Ahead Logging (WAL), designed to track statistics objects that are dropped during transaction processing.

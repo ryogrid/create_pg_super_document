@@ -1,7 +1,7 @@
 # isCurrentGroup
 
 ## Location
-src/backend/executor/nodeIncrementalSort.c: 212 - 285
+[src/backend/executor/nodeIncrementalSort.c:212-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIncrementalSort.c#L212-L285)
 
 ## Overview
 A static function that determines whether a given tuple belongs to the current sort group by comparing the pre-sorted column values with a pivot tuple.

@@ -1,7 +1,7 @@
 # config_generic
 
 ## Location
-src/include/utils/guc_tables.h: 153 - 186
+[src/include/utils/guc_tables.h:153-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc_tables.h#L153-L186)
 
 ## Overview
 The base structure containing common fields for all types of GUC (Grand Unified Configuration) variables in PostgreSQL's configuration system.

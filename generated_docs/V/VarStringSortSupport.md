@@ -1,7 +1,7 @@
 # VarStringSortSupport
 
 ## Location
-src/backend/utils/adt/varlena.c: 97 - 107
+[src/backend/utils/adt/varlena.c:97-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L97-L107)
 
 ## Overview
 VarStringSortSupport is a structure that provides sorting support state for variable-length string types, including memory management for string buffers, collation handling, and abbreviated key optimization for improved sort performance.

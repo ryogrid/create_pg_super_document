@@ -1,7 +1,7 @@
 # FreePageBtreeSearch
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 1064 - 1139
+[src/backend/utils/mmgr/freepage.c:1064-1139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L1064-L1139)
 
 ## Overview
 Searches the btree for an entry with the given first page and initializes the search result structure with position information for exact matches or insertion points.

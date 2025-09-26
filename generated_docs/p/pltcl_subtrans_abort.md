@@ -1,7 +1,7 @@
 # pltcl_subtrans_abort
 
 ## Location
-src/pl/tcl/pltcl.c: 2296 - 2324
+[src/pl/tcl/pltcl.c:2296-2324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2296-L2324)
 
 ## Overview
 Aborts a subtransaction and propagates the error information to the Tcl interpreter, handling both the database rollback and the Tcl error reporting mechanisms.

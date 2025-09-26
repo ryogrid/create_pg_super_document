@@ -1,7 +1,7 @@
 # roles_list_append
 
 ## Location
-src/backend/utils/adt/acl.c: 4959 - 5018
+[src/backend/utils/adt/acl.c:4959-5018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4959-L5018)
 
 ## Overview
 A helper function that provides an optimized implementation of list_append_unique_oid() using a Bloom filter to efficiently manage role membership lists during privilege checking.

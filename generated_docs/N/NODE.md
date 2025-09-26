@@ -1,7 +1,7 @@
 # NODE
 
 ## Location
-src/backend/utils/adt/tsquery_cleanup.c: 22 - 27
+[src/backend/utils/adt/tsquery_cleanup.c:22-27](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_cleanup.c#L22-L27)
 
 ## Overview
 NODE is a binary tree structure used internally in PostgreSQL's text search (tsquery) cleanup functionality to represent and manipulate query trees during stopword removal and NOT operator cleanup operations.

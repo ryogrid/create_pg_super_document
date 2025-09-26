@@ -1,7 +1,7 @@
 # mdzeroextend
 
 ## Location
-src/backend/storage/smgr/md.c: 525 - 636
+[src/backend/storage/smgr/md.c:525-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L525-L636)
 
 ## Overview
 Extends a relation by adding multiple zeroed blocks efficiently, using either fallocate() or zero-writing techniques depending on the number of blocks being added.

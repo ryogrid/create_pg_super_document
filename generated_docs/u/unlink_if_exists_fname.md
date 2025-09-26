@@ -1,7 +1,7 @@
 # unlink_if_exists_fname
 
 ## Location
-src/backend/storage/file/fd.c: 3769 - 3793
+[src/backend/storage/file/fd.c:3769-3793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3769-L3793)
 
 ## Overview
 A callback function that removes files and directories, with different handling strategies for regular files versus directories and built-in tolerance for already-deleted items.

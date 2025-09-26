@@ -1,7 +1,7 @@
 # explicit_bzero
 
 ## Location
-src/port/explicit_bzero.c: 52 - 57
+[src/port/explicit_bzero.c:52-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/explicit_bzero.c#L52-L57)
 
 ## Overview
 A secure memory clearing function that ensures sensitive data is properly zeroed from memory buffers, preventing it from being recovered or optimized away by compilers.

@@ -1,7 +1,7 @@
 # _bt_uppershutdown
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 1063 - 1134
+[src/backend/access/nbtree/nbtsort.c:1063-1134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L1063-L1134)
 
 ## Overview
 A function that completes the B-tree index construction by finalizing all levels, establishing the root page, and creating the metapage to make the index valid.

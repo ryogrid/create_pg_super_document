@@ -1,7 +1,7 @@
 # xl_relmap_update
 
 ## Location
-src/include/utils/relmapper.h: 27 - 33
+[src/include/utils/relmapper.h:27-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/relmapper.h#L27-L33)
 
 ## Overview
 A WAL (Write-Ahead Log) record structure that represents updates to PostgreSQL's relation mapping files, which maintain the mapping between relation OIDs and their physical file names.

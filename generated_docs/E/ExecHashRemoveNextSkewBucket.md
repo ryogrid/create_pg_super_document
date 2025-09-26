@@ -1,7 +1,7 @@
 # ExecHashRemoveNextSkewBucket
 
 ## Location
-src/backend/executor/nodeHash.c: 2627 - 2740
+[src/backend/executor/nodeHash.c:2627-2740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2627-L2740)
 
 ## Overview
 Removes the least valuable skew bucket by relocating its tuples to the main hash table or batch files, and manages the cleanup of skew optimization structures.

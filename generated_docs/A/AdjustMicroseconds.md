@@ -1,7 +1,7 @@
 # AdjustMicroseconds
 
 ## Location
-src/backend/utils/adt/datetime.c: 618 - 632
+[src/backend/utils/adt/datetime.c:618-632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L618-L632)
 
 ## Overview
 A static helper function that adds both integer and fractional microsecond values (scaled by a factor) to the microseconds field of a pg_itm_in structure with overflow checking.

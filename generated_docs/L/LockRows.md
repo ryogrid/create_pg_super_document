@@ -1,7 +1,7 @@
 # LockRows
 
 ## Location
-src/include/nodes/plannodes.h: 1256 - 1261
+[src/include/nodes/plannodes.h:1256-1261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1256-L1261)
 
 ## Overview
 LockRows is a plan node structure that represents row-locking operations in PostgreSQL's execution plan tree, implementing FOR UPDATE/SHARE locking semantics during query execution.

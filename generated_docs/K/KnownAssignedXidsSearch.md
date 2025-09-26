@@ -1,7 +1,7 @@
 # KnownAssignedXidsSearch
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4885 - 4972
+[src/backend/storage/ipc/procarray.c:4885-4972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4885-L4972)
 
 ## Overview
 Searches the KnownAssignedXids array for a specific transaction ID and optionally removes it, using binary search algorithm for efficient lookup.

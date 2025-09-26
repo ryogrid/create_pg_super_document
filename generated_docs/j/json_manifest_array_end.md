@@ -1,7 +1,7 @@
 # json_manifest_array_end
 
 ## Location
-src/common/parse_manifest.c: 378 - 400
+[src/common/parse_manifest.c:378-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L378-L400)
 
 ## Overview
 Handles the end of JSON arrays during PostgreSQL backup manifest parsing, transitioning the state back to expect top-level fields.

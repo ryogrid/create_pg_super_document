@@ -1,7 +1,7 @@
 # logicalrep_read_insert
 
 ## Location
-src/backend/replication/logical/proto.c: 436 - 457
+[src/backend/replication/logical/proto.c:436-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L436-L457)
 
 ## Overview
 Reads an INSERT message from a logical replication stream and populates a tuple data structure with the new tuple information.

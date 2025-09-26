@@ -1,7 +1,7 @@
 # StatEntry
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 45 - 54
+[src/backend/utils/adt/tsvector_op.c:45-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L45-L54)
 
 ## Overview
 StatEntry is a structure used in PostgreSQL's text search functionality to maintain statistical information about lexemes in TSVector objects, organized as nodes in a binary search tree for efficient lexeme frequency tracking and retrieval.

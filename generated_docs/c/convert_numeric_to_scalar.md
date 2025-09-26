@@ -1,7 +1,7 @@
 # convert_numeric_to_scalar
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 4465 - 4526
+[src/backend/utils/adt/selfuncs.c:4465-4526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L4465-L4526)
 
 ## Overview
 Converts numeric PostgreSQL data types to double-precision floating-point values for use in selectivity estimation calculations, handling all built-in numeric types including integers, floats, numerics, and OID types.

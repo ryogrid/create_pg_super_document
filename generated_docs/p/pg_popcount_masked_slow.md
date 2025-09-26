@@ -1,7 +1,7 @@
 # pg_popcount_masked_slow
 
 ## Location
-src/port/pg_bitutils.c: 444 - 498
+[src/port/pg_bitutils.c:444-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L444-L498)
 
 ## Overview
 A fallback implementation for counting the number of 1 bits in a buffer after applying a mask to each byte, processing data in optimal word-sized chunks when possible.

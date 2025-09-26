@@ -1,7 +1,7 @@
 # subbuild_joinrel_joinlist
 
 ## Location
-src/backend/optimizer/util/relnode.c: 1418 - 1469
+[src/backend/optimizer/util/relnode.c:1418-1469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L1418-L1469)
 
 ## Overview
 Processes a joininfo list to extract clauses that remain as join clauses at the current join level, filtering out those that become restriction clauses.

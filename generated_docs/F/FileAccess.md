@@ -1,7 +1,7 @@
 # FileAccess
 
 ## Location
-src/backend/storage/file/fd.c: 1489 - 1524
+[src/backend/storage/file/fd.c:1489-1524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1489-L1524)
 
 ## Overview
 FileAccess is a static function that ensures a virtual file descriptor is open and accessible, managing the LRU (Least Recently Used) cache to optimize file descriptor usage.

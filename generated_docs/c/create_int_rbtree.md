@@ -1,7 +1,7 @@
 # create_int_rbtree
 
 ## Location
-src/test/modules/test_rbtree/test_rbtree.c: 80 - 93
+[src/test/modules/test_rbtree/test_rbtree.c:80-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_rbtree/test_rbtree.c#L80-L93)
 
 ## Overview
 A static factory function that creates and initializes a Red-Black Tree specifically designed for storing integer keys using specialized callback functions.

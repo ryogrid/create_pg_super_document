@@ -1,7 +1,7 @@
 # md5_calc
 
 ## Location
-src/common/md5.c: 154 - 309
+[src/common/md5.c:154-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5.c#L154-L309)
 
 ## Overview
 Performs the core MD5 algorithm computation on a single 64-byte block of data, implementing the four rounds of MD5 transformation operations.

@@ -1,7 +1,7 @@
 # SupportRequestRows
 
 ## Location
-src/include/nodes/supportnodes.h: 158 - 169
+[src/include/nodes/supportnodes.h:158-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/supportnodes.h#L158-L169)
 
 ## Overview
 SupportRequestRows is a structure that enables support functions to provide custom output rowcount estimates for set-returning functions, helping PostgreSQL's query planner make more accurate decisions about query execution strategies.

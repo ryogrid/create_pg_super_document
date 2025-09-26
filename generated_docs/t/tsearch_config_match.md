@@ -1,7 +1,7 @@
 # tsearch_config_match
 
 ## Location
-src/bin/initdb/initdb.c: 860 - 932
+[src/bin/initdb/initdb.c:860-932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L860-L932)
 
 ## Overview
 A lookup table structure used by initdb to map language names derived from LC_CTYPE locale settings to corresponding PostgreSQL text search configuration names during database initialization.

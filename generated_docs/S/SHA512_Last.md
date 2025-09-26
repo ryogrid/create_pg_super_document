@@ -1,7 +1,7 @@
 # SHA512_Last
 
 ## Location
-src/common/sha2.c: 855 - 904
+[src/common/sha2.c:855-904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L855-L904)
 
 ## Overview
 Completes SHA-512 hash computation by applying message padding and processing the final block(s) according to the SHA-512 specification.

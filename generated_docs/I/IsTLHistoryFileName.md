@@ -1,7 +1,7 @@
 # IsTLHistoryFileName
 
 ## Location
-src/include/access/xlog_internal.h: 224 - 231
+[src/include/access/xlog_internal.h:224-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L224-L231)
 
 ## Overview
 IsTLHistoryFileName is an inline function that determines whether a given filename conforms to PostgreSQL's timeline history file naming convention by validating the format and structure.

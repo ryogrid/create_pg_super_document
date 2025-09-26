@@ -1,7 +1,7 @@
 # AlterTableSpaceOptionsStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2796 - 2802
+[src/include/nodes/parsenodes.h:2796-2802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2796-L2802)
 
 ## Overview
 AlterTableSpaceOptionsStmt represents the parsed structure for an ALTER TABLESPACE SET/RESET options statement, used to modify storage options for an existing tablespace.

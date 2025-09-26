@@ -1,7 +1,7 @@
 # BlockRefTableSerializedEntry
 
 ## Location
-src/common/blkreftable.c: 155 - 161
+[src/common/blkreftable.c:155-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L155-L161)
 
 ## Overview
 BlockRefTableSerializedEntry defines the on-disk serialization format for block reference table entries, providing a compact representation for persistent storage and transmission.

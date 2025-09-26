@@ -1,7 +1,7 @@
 # RememberManyTestResources
 
 ## Location
-src/test/modules/test_resowner/test_resowner_many.c: 117 - 144
+[src/test/modules/test_resowner/test_resowner_many.c:117-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_many.c#L117-L144)
 
 ## Overview
 Allocates and registers multiple test resources with the ResourceOwner system, distributing them across different resource kinds in round-robin fashion.

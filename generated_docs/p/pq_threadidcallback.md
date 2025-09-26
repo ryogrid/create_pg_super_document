@@ -1,7 +1,7 @@
 # pq_threadidcallback
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 725 - 737
+[src/interfaces/libpq/fe-secure-openssl.c:725-737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L725-L737)
 
 ## Overview
 A callback function that provides thread identification for OpenSSL's internal locking mechanism in older OpenSSL versions (pre-1.1.0).

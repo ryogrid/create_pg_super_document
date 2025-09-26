@@ -1,7 +1,7 @@
 # ShowGUCConfigOption
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 428 - 455
+[src/backend/utils/misc/guc_funcs.c:428-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L428-L455)
 
 ## Overview
 ShowGUCConfigOption displays the value of a single GUC (Grand Unified Configuration) parameter by creating a result tuple and sending it to the specified destination receiver.

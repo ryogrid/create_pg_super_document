@@ -1,7 +1,7 @@
 # pg_wc_toupper
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 609 - 650
+[src/backend/regex/regc_pg_locale.c:609-650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L609-L650)
 
 ## Overview
 Converts a wide character to its uppercase equivalent according to the current regex locale strategy.

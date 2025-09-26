@@ -1,7 +1,7 @@
 # PgStatShared_Common
 
 ## Location
-src/include/utils/pgstat_internal.h: 120 - 125
+[src/include/utils/pgstat_internal.h:120-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L120-L125)
 
 ## Overview
 PgStatShared_Common is the common header structure that must appear as the first element in all PostgreSQL shared statistics data structures.

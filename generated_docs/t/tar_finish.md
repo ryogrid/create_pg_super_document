@@ -1,7 +1,7 @@
 # tar_finish
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 1227 - 1335
+[src/bin/pg_basebackup/walmethods.c:1227-1335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L1227-L1335)
 
 ## Overview
 Finalizes a TAR-based WAL method by closing any open files, writing TAR termination blocks, and ensuring all data is synchronized to persistent storage.

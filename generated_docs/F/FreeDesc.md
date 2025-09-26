@@ -1,7 +1,7 @@
 # FreeDesc
 
 ## Location
-src/backend/storage/file/fd.c: 2739 - 2777
+[src/backend/storage/file/fd.c:2739-2777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2739-L2777)
 
 ## Overview
 FreeDesc is an internal static function that closes and deallocates file descriptors managed by PostgreSQL's file descriptor allocation system.

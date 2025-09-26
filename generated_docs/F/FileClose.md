@@ -1,7 +1,7 @@
 # FileClose
 
 ## Location
-src/backend/storage/file/fd.c: 1975 - 2074
+[src/backend/storage/file/fd.c:1975-2074](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1975-L2074)
 
 ## Overview
 FileClose closes a virtual file descriptor and performs cleanup operations including temporary file deletion, resource owner deregistration, and VFD slot recycling.

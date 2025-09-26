@@ -1,7 +1,7 @@
 # fsm_set_and_search
 
 ## Location
-src/backend/storage/freespace/freespace.c: 646 - 677
+[src/backend/storage/freespace/freespace.c:646-677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L646-L677)
 
 ## Overview
 Sets a free space value for a specific slot in an FSM page and optionally searches for a slot with at least the specified minimum free space, combining both operations under a single buffer lock.

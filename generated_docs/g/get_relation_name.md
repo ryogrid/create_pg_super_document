@@ -1,7 +1,7 @@
 # get_relation_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12803 - 12822
+[src/backend/utils/adt/ruleutils.c:12803-12822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12803-L12822)
 
 ## Overview
 A utility function that retrieves the unqualified name of a relation by its OID, with strict error handling that throws an error if the relation is not found.

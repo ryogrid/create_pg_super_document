@@ -1,7 +1,7 @@
 # irbt_alloc
 
 ## Location
-src/test/modules/test_rbtree/test_rbtree.c: 64 - 70
+[src/test/modules/test_rbtree/test_rbtree.c:64-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_rbtree/test_rbtree.c#L64-L70)
 
 ## Overview
 A static node allocator function used in PostgreSQL's Red-Black Tree test module to allocate memory for new IntRBTreeNode instances.

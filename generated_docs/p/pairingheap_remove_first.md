@@ -1,7 +1,7 @@
 # pairingheap_remove_first
 
 ## Location
-src/backend/lib/pairingheap.c: 145 - 169
+[src/backend/lib/pairingheap.c:145-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/pairingheap.c#L145-L169)
 
 ## Overview
 Removes the root (first, topmost) node from a pairing heap and returns a pointer to it after rebalancing the heap.

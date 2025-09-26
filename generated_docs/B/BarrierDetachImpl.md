@@ -1,7 +1,7 @@
 # BarrierDetachImpl
 
 ## Location
-src/backend/storage/ipc/barrier.c: 300 - 333
+[src/backend/storage/ipc/barrier.c:300-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/barrier.c#L300-L333)
 
 ## Overview
 BarrierDetachImpl is the core implementation function for detaching from a barrier, providing both simple detachment and arrive-and-detach functionality with proper synchronization and phase advancement logic.

@@ -1,7 +1,7 @@
 # BufFileOpenFileSet
 
 ## Location
-src/backend/storage/file/buffile.c: 291 - 363
+[src/backend/storage/file/buffile.c:291-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L291-L363)
 
 ## Overview
 Opens an existing BufFile that was previously created with BufFileCreateFileSet in the same FileSet, discovering all segments and preparing it for read-only or read-write access.

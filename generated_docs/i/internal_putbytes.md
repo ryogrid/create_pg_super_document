@@ -1,7 +1,7 @@
 # internal_putbytes
 
 ## Location
-src/backend/libpq/pqcomm.c: 1276 - 1323
+[src/backend/libpq/pqcomm.c:1276-1323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1276-L1323)
 
 ## Overview
 A static inline function that efficiently buffers and sends data bytes to a PostgreSQL client connection with smart buffering logic and automatic flushing.

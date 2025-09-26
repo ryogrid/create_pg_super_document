@@ -1,7 +1,7 @@
 # SortPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2199 - 2203
+[src/include/nodes/pathnodes.h:2199-2203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2199-L2203)
 
 ## Overview
 SortPath represents an explicit sort operation in PostgreSQL's query planner, used when data needs to be ordered according to specific sort keys.

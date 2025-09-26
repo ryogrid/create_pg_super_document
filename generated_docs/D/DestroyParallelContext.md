@@ -1,7 +1,7 @@
 # DestroyParallelContext
 
 ## Location
-src/backend/access/transam/parallel.c: 946 - 1019
+[src/backend/access/transam/parallel.c:946-1019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L946-L1019)
 
 ## Overview
 Destroys a parallel context by terminating remaining workers, cleaning up shared memory, and freeing all associated resources.

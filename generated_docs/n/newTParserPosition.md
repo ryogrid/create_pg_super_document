@@ -1,7 +1,7 @@
 # newTParserPosition
 
 ## Location
-src/backend/tsearch/wparser_def.c: 272 - 288
+[src/backend/tsearch/wparser_def.c:272-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L272-L288)
 
 ## Overview
 Creates and initializes a new TParserPosition structure for tracking parser state in PostgreSQL's text search word parser.

@@ -1,7 +1,7 @@
 # pgstat_acquire_entry_ref
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 342 - 361
+[src/backend/utils/activity/pgstat_shmem.c:342-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L342-L361)
 
 ## Overview
 Helper function that safely acquires a reference to a shared memory statistics entry by incrementing its reference count, releasing locks, and setting up the local reference structure.

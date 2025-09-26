@@ -1,7 +1,7 @@
 # get_appendrel_parampathinfo
 
 ## Location
-src/backend/optimizer/util/relnode.c: 1868 - 1900
+[src/backend/optimizer/util/relnode.c:1868-1900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L1868-L1900)
 
 ## Overview
 Get the ParamPathInfo for a parameterized path for an append relation, creating a minimal structure that flags the need for parameters without rowcount estimation or clause handling.

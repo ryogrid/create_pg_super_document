@@ -1,7 +1,7 @@
 # xl_seq_rec
 
 ## Location
-src/include/commands/sequence.h: 48 - 52
+[src/include/commands/sequence.h:48-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/sequence.h#L48-L52)
 
 ## Overview
 xl_seq_rec is a Write-Ahead Logging (WAL) record structure that stores information needed to replay sequence operations during crash recovery.

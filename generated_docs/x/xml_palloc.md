@@ -1,7 +1,7 @@
 # xml_palloc
 
 ## Location
-src/backend/utils/adt/xml.c: 1962 - 1968
+[src/backend/utils/adt/xml.c:1962-1968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1962-L1968)
 
 ## Overview
 A memory allocation wrapper function that allocates memory within the special LibxmlContext memory context for use by libxml operations.

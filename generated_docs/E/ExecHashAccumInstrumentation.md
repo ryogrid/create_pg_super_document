@@ -1,7 +1,7 @@
 # ExecHashAccumInstrumentation
 
 ## Location
-src/backend/executor/nodeHash.c: 2857 - 2875
+[src/backend/executor/nodeHash.c:2857-2875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2857-L2875)
 
 ## Overview
 ExecHashAccumInstrumentation accumulates performance statistics from hash table instances by taking maximum values across successive hash table operations within a single plan node.

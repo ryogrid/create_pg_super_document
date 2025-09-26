@@ -1,7 +1,7 @@
 # AttStatsSlot
 
 ## Location
-src/include/utils/lsyscache.h: 46 - 62
+[src/include/utils/lsyscache.h:46-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/lsyscache.h#L46-L62)
 
 ## Overview
 AttStatsSlot is a result struct used to extract and manage statistical information from PostgreSQL's pg_statistic system catalog, encapsulating both metadata and data arrays for query optimization.

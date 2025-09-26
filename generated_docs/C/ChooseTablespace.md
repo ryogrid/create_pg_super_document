@@ -1,7 +1,7 @@
 # ChooseTablespace
 
 ## Location
-src/backend/storage/file/fileset.c: 186 - 196
+[src/backend/storage/file/fileset.c:186-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fileset.c#L186-L196)
 
 ## Overview
 The ChooseTablespace function determines which tablespace a given temporary file should belong to by using hash-based distribution across available tablespaces.

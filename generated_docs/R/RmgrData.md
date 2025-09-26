@@ -1,7 +1,7 @@
 # RmgrData
 
 ## Location
-src/include/access/xlog_internal.h: 349 - 360
+[src/include/access/xlog_internal.h:349-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L349-L360)
 
 ## Overview
 RmgrData is a method table structure that defines the interface for resource managers in PostgreSQL's WAL (Write-Ahead Log) system, providing function pointers for WAL record processing, description, and management operations.

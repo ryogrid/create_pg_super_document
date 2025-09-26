@@ -1,7 +1,7 @@
 # SerialPagePrecedesLogically
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 731 - 746
+[src/backend/storage/lmgr/predicate.c:731-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L731-L746)
 
 ## Overview
 Determines whether one serial page number logically precedes another for truncation purposes in PostgreSQL's serializable isolation implementation.

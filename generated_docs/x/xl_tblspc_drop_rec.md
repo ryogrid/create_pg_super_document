@@ -1,7 +1,7 @@
 # xl_tblspc_drop_rec
 
 ## Location
-src/include/commands/tablespace.h: 34 - 37
+[src/include/commands/tablespace.h:34-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/tablespace.h#L34-L37)
 
 ## Overview
 A structure representing the WAL (Write-Ahead Log) record for tablespace drop operations, used to log the removal of a tablespace to ensure recoverability and consistency.

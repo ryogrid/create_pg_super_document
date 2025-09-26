@@ -1,7 +1,7 @@
 # ForgetManyTestResources
 
 ## Location
-src/test/modules/test_resowner/test_resowner_many.c: 145 - 184
+[src/test/modules/test_resowner/test_resowner_many.c:145-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_many.c#L145-L184)
 
 ## Overview
 Unregisters and deallocates multiple test resources from the ResourceOwner system, removing them in round-robin fashion across different resource kinds.

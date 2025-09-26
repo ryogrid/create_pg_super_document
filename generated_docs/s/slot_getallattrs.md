@@ -1,7 +1,7 @@
 # slot_getallattrs
 
 ## Location
-src/include/executor/tuptable.h: 368 - 380
+[src/include/executor/tuptable.h:368-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L368-L380)
 
 ## Overview
 A convenience inline function that forces all attributes of a TupleTableSlot to be materialized, making them directly accessible via the slot's Datum/isnull arrays.

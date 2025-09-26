@@ -1,7 +1,7 @@
 # PLAssignStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2224 - 2233
+[src/include/nodes/parsenodes.h:2224-2233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2224-L2233)
 
 ## Overview
 PLAssignStmt represents an assignment statement in PL/pgSQL, which is transformed into a SELECT query with UPDATE-like target semantics.

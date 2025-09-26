@@ -1,7 +1,7 @@
 # pgstat_report_xact_timestamp
 
 ## Location
-src/backend/utils/activity/backend_status.c: 682 - 708
+[src/backend/utils/activity/backend_status.c:682-708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L682-L708)
 
 ## Overview
 Reports the current transaction start timestamp to the backend status subsystem for activity monitoring and statistics collection.

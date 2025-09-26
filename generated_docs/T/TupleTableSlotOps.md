@@ -1,7 +1,7 @@
 # TupleTableSlotOps
 
 ## Location
-src/include/executor/tuptable.h: 111 - 113
+[src/include/executor/tuptable.h:111-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L111-L113)
 
 ## Overview
 TupleTableSlotOps is a function pointer structure that defines the virtual method table (vtable) for different TupleTableSlot implementations, providing polymorphic behavior for slot operations.

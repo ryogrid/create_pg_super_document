@@ -1,7 +1,7 @@
 # DCHCacheEntry
 
 ## Location
-src/backend/utils/adt/formatting.c: 375 - 383
+[src/backend/utils/adt/formatting.c:375-383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L375-L383)
 
 ## Overview
 A cache entry structure for storing parsed date/time format templates to avoid repeated parsing of frequently used format strings in PostgreSQL's formatting functions.

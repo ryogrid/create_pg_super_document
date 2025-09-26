@@ -1,7 +1,7 @@
 # pg_sha1_ctx
 
 ## Location
-src/common/sha1_int.h: 74 - 81
+[src/common/sha1_int.h:74-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha1_int.h#L74-L81)
 
 ## Overview
 The  structure represents the context/state for SHA-1 hash computation in PostgreSQL, maintaining intermediate hash values, message counters, and buffer data throughout the hashing process.

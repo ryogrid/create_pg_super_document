@@ -1,7 +1,7 @@
 # get_exec_path
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 341 - 376
+[src/bin/pg_basebackup/pg_createsubscriber.c:341-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L341-L376)
 
 ## Overview
 Verifies that a PostgreSQL binary is available in the same directory as pg_createsubscriber and ensures it has the same version, returning the absolute path of the program.

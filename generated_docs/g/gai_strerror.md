@@ -1,7 +1,7 @@
 # gai_strerror
 
 ## Location
-src/port/win32gai_strerror.c: 22 - 45
+[src/port/win32gai_strerror.c:22-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32gai_strerror.c#L22-L45)
 
 ## Overview
 A Windows-specific thread-safe implementation of `gai_strerror()` that converts getaddrinfo() error codes to human-readable error messages.

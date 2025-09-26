@@ -1,7 +1,7 @@
 # descriptor_item
 
 ## Location
-src/interfaces/ecpg/ecpglib/ecpglib_extern.h: 124 - 137
+[src/interfaces/ecpg/ecpglib/ecpglib_extern.h:124-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/ecpglib_extern.h#L124-L137)
 
 ## Overview
 The `descriptor_item` struct represents individual items (columns or parameters) within an SQL descriptor, storing detailed metadata about each data element in ECPG operations.

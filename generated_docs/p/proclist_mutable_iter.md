@@ -1,7 +1,7 @@
 # proclist_mutable_iter
 
 ## Location
-src/include/storage/proclist_types.h: 47 - 51
+[src/include/storage/proclist_types.h:47-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/proclist_types.h#L47-L51)
 
 ## Overview
 A structure representing an iterator for traversing doubly-linked process lists that allows safe modifications (such as deletions) during iteration.

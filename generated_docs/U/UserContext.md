@@ -1,7 +1,7 @@
 # UserContext
 
 ## Location
-src/include/utils/usercontext.h: 15 - 20
+[src/include/utils/usercontext.h:15-20](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/usercontext.h#L15-L20)
 
 ## Overview
 UserContext is a structure that holds the original user context (user ID, security context, and GUC nest level) when temporarily switching to run code as a different database user, allowing for safe restoration of the original state.

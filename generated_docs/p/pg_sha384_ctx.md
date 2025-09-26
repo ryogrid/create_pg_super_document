@@ -1,7 +1,7 @@
 # pg_sha384_ctx
 
 ## Location
-src/common/sha2_int.h: 68 - 91
+[src/common/sha2_int.h:68-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2_int.h#L68-L91)
 
 ## Overview
 The pg_sha384_ctx is a type alias for pg_sha512_ctx, representing the context for SHA-384 hash computation in PostgreSQL, which reuses SHA-512's internal structure.

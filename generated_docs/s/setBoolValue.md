@@ -1,7 +1,7 @@
 # setBoolValue
 
 ## Location
-src/bin/pgbench/pgbench.c: 2102 - 2109
+[src/bin/pgbench/pgbench.c:2102-2109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2102-L2109)
 
 ## Overview
 A utility function in pgbench that initializes a PgBenchValue to represent a boolean value with the specified truth value.

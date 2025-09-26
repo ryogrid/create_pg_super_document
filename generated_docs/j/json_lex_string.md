@@ -1,7 +1,7 @@
 # json_lex_string
 
 ## Location
-src/common/jsonapi.c: 1672 - 1678
+[src/common/jsonapi.c:1672-1678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L1672-L1678)
 
 ## Overview
 A static inline function that lexically analyzes and decodes JSON string tokens from the input stream.

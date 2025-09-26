@@ -1,7 +1,7 @@
 # pgfnames_cleanup
 
 ## Location
-src/common/pgfnames.c: 86 - 94
+[src/common/pgfnames.c:86-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pgfnames.c#L86-L94)
 
 ## Overview
 Deallocates memory used by the filename array returned from pgfnames function.

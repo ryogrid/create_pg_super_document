@@ -1,7 +1,7 @@
 # transformAExprNullIf
 
 ## Location
-src/backend/parser/parse_expr.c: 1083 - 1125
+[src/backend/parser/parse_expr.c:1083-1125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L1083-L1125)
 
 ## Overview
 Transforms A_Expr nodes representing NULLIF operations into NullIfExpr nodes, performing type validation and ensuring the comparison operator returns boolean results.

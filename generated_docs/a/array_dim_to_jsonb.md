@@ -1,7 +1,7 @@
 # array_dim_to_jsonb
 
 ## Location
-src/backend/utils/adt/jsonb.c: 862 - 893
+[src/backend/utils/adt/jsonb.c:862-893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L862-L893)
 
 ## Overview
 Recursively processes a single dimension of a PostgreSQL multi-dimensional array, converting it to JSONB array format.

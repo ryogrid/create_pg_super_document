@@ -1,7 +1,7 @@
 # DecodeTimeCommon
 
 ## Location
-src/backend/utils/adt/datetime.c: 2590 - 2671
+[src/backend/utils/adt/datetime.c:2590-2671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L2590-L2671)
 
 ## Overview
 DecodeTimeCommon is a shared time parsing function that decodes time strings with delimiters, supporting both timestamp and interval parsing scenarios with flexible field interpretation.

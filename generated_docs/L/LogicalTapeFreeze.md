@@ -1,7 +1,7 @@
 # LogicalTapeFreeze
 
 ## Location
-src/backend/utils/sort/logtape.c: 981 - 1061
+[src/backend/utils/sort/logtape.c:981-1061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/logtape.c#L981-L1061)
 
 ## Overview
 LogicalTapeFreeze transitions a logical tape from write mode to a frozen read mode, allowing the tape contents to be read multiple times and/or read backwards, primarily used for final merge output passes.

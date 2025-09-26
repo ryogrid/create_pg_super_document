@@ -1,7 +1,7 @@
 # BarrierArriveAndWait
 
 ## Location
-src/backend/storage/ipc/barrier.c: 125 - 202
+[src/backend/storage/ipc/barrier.c:125-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/barrier.c#L125-L202)
 
 ## Overview
 Arrives at a barrier and waits for all other attached participants to arrive, implementing a synchronization point with leader election functionality.

@@ -1,7 +1,7 @@
 # ExecEvalExprSwitchContext
 
 ## Location
-src/include/executor/executor.h: 349 - 376
+[src/include/executor/executor.h:349-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/executor.h#L349-L376)
 
 ## Overview
 ExecEvalExprSwitchContext evaluates an SQL expression within a specific memory context, ensuring proper memory management during expression evaluation by switching to the per-tuple memory context.

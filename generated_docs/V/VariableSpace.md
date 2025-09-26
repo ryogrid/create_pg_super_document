@@ -1,7 +1,7 @@
 # VariableSpace
 
 ## Location
-src/bin/psql/variables.h: 72 - 97
+[src/bin/psql/variables.h:72-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.h#L72-L97)
 
 ## Overview
 VariableSpace is a typedef representing a collection of variables in PostgreSQL's psql client, implemented as a pointer to a linked list of  structures that serves as a simple associative array for storing configuration settings and runtime state.

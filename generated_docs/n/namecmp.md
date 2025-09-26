@@ -1,7 +1,7 @@
 # namecmp
 
 ## Location
-src/backend/utils/adt/name.c: 135 - 147
+[src/backend/utils/adt/name.c:135-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L135-L147)
 
 ## Overview
 The  function performs comparison operations between two Name values, supporting both C collation (fast path) and locale-aware collation through PostgreSQL's collation infrastructure.

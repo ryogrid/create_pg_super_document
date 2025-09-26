@@ -1,7 +1,7 @@
 # byword
 
 ## Location
-src/timezone/zic.c: 3651 - 3716
+[src/timezone/zic.c:3651-3716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3651-L3716)
 
 ## Overview
 A string lookup function that finds entries in lookup tables using case-insensitive exact or prefix matching, with special handling for timezone abbreviations and backward compatibility warnings.

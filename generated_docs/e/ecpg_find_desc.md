@@ -1,7 +1,7 @@
 # ecpg_find_desc
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 832 - 846
+[src/interfaces/ecpg/ecpglib/descriptor.c:832-846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L832-L846)
 
 ## Overview
 Finds and returns a SQL descriptor by name within the current connection context for ECPG (Embedded SQL for C).

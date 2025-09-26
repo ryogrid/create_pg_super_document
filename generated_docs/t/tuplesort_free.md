@@ -1,7 +1,7 @@
 # tuplesort_free
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 902 - 970
+[src/backend/utils/sort/tuplesort.c:902-970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L902-L970)
 
 ## Overview
 Internal routine responsible for freeing all resources associated with a tuplesort state, including temporary files, memory contexts, and trace information.

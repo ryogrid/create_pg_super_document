@@ -1,7 +1,7 @@
 # pg_logging_set_pre_callback
 
 ## Location
-src/common/logging.c: 193 - 198
+[src/common/logging.c:193-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/logging.c#L193-L198)
 
 ## Overview
 Sets a callback function to be executed before each log message is output in PostgreSQL's common logging system.

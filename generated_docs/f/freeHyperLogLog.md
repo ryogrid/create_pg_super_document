@@ -1,7 +1,7 @@
 # freeHyperLogLog
 
 ## Location
-src/backend/lib/hyperloglog.c: 151 - 166
+[src/backend/lib/hyperloglog.c:151-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/hyperloglog.c#L151-L166)
 
 ## Overview
 Releases allocated memory resources associated with a HyperLogLog state structure, specifically freeing the internal hash register array.

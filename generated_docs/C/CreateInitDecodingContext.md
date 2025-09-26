@@ -1,7 +1,7 @@
 # CreateInitDecodingContext
 
 ## Location
-src/backend/replication/logical/logical.c: 332 - 497
+[src/backend/replication/logical/logical.c:332-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L332-L497)
 
 ## Overview
 CreateInitDecodingContext creates and initializes a new logical decoding context for a newly created logical replication slot, including complete setup of the slot's metadata and plugin initialization.

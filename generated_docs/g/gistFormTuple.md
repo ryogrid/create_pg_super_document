@@ -1,7 +1,7 @@
 # gistFormTuple
 
 ## Location
-src/backend/access/gist/gistutil.c: 574 - 594
+[src/backend/access/gist/gistutil.c:574-594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L574-L594)
 
 ## Overview
 The `gistFormTuple` function creates a GiST IndexTuple from arrays of attribute values and null indicators, applying compression and setting appropriate tuple characteristics.

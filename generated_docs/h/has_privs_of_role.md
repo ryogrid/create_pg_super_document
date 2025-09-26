@@ -1,7 +1,7 @@
 # has_privs_of_role
 
 ## Location
-src/backend/utils/adt/acl.c: 5151 - 5184
+[src/backend/utils/adt/acl.c:5151-5184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L5151-L5184)
 
 ## Overview
 Determines whether a member role has the privileges of a target role, either directly or through inherited role grants.

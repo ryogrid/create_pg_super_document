@@ -1,7 +1,7 @@
 # pg_comp_crc32c_sb8
 
 ## Location
-src/port/pg_crc32c_sb8.c: 35 - 1169
+[src/port/pg_crc32c_sb8.c:35-1169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_crc32c_sb8.c#L35-L1169)
 
 ## Overview
 Computes CRC-32C checksums using the slicing-by-8 algorithm, which provides high-performance CRC calculation through optimized lookup tables.

@@ -1,7 +1,7 @@
 # logicalrep_read_commit_prepared
 
 ## Location
-src/backend/replication/logical/proto.c: 278 - 303
+[src/backend/replication/logical/proto.c:278-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L278-L303)
 
 ## Overview
 Reads a COMMIT PREPARED message from the logical replication stream and populates the provided LogicalRepCommitPreparedTxnData structure with the commit information.

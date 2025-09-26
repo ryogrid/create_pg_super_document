@@ -1,7 +1,7 @@
 # dopr_outchmulti
 
 ## Location
-src/port/snprintf.c: 1427 - 1463
+[src/port/snprintf.c:1427-1463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1427-L1463)
 
 ## Overview
 An optimized function that efficiently outputs multiple copies of the same character to a PrintfTarget, providing both a fast path for single characters and bulk output capabilities for padding operations.

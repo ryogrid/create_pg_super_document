@@ -1,7 +1,7 @@
 # _SPI_save_plan
 
 ## Location
-src/backend/executor/spi.c: 3209 - 3279
+[src/backend/executor/spi.c:3209-3279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L3209-L3279)
 
 ## Overview
 _SPI_save_plan creates a permanent "saved" copy of a SPI plan by duplicating it into CacheMemoryContext where it persists beyond the current transaction and connection.

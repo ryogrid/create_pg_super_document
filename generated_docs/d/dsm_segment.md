@@ -1,7 +1,7 @@
 # dsm_segment
 
 ## Location
-src/backend/storage/ipc/dsm.c: 66 - 78
+[src/backend/storage/ipc/dsm.c:66-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L66-L78)
 
 ## Overview
 A backend-local structure that maintains state information for a dynamic shared memory segment attached to the current PostgreSQL backend process.

@@ -1,7 +1,7 @@
 # pglz_find_match
 
 ## Location
-src/common/pg_lzcompress.c: 399 - 508
+[src/common/pg_lzcompress.c:399-508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_lzcompress.c#L399-L508)
 
 ## Overview
 Searches the compression history table to find matching character sequences that have occurred earlier in the input buffer, enabling efficient LZ compression by identifying repeating patterns.

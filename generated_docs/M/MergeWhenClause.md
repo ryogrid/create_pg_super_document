@@ -1,7 +1,7 @@
 # MergeWhenClause
 
 ## Location
-src/include/nodes/parsenodes.h: 1717 - 1727
+[src/include/nodes/parsenodes.h:1717-1727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1717-L1727)
 
 ## Overview
 A structure representing a raw parser representation of a WHEN clause in a PostgreSQL MERGE statement, which is later transformed into MergeAction by parse analysis.

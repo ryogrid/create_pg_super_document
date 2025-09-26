@@ -1,7 +1,7 @@
 # pa_send_data
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1146 - 1167
+[src/backend/replication/logical/applyparallelworker.c:1146-1167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1146-L1167)
 
 ## Overview
 Sends data to a specified parallel apply worker via shared-memory queue in PostgreSQL's logical replication system, with timeout and retry logic to prevent blocking.

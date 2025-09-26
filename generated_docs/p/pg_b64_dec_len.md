@@ -1,7 +1,7 @@
 # pg_b64_dec_len
 
 ## Location
-src/common/base64.c: 239 - 242
+[src/common/base64.c:239-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/base64.c#L239-L242)
 
 ## Overview
 Calculates the maximum buffer size needed for decoding a base64-encoded string of given length.

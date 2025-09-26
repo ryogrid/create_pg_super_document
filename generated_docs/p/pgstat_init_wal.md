@@ -1,7 +1,7 @@
 # pgstat_init_wal
 
 ## Location
-src/backend/utils/activity/pgstat_wal.c: 141 - 158
+[src/backend/utils/activity/pgstat_wal.c:141-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_wal.c#L141-L158)
 
 ## Overview
 Initializes the WAL statistics tracking system by establishing the baseline for WAL usage counter calculations in subsequent statistics collection cycles.

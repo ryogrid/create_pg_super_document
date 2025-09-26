@@ -1,7 +1,7 @@
 # DropRelationLocalBuffers
 
 ## Location
-src/backend/storage/buffer/localbuf.c: 489 - 536
+[src/backend/storage/buffer/localbuf.c:489-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/localbuf.c#L489-L536)
 
 ## Overview
 Removes specified pages of a relation from the local buffer pool, starting from a given block number, without writing dirty pages to disk first.

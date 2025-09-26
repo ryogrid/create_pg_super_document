@@ -1,7 +1,7 @@
 # bbsink_state
 
 ## Location
-src/include/backup/basebackup_sink.h: 66 - 75
+[src/include/backup/basebackup_sink.h:66-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L66-L75)
 
 ## Overview
 A structure that maintains shared state information across all bbsink objects during a PostgreSQL base backup operation, tracking progress, tablespace information, and WAL positioning.

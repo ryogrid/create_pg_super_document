@@ -1,7 +1,7 @@
 # mergeonerun
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2232 - 2291
+[src/backend/utils/sort/tuplesort.c:2232-2291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2232-L2291)
 
 ## Overview
 Merges one run from each active input tape by maintaining a min-heap to select the smallest tuple across all input sources and writing it to the output tape.

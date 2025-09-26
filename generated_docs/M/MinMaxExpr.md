@@ -1,7 +1,7 @@
 # MinMaxExpr
 
 ## Location
-src/include/nodes/primnodes.h: 1506 - 1521
+[src/include/nodes/primnodes.h:1506-1521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1506-L1521)
 
 ## Overview
 MinMaxExpr represents a GREATEST or LEAST function expression in PostgreSQL's expression tree, which returns either the maximum or minimum value from a list of expressions.

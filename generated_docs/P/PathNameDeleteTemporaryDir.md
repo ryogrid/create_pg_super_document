@@ -1,7 +1,7 @@
 # PathNameDeleteTemporaryDir
 
 ## Location
-src/backend/storage/file/fd.c: 1688 - 1720
+[src/backend/storage/file/fd.c:1688-1720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1688-L1720)
 
 ## Overview
 PathNameDeleteTemporaryDir recursively deletes a temporary directory and all its contents, designed for cleanup operations in PostgreSQL's temporary file management system.

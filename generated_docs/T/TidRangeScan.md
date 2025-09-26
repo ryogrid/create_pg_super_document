@@ -1,7 +1,7 @@
 # TidRangeScan
 
 ## Location
-src/include/nodes/plannodes.h: 565 - 569
+[src/include/nodes/plannodes.h:565-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L565-L569)
 
 ## Overview
 TidRangeScan is a PostgreSQL plan node that scans tuples within a specified range of CTID (tuple identifier) values, providing efficient access to contiguous blocks of tuples.

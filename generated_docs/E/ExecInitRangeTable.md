@@ -1,7 +1,7 @@
 # ExecInitRangeTable
 
 ## Location
-src/backend/executor/execUtils.c: 728 - 761
+[src/backend/executor/execUtils.c:728-761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L728-L761)
 
 ## Overview
 Initializes the executor's range table data structures, setting up arrays and storage for managing relations during query execution.

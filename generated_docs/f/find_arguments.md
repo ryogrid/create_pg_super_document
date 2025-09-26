@@ -1,7 +1,7 @@
 # find_arguments
 
 ## Location
-src/port/snprintf.c: 746 - 963
+[src/port/snprintf.c:746-963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L746-L963)
 
 ## Overview
 Validates and extracts variable arguments for printf-style format strings that use positional parameter specifications (%n$).

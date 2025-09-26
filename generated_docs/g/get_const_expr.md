@@ -1,7 +1,7 @@
 # get_const_expr
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11135 - 11264
+[src/backend/utils/adt/ruleutils.c:11135-11264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11135-L11264)
 
 ## Overview
 Converts Const nodes into their appropriate string representations with intelligent type labeling, handling NULL values, numeric constants, booleans, and general literals while managing collation information.

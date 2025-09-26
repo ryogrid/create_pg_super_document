@@ -1,7 +1,7 @@
 # flatten_reloptions
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 13313 - 13345
+[src/backend/utils/adt/ruleutils.c:13313-13345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L13313-L13345)
 
 ## Overview
 A static utility function that retrieves and formats the reloptions (relation options) for a given relation OID into a C string representation.

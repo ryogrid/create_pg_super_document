@@ -1,7 +1,7 @@
 # PinBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2641 - 2751
+[src/backend/storage/buffer/bufmgr.c:2641-2751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2641-L2751)
 
 ## Overview
 PinBuffer makes a shared buffer unavailable for replacement by incrementing its reference count and managing its usage count based on the access strategy to prevent eviction during active use.

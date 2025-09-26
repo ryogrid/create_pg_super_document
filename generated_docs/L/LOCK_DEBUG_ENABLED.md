@@ -1,7 +1,7 @@
 # LOCK_DEBUG_ENABLED
 
 ## Location
-src/backend/storage/lmgr/lock.c: 305 - 315
+[src/backend/storage/lmgr/lock.c:305-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L305-L315)
 
 ## Overview
 LOCK_DEBUG_ENABLED is an inline static function that determines whether lock debugging should be enabled for a specific lock based on its tag and global debugging configuration.

@@ -1,7 +1,7 @@
 # pltcl_elog
 
 ## Location
-src/pl/tcl/pltcl.c: 1759 - 1845
+[src/pl/tcl/pltcl.c:1759-1845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L1759-L1845)
 
 ## Overview
 Provides PostgreSQL elog functionality to PL/Tcl procedures, allowing Tcl code to generate PostgreSQL log messages and errors with proper severity levels.

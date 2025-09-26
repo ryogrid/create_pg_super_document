@@ -1,7 +1,7 @@
 # ExecGetJunkAttribute
 
 ## Location
-src/include/executor/executor.h: 190 - 244
+[src/include/executor/executor.h:190-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/executor.h#L190-L244)
 
 ## Overview
 ExecGetJunkAttribute is a static inline function that retrieves attribute values from "junk" attributes in a TupleTableSlot, which are hidden system attributes not part of the regular tuple structure.

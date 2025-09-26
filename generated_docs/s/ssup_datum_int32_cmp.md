@@ -1,7 +1,7 @@
 # ssup_datum_int32_cmp
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 3204 - 3215
+[src/backend/utils/sort/tuplesort.c:3204-3215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L3204-L3215)
 
 ## Overview
 A generic comparison function for signed 32-bit integer Datum values used in PostgreSQL's SortSupport framework for efficient sorting operations.

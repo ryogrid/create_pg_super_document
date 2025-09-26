@@ -1,7 +1,7 @@
 # CreateOpClassStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3169 - 3178
+[src/include/nodes/parsenodes.h:3169-3178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3169-L3178)
 
 ## Overview
 CreateOpClassStmt represents a CREATE OPERATOR CLASS statement in PostgreSQL parse tree, used to define a new operator class for an access method.

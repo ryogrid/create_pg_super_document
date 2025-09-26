@@ -1,7 +1,7 @@
 # ExecHashJoinReInitializeDSM
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 1609 - 1646
+[src/backend/executor/nodeHashjoin.c:1609-1646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L1609-L1646)
 
 ## Overview
 Resets shared memory state for parallel hash join operations before beginning a fresh scan, cleaning up previous execution artifacts and reinitializing synchronization primitives.

@@ -1,7 +1,7 @@
 # InitBufferPool
 
 ## Location
-src/backend/storage/buffer/buf_init.c: 68 - 159
+[src/backend/storage/buffer/buf_init.c:68-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/buf_init.c#L68-L159)
 
 ## Overview
 InitBufferPool initializes the shared buffer pool during PostgreSQL's shared-memory initialization phase, setting up buffer descriptors, buffer blocks, condition variables, and checkpoint-related data structures.

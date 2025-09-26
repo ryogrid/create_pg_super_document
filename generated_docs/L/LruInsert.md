@@ -1,7 +1,7 @@
 # LruInsert
 
 ## Location
-src/backend/storage/file/fd.c: 1332 - 1378
+[src/backend/storage/file/fd.c:1332-1378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1332-L1378)
 
 ## Overview
 Inserts a file descriptor into the LRU cache, reopening the underlying file if necessary, and places it at the head of the LRU list.

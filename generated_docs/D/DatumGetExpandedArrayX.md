@@ -1,7 +1,7 @@
 # DatumGetExpandedArrayX
 
 ## Location
-src/backend/utils/adt/array_expanded.c: 372 - 400
+[src/backend/utils/adt/array_expanded.c:372-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_expanded.c#L372-L400)
 
 ## Overview
 DatumGetExpandedArrayX converts a PostgreSQL Datum to an expanded array header, with the ability to cache element type information for improved performance in repeated operations.

@@ -1,7 +1,7 @@
 # sum_free_pages
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 274 - 323
+[src/backend/utils/mmgr/freepage.c:274-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L274-L323)
 
 ## Overview
 Calculates the total number of free pages managed by a FreePageManager by traversing and summing all pages in freelists, B-tree structures, and recycle lists.

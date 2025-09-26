@@ -1,7 +1,7 @@
 # GroupingSet
 
 ## Location
-src/include/nodes/parsenodes.h: 1506 - 1512
+[src/include/nodes/parsenodes.h:1506-1512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1506-L1512)
 
 ## Overview
 GroupingSet represents the structure of CUBE, ROLLUP, and GROUPING SETS clauses in GROUP BY statements, providing a hierarchical representation that captures the syntactic organization of complex grouping operations.

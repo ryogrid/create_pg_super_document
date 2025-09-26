@@ -1,7 +1,7 @@
 # pg_euckr_verifychar
 
 ## Location
-src/common/wchar.c: 1166 - 1194
+[src/common/wchar.c:1166-1194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1166-L1194)
 
 ## Overview
 Validates a single multibyte character in EUC-KR (Extended Unix Code for Korean) encoding by checking character sequence validity and returning the character length in bytes.

@@ -1,7 +1,7 @@
 # nameeqfast
 
 ## Location
-src/backend/utils/cache/catcache.c: 203 - 211
+[src/backend/utils/cache/catcache.c:203-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L203-L211)
 
 ## Overview
 The `nameeqfast` function provides a fast equality comparison for PostgreSQL's `name` data type, used internally by the catalog cache system for efficient key matching in hash tables.

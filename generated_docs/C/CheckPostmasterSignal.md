@@ -1,7 +1,7 @@
 # CheckPostmasterSignal
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 198 - 217
+[src/backend/storage/ipc/pmsignal.c:198-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L198-L217)
 
 ## Overview
 Checks if a specific signal reason has been set by a child process and atomically clears the flag, typically called by the postmaster after receiving SIGUSR1.

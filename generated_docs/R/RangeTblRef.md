@@ -1,7 +1,7 @@
 # RangeTblRef
 
 ## Location
-src/include/nodes/primnodes.h: 2243 - 2247
+[src/include/nodes/primnodes.h:2243-2247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2243-L2247)
 
 ## Overview
 RangeTblRef is a simple node structure that references an entry in a query's range table through an index, serving as a leaf node in the join tree structure.

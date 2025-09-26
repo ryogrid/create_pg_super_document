@@ -1,7 +1,7 @@
 # FreePageBtreeSplitPage
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 1201 - 1231
+[src/backend/utils/mmgr/freepage.c:1201-1231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L1201-L1231)
 
 ## Overview
 Allocates a new btree page and moves half the keys from an existing full page to the new page to maintain btree balance.

@@ -1,7 +1,7 @@
 # SubXactInfo
 
 ## Location
-src/backend/replication/logical/worker.c: 341 - 346
+[src/backend/replication/logical/worker.c:341-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L341-L346)
 
 ## Overview
 SubXactInfo is a structure that tracks the location of subtransaction information stored in temporary files during logical replication processing.

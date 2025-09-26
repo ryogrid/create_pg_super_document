@@ -1,7 +1,7 @@
 # WordEntryPosVector
 
 ## Location
-src/include/tsearch/ts_type.h: 69 - 75
+[src/include/tsearch/ts_type.h:69-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_type.h#L69-L75)
 
 ## Overview
 WordEntryPosVector is a variable-length structure that stores position and weight information for a word in PostgreSQL's text search vectors, containing an array of positional data entries.

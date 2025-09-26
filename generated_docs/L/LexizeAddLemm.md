@@ -1,7 +1,7 @@
 # LexizeAddLemm
 
 ## Location
-src/backend/tsearch/ts_parse.c: 100 - 111
+[src/backend/tsearch/ts_parse.c:100-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L100-L111)
 
 ## Overview
 LexizeAddLemm creates and adds a new ParsedLex element to the work queue in LexizeData, storing a lexeme with its type and length for subsequent processing.

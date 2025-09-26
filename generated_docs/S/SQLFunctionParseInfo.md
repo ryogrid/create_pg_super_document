@@ -1,7 +1,7 @@
 # SQLFunctionParseInfo
 
 ## Location
-src/include/executor/functions.h: 25 - 33
+[src/include/executor/functions.h:25-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/functions.h#L25-L33)
 
 ## Overview
 SQLFunctionParseInfo is a data structure used by parser callback hooks to resolve parameter references during parsing of a SQL function's body, providing essential metadata about function arguments and their types.

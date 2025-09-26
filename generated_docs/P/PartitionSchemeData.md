@@ -1,7 +1,7 @@
 # PartitionSchemeData
 
 ## Location
-src/include/nodes/pathnodes.h: 582 - 596
+[src/include/nodes/pathnodes.h:582-596](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L582-L596)
 
 ## Overview
 PartitionSchemeData is a structure that stores the general properties of a partition method, including strategy, partitioning attributes, and cached type information for efficient partition comparison operations.

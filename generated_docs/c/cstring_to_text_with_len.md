@@ -1,7 +1,7 @@
 # cstring_to_text_with_len
 
 ## Location
-src/backend/utils/adt/varlena.c: 196 - 216
+[src/backend/utils/adt/varlena.c:196-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L196-L216)
 
 ## Overview
 Creates a PostgreSQL text data type value from a C string with an explicitly specified length, allowing conversion of strings that may not be null-terminated.

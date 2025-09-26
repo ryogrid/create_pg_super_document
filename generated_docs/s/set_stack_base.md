@@ -1,7 +1,7 @@
 # set_stack_base
 
 ## Location
-src/backend/tcop/postgres.c: 3508 - 3540
+[src/backend/tcop/postgres.c:3508-3540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3508-L3540)
 
 ## Overview
 set_stack_base establishes a reference point for PostgreSQL's stack depth checking mechanism, allowing the system to monitor and prevent stack overflow conditions.

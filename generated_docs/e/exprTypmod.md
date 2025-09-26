@@ -1,7 +1,7 @@
 # exprTypmod
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 298 - 551
+[src/backend/nodes/nodeFuncs.c:298-551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L298-L551)
 
 ## Overview
 Returns the type-specific modifier (typmod) of an expression's result type, if it can be determined, otherwise returns -1.

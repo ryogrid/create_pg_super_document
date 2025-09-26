@@ -1,7 +1,7 @@
 # create_drop_transactional_internal
 
 ## Location
-src/backend/utils/activity/pgstat_xact.c: 332 - 356
+[src/backend/utils/activity/pgstat_xact.c:332-356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_xact.c#L332-L356)
 
 ## Overview
 Internal helper function that creates pending statistics drop entries for transactional management of database object statistics creation and deletion.

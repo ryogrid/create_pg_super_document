@@ -1,7 +1,7 @@
 # TableFuncRoutine
 
 ## Location
-src/include/executor/tablefunc.h: 52 - 65
+[src/include/executor/tablefunc.h:52-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tablefunc.h#L52-L65)
 
 ## Overview
 TableFuncRoutine is a structure containing function pointers that define the interface for generating content of table-producer functions such as XMLTABLE, providing a standardized way to build and extract rows from structured data sources.

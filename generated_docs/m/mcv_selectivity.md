@@ -1,7 +1,7 @@
 # mcv_selectivity
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 733 - 823
+[src/backend/utils/adt/selfuncs.c:733-823](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L733-L823)
 
 ## Overview
 Examines the Most Common Values (MCV) list to compute selectivity estimates for predicates involving the most frequently occurring column values.

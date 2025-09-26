@@ -1,7 +1,7 @@
 # makeTypeName
 
 ## Location
-src/backend/nodes/makefuncs.c: 493 - 504
+[src/backend/nodes/makefuncs.c:493-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L493-L504)
 
 ## Overview
 Creates a TypeName node for an unqualified type name, serving as a convenience function for building simple type name structures in the PostgreSQL parser.

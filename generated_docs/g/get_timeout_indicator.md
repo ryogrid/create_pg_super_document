@@ -1,7 +1,7 @@
 # get_timeout_indicator
 
 ## Location
-src/backend/utils/misc/timeout.c: 793 - 812
+[src/backend/utils/misc/timeout.c:793-812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L793-L812)
 
 ## Overview
 Returns and optionally resets a timeout's fired indicator flag, which signals whether the timeout has expired.

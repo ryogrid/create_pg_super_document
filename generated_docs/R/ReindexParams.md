@@ -1,7 +1,7 @@
 # ReindexParams
 
 ## Location
-src/include/catalog/index.h: 33 - 38
+[src/include/catalog/index.h:33-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/index.h#L33-L38)
 
 ## Overview
 A structure that encapsulates configuration parameters for REINDEX operations, including option flags and tablespace specifications.

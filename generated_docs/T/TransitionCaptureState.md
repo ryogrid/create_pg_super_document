@@ -1,7 +1,7 @@
 # TransitionCaptureState
 
 ## Location
-src/include/commands/trigger.h: 56 - 82
+[src/include/commands/trigger.h:56-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/commands/trigger.h#L56-L82)
 
 ## Overview
 TransitionCaptureState manages the capture and storage of old and new tuples into transition tables for statement-level triggers during DML operations.

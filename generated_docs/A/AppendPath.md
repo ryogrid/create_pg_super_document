@@ -1,7 +1,7 @@
 # AppendPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1931 - 1938
+[src/include/nodes/pathnodes.h:1931-1938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1931-L1938)
 
 ## Overview
 AppendPath represents an execution plan for successive execution of multiple member subpaths, commonly used for partitioned tables, UNION operations, and cases where multiple access methods need to be combined.

@@ -1,7 +1,7 @@
 # BufFileLoadBuffer
 
 ## Location
-src/backend/storage/file/buffile.c: 434 - 493
+[src/backend/storage/file/buffile.c:434-493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L434-L493)
 
 ## Overview
 BufFileLoadBuffer loads data from the underlying file into the BufFile's internal buffer, handling multi-file scenarios and I/O timing tracking.

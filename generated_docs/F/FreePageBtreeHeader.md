@@ -1,7 +1,7 @@
 # FreePageBtreeHeader
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 77 - 83
+[src/backend/utils/mmgr/freepage.c:77-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L77-L83)
 
 ## Overview
 FreePageBtreeHeader serves as the common header structure for both internal and leaf pages in the free page btree, providing essential metadata and navigation information.

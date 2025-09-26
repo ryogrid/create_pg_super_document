@@ -1,7 +1,7 @@
 # SQLValueFunction
 
 ## Location
-src/include/nodes/primnodes.h: 1553 - 1565
+[src/include/nodes/primnodes.h:1553-1565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1553-L1565)
 
 ## Overview
 SQLValueFunction represents parameterless SQL functions with special grammar productions, including datetime value functions and general value specifications like CURRENT_DATE, CURRENT_USER, etc.

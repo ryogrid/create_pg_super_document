@@ -1,7 +1,7 @@
 # dshash_create
 
 ## Location
-src/backend/lib/dshash.c: 206 - 269
+[src/backend/lib/dshash.c:206-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L206-L269)
 
 ## Overview
 Creates a new dynamic shared hash table backed by a specified dynamic shared area, initializing both the backend-local representation and the shared control structure.

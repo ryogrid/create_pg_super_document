@@ -1,7 +1,7 @@
 # MergeAppendPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1955 - 1960
+[src/include/nodes/pathnodes.h:1955-1960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1955-L1960)
 
 ## Overview
 MergeAppendPath represents a MergeAppend plan that merges sorted results from several member plans to produce similarly-sorted output.

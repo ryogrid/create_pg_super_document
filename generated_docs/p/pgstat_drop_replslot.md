@@ -1,7 +1,7 @@
 # pgstat_drop_replslot
 
 ## Location
-src/backend/utils/activity/pgstat_replslot.c: 156 - 169
+[src/backend/utils/activity/pgstat_replslot.c:156-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_replslot.c#L156-L169)
 
 ## Overview
 Reports the dropping of a replication slot and removes its associated statistics entry from the shared statistics hash table.

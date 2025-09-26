@@ -1,7 +1,7 @@
 # pgstat_drop_database_and_contents
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 866 - 926
+[src/backend/utils/activity/pgstat_shmem.c:866-926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L866-L926)
 
 ## Overview
 This function drops statistics for a database and all objects contained within that database from the shared statistics hash table.

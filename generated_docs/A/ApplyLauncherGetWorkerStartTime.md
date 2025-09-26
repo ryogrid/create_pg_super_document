@@ -1,7 +1,7 @@
 # ApplyLauncherGetWorkerStartTime
 
 ## Location
-src/backend/replication/logical/launcher.c: 1062 - 1087
+[src/backend/replication/logical/launcher.c:1062-1087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L1062-L1087)
 
 ## Overview
 Retrieves the last recorded start time for a logical replication worker associated with a specific subscription, returning 0 if no previous start time exists.

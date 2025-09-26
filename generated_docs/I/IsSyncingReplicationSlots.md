@@ -1,7 +1,7 @@
 # IsSyncingReplicationSlots
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1650 - 1658
+[src/backend/replication/logical/slotsync.c:1650-1658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1650-L1658)
 
 ## Overview
 Checks whether the current process is performing replication slot synchronization, either as a slot sync worker or backend executing SQL functions.

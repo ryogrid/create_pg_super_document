@@ -1,7 +1,7 @@
 # LocationLen
 
 ## Location
-src/include/nodes/queryjumble.h: 22 - 26
+[src/include/nodes/queryjumble.h:22-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/queryjumble.h#L22-L26)
 
 ## Overview
 LocationLen is a structure used for tracking the locations and lengths of constants during query normalization and fingerprinting processes.

@@ -1,7 +1,7 @@
 # IsBackendPid
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3290 - 3322
+[src/backend/storage/ipc/procarray.c:3290-3322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3290-L3322)
 
 ## Overview
 Determines whether a given process ID (PID) corresponds to a currently running PostgreSQL backend process.

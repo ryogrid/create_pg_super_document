@@ -1,7 +1,7 @@
 # PostmasterIsAliveInternal
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 376 - 436
+[src/backend/storage/ipc/pmsignal.c:376-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L376-L436)
 
 ## Overview
 Checks whether the postmaster process is still alive using platform-specific mechanisms, serving as the slow path for the PostmasterIsAlive() function.

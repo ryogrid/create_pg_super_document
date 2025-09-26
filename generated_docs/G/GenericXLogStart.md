@@ -1,7 +1,7 @@
 # GenericXLogStart
 
 ## Location
-src/backend/access/transam/generic_xlog.c: 269 - 298
+[src/backend/access/transam/generic_xlog.c:269-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/generic_xlog.c#L269-L298)
 
 ## Overview
 Initializes and returns a new GenericXLogState structure to begin a generic WAL logging session for modifications to a specified relation.

@@ -1,7 +1,7 @@
 # parse_array
 
 ## Location
-src/common/jsonapi.c: 1232 - 1308
+[src/common/jsonapi.c:1232-1308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L1232-L1308)
 
 ## Overview
 A recursive descent parsing function that processes JSON array constructs, handling the parsing of square-bracket-enclosed sequences of elements separated by commas.

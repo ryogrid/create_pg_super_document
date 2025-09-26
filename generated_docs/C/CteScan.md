@@ -1,7 +1,7 @@
 # CteScan
 
 ## Location
-src/include/nodes/plannodes.h: 640 - 645
+[src/include/nodes/plannodes.h:640-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L640-L645)
 
 ## Overview
 CteScan represents a plan node for scanning Common Table Expression (CTE) results in PostgreSQL's query execution tree, enabling access to previously computed CTE data through parameter-based references.

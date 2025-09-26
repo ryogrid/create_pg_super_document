@@ -1,7 +1,7 @@
 # pltcl_SPI_execute_plan
 
 ## Location
-src/pl/tcl/pltcl.c: 2675 - 2695
+[src/pl/tcl/pltcl.c:2675-2695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2675-L2695)
 
 ## Overview
 A Tcl command handler that executes previously prepared SQL plans within PL/Tcl functions, providing parameterized query execution capabilities.

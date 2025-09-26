@@ -1,7 +1,7 @@
 # get_controlfile
 
 ## Location
-src/common/controldata_utils.c: 52 - 67
+[src/common/controldata_utils.c:52-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/controldata_utils.c#L52-L67)
 
 ## Overview
 The get_controlfile function retrieves PostgreSQL's control file data from a specified data directory, returning a dynamically allocated copy of the control file with CRC validation status.

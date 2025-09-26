@@ -1,7 +1,7 @@
 # QTNFree
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 64 - 96
+[src/backend/utils/adt/tsquery_util.c:64-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L64-L96)
 
 ## Overview
 Recursively frees a QTNode tree structure and its associated memory, handling both the tree nodes and their referenced data based on specified flags.

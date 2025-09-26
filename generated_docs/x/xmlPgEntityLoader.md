@@ -1,7 +1,7 @@
 # xmlPgEntityLoader
 
 ## Location
-src/backend/utils/adt/xml.c: 2004 - 2021
+[src/backend/utils/adt/xml.c:2004-2021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2004-L2021)
 
 ## Overview
 A security-focused entity loader callback function that prevents loading of external XML entities by making them appear as empty strings.

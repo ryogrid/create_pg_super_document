@@ -1,7 +1,7 @@
 # Pool
 
 ## Location
-src/include/optimizer/geqo_gene.h: 38 - 43
+[src/include/optimizer/geqo_gene.h:38-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/geqo_gene.h#L38-L43)
 
 ## Overview
 A structure representing a population of chromosomes in PostgreSQL's Genetic Query Optimizer (GEQO), managing a collection of potential solutions for join ordering optimization.

@@ -1,7 +1,7 @@
 # FilePath
 
 ## Location
-src/backend/storage/file/fileset.c: 197 - 203
+[src/backend/storage/file/fileset.c:197-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fileset.c#L197-L203)
 
 ## Overview
 The FilePath function computes the complete path to a specific file within a FileSet, combining directory path construction and tablespace selection.

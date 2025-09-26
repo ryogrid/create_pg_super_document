@@ -1,7 +1,7 @@
 # PageGetTempPageCopy
 
 ## Location
-src/backend/storage/page/bufpage.c: 382 - 401
+[src/backend/storage/page/bufpage.c:382-401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L382-L401)
 
 ## Overview
 Allocates a temporary page in local memory and initializes it by copying the complete contents from the source page.

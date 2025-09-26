@@ -1,7 +1,7 @@
 # logicalrep_write_stream_start
 
 ## Location
-src/backend/replication/logical/proto.c: 1069 - 1086
+[src/backend/replication/logical/proto.c:1069-1086](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L1069-L1086)
 
 ## Overview
 Writes a stream start message to the logical replication output stream, indicating the beginning of streaming for a specific transaction.

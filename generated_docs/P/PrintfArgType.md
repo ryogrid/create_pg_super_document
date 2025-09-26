@@ -1,7 +1,7 @@
 # PrintfArgType
 
 ## Location
-src/port/snprintf.c: 150 - 158
+[src/port/snprintf.c:150-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L150-L158)
 
 ## Overview
 PrintfArgType is an enumeration that defines the argument types supported by PostgreSQL's custom printf implementation for POSIX-style positional parameters (e.g., %n$).

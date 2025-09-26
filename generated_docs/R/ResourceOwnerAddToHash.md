@@ -1,7 +1,7 @@
 # ResourceOwnerAddToHash
 
 ## Location
-src/backend/utils/resowner/resowner.c: 237 - 260
+[src/backend/utils/resowner/resowner.c:237-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L237-L260)
 
 ## Overview
 The  function adds a resource value of a given kind to the ResourceOwner's internal hash table, providing efficient storage and lookup for tracked resources.

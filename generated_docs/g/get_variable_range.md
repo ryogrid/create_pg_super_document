@@ -1,7 +1,7 @@
 # get_variable_range
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 5963 - 6089
+[src/backend/utils/adt/selfuncs.c:5963-6089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L5963-L6089)
 
 ## Overview
 Estimates the minimum and maximum values of a specified variable using statistical data from pg_statistic, with support for different sorting operators and collations.

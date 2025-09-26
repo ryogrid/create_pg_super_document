@@ -1,7 +1,7 @@
 # pg_euckr2wchar_with_len
 
 ## Location
-src/common/wchar.c: 210 - 215
+[src/common/wchar.c:210-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L210-L215)
 
 ## Overview
 Converts EUC-KR (Extended Unix Code for Korean) encoded byte sequences to PostgreSQL's internal wide character format.

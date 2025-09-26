@@ -1,7 +1,7 @@
 # aclconcat
 
 ## Location
-src/backend/utils/adt/acl.c: 477 - 500
+[src/backend/utils/adt/acl.c:477-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L477-L500)
 
 ## Overview
 Concatenates two Access Control Lists (ACLs) into a single new ACL containing all entries from both input ACLs in sequence.

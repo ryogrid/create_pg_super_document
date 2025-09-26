@@ -1,7 +1,7 @@
 # ipv6eq
 
 ## Location
-src/backend/libpq/hba.c: 1037 - 1051
+[src/backend/libpq/hba.c:1037-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L1037-L1051)
 
 ## Overview
 Compares two IPv6 socket addresses for equality by performing a byte-by-byte comparison of their 128-bit IPv6 addresses.

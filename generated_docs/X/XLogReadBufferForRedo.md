@@ -1,7 +1,7 @@
 # XLogReadBufferForRedo
 
 ## Location
-src/backend/access/transam/xlogutils.c: 314 - 325
+[src/backend/access/transam/xlogutils.c:314-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L314-L325)
 
 ## Overview
 Reads a page during WAL replay and determines what action needs to be taken to redo changes, serving as the primary interface for buffer access during crash recovery and hot standby.

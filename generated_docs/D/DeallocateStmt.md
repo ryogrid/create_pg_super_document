@@ -1,7 +1,7 @@
 # DeallocateStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 4056 - 4070
+[src/include/nodes/parsenodes.h:4056-4070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4056-L4070)
 
 ## Overview
 DeallocateStmt represents the parsed form of a DEALLOCATE SQL statement, which removes a previously prepared statement from the current session.

@@ -1,7 +1,7 @@
 # FileTruncate
 
 ## Location
-src/backend/storage/file/fd.c: 2423 - 2457
+[src/backend/storage/file/fd.c:2423-2457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2423-L2457)
 
 ## Overview
 FileTruncate truncates a file to the specified size, with special handling for temporary file size tracking and accounting.

@@ -1,7 +1,7 @@
 # xl_running_xacts
 
 ## Location
-src/include/storage/standbydefs.h: 47 - 57
+[src/include/storage/standbydefs.h:47-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/standbydefs.h#L47-L57)
 
 ## Overview
 A WAL record structure that captures a snapshot of currently running transactions for standby recovery, containing transaction state information needed to maintain proper snapshot isolation on standby servers.

@@ -1,7 +1,7 @@
 # OpExpr
 
 ## Location
-src/include/nodes/primnodes.h: 813 - 840
+[src/include/nodes/primnodes.h:813-840](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L813-L840)
 
 ## Overview
 OpExpr represents an operator invocation in PostgreSQL's expression tree, semantically equivalent to a function call but using operator syntax.

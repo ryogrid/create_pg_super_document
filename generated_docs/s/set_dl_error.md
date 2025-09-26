@@ -1,7 +1,7 @@
 # set_dl_error
 
 ## Location
-src/port/win32dlopen.c: 21 - 39
+[src/port/win32dlopen.c:21-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32dlopen.c#L21-L39)
 
 ## Overview
 A static helper function that captures the last Windows system error and formats it into a human-readable error message for PostgreSQL's dynamic loading functionality.

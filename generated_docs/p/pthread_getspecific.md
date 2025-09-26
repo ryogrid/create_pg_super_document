@@ -1,7 +1,7 @@
 # pthread_getspecific
 
 ## Location
-src/interfaces/libpq/pthread-win32.c: 29 - 34
+[src/interfaces/libpq/pthread-win32.c:29-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pthread-win32.c#L29-L34)
 
 ## Overview
 A Windows-specific stub implementation of the POSIX pthread_getspecific() function that retrieves thread-specific data.

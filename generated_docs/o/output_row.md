@@ -1,7 +1,7 @@
 # output_row
 
 ## Location
-src/interfaces/libpq/fe-print.c: 531 - 573
+[src/interfaces/libpq/fe-print.c:531-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-print.c#L531-L573)
 
 ## Overview
 Formats and outputs a single data row from a PostgreSQL query result with proper alignment and formatting according to the specified print options.

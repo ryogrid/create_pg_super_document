@@ -1,7 +1,7 @@
 # enable_timeouts
 
 ## Location
-src/backend/utils/misc/timeout.c: 630 - 684
+[src/backend/utils/misc/timeout.c:630-684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L630-L684)
 
 ## Overview
 Enables multiple timeouts simultaneously with different scheduling types, optimizing performance by reducing system calls when setting up multiple timeouts.

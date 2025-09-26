@@ -1,7 +1,7 @@
 # JsonTablePath
 
 ## Location
-src/include/nodes/primnodes.h: 1867 - 1873
+[src/include/nodes/primnodes.h:1867-1873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1867-L1873)
 
 ## Overview
 JsonTablePath represents a JSON path expression that is computed as part of evaluating a JSON_TABLE plan node.

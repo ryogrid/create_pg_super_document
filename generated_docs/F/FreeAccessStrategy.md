@@ -1,7 +1,7 @@
 # FreeAccessStrategy
 
 ## Location
-src/backend/storage/buffer/freelist.c: 681 - 694
+[src/backend/storage/buffer/freelist.c:681-694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L681-L694)
 
 ## Overview
 Releases memory allocated for a BufferAccessStrategy object, providing safe cleanup that handles NULL pointers gracefully.

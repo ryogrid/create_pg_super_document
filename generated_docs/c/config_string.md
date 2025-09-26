@@ -1,7 +1,7 @@
 # config_string
 
 ## Location
-src/include/utils/guc_tables.h: 254 - 267
+[src/include/utils/guc_tables.h:254-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc_tables.h#L254-L267)
 
 ## Overview
 The `config_string` struct represents a string-valued configuration parameter in PostgreSQL's GUC system, managing runtime parameters that store text values with support for NULL values and custom validation hooks.

@@ -1,7 +1,7 @@
 # coerceToDouble
 
 ## Location
-src/bin/pgbench/pgbench.c: 2073 - 2093
+[src/bin/pgbench/pgbench.c:2073-2093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2073-L2093)
 
 ## Overview
 A utility function in pgbench that converts a PgBenchValue to a double-precision floating-point number, performing type coercion with error handling.

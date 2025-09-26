@@ -1,7 +1,7 @@
 # ExpandedRecordGetRODatum
 
 ## Location
-src/include/utils/expandedrecord.h: 149 - 153
+[src/include/utils/expandedrecord.h:149-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/expandedrecord.h#L149-L153)
 
 ## Overview
 Converts an ExpandedRecordHeader into a read-only Datum for PostgreSQL's function manager system.

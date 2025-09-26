@@ -1,7 +1,7 @@
 # create_manifest_writer
 
 ## Location
-src/bin/pg_combinebackup/write_manifest.c: 48 - 75
+[src/bin/pg_combinebackup/write_manifest.c:48-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/write_manifest.c#L48-L75)
 
 ## Overview
 Creates and initializes a new backup manifest writer for generating PostgreSQL backup manifest files in JSON format.

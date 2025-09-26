@@ -1,7 +1,7 @@
 # AlterDomainStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2461 - 2477
+[src/include/nodes/parsenodes.h:2461-2477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2461-L2477)
 
 ## Overview
 AlterDomainStmt represents the parsed form of an ALTER DOMAIN statement, used to modify domain type definitions including constraints, defaults, and null behavior.

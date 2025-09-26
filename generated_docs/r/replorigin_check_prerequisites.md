@@ -1,7 +1,7 @@
 # replorigin_check_prerequisites
 
 ## Location
-src/backend/replication/logical/origin.c: 185 - 203
+[src/backend/replication/logical/origin.c:185-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L185-L203)
 
 ## Overview
 A static helper function that validates prerequisites for replication origin operations, ensuring that replication slots are configured when needed and that operations are not performed during recovery when not allowed.

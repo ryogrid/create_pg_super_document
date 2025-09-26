@@ -1,7 +1,7 @@
 # GetPortalByName
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 130 - 150
+[src/backend/utils/mmgr/portalmem.c:130-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L130-L150)
 
 ## Overview
 Retrieves a portal object by its name from the global portal hash table, returning NULL if the portal is not found.

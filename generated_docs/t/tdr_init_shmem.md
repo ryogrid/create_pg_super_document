@@ -1,7 +1,7 @@
 # tdr_init_shmem
 
 ## Location
-src/test/modules/test_dsm_registry/test_dsm_registry.c: 30 - 38
+[src/test/modules/test_dsm_registry/test_dsm_registry.c:30-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_dsm_registry/test_dsm_registry.c#L30-L38)
 
 ## Overview
 Initializes a shared memory structure for the test_dsm_registry module by setting up the lock mechanism and initializing the value field.

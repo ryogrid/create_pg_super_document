@@ -1,7 +1,7 @@
 # pg_codepage_to_encoding
 
 ## Location
-src/port/chklocale.c: 270 - 305
+[src/port/chklocale.c:270-305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/chklocale.c#L270-L305)
 
 ## Overview
 Converts a Windows code page identifier to the corresponding PostgreSQL encoding identifier, issuing a warning if no mapping is found.

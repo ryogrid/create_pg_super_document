@@ -1,7 +1,7 @@
 # esc_enc_len
 
 ## Location
-src/backend/utils/adt/encode.c: 502 - 522
+[src/backend/utils/adt/encode.c:502-522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L502-L522)
 
 ## Overview
 Calculates the required buffer length for escape sequence encoding of binary data, accounting for character expansion during the encoding process.

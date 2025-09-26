@@ -1,7 +1,7 @@
 # PGcancelConn
 
 ## Location
-src/interfaces/libpq/libpq-fe.h: 191 - 197
+[src/interfaces/libpq/libpq-fe.h:191-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-fe.h#L191-L197)
 
 ## Overview
 PGcancelConn is an opaque structure that encapsulates a cancel connection to a PostgreSQL backend. It provides a type-safe wrapper around PGconn specifically for sending query cancellation requests.

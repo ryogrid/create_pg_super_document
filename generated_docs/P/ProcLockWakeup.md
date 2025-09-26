@@ -1,7 +1,7 @@
 # ProcLockWakeup
 
 ## Location
-src/backend/storage/lmgr/proc.c: 1711 - 1758
+[src/backend/storage/lmgr/proc.c:1711-1758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L1711-L1758)
 
 ## Overview
 ProcLockWakeup wakes up processes waiting for a lock when the lock is released or a prior waiter is aborted, granting locks to all eligible waiters.

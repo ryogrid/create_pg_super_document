@@ -1,7 +1,7 @@
 # RollupData
 
 ## Location
-src/include/nodes/pathnodes.h: 2278 - 2289
+[src/include/nodes/pathnodes.h:2278-2289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2278-L2289)
 
 ## Overview
 RollupData represents a collection of related grouping sets that can be computed together in a single aggregation pass, organizing grouping sets into efficient rollup operations for GROUPING SETS, ROLLUP, and CUBE queries.

@@ -1,7 +1,7 @@
 # PathNameOpenFilePerm
 
 ## Location
-src/backend/storage/file/fd.c: 1585 - 1656
+[src/backend/storage/file/fd.c:1585-1656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1585-L1656)
 
 ## Overview
 PathNameOpenFilePerm opens a file in an arbitrary directory with explicit file permission control, serving as the core file opening function in PostgreSQL's virtual file descriptor (VFD) system.

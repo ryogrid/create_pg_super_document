@@ -1,7 +1,7 @@
 # GroupPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2225 - 2231
+[src/include/nodes/pathnodes.h:2225-2231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2225-L2231)
 
 ## Overview
 GroupPath represents a query execution path node that performs grouping operations on presorted input data, typically used to implement SQL GROUP BY clauses.

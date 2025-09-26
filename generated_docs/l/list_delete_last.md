@@ -1,7 +1,7 @@
 # list_delete_last
 
 ## Location
-src/backend/nodes/list.c: 957 - 982
+[src/backend/nodes/list.c:957-982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L957-L982)
 
 ## Overview
 Removes and deallocates the last element from a PostgreSQL List, providing an efficient alternative to deleting from the front of the list.

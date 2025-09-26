@@ -1,7 +1,7 @@
 # FreePageBtreeSearchInternal
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 1140 - 1169
+[src/backend/utils/mmgr/freepage.c:1140-1169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L1140-L1169)
 
 ## Overview
 Performs binary search on an internal btree page to find the first key greater than or equal to a given page number.

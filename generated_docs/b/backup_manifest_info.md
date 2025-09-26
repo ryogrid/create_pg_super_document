@@ -1,7 +1,7 @@
 # backup_manifest_info
 
 ## Location
-src/include/backup/backup_manifest.h: 27 - 36
+[src/include/backup/backup_manifest.h:27-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/backup_manifest.h#L27-L36)
 
 ## Overview
 The backup_manifest_info structure maintains state information for generating a backup manifest during PostgreSQL base backup operations.

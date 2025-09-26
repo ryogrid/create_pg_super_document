@@ -1,7 +1,7 @@
 # pg_malloc_extended
 
 ## Location
-src/common/fe_memutils.c: 59 - 64
+[src/common/fe_memutils.c:59-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/fe_memutils.c#L59-L64)
 
 ## Overview
 Extended memory allocation function that provides configurable allocation behavior through flags for zero-initialization and error handling.

@@ -1,7 +1,7 @@
 # pg_xml_error_occurred
 
 ## Location
-src/backend/utils/adt/xml.c: 1340 - 1354
+[src/backend/utils/adt/xml.c:1340-1354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1340-L1354)
 
 ## Overview
 Tests whether an XML processing error has occurred in the given error context.

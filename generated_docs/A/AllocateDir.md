@@ -1,7 +1,7 @@
 # AllocateDir
 
 ## Location
-src/backend/storage/file/fd.c: 2840 - 2905
+[src/backend/storage/file/fd.c:2840-2905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2840-L2905)
 
 ## Overview
 AllocateDir opens a directory for reading using opendir() while being managed by PostgreSQL's file descriptor management system to prevent resource exhaustion and ensure proper cleanup after errors.

@@ -1,7 +1,7 @@
 # xl_xact_invals
 
 ## Location
-src/include/access/xact.h: 296 - 300
+[src/include/access/xact.h:296-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L296-L300)
 
 ## Overview
 A structure used in PostgreSQL's WAL to store shared invalidation messages that need to be processed during transaction commit, ensuring cache coherency across the system.

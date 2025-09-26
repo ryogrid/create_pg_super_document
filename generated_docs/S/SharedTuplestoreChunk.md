@@ -1,7 +1,7 @@
 # SharedTuplestoreChunk
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 42 - 47
+[src/backend/utils/sort/sharedtuplestore.c:42-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L42-L47)
 
 ## Overview
 SharedTuplestoreChunk is a data structure that represents a chunk of tuples written to disk as part of PostgreSQL shared tuple store implementation, used for storing tuple data efficiently in shared memory or disk-based scenarios.

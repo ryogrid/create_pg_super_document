@@ -1,7 +1,7 @@
 # makeA_Expr
 
 ## Location
-src/backend/nodes/makefuncs.c: 30 - 47
+[src/backend/nodes/makefuncs.c:30-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L30-L47)
 
 ## Overview
 Creates and initializes an A_Expr node, which represents infix, prefix, and postfix expressions in PostgreSQL's parse tree.

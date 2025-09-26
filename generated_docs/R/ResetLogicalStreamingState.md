@@ -1,7 +1,7 @@
 # ResetLogicalStreamingState
 
 ## Location
-src/backend/replication/logical/logical.c: 1969 - 1978
+[src/backend/replication/logical/logical.c:1969-1978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1969-L1978)
 
 ## Overview
 Clears logical streaming state variables during transaction or subtransaction abort to reset the system to a clean state.

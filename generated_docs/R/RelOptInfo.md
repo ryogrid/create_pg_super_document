@@ -1,7 +1,7 @@
 # RelOptInfo
 
 ## Location
-src/include/nodes/pathnodes.h: 853 - 1046
+[src/include/nodes/pathnodes.h:853-1046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L853-L1046)
 
 ## Overview
 RelOptInfo is the central data structure in PostgreSQL query planning that contains per-relation information for optimization, including cost estimates, paths, constraints, and metadata for base relations, join relations, and other relation types.

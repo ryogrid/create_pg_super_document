@@ -1,7 +1,7 @@
 # UpdateIndexRelation
 
 ## Location
-src/backend/catalog/index.c: 561 - 723
+[src/backend/catalog/index.c:561-723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L561-L723)
 
 ## Overview
 UpdateIndexRelation is a static function that constructs and inserts a new entry in the pg_index system catalog to record metadata about an index relation.

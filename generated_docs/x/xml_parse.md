@@ -1,7 +1,7 @@
 # xml_parse
 
 ## Location
-src/backend/utils/adt/xml.c: 1748 - 1932
+[src/backend/utils/adt/xml.c:1748-1932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1748-L1932)
 
 ## Overview
 The core XML parsing function that converts text data to libxml2's internal xmlDoc representation, supporting both DOCUMENT and CONTENT parsing modes with comprehensive error handling.

@@ -1,7 +1,7 @@
 # pg_realloc
 
 ## Location
-src/common/fe_memutils.c: 65 - 84
+[src/common/fe_memutils.c:65-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/fe_memutils.c#L65-L84)
 
 ## Overview
 Memory reallocation function that resizes an existing memory block with PostgreSQL's standard error handling.

@@ -1,7 +1,7 @@
 # SeqScan
 
 ## Location
-src/include/nodes/plannodes.h: 396 - 399
+[src/include/nodes/plannodes.h:396-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L396-L399)
 
 ## Overview
 SeqScan represents a sequential scan plan node that performs a full table scan by reading every tuple in a relation sequentially.

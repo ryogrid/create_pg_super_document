@@ -1,7 +1,7 @@
 # generate_relation_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12823 - 12882
+[src/backend/utils/adt/ruleutils.c:12823-12882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12823-L12882)
 
 ## Overview
 Computes the properly qualified and quoted name to display for a relation specified by OID, handling namespace conflicts and visibility rules.

@@ -1,7 +1,7 @@
 # parse_array_element
 
 ## Location
-src/common/jsonapi.c: 1188 - 1231
+[src/common/jsonapi.c:1188-1231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L1188-L1231)
 
 ## Overview
 A recursive descent parsing function that processes individual JSON array elements, dispatching to appropriate parsers based on element type (object, array, or scalar).

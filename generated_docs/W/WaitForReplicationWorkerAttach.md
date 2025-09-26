@@ -1,7 +1,7 @@
 # WaitForReplicationWorkerAttach
 
 ## Location
-src/backend/replication/logical/launcher.c: 183 - 255
+[src/backend/replication/logical/launcher.c:183-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L183-L255)
 
 ## Overview
 Waits for a background logical replication worker to start up and successfully attach to shared memory, providing cleanup capabilities if the worker fails to attach properly.

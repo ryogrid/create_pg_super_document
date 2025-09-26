@@ -1,7 +1,7 @@
 # ReleaseString
 
 ## Location
-src/test/modules/test_resowner/test_resowner_basic.c: 38 - 43
+[src/test/modules/test_resowner/test_resowner_basic.c:38-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_basic.c#L38-L43)
 
 ## Overview
 ReleaseString is a static callback function used in PostgreSQL resource owner testing that logs the release of a string resource with a notice message.

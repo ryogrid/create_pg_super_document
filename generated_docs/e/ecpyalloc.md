@@ -1,7 +1,7 @@
 # ecpyalloc
 
 ## Location
-src/timezone/zic.c: 446 - 451
+[src/timezone/zic.c:446-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L446-L451)
 
 ## Overview
 A utility function in the PostgreSQL timezone compiler (zic) that performs error-checked string duplication.

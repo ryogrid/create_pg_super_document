@@ -1,7 +1,7 @@
 # fsync_fname_ext
 
 ## Location
-src/backend/storage/file/fd.c: 3794 - 3869
+[src/backend/storage/file/fd.c:3794-3869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3794-L3869)
 
 ## Overview
 A comprehensive file/directory synchronization function that safely fsyncs files or directories with appropriate error handling for platform-specific behaviors.

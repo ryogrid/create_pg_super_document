@@ -1,7 +1,7 @@
 # get_auto_allocs
 
 ## Location
-src/interfaces/ecpg/ecpglib/memory.c: 88 - 94
+[src/interfaces/ecpg/ecpglib/memory.c:88-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/memory.c#L88-L94)
 
 ## Overview
 Retrieves the thread-specific linked list of automatically allocated memory blocks for the current thread.

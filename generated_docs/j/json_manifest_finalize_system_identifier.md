@@ -1,7 +1,7 @@
 # json_manifest_finalize_system_identifier
 
 ## Location
-src/common/parse_manifest.c: 624 - 648
+[src/common/parse_manifest.c:624-648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L624-L648)
 
 ## Overview
 Performs additional parsing and validation of the system identifier field from manifest data and invokes a callback to notify the caller about the parsed system identifier.

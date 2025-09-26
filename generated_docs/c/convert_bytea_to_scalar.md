@@ -1,7 +1,7 @@
 # convert_bytea_to_scalar
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 4739 - 4786
+[src/backend/utils/adt/selfuncs.c:4739-4786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L4739-L4786)
 
 ## Overview
 Converts bytea (binary data) values to normalized scalar values between 0 and 1 for selectivity estimation, similar to string conversion but handling non-null-terminated binary data with explicit lengths.

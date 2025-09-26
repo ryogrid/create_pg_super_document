@@ -1,7 +1,7 @@
 # pg_itm_in
 
 ## Location
-src/include/datatype/timestamp.h: 82 - 91
+[src/include/datatype/timestamp.h:82-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/datatype/timestamp.h#L82-L91)
 
 ## Overview
 The `pg_itm_in` struct is a specialized data structure for decoding intervals in PostgreSQL, containing only the essential fields needed during interval parsing while avoiding unnecessary memory overhead.

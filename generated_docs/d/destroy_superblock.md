@@ -1,7 +1,7 @@
 # destroy_superblock
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1837 - 1905
+[src/backend/utils/mmgr/dsa.c:1837-1905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1837-L1905)
 
 ## Overview
 Returns a superblock to the free page manager and potentially frees the underlying segment if it becomes entirely free.

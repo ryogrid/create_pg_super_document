@@ -1,7 +1,7 @@
 # DynamicZoneAbbrev
 
 ## Location
-src/include/utils/datetime.h: 224 - 228
+[src/include/utils/datetime.h:224-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/datetime.h#L224-L228)
 
 ## Overview
 DynamicZoneAbbrev is a structure that stores auxiliary data for dynamic time zone abbreviations that do not have fixed offsets, enabling PostgreSQL to handle timezone abbreviations that vary based on context and location.

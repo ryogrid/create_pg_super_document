@@ -1,7 +1,7 @@
 # shm_toc_insert
 
 ## Location
-src/backend/storage/ipc/shm_toc.c: 171 - 231
+[src/backend/storage/ipc/shm_toc.c:171-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_toc.c#L171-L231)
 
 ## Overview
 Inserts a TOC entry that maps a 64-bit key to a memory address within the shared memory segment, enabling other processes to discover data structure locations.

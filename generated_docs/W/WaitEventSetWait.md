@@ -1,7 +1,7 @@
 # WaitEventSetWait
 
 ## Location
-src/backend/storage/ipc/latch.c: 1424 - 1567
+[src/backend/storage/ipc/latch.c:1424-1567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L1424-L1567)
 
 ## Overview
 WaitEventSetWait is the main function for waiting on multiple events in PostgreSQL's event-driven I/O system, providing timeout support and returning information about occurred events.

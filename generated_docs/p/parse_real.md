@@ -1,7 +1,7 @@
 # parse_real
 
 ## Location
-src/backend/utils/misc/guc.c: 2963 - 3024
+[src/backend/utils/misc/guc.c:2963-3024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2963-L3024)
 
 ## Overview
 Parses a string value into a floating-point number, supporting optional unit suffixes for PostgreSQL configuration parameters.

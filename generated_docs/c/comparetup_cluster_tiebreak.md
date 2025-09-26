@@ -1,7 +1,7 @@
 # comparetup_cluster_tiebreak
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1248 - 1354
+[src/backend/utils/sort/tuplesortvariants.c:1248-1354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1248-L1354)
 
 ## Overview
 Performs comprehensive multi-column comparison of cluster tuples, handling both simple attribute-based indexes and complex expression-based indexes for complete tuple ordering.

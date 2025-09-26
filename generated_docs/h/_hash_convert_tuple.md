@@ -1,7 +1,7 @@
 # _hash_convert_tuple
 
 ## Location
-src/backend/access/hash/hashutil.c: 318 - 349
+[src/backend/access/hash/hashutil.c:318-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L318-L349)
 
 ## Overview
 Converts raw user data values into hash index tuple format by computing hash keys and preparing data for index storage.

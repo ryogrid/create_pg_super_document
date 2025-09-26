@@ -1,7 +1,7 @@
 # InstrStopNode
 
 ## Location
-src/backend/executor/instrument.c: 84 - 131
+[src/backend/executor/instrument.c:84-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L84-L131)
 
 ## Overview
 InstrStopNode completes performance instrumentation when exiting a plan node execution, calculating elapsed time, resource consumption, and tracking tuple counts and timing milestones.

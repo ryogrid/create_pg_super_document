@@ -1,7 +1,7 @@
 # AddBufferToRing
 
 ## Location
-src/backend/storage/buffer/freelist.c: 748 - 757
+[src/backend/storage/buffer/freelist.c:748-757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L748-L757)
 
 ## Overview
 Adds a buffer to the current slot in a ring-based buffer access strategy, completing the ring buffer assignment after allocation.

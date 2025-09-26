@@ -1,7 +1,7 @@
 # _hash_checkpage
 
 ## Location
-src/backend/access/hash/hashutil.c: 210 - 274
+[src/backend/access/hash/hashutil.c:210-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L210-L274)
 
 ## Overview
 Performs comprehensive sanity checks on hash index pages to detect corruption and ensure structural integrity.

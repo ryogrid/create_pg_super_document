@@ -1,7 +1,7 @@
 # RelIdCacheEnt
 
 ## Location
-src/backend/utils/cache/relcache.c: 132 - 163
+[src/backend/utils/cache/relcache.c:132-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L132-L163)
 
 ## Overview
 RelIdCacheEnt is a hash table entry structure that serves as the key-value pair for PostgreSQL's relation cache, indexing cached relation descriptors by their OID for fast lookup.

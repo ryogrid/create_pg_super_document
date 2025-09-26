@@ -1,7 +1,7 @@
 # transformAExprIn
 
 ## Location
-src/backend/parser/parse_expr.c: 1126 - 1283
+[src/backend/parser/parse_expr.c:1126-1283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L1126-L1283)
 
 ## Overview
 Transforms A_Expr nodes representing IN and NOT IN operations into optimized ScalarArrayOpExpr nodes or boolean expression trees, with special handling for variables and different data types.

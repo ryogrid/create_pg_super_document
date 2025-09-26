@@ -1,7 +1,7 @@
 # pg_logging_set_locus_callback
 
 ## Location
-src/common/logging.c: 199 - 204
+[src/common/logging.c:199-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/logging.c#L199-L204)
 
 ## Overview
 Sets a callback function to provide source code location information (filename and line number) for log messages in PostgreSQL's common logging system.

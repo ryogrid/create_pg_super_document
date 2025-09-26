@@ -1,7 +1,7 @@
 # ExecInitJunkFilter
 
 ## Location
-src/backend/executor/execJunk.c: 60 - 136
+[src/backend/executor/execJunk.c:60-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execJunk.c#L60-L136)
 
 ## Overview
 Initializes a JunkFilter data structure that manages the filtering of "junk" attributes from tuples during query execution, creating a mapping between original tuples and "clean" tuples without junk attributes.

@@ -1,7 +1,7 @@
 # pg_get_line_append
 
 ## Location
-src/common/pg_get_line.c: 124 - 180
+[src/common/pg_get_line.c:124-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_get_line.c#L124-L180)
 
 ## Overview
 The core line reading function that appends data from a file stream to an existing StringInfo buffer, supporting backslash continuation patterns and optional SIGINT-based cancellation.

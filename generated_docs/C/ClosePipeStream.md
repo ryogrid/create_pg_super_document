@@ -1,7 +1,7 @@
 # ClosePipeStream
 
 ## Location
-src/backend/storage/file/fd.c: 2988 - 3016
+[src/backend/storage/file/fd.c:2988-3016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2988-L3016)
 
 ## Overview
 ClosePipeStream closes a pipe stream that was previously opened by OpenPipeStream and removes it from the internal list of allocated file descriptors managed by PostgreSQL's file descriptor management system.

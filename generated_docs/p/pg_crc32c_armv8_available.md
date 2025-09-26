@@ -1,7 +1,7 @@
 # pg_crc32c_armv8_available
 
 ## Location
-src/port/pg_crc32c_armv8_choose.c: 46 - 84
+[src/port/pg_crc32c_armv8_choose.c:46-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_crc32c_armv8_choose.c#L46-L84)
 
 ## Overview
 A static runtime detection function that determines whether the current ARM processor supports ARMv8 CRC Extension instructions for hardware-accelerated CRC-32C computation.

@@ -1,7 +1,7 @@
 # TidListEval
 
 ## Location
-src/backend/executor/nodeTidscan.c: 134 - 282
+[src/backend/executor/nodeTidscan.c:134-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidscan.c#L134-L282)
 
 ## Overview
 TidListEval is a static function that evaluates TID (Tuple Identifier) expressions to compute a sorted, deduplicated array of TIDs to be visited during a TID scan operation.

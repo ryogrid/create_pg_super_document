@@ -1,7 +1,7 @@
 # update_controlfile
 
 ## Location
-src/common/controldata_utils.c: 189 - 283
+[src/common/controldata_utils.c:189-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/controldata_utils.c#L189-L283)
 
 ## Overview
 The update_controlfile function writes updated control file data to disk with proper timestamp updating, CRC calculation, and optional synchronization, handling both backend and frontend environments.

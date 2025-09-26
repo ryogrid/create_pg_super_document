@@ -1,7 +1,7 @@
 # pg_sha256_ctx
 
 ## Location
-src/common/sha2_int.h: 55 - 60
+[src/common/sha2_int.h:55-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2_int.h#L55-L60)
 
 ## Overview
 The pg_sha256_ctx structure represents the context for SHA-256 hash computation in PostgreSQL, maintaining the internal state required for incremental hashing operations.

@@ -1,7 +1,7 @@
 # CreateForeignTableStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2895 - 2900
+[src/include/nodes/parsenodes.h:2895-2900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2895-L2900)
 
 ## Overview
 CreateForeignTableStmt represents the parsed representation of a CREATE FOREIGN TABLE SQL statement, used to create a foreign table that provides access to external data through a foreign server.

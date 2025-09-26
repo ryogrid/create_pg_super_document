@@ -1,7 +1,7 @@
 # UnregisterSnapshotNoOwner
 
 ## Location
-src/backend/utils/time/snapmgr.c: 859 - 879
+[src/backend/utils/time/snapmgr.c:859-879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L859-L879)
 
 ## Overview
 Core function that decrements a snapshot's reference count, removes it from the RegisteredSnapshots pairing heap when appropriate, and frees the snapshot when no references remain.

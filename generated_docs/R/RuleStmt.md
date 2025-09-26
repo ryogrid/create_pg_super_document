@@ -1,7 +1,7 @@
 # RuleStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3606 - 3616
+[src/include/nodes/parsenodes.h:3606-3616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3606-L3616)
 
 ## Overview
 RuleStmt represents the parsed structure of a CREATE RULE SQL statement that defines rewrite rules for tables and views in PostgreSQL.

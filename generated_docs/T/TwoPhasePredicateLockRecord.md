@@ -1,7 +1,7 @@
 # TwoPhasePredicateLockRecord
 
 ## Location
-src/include/storage/predicate_internals.h: 448 - 452
+[src/include/storage/predicate_internals.h:448-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L448-L452)
 
 ## Overview
 TwoPhasePredicateLockRecord is a struct that stores per-lock state information for serializable predicate locks during two-phase commit operations.

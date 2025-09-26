@@ -1,7 +1,7 @@
 # get_windowfunc_expr_helper
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 10726 - 10818
+[src/backend/utils/adt/ruleutils.c:10726-10818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L10726-L10818)
 
 ## Overview
 A comprehensive helper function that converts WindowFunc nodes into their SQL string representation, supporting various window function types including JSON aggregates with specialized formatting options.

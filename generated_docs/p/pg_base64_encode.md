@@ -1,7 +1,7 @@
 # pg_base64_encode
 
 ## Location
-src/backend/utils/adt/encode.c: 267 - 313
+[src/backend/utils/adt/encode.c:267-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L267-L313)
 
 ## Overview
 Encodes binary data into Base64 format with automatic line wrapping at 76 characters per line.

@@ -1,7 +1,7 @@
 # EnterParallelMode
 
 ## Location
-src/backend/access/transam/xact.c: 1048 - 1060
+[src/backend/access/transam/xact.c:1048-1060](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1048-L1060)
 
 ## Overview
 EnterParallelMode increments the parallel mode nesting level for the current transaction, enabling parallel execution capabilities.

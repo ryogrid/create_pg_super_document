@@ -1,7 +1,7 @@
 # LWLockWaitListUnlock
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 909 - 921
+[src/backend/storage/lmgr/lwlock.c:909-921](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L909-L921)
 
 ## Overview
 Releases the spinlock on an LWLock's wait list, allowing other processes to safely manipulate the wait queue after wait list operations are complete.

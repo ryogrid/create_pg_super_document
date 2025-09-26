@@ -1,7 +1,7 @@
 # FreePageBtreeUpdateParentPointers
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 1232 - 1249
+[src/backend/utils/mmgr/freepage.c:1232-1249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L1232-L1249)
 
 ## Overview
 Updates the parent pointers of all child pages when internal pages are split or merged to maintain btree structural integrity.

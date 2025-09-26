@@ -1,7 +1,7 @@
 # SPI_getnspname
 
 ## Location
-src/backend/executor/spi.c: 1332 - 1337
+[src/backend/executor/spi.c:1332-1337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1332-L1337)
 
 ## Overview
 Retrieves the namespace (schema) name of a relation as a dynamically allocated string.

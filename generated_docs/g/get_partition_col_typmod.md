@@ -1,7 +1,7 @@
 # get_partition_col_typmod
 
 ## Location
-src/include/utils/partcache.h: 92 - 97
+[src/include/utils/partcache.h:92-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/partcache.h#L92-L97)
 
 ## Overview
 Returns the type modifier (typmod) for a specific column in a partition key, used during partition bound validation and type checking.

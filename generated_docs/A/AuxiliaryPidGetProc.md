@@ -1,7 +1,7 @@
 # AuxiliaryPidGetProc
 
 ## Location
-src/backend/storage/lmgr/proc.c: 1023 - 1070
+[src/backend/storage/lmgr/proc.c:1023-1070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L1023-L1070)
 
 ## Overview
 AuxiliaryPidGetProc retrieves the PGPROC structure for an auxiliary process given its process ID (PID), providing access to auxiliary process metadata.

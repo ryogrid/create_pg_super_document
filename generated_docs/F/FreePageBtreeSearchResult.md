@@ -1,7 +1,7 @@
 # FreePageBtreeSearchResult
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 119 - 125
+[src/backend/utils/mmgr/freepage.c:119-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L119-L125)
 
 ## Overview
 FreePageBtreeSearchResult is a struct that holds the results of searching a B-tree in the free page manager, containing information about the search position, whether an exact match was found, and resource requirements for potential insertions.

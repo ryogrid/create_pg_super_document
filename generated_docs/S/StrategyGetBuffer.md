@@ -1,7 +1,7 @@
 # StrategyGetBuffer
 
 ## Location
-src/backend/storage/buffer/freelist.c: 196 - 362
+[src/backend/storage/buffer/freelist.c:196-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L196-L362)
 
 ## Overview
 StrategyGetBuffer is the core buffer allocation function that selects the next candidate buffer for use by BufferAlloc(), implementing PostgreSQL's buffer replacement strategy using either a ring buffer strategy or the clock sweep algorithm.

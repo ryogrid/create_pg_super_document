@@ -1,7 +1,7 @@
 # TidPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1823 - 1827
+[src/include/nodes/pathnodes.h:1823-1827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1823-L1827)
 
 ## Overview
 TidPath represents a scan by TID (tuple identifier), allowing direct access to specific tuples when their physical locations are known through CTID conditions or cursor operations.

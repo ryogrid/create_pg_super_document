@@ -1,7 +1,7 @@
 # IOContextForStrategy
 
 ## Location
-src/backend/storage/buffer/freelist.c: 758 - 797
+[src/backend/storage/buffer/freelist.c:758-797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L758-L797)
 
 ## Overview
 IOContextForStrategy is a utility function that maps a BufferAccessStrategy to its corresponding IOContext, enabling PostgreSQL to track different types of I/O operations for monitoring and statistics purposes.

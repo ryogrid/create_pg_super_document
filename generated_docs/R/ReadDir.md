@@ -1,7 +1,7 @@
 # ReadDir
 
 ## Location
-src/backend/storage/file/fd.c: 2906 - 2920
+[src/backend/storage/file/fd.c:2906-2920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2906-L2920)
 
 ## Overview
 ReadDir provides a simplified interface for reading directory entries with automatic error handling, wrapping the more complex ReadDirExtended function.

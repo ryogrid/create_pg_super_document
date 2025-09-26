@@ -1,7 +1,7 @@
 # IsBufferCleanupOK
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5429 - 5482
+[src/backend/storage/buffer/bufmgr.c:5429-5482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5429-L5482)
 
 ## Overview
 IsBufferCleanupOK determines whether cleanup operations can be safely performed on a buffer that is already locked, by checking if the current exclusive lock can act as a cleanup lock.

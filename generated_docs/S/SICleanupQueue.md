@@ -1,7 +1,7 @@
 # SICleanupQueue
 
 ## Location
-src/backend/storage/ipc/sinvaladt.c: 577 - 699
+[src/backend/storage/ipc/sinvaladt.c:577-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinvaladt.c#L577-L699)
 
 ## Overview
 Removes consumed shared invalidation messages from the queue and manages backend synchronization by signaling lagging backends and forcing reset states when necessary.

@@ -1,7 +1,7 @@
 # LockReleaseCurrentOwner
 
 ## Location
-src/backend/storage/lmgr/lock.c: 2474 - 2508
+[src/backend/storage/lmgr/lock.c:2474-2508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L2474-L2508)
 
 ## Overview
 LockReleaseCurrentOwner releases all locks belonging to the current resource owner, with an optimization to accept a pre-computed array of locks to avoid hash table traversal.

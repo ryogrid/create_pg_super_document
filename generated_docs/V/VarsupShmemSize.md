@@ -1,7 +1,7 @@
 # VarsupShmemSize
 
 ## Location
-src/backend/access/transam/varsup.c: 41 - 46
+[src/backend/access/transam/varsup.c:41-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/varsup.c#L41-L46)
 
 ## Overview
 VarsupShmemSize calculates the amount of shared memory required for TransamVariables initialization during PostgreSQL startup.

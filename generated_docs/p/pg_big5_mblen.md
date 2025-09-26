@@ -1,7 +1,7 @@
 # pg_big5_mblen
 
 ## Location
-src/common/wchar.c: 922 - 933
+[src/common/wchar.c:922-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L922-L933)
 
 ## Overview
 Determines the byte length of a single character in the Big5 multibyte encoding.

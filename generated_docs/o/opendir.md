@@ -1,7 +1,7 @@
 # opendir
 
 ## Location
-src/port/dirent.c: 33 - 77
+[src/port/dirent.c:33-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/dirent.c#L33-L77)
 
 ## Overview
 PostgreSQL's Windows-specific implementation of the POSIX opendir() function that opens a directory stream for reading directory entries.

@@ -1,7 +1,7 @@
 # MergeAffix
 
 ## Location
-src/backend/tsearch/spell.c: 1575 - 1621
+[src/backend/tsearch/spell.c:1575-1621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1575-L1621)
 
 ## Overview
 Merges two affix flag sets and stores the result as a new entry in the dictionary's affix data array.

@@ -1,7 +1,7 @@
 # AlterFunctionStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3460 - 3466
+[src/include/nodes/parsenodes.h:3460-3466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3460-L3466)
 
 ## Overview
 AlterFunctionStmt is a node structure representing an SQL ALTER FUNCTION statement in PostgreSQL's parse tree. It encapsulates the information needed to modify the properties of an existing function or procedure.

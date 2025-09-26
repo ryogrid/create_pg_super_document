@@ -1,7 +1,7 @@
 # get_json_table_nested_columns
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11714 - 11745
+[src/backend/utils/adt/ruleutils.c:11714-11745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11714-L11745)
 
 ## Overview
 Recursively parses and formats nested JSON_TABLE column specifications for SQL query deparsing, handling both path scans and sibling joins in JSON table expressions.

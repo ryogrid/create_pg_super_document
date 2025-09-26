@@ -1,7 +1,7 @@
 # RangeBox
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 113 - 118
+[src/backend/utils/adt/geo_spgist.c:113-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L113-L118)
 
 ## Overview
 RangeBox is a structure used in PostgreSQL's geometric SP-GiST index implementation to represent a 2D rectangular region using two one-dimensional Range structures.

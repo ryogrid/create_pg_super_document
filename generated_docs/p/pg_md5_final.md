@@ -1,7 +1,7 @@
 # pg_md5_final
 
 ## Location
-src/common/md5.c: 432 - 436
+[src/common/md5.c:432-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5.c#L432-L436)
 
 ## Overview
 Finalizes an MD5 hash computation by padding the remaining data and producing the final 16-byte MD5 digest.

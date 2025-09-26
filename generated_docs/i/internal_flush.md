@@ -1,7 +1,7 @@
 # internal_flush
 
 ## Location
-src/backend/libpq/pqcomm.c: 1346 - 1358
+[src/backend/libpq/pqcomm.c:1346-1358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1346-L1358)
 
 ## Overview
 A static inline function that flushes the PostgreSQL send buffer by delegating to the core buffer flushing implementation.

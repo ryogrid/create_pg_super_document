@@ -1,7 +1,7 @@
 # smgrnblocks
 
 ## Location
-src/backend/storage/smgr/smgr.c: 655 - 678
+[src/backend/storage/smgr/smgr.c:655-678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L655-L678)
 
 ## Overview
 Calculates and returns the number of blocks in the supplied storage manager relation, utilizing caching to optimize repeated queries for the same relation.

@@ -1,7 +1,7 @@
 # json_manifest_scalar
 
 ## Location
-src/common/parse_manifest.c: 517 - 595
+[src/common/parse_manifest.c:517-595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L517-L595)
 
 ## Overview
 Handles scalar values during PostgreSQL backup manifest parsing, processing and storing field values based on the current parsing context.

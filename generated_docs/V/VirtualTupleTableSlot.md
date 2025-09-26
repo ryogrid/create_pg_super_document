@@ -1,7 +1,7 @@
 # VirtualTupleTableSlot
 
 ## Location
-src/include/executor/tuptable.h: 244 - 251
+[src/include/executor/tuptable.h:244-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/tuptable.h#L244-L251)
 
 ## Overview
 VirtualTupleTableSlot is a specialized TupleTableSlot implementation that stores tuple data only as materialized Datum values without maintaining any underlying physical tuple representation.

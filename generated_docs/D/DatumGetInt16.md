@@ -1,7 +1,7 @@
 # DatumGetInt16
 
 ## Location
-src/include/postgres.h: 162 - 171
+[src/include/postgres.h:162-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L162-L171)
 
 ## Overview
 DatumGetInt16 is an inline function that extracts a 16-bit signed integer value from a PostgreSQL Datum type.

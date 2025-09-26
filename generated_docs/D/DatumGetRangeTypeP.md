@@ -1,7 +1,7 @@
 # DatumGetRangeTypeP
 
 ## Location
-src/include/utils/rangetypes.h: 74 - 79
+[src/include/utils/rangetypes.h:74-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rangetypes.h#L74-L79)
 
 ## Overview
 A static inline function that converts a Datum value to a RangeType pointer, handling detoasting if necessary.

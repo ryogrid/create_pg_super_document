@@ -1,7 +1,7 @@
 # LWLockReleaseClearVar
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1856 - 1877
+[src/backend/storage/lmgr/lwlock.c:1856-1877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1856-L1877)
 
 ## Overview
 Releases a previously acquired LWLock while atomically setting a specified atomic variable to a new value before releasing the lock.

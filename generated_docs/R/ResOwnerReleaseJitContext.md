@@ -1,7 +1,7 @@
 # ResOwnerReleaseJitContext
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 1380 - 1386
+[src/backend/jit/llvm/llvmjit.c:1380-1386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L1380-L1386)
 
 ## Overview
 A resource owner callback function that releases LLVM JIT contexts when they are cleaned up by PostgreSQL's resource management system.

@@ -1,7 +1,7 @@
 # pg_sha224_update
 
 ## Location
-src/common/sha2.c: 988 - 993
+[src/common/sha2.c:988-993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L988-L993)
 
 ## Overview
 Updates a SHA-224 hash context with new data by delegating to the SHA-256 update function, since SHA-224 is essentially SHA-256 with a truncated output.

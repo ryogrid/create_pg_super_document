@@ -1,7 +1,7 @@
 # pg_fe_getauthname
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 1214 - 1232
+[src/interfaces/libpq/fe-auth.c:1214-1232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L1214-L1232)
 
 ## Overview
 Retrieves the authenticated username of the current process, providing a simple interface to get the effective user identity for authentication purposes.

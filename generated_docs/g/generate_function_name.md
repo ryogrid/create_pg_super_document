@@ -1,7 +1,7 @@
 # generate_function_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12927 - 13031
+[src/backend/utils/adt/ruleutils.c:12927-13031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12927-L13031)
 
 ## Overview
 Computes the properly qualified and quoted name to display for a function specified by OID, considering argument types, variadic behavior, and function resolution rules to determine if schema qualification is needed.

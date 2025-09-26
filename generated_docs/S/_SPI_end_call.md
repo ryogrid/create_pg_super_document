@@ -1,7 +1,7 @@
 # _SPI_end_call
 
 ## Location
-src/backend/executor/spi.c: 3101 - 3116
+[src/backend/executor/spi.c:3101-3116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L3101-L3116)
 
 ## Overview
 _SPI_end_call is a static internal function that concludes a SPI operation within a connected procedure, handling memory context cleanup and subtransaction state reset.

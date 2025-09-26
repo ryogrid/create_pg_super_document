@@ -1,7 +1,7 @@
 # macaddr8
 
 ## Location
-src/include/utils/inet.h: 107 - 117
+[src/include/utils/inet.h:107-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/inet.h#L107-L117)
 
 ## Overview
 The  struct represents the internal storage format for 8-byte MAC addresses in PostgreSQL, providing support for 64-bit Extended Unique Identifiers (EUI-64) and modern networking protocols that use extended MAC address formats.

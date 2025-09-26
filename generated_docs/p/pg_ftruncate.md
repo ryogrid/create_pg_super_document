@@ -1,7 +1,7 @@
 # pg_ftruncate
 
 ## Location
-src/backend/storage/file/fd.c: 700 - 716
+[src/backend/storage/file/fd.c:700-716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L700-L716)
 
 ## Overview
 A PostgreSQL static wrapper function around the system ftruncate() call that handles EINTR interrupts with automatic retry logic.

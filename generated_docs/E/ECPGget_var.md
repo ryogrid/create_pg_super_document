@@ -1,7 +1,7 @@
 # ECPGget_var
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 591 - 597
+[src/interfaces/ecpg/ecpglib/misc.c:591-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L591-L597)
 
 ## Overview
 Retrieves a variable pointer from the ECPG variable list by searching for the specified variable number.

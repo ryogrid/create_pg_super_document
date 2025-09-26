@@ -1,7 +1,7 @@
 # Constraint
 
 ## Location
-src/include/nodes/parsenodes.h: 2728 - 2773
+[src/include/nodes/parsenodes.h:2728-2773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2728-L2773)
 
 ## Overview
 Constraint is a comprehensive parse tree node structure that represents all types of table and column constraints in PostgreSQL, including CHECK, NOT NULL, UNIQUE, PRIMARY KEY, FOREIGN KEY, DEFAULT, and EXCLUSION constraints.

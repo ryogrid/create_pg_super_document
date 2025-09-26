@@ -1,7 +1,7 @@
 # OperatorElement
 
 ## Location
-src/backend/utils/adt/tsquery.c: 629 - 633
+[src/backend/utils/adt/tsquery.c:629-633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L629-L633)
 
 ## Overview
 OperatorElement is a compact structure that represents an operator with its associated distance parameter in tsquery parsing operations, used primarily for managing operator precedence and proximity operations.

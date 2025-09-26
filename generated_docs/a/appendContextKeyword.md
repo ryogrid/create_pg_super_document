@@ -1,7 +1,7 @@
 # appendContextKeyword
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8786 - 8839
+[src/backend/utils/adt/ruleutils.c:8786-8839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8786-L8839)
 
 ## Overview
 Appends a keyword to the output buffer with proper indentation formatting when pretty printing is enabled for PostgreSQL rule decompilation.

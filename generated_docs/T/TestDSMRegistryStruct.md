@@ -1,7 +1,7 @@
 # TestDSMRegistryStruct
 
 ## Location
-src/test/modules/test_dsm_registry/test_dsm_registry.c: 21 - 25
+[src/test/modules/test_dsm_registry/test_dsm_registry.c:21-25](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_dsm_registry/test_dsm_registry.c#L21-L25)
 
 ## Overview
 TestDSMRegistryStruct is a simple test structure designed to demonstrate and test the dynamic shared memory (DSM) registry functionality in PostgreSQL's test module.

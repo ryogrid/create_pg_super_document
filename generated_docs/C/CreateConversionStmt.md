@@ -1,7 +1,7 @@
 # CreateConversionStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3988 - 3996
+[src/include/nodes/parsenodes.h:3988-3996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3988-L3996)
 
 ## Overview
 CreateConversionStmt represents a CREATE CONVERSION statement in PostgreSQL's parse tree, which is used to define a new encoding conversion function for character set conversion.

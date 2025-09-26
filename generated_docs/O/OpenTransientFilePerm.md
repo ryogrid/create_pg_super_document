@@ -1,7 +1,7 @@
 # OpenTransientFilePerm
 
 ## Location
-src/backend/storage/file/fd.c: 2639 - 2682
+[src/backend/storage/file/fd.c:2639-2682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L2639-L2682)
 
 ## Overview
 OpenTransientFilePerm opens files using raw file descriptors with explicit permission control, providing PostgreSQL's managed alternative to the open() system call.

@@ -1,7 +1,7 @@
 # pg_conn_host
 
 ## Location
-src/interfaces/libpq/libpq-int.h: 349 - 359
+[src/interfaces/libpq/libpq-int.h:349-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-int.h#L349-L359)
 
 ## Overview
 A structure that stores information about each host mentioned in PostgreSQL connection strings, supporting multiple hosts for connection failover and load balancing scenarios.

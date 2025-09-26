@@ -1,7 +1,7 @@
 # do_field
 
 ## Location
-src/interfaces/libpq/fe-print.c: 330 - 444
+[src/interfaces/libpq/fe-print.c:330-444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-print.c#L330-L444)
 
 ## Overview
 Processes and formats a single field value from a PostgreSQL query result for display, handling numeric detection, memory allocation, and output formatting based on print options.

@@ -1,7 +1,7 @@
 # BarrierParticipants
 
 ## Location
-src/backend/storage/ipc/barrier.c: 281 - 299
+[src/backend/storage/ipc/barrier.c:281-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/barrier.c#L281-L299)
 
 ## Overview
 BarrierParticipants is a debugging utility function that returns a snapshot of the current number of participants attached to a barrier synchronization point.

@@ -1,7 +1,7 @@
 # HashSkewBucket
 
 ## Location
-src/include/executor/hashjoin.h: 113 - 117
+[src/include/executor/hashjoin.h:113-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/hashjoin.h#L113-L117)
 
 ## Overview
 HashSkewBucket is a specialized hash table structure designed to optimize PostgreSQL hash joins by handling highly frequent hash values (Most Common Values) separately from the main hash table to improve performance and reduce disk I/O.

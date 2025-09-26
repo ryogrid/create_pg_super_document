@@ -1,7 +1,7 @@
 # ExecHashTableCreate
 
 ## Location
-src/backend/executor/nodeHash.c: 432 - 671
+[src/backend/executor/nodeHash.c:432-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L432-L671)
 
 ## Overview
 Creates and initializes an empty hash table data structure for hash join operations, configuring memory contexts, hash functions, and batch processing parameters.

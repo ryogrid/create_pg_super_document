@@ -1,7 +1,7 @@
 # getsubdfa
 
 ## Location
-src/backend/regex/regexec.c: 372 - 399
+[src/backend/regex/regexec.c:372-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L372-L399)
 
 ## Overview
 Creates or re-fetches a DFA (Deterministic Finite Automaton) for a tree subre node during regex execution.

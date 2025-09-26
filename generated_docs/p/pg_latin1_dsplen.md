@@ -1,7 +1,7 @@
 # pg_latin1_dsplen
 
 ## Location
-src/common/wchar.c: 882 - 890
+[src/common/wchar.c:882-890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L882-L890)
 
 ## Overview
 Calculates the display length of a character in ISO8859-1 (Latin-1) encoding by delegating to ASCII display length calculation.

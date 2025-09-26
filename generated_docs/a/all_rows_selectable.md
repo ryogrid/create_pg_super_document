@@ -1,7 +1,7 @@
 # all_rows_selectable
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 5618 - 5800
+[src/backend/utils/adt/selfuncs.c:5618-5800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L5618-L5800)
 
 ## Overview
 Tests whether the current user has permission to select all rows from a specified relation, including checking for security qualifiers from security barrier views and RLS policies.

@@ -1,7 +1,7 @@
 # SPI_connect
 
 ## Location
-src/backend/executor/spi.c: 94 - 99
+[src/backend/executor/spi.c:94-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L94-L99)
 
 ## Overview
 SPI_connect establishes a connection to PostgreSQL's Server Programming Interface (SPI), enabling stored procedures and functions to execute SQL commands within the server process.

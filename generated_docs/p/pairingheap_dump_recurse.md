@@ -1,7 +1,7 @@
 # pairingheap_dump_recurse
 
 ## Location
-src/backend/lib/pairingheap.c: 296 - 317
+[src/backend/lib/pairingheap.c:296-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/pairingheap.c#L296-L317)
 
 ## Overview
 Recursively traverses and dumps the structure of a pairing heap node and its descendants for debugging purposes.

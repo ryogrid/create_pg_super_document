@@ -1,7 +1,7 @@
 # isvarchar
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 44 - 58
+[src/interfaces/ecpg/ecpglib/prepare.c:44-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L44-L58)
 
 ## Overview
 A static utility function that determines whether a character is valid for use in a variable name context within ECPG (Embedded SQL in C for PostgreSQL).

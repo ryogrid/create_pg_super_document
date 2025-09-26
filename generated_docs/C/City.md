@@ -1,7 +1,7 @@
 # City
 
 ## Location
-src/include/optimizer/geqo_recombination.h: 62 - 68
+[src/include/optimizer/geqo_recombination.h:62-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/geqo_recombination.h#L62-L68)
 
 ## Overview
 The City struct is a data structure used in PostgreSQL's Genetic Query Optimizer (GEQO) for various crossover operations during genetic algorithm-based query optimization, representing positions and states of elements during recombination processes.

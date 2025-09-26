@@ -1,7 +1,7 @@
 # table_tuple_fetch_row_version
 
 ## Location
-src/include/access/tableam.h: 1289 - 1314
+[src/include/access/tableam.h:1289-1314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1289-L1314)
 
 ## Overview
 Fetches a tuple at a specific TID with visibility testing, evaluating only the exact tuple at that location without traversing HOT chains.

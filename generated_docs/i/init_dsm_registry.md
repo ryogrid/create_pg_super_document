@@ -1,7 +1,7 @@
 # init_dsm_registry
 
 ## Location
-src/backend/storage/ipc/dsm_registry.c: 91 - 130
+[src/backend/storage/ipc/dsm_registry.c:91-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_registry.c#L91-L130)
 
 ## Overview
 init_dsm_registry initializes or attaches to the dynamic shared hash table that stores DSM registry entries for managing named dynamic shared memory segments.

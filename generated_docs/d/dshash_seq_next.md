@@ -1,7 +1,7 @@
 # dshash_seq_next
 
 ## Location
-src/backend/lib/dshash.c: 657 - 746
+[src/backend/lib/dshash.c:657-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L657-L746)
 
 ## Overview
 Returns the next element during sequential scanning of a dynamic shared hash table, managing partition locks and bucket traversal.

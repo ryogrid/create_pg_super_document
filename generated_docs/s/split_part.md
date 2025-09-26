@@ -1,7 +1,7 @@
 # split_part
 
 ## Location
-src/backend/utils/adt/varlena.c: 4368 - 4499
+[src/backend/utils/adt/varlena.c:4368-4499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4368-L4499)
 
 ## Overview
 A PostgreSQL built-in function that splits an input string by a field separator and returns the N-th field, supporting both positive (1-based) and negative (count from end) field indexing.

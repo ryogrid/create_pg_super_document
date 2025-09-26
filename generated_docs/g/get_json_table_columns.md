@@ -1,7 +1,7 @@
 # get_json_table_columns
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11746 - 11851
+[src/backend/utils/adt/ruleutils.c:11746-11851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11746-L11851)
 
 ## Overview
 Formats and outputs the column specifications for JSON_TABLE expressions during SQL query deparsing, handling various column types including ordinality, exists, and query operations.

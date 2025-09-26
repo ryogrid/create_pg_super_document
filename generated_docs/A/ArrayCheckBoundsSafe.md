@@ -1,7 +1,7 @@
 # ArrayCheckBoundsSafe
 
 ## Location
-src/backend/utils/adt/arrayutils.c: 127 - 152
+[src/backend/utils/adt/arrayutils.c:127-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayutils.c#L127-L152)
 
 ## Overview
 Safely validates array lower-bound values against overflow conditions with optional soft error handling.

@@ -1,7 +1,7 @@
 # PathNameCreateTemporaryFile
 
 ## Location
-src/backend/storage/file/fd.c: 1858 - 1897
+[src/backend/storage/file/fd.c:1858-1897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1858-L1897)
 
 ## Overview
 PathNameCreateTemporaryFile creates a new temporary file at a specified path with automatic resource management and temp file limit accounting.

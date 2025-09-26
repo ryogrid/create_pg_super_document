@@ -1,7 +1,7 @@
 # pgstat_reinit_entry
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 301 - 325
+[src/backend/utils/activity/pgstat_shmem.c:301-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L301-L325)
 
 ## Overview
 Reinitializes an existing dropped statistics entry by resetting its data, incrementing generation counters, and marking it as active again in PostgreSQL's shared memory statistics system.

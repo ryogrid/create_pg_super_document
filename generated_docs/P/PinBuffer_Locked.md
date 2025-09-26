@@ -1,7 +1,7 @@
 # PinBuffer_Locked
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2752 - 2794
+[src/backend/storage/buffer/bufmgr.c:2752-2794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2752-L2794)
 
 ## Overview
 PinBuffer_Locked pins a buffer while the caller already holds the buffer header spinlock, providing an optimized path for pinning when the lock is already acquired and no preexisting pin exists.

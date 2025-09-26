@@ -1,7 +1,7 @@
 # logicalrep_worker_onexit
 
 ## Location
-src/backend/replication/logical/launcher.c: 831 - 860
+[src/backend/replication/logical/launcher.c:831-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L831-L860)
 
 ## Overview
 A comprehensive cleanup function registered as an exit handler for logical replication worker processes that performs graceful disconnection, resource cleanup, and state management upon worker termination.

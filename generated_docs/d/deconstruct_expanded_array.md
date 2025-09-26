@@ -1,7 +1,7 @@
 # deconstruct_expanded_array
 
 ## Location
-src/backend/utils/adt/array_expanded.c: 424 - 453
+[src/backend/utils/adt/array_expanded.c:424-453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_expanded.c#L424-L453)
 
 ## Overview
 deconstruct_expanded_array populates the Datum/isnull representation fields of an expanded array header if they haven't been created previously, enabling element-wise access to the array data.

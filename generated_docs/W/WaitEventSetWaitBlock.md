@@ -1,7 +1,7 @@
 # WaitEventSetWaitBlock
 
 ## Location
-src/backend/storage/ipc/latch.c: 1568 - 1704
+[src/backend/storage/ipc/latch.c:1568-1704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L1568-L1704)
 
 ## Overview
 WaitEventSetWaitBlock is the low-level blocking function that uses epoll on Linux to wait for I/O events and translates them into PostgreSQL's wait event format.

@@ -1,7 +1,7 @@
 # GroupResultPath
 
 ## Location
-src/include/nodes/pathnodes.h: 1969 - 1973
+[src/include/nodes/pathnodes.h:1969-1973](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1969-L1973)
 
 ## Overview
 GroupResultPath represents use of a Result plan node to compute the output of a degenerate GROUP BY case, producing exactly one row that might be filtered by a HAVING qual.

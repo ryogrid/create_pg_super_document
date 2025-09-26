@@ -1,7 +1,7 @@
 # InitializeRelfilenumberMap
 
 ## Location
-src/backend/utils/cache/relfilenumbermap.c: 86 - 140
+[src/backend/utils/cache/relfilenumbermap.c:86-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relfilenumbermap.c#L86-L140)
 
 ## Overview
 InitializeRelfilenumberMap is a static initialization function that sets up the relfilenumber-to-relid mapping cache, either on first use or after a reset.

@@ -1,7 +1,7 @@
 # initHyperLogLogError
 
 ## Location
-src/backend/lib/hyperloglog.c: 128 - 150
+[src/backend/lib/hyperloglog.c:128-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/hyperloglog.c#L128-L150)
 
 ## Overview
 Initializes a HyperLogLog state structure by specifying a target error rate instead of bit width, automatically calculating the optimal bit width to achieve the desired accuracy.

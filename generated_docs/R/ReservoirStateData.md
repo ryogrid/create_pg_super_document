@@ -1,7 +1,7 @@
 # ReservoirStateData
 
 ## Location
-src/include/utils/sampling.h: 50 - 51
+[src/include/utils/sampling.h:50-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/sampling.h#L50-L51)
 
 ## Overview
 ReservoirStateData is a data structure that maintains the state for reservoir sampling algorithms, used in PostgreSQL for selecting random samples when the population size is unknown or very large.

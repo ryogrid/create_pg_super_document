@@ -1,7 +1,7 @@
 # complex_abs_eq
 
 ## Location
-src/tutorial/complex.c: 170 - 180
+[src/tutorial/complex.c:170-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L170-L180)
 
 ## Overview
 A PostgreSQL function that implements the "equal to" comparison operator for the absolute values (magnitudes) of two complex numbers.

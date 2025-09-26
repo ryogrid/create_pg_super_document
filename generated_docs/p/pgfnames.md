@@ -1,7 +1,7 @@
 # pgfnames
 
 ## Location
-src/common/pgfnames.c: 37 - 85
+[src/common/pgfnames.c:37-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pgfnames.c#L37-L85)
 
 ## Overview
 Lists all file and directory names in a specified directory path, returning a dynamically allocated array of strings.

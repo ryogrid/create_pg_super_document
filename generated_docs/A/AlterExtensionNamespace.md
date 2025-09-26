@@ -1,7 +1,7 @@
 # AlterExtensionNamespace
 
 ## Location
-src/backend/commands/extension.c: 2772 - 2986
+[src/backend/commands/extension.c:2772-2986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L2772-L2986)
 
 ## Overview
 Executes ALTER EXTENSION SET SCHEMA command to move an extension and all its member objects from one schema to another schema.

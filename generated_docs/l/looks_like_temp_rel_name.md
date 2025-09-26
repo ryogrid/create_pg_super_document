@@ -1,7 +1,7 @@
 # looks_like_temp_rel_name
 
 ## Location
-src/backend/storage/file/fd.c: 3446 - 3494
+[src/backend/storage/file/fd.c:3446-3494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3446-L3494)
 
 ## Overview
 Determines whether a given filename matches the naming pattern of a PostgreSQL temporary relation file.

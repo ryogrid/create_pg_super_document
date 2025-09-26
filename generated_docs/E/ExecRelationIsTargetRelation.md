@@ -1,7 +1,7 @@
 # ExecRelationIsTargetRelation
 
 ## Location
-src/backend/executor/execUtils.c: 684 - 696
+[src/backend/executor/execUtils.c:684-696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L684-L696)
 
 ## Overview
 Determines whether a relation (identified by range table index) is one of the target relations of the current query.

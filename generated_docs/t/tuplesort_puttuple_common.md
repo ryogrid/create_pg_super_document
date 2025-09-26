@@ -1,7 +1,7 @@
 # tuplesort_puttuple_common
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1189 - 1340
+[src/backend/utils/sort/tuplesort.c:1189-1340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1189-L1340)
 
 ## Overview
 Core function that handles inserting tuples into the sort state, managing memory, abbreviated keys, and state transitions between different sorting phases based on memory constraints and tuple counts.

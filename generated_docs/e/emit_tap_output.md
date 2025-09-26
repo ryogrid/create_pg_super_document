@@ -1,7 +1,7 @@
 # emit_tap_output
 
 ## Location
-src/test/regress/pg_regress.c: 330 - 339
+[src/test/regress/pg_regress.c:330-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L330-L339)
 
 ## Overview
 A variadic wrapper function that formats and outputs TAP protocol messages by forwarding arguments to emit_tap_output_v.

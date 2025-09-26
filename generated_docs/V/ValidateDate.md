@@ -1,7 +1,7 @@
 # ValidateDate
 
 ## Location
-src/backend/utils/adt/datetime.c: 2508 - 2589
+[src/backend/utils/adt/datetime.c:2508-2589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L2508-L2589)
 
 ## Overview
 ValidateDate is a date validation function that checks the validity of year, month, and day values in a parsed date structure, handling special cases like BC years, Julian calendars, 2-digit years, and day-of-year format.

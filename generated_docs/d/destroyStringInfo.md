@@ -1,7 +1,7 @@
 # destroyStringInfo
 
 ## Location
-src/common/stringinfo.c: 361 - 368
+[src/common/stringinfo.c:361-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L361-L368)
 
 ## Overview
 Frees a StringInfo structure and its associated buffer memory, serving as the opposite operation to makeStringInfo().

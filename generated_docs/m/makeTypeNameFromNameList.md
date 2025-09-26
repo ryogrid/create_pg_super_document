@@ -1,7 +1,7 @@
 # makeTypeNameFromNameList
 
 ## Location
-src/backend/nodes/makefuncs.c: 505 - 520
+[src/backend/nodes/makefuncs.c:505-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L505-L520)
 
 ## Overview
 Constructs a TypeName node from a list of strings representing a qualified type name, supporting both simple and schema-qualified type references.

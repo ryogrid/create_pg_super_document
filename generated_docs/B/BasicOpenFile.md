@@ -1,7 +1,7 @@
 # BasicOpenFile
 
 ## Location
-src/backend/storage/file/fd.c: 1084 - 1105
+[src/backend/storage/file/fd.c:1084-1105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1084-L1105)
 
 ## Overview
 A convenience wrapper function that opens a file using default permissions by calling BasicOpenFilePerm with PostgreSQL's standard file creation mode.

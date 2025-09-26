@@ -1,7 +1,7 @@
 # MergeAction
 
 ## Location
-src/include/nodes/primnodes.h: 2003 - 2014
+[src/include/nodes/primnodes.h:2003-2014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2003-L2014)
 
 ## Overview
 MergeAction represents the transformed representation of a WHEN clause in a PostgreSQL MERGE statement, encapsulating the match condition, command type, and associated data for merge operations.

@@ -1,7 +1,7 @@
 # count_usable_fds
 
 ## Location
-src/backend/storage/file/fd.c: 961 - 1040
+[src/backend/storage/file/fd.c:961-1040](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L961-L1040)
 
 ## Overview
 Counts how many file descriptors the system will allow PostgreSQL to open and estimates how many are already in use by systematically attempting to duplicate file descriptors.

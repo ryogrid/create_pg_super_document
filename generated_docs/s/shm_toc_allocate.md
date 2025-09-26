@@ -1,7 +1,7 @@
 # shm_toc_allocate
 
 ## Location
-src/backend/storage/ipc/shm_toc.c: 88 - 130
+[src/backend/storage/ipc/shm_toc.c:88-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_toc.c#L88-L130)
 
 ## Overview
 Allocates shared memory chunks from a segment managed by a table of contents, using a backwards allocation strategy without providing deallocation capability.

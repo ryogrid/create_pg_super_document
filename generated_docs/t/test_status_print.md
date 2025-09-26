@@ -1,7 +1,7 @@
 # test_status_print
 
 ## Location
-src/test/regress/pg_regress.c: 279 - 301
+[src/test/regress/pg_regress.c:279-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L279-L301)
 
 ## Overview
 Formats and prints TAP-compliant test status output with aligned test names and runtimes for both sequential and parallel test execution.

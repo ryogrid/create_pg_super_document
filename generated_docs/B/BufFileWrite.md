@@ -1,7 +1,7 @@
 # BufFileWrite
 
 ## Location
-src/backend/storage/file/buffile.c: 676 - 719
+[src/backend/storage/file/buffile.c:676-719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L676-L719)
 
 ## Overview
 Writes data to a buffered file, using an internal buffer for efficiency and handling file segmentation automatically.

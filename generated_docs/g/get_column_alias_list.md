@@ -1,7 +1,7 @@
 # get_column_alias_list
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 12396 - 12435
+[src/backend/utils/adt/ruleutils.c:12396-12435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L12396-L12435)
 
 ## Overview
 Generates a parenthesized list of column aliases for a range table entry when needed for SQL query deparsing.

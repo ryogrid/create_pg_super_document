@@ -1,7 +1,7 @@
 # pg_prng_fseed
 
 ## Location
-src/common/pg_prng.c: 102 - 113
+[src/common/pg_prng.c:102-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L102-L113)
 
 ## Overview
 The `pg_prng_fseed` function initializes a PostgreSQL pseudo-random number generator state from a floating-point seed value in the range [-1.0, 1.0], providing a convenient interface for applications that work with normalized floating-point seeds.

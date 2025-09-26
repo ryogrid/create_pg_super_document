@@ -1,7 +1,7 @@
 # carc
 
 ## Location
-src/include/regex/regguts.h: 400 - 405
+[src/include/regex/regguts.h:400-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/regex/regguts.h#L400-L405)
 
 ## Overview
 The `carc` structure represents a compacted arc in PostgreSQL's regular expression engine, designed to minimize memory usage in compiled NFAs by storing only essential transition information.

@@ -1,7 +1,7 @@
 # chopStringInfoNewlines
 
 ## Location
-src/backend/utils/adt/xml.c: 2313 - 2323
+[src/backend/utils/adt/xml.c:2313-2323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2313-L2323)
 
 ## Overview
 A static utility function that removes all trailing newline characters from a StringInfo string, ensuring clean string formatting by eliminating unwanted line breaks at the end.

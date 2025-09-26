@@ -1,7 +1,7 @@
 # remove_timeout_index
 
 ## Location
-src/backend/utils/misc/timeout.c: 137 - 157
+[src/backend/utils/misc/timeout.c:137-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L137-L157)
 
 ## Overview
 Removes a timeout entry from the active timeouts array at the specified index position.

@@ -1,7 +1,7 @@
 # LWLockDequeueSelf
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 1081 - 1169
+[src/backend/storage/lmgr/lwlock.c:1081-1169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L1081-L1169)
 
 ## Overview
 Internal function that removes the current process from a lightweight lock's wait queue when it discovers it no longer needs to wait for the lock.

@@ -1,7 +1,7 @@
 # GetFreeIndexPage
 
 ## Location
-src/backend/storage/freespace/indexfsm.c: 38 - 51
+[src/backend/storage/freespace/indexfsm.c:38-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/indexfsm.c#L38-L51)
 
 ## Overview
 GetFreeIndexPage returns a free page from the Free Space Map (FSM) for index operations and marks it as used as a side effect.

@@ -1,7 +1,7 @@
 # pg_malloc
 
 ## Location
-src/common/fe_memutils.c: 47 - 52
+[src/common/fe_memutils.c:47-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/fe_memutils.c#L47-L52)
 
 ## Overview
 Public interface function for memory allocation that provides PostgreSQL's standard malloc behavior with out-of-memory error handling.

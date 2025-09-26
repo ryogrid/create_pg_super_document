@@ -1,7 +1,7 @@
 # ArrayGetOffset
 
 ## Location
-src/backend/utils/adt/arrayutils.c: 32 - 56
+[src/backend/utils/adt/arrayutils.c:32-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayutils.c#L32-L56)
 
 ## Overview
 Converts a multidimensional array subscript list into a linear element offset for array element access calculations.

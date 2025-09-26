@@ -1,7 +1,7 @@
 # BitmapOr
 
 ## Location
-src/include/nodes/plannodes.h: 370 - 375
+[src/include/nodes/plannodes.h:370-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L370-L375)
 
 ## Overview
 The BitmapOr node generates the union of tuple bitmaps from multiple sub-plans, implementing OR operations in bitmap index scans.

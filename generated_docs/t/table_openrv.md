@@ -1,7 +1,7 @@
 # table_openrv
 
 ## Location
-src/backend/access/table/table.c: 83 - 102
+[src/backend/access/table/table.c:83-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/table.c#L83-L102)
 
 ## Overview
 Opens a table relation specified by a RangeVar (relation name with optional schema qualification) and ensures that the relation is specifically a table, not an index or composite type.

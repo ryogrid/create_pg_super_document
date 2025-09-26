@@ -1,7 +1,7 @@
 # BlockRefTableGetEntry
 
 ## Location
-src/common/blkreftable.c: 340 - 368
+[src/common/blkreftable.c:340-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L340-L368)
 
 ## Overview
 Retrieves an entry from a block reference table for a specific relation fork, returning the entry and its associated limit block value.

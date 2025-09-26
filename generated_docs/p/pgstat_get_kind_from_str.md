@@ -1,7 +1,7 @@
 # pgstat_get_kind_from_str
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1244 - 1258
+[src/backend/utils/activity/pgstat.c:1244-1258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1244-L1258)
 
 ## Overview
 Converts a string representation of a statistics kind name into the corresponding PgStat_Kind enumeration value, providing case-insensitive string-to-enum mapping.

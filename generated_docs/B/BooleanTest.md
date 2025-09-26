@@ -1,7 +1,7 @@
 # BooleanTest
 
 ## Location
-src/include/nodes/primnodes.h: 1979 - 1985
+[src/include/nodes/primnodes.h:1979-1985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1979-L1985)
 
 ## Overview
 BooleanTest represents the operation of determining whether a boolean value is TRUE, FALSE, or UNKNOWN (NULL) in PostgreSQL, supporting all six meaningful SQL boolean test combinations.

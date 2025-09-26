@@ -1,7 +1,7 @@
 # SHA512_Transform
 
 ## Location
-src/common/sha2.c: 644 - 712
+[src/common/sha2.c:644-712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/sha2.c#L644-L712)
 
 ## Overview
 Performs the core SHA-512 compression function on a single 128-byte block of data, updating the hash context state.

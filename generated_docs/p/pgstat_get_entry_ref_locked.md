@@ -1,7 +1,7 @@
 # pgstat_get_entry_ref_locked
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 658 - 673
+[src/backend/utils/activity/pgstat_shmem.c:658-673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L658-L673)
 
 ## Overview
 A helper function that fetches a statistics entry reference and acquires a lock on it, providing thread-safe access to shared statistics data.

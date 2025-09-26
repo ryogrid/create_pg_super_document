@@ -1,7 +1,7 @@
 # table_relation_copy_for_cluster
 
 ## Location
-src/include/access/tableam.h: 1679 - 1707
+[src/include/access/tableam.h:1679-1707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1679-L1707)
 
 ## Overview
 A table access method wrapper function that copies data from an old table to a new table as part of CLUSTER or VACUUM FULL operations, with support for sorting and transaction visibility management.

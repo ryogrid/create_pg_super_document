@@ -1,7 +1,7 @@
 # tuplestore_begin_heap
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 318 - 358
+[src/backend/utils/sort/tuplestore.c:318-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L318-L358)
 
 ## Overview
 Public API function to create a new tuplestore specifically for heap tuples, providing the main entry point for most tuplestore operations in PostgreSQL.

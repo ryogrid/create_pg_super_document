@@ -1,7 +1,7 @@
 # plan_single_revoke
 
 ## Location
-src/backend/commands/user.c: 2319 - 2388
+[src/backend/commands/user.c:2319-2388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L2319-L2388)
 
 ## Overview
 Determines the specific actions needed to revoke a role grant or admin option, handling dependent privileges and checking for conflicts in the grant hierarchy.

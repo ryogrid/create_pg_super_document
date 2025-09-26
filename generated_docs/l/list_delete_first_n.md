@@ -1,7 +1,7 @@
 # list_delete_first_n
 
 ## Location
-src/backend/nodes/list.c: 983 - 1065
+[src/backend/nodes/list.c:983-1065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L983-L1065)
 
 ## Overview
 Removes the first N elements from a PostgreSQL List, providing bulk deletion functionality with optimized memory management.

@@ -1,7 +1,7 @@
 # ensure_valid_bucket_pointers
 
 ## Location
-src/backend/lib/dshash.c: 937 - 950
+[src/backend/lib/dshash.c:937-950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L937-L950)
 
 ## Overview
 A static inline function that updates the backend-local bucket pointers to reflect the current shared hash table state after potential resize operations.

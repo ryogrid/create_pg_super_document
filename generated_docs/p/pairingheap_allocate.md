@@ -1,7 +1,7 @@
 # pairingheap_allocate
 
 ## Location
-src/backend/lib/pairingheap.c: 42 - 62
+[src/backend/lib/pairingheap.c:42-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/pairingheap.c#L42-L62)
 
 ## Overview
 Allocates and initializes a new pairing heap data structure with a custom comparison function for determining element priority.

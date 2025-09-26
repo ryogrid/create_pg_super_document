@@ -1,7 +1,7 @@
 # CreateDecodingContext
 
 ## Location
-src/backend/replication/logical/logical.c: 498 - 642
+[src/backend/replication/logical/logical.c:498-642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L498-L642)
 
 ## Overview
 CreateDecodingContext creates a logical decoding context for an existing logical replication slot that has been previously used, handling slot validation and restart position management.

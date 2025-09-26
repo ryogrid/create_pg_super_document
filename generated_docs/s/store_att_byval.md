@@ -1,7 +1,7 @@
 # store_att_byval
 
 ## Location
-src/include/access/tupmacs.h: 183 - 207
+[src/include/access/tupmacs.h:183-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tupmacs.h#L183-L207)
 
 ## Overview
 Stores a Datum value into tuple data area at a specified address, handling only by-value attributes with appropriate type conversion based on attribute length.

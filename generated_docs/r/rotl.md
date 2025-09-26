@@ -1,7 +1,7 @@
 # rotl
 
 ## Location
-src/common/pg_prng.c: 41 - 53
+[src/common/pg_prng.c:41-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L41-L53)
 
 ## Overview
 The `rotl` function performs a 64-bit left rotation operation on an unsigned 64-bit integer, used as a building block for the xoroshiro128** pseudo-random number generator algorithm.

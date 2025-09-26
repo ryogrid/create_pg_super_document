@@ -1,7 +1,7 @@
 # SetOperationStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2185 - 2204
+[src/include/nodes/parsenodes.h:2185-2204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2185-L2204)
 
 ## Overview
 SetOperationStmt represents a set operation node (UNION, INTERSECT, EXCEPT) in post-analysis query trees, forming a binary tree structure with type information and execution details for combining query results.

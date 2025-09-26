@@ -1,7 +1,7 @@
 # SpGistLeafTuple
 
 ## Location
-src/include/access/spgist_private.h: 132 - 134
+[src/include/access/spgist_private.h:132-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L132-L134)
 
 ## Overview
 SpGistLeafTuple is a pointer type to SpGistLeafTupleData that represents leaf-level tuples in SP-GiST (Space-Partitioned Generalized Search Tree) indexes, carrying leaf data and heap tuple references.

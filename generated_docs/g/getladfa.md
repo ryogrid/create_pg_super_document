@@ -1,7 +1,7 @@
 # getladfa
 
 ## Location
-src/backend/regex/regexec.c: 400 - 418
+[src/backend/regex/regexec.c:400-418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L400-L418)
 
 ## Overview
 Creates or re-fetches a DFA (Deterministic Finite Automaton) for a LACON subre node during regex execution.

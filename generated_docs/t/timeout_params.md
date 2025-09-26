@@ -1,7 +1,7 @@
 # timeout_params
 
 ## Location
-src/backend/utils/misc/timeout.c: 26 - 40
+[src/backend/utils/misc/timeout.c:26-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L26-L40)
 
 ## Overview
 The  struct stores configuration and state information for a single timeout mechanism in PostgreSQL's timeout management system, including timing details, callback handlers, and activation status.

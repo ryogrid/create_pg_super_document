@@ -1,7 +1,7 @@
 # bbsink_begin_archive
 
 ## Location
-src/include/backup/basebackup_sink.h: 191 - 199
+[src/include/backup/basebackup_sink.h:191-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L191-L199)
 
 ## Overview
 Initiates the beginning of a new archive within a backup sink by calling the sink-specific archive initialization operation.

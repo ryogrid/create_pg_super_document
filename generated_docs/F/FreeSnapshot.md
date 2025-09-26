@@ -1,7 +1,7 @@
 # FreeSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 630 - 647
+[src/backend/utils/time/snapmgr.c:630-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L630-L647)
 
 ## Overview
 Frees the memory associated with a copied snapshot structure, ensuring proper cleanup of dynamically allocated snapshot resources.

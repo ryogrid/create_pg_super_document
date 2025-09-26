@@ -1,7 +1,7 @@
 # pg_euccn2wchar_with_len
 
 ## Location
-src/common/wchar.c: 232 - 270
+[src/common/wchar.c:232-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L232-L270)
 
 ## Overview
 A static function that converts EUC-CN (Extended Unix Code for Chinese) encoded byte sequences to wide characters (pg_wchar) with length constraints.

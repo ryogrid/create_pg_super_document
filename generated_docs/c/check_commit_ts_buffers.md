@@ -1,7 +1,7 @@
 # check_commit_ts_buffers
 
 ## Location
-src/backend/access/transam/commit_ts.c: 584 - 595
+[src/backend/access/transam/commit_ts.c:584-595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L584-L595)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates proposed values for the commit_timestamp_buffers configuration parameter.

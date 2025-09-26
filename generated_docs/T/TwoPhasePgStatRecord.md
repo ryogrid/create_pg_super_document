@@ -1,7 +1,7 @@
 # TwoPhasePgStatRecord
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 31 - 43
+[src/backend/utils/activity/pgstat_relation.c:31-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L31-L43)
 
 ## Overview
 TwoPhasePgStatRecord is a structure that stores transaction-dependent relation statistics data for Two-Phase Commit (2PC) operations, preserving statistical counters during PREPARE TRANSACTION operations.

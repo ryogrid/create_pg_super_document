@@ -1,7 +1,7 @@
 # numeric_cmp
 
 ## Location
-src/backend/utils/adt/numeric.c: 2415 - 2430
+[src/backend/utils/adt/numeric.c:2415-2430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2415-L2430)
 
 ## Overview
 PostgreSQL built-in function that performs three-way comparison between two numeric values, returning an integer indicating their relative ordering.

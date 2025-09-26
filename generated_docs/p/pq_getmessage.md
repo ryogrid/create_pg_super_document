@@ -1,7 +1,7 @@
 # pq_getmessage
 
 ## Location
-src/backend/libpq/pqcomm.c: 1202 - 1275
+[src/backend/libpq/pqcomm.c:1202-1275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1202-L1275)
 
 ## Overview
 Reads a complete message with length word from a PostgreSQL client connection, placing the message body in an expandable StringInfo buffer.

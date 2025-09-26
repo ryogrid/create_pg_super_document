@@ -1,7 +1,7 @@
 # transformCaseExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 1632 - 1771
+[src/backend/parser/parse_expr.c:1632-1771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L1632-L1771)
 
 ## Overview
 Transforms a CASE expression node (CaseExpr) during parsing by handling both simple and searched CASE forms, processing WHEN clauses, and performing type resolution and coercion.

@@ -1,7 +1,7 @@
 # CreateEventTrigStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3029 - 3036
+[src/include/nodes/parsenodes.h:3029-3036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3029-L3036)
 
 ## Overview
 CreateEventTrigStmt represents the parsed structure of a CREATE EVENT TRIGGER SQL statement, used to define database event triggers that fire on DDL events.

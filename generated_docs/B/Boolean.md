@@ -1,7 +1,7 @@
 # Boolean
 
 ## Location
-src/include/nodes/value.h: 55 - 61
+[src/include/nodes/value.h:55-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/value.h#L55-L61)
 
 ## Overview
 The Boolean node type represents boolean literal constants (true/false) in PostgreSQL's parser, providing a node-based wrapper for boolean values.

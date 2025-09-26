@@ -1,7 +1,7 @@
 # logicalrep_read_delete
 
 ## Location
-src/backend/replication/logical/proto.c: 564 - 585
+[src/backend/replication/logical/proto.c:564-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L564-L585)
 
 ## Overview
 Reads a DELETE message from a logical replication stream and populates a tuple data structure with the old tuple information.

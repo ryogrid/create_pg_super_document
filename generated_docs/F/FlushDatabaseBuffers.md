@@ -1,7 +1,7 @@
 # FlushDatabaseBuffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4835 - 4876
+[src/backend/storage/buffer/bufmgr.c:4835-4876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4835-L4876)
 
 ## Overview
 FlushDatabaseBuffers writes all dirty pages of a specific database to disk, ensuring the kernel has an up-to-date view of the database by flushing all modified buffers.

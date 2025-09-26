@@ -1,7 +1,7 @@
 # llvm_create_object_layer
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 1275 - 1311
+[src/backend/jit/llvm/llvmjit.c:1275-1311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L1275-L1311)
 
 ## Overview
 A static function that creates and configures an LLVM ORC object layer with optional debugging and profiling support for JIT compilation.

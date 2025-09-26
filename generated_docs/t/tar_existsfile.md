@@ -1,7 +1,7 @@
 # tar_existsfile
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 1219 - 1226
+[src/bin/pg_basebackup/walmethods.c:1219-1226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L1219-L1226)
 
 ## Overview
 A function that checks if a file exists within a TAR-based WAL method, always returning false since TAR methods only create new files.

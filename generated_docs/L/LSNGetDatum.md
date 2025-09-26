@@ -1,7 +1,7 @@
 # LSNGetDatum
 
 ## Location
-src/include/utils/pg_lsn.h: 28 - 32
+[src/include/utils/pg_lsn.h:28-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pg_lsn.h#L28-L32)
 
 ## Overview
 LSNGetDatum is an inline function that converts an XLogRecPtr (Log Sequence Number) to a PostgreSQL Datum value, enabling LSN values to be used within PostgreSQL's type system and SQL interface.

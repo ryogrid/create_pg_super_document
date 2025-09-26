@@ -1,7 +1,7 @@
 # pg_pwrite
 
 ## Location
-src/port/win32pwrite.c: 20 - 45
+[src/port/win32pwrite.c:20-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32pwrite.c#L20-L45)
 
 ## Overview
 A Windows-specific implementation of the POSIX pwrite() function that writes data to a file at a specified offset without changing the file position pointer.

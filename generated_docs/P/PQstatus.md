@@ -1,7 +1,7 @@
 # PQstatus
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7106 - 7113
+[src/interfaces/libpq/fe-connect.c:7106-7113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7106-L7113)
 
 ## Overview
 PQstatus returns the current connection status of a PostgreSQL database connection, indicating whether the connection is functional, failed, or in an intermediate state.

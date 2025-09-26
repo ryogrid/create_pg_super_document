@@ -1,7 +1,7 @@
 # Regis
 
 ## Location
-src/include/tsearch/dicts/regis.h: 32 - 39
+[src/include/tsearch/dicts/regis.h:32-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/dicts/regis.h#L32-L39)
 
 ## Overview
 Regis is the main structure that represents a compiled fast regular expression subset pattern used by PostgreSQL's ISpell dictionary implementation for efficient text search pattern matching.

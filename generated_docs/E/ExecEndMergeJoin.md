@@ -1,7 +1,7 @@
 # ExecEndMergeJoin
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 1641 - 1656
+[src/backend/executor/nodeMergejoin.c:1641-1656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L1641-L1656)
 
 ## Overview
 Performs cleanup operations for a merge join node by recursively shutting down its child plan nodes and releasing associated resources.

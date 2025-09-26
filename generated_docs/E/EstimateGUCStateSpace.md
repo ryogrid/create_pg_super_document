@@ -1,7 +1,7 @@
 # EstimateGUCStateSpace
 
 ## Location
-src/backend/utils/misc/guc.c: 5956 - 5986
+[src/backend/utils/misc/guc.c:5956-5986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5956-L5986)
 
 ## Overview
 Returns the total size needed to store the GUC state for the current process during parallel worker initialization.

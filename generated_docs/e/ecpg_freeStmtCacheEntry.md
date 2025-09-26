@@ -1,7 +1,7 @@
 # ecpg_freeStmtCacheEntry
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 451 - 490
+[src/interfaces/ecpg/ecpglib/prepare.c:451-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L451-L490)
 
 ## Overview
 Frees a specific entry in the ECPG prepared statement cache, cleaning up associated prepared statements and memory.

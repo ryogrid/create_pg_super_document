@@ -1,7 +1,7 @@
 # WindowObject
 
 ## Location
-src/include/windowapi.h: 37 - 38
+[src/include/windowapi.h:37-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/windowapi.h#L37-L38)
 
 ## Overview
 WindowObject is an opaque pointer type that represents the execution context passed to PostgreSQL window functions, providing access to partition data, current position information, and argument evaluation capabilities.

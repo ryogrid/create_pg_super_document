@@ -1,7 +1,7 @@
 # ExplainPrintJITSummary
 
 ## Location
-src/backend/commands/explain.c: 985 - 1010
+[src/backend/commands/explain.c:985-1010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L985-L1010)
 
 ## Overview
 Prints summarized JIT instrumentation statistics from both the leader process and parallel workers in EXPLAIN output.

@@ -1,7 +1,7 @@
 # ResourceElem
 
 ## Location
-src/backend/utils/resowner/resowner.c: 62 - 66
+[src/backend/utils/resowner/resowner.c:62-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L62-L66)
 
 ## Overview
 ResourceElem represents a reference associated with a resource owner, serving as a fundamental data structure for tracking resources that need cleanup in PostgreSQL.

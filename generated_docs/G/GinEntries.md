@@ -1,7 +1,7 @@
 # GinEntries
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 80 - 85
+[src/backend/utils/adt/jsonb_gin.c:80-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L80-L85)
 
 ## Overview
 GinEntries is a dynamic buffer structure used to collect and manage GIN index entries during JSONB data processing for both jsonb_ops and jsonb_path_ops operator classes.

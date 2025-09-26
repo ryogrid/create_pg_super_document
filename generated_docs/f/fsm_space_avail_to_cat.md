@@ -1,7 +1,7 @@
 # fsm_space_avail_to_cat
 
 ## Location
-src/backend/storage/freespace/freespace.c: 392 - 417
+[src/backend/storage/freespace/freespace.c:392-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L392-L417)
 
 ## Overview
 fsm_space_avail_to_cat converts a byte count of available free space into a category code (0-255) used internally by the Free Space Map for efficient storage and retrieval.

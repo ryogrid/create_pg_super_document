@@ -1,7 +1,7 @@
 # SharedFileSetDeleteAll
 
 ## Location
-src/backend/storage/file/sharedfileset.c: 83 - 95
+[src/backend/storage/file/sharedfileset.c:83-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/sharedfileset.c#L83-L95)
 
 ## Overview
 Deletes all files contained within a shared file set, providing a way to clean up temporary files before the file set itself is destroyed.

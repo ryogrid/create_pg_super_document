@@ -1,7 +1,7 @@
 # sendSelfPipeByte
 
 ## Location
-src/backend/storage/ipc/latch.c: 2290 - 2330
+[src/backend/storage/ipc/latch.c:2290-2330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L2290-L2330)
 
 ## Overview
 Sends a single byte to the self-pipe to wake up processes waiting on a latch, providing a signal-safe mechanism for inter-process communication in PostgreSQL's latch system.

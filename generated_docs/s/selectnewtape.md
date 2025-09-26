@@ -1,7 +1,7 @@
 # selectnewtape
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 1976 - 2008
+[src/backend/utils/sort/tuplesort.c:1976-2008](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L1976-L2008)
 
 ## Overview
 Selects the next tape to output to during sorting operations, managing tape allocation for both initial run creation and merge passes.

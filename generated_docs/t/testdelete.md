@@ -1,7 +1,7 @@
 # testdelete
 
 ## Location
-src/test/modules/test_rbtree/test_rbtree.c: 409 - 502
+[src/test/modules/test_rbtree/test_rbtree.c:409-502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_rbtree/test_rbtree.c#L409-L502)
 
 ## Overview
 A comprehensive test function that validates the correctness of the rbt_delete() operation by performing random deletions and verifying the tree maintains its integrity throughout the process.

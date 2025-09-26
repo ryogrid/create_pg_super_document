@@ -1,7 +1,7 @@
 # LockReleaseSession
 
 ## Location
-src/backend/storage/lmgr/lock.c: 2444 - 2473
+[src/backend/storage/lmgr/lock.c:2444-2473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L2444-L2473)
 
 ## Overview
 LockReleaseSession releases all session locks of a specified lock method that are held by the current process.

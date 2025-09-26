@@ -1,7 +1,7 @@
 # CreateLWLocks
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 453 - 492
+[src/backend/storage/lmgr/lwlock.c:453-492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L453-L492)
 
 ## Overview
 Creates and initializes the main LWLock array in shared memory and registers extension LWLock tranches for the current PostgreSQL instance.

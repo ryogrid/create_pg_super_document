@@ -1,7 +1,7 @@
 # resetStringInfo
 
 ## Location
-src/common/stringinfo.c: 78 - 96
+[src/common/stringinfo.c:78-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L78-L96)
 
 ## Overview
 Resets a StringInfo to an empty state while preserving the allocated data buffer, clearing any previous content.

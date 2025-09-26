@@ -1,7 +1,7 @@
 # BlockSamplerData
 
 ## Location
-src/include/utils/sampling.h: 35 - 36
+[src/include/utils/sampling.h:35-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/sampling.h#L35-L36)
 
 ## Overview
 BlockSamplerData is a data structure that implements Algorithm S from Knuth 3.4.2 for efficiently sampling blocks from a relation without replacement in PostgreSQL's statistics collection system.

@@ -1,7 +1,7 @@
 # print_param_value
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 1076 - 1105
+[src/interfaces/ecpg/ecpglib/execute.c:1076-1105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L1076-L1105)
 
 ## Overview
 A static helper function that formats and logs parameter values for debugging purposes, handling both text and binary data formats.

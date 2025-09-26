@@ -1,7 +1,7 @@
 # SubscriptingRef
 
 ## Location
-src/include/nodes/primnodes.h: 679 - 704
+[src/include/nodes/primnodes.h:679-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L679-L704)
 
 ## Overview
 SubscriptingRef describes a subscripting operation over a container (such as arrays), supporting both fetching and storing operations for single elements or slices of the container.

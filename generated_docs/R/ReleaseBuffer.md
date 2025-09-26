@@ -1,7 +1,7 @@
 # ReleaseBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4897 - 4913
+[src/backend/storage/buffer/bufmgr.c:4897-4913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4897-L4913)
 
 ## Overview
 ReleaseBuffer releases the pin on a buffer, providing the primary interface for unpinning both shared and local buffers in PostgreSQL's buffer management system.

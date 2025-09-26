@@ -1,7 +1,7 @@
 # guc_stack
 
 ## Location
-src/include/utils/guc_tables.h: 117 - 129
+[src/include/utils/guc_tables.h:117-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/guc_tables.h#L117-L129)
 
 ## Overview
 A stack structure that maintains the history of GUC (Grand Unified Configuration) variable values, supporting nested transactions and SET/SET LOCAL commands.

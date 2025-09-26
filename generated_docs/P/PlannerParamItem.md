@@ -1,7 +1,7 @@
 # PlannerParamItem
 
 ## Location
-src/include/nodes/pathnodes.h: 3185 - 3193
+[src/include/nodes/pathnodes.h:3185-3193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L3185-L3193)
 
 ## Overview
 PlannerParamItem represents a PARAM_EXEC slot assignment that enables passing values between different parts of a query plan, including from outer to inner subqueries, from subqueries back to parent queries, and between NestLoop plan nodes.

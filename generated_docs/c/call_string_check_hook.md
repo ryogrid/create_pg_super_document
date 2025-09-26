@@ -1,7 +1,7 @@
 # call_string_check_hook
 
 ## Location
-src/backend/utils/misc/guc.c: 6914 - 6963
+[src/backend/utils/misc/guc.c:6914-6963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L6914-L6963)
 
 ## Overview
 A static function that validates string GUC parameters by calling their associated check hooks, with special exception handling to prevent memory leaks of malloc'd string values.

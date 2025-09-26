@@ -1,7 +1,7 @@
 # transformBoolExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 1403 - 1438
+[src/backend/parser/parse_expr.c:1403-1438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L1403-L1438)
 
 ## Overview
 Transforms a Boolean expression node (BoolExpr) during parsing by recursively transforming its operands and applying appropriate type coercion to boolean values.

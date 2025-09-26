@@ -1,7 +1,7 @@
 # sts_parallel_scan_next
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 495 - 597
+[src/backend/utils/sort/sharedtuplestore.c:495-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L495-L597)
 
 ## Overview
 Retrieves the next tuple during a parallel scan of a shared tuple store, coordinating between multiple worker processes to efficiently distribute tuples across participants.

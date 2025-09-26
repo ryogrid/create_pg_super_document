@@ -1,7 +1,7 @@
 # ExitParallelMode
 
 ## Location
-src/backend/access/transam/xact.c: 1061 - 1085
+[src/backend/access/transam/xact.c:1061-1085](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1061-L1085)
 
 ## Overview
 ExitParallelMode decrements the parallel mode nesting level for the current transaction, potentially disabling parallel execution capabilities when the level reaches zero.

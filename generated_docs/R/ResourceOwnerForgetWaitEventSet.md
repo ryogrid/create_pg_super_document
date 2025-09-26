@@ -1,7 +1,7 @@
 # ResourceOwnerForgetWaitEventSet
 
 ## Location
-src/backend/storage/ipc/latch.c: 219 - 231
+[src/backend/storage/ipc/latch.c:219-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L219-L231)
 
 ## Overview
 A convenience wrapper function that unregisters a WaitEventSet from a ResourceOwner, removing it from automatic cleanup tracking.

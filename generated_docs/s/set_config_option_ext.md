@@ -1,7 +1,7 @@
 # set_config_option_ext
 
 ## Location
-src/backend/utils/misc/guc.c: 3385 - 3407
+[src/backend/utils/misc/guc.c:3385-3407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L3385-L3407)
 
 ## Overview
 Extended version of set_config_option that allows explicit specification of the role OID responsible for setting the configuration parameter.

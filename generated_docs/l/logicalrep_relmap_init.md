@@ -1,7 +1,7 @@
 # logicalrep_relmap_init
 
 ## Location
-src/backend/replication/logical/relation.c: 105 - 131
+[src/backend/replication/logical/relation.c:105-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L105-L131)
 
 ## Overview
 Initializes the logical replication relation map cache system, creating the hash table and memory context for caching relation mappings.

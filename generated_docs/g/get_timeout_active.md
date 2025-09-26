@@ -1,7 +1,7 @@
 # get_timeout_active
 
 ## Location
-src/backend/utils/misc/timeout.c: 780 - 792
+[src/backend/utils/misc/timeout.c:780-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/timeout.c#L780-L792)
 
 ## Overview
 Returns the active status of a specified timeout, indicating whether the timeout is currently enabled and has not yet fired.

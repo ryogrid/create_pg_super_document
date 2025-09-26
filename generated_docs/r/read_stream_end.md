@@ -1,7 +1,7 @@
 # read_stream_end
 
 ## Location
-src/backend/storage/aio/read_stream.c: 823 - 827
+[src/backend/storage/aio/read_stream.c:823-827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/aio/read_stream.c#L823-L827)
 
 ## Overview
 Properly releases and deallocates a read stream object, cleaning up all associated resources.

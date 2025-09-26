@@ -1,7 +1,7 @@
 # pgNotify
 
 ## Location
-src/interfaces/libpq/libpq-fe.h: 212 - 218
+[src/interfaces/libpq/libpq-fe.h:212-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-fe.h#L212-L218)
 
 ## Overview
 pgNotify represents the occurrence of a NOTIFY message from a PostgreSQL backend, containing the notification condition name, originating process ID, and optional payload data.

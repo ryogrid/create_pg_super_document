@@ -1,7 +1,7 @@
 # pg_eucjp_verifystr
 
 ## Location
-src/common/wchar.c: 1137 - 1165
+[src/common/wchar.c:1137-1165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1137-L1165)
 
 ## Overview
 Validates an entire EUC-JP encoded string by checking each character sequence for validity and null bytes, returning the byte offset of the first invalid sequence.

@@ -1,7 +1,7 @@
 # get_parent_directory
 
 ## Location
-src/port/path.c: 1053 - 1069
+[src/port/path.c:1053-1069](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L1053-L1069)
 
 ## Overview
 Modifies a file path string in-place to obtain the parent directory of the specified file or directory.

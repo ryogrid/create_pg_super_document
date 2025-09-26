@@ -1,7 +1,7 @@
 # pltcl_rollback
 
 ## Location
-src/pl/tcl/pltcl.c: 2978 - 3017
+[src/pl/tcl/pltcl.c:2978-3017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L2978-L3017)
 
 ## Overview
 pltcl_rollback is a static function in the PL/Tcl extension that aborts the current transaction and starts a new one, providing transaction rollback capabilities to Tcl code.

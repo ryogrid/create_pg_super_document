@@ -1,7 +1,7 @@
 # CreateNewPortal
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 235 - 281
+[src/backend/utils/mmgr/portalmem.c:235-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L235-L281)
 
 ## Overview
 Creates a new portal with an automatically generated unique name, ensuring no naming conflicts with existing portals.

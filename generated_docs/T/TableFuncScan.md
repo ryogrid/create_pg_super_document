@@ -1,7 +1,7 @@
 # TableFuncScan
 
 ## Location
-src/include/nodes/plannodes.h: 630 - 634
+[src/include/nodes/plannodes.h:630-634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L630-L634)
 
 ## Overview
 TableFuncScan represents a plan node for scanning table functions in PostgreSQL's query execution tree, providing specialized support for SQL/JSON table functions and XML table functions.

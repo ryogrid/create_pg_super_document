@@ -1,7 +1,7 @@
 # _SPI_commit
 
 ## Location
-src/backend/executor/spi.c: 227 - 319
+[src/backend/executor/spi.c:227-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L227-L319)
 
 ## Overview
 _SPI_commit is an internal SPI function that commits the current transaction and optionally chains to a new transaction, providing transaction control for non-atomic SPI connections.

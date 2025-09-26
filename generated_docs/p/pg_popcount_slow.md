@@ -1,7 +1,7 @@
 # pg_popcount_slow
 
 ## Location
-src/port/pg_bitutils.c: 398 - 443
+[src/port/pg_bitutils.c:398-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L398-L443)
 
 ## Overview
 A fallback implementation for counting the number of 1 bits in a buffer of arbitrary size, processing the data in optimal word-sized chunks when possible.

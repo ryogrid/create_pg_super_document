@@ -1,7 +1,7 @@
 # Var
 
 ## Location
-src/include/nodes/primnodes.h: 247 - 294
+[src/include/nodes/primnodes.h:247-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L247-L294)
 
 ## Overview
 The Var structure represents a variable in PostgreSQL's expression tree, typically referring to a column in a table or a derived value from a subquery.

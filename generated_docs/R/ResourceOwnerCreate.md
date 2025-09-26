@@ -1,7 +1,7 @@
 # ResourceOwnerCreate
 
 ## Location
-src/backend/utils/resowner/resowner.c: 413 - 441
+[src/backend/utils/resowner/resowner.c:413-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L413-L441)
 
 ## Overview
 Creates a new empty ResourceOwner object and establishes parent-child relationships in the resource ownership hierarchy.

@@ -1,7 +1,7 @@
 # cancel_prior_stmt_triggers
 
 ## Location
-src/backend/commands/trigger.c: 6591 - 6665
+[src/backend/commands/trigger.c:6591-6665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L6591-L6665)
 
 ## Overview
 Cancels previously queued AFTER STATEMENT triggers for a specific relation and operation to ensure proper trigger firing order and prevent duplicate executions when multiple sub-statements affect the same table.

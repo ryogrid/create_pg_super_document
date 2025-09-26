@@ -1,7 +1,7 @@
 # ExecHashIncreaseNumBatches
 
 ## Location
-src/backend/executor/nodeHash.c: 916 - 1079
+[src/backend/executor/nodeHash.c:916-1079](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L916-L1079)
 
 ## Overview
 Dynamically doubles the number of batches in a hash table to reduce memory consumption by spilling approximately half of the current tuples to temporary files.

@@ -1,7 +1,7 @@
 # json_manifest_parse_failure
 
 ## Location
-src/common/parse_manifest.c: 889 - 899
+[src/common/parse_manifest.c:889-899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L889-L899)
 
 ## Overview
 A static error reporting function used during JSON backup manifest parsing to handle parse failures by invoking the appropriate error callback with a formatted error message.

@@ -1,7 +1,7 @@
 # test_resowner_many
 
 ## Location
-src/test/modules/test_resowner/test_resowner_many.c: 204 - 296
+[src/test/modules/test_resowner/test_resowner_many.c:204-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_resowner/test_resowner_many.c#L204-L296)
 
 ## Overview
 A PostgreSQL test function that validates ResourceOwner functionality by managing large numbers of resources across multiple resource types with different release priorities and phases.

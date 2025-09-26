@@ -1,7 +1,7 @@
 # bbsink_end_manifest
 
 ## Location
-src/include/backup/basebackup_sink.h: 246 - 254
+[src/include/backup/basebackup_sink.h:246-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L246-L254)
 
 ## Overview
 Signals the completion of backup manifest transmission, allowing sink implementations to finalize manifest-specific operations and cleanup.

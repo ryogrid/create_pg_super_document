@@ -1,7 +1,7 @@
 # itemptr_decode
 
 ## Location
-src/include/catalog/index.h: 210 - 218
+[src/include/catalog/index.h:210-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/index.h#L210-L218)
 
 ## Overview
 Decodes a 64-bit integer representation back into an ItemPointer (TID) structure, reversing the encoding performed by itemptr_encode.

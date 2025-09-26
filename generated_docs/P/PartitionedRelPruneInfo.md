@@ -1,7 +1,7 @@
 # PartitionedRelPruneInfo
 
 ## Location
-src/include/nodes/plannodes.h: 1449 - 1484
+[src/include/nodes/plannodes.h:1449-1484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1449-L1484)
 
 ## Overview
 PartitionedRelPruneInfo contains detailed mapping and pruning information required by the executor to efficiently prune partitions for a single partitioned table within a partitioning hierarchy.

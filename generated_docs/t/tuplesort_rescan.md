@@ -1,7 +1,7 @@
 # tuplesort_rescan
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2440 - 2472
+[src/backend/utils/sort/tuplesort.c:2440-2472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2440-L2472)
 
 ## Overview
 Rewinds a completed tuple sort to the beginning, allowing the sorted results to be read again from the start, supporting operations that require multiple passes over sorted data.

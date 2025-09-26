@@ -1,7 +1,7 @@
 # pgstat_read_current_status
 
 ## Location
-src/backend/utils/activity/backend_status.c: 709 - 884
+[src/backend/utils/activity/backend_status.c:709-884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L709-L884)
 
 ## Overview
 Creates a local snapshot of the entire PostgreSQL backend status array by copying shared memory status information to process-local memory for consistent access.

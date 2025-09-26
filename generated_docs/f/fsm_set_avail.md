@@ -1,7 +1,7 @@
 # fsm_set_avail
 
 ## Location
-src/backend/storage/freespace/fsmpage.c: 63 - 121
+[src/backend/storage/freespace/fsmpage.c:63-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/fsmpage.c#L63-L121)
 
 ## Overview
 The fsm_set_avail function sets the free space value for a specific slot on a Free Space Map page and propagates changes up the binary tree structure to maintain consistency.

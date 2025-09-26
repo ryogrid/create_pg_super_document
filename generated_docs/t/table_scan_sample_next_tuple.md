@@ -1,7 +1,7 @@
 # table_scan_sample_next_tuple
 
 ## Location
-src/include/access/tableam.h: 2035 - 2110
+[src/include/access/tableam.h:2035-2110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L2035-L2110)
 
 ## Overview
 Fetches the next sample tuple into a slot during a TABLESAMPLE scan, coordinating with the sampling method's tuple selection logic.

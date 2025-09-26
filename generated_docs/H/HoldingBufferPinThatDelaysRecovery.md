@@ -1,7 +1,7 @@
 # HoldingBufferPinThatDelaysRecovery
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5347 - 5372
+[src/backend/storage/buffer/bufmgr.c:5347-5372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5347-L5372)
 
 ## Overview
 HoldingBufferPinThatDelaysRecovery checks if the current backend is holding a pin on the buffer that the startup process is waiting for during recovery.

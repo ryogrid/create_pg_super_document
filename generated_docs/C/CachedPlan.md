@@ -1,7 +1,7 @@
 # CachedPlan
 
 ## Location
-src/include/utils/plancache.h: 147 - 161
+[src/include/utils/plancache.h:147-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/plancache.h#L147-L161)
 
 ## Overview
 CachedPlan represents an execution plan derived from a CachedPlanSource, with reference counting to manage the lifecycle of both the parent link and active plan executions.

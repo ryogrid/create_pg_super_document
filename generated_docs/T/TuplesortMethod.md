@@ -1,7 +1,7 @@
 # TuplesortMethod
 
 ## Location
-src/include/utils/tuplesort.h: 82 - 83
+[src/include/utils/tuplesort.h:82-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/tuplesort.h#L82-L83)
 
 ## Overview
 TuplesortMethod is an enumeration type that represents different sorting algorithms used by PostgreSQL's tuple sorting subsystem to track which specific sorting method was employed during a sort operation.

@@ -1,7 +1,7 @@
 # XLogRecordPageWithFreeSpace
 
 ## Location
-src/backend/storage/freespace/freespace.c: 211 - 243
+[src/backend/storage/freespace/freespace.c:211-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L211-L243)
 
 ## Overview
 XLogRecordPageWithFreeSpace is a specialized FSM function designed for WAL (Write-Ahead Log) replay operations that updates free space information using physical file locations rather than relation objects.

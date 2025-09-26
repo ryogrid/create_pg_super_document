@@ -1,7 +1,7 @@
 # SPI_connect_ext
 
 ## Location
-src/backend/executor/spi.c: 100 - 181
+[src/backend/executor/spi.c:100-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L100-L181)
 
 ## Overview
 SPI_connect_ext establishes a connection to PostgreSQL's Server Programming Interface with configurable options, providing the core implementation for SPI connection establishment with atomic or non-atomic execution modes.

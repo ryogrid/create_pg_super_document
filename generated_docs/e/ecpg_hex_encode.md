@@ -1,7 +1,7 @@
 # ecpg_hex_encode
 
 ## Location
-src/interfaces/ecpg/ecpglib/data.c: 191 - 205
+[src/interfaces/ecpg/ecpglib/data.c:191-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/data.c#L191-L205)
 
 ## Overview
 Converts binary data to hexadecimal string representation for ECPG (Embedded SQL in C) applications.

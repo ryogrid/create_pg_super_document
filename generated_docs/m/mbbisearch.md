@@ -1,7 +1,7 @@
 # mbbisearch
 
 ## Location
-src/common/wchar.c: 581 - 627
+[src/common/wchar.c:581-627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L581-L627)
 
 ## Overview
 An auxiliary binary search function that determines whether a Unicode character falls within any interval in a sorted table of character ranges.

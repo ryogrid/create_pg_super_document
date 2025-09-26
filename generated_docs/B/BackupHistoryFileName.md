@@ -1,7 +1,7 @@
 # BackupHistoryFileName
 
 ## Location
-src/include/access/xlog_internal.h: 244 - 252
+[src/include/access/xlog_internal.h:244-252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L244-L252)
 
 ## Overview
 BackupHistoryFileName is a static inline function that constructs standardized backup history file names in PostgreSQL's WAL (Write-Ahead Log) system.

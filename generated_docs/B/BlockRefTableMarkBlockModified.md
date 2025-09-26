@@ -1,7 +1,7 @@
 # BlockRefTableMarkBlockModified
 
 ## Location
-src/common/blkreftable.c: 297 - 339
+[src/common/blkreftable.c:297-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L297-L339)
 
 ## Overview
 Marks a specific block in a relation fork as having been modified, tracking it within the block reference table for incremental backup purposes.

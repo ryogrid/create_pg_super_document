@@ -1,7 +1,7 @@
 # get_config_unit_name
 
 ## Location
-src/backend/utils/misc/guc.c: 2816 - 2872
+[src/backend/utils/misc/guc.c:2816-2872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2816-L2872)
 
 ## Overview
 Returns the human-readable unit name string for a PostgreSQL configuration parameter based on its unit flags.

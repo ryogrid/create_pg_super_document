@@ -1,7 +1,7 @@
 # HistoricSnapshotGetTupleCids
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1678 - 1691
+[src/backend/utils/time/snapmgr.c:1678-1691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1678-L1691)
 
 ## Overview
 HistoricSnapshotGetTupleCids returns the hash table containing tuple command ID (cmin, cmax) data that was set up during historical snapshot initialization for logical decoding operations.

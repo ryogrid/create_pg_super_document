@@ -1,7 +1,7 @@
 # CreateFunctionStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3427 - 3437
+[src/include/nodes/parsenodes.h:3427-3437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3427-L3437)
 
 ## Overview
 CreateFunctionStmt represents a parsed CREATE FUNCTION or CREATE PROCEDURE statement, containing all information needed to define a user-defined function or procedure in PostgreSQL.

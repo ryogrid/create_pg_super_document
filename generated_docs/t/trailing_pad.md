@@ -1,7 +1,7 @@
 # trailing_pad
 
 ## Location
-src/port/snprintf.c: 1528 - 1532
+[src/port/snprintf.c:1528-1532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L1528-L1532)
 
 ## Overview
 Outputs trailing space padding for left-justified formatted values by detecting negative padding lengths and converting them to space characters.

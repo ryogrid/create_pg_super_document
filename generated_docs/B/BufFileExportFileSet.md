@@ -1,7 +1,7 @@
 # BufFileExportFileSet
 
 ## Location
-src/backend/storage/file/buffile.c: 394 - 411
+[src/backend/storage/file/buffile.c:394-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L394-L411)
 
 ## Overview
 Flushes a fileset-based BufFile and marks it as read-only in preparation for sharing with other backends.

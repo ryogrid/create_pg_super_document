@@ -1,7 +1,7 @@
 # LockMethodData
 
 ## Location
-src/include/storage/lock.h: 108 - 114
+[src/include/storage/lock.h:108-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L108-L114)
 
 ## Overview
 LockMethodData defines the locking semantics and configuration for a specific lock method in PostgreSQL. It specifies lock modes, their conflicts, and debugging information for a particular locking subsystem.

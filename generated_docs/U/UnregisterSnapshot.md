@@ -1,7 +1,7 @@
 # UnregisterSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 836 - 848
+[src/backend/utils/time/snapmgr.c:836-848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L836-L848)
 
 ## Overview
 Decrements the reference count of a snapshot and removes the corresponding reference from CurrentResourceOwner, providing a convenient wrapper around UnregisterSnapshotFromOwner.

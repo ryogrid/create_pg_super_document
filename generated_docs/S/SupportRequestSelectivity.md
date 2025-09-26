@@ -1,7 +1,7 @@
 # SupportRequestSelectivity
 
 ## Location
-src/include/nodes/supportnodes.h: 91 - 107
+[src/include/nodes/supportnodes.h:91-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/supportnodes.h#L91-L107)
 
 ## Overview
 SupportRequestSelectivity is a structure that enables support functions to provide custom selectivity estimates for boolean-returning functions appearing in WHERE clauses, helping PostgreSQL's query planner make better optimization decisions.

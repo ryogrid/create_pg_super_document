@@ -1,7 +1,7 @@
 # LockDatabaseFrozenIds
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 487 - 502
+[src/backend/storage/lmgr/lmgr.c:487-502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L487-L502)
 
 ## Overview
 Acquires an exclusive lock on the database's frozen transaction ID update mechanism to ensure only one backend per database can execute vac_update_datfrozenxid().

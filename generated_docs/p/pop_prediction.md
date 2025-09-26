@@ -1,7 +1,7 @@
 # pop_prediction
 
 ## Location
-src/common/jsonapi.c: 432 - 438
+[src/common/jsonapi.c:432-438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L432-L438)
 
 ## Overview
 Removes and returns the top prediction token from the JSON parser's prediction stack.

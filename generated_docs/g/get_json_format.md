@@ -1,7 +1,7 @@
 # get_json_format
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 11297 - 11321
+[src/backend/utils/adt/ruleutils.c:11297-11321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L11297-L11321)
 
 ## Overview
 A static helper function within the rule decompilation system that parses back a JsonFormat node into its SQL text representation, handling FORMAT and ENCODING clauses.

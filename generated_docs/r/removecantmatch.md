@@ -1,7 +1,7 @@
 # removecantmatch
 
 ## Location
-src/backend/regex/regc_nfa.c: 2938 - 2963
+[src/backend/regex/regc_nfa.c:2938-2963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L2938-L2963)
 
 ## Overview
 Removes CANTMATCH arcs from the NFA after parsing is complete, as they are only needed to preserve graph connectivity during the parsing phase.

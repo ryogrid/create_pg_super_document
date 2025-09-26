@@ -1,7 +1,7 @@
 # ReScanExprContext
 
 ## Location
-src/backend/executor/execUtils.c: 441 - 455
+[src/backend/executor/execUtils.c:441-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L441-L455)
 
 ## Overview
 Resets an ExprContext in preparation for rescanning its associated plan node, ensuring proper cleanup of callbacks and memory contexts.

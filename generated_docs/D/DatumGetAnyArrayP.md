@@ -1,7 +1,7 @@
 # DatumGetAnyArrayP
 
 ## Location
-src/backend/utils/adt/array_expanded.c: 401 - 423
+[src/backend/utils/adt/array_expanded.c:401-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_expanded.c#L401-L423)
 
 ## Overview
 DatumGetAnyArrayP converts a PostgreSQL Datum to an AnyArrayType pointer, returning either an expanded array header or a detoasted varlena array depending on the input format, with the result intended for read-only access.

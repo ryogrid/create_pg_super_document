@@ -1,7 +1,7 @@
 # ECPGprepare
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 217 - 238
+[src/interfaces/ecpg/ecpglib/prepare.c:217-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L217-L238)
 
 ## Overview
 The main public API function for handling EXEC SQL PREPARE statements in the ECPG library, providing a high-level interface for preparing SQL statements.

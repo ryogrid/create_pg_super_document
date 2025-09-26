@@ -1,7 +1,7 @@
 # AlterSystemStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3812 - 3816
+[src/include/nodes/parsenodes.h:3812-3816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3812-L3816)
 
 ## Overview
 A parse node structure representing the ALTER SYSTEM statement, used to modify PostgreSQL configuration parameters persistently across server restarts.

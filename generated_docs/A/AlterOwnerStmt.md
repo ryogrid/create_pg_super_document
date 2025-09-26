@@ -1,7 +1,7 @@
 # AlterOwnerStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 3571 - 3578
+[src/include/nodes/parsenodes.h:3571-3578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3571-L3578)
 
 ## Overview
 AlterOwnerStmt is a PostgreSQL parse node structure that represents an ALTER object OWNER TO statement for changing the ownership of database objects.

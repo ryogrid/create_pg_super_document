@@ -1,7 +1,7 @@
 # bbsink
 
 ## Location
-src/include/backup/basebackup_sink.h: 36 - 36
+[src/include/backup/basebackup_sink.h:36-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/backup/basebackup_sink.h#L36-L36)
 
 ## Overview
 A typedef for the base backup sink structure that provides an object-oriented framework for processing and forwarding PostgreSQL base backup archives and manifests through a chain of filtering and destination components.

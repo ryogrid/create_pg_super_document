@@ -1,7 +1,7 @@
 # pg_truncate
 
 ## Location
-src/backend/storage/file/fd.c: 717 - 752
+[src/backend/storage/file/fd.c:717-752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L717-L752)
 
 ## Overview
 A PostgreSQL function that truncates a file to a specified length by file path, with platform-specific implementations for Windows and Unix systems.

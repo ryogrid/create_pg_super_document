@@ -1,7 +1,7 @@
 # table_scan_getnextslot_tidrange
 
 ## Location
-src/include/access/tableam.h: 1122 - 1174
+[src/include/access/tableam.h:1122-1174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1122-L1174)
 
 ## Overview
 Fetches the next tuple from a TID range scan and stores it in the provided slot, returning true if a tuple was found or false if no more tuples exist in the range.

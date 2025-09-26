@@ -1,7 +1,7 @@
 # SortGroupClause
 
 ## Location
-src/include/nodes/parsenodes.h: 1436 - 1445
+[src/include/nodes/parsenodes.h:1436-1445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1436-L1445)
 
 ## Overview
 SortGroupClause represents ordering and grouping specifications for ORDER BY, GROUP BY, PARTITION BY, DISTINCT, and DISTINCT ON clauses, providing a unified representation to enable efficient query planning when multiple operations require similar sorting or grouping.

@@ -1,7 +1,7 @@
 # oidvectoreqfast
 
 ## Location
-src/backend/utils/cache/catcache.c: 261 - 266
+[src/backend/utils/cache/catcache.c:261-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L261-L266)
 
 ## Overview
 A fast equality comparison function for OID vectors used in PostgreSQL's catalog cache system to compare OIDVECTOROID type keys.

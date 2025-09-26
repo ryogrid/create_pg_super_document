@@ -1,7 +1,7 @@
 # SubLink
 
 ## Location
-src/include/nodes/primnodes.h: 1008 - 1019
+[src/include/nodes/primnodes.h:1008-1019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1008-L1019)
 
 ## Overview
 SubLink represents a subselect appearing in an expression, along with its combining operators, and is later replaced by SubPlan nodes during query planning.

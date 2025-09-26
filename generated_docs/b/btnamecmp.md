@@ -1,7 +1,7 @@
 # btnamecmp
 
 ## Location
-src/backend/utils/adt/name.c: 202 - 210
+[src/backend/utils/adt/name.c:202-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L202-L210)
 
 ## Overview
 The  function provides a B-tree compatible comparison function for PostgreSQL's  data type, returning a signed integer to indicate ordering relationships.

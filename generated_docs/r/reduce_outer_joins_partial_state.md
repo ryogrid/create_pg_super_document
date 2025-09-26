@@ -1,7 +1,7 @@
 # reduce_outer_joins_partial_state
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 84 - 88
+[src/backend/optimizer/prep/prepjointree.c:84-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L84-L88)
 
 ## Overview
 The reduce_outer_joins_partial_state struct tracks information about full outer joins that have been partially reduced to left or right outer joins, recording which side still requires null-preservation semantics.

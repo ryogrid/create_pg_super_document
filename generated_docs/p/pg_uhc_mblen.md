@@ -1,7 +1,7 @@
 # pg_uhc_mblen
 
 ## Location
-src/common/wchar.c: 976 - 987
+[src/common/wchar.c:976-987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L976-L987)
 
 ## Overview
 Returns the byte length of a UHC-encoded character to enable proper parsing and processing of Korean text.

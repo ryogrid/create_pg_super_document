@@ -1,7 +1,7 @@
 # CreatePolicyStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2959 - 2969
+[src/include/nodes/parsenodes.h:2959-2969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2959-L2969)
 
 ## Overview
 CreatePolicyStmt is a parse node structure that represents a CREATE POLICY SQL statement, which creates a row-level security policy that controls access to rows in a table based on specified conditions and roles.

@@ -1,7 +1,7 @@
 # parse_xlogrecptr
 
 ## Location
-src/common/parse_manifest.c: 939 - 948
+[src/common/parse_manifest.c:939-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/parse_manifest.c#L939-L948)
 
 ## Overview
 A static function that parses PostgreSQL XLogRecPtr values from their standard string representation format (HEX/HEX) into a 64-bit integer.

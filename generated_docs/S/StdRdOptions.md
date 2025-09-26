@@ -1,7 +1,7 @@
 # StdRdOptions
 
 ## Location
-src/include/utils/rel.h: 336 - 346
+[src/include/utils/rel.h:336-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/rel.h#L336-L346)
 
 ## Overview
 StdRdOptions is a structure that defines standard relation options (reloptions) for heap tables, containing configuration parameters that control various aspects of table behavior including storage, autovacuum, and parallel processing.

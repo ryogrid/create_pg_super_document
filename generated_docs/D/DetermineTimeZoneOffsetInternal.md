@@ -1,7 +1,7 @@
 # DetermineTimeZoneOffsetInternal
 
 ## Location
-src/backend/utils/adt/datetime.c: 1607 - 1745
+[src/backend/utils/adt/datetime.c:1607-1745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L1607-L1745)
 
 ## Overview
 The core implementation for timezone offset calculation that handles DST transitions, ambiguous times, and edge cases while also returning the computed UTC time value.

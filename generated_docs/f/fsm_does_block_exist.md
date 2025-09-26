@@ -1,7 +1,7 @@
 # fsm_does_block_exist
 
 ## Location
-src/backend/storage/freespace/freespace.c: 926 - 940
+[src/backend/storage/freespace/freespace.c:926-940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/freespace.c#L926-L940)
 
 ## Overview
 Static utility function that checks whether a given block number exists within a relation, handling edge cases that can occur during WAL replay operations.

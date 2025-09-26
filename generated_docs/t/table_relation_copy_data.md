@@ -1,7 +1,7 @@
 # table_relation_copy_data
 
 ## Location
-src/include/access/tableam.h: 1652 - 1678
+[src/include/access/tableam.h:1652-1678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1652-L1678)
 
 ## Overview
 A table access method wrapper function that copies data from a relation to a new file locator, primarily used for low-level operations like changing a relation's tablespace.

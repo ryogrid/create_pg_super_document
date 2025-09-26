@@ -1,7 +1,7 @@
 # GrantRoleStmt
 
 ## Location
-src/include/nodes/parsenodes.h: 2556 - 2565
+[src/include/nodes/parsenodes.h:2556-2565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2556-L2565)
 
 ## Overview
 GrantRoleStmt is a parse tree node structure that represents SQL GRANT ROLE and REVOKE ROLE statements, handling role membership grants and revocations.

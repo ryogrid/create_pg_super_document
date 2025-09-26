@@ -1,7 +1,7 @@
 # JsonTablePlan
 
 ## Location
-src/include/nodes/primnodes.h: 1882 - 1887
+[src/include/nodes/primnodes.h:1882-1887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1882-L1887)
 
 ## Overview
 JsonTablePlan is an abstract base class representing different types of JSON_TABLE execution plans used to generate row patterns by evaluating JSON path expressions.

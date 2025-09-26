@@ -1,7 +1,7 @@
 # clean_encoding_name
 
 ## Location
-src/common/encnames.c: 524 - 548
+[src/common/encnames.c:524-548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/encnames.c#L524-L548)
 
 ## Overview
 A static utility function that normalizes encoding names by removing non-alphanumeric characters and converting uppercase letters to lowercase.

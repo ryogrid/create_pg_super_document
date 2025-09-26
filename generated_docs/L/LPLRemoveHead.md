@@ -1,7 +1,7 @@
 # LPLRemoveHead
 
 ## Location
-src/backend/tsearch/ts_parse.c: 86 - 99
+[src/backend/tsearch/ts_parse.c:86-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L86-L99)
 
 ## Overview
 LPLRemoveHead removes and returns the first ParsedLex element from a ListParsedLex linked list, maintaining proper list structure during dequeue operations.

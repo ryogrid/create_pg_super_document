@@ -1,7 +1,7 @@
 # xml_pstrdup
 
 ## Location
-src/backend/utils/adt/xml.c: 1985 - 2003
+[src/backend/utils/adt/xml.c:1985-2003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1985-L2003)
 
 ## Overview
 A string duplication wrapper function that creates a copy of a string within the LibxmlContext memory context for use by libxml operations.

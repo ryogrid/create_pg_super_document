@@ -1,7 +1,7 @@
 # WindowAggPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2318 - 2327
+[src/include/nodes/pathnodes.h:2318-2327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2318-L2327)
 
 ## Overview
 WindowAggPath represents a path for computing window functions in PostgreSQL, handling operations like ROW_NUMBER(), RANK(), and aggregate functions with OVER clauses.

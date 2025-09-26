@@ -1,7 +1,7 @@
 # QTNode
 
 ## Location
-src/include/tsearch/ts_utils.h: 234 - 242
+[src/include/tsearch/ts_utils.h:234-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_utils.h#L234-L242)
 
 ## Overview
 QTNode is a tree node structure used internally for manipulating and processing tsquery expressions in PostgreSQL's full-text search system.

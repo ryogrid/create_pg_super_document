@@ -1,7 +1,7 @@
 # VirtualXactLockTableCleanup
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4460 - 4508
+[src/backend/storage/lmgr/lock.c:4460-4508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4460-L4508)
 
 ## Overview
 Cleans up virtual transaction locks by clearing fast-path lock state and releasing any materialized locks from the main lock table.

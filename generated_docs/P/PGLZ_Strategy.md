@@ -1,7 +1,7 @@
 # PGLZ_Strategy
 
 ## Location
-src/include/common/pg_lzcompress.h: 57 - 65
+[src/include/common/pg_lzcompress.h:57-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/pg_lzcompress.h#L57-L65)
 
 ## Overview
 PGLZ_Strategy is a configuration structure that controls the behavior and parameters of PostgreSQL's built-in LZ compression algorithm, allowing fine-tuning of compression performance versus efficiency trade-offs.

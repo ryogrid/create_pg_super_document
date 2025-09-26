@@ -1,7 +1,7 @@
 # pg_b64_decode
 
 ## Location
-src/common/base64.c: 116 - 223
+[src/common/base64.c:116-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/base64.c#L116-L223)
 
 ## Overview
 Decodes base64-encoded strings back into binary data, performing strict validation without whitespace support.

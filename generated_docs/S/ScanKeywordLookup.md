@@ -1,7 +1,7 @@
 # ScanKeywordLookup
 
 ## Location
-src/common/kwlookup.c: 38 - 85
+[src/common/kwlookup.c:38-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/kwlookup.c#L38-L85)
 
 ## Overview
 A case-insensitive keyword lookup function that searches for a given word within a predefined set of SQL keywords using a perfect hash function.

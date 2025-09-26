@@ -1,7 +1,7 @@
 # insert_new_cell
 
 ## Location
-src/backend/nodes/list.c: 415 - 438
+[src/backend/nodes/list.c:415-438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L415-L438)
 
 ## Overview
 Creates space for a new cell at a specified position within a PostgreSQL List, returning the address of the newly created cell.

@@ -1,7 +1,7 @@
 # pg_eucjp2wchar_with_len
 
 ## Location
-src/common/wchar.c: 179 - 184
+[src/common/wchar.c:179-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L179-L184)
 
 ## Overview
 Converts EUC-JP (Extended Unix Code for Japanese) encoded byte sequences to PostgreSQL's internal wide character format.

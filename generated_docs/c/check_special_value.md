@@ -1,7 +1,7 @@
 # check_special_value
 
 ## Location
-src/interfaces/ecpg/ecpglib/data.c: 101 - 127
+[src/interfaces/ecpg/ecpglib/data.c:101-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/data.c#L101-L127)
 
 ## Overview
 Checks if a string represents a special floating-point value (NaN, Infinity, or -Infinity) and converts it to the corresponding double value.

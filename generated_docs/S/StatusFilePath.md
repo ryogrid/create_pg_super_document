@@ -1,7 +1,7 @@
 # StatusFilePath
 
 ## Location
-src/include/access/xlog_internal.h: 238 - 243
+[src/include/access/xlog_internal.h:238-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L238-L243)
 
 ## Overview
 StatusFilePath is an inline function that constructs the complete file system path for WAL archive status files, which track the archival state of WAL segments and timeline history files.

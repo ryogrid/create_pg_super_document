@@ -1,7 +1,7 @@
 # pg_base64_dec_len
 
 ## Location
-src/backend/utils/adt/encode.c: 392 - 410
+[src/backend/utils/adt/encode.c:392-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L392-L410)
 
 ## Overview
 Calculates the maximum possible output buffer length needed for Base64 decoding of encoded data.

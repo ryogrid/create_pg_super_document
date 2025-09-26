@@ -1,7 +1,7 @@
 # TerminateBufferIO
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5589 - 5625
+[src/backend/storage/buffer/bufmgr.c:5589-5625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5589-L5625)
 
 ## Overview
 TerminateBufferIO completes I/O operations on a buffer by clearing the BM_IO_IN_PROGRESS flag, updating buffer state flags, and notifying waiting processes.

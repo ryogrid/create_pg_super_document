@@ -1,7 +1,7 @@
 # JsonParseExpr
 
 ## Location
-src/include/nodes/parsenodes.h: 1883 - 1890
+[src/include/nodes/parsenodes.h:1883-1890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1883-L1890)
 
 ## Overview
 JsonParseExpr represents the untransformed parse tree representation of a JSON() function call, which parses a string as JSON and validates its structure with optional output formatting and key uniqueness constraints.

@@ -1,7 +1,7 @@
 # PathNameDeleteTemporaryFile
 
 ## Location
-src/backend/storage/file/fd.c: 1929 - 1974
+[src/backend/storage/file/fd.c:1929-1974](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L1929-L1974)
 
 ## Overview
 PathNameDeleteTemporaryFile deletes a temporary file by pathname and reports its usage statistics, with graceful handling of non-existent files.

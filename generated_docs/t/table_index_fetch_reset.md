@@ -1,7 +1,7 @@
 # table_index_fetch_reset
 
 ## Location
-src/include/access/tableam.h: 1203 - 1211
+[src/include/access/tableam.h:1203-1211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1203-L1211)
 
 ## Overview
 Resets an index fetch operation by releasing cross index fetch resources held in the IndexFetchTableData structure.

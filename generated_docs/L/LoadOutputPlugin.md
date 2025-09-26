@@ -1,7 +1,7 @@
 # LoadOutputPlugin
 
 ## Location
-src/backend/replication/logical/logical.c: 752 - 773
+[src/backend/replication/logical/logical.c:752-773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L752-L773)
 
 ## Overview
 LoadOutputPlugin is a static function that loads an external logical replication output plugin, initializes it, and validates that it provides all required callback functions.

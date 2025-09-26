@@ -1,7 +1,7 @@
 # SIResetAll
 
 ## Location
-src/backend/storage/ipc/sinvaladt.c: 700 - 742
+[src/backend/storage/ipc/sinvaladt.c:700-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinvaladt.c#L700-L742)
 
 ## Overview
 Forces all active backends into reset state, effectively implementing a cluster-wide cache invalidation when the specific invalidation requirements are unknown.

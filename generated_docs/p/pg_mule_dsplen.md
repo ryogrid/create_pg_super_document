@@ -1,7 +1,7 @@
 # pg_mule_dsplen
 
 ## Location
-src/common/wchar.c: 811 - 838
+[src/common/wchar.c:811-838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L811-L838)
 
 ## Overview
 Calculates the display length (number of screen columns) for a MULE encoded character, approximating multibyte characters as double-width.

@@ -1,7 +1,7 @@
 # have_free_buffer
 
 ## Location
-src/backend/storage/buffer/freelist.c: 175 - 195
+[src/backend/storage/buffer/freelist.c:175-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/freelist.c#L175-L195)
 
 ## Overview
 have_free_buffer provides a lockless check to determine if there are any free buffers available in the buffer pool without acquiring locks.

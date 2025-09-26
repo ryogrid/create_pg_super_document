@@ -1,7 +1,7 @@
 # BufFileRead
 
 ## Location
-src/backend/storage/file/buffile.c: 645 - 653
+[src/backend/storage/file/buffile.c:645-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/buffile.c#L645-L653)
 
 ## Overview
 BufFileRead provides a legacy interface for reading data from BufFiles, allowing partial reads and requiring caller handling of EOF conditions.

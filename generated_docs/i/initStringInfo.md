@@ -1,7 +1,7 @@
 # initStringInfo
 
 ## Location
-src/common/stringinfo.c: 59 - 77
+[src/common/stringinfo.c:59-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/stringinfo.c#L59-L77)
 
 ## Overview
 Initializes a StringInfoData structure to describe an empty string with a default buffer size of 1024 bytes.

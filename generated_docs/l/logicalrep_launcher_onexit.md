@@ -1,7 +1,7 @@
 # logicalrep_launcher_onexit
 
 ## Location
-src/backend/replication/logical/launcher.c: 820 - 830
+[src/backend/replication/logical/launcher.c:820-830](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L820-L830)
 
 ## Overview
 A cleanup function registered as an exit handler for the logical replication launcher process that resets the launcher PID in shared memory upon process termination.

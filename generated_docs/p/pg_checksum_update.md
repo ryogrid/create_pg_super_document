@@ -1,7 +1,7 @@
 # pg_checksum_update
 
 ## Location
-src/common/checksum_helper.c: 145 - 175
+[src/common/checksum_helper.c:145-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/checksum_helper.c#L145-L175)
 
 ## Overview
 Updates a checksum computation context with new input data for incremental checksum calculation.

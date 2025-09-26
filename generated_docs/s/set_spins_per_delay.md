@@ -1,7 +1,7 @@
 # set_spins_per_delay
 
 ## Location
-src/backend/storage/lmgr/s_lock.c: 213 - 223
+[src/backend/storage/lmgr/s_lock.c:213-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/s_lock.c#L213-L223)
 
 ## Overview
 Sets the local copy of spins_per_delay during backend startup to optimize spinlock performance.

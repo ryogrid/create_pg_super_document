@@ -1,7 +1,7 @@
 # CustomScan
 
 ## Location
-src/include/nodes/plannodes.h: 739 - 756
+[src/include/nodes/plannodes.h:739-756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L739-L756)
 
 ## Overview
 CustomScan is a plan node that allows third-party extensions to implement custom scanning logic within PostgreSQL's execution framework through the extensible node interface.
