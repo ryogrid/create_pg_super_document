@@ -8,7 +8,15 @@ Converts an ExpandedRecordHeader into a read-write Datum for PostgreSQL's functi
 
 ## Definition
 
-
+```c
+typedef struct ExpandedRecordFieldInfo
+{
+	int			fnumber;		/* field's attr number in record */
+	Oid			ftypeid;		/* field's type/typmod info */
+	int32		ftypmod;
+	Oid			fcollation;		/* field's collation if any */
+} ExpandedRecordFieldInfo;
+```
 ## Detailed Description
 This inline function provides a convenient wrapper to convert an ExpandedRecordHeader pointer into a Datum that can be used within PostgreSQL's function manager (fmgr) system. It delegates to the expanded object infrastructure by calling  on the header's embedded . The returned Datum represents a read-write reference to the expanded record, allowing the function manager to pass expanded objects efficiently between functions without unnecessary conversions to flat tuple format.
 

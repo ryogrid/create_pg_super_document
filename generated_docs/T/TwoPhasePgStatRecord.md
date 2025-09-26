@@ -8,7 +8,21 @@ TwoPhasePgStatRecord is a structure that stores transaction-dependent relation s
 
 ## Definition
 
-
+```c
+typedef struct TwoPhasePgStatRecord
+{
+	PgStat_Counter tuples_inserted; /* tuples inserted in xact */
+	PgStat_Counter tuples_updated;	/* tuples updated in xact */
+	PgStat_Counter tuples_deleted;	/* tuples deleted in xact */
+	/* tuples i/u/d prior to truncate/drop */
+	PgStat_Counter inserted_pre_truncdrop;
+	PgStat_Counter updated_pre_truncdrop;
+	PgStat_Counter deleted_pre_truncdrop;
+	Oid			id;				/* table's OID */
+	bool		shared;			/* is it a shared catalog? */
+	bool		truncdropped;	/* was the relation truncated/dropped? */
+} TwoPhasePgStatRecord;
+```
 ## Detailed Description
 TwoPhasePgStatRecord serves as a persistent storage format for relation statistics during Two-Phase Commit transactions. When a transaction is prepared (PREPARE TRANSACTION), PostgreSQL needs to preserve the statistical counters that were accumulated during the transaction so they can be properly applied during COMMIT PREPARED or discarded during ROLLBACK PREPARED.
 

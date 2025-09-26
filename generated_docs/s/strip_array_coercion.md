@@ -8,7 +8,10 @@ Strips binary-compatible type relabeling operations from array expressions to re
 
 ## Definition
 
-
+```c
+struct the expression */
+	Assert(list_length(clause->args) == 2);
+```
 ## Detailed Description
 The  function removes layers of binary-compatible type conversions from array expressions to expose the underlying array node. This is essential for selectivity estimation because type coercion nodes can obscure the true structure of array expressions, making it difficult to analyze their statistical properties.
 

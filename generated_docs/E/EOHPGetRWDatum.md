@@ -8,7 +8,29 @@ EOHPGetRWDatum is an inline function that extracts a read-write TOAST pointer fr
 
 ## Definition
 
+```c
+struct ExpandedObjectHeader *eohptr)
+{
+	return PointerGetDatum(eohptr->eoh_rw_ptr);
+}
 
+static inline Datum
+EOHPGetRODatum(const struct ExpandedObjectHeader *eohptr)
+{
+	return PointerGetDatum(eohptr->eoh_ro_ptr);
+}
+
+/* Does the Datum represent a writable expanded object? */
+#define DatumIsReadWriteExpandedObject(d, isnull, typlen) \
+	(((isnull) || (typlen) != -1) ? false : \
+	 VARATT_IS_EXTERNAL_EXPANDED_RW(DatumGetPointer(d)))
+
+#define MakeExpandedObjectReadOnly(d, isnull, typlen) \
+	(((isnull) || (typlen) != -1) ? (d) : \
+	 MakeExpandedObjectReadOnlyInternal(d))
+
+extern ExpandedObjectHeader *DatumGetEOHP(Datum d);
+```
 ## Detailed Description
 This function provides a convenient way to access the read-write TOAST pointer stored within an expanded object's header. The function takes a pointer to an ExpandedObjectHeader and returns the eoh_rw_ptr field as a Datum using PointerGetDatum. This allows functions to return a read-write pointer to the expanded object without making additional allocations, which is particularly useful for functions that need to modify the expanded object's contents.
 

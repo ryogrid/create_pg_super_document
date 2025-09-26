@@ -8,7 +8,14 @@ A static inline function that checks whether an XLogReaderState has queued decod
 
 ## Definition
 
-
+```c
+typedef enum XLogPageReadResult
+{
+	XLREAD_SUCCESS = 0,			/* record is successfully read */
+	XLREAD_FAIL = -1,			/* failed during reading a record */
+	XLREAD_WOULDBLOCK = -2,		/* nonblocking mode only, no data */
+} XLogPageReadResult;
+```
 ## Detailed Description
 This function provides a quick check to determine if there are any pre-decoded WAL records or deferred error messages waiting to be processed in the XLogReaderState. It examines two key fields:
 

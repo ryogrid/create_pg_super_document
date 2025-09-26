@@ -8,7 +8,11 @@ A variadic wrapper function that provides a convenient interface for logging mes
 
 ## Definition
 
-
+```c
+void
+pg_log_generic(enum pg_log_level level, enum pg_log_part part,
+			   const char *pg_restrict fmt,...)
+```
 ## Detailed Description
 This function serves as a variadic wrapper around , providing a more convenient interface for logging messages when you have a variable number of arguments. It accepts a printf-style format string and variable arguments, internally converts them to a va_list, and then calls the core logging function . This function is commonly used throughout PostgreSQL components when you need to log formatted messages with different severity levels and message parts.
 

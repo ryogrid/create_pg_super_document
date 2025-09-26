@@ -8,7 +8,16 @@ WordEntry is a compact data structure representing individual word entries withi
 
 ## Definition
 
+```c
+typedef struct {
+ *		uint16
+ *			weight:2,
+ *			pos:14;
+ * }
+ */
 
+typedef uint16 WordEntryPos;
+```
 ## Detailed Description
 WordEntry is a fundamental building block of PostgreSQL's full-text search functionality. It serves as a header structure for individual words within a tsvector, using bit fields to pack three pieces of information into a single 32-bit integer:
 

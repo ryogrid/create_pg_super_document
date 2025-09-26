@@ -8,7 +8,10 @@ Resolves recovery conflicts with other backends holding relation locks by either
 
 ## Definition
 
-
+```c
+void
+ResolveRecoveryConflictWithLock(LOCKTAG locktag, bool logging_conflict)
+```
 ## Detailed Description
 This function is called from ProcSleep() to resolve conflicts with other backends holding relation locks during hot standby recovery. It implements a sophisticated conflict resolution mechanism that either resolves conflicts immediately when the standby limit time has been exceeded, or sets up timeouts and waits for lock release while monitoring for deadlocks.
 

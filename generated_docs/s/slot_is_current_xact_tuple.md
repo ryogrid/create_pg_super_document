@@ -8,7 +8,10 @@ Checks if the tuple currently stored in a TupleTableSlot was created by the curr
 
 ## Definition
 
-
+```c
+static inline bool
+slot_is_current_xact_tuple(TupleTableSlot *slot)
+```
 ## Detailed Description
 This inline function provides a uniform interface for checking whether the tuple contained in a TupleTableSlot was created by the current transaction. It delegates to the slot's type-specific implementation through the tts_ops function pointer table, allowing different slot types to implement their own logic for transaction visibility checks.
 

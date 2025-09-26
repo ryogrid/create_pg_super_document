@@ -8,7 +8,31 @@ Creates and returns a new PQExpBuffer by allocating memory for both the PQExpBuf
 
 ## Definition
 
+```c
+struct (with previously undefined contents)
+ * to describe an empty string.
+ */
+void
+initPQExpBuffer(PQExpBuffer str)
+{
+	str->data = (char *) malloc(INITIAL_EXPBUFFER_SIZE);
+	if (str->data == NULL)
+	{
+		str->data = unconstify(char *, oom_buffer_ptr); /* see comment above */
+		str->maxlen = 0;
+		str->len = 0;
+	}
+	else
+	{
+		str->maxlen = INITIAL_EXPBUFFER_SIZE;
+		str->len = 0;
+		str->data[0] = '\0';
+	}
+}
 
+/*
+ * destroyPQExpBuffer(str);
+```
 ## Detailed Description
 This function provides a convenient way to create a new PQExpBuffer object with both the structure and its data buffer dynamically allocated. It serves as a high-level constructor that:
 

@@ -8,7 +8,9 @@ DestReceiver is a typedef for struct _DestReceiver that serves as the base type 
 
 ## Definition
 
-
+```c
+typedef struct _DestReceiver DestReceiver;
+```
 ## Detailed Description
 DestReceiver is a fundamental component of PostgreSQL's result destination management system. It provides an abstraction layer that allows the executor to send query results to various destinations (frontend processes, files, internal storage, etc.) without needing to know the specific implementation details of each destination type.
 

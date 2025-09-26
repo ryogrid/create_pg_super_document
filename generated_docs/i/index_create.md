@@ -8,7 +8,9 @@ index_create is the primary function for creating a new index relation in Postgr
 
 ## Definition
 
-
+```c
+enumber map if and only if the parent does;
+```
 ## Detailed Description
 This function performs the complete process of creating a new index relation. It validates parameters, creates the physical relation structure, registers catalog entries in pg_class, pg_index, and pg_attribute, handles inheritance relationships for partitioned indexes, creates constraints if requested, records all necessary dependencies, and optionally builds the index data.
 

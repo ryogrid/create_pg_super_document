@@ -8,7 +8,22 @@ AggStatePerHashData represents per-hashtable state for hash-based aggregation, s
 
 ## Definition
 
-
+```c
+typedef struct AggStatePerHashData
+{
+	TupleHashTable hashtable;	/* hash table with one entry per group */
+	TupleHashIterator hashiter; /* for iterating through hash table */
+	TupleTableSlot *hashslot;	/* slot for loading hash table */
+	FmgrInfo   *hashfunctions;	/* per-grouping-field hash fns */
+	Oid		   *eqfuncoids;		/* per-grouping-field equality fns */
+	int			numCols;		/* number of hash key columns */
+	int			numhashGrpCols; /* number of columns in hash table */
+	int			largestGrpColIdx;	/* largest col required for hashing */
+	AttrNumber *hashGrpColIdxInput; /* hash col indices in input slot */
+	AttrNumber *hashGrpColIdxHash;	/* indices in hash table tuples */
+	Agg		   *aggnode;		/* original Agg node, for numGroups etc. */
+}			AggStatePerHashData;
+```
 ## Detailed Description
 AggStatePerHashData manages the state for hash-based aggregation processing, providing efficient grouping through hash table operations. When processing grouping sets with hashing, the system maintains one instance of this structure per grouping set. For simple hashed aggregation without grouping sets, only a single instance is used.
 

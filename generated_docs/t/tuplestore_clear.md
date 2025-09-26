@@ -8,7 +8,10 @@ Function to delete all contents from a tuplestore and reset all read pointers to
 
 ## Definition
 
-
+```c
+void
+tuplestore_clear(Tuplestorestate *state)
+```
 ## Detailed Description
 This function performs a complete cleanup of a tuplestore's contents while preserving the tuplestore structure itself for reuse. It releases all stored tuples from memory, closes any temporary files used for disk storage, and resets all internal counters and read pointers to their initial state.
 

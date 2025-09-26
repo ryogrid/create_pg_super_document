@@ -8,7 +8,10 @@ BufFileDumpBuffer writes the contents of a BufFile's dirty buffer to the underly
 
 ## Definition
 
-
+```c
+static void
+BufFileDumpBuffer(BufFile *file)
+```
 ## Detailed Description
 BufFileDumpBuffer is an internal function that performs the critical task of flushing dirty buffer contents to persistent storage. Unlike BufFileLoadBuffer, this function must handle the entire buffer content even if it spans multiple component files, requiring a loop-based approach to ensure all data is written.
 

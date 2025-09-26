@@ -8,7 +8,20 @@ CoerceToDomainValue is a placeholder node representing the value to be processed
 
 ## Definition
 
-
+```c
+typedef struct CoerceToDomainValue
+{
+	Expr		xpr;
+	/* type for substituted value */
+	Oid			typeId;
+	/* typemod for substituted value */
+	int32		typeMod pg_node_attr(query_jumble_ignore);
+	/* collation for the substituted value */
+	Oid			collation pg_node_attr(query_jumble_ignore);
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} CoerceToDomainValue;
+```
 ## Detailed Description
 CoerceToDomainValue is a specialized placeholder node that acts as a substitute for the actual value being tested during domain constraint validation. It functions similarly to a Param node but is implemented more simply since only one replacement value is needed at a time during constraint checking.
 

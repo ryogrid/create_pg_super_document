@@ -8,7 +8,10 @@ A signal handler that sets a global flag to indicate that the postmaster process
 
 ## Definition
 
-
+```c
+static void
+postmaster_death_handler(SIGNAL_ARGS)
+```
 ## Detailed Description
 The postmaster_death_handler is a simple signal handler function that responds to signals indicating the postmaster process may have terminated. When invoked, it sets the global boolean variable postmaster_possibly_dead to true. This mechanism allows backend processes to detect when the postmaster has died and take appropriate action, such as shutting down gracefully.
 

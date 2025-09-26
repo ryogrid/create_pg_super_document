@@ -8,7 +8,19 @@ A cache entry structure that stores text search configuration metadata and token
 
 ## Definition
 
+```c
+typedef struct
+{
+	/* cfgId is the hash lookup key and MUST BE FIRST */
+	Oid			cfgId;
+	bool		isvalid;
 
+	Oid			prsId;
+
+	int			lenmap;
+	ListDictionary *map;
+} TSConfigCacheEntry;
+```
 ## Detailed Description
 TSConfigCacheEntry is a core data structure in PostgreSQL's text search caching system that represents a cached text search configuration. It stores essential information about how text should be parsed and processed, including the parser to use and the mapping from token types to dictionaries.
 

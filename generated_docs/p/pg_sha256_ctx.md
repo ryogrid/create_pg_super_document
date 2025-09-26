@@ -8,7 +8,14 @@ The pg_sha256_ctx structure represents the context for SHA-256 hash computation 
 
 ## Definition
 
-
+```c
+typedef struct pg_sha256_ctx
+{
+	uint32		state[8];
+	uint64		bitcount;
+	uint8		buffer[PG_SHA256_BLOCK_LENGTH];
+} pg_sha256_ctx;
+```
 ## Detailed Description
 The pg_sha256_ctx structure is the core context structure for SHA-256 cryptographic hash operations in PostgreSQL. It maintains all necessary state information to perform incremental hash computation, allowing data to be processed in chunks rather than requiring the entire input to be available at once. This structure follows the standard SHA-256 algorithm specification and is used throughout PostgreSQL's cryptographic subsystem for secure hashing operations.
 

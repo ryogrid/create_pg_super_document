@@ -8,7 +8,10 @@ Converts numeric PostgreSQL data types to double-precision floating-point values
 
 ## Definition
 
-
+```c
+static double
+convert_numeric_to_scalar(Datum value, Oid typid, bool *failure)
+```
 ## Detailed Description
 This function performs the numeric-specific conversion logic for , converting various PostgreSQL numeric data types to a unified double representation. It handles the following type categories:
 

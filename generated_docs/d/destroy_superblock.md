@@ -8,7 +8,10 @@ Returns a superblock to the free page manager and potentially frees the underlyi
 
 ## Definition
 
-
+```c
+static void
+destroy_superblock(dsa_area *area, dsa_pointer span_pointer)
+```
 ## Detailed Description
 This function handles the destruction of a superblock when it becomes completely empty (all objects have been freed). It performs several critical operations: removes the span from its fullness class list, returns the pages to the segment's free page manager, checks if the entire segment has become free, and if so, returns the segment to the operating system.
 

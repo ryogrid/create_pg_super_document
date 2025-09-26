@@ -8,7 +8,15 @@ Computes hash values for tuples in hash joins by evaluating hash key expressions
 
 ## Definition
 
-
+```c
+bool
+ExecHashGetHashValue(HashJoinTable hashtable,
+					 ExprContext *econtext,
+					 List *hashkeys,
+					 bool outer_tuple,
+					 bool keep_nulls,
+					 uint32 *hashvalue)
+```
 ## Detailed Description
 This function computes hash values for tuples in both regular and parallel hash joins by evaluating a list of hash key expressions and combining their hash codes. It uses a rotate-left and XOR combination strategy to distribute hash values evenly across buckets. The function handles null values according to join semantics: for strict joins, null attributes cause immediate rejection unless keep_nulls is true, while for non-strict contexts, nulls are treated as having a hash code of zero.
 

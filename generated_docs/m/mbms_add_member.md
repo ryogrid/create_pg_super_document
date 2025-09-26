@@ -8,7 +8,10 @@ Adds a new member to a multibitmapset by setting a specific bit in a specific Bi
 
 ## Definition
 
-
+```c
+List *
+mbms_add_member(List *a, int listidx, int bitidx)
+```
 ## Detailed Description
 This function adds a new member to a multibitmapset, which is represented as a List of Bitmapset structures. The function takes a list index to specify which Bitmapset within the List to modify, and a bit index to specify which bit to set within that Bitmapset. It's conceptually similar to bms_add_member but operates on the more complex multibitmapset data structure.
 

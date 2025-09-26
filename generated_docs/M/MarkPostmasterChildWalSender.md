@@ -8,7 +8,10 @@ Marks a postmaster child process as a WAL sender, transitioning the child's stat
 
 ## Definition
 
-
+```c
+void
+MarkPostmasterChildWalSender(void)
+```
 ## Detailed Description
 This function is called by child processes to signal that they have become WAL sender processes. It updates the child's status in the PMSignalState structure from PM_CHILD_ACTIVE to PM_CHILD_WALSENDER. The function operates on the child's own slot (identified by MyPMChildSlot) in the shared memory array that tracks child process states.
 

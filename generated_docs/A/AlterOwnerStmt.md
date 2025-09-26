@@ -8,7 +8,16 @@ AlterOwnerStmt is a PostgreSQL parse node structure that represents an ALTER obj
 
 ## Definition
 
-
+```c
+typedef struct AlterOwnerStmt
+{
+	NodeTag		type;
+	ObjectType	objectType;		/* OBJECT_TABLE, OBJECT_TYPE, etc */
+	RangeVar   *relation;		/* in case it's a table */
+	Node	   *object;			/* in case it's some other object */
+	RoleSpec   *newowner;		/* the new owner */
+} AlterOwnerStmt;
+```
 ## Detailed Description
 AlterOwnerStmt represents SQL statements that transfer ownership of database objects from one role to another. This operation is fundamental for database administration and access control, allowing administrators to reassign ownership of tables, functions, schemas, and other database objects. The ownership change affects permissions and privileges associated with the object, as the new owner gains full control over the object.
 

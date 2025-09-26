@@ -8,7 +8,10 @@ Calculates the number of leap years that occur from year 0 through the end of a 
 
 ## Definition
 
-
+```c
+static int
+leaps_thru_end_of_nonneg(int y)
+```
 ## Detailed Description
 The  function implements the mathematical calculation for determining leap years in the Gregorian calendar system. It applies the standard leap year rules:
 - Years divisible by 4 are leap years

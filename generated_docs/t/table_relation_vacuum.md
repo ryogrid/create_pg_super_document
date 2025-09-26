@@ -8,7 +8,11 @@ A table access method wrapper function that performs regular VACUUM operations o
 
 ## Definition
 
-
+```c
+static inline void
+table_relation_vacuum(Relation rel, struct VacuumParams *params,
+					  BufferAccessStrategy bstrategy)
+```
 ## Detailed Description
 This function provides the interface for performing standard VACUUM operations on relations through the table access method layer. It is designed to handle regular vacuum operations triggered either by user commands or autovacuum processes.
 

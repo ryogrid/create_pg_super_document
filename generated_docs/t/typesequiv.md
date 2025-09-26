@@ -8,7 +8,36 @@ The  function determines whether two timezone type entries in a timezone state s
 
 ## Definition
 
+```c
+struct state *sp, int a, int b)
+{
+	bool		result;
 
+	if (sp == NULL ||
+		a < 0 || a >= sp->typecnt ||
+		b < 0 || b >= sp->typecnt)
+		result = false;
+	else
+	{
+		const struct ttinfo *ap = &sp->ttis[a];
+		const struct ttinfo *bp = &sp->ttis[b];
+
+		result = (ap->tt_utoff == bp->tt_utoff
+				  && ap->tt_isdst == bp->tt_isdst
+				  && ap->tt_ttisstd == bp->tt_ttisstd
+				  && ap->tt_ttisut == bp->tt_ttisut
+				  && (strcmp(&sp->chars[ap->tt_desigidx],
+							 &sp->chars[bp->tt_desigidx])
+					  == 0));
+	}
+	return result;
+}
+
+static const int mon_lengths[2][MONSPERYEAR] = {
+	{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+	{31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+};
+```
 ## Detailed Description
 This static function compares two timezone type entries identified by indices  and  within a timezone state structure. It performs comprehensive equivalence checking by comparing all fields of the  structures: UTC offset, daylight saving time flag, standard time flag, UTC time flag, and the timezone designation string. The function includes bounds checking to ensure the indices are valid within the state's type array.
 

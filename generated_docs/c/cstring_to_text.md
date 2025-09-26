@@ -8,7 +8,10 @@ Creates a PostgreSQL  data type value from a null-terminated C string, providing
 
 ## Definition
 
-
+```c
+text *
+cstring_to_text(const char *s)
+```
 ## Detailed Description
 The  function is a convenience wrapper that converts a null-terminated C string into PostgreSQL's  data type. It internally uses  to determine the length of the input string and delegates the actual conversion to . The resulting  value is freshly allocated using  with a full-size variable header (VARHDR), making it suitable for storage and manipulation within PostgreSQL's memory management system.
 

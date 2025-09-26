@@ -8,7 +8,10 @@ Initializes or reinitializes the special memory context used for libxml allocati
 
 ## Definition
 
-
+```c
+static void
+xml_memory_init(void)
+```
 ## Detailed Description
 This function manages the special memory context (LibxmlContext) used for all libxml allocations in PostgreSQL. It creates the memory context if it doesn't exist and establishes custom memory management callbacks for the libxml library. The function ensures that all libxml memory operations go through PostgreSQL's memory management system, providing better integration and debugging capabilities.
 

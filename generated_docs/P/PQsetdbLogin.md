@@ -8,7 +8,13 @@ Establishes a synchronous connection to a PostgreSQL backend through the postmas
 
 ## Definition
 
-
+```c
+structure.  Note that we also expect this
+	 * to initialize conn->errorMessage to empty.  All subsequent steps during
+	 * connection initialization will only append to that buffer.
+	 */
+	conn = pqMakeEmptyPGconn();
+```
 ## Detailed Description
 This function creates a synchronous connection to a PostgreSQL database server using the traditional parameter-based interface. It allocates and initializes a PGconn structure, processes the provided connection parameters, validates and computes derived options, and establishes the actual connection. The function returns immediately after the connection attempt is complete (either successful or failed).
 

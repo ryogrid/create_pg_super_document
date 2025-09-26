@@ -8,7 +8,10 @@ NameHashEntry is a hash table entry structure used in PostgreSQL's rule utility 
 
 ## Definition
 
-
+```c
+typedef void (*rsv_callback) (Node *node, deparse_context *context,
+							  void *callback_arg);
+```
 ## Detailed Description
 The NameHashEntry structure serves as a hash table entry for managing table name uniqueness during SQL deparsing operations in ruleutils.c. This structure is specifically used by the set_rtable_names() function to ensure that table aliases are unique when reconstructing SQL text from PostgreSQL's internal query tree representation.
 

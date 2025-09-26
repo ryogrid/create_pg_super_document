@@ -8,7 +8,10 @@ Emits standardized error messages with suggestions for variables or commands tha
 
 ## Definition
 
-
+```c
+void
+PsqlVarEnumError(const char *name, const char *value, const char *suggestions)
+```
 ## Detailed Description
 The `PsqlVarEnumError` function serves as a centralized error reporting mechanism for invalid enum-style variable values in psql. It standardizes the wording and format of error messages when users provide unrecognized values for variables that accept only specific enumerated options. The function uses `pg_log_error` to output a consistently formatted message that includes the invalid value, the variable name, and a list of valid alternatives.
 

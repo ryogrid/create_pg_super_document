@@ -8,7 +8,10 @@ PostgreSQL's version of the standard C library strftime function that converts a
 
 ## Definition
 
-
+```c
+size_t
+pg_strftime(char *s, size_t maxsize, const char *format, const struct pg_tm *t)
+```
 ## Detailed Description
 pg_strftime is PostgreSQL's implementation of the strftime function for formatting timestamps. It takes a timestamp structure (pg_tm) and converts it to a string representation according to a specified format pattern. The function is designed to be similar to the standard C library strftime but uses PostgreSQL's own pg_tm structure and internal formatting logic through the _fmt function.
 

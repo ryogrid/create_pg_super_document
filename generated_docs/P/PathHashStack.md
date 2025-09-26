@@ -8,7 +8,13 @@ PathHashStack is a simple stack data structure used to maintain a hierarchy of h
 
 ## Definition
 
-
+```c
+typedef struct PathHashStack
+{
+	uint32		hash;
+	struct PathHashStack *parent;
+} PathHashStack;
+```
 ## Detailed Description
 PathHashStack implements a lightweight stack structure that tracks hash values at different nesting levels when extracting GIN index keys from JSONB data using the path-based approach. Each stack level represents a nesting level in the JSON structure (objects or arrays), and maintains a cumulative hash that incorporates all parent-level keys leading to the current position.
 

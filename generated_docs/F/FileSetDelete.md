@@ -8,7 +8,11 @@ Deletes a specific temporary file from a FileSet, with configurable error handli
 
 ## Definition
 
-
+```c
+bool
+FileSetDelete(FileSet *fileset, const char *name,
+			  bool error_on_failure)
+```
 ## Detailed Description
 FileSetDelete removes a specific temporary file from a FileSet that was previously created using FileSetCreate. The function provides controlled deletion with optional error handling, allowing callers to specify whether missing files should trigger errors or be silently ignored.
 

@@ -8,7 +8,10 @@ A static inline function that provides a convenient wrapper for updating the Pos
 
 ## Definition
 
-
+```c
+static inline void
+set_ps_display(const char *activity)
+```
 ## Detailed Description
 The `set_ps_display` function is defined in `src/include/utils/ps_status.h` as a static inline wrapper around `set_ps_display_with_len`. This design allows the `strlen()` call to be evaluated at compilation time when string literals are passed as arguments, providing better performance than runtime string length calculation.
 

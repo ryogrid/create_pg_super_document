@@ -8,7 +8,18 @@ TupleConversionMap is a data structure that facilitates conversion between tuple
 
 ## Definition
 
-
+```c
+typedef struct TupleConversionMap
+{
+	TupleDesc	indesc;			/* tupdesc for source rowtype */
+	TupleDesc	outdesc;		/* tupdesc for result rowtype */
+	AttrMap    *attrMap;		/* indexes of input fields, or 0 for null */
+	Datum	   *invalues;		/* workspace for deconstructing source */
+	bool	   *inisnull;
+	Datum	   *outvalues;		/* workspace for constructing result */
+	bool	   *outisnull;
+} TupleConversionMap;
+```
 ## Detailed Description
 TupleConversionMap provides the infrastructure for converting tuples between logically compatible but physically different row types. This is commonly needed in inheritance relationships, partitioning, triggers, and other scenarios where data needs to be mapped between relations with similar but not identical schemas.
 

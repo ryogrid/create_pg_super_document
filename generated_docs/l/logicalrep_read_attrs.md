@@ -8,7 +8,10 @@ Reads relation attribute metadata from a logical replication message stream and 
 
 ## Definition
 
-
+```c
+static void
+logicalrep_read_attrs(StringInfo in, LogicalRepRelation *rel)
+```
 ## Detailed Description
 This function parses attribute metadata from a logical replication protocol message stream. It reads the number of attributes, then iterates through each attribute to extract:
 - Flags indicating whether the attribute is part of the replica identity

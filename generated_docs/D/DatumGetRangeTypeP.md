@@ -8,7 +8,10 @@ A static inline function that converts a Datum value to a RangeType pointer, han
 
 ## Definition
 
-
+```c
+static inline RangeType *
+DatumGetRangeTypeP(Datum X)
+```
 ## Detailed Description
 DatumGetRangeTypeP is a conversion function that safely extracts a RangeType pointer from a Datum value. It uses PostgreSQL's detoasting mechanism (PG_DETOAST_DATUM) to handle cases where the range type data might be stored in compressed or out-of-line form (TOAST). This function is essential for accessing range type data that has been passed through PostgreSQL's function manager (fmgr) interface.
 

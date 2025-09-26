@@ -8,7 +8,10 @@ Frees a shared statistics entry by deleting it from the shared hash table and re
 
 ## Definition
 
-
+```c
+static void
+pgstat_free_entry(PgStatShared_HashEntry *shent, dshash_seq_status *hstat)
+```
 ## Detailed Description
 This function handles the complete deallocation of a shared statistics entry from PostgreSQL's statistics system. It performs a two-step cleanup process: first removing the entry from the shared hash table, then freeing the dynamic shared memory allocated for the entry's data.
 

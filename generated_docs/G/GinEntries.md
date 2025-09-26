@@ -8,7 +8,14 @@ GinEntries is a dynamic buffer structure used to collect and manage GIN index en
 
 ## Definition
 
-
+```c
+typedef struct GinEntries
+{
+	Datum	   *buf;
+	int			count;
+	int			allocated;
+} GinEntries;
+```
 ## Detailed Description
 GinEntries implements a resizable array (dynamic buffer) that accumulates GIN index entries as they are generated during JSONB value extraction. It serves as an intermediate collection mechanism before the final array of Datum values is returned to the GIN indexing system.
 

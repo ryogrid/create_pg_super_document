@@ -8,7 +8,10 @@ BufFileRead provides a legacy interface for reading data from BufFiles, allowing
 
 ## Definition
 
-
+```c
+size_t
+BufFileRead(BufFile *file, void *ptr, size_t size)
+```
 ## Detailed Description
 BufFileRead is a public API function that provides the standard, legacy interface for reading data from BufFiles. It serves as a thin wrapper around BufFileReadCommon, configured for maximum flexibility by allowing short reads and not enforcing exact byte counts.
 

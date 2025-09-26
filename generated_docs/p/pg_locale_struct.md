@@ -8,7 +8,28 @@ A discriminated union structure that holds locale information for different coll
 
 ## Definition
 
-
+```c
+struct pg_locale_struct
+{
+	char		provider;
+	bool		deterministic;
+	union
+	{
+		struct
+		{
+			const char *locale;
+		}			builtin;
+		locale_t	lt;
+#ifdef USE_ICU
+		struct
+		{
+			const char *locale;
+			UCollator  *ucol;
+		}			icu;
+#endif
+	}			info;
+};
+```
 ## Detailed Description
 The  is a core data structure in PostgreSQL's locale handling system that provides a unified interface for different collation providers. It uses a discriminated union pattern to efficiently store locale information for builtin collations, system locale_t objects, or ICU collators depending on the provider type. This structure allows PostgreSQL to support multiple collation systems while maintaining a consistent internal interface.
 

@@ -8,7 +8,10 @@ A convenience function that invokes the get_flat_size method of an expanded obje
 
 ## Definition
 
-
+```c
+Size
+EOH_get_flat_size(ExpandedObjectHeader *eohptr)
+```
 ## Detailed Description
 EOH_get_flat_size is a simple wrapper function that provides a convenient interface for calling the type-specific get_flat_size method of an expanded object. This method calculates the size in bytes that would be required to store the expanded object in its flattened (non-expanded) form.
 

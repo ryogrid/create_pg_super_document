@@ -8,7 +8,10 @@ Initializes a StringInfo buffer for sending a PostgreSQL protocol message by reu
 
 ## Definition
 
-
+```c
+void
+pq_beginmessage_reuse(StringInfo buf, char msgtype)
+```
 ## Detailed Description
 This function serves the same purpose as  but is optimized for scenarios where a StringInfo buffer is being reused for multiple messages. Instead of initializing a new buffer with , it uses  to clear the existing buffer contents while preserving the allocated memory. This approach provides better performance by avoiding repeated memory allocation and deallocation cycles.
 

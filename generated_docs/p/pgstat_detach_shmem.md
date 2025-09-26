@@ -8,7 +8,10 @@ Function that cleanly detaches a backend process from the shared memory statisti
 
 ## Definition
 
-
+```c
+void
+pgstat_detach_shmem(void)
+```
 ## Detailed Description
 This function performs cleanup when a backend process is shutting down, detaching from the statistics shared memory structures. It releases all entry references in the shared hash table, detaches from both the hash table and DSA, and manually releases the DSA reference count. The function ensures no dangling references to shared statistics remain when the backend terminates.
 

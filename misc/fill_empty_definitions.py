@@ -9,7 +9,19 @@ MAX_RETRY_SEARCH = 20
 # How many extra lines to read past the original end line, to handle multiline definitions
 END_LINE_BUFFER = 30
 
-def parse_markdown_file(content: str) -> dict or None:
+def load_target_symbols(file_path: str) -> set:
+    """
+    Load a list of symbol names from the specified file
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            symbols = {line.strip() for line in f if line.strip()}
+        return symbols
+    except Exception as e:
+        print(f"Error: Could not read symbol list file '{file_path}': {e}")
+        sys.exit(1)
+
+def parse_markdown_file(content: str):
     """
     Parses the markdown content to find the symbol name, location,
     and check if the Definition section is empty.
@@ -54,7 +66,7 @@ def parse_markdown_file(content: str) -> dict or None:
         "replace_end_pos": replace_end_pos,
     }
 
-def extract_definition(source_lines: list, start_idx: int, end_idx: int, symbol_name: str) -> str or None:
+def extract_definition(source_lines: list, start_idx: int, end_idx: int, symbol_name: str):
     """
     Extracts a C definition from a slice of source code lines.
     Returns None if the definition appears incomplete, allowing the caller to retry with a larger slice.
@@ -127,7 +139,15 @@ def main():
         print(f"Error: Directory '{ROOT_DIR}' not found. Please run this script from the correct location.")
         return
 
-    print(f"Scanning markdown files in '{ROOT_DIR}' to fill empty definitions...")
+    # Check if a symbol list file is specified as command line argument
+    target_symbols = None
+    if len(sys.argv) > 1:
+        symbol_list_file = sys.argv[1]
+        target_symbols = load_target_symbols(symbol_list_file)
+        print(f"Loaded {len(target_symbols)} target symbols from '{symbol_list_file}'")
+        print(f"Scanning markdown files in '{ROOT_DIR}' to fill empty definitions for specified symbols...")
+    else:
+        print(f"Scanning markdown files in '{ROOT_DIR}' to fill empty definitions...")
     
     files_scanned = 0
     files_changed = 0
@@ -140,6 +160,10 @@ def main():
             
             info = parse_markdown_file(content)
             if not info:
+                continue
+
+            # If target symbols are specified, process only those symbols
+            if target_symbols is not None and info["symbol_name"] not in target_symbols:
                 continue
 
             if not info["file_path"].exists():

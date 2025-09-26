@@ -8,7 +8,10 @@ Function to allocate an additional read pointer for a tuplestore, enabling multi
 
 ## Definition
 
-
+```c
+int
+tuplestore_alloc_read_pointer(Tuplestorestate *state, int eflags)
+```
 ## Detailed Description
 This function creates a new read pointer that allows independent positioning within the tuplestore data. Multiple read pointers enable scenarios where different parts of the code need to scan through the tuplestore at different positions simultaneously. The new read pointer initially copies the position of read pointer 0, then can be moved independently.
 

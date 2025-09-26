@@ -8,7 +8,10 @@ Initializes a backup sink by setting up the state and buffer configuration, then
 
 ## Definition
 
-
+```c
+static inline void
+bbsink_begin_backup(bbsink *sink, bbsink_state *state, int buffer_length)
+```
 ## Detailed Description
 This inline function serves as the initialization entry point for PostgreSQL's base backup sink mechanism. It performs essential setup operations for a backup sink, including state assignment, buffer length configuration, and invoking the sink-specific begin_backup operation. The function includes assertions to ensure proper initialization conditions and validates that the sink's buffer is properly allocated with block-aligned length after the operation completes.
 

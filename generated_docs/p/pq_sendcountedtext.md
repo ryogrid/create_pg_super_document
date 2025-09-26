@@ -8,7 +8,10 @@ Appends a counted text string with character set conversion to a StringInfo buff
 
 ## Definition
 
-
+```c
+void
+pq_sendcountedtext(StringInfo buf, const char *str, int slen)
+```
 ## Detailed Description
 This function formats and appends a text string to a StringInfo buffer according to PostgreSQL's wire protocol requirements. It sends a 4-byte length field followed by the string data, where the length count does not include itself as mandated by protocol version 3.0. The function also handles character set conversion from the server's encoding to the client's encoding using .
 

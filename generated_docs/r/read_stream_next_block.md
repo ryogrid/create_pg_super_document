@@ -8,7 +8,10 @@ Provides transitional support for code that wants to obtain the next block numbe
 
 ## Definition
 
-
+```c
+BlockNumber
+read_stream_next_block(ReadStream *stream, BufferAccessStrategy *strategy)
+```
 ## Detailed Description
 This function serves as a transitional interface for legacy code that needs to know which block the read stream would read next, but wants to handle the actual buffer reading itself. It consumes the next block number from the stream's internal lookahead algorithm and returns the associated buffer access strategy that would be used for reading.
 

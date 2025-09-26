@@ -8,7 +8,14 @@ A table access method (tableam) wrapper function that creates new storage for a 
 
 ## Definition
 
-
+```c
+static inline void
+table_relation_set_new_filelocator(Relation rel,
+								   const RelFileLocator *newrlocator,
+								   char persistence,
+								   TransactionId *freezeXid,
+								   MultiXactId *minmulti)
+```
 ## Detailed Description
 This function is a high-level interface to the table access method layer for creating new storage for an existing relation. It delegates to the table access method's  implementation to handle the storage-specific details of creating new files and setting up the storage structure.
 

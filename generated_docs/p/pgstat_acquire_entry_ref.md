@@ -8,7 +8,12 @@ Helper function that safely acquires a reference to a shared memory statistics e
 
 ## Definition
 
-
+```c
+static void
+pgstat_acquire_entry_ref(PgStat_EntryRef *entry_ref,
+						 PgStatShared_HashEntry *shhashent,
+						 PgStatShared_Common *shheader)
+```
 ## Detailed Description
 The `pgstat_acquire_entry_ref` function is a critical helper that establishes a safe reference to a shared memory statistics entry. This function is designed to work within the locking protocol of PostgreSQL's statistics system and ensures that:
 

@@ -8,7 +8,10 @@ Calculates the number of leap years from year 0 through the end of any given yea
 
 ## Definition
 
-
+```c
+static int
+leaps_thru_end_of(const int y)
+```
 ## Detailed Description
 The  function serves as a comprehensive wrapper for leap year calculations that handles the full range of possible year values, including negative years. It implements a branching strategy:
 

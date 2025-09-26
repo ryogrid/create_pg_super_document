@@ -8,7 +8,12 @@ A 64-bit wrapped structure that contains both an epoch and a TransactionId to ex
 
 ## Definition
 
-
+```c
+typedef struct FullTransactionId
+{
+	uint64		value;
+} FullTransactionId;
+```
 ## Detailed Description
 FullTransactionId is a fundamental data structure in PostgreSQL's transaction management system that addresses the limitation of 32-bit TransactionIds. The structure wraps a 64-bit value where the upper 32 bits represent an epoch (generation) and the lower 32 bits contain the actual TransactionId. This design prevents transaction ID wraparound issues while maintaining backward compatibility.
 

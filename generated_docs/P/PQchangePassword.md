@@ -8,7 +8,10 @@ High-level function that securely changes a PostgreSQL user's password by encryp
 
 ## Definition
 
-
+```c
+PGresult *
+PQchangePassword(PGconn *conn, const char *user, const char *passwd)
+```
 ## Detailed Description
  provides a secure mechanism for client applications to change PostgreSQL user passwords. The function ensures that plaintext passwords never reach the server by performing client-side encryption using the server's configured password encryption method.
 

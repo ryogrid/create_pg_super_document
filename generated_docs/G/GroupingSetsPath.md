@@ -8,7 +8,17 @@ GroupingSetsPath represents a GROUPING SETS aggregation path node in PostgreSQL'
 
 ## Definition
 
-
+```c
+typedef struct GroupingSetsPath
+{
+	Path		path;
+	Path	   *subpath;		/* path representing input source */
+	AggStrategy aggstrategy;	/* basic strategy */
+	List	   *rollups;		/* list of RollupData */
+	List	   *qual;			/* quals (HAVING quals), if any */
+	uint64		transitionSpace;	/* for pass-by-ref transition data */
+} GroupingSetsPath;
+```
 ## Detailed Description
 GroupingSetsPath is a specialized path node that handles GROUPING SETS aggregation operations in PostgreSQL's query planning phase. It extends the base Path structure to represent execution plans for queries that use GROUPING SETS, ROLLUP, or CUBE clauses. This path type encapsulates the strategy for performing multi-level aggregations efficiently, including the underlying input path and the aggregation strategy to be employed.
 

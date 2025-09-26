@@ -8,7 +8,10 @@ Sets the field name for the current lexical level in a JSON lexical context stru
 
 ## Definition
 
-
+```c
+static inline void
+set_fname(JsonLexContext *lex, char *fname)
+```
 ## Detailed Description
 The `set_fname` function is a static inline helper function that assigns a field name to the current lexical level within a JSON parsing context. It updates the `fnames` array at the position corresponding to the current `lex_level` in the JSON lexical context's parse stack. This function is part of the JSON parsing infrastructure in PostgreSQL's common library.
 

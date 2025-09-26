@@ -8,7 +8,10 @@ The  function converts a C string (cstring) to PostgreSQL's internal Name data t
 
 ## Definition
 
-
+```c
+Datum
+namein(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the input function for PostgreSQL's Name data type, which is used to store identifiers like table names, column names, and other database object names. It takes a C string as input and converts it to the internal Name format.
 

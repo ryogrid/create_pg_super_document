@@ -8,7 +8,13 @@ A structure that holds information about PostgreSQL snapshots that have been exp
 
 ## Definition
 
-
+```c
+typedef struct ExportedSnapshot
+{
+	char	   *snapfile;
+	Snapshot	snapshot;
+} ExportedSnapshot;
+```
 ## Detailed Description
 ExportedSnapshot is a container structure used in PostgreSQL's snapshot export/import mechanism. It represents a snapshot that has been serialized to a file and can be shared with other backend processes. This functionality is crucial for maintaining consistent read views across different database connections, particularly useful for logical replication, parallel processing, and distributed transactions.
 

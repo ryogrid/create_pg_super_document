@@ -8,7 +8,10 @@ DatumGetTimeADT is a static inline function that extracts a TimeADT value from a
 
 ## Definition
 
-
+```c
+static inline TimeADT
+DatumGetTimeADT(Datum X)
+```
 ## Detailed Description
 This function serves as a conversion utility in PostgreSQL's function manager (fmgr) system, specifically designed to extract time values from Datum objects. It internally delegates to DatumGetInt64() since TimeADT is fundamentally represented as a 64-bit integer in PostgreSQL, storing microseconds since midnight. The function provides type safety and clarity when working with time values in the PostgreSQL backend, ensuring that Datum values are properly interpreted as TimeADT types.
 

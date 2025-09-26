@@ -8,7 +8,13 @@ SubqueryScanPath represents an access path for scanning an unflattened subquery 
 
 ## Definition
 
-
+```c
+typedef struct SubqueryScanPath
+{
+	Path		path;
+	Path	   *subpath;		/* path representing subquery execution */
+} SubqueryScanPath;
+```
 ## Detailed Description
 SubqueryScanPath is a specialized scan path node used when PostgreSQL's query planner cannot flatten a subquery into the main query (due to complexity, aggregation, LIMIT clauses, etc.). This path type encapsulates both the outer scan operation and the inner subquery execution plan, allowing the planner to optimize each domain separately.
 

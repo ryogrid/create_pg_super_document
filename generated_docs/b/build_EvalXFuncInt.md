@@ -8,7 +8,12 @@ Generates LLVM IR code to call a PostgreSQL expression evaluation function, prov
 
 ## Definition
 
-
+```c
+static LLVMValueRef
+build_EvalXFuncInt(LLVMBuilderRef b, LLVMModuleRef mod, const char *funcname,
+				   LLVMValueRef v_state, ExprEvalStep *op,
+				   int nargs, LLVMValueRef *v_args)
+```
 ## Detailed Description
 This function serves as a fundamental building block in PostgreSQL's LLVM JIT compilation system for generating calls to expression evaluation functions. It creates LLVM IR that calls PostgreSQL functions following a specific calling convention used by the expression evaluation system.
 

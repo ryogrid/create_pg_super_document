@@ -8,7 +8,24 @@ Processes a joininfo list to extract clauses that remain as join clauses at the 
 
 ## Definition
 
+```c
+structure is just a List for each
+	 * relation kind.  If we ever get so many of one kind that this stops
+	 * working well, we can improve it.  No code outside this function should
+	 * assume anything about how to find a particular upperrel.
+	 */
 
+	/* If we already made this upperrel for the query, return it */
+	foreach(lc, root->upper_rels[kind])
+	{
+		upperrel = (RelOptInfo *) lfirst(lc);
+
+		if (bms_equal(upperrel->relids, relids))
+			return upperrel;
+	}
+
+	upperrel = makeNode(RelOptInfo);
+```
 ## Detailed Description
 The  function examines each clause in the input joininfo_list and determines whether it should remain as a join clause at the current join level. Clauses that refer only to relations within the joinrel become restriction clauses and are ignored by this function. Clauses that still reference outside relations remain as join clauses and are added to the new_joininfo list.
 

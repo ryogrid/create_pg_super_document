@@ -8,7 +8,13 @@ A data structure representing a floating-point number in decimal form as mantiss
 
 ## Definition
 
-
+```c
+typedef struct floating_decimal_64
+{
+	uint64		mantissa;
+	int32		exponent;
+} floating_decimal_64;
+```
 ## Detailed Description
 The  struct is a core component of PostgreSQL's implementation of the Ryu floating-point output algorithm. It represents a floating-point number in decimal form where the actual value equals . This intermediate representation is used during the conversion of IEEE 754 double-precision floating-point numbers to their shortest decimal string representation.
 

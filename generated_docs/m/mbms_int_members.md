@@ -8,7 +8,10 @@ Performs an INTERSECT operation between two multibitmapsets by reducing the firs
 
 ## Definition
 
-
+```c
+List *
+mbms_int_members(List *a, const List *b)
+```
 ## Detailed Description
 This function implements an INTERSECT operation for multibitmapsets, which are represented as Lists of Bitmapset structures. It reduces multibitmapset a to contain only the members that are also present in multibitmapset b, modifying a in-place. The function is analogous to bms_int_members but operates on the more complex multibitmapset data structure.
 

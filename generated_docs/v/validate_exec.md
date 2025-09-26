@@ -8,7 +8,9 @@ Validates whether a given path points to an executable file that can be both rea
 
 ## Definition
 
-
+```c
+struct stat buf;
+```
 ## Detailed Description
 The  function performs comprehensive validation of a file path to determine if it represents a valid executable file. It checks for file existence, ensures the file is a regular file (not a directory or device), and verifies that the file has both read and execute permissions. On Windows systems, it automatically appends the ".exe" extension if not present.
 

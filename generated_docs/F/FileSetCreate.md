@@ -8,7 +8,10 @@ Creates a new temporary file within a FileSet, automatically handling directory 
 
 ## Definition
 
-
+```c
+File
+FileSetCreate(FileSet *fileset, const char *name)
+```
 ## Detailed Description
 FileSetCreate creates a new temporary file with the specified name within the given FileSet. The function first constructs the complete file path using the fileset's tablespace distribution strategy, then attempts to create the temporary file at that location.
 

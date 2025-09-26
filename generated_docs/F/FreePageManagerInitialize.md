@@ -8,7 +8,10 @@ Initializes a new, empty free page manager structure with default values and set
 
 ## Definition
 
-
+```c
+void
+FreePageManagerInitialize(FreePageManager *fpm, char *base)
+```
 ## Detailed Description
 FreePageManagerInitialize sets up a FreePageManager structure for tracking free pages in either dynamic shared memory segments or backend-private memory. The function initializes all internal structures to empty/default states and configures relative pointers that allow the manager to work correctly in shared memory contexts where absolute addresses may vary between processes.
 

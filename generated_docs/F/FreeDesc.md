@@ -8,7 +8,10 @@ FreeDesc is an internal static function that closes and deallocates file descrip
 
 ## Definition
 
-
+```c
+static int
+FreeDesc(AllocateDesc *desc)
+```
 ## Detailed Description
 FreeDesc serves as the central cleanup function for all types of allocated file descriptors in PostgreSQL's file management system. This static function handles the proper closure of different descriptor types (files, pipes, directories, and raw file descriptors) by dispatching to the appropriate system call based on the descriptor's kind. After closing the underlying resource, it compacts the allocatedDescs array to maintain efficient memory usage.
 

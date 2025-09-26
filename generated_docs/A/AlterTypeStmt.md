@@ -8,7 +8,14 @@ AlterTypeStmt represents the parsed structure of an ALTER TYPE SQL statement tha
 
 ## Definition
 
-
+```c
+typedef struct AlterTypeStmt
+{
+	NodeTag		type;
+	List	   *typeName;		/* type name (possibly qualified) */
+	List	   *options;		/* List of DefElem nodes */
+} AlterTypeStmt;
+```
 ## Detailed Description
 AlterTypeStmt is a parse node that represents the ALTER TYPE SET statement in PostgreSQL's SQL grammar. This statement allows users to modify properties of existing types, particularly for customizing type behavior through operator-related definitions. The statement follows the syntax:  where the options are parsed into DefElem structures that specify what properties to modify.
 

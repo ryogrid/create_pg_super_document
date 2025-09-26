@@ -8,7 +8,10 @@ Creates a new empty StringInfo data structure by allocating memory and initializ
 
 ## Definition
 
-
+```c
+StringInfo
+makeStringInfo(void)
+```
 ## Detailed Description
 The  function is a convenience function that creates a new StringInfo object by allocating memory for a StringInfoData structure and initializing it. This function combines memory allocation with initialization in a single call, providing a clean interface for creating StringInfo objects that are ready for immediate use. The function uses PostgreSQL's memory management system (palloc) to allocate the structure and then calls  to set up the initial state.
 

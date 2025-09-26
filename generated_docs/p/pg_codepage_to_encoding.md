@@ -8,7 +8,10 @@ Converts a Windows code page identifier to the corresponding PostgreSQL encoding
 
 ## Definition
 
-
+```c
+int
+pg_codepage_to_encoding(UINT cp)
+```
 ## Detailed Description
 The pg_codepage_to_encoding function provides a mapping mechanism from Windows code page identifiers (UINT values) to PostgreSQL's internal encoding identifiers. This function is essential for Windows-specific character encoding handling in PostgreSQL.
 

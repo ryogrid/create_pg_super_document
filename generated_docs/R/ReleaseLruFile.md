@@ -8,7 +8,10 @@ Releases one kernel file descriptor by closing the least-recently-used virtual f
 
 ## Definition
 
-
+```c
+static bool
+ReleaseLruFile(void)
+```
 ## Detailed Description
 ReleaseLruFile implements the core LRU eviction policy for PostgreSQL's virtual file descriptor management system. When the system needs to free up a kernel file descriptor (typically because it's approaching the OS limit), this function identifies and closes the least recently used file.
 

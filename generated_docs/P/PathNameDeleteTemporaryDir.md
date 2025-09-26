@@ -8,7 +8,9 @@ PathNameDeleteTemporaryDir recursively deletes a temporary directory and all its
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 PathNameDeleteTemporaryDir performs a complete recursive deletion of a directory and all its contents, implementing a safe cleanup mechanism for PostgreSQL's temporary directories. The function silently handles the case where the directory doesn't exist, making it safe to call during cleanup operations regardless of whether the directory was actually created. It uses PostgreSQL's walkdir utility function with unlink_if_exists_fname callback to traverse and delete all files and subdirectories. Since this is primarily used in cleanup paths, the function logs failures rather than throwing errors, ensuring that cleanup operations continue even if some files cannot be deleted.
 

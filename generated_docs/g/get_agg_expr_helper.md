@@ -8,7 +8,12 @@ The core implementation function for deparsing aggregate expressions (Aggref nod
 
 ## Definition
 
-
+```c
+static void
+get_agg_expr_helper(Aggref *aggref, deparse_context *context,
+					Aggref *original_aggref, const char *funcname,
+					const char *options, bool is_json_objectagg)
+```
 ## Detailed Description
 This function serves as the comprehensive implementation for converting aggregate expressions back to SQL text. It handles multiple complex scenarios:
 

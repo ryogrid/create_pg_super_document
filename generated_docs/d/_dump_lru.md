@@ -8,7 +8,10 @@ _dump_lru is a debugging function that logs the current state of the LRU (Least 
 
 ## Definition
 
-
+```c
+static void
+_dump_lru(void)
+```
 ## Detailed Description
 This static function is a debugging utility that traverses the LRU doubly-linked list of virtual file descriptors and outputs their order from most recently used to least recently used. It constructs a formatted string showing the VFD indices in order and logs this information using elog() at LOG level.
 

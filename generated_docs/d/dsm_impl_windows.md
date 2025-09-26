@@ -8,7 +8,12 @@ Windows-specific implementation for PostgreSQL's dynamic shared memory system us
 
 ## Definition
 
-
+```c
+static bool
+dsm_impl_windows(dsm_op op, dsm_handle handle, Size request_size,
+				 void **impl_private, void **mapped_address,
+				 Size *mapped_size, int elevel)
+```
 ## Detailed Description
 The  function implements dynamic shared memory operations using Windows file mapping APIs. It uses the system paging file as backing store rather than physical files for performance and simplicity. File mapping objects are kernel objects that are automatically cleaned up when all references are closed or processes exit.
 

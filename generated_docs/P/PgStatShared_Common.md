@@ -8,7 +8,14 @@ PgStatShared_Common is the common header structure that must appear as the first
 
 ## Definition
 
-
+```c
+typedef struct PgStatShared_Common
+{
+	uint32		magic;			/* just a validity cross-check */
+	/* lock protecting stats contents (i.e. data following the header) */
+	LWLock		lock;
+} PgStatShared_Common;
+```
 ## Detailed Description
 PgStatShared_Common serves as the standardized header for all shared statistics structures in PostgreSQL's statistics subsystem. This common header ensures that every shared statistics entry has consistent access control and validation mechanisms regardless of the specific statistics type (database, relation, function, etc.).
 

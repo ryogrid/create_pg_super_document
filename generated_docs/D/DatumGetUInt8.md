@@ -8,7 +8,10 @@ DatumGetUInt8 is an inline function that extracts an 8-bit unsigned integer valu
 
 ## Definition
 
-
+```c
+static inline uint8
+DatumGetUInt8(Datum X)
+```
 ## Detailed Description
 DatumGetUInt8 is a simple type conversion function that casts a Datum value to an 8-bit unsigned integer (uint8). It performs a direct cast operation without any validation or range checking. This function is part of PostgreSQL's datum conversion utility functions that facilitate type conversions between the generic Datum type and specific C data types.
 

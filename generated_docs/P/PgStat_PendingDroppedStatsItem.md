@@ -8,7 +8,14 @@ A structure representing a pending statistics item that needs to be dropped or c
 
 ## Definition
 
-
+```c
+typedef struct PgStat_PendingDroppedStatsItem
+{
+	xl_xact_stats_item item;
+	bool		is_create;
+	dlist_node	node;
+} PgStat_PendingDroppedStatsItem;
+```
 ## Detailed Description
  is a key data structure in PostgreSQL's transactional statistics system that manages statistics entries that are pending creation or deletion within a transaction context. This structure ensures that statistics changes are properly coordinated with transaction commits and rollbacks, maintaining consistency between the statistics system and the actual database state.
 

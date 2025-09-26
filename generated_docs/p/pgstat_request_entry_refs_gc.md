@@ -8,7 +8,10 @@ A function that requests garbage collection of statistics entry references by in
 
 ## Definition
 
-
+```c
+void
+pgstat_request_entry_refs_gc(void)
+```
 ## Detailed Description
 This function signals that garbage collection of statistics entry references should be performed by atomically incrementing the  in shared memory statistics data. The function uses atomic operations to ensure thread-safe incrementation of the counter, which serves as a signal to background processes or other components that cleanup of stale or dropped statistics entries is needed.
 

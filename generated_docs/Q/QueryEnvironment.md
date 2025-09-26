@@ -8,7 +8,12 @@ QueryEnvironment is an opaque data structure that provides a query execution con
 
 ## Definition
 
-
+```c
+struct QueryEnvironment
+{
+	List	   *namedRelList;
+};
+```
 ## Detailed Description
 The QueryEnvironment serves as a container for ephemeral named relations that are not stored in the system catalogs but need to be accessible during query parsing, planning, and execution. The structure is intentionally opaque outside of queryenvironment.c to allow implementation changes without affecting existing code.
 

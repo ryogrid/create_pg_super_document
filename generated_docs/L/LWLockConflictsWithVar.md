@@ -8,7 +8,11 @@ LWLockConflictsWithVar determines whether a lock needs to wait for a variable va
 
 ## Definition
 
-
+```c
+static bool
+LWLockConflictsWithVar(LWLock *lock, pg_atomic_uint64 *valptr, uint64 oldval,
+					   uint64 *newval, bool *result)
+```
 ## Detailed Description
 This static function performs an atomic check to determine if a process should wait for both a lock to be released and a variable to change its value. It's a core component of PostgreSQL's WAL insertion coordination mechanism.
 

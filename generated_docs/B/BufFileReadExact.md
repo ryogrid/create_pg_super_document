@@ -8,7 +8,10 @@ Reads exactly the specified number of bytes from a buffered file, raising an err
 
 ## Definition
 
-
+```c
+void
+BufFileReadExact(BufFile *file, void *ptr, size_t size)
+```
 ## Detailed Description
 BufFileReadExact is a wrapper around BufFileReadCommon that enforces strict reading requirements. It reads exactly the specified number of bytes from the buffered file into the provided buffer. Unlike other read functions that may return fewer bytes than requested, this function guarantees that either all requested bytes are read or an error is raised.
 

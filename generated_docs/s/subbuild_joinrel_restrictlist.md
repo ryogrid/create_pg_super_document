@@ -8,7 +8,14 @@ Processes joininfo clauses from an input relation to build the restriction claus
 
 ## Definition
 
-
+```c
+static List *
+subbuild_joinrel_restrictlist(PlannerInfo *root,
+							  RelOptInfo *joinrel,
+							  RelOptInfo *input_rel,
+							  Relids both_input_relids,
+							  List *new_restrictlist)
+```
 ## Detailed Description
 The  function examines each joininfo clause from an input relation and determines whether it should become a restriction clause for the new join relation. A clause becomes a restriction clause if it refers only to relations within the joinrel (i.e., no outside relations).
 

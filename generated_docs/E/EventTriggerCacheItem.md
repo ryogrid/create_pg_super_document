@@ -8,7 +8,14 @@ EventTriggerCacheItem represents a cached entry for an event trigger in PostgreS
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	Oid			fnoid;			/* function to be called */
+	char		enabled;		/* as SESSION_REPLICATION_ROLE_* */
+	Bitmapset  *tagset;			/* command tags, or NULL if empty */
+} EventTriggerCacheItem;
+```
 ## Detailed Description
 EventTriggerCacheItem is a core data structure used in PostgreSQL's event trigger caching mechanism. It stores the metadata necessary to efficiently determine which event trigger functions should be executed for a given event. The structure is used internally by the event trigger cache system (evtcache.c) to maintain fast access to event trigger information without repeatedly querying the system catalogs.
 

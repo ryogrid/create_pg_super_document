@@ -8,7 +8,10 @@ Modifies a file path string in-place to obtain the parent directory of the speci
 
 ## Definition
 
-
+```c
+void
+get_parent_directory(char *path)
+```
 ## Detailed Description
 This function takes a file path and modifies it in-place to represent the parent directory of the original path. It serves as a simple wrapper around the  function. The function is designed to work with file paths where the next operation will typically be .
 

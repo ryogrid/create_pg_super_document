@@ -8,7 +8,10 @@ Parses a string representation of an Object Identifier (OID) with validation to 
 
 ## Definition
 
-
+```c
+static bool
+parse_oid(char *s, Oid *result)
+```
 ## Detailed Description
 This function attempts to parse a string as a valid PostgreSQL Object Identifier (OID). It performs strict validation to ensure the input represents a valid OID:
 

@@ -8,7 +8,10 @@ A PostgreSQL operator function that performs a three-way comparison of the absol
 
 ## Definition
 
-
+```c
+Datum
+complex_abs_cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that implements the comparison support function for complex numbers based on their absolute magnitudes (moduli). This function serves as the foundation for B-tree indexing operations on complex data types by providing a three-way comparison result.
 

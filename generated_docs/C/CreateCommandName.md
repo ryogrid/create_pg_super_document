@@ -8,7 +8,10 @@ CreateCommandName is a static inline utility function that returns the human-rea
 
 ## Definition
 
-
+```c
+static inline const char *
+CreateCommandName(Node *parsetree)
+```
 ## Detailed Description
 CreateCommandName serves as a convenience function that combines two operations: first, it determines the CommandTag for a given parse tree node using CreateCommandTag(), then it converts that tag to its human-readable string representation using GetCommandTagName(). This function is commonly used in PostgreSQL's event trigger system, logging mechanisms, and read-only transaction checks where the system needs to identify and display the type of SQL command being executed.
 

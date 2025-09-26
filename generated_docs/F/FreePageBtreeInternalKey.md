@@ -8,7 +8,13 @@ FreePageBtreeInternalKey represents an entry in internal (non-leaf) btree pages,
 
 ## Definition
 
-
+```c
+typedef struct FreePageBtreeInternalKey
+{
+	Size		first_page;		/* low bound for keys on child page */
+	RelptrFreePageBtree child;	/* downlink */
+} FreePageBtreeInternalKey;
+```
 ## Detailed Description
 The FreePageBtreeInternalKey structure serves as an internal node entry in the free page btree, implementing the standard btree internal key format. Each internal key defines a boundary value (first_page) that represents the minimum key value that can be found in the corresponding child subtree. This enables efficient btree search operations by directing traversal to the appropriate child page based on the search key.
 

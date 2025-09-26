@@ -8,7 +8,10 @@ Marks a postmaster child process as done using shared memory, transitioning the 
 
 ## Definition
 
-
+```c
+void
+MarkPostmasterChildInactive(void)
+```
 ## Detailed Description
 This function is called by child processes to signal that they are finished using shared memory and are preparing to exit. It updates the child's status in the PMSignalState structure from either PM_CHILD_ACTIVE or PM_CHILD_WALSENDER back to PM_CHILD_ASSIGNED. The function operates on the child's own slot (identified by MyPMChildSlot) in the shared memory array that tracks child process states.
 

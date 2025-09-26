@@ -8,7 +8,12 @@ The  function reads an existing statistics file from disk and loads all statisti
 
 ## Definition
 
-
+```c
+struct
+	 */
+	if (!read_chunk_s(fpin, &shmem->archiver.stats))
+		goto error;
+```
 ## Detailed Description
 This function is responsible for reading the permanent statistics file and populating the shared statistics hash table during PostgreSQL startup or statistics system initialization. It reads both fixed statistics structures (like archiver, bgwriter, checkpointer, IO, SLRU, and WAL stats) and variable statistics entries (identified by hash keys or names).
 

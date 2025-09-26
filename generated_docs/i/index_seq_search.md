@@ -8,7 +8,10 @@ Fast sequential search function that uses an index for data selection to optimiz
 
 ## Definition
 
-
+```c
+static const KeyWord *
+index_seq_search(const char *str, const KeyWord *kw, const int *index)
+```
 ## Detailed Description
 This function performs an optimized sequential search through a keyword array using an index-based filtering mechanism. It's specifically designed for format parsing where binary search cannot be used. The function first applies a character-based filter to quickly eliminate invalid starting characters, then uses an index array to locate the appropriate starting position in the keyword array for sequential searching.
 

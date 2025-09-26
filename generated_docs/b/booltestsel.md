@@ -8,7 +8,11 @@ Computes the selectivity of BooleanTest nodes, handling SQL Boolean test operati
 
 ## Definition
 
-
+```c
+Selectivity
+booltestsel(PlannerInfo *root, BoolTestType booltesttype, Node *arg,
+			int varRelid, JoinType jointype, SpecialJoinInfo *sjinfo)
+```
 ## Detailed Description
 The  function estimates selectivity for Boolean test expressions in SQL queries, such as , , , etc. It implements sophisticated logic to handle the three-valued Boolean logic of SQL (TRUE, FALSE, NULL/UNKNOWN).
 

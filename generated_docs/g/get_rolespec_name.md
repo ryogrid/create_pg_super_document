@@ -8,7 +8,10 @@ Retrieves and returns a palloc'ed copy of the role name corresponding to a given
 
 ## Definition
 
-
+```c
+char *
+get_rolespec_name(const RoleSpec *role)
+```
 ## Detailed Description
 This function takes a RoleSpec pointer as input and returns the actual role name as a dynamically allocated string. It serves as a utility function to extract the role name from PostgreSQL's internal RoleSpec representation. The function first retrieves the role tuple using get_rolespec_tuple(), extracts the role name from the pg_authid system catalog entry, creates a palloc'ed copy of the name, and properly releases the system cache entry.
 

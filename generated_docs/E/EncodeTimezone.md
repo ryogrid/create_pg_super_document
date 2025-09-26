@@ -8,7 +8,10 @@ EncodeTimezone formats a numeric timezone offset into a string representation, h
 
 ## Definition
 
-
+```c
+static char *
+EncodeTimezone(char *str, int tz, int style)
+```
 ## Detailed Description
 EncodeTimezone converts a timezone offset (given in seconds) into its string representation following standard timezone format conventions. The function handles the conversion of seconds to hours, minutes, and seconds components, and formats them according to the specified style. It correctly handles the sign inversion needed for timezone display (negative offsets are displayed as positive and vice versa). The function supports different formatting styles including XSD date format requirements.
 

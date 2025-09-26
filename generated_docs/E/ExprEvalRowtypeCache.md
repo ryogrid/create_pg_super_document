@@ -8,7 +8,19 @@ ExprEvalRowtypeCache is a struct used by ExprEvalSteps that need to cache a comp
 
 ## Definition
 
-
+```c
+typedef struct ExprEvalRowtypeCache
+{
+	/*
+	 * cacheptr points to composite type's TypeCacheEntry if tupdesc_id is not
+	 * 0; or for an anonymous RECORD type, it points directly at the cached
+	 * tupdesc for the type, and tupdesc_id is 0.  (We'd use separate fields
+	 * if space were not at a premium.)  Initial state is cacheptr == NULL.
+	 */
+	void	   *cacheptr;
+	uint64		tupdesc_id;		/* last-seen tupdesc identifier, or 0 */
+} ExprEvalRowtypeCache;
+```
 ## Detailed Description
 This structure provides a caching mechanism for composite type descriptors in PostgreSQL's expression evaluation system. It optimizes performance by avoiding repeated lookups of tuple descriptors for composite types during expression evaluation. The cache handles both regular composite types (which have TypeCacheEntry structures) and anonymous RECORD types (which cache the tuple descriptor directly).
 

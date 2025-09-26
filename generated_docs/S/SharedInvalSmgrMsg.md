@@ -8,7 +8,13 @@ SharedInvalSmgrMsg is a structure that represents a shared invalidation message 
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int8		id;				/* type field --- must be first */
+	Oid			dbId;			/* database ID, or 0 for shared catalogs */
+} SharedInvalRelmapMsg;
+```
 ## Detailed Description
 SharedInvalSmgrMsg is part of PostgreSQL's shared invalidation system, specifically designed to handle invalidation of storage manager (smgr) cache entries. The smgr cache stores information about physical relation files on disk, including file handles and metadata. This structure is optimized for space efficiency, packing into exactly 16 bytes.
 

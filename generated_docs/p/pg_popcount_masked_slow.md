@@ -8,7 +8,10 @@ A fallback implementation for counting the number of 1 bits in a buffer after ap
 
 ## Definition
 
-
+```c
+static uint64
+pg_popcount_masked_slow(const char *buf, int bytes, bits8 mask)
+```
 ## Detailed Description
 This function provides a portable masked buffer-based population count implementation that operates on arbitrary-length byte arrays with a bitwise mask applied to each byte. It serves as a fallback when hardware-optimized vectorized popcount instructions are unavailable. The function employs several optimization strategies similar to , but with an additional masking step:
 

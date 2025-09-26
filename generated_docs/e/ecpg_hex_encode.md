@@ -8,7 +8,10 @@ Converts binary data to hexadecimal string representation for ECPG (Embedded SQL
 
 ## Definition
 
-
+```c
+unsigned
+ecpg_hex_encode(const char *src, unsigned len, char *dst)
+```
 ## Detailed Description
 This function performs binary-to-hexadecimal encoding by converting each byte of the input binary data into two hexadecimal characters. The function uses a static lookup table containing the characters '0123456789abcdef' for efficient conversion. Each input byte is split into its high and low 4-bit nibbles, which are then mapped to their corresponding hexadecimal characters and written to the destination buffer.
 

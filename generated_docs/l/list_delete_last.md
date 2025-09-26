@@ -8,7 +8,10 @@ Removes and deallocates the last element from a PostgreSQL List, providing an ef
 
 ## Definition
 
-
+```c
+List *
+list_delete_last(List *list)
+```
 ## Detailed Description
 This function removes the last element from a PostgreSQL List data structure and returns the modified list. It is designed as a more efficient alternative to list_delete_first() when the application can work with elements in reverse order.
 

@@ -8,7 +8,10 @@ Generates the filename for a participant's temporary file in a shared tuple stor
 
 ## Definition
 
-
+```c
+static void
+sts_filename(char *name, SharedTuplestoreAccessor *accessor, int participant)
+```
 ## Detailed Description
 This is a simple utility function that constructs standardized filenames for shared tuple store temporary files. Each participant in a parallel operation needs its own temporary file to store tuples, and this function ensures consistent naming across the system. The filename format follows the pattern "[base_name].p[participant_number]", where the base name comes from the shared tuple store's name field and the participant number uniquely identifies each parallel worker.
 

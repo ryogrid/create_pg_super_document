@@ -8,7 +8,10 @@ Initiates the beginning of a new archive within a backup sink by calling the sin
 
 ## Definition
 
-
+```c
+static inline void
+bbsink_begin_archive(bbsink *sink, const char *archive_name)
+```
 ## Detailed Description
 This inline function serves as a wrapper to begin a new archive within the PostgreSQL base backup system. It delegates to the sink-specific begin_archive operation, which handles the actual creation and initialization of an archive with the specified name. The function is part of PostgreSQL's backup sink architecture that supports different output formats and destinations for backup data.
 

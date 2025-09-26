@@ -8,7 +8,12 @@ Parses and validates individual timezone rule components including years, months
 
 ## Definition
 
-
+```c
+static void
+rulesub(struct rule *rp, const char *loyearp, const char *hiyearp,
+		const char *typep, const char *monthp, const char *dayp,
+		const char *timep)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's timezone compiler () responsible for parsing and validating the complex components of timezone rules. It processes the various fields that define when daylight saving time transitions occur, including year ranges, month names, day specifications (which can be complex expressions like "last Sunday" or "Sun>=7"), and time-of-day specifications with timezone indicators.
 

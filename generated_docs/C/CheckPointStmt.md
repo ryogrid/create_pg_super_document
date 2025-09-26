@@ -8,7 +8,12 @@ CheckPointStmt represents the parsed structure of a CHECKPOINT statement, which 
 
 ## Definition
 
-
+```c
+typedef struct CheckPointStmt
+{
+	NodeTag		type;
+} CheckPointStmt;
+```
 ## Detailed Description
 CheckPointStmt is a simple parse node representing the CHECKPOINT SQL statement. Unlike many other statement types, it contains only the basic NodeTag since the CHECKPOINT command has no parameters or options in standard SQL. When executed, this statement triggers PostgreSQL's checkpoint mechanism, which forces all dirty shared buffers to be written to disk and updates the control file. This is primarily used for administrative purposes and testing.
 

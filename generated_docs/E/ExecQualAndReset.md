@@ -8,7 +8,9 @@ ExecQualAndReset evaluates a qualification expression and immediately resets the
 
 ## Definition
 
-
+```c
+typedef TupleTableSlot *(*ExecScanAccessMtd) (ScanState *node);
+```
 ## Detailed Description
 ExecQualAndReset is a convenience function that combines two frequently paired operations: evaluating a qualification expression via ExecQual and resetting the per-tuple memory context. This function is particularly useful in executor nodes that process many tuples in tight loops, as it ensures memory allocated during expression evaluation is cleaned up immediately after each tuple evaluation.
 

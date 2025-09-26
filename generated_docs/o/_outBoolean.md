@@ -8,7 +8,10 @@ _outBoolean is a static helper function that serializes a Boolean node to its st
 
 ## Definition
 
-
+```c
+static void
+_outBoolean(StringInfo str, const Boolean *node)
+```
 ## Detailed Description
 This function converts a Boolean node into its textual representation by appending either "true" or "false" to the provided StringInfo buffer based on the boolean value stored in the node. It provides a simple and direct serialization mechanism for Boolean constants in PostgreSQL's abstract syntax tree representation.
 

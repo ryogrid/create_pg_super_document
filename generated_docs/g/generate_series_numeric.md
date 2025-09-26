@@ -8,7 +8,10 @@ A wrapper function that generates a series of numeric values by delegating to th
 
 ## Definition
 
-
+```c
+Datum
+generate_series_numeric(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a simple wrapper that implements the two-parameter version of PostgreSQL's generate_series function for numeric data types. It takes a start and end value and generates a series with an implicit step of 1. The function immediately delegates all work to , passing through the function call information () which contains the function arguments and context.
 

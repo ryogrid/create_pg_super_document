@@ -8,7 +8,10 @@ Internal workhorse function for attaching to an existing Dynamic Shared Area (DS
 
 ## Definition
 
-
+```c
+static dsa_area *
+attach_internal(void *place, dsm_segment *segment, dsa_handle handle)
+```
 ## Detailed Description
 This function provides the core logic for attaching a backend process to an existing Dynamic Shared Area that was previously created by another process. It validates the integrity of the existing DSA by checking magic numbers and handles, then constructs a local  object that provides this backend's interface to the shared area.
 

@@ -8,7 +8,10 @@ AllocateDir opens a directory for reading using opendir() while being managed by
 
 ## Definition
 
-
+```c
+DIR *
+AllocateDir(const char *dirname)
+```
 ## Detailed Description
 AllocateDir is the managed equivalent of opendir() that integrates with PostgreSQL's file descriptor tracking and resource management system. It attempts to open a directory for reading while ensuring that the system doesn't exceed its configured limit of allocated descriptors (maxAllocatedDescs). The function automatically handles situations where file descriptors are exhausted by releasing least-recently-used files and retrying the operation.
 

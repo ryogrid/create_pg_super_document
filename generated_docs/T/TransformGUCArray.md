@@ -8,7 +8,10 @@ TransformGUCArray converts a PostgreSQL array of GUC settings into separate list
 
 ## Definition
 
-
+```c
+void
+TransformGUCArray(ArrayType *array, List **names, List **values)
+```
 ## Detailed Description
 TransformGUCArray processes a PostgreSQL ArrayType containing text elements that represent GUC settings in "name=value" format. The function transforms this array into two separate linked lists (names and values) that can be processed more efficiently when settings need to be applied multiple times, such as during function invocations.
 

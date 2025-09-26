@@ -8,7 +8,17 @@ FreePageBtree represents a complete btree page that can function as either an in
 
 ## Definition
 
-
+```c
+struct FreePageBtree
+{
+	FreePageBtreeHeader hdr;
+	union
+	{
+		FreePageBtreeInternalKey internal_key[FPM_ITEMS_PER_INTERNAL_PAGE];
+		FreePageBtreeLeafKey leaf_key[FPM_ITEMS_PER_LEAF_PAGE];
+	}			u;
+};
+```
 ## Detailed Description
 The FreePageBtree structure represents a complete btree page in PostgreSQL's free page management system. This unified design allows a single structure to serve as either an internal node (for navigation) or a leaf node (containing actual data) depending on the magic value in the header. The structure consists of a common header followed by a union that contains either an array of internal keys or leaf keys.
 

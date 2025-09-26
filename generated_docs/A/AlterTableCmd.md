@@ -8,7 +8,23 @@ AlterTableCmd represents a single subcommand within an ALTER TABLE statement, de
 
 ## Definition
 
-
+```c
+typedef struct AlterTableCmd	/* one subcommand of an ALTER TABLE */
+{
+	NodeTag		type;
+	AlterTableType subtype;		/* Type of table alteration to apply */
+	char	   *name;			/* column, constraint, or trigger to act on,
+								 * or tablespace, access method */
+	int16		num;			/* attribute number for columns referenced by
+								 * number */
+	RoleSpec   *newowner;
+	Node	   *def;			/* definition of new column, index,
+								 * constraint, or parent table */
+	DropBehavior behavior;		/* RESTRICT or CASCADE for DROP cases */
+	bool		missing_ok;		/* skip error if missing? */
+	bool		recurse;		/* exec-time recursion */
+} AlterTableCmd;
+```
 ## Detailed Description
 AlterTableCmd is a fundamental data structure in PostgreSQL's DDL (Data Definition Language) processing system. It encapsulates a single alteration operation within a potentially complex ALTER TABLE statement. Each ALTER TABLE command can contain multiple subcommands, and each subcommand is represented by one AlterTableCmd structure.
 

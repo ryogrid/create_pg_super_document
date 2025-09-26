@@ -8,7 +8,10 @@ Searches the logical replication worker array to find a worker that matches the 
 
 ## Definition
 
-
+```c
+LogicalRepWorker *
+logicalrep_worker_find(Oid subid, Oid relid, bool only_running)
+```
 ## Detailed Description
 logicalrep_worker_find performs a linear search through the global logical replication worker array to locate a specific worker based on subscription and relation identifiers. The function is designed to find leader apply workers or table synchronization workers, explicitly excluding parallel apply workers from the search results.
 

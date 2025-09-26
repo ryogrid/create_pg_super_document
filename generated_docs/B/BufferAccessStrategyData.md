@@ -8,7 +8,29 @@ BufferAccessStrategyData is a private struct that manages a ring of shared buffe
 
 ## Definition
 
+```c
+typedef struct BufferAccessStrategyData
+{
+	/* Overall strategy type */
+	BufferAccessStrategyType btype;
+	/* Number of elements in buffers[] array */
+	int			nbuffers;
 
+	/*
+	 * Index of the "current" slot in the ring, ie, the one most recently
+	 * returned by GetBufferFromRing.
+	 */
+	int			current;
+
+	/*
+	 * Array of buffer numbers.  InvalidBuffer (that is, zero) indicates we
+	 * have not yet selected a buffer for this ring slot.  For allocation
+	 * simplicity this is palloc'd together with the fixed fields of the
+	 * struct.
+	 */
+	Buffer		buffers[FLEXIBLE_ARRAY_MEMBER];
+}			BufferAccessStrategyData;
+```
 ## Detailed Description
 BufferAccessStrategyData implements a ring buffer strategy for PostgreSQL's shared buffer management. This structure represents a circular list of buffers that can be reused in a predictable pattern, which is particularly useful for operations that access large amounts of data sequentially (like table scans, bulk loads, or VACUUM operations).
 

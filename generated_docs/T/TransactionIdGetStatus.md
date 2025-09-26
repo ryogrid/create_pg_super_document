@@ -8,7 +8,10 @@ A low-level function that queries the commit status of a transaction from the CL
 
 ## Definition
 
-
+```c
+XidStatus
+TransactionIdGetStatus(TransactionId xid, XLogRecPtr *lsn)
+```
 ## Detailed Description
 TransactionIdGetStatus is the fundamental function for reading transaction status from the Commit Log (CLOG). It performs bit-level operations to extract the 2-bit status value for a specific transaction ID from the CLOG buffer pages.
 

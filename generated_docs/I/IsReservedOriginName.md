@@ -8,7 +8,10 @@ A static helper function that determines whether a given replication origin name
 
 ## Definition
 
-
+```c
+static bool
+IsReservedOriginName(const char *name)
+```
 ## Detailed Description
 This function performs a case-insensitive comparison to determine if the provided origin name matches either of the two reserved replication origin names: "none" (represented by LOGICALREP_ORIGIN_NONE) or "any" (represented by LOGICALREP_ORIGIN_ANY). These reserved names have special meaning in the logical replication system and cannot be used for user-defined replication origins. The function helps enforce naming restrictions during replication origin creation.
 

@@ -8,7 +8,11 @@ LocalBufferAlloc finds or creates a local buffer for a specified page of a tempo
 
 ## Definition
 
-
+```c
+BufferDesc *
+LocalBufferAlloc(SMgrRelation smgr, ForkNumber forkNum, BlockNumber blockNum,
+				 bool *foundPtr)
+```
 ## Detailed Description
 LocalBufferAlloc implements the core allocation logic for local buffers used by temporary relations. The function first searches the local buffer hash table to determine if the requested block is already cached. If found, it pins the existing buffer and returns it. If not found, it obtains a victim buffer through GetLocalVictimBuffer(), initializes it with the new block's identity, and updates the buffer's state flags to mark it as valid with initial usage count.
 

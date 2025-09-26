@@ -8,7 +8,14 @@ BitmapOrPath represents a BitmapOr plan node that performs logical OR operations
 
 ## Definition
 
-
+```c
+typedef struct BitmapOrPath
+{
+	Path		path;
+	List	   *bitmapquals;	/* IndexPaths and BitmapAndPaths */
+	Selectivity bitmapselectivity;
+} BitmapOrPath;
+```
 ## Detailed Description
 BitmapOrPath represents a logical OR operation between multiple bitmap-generating paths in PostgreSQL's bitmap scan execution strategy. It can only appear as part of the substructure of a BitmapHeapPath and serves to combine multiple TID bitmaps using union logic.
 

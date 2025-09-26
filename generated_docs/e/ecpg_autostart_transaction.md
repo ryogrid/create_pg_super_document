@@ -8,7 +8,10 @@ Automatically starts a database transaction in non-autocommit mode when the conn
 
 ## Definition
 
-
+```c
+bool
+ecpg_autostart_transaction(struct statement *stmt)
+```
 ## Detailed Description
 This function is a utility within the ECPG library that ensures proper transaction management for embedded SQL statements. When operating in non-autocommit mode, it automatically initiates a transaction by executing a "begin transaction" command if the connection is currently idle. This is essential for maintaining proper transactional semantics in embedded SQL applications where transactions need to be started implicitly before executing statements.
 

@@ -8,7 +8,10 @@ A utility function that reads binary data from serialized GUC state, copying a s
 
 ## Definition
 
-
+```c
+static void
+read_gucstate_binary(char **srcptr, char *srcend, void *dest, Size size)
+```
 ## Detailed Description
 The `read_gucstate_binary` function is a companion to `read_gucstate` that handles binary data extraction from serialized GUC state. Unlike `read_gucstate` which deals with null-terminated strings, this function reads fixed-size binary data such as integers, enums, and other structured data that was serialized using `do_serialize_binary`.
 

@@ -8,7 +8,38 @@ PgStat_EntryRef is a backend-local reference to a shared statistics entry that p
 
 ## Definition
 
+```c
+typedef struct PgStat_EntryRef
+{
+	/*
+	 * Pointer to the PgStatShared_HashEntry entry in the shared stats
+	 * hashtable.
+	 */
+	PgStatShared_HashEntry *shared_entry;
 
+	/*
+	 * Pointer to the stats data (i.e. PgStatShared_HashEntry->body), resolved
+	 * as a local pointer, to avoid repeated dsa_get_address() calls.
+	 */
+	PgStatShared_Common *shared_stats;
+
+	/*
+	 * Copy of PgStatShared_HashEntry->generation, keeping locally track of
+	 * the shared stats entry "generation" retrieved (number of times reused).
+	 */
+	uint32		generation;
+
+	/*
+	 * Pending statistics data that will need to be flushed to shared memory
+	 * stats eventually. Each stats kind utilizing pending data defines what
+	 * format its pending data has and needs to provide a
+	 * PgStat_KindInfo->flush_pending_cb callback to merge pending into shared
+	 * stats.
+	 */
+	void	   *pending;
+	dlist_node	pending_node;	/* membership in pgStatPending list */
+} PgStat_EntryRef;
+```
 ## Detailed Description
 PgStat_EntryRef serves as a backend-local reference and cache for shared statistics entries. This structure is crucial for PostgreSQL's statistics architecture as it provides several key benefits: it maintains a reference to prevent shared entries from being freed prematurely, caches the resolved pointer to statistics data to avoid repeated DSA lookups, and manages pending statistics updates that haven't yet been flushed to shared memory.
 

@@ -8,7 +8,10 @@ Search for an existing ParamPathInfo in a relation's cache that matches the give
 
 ## Definition
 
-
+```c
+ParamPathInfo *
+find_param_path_info(RelOptInfo *rel, Relids required_outer)
+```
 ## Detailed Description
 This utility function searches through a relation's list of cached ParamPathInfo structures (ppilist) to find one that matches the specified parameterization requirements. It performs a simple linear search comparing the required_outer parameter set with the ppi_req_outer field of each cached ParamPathInfo.
 

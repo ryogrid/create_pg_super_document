@@ -8,7 +8,10 @@ Calculates the amount of shared memory space needed for the postmaster signaling
 
 ## Definition
 
-
+```c
+Size
+PMSignalShmemSize(void)
+```
 ## Detailed Description
 PMSignalShmemSize computes the total shared memory space required for the pmsignal.c module's shared memory structures. The calculation includes space for the base PMSignalData structure plus a dynamically-sized array of PMChildFlags elements. The size of this array is determined by MaxLivePostmasterChildren(), ensuring sufficient space for tracking signals to all possible child processes.
 

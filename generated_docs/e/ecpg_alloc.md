@@ -8,7 +8,10 @@ Allocates zero-initialized memory with error handling and line number tracking f
 
 ## Definition
 
-
+```c
+char *
+ecpg_alloc(long size, int lineno)
+```
 ## Detailed Description
 The  function is ECPG's primary memory allocation routine that provides a safe wrapper around the standard  function. Unlike simple malloc wrappers, this function ensures that allocated memory is zero-initialized and includes comprehensive error handling with diagnostic information.
 

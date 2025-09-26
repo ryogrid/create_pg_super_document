@@ -8,7 +8,10 @@ Removes CANTMATCH arcs from the NFA after parsing is complete, as they are only 
 
 ## Definition
 
-
+```c
+static void
+removecantmatch(struct nfa *nfa)
+```
 ## Detailed Description
 This function performs cleanup of CANTMATCH arcs that were used during the regex parsing phase to maintain NFA subgraph connectivity. CANTMATCH arcs represent impossible matches and serve as placeholders to ensure the NFA remains properly connected while being constructed.
 

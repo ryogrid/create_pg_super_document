@@ -8,7 +8,37 @@ IndexInfo is a comprehensive data structure that holds all necessary information
 
 ## Definition
 
-
+```c
+typedef struct IndexInfo
+{
+	NodeTag		type;
+	int			ii_NumIndexAttrs;	/* total number of columns in index */
+	int			ii_NumIndexKeyAttrs;	/* number of key columns in index */
+	AttrNumber	ii_IndexAttrNumbers[INDEX_MAX_KEYS];
+	List	   *ii_Expressions; /* list of Expr */
+	List	   *ii_ExpressionsState;	/* list of ExprState */
+	List	   *ii_Predicate;	/* list of Expr */
+	ExprState  *ii_PredicateState;
+	Oid		   *ii_ExclusionOps;	/* array with one entry per column */
+	Oid		   *ii_ExclusionProcs;	/* array with one entry per column */
+	uint16	   *ii_ExclusionStrats; /* array with one entry per column */
+	Oid		   *ii_UniqueOps;	/* array with one entry per column */
+	Oid		   *ii_UniqueProcs; /* array with one entry per column */
+	uint16	   *ii_UniqueStrats;	/* array with one entry per column */
+	bool		ii_Unique;
+	bool		ii_NullsNotDistinct;
+	bool		ii_ReadyForInserts;
+	bool		ii_CheckedUnchanged;
+	bool		ii_IndexUnchanged;
+	bool		ii_Concurrent;
+	bool		ii_BrokenHotChain;
+	bool		ii_Summarizing;
+	int			ii_ParallelWorkers;
+	Oid			ii_Am;
+	void	   *ii_AmCache;
+	MemoryContext ii_Context;
+} IndexInfo;
+```
 ## Detailed Description
 IndexInfo serves as the central metadata structure for index operations in PostgreSQL. It contains both structural information about the index (column mappings, expressions, predicates) and operational state (uniqueness constraints, build status, concurrency flags). The structure supports complex index types including expression indexes, partial indexes, exclusion constraints, and unique constraints. It maintains both the parse tree representations and compiled execution states of expressions and predicates for efficient evaluation during index operations.
 

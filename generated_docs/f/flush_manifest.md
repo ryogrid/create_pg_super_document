@@ -8,7 +8,10 @@ Flushes buffered backup manifest data to disk, creating the manifest file on fir
 
 ## Definition
 
-
+```c
+static void
+flush_manifest(manifest_writer *mwriter)
+```
 ## Detailed Description
 This static function writes the accumulated manifest data from the in-memory buffer to the backup manifest file on disk. On the first call, it creates the manifest file with exclusive creation flags to prevent overwriting existing files. Subsequent calls append additional data to the already-open file. The function also maintains a running SHA256 checksum of the written data when checksumming is active, and resets the buffer after successful writes.
 

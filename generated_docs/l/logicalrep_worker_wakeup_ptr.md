@@ -8,7 +8,10 @@ Low-level function that directly wakes up a logical replication worker using its
 
 ## Definition
 
-
+```c
+void
+logicalrep_worker_wakeup_ptr(LogicalRepWorker *worker)
+```
 ## Detailed Description
 This function provides the core latch-based wakeup mechanism for logical replication workers. It directly sets the worker process's latch to signal that the worker should resume processing. This is the fundamental building block used by higher-level wakeup functions and requires the caller to already hold the appropriate lock to ensure the worker process pointer remains valid during the operation.
 

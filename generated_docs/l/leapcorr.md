@@ -8,7 +8,10 @@ Calculates the leap second correction for a given timestamp based on timezone st
 
 ## Definition
 
-
+```c
+static int64
+leapcorr(struct state const *sp, pg_time_t t)
+```
 ## Detailed Description
 The `leapcorr` function determines the cumulative leap second correction that should be applied to a given timestamp. It searches through the leap second information stored in the timezone state structure to find the appropriate correction value for the specified time.
 

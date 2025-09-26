@@ -8,7 +8,12 @@ Initializes the common header fields of an expanded object, setting up the TOAST
 
 ## Definition
 
-
+```c
+void
+EOH_init_header(ExpandedObjectHeader *eohptr,
+				const ExpandedObjectMethods *methods,
+				MemoryContext obj_context)
+```
 ## Detailed Description
 EOH_init_header is responsible for initializing the fundamental components of an ExpandedObjectHeader structure. The primary purpose is to set up the TOAST (The Oversized-Attribute Storage Technique) pointers that allow the expanded object to be referenced as both read-write and read-only variants.
 

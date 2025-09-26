@@ -8,7 +8,13 @@ BlockRefTableKey is a structure that serves as a unique identifier for tracking 
 
 ## Definition
 
-
+```c
+typedef struct BlockRefTableKey
+{
+	RelFileLocator rlocator;
+	ForkNumber	forknum;
+} BlockRefTableKey;
+```
 ## Detailed Description
 BlockRefTableKey is a composite key structure used by the block reference table to uniquely identify and track different forks of database relations. The structure combines a relation file locator with a fork number to create a unique key that can distinguish between different types of forks (main, FSM, VM, etc.) of the same relation. This allows the block reference table to maintain separate tracking for each fork's block status independently.
 

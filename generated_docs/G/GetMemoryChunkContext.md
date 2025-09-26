@@ -8,7 +8,10 @@ Determines the memory context that owns a given allocated memory chunk.
 
 ## Definition
 
-
+```c
+MemoryContext
+GetMemoryChunkContext(void *pointer)
+```
 ## Detailed Description
 This function provides a way to discover which memory context is responsible for a particular allocated memory chunk. It works by using the memory context method dispatch system (MCXT_METHOD) to call the appropriate  method for the specific memory context implementation that allocated the chunk.
 

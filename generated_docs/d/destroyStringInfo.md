@@ -8,7 +8,10 @@ Frees a StringInfo structure and its associated buffer memory, serving as the op
 
 ## Definition
 
-
+```c
+void
+destroyStringInfo(StringInfo str)
+```
 ## Detailed Description
 This function completely deallocates a StringInfo structure, freeing both the data buffer and the StringInfo structure itself. It is designed to be used only with StringInfo objects that were allocated using palloc (typically created via makeStringInfo()).
 

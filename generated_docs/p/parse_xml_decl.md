@@ -8,7 +8,11 @@ Parses an XML declaration from the beginning of an XML document string, extracti
 
 ## Definition
 
-
+```c
+static int
+parse_xml_decl(const xmlChar *str, size_t *lenp,
+			   xmlChar **version, xmlChar **encoding, int *standalone)
+```
 ## Detailed Description
 This function parses an XML declaration (<?xml ... ?>) from the start of an XML document string. It validates the syntax according to XML standards and extracts the three optional attributes: version, encoding, and standalone. The function is designed to be lenient - it will succeed even if the XML declaration is not present, but will fail if a malformed declaration is found.
 

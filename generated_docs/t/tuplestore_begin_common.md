@@ -8,7 +8,10 @@ Internal common initialization function for creating a new tuplestore operation,
 
 ## Definition
 
-
+```c
+static Tuplestorestate *
+tuplestore_begin_common(int eflags, bool interXact, int maxKBytes)
+```
 ## Detailed Description
 This is the core initialization function used by all tuplestore_begin_xxx variants to create and configure a new Tuplestorestate. It allocates and initializes the main tuplestore data structure with default values, sets up memory management limits, and creates the initial read pointer array. The function establishes the tuplestore in TSS_INMEM status, meaning tuples will initially be stored in memory before potentially being spilled to disk when memory limits are exceeded.
 

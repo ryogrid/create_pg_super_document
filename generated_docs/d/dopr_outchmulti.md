@@ -8,7 +8,10 @@ An optimized function that efficiently outputs multiple copies of the same chara
 
 ## Definition
 
-
+```c
+static void
+dopr_outchmulti(int c, int slen, PrintfTarget *target)
+```
 ## Detailed Description
 The  function is designed for efficient output of repeated characters, which is commonly needed for padding operations in printf formatting. It implements several optimizations:
 

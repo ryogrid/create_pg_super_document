@@ -8,7 +8,10 @@ set_stack_base establishes a reference point for PostgreSQL's stack depth checki
 
 ## Definition
 
-
+```c
+pg_stack_base_t
+set_stack_base(void)
+```
 ## Detailed Description
 set_stack_base initializes the stack depth monitoring system by setting a reference point (stack_base_ptr) that subsequent stack depth checks can use to measure how deep the call stack has grown. The function uses platform-specific methods to obtain the current stack frame address:
 

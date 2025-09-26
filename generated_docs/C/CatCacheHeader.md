@@ -8,7 +8,10 @@ CatCacheHeader is the global management structure that coordinates all catalog c
 
 ## Definition
 
-
+```c
+structs */
+	int			ch_ntup;
+```
 ## Detailed Description
 CatCacheHeader serves as the master control structure for PostgreSQL's entire catalog caching system. It acts as a central registry that maintains references to all individual catalog caches (CatCache instances) in the system through a singly-linked list. This global structure enables system-wide operations such as cache invalidation, statistics reporting, and memory management across all catalog caches.
 

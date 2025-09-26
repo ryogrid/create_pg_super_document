@@ -8,7 +8,10 @@ A static helper function that replaces a placeholder in an SQL command string wi
 
 ## Definition
 
-
+```c
+static bool
+insert_tobeinserted(int position, int ph_len, struct statement *stmt, char *tobeinserted)
+```
 ## Detailed Description
 This function performs string manipulation to replace placeholders in SQL commands with actual values during ECPG parameter processing. It creates a new command string by concatenating three parts: the command up to the placeholder position, the replacement text, and the rest of the original command after the placeholder. The function handles memory allocation for the new string and ensures proper cleanup of both the old command and the replacement text.
 

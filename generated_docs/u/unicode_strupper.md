@@ -8,7 +8,10 @@ Converts a UTF-8 encoded string to uppercase and returns the result length witho
 
 ## Definition
 
-
+```c
+size_t
+unicode_strupper(char *dst, size_t dstsize, const char *src, ssize_t srclen)
+```
 ## Detailed Description
 The  function is a wrapper around  that specifically handles uppercase conversion of UTF-8 strings. It provides a simplified interface for converting strings to uppercase by calling the more general  function with  as the case kind parameter.
 

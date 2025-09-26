@@ -8,7 +8,10 @@ A static utility function that ensures clean line separation in StringInfo buffe
 
 ## Definition
 
-
+```c
+static void
+appendStringInfoLineSeparator(StringInfo str)
+```
 ## Detailed Description
 This function provides controlled line separation functionality by first cleaning up any existing trailing newlines using chopStringInfoNewlines(), then conditionally appending a single newline character. The function ensures that non-empty strings end with exactly one newline, which is useful for maintaining consistent formatting in multi-line text output, particularly in XML error handling contexts.
 

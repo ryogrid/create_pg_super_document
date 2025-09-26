@@ -8,7 +8,14 @@ UserContext is a structure that holds the original user context (user ID, securi
 
 ## Definition
 
-
+```c
+typedef struct UserContext
+{
+	Oid			save_userid;
+	int			save_sec_context;
+	int			save_nestlevel;
+} UserContext;
+```
 ## Detailed Description
 The UserContext structure is a core security mechanism in PostgreSQL that enables temporary privilege escalation or user switching while maintaining the ability to safely restore the original execution context. It is primarily used in conjunction with the  and  functions to implement secure user context switching.
 

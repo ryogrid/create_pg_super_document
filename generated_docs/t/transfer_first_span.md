@@ -8,7 +8,11 @@ Transfers the first span from one fullness class to another within a DSA pool, u
 
 ## Definition
 
-
+```c
+static bool
+transfer_first_span(dsa_area *area,
+					dsa_area_pool *pool, int fromclass, int toclass)
+```
 ## Detailed Description
 This function implements span migration between different fullness classes within a DSA pool. Fullness classes organize spans based on how many objects are currently allocated within them (empty, partially full, nearly full, completely full). When a span's allocation pattern changes, this function moves it to the appropriate fullness class by manipulating the doubly-linked lists that maintain each class.
 

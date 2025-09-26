@@ -8,7 +8,11 @@ Formats and outputs JSON behavior specifications (NULL, ERROR, EMPTY, etc.) for 
 
 ## Definition
 
-
+```c
+static void
+get_json_behavior(JsonBehavior *behavior, deparse_context *context,
+				  const char *on)
+```
 ## Detailed Description
 This function converts JsonBehavior structures into their corresponding SQL text representation for JSON path expressions. It maintains a static array of behavior names that directly corresponds to the JsonBehaviorType enumeration members. The function handles all JSON behavior types including NULL, ERROR, EMPTY, TRUE, FALSE, UNKNOWN, EMPTY ARRAY, EMPTY OBJECT, and DEFAULT behaviors.
 

@@ -8,7 +8,10 @@ PostgreSQL's cross-platform implementation of realpath() that resolves symlinks 
 
 ## Definition
 
-
+```c
+static char *
+pg_realpath(const char *fname)
+```
 ## Detailed Description
 The  function is a portable wrapper around the system's path resolution functionality. It provides equivalent behavior to  on POSIX systems, returning a malloc'd buffer containing the absolute path equivalent to the input filename.
 

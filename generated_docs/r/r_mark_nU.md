@@ -8,7 +8,11 @@ A static function in the Turkish stemmer that identifies and marks suffixes cont
 
 ## Definition
 
+```c
+}
 
+static int r_mark_nU(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Turkish language stemming implementation that specifically handles suffixes containing the vowel 'U' (representing both 'u' and 'ü' in Turkish vowel harmony) preceded by the consonant 'n'. The function operates in two main steps: first, it validates vowel harmony to ensure the suffix is phonologically compatible with the word stem according to Turkish linguistic rules; second, it uses backwards pattern matching against an array of 4 predefined 'nU' suffix patterns () that account for different vowel harmony variants. This function is more specialized than other mark functions as it targets a specific consonant-vowel combination that appears in certain Turkish suffixes.
 

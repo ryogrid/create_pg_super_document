@@ -8,7 +8,10 @@ A static utility function that counts the number of position entries within a TS
 
 ## Definition
 
-
+```c
+static int
+check_weight(TSVector txt, WordEntry *wptr, int8 weight)
+```
 ## Detailed Description
 The  function is a helper function used in PostgreSQL's text search statistics () functionality. It examines the position data for a specific word entry within a TSVector and counts how many positions have weights that match the provided weight bitmask. Each position in a TSVector can have an associated weight (A, B, C, or D), and this function checks if any of the positions match the weights specified in the bitmask parameter.
 

@@ -8,7 +8,10 @@ Utility function that converts an integer value to its formatted string represen
 
 ## Definition
 
-
+```c
+static char *
+_conv(int n, const char *format, char *pt, const char *ptlim)
+```
 ## Detailed Description
 _conv is a simple but essential helper function in PostgreSQL's strftime implementation that handles the conversion of numeric values to their string representations. It takes an integer value and a printf-style format specifier, formats the number using sprintf into a temporary buffer, and then adds the result to the output buffer using the _add function.
 

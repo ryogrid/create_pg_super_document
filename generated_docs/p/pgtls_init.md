@@ -8,7 +8,10 @@ Initializes the SSL/TLS library (OpenSSL) with proper thread safety mechanisms, 
 
 ## Definition
 
-
+```c
+int
+pgtls_init(PGconn *conn, bool do_ssl, bool do_crypto)
+```
 ## Detailed Description
 This function performs comprehensive initialization of OpenSSL libraries with thread safety support. It handles both the libcrypto (cryptographic functions) and libssl (SSL/TLS protocol) components of OpenSSL, with special attention to thread safety requirements in older OpenSSL versions.
 

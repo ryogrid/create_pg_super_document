@@ -8,7 +8,10 @@ Initializes a FileSet structure for managing temporary files that can be opened 
 
 ## Definition
 
-
+```c
+void
+FileSetInit(FileSet *fileset)
+```
 ## Detailed Description
 FileSetInit initializes a FileSet structure that provides a framework for managing temporary files in PostgreSQL. The function sets up the fileset with a unique identifier consisting of the creator's process ID and a counter, ensuring that each fileset is uniquely identifiable across the system. 
 

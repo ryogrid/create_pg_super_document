@@ -8,7 +8,10 @@ Tests whether there are any pending after-trigger events for a specified relatio
 
 ## Definition
 
-
+```c
+bool
+AfterTriggerPendingOnRel(Oid relid)
+```
 ## Detailed Description
 This function is a safety mechanism that prevents DDL operations from proceeding when there are unprocessed after-trigger events for a relation. It performs a comprehensive scan of both committed and queued trigger events to determine if any are pending for the specified relation.
 

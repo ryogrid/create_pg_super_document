@@ -8,7 +8,10 @@ Sets the operator function ID (procedure OID) in a ScalarArrayOpExpr node if it 
 
 ## Definition
 
-
+```c
+void
+set_sa_opfuncid(ScalarArrayOpExpr *opexpr)
+```
 ## Detailed Description
 This function is the ScalarArrayOpExpr equivalent of set_opfuncid. It sets the opfuncid field in a ScalarArrayOpExpr node, which stores the OID of the procedure that implements the scalar array operator. Like set_opfuncid, it only sets the opfuncid if it is currently InvalidOid, preventing unnecessary lookups if the function ID has already been resolved. It uses get_opcode() to look up the procedure OID based on the operator OID stored in opno.
 

@@ -8,7 +8,10 @@ ConditionalLockBuffer is a non-blocking function that attempts to acquire exclus
 
 ## Definition
 
-
+```c
+bool
+ConditionalLockBuffer(Buffer buffer)
+```
 ## Detailed Description
 This function provides a non-blocking mechanism to acquire the content_lock for a buffer in BUFFER_LOCK_EXCLUSIVE mode. It's designed for scenarios where the caller cannot afford to wait for a lock to become available. The function assumes the buffer is already pinned by the caller.
 

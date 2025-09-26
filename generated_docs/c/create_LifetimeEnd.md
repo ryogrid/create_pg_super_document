@@ -8,7 +8,10 @@ Creates or retrieves an LLVM intrinsic function declaration for llvm.lifetime.en
 
 ## Definition
 
-
+```c
+static LLVMValueRef
+create_LifetimeEnd(LLVMModuleRef mod)
+```
 ## Detailed Description
 This function provides access to the LLVM lifetime.end intrinsic, which is a crucial optimization hint used by LLVM's optimization passes. The lifetime.end intrinsic informs LLVM that a particular memory object is no longer needed, allowing the optimizer to make more aggressive optimizations.
 

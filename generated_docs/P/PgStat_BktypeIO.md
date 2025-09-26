@@ -8,7 +8,13 @@ PgStat_BktypeIO tracks detailed I/O statistics across different types of databas
 
 ## Definition
 
-
+```c
+typedef struct PgStat_BktypeIO
+{
+	PgStat_Counter counts[IOOBJECT_NUM_TYPES][IOCONTEXT_NUM_TYPES][IOOP_NUM_TYPES];
+	PgStat_Counter times[IOOBJECT_NUM_TYPES][IOCONTEXT_NUM_TYPES][IOOP_NUM_TYPES];
+} PgStat_BktypeIO;
+```
 ## Detailed Description
 PgStat_BktypeIO is a multidimensional statistics structure that captures detailed I/O performance metrics across three important dimensions: object type (tables, indexes, etc.), I/O context (normal operations, bulk operations, vacuum, etc.), and operation type (reads, writes, extends, etc.). This structure provides the granular data needed for comprehensive I/O performance analysis and optimization. The three-dimensional array design allows PostgreSQL to track both the frequency (counts) and timing (times) of different I/O operations, enabling detailed performance profiling and identification of I/O bottlenecks across different database workloads and object types.
 

@@ -8,7 +8,10 @@ Determines whether a given user/role is a member of another role, either directl
 
 ## Definition
 
-
+```c
+bool
+is_member_of_role_nosuper(Oid member, Oid role)
+```
 ## Detailed Description
 This function is identical to `is_member_of_role` except it does not grant automatic membership to superusers. It checks if a member (user or role) is a member of a target role through PostgreSQL's role membership system via recursive traversal of the role inheritance hierarchy, following both inherited and non-inherited grants.
 

@@ -8,7 +8,10 @@ OpenTransientFile is a convenience wrapper that opens a file with default permis
 
 ## Definition
 
-
+```c
+int
+OpenTransientFile(const char *fileName, int fileFlags)
+```
 ## Detailed Description
 OpenTransientFile provides a simplified interface for opening files through PostgreSQL's managed file system. It serves as a wrapper around OpenTransientFilePerm(), automatically passing the default file creation mode (pg_file_create_mode) as the permission parameter. This function is part of PostgreSQL's file descriptor management system, which handles resource limits and provides transaction-aware file operations.
 

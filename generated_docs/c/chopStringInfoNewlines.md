@@ -8,7 +8,10 @@ A static utility function that removes all trailing newline characters from a St
 
 ## Definition
 
-
+```c
+static void
+chopStringInfoNewlines(StringInfo str)
+```
 ## Detailed Description
 This function performs a simple but important string cleanup operation by iteratively removing newline characters ('\n') from the end of a StringInfo buffer. It works by scanning backwards from the end of the string, replacing each trailing newline with a null terminator and decrementing the string length accordingly. The operation continues until either the string becomes empty or a non-newline character is encountered.
 

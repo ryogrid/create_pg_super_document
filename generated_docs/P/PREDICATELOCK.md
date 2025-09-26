@@ -8,7 +8,20 @@ PREDICATELOCK represents an individual predicate lock within PostgreSQL's serial
 
 ## Definition
 
+```c
+typedef struct PREDICATELOCK
+{
+	/* hash key */
+	PREDICATELOCKTAG tag;		/* unique identifier of lock */
 
+	/* data */
+	dlist_node	targetLink;		/* list link in PREDICATELOCKTARGET's list of
+								 * predicate locks */
+	dlist_node	xactLink;		/* list link in SERIALIZABLEXACT's list of
+								 * predicate locks */
+	SerCommitSeqNo commitSeqNo; /* only used for summarized predicate locks */
+} PREDICATELOCK;
+```
 ## Detailed Description
 PREDICATELOCK is the central data structure representing individual predicate locks in PostgreSQL's serializable snapshot isolation implementation. Each instance represents a specific lock held by a serializable transaction on a particular database object. The structure enables efficient bidirectional navigation through linked lists - it can be accessed both from the target object's perspective (via targetLink) and from the transaction's perspective (via xactLink). Predicate locks can be created when database objects are read or through promotion of multiple fine-grained locks into coarser-grained ones. They are automatically cleaned up when the associated serializable transaction completes or when locks are combined into broader-scope locks.
 

@@ -8,7 +8,10 @@ Converts a 32-bit integer value to big-endian byte order for storage in timezone
 
 ## Definition
 
-
+```c
+static void
+convert(const int32 val, char *const buf)
+```
 ## Detailed Description
 The  function is a utility function in PostgreSQL's timezone compiler () that converts a 32-bit integer value into big-endian (most significant byte first) byte order and stores it in a provided buffer. This function is essential for creating portable timezone database files that can be read consistently across different computer architectures.
 

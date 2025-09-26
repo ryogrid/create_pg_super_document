@@ -8,7 +8,16 @@ PGC_ENUM is an enumeration constant that represents the enum configuration varia
 
 ## Definition
 
-
+```c
+union config_var_val
+{
+	bool		boolval;
+	int			intval;
+	double		realval;
+	char	   *stringval;
+	int			enumval;
+};
+```
 ## Detailed Description
 PGC_ENUM is one of the five configuration variable types supported by PostgreSQL's GUC system. It represents configuration parameters that can take one of a predefined set of string values, similar to an enumeration. When a GUC parameter is defined as PGC_ENUM type, it restricts the valid values to those specified in an associated array of strings, providing both type safety and user-friendly configuration options.
 

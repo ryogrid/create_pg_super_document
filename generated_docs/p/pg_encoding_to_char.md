@@ -8,7 +8,10 @@ Returns the canonical name of a PostgreSQL encoding given its encoding ID, or an
 
 ## Definition
 
-
+```c
+const char *
+pg_encoding_to_char(int encoding)
+```
 ## Detailed Description
 The `pg_encoding_to_char` function provides the reverse mapping of `pg_char_to_encoding`, converting an encoding ID back to its canonical string name. It performs a direct array lookup in the `pg_enc2name_tbl` table, which is indexed by encoding ID and contains the official encoding names.
 

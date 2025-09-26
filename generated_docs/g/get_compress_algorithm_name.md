@@ -8,7 +8,10 @@ A utility function that converts a  enumeration value to its corresponding human
 
 ## Definition
 
-
+```c
+const char *
+get_compress_algorithm_name(pg_compress_algorithm algorithm)
+```
 ## Detailed Description
 The  function performs the inverse operation of  by converting a  enumeration value back to its string representation. It uses a switch statement to map each compression algorithm constant to its corresponding name string. The function includes an assertion to catch unexpected enumeration values during development and returns a placeholder string ("???") to satisfy compiler requirements.
 

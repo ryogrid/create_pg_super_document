@@ -8,7 +8,13 @@ ParallelApplyWorkerEntry is a hash table entry structure used to map transaction
 
 ## Definition
 
-
+```c
+typedef struct ParallelApplyWorkerEntry
+{
+	TransactionId xid;			/* Hash key -- must be first */
+	ParallelApplyWorkerInfo *winfo;
+} ParallelApplyWorkerEntry;
+```
 ## Detailed Description
 This structure serves as a hash table entry in PostgreSQL's parallel apply worker management system for logical replication. It creates a mapping between transaction IDs and their corresponding parallel worker information, enabling efficient lookup and management of worker processes handling specific transactions.
 

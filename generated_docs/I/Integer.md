@@ -8,7 +8,15 @@ The Integer node type represents integer literal constants in PostgreSQL's parse
 
 ## Definition
 
+```c
+typedef struct Integer
+{
+	pg_node_attr(special_read_write)
 
+	NodeTag		type;
+	int			ival;
+} Integer;
+```
 ## Detailed Description
 The Integer node is one of the fundamental value node types in PostgreSQL's parse tree system. It serves as a container for integer literal values that need to be represented as nodes within the parser's abstract syntax tree. Unlike plain integer types, Integer nodes can be stored in PostgreSQL's List data structure, making them suitable for use in various parser contexts where collections of values are needed.
 

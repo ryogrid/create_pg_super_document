@@ -8,7 +8,9 @@ Helper function that manages the local cache for statistics entry references, ha
 
 ## Definition
 
-
+```c
+struct PgStat_HashKey));
+```
 ## Detailed Description
 The `pgstat_get_entry_ref_cached` function is a critical caching mechanism that optimizes access to shared memory statistics entries. It manages a local hash table cache to avoid repeated lookups of the same entries and reduces contention on the shared hash table.
 

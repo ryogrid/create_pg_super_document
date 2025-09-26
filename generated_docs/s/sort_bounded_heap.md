@@ -8,7 +8,10 @@ Converts a bounded heap to a properly-sorted array by repeatedly extracting the 
 
 ## Definition
 
-
+```c
+static void
+sort_bounded_heap(Tuplesortstate *state)
+```
 ## Detailed Description
 This function performs the final sorting phase for bounded tuple sorting operations. When PostgreSQL uses a bounded sort (top-K sorting), it maintains a min-heap of at most K elements. Once all input has been processed, this function converts the heap into a sorted array by repeatedly extracting the maximum element (which becomes the minimum in a max-heap due to reversed comparison) and placing it at the end of the array.
 

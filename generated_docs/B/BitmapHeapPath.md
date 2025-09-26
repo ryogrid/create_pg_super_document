@@ -8,7 +8,13 @@ BitmapHeapPath represents a query execution path that uses one or more index sca
 
 ## Definition
 
-
+```c
+typedef struct BitmapHeapPath
+{
+	Path		path;
+	Path	   *bitmapqual;		/* IndexPath, BitmapAndPath, BitmapOrPath */
+} BitmapHeapPath;
+```
 ## Detailed Description
 BitmapHeapPath represents a specialized access path that generates TID (tuple identifier) bitmaps from one or more index scans, rather than directly accessing heap tuples. This approach is particularly efficient when:
 1. Multiple indexes can be used for different parts of a WHERE clause

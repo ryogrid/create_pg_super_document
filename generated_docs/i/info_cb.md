@@ -8,7 +8,10 @@ A static callback function that logs SSL connection state information and events
 
 ## Definition
 
-
+```c
+static void
+info_cb(const SSL *ssl, int type, int args)
+```
 ## Detailed Description
 The  function serves as an OpenSSL information callback that captures and logs various SSL/TLS connection events and state transitions. It is registered with OpenSSL to provide detailed debugging information about SSL handshake processes, connection states, and alert conditions. The function uses PostgreSQL's  mechanism to log messages at DEBUG4 level, making SSL connection diagnostics available through the standard PostgreSQL logging system.
 

@@ -8,7 +8,9 @@ Get or construct the ParamPathInfo for a parameterized path for a base relation,
 
 ## Definition
 
-
+```c
+union(baserel->relids, required_outer);
+```
 ## Detailed Description
 This function retrieves or constructs a ParamPathInfo structure for a parameterized access path to a base relation. The function serves as a central point for estimating rowcounts of parameterized paths, ensuring consistent estimates across all paths with the same parameterization. It also determines which movable join clauses the parameterized path will be responsible for evaluating.
 

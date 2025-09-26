@@ -8,7 +8,10 @@ Creates a new segment file for a fileset-based BufFile, handling cleanup of any 
 
 ## Definition
 
-
+```c
+static File
+MakeNewFileSetSegment(BufFile *buffile, int segment)
+```
 ## Detailed Description
 MakeNewFileSetSegment is a static function that creates a new file segment for a BufFile that is backed by a FileSet. The function is designed to handle crash recovery scenarios by proactively cleaning up any leftover files from previous executions that might confuse the system about the number of segments available.
 

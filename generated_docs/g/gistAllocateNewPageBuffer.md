@@ -8,7 +8,10 @@ gistAllocateNewPageBuffer allocates and initializes a new buffer page for storin
 
 ## Definition
 
-
+```c
+static GISTNodeBufferPage *
+gistAllocateNewPageBuffer(GISTBuildBuffers *gfbb)
+```
 ## Detailed Description
 This static function creates a new buffer page that serves as temporary storage for index tuples during the GiST index building process. The function allocates memory for a full block-sized page (BLCKSZ bytes) and initializes it with default values.
 

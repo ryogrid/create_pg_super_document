@@ -8,7 +8,13 @@ Computes the XLOG fragments needed to transform a region of the current page int
 
 ## Definition
 
-
+```c
+static void
+computeRegionDelta(PageData *pageData,
+				   const char *curpage, const char *targetpage,
+				   int targetStart, int targetEnd,
+				   int validStart, int validEnd)
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's generic WAL logging system and serves as a performance hotspot. It implements an intelligent diffing algorithm that compares regions of two pages (current and target) to identify the minimal set of fragments that need to be logged to transform one into the other.
 

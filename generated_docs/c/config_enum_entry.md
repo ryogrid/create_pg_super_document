@@ -8,7 +8,14 @@ config_enum_entry is a structure that defines the possible values for enum-type 
 
 ## Definition
 
-
+```c
+struct config_enum_entry
+{
+	const char *name;
+	int			val;
+	bool		hidden;
+};
+```
 ## Detailed Description
 The config_enum_entry structure is used to define the allowable values for enum-type configuration variables in PostgreSQL's Grand Unified Configuration (GUC) system. Each enum configuration variable is associated with an array of these entries, where each entry maps a human-readable string name to an internal integer value.
 

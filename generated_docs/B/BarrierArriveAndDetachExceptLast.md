@@ -8,7 +8,10 @@ Arrives at a barrier and detaches all but the last participant, implementing a "
 
 ## Definition
 
-
+```c
+bool
+BarrierArriveAndDetachExceptLast(Barrier *barrier)
+```
 ## Detailed Description
 BarrierArriveAndDetachExceptLast implements a specialized synchronization pattern where multiple participants arrive at a barrier, but only the last one remains attached while all others detach immediately. This creates a reduction pattern where many participants converge to a single remaining participant.
 

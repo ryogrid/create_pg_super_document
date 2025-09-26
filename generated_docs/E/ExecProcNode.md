@@ -8,7 +8,10 @@ ExecProcNode is the central function in PostgreSQL's query executor that process
 
 ## Definition
 
-
+```c
+struct AggStatePerPhaseData *phase,
+									bool doSort, bool doHash, bool nullcheck);
+```
 ## Detailed Description
 ExecProcNode serves as the primary interface for tuple generation in PostgreSQL's executor. It implements the iterator pattern where each call returns the next available tuple from the specified plan node. The function first checks if any parameters have changed (via chgParam) and triggers a rescan if necessary, then delegates the actual tuple production to the node-specific execution function stored in the PlanState's ExecProcNode function pointer.
 

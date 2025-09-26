@@ -8,7 +8,10 @@ Processes the next query in the pipeline queue, managing state transitions and e
 
 ## Definition
 
-
+```c
+static void
+pqPipelineProcessQueue(PGconn *conn)
+```
 ## Detailed Description
 pqPipelineProcessQueue is a subroutine for PQgetResult that manages the processing of queued commands in pipeline mode. It handles state transitions between different async states, processes the next command in the queue when appropriate, and manages special cases like aborted pipelines.
 

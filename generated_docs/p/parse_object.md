@@ -8,7 +8,9 @@ A recursive descent parsing function that processes JSON object constructs, hand
 
 ## Definition
 
-
+```c
+struct_action ostart = sem->object_start;
+```
 ## Detailed Description
 The  function implements JSON object parsing within PostgreSQL's JSON API infrastructure. It processes JSON objects as sequences of object fields (key-value pairs) surrounded by curly braces and separated by commas. The function manages nesting levels, invokes semantic actions for object start/end events, and coordinates with the lexer to consume tokens appropriately.
 

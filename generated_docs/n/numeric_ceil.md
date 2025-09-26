@@ -8,7 +8,10 @@ Implements the ceiling function for PostgreSQL numeric data type, returning the 
 
 ## Definition
 
-
+```c
+Datum
+numeric_ceil(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that computes the ceiling (smallest integer >= input) of a numeric value. It handles special numeric values (NaN and infinities) by returning them unchanged. For regular numeric values, it converts the input to an internal NumericVar representation, applies the ceiling operation via , and converts the result back to a Numeric datum for return.
 

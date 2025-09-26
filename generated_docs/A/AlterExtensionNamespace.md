@@ -8,7 +8,10 @@ Executes ALTER EXTENSION SET SCHEMA command to move an extension and all its mem
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterExtensionNamespace(const char *extensionName, const char *newschema, Oid *oldschema)
+```
 ## Detailed Description
 This function implements the ALTER EXTENSION SET SCHEMA command, which relocates an extension and all its dependent objects to a new schema. The operation requires the extension to be marked as relocatable in its control file. The function performs extensive validation including ownership checks, permission checks, dependency loop detection, and no-relocate constraint enforcement.
 

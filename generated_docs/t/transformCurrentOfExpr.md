@@ -8,7 +8,10 @@ Transforms CURRENT OF expressions used in UPDATE/DELETE statements by resolving 
 
 ## Definition
 
-
+```c
+static Node *
+transformCurrentOfExpr(ParseState *pstate, CurrentOfExpr *cexpr)
+```
 ## Detailed Description
 The  function processes CURRENT OF expressions that appear in UPDATE and DELETE statements. It first sets the range table index from the target relation in the parse state, then attempts to resolve cursor names as parameters.
 

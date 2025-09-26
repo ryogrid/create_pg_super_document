@@ -8,7 +8,10 @@ Prevents a dynamic shared memory mapping from being automatically released when 
 
 ## Definition
 
-
+```c
+void
+dsm_pin_mapping(dsm_segment *seg)
+```
 ## Detailed Description
 The dsm_pin_mapping function modifies the resource ownership of a dynamic shared memory segment mapping to ensure it persists beyond the current query context. By default, DSM mappings are owned by the current resource owner, which typically means they are automatically released at the end of the current query. This function removes the segment from resource owner tracking by calling ResourceOwnerForgetDSM() and setting the resowner field to NULL, effectively transferring ownership to the session level.
 

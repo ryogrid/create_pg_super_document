@@ -8,7 +8,14 @@ A static function that adds an item to a page being built during B-tree index co
 
 ## Definition
 
-
+```c
+static void
+_bt_sortaddtup(Page page,
+			   Size itemsize,
+			   IndexTuple itup,
+			   OffsetNumber itup_off,
+			   bool newfirstdataitem)
+```
 ## Detailed Description
 This function is very similar to nbtinsert.c's , but this variant raises an error directly rather than returning a status code. It is specifically designed for use during B-tree index sorting and building operations.
 

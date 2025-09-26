@@ -8,7 +8,10 @@ Computes the fully schema-qualified name to display for a relation specified by 
 
 ## Definition
 
-
+```c
+static char *
+generate_qualified_relation_name(Oid relid)
+```
 ## Detailed Description
 This function is a simpler variant of generate_relation_name() that unconditionally generates a schema-qualified relation name. Unlike generate_relation_name(), it does not check for CTE name conflicts or search path visibility - it always includes the schema name. This is useful when you need to ensure the generated name is fully qualified and unambiguous, regardless of the current database context. The function performs system catalog lookups to retrieve both the relation name and its namespace, then combines them using proper SQL identifier quoting.
 

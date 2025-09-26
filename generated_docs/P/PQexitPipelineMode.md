@@ -8,7 +8,10 @@ Ends pipeline mode and returns the connection to normal command mode, ensuring a
 
 ## Definition
 
-
+```c
+int
+PQexitPipelineMode(PGconn *conn)
+```
 ## Detailed Description
 PQexitPipelineMode terminates pipeline mode on a PostgreSQL connection and transitions it back to normal command execution mode. The function performs comprehensive validation to ensure that it's safe to exit pipeline mode - all results must be collected, no operations can be in progress, and the connection must be in an appropriate state.
 

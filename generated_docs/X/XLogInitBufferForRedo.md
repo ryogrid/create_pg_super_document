@@ -8,7 +8,10 @@ Pins and locks a buffer referenced by a WAL record for the purpose of re-initial
 
 ## Definition
 
-
+```c
+Buffer
+XLogInitBufferForRedo(XLogReaderState *record, uint8 block_id)
+```
 ## Detailed Description
 This function is a specialized wrapper around  designed specifically for scenarios where a page needs to be completely re-initialized during WAL replay. It uses the  buffer read mode, which ensures the buffer is zeroed out and locked exclusively.
 

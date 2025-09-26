@@ -8,7 +8,14 @@ SharedInvalCatalogMsg is a structure that represents a shared invalidation messa
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int8		id;				/* type field --- must be first */
+	Oid			dbId;			/* database ID, or 0 if a shared relation */
+	Oid			relId;			/* relation ID, or 0 if whole relcache */
+} SharedInvalRelcacheMsg;
+```
 ## Detailed Description
 SharedInvalCatalogMsg is part of PostgreSQL's shared invalidation system, specifically designed to handle bulk invalidation of catalog cache entries. Unlike SharedInvalCatcacheMsg which targets specific cached tuples, this structure invalidates all cached entries belonging to an entire system catalog. This is used when changes affect multiple or all entries in a catalog, making it more efficient to invalidate the entire catalog cache rather than individual entries.
 

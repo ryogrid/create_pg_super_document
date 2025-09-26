@@ -8,7 +8,10 @@ BackupHistoryFileName is a static inline function that constructs standardized b
 
 ## Definition
 
-
+```c
+static inline void
+BackupHistoryFileName(char *fname, TimeLineID tli, XLogSegNo logSegNo, XLogRecPtr startpoint, int wal_segsz_bytes)
+```
 ## Detailed Description
 This function generates a standardized filename for backup history files, which are used to track backup operations in PostgreSQL's WAL system. The filename follows a specific format that incorporates timeline ID, segment number components, and starting point offset, ensuring unique and descriptive naming for backup history files. The function uses a predefined format string to create names that can be easily parsed and understood by other WAL management functions.
 

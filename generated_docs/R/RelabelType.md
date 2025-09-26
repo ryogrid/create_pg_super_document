@@ -8,7 +8,21 @@ RelabelType represents a "dummy" type coercion between two binary-compatible dat
 
 ## Definition
 
-
+```c
+typedef struct RelabelType
+{
+	Expr		xpr;
+	Expr	   *arg;			/* input expression */
+	Oid			resulttype;		/* output type of coercion expression */
+	/* output typmod (usually -1) */
+	int32		resulttypmod pg_node_attr(query_jumble_ignore);
+	/* OID of collation, or InvalidOid if none */
+	Oid			resultcollid pg_node_attr(query_jumble_ignore);
+	/* how to display this node */
+	CoercionForm relabelformat pg_node_attr(query_jumble_ignore);
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} RelabelType;
+```
 ## Detailed Description
 RelabelType implements "dummy" type coercions between binary-compatible datatypes, such as reinterpreting an OID expression result as int4. This node performs no actual runtime operation but serves as a critical component in PostgreSQL's type system by providing a location to store the correct type attribution for expression results during type resolution.
 

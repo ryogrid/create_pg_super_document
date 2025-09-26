@@ -8,7 +8,12 @@ gistInitBuildBuffers initializes and creates the buffer management structure use
 
 ## Definition
 
-
+```c
+structures
+	 * of buffers which are persistent during buffering build.
+	 */
+	gfbb->context = CurrentMemoryContext;
+```
 ## Detailed Description
 This function creates and initializes a GISTBuildBuffers structure that manages temporary storage during GiST index building. The buffer system allows the index builder to swap pages to temporary files when memory becomes constrained, enabling construction of large indexes that wouldn't fit entirely in memory.
 

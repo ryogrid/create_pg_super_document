@@ -8,7 +8,11 @@ A utility function that constructs a possibly-qualified identifier string by com
 
 ## Definition
 
-
+```c
+char *
+quote_qualified_identifier(const char *qualifier,
+						   const char *ident)
+```
 ## Detailed Description
 This function creates a qualified identifier in the format "qualifier.ident" or just "ident" if no qualifier is provided. It automatically applies proper SQL identifier quoting to both the qualifier and identifier components using the quote_identifier() function. The result is allocated using palloc and must be freed by the caller. This is commonly used throughout PostgreSQL for generating safe SQL identifiers that may contain special characters or reserved words.
 

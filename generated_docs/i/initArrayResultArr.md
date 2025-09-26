@@ -8,7 +8,11 @@ Initializes an empty ArrayBuildStateArr structure for building arrays from input
 
 ## Definition
 
-
+```c
+ArrayBuildStateArr *
+initArrayResultArr(Oid array_type, Oid element_type, MemoryContext rcontext,
+				   bool subcontext)
+```
 ## Detailed Description
 This function is part of a specialized API for building arrays from arrays (as opposed to building arrays from individual elements). It initializes an ArrayBuildStateArr structure that will be used to accumulate input arrays and eventually produce an output array with one additional dimension. All input arrays must have identical dimensionality and element type.
 

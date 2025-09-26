@@ -8,7 +8,10 @@ _SPI_end_call is a static internal function that concludes a SPI operation withi
 
 ## Definition
 
-
+```c
+static int
+_SPI_end_call(bool use_exec)
+```
 ## Detailed Description
 This function completes a SPI (Server Programming Interface) operation that was initiated by _SPI_begin_call. It performs the cleanup and restoration activities necessary to properly conclude the SPI operation and return the system to its previous state.
 

@@ -8,7 +8,10 @@ A static callback function that automatically cleans up thread-local memory allo
 
 ## Definition
 
-
+```c
+static void
+auto_mem_destructor(void *arg)
+```
 ## Detailed Description
 The  function serves as a pthread destructor callback that is automatically invoked when a thread terminates or when the associated thread-specific data key is destroyed. This function is a critical component of ECPG's automatic memory management system, ensuring that all automatically allocated memory is properly freed when threads end, preventing memory leaks in multi-threaded applications.
 

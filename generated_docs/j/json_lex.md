@@ -8,7 +8,10 @@ The core lexical analyzer function that tokenizes JSON input, handling both stre
 
 ## Definition
 
-
+```c
+JsonParseErrorType
+json_lex(JsonLexContext *lex)
+```
 ## Detailed Description
 The  function is the central component of PostgreSQL's JSON lexical analysis system. It processes JSON input character by character to identify and classify tokens such as strings, numbers, literals (true/false/null), and structural punctuation (braces, brackets, commas, colons). The function supports both traditional parsing and incremental parsing for streaming JSON data.
 

@@ -8,7 +8,15 @@ ForeignPath represents a potential scan of a foreign table, foreign join, or for
 
 ## Definition
 
-
+```c
+typedef struct ForeignPath
+{
+	Path		path;
+	Path	   *fdw_outerpath;
+	List	   *fdw_restrictinfo;
+	List	   *fdw_private;
+} ForeignPath;
+```
 ## Detailed Description
 ForeignPath is a specialized path node used by Foreign Data Wrappers to represent access paths to external data sources. This path type provides a flexible framework for FDW implementations to integrate with PostgreSQL's cost-based optimizer, allowing external data sources to participate in query planning decisions.
 

@@ -8,7 +8,10 @@ Removes all typedef definitions from the global types list that were defined at 
 
 ## Definition
 
-
+```c
+void
+remove_typedefs(int brace_level)
+```
 ## Detailed Description
 This function implements scope-based cleanup for typedef definitions in the ECPG preprocessor. It traverses the global linked list of typedefs and removes all entries that were defined at a brace level greater than or equal to the specified threshold. This is crucial for maintaining proper scoping semantics when exiting code blocks.
 

@@ -8,7 +8,12 @@ Platform-independent dispatcher function that routes dynamic shared memory opera
 
 ## Definition
 
-
+```c
+bool
+dsm_impl_op(dsm_op op, dsm_handle handle, Size request_size,
+			void **impl_private, void **mapped_address, Size *mapped_size,
+			int elevel)
+```
 ## Detailed Description
 The  function serves as a central dispatcher for all dynamic shared memory operations in PostgreSQL. It abstracts the platform-specific implementations by routing operations to the appropriate implementation (POSIX, System V, Windows, or memory-mapped files) based on the  configuration.
 

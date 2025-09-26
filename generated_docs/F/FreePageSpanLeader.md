@@ -8,7 +8,15 @@ FreePageSpanLeader represents a doubly linked list node that tracks contiguous s
 
 ## Definition
 
-
+```c
+struct FreePageSpanLeader
+{
+	int			magic;			/* always FREE_PAGE_SPAN_LEADER_MAGIC */
+	Size		npages;			/* number of pages in span */
+	RelptrFreePageSpanLeader prev;
+	RelptrFreePageSpanLeader next;
+};
+```
 ## Detailed Description
 The FreePageSpanLeader structure serves as a header for contiguous spans of free pages within PostgreSQL's memory management system. Each free page span begins with this structure stored in the first page of the span, creating a doubly-linked list of all free spans. This design allows efficient tracking and management of variable-sized free memory regions.
 

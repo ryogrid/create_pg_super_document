@@ -8,7 +8,13 @@ UnlistenStmt represents the parsed structure of an UNLISTEN SQL statement used t
 
 ## Definition
 
-
+```c
+typedef struct UnlistenStmt
+{
+	NodeTag		type;
+	char	   *conditionname;	/* name to unlisten on, or NULL for all */
+} UnlistenStmt;
+```
 ## Detailed Description
 UnlistenStmt is a parse node that represents the UNLISTEN statement in PostgreSQL's SQL grammar. The UNLISTEN statement is part of PostgreSQL's asynchronous notification system that allows database sessions to unsubscribe from specific notification channels or all channels at once. The statement supports two forms: `UNLISTEN channel` to unsubscribe from a specific channel, and `UNLISTEN *` to unsubscribe from all channels. This provides a way to stop receiving NOTIFY messages that were previously subscribed to via LISTEN statements.
 

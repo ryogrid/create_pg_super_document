@@ -8,7 +8,21 @@ SupportRequestCost is a structure that allows support functions to provide custo
 
 ## Definition
 
+```c
+typedef struct SupportRequestCost
+{
+	NodeTag		type;
 
+	/* Input fields: */
+	struct PlannerInfo *root;	/* Planner's infrastructure (could be NULL) */
+	Oid			funcid;			/* function we are inquiring about */
+	Node	   *node;			/* parse node invoking function, or NULL */
+
+	/* Output fields: */
+	Cost		startup;		/* one-time cost */
+	Cost		per_tuple;		/* per-evaluation cost */
+} SupportRequestCost;
+```
 ## Detailed Description
 The SupportRequestCost structure enables PostgreSQL's query planner to obtain more accurate execution cost estimates from support functions. This mechanism allows custom functions to provide domain-specific knowledge about their execution costs, which can be significantly more accurate than generic estimates.
 

@@ -8,7 +8,10 @@ Transforms XMLSERIALIZE expressions during parsing by converting them into XmlEx
 
 ## Definition
 
-
+```c
+static Node *
+transformXmlSerialize(ParseState *pstate, XmlSerialize *xs)
+```
 ## Detailed Description
 The  function transforms XMLSERIALIZE expressions during the parsing phase. It creates an XmlExpr node with the IS_XMLSERIALIZE operation, coerces the input expression to XML type, and then applies target type coercion. The function determines the target type from the typename specification and performs implicit casting from TEXT to the target type.
 

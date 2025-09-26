@@ -8,7 +8,13 @@ Low-level function that reads pages during WAL replay with extended functionalit
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	RelationData reldata;		/* Note: this must be first */
+	FormData_pg_class pgc;
+} FakeRelCacheEntryData;
+```
 ## Detailed Description
 This function provides the core buffer reading functionality during WAL replay, comparable to ReadBufferExtended but with specialized behavior for recovery scenarios. It handles multiple reading modes with different behaviors for missing or invalid pages.
 

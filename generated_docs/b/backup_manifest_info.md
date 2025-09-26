@@ -8,7 +8,18 @@ The backup_manifest_info structure maintains state information for generating a 
 
 ## Definition
 
-
+```c
+typedef struct backup_manifest_info
+{
+	BufFile    *buffile;
+	pg_checksum_type checksum_type;
+	pg_cryptohash_ctx *manifest_ctx;
+	uint64		manifest_size;
+	bool		force_encode;
+	bool		first_file;
+	bool		still_checksumming;
+} backup_manifest_info;
+```
 ## Detailed Description
 The backup_manifest_info structure serves as the primary state container for backup manifest generation during PostgreSQL base backup operations. This structure tracks all necessary information to create a comprehensive manifest file that documents the contents and integrity of a backup. The manifest includes metadata about all files in the backup, their checksums, and various backup parameters. When a backup manifest is disabled (MANIFEST_OPTION_NO), the buffile field is set to NULL to indicate no manifest processing should occur.
 

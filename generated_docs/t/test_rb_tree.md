@@ -8,7 +8,10 @@ The main entry point function for the PostgreSQL Red-Black Tree test suite that 
 
 ## Definition
 
-
+```c
+Datum
+test_rb_tree(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL SQL-callable function serves as the primary test orchestrator for the Red-Black Tree implementation. It accepts a size parameter that determines the scale of testing and then systematically executes a comprehensive suite of tests:
 

@@ -8,7 +8,15 @@ CreateExtensionStmt represents the parsed structure for a CREATE EXTENSION state
 
 ## Definition
 
-
+```c
+typedef struct CreateExtensionStmt
+{
+	NodeTag		type;
+	char	   *extname;
+	bool		if_not_exists;	/* just do nothing if it already exists? */
+	List	   *options;		/* List of DefElem nodes */
+} CreateExtensionStmt;
+```
 ## Detailed Description
 This structure represents the CREATE EXTENSION SQL command, which is used to install extensions that add new functionality to PostgreSQL. Extensions can include new data types, functions, operators, index methods, and more. The statement supports various options like specifying the target schema, version, and cascade behavior for dependencies.
 

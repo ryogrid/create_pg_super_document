@@ -8,7 +8,10 @@ Cancels a specific virtual transaction by sending a signal to the associated bac
 
 ## Definition
 
-
+```c
+pid_t
+CancelVirtualTransaction(VirtualTransactionId vxid, ProcSignalReason sigmode)
+```
 ## Detailed Description
 CancelVirtualTransaction is a wrapper function around SignalVirtualTransaction that simplifies the cancellation of virtual transactions during recovery conflict resolution. It specifically sets the conflictPending flag to true when signaling the target transaction, indicating that this is a cancellation due to a recovery conflict.
 

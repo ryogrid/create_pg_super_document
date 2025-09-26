@@ -8,7 +8,10 @@ A portable implementation of the POSIX strnlen() function for systems where it's
 
 ## Definition
 
-
+```c
+size_t
+strnlen(const char *str, size_t maxlen)
+```
 ## Detailed Description
 The  function is a fallback implementation of the POSIX strnlen() function, designed to provide consistent behavior across different platforms where the native function might not be available. It safely calculates the length of a C-style null-terminated string up to a specified maximum length, preventing buffer overruns that could occur with the standard  function.
 

@@ -8,7 +8,10 @@ gistLoadNodeBuffer loads the last page of a node buffer from temporary file stor
 
 ## Definition
 
-
+```c
+static void
+gistLoadNodeBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer)
+```
 ## Detailed Description
 This static function manages the transition of node buffer pages from disk-based temporary storage back into main memory. It performs a conditional load operation - only loading pages when the buffer doesn't already have a page in memory and when there are actually blocks associated with the buffer.
 

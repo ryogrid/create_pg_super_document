@@ -8,7 +8,13 @@ The core XML parsing function that converts text data to libxml2's internal xmlD
 
 ## Definition
 
-
+```c
+static xmlDocPtr
+xml_parse(text *data, XmlOptionType xmloption_arg,
+		  bool preserve_whitespace, int encoding,
+		  XmlOptionType *parsed_xmloptiontype, xmlNodePtr *parsed_nodes,
+		  Node *escontext)
+```
 ## Detailed Description
 This function serves as PostgreSQL's central XML parsing engine, bridging between PostgreSQL's text representation and libxml2's DOM representation. It implements sophisticated parsing logic to handle both SQL/XML DOCUMENT and CONTENT modes while providing robust error handling and resource management.
 

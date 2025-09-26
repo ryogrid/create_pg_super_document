@@ -8,7 +8,13 @@ A parse node structure representing the ALTER SYSTEM statement, used to modify P
 
 ## Definition
 
-
+```c
+typedef struct AlterSystemStmt
+{
+	NodeTag		type;
+	VariableSetStmt *setstmt;	/* SET subcommand */
+} AlterSystemStmt;
+```
 ## Detailed Description
 AlterSystemStmt is a parse node structure that represents an ALTER SYSTEM SQL statement. This structure is created during parsing of SQL commands like "ALTER SYSTEM SET shared_buffers = '256MB'" or "ALTER SYSTEM RESET ALL". The ALTER SYSTEM command allows superusers and users with appropriate parameter-level privileges to modify server configuration parameters that persist across PostgreSQL server restarts by writing them to the postgresql.auto.conf file.
 

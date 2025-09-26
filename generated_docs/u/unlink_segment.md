@@ -8,7 +8,10 @@ Removes a segment from the linked list bin that contains it by updating the prev
 
 ## Definition
 
-
+```c
+static void
+unlink_segment(dsa_area *area, dsa_segment_map *segment_map)
+```
 ## Detailed Description
 The  function removes a segment from a bin (doubly-linked list) within the dynamic shared area's memory management system. It handles three pointer update scenarios:
 

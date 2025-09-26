@@ -8,7 +8,10 @@ A utility function that efficiently outputs string data to a PrintfTarget, handl
 
 ## Definition
 
-
+```c
+static void
+dostr(const char *str, int slen, PrintfTarget *target)
+```
 ## Detailed Description
 The  function is a core output routine in PostgreSQL's portable snprintf implementation that handles the efficient transfer of string data to the target buffer or stream. It implements several optimizations:
 

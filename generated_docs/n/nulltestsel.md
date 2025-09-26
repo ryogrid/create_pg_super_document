@@ -8,7 +8,11 @@ Computes the selectivity of NULL test operations (IS NULL and IS NOT NULL) using
 
 ## Definition
 
-
+```c
+Selectivity
+nulltestsel(PlannerInfo *root, NullTestType nulltesttype, Node *arg,
+			int varRelid, JoinType jointype, SpecialJoinInfo *sjinfo)
+```
 ## Detailed Description
 The  function estimates the selectivity of NULL test expressions in SQL queries, specifically handling  and  operations. It provides accurate selectivity estimates based on the null fraction statistics collected during ANALYZE operations.
 

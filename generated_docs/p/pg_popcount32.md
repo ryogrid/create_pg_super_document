@@ -8,7 +8,10 @@ An external interface function for 32-bit population count operations that provi
 
 ## Definition
 
-
+```c
+int
+pg_popcount32(uint32 word)
+```
 ## Detailed Description
 This function serves as the primary external interface for 32-bit population count operations in PostgreSQL. Its implementation varies based on compile-time configuration:
 

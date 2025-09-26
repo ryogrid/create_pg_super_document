@@ -8,7 +8,10 @@ Provides a string representation of a Unix signal number, serving as a portable 
 
 ## Definition
 
-
+```c
+const char *
+pg_strsignal(int signum)
+```
 ## Detailed Description
 The  function is a PostgreSQL-specific wrapper for converting Unix signal numbers to human-readable string representations. It addresses portability issues and provides consistent behavior across different platforms.
 

@@ -8,7 +8,9 @@ VacAttrStatsP is a pointer type to the VacAttrStats structure, used throughout P
 
 ## Definition
 
-
+```c
+typedef struct VacAttrStats *VacAttrStatsP;
+```
 ## Detailed Description
 VacAttrStatsP serves as a convenient pointer type for the VacAttrStats structure, which is the core data structure used during PostgreSQL's ANALYZE operation. This typedef provides a cleaner interface for function signatures that need to pass or receive pointers to VacAttrStats structures.
 

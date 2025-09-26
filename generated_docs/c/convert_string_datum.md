@@ -8,7 +8,10 @@ Converts a string-type Datum into a palloc'd, null-terminated C string, handling
 
 ## Definition
 
-
+```c
+static char *
+convert_string_datum(Datum value, Oid typid, Oid collid, bool *failure)
+```
 ## Detailed Description
 This function serves as a universal converter for PostgreSQL's various string-type datums into standard C strings. It handles the complexity of PostgreSQL's type system by supporting multiple string representations and applying locale-specific transformations when operating in non-C locales.
 

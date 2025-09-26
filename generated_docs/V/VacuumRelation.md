@@ -8,7 +8,15 @@ VacuumRelation is a structure that represents information about a single target 
 
 ## Definition
 
-
+```c
+typedef struct VacuumRelation
+{
+	NodeTag		type;
+	RangeVar   *relation;		/* table name to process, or NULL */
+	Oid			oid;			/* table's OID; InvalidOid if not looked up */
+	List	   *va_cols;		/* list of column names, or NIL for all */
+} VacuumRelation;
+```
 ## Detailed Description
 VacuumRelation encapsulates the target information for VACUUM and ANALYZE commands. It can identify a table either by name (through RangeVar) or by OID. If the OID field is set, it always identifies the table to process. The relation field can be NULL in such cases; when present, it's used only to report failure to open/lock the relation. This dual identification mechanism provides flexibility in how tables are specified and helps with error reporting.
 

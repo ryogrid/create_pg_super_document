@@ -8,7 +8,10 @@ Finalizes SHA-256 hash computation by processing remaining buffered data and ext
 
 ## Definition
 
-
+```c
+void
+pg_sha256_final(pg_sha256_ctx *context, uint8 *digest)
+```
 ## Detailed Description
 The  function completes the SHA-256 hashing process by:
 1. Calling  to process any remaining buffered data and finalize the hash state

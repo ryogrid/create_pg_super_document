@@ -8,7 +8,24 @@ The Unique node is a plan node used to eliminate duplicate tuples from a sorted 
 
 ## Definition
 
+```c
+typedef struct Unique
+{
+	Plan		plan;
 
+	/* number of columns to check for uniqueness */
+	int			numCols;
+
+	/* their indexes in the target list */
+	AttrNumber *uniqColIdx pg_node_attr(array_size(numCols));
+
+	/* equality operators to compare with */
+	Oid		   *uniqOperators pg_node_attr(array_size(numCols));
+
+	/* collations for equality comparisons */
+	Oid		   *uniqCollations pg_node_attr(array_size(numCols));
+} Unique;
+```
 ## Detailed Description
 The Unique node implements duplicate elimination by operating on top of a sorted input stream. It assumes that duplicate tuples arrive consecutively in the sorted order, allowing for efficient duplicate detection through simple comparison with the previously returned tuple. The node only returns the first tuple from each group of duplicates, effectively filtering out all subsequent identical tuples.
 

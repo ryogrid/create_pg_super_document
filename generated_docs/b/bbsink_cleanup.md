@@ -8,7 +8,10 @@ Initiates cleanup and resource deallocation for a bbsink object, ensuring proper
 
 ## Definition
 
-
+```c
+structors for various types of sinks. */
+extern bbsink *bbsink_copystream_new(bool send_to_client);
+```
 ## Detailed Description
 This inline function handles the cleanup phase for base backup sink objects. It delegates to sink-specific implementations to release any resources that would not be automatically freed, such as open file handles, network connections, allocated buffers, or temporary files. The function is designed to be called in two scenarios: after successful backup completion (following bbsink_end_backup) or when a backup is aborted due to an error.
 

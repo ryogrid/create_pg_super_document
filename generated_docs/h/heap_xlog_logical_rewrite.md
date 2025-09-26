@@ -8,7 +8,9 @@ Replays XLOG_HEAP2_REWRITE records during WAL recovery by reconstructing logical
 
 ## Definition
 
-
+```c
+struct dirent *mapping_de;
+```
 ## Detailed Description
 This function handles the replay of XLOG_HEAP2_REWRITE WAL records during crash recovery or standby replay. When a table is rewritten (such as during VACUUM FULL or ALTER TABLE), PostgreSQL needs to maintain mapping information for logical decoding to correctly map old tuple identifiers to new ones. This function reconstructs the logical rewrite mapping files from the WAL record data.
 

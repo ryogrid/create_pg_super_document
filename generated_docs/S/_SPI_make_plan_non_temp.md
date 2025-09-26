@@ -8,7 +8,10 @@ _SPI_make_plan_non_temp converts a temporary SPIPlan into a persistent plan by m
 
 ## Definition
 
-
+```c
+struct and subsidiary data into the new context */
+	newplan = (SPIPlanPtr) palloc0(sizeof(_SPI_plan));
+```
 ## Detailed Description
 This function transforms a "temporary" SPIPlan that exists in the current SPI executor context into an "unsaved" plan that will persist beyond the current SPI operation. The input plan is initially allocated on the stack with all subsidiary data in the executor context, which would be destroyed when _SPI_end_call() is invoked.
 

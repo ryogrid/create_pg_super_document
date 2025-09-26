@@ -8,7 +8,11 @@ LWLockAcquireOrWait attempts to acquire a lightweight lock in the specified mode
 
 ## Definition
 
-
+```c
+structures in shared memory.
+	 */
+	HOLD_INTERRUPTS();
+```
 ## Detailed Description
 This function implements a unique locking semantic where it tries to acquire a lock, but if the lock is held by another process, it waits for the lock to be released and then returns false without acquiring the lock. This is particularly useful in scenarios like WAL flushing where one backend can perform work (like flushing commit records) on behalf of many other backends.
 

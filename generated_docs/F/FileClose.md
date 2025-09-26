@@ -8,7 +8,9 @@ FileClose closes a virtual file descriptor and performs cleanup operations inclu
 
 ## Definition
 
-
+```c
+struct stat filestats;
+```
 ## Detailed Description
 FileClose is a comprehensive file closing function in PostgreSQL's virtual file descriptor system. It handles both regular and temporary files with the following key operations:
 

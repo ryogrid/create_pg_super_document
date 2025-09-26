@@ -8,7 +8,10 @@ GetNumRegisteredWaitEvents is a simple accessor function that returns the number
 
 ## Definition
 
-
+```c
+int
+GetNumRegisteredWaitEvents(WaitEventSet *set)
+```
 ## Detailed Description
 GetNumRegisteredWaitEvents provides a straightforward way to query the number of events that have been registered in a given WaitEventSet. The function simply returns the nevents field from the WaitEventSet structure, which tracks the current count of registered events.
 

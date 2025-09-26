@@ -8,7 +8,10 @@ A fallback implementation for counting the number of 1 bits in a 64-bit unsigned
 
 ## Definition
 
-
+```c
+static inline int
+pg_popcount64_slow(uint64 word)
+```
 ## Detailed Description
 This function provides a portable implementation for population count (popcount) operations on 64-bit values. It serves as a fallback when hardware-optimized popcount instructions are unavailable. The function uses two different approaches based on compiler and platform support:
 

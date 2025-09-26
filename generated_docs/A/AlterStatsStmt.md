@@ -8,7 +8,15 @@ AlterStatsStmt represents a parsed ALTER STATISTICS statement, used to modify pr
 
 ## Definition
 
-
+```c
+typedef struct AlterStatsStmt
+{
+	NodeTag		type;
+	List	   *defnames;		/* qualified name (list of String) */
+	Node	   *stxstattarget;	/* statistics target */
+	bool		missing_ok;		/* skip error if statistics object is missing */
+} AlterStatsStmt;
+```
 ## Detailed Description
 AlterStatsStmt is a parse tree node that represents the SQL ALTER STATISTICS command. It is used to modify existing extended statistics objects, particularly to change their statistics target values which control how much sampling effort PostgreSQL puts into collecting statistics for that object. The statistics target affects the accuracy and cost of statistics collection.
 

@@ -8,7 +8,10 @@ Reports the version update paths that exist for a specified extension, providing
 
 ## Definition
 
-
+```c
+Datum
+pg_extension_update_paths(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL SQL-callable function that analyzes an extension's control file and script directory to determine all possible version update paths. It returns a set of rows showing the source version, target version, and the path of intermediate versions needed to get from one version to another. The function uses Dijkstra's shortest path algorithm internally to find the most efficient update sequences.
 

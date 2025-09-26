@@ -8,7 +8,10 @@ A fundamental output function that writes a single character to a PrintfTarget, 
 
 ## Definition
 
-
+```c
+static void
+dopr_outch(int c, PrintfTarget *target)
+```
 ## Detailed Description
 The  function is the most basic output primitive in PostgreSQL's portable snprintf implementation. It handles the output of a single character while managing buffer boundaries and providing appropriate behavior when the buffer becomes full:
 

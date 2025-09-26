@@ -8,7 +8,10 @@ Reports the amount of shared memory needed to store semaphores for spinlock supp
 
 ## Definition
 
-
+```c
+Size
+SpinlockSemaSize(void)
+```
 ## Detailed Description
 This function calculates and returns the size of shared memory required to allocate semaphores that emulate spinlock functionality on systems where hardware spinlocks are not available or not configured. The function multiplies the number of emulation semaphores by the size of each PGSemaphore structure to determine the total memory requirement.
 

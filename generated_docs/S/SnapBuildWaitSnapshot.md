@@ -8,7 +8,11 @@ Waits for all transactions older than a specified cutoff to finish and optionall
 
 ## Definition
 
-
+```c
+struct SnapBuild on disk in the following manner:
+ *
+ * struct SnapBuildOnDisk;
+```
 ## Detailed Description
 SnapBuildWaitSnapshot is a utility function that implements controlled waiting for specific transactions to complete during snapshot building. It serves both correctness and operational purposes in the logical replication system:
 

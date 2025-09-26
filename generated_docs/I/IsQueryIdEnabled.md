@@ -8,7 +8,10 @@ IsQueryIdEnabled is a static inline function that determines whether query ident
 
 ## Definition
 
-
+```c
+static inline bool
+IsQueryIdEnabled(void)
+```
 ## Detailed Description
 This function provides a centralized way to check if query ID computation should be performed. It evaluates the compute_query_id GUC parameter and returns the appropriate boolean value:
 

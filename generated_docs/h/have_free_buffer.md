@@ -8,7 +8,10 @@ have_free_buffer provides a lockless check to determine if there are any free bu
 
 ## Definition
 
-
+```c
+bool
+have_free_buffer(void)
+```
 ## Detailed Description
 have_free_buffer performs a simple, non-blocking check of the StrategyControl->firstFreeBuffer field to determine if there are free buffers available in the buffer pool. The function returns true if firstFreeBuffer is non-negative (indicating at least one free buffer exists), and false otherwise.
 

@@ -8,7 +8,10 @@ A static validation function that determines whether a Unicode character is vali
 
 ## Definition
 
-
+```c
+static bool
+is_valid_xml_namefirst(pg_wchar c)
+```
 ## Detailed Description
 This function implements the XML specification's rules for valid first characters in XML names. According to XML standards, the first character of an XML name must be either a Letter (base characters or ideographic characters), an underscore ('_'), or a colon (':'). The function uses libxml2's character classification functions xmlIsBaseCharQ() and xmlIsIdeographicQ() to determine if the character falls into the Letter category, then explicitly checks for the underscore and colon characters.
 

@@ -8,7 +8,10 @@ GetLockTagsMethodTable retrieves the lock method table associated with a given L
 
 ## Definition
 
-
+```c
+LockMethod
+GetLockTagsMethodTable(const LOCKTAG *locktag)
+```
 ## Detailed Description
 GetLockTagsMethodTable is a companion function to GetLocksMethodTable that works directly with LOCKTAG structures instead of LOCK structures. It extracts the lock method identifier from a LOCKTAG's locktag_lockmethodid field, validates that the ID is within valid bounds, and returns a pointer to the appropriate LockMethod structure from the global LockMethods array.
 

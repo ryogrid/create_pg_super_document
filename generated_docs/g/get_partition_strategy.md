@@ -8,7 +8,10 @@ Returns the partitioning strategy used by a partitioned table (e.g., range, hash
 
 ## Definition
 
-
+```c
+static inline int
+get_partition_strategy(PartitionKey key)
+```
 ## Detailed Description
 This inline function provides access to the partitioning strategy field of a PartitionKey structure. The partitioning strategy determines how data is distributed across partitions:
 - PARTITION_STRATEGY_RANGE for range partitioning

@@ -8,7 +8,12 @@ Inserts a tuple into a hash table for hash joins, either storing it in the curre
 
 ## Definition
 
-
+```c
+void
+ExecHashTableInsert(HashJoinTable hashtable,
+					TupleTableSlot *slot,
+					uint32 hashvalue)
+```
 ## Detailed Description
 This function handles tuple insertion for non-parallel hash joins by determining whether a tuple belongs in the current batch or should be saved for a later batch. For current batch tuples, it creates a HashJoinTuple, stores it in the appropriate bucket, and manages memory allocation. The function also implements dynamic optimization by tracking tuple density and increasing the optimal bucket count when the NTUP_PER_BUCKET threshold is exceeded. If memory usage becomes excessive, it triggers batch count increases to reduce memory pressure.
 

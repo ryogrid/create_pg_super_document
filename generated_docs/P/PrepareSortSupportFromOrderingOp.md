@@ -8,7 +8,10 @@ Sets up a SortSupport structure using a btree ordering operator ("<" or ">" oper
 
 ## Definition
 
-
+```c
+void
+PrepareSortSupportFromOrderingOp(Oid orderingOp, SortSupport ssup)
+```
 ## Detailed Description
 PrepareSortSupportFromOrderingOp is a public interface function that configures sort support functionality based on a PostgreSQL ordering operator. The function:
 

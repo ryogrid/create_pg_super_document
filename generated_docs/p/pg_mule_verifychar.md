@@ -8,7 +8,10 @@ Verifies the validity of a single multi-byte character in MULE (Multi-lingual Em
 
 ## Definition
 
-
+```c
+static int
+pg_mule_verifychar(const unsigned char *s, int len)
+```
 ## Detailed Description
 This function validates a single MULE-encoded character by performing two key checks:
 1. Determines the expected length of the multi-byte character using 

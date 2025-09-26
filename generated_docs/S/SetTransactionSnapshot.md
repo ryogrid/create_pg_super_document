@@ -8,7 +8,11 @@ Sets the transaction's snapshot from an imported MVCC snapshot, ensuring proper 
 
 ## Definition
 
-
+```c
+static void
+SetTransactionSnapshot(Snapshot sourcesnap, VirtualTransactionId *sourcevxid,
+					   int sourcepid, PGPROC *sourceproc)
+```
 ## Detailed Description
 This function establishes a transaction's snapshot by importing an MVCC snapshot from another transaction or process. It handles the complex task of safely transferring snapshot state while maintaining ACID properties and preventing global xmin from moving backwards. The function is closely tied to GetTransactionSnapshot and must handle all the same considerations as the first-snapshot case.
 

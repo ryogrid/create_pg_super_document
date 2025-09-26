@@ -8,7 +8,10 @@ FilePrefetch initiates asynchronous read-ahead operations on a file range to imp
 
 ## Definition
 
-
+```c
+int
+FilePrefetch(File file, off_t offset, off_t amount, uint32 wait_event_info)
+```
 ## Detailed Description
 FilePrefetch implements asynchronous I/O prefetching for PostgreSQL's virtual file descriptor system. The function uses the POSIX  system call with the  flag to hint to the operating system that the specified range of the file will be needed soon. This allows the OS to proactively read the data into system buffers, potentially reducing future I/O wait times.
 

@@ -8,7 +8,10 @@ Removes trailing directory components from a path string, including trailing sla
 
 ## Definition
 
-
+```c
+static char *
+trim_directory(char *path)
+```
 ## Detailed Description
 This function modifies a path string in-place to remove trailing directory information. It performs several operations in sequence: removes trailing slashes, removes the last pathname component (directory or file name), and removes the slash preceding that component. However, it never removes a leading slash to preserve absolute path semantics.
 

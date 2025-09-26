@@ -8,7 +8,9 @@ Resets GUC configuration entries in an array based on the current user's permiss
 
 ## Definition
 
-
+```c
+struct_array_builtin(&d, 1, TEXTOID);
+```
 ## Detailed Description
 GUCArrayReset selectively removes GUC parameter entries from a configuration array based on the user's privileges. For superusers, it removes all entries (returns NULL). For regular users, it only removes entries for parameters that are either PGC_USERSET (user-settable) or that the user has explicit permission to modify. The function preserves entries that the user lacks permission to change, ensuring proper access control for configuration settings.
 

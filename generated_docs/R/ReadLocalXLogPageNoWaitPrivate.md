@@ -8,7 +8,12 @@ A private data structure used as a callback context for non-blocking WAL (Write-
 
 ## Definition
 
-
+```c
+typedef struct ReadLocalXLogPageNoWaitPrivate
+{
+	bool		end_of_wal;		/* true, when end of WAL is reached */
+} ReadLocalXLogPageNoWaitPrivate;
+```
 ## Detailed Description
 ReadLocalXLogPageNoWaitPrivate is a simple private data structure that serves as callback context for the  function. This struct is designed to communicate state information between the WAL reading infrastructure and its callers when performing non-blocking WAL page reads.
 

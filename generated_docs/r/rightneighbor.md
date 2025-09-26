@@ -8,7 +8,10 @@ The rightneighbor function finds the right neighbor of a given node position in 
 
 ## Definition
 
-
+```c
+static int
+rightneighbor(int x)
+```
 ## Detailed Description
 This function implements a navigation mechanism for binary tree nodes used in PostgreSQL's Free Space Map pages. It moves to the right neighbor of the current node position, with special handling for level boundaries. When reaching the end of a level (the rightmost node), it wraps around to continue at the same level by moving to the parent node's position.
 

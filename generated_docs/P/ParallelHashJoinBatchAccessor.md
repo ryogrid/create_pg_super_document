@@ -8,7 +8,24 @@ ParallelHashJoinBatchAccessor is a structure that provides per-backend state for
 
 ## Definition
 
+```c
+typedef struct ParallelHashJoinBatchAccessor
+{
+	ParallelHashJoinBatch *shared;	/* pointer to shared state */
 
+	/* Per-backend partial counters to reduce contention. */
+	size_t		preallocated;	/* pre-allocated space for this backend */
+	size_t		ntuples;		/* number of tuples */
+	size_t		size;			/* size of partition in memory */
+	size_t		estimated_size; /* size of partition on disk */
+	size_t		old_ntuples;	/* how many tuples before repartitioning? */
+	bool		at_least_one_chunk; /* has this backend allocated a chunk? */
+	bool		outer_eof;		/* has this process hit end of batch? */
+	bool		done;			/* flag to remember that a batch is done */
+	SharedTuplestoreAccessor *inner_tuples;
+	SharedTuplestoreAccessor *outer_tuples;
+} ParallelHashJoinBatchAccessor;
+```
 ## Detailed Description
 ParallelHashJoinBatchAccessor serves as a per-backend interface to shared parallel hash join batch data. In parallel hash joins, multiple worker processes need to coordinate access to shared batches of data while maintaining their own local state. This structure provides that coordination by maintaining both a pointer to shared batch state and local counters that track this backend's contribution to the batch.
 

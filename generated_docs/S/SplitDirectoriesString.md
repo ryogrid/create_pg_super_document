@@ -8,7 +8,11 @@ Parses a string containing file/directory paths separated by a delimiter, handli
 
 ## Definition
 
-
+```c
+bool
+SplitDirectoriesString(char *rawstring, char separator,
+					   List **namelist)
+```
 ## Detailed Description
 The  function is a specialized parsing utility designed for processing lists of file and directory paths. Unlike , this function is tailored for filesystem paths rather than SQL identifiers, implementing different parsing rules appropriate for pathnames.
 

@@ -8,7 +8,15 @@ EventTriggerData is a structure that encapsulates information passed to event tr
 
 ## Definition
 
-
+```c
+typedef struct EventTriggerData
+{
+	NodeTag		type;
+	const char *event;			/* event name */
+	Node	   *parsetree;		/* parse tree */
+	CommandTag	tag;
+} EventTriggerData;
+```
 ## Detailed Description
 EventTriggerData serves as a parameter structure for event trigger functions in PostgreSQL. Event triggers are special stored procedures that automatically execute in response to specific database events like DDL operations (CREATE, ALTER, DROP), user login events, or table rewrite operations. This structure provides the event trigger function with essential context about the event that caused its invocation.
 

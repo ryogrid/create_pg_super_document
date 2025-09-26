@@ -8,7 +8,10 @@ GetLocalVictimBuffer selects and prepares a local buffer for reuse using a clock
 
 ## Definition
 
-
+```c
+static Buffer
+GetLocalVictimBuffer(void)
+```
 ## Detailed Description
 GetLocalVictimBuffer implements buffer replacement policy for local buffers using a clock sweep algorithm similar to the main buffer manager. The function searches for an unpinned buffer with zero usage count, decrementing usage counts as it encounters buffers that are still 'warm' in the cache. When a suitable victim is found, it handles several critical tasks:
 

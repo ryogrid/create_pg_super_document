@@ -8,7 +8,17 @@ A parse tree node structure representing an ALTER SUBSCRIPTION SQL statement, wh
 
 ## Definition
 
-
+```c
+typedef struct AlterSubscriptionStmt
+{
+	NodeTag		type;
+	AlterSubscriptionType kind; /* ALTER_SUBSCRIPTION_OPTIONS, etc */
+	char	   *subname;		/* Name of the subscription */
+	char	   *conninfo;		/* Connection string to publisher */
+	List	   *publication;	/* One or more publication to subscribe to */
+	List	   *options;		/* List of DefElem nodes */
+} AlterSubscriptionStmt;
+```
 ## Detailed Description
 AlterSubscriptionStmt represents the parsed form of ALTER SUBSCRIPTION statements, which allow modification of existing subscriptions in PostgreSQL's logical replication framework. This structure supports various types of subscription alterations through the  field, including:
 

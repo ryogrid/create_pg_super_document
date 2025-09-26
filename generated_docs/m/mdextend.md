@@ -8,7 +8,11 @@ Extends a relation by adding a block at the specified position, typically used w
 
 ## Definition
 
-
+```c
+void
+mdextend(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+		 const void *buffer, bool skipFsync)
+```
 ## Detailed Description
 The `mdextend` function is responsible for extending a relation by writing a new block at the specified position. It is specifically designed for cases where the block number is at or beyond the current EOF (end-of-file). The function handles the creation of new segments if necessary, validates the block number to prevent overflow, performs the actual write operation, and manages fsync registration for durability. Unlike `mdwrite`, this function is optimized for extending relations and assumes that writing beyond EOF will fill intervening space with zeroes. It includes comprehensive error handling for disk space issues and write failures.
 

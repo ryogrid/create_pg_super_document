@@ -8,7 +8,10 @@ Searches the active timeout array to find the index of a timeout with the specif
 
 ## Definition
 
-
+```c
+static int
+find_active_timeout(TimeoutId id)
+```
 ## Detailed Description
 This internal helper function searches through the  array to locate a timeout entry with the given . The function performs a linear search through all active timeouts and returns the array index of the matching timeout entry. If no matching timeout is found, the function returns -1.
 

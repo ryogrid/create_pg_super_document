@@ -8,7 +8,17 @@ Recursively creates a tree structure of cloned successor states while handling c
 
 ## Definition
 
-
+```c
+static void
+clonesuccessorstates(struct nfa *nfa,
+					 struct state *ssource,
+					 struct state *sclone,
+					 struct state *spredecessor,
+					 struct arc *refarc,
+					 char *curdonemap,
+					 char *outerdonemap,
+					 int nstates)
+```
 ## Detailed Description
 This function implements the core cloning logic for breaking constraint loops by building a tree of successor states. It intelligently merges equivalent states and avoids infinite recursion through sophisticated state tracking mechanisms.
 

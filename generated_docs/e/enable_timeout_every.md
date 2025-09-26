@@ -8,7 +8,10 @@ Enables a timeout to fire periodically at regular intervals, with a specified de
 
 ## Definition
 
-
+```c
+void
+enable_timeout_every(TimeoutId id, TimestampTz fin_time, int delay_ms)
+```
 ## Detailed Description
 This function configures a timeout to trigger repeatedly at regular intervals. Unlike one-time timeouts, this creates a periodic timer that continues to fire every delay_ms milliseconds starting from fin_time. The function temporarily disables alarm interrupts for thread safety during configuration, sets up the timeout using the internal enable_timeout mechanism, and then reschedules the system alarm to accommodate the new periodic timeout.
 

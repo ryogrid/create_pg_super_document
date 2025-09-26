@@ -8,7 +8,10 @@ FreeDir closes a directory handle that was previously opened by AllocateDir and 
 
 ## Definition
 
-
+```c
+int
+FreeDir(DIR *dir)
+```
 ## Detailed Description
 FreeDir is responsible for properly closing DIR handles that were allocated through PostgreSQL's file descriptor management system via AllocateDir. The function searches through the internal allocatedDescs array to find the descriptor corresponding to the provided directory pointer. If found, it calls FreeDesc to properly clean up the descriptor and close the directory. If the directory handle was not obtained through AllocateDir, it logs a warning and attempts to close it directly using closedir.
 

@@ -8,7 +8,10 @@ Internal function that executes all registered reset callbacks for a memory cont
 
 ## Definition
 
-
+```c
+static void
+MemoryContextCallResetCallbacks(MemoryContext context)
+```
 ## Detailed Description
 This function is responsible for calling all registered reset callbacks associated with a memory context. It implements a safe callback execution pattern by removing each callback from the context's callback list before executing it. This ensures that if an error occurs during callback execution, the callback won't be called again during subsequent context reset or deletion operations.
 

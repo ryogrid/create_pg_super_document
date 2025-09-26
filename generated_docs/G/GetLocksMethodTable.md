@@ -8,7 +8,10 @@ GetLocksMethodTable retrieves the lock method table associated with a given lock
 
 ## Definition
 
-
+```c
+LockMethod
+GetLocksMethodTable(const LOCK *lock)
+```
 ## Detailed Description
 GetLocksMethodTable is a simple accessor function that extracts the lock method identifier from a LOCK structure and returns the corresponding LockMethod from the global LockMethods array. The function uses the LOCK_LOCKMETHOD macro to extract the lockmethodid field from the lock's tag, validates that the ID is within valid bounds, and returns a pointer to the appropriate LockMethod structure.
 

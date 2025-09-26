@@ -8,7 +8,10 @@ Function that initializes the PostgreSQL cumulative statistics system during sta
 
 ## Definition
 
-
+```c
+void
+StatsShmemInit(void)
+```
 ## Detailed Description
 This function initializes the shared memory statistics system during PostgreSQL startup. It creates and initializes the main statistics control structure in shared memory, sets up a dynamic shared area (DSA) for the statistics hash table, and initializes various locks for different statistics components. The function behaves differently in postmaster vs. backend processes - the postmaster creates all structures while backends just attach to existing ones.
 

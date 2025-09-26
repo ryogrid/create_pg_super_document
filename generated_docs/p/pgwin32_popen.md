@@ -8,7 +8,10 @@ A Windows-specific wrapper function that opens a pipe to execute system commands
 
 ## Definition
 
-
+```c
+FILE *
+pgwin32_popen(const char *command, const char *type)
+```
 ## Detailed Description
 The  function is a Windows-specific implementation that wraps the Microsoft-specific  function. Like its companion , this function addresses the Windows command-line parsing issues by automatically enclosing the entire command string in double quotes. This prevents problems with spaces in paths or command arguments that could cause the command to be parsed incorrectly.
 

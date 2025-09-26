@@ -8,7 +8,11 @@ A case-insensitive keyword lookup function that searches for a given word within
 
 ## Definition
 
-
+```c
+int
+ScanKeywordLookup(const char *str,
+				  const ScanKeywordList *keywords)
+```
 ## Detailed Description
 ScanKeywordLookup performs case-insensitive keyword matching against a predefined list of SQL keywords. The function uses a perfect hash function to efficiently locate potential matches and then performs character-by-character comparison to verify the match. The implementation deliberately uses ASCII-only case conversion (only translating 'A'-'Z' to 'a'-'z') to comply with SQL99 specification requirements, avoiding locale-specific case conversions that could produce incorrect results in some locales (such as Turkish).
 

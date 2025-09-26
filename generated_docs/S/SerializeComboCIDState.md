@@ -8,7 +8,10 @@ SerializeComboCIDState serializes the current combo command ID state into a memo
 
 ## Definition
 
-
+```c
+void
+SerializeComboCIDState(Size maxsize, char *start_address)
+```
 ## Detailed Description
 SerializeComboCIDState is responsible for serializing the combo command ID state into a contiguous memory buffer that can be shared with parallel worker processes. This function is crucial for parallel processing scenarios where worker processes need access to the same combo CID state as the leader process.
 

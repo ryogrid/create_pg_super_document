@@ -8,7 +8,10 @@ Searches through segment bins to find a segment that can satisfy a memory alloca
 
 ## Definition
 
-
+```c
+static dsa_segment_map *
+get_best_segment(dsa_area *area, size_t npages)
+```
 ## Detailed Description
 The  function implements a bin-based search strategy to locate a segment with sufficient contiguous free pages. It starts searching from the smallest bin that might contain segments with the required number of contiguous pages and iterates through larger bins if necessary.
 

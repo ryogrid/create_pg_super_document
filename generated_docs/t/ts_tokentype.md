@@ -8,7 +8,11 @@ An enumeration type that defines the token types returned by tsquery tokenizer f
 
 ## Definition
 
-
+```c
+typedef ts_tokentype (*ts_tokenizer) (TSQueryParserState state, int8 *operator,
+									  int *lenval, char **strval,
+									  int16 *weight, bool *prefix);
+```
 ## Detailed Description
 The  enum is used by the PostgreSQL text search query parser to categorize tokens encountered while parsing tsquery input strings. It serves as the return type for tokenizer functions that implement different query syntaxes (standard and websearch). Each token type represents a different syntactic element in the query language, from operands and operators to parentheses and end-of-input markers.
 

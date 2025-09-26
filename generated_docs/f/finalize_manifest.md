@@ -8,7 +8,11 @@ Completes the backup manifest by adding WAL range information, computing the man
 
 ## Definition
 
-
+```c
+void
+finalize_manifest(manifest_writer *mwriter,
+				  manifest_wal_range *first_wal_range)
+```
 ## Detailed Description
 This function completes the backup manifest generation by finalizing the JSON structure and adding remaining metadata. It terminates the files array, adds a WAL-Ranges section containing LSN range information for each timeline, computes and embeds a SHA256 checksum of the manifest content, and closes the JSON structure. The function ensures the manifest is properly formatted and includes all necessary metadata for backup validation.
 

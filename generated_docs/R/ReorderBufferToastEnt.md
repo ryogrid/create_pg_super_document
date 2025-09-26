@@ -8,7 +8,19 @@ ReorderBufferToastEnt is a structure that manages TOAST (The Oversized-Attribute
 
 ## Definition
 
-
+```c
+typedef struct ReorderBufferToastEnt
+{
+	Oid			chunk_id;		/* toast_table.chunk_id */
+	int32		last_chunk_seq; /* toast_table.chunk_seq of the last chunk we
+								 * have seen */
+	Size		num_chunks;		/* number of chunks we've already seen */
+	Size		size;			/* combined size of chunks seen */
+	dlist_head	chunks;			/* linked list of chunks */
+	struct varlena *reconstructed;	/* reconstructed varlena now pointed to in
+									 * main tup */
+} ReorderBufferToastEnt;
+```
 ## Detailed Description
 This structure is responsible for managing the reconstruction of TOAST data during logical replication. When large attributes are stored using PostgreSQL's TOAST mechanism, they are split into multiple chunks. During logical decoding, these chunks need to be reassembled in the correct order to reconstruct the original value. The ReorderBufferToastEnt tracks the state of this reconstruction process, collecting chunks as they are encountered and maintaining metadata about the reconstruction progress.
 

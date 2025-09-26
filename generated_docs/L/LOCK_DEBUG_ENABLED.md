@@ -8,7 +8,10 @@ LOCK_DEBUG_ENABLED is an inline static function that determines whether lock deb
 
 ## Definition
 
-
+```c
+inline static bool
+LOCK_DEBUG_ENABLED(const LOCKTAG *tag)
+```
 ## Detailed Description
 LOCK_DEBUG_ENABLED checks whether debugging should be enabled for a particular lock by examining the lock's tag and comparing it against configured debugging parameters. The function returns true if either of two conditions are met:
 

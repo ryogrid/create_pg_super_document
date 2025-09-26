@@ -8,7 +8,219 @@ Finds applicable multivariate ndistinct statistics for a given list of variables
 
 ## Definition
 
+```c
+struct the output values.
+	 */
+	if (stats)
+	{
+		int			i;
+		List	   *newlist = NIL;
+		MVNDistinctItem *item = NULL;
+		ListCell   *lc2;
+		Bitmapset  *matched = NULL;
+		AttrNumber	attnum_offset;
 
+		/*
+		 * How much we need to offset the attnums? If there are no
+		 * expressions, no offset is needed. Otherwise offset enough to move
+		 * the lowest one (which is equal to number of expressions) to 1.
+		 */
+		if (matched_info->exprs)
+			attnum_offset = (list_length(matched_info->exprs) + 1);
+		else
+			attnum_offset = 0;
+
+		/* see what actually matched */
+		foreach(lc2, *varinfos)
+		{
+			ListCell   *lc3;
+			int			idx;
+			bool		found = false;
+
+			GroupVarInfo *varinfo = (GroupVarInfo *) lfirst(lc2);
+
+			/*
+			 * Process a simple Var expression, by matching it to keys
+			 * directly. If there's a matching expression, we'll try matching
+			 * it later.
+			 */
+			if (IsA(varinfo->var, Var))
+			{
+				AttrNumber	attnum = ((Var *) varinfo->var)->varattno;
+
+				/*
+				 * Ignore expressions on system attributes. Can't rely on the
+				 * bms check for negative values.
+				 */
+				if (!AttrNumberIsForUserDefinedAttr(attnum))
+					continue;
+
+				/* Is the variable covered by the statistics object? */
+				if (!bms_is_member(attnum, matched_info->keys))
+					continue;
+
+				attnum = attnum + attnum_offset;
+
+				/* ensure sufficient offset */
+				Assert(AttrNumberIsForUserDefinedAttr(attnum));
+
+				matched = bms_add_member(matched, attnum);
+
+				found = true;
+			}
+
+			/*
+			 * XXX Maybe we should allow searching the expressions even if we
+			 * found an attribute matching the expression? That would handle
+			 * trivial expressions like "(a)" but it seems fairly useless.
+			 */
+			if (found)
+				continue;
+
+			/* expression - see if it's in the statistics object */
+			idx = 0;
+			foreach(lc3, matched_info->exprs)
+			{
+				Node	   *expr = (Node *) lfirst(lc3);
+
+				if (equal(varinfo->var, expr))
+				{
+					AttrNumber	attnum = -(idx + 1);
+
+					attnum = attnum + attnum_offset;
+
+					/* ensure sufficient offset */
+					Assert(AttrNumberIsForUserDefinedAttr(attnum));
+
+					matched = bms_add_member(matched, attnum);
+
+					/* there should be just one matching expression */
+					break;
+				}
+
+				idx++;
+			}
+		}
+
+		/* Find the specific item that exactly matches the combination */
+		for (i = 0; i < stats->nitems; i++)
+		{
+			int			j;
+			MVNDistinctItem *tmpitem = &stats->items[i];
+
+			if (tmpitem->nattributes != bms_num_members(matched))
+				continue;
+
+			/* assume it's the right item */
+			item = tmpitem;
+
+			/* check that all item attributes/expressions fit the match */
+			for (j = 0; j < tmpitem->nattributes; j++)
+			{
+				AttrNumber	attnum = tmpitem->attributes[j];
+
+				/*
+				 * Thanks to how we constructed the matched bitmap above, we
+				 * can just offset all attnums the same way.
+				 */
+				attnum = attnum + attnum_offset;
+
+				if (!bms_is_member(attnum, matched))
+				{
+					/* nah, it's not this item */
+					item = NULL;
+					break;
+				}
+			}
+
+			/*
+			 * If the item has all the matched attributes, we know it's the
+			 * right one - there can't be a better one. matching more.
+			 */
+			if (item)
+				break;
+		}
+
+		/*
+		 * Make sure we found an item. There has to be one, because ndistinct
+		 * statistics includes all combinations of attributes.
+		 */
+		if (!item)
+			elog(ERROR, "corrupt MVNDistinct entry");
+
+		/* Form the output varinfo list, keeping only unmatched ones */
+		foreach(lc, *varinfos)
+		{
+			GroupVarInfo *varinfo = (GroupVarInfo *) lfirst(lc);
+			ListCell   *lc3;
+			bool		found = false;
+
+			/*
+			 * Let's look at plain variables first, because it's the most
+			 * common case and the check is quite cheap. We can simply get the
+			 * attnum and check (with an offset) matched bitmap.
+			 */
+			if (IsA(varinfo->var, Var))
+			{
+				AttrNumber	attnum = ((Var *) varinfo->var)->varattno;
+
+				/*
+				 * If it's a system attribute, we're done. We don't support
+				 * extended statistics on system attributes, so it's clearly
+				 * not matched. Just keep the expression and continue.
+				 */
+				if (!AttrNumberIsForUserDefinedAttr(attnum))
+				{
+					newlist = lappend(newlist, varinfo);
+					continue;
+				}
+
+				/* apply the same offset as above */
+				attnum += attnum_offset;
+
+				/* if it's not matched, keep the varinfo */
+				if (!bms_is_member(attnum, matched))
+					newlist = lappend(newlist, varinfo);
+
+				/* The rest of the loop deals with complex expressions. */
+				continue;
+			}
+
+			/*
+			 * Process complex expressions, not just simple Vars.
+			 *
+			 * First, we search for an exact match of an expression. If we
+			 * find one, we can just discard the whole GroupVarInfo, with all
+			 * the variables we extracted from it.
+			 *
+			 * Otherwise we inspect the individual vars, and try matching it
+			 * to variables in the item.
+			 */
+			foreach(lc3, matched_info->exprs)
+			{
+				Node	   *expr = (Node *) lfirst(lc3);
+
+				if (equal(varinfo->var, expr))
+				{
+					found = true;
+					break;
+				}
+			}
+
+			/* found exact match, skip */
+			if (found)
+				continue;
+
+			newlist = lappend(newlist, varinfo);
+		}
+
+		*varinfos = newlist;
+		*ndistinct = item->ndistinct;
+		return true;
+	}
+
+	return false;
+```
 ## Detailed Description
 This function searches through extended statistics objects for the relation to find the most applicable multivariate ndistinct statistic that matches the given variables and expressions. It performs the following steps:
 

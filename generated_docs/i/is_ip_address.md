@@ -8,7 +8,9 @@ A utility function that determines whether a given hostname string represents a 
 
 ## Definition
 
-
+```c
+struct in_addr dummy4;
+```
 ## Detailed Description
 This function validates whether the provided hostname string is a valid IP address format. It supports both IPv4 and IPv6 address validation:
 

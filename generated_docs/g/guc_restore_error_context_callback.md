@@ -8,7 +8,10 @@ An error context callback function that provides detailed context information wh
 
 ## Definition
 
-
+```c
+static void
+guc_restore_error_context_callback(void *arg)
+```
 ## Detailed Description
 The `guc_restore_error_context_callback` function serves as an error context callback for PostgreSQL's error reporting system. When errors occur during the restoration of GUC (Grand Unified Configuration) state in parallel worker processes, this callback provides additional context information to help with debugging and troubleshooting.
 

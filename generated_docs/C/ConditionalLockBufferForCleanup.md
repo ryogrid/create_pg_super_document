@@ -8,7 +8,10 @@ ConditionalLockBufferForCleanup is a non-blocking version of LockBufferForCleanu
 
 ## Definition
 
-
+```c
+bool
+ConditionalLockBufferForCleanup(Buffer buffer)
+```
 ## Detailed Description
 This function provides a non-blocking alternative to LockBufferForCleanup for buffer cleanup operations. It performs the same safety checks (ensuring exclusive lock and pin count = 1) but does not wait if the conditions cannot be satisfied immediately. The function is designed for scenarios where the caller cannot afford to block and needs to know immediately whether cleanup is possible.
 

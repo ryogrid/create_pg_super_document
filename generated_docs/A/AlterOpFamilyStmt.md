@@ -8,7 +8,16 @@ AlterOpFamilyStmt represents an ALTER OPERATOR FAMILY statement in the PostgreSQ
 
 ## Definition
 
-
+```c
+typedef struct AlterOpFamilyStmt
+{
+	NodeTag		type;
+	List	   *opfamilyname;	/* qualified name (list of String) */
+	char	   *amname;			/* name of index AM opfamily is for */
+	bool		isDrop;			/* ADD or DROP the items? */
+	List	   *items;			/* List of CreateOpClassItem nodes */
+} AlterOpFamilyStmt;
+```
 ## Detailed Description
 AlterOpFamilyStmt is a parse tree node that represents the ALTER OPERATOR FAMILY SQL statement. This statement allows modification of existing operator families by adding or dropping operators, support functions, or storage types. The statement can perform either ADD operations (to include new items in the family) or DROP operations (to remove existing items from the family).
 

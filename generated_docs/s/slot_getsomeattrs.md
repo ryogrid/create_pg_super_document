@@ -8,7 +8,10 @@ A lightweight inline function that ensures a TupleTableSlot has valid values for
 
 ## Definition
 
-
+```c
+static inline void
+slot_getsomeattrs(TupleTableSlot *slot, int attnum)
+```
 ## Detailed Description
 This function is a performance-optimized wrapper around  that checks if the slot already has valid values for the requested attributes before calling the more expensive internal function. It forces the entries of the slot's Datum/isnull arrays to be valid at least up through the -th entry. The function only calls the internal implementation if , providing an efficient fast-path for cases where the required attributes are already materialized.
 

@@ -8,7 +8,10 @@ Encodes an ItemPointer (TID) as a 64-bit integer value that preserves the sortin
 
 ## Definition
 
-
+```c
+static inline int64
+itemptr_encode(ItemPointer itemptr)
+```
 ## Detailed Description
 The  function converts an ItemPointer (tuple identifier) into a 64-bit integer representation while maintaining the same sorting characteristics as the original TID values. This encoding is used primarily during index validation operations where faster comparison of TID values is beneficial.
 

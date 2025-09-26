@@ -8,7 +8,10 @@ Appends a database name to a base connection string to build a complete PostgreS
 
 ## Definition
 
-
+```c
+static char *
+concat_conninfo_dbname(const char *conninfo, const char *dbname)
+```
 ## Detailed Description
 The  function is a utility for constructing complete PostgreSQL connection strings by adding a database name to a base connection string. This design pattern is used in pg_createsubscriber because the database name is the only parameter that typically changes between different connection attempts, while other connection parameters (host, port, user credentials, etc.) remain constant.
 

@@ -8,7 +8,17 @@ LOCALPREDICATELOCK represents a local optimization copy of predicate lock data, 
 
 ## Definition
 
+```c
+typedef struct LOCALPREDICATELOCK
+{
+	/* hash key */
+	PREDICATELOCKTARGETTAG tag; /* unique identifier of lockable object */
 
+	/* data */
+	bool		held;			/* is lock held, or just its children?	*/
+	int			childLocks;		/* number of child locks currently held */
+} LOCALPREDICATELOCK;
+```
 ## Detailed Description
 LOCALPREDICATELOCK is an optimization structure that maintains a local, per-transaction copy of predicate lock information to avoid expensive shared memory operations. Each serializable transaction creates its own local hash table containing these structures, which mirror information also stored in the global PREDICATELOCK table. The primary purpose is to efficiently determine when multiple fine-grained locks should be promoted to a single coarser-grained lock. Since this data is not protected by locks and serves only as an optimization heuristic, it is allowed to become slightly inconsistent in corner cases where maintaining exact synchronization would be too expensive. The hash table is created when the transaction acquires its serializable snapshot and destroyed when the transaction completes.
 

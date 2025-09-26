@@ -8,7 +8,16 @@ AlterForeignServerStmt represents the parsed representation of an ALTER FOREIGN 
 
 ## Definition
 
-
+```c
+typedef struct AlterForeignServerStmt
+{
+	NodeTag		type;
+	char	   *servername;		/* server name */
+	char	   *version;		/* optional server version */
+	List	   *options;		/* generic options to server */
+	bool		has_version;	/* version specified */
+} AlterForeignServerStmt;
+```
 ## Detailed Description
 AlterForeignServerStmt is a parse tree node that encapsulates the information needed to alter an existing foreign server. This structure allows modification of server configuration without recreating the server or affecting dependent foreign tables. The structure is more streamlined than its CREATE counterpart, focusing on the modifiable aspects of a foreign server.
 

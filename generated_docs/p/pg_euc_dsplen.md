@@ -8,7 +8,10 @@ Calculates the display length (number of screen columns) for EUC (Extended Unix 
 
 ## Definition
 
-
+```c
+static inline int
+pg_euc_dsplen(const unsigned char *s)
+```
 ## Detailed Description
 This function determines how many screen columns an EUC-encoded character will occupy when displayed. EUC encoding is a variable-width character encoding used primarily for Asian languages. The function handles different types of EUC characters:
 

@@ -8,7 +8,10 @@ Performs early deadlock detection in Hot Standby by checking if the current proc
 
 ## Definition
 
-
+```c
+void
+CheckRecoveryConflictDeadlock(void)
+```
 ## Detailed Description
 This function implements a pessimistic early deadlock detection mechanism specifically for Hot Standby scenarios. It prevents deadlocks that can occur when a user transaction holds buffer pins that the startup process needs, while simultaneously trying to wait for locks that can only be cleared by the startup process completing its recovery work.
 

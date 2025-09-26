@@ -8,7 +8,10 @@ Appends a pointer to a PostgreSQL List data structure, returning a pointer to th
 
 ## Definition
 
-
+```c
+List *
+lappend(List *list, void *datum)
+```
 ## Detailed Description
 The  function is a fundamental list manipulation function in PostgreSQL that appends a pointer element to the end of a List. It handles both the case where the list is initially NIL (empty) and when the list already contains elements. The function may or may not destructively modify the original list structure, so callers must always use the returned value rather than continuing to use the original list pointer.
 

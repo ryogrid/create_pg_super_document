@@ -8,7 +8,10 @@ Checks if a specific signal reason has been set by a child process and atomicall
 
 ## Definition
 
-
+```c
+bool
+CheckPostmasterSignal(PMSignalReason reason)
+```
 ## Detailed Description
 CheckPostmasterSignal is the counterpart to SendPostmasterSignal, designed to be called by the postmaster process when it receives a SIGUSR1 signal. The function performs an atomic test-and-clear operation on the specified signal flag in shared memory:
 

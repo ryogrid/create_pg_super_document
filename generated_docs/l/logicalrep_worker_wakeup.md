@@ -8,7 +8,10 @@ Wakes up a logical replication worker for a specified subscription and relation 
 
 ## Definition
 
-
+```c
+void
+logicalrep_worker_wakeup(Oid subid, Oid relid)
+```
 ## Detailed Description
 This function provides a public interface for waking up logical replication workers that may be blocked waiting for work or events. It locates the appropriate worker using subscription and relation identifiers, then uses the worker's latch to signal that it should resume processing. This is commonly used to notify workers of new data availability, configuration changes, or other events that require immediate attention.
 

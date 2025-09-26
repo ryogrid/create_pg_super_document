@@ -8,7 +8,10 @@ IsTLHistoryFileName is an inline function that determines whether a given filena
 
 ## Definition
 
-
+```c
+static inline bool
+IsTLHistoryFileName(const char *fname)
+```
 ## Detailed Description
 This function validates whether a filename matches the expected format for timeline history files in PostgreSQL. It performs three specific checks to ensure the filename follows the exact pattern "TTTTTTTT.history" where:
 1. The total length equals exactly 8 characters plus the length of ".history"

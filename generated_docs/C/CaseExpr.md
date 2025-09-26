@@ -8,7 +8,20 @@ CaseExpr represents a SQL CASE expression, supporting both simple and searched C
 
 ## Definition
 
-
+```c
+typedef struct CaseExpr
+{
+	Expr		xpr;
+	/* type of expression result */
+	Oid			casetype pg_node_attr(query_jumble_ignore);
+	/* OID of collation, or InvalidOid if none */
+	Oid			casecollid pg_node_attr(query_jumble_ignore);
+	Expr	   *arg;			/* implicit equality comparison argument */
+	List	   *args;			/* the arguments (list of WHEN clauses) */
+	Expr	   *defresult;		/* the default result (ELSE clause) */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} CaseExpr;
+```
 ## Detailed Description
 CaseExpr implements SQL CASE expressions, which provide conditional logic within queries. PostgreSQL supports two distinct forms:
 

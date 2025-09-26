@@ -8,7 +8,10 @@ Builds a QTNode tree structure for a tsquery given in QueryItem array format, pr
 
 ## Definition
 
-
+```c
+QTNode *
+QT2QTN(QueryItem *in, char *operand)
+```
 ## Detailed Description
 QT2QTN is a recursive function that converts a flat QueryItem array representation of a text search query into a hierarchical QTNode tree structure. This transformation is essential for tsquery processing, as it creates a tree that can be efficiently traversed and manipulated for various text search operations.
 

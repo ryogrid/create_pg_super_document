@@ -8,7 +8,10 @@ Initializes a PQExpBufferData structure to represent an empty string by allocati
 
 ## Definition
 
-
+```c
+void
+initPQExpBuffer(PQExpBuffer str)
+```
 ## Detailed Description
 This function initializes a PQExpBufferData structure that has previously undefined contents. It attempts to allocate an initial buffer of  bytes and properly sets up all structure fields. The function handles two scenarios:
 

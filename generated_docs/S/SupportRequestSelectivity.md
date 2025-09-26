@@ -8,7 +8,25 @@ SupportRequestSelectivity is a structure that enables support functions to provi
 
 ## Definition
 
+```c
+typedef struct SupportRequestSelectivity
+{
+	NodeTag		type;
 
+	/* Input fields: */
+	struct PlannerInfo *root;	/* Planner's infrastructure */
+	Oid			funcid;			/* function we are inquiring about */
+	List	   *args;			/* pre-simplified arguments to function */
+	Oid			inputcollid;	/* function's input collation */
+	bool		is_join;		/* is this a join or restriction case? */
+	int			varRelid;		/* if restriction, RTI of target relation */
+	JoinType	jointype;		/* if join, outer join type */
+	struct SpecialJoinInfo *sjinfo; /* if outer join, info about join */
+
+	/* Output fields: */
+	Selectivity selectivity;	/* returned selectivity estimate */
+} SupportRequestSelectivity;
+```
 ## Detailed Description
 The SupportRequestSelectivity structure allows PostgreSQL's planner to obtain custom selectivity estimates from support functions for boolean-returning functions used in WHERE clauses. This mechanism unifies the APIs for both restriction and join selectivity estimation into a single request type.
 

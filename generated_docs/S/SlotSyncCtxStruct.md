@@ -8,7 +8,16 @@ SlotSyncCtxStruct is a shared memory structure that controls slot synchronizatio
 
 ## Definition
 
-
+```c
+typedef struct SlotSyncCtxStruct
+{
+	pid_t		pid;
+	bool		stopSignaled;
+	bool		syncing;
+	time_t		last_start_time;
+	slock_t		mutex;
+} SlotSyncCtxStruct;
+```
 ## Detailed Description
 SlotSyncCtxStruct serves as a coordination mechanism for slot synchronization operations in PostgreSQL logical replication. This structure is stored in shared memory and provides process coordination, state management, and race condition prevention during slot sync operations. It is particularly critical during standby server promotion when the slot sync worker needs to be cleanly shut down.
 

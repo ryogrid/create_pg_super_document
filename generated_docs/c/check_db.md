@@ -8,7 +8,10 @@ Validates whether a database/role combination matches a list of authentication t
 
 ## Definition
 
-
+```c
+static bool
+check_db(const char *dbname, const char *role, Oid roleid, List *tokens)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's Host-Based Authentication (HBA) system that determines if a given database and role combination matches any of the database specifications in an HBA entry. It processes a list of AuthToken objects, checking each one sequentially until a match is found.
 

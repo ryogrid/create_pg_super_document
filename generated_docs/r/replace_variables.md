@@ -8,7 +8,10 @@ A static function that processes SQL text to replace named parameters (e.g., :pa
 
 ## Definition
 
-
+```c
+static bool
+replace_variables(char **text, int lineno)
+```
 ## Detailed Description
 The `replace_variables` function transforms SQL statements containing named parameters into PostgreSQL's numbered parameter format. It scans through the input text character by character, identifying parameter markers (: or ?) while properly handling string literals to avoid replacing parameters within quoted strings. When a parameter is found, it replaces the parameter name with a numbered placeholder ($1, $2, etc.) and reallocates the string to accommodate the new format.
 

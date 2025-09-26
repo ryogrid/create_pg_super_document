@@ -8,7 +8,11 @@ Locates another PostgreSQL executable in the same directory as the current progr
 
 ## Definition
 
-
+```c
+int
+find_other_exec(const char *argv0, const char *target,
+				const char *versionstr, char *retpath)
+```
 ## Detailed Description
 The  function is used to locate and verify other PostgreSQL executables that should be co-located with the current program. It performs the following steps:
 

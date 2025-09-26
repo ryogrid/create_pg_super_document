@@ -8,7 +8,37 @@ JsonbIterState is an enumeration that defines the current state of iteration thr
 
 ## Definition
 
+```c
+typedef struct JsonbIterator
+{
+	/* Container being iterated */
+	JsonbContainer *container;
+	uint32		nElems;			/* Number of elements in children array (will
+								 * be nPairs for objects) */
+	bool		isScalar;		/* Pseudo-array scalar value? */
+	JEntry	   *children;		/* JEntrys for child nodes */
+	/* Data proper.  This points to the beginning of the variable-length data */
+	char	   *dataProper;
 
+	/* Current item in buffer (up to nElems) */
+	int			curIndex;
+
+	/* Data offset corresponding to current item */
+	uint32		curDataOffset;
+
+	/*
+	 * If the container is an object, we want to return keys and values
+	 * alternately; so curDataOffset points to the current key, and
+	 * curValueOffset points to the current value.
+	 */
+	uint32		curValueOffset;
+
+	/* Private state */
+	JsonbIterState state;
+
+	struct JsonbIterator *parent;
+} JsonbIterator;
+```
 ## Detailed Description
 JsonbIterState is a crucial component of PostgreSQL's JSONB iterator mechanism, providing state management for traversing complex JSON structures. This enumeration tracks the current position and context within nested JSON arrays and objects during iteration operations.
 

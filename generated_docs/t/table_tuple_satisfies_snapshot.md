@@ -8,7 +8,11 @@ This function checks whether a tuple stored in a slot satisfies the visibility r
 
 ## Definition
 
-
+```c
+static inline bool
+table_tuple_satisfies_snapshot(Relation rel, TupleTableSlot *slot,
+							   Snapshot snapshot)
+```
 ## Detailed Description
 The  function serves as a table access method (tableam) abstraction layer for determining tuple visibility based on snapshot semantics. It delegates the actual visibility check to the specific table access method implementation via the function pointer .
 

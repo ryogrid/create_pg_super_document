@@ -8,7 +8,10 @@ Creates and initializes the main LWLock array in shared memory and registers ext
 
 ## Definition
 
-
+```c
+void
+CreateLWLocks(void)
+```
 ## Detailed Description
 CreateLWLocks is responsible for setting up the lightweight lock (LWLock) infrastructure in PostgreSQL. It performs two main functions:
 

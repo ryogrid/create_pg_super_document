@@ -8,7 +8,10 @@ Serializes the complete GUC (Grand Unified Configuration) state by dumping all n
 
 ## Definition
 
-
+```c
+struct config_generic *gconf = dlist_container(struct config_generic,
+													   nondef_link, iter.cur);
+```
 ## Detailed Description
 The `SerializeGUCState` function is responsible for creating a complete serialized snapshot of PostgreSQL's current configuration state. It iterates through all GUC variables that have been modified from their default values (stored in the `guc_nondef_list`) and serializes each one using the `serialize_variable` function.
 

@@ -8,7 +8,10 @@ Compares two IPv4 socket addresses for equality by checking if their IP addresse
 
 ## Definition
 
-
+```c
+static bool
+ipv4eq(struct sockaddr_in *a, struct sockaddr_in *b)
+```
 ## Detailed Description
 The  function is a simple utility function that determines whether two IPv4 socket address structures represent the same IP address. It performs a direct comparison of the  field, which contains the 32-bit IPv4 address in network byte order.
 

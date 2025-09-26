@@ -8,7 +8,9 @@ Validates a proposed GUC parameter setting for array operations, checking both p
 
 ## Definition
 
-
+```c
+struct config_generic *gconf;
+```
 ## Detailed Description
 This static function validates GUC parameter operations in array contexts by performing comprehensive checks on parameter names, values, and user permissions. It handles three distinct cases: known GUC variables (validated normally with permission checks), unknown parameters that can become custom placeholders (allowed only for superusers), and invalid parameters (rejected unless specific conditions apply).
 

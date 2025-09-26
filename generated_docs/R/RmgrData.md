@@ -8,7 +8,20 @@ RmgrData is a method table structure that defines the interface for resource man
 
 ## Definition
 
-
+```c
+typedef struct RmgrData
+{
+	const char *rm_name;
+	void		(*rm_redo) (XLogReaderState *record);
+	void		(*rm_desc) (StringInfo buf, XLogReaderState *record);
+	const char *(*rm_identify) (uint8 info);
+	void		(*rm_startup) (void);
+	void		(*rm_cleanup) (void);
+	void		(*rm_mask) (char *pagedata, BlockNumber blkno);
+	void		(*rm_decode) (struct LogicalDecodingContext *ctx,
+							  struct XLogRecordBuffer *buf);
+} RmgrData;
+```
 ## Detailed Description
 RmgrData serves as the method table for resource managers in PostgreSQL's WAL system. Each resource manager type (such as heap, btree, hash, etc.) registers an RmgrData structure that defines how to handle WAL records specific to that resource manager. This structure must be kept in sync with the PG_RMGR definition in rmgr.c. The RmgrTable[] array is indexed by RmgrId values, and entries with NULL rm_name are considered invalid. This design enables a pluggable architecture where different storage components can register their own WAL processing logic.
 

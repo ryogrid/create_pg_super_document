@@ -8,7 +8,10 @@ Returns a pointer to the topmost snapshot in the active snapshot stack.
 
 ## Definition
 
-
+```c
+Snapshot
+GetActiveSnapshot(void)
+```
 ## Detailed Description
 GetActiveSnapshot provides access to the currently active snapshot by returning a pointer to the snapshot structure at the top of the active snapshot stack. This function is fundamental to PostgreSQL's MVCC (Multi-Version Concurrency Control) system, as it allows various parts of the system to access the current visibility rules for determining which tuples should be visible to the current operation. The function includes an assertion to ensure that an active snapshot exists before attempting to access it, preventing potential null pointer dereferences.
 

@@ -8,7 +8,54 @@ AggStatePerAggData contains per-aggregate information needed to produce final ag
 
 ## Definition
 
+```c
+typedef struct AggStatePerAggData
+{
+	/*
+	 * Link to an Aggref expr this state value is for.
+	 *
+	 * There can be multiple identical Aggref's sharing the same per-agg. This
+	 * points to the first one of them.
+	 */
+	Aggref	   *aggref;
 
+	/* index to the state value which this agg should use */
+	int			transno;
+
+	/* Optional Oid of final function (may be InvalidOid) */
+	Oid			finalfn_oid;
+
+	/*
+	 * fmgr lookup data for final function --- only valid when finalfn_oid is
+	 * not InvalidOid.
+	 */
+	FmgrInfo	finalfn;
+
+	/*
+	 * Number of arguments to pass to the finalfn.  This is always at least 1
+	 * (the transition state value) plus any ordered-set direct args. If the
+	 * finalfn wants extra args then we pass nulls corresponding to the
+	 * aggregated input columns.
+	 */
+	int			numFinalArgs;
+
+	/* ExprStates for any direct-argument expressions */
+	List	   *aggdirectargs;
+
+	/*
+	 * We need the len and byval info for the agg's result data type in order
+	 * to know how to copy/delete values.
+	 */
+	int16		resulttypeLen;
+	bool		resulttypeByVal;
+
+	/*
+	 * "shareable" is false if this agg cannot share state values with other
+	 * aggregates because the final function is read-write.
+	 */
+	bool		shareable;
+}			AggStatePerAggData;
+```
 ## Detailed Description
 AggStatePerAggData stores the information required to call the final function and produce a final aggregate result from the transition state value. This struct is complementary to AggStatePerTransData - while the latter handles the transition phase, this struct manages the finalization phase of aggregate computation.
 

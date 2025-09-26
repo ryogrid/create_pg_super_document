@@ -8,7 +8,10 @@ Decodes a 4-byte big-endian signed integer from a byte array, handling two's-com
 
 ## Definition
 
-
+```c
+static int32
+detzcode(const char *const codep)
+```
 ## Detailed Description
 The `detzcode` function is a utility for parsing timezone data files, which store numeric values in big-endian format as 4-byte signed integers. The function reads 4 bytes from the input pointer and reconstructs the integer value, properly handling the sign bit and ensuring correct two's-complement representation even on machines that don't natively use two's-complement arithmetic.
 

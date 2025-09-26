@@ -8,7 +8,11 @@ Handles examination of a simple Var for the examine_variable function, recursive
 
 ## Definition
 
-
+```c
+static void
+examine_simple_variable(PlannerInfo *root, Var *var,
+						VariableStatData *vardata)
+```
 ## Detailed Description
 This function is responsible for populating the statistical information in a VariableStatData structure for a simple variable reference. It handles various types of table references including regular relations, subqueries, and Common Table Expressions (CTEs).
 

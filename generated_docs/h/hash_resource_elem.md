@@ -8,7 +8,10 @@ The  function is an internal hash function that computes a hash value for a reso
 
 ## Definition
 
-
+```c
+static inline uint32
+hash_resource_elem(Datum value, const ResourceOwnerDesc *kind)
+```
 ## Detailed Description
 This function provides a hash function for value+kind combinations in the resource ownership system. The design philosophy accounts for the fact that most resource kinds store pointers in the 'value' parameter, which are naturally unique. However, some resources store plain integers (such as Files and Buffers), which could cause hash collisions if only the value were used.
 

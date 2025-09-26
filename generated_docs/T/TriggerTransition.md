@@ -8,7 +8,15 @@ A structure representing transition row or table naming clauses in PostgreSQL tr
 
 ## Definition
 
-
+```c
+typedef struct TriggerTransition
+{
+	NodeTag		type;
+	char	   *name;
+	bool		isNew;
+	bool		isTable;
+} TriggerTransition;
+```
 ## Detailed Description
 TriggerTransition represents the syntactic structure for naming transition rows or tables in trigger definitions. This allows triggers to reference the OLD and NEW data sets using user-defined names in trigger functions. Initially, only transition tables are supported in the syntax and only for AFTER triggers, though the parser accepts other permutations to provide meaningful error messages from C code. This structure captures the essential information needed to establish the relationship between user-defined names and the underlying transition data.
 

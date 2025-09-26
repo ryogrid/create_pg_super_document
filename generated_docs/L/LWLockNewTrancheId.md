@@ -8,7 +8,10 @@ Allocates a new unique tranche ID for dynamically created LWLock tranches, using
 
 ## Definition
 
-
+```c
+int
+LWLockNewTrancheId(void)
+```
 ## Detailed Description
 LWLockNewTrancheId provides a thread-safe mechanism for allocating unique tranche IDs for LWLocks that are created dynamically at runtime. The function accesses a shared counter that is stored in shared memory just before the MainLWLockArray.
 

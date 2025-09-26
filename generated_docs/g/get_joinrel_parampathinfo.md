@@ -8,7 +8,9 @@ Get or construct the ParamPathInfo for a parameterized join path, determining wh
 
 ## Definition
 
-
+```c
+union(joinrel->relids, required_outer);
+```
 ## Detailed Description
 This function constructs a ParamPathInfo for a parameterized join path, handling the complex task of determining which join clauses should be evaluated at the join level versus being pushed down to input relations. Unlike base relations, the set of movable clauses for a join varies with the selected input paths, requiring dynamic calculation.
 

@@ -8,7 +8,67 @@ Releases resources and deallocates an index fetch operation by cleaning up the I
 
 ## Definition
 
+```c
+struct IndexFetchTableData *scan)
+{
+	scan->rel->rd_tableam->index_fetch_end(scan);
+}
 
+/*
+ * Fetches, as part of an index scan, tuple at `tid` into `slot`, after doing
+ * a visibility test according to `snapshot`. If a tuple was found and passed
+ * the visibility test, returns true, false otherwise. Note that *tid may be
+ * modified when we return true (see later remarks on multiple row versions
+ * reachable via a single index entry).
+ *
+ * *call_again needs to be false on the first call to table_index_fetch_tuple() for
+ * a tid. If there potentially is another tuple matching the tid, *call_again
+ * will be set to true, signaling that table_index_fetch_tuple() should be called
+ * again for the same tid.
+ *
+ * *all_dead, if all_dead is not NULL, will be set to true by
+ * table_index_fetch_tuple() iff it is guaranteed that no backend needs to see
+ * that tuple. Index AMs can use that to avoid returning that tid in future
+ * searches.
+ *
+ * The difference between this function and table_tuple_fetch_row_version()
+ * is that this function returns the currently visible version of a row if
+ * the AM supports storing multiple row versions reachable via a single index
+ * entry (like heap's HOT). Whereas table_tuple_fetch_row_version() only
+ * evaluates the tuple exactly at `tid`. Outside of index entry ->table tuple
+ * lookups, table_tuple_fetch_row_version() is what's usually needed.
+ */
+static inline bool
+table_index_fetch_tuple(struct IndexFetchTableData *scan,
+						ItemPointer tid,
+						Snapshot snapshot,
+						TupleTableSlot *slot,
+						bool *call_again, bool *all_dead)
+{
+	/*
+	 * We don't expect direct calls to table_index_fetch_tuple with valid
+	 * CheckXidAlive for catalog or regular tables.  See detailed comments in
+	 * xact.c where these variables are declared.
+	 */
+	if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan))
+		elog(ERROR, "unexpected table_index_fetch_tuple call during logical decoding");
+
+	return scan->rel->rd_tableam->index_fetch_tuple(scan, tid, snapshot,
+													slot, call_again,
+													all_dead);
+}
+
+/*
+ * This is a convenience wrapper around table_index_fetch_tuple() which
+ * returns whether there are table tuple items corresponding to an index
+ * entry.  This likely is only useful to verify if there's a conflict in a
+ * unique index.
+ */
+extern bool table_index_fetch_tuple_check(Relation rel,
+										  ItemPointer tid,
+										  Snapshot snapshot,
+										  bool *all_dead);
+```
 ## Detailed Description
 This function is part of PostgreSQL's table access method (tableam) interface that provides a standardized way to terminate and clean up index fetch operations. When called, it invokes the table access method's specific `index_fetch_end` function pointer to deallocate any resources that were allocated during the lifetime of the index fetch operation.
 

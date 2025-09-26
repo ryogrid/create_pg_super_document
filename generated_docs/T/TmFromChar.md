@@ -8,7 +8,13 @@ A structure used to store intermediate parsing results when converting formatted
 
 ## Definition
 
-
+```c
+struct fmt_tz					/* do_to_timestamp's timezone info output */
+{
+	bool		has_tz;			/* was there any TZ/TZH/TZM field? */
+	int			gmtoffset;		/* GMT offset in seconds */
+};
+```
 ## Detailed Description
 TmFromChar serves as an intermediate parsing structure for PostgreSQL's date/time string parsing operations, primarily used by functions like  and . When parsing a formatted date/time string, various format elements are extracted and stored in this structure's fields before being converted to the final timestamp representation.
 

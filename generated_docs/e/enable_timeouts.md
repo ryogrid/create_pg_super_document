@@ -8,7 +8,10 @@ Enables multiple timeouts simultaneously with different scheduling types, optimi
 
 ## Definition
 
-
+```c
+void
+enable_timeouts(const EnableTimeoutParams *timeouts, int count)
+```
 ## Detailed Description
 This function provides an efficient way to enable multiple timeouts at once, avoiding repeated calls to GetCurrentTimestamp() and setitimer() that would occur when setting up timeouts individually. It supports three different timeout types through the EnableTimeoutParams structure: TMPARAM_AFTER (relative delay), TMPARAM_AT (absolute timestamp), and TMPARAM_EVERY (periodic intervals).
 

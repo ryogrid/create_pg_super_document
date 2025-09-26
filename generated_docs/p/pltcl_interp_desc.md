@@ -8,7 +8,14 @@ A struct representing information associated with a Tcl interpreter in the Postg
 
 ## Definition
 
-
+```c
+typedef struct pltcl_interp_desc
+{
+	Oid			user_id;		/* Hash key (must be first!) */
+	Tcl_Interp *interp;			/* The interpreter */
+	Tcl_HashTable query_hash;	/* pltcl_query_desc structs */
+} pltcl_interp_desc;
+```
 ## Detailed Description
 The  structure encapsulates the state and configuration of a Tcl interpreter within PostgreSQL's PL/Tcl language extension. PostgreSQL uses different security models for trusted (pltcl) and untrusted (pltclu) Tcl functions:
 

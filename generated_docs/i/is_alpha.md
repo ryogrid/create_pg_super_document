@@ -8,7 +8,10 @@ A utility function that determines whether a given character is alphabetic in th
 
 ## Definition
 
-
+```c
+static bool
+is_alpha(char a)
+```
 ## Detailed Description
 The  function provides a locale-independent way to check if a character is alphabetic by explicitly testing against all ASCII letters (A-Z, a-z). This implementation avoids reliance on the standard library's  function, which can behave differently depending on the current locale. The function uses a switch statement with explicit case labels for all 52 ASCII letters, making it both portable and predictable across different systems and locale settings.
 

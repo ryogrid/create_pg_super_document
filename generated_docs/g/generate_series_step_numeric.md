@@ -8,7 +8,10 @@ Implements a set-returning function that generates a series of numeric values be
 
 ## Definition
 
-
+```c
+Datum
+generate_series_step_numeric(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL set-returning function (SRF) that generates a sequence of numeric values. It supports both two-parameter (start, stop) and three-parameter (start, stop, step) variants. When only two parameters are provided, it defaults to a step of 1. The function validates that start, stop, and step values are not NaN or infinity, and that step is not zero.
 

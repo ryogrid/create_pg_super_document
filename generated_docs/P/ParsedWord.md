@@ -8,7 +8,15 @@ ParsedWord is a structure that represents a single lexeme (word) that has been p
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	ParsedWord *words;
+	int32		lenwords;
+	int32		curwords;
+	int32		pos;
+} ParsedText;
+```
 ## Detailed Description
 ParsedWord is a fundamental data structure in PostgreSQL's text search system, defined in . This structure represents a single parsed word (lexeme) extracted from text during the text search parsing process. It contains both the actual word text and associated metadata including positional information and processing flags.
 

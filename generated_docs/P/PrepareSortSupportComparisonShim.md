@@ -8,7 +8,10 @@ Sets up a shim function to allow old-style btree comparison functions to work se
 
 ## Definition
 
-
+```c
+void
+PrepareSortSupportComparisonShim(Oid cmpFunc, SortSupport ssup)
+```
 ## Detailed Description
 PrepareSortSupportComparisonShim serves as a bridge between legacy btree comparison functions and the modern SortSupport infrastructure. This function:
 

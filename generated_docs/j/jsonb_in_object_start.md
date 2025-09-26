@@ -8,7 +8,10 @@ A callback function used during JSONB parsing to handle the start of JSON object
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+jsonb_in_object_start(void *pstate)
+```
 ## Detailed Description
 This function serves as a callback handler in the JSONB input parsing pipeline. When the JSON parser encounters the beginning of an object ('{' character), this function is invoked to set up the internal parsing state. It pushes a WJB_BEGIN_OBJECT token onto the JSONB parse state stack and configures unique key validation settings if enabled.
 

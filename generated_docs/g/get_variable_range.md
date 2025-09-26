@@ -8,7 +8,12 @@ Estimates the minimum and maximum values of a specified variable using statistic
 
 ## Definition
 
-
+```c
+static bool
+get_variable_range(PlannerInfo *root, VariableStatData *vardata,
+				   Oid sortop, Oid collation,
+				   Datum *min, Datum *max)
+```
 ## Detailed Description
 This function attempts to determine the range (minimum and maximum values) of a database column or expression by analyzing available statistical information. It employs multiple strategies to find the most appropriate range data:
 

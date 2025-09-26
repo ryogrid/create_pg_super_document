@@ -8,7 +8,10 @@ Estimates the number of distinct values for a variable using statistical data fr
 
 ## Definition
 
-
+```c
+double
+get_variable_numdistinct(VariableStatData *vardata, bool *isdefault)
+```
 ## Detailed Description
 This function provides a comprehensive approach to estimating the number of distinct values (cardinality) for a database column or expression. It employs multiple strategies in order of preference:
 

@@ -8,7 +8,9 @@ This function drops statistics for a database and all objects contained within t
 
 ## Definition
 
-
+```c
+struct PgStat_HashKey));
+```
 ## Detailed Description
 The  function performs a comprehensive cleanup of statistics data for a specific database. It iterates through the shared statistics hash table and removes all entries that belong to the specified database OID. The function implements a two-phase approach: first releasing local backend references to prevent cleanup delays, then performing the actual removal while holding appropriate locks.
 

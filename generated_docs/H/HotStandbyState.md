@@ -8,7 +8,16 @@ An enumeration that tracks the current state of Hot Standby functionality during
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	BLK_NEEDS_REDO,				/* changes from WAL record need to be applied */
+	BLK_DONE,					/* block is already up-to-date */
+	BLK_RESTORED,				/* block was restored from a full-page image */
+	BLK_NOTFOUND,				/* block was not found (and hence does not
+								 * need to be replayed) */
+} XLogRedoAction;
+```
 ## Detailed Description
 HotStandbyState is a critical enumeration that manages the progression of Hot Standby functionality during PostgreSQL recovery. It ensures that read-only connections are only allowed when the system has sufficient transaction visibility information to provide consistent snapshots.
 

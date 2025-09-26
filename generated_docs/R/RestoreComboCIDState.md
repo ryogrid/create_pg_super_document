@@ -8,7 +8,10 @@ RestoreComboCIDState deserializes combo command ID state from a memory buffer an
 
 ## Definition
 
-
+```c
+void
+RestoreComboCIDState(char *comboCIDstate)
+```
 ## Detailed Description
 RestoreComboCIDState is the counterpart to SerializeComboCIDState, responsible for deserializing combo command ID state that was previously serialized by a leader process and shared with parallel worker processes. This function is essential for maintaining transaction visibility consistency across parallel workers.
 

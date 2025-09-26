@@ -8,7 +8,13 @@ TestDSMRegistryStruct is a simple test structure designed to demonstrate and tes
 
 ## Definition
 
-
+```c
+typedef struct TestDSMRegistryStruct
+{
+	int			val;
+	LWLock		lck;
+} TestDSMRegistryStruct;
+```
 ## Detailed Description
 TestDSMRegistryStruct is a minimal structure used exclusively within PostgreSQL's test_dsm_registry test module to validate the dynamic shared memory registry system. The structure contains just two members: an integer value for storing test data and a lightweight lock (LWLock) for coordinating concurrent access to the shared memory segment.
 

@@ -8,7 +8,10 @@ RelationCacheInitializePhase3 completes the relation cache initialization by loa
 
 ## Definition
 
-
+```c
+void
+RelationCacheInitializePhase3(void)
+```
 ## Detailed Description
 RelationCacheInitializePhase3 is the final and most comprehensive phase of relation cache initialization. This function is called once the catcache and transaction systems are fully functional and MyDatabaseId has been determined. At this point, PostgreSQL can actually read data from the database's system catalogs.
 

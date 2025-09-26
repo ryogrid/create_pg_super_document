@@ -8,7 +8,10 @@ Compares two SortTuple structures containing datum values for sorting operations
 
 ## Definition
 
-
+```c
+static int
+comparetup_datum(const SortTuple *a, const SortTuple *b, Tuplesortstate *state)
+```
 ## Detailed Description
 This function performs comparison of two datum-based tuples during sorting operations. It first applies the primary sort comparator using the datum1 field and isnull1 flag from each SortTuple. If the primary comparison yields equality (compare == 0), it delegates to comparetup_datum_tiebreak() to resolve the tie using secondary criteria. This function is specifically designed for sorting single datum values rather than full tuples, making it efficient for operations like ORDER BY on single columns.
 

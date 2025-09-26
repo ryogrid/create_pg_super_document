@@ -8,7 +8,15 @@ Converts bytea (binary data) values to normalized scalar values between 0 and 1 
 
 ## Definition
 
-
+```c
+static void
+convert_bytea_to_scalar(Datum value,
+						double *scaledvalue,
+						Datum lobound,
+						double *scaledlobound,
+						Datum hibound,
+						double *scaledhibound)
+```
 ## Detailed Description
 This function performs the core work of  specifically for PostgreSQL's bytea data type, which stores arbitrary binary data. It is conceptually similar to  but handles several key differences:
 

@@ -8,7 +8,10 @@ Compares a hostname pattern against an actual hostname, supporting both exact ma
 
 ## Definition
 
-
+```c
+struct addrinfo *gai_result,
+			   *gai;
+```
 ## Detailed Description
 The  function performs hostname pattern matching for PostgreSQL's Host-Based Authentication (HBA) system. It supports two types of matching:
 

@@ -8,7 +8,10 @@ A static utility function that formats a double-precision floating-point value i
 
 ## Definition
 
-
+```c
+static void
+sprintf_double_value(char *ptr, double value, const char *delim)
+```
 ## Detailed Description
 The  function provides specialized string formatting for double-precision floating-point numbers in ECPG applications. It ensures that special IEEE 754 floating-point values are represented in a PostgreSQL-compatible format:
 

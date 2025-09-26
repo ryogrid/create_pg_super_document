@@ -8,7 +8,13 @@ Resizes previously allocated memory blocks with error handling and line number t
 
 ## Definition
 
-
+```c
+struct auto_mem
+{
+	void	   *pointer;
+	struct auto_mem *next;
+};
+```
 ## Detailed Description
 The  function provides a safe wrapper around the standard  function, offering memory reallocation with comprehensive error handling and debugging support. This function is essential for dynamically growing or shrinking memory blocks during ECPG operations, particularly when dealing with variable-length data or growing collections.
 

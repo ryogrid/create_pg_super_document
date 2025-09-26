@@ -8,7 +8,10 @@ Creates a new list containing the union of two PostgreSQL pointer lists, adding 
 
 ## Definition
 
-
+```c
+List *
+list_union(const List *list1, const List *list2)
+```
 ## Detailed Description
 This function generates the union of two PostgreSQL Lists by first copying list1 and then adding all unique members from list2 that aren't already present in the copied list. The uniqueness check is performed using the equal() function for element comparison.
 

@@ -8,7 +8,11 @@ A comprehensive parser that processes compression specification strings into str
 
 ## Definition
 
-
+```c
+void
+parse_compress_specification(pg_compress_algorithm algorithm, char *specification,
+							 pg_compress_specification *result)
+```
 ## Detailed Description
 The  function parses a compression specification string for a specified algorithm and populates a  result structure. The function handles both simple bare integer compression levels and complex comma-separated keyword=value pairs. It sets appropriate default compression levels based on the algorithm type and validates build-time support for compression libraries. The parser supports compression options like "level", "workers", and "long" (long-distance mode), and provides detailed error reporting through the parse_error field.
 

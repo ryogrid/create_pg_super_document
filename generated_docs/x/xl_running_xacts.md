@@ -8,7 +8,19 @@ A WAL record structure that captures a snapshot of currently running transaction
 
 ## Definition
 
+```c
+typedef struct xl_running_xacts
+{
+	int			xcnt;			/* # of xact ids in xids[] */
+	int			subxcnt;		/* # of subxact ids in xids[] */
+	bool		subxid_overflow;	/* snapshot overflowed, subxids missing */
+	TransactionId nextXid;		/* xid from TransamVariables->nextXid */
+	TransactionId oldestRunningXid; /* *not* oldestXmin */
+	TransactionId latestCompletedXid;	/* so we can set xmax */
 
+	TransactionId xids[FLEXIBLE_ARRAY_MEMBER];
+} xl_running_xacts;
+```
 ## Detailed Description
 The  structure is a WAL record format used in PostgreSQL's standby recovery system to maintain consistent snapshots of running transactions. This structure captures the essential transaction state information from the primary server and transmits it to standby servers, allowing them to maintain proper snapshot isolation for read-only queries.
 

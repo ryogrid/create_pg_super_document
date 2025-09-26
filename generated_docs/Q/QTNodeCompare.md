@@ -8,7 +8,10 @@ Provides a recursive comparison function for QTNode structures, implementing a d
 
 ## Definition
 
-
+```c
+int
+QTNodeCompare(QTNode *an, QTNode *bn)
+```
 ## Detailed Description
 QTNodeCompare is a recursive comparison function that establishes a total ordering for QTNode structures. It compares two QTNode trees and returns an integer indicating their relative order (-1, 0, or 1), following standard comparator conventions.
 

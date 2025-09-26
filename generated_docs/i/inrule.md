@@ -8,7 +8,9 @@ Processes a timezone Rule line from input and adds the rule to the global rules 
 
 ## Definition
 
-
+```c
+struct rule r;
+```
 ## Detailed Description
 The  function parses and validates timezone rule data from input fields, then adds the validated rule to the global rules array. It performs field count validation, rule name validation, and extracts rule information including save time, DST flag, and abbreviation variables. The function is part of PostgreSQL's timezone compiler (zic) that processes timezone database files.
 

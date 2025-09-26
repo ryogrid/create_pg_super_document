@@ -8,7 +8,9 @@ A PostgreSQL built-in function that splits an input string by a field separator 
 
 ## Definition
 
-
+```c
+struct_empty_array(TEXTOID));
+```
 ## Detailed Description
 This function implements the SQL split_part() function which parses an input string based on a provided field separator and returns the specified field. Key features include:
 

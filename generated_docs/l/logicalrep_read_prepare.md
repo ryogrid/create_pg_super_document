@@ -8,7 +8,10 @@ Reads a transaction PREPARE message from the logical replication stream and popu
 
 ## Definition
 
-
+```c
+void
+logicalrep_read_prepare(StringInfo in, LogicalRepPreparedTxnData *prepare_data)
+```
 ## Detailed Description
 This function serves as a wrapper around  to parse a PREPARE message from the logical replication protocol stream. It extracts the prepared transaction data including LSN positions, transaction ID, preparation time, and global identifier (GID) from the binary message format. The function is specifically designed to handle the "prepare" message type in the logical replication protocol, which is part of PostgreSQL's two-phase commit support in logical replication.
 

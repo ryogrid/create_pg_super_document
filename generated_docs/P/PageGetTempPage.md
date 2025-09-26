@@ -8,7 +8,10 @@ Allocates a temporary page in local memory with the same size as the source page
 
 ## Definition
 
-
+```c
+Page
+PageGetTempPage(Page page)
+```
 ## Detailed Description
 PageGetTempPage creates a temporary page buffer in local memory that matches the size of the provided source page. This function is used when algorithms need to perform operations on page data without modifying the original page in the buffer pool. The returned page is completely uninitialized, requiring the caller to set up any needed page structure or copy data from the source page. This approach provides a safe workspace for complex page operations like splits, merges, or reorganization.
 

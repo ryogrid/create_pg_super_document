@@ -8,7 +8,12 @@ The  function performs comparison operations between two Name values, supporting
 
 ## Definition
 
-
+```c
+structure */
+	return varstr_cmp(NameStr(*arg1), strlen(NameStr(*arg1)),
+					  NameStr(*arg2), strlen(NameStr(*arg2)),
+					  collid);
+```
 ## Detailed Description
 The  function is a static helper function that implements the core comparison logic for PostgreSQL's Name data type. It supports collation-aware comparison, providing different behavior based on the specified collation ID.
 

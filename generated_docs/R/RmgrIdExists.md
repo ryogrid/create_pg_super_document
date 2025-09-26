@@ -8,7 +8,10 @@ RmgrIdExists is a static inline function that checks whether a given resource ma
 
 ## Definition
 
-
+```c
+static inline bool
+RmgrIdExists(RmgrId rmid)
+```
 ## Detailed Description
 This function validates the existence of a resource manager by checking if the specified RmgrId has a valid entry in the RmgrTable. It performs this check by examining whether the rm_name field for the given resource manager ID is non-NULL, which indicates that a resource manager has been properly registered at that ID. This validation is essential for ensuring that WAL record processing and resource manager operations are performed only on valid, registered resource managers.
 

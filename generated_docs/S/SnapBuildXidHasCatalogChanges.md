@@ -8,7 +8,11 @@ Determines whether a given transaction has modified system catalogs by checking 
 
 ## Definition
 
-
+```c
+static inline bool
+SnapBuildXidHasCatalogChanges(SnapBuild *builder, TransactionId xid,
+							  uint32 xinfo)
+```
 ## Detailed Description
 SnapBuildXidHasCatalogChanges is a critical function for logical replication that determines whether a transaction has made changes to PostgreSQL's system catalogs. This determination is essential because catalog-modifying transactions require special handling in snapshot building to maintain consistency during logical replication.
 

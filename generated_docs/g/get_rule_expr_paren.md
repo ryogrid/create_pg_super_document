@@ -8,7 +8,11 @@ Deparses a PostgreSQL expression node using get_rule_expr, automatically adding 
 
 ## Definition
 
-
+```c
+static void
+get_rule_expr_paren(Node *node, deparse_context *context,
+					bool showimplicit, Node *parentNode)
+```
 ## Detailed Description
 This function is a wrapper around get_rule_expr that provides intelligent parentheses management for SQL expression deparsing. It determines whether parentheses are needed by checking if pretty printing with parentheses is enabled and whether the node is "simple" in the context of its parent node. The decision to add parentheses is based on SQL syntax rules and operator precedence to ensure the generated SQL maintains the correct semantic meaning.
 

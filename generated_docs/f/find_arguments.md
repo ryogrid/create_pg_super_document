@@ -8,7 +8,11 @@ Validates and extracts variable arguments for printf-style format strings that u
 
 ## Definition
 
-
+```c
+static bool
+find_arguments(const char *format, va_list args,
+			   PrintfArgValue *argvalues)
+```
 ## Detailed Description
 This function analyzes printf-style format strings containing positional parameters (like %1, %2) and extracts the corresponding arguments from a va_list. It performs comprehensive validation to ensure all argument references use consistent positional notation and that argument types match their format specifiers. The function is part of PostgreSQL's portable snprintf implementation and ensures compatibility with C99 positional parameter standards.
 

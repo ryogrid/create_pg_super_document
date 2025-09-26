@@ -8,7 +8,18 @@ The Gather node implements parallel query execution by launching multiple worker
 
 ## Definition
 
-
+```c
+typedef struct Gather
+{
+	Plan		plan;
+	int			num_workers;	/* planned number of worker processes */
+	int			rescan_param;	/* ID of Param that signals a rescan, or -1 */
+	bool		single_copy;	/* don't execute plan more than once */
+	bool		invisible;		/* suppress EXPLAIN display (for testing)? */
+	Bitmapset  *initParam;		/* param id's of initplans which are referred
+								 * at gather or one of it's child node */
+} Gather;
+```
 ## Detailed Description
 The Gather node is the coordinator for parallel query execution in PostgreSQL. It launches multiple worker processes (backends) that each execute the same subplan independently on different portions of data. The Gather node then collects results from all workers via tuple queues and merges them into a single output stream.
 

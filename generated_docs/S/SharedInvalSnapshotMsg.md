@@ -8,7 +8,18 @@ SharedInvalSnapshotMsg is a structure that represents a shared invalidation mess
 
 ## Definition
 
-
+```c
+typedef union
+{
+	int8		id;				/* type field --- must be first */
+	SharedInvalCatcacheMsg cc;
+	SharedInvalCatalogMsg cat;
+	SharedInvalRelcacheMsg rc;
+	SharedInvalSmgrMsg sm;
+	SharedInvalRelmapMsg rm;
+	SharedInvalSnapshotMsg sn;
+} SharedInvalidationMessage;
+```
 ## Detailed Description
 SharedInvalSnapshotMsg is part of PostgreSQL's shared invalidation messaging system that ensures cache consistency across multiple processes. This specific message type handles invalidation of snapshot-related cache entries when relations are modified. The structure is designed to identify which database and relation require snapshot cache invalidation, allowing the system to maintain consistent snapshot behavior across concurrent transactions.
 

@@ -8,7 +8,11 @@ A recursive walker function that traverses an expression tree to set operator fu
 
 ## Definition
 
-
+```c
+struct equivalence */
+	else if (IsA(node, NullIfExpr))
+		set_opfuncid((OpExpr *) node);
+```
 ## Detailed Description
 This static function serves as a recursive walker that traverses expression trees to fix operator function IDs. It specifically handles different types of operator expressions (OpExpr, DistinctExpr, NullIfExpr, and ScalarArrayOpExpr) by calling appropriate functions to set their operator function IDs. The function leverages the expression_tree_walker infrastructure to recursively visit all nodes in an expression tree.
 

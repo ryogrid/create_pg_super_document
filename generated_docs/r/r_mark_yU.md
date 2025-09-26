@@ -8,7 +8,11 @@ A static function in the Turkish stemmer that identifies and marks suffixes cont
 
 ## Definition
 
+```c
+}
 
+static int r_mark_yU(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Turkish language stemming implementation that handles suffixes containing the vowel 'U' (representing both 'u' and 'ü' in Turkish vowel harmony) with an optional preceding 'y' consonant. The function follows a three-step process: first, it validates vowel harmony to ensure the suffix is phonologically compatible with the word stem according to Turkish rules; second, it checks if the current character belongs to the U vowel group (specifically checking for characters 105 and 305 which represent 'ı' and 'İ' in UTF-8); finally, it marks the suffix while handling the optional 'y' consonant that commonly appears before U vowels in Turkish morphology.
 

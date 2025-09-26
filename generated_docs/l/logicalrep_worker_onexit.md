@@ -8,7 +8,10 @@ A comprehensive cleanup function registered as an exit handler for logical repli
 
 ## Definition
 
-
+```c
+static void
+logicalrep_worker_onexit(int code, Datum arg)
+```
 ## Detailed Description
 This static function serves as a critical exit handler for logical replication worker processes, ensuring proper cleanup of all resources and connections when a worker terminates. The function is designed to handle both normal and abnormal termination scenarios, performing a comprehensive cleanup sequence.
 

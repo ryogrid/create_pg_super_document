@@ -8,7 +8,15 @@ OpBtreeInterpretation is a struct that represents how a given operator is interp
 
 ## Definition
 
-
+```c
+typedef struct OpBtreeInterpretation
+{
+	Oid			opfamily_id;	/* btree opfamily containing operator */
+	int			strategy;		/* its strategy number */
+	Oid			oplefttype;		/* declared left input datatype */
+	Oid			oprighttype;	/* declared right input datatype */
+} OpBtreeInterpretation;
+```
 ## Detailed Description
 OpBtreeInterpretation serves as a result element returned by the `get_op_btree_interpretation` function. This struct encapsulates the essential information needed to understand how a specific operator behaves within the context of B-tree indexing. The struct provides the mapping between an operator and its role in B-tree operator families, which is crucial for the query planner to make informed decisions about index usage and optimization strategies.
 

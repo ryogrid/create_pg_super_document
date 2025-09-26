@@ -8,7 +8,12 @@ Writes a DELETE message to the logical replication output stream, encoding the o
 
 ## Definition
 
-
+```c
+void
+logicalrep_write_delete(StringInfo out, TransactionId xid, Relation rel,
+						TupleTableSlot *oldslot, bool binary,
+						Bitmapset *columns)
+```
 ## Detailed Description
 This function serializes a DELETE operation into the logical replication wire protocol format. It constructs the DELETE message by writing the message type, optional transaction ID, relation identifier, and the old tuple data. The function respects the table's replica identity setting to determine whether to include the full old tuple ('O') or just the key columns ('K').
 

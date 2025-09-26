@@ -8,7 +8,11 @@ A security-focused entity loader callback function that prevents loading of exte
 
 ## Definition
 
-
+```c
+struct */
+	if (errcxt->magic != ERRCXT_MAGIC)
+		elog(ERROR, "xml_ereport called with invalid PgXmlErrorContext");
+```
 ## Detailed Description
 xmlPgEntityLoader is a custom entity loader callback function designed to enhance XML processing security in PostgreSQL. Instead of allowing libxml2 to fetch external entities (which could pose security risks through XXE attacks or unwanted network access), this function silently prevents any external entity URL from being loaded by returning an empty string input stream.
 

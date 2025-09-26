@@ -8,7 +8,11 @@ Converts a timestamp to broken-down time fields, accounting for timezone offset 
 
 ## Definition
 
-
+```c
+static struct pg_tm *
+timesub(const pg_time_t *timep, int32 offset,
+		const struct state *sp, struct pg_tm *tmp)
+```
 ## Detailed Description
 The  function is a core timezone conversion routine that breaks down a Unix timestamp into calendar components (year, month, day, hour, minute, second, etc.). It handles timezone offsets, leap second corrections, and date calculations across year boundaries. The function performs complex arithmetic to convert seconds since epoch into human-readable date/time components while properly handling leap years and leap seconds.
 

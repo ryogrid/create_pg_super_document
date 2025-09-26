@@ -8,7 +8,31 @@ A structure representing a parsed transaction abort record from PostgreSQL's Wri
 
 ## Definition
 
+```c
+typedef struct xl_xact_parsed_abort
+{
+	TimestampTz xact_time;
+	uint32		xinfo;
 
+	Oid			dbId;			/* MyDatabaseId */
+	Oid			tsId;			/* MyDatabaseTableSpace */
+
+	int			nsubxacts;
+	TransactionId *subxacts;
+
+	int			nrels;
+	RelFileLocator *xlocators;
+
+	int			nstats;
+	xl_xact_stats_item *stats;
+
+	TransactionId twophase_xid; /* only for 2PC */
+	char		twophase_gid[GIDSIZE];	/* only for 2PC */
+
+	XLogRecPtr	origin_lsn;
+	TimestampTz origin_timestamp;
+} xl_xact_parsed_abort;
+```
 ## Detailed Description
 The  structure is used to hold the parsed contents of a transaction abort WAL record. Unlike the raw  record format that stores data in a compact binary layout, this structure provides direct access to all components of an abort record in a convenient format.
 

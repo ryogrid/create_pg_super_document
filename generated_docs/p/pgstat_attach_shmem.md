@@ -8,7 +8,10 @@ Function that attaches a backend process to the shared memory statistics system 
 
 ## Definition
 
-
+```c
+void
+pgstat_attach_shmem(void)
+```
 ## Detailed Description
 This function connects a backend process to the statistics shared memory structures that were previously initialized by the postmaster. It attaches to the dynamic shared area (DSA) and the shared hash table, establishing the local references needed for the backend to participate in the statistics system. The function ensures these structures persist for the lifetime of the backend by allocating them in TopMemoryContext.
 

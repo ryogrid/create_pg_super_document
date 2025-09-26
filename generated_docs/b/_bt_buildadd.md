@@ -8,7 +8,11 @@ A core function that adds an item to a disk page during B-tree index constructio
 
 ## Definition
 
-
+```c
+static void
+_bt_buildadd(BTWriteState *wstate, BTPageState *state, IndexTuple itup,
+			 Size truncextra)
+```
 ## Detailed Description
 This function is responsible for adding items to pages during B-tree index building from sorted output. It implements the complex logic required to maintain proper B-tree page layout conventions while efficiently building the index structure.
 

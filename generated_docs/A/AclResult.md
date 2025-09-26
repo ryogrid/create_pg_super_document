@@ -8,7 +8,14 @@ AclResult is an enumeration that represents the possible outcomes of access cont
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	ACLCHECK_OK = 0,
+	ACLCHECK_NO_PRIV,
+	ACLCHECK_NOT_OWNER,
+} AclResult;
+```
 ## Detailed Description
 AclResult is a fundamental enumeration used throughout PostgreSQL's access control system to communicate the results of permission checks. It provides a standardized way to report whether a user has the necessary privileges to perform a requested database operation.
 

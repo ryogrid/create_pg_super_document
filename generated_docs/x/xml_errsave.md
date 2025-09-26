@@ -8,7 +8,11 @@ A soft error handling function that saves XML-related errors to an ErrorSaveCont
 
 ## Definition
 
-
+```c
+struct */
+	if (errcxt->magic != ERRCXT_MAGIC)
+		elog(ERROR, "xml_errsave called with invalid PgXmlErrorContext");
+```
 ## Detailed Description
 xml_errsave provides a mechanism for handling XML errors in a recoverable manner. Unlike xml_ereport which immediately throws errors, this function can save error details into an ErrorSaveContext, allowing the calling code to continue execution and handle the error gracefully. If no ErrorSaveContext is provided, it falls back to throwing the error like xml_ereport with ERROR level.
 

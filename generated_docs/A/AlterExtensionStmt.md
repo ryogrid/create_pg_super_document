@@ -8,7 +8,14 @@ AlterExtensionStmt represents the parsed structure for an ALTER EXTENSION statem
 
 ## Definition
 
-
+```c
+typedef struct AlterExtensionStmt
+{
+	NodeTag		type;
+	char	   *extname;
+	List	   *options;		/* List of DefElem nodes */
+} AlterExtensionStmt;
+```
 ## Detailed Description
 This structure represents the ALTER EXTENSION SQL command, which is primarily used to update extensions to newer versions. The statement reads the current version from the pg_extension catalog, determines the target version (either specified explicitly or from the extension's default version), and identifies the sequence of update scripts needed to migrate from the current version to the target version.
 

@@ -8,7 +8,10 @@ Sends a signal from a backend child process to the postmaster process, using sha
 
 ## Definition
 
-
+```c
+void
+SendPostmasterSignal(PMSignalReason reason)
+```
 ## Detailed Description
 SendPostmasterSignal provides a mechanism for child processes to communicate with the postmaster process. The function works by:
 

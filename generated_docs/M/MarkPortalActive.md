@@ -8,7 +8,10 @@ Transitions a portal from READY to ACTIVE state, ensuring proper state managemen
 
 ## Definition
 
-
+```c
+void
+MarkPortalActive(Portal portal)
+```
 ## Detailed Description
 MarkPortalActive performs a critical state transition that marks a portal as actively executing. This function enforces strict state validation, ensuring that only portals in the READY state can be activated. The function performs a runtime check rather than just an assertion to guarantee safety, and will raise an ERROR if the portal is not in the prerequisite READY state.
 

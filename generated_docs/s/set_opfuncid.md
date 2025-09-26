@@ -8,7 +8,10 @@ Sets the operator function ID (procedure OID) in an OpExpr node if it hasn't bee
 
 ## Definition
 
-
+```c
+void
+set_opfuncid(OpExpr *opexpr)
+```
 ## Detailed Description
 This function sets the opfuncid field in an OpExpr node, which stores the OID of the procedure that implements the operator. The function only sets the opfuncid if it is currently InvalidOid, preventing unnecessary lookups if the function ID has already been resolved. It uses get_opcode() to look up the procedure OID based on the operator OID stored in opno.
 

@@ -8,7 +8,10 @@ Sends a Sync message as part of a pipeline and immediately flushes the data to t
 
 ## Definition
 
-
+```c
+int
+PQpipelineSync(PGconn *conn)
+```
 ## Detailed Description
 PQpipelineSync sends a Sync message to the PostgreSQL server as part of pipeline mode operation and immediately flushes the output buffer. This function is a wrapper around pqPipelineSyncInternal with immediate flushing enabled.
 

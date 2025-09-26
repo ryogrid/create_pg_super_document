@@ -8,7 +8,10 @@ Escapes single quotes and backslashes in ASCII strings by doubling them, specifi
 
 ## Definition
 
-
+```c
+char *
+escape_single_quotes_ascii(const char *src)
+```
 ## Detailed Description
 This function takes an input string and creates a new escaped version where single quotes (') and backslashes (\) are doubled to make them safe for use in PostgreSQL configuration files and string literals. The function allocates memory for a result string that is potentially twice the size of the input (plus null terminator) to accommodate the worst-case scenario where every character needs escaping.
 

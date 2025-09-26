@@ -8,7 +8,17 @@ SQLFunctionParseInfo is a data structure used by parser callback hooks to resolv
 
 ## Definition
 
-
+```c
+typedef struct SQLFunctionParseInfo
+{
+	char	   *fname;			/* function's name */
+	int			nargs;			/* number of input arguments */
+	Oid		   *argtypes;		/* resolved types of input arguments */
+	char	  **argnames;		/* names of input arguments; NULL if none */
+	/* Note that argnames[i] can be NULL, if some args are unnamed */
+	Oid			collation;		/* function's input collation, if known */
+} SQLFunctionParseInfo;
+```
 ## Detailed Description
 The SQLFunctionParseInfo structure serves as a critical component in PostgreSQL's SQL function parsing infrastructure. It is specifically designed to be separate from SQLFunctionCache to support scenarios where parsing and execution occur independently. This structure provides the parser with essential information needed to resolve parameter references (, , etc.) within SQL function bodies by maintaining metadata about the function's signature, argument types, and names.
 

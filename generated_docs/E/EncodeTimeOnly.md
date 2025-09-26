@@ -8,7 +8,10 @@ EncodeTimeOnly formats time components (hours, minutes, seconds, fractional seco
 
 ## Definition
 
-
+```c
+void
+EncodeTimeOnly(struct pg_tm *tm, fsec_t fsec, bool print_tz, int tz, int style, char *str)
+```
 ## Detailed Description
 EncodeTimeOnly converts time-related components from a pg_tm structure and fractional seconds into a formatted time string. The function formats time in HH:MM:SS format with optional fractional seconds and timezone offset. It uses zero-padded formatting for hours and minutes, delegates seconds formatting to AppendSeconds for proper fractional second handling, and conditionally includes timezone information based on the print_tz flag. The output format is suitable for PostgreSQL's time and timetz data types.
 

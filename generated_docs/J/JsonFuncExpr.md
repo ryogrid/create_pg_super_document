@@ -8,7 +8,24 @@ A structure representing untransformed function expressions for SQL/JSON query f
 
 ## Definition
 
-
+```c
+typedef struct JsonFuncExpr
+{
+	NodeTag		type;
+	JsonExprOp	op;				/* expression type */
+	char	   *column_name;	/* JSON_TABLE() column name or NULL if this is
+								 * not for a JSON_TABLE() */
+	JsonValueExpr *context_item;	/* context item expression */
+	Node	   *pathspec;		/* JSON path specification expression */
+	List	   *passing;		/* list of PASSING clause arguments, if any */
+	JsonOutput *output;			/* output clause, if specified */
+	JsonBehavior *on_empty;		/* ON EMPTY behavior */
+	JsonBehavior *on_error;		/* ON ERROR behavior */
+	JsonWrapper wrapper;		/* array wrapper behavior (JSON_QUERY only) */
+	JsonQuotes	quotes;			/* omit or keep quotes? (JSON_QUERY only) */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} JsonFuncExpr;
+```
 ## Detailed Description
 JsonFuncExpr is a comprehensive parse tree node representing SQL/JSON query functions in their untransformed state. It encapsulates all aspects of JSON query operations including the operation type, context item, JSON path specification, parameter passing, output formatting, and error/empty handling behaviors. This structure serves as the foundation for JSON functions like JSON_VALUE, JSON_QUERY, and JSON_EXISTS, providing a unified representation before transformation into executable forms. The structure supports both standalone JSON functions and JSON_TABLE() column specifications, making it versatile across different JSON operation contexts.
 

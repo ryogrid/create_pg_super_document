@@ -8,7 +8,13 @@ LocationLen is a structure used for tracking the locations and lengths of consta
 
 ## Definition
 
-
+```c
+typedef struct LocationLen
+{
+	int			location;		/* start offset in query text */
+	int			length;			/* length in bytes, or -1 to ignore */
+} LocationLen;
+```
 ## Detailed Description
 LocationLen serves as a fundamental data structure in PostgreSQL's query jumbling and normalization system. It tracks the position and size of constants within query text that need to be replaced or normalized during the query fingerprinting process. This structure is essential for creating normalized query representations where constants are abstracted away, allowing similar queries with different constant values to have the same fingerprint.
 

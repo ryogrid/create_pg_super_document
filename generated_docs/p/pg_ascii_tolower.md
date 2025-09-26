@@ -8,7 +8,10 @@ Converts an ASCII uppercase character to its lowercase equivalent following C/PO
 
 ## Definition
 
-
+```c
+unsigned char
+pg_ascii_tolower(unsigned char ch)
+```
 ## Detailed Description
  is a utility function that performs ASCII character case conversion from uppercase to lowercase. Unlike standard library functions like , this function operates independently of the current locale, ensuring consistent behavior across different system locales. It specifically handles ASCII characters 'A' through 'Z' by adding the offset between 'A' and 'a' (32) to convert them to their lowercase equivalents 'a' through 'z'. Characters that are not uppercase ASCII letters are returned unchanged.
 

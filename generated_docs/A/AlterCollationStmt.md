@@ -8,7 +8,13 @@ AlterCollationStmt represents the parsed form of an ALTER COLLATION statement, u
 
 ## Definition
 
-
+```c
+typedef struct AlterCollationStmt
+{
+	NodeTag		type;
+	List	   *collname;
+} AlterCollationStmt;
+```
 ## Detailed Description
 AlterCollationStmt is a parse tree node structure that represents ALTER COLLATION SQL commands. This structure is relatively simple compared to other ALTER statement nodes, containing only the essential information needed to identify the target collation object.
 

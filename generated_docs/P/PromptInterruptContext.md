@@ -8,7 +8,15 @@ PromptInterruptContext is a structure that provides a mechanism for safely cance
 
 ## Definition
 
-
+```c
+typedef struct PromptInterruptContext
+{
+	/* To avoid including <setjmp.h> here, jmpbuf is declared "void *" */
+	void	   *jmpbuf;			/* existing longjmp buffer */
+	volatile sig_atomic_t *enabled; /* flag that enables longjmp-on-interrupt */
+	bool		canceled;		/* indicates whether cancellation occurred */
+} PromptInterruptContext;
+```
 ## Detailed Description
 The PromptInterruptContext structure is designed to provide safe, interruptible user input functionality in PostgreSQL's client tools, particularly psql. It implements a cooperative cancellation mechanism that allows long-running or blocking I/O operations (like reading user input) to be interrupted by signals without leaving the system in an inconsistent state.
 

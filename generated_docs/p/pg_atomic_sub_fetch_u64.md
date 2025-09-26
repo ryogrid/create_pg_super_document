@@ -8,7 +8,10 @@ Atomically subtracts a value from a 64-bit unsigned integer and returns the resu
 
 ## Definition
 
-
+```c
+static inline uint64
+pg_atomic_sub_fetch_u64(volatile pg_atomic_uint64 *ptr, int64 sub_)
+```
 ## Detailed Description
 This function performs an atomic subtract-and-fetch operation on a 64-bit unsigned integer. It subtracts the specified value from the atomic variable and returns the new value after the subtraction has been performed. The operation is guaranteed to be atomic, meaning it cannot be interrupted by other threads or processes, ensuring thread-safe access to shared memory.
 

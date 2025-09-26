@@ -8,7 +8,10 @@ Creates a new dynamic shared hash table backed by a specified dynamic shared are
 
 ## Definition
 
-
+```c
+structs. */
+	hash_table->area = area;
+```
 ## Detailed Description
 The dshash_create function establishes a brand new dynamic shared hash table within the provided dynamic shared area. It performs comprehensive initialization including allocating both the backend-local dshash_table object and the shared dshash_table_control structure. The function sets up the initial bucket array with a size equal to the number of partitions and initializes all lock partitions with their associated LWLocks. The hash table starts with a minimal configuration that can grow dynamically as needed.
 

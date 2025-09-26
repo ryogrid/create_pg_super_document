@@ -8,7 +8,13 @@ A structure representing an iterator for traversing doubly-linked process lists 
 
 ## Definition
 
-
+```c
+typedef struct proclist_mutable_iter
+{
+	ProcNumber	cur;			/* pgprocno of the current PGPROC */
+	ProcNumber	next;			/* pgprocno of the next PGPROC */
+} proclist_mutable_iter;
+```
 ## Detailed Description
 The `proclist_mutable_iter` structure provides a safe way to iterate through a doubly-linked list of PostgreSQL processes while allowing modifications to the list during traversal. This is particularly important when you need to remove processes from the list as you encounter them, which would normally invalidate standard iterators.
 

@@ -8,7 +8,12 @@ TS_phrase_execute is a recursive function that executes tsquery operations at or
 
 ## Definition
 
-
+```c
+static TSTernaryValue
+TS_phrase_execute(QueryItem *curitem, void *arg, uint32 flags,
+				  TSExecuteCallback chkcond,
+				  ExecPhraseData *data)
+```
 ## Detailed Description
 This function is the core execution engine for PostgreSQL's text search phrase queries, designed to handle complex boolean logic while tracking lexeme positions for phrase matching. It recursively processes query trees containing OP_PHRASE, OP_AND, OP_OR, and OP_NOT operations, maintaining detailed position information required for proximity-based text searches.
 

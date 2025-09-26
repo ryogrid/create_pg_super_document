@@ -8,7 +8,10 @@ A static function that handles the common preparation logic for SQL statements i
 
 ## Definition
 
-
+```c
+static bool
+prepare_common(int lineno, struct connection *con, const char *name, const char *variable)
+```
 ## Detailed Description
 The `prepare_common` function encapsulates the core logic for preparing SQL statements in ECPG. It allocates memory for prepared statement and statement structures, processes the SQL text to replace named parameters with positional parameters, sends the prepared statement to PostgreSQL using PQprepare, and registers the prepared statement in the connection's list. The function handles error conditions gracefully by cleaning up allocated resources on failure.
 

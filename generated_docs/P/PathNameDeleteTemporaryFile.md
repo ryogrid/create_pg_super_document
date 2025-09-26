@@ -8,7 +8,9 @@ PathNameDeleteTemporaryFile deletes a temporary file by pathname and reports its
 
 ## Definition
 
-
+```c
+struct stat filestats;
+```
 ## Detailed Description
 This function deletes a temporary file at the specified path while handling various error conditions gracefully and reporting usage statistics for monitoring purposes. The function is designed to be robust in scenarios where files might already be deleted or might not exist.
 

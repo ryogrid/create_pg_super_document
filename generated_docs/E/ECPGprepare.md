@@ -8,7 +8,9 @@ The main public API function for handling EXEC SQL PREPARE statements in the ECP
 
 ## Definition
 
-
+```c
+struct connection *con;
+```
 ## Detailed Description
 The `ECPGprepare` function is the primary entry point for preparing SQL statements in ECPG applications. It handles the complete process of statement preparation including connection management, duplicate statement checking, and delegation to the core preparation logic. The function first retrieves and initializes the specified database connection, then checks for existing prepared statements with the same name and deallocates them if found, and finally delegates to `prepare_common` for the actual preparation work.
 

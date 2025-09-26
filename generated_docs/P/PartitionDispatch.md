@@ -8,7 +8,9 @@ PartitionDispatch is a type definition for a pointer to PartitionDispatchData st
 
 ## Definition
 
-
+```c
+typedef struct PartitionDispatchData *PartitionDispatch;
+```
 ## Detailed Description
 PartitionDispatch serves as a handle to access partition dispatch information for a specific partitioned table within PostgreSQL's partition routing system. It encapsulates all the metadata and execution state needed to determine which partition a tuple should be routed to, including the partition key, partition descriptor, and routing indexes. This structure is always stored within a PartitionTupleRouting's partition_dispatch_info array and is essential for the tuple routing mechanism in partitioned tables.
 

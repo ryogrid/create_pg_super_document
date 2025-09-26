@@ -8,7 +8,22 @@ TriggerData is a structure that encapsulates all the context information needed 
 
 ## Definition
 
-
+```c
+typedef struct TriggerData
+{
+	NodeTag		type;
+	TriggerEvent tg_event;
+	Relation	tg_relation;
+	HeapTuple	tg_trigtuple;
+	HeapTuple	tg_newtuple;
+	Trigger    *tg_trigger;
+	TupleTableSlot *tg_trigslot;
+	TupleTableSlot *tg_newslot;
+	Tuplestorestate *tg_oldtable;
+	Tuplestorestate *tg_newtable;
+	const Bitmapset *tg_updatedcols;
+} TriggerData;
+```
 ## Detailed Description
 The TriggerData structure serves as a comprehensive data container passed to trigger functions during their execution. It provides access to all relevant information about the triggering event, including the old and new tuple values, the relation being modified, and any transition tables that were requested. This structure enables trigger functions to examine the context of the operation that fired the trigger and make appropriate decisions or modifications.
 

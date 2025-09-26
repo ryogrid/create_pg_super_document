@@ -8,7 +8,12 @@ Initializes and stores publication and subscription information for each databas
 
 ## Definition
 
-
+```c
+static struct LogicalRepInfo *
+store_pub_sub_info(const struct CreateSubscriberOptions *opt,
+				   const char *pub_base_conninfo,
+				   const char *sub_base_conninfo)
+```
 ## Detailed Description
 The  function is responsible for setting up the core data structures that track logical replication information for each database involved in the subscription creation process. It creates an array of  structures, one for each database specified in the options.
 

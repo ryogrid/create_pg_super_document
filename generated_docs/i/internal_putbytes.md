@@ -8,7 +8,10 @@ A static inline function that efficiently buffers and sends data bytes to a Post
 
 ## Definition
 
-
+```c
+static inline int
+internal_putbytes(const char *s, size_t len)
+```
 ## Detailed Description
 The  function is an internal utility for efficiently sending data to PostgreSQL clients. It implements intelligent buffering logic that optimizes performance by:
 

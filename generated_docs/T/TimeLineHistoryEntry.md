@@ -8,7 +8,14 @@ A data structure that represents a single entry in PostgreSQL's timeline history
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	TimeLineID	tli;
+	XLogRecPtr	begin;			/* inclusive */
+	XLogRecPtr	end;			/* exclusive, InvalidXLogRecPtr means infinity */
+} TimeLineHistoryEntry;
+```
 ## Detailed Description
 TimeLineHistoryEntry is a fundamental structure used in PostgreSQL's point-in-time recovery and timeline management system. Each entry represents a contiguous segment of WAL records that belong to a specific timeline. Timeline history is crucial for maintaining database consistency across recovery operations, backup restorations, and replication scenarios.
 

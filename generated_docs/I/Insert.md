@@ -8,7 +8,10 @@ Inserts a file descriptor into the LRU (Least Recently Used) cache list, placing
 
 ## Definition
 
-
+```c
+static void
+Insert(File file)
+```
 ## Detailed Description
 The Insert function manages the LRU cache for virtual file descriptors (Vfd) in PostgreSQL's file management system. When a file descriptor is accessed or newly opened, this function inserts it at the head of the LRU list, marking it as the most recently used file. The function maintains the doubly-linked LRU list structure by updating the lruMoreRecently and lruLessRecently pointers in the VfdCache array.
 

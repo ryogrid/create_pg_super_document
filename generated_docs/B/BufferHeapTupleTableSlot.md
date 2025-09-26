@@ -8,7 +8,22 @@ BufferHeapTupleTableSlot is a specialized table slot structure for heap tuples t
 
 ## Definition
 
+```c
+typedef struct BufferHeapTupleTableSlot
+{
+	pg_node_attr(abstract)
 
+	HeapTupleTableSlot base;
+
+	/*
+	 * If buffer is not InvalidBuffer, then the slot is holding a pin on the
+	 * indicated buffer page; drop the pin when we release the slot's
+	 * reference to that buffer.  (TTS_FLAG_SHOULDFREE should not be set in
+	 * such a case, since presumably base.tuple is pointing into the buffer.)
+	 */
+	Buffer		buffer;			/* tuple's buffer, or InvalidBuffer */
+} BufferHeapTupleTableSlot;
+```
 ## Detailed Description
 BufferHeapTupleTableSlot is a specialized tuple table slot implementation designed to handle heap tuples that reside directly in shared buffer pages. This structure extends HeapTupleTableSlot by adding buffer management capabilities, specifically maintaining a pin on the buffer page containing the tuple data.
 

@@ -8,7 +8,18 @@ CreatePLangStmt is a parse tree node structure that represents the CREATE LANGUA
 
 ## Definition
 
-
+```c
+typedef struct CreatePLangStmt
+{
+	NodeTag		type;
+	bool		replace;		/* T => replace if already exists */
+	char	   *plname;			/* PL name */
+	List	   *plhandler;		/* PL call handler function (qual. name) */
+	List	   *plinline;		/* optional inline function (qual. name) */
+	List	   *plvalidator;	/* optional validator function (qual. name) */
+	bool		pltrusted;		/* PL is trusted */
+} CreatePLangStmt;
+```
 ## Detailed Description
 CreatePLangStmt is a parser node structure that encapsulates all the information needed to create a procedural language in PostgreSQL. This structure is created during SQL parsing when a CREATE LANGUAGE statement is encountered. It holds all the parameters and options that define how a procedural language should be installed and configured in the database system.
 

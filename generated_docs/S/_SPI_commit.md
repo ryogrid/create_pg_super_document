@@ -8,7 +8,10 @@ _SPI_commit is an internal SPI function that commits the current transaction and
 
 ## Definition
 
-
+```c
+static void
+_SPI_commit(bool chain)
+```
 ## Detailed Description
 _SPI_commit provides the core implementation for transaction commit operations in non-atomic SPI contexts. It performs a complete transaction commit cycle while maintaining proper error handling and ensuring the SPI connection remains valid across transaction boundaries.
 

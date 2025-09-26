@@ -8,7 +8,10 @@ Initializes a SHA-512 cryptographic hash context structure with the standard ini
 
 ## Definition
 
-
+```c
+void
+pg_sha512_init(pg_sha512_ctx *context)
+```
 ## Detailed Description
 The  function prepares a SHA-512 context structure for hash computation by:
 1. Validating the context pointer is non-NULL

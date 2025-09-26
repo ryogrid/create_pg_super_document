@@ -8,7 +8,10 @@ A ResourceOwner callback function that properly releases ManyTestResource object
 
 ## Definition
 
-
+```c
+static void
+ReleaseManyTestResource(Datum res)
+```
 ## Detailed Description
 ReleaseManyTestResource serves as the cleanup callback function for the PostgreSQL ResourceOwner system when dealing with ManyTestResource objects. This function is invoked automatically by the resource management system to properly deallocate test resources and maintain system integrity.
 

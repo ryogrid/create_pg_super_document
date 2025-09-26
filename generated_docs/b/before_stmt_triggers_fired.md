@@ -8,7 +8,10 @@ Detects whether BEFORE STATEMENT triggers have already been queued for a given r
 
 ## Definition
 
-
+```c
+static bool
+before_stmt_triggers_fired(Oid relid, CmdType cmdType)
+```
 ## Detailed Description
 This function implements a crucial mechanism in PostgreSQL's trigger system to ensure that BEFORE STATEMENT triggers fire exactly once per SQL statement, regardless of how many rows are affected or how many times trigger-related functions are called during statement execution.
 

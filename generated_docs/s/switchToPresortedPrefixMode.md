@@ -8,7 +8,10 @@ A static function that optimizes tuple sorting by switching from full-column sor
 
 ## Definition
 
-
+```c
+static void
+switchToPresortedPrefixMode(PlanState *pstate)
+```
 ## Detailed Description
 This function implements a key optimization in the incremental sort algorithm. When the executor determines that it has encountered a large batch of tuples all having the same pre-sorted prefix values, it switches to an optimized sorting mode that only sorts on the remaining (unsorted) suffix keys, rather than sorting on all columns.
 

@@ -8,7 +8,10 @@ Resets an index fetch operation by releasing cross index fetch resources held in
 
 ## Definition
 
-
+```c
+static inline void
+table_index_fetch_reset(struct IndexFetchTableData *scan)
+```
 ## Detailed Description
 This function is part of PostgreSQL's table access method (tableam) interface that provides a standardized way to reset index fetch operations. When called, it invokes the table access method's specific  function pointer to clean up any resources that were allocated during index scanning operations. This is typically used to prepare for a new index scan or to clean up after completing one.
 

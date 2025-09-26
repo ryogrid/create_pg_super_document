@@ -8,7 +8,10 @@ Creates a standalone ExprContext for expression evaluation that operates indepen
 
 ## Definition
 
-
+```c
+ExprContext *
+CreateStandaloneExprContext(void)
+```
 ## Detailed Description
 CreateStandaloneExprContext creates an ExprContext structure designed for standalone expression evaluation scenarios where no executor state is available. Unlike regular ExprContexts created within an EState, this standalone version operates in isolation and uses the caller's current memory context as its "per query" context.
 

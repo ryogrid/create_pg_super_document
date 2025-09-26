@@ -8,7 +8,13 @@ VacDeadItemsInfo stores supplemental information and constraints for managing de
 
 ## Definition
 
-
+```c
+typedef struct VacDeadItemsInfo
+{
+	size_t		max_bytes;		/* the maximum bytes TidStore can use */
+	int64		num_items;		/* current # of entries */
+} VacDeadItemsInfo;
+```
 ## Detailed Description
 VacDeadItemsInfo is a lightweight structure that tracks metadata about dead tuple identifier (TID) storage during VACUUM operations. It works in conjunction with TidStore, which is PostgreSQL's mechanism for efficiently storing and managing sets of tuple identifiers that represent dead tuples.
 

@@ -8,7 +8,10 @@ Creates and initializes a new backup manifest writer for generating PostgreSQL b
 
 ## Definition
 
-
+```c
+manifest_writer *
+create_manifest_writer(char *directory, uint64 system_identifier)
+```
 ## Detailed Description
 This function creates a new manifest writer structure used for generating backup manifest files during PostgreSQL backup operations. It initializes the writer with a target directory and system identifier, sets up internal buffers and checksumming, and begins the JSON structure for the backup manifest. The manifest file will be created as "backup_manifest" in the specified directory and follows the PostgreSQL Backup Manifest format version 2.
 

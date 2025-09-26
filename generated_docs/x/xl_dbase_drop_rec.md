@@ -8,7 +8,14 @@ WAL record structure used to log DROP DATABASE operations, containing the databa
 
 ## Definition
 
-
+```c
+typedef struct xl_dbase_drop_rec
+{
+	Oid			db_id;
+	int			ntablespaces;	/* number of tablespace IDs */
+	Oid			tablespace_ids[FLEXIBLE_ARRAY_MEMBER];
+} xl_dbase_drop_rec;
+```
 ## Detailed Description
 The xl_dbase_drop_rec structure represents a Write-Ahead Log (WAL) record for database drop operations. This record contains all the information necessary to properly remove a database during normal operation or to replay the drop operation during WAL recovery. 
 

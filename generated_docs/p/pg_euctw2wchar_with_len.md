@@ -8,7 +8,10 @@ Converts EUC-TW (Extended Unix Code for Taiwan) encoded multibyte string to Post
 
 ## Definition
 
-
+```c
+static int
+pg_euctw2wchar_with_len(const unsigned char *from, pg_wchar *to, int len)
+```
 ## Detailed Description
 This function performs character encoding conversion from EUC-TW to PostgreSQL's internal wide character format (pg_wchar). EUC-TW is a variable-length multibyte encoding system used for Traditional Chinese characters in Taiwan. The function processes up to  bytes from the input string and handles different code sets within EUC-TW:
 

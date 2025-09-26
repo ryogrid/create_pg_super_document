@@ -8,7 +8,9 @@ The  function releases all resources of a specific phase from a ResourceOwner, c
 
 ## Definition
 
-
+```c
+struct ResourceOwnerData));
+```
 ## Detailed Description
 This function is the core resource cleanup mechanism that releases resources belonging to a specific release phase. It operates on the assumption that the resources have already been sorted by , ensuring proper release order.
 

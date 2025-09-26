@@ -8,7 +8,10 @@ ReportTemporaryFileUsage is a static function that reports the usage of temporar
 
 ## Definition
 
-
+```c
+static void
+ReportTemporaryFileUsage(const char *path, off_t size)
+```
 ## Detailed Description
 ReportTemporaryFileUsage is called whenever a temporary file is deleted to report its size for both statistical tracking and optional logging. The function serves two main purposes:
 

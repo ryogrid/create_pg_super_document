@@ -8,7 +8,10 @@ The  function is a Windows-specific implementation that provides POSIX  function
 
 ## Definition
 
-
+```c
+int
+fdatasync(int fd)
+```
 ## Detailed Description
 This function implements the POSIX  system call for Windows platforms where the native function is not available. Unlike  which synchronizes both file data and metadata,  only synchronizes the file's data contents to persistent storage, making it potentially faster for scenarios where metadata synchronization is not required.
 

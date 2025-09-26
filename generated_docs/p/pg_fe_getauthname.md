@@ -8,7 +8,10 @@ Retrieves the authenticated username of the current process, providing a simple 
 
 ## Definition
 
-
+```c
+char *
+pg_fe_getauthname(PQExpBuffer errorMessage)
+```
 ## Detailed Description
  is a convenience wrapper around  that automatically determines the appropriate user ID to look up based on the current platform and process context. It abstracts away the platform-specific differences in determining the authenticated user identity.
 

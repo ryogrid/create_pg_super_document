@@ -8,7 +8,10 @@ The main function that reads sorted tuples from tuplesort and loads them into B-
 
 ## Definition
 
-
+```c
+static void
+_bt_load(BTWriteState *wstate, BTSpool *btspool, BTSpool *btspool2)
+```
 ## Detailed Description
 This function is the core of B-tree index construction from sorted data. It reads tuples in correct sort order from one or two tuplesort sources and efficiently loads them into B-tree leaf pages. The function handles three distinct operational modes:
 

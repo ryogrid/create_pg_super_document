@@ -8,7 +8,10 @@ Detaches from a dynamic shared area (DSA) that was either created or attached to
 
 ## Definition
 
-
+```c
+void
+dsa_detach(dsa_area *area)
+```
 ## Detailed Description
 The  function performs cleanup operations when a process no longer needs access to a dynamic shared area. It iterates through all segments in the area and detaches from each associated dynamic shared memory (DSM) segment using . The function then frees the backend-local area object.
 

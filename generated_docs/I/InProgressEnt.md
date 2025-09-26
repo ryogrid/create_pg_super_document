@@ -8,7 +8,32 @@ InProgressEnt is a structure that tracks ongoing RelationBuildDesc() operations,
 
 ## Definition
 
+```c
+bool		invalidated;	/* whether an invalidation arrived for it */
+} InProgressEnt;
 
+static InProgressEnt *in_progress_list;
+static int	in_progress_list_len;
+static int	in_progress_list_maxlen;
+
+/*
+ * eoxact_list[] stores the OIDs of relations that (might) need AtEOXact
+ * cleanup work.  This list intentionally has limited size; if it overflows,
+ * we fall back to scanning the whole hashtable.  There is no value in a very
+ * large list because (1) at some point, a hash_seq_search scan is faster than
+ * retail lookups, and (2) the value of this is to reduce EOXact work for
+ * short transactions, which can't have dirtied all that many tables anyway.
+ * EOXactListAdd() does not bother to prevent duplicate list entries, so the
+ * cleanup processing must be idempotent.
+ */
+#define MAX_EOXACT_LIST 32
+static Oid	eoxact_list[MAX_EOXACT_LIST];
+static int	eoxact_list_len = 0;
+static bool eoxact_list_overflowed = false;
+
+#define EOXactListAdd(rel) \
+	do
+```
 ## Detailed Description
 InProgressEnt is a critical data structure for PostgreSQL's relation cache consistency mechanism. It maintains a stack (in_progress_list) of ongoing RelationBuildDesc() calls to handle a specific concurrency issue with CREATE INDEX CONCURRENTLY operations.
 

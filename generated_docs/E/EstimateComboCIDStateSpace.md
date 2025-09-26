@@ -8,7 +8,10 @@ EstimateComboCIDStateSpace calculates the amount of memory space required to ser
 
 ## Definition
 
-
+```c
+Size
+EstimateComboCIDStateSpace(void)
+```
 ## Detailed Description
 EstimateComboCIDStateSpace is a utility function that estimates the serialization space requirements for the combo command ID state. This function is essential for parallel processing scenarios where combo CID state needs to be shared between parallel workers. The function calculates the total space needed to store both the count of used combo CIDs and the actual ComboCidKeyData structures.
 

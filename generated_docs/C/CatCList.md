@@ -8,7 +8,13 @@ CatCList represents the result of a partial catalog search in PostgreSQL, storin
 
 ## Definition
 
-
+```c
+typedef struct catcacheheader
+{
+	slist_head	ch_caches;		/* head of list of CatCache structs */
+	int			ch_ntup;		/* # of tuples in all caches */
+} CatCacheHeader;
+```
 ## Detailed Description
 CatCList is a specialized cache structure that stores the results of partial key searches on catalog caches. When a search is performed using only the first K columns of an N-key cache (where K < N), PostgreSQL creates a CatCList to hold all tuples that match those K keys. This optimization allows subsequent searches with the same partial key to avoid scanning the underlying system catalog.
 

@@ -8,7 +8,10 @@ Sends data to a specified parallel apply worker via shared-memory queue in Postg
 
 ## Definition
 
-
+```c
+bool
+pa_send_data(ParallelApplyWorkerInfo *winfo, Size nbytes, const void *data)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's parallel logical replication system that handles inter-process communication between the main apply worker and parallel apply workers. It attempts to send data via shared-memory queues using a non-blocking approach with timeout and retry mechanisms.
 

@@ -8,7 +8,9 @@ Performs a linear search through the global variable list to find and return a v
 
 ## Definition
 
-
+```c
+struct variable *p;
+```
 ## Detailed Description
 This function implements a straightforward variable lookup mechanism in the ECPG preprocessor. It iterates through the global linked list of all variables (allvariables) and performs string comparison to find a variable with the exact matching name. This is the foundation for variable resolution in ECPG's embedded SQL processing.
 

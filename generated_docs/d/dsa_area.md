@@ -8,7 +8,35 @@ The  struct represents the per-backend state for a dynamic shared area (DSA) sto
 
 ## Definition
 
+```c
+struct dsa_area
+{
+	/* Pointer to the control object in shared memory. */
+	dsa_area_control *control;
 
+	/*
+	 * All the mappings are owned by this.  The dsa_area itself is not
+	 * directly tracked by the ResourceOwner, but the effect is the same. NULL
+	 * if the attachment has session lifespan, i.e if dsa_pin_mapping() has
+	 * been called.
+	 */
+	ResourceOwner resowner;
+
+	/*
+	 * This backend's array of segment maps, ordered by segment index
+	 * corresponding to control->segment_handles.  Some of the area's segments
+	 * may not be mapped in this backend yet, and some slots may have been
+	 * freed and need to be detached; these operations happen on demand.
+	 */
+	dsa_segment_map segment_maps[DSA_MAX_SEGMENTS];
+
+	/* The highest segment index this backend has ever mapped. */
+	dsa_segment_index high_segment_index;
+
+	/* The last observed freed_segment_counter. */
+	size_t		freed_segment_counter;
+};
+```
 ## Detailed Description
 The  struct serves as the local per-backend representation of a dynamic shared area (DSA) - a system for managing dynamically allocated shared memory segments across multiple PostgreSQL backend processes. Each backend that needs to access a DSA creates or attaches to one of these structures.
 

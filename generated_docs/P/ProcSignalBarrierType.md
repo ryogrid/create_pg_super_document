@@ -8,7 +8,12 @@ ProcSignalBarrierType is an enumeration that defines the types of global barrier
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	PROCSIGNAL_BARRIER_SMGRRELEASE, /* ask smgr to close files */
+} ProcSignalBarrierType;
+```
 ## Detailed Description
 ProcSignalBarrierType is used in PostgreSQL's process signaling mechanism to specify the type of barrier operation that needs to be performed across all active PostgreSQL processes. This enumeration is part of the global barrier system that allows one process to ensure that all other processes in the system have performed a specific operation before continuing.
 

@@ -8,7 +8,11 @@ A helper function that fetches a statistics entry reference and acquires a lock 
 
 ## Definition
 
-
+```c
+PgStat_EntryRef *
+pgstat_get_entry_ref_locked(PgStat_Kind kind, Oid dboid, Oid objoid,
+							bool nowait)
+```
 ## Detailed Description
 This function combines two operations into one convenient call: finding a statistics entry reference and locking it for safe access. It first calls  to locate the shared statistics entry corresponding to the specified parameters, then attempts to acquire a lock on that entry using . The function provides an option for non-blocking lock acquisition through the  parameter.
 

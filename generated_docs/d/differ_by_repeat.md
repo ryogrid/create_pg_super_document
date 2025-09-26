@@ -8,7 +8,17 @@ Determines whether two timestamps differ by exactly one repeat cycle (approximat
 
 ## Definition
 
+```c
+union input_buffer
+{
+	/* The first part of the buffer, interpreted as a header.  */
+	struct tzhead tzhead;
 
+	/* The entire buffer.  */
+	char		buf[2 * sizeof(struct tzhead) + 2 * sizeof(struct state)
+					+ 4 * TZ_MAX_TIMES];
+};
+```
 ## Detailed Description
 The `differ_by_repeat` function checks if two timestamp values differ by exactly `SECSPERREPEAT` seconds, which represents one repeat cycle in timezone calculations. A repeat cycle is approximately 400 years (146097 days), chosen because the Gregorian calendar repeats its pattern every 400 years.
 

@@ -8,7 +8,11 @@ A static function that validates real (floating-point) GUC parameters by calling
 
 ## Definition
 
-
+```c
+static bool
+call_real_check_hook(struct config_real *conf, double *newval, void **extra,
+					 GucSource source, int elevel)
+```
 ## Detailed Description
 This function serves as a validation wrapper for real (double/floating-point) type GUC parameters in PostgreSQL's configuration system. It follows the same pattern as call_int_check_hook but handles double values instead of integers. When a GUC parameter has an associated check hook function, this function calls that hook to validate the proposed new value.
 

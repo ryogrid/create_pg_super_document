@@ -8,7 +8,10 @@ Retrieves the home path directory for the current user, with platform-specific b
 
 ## Definition
 
-
+```c
+bool
+get_home_path(char *ret_path)
+```
 ## Detailed Description
 This function returns the user's home directory path on Unix/Linux systems, or the PostgreSQL-specific application data folder on Windows. On Unix systems, it first checks the HOME environment variable, and if that's unset or empty, it falls back to retrieving the home directory information from the password database using . On Windows, it uses the APPDATA environment variable and appends '/postgresql' to create a PostgreSQL-specific directory path.
 

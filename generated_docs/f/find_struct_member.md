@@ -8,7 +8,10 @@ Recursively traverses a struct member hierarchy to find and return a specific me
 
 ## Definition
 
-
+```c
+static struct variable *
+find_struct_member(char *name, char *str, struct ECPGstruct_member *members, int brace_level)
+```
 ## Detailed Description
 This function is part of the ECPG (Embedded SQL in C) preprocessor's variable resolution system. It parses a string containing a member access path (using dot notation like "member.submember[index]") and traverses the corresponding struct member hierarchy to locate the target member. The function handles complex nested structures including:
 

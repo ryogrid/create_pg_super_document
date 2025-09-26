@@ -8,7 +8,10 @@ A static utility function that normalizes encoding names by removing non-alphanu
 
 ## Definition
 
-
+```c
+static char *
+clean_encoding_name(const char *key, char *newkey)
+```
 ## Detailed Description
 The  function processes an encoding name string to create a normalized version suitable for comparison and lookup operations. It removes all non-alphanumeric characters (such as hyphens, underscores, spaces) and converts uppercase letters to lowercase. This normalization is essential for encoding name matching since encoding names can be written in various formats (e.g., "UTF-8", "utf8", "UTF_8") but should all be treated as equivalent.
 

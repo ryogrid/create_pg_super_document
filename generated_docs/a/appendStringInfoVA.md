@@ -8,7 +8,10 @@ Low-level function that attempts to format text using a va_list and append it to
 
 ## Definition
 
-
+```c
+int
+appendStringInfoVA(StringInfo str, const char *fmt, va_list args)
+```
 ## Detailed Description
 The  function is the core implementation for printf-style formatting in StringInfo operations. It takes a va_list argument (variable argument list) and attempts to format the text into the available buffer space. If successful, it returns 0 and updates the string length. If the buffer is too small, it returns an estimate of the additional space needed without modifying the string content. The function includes an optimization that skips formatting attempts when very little space is available (less than 16 bytes) and returns a conservative estimate. It uses  for the actual formatting work and carefully preserves the string's null termination.
 

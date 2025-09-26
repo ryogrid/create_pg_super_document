@@ -8,7 +8,10 @@ Completes SHA-512 hash computation by applying message padding and processing th
 
 ## Definition
 
-
+```c
+static void
+SHA512_Last(pg_sha512_ctx *context)
+```
 ## Detailed Description
 The  function implements the SHA-512 message padding and finalization process as specified in FIPS 180-4:
 

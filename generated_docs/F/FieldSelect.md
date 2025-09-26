@@ -8,7 +8,20 @@ FieldSelect represents the operation of extracting one field from a tuple value,
 
 ## Definition
 
-
+```c
+typedef struct FieldSelect
+{
+	Expr		xpr;
+	Expr	   *arg;			/* input expression */
+	AttrNumber	fieldnum;		/* attribute number of field to extract */
+	/* type of the field (result type of this node) */
+	Oid			resulttype pg_node_attr(query_jumble_ignore);
+	/* output typmod (usually -1) */
+	int32		resulttypmod pg_node_attr(query_jumble_ignore);
+	/* OID of collation of the field */
+	Oid			resultcollid pg_node_attr(query_jumble_ignore);
+} FieldSelect;
+```
 ## Detailed Description
 FieldSelect is an expression node that implements field extraction from composite/row types. At runtime, the input expression (arg) is expected to yield a rowtype Datum. The node extracts the field specified by fieldnum and returns it as a Datum of the appropriate type.
 

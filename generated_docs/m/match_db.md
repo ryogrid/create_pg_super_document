@@ -8,7 +8,10 @@ A callback function used to match statistics entry references by database OID du
 
 ## Definition
 
-
+```c
+static bool
+match_db(PgStat_EntryRefHashEntry *ent, Datum match_data)
+```
 ## Detailed Description
 This function serves as a matching callback used by the PostgreSQL statistics system to filter entry references based on database OID. It's designed to work with the  function to selectively release only those entry references that belong to a specific database.
 

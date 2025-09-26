@@ -8,7 +8,10 @@ Initializes a new FreePageSpanLeader structure and inserts it into the appropria
 
 ## Definition
 
-
+```c
+static void
+FreePagePushSpanLeader(FreePageManager *fpm, Size first_page, Size npages)
+```
 ## Detailed Description
 This static function creates and initializes a new FreePageSpanLeader structure to represent a contiguous span of free pages. The function performs several key operations:
 

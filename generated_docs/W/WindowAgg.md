@@ -8,7 +8,77 @@ WindowAgg is a specialized plan node that implements window functions in Postgre
 
 ## Definition
 
+```c
+typedef struct WindowAgg
+{
+	Plan		plan;
 
+	/* ID referenced by window functions */
+	Index		winref;
+
+	/* number of columns in partition clause */
+	int			partNumCols;
+
+	/* their indexes in the target list */
+	AttrNumber *partColIdx pg_node_attr(array_size(partNumCols));
+
+	/* equality operators for partition columns */
+	Oid		   *partOperators pg_node_attr(array_size(partNumCols));
+
+	/* collations for partition columns */
+	Oid		   *partCollations pg_node_attr(array_size(partNumCols));
+
+	/* number of columns in ordering clause */
+	int			ordNumCols;
+
+	/* their indexes in the target list */
+	AttrNumber *ordColIdx pg_node_attr(array_size(ordNumCols));
+
+	/* equality operators for ordering columns */
+	Oid		   *ordOperators pg_node_attr(array_size(ordNumCols));
+
+	/* collations for ordering columns */
+	Oid		   *ordCollations pg_node_attr(array_size(ordNumCols));
+
+	/* frame_clause options, see WindowDef */
+	int			frameOptions;
+
+	/* expression for starting bound, if any */
+	Node	   *startOffset;
+
+	/* expression for ending bound, if any */
+	Node	   *endOffset;
+
+	/* qual to help short-circuit execution */
+	List	   *runCondition;
+
+	/* runCondition for display in EXPLAIN */
+	List	   *runConditionOrig;
+
+	/* these fields are used with RANGE offset PRECEDING/FOLLOWING: */
+
+	/* in_range function for startOffset */
+	Oid			startInRangeFunc;
+
+	/* in_range function for endOffset */
+	Oid			endInRangeFunc;
+
+	/* collation for in_range tests */
+	Oid			inRangeColl;
+
+	/* use ASC sort order for in_range tests? */
+	bool		inRangeAsc;
+
+	/* nulls sort first for in_range tests? */
+	bool		inRangeNullsFirst;
+
+	/*
+	 * false for all apart from the WindowAgg that's closest to the root of
+	 * the plan
+	 */
+	bool		topWindow;
+} WindowAgg;
+```
 ## Detailed Description
 The WindowAgg node implements SQL window functions such as ROW_NUMBER(), RANK(), SUM() OVER(), and LAG()/LEAD(). It processes input data partitioned by specified columns and ordered within each partition. The node maintains a sliding window frame that can be defined using ROWS or RANGE clauses with PRECEDING/FOLLOWING boundaries. It supports both bounded and unbounded frames, and can efficiently handle peer groups (rows with identical values in ORDER BY columns). The node can run multiple window functions simultaneously if they share the same window specification, optimizing execution by avoiding redundant sorting and partitioning operations.
 

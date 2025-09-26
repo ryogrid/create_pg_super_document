@@ -8,7 +8,10 @@ Locates the Unicode case mapping entry for a given Unicode codepoint using optim
 
 ## Definition
 
-
+```c
+static const pg_case_map *
+find_case_map(pg_wchar ucs)
+```
 ## Detailed Description
 The  function is responsible for efficiently locating case mapping information for Unicode characters in PostgreSQL's case conversion system. It implements a two-tier lookup strategy optimized for performance:
 

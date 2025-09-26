@@ -8,7 +8,11 @@ Reads a page during WAL replay and determines what action needs to be taken to r
 
 ## Definition
 
-
+```c
+XLogRedoAction
+XLogReadBufferForRedo(XLogReaderState *record, uint8 block_id,
+					  Buffer *buf)
+```
 ## Detailed Description
 This function is a simplified wrapper around  that reads a block referenced by a WAL record into the shared buffer cache during replay. It determines the appropriate redo action by comparing the record's EndRecPtr with the page's LSN. If the WAL record includes a full-page image, it is automatically restored.
 

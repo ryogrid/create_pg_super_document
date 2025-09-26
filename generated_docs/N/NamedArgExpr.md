@@ -8,7 +8,20 @@ NamedArgExpr represents a named argument of a function call in PostgreSQL's quer
 
 ## Definition
 
-
+```c
+typedef struct NamedArgExpr
+{
+	Expr		xpr;
+	/* the argument expression */
+	Expr	   *arg;
+	/* the name */
+	char	   *name pg_node_attr(query_jumble_ignore);
+	/* argument's number in positional notation */
+	int			argnumber;
+	/* argument name location, or -1 if unknown */
+	ParseLoc	location;
+} NamedArgExpr;
+```
 ## Detailed Description
 NamedArgExpr is a node type that represents named arguments in function calls, appearing only in the arguments list of FuncCall or FuncExpr nodes. PostgreSQL supports three function call notations:
 - Pure positional notation (no named arguments)

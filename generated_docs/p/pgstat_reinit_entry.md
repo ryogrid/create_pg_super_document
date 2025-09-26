@@ -8,7 +8,10 @@ Reinitializes an existing dropped statistics entry by resetting its data, increm
 
 ## Definition
 
-
+```c
+static PgStatShared_Common *
+pgstat_reinit_entry(PgStat_Kind kind, PgStatShared_HashEntry *shhashent)
+```
 ## Detailed Description
 The `pgstat_reinit_entry` function resurrects a previously dropped statistics entry for reuse. This is more efficient than deallocating and reallocating memory when the same statistics object (identified by its key) is recreated. The function performs several key operations:
 

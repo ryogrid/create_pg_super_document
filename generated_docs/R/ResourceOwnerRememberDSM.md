@@ -8,7 +8,10 @@ A convenience wrapper function that registers a DSM (Dynamic Shared Memory) segm
 
 ## Definition
 
-
+```c
+static inline void
+ResourceOwnerRememberDSM(ResourceOwner owner, dsm_segment *seg)
+```
 ## Detailed Description
 This function is a simple wrapper around the generic ResourceOwnerRemember() function, specifically designed for DSM segments. It registers a DSM segment with the PostgreSQL resource management system, ensuring that the segment will be automatically cleaned up if the owning transaction aborts or the process exits unexpectedly. The function uses the dsm_resowner_desc descriptor to provide DSM-specific cleanup behavior through the resource owner framework.
 

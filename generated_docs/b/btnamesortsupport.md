@@ -8,7 +8,10 @@ The  function provides optimized sorting support for PostgreSQL's  data type by 
 
 ## Definition
 
-
+```c
+Datum
+btnamesortsupport(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements PostgreSQL's SortSupport interface for the  data type, which enables optimized sorting performance through specialized comparison functions and memory management. The function extracts the SortSupport structure from the function arguments, retrieves the collation information, and delegates to the generic variable-length string sorting infrastructure () with the  type identifier.
 

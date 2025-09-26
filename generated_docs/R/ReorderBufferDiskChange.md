@@ -8,7 +8,14 @@ ReorderBufferDiskChange is a structure used for disk serialization of reorder bu
 
 ## Definition
 
-
+```c
+typedef struct ReorderBufferDiskChange
+{
+	Size		size;
+	ReorderBufferChange change;
+	/* data follows */
+} ReorderBufferDiskChange;
+```
 ## Detailed Description
 This structure serves as a disk serialization wrapper for ReorderBufferChange objects when the reorder buffer needs to spill changes to disk due to memory pressure. When logical replication processes large transactions that exceed available memory, PostgreSQL serializes the changes to temporary files on disk. ReorderBufferDiskChange provides the necessary metadata and structure to properly serialize and deserialize these changes, maintaining the ability to reconstruct the original ReorderBufferChange objects when they are read back from disk.
 

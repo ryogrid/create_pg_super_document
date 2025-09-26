@@ -8,7 +8,10 @@ Allocates a virtual file descriptor (VFD) from the free list, expanding the VFD 
 
 ## Definition
 
-
+```c
+static File
+AllocateVfd(void)
+```
 ## Detailed Description
 AllocateVfd manages the allocation of virtual file descriptor slots from PostgreSQL's VFD cache system. The function maintains a free list of available VFD slots and returns the next available slot. When the free list is empty, it dynamically expands the VfdCache array by doubling its size.
 

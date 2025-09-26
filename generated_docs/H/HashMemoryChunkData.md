@@ -8,7 +8,27 @@ HashMemoryChunkData is a memory management structure that optimizes tuple storag
 
 ## Definition
 
+```c
+typedef struct HashMemoryChunkData
+{
+	int			ntuples;		/* number of tuples stored in this chunk */
+	size_t		maxlen;			/* size of the chunk's tuple buffer */
+	size_t		used;			/* number of buffer bytes already used */
 
+	/* pointer to the next chunk (linked list) */
+	union
+	{
+		struct HashMemoryChunkData *unshared;
+		dsa_pointer shared;
+	}			next;
+
+	/*
+	 * The chunk's tuple buffer starts after the HashMemoryChunkData struct,
+	 * at offset HASH_CHUNK_HEADER_SIZE (which must be maxaligned).  Note that
+	 * that offset is not included in "maxlen" or "used".
+	 */
+}			HashMemoryChunkData;
+```
 ## Detailed Description
 HashMemoryChunkData implements a chunked memory allocation strategy to optimize the storage of hash join tuples. Instead of individually allocating memory for each HashJoinTuple (which would create significant palloc overhead), this structure batches multiple tuples into large, fixed-size buffers (typically 32KB).
 

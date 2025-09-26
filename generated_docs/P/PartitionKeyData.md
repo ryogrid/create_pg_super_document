@@ -8,7 +8,32 @@ PartitionKeyData is a struct that stores comprehensive information about the par
 
 ## Definition
 
+```c
+typedef struct PartitionKeyData
+{
+	PartitionStrategy strategy; /* partitioning strategy */
+	int16		partnatts;		/* number of columns in the partition key */
+	AttrNumber *partattrs;		/* attribute numbers of columns in the
+								 * partition key or 0 if it's an expr */
+	List	   *partexprs;		/* list of expressions in the partitioning
+								 * key, one for each zero-valued partattrs */
 
+	Oid		   *partopfamily;	/* OIDs of operator families */
+	Oid		   *partopcintype;	/* OIDs of opclass declared input data types */
+	FmgrInfo   *partsupfunc;	/* lookup info for support funcs */
+
+	/* Partitioning collation per attribute */
+	Oid		   *partcollation;
+
+	/* Type information per attribute */
+	Oid		   *parttypid;
+	int32	   *parttypmod;
+	int16	   *parttyplen;
+	bool	   *parttypbyval;
+	char	   *parttypalign;
+	Oid		   *parttypcoll;
+}			PartitionKeyData;
+```
 ## Detailed Description
 PartitionKeyData is the core data structure that encapsulates all metadata required for table partitioning in PostgreSQL. It serves as a comprehensive descriptor that contains both the logical partitioning specification (strategy, attributes/expressions) and the operational metadata (operator families, type information, collations) needed to perform partition-related operations such as partition pruning, constraint checking, and routing tuples to appropriate partitions.
 

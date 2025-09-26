@@ -8,7 +8,9 @@ TimeADTGetDatum is a static inline function that converts a TimeADT value to a P
 
 ## Definition
 
-
+```c
+struct pg_tm *tm, fsec_t *fsec);
+```
 ## Detailed Description
 This function serves as a conversion utility in PostgreSQL's function manager (fmgr) system, specifically designed to convert TimeADT values into Datum objects for return values or storage. It internally delegates to Int64GetDatum() since TimeADT is fundamentally represented as a 64-bit integer containing microseconds since midnight in PostgreSQL. The function provides type safety and clarity when working with time values in the PostgreSQL backend, ensuring that TimeADT values are properly packaged as Datum types.
 

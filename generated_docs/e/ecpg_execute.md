@@ -8,7 +8,10 @@ Executes SQL statements using the appropriate libpq function based on statement 
 
 ## Definition
 
-
+```c
+bool
+ecpg_execute(struct statement *stmt)
+```
 ## Detailed Description
 This function is the core SQL execution engine within the ECPG library. It intelligently chooses the most appropriate libpq execution function based on the statement characteristics:
 

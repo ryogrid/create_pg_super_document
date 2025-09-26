@@ -8,7 +8,10 @@ A wrapper function that parses back a WindowFunc node into its string representa
 
 ## Definition
 
-
+```c
+static void
+get_windowfunc_expr(WindowFunc *wfunc, deparse_context *context)
+```
 ## Detailed Description
 This function serves as a simplified interface to the WindowFunc deparsing functionality. It takes a WindowFunc node and a deparse context, then immediately calls get_windowfunc_expr_helper with default parameters (NULL for both window name and frame options, and false for the show window name flag). This design pattern provides a clean, minimal interface for the most common case of deparsing window functions while allowing the helper function to handle more complex scenarios with additional parameters.
 

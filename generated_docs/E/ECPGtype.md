@@ -8,7 +8,25 @@ ECPGtype is a comprehensive structure that represents data type information in t
 
 ## Definition
 
-
+```c
+struct ECPGtype
+{
+	enum ECPGttype type;
+	char	   *type_name;		/* For struct and union types it is the struct
+								 * name */
+	char	   *size;			/* For array it is the number of elements. For
+								 * varchar it is the maxsize of the area. */
+	char	   *struct_sizeof;	/* For a struct this is the sizeof() type as
+								 * string */
+	union
+	{
+		struct ECPGtype *element;	/* For an array this is the type of the
+									 * element */
+		struct ECPGstruct_member *members;	/* A pointer to a list of members. */
+	}			u;
+	int			counter;
+};
+```
 ## Detailed Description
 ECPGtype is the central data structure in the ECPG preprocessor for representing all PostgreSQL-compatible data types that can be used in embedded SQL statements. It provides a unified representation for simple types (int, char, etc.), complex types (structs, unions), and container types (arrays). 
 

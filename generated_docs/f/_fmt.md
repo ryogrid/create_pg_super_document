@@ -8,7 +8,11 @@ Core internal formatting function that processes strftime format specifiers and 
 
 ## Definition
 
-
+```c
+static char *
+_fmt(const char *format, const struct pg_tm *t, char *pt,
+	 const char *ptlim, enum warn *warnp)
+```
 ## Detailed Description
 _fmt is the heart of PostgreSQL's strftime implementation, responsible for parsing format strings and converting timestamp components into formatted output. It processes each character in the format string, handling literal characters by copying them directly and format specifiers (prefixed with %) by converting the corresponding timestamp field using appropriate formatting.
 

@@ -8,7 +8,11 @@ Fetches the name of an index operator class and appends it to a string buffer, w
 
 ## Definition
 
-
+```c
+static void
+get_opclass_name(Oid opclass, Oid actual_datatype,
+				 StringInfo buf)
+```
 ## Detailed Description
 This function retrieves the name of an operator class from the system catalog and conditionally appends it to the provided string buffer. The function implements smart formatting behavior by suppressing output when the specified operator class is the default for the actual data type, helping to keep generated SQL statements clean and readable. When the operator class name is needed, the function properly handles namespace qualification based on visibility rules.
 

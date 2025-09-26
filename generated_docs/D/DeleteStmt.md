@@ -8,7 +8,17 @@ DeleteStmt represents the parsed structure of a DELETE statement in PostgreSQL, 
 
 ## Definition
 
-
+```c
+typedef struct DeleteStmt
+{
+	NodeTag		type;
+	RangeVar   *relation;		/* relation to delete from */
+	List	   *usingClause;	/* optional using clause for more tables */
+	Node	   *whereClause;	/* qualifications */
+	List	   *returningList;	/* list of expressions to return */
+	WithClause *withClause;		/* WITH clause */
+} DeleteStmt;
+```
 ## Detailed Description
 DeleteStmt is a parse tree node that represents a DELETE statement after SQL parsing. It encapsulates all components of a DELETE operation including the target table, optional USING clause for multi-table deletes, WHERE conditions for filtering rows to delete, RETURNING clause for retrieving deleted values, and WITH clause for common table expressions. This structure is created during the parsing phase and later transformed into execution plans by the query planner.
 

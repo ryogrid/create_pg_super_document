@@ -8,7 +8,20 @@ A support structure that allows window functions to optimize their associated Wi
 
 ## Definition
 
+```c
+typedef struct SupportRequestOptimizeWindowClause
+{
+	NodeTag		type;
 
+	/* Input fields: */
+	WindowFunc *window_func;	/* Pointer to the window function data */
+	struct WindowClause *window_clause; /* Pointer to the window clause data */
+
+	/* Input/Output fields: */
+	int			frameOptions;	/* New frameOptions, or left untouched if no
+								 * optimizations are possible. */
+} SupportRequestOptimizeWindowClause;
+```
 ## Detailed Description
 This structure enables window function support functions to optimize WindowClause frame options without affecting the function's result semantics. The primary optimization target is converting RANGE-based frames to ROWS-based frames, which reduces computational overhead in nodeWindowAgg.c by eliminating the need to check for peer rows.
 

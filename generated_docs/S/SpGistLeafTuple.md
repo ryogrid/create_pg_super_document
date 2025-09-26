@@ -8,7 +8,9 @@ SpGistLeafTuple is a pointer type to SpGistLeafTupleData that represents leaf-le
 
 ## Definition
 
-
+```c
+typedef struct SpGistLeafTupleData *SpGistLeafTuple;
+```
 ## Detailed Description
 SpGistLeafTuple is a typedef for a pointer to SpGistLeafTupleData structure. It represents the fundamental storage unit for leaf nodes in SP-GiST indexes. These tuples store the actual indexed values (or derived forms like suffixes) along with pointers to the corresponding heap tuples. The structure supports optional included columns and efficiently handles NULL values through a bitmap mechanism.
 

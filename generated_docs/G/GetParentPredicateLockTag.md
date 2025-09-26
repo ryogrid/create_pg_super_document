@@ -8,7 +8,11 @@ Returns the parent lock tag in PostgreSQL's predicate lock hierarchy, providing 
 
 ## Definition
 
-
+```c
+static bool
+GetParentPredicateLockTag(const PREDICATELOCKTARGETTAG *tag,
+						  PREDICATELOCKTARGETTAG *parent)
+```
 ## Detailed Description
 This function implements the hierarchical relationship in PostgreSQL's predicate locking system. It determines the parent lock for a given lock target based on the lock granularity hierarchy: tuple locks have page parents, page locks have relation parents, and relation locks have no parent. The function extracts the lock type from the input tag and constructs the appropriate parent tag by preserving database and relation identifiers while adjusting the granularity level.
 

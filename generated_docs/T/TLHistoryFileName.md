@@ -8,7 +8,10 @@ TLHistoryFileName is an inline function that generates the filename for a timeli
 
 ## Definition
 
-
+```c
+static inline void
+TLHistoryFileName(char *fname, TimeLineID tli)
+```
 ## Detailed Description
 This function constructs a filename for a timeline history file by formatting the timeline ID into PostgreSQL's standard timeline history file naming convention. Timeline history files store the branching history of WAL timelines and are named using the format "TTTTTTTT.history" where TTTTTTTT is the 8-digit hexadecimal representation of the timeline ID. These files are crucial for understanding the relationship between different timeline branches during point-in-time recovery and replication scenarios.
 

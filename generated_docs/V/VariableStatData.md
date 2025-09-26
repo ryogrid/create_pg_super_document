@@ -8,7 +8,22 @@ VariableStatData is a structure that holds statistical information about a varia
 
 ## Definition
 
-
+```c
+typedef struct VariableStatData
+{
+	Node	   *var;			/* the Var or expression tree */
+	RelOptInfo *rel;			/* Relation, or NULL if not identifiable */
+	HeapTuple	statsTuple;		/* pg_statistic tuple, or NULL if none */
+	/* NB: if statsTuple!=NULL, it must be freed when caller is done */
+	void		(*freefunc) (HeapTuple tuple);	/* how to free statsTuple */
+	Oid			vartype;		/* exposed type of expression */
+	Oid			atttype;		/* actual type (after stripping relabel) */
+	int32		atttypmod;		/* actual typmod (after stripping relabel) */
+	bool		isunique;		/* matches unique index or DISTINCT clause */
+	bool		acl_ok;			/* true if user has SELECT privilege on all
+								 * rows from the table or column */
+} VariableStatData;
+```
 ## Detailed Description
 VariableStatData serves as a container for statistical data gathered about variables and expressions during query planning. It's returned by functions like examine_variable() and examine_simple_variable() which analyze query components to extract relevant statistics from the PostgreSQL system catalogs, particularly pg_statistic. This structure enables the query planner to make informed decisions about selectivity estimation, join ordering, and index usage by providing both the statistical data and metadata about the variable being analyzed.
 

@@ -8,7 +8,10 @@ LWLockUpdateVar atomically updates a variable and wakes up all processes waiting
 
 ## Definition
 
-
+```c
+void
+LWLockUpdateVar(LWLock *lock, pg_atomic_uint64 *valptr, uint64 val)
+```
 ## Detailed Description
 This function provides atomic coordination between variable updates and process notification in PostgreSQL's WAL insertion system. It first atomically sets the variable to the new value, then wakes up all processes that are waiting for variable changes via LWLockWaitForVar().
 

@@ -8,7 +8,19 @@ StartupDecodingContext is a static helper function that performs the common init
 
 ## Definition
 
-
+```c
+static LogicalDecodingContext *
+StartupDecodingContext(List *output_plugin_options,
+					   XLogRecPtr start_lsn,
+					   TransactionId xmin_horizon,
+					   bool need_full_snapshot,
+					   bool fast_forward,
+					   bool in_create,
+					   XLogReaderRoutine *xl_routine,
+					   LogicalOutputPluginWriterPrepareWrite prepare_write,
+					   LogicalOutputPluginWriterWrite do_write,
+					   LogicalOutputPluginWriterUpdateProgress update_progress)
+```
 ## Detailed Description
 This function performs comprehensive initialization of a logical decoding context by setting up all necessary components for logical replication. It creates a dedicated memory context, initializes the LogicalDecodingContext structure, and configures various callback mechanisms for handling different types of logical decoding operations.
 

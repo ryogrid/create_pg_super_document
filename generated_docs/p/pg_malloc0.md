@@ -8,7 +8,10 @@ Memory allocation function that allocates zero-initialized memory with out-of-me
 
 ## Definition
 
-
+```c
+void *
+pg_malloc0(size_t size)
+```
 ## Detailed Description
 pg_malloc0 is a wrapper function around pg_malloc_internal that provides memory allocation with automatic zero-initialization. It allocates the requested amount of memory and initializes all bytes to zero before returning the pointer. Like pg_malloc, it exits the program with an error message if allocation fails.
 

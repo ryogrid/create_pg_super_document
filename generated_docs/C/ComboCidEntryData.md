@@ -8,7 +8,9 @@ ComboCidEntryData is a structure that represents an entry in the hash table used
 
 ## Definition
 
-
+```c
+typedef ComboCidEntryData *ComboCidEntry;
+```
 ## Detailed Description
 ComboCidEntryData is the hash table entry structure used in PostgreSQL's combo command ID optimization system. Each entry in the comboHash hash table contains both the key (a ComboCidKeyData structure with cmin and cmax values) and the associated combo command ID value.
 

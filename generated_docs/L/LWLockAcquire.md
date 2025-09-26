@@ -8,7 +8,11 @@ Primary public function for acquiring a lightweight lock in either shared or exc
 
 ## Definition
 
-
+```c
+structures in shared memory.
+	 */
+	HOLD_INTERRUPTS();
+```
 ## Detailed Description
 LWLockAcquire is the main entry point for acquiring lightweight locks in PostgreSQL. It implements a sophisticated retry-based acquisition strategy to handle contention efficiently:
 

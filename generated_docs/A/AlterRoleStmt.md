@@ -8,7 +8,15 @@ AlterRoleStmt is a parse tree node structure that represents ALTER ROLE SQL stat
 
 ## Definition
 
-
+```c
+typedef struct AlterRoleStmt
+{
+	NodeTag		type;
+	RoleSpec   *role;			/* role */
+	List	   *options;		/* List of DefElem nodes */
+	int			action;			/* +1 = add members, -1 = drop members */
+} AlterRoleStmt;
+```
 ## Detailed Description
 AlterRoleStmt is a parser node structure that encapsulates information needed to alter existing database roles in PostgreSQL. This structure handles various ALTER ROLE operations including modifying role attributes (like password, privileges) and managing role membership (adding or removing members from roles).
 

@@ -8,7 +8,10 @@ GetRealCmin is an internal function that retrieves the original cmin (command ID
 
 ## Definition
 
-
+```c
+static CommandId
+GetRealCmin(CommandId combocid)
+```
 ## Detailed Description
 GetRealCmin is part of PostgreSQL's combo command ID system that was introduced to reduce tuple header size. Since PostgreSQL 8.3, the cmin and cmax fields in tuple headers are overlaid to save space. When both cmin and cmax are needed (typically when a tuple is inserted and deleted within the same transaction), a combo command ID is created and stored instead.
 

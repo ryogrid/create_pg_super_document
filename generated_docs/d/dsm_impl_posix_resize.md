@@ -8,7 +8,10 @@ Platform-specific helper function that sets the size of a POSIX shared memory se
 
 ## Definition
 
-
+```c
+static int
+dsm_impl_posix_resize(int fd, off_t size)
+```
 ## Detailed Description
 The  function is responsible for setting the size of a shared memory segment associated with a file descriptor. It handles platform-specific concerns, particularly on Linux where POSIX shared memory is backed by tmpfs files.
 

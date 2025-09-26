@@ -8,7 +8,19 @@ CreateFunctionStmt represents a parsed CREATE FUNCTION or CREATE PROCEDURE state
 
 ## Definition
 
-
+```c
+typedef struct CreateFunctionStmt
+{
+	NodeTag		type;
+	bool		is_procedure;	/* it's really CREATE PROCEDURE */
+	bool		replace;		/* T => replace if already exists */
+	List	   *funcname;		/* qualified name of function to create */
+	List	   *parameters;		/* a list of FunctionParameter */
+	TypeName   *returnType;		/* the return type */
+	List	   *options;		/* a list of DefElem */
+	Node	   *sql_body;
+} CreateFunctionStmt;
+```
 ## Detailed Description
 CreateFunctionStmt is a parse tree node that represents both CREATE FUNCTION and CREATE PROCEDURE SQL statements. It encapsulates all the parsed information needed to create a user-defined function or procedure, including the function signature, return type, parameters, and various options like language, volatility, security definer settings, and the function body.
 

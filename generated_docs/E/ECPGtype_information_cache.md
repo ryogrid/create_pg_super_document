@@ -8,7 +8,14 @@ A cache structure used by ECPG to store PostgreSQL type information, specificall
 
 ## Definition
 
-
+```c
+struct ECPGtype_information_cache
+{
+	struct ECPGtype_information_cache *next;
+	int			oid;
+	enum ARRAY_TYPE isarray;
+};
+```
 ## Detailed Description
 ECPGtype_information_cache is a linked list structure that implements a cache for PostgreSQL type information in the ECPG library. This cache helps optimize type lookups by storing whether specific PostgreSQL data types (identified by their Object ID) are array types or not. The cache operates as a simple linked list where each node contains information about a single PostgreSQL type.
 

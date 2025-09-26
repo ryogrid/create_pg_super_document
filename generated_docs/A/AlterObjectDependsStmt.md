@@ -8,7 +8,17 @@ AlterObjectDependsStmt is a PostgreSQL parse node structure that represents an A
 
 ## Definition
 
-
+```c
+typedef struct AlterObjectDependsStmt
+{
+	NodeTag		type;
+	ObjectType	objectType;		/* OBJECT_FUNCTION, OBJECT_TRIGGER, etc */
+	RangeVar   *relation;		/* in case a table is involved */
+	Node	   *object;			/* name of the object */
+	String	   *extname;		/* extension name */
+	bool		remove;			/* set true to remove dep rather than add */
+} AlterObjectDependsStmt;
+```
 ## Detailed Description
 AlterObjectDependsStmt represents SQL statements that establish or remove dependencies between database objects and extensions. This allows objects to be marked as belonging to an extension, which affects their lifecycle - when the extension is dropped, dependent objects are automatically dropped as well. The structure supports both adding dependencies (when remove is false) and removing them (when remove is true).
 

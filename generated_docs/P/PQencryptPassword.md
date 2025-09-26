@@ -8,7 +8,10 @@ Legacy function that encrypts a password using MD5 hashing for PostgreSQL authen
 
 ## Definition
 
-
+```c
+char *
+PQencryptPassword(const char *passwd, const char *user)
+```
 ## Detailed Description
  is a deprecated convenience function that encrypts a plaintext password using MD5 hashing specifically for PostgreSQL authentication. It combines the password with the username as a salt to generate an MD5-hashed password string in the format expected by PostgreSQL's password authentication mechanism.
 

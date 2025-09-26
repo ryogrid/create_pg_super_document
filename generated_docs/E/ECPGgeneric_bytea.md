@@ -8,7 +8,13 @@ A generic binary data structure used by ECPG (Embedded SQL in C) to handle BYTEA
 
 ## Definition
 
-
+```c
+struct ECPGgeneric_bytea
+{
+	int			len;
+	char		arr[FLEXIBLE_ARRAY_MEMBER];
+};
+```
 ## Detailed Description
 ECPGgeneric_bytea is a fundamental data structure in PostgreSQL's ECPG library that represents variable-length binary data. Similar to ECPGgeneric_varchar, it uses a flexible array member design pattern where the actual binary data follows immediately after the length field in memory. This structure allows ECPG to efficiently handle BYTEA columns from SQL queries by storing both the actual length of the binary data and the raw bytes in a single, contiguous memory allocation.
 

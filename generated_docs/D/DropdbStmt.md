@@ -8,7 +8,15 @@ A parse node structure representing the DROP DATABASE statement, used to remove 
 
 ## Definition
 
-
+```c
+typedef struct DropdbStmt
+{
+	NodeTag		type;
+	char	   *dbname;			/* database to drop */
+	bool		missing_ok;		/* skip error if db is missing? */
+	List	   *options;		/* currently only FORCE is supported */
+} DropdbStmt;
+```
 ## Detailed Description
 DropdbStmt is a parse node structure that represents a DROP DATABASE SQL statement. This structure is created during parsing of SQL commands like "DROP DATABASE mydb" or "DROP DATABASE IF EXISTS mydb WITH (FORCE)". The statement allows removing a database from the PostgreSQL cluster, with options to handle missing databases gracefully and force the drop even if there are active connections.
 

@@ -8,7 +8,10 @@ SPI_connect establishes a connection to PostgreSQL's Server Programming Interfac
 
 ## Definition
 
-
+```c
+int
+SPI_connect(void)
+```
 ## Detailed Description
 SPI_connect is a simple wrapper function that calls SPI_connect_ext(0) with default options. It initializes the SPI connection stack, creates memory contexts for procedure execution, and sets up the necessary internal state for SQL command execution from within server-side code. The function provides backward compatibility while the extended version (SPI_connect_ext) allows for additional connection options.
 

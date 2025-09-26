@@ -8,7 +8,13 @@ TidRangePath represents an access path for scanning a table using a contiguous r
 
 ## Definition
 
-
+```c
+typedef struct TidRangePath
+{
+	Path		path;
+	List	   *tidrangequals;
+} TidRangePath;
+```
 ## Detailed Description
 TidRangePath is a specialized scan path node used in PostgreSQL's query planner to represent table access via TID (Tuple Identifier) range scanning. This path type is utilized when queries contain WHERE clauses that specify ranges of CTIDs using comparison operators (>, >=, <, <=). The scan operates by reading a contiguous range of tuple identifiers, which can be more efficient than full table scans when the TID range is selective.
 

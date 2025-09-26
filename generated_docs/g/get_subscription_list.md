@@ -8,7 +8,10 @@ Retrieves a list of all active logical replication subscriptions from the pg_sub
 
 ## Definition
 
-
+```c
+static List *
+get_subscription_list(void)
+```
 ## Detailed Description
 The get_subscription_list function scans the pg_subscription system catalog to build a list of all subscriptions in the database. It extracts essential subscription information needed by the logical replication launcher to manage worker processes. The function operates within its own transaction context to ensure consistent reads from the catalog while carefully managing memory allocation to prevent leaks.
 

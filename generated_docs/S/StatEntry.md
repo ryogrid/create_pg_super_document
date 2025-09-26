@@ -8,7 +8,18 @@ StatEntry is a structure used in PostgreSQL's text search functionality to maint
 
 ## Definition
 
-
+```c
+typedef struct StatEntry
+{
+	uint32		ndoc;			/* zero indicates that we were already here
+								 * while walking through the tree */
+	uint32		nentry;
+	struct StatEntry *left;
+	struct StatEntry *right;
+	uint32		lenlexeme;
+	char		lexeme[FLEXIBLE_ARRAY_MEMBER];
+} StatEntry;
+```
 ## Detailed Description
 StatEntry serves as a binary search tree node structure for collecting and organizing statistical data about lexemes (words) found in TSVector objects during text search operations. Each StatEntry represents a unique lexeme along with its frequency statistics. The structure is designed to support efficient insertion, searching, and in-order traversal of lexemes while maintaining statistical counts.
 

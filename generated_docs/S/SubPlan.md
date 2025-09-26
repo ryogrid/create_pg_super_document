@@ -8,7 +8,45 @@ SubPlan represents an executable expression node for a subplan (sub-SELECT) that
 
 ## Definition
 
+```c
+typedef struct SubPlan
+{
+	pg_node_attr(no_query_jumble)
 
+	Expr		xpr;
+	/* Fields copied from original SubLink: */
+	SubLinkType subLinkType;	/* see above */
+	/* The combining operators, transformed to an executable expression: */
+	Node	   *testexpr;		/* OpExpr or RowCompareExpr expression tree */
+	List	   *paramIds;		/* IDs of Params embedded in the above */
+	/* Identification of the Plan tree to use: */
+	int			plan_id;		/* Index (from 1) in PlannedStmt.subplans */
+	/* Identification of the SubPlan for EXPLAIN and debugging purposes: */
+	char	   *plan_name;		/* A name assigned during planning */
+	/* Extra data useful for determining subplan's output type: */
+	Oid			firstColType;	/* Type of first column of subplan result */
+	int32		firstColTypmod; /* Typmod of first column of subplan result */
+	Oid			firstColCollation;	/* Collation of first column of subplan
+									 * result */
+	/* Information about execution strategy: */
+	bool		useHashTable;	/* true to store subselect output in a hash
+								 * table (implies we are doing "IN") */
+	bool		unknownEqFalse; /* true if it's okay to return FALSE when the
+								 * spec result is UNKNOWN; this allows much
+								 * simpler handling of null values */
+	bool		parallel_safe;	/* is the subplan parallel-safe? */
+	/* Note: parallel_safe does not consider contents of testexpr or args */
+	/* Information for passing params into and out of the subselect: */
+	/* setParam and parParam are lists of integers (param IDs) */
+	List	   *setParam;		/* initplan and MULTIEXPR subqueries have to
+								 * set these Params for parent plan */
+	List	   *parParam;		/* indices of input Params from parent plan */
+	List	   *args;			/* exprs to pass as parParam values */
+	/* Estimated execution costs: */
+	Cost		startup_cost;	/* one-time setup cost */
+	Cost		per_call_cost;	/* cost for each subplan evaluation */
+} SubPlan;
+```
 ## Detailed Description
 SubPlan is created by the planner to replace SubLink nodes after subquery planning is complete. It references a sub-plantree stored in the subplans list of the toplevel PlannedStmt, avoiding direct links to make expression tree copying easier without causing multiple subplan processing.
 

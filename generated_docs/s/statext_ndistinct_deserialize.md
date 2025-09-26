@@ -8,7 +8,12 @@ Deserializes binary bytea data back into an in-memory MVNDistinct structure, per
 
 ## Definition
 
-
+```c
+struct */
+	if (VARSIZE_ANY_EXHDR(data) < SizeOfHeader)
+		elog(ERROR, "invalid MVNDistinct size %zu (expected at least %zu)",
+			 VARSIZE_ANY_EXHDR(data), SizeOfHeader);
+```
 ## Detailed Description
 This function converts binary data stored in PostgreSQL's bytea format back into a fully functional MVNDistinct structure. It performs extensive validation of the input data including magic number verification, type checking, size validation, and structural integrity checks to ensure the data is valid and uncorrupted.
 

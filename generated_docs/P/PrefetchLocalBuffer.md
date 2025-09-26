@@ -8,7 +8,11 @@ PrefetchLocalBuffer initiates asynchronous read operations for blocks of tempora
 
 ## Definition
 
-
+```c
+PrefetchBufferResult
+PrefetchLocalBuffer(SMgrRelation smgr, ForkNumber forkNum,
+					BlockNumber blockNum)
+```
 ## Detailed Description
 PrefetchLocalBuffer handles prefetching for temporary relations that use local buffers rather than shared buffers. The function first checks if the requested block already exists in the local buffer hash table. If the block is already present, no I/O operation is needed. If the block is not found and prefetching is enabled (USE_PREFETCH), it initiates an asynchronous read operation through the storage manager, but only when direct I/O is not being used for data files.
 

@@ -8,7 +8,11 @@ Initializes a new shared memory statistics entry with proper reference counting,
 
 ## Definition
 
-
+```c
+PgStatShared_Common *
+pgstat_init_entry(PgStat_Kind kind,
+				  PgStatShared_HashEntry *shhashent)
+```
 ## Detailed Description
 The  function creates and initializes a new shared memory statistics entry for PostgreSQL's statistics collection framework. It performs several critical initialization tasks:
 

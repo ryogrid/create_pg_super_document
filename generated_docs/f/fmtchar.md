@@ -8,7 +8,10 @@ Formats and outputs a single character value with specified padding and alignmen
 
 ## Definition
 
-
+```c
+static void
+fmtchar(int value, int leftjust, int minlen, PrintfTarget *target)
+```
 ## Detailed Description
 This function handles the formatting and output of single character values (%c format specifier) in PostgreSQL's portable snprintf implementation. It applies width formatting and padding to character arguments while respecting alignment specifications. Since a character always occupies exactly one position, the function focuses primarily on padding calculations and proper alignment handling.
 

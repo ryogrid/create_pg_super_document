@@ -8,7 +8,10 @@ Updates the minimal LSN (restart_lsn) needed to replay all uncommitted transacti
 
 ## Definition
 
-
+```c
+void
+LogicalIncreaseRestartDecodingForSlot(XLogRecPtr current_lsn, XLogRecPtr restart_lsn)
+```
 ## Detailed Description
 This function manages the restart LSN for logical replication slots, which represents the minimum WAL position required to restart logical decoding without losing any transaction data. The function implements a careful protocol to ensure that restart LSN updates only take effect after client confirmation, preventing data loss during replication.
 

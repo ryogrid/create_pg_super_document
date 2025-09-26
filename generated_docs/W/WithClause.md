@@ -8,7 +8,15 @@ WithClause represents the parser's representation of WITH clauses (Common Table 
 
 ## Definition
 
-
+```c
+typedef struct WithClause
+{
+	NodeTag		type;
+	List	   *ctes;			/* list of CommonTableExprs */
+	bool		recursive;		/* true = WITH RECURSIVE */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} WithClause;
+```
 ## Detailed Description
 WithClause serves as a container for Common Table Expressions (CTEs) during the parsing phase. It captures both regular WITH clauses and WITH RECURSIVE clauses, storing the list of individual CTEs along with the recursive flag that affects the processing semantics of the entire clause.
 

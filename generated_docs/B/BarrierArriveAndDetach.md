@@ -8,7 +8,10 @@ Arrives at a barrier and immediately detaches from it without waiting, allowing 
 
 ## Definition
 
-
+```c
+bool
+BarrierArriveAndDetach(Barrier *barrier)
+```
 ## Detailed Description
 BarrierArriveAndDetach provides a mechanism for a participant to signal its arrival at a synchronization point while simultaneously removing itself from the barrier. This is a wrapper function that calls  with the arrival flag set.
 

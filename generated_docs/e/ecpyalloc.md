@@ -8,7 +8,9 @@ A utility function in the PostgreSQL timezone compiler (zic) that performs error
 
 ## Definition
 
-
+```c
+enum = num;
+```
 ## Detailed Description
 The  function is a wrapper around the standard  function that provides memory allocation checking. It duplicates the input string and verifies that the memory allocation was successful through the  function. This is part of the timezone compiler's robust memory management strategy, ensuring that string duplication operations don't silently fail due to memory exhaustion.
 

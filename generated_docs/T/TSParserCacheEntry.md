@@ -8,7 +8,28 @@ TSParserCacheEntry is a cache structure that stores precompiled function call in
 
 ## Definition
 
+```c
+typedef struct TSParserCacheEntry
+{
+	/* prsId is the hash lookup key and MUST BE FIRST */
+	Oid			prsId;			/* OID of the parser */
+	bool		isvalid;
 
+	Oid			startOid;
+	Oid			tokenOid;
+	Oid			endOid;
+	Oid			headlineOid;
+	Oid			lextypeOid;
+
+	/*
+	 * Pre-set-up fmgr call of most needed parser's methods
+	 */
+	FmgrInfo	prsstart;
+	FmgrInfo	prstoken;
+	FmgrInfo	prsend;
+	FmgrInfo	prsheadline;
+} TSParserCacheEntry;
+```
 ## Detailed Description
 TSParserCacheEntry extends TSAnyCacheEntry to cache essential information about text search parsers. It stores both the OIDs of parser functions and their pre-compiled FmgrInfo structures, eliminating the need for repeated function lookups during text parsing operations.
 

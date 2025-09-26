@@ -8,7 +8,9 @@ Performs preliminary validation to verify that a given directory is a PostgreSQL
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The  function performs basic validation checks to determine if a specified directory appears to be a valid PostgreSQL cluster data directory. The function performs two main checks: first, it verifies that the directory exists and is accessible, and second, it checks for the presence of the PG_VERSION file, which is a key indicator of a PostgreSQL data directory.
 

@@ -8,7 +8,10 @@ StrategySyncStart provides the background buffer synchronization process (bgwrit
 
 ## Definition
 
-
+```c
+int
+StrategySyncStart(uint32 *complete_passes, uint32 *num_buf_alloc)
+```
 ## Detailed Description
 StrategySyncStart coordinates with the buffer replacement strategy to determine where the background writer should begin synchronizing dirty buffers to disk. The function returns the buffer index that represents the best starting point for BgBufferSync() to begin its circular scan of the buffer pool.
 

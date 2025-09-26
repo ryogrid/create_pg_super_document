@@ -8,7 +8,10 @@ Checks whether there is at least one snapshot in the active snapshot stack.
 
 ## Definition
 
-
+```c
+bool
+ActiveSnapshotSet(void)
+```
 ## Detailed Description
 ActiveSnapshotSet is a simple utility function that determines whether an active snapshot is currently available. It returns true if there is at least one snapshot in the active snapshot stack, and false if the stack is empty. This function is commonly used as a guard condition before calling other snapshot-related functions that require an active snapshot to be present, helping to prevent errors and ensure proper snapshot management throughout the system.
 

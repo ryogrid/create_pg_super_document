@@ -8,7 +8,15 @@ PgStat_BgWriterStats tracks performance statistics for PostgreSQL's background w
 
 ## Definition
 
-
+```c
+typedef struct PgStat_BgWriterStats
+{
+	PgStat_Counter buf_written_clean;
+	PgStat_Counter maxwritten_clean;
+	PgStat_Counter buf_alloc;
+	TimestampTz stat_reset_timestamp;
+} PgStat_BgWriterStats;
+```
 ## Detailed Description
 PgStat_BgWriterStats maintains statistics for PostgreSQL's background writer process, which is responsible for writing dirty buffers from the shared buffer pool to disk proactively. The background writer helps reduce the I/O load during checkpoints and improves overall system performance by preventing backends from having to write dirty pages themselves. This structure tracks key metrics including the number of buffers written, instances where the writer was throttled due to excessive writes, and buffer allocation statistics that reflect overall memory management activity.
 

@@ -8,7 +8,11 @@ gistGetNodeBuffer retrieves or creates a node buffer for a specific block number
 
 ## Definition
 
-
+```c
+GISTNodeBuffer *
+gistGetNodeBuffer(GISTBuildBuffers *gfbb, GISTSTATE *giststate,
+				  BlockNumber nodeBlocknum, int level)
+```
 ## Detailed Description
 This function serves as the primary interface for accessing node buffers during GiST index building. It first searches the hash table for an existing buffer associated with the given block number. If no buffer exists, it creates and initializes a new one.
 

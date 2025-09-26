@@ -8,7 +8,10 @@ Pushes a copy of the provided snapshot onto the active snapshot stack, ensuring 
 
 ## Definition
 
-
+```c
+void
+PushCopiedSnapshot(Snapshot snapshot)
+```
 ## Detailed Description
 PushCopiedSnapshot creates a copy of the provided snapshot and pushes it onto the active snapshot stack. Unlike PushActiveSnapshot which may reuse existing snapshots, this function always creates a new copy, making it safe to modify the resulting active snapshot. This is particularly important when the caller needs to modify the active snapshot, such as updating the command ID with UpdateActiveSnapshotCommandId. The copied snapshot will be automatically released when it is popped from the stack.
 

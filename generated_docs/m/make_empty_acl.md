@@ -8,7 +8,10 @@ Creates and returns an empty Access Control List (ACL) with zero entries for ini
 
 ## Definition
 
-
+```c
+Acl *
+make_empty_acl(void)
+```
 ## Detailed Description
 The  function is a utility function that creates a completely empty ACL structure. It serves as a foundational building block in PostgreSQL's access control system, providing a clean slate ACL that can be populated with specific access rights later. The function internally delegates to  to allocate memory for an ACL structure with zero entries, ensuring proper initialization of the ACL header while maintaining no actual access control entries.
 

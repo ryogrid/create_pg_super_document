@@ -8,7 +8,14 @@ FunctionScan represents a plan node for scanning the results of function calls i
 
 ## Definition
 
-
+```c
+typedef struct FunctionScan
+{
+	Scan		scan;
+	List	   *functions;		/* list of RangeTblFunction nodes */
+	bool		funcordinality; /* WITH ORDINALITY */
+} FunctionScan;
+```
 ## Detailed Description
 FunctionScan is a plan node type that handles the execution of table-valued functions in SQL queries. It extends the base Scan node to provide specialized functionality for function scanning operations. The node can handle multiple functions simultaneously through its functions list and supports the SQL standard WITH ORDINALITY clause, which adds a sequential row number column to the output.
 

@@ -8,7 +8,10 @@ Processes the buffer emptying queue during GiST index construction, handling cas
 
 ## Definition
 
-
+```c
+static void
+gistProcessEmptyingQueue(GISTBuildState *buildstate)
+```
 ## Detailed Description
 This function implements the core buffer emptying mechanism for GiST buffering-based index construction. It processes buffers in the emptying queue iteratively, as emptying one buffer can trigger the emptying of other buffers, creating a cascading effect.
 

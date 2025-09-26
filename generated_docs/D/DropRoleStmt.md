@@ -8,7 +8,14 @@ DropRoleStmt is a parse tree node structure that represents DROP ROLE, DROP USER
 
 ## Definition
 
-
+```c
+typedef struct DropRoleStmt
+{
+	NodeTag		type;
+	List	   *roles;			/* List of roles to remove */
+	bool		missing_ok;		/* skip error if a role is missing? */
+} DropRoleStmt;
+```
 ## Detailed Description
 DropRoleStmt is a parser node structure that encapsulates information needed to drop database roles in PostgreSQL. This structure handles DROP ROLE, DROP USER, and DROP GROUP statements, which are equivalent operations since users and groups are both types of roles in PostgreSQL.
 

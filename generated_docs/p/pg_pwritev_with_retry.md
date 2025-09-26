@@ -8,7 +8,10 @@ A convenience wrapper around pg_pwritev() that handles partial writes by automat
 
 ## Definition
 
-
+```c
+ssize_t
+pg_pwritev_with_retry(int fd, const struct iovec *iov, int iovcnt, off_t offset)
+```
 ## Detailed Description
 pg_pwritev_with_retry provides a robust interface for vectored positional writes that handles the common case where the underlying system call (pg_pwritev) may only write part of the requested data. The function automatically retries the write operation, adjusting the iovec array and offset as needed, until either all data is successfully written or an error occurs.
 

@@ -8,7 +8,10 @@ Determines whether a wide character is a whitespace character according to the c
 
 ## Definition
 
-
+```c
+static int
+pg_wc_isspace(pg_wchar c)
+```
 ## Detailed Description
 This function checks if a given wide character (pg_wchar) is a whitespace character. The determination method depends on the current regex strategy (pg_regex_strategy), which allows PostgreSQL to handle different locale and character encoding scenarios consistently. The function implements a switch statement that handles six different regex strategies, each using appropriate locale-specific or encoding-specific whitespace detection methods.
 

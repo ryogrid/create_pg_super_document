@@ -8,7 +8,10 @@ Builds statement parameters by converting user variables into arrays compatible 
 
 ## Definition
 
-
+```c
+bool
+ecpg_build_params(struct statement *stmt)
+```
 ## Detailed Description
 This comprehensive function is the central parameter processing engine for ECPG statements. It processes the statement's input variable list and transforms them into parameter arrays that PostgreSQL's libpq can use. The function handles multiple parameter types including regular variables, SQL descriptors (ECPGt_descriptor), and SQLDA structures for compatibility with Informix. It performs client-side placeholder replacement for dynamic cursors and special /bin/bash placeholders, manages both text and binary parameter formats, and ensures proper memory allocation and error handling throughout the process.
 

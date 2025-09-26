@@ -8,7 +8,10 @@ Allocates a temporary page in local memory and initializes it by copying the com
 
 ## Definition
 
-
+```c
+Page
+PageGetTempPageCopy(Page page)
+```
 ## Detailed Description
 PageGetTempPageCopy creates a temporary page buffer in local memory that is an exact copy of the provided source page. Unlike PageGetTempPage which returns uninitialized memory, this function performs a complete bitwise copy of the source page including all headers, line pointers, and item data. This is particularly useful for algorithms that need to work with a complete page copy while preserving the original page structure, such as during page reorganization or split operations where the original page layout needs to be preserved.
 

@@ -8,7 +8,9 @@ An enumeration type that defines the different node types used in the internal r
 
 ## Definition
 
-
+```c
+typedef struct JsonPathGinNode JsonPathGinNode;
+```
 ## Detailed Description
 JsonPathGinNodeType is an enumeration that categorizes nodes in the internal tree representation of JSON path expressions when processed for GIN indexing. This type system enables PostgreSQL to efficiently represent and process complex JSON path queries by breaking them down into logical operations (OR, AND) and terminal entry nodes. The enumeration is fundamental to the GIN index support for JSON path operations, allowing the system to optimize query execution by understanding the logical structure of path expressions.
 

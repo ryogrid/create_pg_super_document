@@ -8,7 +8,10 @@ Retrieves the next tuple during a parallel scan of a shared tuple store, coordin
 
 ## Definition
 
-
+```c
+MinimalTuple
+sts_parallel_scan_next(SharedTuplestoreAccessor *accessor, void *meta_data)
+```
 ## Detailed Description
 This function implements the core logic for parallel scanning of shared tuple stores. It manages the complex coordination between multiple worker processes that are reading from the same shared tuple store. The function operates by:
 

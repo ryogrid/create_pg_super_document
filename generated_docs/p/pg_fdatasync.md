@@ -8,7 +8,9 @@ A PostgreSQL wrapper around the system fdatasync() call that respects the global
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The pg_fdatasync function provides a controlled interface to synchronize data for a file descriptor to storage. Unlike pg_fsync which synchronizes both data and metadata, pg_fdatasync only synchronizes the data portion, which can be more efficient when metadata updates are not critical. The function incorporates PostgreSQL's fsync control mechanism - if enableFsync is disabled (typically for testing or specific configurations), the function returns immediately without performing any sync operation. It also implements retry logic to handle EINTR signals that may interrupt the fdatasync system call.
 

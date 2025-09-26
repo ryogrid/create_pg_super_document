@@ -8,7 +8,13 @@ JsonUniqueStackEntry is a structure that represents a stack element used to trac
 
 ## Definition
 
-
+```c
+typedef struct JsonUniqueStackEntry
+{
+	struct JsonUniqueStackEntry *parent;
+	int			object_id;
+} JsonUniqueStackEntry;
+```
 ## Detailed Description
 JsonUniqueStackEntry implements a linked-list-based stack structure that maintains the hierarchical context of nested JSON objects during parsing operations. Each stack entry represents a single JSON object scope level, enabling the system to maintain separate key namespaces for different nesting levels while ensuring key uniqueness within each individual object.
 

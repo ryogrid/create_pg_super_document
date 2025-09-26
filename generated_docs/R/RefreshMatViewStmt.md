@@ -8,7 +8,15 @@ RefreshMatViewStmt represents the parsed structure of a REFRESH MATERIALIZED VIE
 
 ## Definition
 
-
+```c
+typedef struct RefreshMatViewStmt
+{
+	NodeTag		type;
+	bool		concurrent;		/* allow concurrent access? */
+	bool		skipData;		/* true for WITH NO DATA */
+	RangeVar   *relation;		/* relation to insert into */
+} RefreshMatViewStmt;
+```
 ## Detailed Description
 RefreshMatViewStmt encapsulates the REFRESH MATERIALIZED VIEW command, which rebuilds the stored data in a materialized view. The statement provides two important modes of operation: concurrent refresh (CONCURRENTLY) which allows read access during the refresh process, and the option to clear the view's data (WITH NO DATA) instead of refreshing it. The relation field identifies the specific materialized view to be refreshed.
 

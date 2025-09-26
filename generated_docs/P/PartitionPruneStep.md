@@ -8,7 +8,15 @@ PartitionPruneStep is an abstract base struct for partition pruning steps in Pos
 
 ## Definition
 
+```c
+typedef struct PartitionPruneStep
+{
+	pg_node_attr(abstract, no_equal, no_query_jumble)
 
+	NodeTag		type;
+	int			step_id;
+} PartitionPruneStep;
+```
 ## Detailed Description
 PartitionPruneStep serves as an abstract Node type within PostgreSQL's partition pruning framework. It provides the common base structure for all types of partition pruning steps. The struct is marked as abstract, meaning there are no concrete instances of this exact type - it exists purely as a base for inheritance by more specific pruning step types. This design allows the partition pruning system to handle different types of pruning operations uniformly while maintaining type safety through the NodeTag system.
 

@@ -8,7 +8,10 @@ Determines whether it is safe to call a function with pg_statistic data, ensurin
 
 ## Definition
 
-
+```c
+bool
+statistic_proc_security_check(VariableStatData *vardata, Oid func_oid)
+```
 ## Detailed Description
 This function implements a security check that prevents unauthorized access to sensitive statistical data stored in pg_statistic. It serves as a gatekeeper that ensures statistical information can only be accessed under two specific conditions:
 

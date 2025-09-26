@@ -8,7 +8,10 @@ A convenience wrapper function that registers a WaitEventSet with a ResourceOwne
 
 ## Definition
 
-
+```c
+static inline void
+ResourceOwnerRememberWaitEventSet(ResourceOwner owner, WaitEventSet *set)
+```
 ## Detailed Description
 This function serves as a convenience wrapper around ResourceOwnerRemember, specifically designed for managing WaitEventSet resources. It registers a WaitEventSet with a ResourceOwner using the predefined wait_event_set_resowner_desc descriptor. This ensures that when the ResourceOwner is released or reset, the associated WaitEventSet will be automatically cleaned up, preventing resource leaks. The function is implemented as a static inline function for performance, converting the WaitEventSet pointer to a Datum using PointerGetDatum before passing it to the generic ResourceOwnerRemember function.
 

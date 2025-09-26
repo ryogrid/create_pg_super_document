@@ -8,7 +8,10 @@ Checks whether a lock target is already covered by an existing coarser granulari
 
 ## Definition
 
-
+```c
+static bool
+CoarserLockCovers(const PREDICATELOCKTARGETTAG *newtargettag)
+```
 ## Detailed Description
 This function determines whether acquiring a new predicate lock would be redundant because a coarser granularity lock that covers the target is already held by the transaction. It traverses up the lock hierarchy starting from the given target, checking each parent level to see if a lock exists at that granularity.
 

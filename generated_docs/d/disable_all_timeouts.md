@@ -8,7 +8,10 @@ Disables the timeout signal handler, removes all active timeouts from the system
 
 ## Definition
 
-
+```c
+void
+disable_all_timeouts(bool keep_indicators)
+```
 ## Detailed Description
 This function provides a comprehensive way to shut down the timeout system in PostgreSQL. It disables the alarm signal mechanism and clears all active timeouts from the system. The function operates in two phases: first it disables the alarm signal handler via , then it iterates through all timeout slots to mark them as inactive.
 

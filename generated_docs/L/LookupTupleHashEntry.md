@@ -8,7 +8,11 @@ Finds or creates a hashtable entry for the tuple group containing the given tupl
 
 ## Definition
 
-
+```c
+TupleHashEntry
+LookupTupleHashEntry(TupleHashTable hashtable, TupleTableSlot *slot,
+					 bool *isnew, uint32 *hash)
+```
 ## Detailed Description
 LookupTupleHashEntry is the main function for interacting with tuple hash tables in PostgreSQL's executor. It provides a unified interface for both lookup and insertion operations. The function computes a hash value for the input tuple and either finds an existing matching entry or creates a new one based on the caller's requirements.
 

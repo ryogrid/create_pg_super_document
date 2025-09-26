@@ -8,7 +8,20 @@ PgStat_CheckpointerStats tracks comprehensive performance and activity statistic
 
 ## Definition
 
-
+```c
+typedef struct PgStat_CheckpointerStats
+{
+	PgStat_Counter num_timed;
+	PgStat_Counter num_requested;
+	PgStat_Counter restartpoints_timed;
+	PgStat_Counter restartpoints_requested;
+	PgStat_Counter restartpoints_performed;
+	PgStat_Counter write_time;	/* times in milliseconds */
+	PgStat_Counter sync_time;
+	PgStat_Counter buffers_written;
+	TimestampTz stat_reset_timestamp;
+} PgStat_CheckpointerStats;
+```
 ## Detailed Description
 PgStat_CheckpointerStats maintains detailed statistics for PostgreSQL's checkpointer process, which is responsible for writing dirty buffers to disk at regular intervals and during shutdown. The checkpointer ensures data durability by creating consistent recovery points and manages WAL recycling. In standby servers, the checkpointer creates restartpoints instead of checkpoints. This structure tracks both the frequency and performance characteristics of these critical operations, including timing information that helps administrators understand I/O performance and system load patterns.
 

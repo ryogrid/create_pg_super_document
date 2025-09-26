@@ -8,7 +8,10 @@ Converts a PostgreSQL Name type to a text type, enabling interoperability betwee
 
 ## Definition
 
-
+```c
+Datum
+name_text(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that performs type conversion from the Name data type to the text data type. The Name type is a fixed-length string type used internally by PostgreSQL for system identifiers like table names, column names, etc., while text is a variable-length string type. This function extracts the null-terminated string from the Name type and converts it to a properly formatted text datum.
 

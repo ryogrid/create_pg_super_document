@@ -8,7 +8,10 @@ Deletes all files and directories associated with a FileSet across all configure
 
 ## Definition
 
-
+```c
+void
+FileSetDeleteAll(FileSet *fileset)
+```
 ## Detailed Description
 FileSetDeleteAll provides comprehensive cleanup for a FileSet by removing all directories (and implicitly all files within them) that were created for the fileset across all configured tablespaces. This function implements a complete resource cleanup strategy, ensuring that no temporary files or directory structures remain after a FileSet is no longer needed.
 

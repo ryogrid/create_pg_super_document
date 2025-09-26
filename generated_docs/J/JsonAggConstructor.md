@@ -8,7 +8,17 @@ JsonAggConstructor represents the common fields for the untransformed (parse tre
 
 ## Definition
 
-
+```c
+typedef struct JsonAggConstructor
+{
+	NodeTag		type;
+	JsonOutput *output;			/* RETURNING clause, if any */
+	Node	   *agg_filter;		/* FILTER clause, if any */
+	List	   *agg_order;		/* ORDER BY clause, if any */
+	struct WindowDef *over;		/* OVER clause, if any */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} JsonAggConstructor;
+```
 ## Detailed Description
 JsonAggConstructor serves as a base structure containing common elements shared by JSON aggregate functions during the parsing phase. It captures the various optional clauses that can be applied to JSON aggregation operations, including output format specification, filtering conditions, ordering requirements, and window function specifications. This structure is used before transformation into execution-ready forms.
 

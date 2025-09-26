@@ -8,7 +8,12 @@ Allocates and registers multiple test resources with the ResourceOwner system, d
 
 ## Definition
 
-
+```c
+static void
+RememberManyTestResources(ResourceOwner owner,
+						  ManyTestResourceKind *kinds, int nkinds,
+						  int nresources)
+```
 ## Detailed Description
 RememberManyTestResources is a utility function that creates and registers multiple ManyTestResource objects with PostgreSQL's ResourceOwner system for testing purposes. The function allocates the specified number of resources and distributes them evenly across the provided resource kinds using a round-robin allocation strategy.
 

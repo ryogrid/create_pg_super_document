@@ -8,7 +8,10 @@ UtilityContainsQuery extracts and returns the plannable Query contained within u
 
 ## Definition
 
-
+```c
+Query *
+UtilityContainsQuery(Node *parsetree)
+```
 ## Detailed Description
 UtilityContainsQuery is designed to extract plannable Query nodes from utility statements that contain them. Certain utility commands like EXPLAIN, DECLARE CURSOR, and CREATE TABLE AS wrap regular SQL queries, and this function provides a standardized way to access those inner queries.
 

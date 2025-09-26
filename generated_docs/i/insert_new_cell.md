@@ -8,7 +8,10 @@ Creates space for a new cell at a specified position within a PostgreSQL List, r
 
 ## Definition
 
-
+```c
+static ListCell *
+insert_new_cell(List *list, int pos)
+```
 ## Detailed Description
 The  function is a low-level, static utility function that creates space for a new cell at a specific position within an existing PostgreSQL List. Unlike the append functions, this function can insert at any valid position within the list, including the beginning or middle. It handles the memory management aspects of list insertion, including enlarging the array if necessary and shifting existing elements to make room for the new cell.
 

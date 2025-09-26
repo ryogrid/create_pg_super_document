@@ -8,7 +8,10 @@ Validates the byte sequence of an EUC-KR (Extended Unix Code for Korean) encoded
 
 ## Definition
 
-
+```c
+static int
+pg_euckr_verifystr(const unsigned char *s, int len)
+```
 ## Detailed Description
 This function verifies the validity of an EUC-KR encoded string by processing each character until it encounters an invalid character, a null terminator, or reaches the end of the specified length. EUC-KR is a variable-width character encoding where ASCII characters (0x00-0x7F) are single-byte and Korean characters are represented as two-byte sequences.
 

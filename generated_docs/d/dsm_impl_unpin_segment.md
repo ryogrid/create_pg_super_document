@@ -8,7 +8,10 @@ Performs implementation-specific cleanup actions when a dynamic shared memory se
 
 ## Definition
 
-
+```c
+void
+dsm_impl_unpin_segment(dsm_handle handle, void **impl_private)
+```
 ## Detailed Description
 The  function reverses the actions performed by  to allow proper cleanup of dynamic shared memory segments. This function is primarily relevant on Windows platforms where segment handles need explicit management.
 

@@ -8,7 +8,26 @@ PartitionBoundInfoData is a core data structure that encapsulates a set of parti
 
 ## Definition
 
-
+```c
+typedef struct PartitionBoundInfoData
+{
+	PartitionStrategy strategy; /* hash, list or range? */
+	int			ndatums;		/* Length of the datums[] array */
+	Datum	  **datums;
+	PartitionRangeDatumKind **kind; /* The kind of each range bound datum;
+									 * NULL for hash and list partitioned
+									 * tables */
+	Bitmapset  *interleaved_parts;	/* Partition indexes of partitions which
+									 * may be interleaved. See above. This is
+									 * only set for LIST partitioned tables */
+	int			nindexes;		/* Length of the indexes[] array */
+	int		   *indexes;		/* Partition indexes */
+	int			null_index;		/* Index of the null-accepting partition; -1
+								 * if there isn't one */
+	int			default_index;	/* Index of the default partition; -1 if there
+								 * isn't one */
+} PartitionBoundInfoData;
+```
 ## Detailed Description
 PartitionBoundInfoData serves as the central data structure for managing partition bounds across PostgreSQL's three partitioning strategies:
 

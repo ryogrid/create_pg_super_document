@@ -8,7 +8,13 @@ SetConstraintTriggerData is a structure that stores the constraint status inform
 
 ## Definition
 
-
+```c
+typedef struct SetConstraintTriggerData
+{
+	Oid			sct_tgoid;
+	bool		sct_tgisdeferred;
+} SetConstraintTriggerData;
+```
 ## Detailed Description
 This structure is part of PostgreSQL's constraint deferral mechanism. It maintains the current deferral state for a specific trigger object. When a SET CONSTRAINTS command is executed, the system needs to track which constraint triggers should be deferred (delayed until transaction commit) versus immediate execution. Each SetConstraintTriggerData entry corresponds to one constraint trigger and stores its current deferral setting.
 

@@ -8,7 +8,10 @@ Deallocates memory used by the filename array returned from pgfnames function.
 
 ## Definition
 
-
+```c
+void
+pgfnames_cleanup(char **filenames)
+```
 ## Detailed Description
 The  function is a companion to  that properly deallocates all memory allocated by the pgfnames function. It iterates through the NULL-terminated array of filename strings, freeing each individual string using pfree(), then frees the array itself. This function ensures complete cleanup of the dynamic memory allocation performed by pgfnames.
 

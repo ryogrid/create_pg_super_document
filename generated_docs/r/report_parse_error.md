@@ -8,7 +8,11 @@ Reports parsing errors during JSON parsing by determining the appropriate error 
 
 ## Definition
 
-
+```c
+enum values.
+	 */
+	Assert(false);
+```
 ## Detailed Description
 The  function is a static helper function in PostgreSQL's JSON parsing API that analyzes the current parsing context and lexical state to determine the most appropriate error type to report when a JSON parsing error occurs. It serves as a centralized error classification mechanism within the JSON parser.
 

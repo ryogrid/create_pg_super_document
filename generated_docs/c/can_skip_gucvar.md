@@ -8,7 +8,10 @@ Determines whether SerializeGUCState can skip sending a GUC variable or whether 
 
 ## Definition
 
-
+```c
+static bool
+can_skip_gucvar(struct config_generic *gconf)
+```
 ## Detailed Description
 This function implements optimization logic for GUC (Grand Unified Configuration) variable serialization and restoration in parallel query execution. It decides which GUC variables can be safely omitted during the leader-to-worker communication process.
 

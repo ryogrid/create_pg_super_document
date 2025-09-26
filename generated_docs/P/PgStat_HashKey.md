@@ -8,7 +8,14 @@ PgStat_HashKey is the key structure used for the shared statistics hashtable tha
 
 ## Definition
 
-
+```c
+typedef struct PgStat_HashKey
+{
+	PgStat_Kind kind;			/* statistics entry kind */
+	Oid			dboid;			/* database ID. InvalidOid for shared objects. */
+	Oid			objoid;			/* object ID, either table or function. */
+} PgStat_HashKey;
+```
 ## Detailed Description
 PgStat_HashKey serves as the unique identifier for entries in the shared statistics hashtable. This structure combines three key pieces of information to uniquely identify a statistics object: the kind of statistics being tracked, the database containing the object, and the specific object identifier. The shared hashtable (with entries of type PgStatShared_HashEntry) uses this key to efficiently locate and manage statistics data for various database objects like tables and functions.
 

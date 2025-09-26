@@ -8,7 +8,10 @@ A Windows-specific wrapper function that executes system commands by adding extr
 
 ## Definition
 
-
+```c
+int
+pgwin32_system(const char *command)
+```
 ## Detailed Description
 The  function is a Windows-specific implementation that wraps the standard C library  function. Its primary purpose is to handle command strings that may contain spaces or special characters by automatically enclosing the entire command in double quotes. This prevents issues with argument parsing on Windows systems where spaces in paths or arguments can cause command execution to fail.
 

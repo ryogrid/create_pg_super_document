@@ -8,7 +8,9 @@ WaitEventSetWaitBlock is the low-level blocking function that uses epoll on Linu
 
 ## Definition
 
-
+```c
+struct epoll_event *cur_epoll_event;
+```
 ## Detailed Description
 WaitEventSetWaitBlock is a static inline function that implements the actual blocking wait operation using Linux's epoll_wait(2) system call. It serves as the platform-specific implementation layer beneath WaitEventSetWait, handling the translation between epoll events and PostgreSQL's unified wait event interface.
 

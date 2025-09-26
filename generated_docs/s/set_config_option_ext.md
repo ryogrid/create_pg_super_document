@@ -8,7 +8,9 @@ Extended version of set_config_option that allows explicit specification of the 
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This function provides an extended interface to set_config_option by adding explicit control over the role OID (srole parameter) that is considered responsible for setting the configuration parameter. While set_config_option automatically determines the appropriate role based on the GucSource, this extended version allows callers to override that decision.
 

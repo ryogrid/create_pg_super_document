@@ -8,7 +8,15 @@ TruncateStmt represents a TRUNCATE TABLE statement in the PostgreSQL parser, pro
 
 ## Definition
 
-
+```c
+typedef struct TruncateStmt
+{
+	NodeTag		type;
+	List	   *relations;		/* relations (RangeVars) to be truncated */
+	bool		restart_seqs;	/* restart owned sequences? */
+	DropBehavior behavior;		/* RESTRICT or CASCADE behavior */
+} TruncateStmt;
+```
 ## Detailed Description
 TruncateStmt is a parse tree node that represents the TRUNCATE TABLE SQL statement. TRUNCATE provides a fast way to remove all rows from a table or set of tables without scanning the table data, making it much more efficient than DELETE statements for removing all table contents. The operation also reclaims disk space immediately.
 

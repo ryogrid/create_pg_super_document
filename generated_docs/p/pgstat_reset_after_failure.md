@@ -8,7 +8,10 @@ The  function provides a recovery mechanism that resets all statistics to a clea
 
 ## Definition
 
-
+```c
+static void
+pgstat_reset_after_failure(void)
+```
 ## Detailed Description
 This function serves as a critical recovery mechanism in PostgreSQL's statistics system. It ensures that the statistics subsystem can recover gracefully from failures such as crashes, corrupted statistics files, or partial loading failures during system startup.
 

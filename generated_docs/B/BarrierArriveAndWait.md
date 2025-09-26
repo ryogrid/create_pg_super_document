@@ -8,7 +8,10 @@ Arrives at a barrier and waits for all other attached participants to arrive, im
 
 ## Definition
 
-
+```c
+bool
+BarrierArriveAndWait(Barrier *barrier, uint32 wait_event_info)
+```
 ## Detailed Description
 BarrierArriveAndWait provides a synchronization mechanism where multiple backend processes can wait at a specific point until all participants have arrived. The function implements a two-phase synchronization protocol with leader election:
 

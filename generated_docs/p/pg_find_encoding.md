@@ -8,7 +8,10 @@ Searches for and returns a pointer to a PostgreSQL encoding structure by name, u
 
 ## Definition
 
-
+```c
+static const struct pg_encoding *
+pg_find_encoding(const char *name)
+```
 ## Detailed Description
 This function performs a case-insensitive lookup in the enclist array to find a matching encoding by name. It iterates through the statically defined list of available encodings (such as "hex", "base64", "escape") and returns a pointer to the corresponding pg_encoding structure if found. The pg_encoding structure contains function pointers for encoding length calculation, decoding length calculation, encoding, and decoding operations specific to that format.
 

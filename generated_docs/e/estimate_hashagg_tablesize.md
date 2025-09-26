@@ -8,7 +8,11 @@ Estimates the total memory size in bytes required for a hash aggregate hashtable
 
 ## Definition
 
-
+```c
+double
+estimate_hashagg_tablesize(PlannerInfo *root, Path *path,
+						   const AggClauseCosts *agg_costs, double dNumGroups)
+```
 ## Detailed Description
 This function calculates the estimated memory footprint of a hash aggregation hashtable by multiplying the per-entry size by the expected number of groups. The calculation uses the  function to determine the size of each hash table entry based on:
 

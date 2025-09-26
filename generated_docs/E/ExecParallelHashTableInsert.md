@@ -8,7 +8,12 @@ Inserts a tuple into a shared hash table during parallel hash joins, coordinatin
 
 ## Definition
 
-
+```c
+void
+ExecParallelHashTableInsert(HashJoinTable hashtable,
+							TupleTableSlot *slot,
+							uint32 hashvalue)
+```
 ## Detailed Description
 This function manages tuple insertion in parallel hash joins by coordinating shared memory allocation across multiple worker processes. For batch 0 (current batch), it allocates shared memory for HashJoinTuple structures and inserts them into shared bucket arrays using lock-free atomic operations. The function implements a retry mechanism to handle memory allocation failures and bucket expansions that may occur concurrently.
 

@@ -8,7 +8,10 @@ RegisterTemporaryFile is a static function that registers a temporary file with 
 
 ## Definition
 
-
+```c
+static void
+RegisterTemporaryFile(File file)
+```
 ## Detailed Description
 RegisterTemporaryFile registers a temporary file with PostgreSQL's resource management system to ensure proper cleanup. The function implements a two-level cleanup strategy:
 

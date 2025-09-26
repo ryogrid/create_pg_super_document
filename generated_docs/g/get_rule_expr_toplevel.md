@@ -8,7 +8,11 @@ A specialized wrapper around get_rule_expr() that handles top-level expressions 
 
 ## Definition
 
-
+```c
+static void
+get_rule_expr_toplevel(Node *node, deparse_context *context,
+					   bool showimplicit)
+```
 ## Detailed Description
  is a thin wrapper function that provides special handling for expressions appearing at the top level of certain SQL contexts. The key difference from  is its treatment of Var nodes representing whole-row variables.
 

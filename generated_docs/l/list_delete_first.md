@@ -8,7 +8,10 @@ Removes and deallocates the first element from a PostgreSQL List, returning the 
 
 ## Definition
 
-
+```c
+List *
+list_delete_first(List *list)
+```
 ## Detailed Description
 This function provides a safe and efficient way to remove the first element from a PostgreSQL List data structure. It serves as a replacement for the Lisp-style traversal pattern "list = lnext(list);" when the intent is to modify the list rather than just traverse it. 
 

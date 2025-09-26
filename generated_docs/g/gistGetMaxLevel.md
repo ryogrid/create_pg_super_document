@@ -8,7 +8,13 @@ Determines the depth (maximum level) of a GiST index by traversing from the root
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	BlockNumber childblkno;		/* hash key */
+	BlockNumber parentblkno;
+} ParentMapEntry;
+```
 ## Detailed Description
 This function calculates the depth of a GiST index by performing a simple traversal from the root page down to any leaf page. Since GiST trees maintain uniform depth across all paths (all leaf pages are at the same level), the function can follow any single path from root to leaf to determine the overall tree depth.
 

@@ -8,7 +8,10 @@ A qsort-compatible wrapper function that enables sorting arrays of QTNode pointe
 
 ## Definition
 
-
+```c
+static int
+cmpQTN(const void *a, const void *b)
+```
 ## Detailed Description
 cmpQTN is a static wrapper function designed to adapt QTNodeCompare for use with the standard C qsort function. It follows the qsort comparator interface by accepting void pointers and dereferencing them to obtain QTNode pointers before delegating the actual comparison to QTNodeCompare.
 

@@ -8,7 +8,10 @@ Processes and outputs archive data from the sink's buffer by calling the sink-sp
 
 ## Definition
 
-
+```c
+static inline void
+bbsink_archive_contents(bbsink *sink, size_t len)
+```
 ## Detailed Description
 This inline function handles the processing of archive content data within PostgreSQL's base backup system. It validates that the specified length is within reasonable bounds (non-zero and not exceeding buffer capacity), then delegates to the sink-specific archive_contents operation to handle the actual processing and output of the data. The function expects callers to make reasonable efforts to fill the buffer before invocation, ensuring efficient data processing.
 

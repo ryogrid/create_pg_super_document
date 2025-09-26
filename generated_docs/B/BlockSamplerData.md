@@ -8,7 +8,9 @@ BlockSamplerData is a data structure that implements Algorithm S from Knuth 3.4.
 
 ## Definition
 
-
+```c
+typedef BlockSamplerData *BlockSampler;
+```
 ## Detailed Description
 BlockSamplerData implements Knuth's Algorithm S for reservoir sampling of blocks from a PostgreSQL relation. This algorithm is used primarily during table analysis (ANALYZE command) to select a representative sample of blocks for statistical purposes. The algorithm ensures that each block has an equal probability of being selected while processing the blocks sequentially, making it efficient for large tables where the total number of blocks is known in advance.
 

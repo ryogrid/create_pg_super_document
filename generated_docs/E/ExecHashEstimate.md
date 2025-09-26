@@ -8,7 +8,10 @@ Reserves space in the Dynamic Shared Memory (DSM) segment for hash join instrume
 
 ## Definition
 
-
+```c
+void
+ExecHashEstimate(HashState *node, ParallelContext *pcxt)
+```
 ## Detailed Description
 ExecHashEstimate is responsible for calculating and reserving the required amount of shared memory space for hash join instrumentation data in parallel query execution. This function is part of PostgreSQL's parallel query infrastructure and ensures that sufficient shared memory is allocated to collect performance statistics from all worker processes.
 

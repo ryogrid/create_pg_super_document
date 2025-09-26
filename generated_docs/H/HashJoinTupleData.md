@@ -8,7 +8,19 @@ HashJoinTupleData is a fundamental data structure that represents an individual 
 
 ## Definition
 
-
+```c
+typedef struct HashJoinTupleData
+{
+	/* link to next tuple in same bucket */
+	union
+	{
+		struct HashJoinTupleData *unshared;
+		dsa_pointer shared;
+	}			next;
+	uint32		hashvalue;		/* tuple's hash code */
+	/* Tuple data, in MinimalTuple format, follows on a MAXALIGN boundary */
+}			HashJoinTupleData;
+```
 ## Detailed Description
 HashJoinTupleData serves as the core building block for hash join operations in PostgreSQL's executor. Each tuple from the inner relation of a hash join is wrapped in this structure and stored in hash buckets within the hash table. The structure implements a chained hash table design where colliding tuples (those with the same hash bucket) are linked together via the  pointer.
 

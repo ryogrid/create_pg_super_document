@@ -8,7 +8,9 @@ Retrieves the home directory path associated with a given user ID (UID) from the
 
 ## Definition
 
-
+```c
+struct passwd pwdstr;
+```
 ## Detailed Description
 The  function performs a thread-safe lookup of a user's home directory based on their numeric user ID. It uses the POSIX  function to query the system's user database and retrieve the home directory path from the user's passwd entry. The function follows the same error handling pattern as , providing localized error messages when lookups fail.
 

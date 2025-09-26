@@ -8,7 +8,10 @@ Core client-side authentication dispatcher that processes authentication request
 
 ## Definition
 
-
+```c
+int
+pg_fe_sendauth(AuthRequest areq, int payloadlen, PGconn *conn)
+```
 ## Detailed Description
  serves as the main demultiplexer for handling authentication challenges from the PostgreSQL server. When the server sends an authentication request, this function analyzes the authentication method type and dispatches to the appropriate authentication handler. It supports multiple authentication mechanisms including GSS/SSPI, SASL, MD5, and password authentication.
 

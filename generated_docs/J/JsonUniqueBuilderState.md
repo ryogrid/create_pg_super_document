@@ -8,7 +8,14 @@ JsonUniqueBuilderState is a context structure that manages key uniqueness checki
 
 ## Definition
 
-
+```c
+typedef struct JsonUniqueBuilderState
+{
+	JsonUniqueCheckState check; /* unique check */
+	StringInfoData skipped_keys;	/* skipped keys with NULL values */
+	MemoryContext mcxt;			/* context for saving skipped keys */
+} JsonUniqueBuilderState;
+```
 ## Detailed Description
 JsonUniqueBuilderState provides specialized support for JSON object construction with integrated key uniqueness validation and NULL value management. Unlike the parsing state which processes existing JSON text, this structure supports the dynamic construction of JSON objects from individual key-value pairs. It extends the basic uniqueness checking capability with additional features for handling NULL values and managing memory for temporarily stored information.
 

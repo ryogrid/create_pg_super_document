@@ -8,7 +8,10 @@ Frees all parameter-related memory allocations for an ECPG statement and optiona
 
 ## Definition
 
-
+```c
+void
+ecpg_free_params(struct statement *stmt, bool print)
+```
 ## Detailed Description
 This function performs cleanup of all parameter-related data structures associated with an ECPG prepared statement. It iterates through all parameters, optionally logging their values for debugging, then systematically frees all allocated memory including parameter values, lengths, and formats arrays. The function also resets the parameter-related fields in the statement structure to ensure clean state.
 

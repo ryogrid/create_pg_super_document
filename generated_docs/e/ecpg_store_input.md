@@ -8,7 +8,11 @@ Converts ECPG variable data into string representations suitable for PostgreSQL 
 
 ## Definition
 
-
+```c
+bool
+ecpg_store_input(const int lineno, const bool force_indicator, const struct variable *var,
+				 char **tobeinserted_p, bool quote)
+```
 ## Detailed Description
 The  function is a comprehensive data conversion utility in ECPG that transforms client-side C variables into their PostgreSQL string representations for use in SQL statements. This function handles a wide range of scenarios:
 

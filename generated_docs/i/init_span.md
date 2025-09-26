@@ -8,7 +8,13 @@ Initializes a new span structure and adds it to fullness class 1 of a specified 
 
 ## Definition
 
-
+```c
+static void
+init_span(dsa_area *area,
+		  dsa_pointer span_pointer,
+		  dsa_area_pool *pool, dsa_pointer start, size_t npages,
+		  uint16 size_class)
+```
 ## Detailed Description
 This function initializes a newly created span structure that will manage allocations of objects within a specific size class. A span represents a contiguous block of memory pages that is subdivided into fixed-size objects. The function sets up the span's metadata, links it into the appropriate pool's span list at fullness class 1 (partially full), and calculates the number of allocatable objects based on the size class.
 

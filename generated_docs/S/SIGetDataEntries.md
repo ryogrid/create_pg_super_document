@@ -8,7 +8,10 @@ Retrieves the next shared invalidation message(s) for the current backend from t
 
 ## Definition
 
-
+```c
+int
+SIGetDataEntries(SharedInvalidationMessage *data, int datasize)
+```
 ## Detailed Description
 SIGetDataEntries is a core function in PostgreSQL's shared invalidation system that allows individual backends to retrieve pending invalidation messages from the shared memory buffer. The function operates in a lock-safe manner, using shared locks to allow multiple backends to read messages concurrently while preventing conflicts with message insertion operations.
 

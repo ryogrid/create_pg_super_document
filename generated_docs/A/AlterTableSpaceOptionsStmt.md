@@ -8,7 +8,15 @@ AlterTableSpaceOptionsStmt represents the parsed structure for an ALTER TABLESPA
 
 ## Definition
 
-
+```c
+typedef struct AlterTableSpaceOptionsStmt
+{
+	NodeTag		type;
+	char	   *tablespacename;
+	List	   *options;
+	bool		isReset;
+} AlterTableSpaceOptionsStmt;
+```
 ## Detailed Description
 This structure is part of PostgreSQL's parse tree node system and represents the ALTER TABLESPACE command when it's used to modify tablespace options. The statement allows database administrators to change storage-related parameters for tablespaces, such as random_page_cost, seq_page_cost, or other tablespace-specific options. The options can either be set to new values or reset to their defaults.
 

@@ -8,7 +8,11 @@ A static function that releases statistics entry references that match specific 
 
 ## Definition
 
-
+```c
+static void
+pgstat_release_matching_entry_refs(bool discard_pending, ReleaseMatchCB match,
+								   Datum match_data)
+```
 ## Detailed Description
 This function provides a flexible mechanism for releasing multiple statistics entry references based on custom matching criteria. It iterates through all entries in the local entry reference hash table and applies a user-provided callback function to determine which entries should be released. This design allows for selective cleanup of entry references based on various criteria such as database ID, object type, or other attributes.
 

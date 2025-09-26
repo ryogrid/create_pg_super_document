@@ -8,7 +8,10 @@ Enlarges a StringInfo buffer to ensure it has enough space for additional bytes 
 
 ## Definition
 
-
+```c
+void
+enlargeStringInfo(StringInfo str, int needed)
+```
 ## Detailed Description
 This function ensures that a StringInfo buffer has sufficient space to accommodate 'needed' additional bytes beyond its current length. The function implements an exponential growth strategy, doubling the buffer size on each expansion to minimize the number of memory reallocations.
 

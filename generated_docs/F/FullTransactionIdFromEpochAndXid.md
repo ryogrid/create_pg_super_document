@@ -8,7 +8,10 @@ Constructs a FullTransactionId by combining a 32-bit epoch with a 32-bit transac
 
 ## Definition
 
-
+```c
+static inline FullTransactionId
+FullTransactionIdFromEpochAndXid(uint32 epoch, TransactionId xid)
+```
 ## Detailed Description
 This inline function creates a FullTransactionId value by combining an epoch and transaction ID. The epoch represents the high 32 bits and the transaction ID represents the low 32 bits of the resulting 64-bit value. This is fundamental for PostgreSQL's transaction ID wraparound handling, as it extends the 32-bit transaction ID space by adding an epoch counter that increments when the transaction ID space wraps around.
 

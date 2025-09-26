@@ -8,7 +8,10 @@ ExecQual evaluates a qualification (boolean) expression and returns true or fals
 
 ## Definition
 
-
+```c
+static inline bool
+ExecQual(ExprState *state, ExprContext *econtext)
+```
 ## Detailed Description
 ExecQual is a critical inline function in PostgreSQL's expression evaluation system that processes qualification expressions (boolean expressions typically used in WHERE clauses, JOIN conditions, and CHECK constraints). The function takes a compiled expression state and an expression context, evaluates the expression, and returns a boolean result.
 

@@ -8,7 +8,9 @@ Acl represents an Access Control List as a one-dimensional PostgreSQL array of A
 
 ## Definition
 
-
+```c
+typedef struct ArrayType Acl;
+```
 ## Detailed Description
 Acl is a specialized PostgreSQL array type that stores access control information for database objects. It is built on top of the standard ArrayType structure but has specific constraints:
 

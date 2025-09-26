@@ -8,7 +8,10 @@ Initializes backend-local state needed for a process to hold and use LWLocks, pr
 
 ## Definition
 
-
+```c
+void
+InitLWLockAccess(void)
+```
 ## Detailed Description
 InitLWLockAccess is responsible for setting up per-process (backend-local) state required for LWLock operations. Currently, its primary function is to initialize LWLock statistics collection when the LWLOCK_STATS compilation flag is enabled.
 

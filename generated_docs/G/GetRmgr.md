@@ -8,7 +8,10 @@ GetRmgr is a static inline function that safely retrieves a resource manager ent
 
 ## Definition
 
-
+```c
+static inline RmgrData
+GetRmgr(RmgrId rmid)
+```
 ## Detailed Description
 This function provides a safe way to access resource manager data from the RmgrTable by first validating that the specified resource manager ID exists using RmgrIdExists. If the resource manager ID is invalid, it calls RmgrNotFound to handle the error condition (typically by throwing an error). If valid, it returns the RmgrData structure from the table. This approach ensures that callers receive valid resource manager data and prevents accessing uninitialized or invalid table entries.
 

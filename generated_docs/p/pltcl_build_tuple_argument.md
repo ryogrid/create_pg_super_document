@@ -8,7 +8,10 @@ Builds a Tcl list object suitable for 'array set' from all attributes of a given
 
 ## Definition
 
-
+```c
+static Tcl_Obj *
+pltcl_build_tuple_argument(HeapTuple tuple, TupleDesc tupdesc, bool include_generated)
+```
 ## Detailed Description
 This function converts a PostgreSQL HeapTuple into a Tcl list object that can be used with Tcl's 'array set' command. It iterates through all attributes in the tuple descriptor, extracts each attribute's name and value from the tuple, and creates a Tcl list containing alternating attribute names and their string representations. The function handles type conversion by using PostgreSQL's output functions to convert each attribute value to its string representation, then converts the strings from PostgreSQL's encoding to UTF-8 for Tcl compatibility.
 

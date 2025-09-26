@@ -8,7 +8,10 @@ Detaches from a dynamic shared hash table by freeing the backend-local resources
 
 ## Definition
 
-
+```c
+void
+dshash_detach(dshash_table *hash_table)
+```
 ## Detailed Description
 The dshash_detach function cleanly disconnects a backend from a shared hash table by releasing only the backend-local dshash_table structure. This is a lightweight operation that does not affect the shared hash table data or control structures, which remain available for other attached processes. The function includes debug assertions to ensure no partition locks are held by the current backend when detaching.
 

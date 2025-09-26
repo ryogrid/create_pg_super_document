@@ -8,7 +8,32 @@ MergeJoin is a plan node that implements the merge join algorithm, which efficie
 
 ## Definition
 
+```c
+typedef struct MergeJoin
+{
+	Join		join;
 
+	/* Can we skip mark/restore calls? */
+	bool		skip_mark_restore;
+
+	/* mergeclauses as expression trees */
+	List	   *mergeclauses;
+
+	/* these are arrays, but have the same length as the mergeclauses list: */
+
+	/* per-clause OIDs of btree opfamilies */
+	Oid		   *mergeFamilies pg_node_attr(array_size(mergeclauses));
+
+	/* per-clause OIDs of collations */
+	Oid		   *mergeCollations pg_node_attr(array_size(mergeclauses));
+
+	/* per-clause ordering (ASC or DESC) */
+	int		   *mergeStrategies pg_node_attr(array_size(mergeclauses));
+
+	/* per-clause nulls ordering */
+	bool	   *mergeNullsFirst pg_node_attr(array_size(mergeclauses));
+} MergeJoin;
+```
 ## Detailed Description
 MergeJoin implements the merge join algorithm, one of the three fundamental join algorithms in PostgreSQL (along with nested loop and hash joins). This algorithm is particularly efficient when both input relations are already sorted on the join keys, as it can process both streams in a single pass with O(M+N) complexity.
 

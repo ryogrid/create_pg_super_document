@@ -8,7 +8,10 @@ Creates a new BufFile backed by a SharedFileSet that can be discovered and opene
 
 ## Definition
 
-
+```c
+BufFile *
+BufFileCreateFileSet(FileSet *fileset, const char *name)
+```
 ## Detailed Description
 BufFileCreateFileSet creates a new BufFile that is backed by a SharedFileSet infrastructure, enabling inter-backend file sharing. Unlike regular BufFiles that are private to a single backend, fileset-based BufFiles can be discovered and opened by other PostgreSQL backends that have access to the same SharedFileSet using the provided name.
 

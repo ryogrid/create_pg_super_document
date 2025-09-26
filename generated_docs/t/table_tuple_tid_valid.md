@@ -8,7 +8,10 @@ Verifies that a TID is potentially valid for tuple access operations without gua
 
 ## Definition
 
-
+```c
+static inline bool
+table_tuple_tid_valid(TableScanDesc scan, ItemPointer tid)
+```
 ## Detailed Description
 This function is part of PostgreSQL's table access method (tableam) interface that provides a validation mechanism for tuple identifiers (TIDs). The function checks whether a given TID represents a potentially valid tuple location within the table, meaning that operations like table_tuple_get_latest_tid() or table_tuple_fetch_row_version() should not encounter structural errors when called with this TID.
 

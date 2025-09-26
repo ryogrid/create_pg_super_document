@@ -8,7 +8,10 @@ Configures Elliptic Curve Diffie-Hellman (ECDH) parameters for SSL/TLS connectio
 
 ## Definition
 
-
+```c
+static bool
+initialize_ecdh(SSL_CTX *context, bool isServerStart)
+```
 ## Detailed Description
 The  function sets up Elliptic Curve Diffie-Hellman parameters for ephemeral key exchange in SSL/TLS connections. ECDH provides the same perfect forward secrecy benefits as traditional DH but with significantly better performance and smaller key sizes due to the mathematical properties of elliptic curves.
 

@@ -8,7 +8,10 @@ Cancels a specific timeout, removing it from the active timeout list and optiona
 
 ## Definition
 
-
+```c
+void
+disable_timeout(TimeoutId id, bool keep_indicator)
+```
 ## Detailed Description
 This function disables a previously enabled timeout by removing it from the active timeout queue. The function provides flexibility in handling the timeout's indicator flag, which tracks whether the timeout has fired. When keep_indicator is false, the indicator is reset, allowing for clean timeout state management. When true, the indicator preserves its state, which can be useful for checking if a timeout fired before being disabled.
 

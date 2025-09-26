@@ -8,7 +8,10 @@ FileSync synchronizes a virtual file descriptor to persistent storage, ensuring 
 
 ## Definition
 
-
+```c
+int
+FileSync(File file, uint32 wait_event_info)
+```
 ## Detailed Description
 FileSync performs a synchronous write operation on a virtual file descriptor, ensuring data durability by forcing all buffered writes to be committed to persistent storage. The function validates the file descriptor, accesses the underlying system file, and calls the PostgreSQL fsync wrapper with proper wait event reporting for monitoring purposes. This is a critical operation for ensuring data consistency and durability in PostgreSQL's storage layer.
 

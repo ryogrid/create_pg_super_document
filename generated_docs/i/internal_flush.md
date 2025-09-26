@@ -8,7 +8,10 @@ A static inline function that flushes the PostgreSQL send buffer by delegating t
 
 ## Definition
 
-
+```c
+static inline int
+internal_flush(void)
+```
 ## Detailed Description
 The  function serves as a simple wrapper around  for flushing PostgreSQL's global send buffer. It provides a convenient interface for flushing the standard send buffer without requiring callers to manage buffer state variables directly.
 

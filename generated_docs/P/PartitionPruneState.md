@@ -8,7 +8,18 @@ PartitionPruneState is a state object that enables plan nodes to perform run-tim
 
 ## Definition
 
-
+```c
+typedef struct PartitionPruneState
+{
+	Bitmapset  *execparamids;
+	Bitmapset  *other_subplans;
+	MemoryContext prune_context;
+	bool		do_initial_prune;
+	bool		do_exec_prune;
+	int			num_partprunedata;
+	PartitionPruningData *partprunedata[FLEXIBLE_ARRAY_MEMBER];
+} PartitionPruneState;
+```
 ## Detailed Description
 This structure is the central execution state object for PostgreSQL's run-time partition pruning mechanism. It can be attached to plan types that support arbitrary lists of subplans containing partitions (such as Append and MergeAppend nodes) to eliminate subplans whose partitions cannot possibly produce tuples matching the query conditions. The structure tracks execution parameters that affect pruning decisions, maintains a dedicated memory context for pruning operations, and holds references to the pruning data for all partitioned relations involved in the query.
 

@@ -8,7 +8,10 @@ A static function that finalizes a block reference table file by writing a senti
 
 ## Definition
 
-
+```c
+static void
+BlockRefTableFileTerminate(BlockRefTableBuffer *buffer)
+```
 ## Detailed Description
 BlockRefTableFileTerminate performs the essential finalization steps for a block reference table file. This function ensures data integrity and proper file termination by:
 

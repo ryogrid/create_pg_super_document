@@ -8,7 +8,10 @@ A specialized callback function used in PostgreSQL's parallel query execution to
 
 ## Definition
 
-
+```c
+static void
+get_agg_combine_expr(Node *node, deparse_context *context, void *callback_arg)
+```
 ## Detailed Description
 This function serves as a callback helper specifically for deparsing combining aggregates in PostgreSQL's parallel query execution system. When parallel workers execute aggregate operations, they produce partial results that must be combined in the final step. This function is called by resolve_special_varno when processing a combining aggregate to locate the corresponding partial aggregate expression.
 

@@ -8,7 +8,11 @@ DecodeTimeForInterval is an interval-specific wrapper around DecodeTimeCommon th
 
 ## Definition
 
-
+```c
+static int
+DecodeTimeForInterval(char *str, int fmask, int range,
+					  int *tmask, struct pg_itm_in *itm_in)
+```
 ## Detailed Description
 DecodeTimeForInterval provides specialized processing for interval parsing by converting all time components (hours, minutes, seconds, microseconds) into a unified microsecond representation. This design supports PostgreSQL's internal interval storage format where time components are accumulated as total microseconds. Key features include:
 

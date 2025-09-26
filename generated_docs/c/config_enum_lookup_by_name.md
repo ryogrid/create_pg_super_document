@@ -8,7 +8,11 @@ Performs case-insensitive lookup of an enum option by name and returns its corre
 
 ## Definition
 
-
+```c
+bool
+config_enum_lookup_by_name(struct config_enum *record, const char *value,
+						   int *retval)
+```
 ## Detailed Description
 This function searches through the options array of a PostgreSQL configuration enum to find a matching name (case-insensitive comparison). It iterates through all available enum entries and uses pg_strcasecmp() for string comparison. When a match is found, it sets the corresponding integer value through the retval parameter and returns true. If no match is found, it sets retval to 0 and returns false.
 

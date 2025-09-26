@@ -8,7 +8,10 @@ Sets or clears allocation notification latch for the background writer process t
 
 ## Definition
 
-
+```c
+void
+StrategyNotifyBgWriter(int bgwprocno)
+```
 ## Detailed Description
 StrategyNotifyBgWriter is a coordination function that allows the background writer process to be notified when buffer allocation happens. When called with a valid background writer process number, it sets up a notification mechanism so that the next invocation of StrategyGetBuffer will wake up the background writer process from hibernation. This is part of PostgreSQL's buffer management strategy to ensure the background writer can respond to buffer allocation pressure.
 

@@ -8,7 +8,10 @@ The  function implements the SQL POSITION() function to return the position of a
 
 ## Definition
 
-
+```c
+Datum
+textpos(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that implements the SQL standard POSITION() function. It takes two text arguments - a source string and a search string - and returns the 1-based position of the first occurrence of the search string within the source string. If the search string is not found, it returns 0. The function serves as a wrapper around the internal  function, providing the standard SQL interface for substring position operations.
 

@@ -8,7 +8,13 @@ TuplesortMethod is an enumeration type that represents different sorting algorit
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	SORT_SPACE_TYPE_DISK,
+	SORT_SPACE_TYPE_MEMORY,
+} TuplesortSpaceType;
+```
 ## Detailed Description
 TuplesortMethod is a bitmask enumeration that categorizes the different sorting algorithms available in PostgreSQL's tuplesort module. Each value represents a distinct sorting strategy that PostgreSQL can employ based on the characteristics of the data being sorted, memory availability, and performance requirements.
 

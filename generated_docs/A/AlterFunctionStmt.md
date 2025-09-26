@@ -8,7 +8,15 @@ AlterFunctionStmt is a node structure representing an SQL ALTER FUNCTION stateme
 
 ## Definition
 
-
+```c
+typedef struct AlterFunctionStmt
+{
+	NodeTag		type;
+	ObjectType	objtype;
+	ObjectWithArgs *func;		/* name and args of function */
+	List	   *actions;		/* list of DefElem */
+} AlterFunctionStmt;
+```
 ## Detailed Description
 This structure is used during the parsing phase to represent ALTER FUNCTION and ALTER PROCEDURE statements. It stores the target function/procedure identification along with the list of alterations to be applied. The structure is part of PostgreSQL's node system for representing parsed SQL statements and is processed during the utility command execution phase.
 

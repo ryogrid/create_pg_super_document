@@ -8,7 +8,10 @@ A fast equality comparison function for 32-bit integers used in PostgreSQL's cat
 
 ## Definition
 
-
+```c
+static bool
+int4eqfast(Datum a, Datum b)
+```
 ## Detailed Description
 int4eqfast is a specialized equality function designed for high-performance comparison of 32-bit integer values in the catalog cache system. It provides a fast path for comparing INT4 (32-bit integer) values by directly extracting the integer values from Datum objects and performing a simple equality comparison. This function is part of PostgreSQL's catalog cache optimization, where fast lookup functions are essential for system performance.
 

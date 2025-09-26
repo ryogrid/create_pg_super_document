@@ -8,7 +8,12 @@ Reads an UPDATE message from a logical replication stream and populates tuple da
 
 ## Definition
 
-
+```c
+LogicalRepRelId
+logicalrep_read_update(StringInfo in, bool *has_oldtuple,
+					   LogicalRepTupleData *oldtup,
+					   LogicalRepTupleData *newtup)
+```
 ## Detailed Description
 This function parses an UPDATE operation from the logical replication protocol stream. It handles the variable format of UPDATE messages which may or may not include old tuple data depending on the table's replica identity setting. The function processes:
 

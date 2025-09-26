@@ -8,7 +8,23 @@ GrantStmt represents the parsed form of GRANT and REVOKE statements, which contr
 
 ## Definition
 
-
+```c
+typedef struct GrantStmt
+{
+	NodeTag		type;
+	bool		is_grant;		/* true = GRANT, false = REVOKE */
+	GrantTargetType targtype;	/* type of the grant target */
+	ObjectType	objtype;		/* kind of object being operated on */
+	List	   *objects;		/* list of RangeVar nodes, ObjectWithArgs
+								 * nodes, or plain names (as String values) */
+	List	   *privileges;		/* list of AccessPriv nodes */
+	/* privileges == NIL denotes ALL PRIVILEGES */
+	List	   *grantees;		/* list of RoleSpec nodes */
+	bool		grant_option;	/* grant or revoke grant option */
+	RoleSpec   *grantor;
+	DropBehavior behavior;		/* drop behavior (for REVOKE) */
+} GrantStmt;
+```
 ## Detailed Description
 GrantStmt is a crucial parse tree node structure that represents both GRANT and REVOKE SQL statements in PostgreSQL's comprehensive access control system. This single structure handles the dual nature of privilege management by using the is_grant boolean flag to distinguish between granting and revoking operations.
 

@@ -8,7 +8,10 @@ SPI_finish terminates an active SPI connection, cleaning up memory contexts and 
 
 ## Definition
 
-
+```c
+int
+SPI_finish(void)
+```
 ## Detailed Description
 SPI_finish is the counterpart to SPI_connect/SPI_connect_ext that properly closes an SPI connection and performs necessary cleanup. It must be called to balance every successful SPI_connect call to prevent memory leaks and maintain proper SPI stack state.
 

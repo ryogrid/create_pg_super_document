@@ -8,7 +8,17 @@ BumpBlock represents a memory block unit obtained from malloc() that serves as t
 
 ## Definition
 
-
+```c
+struct BumpBlock
+{
+	dlist_node	node;			/* doubly-linked list of blocks */
+#ifdef MEMORY_CONTEXT_CHECKING
+	BumpContext *context;		/* pointer back to the owning context */
+#endif
+	char	   *freeptr;		/* start of free space in this block */
+	char	   *endptr;			/* end of space in this block */
+};
+```
 ## Detailed Description
 BumpBlock is the fundamental storage unit used by the bump allocator memory context. Each block contains a contiguous region of memory obtained from the system malloc(), and allocations within the bump context are satisfied by advancing the freeptr pointer within the current block. When a block becomes full, a new block is allocated and added to the context's block list.
 

@@ -8,7 +8,15 @@ SupportRequestSimplify is a structure used to request plan-time simplification o
 
 ## Definition
 
+```c
+typedef struct SupportRequestSimplify
+{
+	NodeTag		type;
 
+	struct PlannerInfo *root;	/* Planner's infrastructure */
+	FuncExpr   *fcall;			/* Function call to be simplified */
+} SupportRequestSimplify;
+```
 ## Detailed Description
 The SupportRequestSimplify structure enables PostgreSQL's planner to perform compile-time optimizations by allowing support functions to simplify calls to their target functions. This mechanism is invoked during the planner's constant-folding pass when function arguments have already been simplified. Support functions can analyze the function call and potentially replace it with a more efficient equivalent operation.
 

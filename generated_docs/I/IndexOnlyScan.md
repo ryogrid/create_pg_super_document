@@ -8,7 +8,18 @@ IndexOnlyScan represents an index-only scan plan node that retrieves data direct
 
 ## Definition
 
-
+```c
+typedef struct IndexOnlyScan
+{
+	Scan		scan;
+	Oid			indexid;		/* OID of index to scan */
+	List	   *indexqual;		/* list of index quals (usually OpExprs) */
+	List	   *recheckqual;	/* index quals in recheckable form */
+	List	   *indexorderby;	/* list of index ORDER BY exprs */
+	List	   *indextlist;		/* TargetEntry list describing index's cols */
+	ScanDirection indexorderdir;	/* forward or backward or don't care */
+} IndexOnlyScan;
+```
 ## Detailed Description
 The IndexOnlyScan structure represents an optimized index-based scan operation that retrieves all required data directly from index pages without accessing the heap table. This scan type is only possible when the index contains all columns needed by the query (covering index). It provides significant performance benefits by reducing I/O operations and avoiding heap table access.
 

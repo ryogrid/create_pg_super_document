@@ -8,7 +8,10 @@ Removes a dummy entry from the predicate lock target hash table to free up scrat
 
 ## Definition
 
-
+```c
+static void
+RemoveScratchTarget(bool lockheld)
+```
 ## Detailed Description
 This function removes a special scratch entry from the PredicateLockTargetHash to make room for new entries when the hash table is full. The scratch target is a dummy entry maintained specifically for this purpose - when space is needed, this entry is temporarily removed, allowing new legitimate entries to be inserted.
 

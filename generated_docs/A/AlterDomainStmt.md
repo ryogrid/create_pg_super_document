@@ -8,7 +8,25 @@ AlterDomainStmt represents the parsed form of an ALTER DOMAIN statement, used to
 
 ## Definition
 
-
+```c
+typedef struct AlterDomainStmt
+{
+	NodeTag		type;
+	char		subtype;		/*------------
+								 *	T = alter column default
+								 *	N = alter column drop not null
+								 *	O = alter column set not null
+								 *	C = add constraint
+								 *	X = drop constraint
+								 *------------
+								 */
+	List	   *typeName;		/* domain to work on */
+	char	   *name;			/* column or constraint name to act on */
+	Node	   *def;			/* definition of default or constraint */
+	DropBehavior behavior;		/* RESTRICT or CASCADE for DROP cases */
+	bool		missing_ok;		/* skip error if missing? */
+} AlterDomainStmt;
+```
 ## Detailed Description
 AlterDomainStmt is a parse tree node structure that represents ALTER DOMAIN SQL commands. Domains in PostgreSQL are user-defined data types that are based on existing types but can include additional constraints and default values. This structure provides a unified representation for various domain modification operations.
 

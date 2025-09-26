@@ -8,7 +8,9 @@ Recursively deletes a directory tree, optionally including the top-level directo
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 The  function performs a recursive deletion of an entire directory tree. It's designed to safely remove directories and their contents without consuming excessive file descriptors by deferring subdirectory recursion until after the current directory is closed.
 

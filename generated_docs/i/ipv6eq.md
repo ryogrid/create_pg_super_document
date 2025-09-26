@@ -8,7 +8,10 @@ Compares two IPv6 socket addresses for equality by performing a byte-by-byte com
 
 ## Definition
 
-
+```c
+static bool
+ipv6eq(struct sockaddr_in6 *a, struct sockaddr_in6 *b)
+```
 ## Detailed Description
 The  function determines whether two IPv6 socket address structures represent the same IPv6 address. It performs a comprehensive byte-by-byte comparison of the entire 128-bit IPv6 address stored in the  array. 
 

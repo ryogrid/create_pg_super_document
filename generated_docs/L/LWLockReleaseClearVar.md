@@ -8,7 +8,10 @@ Releases a previously acquired LWLock while atomically setting a specified atomi
 
 ## Definition
 
-
+```c
+void
+LWLockReleaseClearVar(LWLock *lock, pg_atomic_uint64 *valptr, uint64 val)
+```
 ## Detailed Description
 LWLockReleaseClearVar provides an atomic operation that combines setting an atomic variable to a specified value and releasing an LWLock. This function ensures that the variable update is completed before the lock is released through the use of pg_atomic_exchange_u64, which provides a full memory barrier. This ordering guarantee is critical in concurrent scenarios where other processes need to observe the variable change before they can acquire the lock.
 

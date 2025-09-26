@@ -8,7 +8,12 @@ Selects the effective grantor ID for a GRANT or REVOKE operation by finding the 
 
 ## Definition
 
-
+```c
+void
+select_best_grantor(Oid roleId, AclMode privileges,
+					const Acl *acl, Oid ownerId,
+					Oid *grantorId, AclMode *grantOptions)
+```
 ## Detailed Description
 This function implements a sophisticated algorithm to determine which role should be used as the grantor in GRANT/REVOKE operations. The grantor must always be either the object owner or a role that has been explicitly granted grant options. This ensures that all granted privileges appear to flow from the object owner, preventing multiple "original sources" of a privilege.
 

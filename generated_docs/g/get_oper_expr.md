@@ -8,7 +8,10 @@ Parses back an OpExpr (operator expression) node into its human-readable string 
 
 ## Definition
 
-
+```c
+static void
+get_oper_expr(OpExpr *expr, deparse_context *context)
+```
 ## Detailed Description
 This static function is part of PostgreSQL's rule deparsing system, which converts internal expression tree nodes back to SQL text. The function handles both binary operators (like '+', '-', '=') and prefix (unary) operators (like 'NOT', '-'). It formats the operator expression with appropriate spacing and parentheses based on the context's formatting preferences.
 

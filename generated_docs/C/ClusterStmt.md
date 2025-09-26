@@ -8,7 +8,15 @@ A parse node structure representing the CLUSTER statement, used to reorganize ta
 
 ## Definition
 
-
+```c
+typedef struct ClusterStmt
+{
+	NodeTag		type;
+	RangeVar   *relation;		/* relation being indexed, or NULL if all */
+	char	   *indexname;		/* original index defined */
+	List	   *params;			/* list of DefElem nodes */
+} ClusterStmt;
+```
 ## Detailed Description
 ClusterStmt is a parse node structure that represents a CLUSTER SQL statement. This structure is created during parsing of SQL commands like "CLUSTER table_name USING index_name", "CLUSTER table_name" (uses previously clustered index), or "CLUSTER" (clusters all tables that have a previously clustered index). The CLUSTER command physically reorders the rows of a table according to the sort order of an index, which can improve query performance for queries that follow the same ordering.
 

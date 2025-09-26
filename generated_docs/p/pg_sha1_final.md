@@ -8,7 +8,10 @@ Finalizes a SHA1 cryptographic hash computation by applying padding and extracti
 
 ## Definition
 
-
+```c
+void
+pg_sha1_final(pg_sha1_ctx *ctx, uint8 *dest)
+```
 ## Detailed Description
 The  function completes the SHA1 hash computation process by performing the final steps required by the SHA1 algorithm specification. It acts as a wrapper that orchestrates the finalization sequence:
 

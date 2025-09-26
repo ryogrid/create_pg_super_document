@@ -8,7 +8,10 @@ Extract the set of pushed-down clause serial numbers that are enforced within a 
 
 ## Definition
 
-
+```c
+Bitmapset *
+get_param_path_clause_serials(Path *path)
+```
 ## Detailed Description
 This recursive function analyzes a parameterized path to determine which clauses (identified by their rinfo_serial numbers) are enforced within the path. The function handles different path types with specific logic:
 

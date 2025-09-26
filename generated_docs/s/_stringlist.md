@@ -8,7 +8,13 @@ A simple linked list data structure used to store a sequence of strings, commonl
 
 ## Definition
 
-
+```c
+typedef struct _stringlist
+{
+	char	   *str;
+	struct _stringlist *next;
+} _stringlist;
+```
 ## Detailed Description
 The  structure implements a basic singly-linked list specifically designed for storing strings. It is widely used across PostgreSQL's utility programs including initdb, pg_regress, and various test frameworks. The structure provides a lightweight way to build dynamic lists of strings without requiring pre-allocation or size limits.
 

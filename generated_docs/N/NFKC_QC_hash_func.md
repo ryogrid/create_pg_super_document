@@ -8,7 +8,10 @@ A perfect hash function used to efficiently look up Unicode normalization proper
 
 ## Definition
 
-
+```c
+static int
+NFKC_QC_hash_func(const void *key)
+```
 ## Detailed Description
 This function implements a perfect hash function specifically designed for the NFKC quick check table in PostgreSQL's Unicode normalization system. NFKC normalization is more comprehensive than NFC as it also handles compatibility characters, making it suitable for situations where equivalent representations need to be identified across different character encodings and historical variants.
 

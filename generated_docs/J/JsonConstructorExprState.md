@@ -8,7 +8,21 @@ JsonConstructorExprState manages the execution state for JSON constructor expres
 
 ## Definition
 
-
+```c
+typedef struct JsonConstructorExprState
+{
+	JsonConstructorExpr *constructor;
+	Datum	   *arg_values;
+	bool	   *arg_nulls;
+	Oid		   *arg_types;
+	struct
+	{
+		int			category;
+		Oid			outfuncid;
+	}		   *arg_type_cache; /* cache for datum_to_json[b]() */
+	int			nargs;
+} JsonConstructorExprState;
+```
 ## Detailed Description
 JsonConstructorExprState provides the execution state and workspace needed for evaluating JSON constructor expressions (JSON_OBJECT, JSON_ARRAY, etc.). The structure is designed as out-of-line state because it's too large to fit efficiently within the inline data union of ExprEvalStep.
 

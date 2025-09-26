@@ -8,7 +8,34 @@ FuncExpr represents a function call expression node in PostgreSQL's query tree, 
 
 ## Definition
 
+```c
+typedef struct FuncExpr
+{
+	Expr		xpr;
+	/* PG_PROC OID of the function */
+	Oid			funcid;
+	/* PG_TYPE OID of result value */
+	Oid			funcresulttype pg_node_attr(query_jumble_ignore);
+	/* true if function returns set */
+	bool		funcretset pg_node_attr(query_jumble_ignore);
 
+	/*
+	 * true if variadic arguments have been combined into an array last
+	 * argument
+	 */
+	bool		funcvariadic pg_node_attr(query_jumble_ignore);
+	/* how to display this function call */
+	CoercionForm funcformat pg_node_attr(query_jumble_ignore);
+	/* OID of collation of result */
+	Oid			funccollid pg_node_attr(query_jumble_ignore);
+	/* OID of collation that function should use */
+	Oid			inputcollid pg_node_attr(query_jumble_ignore);
+	/* arguments to the function */
+	List	   *args;
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} FuncExpr;
+```
 ## Detailed Description
 FuncExpr is the fundamental expression node for representing function calls in PostgreSQL's SQL execution engine. It stores all necessary metadata about the function being called, including its catalog identifier, return type information, argument list, and execution parameters.
 

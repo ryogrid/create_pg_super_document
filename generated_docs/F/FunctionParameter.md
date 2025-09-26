@@ -8,7 +8,16 @@ FunctionParameter represents a single parameter definition within a CREATE FUNCT
 
 ## Definition
 
-
+```c
+typedef struct FunctionParameter
+{
+	NodeTag		type;
+	char	   *name;			/* parameter name, or NULL if not given */
+	TypeName   *argType;		/* TypeName for parameter type */
+	FunctionParameterMode mode; /* IN/OUT/etc */
+	Node	   *defexpr;		/* raw default expr, or NULL if not given */
+} FunctionParameter;
+```
 ## Detailed Description
 FunctionParameter is a parse tree node that represents individual parameters in function and procedure definitions. It captures all aspects of a parameter specification including its name, data type, parameter mode (IN, OUT, INOUT, VARIADIC), and optional default value. This structure supports PostgreSQL's comprehensive parameter system for functions and procedures.
 

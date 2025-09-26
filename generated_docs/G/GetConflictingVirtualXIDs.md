@@ -8,7 +8,10 @@ Returns an array of currently active Virtual Transaction IDs (VXIDs) that may co
 
 ## Definition
 
-
+```c
+VirtualTransactionId *
+GetConflictingVirtualXIDs(TransactionId limitXmin, Oid dbOid)
+```
 ## Detailed Description
 GetConflictingVirtualXIDs is specialized for hot standby conflict resolution scenarios where recovery processes need to identify active transactions that might conflict with cleanup operations. Unlike GetCurrentVirtualXIDs, this function is specifically optimized for recovery conflict detection and uses different filtering logic.
 

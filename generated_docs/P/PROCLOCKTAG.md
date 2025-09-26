@@ -8,7 +8,14 @@ PROCLOCKTAG is the key data structure used to identify individual lock holdings 
 
 ## Definition
 
-
+```c
+typedef struct PROCLOCKTAG
+{
+	/* NB: we assume this struct contains no padding! */
+	LOCK	   *myLock;			/* link to per-lockable-object information */
+	PGPROC	   *myProc;			/* link to PGPROC of owning backend */
+} PROCLOCKTAG;
+```
 ## Detailed Description
 PROCLOCKTAG serves as the hash key for looking up PROCLOCK objects in the proclock hashtable. It represents the association between a specific lock (identified by LOCK structure) and a specific backend process (identified by PGPROC structure).
 

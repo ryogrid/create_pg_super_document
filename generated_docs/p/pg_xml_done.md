@@ -8,7 +8,12 @@ Restores previous libxml error handling state and cleans up XML error context al
 
 ## Definition
 
-
+```c
+struct as invalid, just in case somebody somehow manages to
+	 * call xml_errorHandler or xml_ereport with it.
+	 */
+	errcxt->magic = 0;
+```
 ## Detailed Description
 The pg_xml_done function is responsible for cleaning up and restoring the global libxml error handling state to what it was before pg_xml_init() was called. This function is essential for proper resource management in PostgreSQL's XML processing subsystem.
 

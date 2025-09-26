@@ -8,7 +8,9 @@ Extracts and formats the currently connected IP address from the connection sock
 
 ## Definition
 
-
+```c
+struct sockaddr_storage *addr = &conn->raddr.addr;
+```
 ## Detailed Description
 This static function retrieves the IP address of the currently connected remote host from the connection's socket address structure and converts it to a human-readable string format. It handles both IPv4 and IPv6 addresses by examining the address family and using the appropriate conversion method. If the address cannot be converted or is of an unsupported family, the function sets the output string to empty.
 

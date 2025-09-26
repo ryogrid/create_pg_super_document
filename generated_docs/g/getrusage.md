@@ -8,7 +8,10 @@ A Windows-specific implementation of the POSIX  function that retrieves resource
 
 ## Definition
 
-
+```c
+int
+getrusage(int who, struct rusage *rusage)
+```
 ## Detailed Description
 This function is PostgreSQL's Windows port implementation of the standard POSIX  system call. Since Windows doesn't provide a native  function, this implementation uses Windows-specific APIs () to gather equivalent resource usage information.
 

@@ -8,7 +8,10 @@ A static function that performs garbage collection of statistics entry reference
 
 ## Definition
 
-
+```c
+static void
+pgstat_gc_entry_refs(void)
+```
 ## Detailed Description
 This function performs the actual garbage collection of statistics entry references. It reads the current GC request count from shared memory and iterates through all entries in the local entry reference hash table (). For each entry, it checks whether the entry has been dropped or reinitialized by comparing generation numbers and checking the dropped flag.
 

@@ -8,7 +8,10 @@ A helper function that provides an optimized implementation of list_append_uniqu
 
 ## Definition
 
-
+```c
+static inline List *
+roles_list_append(List *roles_list, bloom_filter **bf, Oid role)
+```
 ## Detailed Description
 This function optimizes the process of adding unique role OIDs to a list by leveraging a Bloom filter for fast membership testing. It's designed to work with roles_is_member_of() to efficiently manage role hierarchies without duplicate entries.
 

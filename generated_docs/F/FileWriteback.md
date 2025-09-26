@@ -8,7 +8,10 @@ FileWriteback forces dirty data in a specified file range to be written back to 
 
 ## Definition
 
-
+```c
+void
+FileWriteback(File file, off_t offset, off_t nbytes, uint32 wait_event_info)
+```
 ## Detailed Description
 FileWriteback implements forced writeback of dirty pages for a specific range of a file. This function is crucial for PostgreSQL's buffer management and checkpoint operations, allowing the system to control when modified data is actually written to persistent storage.
 

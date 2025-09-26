@@ -8,7 +8,10 @@ A static function that opens the first segment of a specified relation fork, han
 
 ## Definition
 
-
+```c
+static MdfdVec *
+mdopenfork(SMgrRelation reln, ForkNumber forknum, int behavior)
+```
 ## Detailed Description
 The `mdopenfork` function is responsible for opening the first segment (segment 0) of a relation fork. It serves as the entry point for accessing relation files on disk by opening the primary segment file and initializing the corresponding MdfdVec structure. The function includes optimization logic to avoid redundant opens by checking if the fork is already open. When opening a file, it uses the appropriate flags via `_mdfd_open_flags()` and handles various error conditions based on the specified behavior parameter. The function only opens the first segment initially - additional segments are opened on-demand by other functions. It properly initializes the file descriptor vector and sets up the MdfdVec structure for subsequent operations.
 

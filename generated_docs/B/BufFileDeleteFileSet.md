@@ -8,7 +8,10 @@ Deletes all segments of a BufFile that was created with BufFileCreateFileSet, pr
 
 ## Definition
 
-
+```c
+void
+BufFileDeleteFileSet(FileSet *fileset, const char *name, bool missing_ok)
+```
 ## Detailed Description
 BufFileDeleteFileSet removes all segments of a BufFile that was previously created using BufFileCreateFileSet within the specified FileSet. The function iteratively deletes segments starting from segment 0 and continuing until no more segments are found, since the total number of segments is not known in advance.
 

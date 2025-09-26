@@ -8,7 +8,10 @@ Extracts an ExpandedObjectHeader pointer from a Datum that contains an expanded-
 
 ## Definition
 
-
+```c
+ExpandedObjectHeader *
+DatumGetEOHP(Datum d)
+```
 ## Detailed Description
 DatumGetEOHP is a utility function that safely extracts an ExpandedObjectHeader pointer from a Datum containing an expanded-object reference. The function handles the complexity of extracting the pointer when it may not be properly aligned, similar to how VARATT_EXTERNAL_GET_POINTER() works.
 

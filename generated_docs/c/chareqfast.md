@@ -8,7 +8,10 @@ A fast equality comparison function for single-byte character (char) data types 
 
 ## Definition
 
-
+```c
+static bool
+chareqfast(Datum a, Datum b)
+```
 ## Detailed Description
 chareqfast is a performance-optimized equality comparison function specifically designed for single-byte character data types used as keys in PostgreSQL's catalog cache system. It provides a faster alternative to calling the standard SQL-callable equality functions by directly comparing the character values extracted from Datum parameters. This function is part of PostgreSQL's catalog cache optimization strategy, where frequently accessed data types get specialized comparison functions to avoid the overhead of DirectFunctionCallN() calls. The function simply extracts character values from both Datum parameters using DatumGetChar() and performs a direct comparison, making it significantly faster than the general-purpose equality functions.
 

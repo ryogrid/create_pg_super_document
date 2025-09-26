@@ -8,7 +8,10 @@ Transforms a Boolean expression node (BoolExpr) during parsing by recursively tr
 
 ## Definition
 
-
+```c
+static Node *
+transformBoolExpr(ParseState *pstate, BoolExpr *a)
+```
 ## Detailed Description
 The transformBoolExpr function handles the transformation of Boolean expressions during SQL parsing. It processes AND, OR, and NOT expressions by recursively transforming each operand and ensuring all arguments are properly coerced to boolean type. The function maintains the original Boolean operation type and location information while creating a new BoolExpr node with transformed arguments.
 

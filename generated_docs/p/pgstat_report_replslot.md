@@ -8,7 +8,10 @@ Reports replication slot statistics by accumulating counters from a temporary st
 
 ## Definition
 
-
+```c
+void
+pgstat_report_replslot(ReplicationSlot *slot, const PgStat_StatReplSlotEntry *repSlotStat)
+```
 ## Detailed Description
 This function updates the persistent replication slot statistics in shared memory by accumulating values from a temporary statistics structure. It operates on an existing statistics entry that must have been previously created by  or . The function uses a locking mechanism to safely update shared statistics and accumulates various counters related to logical replication decoding activities including spilled transactions, streamed transactions, and total byte counts.
 

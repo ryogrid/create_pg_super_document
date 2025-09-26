@@ -8,7 +8,9 @@ POSIX shared memory implementation for PostgreSQL's dynamic shared memory system
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function implements dynamic shared memory operations using POSIX shared memory primitives. It creates shared memory segments using  and maps them into the process address space using . The implementation uses a naming convention  for shared memory objects.
 

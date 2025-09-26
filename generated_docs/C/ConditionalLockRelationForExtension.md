@@ -8,7 +8,10 @@ Attempts to acquire an extension lock on a relation without blocking, returning 
 
 ## Definition
 
-
+```c
+bool
+ConditionalLockRelationForExtension(Relation relation, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function provides a non-blocking variant of LockRelationForExtension. It attempts to acquire an extension lock on a relation to prevent race conditions during relation extension operations, but unlike the blocking version, it returns immediately if the lock cannot be obtained without waiting.
 

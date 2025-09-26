@@ -8,7 +8,13 @@ LWLockHandle is a structure that represents a lightweight lock (LWLock) currentl
 
 ## Definition
 
-
+```c
+typedef struct LWLockHandle
+{
+	LWLock	   *lock;
+	LWLockMode	mode;
+} LWLockHandle;
+```
 ## Detailed Description
 LWLockHandle serves as a handle structure that tracks lightweight locks held by a process. This structure is used internally within the LWLock subsystem to maintain state about acquired locks. It encapsulates the essential information needed to identify a held lock: a pointer to the actual LWLock structure and the mode (shared or exclusive) in which the lock is currently held.
 

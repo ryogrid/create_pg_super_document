@@ -8,7 +8,15 @@ src/include/common/saslprep.h: 26 - 30
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	SASLPREP_SUCCESS = 0,
+	SASLPREP_OOM = -1,			/* out of memory (only in frontend) */
+	SASLPREP_INVALID_UTF8 = -2, /* input is not a valid UTF-8 string */
+	SASLPREP_PROHIBITED = -3,	/* output would contain prohibited characters */
+} pg_saslprep_rc;
+```
 ## Detailed Description
 The  enumeration provides standardized return codes for the PostgreSQL implementation of the SASLprep algorithm (RFC 4013), which is used to normalize user passwords during SCRAM authentication. SASLprep is a profile of the stringprep specification (RFC 3454) that prepares internationalized strings for use in authentication mechanisms.
 

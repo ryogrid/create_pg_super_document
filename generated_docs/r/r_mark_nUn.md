@@ -8,7 +8,11 @@ Marks and processes Turkish suffix patterns ending with 'nUn' (where U represent
 
 ## Definition
 
+```c
+}
 
+static int r_mark_nUn(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Turkish Snowball stemmer and specifically handles the identification and processing of suffixes ending with 'nUn'. The function performs vowel harmony checking, validates the presence of the 'n' character, and processes suffix patterns using predefined character sequences. It's designed to handle Turkish morphological analysis where 'U' represents vowel harmony variations (u, ü, ı, i).
 

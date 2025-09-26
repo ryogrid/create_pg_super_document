@@ -8,7 +8,34 @@ Compares abbreviated numeric values for sorting operations, providing an optimiz
 
 ## Definition
 
-
+```c
+structed as:
+ *
+ *	0 + 7bits digit weight + 24 bits digit value
+ *
+ * where the digit weight is in single decimal digits, not digit words, and
+ * stored in excess-44 representation[1]. The 24-bit digit value is the 7 most
+ * significant decimal digits of the value converted to binary. Values whose
+ * weights would fall outside the representable range are rounded off to zero
+ * (which is also used to represent actual zeros) or to 0x7FFFFFFF (which
+ * otherwise cannot occur). Abbreviation therefore fails to gain any advantage
+ * where values are outside the range 10^-44 to 10^83, which is not considered
+ * to be a serious limitation, or when values are of the same magnitude and
+ * equal in the first 7 decimal digits, which is considered to be an
+ * unavoidable limitation given the available bits. (Stealing three more bits
+ * to compare another digit would narrow the range of representable weights by
+ * a factor of 8, which starts to look like a real limiting factor.)
+ *
+ * (The value 44 for the excess is essentially arbitrary)
+ *
+ * The 63-bit value is constructed as:
+ *
+ *	0 + 7bits weight + 4 x 14-bit packed digit words
+ *
+ * The weight in this case is again stored in excess-44, but this time it is
+ * the original weight in digit words (i.e. powers of 10000). The first four
+ * digit words of the value (if present;
+```
 ## Detailed Description
 The  function performs comparison operations on abbreviated representations of numeric values as part of PostgreSQL's sort support optimization system. This function is designed to quickly compare abbreviated numeric values without requiring full numeric decompression, significantly improving sorting performance for numeric data types.
 

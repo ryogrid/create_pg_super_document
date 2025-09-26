@@ -8,7 +8,10 @@ ExecDropStmt is a dispatch function that handles the execution of DROP statement
 
 ## Definition
 
-
+```c
+static void
+ExecDropStmt(DropStmt *stmt, bool isTopLevel)
+```
 ## Detailed Description
 ExecDropStmt serves as a central dispatcher for DROP statement execution in PostgreSQL. It examines the removeType field of the DropStmt structure to determine what type of object is being dropped and calls the appropriate removal function. The function handles two main categories of objects:
 

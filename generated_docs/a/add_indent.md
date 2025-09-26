@@ -8,7 +8,10 @@ A utility function that adds indentation formatting to a StringInfo buffer when 
 
 ## Definition
 
-
+```c
+static void
+add_indent(StringInfo out, bool indent, int level)
+```
 ## Detailed Description
 The  function is a simple formatting utility used during JSON serialization to add proper indentation for pretty-printed output. When the  parameter is true, it adds a newline character followed by the appropriate number of spaces based on the specified indentation level. Each indentation level corresponds to 4 spaces. This function is crucial for generating human-readable JSON output with proper formatting.
 

@@ -8,7 +8,13 @@ Constructs a default connection options array that identifies all available conn
 
 ## Definition
 
-
+```c
+structure.  Note that we also expect this
+	 * to initialize conn->errorMessage to empty.  All subsequent steps during
+	 * connection initialization will only append to that buffer.
+	 */
+	conn = pqMakeEmptyPGconn();
+```
 ## Detailed Description
 This function creates and returns a dynamically allocated array of PQconninfoOption structures that contains all possible PostgreSQL connection parameters with their current default values. The defaults are determined from environment variables, system configuration, and built-in defaults. This function is useful for applications that need to discover all available connection options and their current default values before establishing a connection.
 

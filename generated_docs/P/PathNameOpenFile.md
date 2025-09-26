@@ -8,7 +8,10 @@ PathNameOpenFile is a convenience wrapper function that opens a file using defau
 
 ## Definition
 
-
+```c
+File
+PathNameOpenFile(const char *fileName, int fileFlags)
+```
 ## Detailed Description
 PathNameOpenFile serves as a simplified interface to PathNameOpenFilePerm by automatically providing the default file creation mode (pg_file_create_mode) as the third parameter. This function eliminates the need for callers to explicitly specify file permissions when the default PostgreSQL file creation mode is sufficient. The function is essentially a thin wrapper that promotes code simplicity and consistency across the codebase where custom file permissions are not required.
 

@@ -8,7 +8,10 @@ The  function scans a timezone string to find the end of a timezone abbreviation
 
 ## Definition
 
-
+```c
+static const char *
+getzname(const char *strp)
+```
 ## Detailed Description
 This static function parses timezone strings by scanning forward from a given position until it finds a character that terminates a timezone abbreviation. It stops when encountering digits, commas, hyphens, plus signs, or null terminators - all characters that typically mark the end of a timezone name and the beginning of other timezone rule components like offsets or transition rules.
 

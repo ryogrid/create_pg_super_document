@@ -8,7 +8,10 @@ A static function that attempts to set up an optimal SortSupport comparator by f
 
 ## Definition
 
-
+```c
+static void
+FinishSortSupportFunction(Oid opfamily, Oid opcintype, SortSupport ssup)
+```
 ## Detailed Description
 FinishSortSupportFunction implements a two-tier strategy for setting up sort comparison functionality:
 

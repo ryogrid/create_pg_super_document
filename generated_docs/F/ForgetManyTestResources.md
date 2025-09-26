@@ -8,7 +8,12 @@ Unregisters and deallocates multiple test resources from the ResourceOwner syste
 
 ## Definition
 
-
+```c
+static void
+ForgetManyTestResources(ResourceOwner owner,
+						ManyTestResourceKind *kinds, int nkinds,
+						int nresources)
+```
 ## Detailed Description
 ForgetManyTestResources is a utility function that removes and deallocates multiple ManyTestResource objects from PostgreSQL's ResourceOwner system during testing. The function operates as the counterpart to RememberManyTestResources, systematically unregistering resources while maintaining proper cleanup and statistics.
 

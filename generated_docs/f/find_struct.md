@@ -8,7 +8,10 @@ Resolves struct/union variable references by parsing pointer and member access s
 
 ## Definition
 
-
+```c
+static struct variable *
+find_struct(char *name, char *next, char *end)
+```
 ## Detailed Description
 This function serves as the entry point for resolving complex struct and union variable references in the ECPG preprocessor. It handles the initial parsing and validation of struct access patterns, distinguishing between:
 

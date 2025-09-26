@@ -8,7 +8,10 @@ Reports the end of a wait event by clearing the wait event information, indicati
 
 ## Definition
 
-
+```c
+static inline void
+pgstat_report_wait_end(void)
+```
 ## Detailed Description
 This function is called to report the end of a wait event. It clears the wait event information by setting the  pointer to 0, indicating that the process is no longer in a waiting state.
 

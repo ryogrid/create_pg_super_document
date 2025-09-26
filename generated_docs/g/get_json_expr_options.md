@@ -8,7 +8,11 @@ Formats common options for SQL/JSON functions (JSON_QUERY, JSON_VALUE, JSON_EXIS
 
 ## Definition
 
-
+```c
+static void
+get_json_expr_options(JsonExpr *jsexpr, deparse_context *context,
+					  JsonBehaviorType default_behavior)
+```
 ## Detailed Description
 This function handles the deparsing of options that are common across multiple SQL/JSON functions. For JSON_QUERY operations, it processes wrapper options (WITH CONDITIONAL/UNCONDITIONAL WRAPPER or WITHOUT WRAPPER) and quote handling options (OMIT QUOTES or KEEP QUOTES). The function also manages ON EMPTY and ON ERROR behaviors, but only outputs them when they differ from the specified default behavior to avoid redundant SQL text.
 

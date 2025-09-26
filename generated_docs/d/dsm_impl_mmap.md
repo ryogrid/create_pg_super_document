@@ -8,7 +8,9 @@ Implements mmap-based dynamic shared memory operations by creating and managing 
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function provides mmap-based implementation for PostgreSQL's dynamic shared memory system. It creates temporary files in the  directory and maps them into the process address space using . This approach allows shared memory segments to persist on disk but may suffer from unwanted synchronization to storage. Users can relocate the pg_dynshmem directory to a ramdisk to mitigate this issue.
 

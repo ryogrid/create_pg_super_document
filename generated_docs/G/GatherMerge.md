@@ -8,7 +8,41 @@ The GatherMerge node implements parallel query execution with ordered results by
 
 ## Definition
 
+```c
+typedef struct GatherMerge
+{
+	Plan		plan;
 
+	/* planned number of worker processes */
+	int			num_workers;
+
+	/* ID of Param that signals a rescan, or -1 */
+	int			rescan_param;
+
+	/* remaining fields are just like the sort-key info in struct Sort */
+
+	/* number of sort-key columns */
+	int			numCols;
+
+	/* their indexes in the target list */
+	AttrNumber *sortColIdx pg_node_attr(array_size(numCols));
+
+	/* OIDs of operators to sort them by */
+	Oid		   *sortOperators pg_node_attr(array_size(numCols));
+
+	/* OIDs of collations */
+	Oid		   *collations pg_node_attr(array_size(numCols));
+
+	/* NULLS FIRST/LAST directions */
+	bool	   *nullsFirst pg_node_attr(array_size(numCols));
+
+	/*
+	 * param id's of initplans which are referred at gather merge or one of
+	 * it's child node
+	 */
+	Bitmapset  *initParam;
+} GatherMerge;
+```
 ## Detailed Description
 The GatherMerge node extends the Gather node concept by maintaining sort order across parallel execution. It launches multiple worker processes that each execute a subplan designed to produce sorted output, then uses a binary heap-based merge algorithm to combine the sorted streams from all workers (plus optionally the leader) into a single ordered result stream.
 

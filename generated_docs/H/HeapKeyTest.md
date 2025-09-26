@@ -8,7 +8,10 @@ HeapKeyTest is an inline function that tests whether a heap tuple satisfies a sc
 
 ## Definition
 
-
+```c
+static inline bool
+HeapKeyTest(HeapTuple tuple, TupleDesc tupdesc, int nkeys, ScanKey keys)
+```
 ## Detailed Description
 HeapKeyTest performs a sequential evaluation of scan key conditions against a heap tuple. It iterates through all provided scan keys and tests each condition against the corresponding attribute value in the tuple. The function implements early termination - if any single condition fails, it immediately returns false without evaluating remaining conditions.
 

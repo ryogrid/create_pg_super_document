@@ -8,7 +8,10 @@ Removes the first N elements from a PostgreSQL List, providing bulk deletion fun
 
 ## Definition
 
-
+```c
+List *
+list_delete_first_n(List *list, int n)
+```
 ## Detailed Description
 This function efficiently removes the first N elements from a PostgreSQL List data structure. It handles various edge cases and provides different memory management strategies depending on compilation flags.
 

@@ -8,7 +8,10 @@ Removes trailing spaces from a StringInfo buffer by adjusting the length and nul
 
 ## Definition
 
-
+```c
+static void
+removeStringInfoSpaces(StringInfo str)
+```
 ## Detailed Description
 This utility function efficiently removes trailing spaces from a StringInfo buffer by working backwards from the end of the string. It decrements the length counter while overwriting space characters with null terminators, ensuring the string remains properly null-terminated. The function operates in-place and modifies the buffer directly, making it suitable for formatting operations where trailing whitespace needs to be cleaned up.
 

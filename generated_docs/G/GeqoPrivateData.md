@@ -8,7 +8,13 @@ GeqoPrivateData is a structure that encapsulates private state data for a GEQO (
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	List	   *initial_rels;	/* the base relations we are joining */
+	pg_prng_state random_state; /* PRNG state */
+} GeqoPrivateData;
+```
 ## Detailed Description
 GeqoPrivateData serves as a private data container for the GEQO genetic algorithm optimizer within PostgreSQL's query planner. This structure is stored in the PlannerInfo's join_search_private field during GEQO execution and provides essential context for the genetic algorithm operations. The structure maintains two critical pieces of information: the list of base relations that need to be joined and the pseudo-random number generator state that ensures reproducible and controlled randomness throughout the genetic algorithm iterations.
 

@@ -8,7 +8,14 @@ SharedInvalRelmapMsg is a structure that represents a shared invalidation messag
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int8		id;				/* type field --- must be first */
+	Oid			dbId;			/* database ID, or 0 if a shared relation */
+	Oid			relId;			/* relation ID */
+} SharedInvalSnapshotMsg;
+```
 ## Detailed Description
 SharedInvalRelmapMsg is part of PostgreSQL's shared invalidation system, specifically designed to handle invalidation of relation mapping information. The relation mapping system maintains the correspondence between logical relation OIDs and their physical file numbers, which is especially important for critical system catalogs that have fixed OIDs but variable file numbers.
 

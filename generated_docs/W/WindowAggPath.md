@@ -8,7 +8,18 @@ WindowAggPath represents a path for computing window functions in PostgreSQL, ha
 
 ## Definition
 
-
+```c
+typedef struct WindowAggPath
+{
+	Path		path;
+	Path	   *subpath;		/* path representing input source */
+	WindowClause *winclause;	/* WindowClause we'll be using */
+	List	   *qual;			/* lower-level WindowAgg runconditions */
+	List	   *runCondition;	/* OpExpr List to short-circuit execution */
+	bool		topwindow;		/* false for all apart from the WindowAgg
+								 * that's closest to the root of the plan */
+} WindowAggPath;
+```
 ## Detailed Description
 WindowAggPath represents the execution path for window function computation in PostgreSQL's query planner. Window functions perform calculations across a set of table rows that are related to the current row, such as running totals, rankings, or moving averages. This path type encapsulates the strategy for efficiently executing window functions, including the input data source, the specific window clause defining the window specification, and optimization features like run conditions that can short-circuit execution when possible.
 

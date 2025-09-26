@@ -8,7 +8,10 @@ Memory reallocation function that resizes an existing memory block with PostgreS
 
 ## Definition
 
-
+```c
+void *
+pg_realloc(void *ptr, size_t size)
+```
 ## Detailed Description
 pg_realloc is PostgreSQL's frontend wrapper around the standard C library realloc() function. It provides memory block resizing capabilities with consistent error handling across PostgreSQL applications. The function handles the unportable behavior of realloc(NULL, 0) by ensuring at least 1 byte is allocated in this edge case, and exits the program with an error message if reallocation fails.
 

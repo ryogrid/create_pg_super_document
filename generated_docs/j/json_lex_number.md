@@ -8,7 +8,11 @@ A specialized lexical analyzer function that parses and validates JSON numeric t
 
 ## Definition
 
-
+```c
+static inline JsonParseErrorType
+json_lex_number(JsonLexContext *lex, const char *s,
+				bool *num_err, size_t *total_len)
+```
 ## Detailed Description
 The  function implements precise parsing of JSON numeric literals according to the JSON specification. It validates and processes numbers consisting of up to four parts: an optional minus sign, integer digits, an optional decimal portion, and an optional exponent. The function strictly enforces JSON number formatting rules, such as prohibiting leading zeros in multi-digit integers and requiring digits after decimal points and exponents.
 

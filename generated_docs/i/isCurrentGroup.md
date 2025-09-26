@@ -8,7 +8,10 @@ A static function that determines whether a given tuple belongs to the current s
 
 ## Definition
 
-
+```c
+static bool
+isCurrentGroup(IncrementalSortState *node, TupleTableSlot *pivot, TupleTableSlot *tuple)
+```
 ## Detailed Description
 This function is a critical component of the incremental sort algorithm that determines group boundaries. It compares the pre-sorted column values between a pivot tuple (representing the current group) and a new tuple to determine if they belong to the same group. The function performs equality comparisons on all pre-sorted columns using the cached comparison functions set up by preparePresortedCols.
 

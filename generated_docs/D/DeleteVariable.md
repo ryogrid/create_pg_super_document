@@ -8,7 +8,10 @@ Attempts to delete a variable from the specified variable space, with deletion o
 
 ## Definition
 
-
+```c
+bool
+DeleteVariable(VariableSpace space, const char *name)
+```
 ## Detailed Description
 The  function provides a convenient wrapper for deleting variables from psql's variable storage system. It internally delegates to  with a NULL value, which effectively removes the variable from the space. The function implements a forgiving deletion policy where attempting to delete a nonexistent variable does not result in an error condition, making it safe to use in cleanup operations where the existence of the variable is uncertain.
 

@@ -8,7 +8,9 @@ The `tablespaceinfo` structure represents metadata about PostgreSQL tablespaces 
 
 ## Definition
 
-
+```c
+struct IncrementalBackupInfo;
+```
 ## Detailed Description
 The `tablespaceinfo` structure is a central component of PostgreSQL's base backup infrastructure, defined in `src/include/backup/basebackup.h`. It encapsulates all necessary metadata about tablespaces that are included in backup operations, serving as the primary data structure for tracking tablespace information during backup processes.
 

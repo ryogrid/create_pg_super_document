@@ -8,7 +8,13 @@ SMgrSortArray is a structure designed for sorting SMgrRelations and ensuring com
 
 ## Definition
 
-
+```c
+typedef struct SMgrSortArray
+{
+	RelFileLocator rlocator;	/* This must be the first member */
+	SMgrRelation srel;
+} SMgrSortArray;
+```
 ## Detailed Description
 SMgrSortArray is a specialized structure used in PostgreSQL's buffer management system to facilitate sorting operations on SMgrRelation objects. The structure is specifically designed to maintain compatibility between FlushRelationsAllBuffers and DropRelationsAllBuffers functions by ensuring that the RelFileLocator field is positioned as the first member.
 

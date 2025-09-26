@@ -8,7 +8,10 @@ Formats and outputs a pointer value using the %p format specifier in PostgreSQL'
 
 ## Definition
 
-
+```c
+static void
+fmtptr(const void *value, PrintfTarget *target)
+```
 ## Detailed Description
 This function handles the formatting and output of pointer values (%p format specifier) in PostgreSQL's portable snprintf implementation. Rather than implementing pointer formatting from scratch, it delegates to the standard C library's snprintf function to perform the actual pointer-to-string conversion, then outputs the result through PostgreSQL's formatting framework.
 

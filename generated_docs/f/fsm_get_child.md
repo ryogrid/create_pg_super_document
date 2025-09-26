@@ -8,7 +8,10 @@ Computes the logical address of a child page in the Free Space Map (FSM) tree st
 
 ## Definition
 
-
+```c
+static FSMAddress
+fsm_get_child(FSMAddress parent, uint16 slot)
+```
 ## Detailed Description
 This function performs address calculation for navigating down the FSM tree hierarchy. The FSM is organized as a tree where each internal page contains slots that point to child pages at the next level down. Given a parent page's FSMAddress and a specific slot number within that parent page, this function calculates the corresponding child page's FSMAddress.
 

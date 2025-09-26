@@ -8,7 +8,14 @@ LockRows is a plan node structure that represents row-locking operations in Post
 
 ## Definition
 
-
+```c
+typedef struct LockRows
+{
+	Plan		plan;
+	List	   *rowMarks;		/* a list of PlanRowMark's */
+	int			epqParam;		/* ID of Param for EvalPlanQual re-eval */
+} LockRows;
+```
 ## Detailed Description
 The LockRows node is responsible for acquiring row-level locks on tuples as they pass through the execution pipeline. It serves as a plan node that wraps around other plan nodes to add locking functionality. The node is particularly important in implementing SQL's FOR UPDATE and FOR SHARE clauses, which require explicit row-level locking for concurrency control.
 

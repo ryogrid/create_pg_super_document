@@ -8,7 +8,11 @@ Handles all necessary processing when a transaction commits in the logical repli
 
 ## Definition
 
-
+```c
+void
+SnapBuildCommitTxn(SnapBuild *builder, XLogRecPtr lsn, TransactionId xid,
+				   int nsubxacts, TransactionId *subxacts, uint32 xinfo)
+```
 ## Detailed Description
 SnapBuildCommitTxn is a central function in PostgreSQL's logical replication snapshot building mechanism. It processes transaction commits and determines their impact on the evolving snapshot state. The function handles multiple scenarios based on the builder's current state:
 

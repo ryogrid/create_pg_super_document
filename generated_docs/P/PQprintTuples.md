@@ -8,7 +8,15 @@ A public libpq function that prints PostgreSQL query result tuples to a file str
 
 ## Definition
 
-
+```c
+void
+PQprintTuples(const PGresult *res,
+			  FILE *fout,		/* output stream */
+			  int PrintAttNames,	/* print attribute names or not */
+			  int TerseOutput,	/* delimiter bars or not? */
+			  int colWidth		/* width of column, if 0, use variable width */
+)
+```
 ## Detailed Description
  is a legacy public function in libpq that provides a simple way to print PostgreSQL query results in a tabular format. It offers basic formatting options and serves as a simpler alternative to the more advanced  function. The function creates a basic table layout with the following features:
 

@@ -8,7 +8,10 @@ restore_stack_base restores a previously saved stack depth checking reference po
 
 ## Definition
 
-
+```c
+void
+restore_stack_base(pg_stack_base_t base)
+```
 ## Detailed Description
 restore_stack_base provides a mechanism to restore a previously saved stack base reference point that was obtained from set_stack_base(). This function is essential for handling scenarios where PostgreSQL backend functions are called from different execution contexts that have different stack layouts.
 

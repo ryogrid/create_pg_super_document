@@ -8,7 +8,10 @@ Attaches to an existing dynamic shared hash table using a handle, creating a bac
 
 ## Definition
 
-
+```c
+struct. */
+	hash_table->area = area;
+```
 ## Detailed Description
 The dshash_attach function creates a backend-local dshash_table object that provides access to an existing shared hash table identified by the given handle. Unlike dshash_create, this function does not create new shared structures but rather connects to pre-existing ones. The function sets up the local representation with the provided parameters and establishes the connection to the shared control structure.
 

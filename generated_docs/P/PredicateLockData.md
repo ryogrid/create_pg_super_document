@@ -8,7 +8,14 @@ PredicateLockData is a structure used to capture a snapshot of all predicate loc
 
 ## Definition
 
-
+```c
+typedef struct PredicateLockData
+{
+	int			nelements;
+	PREDICATELOCKTARGETTAG *locktags;
+	SERIALIZABLEXACT *xacts;
+} PredicateLockData;
+```
 ## Detailed Description
 PredicateLockData serves as a container for capturing a complete snapshot of the predicate locking system's current state. It is specifically designed for diagnostic and monitoring purposes, primarily used by PostgreSQL's pg_lock_status function which feeds data to the pg_locks system view. The structure contains parallel arrays that store information about all active predicate locks at the time of capture, allowing external tools and administrators to inspect the current predicate lock state without interfering with the actual locking mechanisms. This read-only snapshot approach ensures that lock inspection does not impact the performance of serializable transactions.
 

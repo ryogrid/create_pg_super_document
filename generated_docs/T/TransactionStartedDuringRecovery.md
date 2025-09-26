@@ -8,7 +8,10 @@ TransactionStartedDuringRecovery determines whether the current transaction was 
 
 ## Definition
 
-
+```c
+bool
+TransactionStartedDuringRecovery(void)
+```
 ## Detailed Description
 This function provides a way to check if the currently active transaction began while PostgreSQL was still performing crash recovery or standby recovery. It returns the value stored in the current transaction state's  flag, which is set when a transaction begins during recovery mode.
 

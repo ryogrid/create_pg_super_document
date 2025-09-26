@@ -8,7 +8,10 @@ Retrieves the username associated with a specified user ID, providing cross-plat
 
 ## Definition
 
-
+```c
+char *
+pg_fe_getusername(uid_t user_id, PQExpBuffer errorMessage)
+```
 ## Detailed Description
  is a platform-abstraction function that retrieves the textual username corresponding to a given user ID. It handles the differences between Windows and Unix-like systems for user name lookup operations.
 

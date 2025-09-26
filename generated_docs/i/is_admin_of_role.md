@@ -8,7 +8,10 @@ Determines whether a given user/role has administrative privileges over another 
 
 ## Definition
 
-
+```c
+bool
+is_admin_of_role(Oid member, Oid role)
+```
 ## Detailed Description
 This function checks if a member has administrative privileges over a target role. Administrative privileges are granted in the following cases:
 

@@ -8,7 +8,10 @@ RelationCacheInitializePhase2 prepares access to shared catalogs during PostgreS
 
 ## Definition
 
-
+```c
+void
+RelationCacheInitializePhase2(void)
+```
 ## Detailed Description
 RelationCacheInitializePhase2 is the second phase of relation cache initialization that specifically handles shared catalogs. This function is called during backend startup to ensure that PostgreSQL can access the shared system catalogs necessary for user authentication and database access.
 

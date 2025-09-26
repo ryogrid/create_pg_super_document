@@ -8,7 +8,10 @@ Completely destroys a dynamic shared hash table, freeing all associated memory i
 
 ## Definition
 
-
+```c
+void
+dshash_destroy(dshash_table *hash_table)
+```
 ## Detailed Description
 The dshash_destroy function performs complete cleanup of a shared hash table by iterating through all buckets and freeing every entry in the hash table, then freeing the bucket array and control structure. This is a destructive operation that makes the hash table permanently inaccessible to all backends. The function includes safeguards like magic number validation and intentionally corrupts the control block to help detect programming errors where other backends might attempt to access the destroyed hash table.
 

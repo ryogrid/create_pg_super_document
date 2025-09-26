@@ -8,7 +8,10 @@ Changes a memory context to belong to a new parent context (or no parent), allow
 
 ## Definition
 
-
+```c
+void
+MemoryContextSetParent(MemoryContext context, MemoryContext new_parent)
+```
 ## Detailed Description
 This function provides the ability to reparent a memory context, which is useful for scenarios where a context's lifespan needs to be modified after creation. A common use case is creating a context under a transient parent, filling it with data, and then moving it under a long-lived parent like CacheMemoryContext to make it persistent.
 

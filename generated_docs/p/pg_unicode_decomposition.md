@@ -8,7 +8,23 @@ A structure that represents a Unicode character's decomposition information, sto
 
 ## Definition
 
+```c
+* decomposition itself if DECOMP_INLINE */
+} pg_unicode_decomposition;
 
+#define DECOMP_NO_COMPOSE	0x80	/* don't use for re-composition */
+#define DECOMP_INLINE		0x40	/* decomposition is stored inline in
+									 * dec_index */
+#define DECOMP_COMPAT		0x20	/* compatibility mapping */
+
+#define DECOMPOSITION_SIZE(x) ((x)->dec_size_flags & 0x1F)
+#define DECOMPOSITION_NO_COMPOSE(x) (((x)->dec_size_flags & (DECOMP_NO_COMPOSE | DECOMP_COMPAT)) != 0)
+#define DECOMPOSITION_IS_INLINE(x) (((x)->dec_size_flags & DECOMP_INLINE) != 0)
+#define DECOMPOSITION_IS_COMPAT(x) (((x)->dec_size_flags & DECOMP_COMPAT) != 0)
+
+/* Table of Unicode codepoints and their decompositions */
+static const pg_unicode_decomposition UnicodeDecompMain[6775] =
+```
 ## Detailed Description
 The  structure is a fundamental data type used in PostgreSQL's Unicode normalization system. It serves as an entry in lookup tables that provide decomposition information for Unicode characters according to the Unicode Standard's normalization forms (NFD, NFC, NFKD, NFKC).
 

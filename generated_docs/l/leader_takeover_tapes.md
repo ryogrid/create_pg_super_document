@@ -8,7 +8,10 @@ Creates a tapeset for the leader process from worker tapes in parallel tuplesort
 
 ## Definition
 
-
+```c
+static void
+leader_takeover_tapes(Tuplesortstate *state)
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's parallel tuplesort implementation. It is called by the leader process after all worker processes have finished their sorting tasks. The function transforms the leader's Tuplesortstate to make it appear as if it had performed serial external sorting, when in reality the sorting was done by parallel workers.
 

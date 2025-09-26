@@ -8,7 +8,10 @@ Establishes a new PostgreSQL database connection with secure configuration and p
 
 ## Definition
 
-
+```c
+static PGconn *
+connect_database(const char *conninfo, bool exit_on_error)
+```
 ## Detailed Description
 The  function is a centralized database connection utility used throughout pg_createsubscriber. It establishes a connection using the provided connection string and performs essential security configuration by clearing the search_path to prevent potential security issues.
 

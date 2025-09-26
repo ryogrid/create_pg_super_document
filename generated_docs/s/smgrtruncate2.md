@@ -8,7 +8,11 @@ Truncates the specified forks of a supplied relation to given numbers of blocks,
 
 ## Definition
 
-
+```c
+void
+smgrtruncate2(SMgrRelation reln, ForkNumber *forknum, int nforks,
+			  BlockNumber *old_nblocks, BlockNumber *nblocks)
+```
 ## Detailed Description
 The  function performs immediate truncation of multiple forks of a storage manager relation. It implements a comprehensive truncation process that includes dropping relation buffers for the to-be-deleted blocks, sending shared invalidation messages to other backends, and updating cached block counts. The function is designed to be called within a critical section and requires the caller to hold AccessExclusiveLock on the relation. The truncation cannot be rolled back as it immediately modifies the physical storage.
 

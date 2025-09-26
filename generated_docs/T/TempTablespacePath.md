@@ -8,7 +8,10 @@ TempTablespacePath constructs the filesystem path for the temporary files direct
 
 ## Definition
 
-
+```c
+void
+TempTablespacePath(char *path, Oid tablespace)
+```
 ## Detailed Description
 This function generates the full filesystem path to the temporary files directory for a given tablespace. It handles both the default tablespace and user-defined tablespaces differently:
 

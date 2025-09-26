@@ -8,7 +8,9 @@ WindowObject is an opaque pointer type that represents the execution context pas
 
 ## Definition
 
-
+```c
+typedef struct WindowObjectData *WindowObject;
+```
 ## Detailed Description
 WindowObject serves as the primary interface between window functions and the PostgreSQL window aggregation executor. It is an opaque pointer to a WindowObjectData structure that contains all the necessary context for a window function to operate within its partition and frame.
 

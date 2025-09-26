@@ -8,7 +8,12 @@ Generates and appends an XML declaration to a StringInfo buffer following SQL st
 
 ## Definition
 
-
+```c
+structions.
+ * This function need only return true if it sees a valid sequence of such
+ * things leading to <!DOCTYPE.  It can simply return false in any other
+ * cases, including malformed input;
+```
 ## Detailed Description
 This function implements the "Serialization of an XML value" clause from the SQL standard by generating XML declarations only when necessary. The function follows a minimalist approach to avoid cluttering simple XML output with redundant declarations.
 

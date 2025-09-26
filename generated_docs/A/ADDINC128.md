@@ -8,7 +8,14 @@ A macro for incrementally adding a 64-bit unsigned integer to a 128-bit unsigned
 
 ## Definition
 
-
+```c
+#define ADDINC128(w,n)	{ \
+	(w)[0] += (uint64)(n); \
+	if ((w)[0] < (n)) { \
+		(w)[1]++; \
+	} \
+}
+```
 ## Detailed Description
 ADDINC128 is a utility macro designed to perform addition on 128-bit integers in cryptographic operations, specifically for SHA-512 hashing. The macro takes a 128-bit integer represented as an array of two 64-bit words and adds a 64-bit value to it. It handles overflow by incrementing the high-order word when the low-order word overflows. This is essential for maintaining accurate bit counts in hash operations that may exceed 64-bit limits.
 

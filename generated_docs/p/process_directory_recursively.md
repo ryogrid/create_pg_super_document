@@ -8,7 +8,9 @@ Recursively processes directory structures to reconstruct full files from increm
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 This is the core function of pg_combinebackup that handles the recursive processing of PostgreSQL backup directory structures. It performs several critical operations:
 

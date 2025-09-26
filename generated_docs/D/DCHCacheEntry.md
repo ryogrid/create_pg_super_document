@@ -8,7 +8,16 @@ A cache entry structure for storing parsed date/time format templates to avoid r
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	FormatNode	format[NUM_CACHE_SIZE + 1];
+	char		str[NUM_CACHE_SIZE + 1];
+	bool		valid;
+	int			age;
+	NUMDesc		Num;
+} NUMCacheEntry;
+```
 ## Detailed Description
 DCHCacheEntry is a cache structure used to store parsed date/time format templates in PostgreSQL's formatting system. When functions like , , or  are called with format strings, the system parses these strings into FormatNode arrays. To avoid expensive re-parsing of frequently used format strings, the parsed results are cached in DCHCacheEntry structures.
 

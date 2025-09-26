@@ -8,7 +8,10 @@ CheckBufferIsPinnedOnce is a debugging/assertion function that verifies the curr
 
 ## Definition
 
-
+```c
+void
+CheckBufferIsPinnedOnce(Buffer buffer)
+```
 ## Detailed Description
 This function provides a verification mechanism to ensure that the current backend holds exactly one pin on the specified buffer. It's primarily used for debugging and assertion purposes to detect incorrect buffer pin management. The function distinguishes between local buffers (owned by the current backend) and shared buffers, using different mechanisms to check the pin count for each type.
 

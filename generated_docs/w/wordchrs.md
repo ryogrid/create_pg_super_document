@@ -8,7 +8,10 @@ Sets up a cached word-character list for word-boundary processing by creating ci
 
 ## Definition
 
-
+```c
+static void
+wordchrs(struct vars *v)
+```
 ## Detailed Description
 The wordchrs function creates and caches a representation of word characters (\w character class) for efficient word-boundary matching in regular expressions. It constructs a dedicated state with circular arcs that represent all characters considered to be word characters according to the current locale and case-sensitivity settings.
 

@@ -8,7 +8,9 @@ A recursive descent parsing function that processes individual JSON array elemen
 
 ## Definition
 
-
+```c
+struct_action astart = sem->array_start;
+```
 ## Detailed Description
 The  function handles the parsing of individual elements within JSON arrays. It serves as a dispatcher that examines the current token to determine the element type and delegates to the appropriate specialized parser. The function supports all valid JSON value types as array elements: objects, arrays (enabling nested arrays), and scalar values (strings, numbers, booleans, null).
 

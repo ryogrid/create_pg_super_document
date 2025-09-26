@@ -8,7 +8,26 @@ PgStat_TableXactStatus tracks per-table statistics within the context of a speci
 
 ## Definition
 
-
+```c
+typedef struct PgStat_TableXactStatus
+{
+	PgStat_Counter tuples_inserted; /* tuples inserted in (sub)xact */
+	PgStat_Counter tuples_updated;	/* tuples updated in (sub)xact */
+	PgStat_Counter tuples_deleted;	/* tuples deleted in (sub)xact */
+	bool		truncdropped;	/* relation truncated/dropped in this
+								 * (sub)xact */
+	/* tuples i/u/d prior to truncate/drop */
+	PgStat_Counter inserted_pre_truncdrop;
+	PgStat_Counter updated_pre_truncdrop;
+	PgStat_Counter deleted_pre_truncdrop;
+	int			nest_level;		/* subtransaction nest level */
+	/* links to other structs for same relation: */
+	struct PgStat_TableXactStatus *upper;	/* next higher subxact if any */
+	PgStat_TableStatus *parent; /* per-table status */
+	/* structs of same subxact level are linked here: */
+	struct PgStat_TableXactStatus *next;	/* next of same subxact */
+} PgStat_TableXactStatus;
+```
 ## Detailed Description
 PgStat_TableXactStatus is a crucial data structure in PostgreSQL's statistics subsystem that maintains per-table, per-subtransaction statistics. It forms part of a hierarchical system that tracks database activity at different transaction nesting levels. The structure maintains counters for tuple operations (insert, update, delete) and handles special cases like table truncation or dropping. It supports PostgreSQL's nested transaction (savepoint) functionality by maintaining links to parent transactions and sibling transactions at the same nesting level.
 

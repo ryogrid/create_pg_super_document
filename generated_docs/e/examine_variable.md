@@ -8,7 +8,11 @@ Analyzes an expression tree to extract statistical information and fill a Variab
 
 ## Definition
 
-
+```c
+void
+examine_variable(PlannerInfo *root, Node *node, int varRelid,
+				 VariableStatData *vardata)
+```
 ## Detailed Description
 This is a central function in PostgreSQL's selectivity estimation system that performs comprehensive analysis of expressions to gather statistical information. The function handles various types of expressions, from simple column references (Vars) to complex expressions involving multiple relations.
 

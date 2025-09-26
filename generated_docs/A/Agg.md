@@ -8,7 +8,45 @@ Agg is a fundamental plan node that implements aggregation operations in Postgre
 
 ## Definition
 
+```c
+typedef struct Agg
+{
+	Plan		plan;
 
+	/* basic strategy, see nodes.h */
+	AggStrategy aggstrategy;
+
+	/* agg-splitting mode, see nodes.h */
+	AggSplit	aggsplit;
+
+	/* number of grouping columns */
+	int			numCols;
+
+	/* their indexes in the target list */
+	AttrNumber *grpColIdx pg_node_attr(array_size(numCols));
+
+	/* equality operators to compare with */
+	Oid		   *grpOperators pg_node_attr(array_size(numCols));
+	Oid		   *grpCollations pg_node_attr(array_size(numCols));
+
+	/* estimated number of groups in input */
+	long		numGroups;
+
+	/* for pass-by-ref transition data */
+	uint64		transitionSpace;
+
+	/* IDs of Params used in Aggref inputs */
+	Bitmapset  *aggParams;
+
+	/* Note: planner provides numGroups & aggParams only in HASHED/MIXED case */
+
+	/* grouping sets to use */
+	List	   *groupingSets;
+
+	/* chained Agg/Sort nodes */
+	List	   *chain;
+} Agg;
+```
 ## Detailed Description
 The Agg node is PostgreSQL's primary mechanism for implementing aggregate functions and GROUP BY operations. It can handle both simple aggregation (like COUNT(*) over all rows) and grouped aggregation (like GROUP BY clauses). The node supports multiple execution strategies: sorted aggregation (which requires presorted input) and hashed aggregation (which uses an internal hash table). The node dynamically determines which aggregate functions to compute by scanning its target list and qualifiers during executor startup. It also supports advanced features like grouping sets, partial aggregation for parallel processing, and aggregate splitting modes.
 

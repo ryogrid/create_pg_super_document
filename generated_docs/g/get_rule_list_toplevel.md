@@ -8,7 +8,11 @@ Applies get_rule_expr_toplevel() to each element of a list, formatting them as c
 
 ## Definition
 
-
+```c
+static void
+get_rule_list_toplevel(List *lst, deparse_context *context,
+					   bool showimplicit)
+```
 ## Detailed Description
  is a utility function that processes a list of expression nodes and converts each one to its SQL string representation using . The function handles the formatting by inserting commas between expressions, creating a comma-separated list suitable for various SQL contexts.
 

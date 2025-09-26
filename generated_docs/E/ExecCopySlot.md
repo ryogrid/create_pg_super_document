@@ -8,7 +8,10 @@ ExecCopySlot is a static inline function that efficiently copies the contents fr
 
 ## Definition
 
-
+```c
+static inline TupleTableSlot *
+ExecCopySlot(TupleTableSlot *dstslot, TupleTableSlot *srcslot)
+```
 ## Detailed Description
 ExecCopySlot provides a high-level interface for copying tuple data between TupleTableSlot instances. The function performs several important validations before delegating the actual copying operation to the destination slot's specific copyslot implementation through its tts_ops interface.
 

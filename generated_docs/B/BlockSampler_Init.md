@@ -8,7 +8,11 @@ Prepares a BlockSampler for random sampling of block numbers from a relation, im
 
 ## Definition
 
-
+```c
+BlockNumber
+BlockSampler_Init(BlockSampler bs, BlockNumber nblocks, int samplesize,
+				  uint32 randseed)
+```
 ## Detailed Description
 BlockSampler_Init initializes a BlockSampler structure to perform random sampling of blocks from a PostgreSQL relation. This function implements the foundational setup for block-level sampling as discussed in pgsql-hackers 2004-04-02 (subject "Large DB"). 
 

@@ -8,7 +8,16 @@ CreateDecodingContext creates a logical decoding context for an existing logical
 
 ## Definition
 
-
+```c
+LogicalDecodingContext *
+CreateDecodingContext(XLogRecPtr start_lsn,
+					  List *output_plugin_options,
+					  bool fast_forward,
+					  XLogReaderRoutine *xl_routine,
+					  LogicalOutputPluginWriterPrepareWrite prepare_write,
+					  LogicalOutputPluginWriterWrite do_write,
+					  LogicalOutputPluginWriterUpdateProgress update_progress)
+```
 ## Detailed Description
 This function initializes a logical decoding context for resuming logical replication from an existing slot. Unlike CreateInitDecodingContext, it works with pre-configured slots and handles restart position logic, slot validation, and various error conditions that can occur with established slots.
 

@@ -8,7 +8,10 @@ Detects whether an XML CONTENT input contains a Document Type Declaration (DTD),
 
 ## Definition
 
-
+```c
+static bool
+xml_doctype_in_content(const xmlChar *str)
+```
 ## Detailed Description
 This function implements a compatibility layer between SQL/XML:2003 and SQL/XML:2006+ standards for CONTENT parsing. The SQL/XML:2003 definition of CONTENT ("XMLDecl? content") excludes documents with DTDs, creating an inconsistency where CONTENT is not a proper superset of DOCUMENT. SQL/XML:2006 fixed this by redefining CONTENT to accept any valid DOCUMENT.
 

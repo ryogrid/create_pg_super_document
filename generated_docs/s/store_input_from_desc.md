@@ -8,7 +8,11 @@ Converts data from a descriptor item into a format suitable for parameter insert
 
 ## Definition
 
-
+```c
+static bool
+store_input_from_desc(struct statement *stmt, struct descriptor_item *desc_item,
+					  char **tobeinserted)
+```
 ## Detailed Description
 This function serves as an adapter between SQL descriptor items and the ECPG parameter system. It handles two distinct data types: binary data (which is copied directly) and text data (which requires conversion through the variable system). For text data, it constructs a temporary variable structure with appropriate type information and indicator handling, then uses the standard ecpg_store_input mechanism for consistent processing and formatting.
 

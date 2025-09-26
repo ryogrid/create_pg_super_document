@@ -8,7 +8,14 @@ A structure representing named arguments from the JSON PASSING clause in SQL/JSO
 
 ## Definition
 
-
+```c
+typedef struct JsonArgument
+{
+	NodeTag		type;
+	JsonValueExpr *val;			/* argument value expression */
+	char	   *name;			/* argument name */
+} JsonArgument;
+```
 ## Detailed Description
 JsonArgument represents individual named arguments from the PASSING clause in SQL/JSON expressions. The PASSING clause allows users to bind external values to named parameters that can be referenced within JSON path expressions and other JSON operations. This structure encapsulates both the parameter name and its associated value expression, enabling dynamic parameter substitution in JSON processing. JsonArgument serves as a bridge between SQL expressions and JSON path contexts, allowing complex JSON operations to access external data through named parameter bindings.
 

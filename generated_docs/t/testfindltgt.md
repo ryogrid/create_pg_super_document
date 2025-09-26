@@ -8,7 +8,10 @@ A comprehensive test function that validates the correctness of the rbt_find_les
 
 ## Definition
 
-
+```c
+static void
+testfindltgt(int size)
+```
 ## Detailed Description
 This test function performs thorough validation of Red-Black Tree range search functionality. It creates a tree populated with natural numbers from 1 to size, selects a random key within the range, and then systematically tests both rbt_find_less() and rbt_find_great() functions. The test includes:
 

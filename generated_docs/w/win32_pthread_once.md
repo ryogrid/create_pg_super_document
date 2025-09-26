@@ -8,7 +8,10 @@ A Windows-specific implementation of the pthread_once mechanism that ensures a g
 
 ## Definition
 
-
+```c
+void
+win32_pthread_once(volatile pthread_once_t *once, void (*fn) (void))
+```
 ## Detailed Description
 This function provides a pthread_once equivalent for Windows systems in the ECPG library. It implements the "call once" semantics using a mutex-based double-checked locking pattern. The function ensures that the provided function pointer  is executed exactly once, even when called concurrently from multiple threads. This is typically used for one-time initialization operations that need thread-safe execution guarantees.
 

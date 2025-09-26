@@ -8,7 +8,14 @@ Internal function that wakes up all waiting processes that currently have a chan
 
 ## Definition
 
-
+```c
+structure, there's no way to wait. This
+	 * should never occur, since MyProc should only be null during shared
+	 * memory initialization.
+	 */
+	if (MyProc == NULL)
+		elog(PANIC, "cannot wait without a PGPROC structure");
+```
 ## Detailed Description
 LWLockWakeup is responsible for the complex process of waking up waiting processes when a lightweight lock is released. The function carefully manages which processes to wake up based on their wait modes to ensure proper lock semantics:
 

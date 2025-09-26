@@ -8,7 +8,10 @@ The core low-level function that performs actual data transmission to PostgreSQL
 
 ## Definition
 
-
+```c
+static pg_noinline int
+internal_flush_buffer(const char *buf, size_t *start, size_t *end)
+```
 ## Detailed Description
 The  function is the fundamental workhorse of PostgreSQL's client communication system. It handles the actual transmission of buffered data to client connections with comprehensive error handling and state management.
 

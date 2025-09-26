@@ -8,7 +8,10 @@ Loads the GMT (Greenwich Mean Time) timezone data into a timezone state structur
 
 ## Definition
 
-
+```c
+static void
+gmtload(struct state *const sp)
+```
 ## Detailed Description
 The  function is a static helper function that initializes a timezone state structure with GMT (Greenwich Mean Time) data. It attempts to load GMT timezone data using the standard  function first. If that fails (returns non-zero), it falls back to parsing a GMT timezone specification using . This two-step approach ensures that GMT timezone information is always available, even when timezone files are not accessible or corrupted.
 

@@ -8,7 +8,12 @@ Recursive function that examines FSM (Free Space Map) pages and their children, 
 
 ## Definition
 
-
+```c
+static uint8
+fsm_vacuum_page(Relation rel, FSMAddress addr,
+				BlockNumber start, BlockNumber end,
+				bool *eof_p)
+```
 ## Detailed Description
 This function serves as the recursive core of the Free Space Map vacuum process. It performs a depth-first traversal of the FSM tree structure, examining each page and its children to update freespace information. The function operates on a specific FSM page identified by the address parameter and processes heap blocks within the specified range from start to end-1.
 

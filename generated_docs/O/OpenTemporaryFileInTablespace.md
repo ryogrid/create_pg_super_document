@@ -8,7 +8,10 @@ OpenTemporaryFileInTablespace creates and opens a temporary file within a specif
 
 ## Definition
 
-
+```c
+static File
+OpenTemporaryFileInTablespace(Oid tblspcOid, bool rejectError)
+```
 ## Detailed Description
 This internal function creates a uniquely named temporary file in the specified tablespace's temporary directory. The function performs several key operations:
 

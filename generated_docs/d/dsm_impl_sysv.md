@@ -8,7 +8,9 @@ System V shared memory implementation for PostgreSQL's dynamic shared memory sys
 
 ## Definition
 
-
+```c
+struct shmid_ds shm;
+```
 ## Detailed Description
 The  function implements dynamic shared memory operations using System V IPC primitives. Unlike POSIX shared memory which uses names, System V shared memory uses integer keys derived from the dsm_handle. The implementation includes careful key management to handle type differences between dsm_handle and key_t, and uses impl_private to cache the shared memory identifier to avoid repeated shmget() lookups.
 

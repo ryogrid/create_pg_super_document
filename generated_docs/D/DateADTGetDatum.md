@@ -8,7 +8,10 @@ DateADTGetDatum is a static inline function that converts a DateADT value to a P
 
 ## Definition
 
-
+```c
+static inline Datum
+DateADTGetDatum(DateADT X)
+```
 ## Detailed Description
 This function serves as a conversion utility in PostgreSQL's function manager (fmgr) system, specifically designed to convert DateADT values into Datum objects for return values or storage. It internally delegates to Int32GetDatum() since DateADT is fundamentally represented as a 32-bit integer in PostgreSQL. The function provides type safety and clarity when working with date values in the PostgreSQL backend, ensuring that DateADT values are properly packaged as Datum types.
 

@@ -8,7 +8,11 @@ Opens an existing BufFile that was previously created with BufFileCreateFileSet 
 
 ## Definition
 
-
+```c
+BufFile *
+BufFileOpenFileSet(FileSet *fileset, const char *name, int mode,
+				   bool missing_ok)
+```
 ## Detailed Description
 BufFileOpenFileSet opens a multi-segment BufFile that was previously created by another backend (or the same backend) using BufFileCreateFileSet. The function dynamically discovers all segments of the BufFile by probing the filesystem, since the number of segments is not known in advance.
 

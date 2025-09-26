@@ -8,7 +8,9 @@ ProcessGUCArray applies GUC settings from a PostgreSQL array to the current sess
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 ProcessGUCArray is a high-level function that processes arrays of GUC settings stored in system catalogs such as database/role-specific settings and function-specific configurations. The function combines the parsing capabilities of TransformGUCArray with the application logic of set_config_option.
 

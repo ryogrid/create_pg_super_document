@@ -8,7 +8,11 @@ Converts a UTC timestamp to GMT representation with optional offset adjustment, 
 
 ## Definition
 
-
+```c
+static struct pg_tm *
+gmtsub(pg_time_t const *timep, int32 offset,
+	   struct pg_tm *tmp)
+```
 ## Detailed Description
 The  function performs UTC-to-GMT time conversion with support for timezone offset adjustments. It maintains a static GMT timezone state structure that is lazily initialized on first use. The function is designed as the GMT counterpart to , providing consistent time conversion functionality for GMT/UTC operations.
 

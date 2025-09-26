@@ -8,7 +8,9 @@ TimeTzADTPGetDatum is a static inline function that converts a TimeTzADT pointer
 
 ## Definition
 
-
+```c
+struct pg_tm *tm, fsec_t *fsec);
+```
 ## Detailed Description
 This function serves as a type conversion utility in PostgreSQL's internal data representation system. It takes a pointer to a TimeTzADT structure (time with time zone) and converts it to a Datum, which is PostgreSQL's universal data type used for passing values between functions in the SQL engine. The function is implemented as a simple wrapper around PointerGetDatum, casting the TimeTzADT pointer to a generic Datum type.
 

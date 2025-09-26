@@ -8,7 +8,10 @@ Forces all Virtual File Descriptors (VFDs) into the physically-closed state to m
 
 ## Definition
 
-
+```c
+void
+closeAllVfds(void)
+```
 ## Detailed Description
 The  function is a resource management utility in PostgreSQL's file descriptor management system. It iterates through all VFDs in the cache and forces them into a physically-closed state by removing them from the LRU (Least Recently Used) list. This operation is typically performed when the system needs to free up kernel file descriptors without losing the logical file state information.
 

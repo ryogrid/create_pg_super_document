@@ -8,7 +8,17 @@ DropStmt represents various DROP statements in the PostgreSQL parser, providing 
 
 ## Definition
 
-
+```c
+typedef struct DropStmt
+{
+	NodeTag		type;
+	List	   *objects;		/* list of names */
+	ObjectType	removeType;		/* object type */
+	DropBehavior behavior;		/* RESTRICT or CASCADE behavior */
+	bool		missing_ok;		/* skip error if object is missing? */
+	bool		concurrent;		/* drop index concurrently? */
+} DropStmt;
+```
 ## Detailed Description
 DropStmt is a parse tree node that represents DROP statements for various database objects. It provides a unified interface for dropping different types of objects including tables, sequences, views, indexes, types, domains, conversions, and schemas. The structure supports both simple drops and cascading drops that remove dependent objects.
 

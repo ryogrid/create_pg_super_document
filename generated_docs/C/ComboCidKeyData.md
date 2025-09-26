@@ -8,7 +8,9 @@ ComboCidKeyData is a structure that serves as a key in a hash table used to map 
 
 ## Definition
 
-
+```c
+typedef ComboCidKeyData *ComboCidKey;
+```
 ## Detailed Description
 ComboCidKeyData is a fundamental component of PostgreSQL's combo command ID optimization system introduced in version 8.3. This structure represents a key in a hash table (comboHash) that maps pairs of command IDs (cmin and cmax) to single combo command IDs. 
 

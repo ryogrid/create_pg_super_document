@@ -8,7 +8,10 @@ Properly frees an ExprContext structure, including executing shutdown callbacks 
 
 ## Definition
 
-
+```c
+void
+FreeExprContext(ExprContext *econtext, bool isCommit)
+```
 ## Detailed Description
 FreeExprContext performs complete cleanup of an ExprContext structure. It executes any registered shutdown callbacks through ShutdownExprContext, deletes the per-tuple memory context that was used for expression evaluation, unlinks the context from its owning EState (if any), and finally frees the ExprContext node itself.
 

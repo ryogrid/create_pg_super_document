@@ -8,7 +8,9 @@ A recursive descent parsing function that processes JSON array constructs, handl
 
 ## Definition
 
-
+```c
+struct_action astart = sem->array_start;
+```
 ## Detailed Description
 The  function implements JSON array parsing within PostgreSQL's JSON API infrastructure. It processes JSON arrays as sequences of elements surrounded by square brackets and separated by commas. The function manages nesting levels, invokes semantic actions for array start/end events, and coordinates with array element parsing.
 

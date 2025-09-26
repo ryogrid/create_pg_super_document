@@ -8,7 +8,12 @@ InitLocks initializes the PostgreSQL lock manager's data structures, including s
 
 ## Definition
 
-
+```c
+structs.  This stores per-locked-object
+	 * information.
+	 */
+	info.keysize = sizeof(LOCKTAG);
+```
 ## Detailed Description
 InitLocks is responsible for setting up the core data structures used by PostgreSQL's lock manager. It creates three main hash tables:
 

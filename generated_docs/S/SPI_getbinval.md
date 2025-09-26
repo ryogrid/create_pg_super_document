@@ -8,7 +8,10 @@ Extracts a column value from a tuple as a Datum, with support for null value det
 
 ## Definition
 
-
+```c
+Datum
+SPI_getbinval(HeapTuple tuple, TupleDesc tupdesc, int fnumber, bool *isnull)
+```
 ## Detailed Description
 SPI_getbinval is a fundamental SPI function that extracts the binary value of a specified column from a heap tuple. It performs validation on the attribute number to ensure it's within valid bounds, handles null values appropriately, and delegates the actual value extraction to the lower-level heap_getattr function. This function is essential for accessing tuple data in SPI-based stored procedures and extensions.
 

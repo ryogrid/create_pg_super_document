@@ -8,7 +8,13 @@ xl_seq_rec is a Write-Ahead Logging (WAL) record structure that stores informati
 
 ## Definition
 
-
+```c
+typedef struct xl_seq_rec
+{
+	RelFileLocator locator;
+	/* SEQUENCE TUPLE DATA FOLLOWS AT THE END */
+} xl_seq_rec;
+```
 ## Detailed Description
 This structure is used in PostgreSQL's WAL system to log sequence state changes for crash recovery and replication. When a sequence value is incremented (via nextval()), the operation is logged to WAL using this record format. The structure contains the minimal header information needed to identify which sequence relation was modified, followed by the actual sequence tuple data that gets appended after the structure.
 

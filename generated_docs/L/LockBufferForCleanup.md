@@ -8,7 +8,10 @@ LockBufferForCleanup acquires an exclusive lock on a buffer and waits until no o
 
 ## Definition
 
-
+```c
+void
+LockBufferForCleanup(Buffer buffer)
+```
 ## Detailed Description
 This function implements a specialized locking protocol for buffer cleanup operations. It ensures that when a backend wants to delete items from a disk page, it can do so safely by: (1) acquiring an exclusive lock on the buffer, and (2) waiting until the pin count drops to 1 (meaning only the current backend holds a pin).
 

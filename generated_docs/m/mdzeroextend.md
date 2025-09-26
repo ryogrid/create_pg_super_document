@@ -8,7 +8,11 @@ Extends a relation by adding multiple zeroed blocks efficiently, using either fa
 
 ## Definition
 
-
+```c
+void
+mdzeroextend(SMgrRelation reln, ForkNumber forknum,
+			 BlockNumber blocknum, int nblocks, bool skipFsync)
+```
 ## Detailed Description
 The `mdzeroextend` function extends a relation by adding multiple blocks filled with zeroes in an optimized manner. Unlike `mdextend` which adds one block at a time, this function can add many blocks efficiently by using either `posix_fallocate()` (via `FileFallocate()`) for larger extensions or `pg_pwrite_zeros()` (via `FileZero()`) for smaller ones. The function intelligently chooses the extension method based on the number of blocks being added - using fallocate for extensions larger than 8 blocks to avoid unnecessary page cache allocation, and using zero-writing for smaller extensions to take advantage of delayed allocation on filesystems. It handles segment boundaries correctly, processing the extension in chunks that respect the RELSEG_SIZE limit.
 

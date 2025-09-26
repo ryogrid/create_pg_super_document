@@ -8,7 +8,10 @@ Registers a prepared statement in the ECPG library, managing the lifecycle of pr
 
 ## Definition
 
-
+```c
+bool
+ecpg_register_prepared_stmt(struct statement *stmt)
+```
 ## Detailed Description
 The `ecpg_register_prepared_stmt` function creates and registers a new prepared statement in the ECPG system. It first checks if a statement with the same name already exists and deallocates it if found. Then it allocates memory for both a new prepared statement structure and its associated statement structure, initializes them with the provided data, and adds the prepared statement to the connection's list of prepared statements.
 

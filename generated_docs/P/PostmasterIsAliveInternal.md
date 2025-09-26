@@ -8,7 +8,10 @@ Checks whether the postmaster process is still alive using platform-specific mec
 
 ## Definition
 
-
+```c
+bool
+PostmasterIsAliveInternal(void)
+```
 ## Detailed Description
 This function performs the actual work of checking if the postmaster process is still running. It implements platform-specific logic to detect postmaster death:
 

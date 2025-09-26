@@ -8,7 +8,10 @@ Performs the final padding and processing steps required to complete a SHA-256 h
 
 ## Definition
 
-
+```c
+static void
+SHA256_Last(pg_sha256_ctx *context)
+```
 ## Detailed Description
 SHA256_Last implements the crucial final phase of SHA-256 hashing, applying the mandatory padding scheme defined in the cryptographic specification. The function appends a single '1' bit (0x80 byte) followed by zero padding to ensure the message length is congruent to 448 modulo 512 bits, leaving exactly 64 bits for the message length. The total bit count is then appended as a 64-bit big-endian integer. If the current block doesn't have sufficient space for both padding and length, the function processes an additional block. The endianness conversion ensures cross-platform compatibility. This padding is essential for the security properties of SHA-256, preventing length extension attacks and ensuring deterministic hash values.
 

@@ -8,7 +8,20 @@ LogicalRepCtxStruct is a shared memory structure that manages the logical replic
 
 ## Definition
 
+```c
+typedef struct LogicalRepCtxStruct
+{
+	/* Supervisor process. */
+	pid_t		launcher_pid;
 
+	/* Hash table holding last start times of subscriptions' apply workers. */
+	dsa_handle	last_start_dsa;
+	dshash_table_handle last_start_dsh;
+
+	/* Background workers. */
+	LogicalRepWorker workers[FLEXIBLE_ARRAY_MEMBER];
+} LogicalRepCtxStruct;
+```
 ## Detailed Description
 LogicalRepCtxStruct serves as the central coordination structure for PostgreSQL's logical replication launcher subsystem. It maintains information about the launcher supervisor process, tracks worker start times to implement rate limiting and restart policies, and provides an array of worker slots for managing logical replication apply workers. The structure is allocated in shared memory to allow coordination between the launcher process and multiple worker processes.
 

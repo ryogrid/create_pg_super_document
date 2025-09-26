@@ -8,7 +8,12 @@ Adds a span to the head of a specified fullness class list, updating all necessa
 
 ## Definition
 
-
+```c
+static void
+add_span_to_fullness_class(dsa_area *area, dsa_area_span *span,
+						   dsa_pointer span_pointer,
+						   int fclass)
+```
 ## Detailed Description
 This function implements the insertion of a span at the head of a fullness class list within a DSA memory pool. Fullness classes organize spans based on their utilization level, allowing the allocator to efficiently select appropriate allocation targets.
 

@@ -8,7 +8,10 @@ A placeholder function in the TAR-based WAL method implementation that is curren
 
 ## Definition
 
-
+```c
+static ssize_t
+tar_get_file_size(WalWriteMethod *wwmethod, const char *pathname)
+```
 ## Detailed Description
 This function is part of the TAR-based WAL writing method infrastructure in pg_basebackup. It serves as a placeholder for getting the size of a file within the TAR method context. The function is currently not implemented and immediately returns an error with errno set to ENOSYS (function not implemented).
 

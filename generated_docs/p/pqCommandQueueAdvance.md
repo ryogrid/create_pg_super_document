@@ -8,7 +8,10 @@ Removes a completed query from the head of the command queue when all correspond
 
 ## Definition
 
-
+```c
+void
+pqCommandQueueAdvance(PGconn *conn, bool isReadyForQuery, bool gotSync)
+```
 ## Detailed Description
 pqCommandQueueAdvance manages the advancement of PostgreSQL's internal command queue by removing the head element when it's safe to do so. The function implements protocol-specific logic to ensure proper synchronization between sent commands and received results.
 

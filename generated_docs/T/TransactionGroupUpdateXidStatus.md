@@ -8,7 +8,11 @@ A group commit optimization function that allows multiple concurrent processes t
 
 ## Definition
 
-
+```c
+static bool
+TransactionGroupUpdateXidStatus(TransactionId xid, XidStatus status,
+								XLogRecPtr lsn, int64 pageno)
+```
 ## Detailed Description
 TransactionGroupUpdateXidStatus implements a sophisticated group commit optimization for the Commit Log (CLOG) subsystem. When multiple processes are committing transactions simultaneously, this function prevents lock thrashing by allowing processes to form groups where a single "leader" process acquires the SLRU bank lock and updates transaction statuses for all group members.
 

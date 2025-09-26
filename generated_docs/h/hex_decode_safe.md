@@ -8,7 +8,10 @@ Safely decodes hexadecimal-encoded data into binary format with error context su
 
 ## Definition
 
-
+```c
+uint64
+hex_decode_safe(const char *src, size_t len, char *dst, Node *escontext)
+```
 ## Detailed Description
 This function decodes a hexadecimal-encoded string into binary data with comprehensive error handling. It processes the input string character by character, skipping whitespace (space, newline, tab, carriage return), and converts pairs of hexadecimal digits into single bytes. The function uses PostgreSQL's error context system for soft error handling, allowing callers to handle errors gracefully rather than causing transaction aborts.
 

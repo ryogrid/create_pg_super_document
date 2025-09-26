@@ -8,7 +8,11 @@ TS_execute is a high-level wrapper function that evaluates tsquery boolean expre
 
 ## Definition
 
-
+```c
+bool
+TS_execute(QueryItem *curitem, void *arg, uint32 flags,
+		   TSExecuteCallback chkcond)
+```
 ## Detailed Description
 This function serves as the primary entry point for executing tsquery expressions in PostgreSQL's text search system. It provides a boolean result interface, abstracting away the complexity of the underlying ternary logic system used internally. The function delegates the actual execution to TS_execute_recurse and converts its TSTernaryValue result to a simple boolean.
 

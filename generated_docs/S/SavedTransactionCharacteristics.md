@@ -8,7 +8,14 @@ Data structure used to temporarily save and restore transaction characteristics 
 
 ## Definition
 
-
+```c
+typedef struct SavedTransactionCharacteristics
+{
+	int			save_XactIsoLevel;
+	bool		save_XactReadOnly;
+	bool		save_XactDeferrable;
+} SavedTransactionCharacteristics;
+```
 ## Detailed Description
 SavedTransactionCharacteristics is a simple data structure that provides a system for saving and restoring transaction characteristics. This is primarily needed for transaction chaining functionality, where the characteristics of a new transaction must match those of the previous transaction.
 

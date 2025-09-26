@@ -8,7 +8,10 @@ Safely adds an integer value to another integer while detecting overflow conditi
 
 ## Definition
 
-
+```c
+static bool
+increment_overflow(int *ip, int j)
+```
 ## Detailed Description
 The `increment_overflow` function performs safe integer addition with overflow detection. It adds the value `j` to the integer pointed to by `ip`, but first checks if this operation would cause integer overflow. The function uses careful logic to detect potential overflow conditions before performing the addition, preventing undefined behavior that could occur with naive integer arithmetic.
 

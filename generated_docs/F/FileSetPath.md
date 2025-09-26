@@ -8,7 +8,10 @@ The FileSetPath function builds the complete path for the directory that holds t
 
 ## Definition
 
-
+```c
+static void
+FileSetPath(char *path, FileSet *fileset, Oid tablespace)
+```
 ## Detailed Description
 FileSetPath constructs a standardized directory path for FileSet storage within PostgreSQL's temporary file system. It combines the tablespace-specific temporary directory path with a unique identifier based on the FileSet's creator process ID and number. The resulting path follows the pattern: , ensuring that each FileSet has a unique directory location that can be easily identified and managed.
 

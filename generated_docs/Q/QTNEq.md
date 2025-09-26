@@ -8,7 +8,10 @@ QTNEq is a function that determines if two QTNode trees are equal according to t
 
 ## Definition
 
-
+```c
+bool
+QTNEq(QTNode *a, QTNode *b)
+```
 ## Detailed Description
 QTNEq performs equality comparison between two QTNode trees by first checking if their signatures are compatible and then using QTNodeCompare for detailed comparison. The function uses a signature-based optimization to quickly eliminate obviously different nodes before performing the more expensive structural comparison.
 

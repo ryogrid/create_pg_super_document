@@ -8,7 +8,10 @@ A GUC assign hook function that manages plan cache invalidation when the session
 
 ## Definition
 
-
+```c
+void
+assign_session_replication_role(int newval, void *extra)
+```
 ## Detailed Description
 This function serves as the assign hook for the session_replication_role Grand Unified Configuration (GUC) parameter in PostgreSQL. The session_replication_role parameter controls how triggers and rules behave in the current session, with different values affecting which triggers fire during statement execution.
 

@@ -8,7 +8,10 @@ Initializes a SHA-256 context structure to prepare it for hashing operations by 
 
 ## Definition
 
-
+```c
+void
+pg_sha256_init(pg_sha256_ctx *context)
+```
 ## Detailed Description
 pg_sha256_init is the initialization function for SHA-256 hashing in PostgreSQL. It prepares a pg_sha256_ctx structure for use by copying the standard SHA-256 initial hash values into the context's state array, clearing the input buffer, and resetting the bit counter to zero. This function must be called before any SHA-256 hashing operations can begin. The function includes a null pointer check for safety and uses the standard SHA-256 initialization constants defined in the cryptographic specification.
 

@@ -8,7 +8,10 @@ A helper function that determines whether a parse tree node will deparse as a fu
 
 ## Definition
 
-
+```c
+static bool
+looks_like_function(Node *node)
+```
 ## Detailed Description
  is a utility function that examines a parse tree node and determines whether it will produce output that matches PostgreSQL's  grammar production when deparsed. This function is crucial for maintaining grammatical correctness in contexts where function-like syntax is specifically required.
 

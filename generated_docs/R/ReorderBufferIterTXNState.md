@@ -8,7 +8,15 @@ ReorderBufferIterTXNState is a structure that manages the iteration state for pr
 
 ## Definition
 
-
+```c
+typedef struct ReorderBufferIterTXNState
+{
+	binaryheap *heap;
+	Size		nr_txns;
+	dlist_head	old_change;
+	ReorderBufferIterTXNEntry entries[FLEXIBLE_ARRAY_MEMBER];
+} ReorderBufferIterTXNState;
+```
 ## Detailed Description
 This structure serves as the control mechanism for iterating through changes from multiple transactions in a coordinated manner during logical replication. It maintains a binary heap to efficiently order changes by their commit LSN (Log Sequence Number), ensuring that changes are processed in the correct chronological order across transaction boundaries. The structure supports iteration over multiple concurrent transactions while preserving the global ordering required for consistent logical replication.
 

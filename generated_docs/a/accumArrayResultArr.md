@@ -8,7 +8,13 @@ Accumulates one sub-array into an ArrayBuildStateArr structure, building up data
 
 ## Definition
 
-
+```c
+ArrayBuildStateArr *
+accumArrayResultArr(ArrayBuildStateArr *astate,
+					Datum dvalue, bool disnull,
+					Oid array_type,
+					MemoryContext rcontext)
+```
 ## Detailed Description
 This function is the core accumulation function for building arrays from arrays. It takes an input sub-array and adds it to the working state, ensuring all sub-arrays have consistent dimensionality. The function handles memory management, including dynamic expansion of data and null bitmap storage as needed.
 

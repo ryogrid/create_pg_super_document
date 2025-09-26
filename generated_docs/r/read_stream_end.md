@@ -8,7 +8,10 @@ Properly releases and deallocates a read stream object, cleaning up all associat
 
 ## Definition
 
-
+```c
+void
+read_stream_end(ReadStream *stream)
+```
 ## Detailed Description
 This function provides the proper cleanup mechanism for read stream objects. It first calls read_stream_reset to ensure all pinned buffers are released and any pending I/O operations are completed, then deallocates the memory associated with the stream object.
 

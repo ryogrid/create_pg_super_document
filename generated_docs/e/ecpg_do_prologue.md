@@ -8,7 +8,13 @@ Initializes the execution infrastructure for ECPG statements by creating stateme
 
 ## Definition
 
-
+```c
+bool
+ecpg_do_prologue(int lineno, const int compat, const int force_indicator,
+				 const char *connection_name, const bool questionmarks,
+				 enum ECPG_statement_type statement_type, const char *query,
+				 va_list args, struct statement **stmt_out)
+```
 ## Detailed Description
 This function performs critical initialization tasks before executing any ECPG statement. It serves as the setup phase that prepares all necessary infrastructure:
 

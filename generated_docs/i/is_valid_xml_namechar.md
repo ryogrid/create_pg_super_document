@@ -8,7 +8,10 @@ A static validation function that determines whether a Unicode character is vali
 
 ## Definition
 
-
+```c
+static bool
+is_valid_xml_namechar(pg_wchar c)
+```
 ## Detailed Description
 This function implements the XML specification's rules for valid characters that can appear anywhere in an XML name (except the first position). According to XML standards, XML name characters can include Letters (base or ideographic), Digits, specific punctuation marks (period, hyphen, underscore, colon), CombiningChar characters, and Extender characters. The function uses libxml2's character classification functions to check each category: xmlIsBaseCharQ() and xmlIsIdeographicQ() for letters, xmlIsDigitQ() for digits, xmlIsCombiningQ() for combining characters, and xmlIsExtenderQ() for extender characters. Additionally, it explicitly checks for the allowed punctuation characters.
 

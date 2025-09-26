@@ -8,7 +8,9 @@ Creates a new empty ResourceOwner object and establishes parent-child relationsh
 
 ## Definition
 
-
+```c
+struct ResourceOwnerData));
+```
 ## Detailed Description
 ResourceOwnerCreate allocates and initializes a new ResourceOwner structure in TopMemoryContext. The function establishes a hierarchical relationship where the new resource owner can have a parent, and if a parent is provided, the new owner is added to the parent's list of child owners. This hierarchy is crucial for PostgreSQL's resource management system, allowing proper cleanup and tracking of resources across different execution contexts like transactions, subtransactions, and portals.
 

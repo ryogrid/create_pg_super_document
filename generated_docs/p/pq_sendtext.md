@@ -8,7 +8,10 @@ Appends a text string with character set conversion to a StringInfo buffer witho
 
 ## Definition
 
-
+```c
+void
+pq_sendtext(StringInfo buf, const char *str, int slen)
+```
 ## Detailed Description
 This function appends a text string to a StringInfo buffer after performing character set conversion from server encoding to client encoding. Unlike , it does not include a length prefix, making it unsuitable for direct frontend transmissions where the receiver needs to know the string length. Instead, it's primarily designed for binary format conversions where the length information is handled elsewhere in the protocol.
 

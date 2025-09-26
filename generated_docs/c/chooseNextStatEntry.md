@@ -8,7 +8,11 @@ A recursive static function that implements a sampling strategy to process a sub
 
 ## Definition
 
-
+```c
+static void
+chooseNextStatEntry(MemoryContext persistentContext, TSVectorStat *stat, TSVector txt,
+					uint32 low, uint32 high, uint32 offset)
+```
 ## Detailed Description
 The  function implements a strategic sampling algorithm for PostgreSQL's text search statistics system (). Instead of processing every word in a TSVector (which could be computationally expensive for large documents), this function selects a representative subset of words using a recursive divide-and-conquer approach.
 

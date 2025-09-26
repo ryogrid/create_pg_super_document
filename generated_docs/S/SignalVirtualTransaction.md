@@ -8,7 +8,11 @@ Locates a backend process by its Virtual Transaction ID and sends a specified si
 
 ## Definition
 
-
+```c
+pid_t
+SignalVirtualTransaction(VirtualTransactionId vxid, ProcSignalReason sigmode,
+						 bool conflictPending)
+```
 ## Detailed Description
 SignalVirtualTransaction is the core function for sending signals to backend processes identified by their Virtual Transaction IDs. It scans the process array to locate the target backend and sends the specified signal using the PostgreSQL inter-process signaling mechanism.
 

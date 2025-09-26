@@ -8,7 +8,10 @@ Gets the TupleDesc for an Ephemeral Named Relation based on which field was fill
 
 ## Definition
 
-
+```c
+TupleDesc
+ENRMetadataGetTupDesc(EphemeralNamedRelationMetadata enrmd)
+```
 ## Detailed Description
 This function extracts a TupleDesc (tuple descriptor) from an EphemeralNamedRelationMetadata structure. Ephemeral Named Relations are temporary named relations that don't exist in the system catalogs, such as transition tables in AFTER triggers.
 

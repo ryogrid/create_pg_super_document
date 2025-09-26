@@ -8,7 +8,10 @@ Removes the topmost snapshot from the active snapshot stack, decrements its refe
 
 ## Definition
 
-
+```c
+void
+PopActiveSnapshot(void)
+```
 ## Detailed Description
 PopActiveSnapshot removes the topmost snapshot from the active snapshot stack and performs proper cleanup. It decrements the active reference count of the snapshot and checks if the snapshot can be freed (when both active_count and regd_count reach zero). The function also updates global snapshot tracking variables: it sets ActiveSnapshot to point to the next snapshot in the stack, and if the stack becomes empty, it clears OldestActiveSnapshot as well. Finally, it calls SnapshotResetXmin() to recalculate the oldest snapshot's xmin value, which is crucial for determining the oldest transaction that might still be running.
 

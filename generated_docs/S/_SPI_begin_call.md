@@ -8,7 +8,10 @@ _SPI_begin_call is a static internal function that initiates a SPI operation wit
 
 ## Definition
 
-
+```c
+static int
+_SPI_begin_call(bool use_exec)
+```
 ## Detailed Description
 This function begins a SPI (Server Programming Interface) operation within a procedure that has already established a SPI connection. It performs two key responsibilities: validating that a SPI connection exists and optionally setting up the execution memory context for operations that will use the procedure's execution context.
 

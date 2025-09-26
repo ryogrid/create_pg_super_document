@@ -8,7 +8,10 @@ Incrementally processes input data for SHA-512 hash computation, handling arbitr
 
 ## Definition
 
-
+```c
+void
+pg_sha512_update(pg_sha512_ctx *context, const uint8 *data, size_t len)
+```
 ## Detailed Description
 The  function processes input data of any length for SHA-512 hashing by:
 

@@ -8,7 +8,45 @@ Memoize is a caching plan node that stores results from parameterized child node
 
 ## Definition
 
+```c
+typedef struct Memoize
+{
+	Plan		plan;
 
+	/* size of the two arrays below */
+	int			numKeys;
+
+	/* hash operators for each key */
+	Oid		   *hashOperators pg_node_attr(array_size(numKeys));
+
+	/* collations for each key */
+	Oid		   *collations pg_node_attr(array_size(numKeys));
+
+	/* cache keys in the form of exprs containing parameters */
+	List	   *param_exprs;
+
+	/*
+	 * true if the cache entry should be marked as complete after we store the
+	 * first tuple in it.
+	 */
+	bool		singlerow;
+
+	/*
+	 * true when cache key should be compared bit by bit, false when using
+	 * hash equality ops
+	 */
+	bool		binary_mode;
+
+	/*
+	 * The maximum number of entries that the planner expects will fit in the
+	 * cache, or 0 if unknown
+	 */
+	uint32		est_entries;
+
+	/* paramids from param_exprs */
+	Bitmapset  *keyparamids;
+} Memoize;
+```
 ## Detailed Description
 The Memoize node is a sophisticated caching mechanism introduced in PostgreSQL 14 to optimize parameterized queries by storing results from expensive child operations. It sits above parameterized nodes in the plan tree and maintains an in-memory hash table cache to avoid redundant computation when the same parameter values are seen repeatedly.
 

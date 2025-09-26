@@ -8,7 +8,20 @@ Removes the least valuable skew bucket by relocating its tuples to the main hash
 
 ## Definition
 
-
+```c
+struct itself and reset the hashtable entry to NULL.
+	 *
+	 * NOTE: this is not nearly as simple as it looks on the surface, because
+	 * of the possibility of collisions in the hashtable.  Suppose that hash
+	 * values A and B collide at a particular hashtable entry, and that A was
+	 * entered first so B gets shifted to a different table entry.  If we were
+	 * to remove A first then ExecHashGetSkewBucket would mistakenly start
+	 * reporting that B is not in the hashtable, because it would hit the NULL
+	 * before finding B.  However, we always remove entries in the reverse
+	 * order of creation, so this failure cannot happen.
+	 */
+	hashtable->skewBucket[bucketToRemove] = NULL;
+```
 ## Detailed Description
 ExecHashRemoveNextSkewBucket implements the memory management strategy for skew optimization by removing the least important skew bucket when memory pressure occurs. The function selects the bucket to remove based on the reverse order of creation (LIFO), ensuring that the least common MCVs are removed first since skew buckets are created in decreasing order of MCV frequency.
 

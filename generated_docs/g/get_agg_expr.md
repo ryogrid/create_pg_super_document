@@ -8,7 +8,11 @@ A simple wrapper function that parses back an Aggref (aggregate reference) node 
 
 ## Definition
 
-
+```c
+static void
+get_agg_expr(Aggref *aggref, deparse_context *context,
+			 Aggref *original_aggref)
+```
 ## Detailed Description
 This static function serves as a convenient entry point for deparsing aggregate expressions in PostgreSQL's rule deparsing system. It provides a simplified interface to the more complex get_agg_expr_helper function by supplying default values for optional parameters.
 

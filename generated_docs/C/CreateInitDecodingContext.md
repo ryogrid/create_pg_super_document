@@ -8,7 +8,17 @@ CreateInitDecodingContext creates and initializes a new logical decoding context
 
 ## Definition
 
-
+```c
+LogicalDecodingContext *
+CreateInitDecodingContext(const char *plugin,
+						  List *output_plugin_options,
+						  bool need_full_snapshot,
+						  XLogRecPtr restart_lsn,
+						  XLogReaderRoutine *xl_routine,
+						  LogicalOutputPluginWriterPrepareWrite prepare_write,
+						  LogicalOutputPluginWriterWrite do_write,
+						  LogicalOutputPluginWriterUpdateProgress update_progress)
+```
 ## Detailed Description
 This function performs comprehensive initialization of a logical decoding context for newly created slots. It validates prerequisites, configures the replication slot metadata, establishes transaction isolation boundaries, and initializes the output plugin.
 

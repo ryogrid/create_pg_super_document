@@ -8,7 +8,19 @@ CreateStatsStmt represents a parsed CREATE STATISTICS statement, encapsulating a
 
 ## Definition
 
-
+```c
+typedef struct CreateStatsStmt
+{
+	NodeTag		type;
+	List	   *defnames;		/* qualified name (list of String) */
+	List	   *stat_types;		/* stat types (list of String) */
+	List	   *exprs;			/* expressions to build statistics on */
+	List	   *relations;		/* rels to build stats on (list of RangeVar) */
+	char	   *stxcomment;		/* comment to apply to stats, or NULL */
+	bool		transformed;	/* true when transformStatsStmt is finished */
+	bool		if_not_exists;	/* do nothing if stats name already exists */
+} CreateStatsStmt;
+```
 ## Detailed Description
 CreateStatsStmt is a parse tree node that represents the SQL CREATE STATISTICS command. It contains all the parsed information from the SQL statement including the statistics name, types of statistics to collect, target columns/expressions, and associated tables. The structure is used during the parsing and transformation phases before the actual statistics object is created in the system catalogs.
 

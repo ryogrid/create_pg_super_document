@@ -8,7 +8,15 @@ GroupPath represents a query execution path node that performs grouping operatio
 
 ## Definition
 
-
+```c
+typedef struct GroupPath
+{
+	Path		path;
+	Path	   *subpath;		/* path representing input source */
+	List	   *groupClause;	/* a list of SortGroupClause's */
+	List	   *qual;			/* quals (HAVING quals), if any */
+} GroupPath;
+```
 ## Detailed Description
 GroupPath is a specialized path node in PostgreSQL's query planner that represents grouping operations performed on already sorted input data. It inherits from the base Path structure and adds specific fields needed for grouping operations. The path assumes that the input data is appropriately sorted according to the grouping columns, which allows for efficient streaming grouping without requiring additional sorting.
 

@@ -8,7 +8,10 @@ Acquires an extension lock on a relation to interlock addition of pages to relat
 
 ## Definition
 
-
+```c
+void
+LockRelationForExtension(Relation relation, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function provides locking mechanism for relation extension operations to address race conditions in the buffer manager and storage manager definition of P_NEW (new page allocation). When multiple processes attempt to extend a relation concurrently, this lock ensures that only one process can perform the extension at a time.
 

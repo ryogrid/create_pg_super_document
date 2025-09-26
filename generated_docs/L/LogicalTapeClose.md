@@ -8,7 +8,10 @@ Closes a LogicalTape by freeing its associated memory resources, including the I
 
 ## Definition
 
-
+```c
+void
+LogicalTapeClose(LogicalTape *lt)
+```
 ## Detailed Description
 The `LogicalTapeClose` function is responsible for properly cleaning up and deallocating a LogicalTape structure when it's no longer needed. The function performs a simple but important cleanup operation by freeing the tape's I/O buffer (if allocated) and then freeing the tape structure itself.
 

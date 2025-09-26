@@ -8,7 +8,10 @@ BufFileClose closes a BufFile and releases all associated resources, including f
 
 ## Definition
 
-
+```c
+void
+BufFileClose(BufFile *file)
+```
 ## Detailed Description
 BufFileClose performs a complete cleanup of a BufFile structure, similar to the standard fclose() function. It ensures data integrity by flushing any unwritten data before closing the file, then proceeds to close all underlying file descriptors and free allocated memory. This function handles BufFiles that may span multiple physical files, closing each one individually.
 

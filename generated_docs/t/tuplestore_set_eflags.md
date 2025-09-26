@@ -8,7 +8,10 @@ Function to set execution capability flags for the primary read pointer of a tup
 
 ## Definition
 
-
+```c
+void
+tuplestore_set_eflags(Tuplestorestate *state, int eflags)
+```
 ## Detailed Description
 This function allows modification of the execution flags for read pointer 0 after tuplestore creation but before any data insertion. It provides more granular control over scanning capabilities than what is available through the tuplestore_begin_xxx functions. The function updates both the specific read pointer's flags and the global tuplestore flags by combining all read pointers' requirements.
 

@@ -8,7 +8,10 @@ LoadOutputPlugin is a static function that loads an external logical replication
 
 ## Definition
 
-
+```c
+struct */
+	plugin_init(callbacks);
+```
 ## Detailed Description
 This function is responsible for dynamically loading logical replication output plugins and ensuring they conform to PostgreSQL's output plugin interface. It loads the plugin's shared library, calls the plugin's initialization function, and validates that all mandatory callbacks are registered. The function serves as a critical validation step in the logical replication setup process, ensuring that plugins are properly implemented before they can be used for logical decoding.
 

@@ -8,7 +8,10 @@ A static helper function that formats and logs parameter values for debugging pu
 
 ## Definition
 
-
+```c
+static void
+print_param_value(char *value, int len, int is_binary, int lineno, int nth)
+```
 ## Detailed Description
 This function is responsible for logging parameter values in a human-readable format as part of ECPG's parameter debugging functionality. It handles three different cases: null values, text values, and binary values. For binary data, it performs hexadecimal encoding to make the content readable in log output. The function ensures proper memory management by allocating temporary storage for hex-encoded values and freeing it after logging.
 

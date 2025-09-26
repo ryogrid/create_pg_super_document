@@ -8,7 +8,13 @@ WAL record structure used to log the beginning of a CREATE DATABASE operation wh
 
 ## Definition
 
-
+```c
+typedef struct xl_dbase_create_wal_log_rec
+{
+	Oid			db_id;
+	Oid			tablespace_id;
+} xl_dbase_create_wal_log_rec;
+```
 ## Detailed Description
 The xl_dbase_create_wal_log_rec structure represents a Write-Ahead Log (WAL) record that marks the beginning of a database creation operation using the WAL_LOG strategy. Unlike the FILE_COPY strategy which logs the entire operation in a single record, the WAL_LOG strategy logs the initial database creation parameters in this record, then logs each individual data block separately as subsequent WAL records.
 

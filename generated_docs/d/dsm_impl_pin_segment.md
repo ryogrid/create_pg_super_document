@@ -8,7 +8,11 @@ Performs implementation-specific actions to preserve a dynamic shared memory seg
 
 ## Definition
 
-
+```c
+void
+dsm_impl_pin_segment(dsm_handle handle, void *impl_private,
+					 void **impl_private_pm_handle)
+```
 ## Detailed Description
 The  function ensures that dynamic shared memory segments persist even when no backend processes are actively attached to them. This is primarily required on Windows systems, where the operating system automatically cleans up shared memory segments when no references remain.
 

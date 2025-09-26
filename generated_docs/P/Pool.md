@@ -8,7 +8,14 @@ A structure representing a population of chromosomes in PostgreSQL's Genetic Que
 
 ## Definition
 
-
+```c
+typedef struct Pool
+{
+	Chromosome *data;
+	int			size;
+	int			string_length;
+} Pool;
+```
 ## Detailed Description
 The Pool structure is a fundamental component of PostgreSQL's Genetic Query Optimizer (GEQO) that represents a population of chromosomes in the genetic algorithm. It manages a collection of potential solutions (chromosomes) for complex join ordering problems. The pool serves as the working set for genetic algorithm operations such as selection, crossover, and mutation.
 

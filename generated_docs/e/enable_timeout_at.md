@@ -8,7 +8,10 @@ Enables a timeout to fire at a specific absolute timestamp, providing precise co
 
 ## Definition
 
-
+```c
+void
+enable_timeout_at(TimeoutId id, TimestampTz fin_time)
+```
 ## Detailed Description
 This function schedules a timeout to fire at an exact moment in time specified by fin_time. Unlike relative timeout functions that calculate the firing time from "now", this function allows scheduling based on a predetermined absolute timestamp. This is particularly useful when coordinating timeouts across multiple operations or when the timeout needs to align with external timing requirements.
 

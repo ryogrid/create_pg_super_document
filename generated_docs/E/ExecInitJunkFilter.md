@@ -8,7 +8,11 @@ Initializes a JunkFilter data structure that manages the filtering of "junk" att
 
 ## Definition
 
-
+```c
+struct.
+	 */
+	junkfilter = makeNode(JunkFilter);
+```
 ## Detailed Description
 ExecInitJunkFilter creates and initializes a JunkFilter structure that serves as the foundation for managing junk attributes in PostgreSQL's executor. Junk attributes are special columns that exist only within the executor for internal purposes (like system attributes "ctid" or sort keys) and are never exposed to the final output.
 

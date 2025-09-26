@@ -8,7 +8,39 @@ CopyFormatOptions is a struct that holds parsed COPY command options related to 
 
 ## Definition
 
-
+```c
+typedef struct CopyFormatOptions
+{
+	/* parameters from the COPY command */
+	int			file_encoding;	/* file or remote side's character encoding,
+								 * -1 if not specified */
+	bool		binary;			/* binary format? */
+	bool		freeze;			/* freeze rows on loading? */
+	bool		csv_mode;		/* Comma Separated Value format? */
+	CopyHeaderChoice header_line;	/* header line? */
+	char	   *null_print;		/* NULL marker string (server encoding!) */
+	int			null_print_len; /* length of same */
+	char	   *null_print_client;	/* same converted to file encoding */
+	char	   *default_print;	/* DEFAULT marker string */
+	int			default_print_len;	/* length of same */
+	char	   *delim;			/* column delimiter (must be 1 byte) */
+	char	   *quote;			/* CSV quote char (must be 1 byte) */
+	char	   *escape;			/* CSV escape char (must be 1 byte) */
+	List	   *force_quote;	/* list of column names */
+	bool		force_quote_all;	/* FORCE_QUOTE *? */
+	bool	   *force_quote_flags;	/* per-column CSV FQ flags */
+	List	   *force_notnull;	/* list of column names */
+	bool		force_notnull_all;	/* FORCE_NOT_NULL *? */
+	bool	   *force_notnull_flags;	/* per-column CSV FNN flags */
+	List	   *force_null;		/* list of column names */
+	bool		force_null_all; /* FORCE_NULL *? */
+	bool	   *force_null_flags;	/* per-column CSV FN flags */
+	bool		convert_selectively;	/* do selective binary conversion? */
+	CopyOnErrorChoice on_error; /* what to do when error happened */
+	CopyLogVerbosityChoice log_verbosity;	/* verbosity of logged messages */
+	List	   *convert_select; /* list of column names (can be NIL) */
+} CopyFormatOptions;
+```
 ## Detailed Description
 CopyFormatOptions encapsulates all formatting and behavioral parameters for PostgreSQL's COPY command, which is used for bulk data import/export operations. This struct consolidates various options including format specifications (binary vs text vs CSV), character encoding settings, delimiter and quote characters, NULL handling, error handling behavior, and column-specific formatting flags. The structure is designed to be populated during COPY command parsing and then passed to the actual copy implementation functions.
 

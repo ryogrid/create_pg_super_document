@@ -8,7 +8,10 @@ A utility function that converts LogicalRepMsgType enumeration values to their c
 
 ## Definition
 
-
+```c
+const char *
+logicalrep_message_type(LogicalRepMsgType action)
+```
 ## Detailed Description
 The  function serves as a mapping utility in PostgreSQL's logical replication system. It takes a  enumeration value and returns a human-readable string representation of the message type. This function is particularly useful for error reporting, debugging, and logging within the logical replication framework.
 

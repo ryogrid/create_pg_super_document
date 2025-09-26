@@ -8,7 +8,9 @@ Processes leap second expiration information from timezone database files, setti
 
 ## Definition
 
-
+```c
+struct link l;
+```
 ## Detailed Description
 The  function is part of PostgreSQL's timezone compiler () that handles expiration entries from timezone database files. It processes "Expires" lines that specify when the leap second information in the timezone database becomes outdated and should no longer be trusted.
 

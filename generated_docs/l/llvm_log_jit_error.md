@@ -8,7 +8,10 @@ A static error logging callback function used by LLVM JIT compilation to handle 
 
 ## Definition
 
-
+```c
+static void
+llvm_log_jit_error(void *ctx, LLVMErrorRef error)
+```
 ## Detailed Description
 This function serves as an error callback for LLVM JIT operations, specifically designed to handle errors that cannot be thrown through the LLVM stack without causing fatal errors. Instead of throwing exceptions, it logs errors as warnings using PostgreSQL's elog system.
 

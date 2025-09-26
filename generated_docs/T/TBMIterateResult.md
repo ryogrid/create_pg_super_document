@@ -8,7 +8,16 @@ TBMIterateResult is a structure that represents the result of iterating over a T
 
 ## Definition
 
-
+```c
+typedef struct TBMIterateResult
+{
+	BlockNumber blockno;		/* page number containing tuples */
+	int			ntuples;		/* -1 indicates lossy result */
+	bool		recheck;		/* should the tuples be rechecked? */
+	/* Note: recheck is always true if ntuples < 0 */
+	OffsetNumber offsets[FLEXIBLE_ARRAY_MEMBER];
+} TBMIterateResult;
+```
 ## Detailed Description
 TBMIterateResult serves as the return type for TID bitmap iteration functions, particularly  and . This structure encapsulates the results of scanning a TID bitmap, which is used extensively in PostgreSQL's bitmap index scans to efficiently identify which tuples on which pages need to be examined.
 

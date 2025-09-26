@@ -8,7 +8,10 @@ A PostgreSQL test function that validates that ResourceOwnerForget properly fail
 
 ## Definition
 
-
+```c
+Datum
+test_resowner_forget_between_phases(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a negative test case designed to verify that the ResourceOwner subsystem correctly enforces lifecycle rules. It creates a resource owner, remembers a string resource, releases the resource owner in the BEFORE_LOCKS phase, and then attempts to forget the previously remembered resource. The function expects this sequence to fail with an error because ResourceOwnerForget should not be allowed after ResourceOwnerRelease has been called.
 

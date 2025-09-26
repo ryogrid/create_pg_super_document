@@ -8,7 +8,10 @@ OpenPipeStream is PostgreSQL's managed wrapper around the popen() system call, p
 
 ## Definition
 
-
+```c
+FILE *
+OpenPipeStream(const char *command, const char *mode)
+```
 ## Detailed Description
 OpenPipeStream serves as PostgreSQL's integrated replacement for the standard popen() function, designed to work within PostgreSQL's file descriptor management system. Beyond basic resource management, this function ensures proper signal handling by temporarily restoring default SIGPIPE behavior during pipe creation, which is crucial for correct pipe operation since PostgreSQL normally runs with SIGPIPE ignored.
 

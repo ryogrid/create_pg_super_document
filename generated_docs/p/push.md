@@ -8,7 +8,12 @@ Pushes a forward constraint forward past its destination state in the PostgreSQL
 
 ## Definition
 
-
+```c
+static int
+push(struct nfa *nfa,
+	 struct arc *con,
+	 struct state **intermediates)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's regex engine constraint optimization. It takes a forward constraint arc and propagates it through its destination state to subsequent states. This operation is essential for optimizing regular expression matching by moving constraints to more advantageous positions in the NFA.
 

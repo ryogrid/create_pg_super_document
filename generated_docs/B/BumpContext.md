@@ -8,7 +8,21 @@ BumpContext is a memory context structure that implements a bump pointer allocat
 
 ## Definition
 
+```c
+typedef struct BumpContext
+{
+	MemoryContextData header;	/* Standard memory-context fields */
 
+	/* Bump context parameters */
+	uint32		initBlockSize;	/* initial block size */
+	uint32		maxBlockSize;	/* maximum block size */
+	uint32		nextBlockSize;	/* next block size to allocate */
+	uint32		allocChunkLimit;	/* effective chunk size limit */
+
+	dlist_head	blocks;			/* list of blocks with the block currently
+								 * being filled at the head */
+} BumpContext;
+```
 ## Detailed Description
 BumpContext represents a memory context that uses the bump pointer allocation strategy, where memory is allocated sequentially from large pre-allocated blocks. This allocation strategy is extremely fast for allocation (just advancing a pointer) and allows for very efficient bulk deallocation by resetting the entire context. The context maintains a list of memory blocks and tracks allocation parameters that control block sizing behavior.
 

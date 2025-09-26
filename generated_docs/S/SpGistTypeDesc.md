@@ -8,7 +8,16 @@ SpGistTypeDesc is a structure that stores per-datatype information needed by SP-
 
 ## Definition
 
-
+```c
+typedef struct SpGistTypeDesc
+{
+	Oid			type;
+	int16		attlen;
+	bool		attbyval;
+	char		attalign;
+	char		attstorage;
+} SpGistTypeDesc;
+```
 ## Detailed Description
 SpGistTypeDesc serves as a compact descriptor for data types used in SP-GiST indexes. It encapsulates the fundamental characteristics of PostgreSQL data types that are essential for proper storage, alignment, and manipulation of values within the index structure. This information is critical for the SP-GiST access method to correctly handle different data types, ensuring proper memory layout, storage efficiency, and value copying semantics.
 

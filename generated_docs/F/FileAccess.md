@@ -8,7 +8,10 @@ FileAccess is a static function that ensures a virtual file descriptor is open a
 
 ## Definition
 
-
+```c
+static int
+FileAccess(File file)
+```
 ## Detailed Description
 FileAccess is a core function in PostgreSQL's virtual file descriptor management system that ensures a given file is open and ready for I/O operations. The function implements an LRU cache strategy to manage the limited number of available file descriptors efficiently.
 

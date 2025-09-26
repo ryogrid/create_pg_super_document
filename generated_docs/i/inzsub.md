@@ -8,7 +8,9 @@ Processes the detailed parsing and validation of timezone zone data fields for b
 
 ## Definition
 
-
+```c
+struct zone z;
+```
 ## Detailed Description
 The  function is the core zone processing function that handles the detailed parsing of timezone zone data. It processes both regular Zone lines and Zone continuation lines based on the  parameter. The function:
 

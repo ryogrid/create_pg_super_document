@@ -8,7 +8,16 @@ ExtendBufferedRelLocal extends temporary relations by allocating new blocks and 
 
 ## Definition
 
-
+```c
+BlockNumber
+ExtendBufferedRelLocal(BufferManagerRelation bmr,
+					   ForkNumber fork,
+					   uint32 flags,
+					   uint32 extend_by,
+					   BlockNumber extend_upto,
+					   Buffer *buffers,
+					   uint32 *extended_by)
+```
 ## Detailed Description
 ExtendBufferedRelLocal implements relation extension for temporary relations using local buffers. The function performs several critical steps:
 

@@ -8,7 +8,12 @@ Formats floating-point numbers for printf-style output, handling special cases l
 
 ## Definition
 
-
+```c
+static void
+fmtfloat(double value, char type, int forcesign, int leftjust,
+		 int minlen, int zpad, int precision, int pointflag,
+		 PrintfTarget *target)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's portable snprintf implementation that handles the formatting of floating-point numbers. It uses the system's snprintf for basic conversion but adds comprehensive handling for:
 

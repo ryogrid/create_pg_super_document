@@ -8,7 +8,10 @@ Detects whether an expression tree is an application of a datatype's typmod-coer
 
 ## Definition
 
-
+```c
+bool
+exprIsLengthCoercion(const Node *expr, int32 *coercedTypmod)
+```
 ## Detailed Description
 The  function determines if a given expression represents a length coercion operation - a special type of function that adjusts the type modifier (typically length/precision constraints) of a data type while preserving the base type.
 

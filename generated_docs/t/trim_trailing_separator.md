@@ -8,7 +8,10 @@ Removes trailing directory separator characters (slashes) from a path string whi
 
 ## Definition
 
-
+```c
+static void
+trim_trailing_separator(char *path)
+```
 ## Detailed Description
 This function modifies a path string in-place to remove any trailing directory separator characters, but carefully preserves a leading slash to maintain absolute path semantics. It first calls  to handle Windows drive letters appropriately, then walks backward from the end of the string removing any directory separators found.
 

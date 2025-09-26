@@ -8,7 +8,11 @@ Appends a keyword to the output buffer with proper indentation formatting when p
 
 ## Definition
 
-
+```c
+static void
+appendContextKeyword(deparse_context *context, const char *str,
+					 int indentBefore, int indentAfter, int indentPlus)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's rule decompilation system that formats SQL output with proper indentation. When pretty printing is enabled (PRETTY_INDENT), it performs sophisticated indentation management including removing trailing spaces, adding newlines, and calculating appropriate indentation levels. The function implements a scaling mechanism to prevent unbounded indentation growth in deeply nested SQL structures, ensuring O(N) rather than O(N^2) whitespace usage.
 

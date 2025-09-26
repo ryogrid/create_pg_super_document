@@ -8,7 +8,10 @@ A static helper function that serves as the workhorse for test_lfind8, performin
 
 ## Definition
 
-
+```c
+static void
+test_lfind8_internal(uint8 key)
+```
 ## Detailed Description
 This function thoroughly tests the pg_lfind8 function by creating test buffers filled with 0xFF values and placing the target key at specific positions. It performs two main test scenarios:
 

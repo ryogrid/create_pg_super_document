@@ -8,7 +8,12 @@ Writes an UPDATE message to the logical replication output stream, encoding both
 
 ## Definition
 
-
+```c
+void
+logicalrep_write_update(StringInfo out, TransactionId xid, Relation rel,
+						TupleTableSlot *oldslot, TupleTableSlot *newslot,
+						bool binary, Bitmapset *columns)
+```
 ## Detailed Description
 This function serializes an UPDATE operation into the logical replication wire protocol format. It handles different replica identity modes (DEFAULT, FULL, INDEX) and writes the appropriate tuple data for both old and new values. The function constructs the UPDATE message by writing:
 

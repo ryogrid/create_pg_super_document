@@ -8,7 +8,10 @@ Primary entry point for manual VACUUM and ANALYZE commands, serving as a prepara
 
 ## Definition
 
-
+```c
+void
+ExecVacuum(ParseState *pstate, VacuumStmt *vacstmt, bool isTopLevel)
+```
 ## Detailed Description
 ExecVacuum is the main preparation and coordination function for user-initiated VACUUM and ANALYZE commands. It parses the SQL statement's options, validates parameters, constructs the VacuumParams structure, and creates necessary memory contexts and buffer strategies before calling the core vacuum() function.
 

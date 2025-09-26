@@ -8,7 +8,10 @@ Validates that a page header and checksum appear correct when a page is read fro
 
 ## Definition
 
-
+```c
+bool
+PageIsVerifiedExtended(Page page, BlockNumber blkno, int flags)
+```
 ## Detailed Description
 PageIsVerifiedExtended performs comprehensive validation of a PostgreSQL page that has just been read from disk. The function serves as a first line of defense against data corruption by checking the page header structure, validating checksums (if enabled), and ensuring page boundaries are sensible before allowing the page into the buffer pool. It handles special cases like all-zero pages, which can legitimately exist due to system crashes during page extension. The function supports configurable error reporting through flags and can optionally ignore checksum failures in certain scenarios.
 

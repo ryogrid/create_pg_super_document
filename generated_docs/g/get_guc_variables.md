@@ -8,7 +8,9 @@ Retrieves all GUC (Grand Unified Configuration) variables from the hash table as
 
 ## Definition
 
-
+```c
+struct config_generic **result;
+```
 ## Detailed Description
 This function extracts all GUC configuration variables from the global  hash table and returns them as a dynamically allocated array of pointers. The function performs the following operations:
 

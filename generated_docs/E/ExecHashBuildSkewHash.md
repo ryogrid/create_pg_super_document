@@ -8,7 +8,10 @@ Sets up skew optimization for hash joins by creating specialized hash buckets fo
 
 ## Definition
 
-
+```c
+static void
+ExecHashBuildSkewHash(HashJoinTable hashtable, Hash *node, int mcvsToUse)
+```
 ## Detailed Description
 ExecHashBuildSkewHash implements a performance optimization technique for hash joins called "skew optimization." When the outer relation's join key has highly skewed data distribution (some values appear much more frequently than others), normal hash table performance can degrade due to bucket collisions and uneven distribution.
 

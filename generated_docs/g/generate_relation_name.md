@@ -8,7 +8,10 @@ Computes the properly qualified and quoted name to display for a relation specif
 
 ## Definition
 
-
+```c
+static char *
+generate_relation_name(Oid relid, List *namespaces)
+```
 ## Detailed Description
 This function generates a display-ready relation name by looking up the relation in the system catalog and applying appropriate qualification rules. It handles several important scenarios: (1) checks for conflicts with Common Table Expression (CTE) names in the provided namespace list, (2) determines if the relation needs schema qualification based on search path visibility, and (3) applies proper SQL identifier quoting. The function prioritizes avoiding name conflicts over brevity, ensuring generated SQL is unambiguous.
 

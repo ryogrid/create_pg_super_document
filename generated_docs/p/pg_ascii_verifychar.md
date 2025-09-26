@@ -8,7 +8,10 @@ Validates a single character in ASCII encoding by always returning 1, indicating
 
 ## Definition
 
-
+```c
+static int
+pg_ascii_verifychar(const unsigned char *s, int len)
+```
 ## Detailed Description
 This function is part of PostgreSQL's multibyte character validation system for different text encodings. For ASCII encoding, since every single byte (0-255) represents a valid character, the function simply returns 1 without examining the actual byte value. This is the simplest possible implementation of a character verification function, as ASCII is a single-byte encoding where each byte represents exactly one character.
 

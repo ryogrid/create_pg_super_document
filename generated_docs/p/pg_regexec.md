@@ -8,7 +8,9 @@ pg_regexec is the main entry point for executing regular expression matches agai
 
 ## Definition
 
-
+```c
+struct vars var;
+```
 ## Detailed Description
 pg_regexec performs regular expression matching by executing a compiled regular expression pattern against a target string. The function supports both simple matching and complex operations including backreference handling, subexpression capture, and lookahead/lookbehind constraints.
 

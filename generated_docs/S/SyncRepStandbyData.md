@@ -8,7 +8,21 @@ SyncRepStandbyData is a struct that represents data about a candidate synchronou
 
 ## Definition
 
-
+```c
+typedef struct SyncRepStandbyData
+{
+	/* Copies of relevant fields from WalSnd shared-memory struct */
+	pid_t		pid;
+	XLogRecPtr	write;
+	XLogRecPtr	flush;
+	XLogRecPtr	apply;
+	int			sync_standby_priority;
+	/* Index of this walsender in the WalSnd shared-memory array */
+	int			walsnd_index;
+	/* This flag indicates whether this struct is about our own process */
+	bool		is_me;
+} SyncRepStandbyData;
+```
 ## Detailed Description
 SyncRepStandbyData is a data structure that encapsulates information about a standby server that is a candidate for synchronous replication. This struct is returned by SyncRepGetCandidateStandbys() as an array, with one entry per candidate synchronous walsender. The struct copies relevant fields from the WalSnd shared-memory structure to provide a snapshot of the standby's replication status at a specific point in time. This allows the synchronous replication subsystem to make decisions about which standbys to wait for based on their current replication positions and priorities.
 

@@ -8,7 +8,10 @@ A convenience wrapper function for the Windows GetFileType() API that provides s
 
 ## Definition
 
-
+```c
+DWORD
+pgwin32_get_file_type(HANDLE hFile)
+```
 ## Detailed Description
 The  function serves as a robust wrapper around the Windows GetFileType() API, providing consistent error handling and validation for PostgreSQL's Windows-specific code. It returns the file type associated with a Windows HANDLE and properly handles error conditions that may arise when working with file handles.
 

@@ -8,7 +8,10 @@ Appends a TransactionId (XID) value to a PostgreSQL XidList data structure, retu
 
 ## Definition
 
-
+```c
+List *
+lappend_xid(List *list, TransactionId datum)
+```
 ## Detailed Description
 The  function is a specialized version of  designed specifically for transaction ID lists (T_XidList). It appends a TransactionId value to the end of an XidList, handling both empty lists (NIL) and existing lists with elements. Like other lappend variants, this function may or may not destructively modify the original list structure, so callers must use the returned value rather than the original list pointer.
 

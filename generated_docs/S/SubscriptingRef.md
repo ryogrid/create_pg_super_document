@@ -8,7 +8,34 @@ SubscriptingRef describes a subscripting operation over a container (such as arr
 
 ## Definition
 
+```c
+typedef struct SubscriptingRef
+{
+	Expr		xpr;
+	/* type of the container proper */
+	Oid			refcontainertype pg_node_attr(query_jumble_ignore);
+	/* the container type's pg_type.typelem */
+	Oid			refelemtype pg_node_attr(query_jumble_ignore);
+	/* type of the SubscriptingRef's result */
+	Oid			refrestype pg_node_attr(query_jumble_ignore);
+	/* typmod of the result */
+	int32		reftypmod pg_node_attr(query_jumble_ignore);
+	/* collation of result, or InvalidOid if none */
+	Oid			refcollid pg_node_attr(query_jumble_ignore);
+	/* expressions that evaluate to upper container indexes */
+	List	   *refupperindexpr;
 
+	/*
+	 * expressions that evaluate to lower container indexes, or NIL for single
+	 * container element.
+	 */
+	List	   *reflowerindexpr;
+	/* the expression that evaluates to a container value */
+	Expr	   *refexpr;
+	/* expression for the source value, or NULL if fetch */
+	Expr	   *refassgnexpr;
+} SubscriptingRef;
+```
 ## Detailed Description
 SubscriptingRef is a comprehensive expression node that handles all forms of subscripting operations on container types in PostgreSQL, primarily arrays but also other subscriptable types like JSONB. It supports four main operations: fetching single elements, fetching slices, storing single elements, and storing slices.
 

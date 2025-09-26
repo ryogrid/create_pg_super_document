@@ -8,7 +8,10 @@ Initializes the portal management module during backend startup by creating the 
 
 ## Definition
 
-
+```c
+void
+EnablePortalManager(void)
+```
 ## Detailed Description
 EnablePortalManager is a critical initialization function that sets up the portal management infrastructure in PostgreSQL. It creates two essential components: the TopPortalContext memory context for portal memory allocation and the PortalHashTable hash table for efficient portal lookup by name. This function must be called once during backend initialization before any portal operations can be performed.
 

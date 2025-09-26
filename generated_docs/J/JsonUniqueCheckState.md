@@ -8,7 +8,9 @@ JsonUniqueCheckState is a typedef for a hash table pointer (HTAB *) used to main
 
 ## Definition
 
-
+```c
+typedef struct HTAB *JsonUniqueCheckState;
+```
 ## Detailed Description
 JsonUniqueCheckState serves as the core data structure for PostgreSQL's fast JSON key uniqueness validation system. It's essentially a hash table that stores JSON object key names to quickly detect duplicate keys during JSON parsing and processing operations. This mechanism ensures JSON objects comply with the JSON specification requirement that object keys be unique, while providing O(1) average-case lookup performance for duplicate detection.
 

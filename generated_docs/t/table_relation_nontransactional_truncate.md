@@ -8,7 +8,10 @@ A table access method wrapper function that removes all contents from a relation
 
 ## Definition
 
-
+```c
+static inline void
+table_relation_nontransactional_truncate(Relation rel)
+```
 ## Detailed Description
 This function provides a high-level interface for performing non-transactional truncation of table contents. Unlike regular TRUNCATE operations, this function does not need to support rollback capabilities, making it suitable for operations on temporary storage or relations created within the current transaction where rollback semantics are not required.
 

@@ -8,7 +8,10 @@ ExecGetJunkAttribute is a static inline function that retrieves attribute values
 
 ## Definition
 
-
+```c
+static inline Datum
+ExecGetJunkAttribute(TupleTableSlot *slot, AttrNumber attno, bool *isNull)
+```
 ## Detailed Description
 ExecGetJunkAttribute provides a convenient interface for accessing junk attributes in tuple slots. Junk attributes are system-generated attributes that are not part of the user-visible tuple structure but are necessary for internal operations like row identification, system columns, or intermediate computation results. The function acts as a thin wrapper around slot_getattr, adding an assertion to ensure the attribute number is valid (greater than 0) and providing semantic clarity that this access is for junk attributes specifically.
 

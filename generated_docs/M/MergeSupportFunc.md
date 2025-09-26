@@ -8,7 +8,18 @@ MergeSupportFunc represents a merge support function expression that can only ap
 
 ## Definition
 
-
+```c
+typedef struct MergeSupportFunc
+{
+	Expr		xpr;
+	/* type Oid of result */
+	Oid			msftype;
+	/* OID of collation, or InvalidOid if none */
+	Oid			msfcollid;
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} MergeSupportFunc;
+```
 ## Detailed Description
 MergeSupportFunc is a specialized expression node designed specifically for PostgreSQL's MERGE statement. It represents support functions that provide metadata about the merge operation currently being executed. This structure can only be used within the RETURNING clause of MERGE commands and serves to expose internal merge operation state to the user.
 

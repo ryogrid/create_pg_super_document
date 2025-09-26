@@ -8,7 +8,14 @@ BitmapAndPath represents a BitmapAnd plan node that performs logical AND operati
 
 ## Definition
 
-
+```c
+typedef struct BitmapAndPath
+{
+	Path		path;
+	List	   *bitmapquals;	/* IndexPaths and BitmapOrPaths */
+	Selectivity bitmapselectivity;
+} BitmapAndPath;
+```
 ## Detailed Description
 BitmapAndPath represents a logical AND operation between multiple bitmap-generating paths in PostgreSQL's bitmap scan execution strategy. It can only appear as part of the substructure of a BitmapHeapPath and serves to combine multiple TID bitmaps using intersection logic.
 

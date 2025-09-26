@@ -8,7 +8,10 @@ Initializes the tuple counting state for a new group of input values in SetOp op
 
 ## Definition
 
-
+```c
+static inline void
+initialize_counts(SetOpStatePerGroup pergroup)
+```
 ## Detailed Description
 This function serves as a simple initialization routine for SetOp operations that need to track duplicate counts across input tuple groups. It resets the counting state stored in a SetOpStatePerGroup structure, which maintains separate counters for left-input and right-input duplicates within a group. This initialization is essential at the start of processing each new tuple group to ensure accurate duplicate counting for set operations like UNION, INTERSECT, and EXCEPT.
 

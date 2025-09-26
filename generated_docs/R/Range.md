@@ -8,7 +8,13 @@ Range is a simple structure used in PostgreSQL's geometric SP-GiST index impleme
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	Range		left;
+	Range		right;
+} RangeBox;
+```
 ## Detailed Description
 The Range structure is a fundamental building block for 2D geometric indexing operations in PostgreSQL's SP-GiST (Space-Partitioned Generalized Search Tree) implementation. It represents a one-dimensional interval defined by two floating-point boundaries. Range structures are primarily used as components of higher-level geometric structures like RangeBox, which combines two Range instances to represent 2D rectangular regions.
 

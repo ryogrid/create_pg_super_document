@@ -8,7 +8,19 @@ ApplyErrorCallbackArg is a structure used to save and restore error context info
 
 ## Definition
 
+```c
+typedef struct ApplyErrorCallbackArg
+{
+	LogicalRepMsgType command;	/* 0 if invalid */
+	LogicalRepRelMapEntry *rel;
 
+	/* Remote node information */
+	int			remote_attnum;	/* -1 if invalid */
+	TransactionId remote_xid;
+	XLogRecPtr	finish_lsn;
+	char	   *origin_name;
+} ApplyErrorCallbackArg;
+```
 ## Detailed Description
 ApplyErrorCallbackArg serves as a context container for error reporting during logical replication operations. When errors occur during the application of logical replication changes, this structure provides essential information about the failing operation, including the command type, target relation, remote transaction details, and replication origin. This enables the system to generate informative error messages that help diagnose replication issues by providing context about what operation was being performed and on which relation.
 

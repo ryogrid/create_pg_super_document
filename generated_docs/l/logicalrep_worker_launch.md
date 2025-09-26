@@ -8,7 +8,12 @@ Launches a new logical replication background worker of the specified type, hand
 
 ## Definition
 
-
+```c
+bool
+logicalrep_worker_launch(LogicalRepWorkerType wtype,
+						 Oid dbid, Oid subid, const char *subname, Oid userid,
+						 Oid relid, dsm_handle subworker_dsm)
+```
 ## Detailed Description
 logicalrep_worker_launch is the central function responsible for creating and starting logical replication workers. It handles three types of workers: apply workers (main subscription workers), parallel apply workers (for parallel processing), and table synchronization workers (for initial data sync). The function manages the complete worker lifecycle from slot allocation through process startup.
 

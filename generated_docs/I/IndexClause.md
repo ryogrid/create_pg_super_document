@@ -8,7 +8,19 @@ IndexClause is a structure that represents how a WHERE or JOIN clause can be app
 
 ## Definition
 
+```c
+typedef struct IndexClause
+{
+	pg_node_attr(no_copy_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+	struct RestrictInfo *rinfo; /* original restriction or join clause */
+	List	   *indexquals;		/* indexqual(s) derived from it */
+	bool		lossy;			/* are indexquals a lossy version of clause? */
+	AttrNumber	indexcol;		/* index column the clause uses (zero-based) */
+	List	   *indexcols;		/* multiple index columns, if RowCompare */
+} IndexClause;
+```
 ## Detailed Description
 IndexClause represents the mapping between query conditions and index usage during query planning. Each IndexClause references a RestrictInfo node from the query's WHERE or JOIN conditions and shows how that restriction can be applied to a particular index.
 

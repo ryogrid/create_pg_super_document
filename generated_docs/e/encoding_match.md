@@ -8,7 +8,13 @@ The  structure defines a mapping between PostgreSQL internal encoding identifier
 
 ## Definition
 
-
+```c
+struct encoding_match
+{
+	enum pg_enc pg_enc_code;
+	const char *system_enc_name;
+};
+```
 ## Detailed Description
 The  structure serves as a fundamental component in PostgreSQL's character encoding management system. It provides a bidirectional mapping table that allows the system to:
 

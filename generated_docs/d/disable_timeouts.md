@@ -8,7 +8,10 @@ Cancels multiple timeouts simultaneously, optimizing performance by reducing sys
 
 ## Definition
 
-
+```c
+void
+disable_timeouts(const DisableTimeoutParams *timeouts, int count)
+```
 ## Detailed Description
 This function provides an efficient way to disable multiple timeouts in a single operation, avoiding repeated calls to GetCurrentTimestamp() and setitimer() that would occur when canceling timeouts individually. It processes each timeout in the provided array, removing active timeouts from the timeout queue and optionally resetting their firing indicators based on the keep_indicator flag for each timeout.
 

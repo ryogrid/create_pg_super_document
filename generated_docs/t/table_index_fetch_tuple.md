@@ -8,7 +8,37 @@ Fetches a tuple at a specific TID as part of an index scan, performing visibilit
 
 ## Definition
 
+```c
+struct IndexFetchTableData *scan,
+						ItemPointer tid,
+						Snapshot snapshot,
+						TupleTableSlot *slot,
+						bool *call_again, bool *all_dead)
+{
+	/*
+	 * We don't expect direct calls to table_index_fetch_tuple with valid
+	 * CheckXidAlive for catalog or regular tables.  See detailed comments in
+	 * xact.c where these variables are declared.
+	 */
+	if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan))
+		elog(ERROR, "unexpected table_index_fetch_tuple call during logical decoding");
 
+	return scan->rel->rd_tableam->index_fetch_tuple(scan, tid, snapshot,
+													slot, call_again,
+													all_dead);
+}
+
+/*
+ * This is a convenience wrapper around table_index_fetch_tuple() which
+ * returns whether there are table tuple items corresponding to an index
+ * entry.  This likely is only useful to verify if there's a conflict in a
+ * unique index.
+ */
+extern bool table_index_fetch_tuple_check(Relation rel,
+										  ItemPointer tid,
+										  Snapshot snapshot,
+										  bool *all_dead);
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's index scanning mechanism within the table access method (tableam) interface. It retrieves a tuple identified by a tuple ID (TID) and tests its visibility according to the provided snapshot. The function is designed to handle advanced scenarios like PostgreSQL's Heap-Only Tuple (HOT) optimization, where multiple row versions can be reached through a single index entry.
 

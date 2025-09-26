@@ -8,7 +8,13 @@ The core function that implements regular expression-based text replacement in P
 
 ## Definition
 
-
+```c
+text *
+replace_text_regexp(text *src_text, text *pattern_text,
+					text *replace_text,
+					int cflags, Oid collation,
+					int search_start, int n)
+```
 ## Detailed Description
 This function performs regular expression search and replace operations on text strings. It supports advanced features including:
 

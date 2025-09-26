@@ -8,7 +8,11 @@ A wrapper function that provides error handling context and state management whe
 
 ## Definition
 
-
+```c
+static void
+commit_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+				  XLogRecPtr commit_lsn)
+```
 ## Detailed Description
 The  function serves as a critical wrapper around the actual commit callback in PostgreSQL's logical decoding system. It establishes proper error handling context, sets up output state for the logical decoding context, and then invokes the registered commit callback. This function ensures that any errors during commit processing are properly contextualized and that the logical decoding context is in the correct state for output generation.
 

@@ -8,7 +8,18 @@ CreateForeignServerStmt represents the parsed representation of a CREATE FOREIGN
 
 ## Definition
 
-
+```c
+typedef struct CreateForeignServerStmt
+{
+	NodeTag		type;
+	char	   *servername;		/* server name */
+	char	   *servertype;		/* optional server type */
+	char	   *version;		/* optional server version */
+	char	   *fdwname;		/* FDW name */
+	bool		if_not_exists;	/* just do nothing if it already exists? */
+	List	   *options;		/* generic options to server */
+} CreateForeignServerStmt;
+```
 ## Detailed Description
 CreateForeignServerStmt is a parse tree node that encapsulates the information needed to create a foreign server. A foreign server represents a connection to an external data source and is associated with a specific foreign data wrapper. This structure stores all the parsed components of the CREATE FOREIGN SERVER command, including server identification, connection parameters, and configuration options.
 

@@ -8,7 +8,10 @@ StandbyReleaseOldLocks selectively releases standby locks held by top-level tran
 
 ## Definition
 
-
+```c
+void
+StandbyReleaseOldLocks(TransactionId oldxid)
+```
 ## Detailed Description
 This function performs selective cleanup of recovery locks by releasing locks held by transactions that meet specific criteria: they must be older than the specified transaction ID, must not be running, and must not be prepared transactions. The function uses transaction ID precedence comparison to determine which locks are eligible for release.
 

@@ -8,7 +8,11 @@ LockTagHashCode computes the hash code for a given LOCKTAG structure, which is u
 
 ## Definition
 
-
+```c
+struct's address into the hash code, left-shifted so that the
+	 * partition-number bits don't change.  Since this is only a hash, we
+	 * don't care if we lose high-order bits of the address;
+```
 ## Detailed Description
 LockTagHashCode is a utility function that computes a hash value for a LOCKTAG structure using the PostgreSQL hash table infrastructure. The function delegates to get_hash_value() using the global LockMethodLockHash table to compute a consistent hash value for the given lock tag.
 

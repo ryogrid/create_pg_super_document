@@ -8,7 +8,27 @@ Sort is a plan node structure that represents sorting operations in PostgreSQL's
 
 ## Definition
 
+```c
+typedef struct Sort
+{
+	Plan		plan;
 
+	/* number of sort-key columns */
+	int			numCols;
+
+	/* their indexes in the target list */
+	AttrNumber *sortColIdx pg_node_attr(array_size(numCols));
+
+	/* OIDs of operators to sort them by */
+	Oid		   *sortOperators pg_node_attr(array_size(numCols));
+
+	/* OIDs of collations */
+	Oid		   *collations pg_node_attr(array_size(numCols));
+
+	/* NULLS FIRST/LAST directions */
+	bool	   *nullsFirst pg_node_attr(array_size(numCols));
+} Sort;
+```
 ## Detailed Description
 The Sort node is a fundamental plan node in PostgreSQL's execution framework that implements tuple sorting functionality. It inherits from the base Plan structure and extends it with sort-specific metadata. The Sort node maintains arrays of sort keys, operators, collations, and null handling directives that define how the sorting operation should be performed. This node is created by the planner when ORDER BY clauses, merge joins, or other operations require sorted input.
 

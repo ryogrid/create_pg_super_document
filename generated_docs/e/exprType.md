@@ -8,7 +8,10 @@ Returns the Oid of the type of the given expression's result, handling all Postg
 
 ## Definition
 
-
+```c
+structorExpr:
+			type = ((const JsonConstructorExpr *) expr)->returning->typid;
+```
 ## Detailed Description
 The  function is a central utility in PostgreSQL's expression handling system that determines the data type (as an Oid) of any expression node. It performs a comprehensive switch statement over all possible expression node types, extracting the appropriate type information from each node's type-specific fields.
 

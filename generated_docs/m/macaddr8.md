@@ -8,7 +8,19 @@ The  struct represents the internal storage format for 8-byte MAC addresses in P
 
 ## Definition
 
-
+```c
+typedef struct macaddr8
+{
+	unsigned char a;
+	unsigned char b;
+	unsigned char c;
+	unsigned char d;
+	unsigned char e;
+	unsigned char f;
+	unsigned char g;
+	unsigned char h;
+} macaddr8;
+```
 ## Detailed Description
 The  structure is PostgreSQL's internal representation for 8-byte MAC addresses, defined in . This structure extends the traditional 6-byte MAC address format to accommodate 64-bit Extended Unique Identifiers (EUI-64) used in modern networking protocols like IPv6 link-local addresses and some industrial networking standards.
 

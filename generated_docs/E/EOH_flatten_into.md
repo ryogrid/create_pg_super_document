@@ -8,7 +8,11 @@ A convenience function that invokes the flatten_into method of an expanded objec
 
 ## Definition
 
-
+```c
+void
+EOH_flatten_into(ExpandedObjectHeader *eohptr,
+				 void *result, Size allocated_size)
+```
 ## Detailed Description
 EOH_flatten_into is a wrapper function that provides a convenient interface for calling the type-specific flatten_into method of an expanded object. This method converts the expanded object from its in-memory expanded representation back to its flattened (disk/wire) format, storing the result in the provided buffer.
 

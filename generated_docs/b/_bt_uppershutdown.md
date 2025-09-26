@@ -8,7 +8,14 @@ A function that completes the B-tree index construction by finalizing all levels
 
 ## Definition
 
-
+```c
+struct the metapage and make it
+	 * point to the new root (unless we had no data at all, in which case it's
+	 * set to point to "P_NONE").  This changes the index to the "valid" state
+	 * by filling in a valid magic number in the metapage.
+	 */
+	metabuf = smgr_bulk_get_buf(wstate->bulkstate);
+```
 ## Detailed Description
 This function performs the final phase of B-tree index construction by traversing all levels of the partially constructed tree and completing the necessary operations to make it a valid, functional B-tree index.
 

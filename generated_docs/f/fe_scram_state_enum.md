@@ -8,7 +8,9 @@ An enumeration that tracks the state of the SCRAM authentication exchange proces
 
 ## Definition
 
-
+```c
+enum;
+```
 ## Detailed Description
 The  enumeration defines the four distinct states of the SCRAM (Salted Challenge Response Authentication Mechanism) authentication protocol exchange between a PostgreSQL client and server. This enum is used within the  structure to track progress through the multi-step SCRAM authentication handshake.
 

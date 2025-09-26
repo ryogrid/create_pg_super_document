@@ -8,7 +8,10 @@ FreeFile closes a file that was previously opened by AllocateFile and removes it
 
 ## Definition
 
-
+```c
+int
+FreeFile(FILE *file)
+```
 ## Detailed Description
 FreeFile is responsible for properly closing FILE handles that were allocated through PostgreSQL's file descriptor management system via AllocateFile. The function searches through the internal allocatedDescs array to find the descriptor corresponding to the provided file pointer. If found, it calls FreeDesc to properly clean up the descriptor and close the file. If the file was not obtained through AllocateFile, it logs a warning and attempts to close the file directly using fclose.
 

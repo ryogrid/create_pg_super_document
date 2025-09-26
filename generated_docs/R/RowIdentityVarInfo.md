@@ -8,7 +8,19 @@ RowIdentityVarInfo is a data structure that tracks row-identity "resjunk" column
 
 ## Definition
 
+```c
+typedef struct RowIdentityVarInfo
+{
+	pg_node_attr(no_copy_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+
+	Var		   *rowidvar;		/* Var to be evaluated (but varno=ROWID_VAR) */
+	int32		rowidwidth;		/* estimated average width */
+	char	   *rowidname;		/* name of the resjunk column */
+	Relids		rowidrels;		/* RTE indexes of target rels using this */
+} RowIdentityVarInfo;
+```
 ## Detailed Description
 This structure is used during query planning for UPDATE/DELETE/MERGE operations to manage row-identity columns efficiently. In partitioned tables, it's crucial to share row-identity columns whenever possible to avoid consuming too many targetlist columns. Each RowIdentityVarInfo will eventually generate one resjunk entry in the targetlist of the ModifyTable's subplan node.
 

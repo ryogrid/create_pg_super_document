@@ -8,7 +8,10 @@ StrategyFreeBuffer adds a buffer to the free list, making it available for immed
 
 ## Definition
 
-
+```c
+void
+StrategyFreeBuffer(BufferDesc *buf)
+```
 ## Detailed Description
 StrategyFreeBuffer puts a buffer onto the front of the free buffer list maintained by StrategyControl. The function operates under the protection of the buffer_strategy_lock spinlock to ensure thread-safe manipulation of the free list data structures.
 

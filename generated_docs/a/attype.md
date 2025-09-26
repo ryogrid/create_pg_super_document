@@ -8,7 +8,14 @@ A structure that represents a timezone transition point, containing the time of 
 
 ## Definition
 
-
+```c
+struct attype
+{
+	zic_t		at;
+	bool		dontmerge;
+	unsigned char type;
+}		   *attypes;
+```
 ## Detailed Description
 The  structure is used internally by the timezone compiler to represent transition points in timezone data. Each instance contains information about when a timezone transition occurs (), what timezone type it transitions to (), and whether this transition should be merged with adjacent ones (). The global  array holds all transitions for the timezone being processed and is dynamically allocated and sorted during timezone compilation.
 

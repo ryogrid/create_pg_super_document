@@ -8,7 +8,29 @@ WindowFuncRunCondition represents intermediate comparison expressions used by Wi
 
 ## Definition
 
+```c
+typedef struct WindowFuncRunCondition
+{
+	Expr		xpr;
 
+	/* PG_OPERATOR OID of the operator */
+	Oid			opno;
+	/* OID of collation that operator should use */
+	Oid			inputcollid pg_node_attr(query_jumble_ignore);
+
+	/*
+	 * true of WindowFunc belongs on the left of the resulting OpExpr or false
+	 * if the WindowFunc is on the right.
+	 */
+	bool		wfunc_left;
+
+	/*
+	 * The Expr being compared to the WindowFunc to use in the OpExpr in the
+	 * WindowAgg's runCondition
+	 */
+	Expr	   *arg;
+} WindowFuncRunCondition;
+```
 ## Detailed Description
 WindowFuncRunCondition is an optimization structure used by the PostgreSQL query executor to enable early termination of window function computation. When the optimizer can determine that a window function's result will not change based on certain conditions, it can create these run conditions to short-circuit the execution process.
 

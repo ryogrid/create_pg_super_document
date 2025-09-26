@@ -8,7 +8,9 @@ Initializes a slab allocation arena with a specified number of slots for efficie
 
 ## Definition
 
-
+```c
+enum;
+```
 ## Detailed Description
 The  function sets up a slab-based memory allocation system used during merge operations in PostgreSQL's external sort algorithm. The function creates a contiguous block of memory divided into fixed-size slots and maintains a free list for efficient allocation and deallocation.
 

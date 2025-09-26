@@ -8,7 +8,10 @@ A static function that supplies data to a BlockRefTableBuffer for writing to the
 
 ## Definition
 
-
+```c
+static void
+BlockRefTableWrite(BlockRefTableBuffer *buffer, void *data, int length)
+```
 ## Detailed Description
 BlockRefTableWrite is a low-level I/O function that manages buffered writing for block reference table data. It implements an efficient buffering strategy that:
 

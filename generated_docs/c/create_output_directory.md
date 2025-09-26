@@ -8,7 +8,9 @@ Creates an output directory for pg_combinebackup operations, ensuring it exists 
 
 ## Definition
 
-
+```c
+structs full backups from incrementals.\n\n"), progname);
+```
 ## Detailed Description
 This function is responsible for creating and validating output directories used by the pg_combinebackup utility. It performs several key operations:
 

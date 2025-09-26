@@ -8,7 +8,15 @@ JsonReturning represents the transformed representation of a JSON RETURNING clau
 
 ## Definition
 
-
+```c
+typedef struct JsonReturning
+{
+	NodeTag		type;
+	JsonFormat *format;			/* output JSON format */
+	Oid			typid;			/* target type Oid */
+	int32		typmod;			/* target type modifier */
+} JsonReturning;
+```
 ## Detailed Description
 JsonReturning is a node structure that encapsulates the specifications for how JSON results should be returned from JSON operations. It serves as the internal representation of SQL JSON RETURNING clauses, containing information about the desired output format and the target data type for the result.
 

@@ -8,7 +8,11 @@ TS_execute_ternary evaluates tsquery boolean expressions and returns the full te
 
 ## Definition
 
-
+```c
+TSTernaryValue
+TS_execute_ternary(QueryItem *curitem, void *arg, uint32 flags,
+				   TSExecuteCallback chkcond)
+```
 ## Detailed Description
 This function provides an alternative interface to TS_execute that preserves the full semantic range of tsquery execution results. Unlike TS_execute which converts TS_MAYBE to true, this function returns the complete TSTernaryValue result from the underlying recursive execution.
 

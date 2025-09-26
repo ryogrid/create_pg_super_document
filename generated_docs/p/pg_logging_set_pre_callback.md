@@ -8,7 +8,10 @@ Sets a callback function to be executed before each log message is output in Pos
 
 ## Definition
 
-
+```c
+void
+pg_logging_set_pre_callback(void (*cb) (void))
+```
 ## Detailed Description
 This function allows registration of a callback that will be invoked before each log message is formatted and output. The callback function receives no parameters and returns no value. This mechanism is useful for performing setup operations, synchronization, or state management before log output occurs. The callback is stored in the global variable  and will be called by  before processing each log message.
 

@@ -8,7 +8,18 @@ The nullingrel_info struct tracks which outer joins potentially null each relati
 
 ## Definition
 
-
+```c
+typedef struct nullingrel_info
+{
+	/*
+	 * For each leaf RTE, nullingrels[rti] is the set of relids of outer joins
+	 * that potentially null that RTE.
+	 */
+	Relids	   *nullingrels;
+	/* Length of range table (maximum index in nullingrels[]) */
+	int			rtlength;		/* used only for assertion checks */
+} nullingrel_info;
+```
 ## Detailed Description
 The nullingrel_info structure is a critical component of PostgreSQL's query optimization system that maintains information about outer join nulling relationships. It provides a mapping from each relation in the range table to the set of outer joins that might cause that relation's columns to become NULL in the query result.
 

@@ -8,7 +8,11 @@ FileWriteV performs vectored (gather) I/O write operations on a file, allowing m
 
 ## Definition
 
-
+```c
+ssize_t
+FileWriteV(File file, const struct iovec *iov, int iovcnt, off_t offset,
+		   uint32 wait_event_info)
+```
 ## Detailed Description
 FileWriteV implements vectored I/O writing for PostgreSQL's virtual file descriptor system. This function allows writing data from multiple non-contiguous memory buffers to a file in a single system call, which is significantly more efficient than multiple separate write operations.
 

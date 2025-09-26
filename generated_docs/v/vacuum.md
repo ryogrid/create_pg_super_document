@@ -8,7 +8,11 @@ Internal entry point for autovacuum and the VACUUM/ANALYZE commands that orchest
 
 ## Definition
 
-
+```c
+void
+vacuum(List *relations, VacuumParams *params, BufferAccessStrategy bstrategy,
+	   MemoryContext vac_context, bool isTopLevel)
+```
 ## Detailed Description
 The vacuum function serves as the core orchestration layer for both user-initiated and automatic vacuum/analyze operations. It handles transaction management, relation list processing, and coordinates the execution of vacuum and analyze operations across multiple relations.
 

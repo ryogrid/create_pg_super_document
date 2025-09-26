@@ -8,7 +8,10 @@ Computes the set of all parent relation IDs for an appendrel child relation, han
 
 ## Definition
 
-
+```c
+Relids
+find_childrel_parents(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 The  function traverses the appendrel hierarchy to collect all parent relation IDs for a given child relation. Since appendrels can be nested (a child relation can itself be a parent to other child relations), this function recursively walks up the hierarchy to find all ancestors.
 

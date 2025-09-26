@@ -8,7 +8,10 @@ A simple utility function that outputs a specified number of filler characters t
 
 ## Definition
 
-
+```c
+static void
+fill(int length, int max, char filler, FILE *fp)
+```
 ## Detailed Description
 The  function is a straightforward utility that provides character padding functionality in PostgreSQL's libpq printing system. It calculates how many filler characters are needed to reach a target width and outputs them to the specified file stream. The function is designed to support text alignment and formatting by filling gaps with repeated characters.
 

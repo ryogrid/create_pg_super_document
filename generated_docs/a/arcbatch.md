@@ -8,7 +8,14 @@ The  structure is used for bulk allocation of arc structures in PostgreSQL's reg
 
 ## Definition
 
-
+```c
+struct arcbatch
+{								/* for bulk allocation of arcs */
+	struct arcbatch *next;		/* chain link */
+	size_t		narcs;			/* number of arcs allocated in this arcbatch */
+	struct arc	a[FLEXIBLE_ARRAY_MEMBER];
+};
+```
 ## Detailed Description
 The  structure implements a memory pool mechanism for efficiently allocating multiple arc structures at once. This approach reduces memory fragmentation and allocation overhead when creating many arcs for regular expression NFAs. The structure uses a linked list design where each batch can hold a variable number of arc structures, with the actual arcs stored in a flexible array member at the end of the structure.
 

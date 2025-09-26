@@ -8,7 +8,14 @@ StatsElem represents a single column or expression element within a CREATE STATI
 
 ## Definition
 
-
+```c
+typedef struct StatsElem
+{
+	NodeTag		type;
+	char	   *name;			/* name of attribute to index, or NULL */
+	Node	   *expr;			/* expression to index, or NULL */
+} StatsElem;
+```
 ## Detailed Description
 StatsElem is a parse tree node that represents individual elements (columns or expressions) in a CREATE STATISTICS statement's target list. It can represent either a simple column reference by name or a complex expression. The structure follows a mutually exclusive pattern where exactly one of 'name' or 'expr' is non-NULL, determining whether the element refers to a table column or a computed expression.
 

@@ -8,7 +8,10 @@ Searches the logical replication worker array to find all workers associated wit
 
 ## Definition
 
-
+```c
+List *
+logicalrep_workers_find(Oid subid, bool only_running)
+```
 ## Detailed Description
 logicalrep_workers_find performs a comprehensive search through the global logical replication worker array to collect all workers belonging to a specified subscription. Unlike logicalrep_worker_find which returns only the first matching worker, this function builds and returns a complete list of all workers associated with the given subscription ID.
 

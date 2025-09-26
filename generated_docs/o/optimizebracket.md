@@ -8,7 +8,12 @@ Optimizes bracket expressions by converting certain patterns (like "[\s\S]") int
 
 ## Definition
 
-
+```c
+static void
+optimizebracket(struct vars *v,
+				struct state *lp,
+				struct state *rp)
+```
 ## Detailed Description
 The optimizebracket function analyzes bracket expressions in regular expressions to identify cases where all possible colors (character classes) are covered by the expression. When such patterns are detected, the function replaces multiple individual arcs with a single RAINBOW arc, which is more efficient to process. This optimization is particularly useful for patterns like "[\s\S]" which effectively match any character but are written in a verbose form common in some regex flavors.
 

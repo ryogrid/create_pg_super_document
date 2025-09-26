@@ -8,7 +8,10 @@ LockReleaseSession releases all session locks of a specified lock method that ar
 
 ## Definition
 
-
+```c
+void
+LockReleaseSession(LOCKMETHODID lockmethodid)
+```
 ## Detailed Description
 This function iterates through the local lock hash table and releases all session locks held by the current process that belong to the specified lock method. It uses a hash sequence scan to traverse all LOCALLOCK entries, filtering for those matching the specified lock method ID, and calls ReleaseLockIfHeld to release each qualifying lock. The function validates that the provided lock method ID is within valid bounds before proceeding.
 

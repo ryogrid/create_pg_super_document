@@ -8,7 +8,13 @@ TupOutputState is a simple state structure used to manage tuple output operation
 
 ## Definition
 
-
+```c
+typedef struct TupOutputState
+{
+	TupleTableSlot *slot;
+	DestReceiver *dest;
+} TupOutputState;
+```
 ## Detailed Description
 TupOutputState serves as a lightweight wrapper that combines a TupleTableSlot and a DestReceiver to facilitate tuple output operations. This structure is primarily used by utility commands (such as EXPLAIN and SHOW ALL) that need to project results directly to a destination without requiring full table function capabilities.
 

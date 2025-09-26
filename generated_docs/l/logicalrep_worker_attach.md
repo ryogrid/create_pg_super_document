@@ -8,7 +8,10 @@ Attaches the current process to a specified logical replication worker slot, est
 
 ## Definition
 
-
+```c
+void
+logicalrep_worker_attach(int slot)
+```
 ## Detailed Description
 This function is responsible for safely attaching a logical replication worker process to a designated slot in the shared memory worker array. It performs critical validation to ensure the slot is available and not already in use by another process. The function operates under exclusive locking to prevent race conditions during the attachment process.
 

@@ -8,7 +8,13 @@ A structure that represents a contiguous range of Unicode codepoints, used for e
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	uint8		category;
+	uint8		properties;
+} pg_unicode_properties;
+```
 ## Detailed Description
 The  structure is a fundamental building block in PostgreSQL's Unicode character classification system. It defines a range of Unicode codepoints from  to 
 wtmp begins Sun Aug 20 19:22:10 2023 (inclusive), allowing efficient representation of contiguous blocks of Unicode characters that share common properties.

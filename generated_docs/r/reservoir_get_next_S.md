@@ -8,7 +8,10 @@ Computes the number of records to skip before selecting the next record in Vitte
 
 ## Definition
 
-
+```c
+double
+reservoir_get_next_S(ReservoirState rs, double t, int n)
+```
 ## Detailed Description
 reservoir_get_next_S implements the core logic of Vitter's Algorithm Z for reservoir sampling. The function determines S, the count of records to skip before processing the next record, based on the current number of records read (t) and the desired sample size (n).
 

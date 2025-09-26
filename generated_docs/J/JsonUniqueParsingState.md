@@ -8,7 +8,16 @@ JsonUniqueParsingState is a comprehensive context structure that manages all sta
 
 ## Definition
 
-
+```c
+typedef struct JsonUniqueParsingState
+{
+	JsonLexContext *lex;
+	JsonUniqueCheckState check;
+	JsonUniqueStackEntry *stack;
+	int			id_counter;
+	bool		unique;
+} JsonUniqueParsingState;
+```
 ## Detailed Description
 JsonUniqueParsingState serves as the central coordination structure for PostgreSQL's JSON key uniqueness checking system during parsing operations. It integrates lexical analysis, hash-based key tracking, hierarchical scope management, and validation state into a single cohesive unit. This structure enables comprehensive duplicate key detection across nested JSON objects while maintaining efficient O(1) key lookup performance.
 

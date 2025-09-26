@@ -8,7 +8,10 @@ Sets a custom SQL error code for GUC check hook failures, allowing hooks to over
 
 ## Definition
 
-
+```c
+void
+GUC_check_errcode(int sqlerrcode)
+```
 ## Detailed Description
 GUC_check_errcode is a utility function designed for use within GUC check hooks that need to report specific SQL error codes when parameter validation fails. By default, failed GUC validations result in ERRCODE_INVALID_PARAMETER_VALUE, but this function allows check hooks to specify more appropriate error codes for their specific validation failures.
 

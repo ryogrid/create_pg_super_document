@@ -8,7 +8,10 @@ ClockSweepTick is a helper function for the buffer management clock sweep algori
 
 ## Definition
 
-
+```c
+static inline uint32
+ClockSweepTick(void)
+```
 ## Detailed Description
 ClockSweepTick implements the core mechanism of PostgreSQL's clock sweep buffer replacement algorithm. It atomically increments the nextVictimBuffer counter in StrategyControl to move the clock hand forward by one buffer position. The function handles wraparound when the counter exceeds NBuffers, ensuring the returned buffer ID is always valid within the buffer pool range.
 

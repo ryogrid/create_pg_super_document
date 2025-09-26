@@ -8,7 +8,11 @@ Recursively traverses a join tree structure to extract the set of range table (R
 
 ## Definition
 
-
+```c
+Relids
+get_relids_in_jointree(Node *jtnode, bool include_outer_joins,
+					   bool include_inner_joins)
+```
 ## Detailed Description
 This function performs a recursive traversal of PostgreSQL's join tree structure to collect all relation IDs (relids) present within the tree. The join tree is a hierarchical representation of the FROM clause in SQL queries, containing base relations, subqueries, and various types of joins.
 

@@ -8,7 +8,10 @@ Calculates and returns the number of blocks in the supplied storage manager rela
 
 ## Definition
 
-
+```c
+BlockNumber
+smgrnblocks(SMgrRelation reln, ForkNumber forknum)
+```
 ## Detailed Description
 The  function determines the total number of blocks in a specified fork of a storage manager relation. It implements a two-tier approach for efficiency: first checking if a cached value exists using , and if not found, delegating to the storage manager's implementation through the  dispatch table. The result is cached in the relation structure () to avoid repeated expensive disk operations for subsequent queries to the same relation fork.
 

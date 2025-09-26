@@ -8,7 +8,10 @@ int64_multiply_add is a utility function that safely performs multiplication and
 
 ## Definition
 
-
+```c
+static bool
+int64_multiply_add(int64 val, int64 multiplier, int64 *sum)
+```
 ## Detailed Description
 int64_multiply_add implements a safe arithmetic operation that computes `val * multiplier + *sum` and stores the result back in `*sum`. The function provides overflow protection by using PostgreSQL's safe arithmetic functions that detect overflow conditions.
 

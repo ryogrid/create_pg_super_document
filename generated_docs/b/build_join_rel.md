@@ -8,7 +8,10 @@ Creates and initializes a RelOptInfo structure representing the join of two rela
 
 ## Definition
 
-
+```c
+union(outer_rel->direct_lateral_relids,
+				  inner_rel->direct_lateral_relids);
+```
 ## Detailed Description
 This function is the central hub for creating join relations in PostgreSQL's query optimizer. It first checks if a join relation for the given set of base relations already exists using . If found, it only needs to compute the restrictlist for the specific pair of relations. If not found, it creates a new  node of type  and initializes all its fields.
 

@@ -8,7 +8,10 @@ The  function implements the "greater than or equal to" comparison operation for
 
 ## Definition
 
-
+```c
+Datum
+namege(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs a "greater than or equal to" comparison between two  values using locale-aware collation. It extracts two  arguments from the function call context, delegates the actual comparison to the  function with the current collation setting, and returns true if the first argument is greater than or equal to the second argument according to the collation rules.
 

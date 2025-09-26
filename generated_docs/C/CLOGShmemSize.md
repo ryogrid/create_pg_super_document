@@ -8,7 +8,10 @@ Calculates the total shared memory size required for the Commit Log (CLOG) subsy
 
 ## Definition
 
-
+```c
+Size
+CLOGShmemSize(void)
+```
 ## Detailed Description
 CLOGShmemSize is a simple wrapper function that calculates the total amount of shared memory needed for the CLOG (Commit Log) subsystem. It delegates the actual calculation to SimpleLruShmemSize, which is the generic SLRU (Simple Least-Recently-Used) shared memory size calculator.
 

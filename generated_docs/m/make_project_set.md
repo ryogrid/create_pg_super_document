@@ -8,7 +8,11 @@ Creates and initializes a ProjectSet plan node, which is used to handle set-retu
 
 ## Definition
 
-
+```c
+static ProjectSet *
+make_project_set(List *tlist,
+				 Plan *subplan)
+```
 ## Detailed Description
 The  function constructs a ProjectSet plan node used in PostgreSQL's query execution to handle set-returning functions. A ProjectSet node is responsible for executing functions that can return multiple rows for each input row, such as unnest() or generate_series(). The function initializes the basic Plan structure within the ProjectSet node, setting up the target list and connecting it to its subplan in the execution tree.
 

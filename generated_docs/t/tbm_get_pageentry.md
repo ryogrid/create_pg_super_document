@@ -8,7 +8,10 @@ Finds or creates a PagetableEntry for a specified page number in a TID bitmap, m
 
 ## Definition
 
-
+```c
+static PagetableEntry *
+tbm_get_pageentry(TIDBitmap *tbm, BlockNumber pageno)
+```
 ## Detailed Description
 This function is a core internal utility for TID bitmap management that handles finding an existing PagetableEntry or creating a new one for a given page number. It manages the dynamic transitions between different bitmap states:
 

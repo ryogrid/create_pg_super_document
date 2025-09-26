@@ -8,7 +8,36 @@ SubscriptingRefState provides workspace and state management for container subsc
 
 ## Definition
 
+```c
+typedef struct SubscriptingRefState
+{
+	bool		isassignment;	/* is it assignment, or just fetch? */
 
+	/* workspace for type-specific subscripting code */
+	void	   *workspace;
+
+	/* numupper and upperprovided[] are filled at expression compile time */
+	/* at runtime, subscripts are computed in upperindex[]/upperindexnull[] */
+	int			numupper;
+	bool	   *upperprovided;	/* indicates if this position is supplied */
+	Datum	   *upperindex;
+	bool	   *upperindexnull;
+
+	/* similarly for lower indexes, if any */
+	int			numlower;
+	bool	   *lowerprovided;
+	Datum	   *lowerindex;
+	bool	   *lowerindexnull;
+
+	/* for assignment, new value to assign is evaluated into here */
+	Datum		replacevalue;
+	bool		replacenull;
+
+	/* if we have a nested assignment, sbs_fetch_old puts old value here */
+	Datum		prevvalue;
+	bool		prevnull;
+} SubscriptingRefState;
+```
 ## Detailed Description
 SubscriptingRefState manages the execution state for container subscripting operations in PostgreSQL, handling both simple indexing (e.g., array[1]) and slice operations (e.g., array[1:3]). The structure supports both fetch operations (retrieving values) and assignment operations (setting values).
 

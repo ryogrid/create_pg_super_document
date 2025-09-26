@@ -8,7 +8,13 @@ A structure representing a node in a doubly-linked list of PostgreSQL processes,
 
 ## Definition
 
-
+```c
+typedef struct proclist_node
+{
+	ProcNumber	next;			/* pgprocno of the next PGPROC */
+	ProcNumber	prev;			/* pgprocno of the prev PGPROC */
+} proclist_node;
+```
 ## Detailed Description
 The  structure implements a doubly-linked list node for managing PostgreSQL processes. Instead of using traditional memory pointers, it uses  values (0-based PGPROC indexes) to reference the next and previous nodes in the list. This approach provides several advantages:
 

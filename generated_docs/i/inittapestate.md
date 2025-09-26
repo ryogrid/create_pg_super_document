@@ -8,7 +8,10 @@ Initializes generic tape management state by calculating and allocating memory s
 
 ## Definition
 
-
+```c
+static void
+inittapestate(Tuplesortstate *state, int maxTapes)
+```
 ## Detailed Description
 The  function is responsible for setting up the infrastructure needed for tape-based external sorting in PostgreSQL. It performs two main tasks:
 

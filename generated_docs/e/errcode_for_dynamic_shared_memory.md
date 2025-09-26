@@ -8,7 +8,10 @@ Maps errno values from dynamic shared memory operations to appropriate PostgreSQ
 
 ## Definition
 
-
+```c
+static int
+errcode_for_dynamic_shared_memory(void)
+```
 ## Detailed Description
 The  function provides a centralized mechanism for translating system error codes (errno values) into PostgreSQL's standardized error code system specifically for dynamic shared memory operations. This ensures consistent error reporting across all DSM implementations.
 

@@ -8,7 +8,11 @@ Writes the next fragment into a PageData structure's delta buffer, storing the o
 
 ## Definition
 
-
+```c
+static void
+writeFragment(PageData *pageData, OffsetNumber offset, OffsetNumber length,
+			  const char *data)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's generic WAL logging mechanism. It appends a fragment (representing a contiguous modified region of a page) to the delta buffer within a PageData structure. The fragment consists of three parts written sequentially: the offset within the page, the length of the modified data, and the actual data bytes. This compact format allows efficient storage and reconstruction of page modifications during WAL replay.
 

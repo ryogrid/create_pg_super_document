@@ -8,7 +8,10 @@ A safe string copying function that provides bounds-checking and guaranteed null
 
 ## Definition
 
-
+```c
+size_t
+strlcpy(char *dst, const char *src, size_t siz)
+```
 ## Detailed Description
 The strlcpy function copies strings with a focus on preventing buffer overflows and ensuring proper null termination. Unlike strcpy (which is unsafe) and strncpy (which doesn't guarantee null termination), strlcpy provides a reliable interface for string copying operations.
 

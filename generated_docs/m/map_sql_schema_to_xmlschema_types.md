@@ -8,7 +8,11 @@ Maps an SQL schema to XML Schema data types according to the SQL/XML:2008 sectio
 
 ## Definition
 
-
+```c
+static const char *
+map_sql_schema_to_xmlschema_types(Oid nspid, List *relid_list, bool nulls,
+								  bool tableforest, const char *targetns)
+```
 ## Detailed Description
 This function generates XML Schema definitions for a PostgreSQL schema by creating complex type definitions that represent the schema structure. It processes a list of relation IDs within the specified namespace and generates appropriate XML Schema elements and types. The function creates a schema-level complex type that contains elements for each table/relation in the schema.
 

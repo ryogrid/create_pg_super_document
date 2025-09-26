@@ -8,7 +8,17 @@ The  struct represents the internal storage format for MAC (Media Access Control
 
 ## Definition
 
-
+```c
+typedef struct macaddr
+{
+	unsigned char a;
+	unsigned char b;
+	unsigned char c;
+	unsigned char d;
+	unsigned char e;
+	unsigned char f;
+} macaddr;
+```
 ## Detailed Description
 The  structure is PostgreSQL's internal representation for MAC addresses, defined in . This structure stores a standard 6-byte MAC address as six individual unsigned char fields (a through f), corresponding to the six octets of a MAC address in the format . The structure provides the foundation for PostgreSQL's  data type, enabling storage, comparison, and manipulation of MAC addresses within the database system.
 

@@ -8,7 +8,10 @@ Transforms Boolean test expressions (IS TRUE, IS FALSE, IS UNKNOWN, etc.) during
 
 ## Definition
 
-
+```c
+static Node *
+transformBooleanTest(ParseState *pstate, BooleanTest *b)
+```
 ## Detailed Description
 The  function processes Boolean test expressions during the parsing phase. It handles six types of Boolean tests: IS TRUE, IS NOT TRUE, IS FALSE, IS NOT FALSE, IS UNKNOWN, and IS NOT UNKNOWN. The function first determines the appropriate clause name for error reporting based on the test type, then recursively transforms the argument expression and coerces it to boolean type.
 

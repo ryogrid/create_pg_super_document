@@ -8,7 +8,10 @@ A Windows-specific implementation of the POSIX pthread_self() function that retu
 
 ## Definition
 
-
+```c
+DWORD
+pthread_self(void)
+```
 ## Detailed Description
 This function provides a Windows-compatible implementation of the POSIX pthread_self() function. It's part of PostgreSQL's compatibility layer for Windows threading, allowing PostgreSQL code to use standard POSIX threading APIs on Windows platforms. The function simply wraps the Windows API GetCurrentThreadId() function to return the unique identifier of the currently executing thread.
 

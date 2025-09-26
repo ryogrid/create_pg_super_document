@@ -8,7 +8,9 @@ Recursively copies a directory and its contents from one location to another, wi
 
 ## Definition
 
-
+```c
+struct dirent *xlde;
+```
 ## Detailed Description
 The  function provides a robust directory copying mechanism used primarily for database operations like CREATE DATABASE and database relocation. It performs a two-phase copy operation: first copying all files and directories, then ensuring data integrity through strategic filesystem synchronization.
 

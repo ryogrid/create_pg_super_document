@@ -8,7 +8,9 @@ JsonPathParseItem is a data structure used during JSON path expression parsing t
 
 ## Definition
 
-
+```c
+typedef struct JsonPathParseItem JsonPathParseItem;
+```
 ## Detailed Description
 JsonPathParseItem is a versatile structure that serves as the fundamental building block for representing parsed JSON path expressions. It uses a union to efficiently store different types of path items, from simple scalars to complex operators and array indexing operations. The structure forms a linked list through the 'next' pointer, allowing representation of sequential path operations. This design supports the full range of JSON path functionality including filter expressions, array slicing, regular expression matching, and logical operations.
 

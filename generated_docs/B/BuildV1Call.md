@@ -8,7 +8,13 @@ Generates LLVM IR code to call a PostgreSQL function through the FunctionCallInf
 
 ## Definition
 
-
+```c
+struct_gep(b,
+									StructFunctionCallInfoData,
+									v_fcinfo,
+									FIELDNO_FUNCTIONCALLINFODATA_ISNULL,
+									"v_fcinfo_isnull");
+```
 ## Detailed Description
 This function is a crucial component of PostgreSQL's LLVM JIT compilation system, responsible for generating LLVM IR code that calls PostgreSQL functions using the version-1 calling convention. The function performs several important tasks:
 

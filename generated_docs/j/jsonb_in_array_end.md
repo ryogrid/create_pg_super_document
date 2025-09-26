@@ -8,7 +8,10 @@ A callback function used during JSONB parsing to handle the end of JSON arrays, 
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+jsonb_in_array_end(void *pstate)
+```
 ## Detailed Description
 This function serves as a callback handler in the JSONB input parsing pipeline. When the JSON parser encounters the end of an array (']' character), this function is invoked to finalize the array parsing process. It pushes a WJB_END_ARRAY token onto the JSONB parse state stack, which signals the completion of array parsing and triggers the finalization of the parsed array structure.
 

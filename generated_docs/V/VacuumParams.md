@@ -8,7 +8,32 @@ VacuumParams is a configuration structure that customizes the behavior of Postgr
 
 ## Definition
 
+```c
+typedef struct VacuumParams
+{
+	bits32		options;		/* bitmask of VACOPT_* */
+	int			freeze_min_age; /* min freeze age, -1 to use default */
+	int			freeze_table_age;	/* age at which to scan whole table */
+	int			multixact_freeze_min_age;	/* min multixact freeze age, -1 to
+											 * use default */
+	int			multixact_freeze_table_age; /* multixact age at which to scan
+											 * whole table */
+	bool		is_wraparound;	/* force a for-wraparound vacuum */
+	int			log_min_duration;	/* minimum execution threshold in ms at
+									 * which autovacuum is logged, -1 to use
+									 * default */
+	VacOptValue index_cleanup;	/* Do index vacuum and cleanup */
+	VacOptValue truncate;		/* Truncate empty pages at the end */
+	Oid			toast_parent;	/* for privilege checks when recursing */
 
+	/*
+	 * The number of parallel vacuum workers.  0 by default which means choose
+	 * based on the number of indexes.  -1 indicates parallel vacuum is
+	 * disabled.
+	 */
+	int			nworkers;
+} VacuumParams;
+```
 ## Detailed Description
 VacuumParams serves as the central configuration structure for both VACUUM and ANALYZE operations in PostgreSQL. It encapsulates all customizable parameters that control various aspects of these maintenance operations, including:
 

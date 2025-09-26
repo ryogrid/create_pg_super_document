@@ -8,7 +8,10 @@ A static function that removes a relation fork by truncating and unlinking its s
 
 ## Definition
 
-
+```c
+static void
+mdunlinkfork(RelFileLocatorBackend rlocator, ForkNumber forknum, bool isRedo)
+```
 ## Detailed Description
 The `mdunlinkfork` function is responsible for completely removing a relation fork from the filesystem. It operates in two phases: first handling the main segment (segment 0), then iterating through and removing all additional segments. The function implements different strategies based on the execution context - during recovery (`isRedo`), binary upgrade, or for non-main forks, it immediately unlinks files, while for main forks during normal operation, it may defer the unlink operation using the unlink scheduling mechanism. For each segment, it first truncates the file to prevent other backends from holding onto disk space, then either unlinks immediately or schedules the unlink for later execution.
 

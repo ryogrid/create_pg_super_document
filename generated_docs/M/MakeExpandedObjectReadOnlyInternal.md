@@ -8,7 +8,10 @@ Converts a read-write expanded object Datum to its read-only equivalent, or retu
 
 ## Definition
 
-
+```c
+Datum
+MakeExpandedObjectReadOnlyInternal(Datum d)
+```
 ## Detailed Description
 MakeExpandedObjectReadOnlyInternal is responsible for converting read-write expanded object references to read-only references. This conversion is important for maintaining data integrity when passing expanded objects to contexts where they should not be modified.
 

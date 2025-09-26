@@ -8,7 +8,10 @@ A comprehensive test function that validates the correctness of the rbt_delete()
 
 ## Definition
 
-
+```c
+static void
+testdelete(int size, int delsize)
+```
 ## Detailed Description
 This test function performs thorough validation of Red-Black Tree deletion functionality through a multi-phase testing approach:
 

@@ -8,7 +8,14 @@ A parse node structure representing the ALTER DATABASE SET statement, used to al
 
 ## Definition
 
-
+```c
+typedef struct AlterDatabaseSetStmt
+{
+	NodeTag		type;
+	char	   *dbname;			/* database name */
+	VariableSetStmt *setstmt;	/* SET or RESET subcommand */
+} AlterDatabaseSetStmt;
+```
 ## Detailed Description
 AlterDatabaseSetStmt is a parse node structure that represents an ALTER DATABASE SET SQL statement. This structure is created during parsing of SQL commands like "ALTER DATABASE mydb SET work_mem = '256MB'" or "ALTER DATABASE mydb RESET ALL". The statement allows setting or resetting configuration parameters for a specific database, which will affect all future sessions connecting to that database.
 

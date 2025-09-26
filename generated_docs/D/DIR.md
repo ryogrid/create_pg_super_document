@@ -8,7 +8,14 @@ The DIR structure provides a Windows-compatible implementation of directory read
 
 ## Definition
 
-
+```c
+struct DIR
+{
+	char	   *dirname;
+	struct dirent ret;			/* Used to return to caller */
+	HANDLE		handle;
+};
+```
 ## Detailed Description
 The DIR structure is a PostgreSQL-specific implementation of the POSIX DIR type for Windows compatibility. It maintains the state necessary for directory traversal operations on Windows systems, where the native FindFirstFile/FindNextFile API is used instead of the POSIX opendir/readdir interface. This structure bridges the gap between POSIX directory operations and Windows file system APIs, allowing PostgreSQL to use consistent directory reading code across platforms.
 

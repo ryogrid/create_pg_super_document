@@ -8,7 +8,19 @@ FieldStore represents the operation of modifying one or more fields in a tuple v
 
 ## Definition
 
-
+```c
+typedef struct FieldStore
+{
+	Expr		xpr;
+	Expr	   *arg;			/* input tuple value */
+	List	   *newvals;		/* new value(s) for field(s) */
+	/* integer list of field attnums */
+	List	   *fieldnums pg_node_attr(query_jumble_ignore);
+	/* type of result (same as type of arg) */
+	Oid			resulttype pg_node_attr(query_jumble_ignore);
+	/* Like RowExpr, we deliberately omit a typmod and collation here */
+} FieldStore;
+```
 ## Detailed Description
 FieldStore implements field modification operations for composite types, creating a new tuple value with updated fields while leaving the original input unchanged. This is functionally similar to the assign case of SubscriptingRef and is primarily used to implement UPDATE operations on portions of composite columns.
 

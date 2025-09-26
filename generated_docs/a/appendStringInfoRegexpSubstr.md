@@ -8,7 +8,12 @@ A static helper function that processes replacement text containing regular expr
 
 ## Definition
 
-
+```c
+static void
+appendStringInfoRegexpSubstr(StringInfo str, text *replace_text,
+							 regmatch_t *pmatch,
+							 char *start_ptr, int data_pos)
+```
 ## Detailed Description
 This function implements the core logic for regexp replacement text processing in PostgreSQL. It scans through replacement text character by character, handling escape sequences and back references:
 

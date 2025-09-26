@@ -8,7 +8,13 @@ A simple structure that maps string property names to their corresponding IndexA
 
 ## Definition
 
-
+```c
+struct am_propname
+{
+	const char *name;
+	IndexAMProperty prop;
+};
+```
 ## Detailed Description
 The  structure serves as a mapping table element that converts human-readable string property names (like "asc", "desc", "orderable") into their corresponding IndexAMProperty enum values. This structure is used internally by PostgreSQL's index access method utility functions to provide efficient string-to-enum conversion when processing index property queries.
 

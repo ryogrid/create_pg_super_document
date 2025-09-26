@@ -8,7 +8,10 @@ The  function compares a PostgreSQL  value with a C string using C collation, wi
 
 ## Definition
 
-
+```c
+int
+namestrcmp(Name name, const char *str)
+```
 ## Detailed Description
 This utility function compares a PostgreSQL  structure with a C string using the standard C collation (not locale-aware). The function includes careful NULL handling where NULL values are considered less than any non-NULL value. When both arguments are non-NULL, it delegates to  with  as the maximum comparison length.
 

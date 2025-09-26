@@ -8,7 +8,13 @@ A hash table entry structure used to look up custom wait event IDs by wait event
 
 ## Definition
 
-
+```c
+typedef struct WaitEventCustomEntryByName
+{
+	char		wait_event_name[NAMEDATALEN];	/* hash key */
+	uint32		wait_event_info;
+} WaitEventCustomEntryByName;
+```
 ## Detailed Description
 WaitEventCustomEntryByName is a hash table entry structure that complements WaitEventCustomEntryByInfo by providing the reverse mapping in PostgreSQL's custom wait event system. While WaitEventCustomEntryByInfo maps from numeric IDs to names, this structure maps from wait event names to their corresponding numeric identifiers. This bidirectional mapping system enables efficient lookups in both directions, supporting various wait event management operations such as registration, identification, and enumeration.
 

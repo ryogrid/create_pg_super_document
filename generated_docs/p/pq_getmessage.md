@@ -8,7 +8,10 @@ Reads a complete message with length word from a PostgreSQL client connection, p
 
 ## Definition
 
-
+```c
+int
+pq_getmessage(StringInfo s, int maxlen)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's client-server communication protocol. It reads a complete message from the client connection, starting with a 4-byte length word followed by the message body. The function handles protocol validation, memory management, and error recovery to maintain communication synchronization.
 

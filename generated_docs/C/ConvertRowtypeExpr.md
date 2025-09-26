@@ -8,7 +8,18 @@ ConvertRowtypeExpr represents a type coercion from one composite type to another
 
 ## Definition
 
-
+```c
+typedef struct ConvertRowtypeExpr
+{
+	Expr		xpr;
+	Expr	   *arg;			/* input expression */
+	Oid			resulttype;		/* output type (always a composite type) */
+	/* Like RowExpr, we deliberately omit a typmod and collation here */
+	/* how to display this node */
+	CoercionForm convertformat pg_node_attr(query_jumble_ignore);
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} ConvertRowtypeExpr;
+```
 ## Detailed Description
 ConvertRowtypeExpr handles coercion between composite types where the source type is guaranteed to contain all columns needed for the destination type, plus possibly additional ones. Unlike positional matching, columns are matched by name, making this suitable for inheritance scenarios where child tables may have additional columns beyond their parent.
 

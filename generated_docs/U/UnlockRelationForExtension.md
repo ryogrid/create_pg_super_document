@@ -8,7 +8,10 @@ Releases a previously acquired extension lock on a relation, allowing other proc
 
 ## Definition
 
-
+```c
+void
+UnlockRelationForExtension(Relation relation, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function is the counterpart to LockRelationForExtension and ConditionalLockRelationForExtension. It releases an extension lock that was previously acquired on a relation, creating the same lock tag used during acquisition and calling the core lock release mechanism.
 

@@ -8,7 +8,10 @@ A Windows-specific replacement for the POSIX  system call that provides current 
 
 ## Definition
 
-
+```c
+int
+gettimeofday(struct timeval *tp, void *tzp)
+```
 ## Detailed Description
 This function is a Windows-specific implementation of the POSIX  system call, located in . It converts Windows FILETIME format to the POSIX  structure format.
 

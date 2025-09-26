@@ -8,7 +8,10 @@ SQL-level callable function that obtains object type and identity information fo
 
 ## Definition
 
-
+```c
+Datum
+pg_identify_object(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a SQL interface for identifying PostgreSQL database objects. It takes three parameters (classid, objid, objsubid) representing a database object and returns a composite type containing four fields: object type, schema name, object name, and object identity string.
 

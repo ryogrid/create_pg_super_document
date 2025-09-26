@@ -8,7 +8,17 @@ A shared-memory structure that maintains global state information for a single d
 
 ## Definition
 
-
+```c
+typedef struct dsm_control_item
+{
+	dsm_handle	handle;
+	uint32		refcnt;			/* 2+ = active, 1 = moribund, 0 = gone */
+	size_t		first_page;
+	size_t		npages;
+	void	   *impl_private_pm_handle; /* only needed on Windows */
+	bool		pinned;
+} dsm_control_item;
+```
 ## Detailed Description
 The  structure represents shared-memory state for a dynamic shared memory segment in PostgreSQL's DSM system. Unlike the backend-local  structure, this structure resides in shared memory and is visible to all backend processes. It serves as the authoritative source of information about a DSM segment's global state, including its reference count, physical location, and lifecycle status. The structure is part of the DSM control segment infrastructure that coordinates DSM operations across multiple backends.
 

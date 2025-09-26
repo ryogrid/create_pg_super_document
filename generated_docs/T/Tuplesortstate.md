@@ -8,7 +8,163 @@ Tuplesortstate is the core private state structure for PostgreSQL's tuple sortin
 
 ## Definition
 
+```c
+struct Tuplesortstate
+{
+	TuplesortPublic base;
+	TupSortStatus status;		/* enumerated value as shown above */
+	bool		bounded;		/* did caller specify a maximum number of
+								 * tuples to return? */
+	bool		boundUsed;		/* true if we made use of a bounded heap */
+	int			bound;			/* if bounded, the maximum number of tuples */
+	int64		tupleMem;		/* memory consumed by individual tuples.
+								 * storing this separately from what we track
+								 * in availMem allows us to subtract the
+								 * memory consumed by all tuples when dumping
+								 * tuples to tape */
+	int64		availMem;		/* remaining memory available, in bytes */
+	int64		allowedMem;		/* total memory allowed, in bytes */
+	int			maxTapes;		/* max number of input tapes to merge in each
+								 * pass */
+	int64		maxSpace;		/* maximum amount of space occupied among sort
+								 * of groups, either in-memory or on-disk */
+	bool		isMaxSpaceDisk; /* true when maxSpace is value for on-disk
+								 * space, false when it's value for in-memory
+								 * space */
+	TupSortStatus maxSpaceStatus;	/* sort status when maxSpace was reached */
+	LogicalTapeSet *tapeset;	/* logtape.c object for tapes in a temp file */
 
+	/*
+	 * This array holds the tuples now in sort memory.  If we are in state
+	 * INITIAL, the tuples are in no particular order; if we are in state
+	 * SORTEDINMEM, the tuples are in final sorted order; in states BUILDRUNS
+	 * and FINALMERGE, the tuples are organized in "heap" order per Algorithm
+	 * H.  In state SORTEDONTAPE, the array is not used.
+	 */
+	SortTuple  *memtuples;		/* array of SortTuple structs */
+	int			memtupcount;	/* number of tuples currently present */
+	int			memtupsize;		/* allocated length of memtuples array */
+	bool		growmemtuples;	/* memtuples' growth still underway? */
+
+	/*
+	 * Memory for tuples is sometimes allocated using a simple slab allocator,
+	 * rather than with palloc().  Currently, we switch to slab allocation
+	 * when we start merging.  Merging only needs to keep a small, fixed
+	 * number of tuples in memory at any time, so we can avoid the
+	 * palloc/pfree overhead by recycling a fixed number of fixed-size slots
+	 * to hold the tuples.
+	 *
+	 * For the slab, we use one large allocation, divided into SLAB_SLOT_SIZE
+	 * slots.  The allocation is sized to have one slot per tape, plus one
+	 * additional slot.  We need that many slots to hold all the tuples kept
+	 * in the heap during merge, plus the one we have last returned from the
+	 * sort, with tuplesort_gettuple.
+	 *
+	 * Initially, all the slots are kept in a linked list of free slots.  When
+	 * a tuple is read from a tape, it is put to the next available slot, if
+	 * it fits.  If the tuple is larger than SLAB_SLOT_SIZE, it is palloc'd
+	 * instead.
+	 *
+	 * When we're done processing a tuple, we return the slot back to the free
+	 * list, or pfree() if it was palloc'd.  We know that a tuple was
+	 * allocated from the slab, if its pointer value is between
+	 * slabMemoryBegin and -End.
+	 *
+	 * When the slab allocator is used, the USEMEM/LACKMEM mechanism of
+	 * tracking memory usage is not used.
+	 */
+	bool		slabAllocatorUsed;
+
+	char	   *slabMemoryBegin;	/* beginning of slab memory arena */
+	char	   *slabMemoryEnd;	/* end of slab memory arena */
+	SlabSlot   *slabFreeHead;	/* head of free list */
+
+	/* Memory used for input and output tape buffers. */
+	size_t		tape_buffer_mem;
+
+	/*
+	 * When we return a tuple to the caller in tuplesort_gettuple_XXX, that
+	 * came from a tape (that is, in TSS_SORTEDONTAPE or TSS_FINALMERGE
+	 * modes), we remember the tuple in 'lastReturnedTuple', so that we can
+	 * recycle the memory on next gettuple call.
+	 */
+	void	   *lastReturnedTuple;
+
+	/*
+	 * While building initial runs, this is the current output run number.
+	 * Afterwards, it is the number of initial runs we made.
+	 */
+	int			currentRun;
+
+	/*
+	 * Logical tapes, for merging.
+	 *
+	 * The initial runs are written in the output tapes.  In each merge pass,
+	 * the output tapes of the previous pass become the input tapes, and new
+	 * output tapes are created as needed.  When nInputTapes equals
+	 * nInputRuns, there is only one merge pass left.
+	 */
+	LogicalTape **inputTapes;
+	int			nInputTapes;
+	int			nInputRuns;
+
+	LogicalTape **outputTapes;
+	int			nOutputTapes;
+	int			nOutputRuns;
+
+	LogicalTape *destTape;		/* current output tape */
+
+	/*
+	 * These variables are used after completion of sorting to keep track of
+	 * the next tuple to return.  (In the tape case, the tape's current read
+	 * position is also critical state.)
+	 */
+	LogicalTape *result_tape;	/* actual tape of finished output */
+	int			current;		/* array index (only used if SORTEDINMEM) */
+	bool		eof_reached;	/* reached EOF (needed for cursors) */
+
+	/* markpos_xxx holds marked position for mark and restore */
+	int64		markpos_block;	/* tape block# (only used if SORTEDONTAPE) */
+	int			markpos_offset; /* saved "current", or offset in tape block */
+	bool		markpos_eof;	/* saved "eof_reached" */
+
+	/*
+	 * These variables are used during parallel sorting.
+	 *
+	 * worker is our worker identifier.  Follows the general convention that
+	 * -1 value relates to a leader tuplesort, and values >= 0 worker
+	 * tuplesorts. (-1 can also be a serial tuplesort.)
+	 *
+	 * shared is mutable shared memory state, which is used to coordinate
+	 * parallel sorts.
+	 *
+	 * nParticipants is the number of worker Tuplesortstates known by the
+	 * leader to have actually been launched, which implies that they must
+	 * finish a run that the leader needs to merge.  Typically includes a
+	 * worker state held by the leader process itself.  Set in the leader
+	 * Tuplesortstate only.
+	 */
+	int			worker;
+	Sharedsort *shared;
+	int			nParticipants;
+
+	/*
+	 * Additional state for managing "abbreviated key" sortsupport routines
+	 * (which currently may be used by all cases except the hash index case).
+	 * Tracks the intervals at which the optimization's effectiveness is
+	 * tested.
+	 */
+	int64		abbrevNext;		/* Tuple # at which to next check
+								 * applicability */
+
+	/*
+	 * Resource snapshot for time of sort start.
+	 */
+#ifdef TRACE_SORT
+	PGRUsage	ru_start;
+#endif
+};
+```
 ## Detailed Description
 Tuplesortstate is the central data structure that orchestrates PostgreSQL's sophisticated tuple sorting system. It manages the complete lifecycle of sorting operations from initial tuple collection through various optimization strategies to final result delivery.
 

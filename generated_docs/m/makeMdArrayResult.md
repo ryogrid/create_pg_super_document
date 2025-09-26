@@ -8,7 +8,17 @@ Produces a multi-dimensional final result from an ArrayBuildState structure, all
 
 ## Definition
 
-
+```c
+struct_md_array(astate->dvalues,
+								astate->dnulls,
+								ndims,
+								dims,
+								lbs,
+								astate->element_type,
+								astate->typlen,
+								astate->typbyval,
+								astate->typalign);
+```
 ## Detailed Description
 This function creates a multi-dimensional array from the accumulated data in an ArrayBuildState. It constructs the final ArrayType result in the specified result context (rcontext) and optionally cleans up the working state. The function provides flexibility in defining array dimensions and lower bounds, making it suitable for creating complex multi-dimensional arrays.
 

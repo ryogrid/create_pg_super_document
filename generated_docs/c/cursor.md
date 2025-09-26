@@ -22,7 +22,21 @@ The
 
 ## Definition
 
-
+```c
+struct cursor
+{
+	char	   *name;
+	char	   *function;
+	char	   *command;
+	char	   *connection;
+	bool		opened;
+	struct arguments *argsinsert;
+	struct arguments *argsinsert_oos;
+	struct arguments *argsresult;
+	struct arguments *argsresult_oos;
+	struct cursor *next;
+};
+```
 ## Detailed Description
 This structure is used by the ECPG preprocessor to maintain information about SQL cursors during the compilation of embedded SQL statements in C programs. It tracks the cursor's name, the SQL command it executes, connection details, and various argument lists for insert and result operations. The structure forms a linked list through the  pointer to manage multiple cursors.
 

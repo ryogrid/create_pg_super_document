@@ -8,7 +8,41 @@ The dsa_area_pool structure represents a set of objects of a given size class in
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	/* The segment header for the first segment. */
+	dsa_segment_header segment_header;
+	/* The handle for this area. */
+	dsa_handle	handle;
+	/* The handles of the segments owned by this area. */
+	dsm_handle	segment_handles[DSA_MAX_SEGMENTS];
+	/* Lists of segments, binned by maximum contiguous run of free pages. */
+	dsa_segment_index segment_bins[DSA_NUM_SEGMENT_BINS];
+	/* The object pools for each size class. */
+	dsa_area_pool pools[DSA_NUM_SIZE_CLASSES];
+	/* initial allocation segment size */
+	size_t		init_segment_size;
+	/* maximum allocation segment size */
+	size_t		max_segment_size;
+	/* The total size of all active segments. */
+	size_t		total_segment_size;
+	/* The maximum total size of backing storage we are allowed. */
+	size_t		max_total_segment_size;
+	/* Highest used segment index in the history of this area. */
+	dsa_segment_index high_segment_index;
+	/* The reference count for this area. */
+	int			refcnt;
+	/* A flag indicating that this area has been pinned. */
+	bool		pinned;
+	/* The number of times that segments have been freed. */
+	size_t		freed_segment_counter;
+	/* The LWLock tranche ID. */
+	int			lwlock_tranche_id;
+	/* The general lock (protects everything except object pools). */
+	LWLock		lock;
+} dsa_area_control;
+```
 ## Detailed Description
 The dsa_area_pool is a fundamental component of PostgreSQL's DSA memory management system. Each pool manages objects of a specific size class, organizing them into spans (contiguous regions of memory) that are categorized by their fullness level. This design enables efficient allocation and deallocation of similarly-sized objects while minimizing fragmentation.
 

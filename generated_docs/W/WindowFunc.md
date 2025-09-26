@@ -8,7 +8,34 @@ WindowFunc represents a window function expression node in PostgreSQL's query tr
 
 ## Definition
 
-
+```c
+typedef struct WindowFunc
+{
+	Expr		xpr;
+	/* pg_proc Oid of the function */
+	Oid			winfnoid;
+	/* type Oid of result of the window function */
+	Oid			wintype pg_node_attr(query_jumble_ignore);
+	/* OID of collation of result */
+	Oid			wincollid pg_node_attr(query_jumble_ignore);
+	/* OID of collation that function should use */
+	Oid			inputcollid pg_node_attr(query_jumble_ignore);
+	/* arguments to the window function */
+	List	   *args;
+	/* FILTER expression, if any */
+	Expr	   *aggfilter;
+	/* List of WindowFuncRunConditions to help short-circuit execution */
+	List	   *runCondition pg_node_attr(query_jumble_ignore);
+	/* index of associated WindowClause */
+	Index		winref;
+	/* true if argument list was really '*' */
+	bool		winstar pg_node_attr(query_jumble_ignore);
+	/* is function a simple aggregate? */
+	bool		winagg pg_node_attr(query_jumble_ignore);
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} WindowFunc;
+```
 ## Detailed Description
 WindowFunc is a specialized expression node that represents window functions in PostgreSQL's SQL execution. Window functions perform calculations across sets of rows that are related to the current row, without collapsing the result set like aggregate functions do. This structure stores all necessary information about the window function call, including the function identifier, type information, arguments, and execution optimization hints.
 

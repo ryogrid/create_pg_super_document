@@ -8,7 +8,10 @@ Initializes signal-based notification mechanism to detect when the postmaster pr
 
 ## Definition
 
-
+```c
+void
+PostmasterDeathSignalInit(void)
+```
 ## Detailed Description
 This function sets up a fast notification mechanism for detecting postmaster death on platforms that support parent death signaling. It registers a signal handler and configures the operating system to send a signal to the current process when its parent (the postmaster) terminates.
 

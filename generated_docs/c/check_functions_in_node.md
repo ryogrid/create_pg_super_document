@@ -8,7 +8,19 @@ Applies a checker function to each function OID contained in a given expression 
 
 ## Definition
 
+```c
+struct-equivalent to OpExpr */
+		case T_NullIfExpr:		/* struct-equivalent to OpExpr */
+			{
+				OpExpr	   *expr = (OpExpr *) node;
 
+				/* Set opfuncid if it wasn't set already */
+				set_opfuncid(expr);
+				if (checker(expr->opfuncid, context))
+					return true;
+			}
+			break;
+```
 ## Detailed Description
 This function examines a single expression node and applies a checker callback function to every SQL function OID contained within that node. It returns true if the checker function returns true for any of the contained functions, and false if the node contains no SQL-visible functions or if the checker returns false for all functions.
 

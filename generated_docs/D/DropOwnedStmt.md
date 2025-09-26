@@ -8,7 +8,14 @@ DropOwnedStmt represents the parsed representation of a DROP OWNED statement, wh
 
 ## Definition
 
-
+```c
+typedef struct DropOwnedStmt
+{
+	NodeTag		type;
+	List	   *roles;
+	DropBehavior behavior;
+} DropOwnedStmt;
+```
 ## Detailed Description
 The DropOwnedStmt structure is a parse node that encapsulates the information needed to execute a DROP OWNED BY statement in PostgreSQL. This statement is used to drop all database objects (tables, functions, types, etc.) that are owned by one or more specified roles. The statement is particularly useful for cleaning up objects before dropping a role, as roles cannot be dropped if they still own database objects.
 

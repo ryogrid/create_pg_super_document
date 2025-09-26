@@ -8,7 +8,19 @@ IndexScan represents an index scan plan node that retrieves tuples from a relati
 
 ## Definition
 
-
+```c
+typedef struct IndexScan
+{
+	Scan		scan;
+	Oid			indexid;		/* OID of index to scan */
+	List	   *indexqual;		/* list of index quals (usually OpExprs) */
+	List	   *indexqualorig;	/* the same in original form */
+	List	   *indexorderby;	/* list of index ORDER BY exprs */
+	List	   *indexorderbyorig;	/* the same in original form */
+	List	   *indexorderbyops;	/* OIDs of sort ops for ORDER BY exprs */
+	ScanDirection indexorderdir;	/* forward or backward or don't care */
+} IndexScan;
+```
 ## Detailed Description
 The IndexScan structure represents an index-based scan operation in PostgreSQL's query execution plan. It inherits from the abstract Scan base type and provides efficient tuple retrieval by using index structures to locate qualifying rows without scanning the entire table. Index scans are typically more efficient than sequential scans when selecting a small percentage of rows or when specific sort orders are required.
 

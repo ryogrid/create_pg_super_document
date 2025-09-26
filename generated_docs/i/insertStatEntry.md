@@ -8,7 +8,10 @@ A static function that inserts or updates statistical entries for words from a T
 
 ## Definition
 
-
+```c
+static void
+insertStatEntry(MemoryContext persistentContext, TSVectorStat *stat, TSVector txt, uint32 off)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's  functionality that builds statistical information about words in text search vectors. It processes a single word from a TSVector and either inserts a new entry into the statistics tree or updates an existing entry.
 

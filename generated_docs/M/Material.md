@@ -8,7 +8,12 @@ Material is a plan node that materializes the output of its subplan into a tuple
 
 ## Definition
 
-
+```c
+typedef struct Material
+{
+	Plan		plan;
+} Material;
+```
 ## Detailed Description
 The Material node is one of the simplest plan nodes in PostgreSQL, serving as a buffer that materializes (stores) the entire output of its child plan into a tuplestore. Despite its simple structure containing only the base Plan fields, it serves several critical functions in query execution.
 

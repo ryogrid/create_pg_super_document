@@ -8,7 +8,10 @@ UtilityTupleDescriptor fetches the actual output tuple descriptor for utility st
 
 ## Definition
 
-
+```c
+TupleDesc
+UtilityTupleDescriptor(Node *parsetree)
+```
 ## Detailed Description
 UtilityTupleDescriptor creates and returns a tuple descriptor that describes the structure of the output tuples for utility statements. This function is only called for statements where UtilityReturnsTuples() previously returned true. The function provides specific handling for each type of tuple-returning utility statement:
 

@@ -8,7 +8,21 @@ RenameStmt is a PostgreSQL parse node structure that represents an ALTER stateme
 
 ## Definition
 
-
+```c
+typedef struct RenameStmt
+{
+	NodeTag		type;
+	ObjectType	renameType;		/* OBJECT_TABLE, OBJECT_COLUMN, etc */
+	ObjectType	relationType;	/* if column name, associated relation type */
+	RangeVar   *relation;		/* in case it's a table */
+	Node	   *object;			/* in case it's some other object */
+	char	   *subname;		/* name of contained object (column, rule,
+								 * trigger, etc) */
+	char	   *newname;		/* the new name */
+	DropBehavior behavior;		/* RESTRICT or CASCADE behavior */
+	bool		missing_ok;		/* skip error if missing? */
+} RenameStmt;
+```
 ## Detailed Description
 RenameStmt is a parse tree node that encapsulates all the information needed to rename various PostgreSQL database objects. It supports renaming tables, columns, constraints, triggers, types, policies, and other schema objects. The structure provides flexibility to handle different object types through its renameType field and can optionally specify CASCADE or RESTRICT behavior for objects that have dependencies.
 

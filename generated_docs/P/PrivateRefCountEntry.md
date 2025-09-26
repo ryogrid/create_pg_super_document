@@ -8,7 +8,13 @@ PrivateRefCountEntry is a structure used in PostgreSQL's buffer manager to track
 
 ## Definition
 
-
+```c
+typedef struct PrivateRefCountEntry
+{
+	Buffer		buffer;
+	int32		refcount;
+} PrivateRefCountEntry;
+```
 ## Detailed Description
 PrivateRefCountEntry is a lightweight structure that maintains local reference counting for buffers within a single backend process. This structure is part of PostgreSQL's buffer management system that allows each backend to track how many times it has pinned specific buffers without requiring shared memory synchronization for every reference count operation.
 

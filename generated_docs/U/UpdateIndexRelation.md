@@ -8,7 +8,21 @@ UpdateIndexRelation is a static function that constructs and inserts a new entry
 
 ## Definition
 
-
+```c
+static void
+UpdateIndexRelation(Oid indexoid,
+					Oid heapoid,
+					Oid parentIndexId,
+					const IndexInfo *indexInfo,
+					const Oid *collationOids,
+					const Oid *opclassOids,
+					const int16 *coloptions,
+					bool primary,
+					bool isexclusion,
+					bool immediate,
+					bool isvalid,
+					bool isready)
+```
 ## Detailed Description
 This function creates a complete entry in the pg_index system catalog with all necessary metadata for an index. It processes the provided index information and transforms it into the appropriate format for storage in the catalog. The function handles conversion of index expressions and predicates to text format, builds various vector types for storing index keys and options, and performs the actual catalog insertion.
 

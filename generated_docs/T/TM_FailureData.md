@@ -8,7 +8,15 @@ TM_FailureData is a structure used to provide detailed failure information when 
 
 ## Definition
 
-
+```c
+typedef struct TM_FailureData
+{
+	ItemPointerData ctid;
+	TransactionId xmax;
+	CommandId	cmax;
+	bool		traversed;
+} TM_FailureData;
+```
 ## Detailed Description
 This structure is filled in by table access methods when operations like table_tuple_update, table_tuple_delete, or table_tuple_lock fail because the target tuple is already outdated by another transaction. It provides the caller with essential information about what happened to the target tuple, enabling proper handling of concurrency conflicts and tuple versioning scenarios.
 

@@ -8,7 +8,17 @@ JsonTablePathSpec represents an untransformed specification of a JSON path expre
 
 ## Definition
 
+```c
+typedef struct JsonTablePathSpec
+{
+	NodeTag		type;
 
+	Node	   *string;
+	char	   *name;
+	ParseLoc	name_location;
+	ParseLoc	location;		/* location of 'string' */
+} JsonTablePathSpec;
+```
 ## Detailed Description
 JsonTablePathSpec is a parse node structure that holds information about JSON path specifications used in JSON table operations. It contains the raw path expression string along with optional naming information and location tracking for parser error reporting. This structure is part of the untransformed parse tree and gets processed during the transformation phase of query planning.
 

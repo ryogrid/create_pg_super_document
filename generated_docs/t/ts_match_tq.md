@@ -8,7 +8,10 @@ A PostgreSQL function that performs text search matching between a text input an
 
 ## Definition
 
-
+```c
+Datum
+ts_match_tq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that implements text search matching with automatic text-to-tsvector conversion. It takes a text input (first argument) and a TSQuery (second argument), converts the text to a TSVector using the  function, and then performs the matching operation using . This function provides a convenient interface for text search operations where the input is raw text rather than a pre-processed TSVector.
 

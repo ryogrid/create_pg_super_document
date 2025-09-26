@@ -8,7 +8,10 @@ ExecProject performs tuple projection operations by evaluating a set of expressi
 
 ## Definition
 
-
+```c
+static inline TupleTableSlot *
+ExecProject(ProjectionInfo *projInfo)
+```
 ## Detailed Description
 ExecProject is the core function for tuple projection in PostgreSQL's executor. It takes a ProjectionInfo structure containing compiled projection expressions and produces a result tuple by evaluating those expressions in the proper memory context. The function first clears the result slot to prepare it for new data, then evaluates the projection expression (which typically contains multiple target expressions compiled into a single evaluation step), and finally marks the result slot as containing a valid virtual tuple.
 

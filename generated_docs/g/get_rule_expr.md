@@ -8,7 +8,20 @@ The main recursive function for converting PostgreSQL parse tree nodes back into
 
 ## Definition
 
-
+```c
+struct as an ANY/ALL
+				 * SubLink.  To prevent misparsing the output that way, insert
+				 * a dummy coercion (which will be stripped by parse analysis,
+				 * so no inefficiency is added in dump and reload).  This is
+				 * indeed most likely what the user wrote to get the construct
+				 * accepted in the first place.
+				 */
+				if (IsA(arg2, SubLink) &&
+					((SubLink *) arg2)->subLinkType == EXPR_SUBLINK)
+					appendStringInfo(buf, "::%s",
+									 format_type_with_typemod(exprType(arg2),
+															  exprTypmod(arg2)));
+```
 ## Detailed Description
  is the central function in PostgreSQL's rule deparsing system that recursively converts various types of expression nodes from the internal parse tree back into their SQL string representation. The function handles over 40 different node types including variables, constants, operators, functions, subqueries, and complex expressions like CASE statements and XML operations.
 

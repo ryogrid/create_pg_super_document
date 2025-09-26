@@ -8,7 +8,13 @@ Builds a restore command to retrieve a file from WAL archives by replacing suppo
 
 ## Definition
 
-
+```c
+char *
+BuildRestoreCommand(const char *restoreCommand,
+					const char *xlogpath,
+					const char *xlogfname,
+					const char *lastRestartPointFname)
+```
 ## Detailed Description
 The  function constructs a shell command string used to restore WAL (Write-Ahead Log) files from archive storage during PostgreSQL recovery operations. This function processes a template restore command string and replaces percent placeholders with actual values needed for the restoration process.
 

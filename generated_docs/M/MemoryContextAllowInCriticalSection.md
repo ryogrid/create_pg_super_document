@@ -8,7 +8,10 @@ Controls whether memory allocations are allowed within critical sections for a s
 
 ## Definition
 
-
+```c
+void
+MemoryContextAllowInCriticalSection(MemoryContext context, bool allow)
+```
 ## Detailed Description
 This function modifies a memory context's behavior regarding allocations within critical sections. Normally, PostgreSQL prohibits memory allocations within critical sections because allocation failures would lead to PANIC, potentially corrupting the database.
 

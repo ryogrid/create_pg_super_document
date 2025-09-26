@@ -8,7 +8,10 @@ The  function adds a resource value of a given kind to the ResourceOwner's inter
 
 ## Definition
 
-
+```c
+static void
+ResourceOwnerAddToHash(ResourceOwner owner, Datum value, const ResourceOwnerDesc *kind)
+```
 ## Detailed Description
 This function implements the insertion logic for the ResourceOwner's hash table using linear probing for collision resolution. When a resource needs to be added to the hash table, the function:
 

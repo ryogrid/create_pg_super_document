@@ -8,7 +8,36 @@ Sharedsort is the shared memory coordination structure for PostgreSQL's parallel
 
 ## Definition
 
+```c
+struct Sharedsort
+{
+	/* mutex protects all fields prior to tapes */
+	slock_t		mutex;
 
+	/*
+	 * currentWorker generates ordinal identifier numbers for parallel sort
+	 * workers.  These start from 0, and are always gapless.
+	 *
+	 * Workers increment workersFinished to indicate having finished.  If this
+	 * is equal to state.nParticipants within the leader, leader is ready to
+	 * merge worker runs.
+	 */
+	int			currentWorker;
+	int			workersFinished;
+
+	/* Temporary file space */
+	SharedFileSet fileset;
+
+	/* Size of tapes flexible array */
+	int			nTapes;
+
+	/*
+	 * Tapes array used by workers to report back information needed by the
+	 * leader to concatenate all worker tapes into one for merging
+	 */
+	TapeShare	tapes[FLEXIBLE_ARRAY_MEMBER];
+};
+```
 ## Detailed Description
 Sharedsort serves as the central coordination point for parallel sorting operations in PostgreSQL. It is allocated in shared memory and provides the necessary synchronization mechanisms for multiple worker processes to collaborate on a single large sort operation.
 

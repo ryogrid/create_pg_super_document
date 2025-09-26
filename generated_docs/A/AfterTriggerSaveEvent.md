@@ -8,7 +8,17 @@ Queues after-trigger events for execution at transaction commit, handling both r
 
 ## Definition
 
-
+```c
+structure and add it to the current query's queue.
+		 * Note we set ats_table to NULL whenever this trigger doesn't use
+		 * transition tables, to improve sharability of the shared event data.
+		 */
+		new_shared.ats_event =
+			(event & TRIGGER_EVENT_OPMASK) |
+			(row_trigger ? TRIGGER_EVENT_ROW : 0) |
+			(trigger->tgdeferrable ? AFTER_TRIGGER_DEFERRABLE : 0) |
+			(trigger->tginitdeferred ? AFTER_TRIGGER_INITDEFERRED : 0);
+```
 ## Detailed Description
 This function is the central mechanism for queuing after-trigger events in PostgreSQL's deferred trigger system. It is called by the ExecA[RS]...Triggers() family of functions whenever triggers need to be queued for later execution, even when triggers are disabled (the function determines which triggers actually need queuing).
 

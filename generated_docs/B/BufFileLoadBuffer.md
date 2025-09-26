@@ -8,7 +8,10 @@ BufFileLoadBuffer loads data from the underlying file into the BufFile's interna
 
 ## Definition
 
-
+```c
+static void
+BufFileLoadBuffer(BufFile *file)
+```
 ## Detailed Description
 BufFileLoadBuffer is an internal function responsible for reading data from the underlying file system into the BufFile's buffer. It handles the complexity of BufFiles that may span multiple physical files by automatically advancing to the next file when the current file reaches the maximum physical file size limit.
 

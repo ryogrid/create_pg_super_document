@@ -8,7 +8,16 @@ BitmapIndexScan is a PostgreSQL plan node that scans an index to generate a bitm
 
 ## Definition
 
-
+```c
+typedef struct BitmapIndexScan
+{
+	Scan		scan;
+	Oid			indexid;		/* OID of index to scan */
+	bool		isshared;		/* Create shared bitmap if set */
+	List	   *indexqual;		/* list of index quals (OpExprs) */
+	List	   *indexqualorig;	/* the same in original form */
+} BitmapIndexScan;
+```
 ## Detailed Description
 BitmapIndexScan is a specialized scan node that delivers a bitmap of potential tuple locations rather than actual tuples. It operates as part of PostgreSQL's bitmap scan mechanism, where the bitmap it produces is consumed by an ancestor BitmapHeapScan node. The bitmap may pass through intermediate BitmapAnd and/or BitmapOr nodes to combine results from multiple BitmapIndexScans before reaching the heap scan.
 

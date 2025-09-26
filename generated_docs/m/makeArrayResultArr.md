@@ -8,7 +8,9 @@ Produces the final N+1-dimensional array result from an accumulated ArrayBuildSt
 
 ## Definition
 
-
+```c
+struct_empty_array(astate->element_type);
+```
 ## Detailed Description
 This function is the final step in the array-from-arrays building process. It constructs the final ArrayType result from the accumulated data in the ArrayBuildStateArr. The function handles both empty array cases and normal construction, properly managing memory layout including data offset calculations for null bitmaps.
 

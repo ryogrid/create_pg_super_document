@@ -8,7 +8,10 @@ A debugging function that validates the ordering of LSN (Log Sequence Number) va
 
 ## Definition
 
-
+```c
+static void
+AssertChangeLsnOrder(ReorderBufferTXN *txn)
+```
 ## Detailed Description
 AssertChangeLsnOrder is a debugging utility function that verifies the correct ordering of LSN values within a transaction's changes. This function is only active when USE_ASSERT_CHECKING is defined, making it a development/debugging tool. It iterates through all changes in a transaction and performs several critical assertions:
 

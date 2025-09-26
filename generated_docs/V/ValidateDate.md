@@ -8,7 +8,11 @@ ValidateDate is a date validation function that checks the validity of year, mon
 
 ## Definition
 
-
+```c
+int
+ValidateDate(int fmask, bool isjulian, bool is2digits, bool bc,
+			 struct pg_tm *tm)
+```
 ## Detailed Description
 ValidateDate performs comprehensive validation of date components stored in a pg_tm structure. The function handles several special date formats and edge cases:
 

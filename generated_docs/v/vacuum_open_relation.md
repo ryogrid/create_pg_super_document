@@ -8,7 +8,11 @@ Attempts to open and lock a relation for vacuum or analyze operations, providing
 
 ## Definition
 
-
+```c
+Relation
+vacuum_open_relation(Oid relid, RangeVar *relation, bits32 options,
+					 bool verbose, LOCKMODE lmode)
+```
 ## Detailed Description
 This function serves as a robust wrapper for opening relations that need to be vacuumed or analyzed. It handles the complexities of relation locking, including optional non-blocking lock acquisition and comprehensive error reporting when relations cannot be accessed.
 

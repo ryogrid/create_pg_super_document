@@ -8,7 +8,14 @@ A data structure representing elements in PostgreSQL's active snapshot stack, ma
 
 ## Definition
 
-
+```c
+typedef struct ActiveSnapshotElt
+{
+	Snapshot	as_snap;
+	int			as_level;
+	struct ActiveSnapshotElt *as_next;
+} ActiveSnapshotElt;
+```
 ## Detailed Description
 ActiveSnapshotElt is a fundamental component of PostgreSQL's snapshot management system, specifically designed to maintain a stack of active snapshots. Each element in this stack represents exactly one active_count reference on a SnapshotData structure. The stack is organized as a linked list where elements are maintained in non-increasing order of nesting level (as_level), ensuring proper hierarchical transaction management.
 

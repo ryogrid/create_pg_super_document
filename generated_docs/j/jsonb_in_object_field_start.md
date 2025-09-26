@@ -8,7 +8,10 @@ A callback function used during JSONB parsing to handle the start of object fiel
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+jsonb_in_object_field_start(void *pstate, char *fname, bool isnull)
+```
 ## Detailed Description
 This function serves as a callback handler in the JSONB input parsing pipeline. When the JSON parser encounters an object field name (the key part of a key-value pair), this function is invoked to process and validate the field name. It creates a JsonbValue structure for the field name, validates the string length, and pushes a WJB_KEY token onto the JSONB parse state stack.
 

@@ -8,7 +8,13 @@ Creates a duplicate copy of a string with null pointer safety, error handling, a
 
 ## Definition
 
-
+```c
+struct auto_mem
+{
+	void	   *pointer;
+	struct auto_mem *next;
+};
+```
 ## Detailed Description
 The  function provides a safe wrapper around the standard  function, offering string duplication with comprehensive error handling and debugging support. This function is essential for creating independent copies of strings in ECPG operations, particularly when managing connection parameters, SQL statements, and other string data.
 

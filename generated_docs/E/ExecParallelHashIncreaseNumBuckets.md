@@ -8,7 +8,10 @@ Coordinates bucket array expansion in parallel hash joins by doubling the number
 
 ## Definition
 
-
+```c
+static void
+ExecParallelHashIncreaseNumBuckets(HashJoinTable hashtable)
+```
 ## Detailed Description
 This function implements a three-phase coordinated bucket expansion for parallel hash joins. When the hash table becomes too full, this function doubles the number of buckets to maintain efficient performance. The operation uses barrier synchronization to coordinate multiple worker processes through three distinct phases:
 

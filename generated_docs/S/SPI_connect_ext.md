@@ -8,7 +8,10 @@ SPI_connect_ext establishes a connection to PostgreSQL's Server Programming Inte
 
 ## Definition
 
-
+```c
+int
+SPI_connect_ext(int options)
+```
 ## Detailed Description
 SPI_connect_ext is the extended version of SPI_connect that allows callers to specify connection options. It manages the SPI connection stack, handles memory context creation, and initializes all necessary state for SQL command execution within server-side code.
 

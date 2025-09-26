@@ -8,7 +8,19 @@ PartitionedRelPruningData contains per-partitioned-table data for run-time pruni
 
 ## Definition
 
-
+```c
+typedef struct PartitionedRelPruningData
+{
+	int			nparts;
+	int		   *subplan_map;
+	int		   *subpart_map;
+	Bitmapset  *present_parts;
+	List	   *initial_pruning_steps;
+	List	   *exec_pruning_steps;
+	PartitionPruneContext initial_context;
+	PartitionPruneContext exec_context;
+} PartitionedRelPruningData;
+```
 ## Detailed Description
 This structure is essential for PostgreSQL's partition pruning optimization, storing all the information needed to eliminate unnecessary partition scans at execution time. It contains mapping arrays that relate partition indexes to subplan/subpart indexes, bitmapsets tracking which partitions are present, and separate pruning step lists for startup pruning (done once) and per-scan pruning (done for each scan). The structure supports multilevel partitioned tables by maintaining hierarchical relationships through subpart_map indexing into the broader PartitionPruningData array.
 

@@ -8,7 +8,16 @@ A parse tree node structure representing a CREATE SUBSCRIPTION SQL statement, wh
 
 ## Definition
 
-
+```c
+typedef struct CreateSubscriptionStmt
+{
+	NodeTag		type;
+	char	   *subname;		/* Name of the subscription */
+	char	   *conninfo;		/* Connection string to publisher */
+	List	   *publication;	/* One or more publication to subscribe to */
+	List	   *options;		/* List of DefElem nodes */
+} CreateSubscriptionStmt;
+```
 ## Detailed Description
 CreateSubscriptionStmt represents the parsed form of a CREATE SUBSCRIPTION statement used in PostgreSQL's logical replication system. This structure captures all the essential components needed to establish a subscription that will receive and apply data changes from one or more publications on a remote PostgreSQL server (publisher).
 

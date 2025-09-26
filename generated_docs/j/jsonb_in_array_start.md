@@ -8,7 +8,10 @@ A callback function used during JSONB parsing to handle the start of JSON arrays
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+jsonb_in_array_start(void *pstate)
+```
 ## Detailed Description
 This function serves as a callback handler in the JSONB input parsing pipeline. When the JSON parser encounters the beginning of an array ('[' character), this function is invoked to set up the internal parsing state for array processing. It pushes a WJB_BEGIN_ARRAY token onto the JSONB parse state stack, which signals the start of array parsing and prepares the parser for handling subsequent array elements.
 

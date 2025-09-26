@@ -8,7 +8,27 @@ AutoVacOpts is a structure that holds autovacuum-related configuration options f
 
 ## Definition
 
-
+```c
+typedef struct AutoVacOpts
+{
+	bool		enabled;
+	int			vacuum_threshold;
+	int			vacuum_ins_threshold;
+	int			analyze_threshold;
+	int			vacuum_cost_limit;
+	int			freeze_min_age;
+	int			freeze_max_age;
+	int			freeze_table_age;
+	int			multixact_freeze_min_age;
+	int			multixact_freeze_max_age;
+	int			multixact_freeze_table_age;
+	int			log_min_duration;
+	float8		vacuum_cost_delay;
+	float8		vacuum_scale_factor;
+	float8		vacuum_ins_scale_factor;
+	float8		analyze_scale_factor;
+} AutoVacOpts;
+```
 ## Detailed Description
 AutoVacOpts contains autovacuum configuration parameters that can be set on a per-relation basis through relation options (reloptions). These settings override the corresponding global autovacuum configuration parameters for specific tables, allowing fine-grained control over autovacuum behavior.
 

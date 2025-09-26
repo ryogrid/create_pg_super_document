@@ -8,7 +8,13 @@ LockRelId is a structure that identifies a specific relation (table/index) withi
 
 ## Definition
 
-
+```c
+typedef struct LockRelId
+{
+	Oid			relId;			/* a relation identifier */
+	Oid			dbId;			/* a database identifier */
+} LockRelId;
+```
 ## Detailed Description
 LockRelId is a fundamental structure used in PostgreSQL's lock manager system to uniquely identify relations across the entire database cluster. The structure combines a relation OID with a database OID to create a globally unique identifier. This is essential because relation OIDs are only unique within a single database, but the lock manager needs to handle locks across multiple databases simultaneously.
 

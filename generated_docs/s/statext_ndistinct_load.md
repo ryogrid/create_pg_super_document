@@ -8,7 +8,12 @@ Loads ndistinct statistics from the system catalog pg_statistic_ext_data for a s
 
 ## Definition
 
-
+```c
+struct, plus one base struct
+	 * for each item, including number of items for each.
+	 */
+	len = VARHDRSZ + SizeOfHeader;
+```
 ## Detailed Description
 This function retrieves previously computed and stored ndistinct statistics from the PostgreSQL system catalog. It performs a cache lookup in the pg_statistic_ext_data table using the statistics object OID and inheritance flag, then deserializes the stored binary data back into an MVNDistinct structure.
 

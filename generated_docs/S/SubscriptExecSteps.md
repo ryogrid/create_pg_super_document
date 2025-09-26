@@ -8,7 +8,16 @@ SubscriptExecSteps defines a set of function pointers for executing container su
 
 ## Definition
 
-
+```c
+typedef struct SubscriptExecSteps
+{
+	/* See nodes/subscripting.h for more detail about these */
+	ExecEvalBoolSubroutine sbs_check_subscripts;	/* process subscripts */
+	ExecEvalSubroutine sbs_fetch;	/* fetch an element */
+	ExecEvalSubroutine sbs_assign;	/* assign to an element */
+	ExecEvalSubroutine sbs_fetch_old;	/* fetch old value for assignment */
+} SubscriptExecSteps;
+```
 ## Detailed Description
 SubscriptExecSteps provides a function pointer interface that allows different container types (arrays, JSONB, etc.) to implement their own subscripting behavior within PostgreSQL's expression evaluation framework. This design enables type-specific optimizations while maintaining a consistent interface for the expression evaluator.
 

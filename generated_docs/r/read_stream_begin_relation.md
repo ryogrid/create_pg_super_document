@@ -8,7 +8,16 @@ Creates a new read stream object for efficiently reading blocks from a specific 
 
 ## Definition
 
-
+```c
+ReadStream *
+read_stream_begin_relation(int flags,
+						   BufferAccessStrategy strategy,
+						   Relation rel,
+						   ForkNumber forknum,
+						   ReadStreamBlockNumberCB callback,
+						   void *callback_private_data,
+						   size_t per_buffer_data_size)
+```
 ## Detailed Description
 This function initializes a read stream that optimizes sequential and random access patterns by performing lookahead and combining multiple block reads into larger vectored I/O operations. The read stream manages a queue of pinned buffers and uses callbacks to determine which blocks to read next. It automatically adjusts the number of concurrent I/Os based on tablespace configuration and system capabilities.
 

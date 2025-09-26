@@ -8,7 +8,10 @@ Provides fake LSN (Log Sequence Number) sequences for GiST indexes that are not 
 
 ## Definition
 
-
+```c
+XLogRecPtr
+gistGetFakeLSN(Relation rel)
+```
 ## Detailed Description
 This function generates fake LSN values for GiST indexes that don't participate in Write-Ahead Logging (WAL). LSNs are crucial for detecting concurrent page splits during index operations, even when the index itself isn't being logged to WAL. The function handles three different types of relations with distinct strategies:
 

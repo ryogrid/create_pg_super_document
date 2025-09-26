@@ -8,7 +8,14 @@ ROLERECURSE_SETROLE is an enumeration constant that specifies role membership re
 
 ## Definition
 
-
+```c
+enum RoleRecurseType
+{
+	ROLERECURSE_MEMBERS = 0,	/* recurse unconditionally */
+	ROLERECURSE_PRIVS = 1,		/* recurse through inheritable grants */
+	ROLERECURSE_SETROLE = 2		/* recurse through grants with set_option */
+};
+```
 ## Detailed Description
 ROLERECURSE_SETROLE is one of three enumeration values in the RoleRecurseType enum that control how PostgreSQL traverses role membership hierarchies. This specific constant instructs the role membership checking functions to only follow role grants that have the  flag enabled, meaning the member role can use SET ROLE to assume the identity of the granted role.
 

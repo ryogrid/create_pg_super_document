@@ -8,7 +8,10 @@ A utility function that sets a PgBenchValue structure to hold a double-precision
 
 ## Definition
 
-
+```c
+static void
+setDoubleValue(PgBenchValue *pv, double dval)
+```
 ## Detailed Description
 The  function is a simple utility function in pgbench that initializes a  structure to contain a double-precision floating-point value. It sets the type field to  and stores the provided double value in the appropriate union member. This function is part of pgbench's value handling system that supports different data types through a tagged union structure.
 

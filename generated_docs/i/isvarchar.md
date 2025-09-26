@@ -8,7 +8,10 @@ A static utility function that determines whether a character is valid for use i
 
 ## Definition
 
-
+```c
+static bool
+isvarchar(unsigned char c)
+```
 ## Detailed Description
 The  function checks if a given character is considered valid for variable name parsing in ECPG. It extends the standard alphanumeric character set to include specific special characters that are commonly used in PostgreSQL identifiers and variable references. The function handles both ASCII and extended character sets (characters with values >= 128).
 

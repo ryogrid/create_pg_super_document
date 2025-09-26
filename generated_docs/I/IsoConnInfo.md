@@ -8,7 +8,22 @@ IsoConnInfo is a structure that represents connection information for PostgreSQL
 
 ## Definition
 
-
+```c
+typedef struct IsoConnInfo
+{
+	/* The libpq connection object for this connection. */
+	PGconn	   *conn;
+	/* The backend PID, in numeric and string formats. */
+	int			backend_pid;
+	const char *backend_pid_str;
+	/* Name of the associated session. */
+	const char *sessionname;
+	/* Active step on this connection, or NULL if idle. */
+	PermutationStep *active_step;
+	/* Number of NOTICE messages received from connection. */
+	int			total_notices;
+} IsoConnInfo;
+```
 ## Detailed Description
 IsoConnInfo serves as the central data structure for managing database connections in PostgreSQL's isolation testing framework. Each instance represents a single database connection that can execute test steps as part of isolation test scenarios. The structure tracks both the connection state and execution context, enabling the isolation tester to coordinate multiple concurrent sessions and monitor their interactions.
 

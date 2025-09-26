@@ -8,7 +8,21 @@ HashJoin is a plan node that implements the hash join algorithm, which builds a 
 
 ## Definition
 
+```c
+typedef struct HashJoin
+{
+	Join		join;
+	List	   *hashclauses;
+	List	   *hashoperators;
+	List	   *hashcollations;
 
+	/*
+	 * List of expressions to be hashed for tuples from the outer plan, to
+	 * perform lookups in the hashtable over the inner plan.
+	 */
+	List	   *hashkeys;
+} HashJoin;
+```
 ## Detailed Description
 HashJoin implements the hash join algorithm, which is typically the most efficient join method for equijoin conditions when one of the relations is significantly smaller than the other. The algorithm operates in two phases: build phase and probe phase.
 

@@ -8,7 +8,10 @@ Looks up a role's OID given its name, with optional error handling for missing r
 
 ## Definition
 
-
+```c
+Oid
+get_role_oid(const char *rolname, bool missing_ok)
+```
 ## Detailed Description
 This is a utility function that converts a role name (string) to its corresponding Object Identifier (OID) by performing a system catalog lookup. The function queries the pg_authid system catalog to find the role with the specified name.
 

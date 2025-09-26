@@ -8,7 +8,11 @@ A two-phase commit processing routine that handles lock cleanup during the ROLLB
 
 ## Definition
 
-
+```c
+void
+lock_twophase_postabort(TransactionId xid, uint16 info,
+						void *recdata, uint32 len)
+```
 ## Detailed Description
 This function is part of PostgreSQL's two-phase commit protocol implementation for lock management. It handles the cleanup of locks when a prepared transaction is rolled back via ROLLBACK PREPARED. The implementation is notably simple as it delegates all work to lock_twophase_postcommit(), reflecting the fact that from a lock management perspective, both COMMIT PREPARED and ROLLBACK PREPARED require the same cleanup operations - releasing all locks held by the transaction.
 

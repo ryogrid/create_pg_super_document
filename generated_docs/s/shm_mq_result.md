@@ -8,7 +8,14 @@ An enumerated type that represents the possible results of shared memory message
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	SHM_MQ_SUCCESS,				/* Sent or received a message. */
+	SHM_MQ_WOULD_BLOCK,			/* Not completed; retry later. */
+	SHM_MQ_DETACHED,			/* Other process has detached queue. */
+} shm_mq_result;
+```
 ## Detailed Description
 The `shm_mq_result` enum defines the possible outcomes when performing message queue operations in PostgreSQL's shared memory message queue (shm_mq) system. This system provides a high-performance, lock-free communication mechanism between processes, particularly used in parallel query execution and background worker communication.
 

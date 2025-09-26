@@ -8,7 +8,10 @@ check_stack_depth monitors recursion depth and throws an error when the stack de
 
 ## Definition
 
-
+```c
+void
+check_stack_depth(void)
+```
 ## Detailed Description
 check_stack_depth is a critical safety mechanism that prevents stack overflow by monitoring the current call stack depth against a configurable limit. When the stack depth exceeds the safe threshold defined by max_stack_depth, it immediately throws an ERROR to prevent the process from crashing due to hardware stack overflow.
 

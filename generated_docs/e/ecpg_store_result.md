@@ -8,7 +8,11 @@ Stores query result data from a PostgreSQL result set into an ECPG variable stru
 
 ## Definition
 
-
+```c
+bool
+ecpg_store_result(const PGresult *results, int act_field,
+				  const struct statement *stmt, struct variable *var)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's ECPG (Embedded SQL in C) library that transfers data from a PostgreSQL query result set into a client-side variable. This function handles complex scenarios including:
 

@@ -8,7 +8,10 @@ Public function that stops a logical replication worker for a specific subscript
 
 ## Definition
 
-
+```c
+void
+logicalrep_worker_stop(Oid subid, Oid relid)
+```
 ## Detailed Description
 This function provides the public interface for stopping logical replication workers associated with a particular subscription and relation. It first attempts to locate the worker using the subscription ID and relation ID, then delegates the actual termination logic to logicalrep_worker_stop_internal(). The function includes a safety check to ensure it's not being called on parallel apply workers, which have their own dedicated stop function.
 

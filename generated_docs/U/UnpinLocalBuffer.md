@@ -8,7 +8,10 @@ UnpinLocalBuffer is a function that decrements the pin count of a local buffer a
 
 ## Definition
 
-
+```c
+void
+UnpinLocalBuffer(Buffer buffer)
+```
 ## Detailed Description
 UnpinLocalBuffer serves as a wrapper function that performs two critical operations for local buffer management:
 1. It decrements the buffer's pin count by calling UnpinLocalBufferNoOwner

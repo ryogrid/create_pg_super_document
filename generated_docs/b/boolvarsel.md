@@ -8,7 +8,10 @@ Computes the selectivity of a Boolean variable or expression, providing estimate
 
 ## Definition
 
-
+```c
+Selectivity
+boolvarsel(PlannerInfo *root, Node *arg, int varRelid)
+```
 ## Detailed Description
 The  function estimates the selectivity (fraction of rows that would be returned) for a Boolean variable or Boolean-valued expression. It can operate on any boolean-valued expression, but produces the most accurate estimates when the expression involves only variables from the specified relation and when statistics are available for those variables or expressions (particularly if they are indexed).
 

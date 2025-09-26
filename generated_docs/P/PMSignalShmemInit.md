@@ -8,7 +8,10 @@ Initializes the postmaster signaling system's shared memory structures during Po
 
 ## Definition
 
-
+```c
+void
+PMSignalShmemInit(void)
+```
 ## Detailed Description
 PMSignalShmemInit is responsible for initializing the shared memory segment used by the postmaster signaling system. It creates or attaches to the "PMSignalState" shared memory structure using ShmemInitStruct. If this is the first time the structure is created (not found in shared memory), the function performs complete initialization:
 

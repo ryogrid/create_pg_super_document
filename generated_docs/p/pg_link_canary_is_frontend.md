@@ -8,7 +8,10 @@ A diagnostic function that reports whether the current compilation context is fr
 
 ## Definition
 
-
+```c
+bool
+pg_link_canary_is_frontend(void)
+```
 ## Detailed Description
 This function serves as a "canary" to detect potential symbol resolution problems in ELF-based platforms where shared libraries (such as libpq) loaded into the PostgreSQL backend might incorrectly call backend functions instead of their own functions with the same name. The function returns  if compiled in a frontend context (when  macro is defined) and  if compiled in a backend context.
 

@@ -8,7 +8,16 @@ AppendPath represents an execution plan for successive execution of multiple mem
 
 ## Definition
 
-
+```c
+typedef struct AppendPath
+{
+	Path		path;
+	List	   *subpaths;		/* list of component Paths */
+	/* Index of first partial path in subpaths; list_length(subpaths) if none */
+	int			first_partial_path;
+	Cardinality limit_tuples;	/* hard limit on output tuples, or -1 */
+} AppendPath;
+```
 ## Detailed Description
 AppendPath is a fundamental path node in PostgreSQL that enables the combination of multiple execution paths into a single sequential execution plan. This path type is essential for implementing partitioned table access, UNION operations, and scenarios where multiple different scan strategies need to be executed in sequence.
 

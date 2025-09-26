@@ -8,7 +8,13 @@ RelIdCacheEnt is a hash table entry structure that serves as the key-value pair 
 
 ## Definition
 
-
+```c
+typedef struct inprogressent
+{
+	Oid			reloid;			/* OID of relation being built */
+	bool		invalidated;	/* whether an invalidation arrived for it */
+} InProgressEnt;
+```
 ## Detailed Description
 RelIdCacheEnt is a fundamental data structure in PostgreSQL's relation cache system. It serves as the hash table entry type for RelationIdCache, which is the main hash table that indexes relation descriptors by their Object Identifier (OID). This structure was part of a simplification where PostgreSQL previously indexed the cache by both name and OID, but now only uses OID-based indexing for better performance and simplicity.
 

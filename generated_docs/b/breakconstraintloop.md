@@ -8,7 +8,10 @@ Breaks constraint loops in the NFA by cloning successor states and redirecting c
 
 ## Definition
 
-
+```c
+static void
+breakconstraintloop(struct nfa *nfa, struct state *sinitial)
+```
 ## Detailed Description
 This function implements a sophisticated algorithm to break constraint loops by strategically cloning states and redirecting arcs. The approach ensures that all useful state sequences are preserved while eliminating loops that represent no forward progress in pattern matching.
 

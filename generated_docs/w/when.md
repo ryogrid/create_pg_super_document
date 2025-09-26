@@ -8,7 +8,14 @@ The 'when' struct represents action handlers for WHENEVER statements in ECPG, de
 
 ## Definition
 
-
+```c
+struct when
+{
+	enum WHEN_TYPE code;
+	char	   *command;
+	char	   *str;
+};
+```
 ## Detailed Description
 The 'when' struct is a core component of ECPG's WHENEVER statement mechanism, which provides error handling capabilities for embedded SQL programs. WHENEVER statements allow developers to specify actions that should be taken automatically when certain SQL conditions arise, such as SQL errors, warnings, or 'not found' conditions.
 

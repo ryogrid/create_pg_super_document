@@ -8,7 +8,10 @@ HoldingBufferPinThatDelaysRecovery checks if the current backend is holding a pi
 
 ## Definition
 
-
+```c
+bool
+HoldingBufferPinThatDelaysRecovery(void)
+```
 ## Detailed Description
 This function is used in hot standby scenarios to determine whether the current backend is holding a buffer pin that is preventing the startup process from proceeding with recovery. It's called from ProcessRecoveryConflictInterrupts() when the startup process requests cancellation of all pin holders that are blocking recovery progress.
 

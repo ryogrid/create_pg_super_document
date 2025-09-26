@@ -8,7 +8,22 @@ GucStackState is an enumeration that defines the different states for GUC (Grand
 
 ## Definition
 
-
+```c
+typedef struct guc_stack
+{
+	struct guc_stack *prev;		/* previous stack item, if any */
+	int			nest_level;		/* nesting depth at which we made entry */
+	GucStackState state;		/* see enum above */
+	GucSource	source;			/* source of the prior value */
+	/* masked value's source must be PGC_S_SESSION, so no need to store it */
+	GucContext	scontext;		/* context that set the prior value */
+	GucContext	masked_scontext;	/* context that set the masked value */
+	Oid			srole;			/* role that set the prior value */
+	Oid			masked_srole;	/* role that set the masked value */
+	config_var_value prior;		/* previous value of variable */
+	config_var_value masked;	/* SET value in a GUC_SET_LOCAL entry */
+} GucStack;
+```
 ## Detailed Description
 GucStackState is used within PostgreSQL's GUC system to track the state of configuration parameter changes in a transactional context. It maintains a stack of previous values that allows proper rollback behavior when transactions abort or when leaving function scope.
 

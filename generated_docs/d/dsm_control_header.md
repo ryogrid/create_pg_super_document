@@ -8,7 +8,15 @@ The header structure that defines the layout of PostgreSQL's dynamic shared memo
 
 ## Definition
 
-
+```c
+typedef struct dsm_control_header
+{
+	uint32		magic;
+	uint32		nitems;
+	uint32		maxitems;
+	dsm_control_item item[FLEXIBLE_ARRAY_MEMBER];
+} dsm_control_header;
+```
 ## Detailed Description
 The  structure serves as the header for PostgreSQL's DSM control segment, which is a special shared memory segment used to coordinate the lifecycle of all other DSM segments in the system. This structure appears at the beginning of the control segment and is followed by an array of  structures. The control segment acts as a registry where all active DSM segments are tracked, enabling proper cleanup, reference counting, and coordination across multiple backend processes. The magic number provides validation that the control segment is properly initialized and formatted.
 

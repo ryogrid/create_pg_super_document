@@ -8,7 +8,10 @@ FileInvalidate is a public function that invalidates a virtual file descriptor b
 
 ## Definition
 
-
+```c
+void
+FileInvalidate(File file)
+```
 ## Detailed Description
 FileInvalidate invalidates a virtual file descriptor by removing it from the LRU (Least Recently Used) cache management system. The function performs the following operations:
 

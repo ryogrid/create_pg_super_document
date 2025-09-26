@@ -8,7 +8,10 @@ A callback function that provides thread identification for OpenSSL's internal l
 
 ## Definition
 
-
+```c
+static unsigned long
+pq_threadidcallback(void)
+```
 ## Detailed Description
 This function serves as a callback for OpenSSL's legacy thread safety mechanisms. In OpenSSL versions prior to 1.1.0, applications were required to provide thread identification and locking callbacks to ensure thread safety. This function specifically handles the thread identification requirement by returning a unique identifier for the current thread.
 

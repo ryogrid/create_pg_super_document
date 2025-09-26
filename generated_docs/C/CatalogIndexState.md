@@ -8,7 +8,9 @@ CatalogIndexState is a type alias for ResultRelInfo that provides an abstraction
 
 ## Definition
 
-
+```c
+typedef struct ResultRelInfo *CatalogIndexState;
+```
 ## Detailed Description
 CatalogIndexState serves as a state object used by catalog indexing functions like CatalogOpenIndexes and related operations. Despite being functionally identical to the executor's ResultRelInfo structure, it is given a distinct type name to provide architectural separation and cleaner interfaces for catalog management operations.
 

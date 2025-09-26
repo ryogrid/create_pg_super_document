@@ -8,7 +8,10 @@ Looks up a replication origin by its name in the system catalog and returns its 
 
 ## Definition
 
-
+```c
+RepOriginId
+replorigin_by_name(const char *roname, bool missing_ok)
+```
 ## Detailed Description
 This function searches the pg_replication_origin system catalog for a replication origin with the specified name. It converts the C string name to a PostgreSQL text datum and performs a system cache lookup using the REPLORIGNAME cache. If found, it extracts and returns the origin identifier (roident). The function provides flexible error handling: when missing_ok is false, it throws an error if the origin doesn't exist; when missing_ok is true, it returns InvalidOid for missing origins, allowing callers to handle the absence gracefully.
 

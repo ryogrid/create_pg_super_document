@@ -8,7 +8,10 @@ Configures Diffie-Hellman (DH) parameters for SSL/TLS connections, enabling ephe
 
 ## Definition
 
-
+```c
+static bool
+initialize_dh(SSL_CTX *context, bool isServerStart)
+```
 ## Detailed Description
 The  function sets up Diffie-Hellman parameters required for ephemeral DH key exchange in SSL/TLS connections. DH parameters are mathematical constants used to generate temporary DH keys during the handshake process, providing perfect forward secrecy by ensuring that each session uses unique encryption keys that cannot be recovered even if the server's private key is compromised.
 

@@ -8,7 +8,63 @@ SpGistScanOpaqueData is the comprehensive private state structure for SP-GiST in
 
 ## Definition
 
+```c
+typedef struct SpGistScanOpaqueData
+{
+	SpGistState state;			/* see above */
+	pairingheap *scanQueue;		/* queue of to be visited items */
+	MemoryContext tempCxt;		/* short-lived memory context */
+	MemoryContext traversalCxt; /* single scan lifetime memory context */
 
+	/* Control flags showing whether to search nulls and/or non-nulls */
+	bool		searchNulls;	/* scan matches (all) null entries */
+	bool		searchNonNulls; /* scan matches (some) non-null entries */
+
+	/* Index quals to be passed to opclass (null-related quals removed) */
+	int			numberOfKeys;	/* number of index qualifier conditions */
+	ScanKey		keyData;		/* array of index qualifier descriptors */
+	int			numberOfOrderBys;	/* number of ordering operators */
+	int			numberOfNonNullOrderBys;	/* number of ordering operators
+											 * with non-NULL arguments */
+	ScanKey		orderByData;	/* array of ordering op descriptors */
+	Oid		   *orderByTypes;	/* array of ordering op return types */
+	int		   *nonNullOrderByOffsets;	/* array of offset of non-NULL
+										 * ordering keys in the original array */
+	Oid			indexCollation; /* collation of index column */
+
+	/* Opclass defined functions: */
+	FmgrInfo	innerConsistentFn;
+	FmgrInfo	leafConsistentFn;
+
+	/* Pre-allocated workspace arrays: */
+	double	   *zeroDistances;
+	double	   *infDistances;
+
+	/* These fields are only used in amgetbitmap scans: */
+	TIDBitmap  *tbm;			/* bitmap being filled */
+	int64		ntids;			/* number of TIDs passed to bitmap */
+
+	/* These fields are only used in amgettuple scans: */
+	bool		want_itup;		/* are we reconstructing tuples? */
+	TupleDesc	reconTupDesc;	/* if so, descriptor for reconstructed tuples */
+	int			nPtrs;			/* number of TIDs found on current page */
+	int			iPtr;			/* index for scanning through same */
+	ItemPointerData heapPtrs[MaxIndexTuplesPerPage];	/* TIDs from cur page */
+	bool		recheck[MaxIndexTuplesPerPage]; /* their recheck flags */
+	bool		recheckDistances[MaxIndexTuplesPerPage];	/* distance recheck
+															 * flags */
+	HeapTuple	reconTups[MaxIndexTuplesPerPage];	/* reconstructed tuples */
+
+	/* distances (for recheck) */
+	IndexOrderByDistance *distances[MaxIndexTuplesPerPage];
+
+	/*
+	 * Note: using MaxIndexTuplesPerPage above is a bit hokey since
+	 * SpGistLeafTuples aren't exactly IndexTuples; however, they are larger,
+	 * so this is safe.
+	 */
+} SpGistScanOpaqueData;
+```
 ## Detailed Description
 SpGistScanOpaqueData serves as the comprehensive control structure for SP-GiST index scan operations. It manages the entire lifecycle of a scan, from initialization through result delivery. The structure supports both tuple-returning (amgettuple) and bitmap (amgetbitmap) scan modes, with specialized fields for each operation type.
 

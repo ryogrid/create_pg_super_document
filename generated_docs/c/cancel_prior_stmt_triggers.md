@@ -8,7 +8,10 @@ Cancels previously queued AFTER STATEMENT triggers for a specific relation and o
 
 ## Definition
 
-
+```c
+static void
+cancel_prior_stmt_triggers(Oid relid, CmdType cmdType, int tgevent)
+```
 ## Detailed Description
 This function addresses a complex challenge in PostgreSQL's trigger system: maintaining the proper firing order and frequency of AFTER STATEMENT triggers when multiple operations or sub-statements affect the same table within a single query context. The SQL standard requires that AFTER ROW triggers fire before AFTER STATEMENT triggers, and that statement triggers fire only once per statement.
 

@@ -8,7 +8,10 @@ s_lock_stuck is a static function that reports and handles situations where a sp
 
 ## Definition
 
-
+```c
+static void
+s_lock_stuck(const char *file, int line, const char *func)
+```
 ## Detailed Description
 This function is called when a spinlock acquisition has been retried too many times without success, indicating a potential deadlock or system issue. The function behavior depends on compilation flags:
 

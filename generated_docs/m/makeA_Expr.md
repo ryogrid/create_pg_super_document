@@ -8,7 +8,11 @@ Creates and initializes an A_Expr node, which represents infix, prefix, and post
 
 ## Definition
 
-
+```c
+A_Expr *
+makeA_Expr(A_Expr_Kind kind, List *name,
+		   Node *lexpr, Node *rexpr, int location)
+```
 ## Detailed Description
 The makeA_Expr function is a constructor utility that allocates and initializes an A_Expr node structure. A_Expr nodes are fundamental components of PostgreSQL's parse tree, representing various types of expressions including binary operators (like +, -, =), unary operators, and other expression constructs. The function uses the standard PostgreSQL node creation pattern with makeNode() and then sets all the relevant fields of the A_Expr structure.
 

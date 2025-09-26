@@ -8,7 +8,15 @@ LockMethodData defines the locking semantics and configuration for a specific lo
 
 ## Definition
 
-
+```c
+typedef struct LockMethodData
+{
+	int			numLockModes;
+	const LOCKMASK *conflictTab;
+	const char *const *lockModeNames;
+	const bool *trace_flag;
+} LockMethodData;
+```
 ## Detailed Description
 LockMethodData is a fundamental data structure that encapsulates the complete locking semantics for a lock method. PostgreSQL uses different lock methods for different types of resources (e.g., tables, pages, tuples), and each method defines its own set of lock modes and conflict rules.
 

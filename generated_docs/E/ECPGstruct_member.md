@@ -8,7 +8,14 @@ ECPGstruct_member is a struct type that represents a single member within a Post
 
 ## Definition
 
-
+```c
+struct ECPGstruct_member
+{
+	char	   *name;
+	struct ECPGtype *type;
+	struct ECPGstruct_member *next;
+};
+```
 ## Detailed Description
 ECPGstruct_member is a fundamental data structure used in the ECPG preprocessor to represent individual members of C struct types that are used in embedded SQL statements. Each instance represents one member of a struct, containing the member's name, its type information, and a pointer to the next member in the struct. This forms a singly-linked list that represents the complete structure definition.
 

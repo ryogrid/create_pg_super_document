@@ -8,7 +8,15 @@ GroupingSet represents the structure of CUBE, ROLLUP, and GROUPING SETS clauses 
 
 ## Definition
 
-
+```c
+typedef struct GroupingSet
+{
+	NodeTag		type;
+	GroupingSetKind kind pg_node_attr(query_jumble_ignore);
+	List	   *content;
+	ParseLoc	location;
+} GroupingSet;
+```
 ## Detailed Description
 GroupingSet nodes form a tree structure that represents the organization of complex GROUP BY clauses involving CUBE, ROLLUP, and GROUPING SETS operations. The parser initially creates a mixed structure reflecting the query syntax, which is then transformed during parse analysis into a standardized format.
 

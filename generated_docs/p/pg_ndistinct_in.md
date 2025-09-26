@@ -8,7 +8,10 @@ Input function for the pg_ndistinct data type that explicitly disallows input op
 
 ## Definition
 
-
+```c
+Datum
+pg_ndistinct_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the input routine for PostgreSQL's pg_ndistinct data type, but it is designed to prevent direct input of values. Similar to other internal PostgreSQL types like pg_node_tree, pg_ndistinct is intended to be a "real" data type that can be stored in table columns but cannot be directly created or input by users.
 

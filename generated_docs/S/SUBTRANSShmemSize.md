@@ -8,7 +8,10 @@ SUBTRANSShmemSize calculates the amount of shared memory required for the SUBTRA
 
 ## Definition
 
-
+```c
+Size
+SUBTRANSShmemSize(void)
+```
 ## Detailed Description
 This function computes the total shared memory size needed for the SUBTRANS system, which tracks the commit status of subtransactions. The SUBTRANS system uses a Simple LRU (SLRU) buffer management scheme to cache pages of subtransaction status data. The function delegates the actual calculation to SimpleLruShmemSize, passing the number of buffers determined by SUBTRANSShmemBuffers() and 0 for the number of LSNs (since SUBTRANS doesn't track LSNs per page).
 

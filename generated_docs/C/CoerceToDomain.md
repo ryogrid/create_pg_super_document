@@ -8,7 +8,21 @@ CoerceToDomain represents the operation of coercing a value to a domain type in 
 
 ## Definition
 
-
+```c
+typedef struct CoerceToDomain
+{
+	Expr		xpr;
+	Expr	   *arg;			/* input expression */
+	Oid			resulttype;		/* domain type ID (result type) */
+	/* output typmod (currently always -1) */
+	int32		resulttypmod pg_node_attr(query_jumble_ignore);
+	/* OID of collation, or InvalidOid if none */
+	Oid			resultcollid pg_node_attr(query_jumble_ignore);
+	/* how to display this node */
+	CoercionForm coercionformat pg_node_attr(query_jumble_ignore);
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} CoerceToDomain;
+```
 ## Detailed Description
 CoerceToDomain is a specialized expression node that handles coercion of values to PostgreSQL domain types. Unlike simple type coercion, domain coercion involves runtime validation of domain constraints (such as CHECK constraints, NOT NULL constraints, etc.). The operation occurs at runtime rather than compile time because the precise set of constraints to be checked is determined dynamically.
 

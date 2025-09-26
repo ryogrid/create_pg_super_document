@@ -8,7 +8,10 @@ The get_controlfile function retrieves PostgreSQL's control file data from a spe
 
 ## Definition
 
-
+```c
+ControlFileData *
+get_controlfile(const char *DataDir, bool *crc_ok_p)
+```
 ## Detailed Description
 This function serves as a convenience wrapper around get_controlfile_by_exact_path, constructing the standard control file path from a PostgreSQL data directory. It reads the pg_control file located at DataDir/global/pg_control and returns the control file data structure. The function provides CRC validation feedback to the caller, allowing them to determine whether the control file data integrity is intact.
 

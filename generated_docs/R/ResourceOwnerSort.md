@@ -8,7 +8,10 @@ The  function sorts all resources owned by a ResourceOwner in reverse release pr
 
 ## Definition
 
-
+```c
+static void
+ResourceOwnerSort(ResourceOwner owner)
+```
 ## Detailed Description
 This function implements a comprehensive sorting strategy for resource elements within a ResourceOwner, handling the dual storage approach used by the resource management system. The function operates differently depending on whether the hash table is in use:
 

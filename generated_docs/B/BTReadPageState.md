@@ -8,7 +8,40 @@ BTReadPageState is a structure that maintains state information during B-tree pa
 
 ## Definition
 
+```c
+typedef struct BTReadPageState
+{
+	/* Input parameters, set by _bt_readpage for _bt_checkkeys */
+	ScanDirection dir;			/* current scan direction */
+	OffsetNumber minoff;		/* Lowest non-pivot tuple's offset */
+	OffsetNumber maxoff;		/* Highest non-pivot tuple's offset */
+	IndexTuple	finaltup;		/* Needed by scans with array keys */
+	BlockNumber prev_scan_page; /* previous _bt_parallel_release block */
+	Page		page;			/* Page being read */
 
+	/* Per-tuple input parameters, set by _bt_readpage for _bt_checkkeys */
+	OffsetNumber offnum;		/* current tuple's page offset number */
+
+	/* Output parameter, set by _bt_checkkeys for _bt_readpage */
+	OffsetNumber skip;			/* Array keys "look ahead" skip offnum */
+	bool		continuescan;	/* Terminate ongoing (primitive) index scan? */
+
+	/*
+	 * Input and output parameters, set and unset by both _bt_readpage and
+	 * _bt_checkkeys to manage precheck optimizations
+	 */
+	bool		prechecked;		/* precheck set continuescan to 'true'? */
+	bool		firstmatch;		/* at least one match so far?  */
+
+	/*
+	 * Private _bt_checkkeys state used to manage "look ahead" optimization
+	 * (only used during scans with array keys)
+	 */
+	int16		rechecks;
+	int16		targetdistance;
+
+} BTReadPageState;
+```
 ## Detailed Description
 BTReadPageState serves as a communication mechanism between _bt_readpage and _bt_checkkeys functions during B-tree index scanning. It encapsulates all the necessary state information required to efficiently scan through tuples on a B-tree page, including optimization parameters for array key scans and look-ahead mechanisms. The structure is designed to minimize function call overhead by bundling related parameters and state variables together.
 

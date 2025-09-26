@@ -8,7 +8,10 @@ Determines whether a given user/role is a member of another role, either directl
 
 ## Definition
 
-
+```c
+bool
+is_member_of_role(Oid member, Oid role)
+```
 ## Detailed Description
 This function checks if a member (user or role) is a member of a target role through PostgreSQL's role membership system. The function performs recursive checking through the role inheritance hierarchy, following both inherited and non-inherited grants. 
 

@@ -8,7 +8,10 @@ A perfect hash function used to efficiently look up Unicode normalization proper
 
 ## Definition
 
-
+```c
+static int
+NFC_QC_hash_func(const void *key)
+```
 ## Detailed Description
 This function implements a perfect hash function specifically designed for the NFC quick check table in PostgreSQL's Unicode normalization system. Perfect hash functions provide constant-time O(1) lookups with no collisions for a predetermined set of keys, making them ideal for static Unicode property tables.
 

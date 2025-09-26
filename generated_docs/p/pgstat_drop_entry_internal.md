@@ -8,7 +8,11 @@ Internal helper function that handles the dropping of shared statistics entries,
 
 ## Definition
 
-
+```c
+static bool
+pgstat_drop_entry_internal(PgStatShared_HashEntry *shent,
+						   dshash_seq_status *hstat)
+```
 ## Detailed Description
 This function serves as the core implementation for dropping shared statistics entries in PostgreSQL's statistics system. It handles the complex process of safely removing entries from the shared hash table while coordinating with other backends that may still hold references to the entry.
 

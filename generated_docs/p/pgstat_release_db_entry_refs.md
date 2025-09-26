@@ -8,7 +8,10 @@ Releases all local references to shared statistics entries that belong to a spec
 
 ## Definition
 
-
+```c
+static void
+pgstat_release_db_entry_refs(Oid dboid)
+```
 ## Detailed Description
 This function provides a database-specific cleanup mechanism for releasing local references to shared statistics entries. When a database is being dropped or when database-specific cleanup is needed, this function ensures that all local references to statistics entries belonging to that database are properly released.
 

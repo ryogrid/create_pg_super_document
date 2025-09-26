@@ -8,7 +8,10 @@ IOContextForStrategy is a utility function that maps a BufferAccessStrategy to i
 
 ## Definition
 
-
+```c
+IOContext
+IOContextForStrategy(BufferAccessStrategy strategy)
+```
 ## Detailed Description
 This function serves as a mapping utility that translates buffer access strategies into their corresponding I/O contexts. The function examines the buffer access strategy type and returns the appropriate IOContext enum value, which is used by PostgreSQL's I/O statistics system to categorize different types of buffer operations. This mapping is crucial for monitoring and performance analysis, allowing the system to distinguish between bulk reads, bulk writes, vacuum operations, and normal operations in I/O statistics.
 

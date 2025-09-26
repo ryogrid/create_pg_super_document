@@ -8,7 +8,10 @@ Converts a text object containing a qualified name into a list of String nodes, 
 
 ## Definition
 
-
+```c
+List *
+textToQualifiedNameList(text *textval)
+```
 ## Detailed Description
 The  function is a critical utility that parses text representations of qualified database object names (like 'schema.table' or 'database.schema.table') into a structured list format. This function is widely used throughout PostgreSQL for processing user-provided object names in SQL functions and commands.
 

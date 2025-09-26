@@ -8,7 +8,11 @@ Adds a RelabelType node if needed to make an expression expose the specified typ
 
 ## Definition
 
-
+```c
+Node *
+applyRelabelType(Node *arg, Oid rtype, int32 rtypmod, Oid rcollid,
+				 CoercionForm rformat, int rlocation, bool overwrite_ok)
+```
 ## Detailed Description
 The  function is a smart constructor for RelabelType nodes that adds type relabeling only when necessary. It's designed for use during query planning and maintains important invariants:
 

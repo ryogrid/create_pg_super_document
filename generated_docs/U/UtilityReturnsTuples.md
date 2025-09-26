@@ -8,7 +8,10 @@ UtilityReturnsTuples determines whether a utility statement will send output tup
 
 ## Definition
 
-
+```c
+bool
+UtilityReturnsTuples(Node *parsetree)
+```
 ## Detailed Description
 UtilityReturnsTuples analyzes a utility statement's parse tree to determine if the statement will produce output tuples that need to be sent to the client. This function is crucial for the portal strategy selection process, as it helps distinguish between statements that produce tabular output (requiring tuple processing) and those that don't.
 

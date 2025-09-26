@@ -8,7 +8,25 @@ A parse tree node structure representing an ALTER PUBLICATION SQL statement, whi
 
 ## Definition
 
+```c
+typedef struct AlterPublicationStmt
+{
+	NodeTag		type;
+	char	   *pubname;		/* Name of the publication */
 
+	/* parameters used for ALTER PUBLICATION ... WITH */
+	List	   *options;		/* List of DefElem nodes */
+
+	/*
+	 * Parameters used for ALTER PUBLICATION ... ADD/DROP/SET publication
+	 * objects.
+	 */
+	List	   *pubobjects;		/* Optional list of publication objects */
+	bool		for_all_tables; /* Special publication for all tables in db */
+	AlterPublicationAction action;	/* What action to perform with the given
+									 * objects */
+} AlterPublicationStmt;
+```
 ## Detailed Description
 AlterPublicationStmt represents the parsed form of ALTER PUBLICATION statements, which allow modification of existing publications in PostgreSQL's logical replication framework. This structure supports two main categories of alterations:
 

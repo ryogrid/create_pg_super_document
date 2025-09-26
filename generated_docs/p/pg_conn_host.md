@@ -8,7 +8,19 @@ A structure that stores information about each host mentioned in PostgreSQL conn
 
 ## Definition
 
-
+```c
+typedef struct pg_conn_host
+{
+	pg_conn_host_type type;		/* type of host address */
+	char	   *host;			/* host name or socket path */
+	char	   *hostaddr;		/* host numeric IP address */
+	char	   *port;			/* port number (if NULL or empty, use
+								 * DEF_PGPORT[_STR]) */
+	char	   *password;		/* password for this host, read from the
+								 * password file; NULL if not sought or not
+								 * found in password file. */
+} pg_conn_host;
+```
 ## Detailed Description
 The  structure is designed to handle PostgreSQL's multi-host connection capability. When a connection string contains multiple hosts separated by commas, each host's information is parsed and stored in a separate  structure. This enables connection failover where the client can attempt to connect to alternative hosts if the primary host is unavailable.
 

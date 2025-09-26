@@ -8,7 +8,9 @@ Implements the balanced k-way merge algorithm to merge all completed initial run
 
 ## Definition
 
-
+```c
+enum;
+```
 ## Detailed Description
 The  function is the core implementation of PostgreSQL's external merge sort algorithm. It takes multiple sorted runs that have been written to tape and merges them into progressively fewer, longer runs until a single sorted result remains.
 

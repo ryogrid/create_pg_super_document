@@ -8,7 +8,10 @@ A simple timeout handler that sets a flag when the STANDBY_DEADLOCK_TIMEOUT peri
 
 ## Definition
 
-
+```c
+void
+StandbyDeadLockHandler(void)
+```
 ## Detailed Description
 This function serves as a timeout handler in the PostgreSQL standby timeout system. It is automatically called when the STANDBY_DEADLOCK_TIMEOUT period expires during hot standby recovery operations. The function's sole responsibility is to set a global flag () to true, indicating that the deadlock timeout threshold has been reached.
 

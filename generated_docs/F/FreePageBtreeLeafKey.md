@@ -8,7 +8,13 @@ FreePageBtreeLeafKey represents the actual data entries in leaf pages of the fre
 
 ## Definition
 
-
+```c
+typedef struct FreePageBtreeLeafKey
+{
+	Size		first_page;		/* first page in span */
+	Size		npages;			/* number of pages in span */
+} FreePageBtreeLeafKey;
+```
 ## Detailed Description
 The FreePageBtreeLeafKey structure represents the terminal entries in the free page btree, containing the actual data about available free memory spans. Each leaf key identifies a contiguous span of free pages by specifying its starting page number and length. These keys are stored in sorted order within leaf pages, enabling efficient range searches and allocation operations.
 

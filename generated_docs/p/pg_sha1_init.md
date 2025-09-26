@@ -8,7 +8,10 @@ Initializes a SHA-1 context structure with the standard initial hash values and 
 
 ## Definition
 
-
+```c
+void
+pg_sha1_init(pg_sha1_ctx *ctx)
+```
 ## Detailed Description
 The  function prepares a SHA-1 context for a new hash computation by:
 

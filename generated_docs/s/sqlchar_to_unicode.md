@@ -8,7 +8,10 @@ A static function that converts a single character from the current server encod
 
 ## Definition
 
-
+```c
+static pg_wchar
+sqlchar_to_unicode(const char *s)
+```
 ## Detailed Description
 This function performs character encoding conversion by taking a character in the server's current encoding and converting it to a Unicode codepoint (pg_wchar). The conversion process involves two main steps: first converting the character from the server encoding to UTF-8 using pg_server_to_any(), then converting the UTF-8 representation to a wide character (Unicode codepoint) using pg_encoding_mb2wchar_with_len().
 

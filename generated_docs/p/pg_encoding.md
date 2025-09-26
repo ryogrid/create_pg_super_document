@@ -8,7 +8,15 @@ The pg_encoding struct defines a generic interface for encoding conversion opera
 
 ## Definition
 
-
+```c
+struct pg_encoding
+{
+	uint64		(*encode_len) (const char *data, size_t dlen);
+	uint64		(*decode_len) (const char *data, size_t dlen);
+	uint64		(*encode) (const char *data, size_t dlen, char *res);
+	uint64		(*decode) (const char *data, size_t dlen, char *res);
+};
+```
 ## Detailed Description
 The pg_encoding struct serves as an abstraction layer for various encoding schemes (hex, base64, escape) used in PostgreSQL's binary data handling. This design allows different encoding methods to be implemented uniformly through a common interface, where each encoding type provides its own implementation of the four required operations.
 

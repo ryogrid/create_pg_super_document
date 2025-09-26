@@ -8,7 +8,10 @@ Acquires an exclusive lock on the database's frozen transaction ID update mechan
 
 ## Definition
 
-
+```c
+void
+LockDatabaseFrozenIds(LOCKMODE lockmode)
+```
 ## Detailed Description
 This function provides a critical locking mechanism for database-wide transaction ID and MultiXact ID management. It ensures that only one backend per database can execute the vac_update_datfrozenxid() function, which updates the pg_database.datfrozenxid and pg_database.datminmxid values based on the minimum values found across all relations in the database.
 

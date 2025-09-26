@@ -8,7 +8,13 @@ index_concurrently_build performs the actual data building phase for a concurren
 
 ## Definition
 
-
+```c
+struct, since it was lost in the
+	 * commit of the transaction where this concurrent index was created at
+	 * the catalog level.
+	 */
+	indexInfo = BuildIndexInfo(indexRelation);
+```
 ## Detailed Description
 This function performs the data building phase of concurrent index creation. It opens the heap relation and index relation, switches to the table owner's user context for security, rebuilds the IndexInfo structure (which was lost after the catalog creation transaction committed), and then calls index_build to construct the actual index data. After completion, it marks the index as ready for inserts.
 

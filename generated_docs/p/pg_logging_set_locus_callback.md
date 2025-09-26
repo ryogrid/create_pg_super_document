@@ -8,7 +8,10 @@ Sets a callback function to provide source code location information (filename a
 
 ## Definition
 
-
+```c
+void
+pg_logging_set_locus_callback(void (*cb) (const char **filename, uint64 *lineno))
+```
 ## Detailed Description
 This function registers a callback that will be invoked during log message processing to obtain source code location information. The callback receives two output parameters: a pointer to store the filename string and a pointer to store the line number. This mechanism allows the logging system to display contextual information about where log messages originate, which is particularly useful for debugging and development. The callback is stored in the global variable  and is called by  when formatting log output.
 

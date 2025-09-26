@@ -8,7 +8,13 @@ Inserts a tuple into a skew hashtable bucket, managing memory allocation and spa
 
 ## Definition
 
-
+```c
+static void
+ExecHashSkewTableInsert(HashJoinTable hashtable,
+						TupleTableSlot *slot,
+						uint32 hashvalue,
+						int bucketNumber)
+```
 ## Detailed Description
 ExecHashSkewTableInsert handles the insertion of tuples into the skew optimization hashtable during hash join processing. This function is specifically designed for tuples whose hash values correspond to most common values (MCVs) that have dedicated skew buckets.
 

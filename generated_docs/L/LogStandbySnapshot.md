@@ -8,7 +8,10 @@ LogStandbySnapshot logs the current transaction snapshot state to WAL, enabling 
 
 ## Definition
 
-
+```c
+XLogRecPtr
+LogStandbySnapshot(void)
+```
 ## Detailed Description
 This function captures and logs a comprehensive snapshot of the current system state to WAL, including all running transactions and AccessExclusiveLocks. This information is crucial for hot standby servers to maintain consistent recovery snapshots and for logical decoding to understand transaction visibility.
 

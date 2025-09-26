@@ -8,7 +8,23 @@ The Hash node is the build-side component of hash joins that creates and populat
 
 ## Definition
 
+```c
+typedef struct Hash
+{
+	Plan		plan;
 
+	/*
+	 * List of expressions to be hashed for tuples from Hash's outer plan,
+	 * needed to put them into the hashtable.
+	 */
+	List	   *hashkeys;		/* hash keys for the hashjoin condition */
+	Oid			skewTable;		/* outer join key's table OID, or InvalidOid */
+	AttrNumber	skewColumn;		/* outer join key's column #, or zero */
+	bool		skewInherit;	/* is outer join rel an inheritance tree? */
+	/* all other info is in the parent HashJoin node */
+	Cardinality rows_total;		/* estimate total rows if parallel_aware */
+} Hash;
+```
 ## Detailed Description
 The Hash node implements the build phase of hash join operations. It processes all tuples from its child plan, computes hash values for the join keys, and stores the tuples in an in-memory hash table structure. This hash table is subsequently used by its parent HashJoin node during the probe phase to find matching tuples efficiently.
 

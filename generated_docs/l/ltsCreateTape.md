@@ -8,7 +8,11 @@ Creates and initializes a new LogicalTape structure within a LogicalTapeSet, set
 
 ## Definition
 
-
+```c
+struct.  Note we allocate the I/O buffer lazily.
+	 */
+	lt = palloc(sizeof(LogicalTape));
+```
 ## Detailed Description
 The  function is responsible for allocating and initializing a new LogicalTape structure. This is an internal helper function used by the logical tape subsystem to create individual tapes within a tape set. The function sets up all the necessary initial values for a new tape, including setting it to writing mode, initializing block numbers to invalid values (-1), and preparing the tape for use in external sorting algorithms.
 

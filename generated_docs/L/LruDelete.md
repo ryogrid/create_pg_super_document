@@ -8,7 +8,10 @@ LruDelete closes a virtual file descriptor and removes it from the LRU chain, pe
 
 ## Definition
 
-
+```c
+static void
+LruDelete(File file)
+```
 ## Detailed Description
 This function performs a complete removal of a virtual file descriptor from PostgreSQL's VFD cache system. Unlike the Delete function which only removes a VFD from the LRU chain, LruDelete also closes the actual underlying file descriptor and updates the system's file descriptor count.
 

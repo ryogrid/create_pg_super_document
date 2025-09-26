@@ -8,7 +8,13 @@ A structure representing the header/control block for a doubly-linked list of Po
 
 ## Definition
 
-
+```c
+typedef struct proclist_head
+{
+	ProcNumber	head;			/* pgprocno of the head PGPROC */
+	ProcNumber	tail;			/* pgprocno of the tail PGPROC */
+} proclist_head;
+```
 ## Detailed Description
 The `proclist_head` structure serves as the control header for a doubly-linked list of PostgreSQL processes. It maintains references to both ends of the list using `ProcNumber` indexes rather than memory pointers, making it suitable for shared memory environments.
 

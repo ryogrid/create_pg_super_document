@@ -8,7 +8,70 @@ VacAttrStats is the central data structure used during PostgreSQL's ANALYZE oper
 
 ## Definition
 
+```c
+typedef struct VacAttrStats
+{
+	/*
+	 * These fields are set up by the main ANALYZE code before invoking the
+	 * type-specific typanalyze function.  They don't necessarily match what
+	 * is in pg_attribute, because some index opclasses store a different type
+	 * than the underlying column/expression.  Therefore, use these fields for
+	 * information about the datatype being fed to the typanalyze function.
+	 */
+	int			attstattarget;	/* -1 to use default */
+	Oid			attrtypid;		/* type of data being analyzed */
+	int32		attrtypmod;		/* typmod of data being analyzed */
+	Form_pg_type attrtype;		/* copy of pg_type row for attrtypid */
+	Oid			attrcollid;		/* collation of data being analyzed */
+	MemoryContext anl_context;	/* where to save long-lived data */
 
+	/*
+	 * These fields must be filled in by the typanalyze routine, unless it
+	 * returns false.
+	 */
+	AnalyzeAttrComputeStatsFunc compute_stats;	/* function pointer */
+	int			minrows;		/* Minimum # of rows wanted for stats */
+	void	   *extra_data;		/* for extra type-specific data */
+
+	/*
+	 * These fields are to be filled in by the compute_stats routine. (They
+	 * are initialized to zero when the struct is created.)
+	 */
+	bool		stats_valid;
+	float4		stanullfrac;	/* fraction of entries that are NULL */
+	int32		stawidth;		/* average width of column values */
+	float4		stadistinct;	/* # distinct values */
+	int16		stakind[STATISTIC_NUM_SLOTS];
+	Oid			staop[STATISTIC_NUM_SLOTS];
+	Oid			stacoll[STATISTIC_NUM_SLOTS];
+	int			numnumbers[STATISTIC_NUM_SLOTS];
+	float4	   *stanumbers[STATISTIC_NUM_SLOTS];
+	int			numvalues[STATISTIC_NUM_SLOTS];
+	Datum	   *stavalues[STATISTIC_NUM_SLOTS];
+
+	/*
+	 * These fields describe the stavalues[n] element types. They will be
+	 * initialized to match attrtypid, but a custom typanalyze function might
+	 * want to store an array of something other than the analyzed column's
+	 * elements. It should then overwrite these fields.
+	 */
+	Oid			statypid[STATISTIC_NUM_SLOTS];
+	int16		statyplen[STATISTIC_NUM_SLOTS];
+	bool		statypbyval[STATISTIC_NUM_SLOTS];
+	char		statypalign[STATISTIC_NUM_SLOTS];
+
+	/*
+	 * These fields are private to the main ANALYZE code and should not be
+	 * looked at by type-specific functions.
+	 */
+	int			tupattnum;		/* attribute number within tuples */
+	HeapTuple  *rows;			/* access info for std fetch function */
+	TupleDesc	tupDesc;
+	Datum	   *exprvals;		/* access info for index fetch function */
+	bool	   *exprnulls;
+	int			rowstride;
+} VacAttrStats;
+```
 ## Detailed Description
 VacAttrStats is the core data structure that orchestrates PostgreSQL's statistical analysis during ANALYZE operations. It serves multiple phases of the analysis process:
 

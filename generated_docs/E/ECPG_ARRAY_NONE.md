@@ -8,7 +8,13 @@ ECPG_ARRAY_NONE is an enumeration value that indicates a PostgreSQL data type is
 
 ## Definition
 
-
+```c
+struct ECPGgeneric_varchar
+{
+	int			len;
+	char		arr[FLEXIBLE_ARRAY_MEMBER];
+};
+```
 ## Detailed Description
 ECPG_ARRAY_NONE is the fifth and final enumeration value in the ARRAY_TYPE enum, used to classify PostgreSQL data types that should be treated as scalar (non-array) types in ECPG's type information caching system. This value is assigned to standard scalar data types like BOOLOID, BYTEAOID, CHAROID, INT8OID, INT2OID, INT4OID, and others during the population of ECPG's type cache. The value explicitly indicates that the associated PostgreSQL type is not an array and should be processed as a single scalar value rather than as a collection of elements.
 

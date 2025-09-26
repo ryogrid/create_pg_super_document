@@ -8,7 +8,15 @@ ApplySubXactData is a structure that manages metadata for subtransactions within
 
 ## Definition
 
-
+```c
+typedef struct ApplySubXactData
+{
+	uint32		nsubxacts;		/* number of sub-transactions */
+	uint32		nsubxacts_max;	/* current capacity of subxacts */
+	TransactionId subxact_last; /* xid of the last sub-transaction */
+	SubXactInfo *subxacts;		/* sub-xact offset in changes file */
+} ApplySubXactData;
+```
 ## Detailed Description
 ApplySubXactData serves as a container for managing subtransaction metadata during streaming logical replication. When a large transaction is being streamed and contains multiple subtransactions, this structure tracks the collection of subtransactions, maintaining both current count and capacity for dynamic array management. It provides efficient access to subtransaction information stored in temporary files through the SubXactInfo array, enabling the logical replication worker to properly handle complex transaction hierarchies during the apply process.
 

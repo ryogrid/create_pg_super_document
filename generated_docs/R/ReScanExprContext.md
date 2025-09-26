@@ -8,7 +8,10 @@ Resets an ExprContext in preparation for rescanning its associated plan node, en
 
 ## Definition
 
-
+```c
+void
+ReScanExprContext(ExprContext *econtext)
+```
 ## Detailed Description
 ReScanExprContext prepares an ExprContext for reuse by performing a controlled reset operation. This function is essential when a plan node needs to be rescanned, as it ensures that any partially completed set-returning functions are properly canceled and that the per-tuple memory context is cleared for fresh allocations.
 

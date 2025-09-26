@@ -8,7 +8,11 @@ AdjustFractMicroseconds converts a fractional value to microseconds by scaling a
 
 ## Definition
 
-
+```c
+static bool
+AdjustFractMicroseconds(double frac, int64 scale,
+						struct pg_itm_in *itm_in)
+```
 ## Detailed Description
 AdjustFractMicroseconds handles the conversion of fractional time components (typically less than 1.0) into microseconds and safely adds them to an interval time structure. The function performs several key operations:
 

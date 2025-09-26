@@ -8,7 +8,13 @@ ListenStmt represents the parsed structure of a LISTEN SQL statement used to sub
 
 ## Definition
 
-
+```c
+typedef struct ListenStmt
+{
+	NodeTag		type;
+	char	   *conditionname;	/* condition name to listen on */
+} ListenStmt;
+```
 ## Detailed Description
 ListenStmt is a parse node that represents the LISTEN statement in PostgreSQL's SQL grammar. The LISTEN statement is part of PostgreSQL's asynchronous notification system that allows database sessions to subscribe to specific notification channels. Once a session executes LISTEN on a channel, it will receive all NOTIFY messages sent to that channel. The statement follows the simple syntax: `LISTEN channel` where channel is an identifier. This mechanism enables efficient event-driven communication between database sessions.
 

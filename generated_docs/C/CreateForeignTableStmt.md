@@ -8,7 +8,14 @@ CreateForeignTableStmt represents the parsed representation of a CREATE FOREIGN 
 
 ## Definition
 
-
+```c
+typedef struct CreateForeignTableStmt
+{
+	CreateStmt	base;
+	char	   *servername;
+	List	   *options;
+} CreateForeignTableStmt;
+```
 ## Detailed Description
 CreateForeignTableStmt is a specialized parse tree node that extends the standard CreateStmt structure to support foreign table creation. Foreign tables are virtual tables that provide a PostgreSQL interface to external data sources through foreign data wrappers and foreign servers. This structure inherits most table creation functionality from CreateStmt while adding foreign-table-specific elements.
 

@@ -8,7 +8,10 @@ Converts binary data (bytea) into a PostgreSQL-compatible hexadecimal string rep
 
 ## Definition
 
-
+```c
+static char *
+convert_bytea_to_string(char *from_data, int from_len, int lineno)
+```
 ## Detailed Description
 The  function transforms raw binary data into PostgreSQL's standard bytea literal format using hexadecimal encoding. The output format follows PostgreSQL's bytea hex format: , where the data is prefixed with a backslash and 'x' and enclosed in single quotes.
 

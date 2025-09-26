@@ -8,7 +8,10 @@ Allocates a single object of the specified size class from a DSA area, managing 
 
 ## Definition
 
-
+```c
+static inline dsa_pointer
+alloc_object(dsa_area *area, int size_class)
+```
 ## Detailed Description
 This function implements the core object allocation logic for the Dynamic Shared Area (DSA) memory management system. It operates by acquiring the appropriate size class lock, ensuring an active superblock is available for allocation, and then either reusing a previously freed object from the free list or initializing a new object within the span.
 

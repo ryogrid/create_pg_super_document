@@ -8,7 +8,10 @@ Returns the base address of the first LWLock in a named tranche, allowing extens
 
 ## Definition
 
-
+```c
+LWLockPadded *
+GetNamedLWLockTranche(const char *tranche_name)
+```
 ## Detailed Description
 GetNamedLWLockTranche provides extensions and other components with access to their named LWLock tranches by returning the base address of the first lock in the specified tranche. The function searches through the NamedLWLockTrancheRequestArray to find the tranche with the matching name and calculates its position in the MainLWLockArray.
 

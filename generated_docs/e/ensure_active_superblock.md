@@ -8,7 +8,25 @@ Ensures that fullness class 1 contains an active superblock suitable for allocat
 
 ## Definition
 
+```c
+struct a new span to manage it.
+	 *
+	 * First, get a dsa_area_span object to describe the new superblock block
+	 * ... unless this allocation is for a dsa_area_span object, in which case
+	 * that's surely not going to work.  We handle that case by storing the
+	 * span describing a block-of-spans inline.
+	 */
+	if (size_class != DSA_SCLASS_BLOCK_OF_SPANS)
+	{
+		span_pointer = alloc_object(area, DSA_SCLASS_BLOCK_OF_SPANS);
+		if (!DsaPointerIsValid(span_pointer))
+			return false;
+		npages = DSA_PAGES_PER_SUPERBLOCK;
+	}
 
+	/* Find or create a segment and allocate the superblock. */
+	LWLockAcquire(DSA_AREA_LOCK(area), LW_EXCLUSIVE);
+```
 ## Detailed Description
 This function implements the core logic for maintaining an active allocation target in PostgreSQL's Dynamic Shared Area (DSA) memory management system. It ensures that fullness class 1 always contains a superblock that can accommodate new allocations for the specified size class.
 

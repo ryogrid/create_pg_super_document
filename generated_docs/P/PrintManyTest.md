@@ -8,7 +8,10 @@ A ResourceOwner callback function that provides debug information about leaked M
 
 ## Definition
 
-
+```c
+static char *
+PrintManyTest(Datum res)
+```
 ## Detailed Description
 PrintManyTest serves as the debug print callback function for the PostgreSQL ResourceOwner system when dealing with ManyTestResource objects. This function is automatically invoked by the resource management system when it needs to generate human-readable information about resources that have been leaked (not properly released).
 

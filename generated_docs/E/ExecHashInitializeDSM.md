@@ -8,7 +8,10 @@ ExecHashInitializeDSM sets up a shared memory space in the Dynamic Shared Memory
 
 ## Definition
 
-
+```c
+void
+ExecHashInitializeDSM(HashState *node, ParallelContext *pcxt)
+```
 ## Detailed Description
 This function initializes shared memory infrastructure for collecting hash table instrumentation data from parallel workers. It allocates space in the DSM segment that will be used by all workers to record performance metrics and statistics about hash table operations during parallel query execution.
 

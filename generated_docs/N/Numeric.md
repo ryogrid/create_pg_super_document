@@ -8,7 +8,9 @@ Numeric is a typedef that represents PostgreSQL's exact numeric data type, defin
 
 ## Definition
 
-
+```c
+typedef struct NumericData *Numeric;
+```
 ## Detailed Description
 The Numeric type is PostgreSQL's implementation of arbitrary precision decimal arithmetic. It is designed to provide exact numeric calculations without the precision limitations and rounding errors inherent in floating-point representations. The type supports a wide range of precision and scale values, making it suitable for financial calculations, scientific computing, and any application requiring exact decimal arithmetic.
 

@@ -8,7 +8,10 @@ A utility function that checks whether a given string ends with a specified suff
 
 ## Definition
 
-
+```c
+bool
+pg_str_endswith(const char *str, const char *end)
+```
 ## Detailed Description
 The function determines if the string  has the postfix  by comparing the end portion of the main string with the suffix. It first calculates the lengths of both strings, then performs a direct string comparison on the relevant portion. The implementation is optimized to avoid unnecessary comparisons by checking length constraints first.
 

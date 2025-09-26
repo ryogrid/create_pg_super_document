@@ -8,7 +8,13 @@ HashSkewBucket is a specialized hash table structure designed to optimize Postgr
 
 ## Definition
 
-
+```c
+typedef struct HashSkewBucket
+{
+	uint32		hashvalue;		/* common hash value */
+	HashJoinTuple tuples;		/* linked list of inner-relation tuples */
+} HashSkewBucket;
+```
 ## Detailed Description
 HashSkewBucket implements a skew optimization strategy for hash joins when the outer relation has a significantly non-uniform distribution. Rather than allowing highly frequent hash values to overwhelm regular hash buckets, these common values are identified (typically from the outer relation's Most Common Values statistics) and their corresponding inner relation tuples are stored in separate skew buckets.
 

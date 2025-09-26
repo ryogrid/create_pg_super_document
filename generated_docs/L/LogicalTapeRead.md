@@ -8,7 +8,27 @@ LogicalTapeRead is a function that reads data from a logical tape, providing buf
 
 ## Definition
 
+```c
+structive read.
+	 */
+	if (lt->dirty)
+	{
+		/*
+		 * As long as we've filled the buffer at least once, its contents are
+		 * entirely defined from valgrind's point of view, even though
+		 * contents beyond the current end point may be stale.  But it's
+		 * possible - at least in the case of a parallel sort - to sort such
+		 * small amount of data that we do not fill the buffer even once. Tell
+		 * valgrind that its contents are defined, so it doesn't bleat.
+		 */
+		VALGRIND_MAKE_MEM_DEFINED(lt->buffer + lt->nbytes,
+								  lt->buffer_size - lt->nbytes);
 
+		TapeBlockSetNBytes(lt->buffer, lt->nbytes);
+		ltsWriteBlock(lt->tapeSet, lt->curBlockNumber, lt->buffer);
+	}
+	lt->writing = false;
+```
 ## Detailed Description
 LogicalTapeRead performs buffered reading from a logical tape data structure. It ensures the tape is in read mode (not writing), initializes the read buffer if necessary, and then reads the requested amount of data into the provided buffer. The function handles partial reads and EOF conditions gracefully, returning the actual number of bytes read which may be less than requested if EOF is encountered.
 

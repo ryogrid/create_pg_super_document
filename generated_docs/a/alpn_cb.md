@@ -8,7 +8,15 @@ A static callback function that handles Application-Layer Protocol Negotiation (
 
 ## Definition
 
-
+```c
+static int
+alpn_cb(SSL *ssl,
+		const unsigned char **out,
+		unsigned char *outlen,
+		const unsigned char *in,
+		unsigned int inlen,
+		void *userdata)
+```
 ## Detailed Description
 The  function implements the server-side ALPN callback for PostgreSQL's SSL/TLS connections. ALPN is a TLS extension (RFC 7301) that allows clients and servers to negotiate which application protocol to use over the secure connection. This callback is invoked during the SSL handshake when a client presents a list of supported protocols, and the server must select one from its own supported list.
 

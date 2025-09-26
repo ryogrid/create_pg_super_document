@@ -8,7 +8,9 @@ JsonPathGinContext provides a callback-based framework for abstracting different
 
 ## Definition
 
-
+```c
+typedef struct JsonPathGinContext JsonPathGinContext;
+```
 ## Detailed Description
 JsonPathGinContext implements a strategy pattern that allows the same JSON path processing logic to work with different GIN indexing approaches. It encapsulates the differences between jsonb_ops (which indexes individual path components and values separately) and jsonb_path_ops (which uses path-aware hashing) through function pointers.
 

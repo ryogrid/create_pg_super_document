@@ -8,7 +8,12 @@ A helper function that decodes a single floating-point number from a string repr
 
 ## Definition
 
-
+```c
+static bool
+single_decode(char *num, float8 *x, char **endptr_p,
+			  const char *type_name, const char *orig_string,
+			  Node *escontext)
+```
 ## Detailed Description
 The  function serves as a wrapper around  to parse a single floating-point number from a string. It is specifically designed for parsing components of geometric data types in PostgreSQL. The function provides error handling through the soft error mechanism, allowing geometric parsing functions to continue processing even when encountering invalid numeric values.
 

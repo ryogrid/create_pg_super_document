@@ -8,7 +8,11 @@ Transforms A_Expr nodes representing DISTINCT and NOT DISTINCT operations into a
 
 ## Definition
 
-
+```c
+struct, eg NULLIF */
+				 errmsg("%s requires = operator to yield boolean", "NULLIF"),
+				 parser_errposition(pstate, a->location)));
+```
 ## Detailed Description
 This function handles the transformation of SQL DISTINCT and NOT DISTINCT operators during expression parsing. It implements several optimization strategies:
 

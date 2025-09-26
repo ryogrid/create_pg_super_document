@@ -8,7 +8,10 @@ GetScanKeyword is an inline utility function that retrieves the text representat
 
 ## Definition
 
-
+```c
+static inline const char *
+GetScanKeyword(int n, const ScanKeywordList *keywords)
+```
 ## Detailed Description
 GetScanKeyword provides a simple and efficient way to access keyword strings from a ScanKeywordList structure. It uses pointer arithmetic to calculate the memory location of the nth keyword by adding the offset stored in the kw_offsets array to the base address of the kw_string buffer. This design allows for compact storage of keywords as a single concatenated string with null terminators, while maintaining O(1) access time to individual keywords.
 

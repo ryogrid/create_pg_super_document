@@ -8,7 +8,16 @@ Enumeration value representing a timezone rule type that specifies the nth occur
 
 ## Definition
 
-
+```c
+struct rule
+{
+	enum r_type r_type;			/* type of rule */
+	int			r_day;			/* day number of rule */
+	int			r_week;			/* week number of rule */
+	int			r_mon;			/* month number of rule */
+	int32		r_time;			/* transition time of rule */
+};
+```
 ## Detailed Description
 MONTH_NTH_DAY_OF_WEEK is an enumeration constant within the  enum used in PostgreSQL's timezone handling system. It represents one of three possible rule types for defining daylight saving time transitions and other timezone rules.
 

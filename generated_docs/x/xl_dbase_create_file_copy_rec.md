@@ -8,7 +8,15 @@ WAL record structure used to log an entire CREATE DATABASE operation when using 
 
 ## Definition
 
-
+```c
+typedef struct xl_dbase_create_file_copy_rec
+{
+	Oid			db_id;
+	Oid			tablespace_id;
+	Oid			src_db_id;
+	Oid			src_tablespace_id;
+} xl_dbase_create_file_copy_rec;
+```
 ## Detailed Description
 The xl_dbase_create_file_copy_rec structure represents a Write-Ahead Log (WAL) record for database creation operations that use the FILE_COPY strategy. This strategy involves physically copying files from a template database rather than logging individual block changes. The entire CREATE DATABASE operation is captured in a single WAL record, making it efficient for large template databases.
 

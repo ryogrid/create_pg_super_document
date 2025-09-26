@@ -8,7 +8,9 @@ A typedef representing a single gene in PostgreSQL's Genetic Query Optimizer (GE
 
 ## Definition
 
-
+```c
+typedef int Gene;
+```
 ## Detailed Description
 Gene is a fundamental data type in PostgreSQL's Genetic Query Optimizer (GEQO) that represents a single gene within a chromosome. Each gene corresponds to a relation (table) identifier in the query optimization context. The GEQO module uses genetic algorithms to solve complex join ordering problems, and genes are the atomic units that make up the chromosomes representing different join orders.
 

@@ -8,7 +8,10 @@ ReleaseExternalFD reports the release of an external file descriptor back to Pos
 
 ## Definition
 
-
+```c
+void
+ReleaseExternalFD(void)
+```
 ## Detailed Description
 This function is the counterpart to ReserveExternalFD and is used to notify PostgreSQL's VFD management system when an externally managed file descriptor is no longer in use. It simply decrements the numExternalFDs counter that tracks how many file descriptors are being held externally.
 

@@ -8,7 +8,10 @@ A PostgreSQL-specific function that efficiently formats double-precision floatin
 
 ## Definition
 
-
+```c
+int
+pg_strfromd(char *str, size_t count, int precision, double value)
+```
 ## Detailed Description
 The  function provides a streamlined interface for converting double values to string representation, specifically designed for PostgreSQL's float8out() function. It behaves similarly to snprintf() with a format of "%.ng" where n is the specified precision, but with several optimizations:
 

@@ -8,7 +8,21 @@ RunningTransactionsData is a structure that encapsulates information about curre
 
 ## Definition
 
+```c
+typedef struct RunningTransactionsData
+{
+	int			xcnt;			/* # of xact ids in xids[] */
+	int			subxcnt;		/* # of subxact ids in xids[] */
+	subxids_array_status subxid_status;
+	TransactionId nextXid;		/* xid from TransamVariables->nextXid */
+	TransactionId oldestRunningXid; /* *not* oldestXmin */
+	TransactionId oldestDatabaseRunningXid; /* same as above, but within the
+											 * current database */
+	TransactionId latestCompletedXid;	/* so we can set xmax */
 
+	TransactionId *xids;		/* array of (sub)xids still running */
+} RunningTransactionsData;
+```
 ## Detailed Description
 This structure serves as a snapshot of the current transaction state, containing essential information for maintaining MVCC (Multi-Version Concurrency Control) consistency in PostgreSQL. It is particularly critical for hot standby operations where the standby server needs to understand which transactions are currently active on the primary server to properly handle query visibility and avoid conflicts.
 

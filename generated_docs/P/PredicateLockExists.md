@@ -8,7 +8,10 @@ A static function that checks whether a particular predicate lock is held by the
 
 ## Definition
 
-
+```c
+static bool
+PredicateLockExists(const PREDICATELOCKTARGETTAG *targettag)
+```
 ## Detailed Description
 This function verifies if a specific predicate lock target is currently held by the executing transaction. It operates by consulting the local predicate lock hash table (LocalPredicateLockHash) to find the lock entry and then checking its held status. 
 

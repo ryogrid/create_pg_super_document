@@ -8,7 +8,12 @@ Recursively parses and formats nested JSON_TABLE column specifications for SQL q
 
 ## Definition
 
-
+```c
+static void
+get_json_table_nested_columns(TableFunc *tf, JsonTablePlan *plan,
+							  deparse_context *context, bool showimplicit,
+							  bool needcomma)
+```
 ## Detailed Description
 This function is part of PostgreSQL's rule deparsing system, specifically for reconstructing JSON_TABLE expressions from their internal representation. It recursively processes nested column structures in JSON table functions, handling two main types of plans:
 

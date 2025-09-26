@@ -8,7 +8,26 @@ ParallelHashJoinBatch is a shared memory coordination structure that manages ind
 
 ## Definition
 
+```c
+typedef struct ParallelHashJoinBatch
+{
+	dsa_pointer buckets;		/* array of hash table buckets */
+	Barrier		batch_barrier;	/* synchronization for joining this batch */
 
+	dsa_pointer chunks;			/* chunks of tuples loaded */
+	size_t		size;			/* size of buckets + chunks in memory */
+	size_t		estimated_size; /* size of buckets + chunks while writing */
+	size_t		ntuples;		/* number of tuples loaded */
+	size_t		old_ntuples;	/* number of tuples before repartitioning */
+	bool		space_exhausted;
+	bool		skip_unmatched; /* whether to abandon unmatched scan */
+
+	/*
+	 * Variable-sized SharedTuplestore objects follow this struct in memory.
+	 * See the accessor macros below.
+	 */
+} ParallelHashJoinBatch;
+```
 ## Detailed Description
 ParallelHashJoinBatch serves as the coordination hub for individual batch processing in parallel hash joins. When a hash join operation is divided into multiple batches (due to memory constraints), each batch requires coordination among the parallel worker processes that will build and probe the hash table for that batch.
 

@@ -8,7 +8,12 @@ The  function converts PostgreSQL's internal Name data type to external binary f
 
 ## Definition
 
-
+```c
+structure */
+	return varstr_cmp(NameStr(*arg1), strlen(NameStr(*arg1)),
+					  NameStr(*arg2), strlen(NameStr(*arg2)),
+					  collid);
+```
 ## Detailed Description
 The  function is the binary output function for PostgreSQL's Name data type, serving as the counterpart to . It takes a Name value as input and converts it to binary format suitable for transmission through PostgreSQL's binary protocol.
 

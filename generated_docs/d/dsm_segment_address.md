@@ -8,7 +8,10 @@ Returns the memory address at which a dynamic shared memory segment is mapped in
 
 ## Definition
 
-
+```c
+void *
+dsm_segment_address(dsm_segment *seg)
+```
 ## Detailed Description
 This function is a simple accessor that returns the mapped address of a dynamic shared memory (DSM) segment. It provides a way for callers to obtain a pointer to the actual memory region that can be used to read from and write to the shared memory segment. The function includes an assertion to ensure that the segment is properly mapped before returning the address.
 

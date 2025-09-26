@@ -8,7 +8,10 @@ Processes input data of arbitrary length by buffering incomplete blocks and call
 
 ## Definition
 
-
+```c
+void
+pg_sha1_update(pg_sha1_ctx *ctx, const uint8 *data, size_t len)
+```
 ## Detailed Description
 The  function handles the incremental processing of message data for SHA-1 hashing. It can be called multiple times with different chunks of data, allowing for streaming hash computation of large messages or messages received in fragments.
 

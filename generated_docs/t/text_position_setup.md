@@ -8,7 +8,10 @@ The  function initializes the state for efficient substring searching, including
 
 ## Definition
 
-
+```c
+static void
+text_position_setup(text *t1, text *t2, Oid collid, TextPositionState *state)
+```
 ## Detailed Description
 The  function prepares the TextPositionState structure for efficient substring searching operations. It handles collation validation, multibyte encoding considerations, and most importantly, implements the Boyer-Moore-Horspool algorithm by building a skip table for fast pattern matching. The function determines the appropriate skip table size based on the search length and initializes it with optimal skip distances for each character in the pattern. It also handles special encoding cases, particularly UTF-8 and other multibyte encodings, to ensure correct character boundary detection during searches.
 

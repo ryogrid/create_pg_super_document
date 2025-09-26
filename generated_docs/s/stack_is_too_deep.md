@@ -8,7 +8,10 @@ stack_is_too_deep determines whether the current call stack depth exceeds the co
 
 ## Definition
 
-
+```c
+bool
+stack_is_too_deep(void)
+```
 ## Detailed Description
 stack_is_too_deep performs the actual stack depth calculation and comparison to determine if the current recursion level has exceeded the safe threshold. Unlike check_stack_depth(), this function returns a boolean result rather than immediately throwing an error, allowing calling code to handle the stack depth condition as appropriate.
 

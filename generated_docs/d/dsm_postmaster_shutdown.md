@@ -8,7 +8,10 @@ A cleanup function called during postmaster shutdown to remove all remaining dyn
 
 ## Definition
 
-
+```c
+static void
+dsm_postmaster_shutdown(int code, Datum arg)
+```
 ## Detailed Description
 This function performs critical cleanup operations during PostgreSQL postmaster shutdown to ensure proper cleanup of dynamic shared memory resources. It iterates through the DSM control segment to identify and remove all remaining dynamic shared memory segments that may have been left behind by backends. The function is designed to be robust and avoid throwing errors during shutdown, as resource cleanup should not prevent the postmaster from shutting down.
 

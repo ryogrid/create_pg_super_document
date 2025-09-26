@@ -8,7 +8,11 @@ Converts a single bytea (binary data) value to a normalized scalar value between
 
 ## Definition
 
-
+```c
+static double
+convert_one_bytea_to_scalar(unsigned char *value, int valuelen,
+							int rangelo, int rangehi)
+```
 ## Detailed Description
 This function performs the mathematical conversion of binary data to a scalar value for selectivity estimation in PostgreSQL's query planner. It operates similarly to  but is specifically optimized for binary data handling.
 

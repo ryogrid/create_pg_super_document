@@ -8,7 +8,18 @@ SortGroupClause represents ordering and grouping specifications for ORDER BY, GR
 
 ## Definition
 
-
+```c
+typedef struct SortGroupClause
+{
+	NodeTag		type;
+	Index		tleSortGroupRef;	/* reference into targetlist */
+	Oid			eqop;			/* the equality operator ('=' op) */
+	Oid			sortop;			/* the ordering operator ('<' op), or 0 */
+	bool		nulls_first;	/* do NULLs come before normal values? */
+	/* can eqop be implemented by hashing? */
+	bool		hashable pg_node_attr(query_jumble_ignore);
+} SortGroupClause;
+```
 ## Detailed Description
 SortGroupClause provides a unified representation for ordering and equality operations across different SQL clauses (ORDER BY, GROUP BY, PARTITION BY, DISTINCT, DISTINCT ON). This design enables the optimizer to recognize when grouping operations can reuse sorting work, or when a single sort operation can satisfy both grouping and ordering requirements.
 

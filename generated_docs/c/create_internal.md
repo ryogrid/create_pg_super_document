@@ -8,7 +8,14 @@ Internal workhorse function for creating Dynamic Shared Area (DSA) objects, hand
 
 ## Definition
 
-
+```c
+static dsa_area *
+create_internal(void *place, size_t size,
+				int tranche_id,
+				dsm_handle control_handle,
+				dsm_segment *control_segment,
+				size_t init_segment_size, size_t max_segment_size)
+```
 ## Detailed Description
 This function performs the complete initialization of a Dynamic Shared Area (DSA) by setting up the control structures, memory management infrastructure, and segment mapping. It creates both the shared control structure () that coordinates access across multiple processes and the local area object () that provides this backend's interface to the shared area.
 

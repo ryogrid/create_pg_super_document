@@ -8,7 +8,9 @@ Processes leap second information from timezone database files, parsing and vali
 
 ## Definition
 
-
+```c
+struct lookup const *lp = byword(fields[LP_ROLL], leap_types);
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's timezone compiler () that handles leap second entries from timezone database files. It parses and validates leap second data, including the datetime when the leap second occurs, the type of correction (rolling or stationary), and the direction of the correction (+1 or -1 second).
 

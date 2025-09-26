@@ -8,7 +8,19 @@ A structure representing a raw parser representation of a WHEN clause in a Postg
 
 ## Definition
 
-
+```c
+typedef struct MergeWhenClause
+{
+	NodeTag		type;
+	MergeMatchKind matchKind;	/* MATCHED/NOT MATCHED BY SOURCE/TARGET */
+	CmdType		commandType;	/* INSERT/UPDATE/DELETE/DO NOTHING */
+	OverridingKind override;	/* OVERRIDING clause */
+	Node	   *condition;		/* WHEN conditions (raw parser) */
+	List	   *targetList;		/* INSERT/UPDATE targetlist */
+	/* the following members are only used in INSERT actions */
+	List	   *values;			/* VALUES to INSERT, or NULL */
+} MergeWhenClause;
+```
 ## Detailed Description
 MergeWhenClause is a parse tree node that represents the syntactic structure of WHEN clauses within MERGE statements during the raw parsing phase. It captures the essential components of a WHEN clause including the match condition type (MATCHED vs NOT MATCHED), the command to execute (INSERT, UPDATE, DELETE, or DO NOTHING), and associated data like target lists and values. This structure serves as an intermediate representation that is later processed and transformed into executable MergeAction nodes during parse analysis.
 

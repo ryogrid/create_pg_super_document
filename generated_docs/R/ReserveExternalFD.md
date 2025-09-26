@@ -8,7 +8,10 @@ ReserveExternalFD is a function that reports external consumption of a file desc
 
 ## Definition
 
-
+```c
+void
+ReserveExternalFD(void)
+```
 ## Detailed Description
 This function is part of PostgreSQL's virtual file descriptor (VFD) management system. It tracks external consumption of file descriptors by code that needs to hold FDs open over extended periods but cannot use the standard VFD facilities. The function ensures that NUM_RESERVED_FDS file descriptors remain available by potentially closing least-recently-used VFDs when necessary.
 

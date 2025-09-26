@@ -8,7 +8,16 @@ ScanKeywordList is a data structure that encapsulates all information needed for
 
 ## Definition
 
-
+```c
+typedef struct ScanKeywordList
+{
+	const char *kw_string;		/* all keywords in order, separated by \0 */
+	const uint16 *kw_offsets;	/* offsets to the start of each keyword */
+	ScanKeywordHashFunc hash;	/* perfect hash function for keywords */
+	int			num_keywords;	/* number of keywords */
+	int			max_kw_len;		/* length of longest keyword */
+} ScanKeywordList;
+```
 ## Detailed Description
 ScanKeywordList provides a compact and efficient representation of keyword sets for PostgreSQL's scanner. The structure employs several optimization strategies:
 

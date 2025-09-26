@@ -8,7 +8,10 @@ Creates a new dynamic shared memory segment within a DSA area with at least the 
 
 ## Definition
 
-
+```c
+static dsa_segment_map *
+make_new_segment(dsa_area *area, size_t requested_pages)
+```
 ## Detailed Description
 The  function creates a new segment to expand the available memory in a dynamic shared area. It implements a sophisticated sizing algorithm that balances several considerations:
 

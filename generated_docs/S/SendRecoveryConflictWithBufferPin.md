@@ -8,7 +8,10 @@ Sends signals to all database backends to ask them to check if they are holding 
 
 ## Definition
 
-
+```c
+static void
+SendRecoveryConflictWithBufferPin(ProcSignalReason reason)
+```
 ## Detailed Description
 This static function serves as a helper for buffer pin conflict resolution during hot standby recovery. It broadcasts signals to all backends in the system to request them to check whether they are holding buffer pins that might be blocking the startup process from proceeding.
 

@@ -8,7 +8,9 @@ PathNameOpenTemporaryFile opens an existing temporary file that was previously c
 
 ## Definition
 
-
+```c
+struct stat filestats;
+```
 ## Detailed Description
 This function opens an existing temporary file that was created using PathNameCreateTemporaryFile(), potentially by a different backend process. It is designed for sharing temporary files between cooperating PostgreSQL backends.
 

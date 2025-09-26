@@ -8,7 +8,10 @@ Finalizes an MD5 hash computation by padding the remaining data and producing th
 
 ## Definition
 
-
+```c
+void
+pg_md5_final(pg_md5_ctx *ctx, uint8 *dest)
+```
 ## Detailed Description
 The  function completes the MD5 hash computation process by performing the final steps required by the MD5 algorithm. It takes an MD5 context that has been initialized with  and potentially updated with data using , then finalizes it to produce the complete 128-bit (16-byte) MD5 hash digest.
 

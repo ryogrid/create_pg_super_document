@@ -8,7 +8,10 @@ Counts the number of processes currently waiting for a relation extension lock o
 
 ## Definition
 
-
+```c
+int
+RelationExtensionLockWaiterCount(Relation relation)
+```
 ## Detailed Description
 This function provides visibility into lock contention for relation extension operations by counting how many processes are currently waiting to acquire an extension lock on a given relation. It creates the same lock tag used by other relation extension locking functions and queries the lock manager to determine the number of waiters.
 

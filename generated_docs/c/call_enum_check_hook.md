@@ -8,7 +8,11 @@ A static function that validates enumeration GUC parameters by calling their ass
 
 ## Definition
 
-
+```c
+static bool
+call_enum_check_hook(struct config_enum *conf, int *newval, void **extra,
+					 GucSource source, int elevel)
+```
 ## Detailed Description
 This function validates enumeration-type GUC parameters following the same basic pattern as other type-specific check hook callers. The key distinction is in error reporting: when validation fails, it uses config_enum_lookup_by_value() to convert the integer enum value back to its string representation for display in error messages.
 

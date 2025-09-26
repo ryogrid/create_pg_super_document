@@ -8,7 +8,10 @@ Converts a RoleSpec node from the parser into its corresponding role OID, handli
 
 ## Definition
 
-
+```c
+Oid
+get_rolespec_oid(const RoleSpec *role, bool missing_ok)
+```
 ## Detailed Description
 This function processes RoleSpec nodes produced by the PostgreSQL parser and converts them to their corresponding role OIDs. RoleSpec is a parser node type that can represent different kinds of role specifications beyond just role names, including special keywords like CURRENT_USER, CURRENT_ROLE, and SESSION_USER.
 

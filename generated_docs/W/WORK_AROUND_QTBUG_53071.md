@@ -8,7 +8,9 @@ A compile-time configuration constant that enables a workaround for a bug in Qt 
 
 ## Definition
 
-
+```c
+enum;
+```
 ## Detailed Description
 This enumerated constant defaults to true and controls whether the timezone compiler (zic) should apply a workaround for QTBUG-53071, a bug in Qt versions 5.6.1 and earlier. The bug affects the parsing of TZif files when their POSIX-TZ-style strings contain '<' characters, which can cause Qt applications to incorrectly interpret timezone information.
 

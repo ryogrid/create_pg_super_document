@@ -8,7 +8,12 @@ Builds the joininfo list for a new join relation by collecting joininfo clauses 
 
 ## Definition
 
-
+```c
+static void
+build_joinrel_joinlist(RelOptInfo *joinrel,
+					   RelOptInfo *outer_rel,
+					   RelOptInfo *inner_rel)
+```
 ## Detailed Description
 The  function is responsible for constructing the joininfo list for a newly created join relation. It collects all join clauses that syntactically belong above the current join level from both the outer and inner input relations. The function eliminates duplicates since many of the same clauses may arrive from both input relations.
 

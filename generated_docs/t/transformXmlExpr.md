@@ -8,7 +8,10 @@ Transforms XML expression nodes during parsing by converting raw XML expressions
 
 ## Definition
 
-
+```c
+static Node *
+transformXmlExpr(ParseState *pstate, XmlExpr *x)
+```
 ## Detailed Description
 The  function is responsible for transforming XML expressions during the parsing phase. It creates a new XmlExpr node from the input, handling named arguments, argument names, and applying appropriate type coercion based on the specific XML operation type (XMLCONCAT, XMLELEMENT, XMLFOREST, XMLPARSE, XMLPI, XMLROOT, IS_DOCUMENT).
 

@@ -8,7 +8,10 @@ Selects the next tape to output to during sorting operations, managing tape allo
 
 ## Definition
 
-
+```c
+static void
+selectnewtape(Tuplesortstate *state)
+```
 ## Detailed Description
 The  function implements the logic for choosing which logical tape should receive the next run of sorted data. It operates in two distinct modes:
 

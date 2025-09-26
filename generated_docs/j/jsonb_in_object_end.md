@@ -8,7 +8,10 @@ A callback function used during JSONB parsing to handle the end of JSON objects,
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+jsonb_in_object_end(void *pstate)
+```
 ## Detailed Description
 This function serves as a callback handler in the JSONB input parsing pipeline. When the JSON parser encounters the end of an object ('}' character), this function is invoked to finalize the object parsing process. It pushes a WJB_END_OBJECT token onto the JSONB parse state stack, which signals the completion of object parsing and triggers any necessary cleanup or finalization operations.
 

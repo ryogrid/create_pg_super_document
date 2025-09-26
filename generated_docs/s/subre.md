@@ -8,7 +8,15 @@ Allocates and initializes a new subre (sub-regular expression) structure, which 
 
 ## Definition
 
-
+```c
+*/
+static struct subre *
+subre(struct vars *v,
+	  int op,
+	  int flags,
+	  struct state *begin,
+	  struct state *end)
+```
 ## Detailed Description
 The subre function creates and initializes a new subre structure, which represents a node in the regular expression parse tree. It implements a memory management optimization by maintaining a free list of previously allocated subre structures for reuse, and includes stack overflow protection to prevent infinite recursion during parsing.
 

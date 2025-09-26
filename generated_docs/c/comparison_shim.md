@@ -8,7 +8,10 @@ A static shim function that adapts old-style PostgreSQL comparison functions to 
 
 ## Definition
 
-
+```c
+static int
+comparison_shim(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
 The comparison_shim function serves as an adapter between PostgreSQL's modern SortSupport framework and legacy comparison functions that don't natively support the SortSupport interface. It acts as a lightweight wrapper that:
 

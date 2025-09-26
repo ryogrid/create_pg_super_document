@@ -8,7 +8,10 @@ Performs additional parsing and validation of the manifest version field and inv
 
 ## Definition
 
-
+```c
+static void
+json_manifest_finalize_version(JsonManifestParseState *parse)
+```
 ## Detailed Description
 This function is called when a complete JSON object for a manifest has been parsed. It handles the final processing of the manifest version field, including:
 

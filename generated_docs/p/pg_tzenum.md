@@ -8,7 +8,16 @@ The  struct is an internal data structure used for enumerating available timezon
 
 ## Definition
 
-
+```c
+struct pg_tzenum
+{
+	int			baselen;
+	int			depth;
+	DIR		   *dirdesc[MAX_TZDIR_DEPTH];
+	char	   *dirname[MAX_TZDIR_DEPTH];
+	struct pg_tz tz;
+};
+```
 ## Detailed Description
 The  structure serves as a directory traversal state machine for enumerating all available timezone names in PostgreSQL. It maintains a stack-based approach to recursively explore timezone directories, allowing for deep directory structures while preventing infinite recursion through the  limit (set to 10).
 

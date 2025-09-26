@@ -8,7 +8,15 @@ CreateRoleStmt is a parse tree node structure that represents CREATE ROLE, CREAT
 
 ## Definition
 
-
+```c
+typedef struct CreateRoleStmt
+{
+	NodeTag		type;
+	RoleStmtType stmt_type;		/* ROLE/USER/GROUP */
+	char	   *role;			/* role name */
+	List	   *options;		/* List of DefElem nodes */
+} CreateRoleStmt;
+```
 ## Detailed Description
 CreateRoleStmt is a parser node structure that encapsulates the information needed to create database roles in PostgreSQL. This structure handles the CREATE ROLE, CREATE USER, and CREATE GROUP statements, which are all variations of the same underlying functionality in PostgreSQL (since users and groups are both types of roles).
 

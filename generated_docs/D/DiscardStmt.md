@@ -8,7 +8,13 @@ DiscardStmt represents a DISCARD statement in PostgreSQL's parse tree, which is 
 
 ## Definition
 
-
+```c
+typedef struct DiscardStmt
+{
+	NodeTag		type;
+	DiscardMode target;
+} DiscardStmt;
+```
 ## Detailed Description
 DiscardStmt is a parse tree node that represents the DISCARD SQL command. The DISCARD command allows users to discard various types of session state to free up memory or reset session-specific configurations. It supports four different targets:
 - DISCARD ALL: Discards all session state (plans, sequences, temp tables, etc.)

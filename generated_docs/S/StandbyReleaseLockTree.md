@@ -8,7 +8,10 @@ StandbyReleaseLockTree releases all AccessExclusiveLocks held by a transaction t
 
 ## Definition
 
-
+```c
+void
+StandbyReleaseLockTree(TransactionId xid, int nsubxids, TransactionId *subxids)
+```
 ## Detailed Description
 This function is called during WAL replay of COMMIT/ROLLBACK operations when PostgreSQL is running in hot standby mode. It systematically releases all AccessExclusiveLocks that were acquired by a transaction tree, ensuring that locks held by both the main transaction and all its subtransactions are properly released from the RecoveryLockXidHash.
 

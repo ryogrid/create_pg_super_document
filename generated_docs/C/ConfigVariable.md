@@ -8,7 +8,19 @@ ConfigVariable is a structure used to represent configuration file entries durin
 
 ## Definition
 
-
+```c
+typedef struct ConfigVariable
+{
+	char	   *name;
+	char	   *value;
+	char	   *errmsg;
+	char	   *filename;
+	int			sourceline;
+	bool		ignore;
+	bool		applied;
+	struct ConfigVariable *next;
+} ConfigVariable;
+```
 ## Detailed Description
 The ConfigVariable structure serves as the primary data container for configuration file parsing in PostgreSQL's GUC (Grand Unified Configuration) system. When configuration files are parsed, they return a list of these structures containing name-value pairs along with metadata about their source location. 
 

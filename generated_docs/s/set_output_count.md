@@ -8,7 +8,10 @@ Determines how many copies of a tuple group's representative row should be emitt
 
 ## Definition
 
-
+```c
+static void
+set_output_count(SetOpState *setopstate, SetOpStatePerGroup pergroup)
+```
 ## Detailed Description
 This function implements the core logic for SQL set operations by calculating the number of output tuples that should be produced for a completed tuple group. It follows the SQL92 specification for set operations, examining the duplicate counts from both left and right input relations and applying the appropriate set operation rules.
 

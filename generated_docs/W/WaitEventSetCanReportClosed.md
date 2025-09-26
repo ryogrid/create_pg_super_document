@@ -8,7 +8,10 @@ WaitEventSetCanReportClosed is a capability detection function that returns whet
 
 ## Definition
 
-
+```c
+bool
+WaitEventSetCanReportClosed(void)
+```
 ## Detailed Description
 WaitEventSetCanReportClosed is a simple compile-time capability detection function that determines whether the current PostgreSQL build can report socket closure events (WL_SOCKET_CLOSED). The function checks for the availability of platform-specific primitives that can detect socket closure: poll() with POLLRDHUP support, epoll, or kqueue.
 

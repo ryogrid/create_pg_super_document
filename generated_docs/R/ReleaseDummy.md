@@ -8,7 +8,18 @@ A simple memory cleanup function that releases heap tuples that were copied by s
 
 ## Definition
 
-
+```c
+struct to describe the expression.
+ *
+ * Inputs:
+ *	root: the planner info
+ *	node: the expression tree to examine
+ *	varRelid: see specs for restriction selectivity functions
+ *
+ * Outputs: *vardata is filled as follows:
+ *	var: the input expression (with any binary relabeling stripped, if
+ *		it is or contains a variable;
+```
 ## Detailed Description
 This is a utility function designed to handle memory management for heap tuples that have been copied during statistical expression analysis. The function serves as a cleanup callback specifically for tuples that were duplicated by the  function. Since these tuples are copies rather than references to shared catalog data, they need to be explicitly freed to prevent memory leaks.
 

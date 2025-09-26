@@ -8,7 +8,10 @@ Implements the numeric version of the SQL2003 width_bucket() function, which ass
 
 ## Definition
 
-
+```c
+Datum
+width_bucket_numeric(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the width_bucket() function defined by SQL2003 for numeric data types. It takes an operand value and determines which bucket it belongs to in a histogram with specified lower bound, upper bound, and bucket count. The function creates an equiwidth histogram where:
 

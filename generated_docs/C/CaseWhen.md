@@ -8,7 +8,15 @@ CaseWhen represents one arm of a CASE expression in PostgreSQL's expression tree
 
 ## Definition
 
-
+```c
+typedef struct CaseWhen
+{
+	Expr		xpr;
+	Expr	   *expr;			/* condition expression */
+	Expr	   *result;			/* substitution result */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} CaseWhen;
+```
 ## Detailed Description
 CaseWhen is a node type that represents a single WHEN clause within a CASE expression. Each CaseWhen node contains a condition expression and a result expression. When the condition evaluates to true, the corresponding result is returned. This structure is part of PostgreSQL's expression tree representation and is used during parsing, planning, and execution of SQL CASE statements.
 

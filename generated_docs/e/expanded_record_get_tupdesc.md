@@ -8,7 +8,10 @@ Retrieves the tuple descriptor (TupleDesc) for an expanded record, using an opti
 
 ## Definition
 
-
+```c
+static inline TupleDesc
+expanded_record_get_tupdesc(ExpandedRecordHeader *erh)
+```
 ## Detailed Description
 This inline function provides efficient access to the tuple descriptor of an expanded record. It implements an optimization where if the tuple descriptor is already cached in the ExpandedRecordHeader structure ( field), it returns it immediately using a  hint for branch prediction. If the tuple descriptor is not cached (NULL), it falls back to calling  which will obtain the tuple descriptor from the type cache system and cache it for future use.
 

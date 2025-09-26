@@ -8,7 +8,9 @@ VariableSpace is a typedef representing a collection of variables in PostgreSQL'
 
 ## Definition
 
-
+```c
+typedef struct _variable *VariableSpace;
+```
 ## Detailed Description
 VariableSpace provides an abstract data type for managing a collection of named variables in psql. It's implemented as a typedef pointing to the head of a singly-linked list of  structures. The design uses a sentinel node pattern where the first node in the list serves as a header (with NULL name/value) and actual variables are stored in subsequent nodes.
 

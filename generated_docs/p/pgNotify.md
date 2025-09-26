@@ -8,7 +8,16 @@ pgNotify represents the occurrence of a NOTIFY message from a PostgreSQL backend
 
 ## Definition
 
-
+```c
+typedef struct pgNotify
+{
+	char	   *relname;		/* notification condition name */
+	int			be_pid;			/* process ID of notifying server process */
+	char	   *extra;			/* notification parameter */
+	/* Fields below here are private to libpq; apps should not use 'em */
+	struct pgNotify *next;		/* list link */
+} PGnotify;
+```
 ## Detailed Description
 pgNotify is a simple structure that encapsulates asynchronous notification messages sent by PostgreSQL servers via the NOTIFY command. Unlike most other libpq structures, pgNotify is intentionally not opaque - its public fields are directly accessible to applications because the structure is simple and unlikely to change.
 

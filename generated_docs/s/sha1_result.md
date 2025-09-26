@@ -8,7 +8,10 @@ Extracts the final 20-byte SHA-1 hash digest from the context's hash state, hand
 
 ## Definition
 
-
+```c
+static void
+sha1_result(uint8 *digest0, pg_sha1_ctx *ctx)
+```
 ## Detailed Description
 The  function copies the computed SHA-1 hash value from the internal context structure to the output buffer. Since SHA-1 produces a 160-bit (20-byte) hash, the function transfers exactly 20 bytes from the context's hash state array to the destination buffer.
 

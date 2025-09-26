@@ -8,7 +8,13 @@ ReturnStmt represents a RETURN statement inside a SQL function body, used to ret
 
 ## Definition
 
-
+```c
+typedef struct ReturnStmt
+{
+	NodeTag		type;
+	Node	   *returnval;
+} ReturnStmt;
+```
 ## Detailed Description
 ReturnStmt is a parse node structure that represents a RETURN statement within SQL function bodies. When a SQL function contains a RETURN statement, the parser creates this node to hold the return value expression. The structure is designed to be part of PostgreSQL's unified node system and contains the expression to be returned from the function.
 

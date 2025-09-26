@@ -8,7 +8,9 @@ Processes timezone link entries from database files, creating symbolic links bet
 
 ## Definition
 
-
+```c
+struct link l;
+```
 ## Detailed Description
 The  function is part of PostgreSQL's timezone compiler () that handles "Link" lines from timezone database files. These lines create aliases or symbolic links from one timezone name to another, allowing multiple names to refer to the same timezone data.
 

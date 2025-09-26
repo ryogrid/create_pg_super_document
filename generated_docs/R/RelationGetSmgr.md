@@ -8,7 +8,10 @@ Returns the storage manager (smgr) file handle for a relation, opening it if nee
 
 ## Definition
 
-
+```c
+static inline SMgrRelation
+RelationGetSmgr(Relation rel)
+```
 ## Detailed Description
 RelationGetSmgr is an inline function that provides safe access to a relation's storage manager handle (rd_smgr). The function implements lazy initialization - if the smgr handle is NULL, it opens the storage manager for the relation using smgropen() and pins it with smgrpin() to prevent it from being closed prematurely. This design ensures that very little code needs to directly access the rd_smgr field, providing better encapsulation and consistency.
 

@@ -8,7 +8,10 @@ Converts a RoleSpec node to its corresponding pg_authid HeapTuple, providing acc
 
 ## Definition
 
-
+```c
+HeapTuple
+get_rolespec_tuple(const RoleSpec *role)
+```
 ## Detailed Description
 This function is similar to get_rolespec_oid but returns the complete HeapTuple from the pg_authid system catalog instead of just the role's OID. This provides access to all role attributes such as role name, password, creation time, role options, and other metadata stored in pg_authid.
 

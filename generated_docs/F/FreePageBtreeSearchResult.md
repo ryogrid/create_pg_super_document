@@ -8,7 +8,15 @@ FreePageBtreeSearchResult is a struct that holds the results of searching a B-tr
 
 ## Definition
 
-
+```c
+typedef struct FreePageBtreeSearchResult
+{
+	FreePageBtree *page;
+	Size		index;
+	bool		found;
+	unsigned	split_pages;
+} FreePageBtreeSearchResult;
+```
 ## Detailed Description
 This structure encapsulates the complete result of a B-tree search operation in PostgreSQL's free page management system. It serves as a comprehensive return value that provides not only the search results but also metadata necessary for subsequent operations like insertions or updates. The structure is designed to minimize additional traversals by providing both the exact location information and pre-calculated resource requirements for potential modifications.
 

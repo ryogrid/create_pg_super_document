@@ -8,7 +8,15 @@ AlterRoleSetStmt is a parse tree node structure that represents ALTER ROLE ... S
 
 ## Definition
 
-
+```c
+typedef struct AlterRoleSetStmt
+{
+	NodeTag		type;
+	RoleSpec   *role;			/* role */
+	char	   *database;		/* database name, or NULL */
+	VariableSetStmt *setstmt;	/* SET or RESET subcommand */
+} AlterRoleSetStmt;
+```
 ## Detailed Description
 AlterRoleSetStmt is a parser node structure that encapsulates information needed for ALTER ROLE ... SET and ALTER ROLE ... RESET statements in PostgreSQL. These statements allow setting default values for configuration parameters that apply to a specific role when they connect to the database, optionally restricted to a specific database.
 

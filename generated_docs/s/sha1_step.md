@@ -8,7 +8,10 @@ Performs the core SHA-1 compression function, processing a single 512-bit (64-by
 
 ## Definition
 
-
+```c
+static void
+sha1_step(pg_sha1_ctx *ctx)
+```
 ## Detailed Description
 The  function implements the heart of the SHA-1 algorithm by processing one message block (512 bits) through four rounds of 20 operations each. It performs endianness conversion for little-endian systems, then executes the SHA-1 compression function using five working variables (a, b, c, d, e) and the message schedule array W[].
 

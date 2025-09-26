@@ -8,7 +8,10 @@ Merges one run from each active input tape by maintaining a min-heap to select t
 
 ## Definition
 
-
+```c
+static void
+mergeonerun(Tuplesortstate *state)
+```
 ## Detailed Description
 The  function implements the core merge logic for external sorting by performing a k-way merge of one run from each input tape. It uses a min-heap data structure to efficiently determine the next smallest tuple across all input sources.
 

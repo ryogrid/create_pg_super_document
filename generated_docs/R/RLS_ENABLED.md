@@ -8,7 +8,14 @@ RLS_ENABLED is an enumeration value in the CheckEnableRlsResult enum that indica
 
 ## Definition
 
-
+```c
+enum CheckEnableRlsResult
+{
+	RLS_NONE,
+	RLS_NONE_ENV,
+	RLS_ENABLED,
+};
+```
 ## Detailed Description
 RLS_ENABLED serves as a return value from the  function to indicate that Row Level Security policies should be enforced for the current query context. This value is returned when:
 

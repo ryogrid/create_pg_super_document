@@ -8,7 +8,11 @@ A static function that validates integer GUC (Grand Unified Configuration) param
 
 ## Definition
 
-
+```c
+static bool
+call_int_check_hook(struct config_int *conf, int *newval, void **extra,
+					GucSource source, int elevel)
+```
 ## Detailed Description
 This function serves as a validation wrapper for integer-type GUC parameters in PostgreSQL's configuration system. When a GUC parameter has an associated check hook function, this function calls that hook to validate the proposed new value. If validation fails, it generates appropriate error messages using PostgreSQL's error reporting system with the specified error level.
 

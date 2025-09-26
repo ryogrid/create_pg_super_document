@@ -8,7 +8,18 @@ A structure that maintains shared state information across all bbsink objects du
 
 ## Definition
 
-
+```c
+typedef struct bbsink_state
+{
+	List	   *tablespaces;
+	int			tablespace_num;
+	uint64		bytes_done;
+	uint64		bytes_total;
+	bool		bytes_total_is_valid;
+	XLogRecPtr	startptr;
+	TimeLineID	starttli;
+} bbsink_state;
+```
 ## Detailed Description
 The  structure serves as a centralized repository of backup state information that is shared among all bbsink objects participating in a single base backup operation. This structure enables coordination between different components of the backup pipeline by providing a common view of backup progress, tablespace processing status, and WAL stream positioning.
 

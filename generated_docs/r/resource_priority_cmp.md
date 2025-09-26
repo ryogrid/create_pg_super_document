@@ -8,7 +8,10 @@ The  function is a comparison function used for sorting resource elements by the
 
 ## Definition
 
-
+```c
+static int
+resource_priority_cmp(const void *a, const void *b)
+```
 ## Detailed Description
 This function implements a comparison function compatible with standard C library sorting functions (such as qsort). It defines the ordering criteria for resource elements during cleanup operations, ensuring that resources are released in the correct sequence to avoid dependency issues.
 

@@ -8,7 +8,10 @@ Initializes the reservoir sampling state by computing the initial W value requir
 
 ## Definition
 
-
+```c
+void
+reservoir_init_selection_state(ReservoirState rs, int n)
+```
 ## Detailed Description
 reservoir_init_selection_state initializes a ReservoirState structure for use with Vitter's Algorithm Z reservoir sampling method. This function is part of PostgreSQL's implementation of "Random sampling with a reservoir" by Jeffrey S. Vitter (ACM Trans. Math. Softw. 11, 1, Mar. 1985, Pages 37-57).
 

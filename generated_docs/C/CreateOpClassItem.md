@@ -8,7 +8,20 @@ CreateOpClassItem represents a single item within an operator class definition, 
 
 ## Definition
 
-
+```c
+typedef struct CreateOpClassItem
+{
+	NodeTag		type;
+	int			itemtype;		/* see codes above */
+	ObjectWithArgs *name;		/* operator or function name and args */
+	int			number;			/* strategy num or support proc num */
+	List	   *order_family;	/* only used for ordering operators */
+	List	   *class_args;		/* amproclefttype/amprocrighttype or
+								 * amoplefttype/amoprighttype */
+	/* fields used for a storagetype item: */
+	TypeName   *storedtype;		/* datatype stored in index */
+} CreateOpClassItem;
+```
 ## Detailed Description
 CreateOpClassItem is a parse tree node that represents individual components of an operator class during its creation or modification. Operator classes define sets of operators and support functions that an access method can use for a particular data type. Each CreateOpClassItem specifies either an operator, a support function, or a storage type declaration within the operator class.
 

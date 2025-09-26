@@ -8,7 +8,12 @@ Entry point for setting up a TableScanDesc for a TID range scan, allowing scanni
 
 ## Definition
 
-
+```c
+static inline TableScanDesc
+table_beginscan_tidrange(Relation rel, Snapshot snapshot,
+						 ItemPointer mintid,
+						 ItemPointer maxtid)
+```
 ## Detailed Description
 This function initializes a table scan descriptor specifically for TID (Tuple Identifier) range scanning. It creates a scan that will only examine tuples whose TIDs fall within the specified range from mintid to maxtid. The function sets up the scan with appropriate flags for TID range scanning and page mode operation, then configures the TID range using the table access method's scan_set_tidrange function.
 

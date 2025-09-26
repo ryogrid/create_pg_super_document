@@ -8,7 +8,24 @@ The Append node generates the concatenation of results from multiple sub-plans, 
 
 ## Definition
 
+```c
+typedef struct Append
+{
+	Plan		plan;
+	Bitmapset  *apprelids;		/* RTIs of appendrel(s) formed by this node */
+	List	   *appendplans;
+	int			nasyncplans;	/* # of asynchronous plans */
 
+	/*
+	 * All 'appendplans' preceding this index are non-partial plans. All
+	 * 'appendplans' from this index onwards are partial plans.
+	 */
+	int			first_partial_plan;
+
+	/* Info for run-time subplan pruning; NULL if we're not doing that */
+	struct PartitionPruneInfo *part_prune_info;
+} Append;
+```
 ## Detailed Description
 The Append execution node is responsible for concatenating results from multiple child plans in sequence. It is commonly used in UNION queries where results from different SELECT statements need to be combined, and in partitioned table access where multiple partitions are queried. The node executes each child plan in turn and returns their results as a unified stream.
 

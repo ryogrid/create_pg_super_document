@@ -8,7 +8,28 @@ JumbleState is a working state structure used for computing query jumbles (finge
 
 ## Definition
 
+```c
+typedef struct JumbleState
+{
+	/* Jumble of current query tree */
+	unsigned char *jumble;
 
+	/* Number of bytes used in jumble[] */
+	Size		jumble_len;
+
+	/* Array of locations of constants that should be removed */
+	LocationLen *clocations;
+
+	/* Allocated length of clocations array */
+	int			clocations_buf_size;
+
+	/* Current number of valid entries in clocations array */
+	int			clocations_count;
+
+	/* highest Param id we've seen, in order to start normalization correctly */
+	int			highest_extern_param_id;
+} JumbleState;
+```
 ## Detailed Description
 JumbleState serves as the central working data structure for PostgreSQL's query fingerprinting system. It accumulates a binary representation (jumble) of a query's structure while tracking the locations of constants that need normalization. The jumble is used to compute a unique query ID that allows similar queries with different constants to be grouped together.
 

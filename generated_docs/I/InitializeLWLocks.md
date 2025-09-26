@@ -8,7 +8,10 @@ Initializes all fixed LWLocks and those belonging to named tranches by setting u
 
 ## Definition
 
-
+```c
+static void
+InitializeLWLocks(void)
+```
 ## Detailed Description
 InitializeLWLocks is a static function that performs the detailed initialization of all LWLock structures within the MainLWLockArray. It handles several categories of locks:
 

@@ -8,7 +8,10 @@ A static signal handler function used to detect ARMv8 CRC instruction availabili
 
 ## Definition
 
-
+```c
+static void
+illegal_instruction_handler(SIGNAL_ARGS)
+```
 ## Detailed Description
 This function serves as a signal handler specifically designed to catch SIGILL signals that occur when attempting to execute ARMv8 CRC instructions on hardware that doesn't support them. It's part of PostgreSQL's runtime CPU feature detection mechanism for ARMv8 CRC-32C acceleration.
 

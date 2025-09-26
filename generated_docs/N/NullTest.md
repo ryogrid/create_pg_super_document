@@ -8,7 +8,17 @@ NullTest represents the operation of testing a value for NULLness in PostgreSQL,
 
 ## Definition
 
-
+```c
+typedef struct NullTest
+{
+	Expr		xpr;
+	Expr	   *arg;			/* input expression */
+	NullTestType nulltesttype;	/* IS NULL, IS NOT NULL */
+	/* T to perform field-by-field null checks */
+	bool		argisrow pg_node_attr(query_jumble_ignore);
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} NullTest;
+```
 ## Detailed Description
 NullTest is a node type in PostgreSQL's expression tree that handles NULL testing operations. It supports two distinct modes of operation:
 

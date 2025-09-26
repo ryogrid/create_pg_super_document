@@ -8,7 +8,15 @@ Processes and formats a single field value from a PostgreSQL query result for di
 
 ## Definition
 
-
+```c
+static bool
+do_field(const PQprintOpt *po, const PGresult *res,
+		 const int i, const int j, const int fs_len,
+		 char **fields,
+		 const int nFields, char const **fieldNames,
+		 unsigned char *fieldNotNum, int *fieldMax,
+		 const int fieldMaxLen, FILE *fout)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's result formatting system in libpq. It processes individual field values from query results and formats them for output according to specified print options. The function handles several key responsibilities:
 

@@ -8,7 +8,10 @@ AllocateFile is PostgreSQL's managed wrapper around the standard C library fopen
 
 ## Definition
 
-
+```c
+FILE *
+AllocateFile(const char *name, const char *mode)
+```
 ## Detailed Description
 AllocateFile serves as the primary interface for opening files using stdio (FILE*) within the PostgreSQL backend. Unlike direct fopen() calls, this function integrates with PostgreSQL's file descriptor management system to prevent resource exhaustion. It automatically handles closing of least-recently-used files when file descriptor limits are reached, and ensures all opened files are properly closed during transaction commit or abort to prevent file descriptor leakage.
 

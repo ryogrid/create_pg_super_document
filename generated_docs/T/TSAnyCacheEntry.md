@@ -8,7 +8,13 @@ TSAnyCacheEntry is a common header structure shared by all text search cache ent
 
 ## Definition
 
-
+```c
+typedef struct TSAnyCacheEntry
+{
+	Oid			objId;
+	bool		isvalid;
+} TSAnyCacheEntry;
+```
 ## Detailed Description
 TSAnyCacheEntry serves as the base structure that must be placed at the beginning of all text search cache entry structures (TSParserCacheEntry, TSDictionaryCacheEntry, etc.). This design pattern allows the InvalidateTSCacheCallBack function to operate on any cache entry type through a common interface, enabling unified cache invalidation across different text search object types.
 

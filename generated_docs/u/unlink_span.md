@@ -8,7 +8,10 @@ Removes a span from its doubly-linked list within a fullness class, updating the
 
 ## Definition
 
-
+```c
+static void
+unlink_span(dsa_area *area, dsa_area_span *span)
+```
 ## Detailed Description
 This function implements the standard doubly-linked list removal operation for spans within DSA fullness class lists. Each span maintains forward (nextspan) and backward (prevspan) pointers to form doubly-linked lists within each fullness class of a memory pool.
 

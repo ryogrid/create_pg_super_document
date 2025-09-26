@@ -8,7 +8,12 @@ WaitEventSetWait is the main function for waiting on multiple events in PostgreS
 
 ## Definition
 
-
+```c
+int
+WaitEventSetWait(WaitEventSet *set, long timeout,
+				 WaitEvent *occurred_events, int nevents,
+				 uint32 wait_event_info)
+```
 ## Detailed Description
 WaitEventSetWait implements the core waiting logic for PostgreSQL's event system. It waits for events registered in a WaitEventSet to occur, with sophisticated timeout handling and latch management. The function handles both blocking and non-blocking scenarios, manages signal processing on Windows, and provides precise timeout calculations for partial waits.
 

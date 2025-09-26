@@ -8,7 +8,10 @@ Resets and rescans a RecursiveUnion plan node, clearing all accumulated state an
 
 ## Definition
 
-
+```c
+void
+ExecReScanRecursiveUnion(RecursiveUnionState *node)
+```
 ## Detailed Description
 The `ExecReScanRecursiveUnion` function performs a complete reset of a RecursiveUnion node's execution state, allowing the recursive query to be re-executed from the beginning. This function is typically called when parameters affecting the query have changed or when the query needs to be executed again within a larger plan context.
 

@@ -8,7 +8,18 @@ SharedInvalidationMessage is a union structure that encapsulates all types of sh
 
 ## Definition
 
-
+```c
+typedef union
+{
+	int8		id;				/* type field --- must be first */
+	SharedInvalCatcacheMsg cc;
+	SharedInvalCatalogMsg cat;
+	SharedInvalRelcacheMsg rc;
+	SharedInvalSmgrMsg sm;
+	SharedInvalRelmapMsg rm;
+	SharedInvalSnapshotMsg sn;
+} SharedInvalidationMessage;
+```
 ## Detailed Description
 SharedInvalidationMessage serves as PostgreSQL's primary mechanism for maintaining cache consistency across multiple backend processes. This union structure allows different types of invalidation messages to be handled through a single interface while maintaining type safety through the discriminating id field.
 

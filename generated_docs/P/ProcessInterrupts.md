@@ -8,7 +8,10 @@ ProcessInterrupts is the core interrupt handling function in PostgreSQL that pro
 
 ## Definition
 
-
+```c
+void
+ProcessInterrupts(void)
+```
 ## Detailed Description
 ProcessInterrupts serves as the out-of-line portion of the CHECK_FOR_INTERRUPTS() macro and is called only when InterruptPending is true. The function implements a comprehensive interrupt handling mechanism that processes various types of pending interrupts in a prioritized order:
 

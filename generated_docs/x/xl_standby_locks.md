@@ -8,7 +8,13 @@ A WAL record structure that contains an array of AccessExclusiveLock information
 
 ## Definition
 
-
+```c
+typedef struct xl_standby_locks
+{
+	int			nlocks;			/* number of entries in locks array */
+	xl_standby_lock locks[FLEXIBLE_ARRAY_MEMBER];
+} xl_standby_locks;
+```
 ## Detailed Description
 The  structure is a WAL record format used in PostgreSQL's standby recovery system to log and replay AccessExclusiveLocks. This structure is part of the standby resource manager (RM_STANDBY_ID) and is written to the WAL when AccessExclusiveLocks need to be communicated to standby servers during hot standby mode.
 

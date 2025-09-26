@@ -8,7 +8,11 @@ Sets up a SortSupport structure using information from an index relation and a s
 
 ## Definition
 
-
+```c
+void
+PrepareSortSupportFromIndexRel(Relation indexRel, int16 strategy,
+							   SortSupport ssup)
+```
 ## Detailed Description
 PrepareSortSupportFromIndexRel configures sort support functionality specifically for index-based sorting operations. The function:
 

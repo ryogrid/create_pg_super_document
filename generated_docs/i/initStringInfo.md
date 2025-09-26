@@ -8,7 +8,10 @@ Initializes a StringInfoData structure to describe an empty string with a defaul
 
 ## Definition
 
-
+```c
+void
+initStringInfo(StringInfo str)
+```
 ## Detailed Description
 The  function initializes a StringInfoData structure that has previously undefined contents. It allocates an initial buffer of 1024 bytes using PostgreSQL's memory management system (palloc), sets the maximum length field, and then calls  to properly initialize the string state (setting length to 0 and null-terminating the buffer). This function is typically called on newly allocated StringInfo structures or when reinitializing existing ones.
 

@@ -8,7 +8,11 @@ Truncates the specified forks of a supplied relation to the given number of bloc
 
 ## Definition
 
-
+```c
+void
+smgrtruncate(SMgrRelation reln, ForkNumber *forknum, int nforks,
+			 BlockNumber *nblocks)
+```
 ## Detailed Description
 The  function provides a backward-compatible interface for truncating multiple forks of a storage manager relation. It automatically retrieves the current number of blocks for each fork using  and then delegates the actual truncation operation to . This function is designed for external callers and is not used in PostgreSQL core code. It cannot be used within a critical section due to its dependency on  which may perform I/O operations.
 

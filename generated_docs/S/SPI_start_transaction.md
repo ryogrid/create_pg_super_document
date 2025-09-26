@@ -8,7 +8,10 @@ SPI_start_transaction is a deprecated no-op function maintained for backwards co
 
 ## Definition
 
-
+```c
+void
+SPI_start_transaction(void)
+```
 ## Detailed Description
 SPI_start_transaction is an empty function that performs no operations. It exists solely for backwards compatibility with older code that may have used this function when it had actual functionality. 
 

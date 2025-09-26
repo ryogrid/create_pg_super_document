@@ -8,7 +8,10 @@ Populates an empty Bloom filter with a specified number of dummy string elements
 
 ## Definition
 
-
+```c
+static void
+populate_with_dummy_strings(bloom_filter *filter, int64 nelements)
+```
 ## Detailed Description
 This static helper function is part of PostgreSQL's Bloom filter testing module. It generates and inserts dummy string elements into a Bloom filter to simulate realistic usage scenarios during testing. The function creates sequential string elements in the format "i<number>" (e.g., "i0", "i1", "i2") and adds each one to the provided Bloom filter using the  function.
 

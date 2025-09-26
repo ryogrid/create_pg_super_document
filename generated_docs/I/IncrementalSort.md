@@ -8,7 +8,13 @@ IncrementalSort is a specialized plan node that optimizes sorting operations by 
 
 ## Definition
 
-
+```c
+typedef struct IncrementalSort
+{
+	Sort		sort;
+	int			nPresortedCols; /* number of presorted columns */
+} IncrementalSort;
+```
 ## Detailed Description
 The IncrementalSort node is an optimized variant of the Sort node that leverages pre-existing order in the input data. Instead of sorting the entire dataset at once, it processes the data in groups based on the presorted columns, sorting only the additional columns within each group. This approach significantly reduces memory consumption and can improve performance when the input is already partially ordered. The node inherits all sorting functionality from the base Sort structure while adding the capability to track how many leading columns are already sorted.
 

@@ -8,7 +8,10 @@ DatumGetTimeTzADTP is a static inline function that extracts a TimeTzADT pointer
 
 ## Definition
 
-
+```c
+static inline TimeTzADT *
+DatumGetTimeTzADTP(Datum X)
+```
 ## Detailed Description
 This function serves as a conversion utility in PostgreSQL's function manager (fmgr) system, specifically designed to extract time-with-timezone values from Datum objects. It internally delegates to DatumGetPointer() since TimeTzADT structures are passed by reference (as pointers) rather than by value. The function provides type safety and clarity when working with time-with-timezone values in the PostgreSQL backend, ensuring that Datum values are properly interpreted as pointers to TimeTzADT structures.
 

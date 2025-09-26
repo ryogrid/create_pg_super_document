@@ -8,7 +8,10 @@ _SPI_checktuples is a static internal function that validates the consistency be
 
 ## Definition
 
-
+```c
+static bool
+_SPI_checktuples(void)
+```
 ## Detailed Description
 This function performs a critical validation check to ensure data consistency after a SPI operation has completed. It verifies that the number of tuples reported as processed matches the actual number of tuples stored in the SPI tuple table.
 

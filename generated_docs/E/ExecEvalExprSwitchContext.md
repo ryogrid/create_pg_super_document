@@ -8,7 +8,12 @@ ExecEvalExprSwitchContext evaluates an SQL expression within a specific memory c
 
 ## Definition
 
-
+```c
+static inline Datum
+ExecEvalExprSwitchContext(ExprState *state,
+						  ExprContext *econtext,
+						  bool *isNull)
+```
 ## Detailed Description
 ExecEvalExprSwitchContext provides a context-aware version of expression evaluation that temporarily switches to the per-tuple memory context before evaluating the expression, then restores the previous context. This is crucial for memory management in PostgreSQL because it ensures that any memory allocations performed during expression evaluation are allocated in the appropriate context (typically the per-tuple context that gets reset after each tuple is processed).
 

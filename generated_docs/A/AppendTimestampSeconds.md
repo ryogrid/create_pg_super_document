@@ -8,7 +8,10 @@ AppendTimestampSeconds is a specialized wrapper function that formats seconds an
 
 ## Definition
 
-
+```c
+static char *
+AppendTimestampSeconds(char *cp, struct pg_tm *tm, fsec_t fsec)
+```
 ## Detailed Description
 AppendTimestampSeconds is a convenience function that provides a timestamp-specific interface to the more general AppendSeconds function. It extracts the seconds field from a pg_tm structure and formats it along with fractional seconds using fixed parameters optimized for timestamp display:
 

@@ -8,7 +8,11 @@ Non-blocking version of lightweight lock acquisition that returns immediately wi
 
 ## Definition
 
-
+```c
+structures in shared memory.
+	 */
+	HOLD_INTERRUPTS();
+```
 ## Detailed Description
 LWLockConditionalAcquire provides a non-blocking alternative to LWLockAcquire for scenarios where waiting is not acceptable or desirable. The function attempts to acquire the lock once and returns immediately:
 

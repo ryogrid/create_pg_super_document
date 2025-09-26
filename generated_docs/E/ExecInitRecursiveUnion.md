@@ -8,7 +8,11 @@ Initializes the execution state for a RecursiveUnion plan node, setting up all n
 
 ## Definition
 
-
+```c
+structure
+	 */
+	rustate = makeNode(RecursiveUnionState);
+```
 ## Detailed Description
 The `ExecInitRecursiveUnion` function performs comprehensive initialization of a RecursiveUnion plan node, preparing it for recursive query execution. The function creates and configures the RecursiveUnionState structure, which maintains the execution context throughout the recursive process.
 

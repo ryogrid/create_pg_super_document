@@ -8,7 +8,12 @@ Inserts a tuple directly into the current batch of a parallel hash table without
 
 ## Definition
 
-
+```c
+void
+ExecParallelHashTableInsertCurrentBatch(HashJoinTable hashtable,
+										TupleTableSlot *slot,
+										uint32 hashvalue)
+```
 ## Detailed Description
 This is a simplified version of ExecParallelHashTableInsert specifically designed for scenarios where bucket growth has been disabled and all tuples are guaranteed to belong to the current batch. Unlike the general insertion function, this version does not handle memory allocation failures, batch switching, or retry scenarios. It assumes that ExecParallelHashTupleAlloc will always succeed and that the tuple belongs to the current batch being processed.
 

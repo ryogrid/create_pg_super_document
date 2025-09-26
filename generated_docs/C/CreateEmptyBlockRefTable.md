@@ -8,7 +8,10 @@ Creates an empty block reference table with an initial hash table capacity optim
 
 ## Definition
 
-
+```c
+BlockRefTable *
+CreateEmptyBlockRefTable(void)
+```
 ## Detailed Description
 This function initializes a new BlockRefTable structure with an empty hash table. The function allocates memory for the BlockRefTable structure and creates an underlying hash table with an initial capacity of 4096 entries. This initial sizing is based on the assumption that even a completely empty database will have several hundred relation forks, and the table will likely grow to contain at least a few thousand entries during normal operation.
 

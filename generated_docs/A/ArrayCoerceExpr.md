@@ -8,7 +8,22 @@ ArrayCoerceExpr represents a type coercion from one array type to another, imple
 
 ## Definition
 
-
+```c
+typedef struct ArrayCoerceExpr
+{
+	Expr		xpr;
+	Expr	   *arg;			/* input expression (yields an array) */
+	Expr	   *elemexpr;		/* expression representing per-element work */
+	Oid			resulttype;		/* output type of coercion (an array type) */
+	/* output typmod (also element typmod) */
+	int32		resulttypmod pg_node_attr(query_jumble_ignore);
+	/* OID of collation, or InvalidOid if none */
+	Oid			resultcollid pg_node_attr(query_jumble_ignore);
+	/* how to display this node */
+	CoercionForm coerceformat pg_node_attr(query_jumble_ignore);
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} ArrayCoerceExpr;
+```
 ## Detailed Description
 ArrayCoerceExpr handles type coercion between different array types by applying element-level transformations. The coercion works by iterating through each element of the source array and applying the  transformation to convert each element from the source element type to the target element type.
 

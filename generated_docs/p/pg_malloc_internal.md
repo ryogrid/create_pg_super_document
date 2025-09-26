@@ -8,7 +8,10 @@ Internal function that performs memory allocation with optional flags for zero-i
 
 ## Definition
 
-
+```c
+static inline void *
+pg_malloc_internal(size_t size, int flags)
+```
 ## Detailed Description
 pg_malloc_internal is a static inline function that serves as the core implementation for PostgreSQL's frontend memory allocation routines. It wraps the standard C library malloc() function with additional safety features and PostgreSQL-specific behavior. The function handles the unportable behavior of malloc(0) by ensuring at least 1 byte is allocated, provides optional zero-initialization of allocated memory, and offers configurable out-of-memory error handling.
 

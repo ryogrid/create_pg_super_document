@@ -8,7 +8,9 @@ Removes a specified table OID from an extension's extconfig array, effectively u
 
 ## Definition
 
-
+```c
+struct_array_builtin(a, OIDOID, &dvalues, NULL, &nelems);
+```
 ## Detailed Description
 This internal static function removes a table from an extension's configuration table list by modifying the extconfig and extcondition arrays in the pg_extension catalog. When a table is removed from extconfig, it will no longer be included in pg_dump output as configuration data, meaning only the table structure (if it remains part of the extension) will be recreated, not its data.
 

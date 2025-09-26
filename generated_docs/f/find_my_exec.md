@@ -8,7 +8,10 @@ Finds the absolute path to the current program's executable by searching through
 
 ## Definition
 
-
+```c
+int
+find_my_exec(const char *argv0, char *retpath)
+```
 ## Detailed Description
 The  function determines the absolute path to the currently running executable based on the command-line argument . This is crucial for PostgreSQL because:
 

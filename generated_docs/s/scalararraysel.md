@@ -8,7 +8,10 @@ Computes the selectivity of ScalarArrayOpExpr nodes, handling SQL operations lik
 
 ## Definition
 
-
+```c
+struct the expression */
+	Assert(list_length(clause->args) == 2);
+```
 ## Detailed Description
 The  function estimates selectivity for scalar array operations, which are SQL expressions comparing a scalar value against an array using operators like ANY or ALL. Examples include 'column = ANY(ARRAY[1,2,3])' or 'value <> ALL(array_column)'.
 

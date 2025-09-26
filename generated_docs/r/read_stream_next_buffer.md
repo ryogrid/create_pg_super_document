@@ -8,7 +8,10 @@ Retrieves the next pinned buffer from a read stream, managing I/O completion, bu
 
 ## Definition
 
-
+```c
+Buffer
+read_stream_next_buffer(ReadStream *stream, void **per_buffer_data)
+```
 ## Detailed Description
 This function implements the core buffer retrieval mechanism for read streams, featuring a sophisticated fast path optimization for all-cached scans and a full path for handling I/O operations. The function manages buffer queues, waits for pending I/O operations to complete, and adjusts the lookahead distance based on cache hit/miss patterns.
 

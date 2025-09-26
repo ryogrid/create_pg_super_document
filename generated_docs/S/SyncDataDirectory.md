@@ -8,7 +8,9 @@ Issues fsync recursively on PGDATA and all its contents, or alternatively uses s
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 SyncDataDirectory is a critical function used during PostgreSQL startup to synchronize the entire data directory to persistent storage. The function handles the possibility that there are issued-but-unsynced writes pending against the data directory from a previous session.
 

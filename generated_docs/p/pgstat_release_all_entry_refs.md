@@ -8,7 +8,10 @@ Releases all local references to shared stats entries in the current process to 
 
 ## Definition
 
-
+```c
+static void
+pgstat_release_all_entry_refs(bool discard_pending)
+```
 ## Detailed Description
 This function is responsible for releasing all local references to shared statistics entries that a process has acquired during its lifetime. It's a critical cleanup function that prevents memory leaks in the shared statistics system. When a process exits, it must release all references to shared stats entries; otherwise, those entries could never be freed from the shared memory segment.
 

@@ -8,7 +8,10 @@ Resets a read stream by releasing all queued buffers and reinitializing the stre
 
 ## Definition
 
-
+```c
+void
+read_stream_reset(ReadStream *stream)
+```
 ## Detailed Description
 This function provides a mechanism to completely reset a read stream's internal state without destroying and recreating the stream object. It releases all currently pinned buffers, cancels any pending I/O operations, and resets the lookahead algorithm to its initial state.
 

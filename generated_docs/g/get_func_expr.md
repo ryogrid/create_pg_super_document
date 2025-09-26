@@ -8,7 +8,11 @@ Parses back a FuncExpr (function expression) node into its human-readable string
 
 ## Definition
 
-
+```c
+static void
+get_func_expr(FuncExpr *expr, deparse_context *context,
+			  bool showimplicit)
+```
 ## Detailed Description
 This static function is a core component of PostgreSQL's rule deparsing system that converts FuncExpr nodes back to SQL text. The function handles multiple function call formats:
 

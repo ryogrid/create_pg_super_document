@@ -8,7 +8,17 @@ AlterTableMoveAllStmt represents the parsed structure for an ALTER TABLE/INDEX/M
 
 ## Definition
 
-
+```c
+typedef struct AlterTableMoveAllStmt
+{
+	NodeTag		type;
+	char	   *orig_tablespacename;
+	ObjectType	objtype;		/* Object type to move */
+	List	   *roles;			/* List of roles to move objects of */
+	char	   *new_tablespacename;
+	bool		nowait;
+} AlterTableMoveAllStmt;
+```
 ## Detailed Description
 This structure represents a bulk tablespace move operation that allows moving all objects of a specific type (tables, indexes, or materialized views) from one tablespace to another in a single command. The operation can be optionally filtered by object ownership, allowing users to move only objects owned by specific roles. This is particularly useful for tablespace maintenance, reorganization, or migration scenarios.
 

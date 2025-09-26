@@ -8,7 +8,15 @@ The City struct is a data structure used in PostgreSQL's Genetic Query Optimizer
 
 ## Definition
 
-
+```c
+typedef struct City
+{
+	int			tour2_position;
+	int			tour1_position;
+	int			used;
+	int			select_list;
+}			City;
+```
 ## Detailed Description
 The City structure is used in multiple genetic crossover algorithms within GEQO, including cycle crossover (CX), order crossover variants (OX1, OX2), and position crossover (PX). Despite its name suggesting a geographic context, this structure represents abstract positions and states during genetic recombination operations in query optimization. Each City tracks positions in two different parent tours and maintains flags for usage status and selection criteria during the crossover process.
 

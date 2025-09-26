@@ -8,7 +8,10 @@ Opens an existing temporary file within a FileSet that was previously created wi
 
 ## Definition
 
-
+```c
+File
+FileSetOpen(FileSet *fileset, const char *name, int mode)
+```
 ## Detailed Description
 FileSetOpen provides a way to reopen existing temporary files within a FileSet. This function is designed to work with files that were previously created using FileSetCreate and need to be accessed again, supporting the FileSet's core capability of allowing temporary files to be opened and closed multiple times.
 

@@ -8,7 +8,10 @@ Creates a new replication origin with the specified name by finding an unused 16
 
 ## Definition
 
-
+```c
+RepOriginId
+replorigin_create(const char *roname)
+```
 ## Detailed Description
 This function creates a new replication origin by performing a sequential search for an unused 16-bit origin identifier and inserting a corresponding catalog entry. The process uses an exclusive table lock to prevent concurrency issues while ensuring that newly created origins are immediately visible through dirty snapshot reads. The function enforces that replication origin IDs fit within 16-bit range (PG_UINT16_MAX) and uses a systematic approach to find the first available ID starting from InvalidOid + 1. The implementation prioritizes correctness over efficiency, as replication origin creation is expected to be an infrequent operation.
 

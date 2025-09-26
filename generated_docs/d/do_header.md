@@ -8,7 +8,12 @@ Generates and formats the header row for PostgreSQL query result output, includi
 
 ## Definition
 
-
+```c
+static char *
+do_header(FILE *fout, const PQprintOpt *po, const int nFields, int *fieldMax,
+		  const char **fieldNames, unsigned char *fieldNotNum,
+		  const int fs_len, const PGresult *res)
+```
 ## Detailed Description
 The  function creates formatted column headers for PostgreSQL query results in libpq. It handles multiple output formats and constructs appropriate headers with proper alignment and decorative borders. The function performs several key operations:
 

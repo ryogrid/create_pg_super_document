@@ -8,7 +8,10 @@ Creates or returns the shared per-tuple ExprContext for an EState, providing a r
 
 ## Definition
 
-
+```c
+ExprContext *
+MakePerTupleExprContext(EState *estate)
+```
 ## Detailed Description
 MakePerTupleExprContext implements a lazy initialization pattern for the shared per-tuple ExprContext within an EState. If the EState doesn't already have a per-tuple expression context (es_per_tuple_exprcontext is NULL), the function creates one using CreateExprContext. If the context already exists, it simply returns the existing instance.
 

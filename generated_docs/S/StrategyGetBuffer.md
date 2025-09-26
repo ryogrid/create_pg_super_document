@@ -8,7 +8,10 @@ StrategyGetBuffer is the core buffer allocation function that selects the next c
 
 ## Definition
 
-
+```c
+BufferDesc *
+StrategyGetBuffer(BufferAccessStrategy strategy, uint32 *buf_state, bool *from_ring)
+```
 ## Detailed Description
 StrategyGetBuffer implements PostgreSQL's buffer replacement policy, selecting an unused buffer for allocation. The function operates in several phases:
 

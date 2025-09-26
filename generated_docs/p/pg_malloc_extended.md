@@ -8,7 +8,10 @@ Extended memory allocation function that provides configurable allocation behavi
 
 ## Definition
 
-
+```c
+void *
+pg_malloc_extended(size_t size, int flags)
+```
 ## Detailed Description
 pg_malloc_extended is a direct wrapper around pg_malloc_internal that exposes the full flexibility of PostgreSQL's frontend memory allocation system. It allows callers to specify exact allocation behavior through flags, making it suitable for cases where the standard pg_malloc() or pg_malloc0() functions are too restrictive.
 

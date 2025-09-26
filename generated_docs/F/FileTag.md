@@ -8,7 +8,15 @@ FileTag is a structure that uniquely identifies a file in PostgreSQL's storage s
 
 ## Definition
 
-
+```c
+typedef struct FileTag
+{
+	int16		handler;		/* SyncRequestHandler value, saving space */
+	int16		forknum;		/* ForkNumber, saving space */
+	RelFileLocator rlocator;
+	uint64		segno;
+} FileTag;
+```
 ## Detailed Description
 FileTag serves as a comprehensive identifier for files in PostgreSQL's storage synchronization framework. It encapsulates all the information needed to uniquely identify a physical file and determine how it should be processed during sync operations. The structure is designed to be compact while providing sufficient detail for the sync system to route requests to appropriate handlers.
 

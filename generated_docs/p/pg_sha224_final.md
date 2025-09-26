@@ -8,7 +8,10 @@ Finalizes a SHA-224 hash computation and produces the final 224-bit digest outpu
 
 ## Definition
 
-
+```c
+void
+pg_sha224_final(pg_sha224_ctx *context, uint8 *digest)
+```
 ## Detailed Description
 This function completes the SHA-224 hash computation by performing the final padding and processing steps, then extracts the 224-bit hash result. The function first calls  to perform the final transformation including padding the message according to the SHA-2 specification. After the final hash state is computed, it handles endian conversion if necessary (on little-endian systems), then copies exactly 28 bytes (224 bits) from the hash state to the output digest buffer.
 

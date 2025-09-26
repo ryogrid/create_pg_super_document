@@ -8,7 +8,27 @@ SpGistState is the central state structure for SP-GiST index operations, contain
 
 ## Definition
 
+```c
+typedef struct SpGistState
+{
+	Relation	index;			/* index we're working with */
 
+	spgConfigOut config;		/* filled in by opclass config method */
+
+	SpGistTypeDesc attType;		/* type of values to be indexed/restored */
+	SpGistTypeDesc attLeafType; /* type of leaf-tuple values */
+	SpGistTypeDesc attPrefixType;	/* type of inner-tuple prefix values */
+	SpGistTypeDesc attLabelType;	/* type of node label values */
+
+	/* leafTupDesc typically points to index's tupdesc, but not always */
+	TupleDesc	leafTupDesc;	/* descriptor for leaf-level tuples */
+
+	char	   *deadTupleStorage;	/* workspace for spgFormDeadTuple */
+
+	TransactionId redirectXid;	/* XID to use when creating a redirect tuple */
+	bool		isBuild;		/* true if doing index build */
+} SpGistState;
+```
 ## Detailed Description
 SpGistState serves as the comprehensive operational context for all SP-GiST index activities. It consolidates essential information including the index relation, operator class configuration, and type descriptors for different kinds of values handled by the index. This structure enables SP-GiST to efficiently manage the complex type relationships inherent in space-partitioned indexes where different node levels may handle different data representations.
 

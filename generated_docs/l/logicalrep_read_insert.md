@@ -8,7 +8,10 @@ Reads an INSERT message from a logical replication stream and populates a tuple 
 
 ## Definition
 
-
+```c
+LogicalRepRelId
+logicalrep_read_insert(StringInfo in, LogicalRepTupleData *newtup)
+```
 ## Detailed Description
 This function parses an INSERT operation from the logical replication protocol stream. It extracts the relation ID and validates that the action type is 'N' (new tuple), then reads the tuple data using the shared tuple reading functionality. The function is part of PostgreSQL's logical replication protocol implementation, which enables streaming of database changes to subscribers.
 

@@ -8,7 +8,10 @@ Incrementally builds catalog decoding snapshots by processing running transactio
 
 ## Definition
 
-
+```c
+static bool
+SnapBuildFindSnapshot(SnapBuild *builder, XLogRecPtr lsn, xl_running_xacts *running)
+```
 ## Detailed Description
 SnapBuildFindSnapshot is a complex state machine that manages the incremental building of consistent snapshots for logical replication. It implements a sophisticated algorithm to determine when enough transaction information has been collected to safely decode catalog changes.
 

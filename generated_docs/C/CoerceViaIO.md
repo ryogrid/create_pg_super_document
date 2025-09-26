@@ -8,7 +8,20 @@ CoerceViaIO is a PostgreSQL expression node that performs type coercion through 
 
 ## Definition
 
-
+```c
+typedef struct CoerceViaIO
+{
+	Expr		xpr;
+	Expr	   *arg;			/* input expression */
+	Oid			resulttype;		/* output type of coercion */
+	/* output typmod is not stored, but is presumed -1 */
+	/* OID of collation, or InvalidOid if none */
+	Oid			resultcollid pg_node_attr(query_jumble_ignore);
+	/* how to display this node */
+	CoercionForm coerceformat pg_node_attr(query_jumble_ignore);
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} CoerceViaIO;
+```
 ## Detailed Description
 CoerceViaIO implements type coercion by using the output function of the source type to convert the value to its text representation, then using the input function of the target type to parse that text back into the desired type. This mechanism allows conversion between types that don't have direct cast functions but can be converted through their text representations.
 

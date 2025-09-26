@@ -8,7 +8,13 @@ Compiles an ExprState into optimized LLVM IR code for high-performance expressio
 
 ## Definition
 
-
+```c
+struct_gep(b,
+							   StructExprState,
+							   v_state,
+							   FIELDNO_EXPRSTATE_RESVALUE,
+							   "v.state.resvalue");
+```
 ## Detailed Description
 This function is the core of PostgreSQL's LLVM-based Just-In-Time (JIT) compilation system for expressions. It takes an ExprState containing a series of expression evaluation steps and compiles them into optimized LLVM IR code that can be executed much faster than the interpreted version.
 

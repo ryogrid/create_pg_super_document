@@ -8,7 +8,14 @@ SharedInvalCatcacheMsg is a structure that represents a shared invalidation mess
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int8		id;				/* type field --- must be first */
+	Oid			dbId;			/* database ID, or 0 if a shared catalog */
+	Oid			catId;			/* ID of catalog whose contents are invalid */
+} SharedInvalCatalogMsg;
+```
 ## Detailed Description
 SharedInvalCatcacheMsg is one of several shared invalidation message types used in PostgreSQL's cache invalidation system. It specifically handles invalidation of individual catalog cache entries by identifying them through a cache ID, database ID, and hash value of the cached key. This allows precise invalidation of specific cached tuples rather than invalidating entire caches, which improves performance by avoiding unnecessary cache rebuilds.
 

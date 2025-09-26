@@ -8,7 +8,12 @@ Returns an array of currently active Virtual Transaction IDs (VXIDs) from the pr
 
 ## Definition
 
-
+```c
+VirtualTransactionId *
+GetCurrentVirtualXIDs(TransactionId limitXmin, bool excludeXmin0,
+					  bool allDbs, int excludeVacuum,
+					  int *nvxids)
+```
 ## Detailed Description
 GetCurrentVirtualXIDs scans the process array to collect currently active Virtual Transaction IDs, applying various filters based on the provided parameters. The function is essential for determining which transactions are currently active in the system, which is crucial for operations like waiting for older snapshots to complete.
 

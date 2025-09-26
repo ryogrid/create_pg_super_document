@@ -8,7 +8,13 @@ A generic variable-length character string structure used by ECPG (Embedded SQL 
 
 ## Definition
 
-
+```c
+struct ECPGgeneric_varchar
+{
+	int			len;
+	char		arr[FLEXIBLE_ARRAY_MEMBER];
+};
+```
 ## Detailed Description
 ECPGgeneric_varchar is a fundamental data structure in PostgreSQL's ECPG library that represents variable-length character strings. It uses a flexible array member design pattern where the actual character data follows immediately after the length field in memory. This structure allows ECPG to efficiently handle VARCHAR columns from SQL queries by storing both the actual length of the string and the character data in a single, contiguous memory allocation.
 

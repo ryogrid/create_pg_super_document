@@ -8,7 +8,10 @@ Releases multiple kernel file descriptors by closing least-recently-used files u
 
 ## Definition
 
-
+```c
+static void
+ReleaseLruFiles(void)
+```
 ## Detailed Description
 ReleaseLruFiles implements a bulk file descriptor release mechanism that ensures PostgreSQL stays within safe file descriptor limits before attempting to open new files. The function continuously releases LRU files until the total count of file descriptors (including PostgreSQL VFDs, allocated descriptors, and external FDs) falls below the max_safe_fds threshold.
 

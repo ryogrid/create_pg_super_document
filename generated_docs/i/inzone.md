@@ -8,7 +8,9 @@ Processes a timezone Zone line from input, validates it for conflicts and duplic
 
 ## Definition
 
-
+```c
+enum);
+```
 ## Detailed Description
 The  function validates a timezone Zone line by checking field count, ensuring no conflicts with command-line options (-l and -p), and verifying no duplicate zone names exist. It performs several validation checks:
 - Field count must be between ZONE_MINFIELDS (5) and ZONE_MAXFIELDS (9)

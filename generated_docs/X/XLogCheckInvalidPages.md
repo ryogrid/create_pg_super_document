@@ -8,7 +8,10 @@ Checks for and reports any remaining invalid page entries in the invalid page ha
 
 ## Definition
 
-
+```c
+void
+XLogCheckInvalidPages(void)
+```
 ## Detailed Description
 This function iterates through the global  hash table to identify any remaining invalid page entries that haven't been resolved during WAL recovery. It employs a two-phase reporting strategy: first emitting WARNING messages for all remaining invalid entries to provide comprehensive diagnostic information, then issuing either a WARNING or PANIC depending on the  setting.
 

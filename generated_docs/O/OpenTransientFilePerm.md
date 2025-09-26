@@ -8,7 +8,10 @@ OpenTransientFilePerm opens files using raw file descriptors with explicit permi
 
 ## Definition
 
-
+```c
+int
+OpenTransientFilePerm(const char *fileName, int fileFlags, mode_t fileMode)
+```
 ## Detailed Description
 OpenTransientFilePerm serves as PostgreSQL's managed wrapper around file opening operations, similar to AllocateFile but returning an unbuffered file descriptor instead of a FILE* stream. This function integrates with PostgreSQL's file descriptor management system to handle resource constraints and provides transaction-aware cleanup.
 

@@ -8,7 +8,10 @@ LimitAdditionalLocalPins limits the number of additional local buffer pins that 
 
 ## Definition
 
-
+```c
+void
+LimitAdditionalLocalPins(uint32 *additional_pins)
+```
 ## Detailed Description
 LimitAdditionalLocalPins implements resource management for local buffer pins by constraining the number of additional pins that can be acquired based on available local buffer capacity. Unlike its shared buffer counterpart (LimitAdditionalPins), this function only needs to consider the local backend's buffer usage since local buffers are not shared across backends.
 

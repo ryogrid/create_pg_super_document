@@ -8,7 +8,13 @@ ManyTestResourceKind is a custom resource type definition used in PostgreSQL's r
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	ManyTestResourceKind *kind;
+	dlist_node	node;
+} ManyTestResource;
+```
 ## Detailed Description
 ManyTestResourceKind is a specialized structure designed for testing PostgreSQL's ResourceOwner functionality with large numbers of resources. It extends the basic ResourceOwnerDesc with additional tracking counters and a linked list to maintain cross-references of remembered resources. This allows the test framework to verify that the ResourceOwner system correctly calls callback functions for resource management operations like remember, forget, release, and leak detection.
 

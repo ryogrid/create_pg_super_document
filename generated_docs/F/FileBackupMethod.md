@@ -8,7 +8,9 @@ An enumeration that specifies how a file should be backed up during incremental 
 
 ## Definition
 
-
+```c
+struct IncrementalBackupInfo;
+```
 ## Detailed Description
 The  enum is a key component of PostgreSQL's incremental backup system, introduced to optimize backup performance by allowing selective backup of only modified blocks rather than entire files. This enum is used by the  function to determine the appropriate backup strategy for individual database files.
 

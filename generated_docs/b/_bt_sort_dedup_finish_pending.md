@@ -8,7 +8,11 @@ A function that finalizes a pending posting list tuple during B-tree index const
 
 ## Definition
 
-
+```c
+static void
+_bt_sort_dedup_finish_pending(BTWriteState *wstate, BTPageState *state,
+							  BTDedupState dstate)
+```
 ## Detailed Description
 This function is responsible for completing the processing of a pending deduplication state during B-tree index building. It operates similarly to  but is specifically designed for the index building phase where it uses  to add tuples.
 

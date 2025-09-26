@@ -8,7 +8,10 @@ Processes running transaction records from WAL to build historic snapshots and m
 
 ## Definition
 
-
+```c
+void
+SnapBuildProcessRunningXacts(SnapBuild *builder, XLogRecPtr lsn, xl_running_xacts *running)
+```
 ## Detailed Description
 SnapBuildProcessRunningXacts is a key function in PostgreSQL's logical replication system that processes xl_running_xacts WAL records to maintain consistent snapshots and manage transaction tracking. The function operates in different modes depending on the current snapshot building state:
 

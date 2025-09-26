@@ -8,7 +8,10 @@ PostgreSQL's Windows-specific implementation of the POSIX opendir() function tha
 
 ## Definition
 
-
+```c
+DIR *
+opendir(const char *dirname)
+```
 ## Detailed Description
 This function is a Windows compatibility implementation of the POSIX opendir() function, located in src/port/dirent.c. It creates and initializes a DIR structure to represent an opened directory stream that can be used with readdir() and closedir(). The implementation handles Windows-specific directory access using Windows API functions like GetFileAttributes() to validate the directory path.
 

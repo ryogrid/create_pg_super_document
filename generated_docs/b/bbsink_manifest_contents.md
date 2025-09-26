@@ -8,7 +8,19 @@ Processes a chunk of backup manifest data through the base backup sink pipeline,
 
 ## Definition
 
+```c
+struction. */
+static inline void
+bbsink_cleanup(bbsink *sink)
+{
+	Assert(sink != NULL);
 
+	sink->bbs_ops->cleanup(sink);
+}
+
+/* Forwarding callbacks. Use these to pass operations through to next sink. */
+extern void bbsink_forward_begin_backup(bbsink *sink);
+```
 ## Detailed Description
 This inline function serves as an interface wrapper for processing backup manifest content. It receives a buffer of manifest data and forwards it to the appropriate sink-specific implementation via the function pointer in the sink's operations table. The function is part of the base backup infrastructure that allows different types of sinks (plain, compressed, forwarding, etc.) to handle manifest data according to their specific needs.
 

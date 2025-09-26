@@ -8,7 +8,10 @@ A static internal comparison function that compares the absolute values (magnitu
 
 ## Definition
 
-
+```c
+static int
+complex_abs_cmp_internal(Complex * a, Complex * b)
+```
 ## Detailed Description
 This function serves as the core comparison logic for all B-tree index operators on complex numbers. It computes the magnitude (absolute value) of each complex number using the Pythagorean theorem and performs a three-way comparison. The function is designed to ensure consistent ordering across all comparison operators in the B-tree index opclass, reducing the risk of inconsistent comparison functions by centralizing the comparison logic.
 

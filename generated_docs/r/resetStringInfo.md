@@ -8,7 +8,10 @@ Resets a StringInfo to an empty state while preserving the allocated data buffer
 
 ## Definition
 
-
+```c
+void
+resetStringInfo(StringInfo str)
+```
 ## Detailed Description
 The  function clears the content of a StringInfo structure without deallocating its data buffer. It sets the string length to zero, null-terminates the string at position 0, and resets the cursor position to the beginning. The function includes an assertion to prevent resetting read-only StringInfos (those with maxlen == 0). This is an efficient way to reuse a StringInfo for new content without the overhead of memory deallocation and reallocation.
 

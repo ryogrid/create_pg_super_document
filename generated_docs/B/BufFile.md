@@ -8,7 +8,43 @@ BufFile is a data structure that represents a buffered file consisting of one or
 
 ## Definition
 
+```c
+struct BufFile
+{
+	int			numFiles;		/* number of physical files in set */
+	/* all files except the last have length exactly MAX_PHYSICAL_FILESIZE */
+	File	   *files;			/* palloc'd array with numFiles entries */
 
+	bool		isInterXact;	/* keep open over transactions? */
+	bool		dirty;			/* does buffer need to be written? */
+	bool		readOnly;		/* has the file been set to read only? */
+
+	FileSet    *fileset;		/* space for fileset based segment files */
+	const char *name;			/* name of fileset based BufFile */
+
+	/*
+	 * resowner is the ResourceOwner to use for underlying temp files.  (We
+	 * don't need to remember the memory context we're using explicitly,
+	 * because after creation we only repalloc our arrays larger.)
+	 */
+	ResourceOwner resowner;
+
+	/*
+	 * "current pos" is position of start of buffer within the logical file.
+	 * Position as seen by user of BufFile is (curFile, curOffset + pos).
+	 */
+	int			curFile;		/* file index (0..n) part of current pos */
+	off_t		curOffset;		/* offset part of current pos */
+	int			pos;			/* next read/write position in buffer */
+	int			nbytes;			/* total # of valid bytes in buffer */
+
+	/*
+	 * XXX Should ideally us PGIOAlignedBlock, but might need a way to avoid
+	 * wasting per-file alignment padding when some users create many files.
+	 */
+	PGAlignedBlock buffer;
+};
+```
 ## Detailed Description
 BufFile provides a buffered I/O abstraction for handling large files in PostgreSQL. The key design principle is to split large files into multiple physical segments, each limited to MAX_PHYSICAL_FILESIZE bytes, while presenting a unified logical view to the application.
 

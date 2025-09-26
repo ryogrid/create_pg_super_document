@@ -8,7 +8,10 @@ exec_rt_fetch retrieves a specific RangeTblEntry from the executor state's range
 
 ## Definition
 
-
+```c
+static inline RangeTblEntry *
+exec_rt_fetch(Index rti, EState *estate)
+```
 ## Detailed Description
 exec_rt_fetch is a fundamental utility function in PostgreSQL's executor that provides indexed access to range table entries. The range table (es_range_table) in the EState contains metadata about all tables, subqueries, functions, and other relation-like entities referenced in a query. Each entry is identified by a Range Table Index (RTI), which is a 1-based index used throughout the query execution system.
 

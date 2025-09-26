@@ -8,7 +8,10 @@ The  function safely copies a C string into a PostgreSQL  structure with proper 
 
 ## Definition
 
-
+```c
+void
+namestrcpy(Name name, const char *str)
+```
 ## Detailed Description
 This utility function copies a C string into a PostgreSQL  data structure while ensuring proper bounds checking and null termination. The function uses  to copy up to  characters from the source string, then explicitly ensures null termination by setting the last character to '\0'. This prevents buffer overflows and guarantees that the resulting  is properly null-terminated even if the source string is longer than the maximum allowed length.
 

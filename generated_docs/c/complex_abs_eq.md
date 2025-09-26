@@ -8,7 +8,10 @@ A PostgreSQL function that implements the "equal to" comparison operator for the
 
 ## Definition
 
-
+```c
+Datum
+complex_abs_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL-callable wrapper that implements the "=" operator for comparing the magnitudes of complex numbers. It extracts two Complex pointers from the function arguments, delegates the actual comparison to the internal `complex_abs_cmp_internal` function, and returns true if both complex numbers have equal magnitudes. This function is part of the B-tree index operator class for complex numbers, enabling PostgreSQL to perform equality tests and indexing operations based on complex number magnitudes.
 

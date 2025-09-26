@@ -8,7 +8,10 @@ A static helper function that validates prerequisites for replication origin ope
 
 ## Definition
 
-
+```c
+static void
+replorigin_check_prerequisites(bool check_slots, bool recoveryOK)
+```
 ## Detailed Description
 This function performs essential prerequisite checks before allowing replication origin operations to proceed. It validates two critical conditions: first, it ensures that replication slots are properly configured (max_replication_slots > 0) when slot checking is required, and second, it prevents certain operations during recovery unless explicitly permitted. The function acts as a gatekeeper, throwing appropriate errors when prerequisites are not met, thereby maintaining the integrity and safety of replication origin operations.
 

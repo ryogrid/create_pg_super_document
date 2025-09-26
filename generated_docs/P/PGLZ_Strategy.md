@@ -8,7 +8,17 @@ PGLZ_Strategy is a configuration structure that controls the behavior and parame
 
 ## Definition
 
-
+```c
+typedef struct PGLZ_Strategy
+{
+	int32		min_input_size;
+	int32		max_input_size;
+	int32		min_comp_rate;
+	int32		first_success_by;
+	int32		match_size_good;
+	int32		match_size_drop;
+} PGLZ_Strategy;
+```
 ## Detailed Description
 The PGLZ_Strategy structure provides configuration parameters that control the compression algorithm's behavior in the PostgreSQL LZ compression implementation. It allows the system to balance between compression ratio, speed, and resource usage by setting various thresholds and limits.
 

@@ -8,7 +8,10 @@ A static callback function used in PostgreSQL's test module for COPY TO operatio
 
 ## Definition
 
-
+```c
+static void
+to_cb(void *data, int len)
+```
 ## Detailed Description
 The `to_cb` function serves as a simple callback function specifically designed for testing COPY TO callback mechanisms in PostgreSQL. When called during a COPY TO operation, it logs information about the data being processed through PostgreSQL's error reporting system. The function uses `ereport(NOTICE, ...)` to output diagnostic information, making it visible in PostgreSQL's log output or client messages.
 

@@ -8,7 +8,10 @@ Creates and initializes a new TParserPosition structure for tracking parser stat
 
 ## Definition
 
-
+```c
+static TParserPosition *
+newTParserPosition(TParserPosition *prev)
+```
 ## Detailed Description
 The newTParserPosition function allocates and initializes a new TParserPosition structure used to maintain parser state information in PostgreSQL's text search functionality. This function creates a linked list of parser positions, allowing the parser to maintain a stack of positions for backtracking or nested parsing operations.
 

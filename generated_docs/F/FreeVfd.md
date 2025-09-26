@@ -8,7 +8,10 @@ FreeVfd is a static function that releases a virtual file descriptor (VFD) back 
 
 ## Definition
 
-
+```c
+static void
+FreeVfd(File file)
+```
 ## Detailed Description
 FreeVfd performs cleanup operations on a virtual file descriptor entry in the VfdCache array. It deallocates the fileName string if present, resets the file descriptor state, and adds the VFD entry back to the free list for future allocation. This function is part of PostgreSQL's virtual file descriptor management system that allows the database to manage more files than the operating system limit by maintaining a cache of file descriptors.
 

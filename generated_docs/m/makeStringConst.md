@@ -8,7 +8,10 @@ Creates an A_Const node with string value type for representing string literals 
 
 ## Definition
 
-
+```c
+Node *
+makeStringConst(char *str, int location)
+```
 ## Detailed Description
 The makeStringConst function is a utility function that constructs an A_Const node specifically for string constants. It allocates memory for a new A_Const node using makeNode() and initializes it with the provided string value and location information. The function sets the value type to T_String and stores the string pointer directly (without copying the string data). This function is part of PostgreSQL's node creation utilities used during parsing and query transformation phases.
 

@@ -8,7 +8,10 @@ SnapBuildState is an enumeration that tracks the progression stages of snapshot 
 
 ## Definition
 
-
+```c
+struct to the public */
+struct SnapBuild;
+```
 ## Detailed Description
 SnapBuildState represents the state machine for PostgreSQL's snapshot building process used in logical replication. The snapshot building machinery constructs historic catalog snapshots by reading and interpreting the WAL stream, enabling the decoding of heap tuple changes for logical replication purposes.
 

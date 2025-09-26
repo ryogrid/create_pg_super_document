@@ -8,7 +8,10 @@ A static helper function in the storage manager that truncates a file to zero le
 
 ## Definition
 
-
+```c
+static int
+do_truncate(const char *path)
+```
 ## Detailed Description
 The  function is a utility function within PostgreSQL's magnetic disk storage manager (md.c) that safely truncates a file to zero length. It serves as a wrapper around the system's  function, providing centralized error handling and logging functionality. The function is designed to handle cases where the file might not exist (ENOENT) gracefully while logging warnings for other types of errors. This function is primarily used during relation fork unlinking operations to ensure proper cleanup of storage files.
 

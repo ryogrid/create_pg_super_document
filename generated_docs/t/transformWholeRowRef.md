@@ -8,7 +8,11 @@ Constructs a whole-row reference to represent the notation "relation.*" by creat
 
 ## Definition
 
-
+```c
+static Node *
+transformWholeRowRef(ParseState *pstate, ParseNamespaceItem *nsitem,
+					 int sublevels_up, int location)
+```
 ## Detailed Description
 The  function constructs references for "relation.*" notation during parsing. It handles two main cases: normal relations where it creates a whole-row Var, and JOIN USING aliases where it expands the reference into a RowExpr containing only the subset of columns available through the alias.
 

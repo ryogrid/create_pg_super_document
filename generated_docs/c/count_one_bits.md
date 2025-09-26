@@ -8,7 +8,10 @@ A utility function that counts the number of set bits (1s) in an AclMode bitmask
 
 ## Definition
 
-
+```c
+static int
+count_one_bits(AclMode mask)
+```
 ## Detailed Description
 This function implements a simple bit-counting algorithm that iterates through each bit position in an `AclMode` value and counts how many bits are set to 1. The function uses a straightforward approach:
 

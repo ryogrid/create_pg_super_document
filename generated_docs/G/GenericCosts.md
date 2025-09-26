@@ -8,7 +8,12 @@ GenericCosts is a structure that holds cost estimation data for index operations
 
 ## Definition
 
-
+```c
+typedef bool (*get_relation_stats_hook_type) (PlannerInfo *root,
+											  RangeTblEntry *rte,
+											  AttrNumber attnum,
+											  VariableStatData *vardata);
+```
 ## Detailed Description
 GenericCosts serves as a comprehensive data structure for index cost estimation in PostgreSQL's query planner. It is primarily used by the genericcostestimate() function, which provides a general-purpose cost estimation framework that can be used by most index types. The structure is designed to avoid code duplication by allowing index-specific cost estimators to use genericcostestimate() as a base and then incorporate additional type-specific knowledge.
 

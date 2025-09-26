@@ -8,7 +8,10 @@ Creates a serialized representation of a query execution plan to be sent to para
 
 ## Definition
 
-
+```c
+static char *
+ExecSerializePlan(Plan *plan, EState *estate)
+```
 ## Detailed Description
 ExecSerializePlan prepares a query plan for parallel execution by creating a serialized copy that can be transmitted to worker processes. The function performs several critical transformations to ensure the plan is suitable for parallel execution:
 

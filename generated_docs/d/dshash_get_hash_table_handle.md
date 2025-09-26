@@ -8,7 +8,10 @@ Returns a handle that allows other processes to attach to an existing dynamic sh
 
 ## Definition
 
-
+```c
+dshash_table_handle
+dshash_get_hash_table_handle(dshash_table *hash_table)
+```
 ## Detailed Description
 The dshash_get_hash_table_handle function provides a simple accessor to retrieve the handle for a shared hash table. This handle is essentially a dsa_pointer that identifies the location of the hash table's control structure within the dynamic shared area. The handle can be passed to other processes or stored for later use, allowing them to attach to the same shared hash table using dshash_attach.
 

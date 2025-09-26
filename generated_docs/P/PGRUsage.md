@@ -8,7 +8,13 @@ PGRUsage is a structure that captures resource usage snapshots for performance m
 
 ## Definition
 
-
+```c
+typedef struct PGRUsage
+{
+	struct timeval tv;
+	struct rusage ru;
+} PGRUsage;
+```
 ## Detailed Description
 The PGRUsage structure is a composite data type that combines two POSIX system structures to provide comprehensive resource usage tracking capabilities. It encapsulates both wall-clock time information (via ) and detailed process resource usage statistics (via ). This structure is primarily used in conjunction with  and  functions to measure performance characteristics of various PostgreSQL operations, including vacuum operations, index rebuilds, table analysis, and WAL recovery processes.
 

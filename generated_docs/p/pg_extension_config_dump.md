@@ -8,7 +8,9 @@ Records information about a configuration table that belongs to an extension bei
 
 ## Definition
 
-
+```c
+struct_array_builtin(&elementDatum, 1, OIDOID);
+```
 ## Detailed Description
 This function is a PostgreSQL SQL-callable function that can only be invoked from within an extension's SQL script during CREATE EXTENSION execution. It registers a table as a configuration table for the extension, meaning that the table's data (subject to an optional WHERE condition) will be included in pg_dump output even though the table structure itself is part of the extension.
 

@@ -8,7 +8,10 @@ Returns the type-specific modifier (typmod) of an expression's result type, if i
 
 ## Definition
 
-
+```c
+structorExpr:
+			return ((const JsonConstructorExpr *) expr)->returning->typmod;
+```
 ## Detailed Description
 The  function extracts the type modifier information from PostgreSQL expression nodes. Type modifiers provide additional constraints on data types, such as precision and scale for numeric types, length for character types, or other type-specific parameters.
 

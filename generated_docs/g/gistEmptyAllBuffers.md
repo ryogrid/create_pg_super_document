@@ -8,7 +8,10 @@ Empties all node buffers from top to bottom levels at the end of GiST index cons
 
 ## Definition
 
-
+```c
+static void
+gistEmptyAllBuffers(GISTBuildState *buildstate)
+```
 ## Detailed Description
 This function performs the final cleanup phase of GiST buffering-based index construction by systematically emptying all remaining buffers from the highest level down to the lowest level. It processes each level completely before moving to the next lower level, ensuring that all buffered tuples are properly inserted into the index.
 

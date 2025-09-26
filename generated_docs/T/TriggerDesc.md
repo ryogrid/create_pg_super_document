@@ -8,7 +8,41 @@ TriggerDesc is a comprehensive descriptor structure that contains an array of tr
 
 ## Definition
 
+```c
+typedef struct TriggerDesc
+{
+	Trigger    *triggers;		/* array of Trigger structs */
+	int			numtriggers;	/* number of array entries */
 
+	/*
+	 * These flags indicate whether the array contains at least one of each
+	 * type of trigger.  We use these to skip searching the array if not.
+	 */
+	bool		trig_insert_before_row;
+	bool		trig_insert_after_row;
+	bool		trig_insert_instead_row;
+	bool		trig_insert_before_statement;
+	bool		trig_insert_after_statement;
+	bool		trig_update_before_row;
+	bool		trig_update_after_row;
+	bool		trig_update_instead_row;
+	bool		trig_update_before_statement;
+	bool		trig_update_after_statement;
+	bool		trig_delete_before_row;
+	bool		trig_delete_after_row;
+	bool		trig_delete_instead_row;
+	bool		trig_delete_before_statement;
+	bool		trig_delete_after_statement;
+	/* there are no row-level truncate triggers */
+	bool		trig_truncate_before_statement;
+	bool		trig_truncate_after_statement;
+	/* Is there at least one trigger specifying each transition relation? */
+	bool		trig_insert_new_table;
+	bool		trig_update_old_table;
+	bool		trig_update_new_table;
+	bool		trig_delete_old_table;
+} TriggerDesc;
+```
 ## Detailed Description
 TriggerDesc serves as an efficient container and index for all triggers associated with a database relation. The structure is designed with performance optimization in mind, using boolean flags to quickly determine whether specific types of triggers exist without needing to iterate through the entire triggers array. This design pattern is crucial for PostgreSQL's trigger execution system, where the database needs to quickly determine which triggers should fire for a given operation. The structure covers all possible combinations of trigger timing (BEFORE/AFTER/INSTEAD), events (INSERT/UPDATE/DELETE/TRUNCATE), and levels (row/statement), plus support for transition tables that provide OLD and NEW table references in statement-level triggers.
 

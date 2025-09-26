@@ -8,7 +8,32 @@ ForeignKeyCacheInfo is a structure that caches foreign key constraint informatio
 
 ## Definition
 
+```c
+typedef struct ForeignKeyCacheInfo
+{
+	pg_node_attr(no_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+	/* oid of the constraint itself */
+	Oid			conoid;
+	/* relation constrained by the foreign key */
+	Oid			conrelid;
+	/* relation referenced by the foreign key */
+	Oid			confrelid;
+	/* number of columns in the foreign key */
+	int			nkeys;
+
+	/*
+	 * these arrays each have nkeys valid entries:
+	 */
+	/* cols in referencing table */
+	AttrNumber	conkey[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys));
+	/* cols in referenced table */
+	AttrNumber	confkey[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys));
+	/* PK = FK operator OIDs */
+	Oid			conpfeqop[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys));
+} ForeignKeyCacheInfo;
+```
 ## Detailed Description
 ForeignKeyCacheInfo serves as a cached representation of foreign key constraint information derived from the pg_constraint system catalog. This structure is designed to provide efficient access to foreign key metadata that is frequently needed by the query planner and other system components, without requiring repeated expensive catalog lookups.
 

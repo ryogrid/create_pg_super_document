@@ -8,7 +8,10 @@ A simple inline implementation of the MurmurHash hash function optimized for 32-
 
 ## Definition
 
-
+```c
+static inline uint32
+murmurhash32(uint32 data)
+```
 ## Detailed Description
 The `murmurhash32` function implements a simplified version of the MurmurHash algorithm specifically designed for hashing 32-bit integers. It applies a series of bitwise operations (XOR shifts and multiplication with carefully chosen constants) to distribute the bits of the input data uniformly across the output space. This implementation prioritizes performance by being declared as an inline static function, eliminating function call overhead while providing good hash distribution properties.
 

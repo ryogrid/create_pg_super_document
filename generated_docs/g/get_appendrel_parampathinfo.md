@@ -8,7 +8,10 @@ Get the ParamPathInfo for a parameterized path for an append relation, creating 
 
 ## Definition
 
-
+```c
+ParamPathInfo *
+get_appendrel_parampathinfo(RelOptInfo *appendrel, Relids required_outer)
+```
 ## Detailed Description
 This function creates a ParamPathInfo structure for parameterized append relations. Unlike base relations and joins, append relations don't need detailed rowcount estimation or clause handling in their ParamPathInfo, since the Append node itself doesn't evaluate qualifications and rowcounts are computed as the sum of child estimates.
 

@@ -8,7 +8,9 @@ PathNameCreateTemporaryDir creates a temporary directory and its parent director
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 PathNameCreateTemporaryDir implements a two-level directory creation strategy for PostgreSQL's temporary file system. It first attempts to create the target directory, and if that fails due to a missing parent directory, it creates the base directory first before retrying. The function handles race conditions by tolerating EEXIST errors when multiple processes attempt to create the same directories simultaneously. It integrates with PostgreSQL's startup cleanup mechanism by ensuring directories follow the PG_TEMP_FILE_PREFIX naming convention so they can be identified and removed by RemovePgTempFiles() during database startup.
 

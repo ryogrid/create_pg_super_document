@@ -8,7 +8,9 @@ Deletes a specific GUC (Grand Unified Configuration) parameter entry from a conf
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 GUCArrayDelete removes a configuration parameter entry from an array of GUC settings. The function searches through the input array for entries matching the specified parameter name and creates a new array excluding the matching entry. The function handles null input arrays gracefully and validates that the parameter name is valid before attempting deletion. Configuration entries are stored in "name=value" format, and the function performs string matching on the parameter name portion.
 

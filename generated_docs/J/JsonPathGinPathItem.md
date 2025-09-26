@@ -8,7 +8,14 @@ JsonPathGinPathItem represents a single element in a JSON path for the jsonb_ops
 
 ## Definition
 
-
+```c
+typedef struct JsonPathGinPathItem
+{
+	struct JsonPathGinPathItem *parent;
+	Datum		keyName;		/* key name (for '.key' path item) or NULL */
+	JsonPathItemType type;		/* type of jsonpath item */
+} JsonPathGinPathItem;
+```
 ## Detailed Description
 JsonPathGinPathItem forms part of a linked list structure that represents JSON path expressions for the jsonb_ops GIN operator class. Each node in the list corresponds to a single path component such as '.key', '.*', '.**', '[index]', or '[*]'.
 

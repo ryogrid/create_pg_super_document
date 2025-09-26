@@ -8,7 +8,12 @@ Serializes an MVNDistinct structure to a binary bytea format suitable for storag
 
 ## Definition
 
-
+```c
+struct, plus one base struct
+	 * for each item, including number of items for each.
+	 */
+	len = VARHDRSZ + SizeOfHeader;
+```
 ## Detailed Description
 This function converts an in-memory MVNDistinct structure into a compact binary representation that can be stored in the pg_statistic_ext_data system catalog. The serialization process carefully packs all data including the header information (magic number, type, number of items) and each ndistinct item with its associated attribute numbers and computed ndistinct value.
 

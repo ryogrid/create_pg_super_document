@@ -8,7 +8,16 @@ ObjectWithArgs represents a function, procedure, or operator name combined with 
 
 ## Definition
 
-
+```c
+typedef struct ObjectWithArgs
+{
+	NodeTag		type;
+	List	   *objname;		/* qualified name of function/operator */
+	List	   *objargs;		/* list of Typename nodes (input args only) */
+	List	   *objfuncargs;	/* list of FunctionParameter nodes */
+	bool		args_unspecified;	/* argument list was omitted? */
+} ObjectWithArgs;
+```
 ## Detailed Description
 ObjectWithArgs is a fundamental parse tree node structure in PostgreSQL that addresses the complexity of identifying overloaded database objects like functions, procedures, and operators. In PostgreSQL, these objects can have multiple definitions with the same name but different parameter signatures, making parameter information essential for unambiguous identification.
 

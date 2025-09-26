@@ -8,7 +8,15 @@ A parse node structure representing both VACUUM and ANALYZE statements, used to 
 
 ## Definition
 
-
+```c
+typedef struct VacuumStmt
+{
+	NodeTag		type;
+	List	   *options;		/* list of DefElem nodes */
+	List	   *rels;			/* list of VacuumRelation, or NIL for all */
+	bool		is_vacuumcmd;	/* true for VACUUM, false for ANALYZE */
+} VacuumStmt;
+```
 ## Detailed Description
 VacuumStmt is a parse node structure that represents both VACUUM and ANALYZE SQL statements. This unified structure handles commands like "VACUUM table_name", "ANALYZE table_name", "VACUUM (FULL, VERBOSE) table_name", or "VACUUM;" (all tables). VACUUM reclaims storage occupied by dead tuples and can defragment tables, while ANALYZE collects statistics about data distribution for the query planner.
 

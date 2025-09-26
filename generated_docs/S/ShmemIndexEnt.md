@@ -8,7 +8,10 @@ ShmemIndexEnt is a structure that represents a hash bucket entry in PostgreSQL's
 
 ## Definition
 
-
+```c
+structure */
+	Size		allocated_size;
+```
 ## Detailed Description
 ShmemIndexEnt serves as an index entry in PostgreSQL's shared memory management system. It acts as a hash table bucket that maintains metadata about allocated shared memory segments. Each entry maps a string identifier to a specific location in shared memory, along with size information for proper memory management.
 

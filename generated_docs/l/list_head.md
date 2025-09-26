@@ -8,7 +8,10 @@ Returns the first cell in a PostgreSQL list structure, or NULL if the list is em
 
 ## Definition
 
-
+```c
+static inline ListCell *
+list_head(const List *l)
+```
 ## Detailed Description
 The list_head function is a small inline utility function that provides access to the first cell of a PostgreSQL List structure. It safely handles NULL lists by returning NULL rather than causing a segmentation fault. This function is designed to be inline due to its frequent usage throughout the PostgreSQL codebase and its simple implementation.
 

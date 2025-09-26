@@ -8,7 +8,9 @@ Performs checkpoint operations for logical rewrite mapping files by removing obs
 
 ## Definition
 
-
+```c
+struct dirent *mapping_de;
+```
 ## Detailed Description
 This function is called during PostgreSQL checkpoints to manage logical rewrite mapping files stored in the pg_logical/mappings directory. It serves two critical purposes: cleanup of obsolete mapping files and ensuring durability of remaining ones.
 

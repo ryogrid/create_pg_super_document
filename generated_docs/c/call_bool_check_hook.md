@@ -8,7 +8,11 @@ Executes the validation check hook for boolean GUC parameters, managing error re
 
 ## Definition
 
-
+```c
+static bool
+call_bool_check_hook(struct config_bool *conf, bool *newval, void **extra,
+					 GucSource source, int elevel)
+```
 ## Detailed Description
 call_bool_check_hook is a convenience function that standardizes the process of invoking validation check hooks for boolean GUC parameters. The function handles the complete protocol for check hook execution, including error state management and comprehensive error reporting when validation fails.
 

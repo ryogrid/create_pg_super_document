@@ -8,7 +8,10 @@ PQputline is a deprecated PostgreSQL libpq function that sends a string to the b
 
 ## Definition
 
-
+```c
+int
+PQputline(PGconn *conn, const char *string)
+```
 ## Detailed Description
 PQputline is a legacy function designed to send string data to the PostgreSQL backend during COPY IN operations. The function is marked as deprecated primarily because its return convention doesn't allow the caller to distinguish between a hard error and a send failure in non-blocking mode. It internally calls PQputnbytes with the length of the string calculated using strlen(), making it essentially a convenience wrapper for null-terminated strings.
 

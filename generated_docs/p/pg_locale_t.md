@@ -8,7 +8,9 @@ A pointer type that provides a handle to PostgreSQL's locale structure, serving 
 
 ## Definition
 
-
+```c
+typedef struct pg_locale_struct *pg_locale_t;
+```
 ## Detailed Description
 The  type is PostgreSQL's primary locale handle, implemented as a pointer to . This design choice allows for efficient passing of locale information and enables null-pointer checks to determine if a locale is set. The type serves as the main interface for all locale-aware operations including string collation, transformation, and character conversion functions.
 

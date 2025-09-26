@@ -8,7 +8,10 @@ Applies the required padding to the SHA-1 message according to the algorithm spe
 
 ## Definition
 
-
+```c
+static void
+sha1_pad(pg_sha1_ctx *ctx)
+```
 ## Detailed Description
 The  function implements the SHA-1 padding scheme as specified in FIPS PUB 180-1. It performs the final steps of message preparation before computing the hash digest:
 

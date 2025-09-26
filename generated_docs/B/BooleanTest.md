@@ -8,7 +8,15 @@ BooleanTest represents the operation of determining whether a boolean value is T
 
 ## Definition
 
-
+```c
+typedef struct BooleanTest
+{
+	Expr		xpr;
+	Expr	   *arg;			/* input expression */
+	BoolTestType booltesttype;	/* test type */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} BooleanTest;
+```
 ## Detailed Description
 BooleanTest is a node type in PostgreSQL's expression tree that handles boolean testing operations according to SQL three-valued logic. Unlike simple boolean evaluation, this node explicitly tests for TRUE, FALSE, or UNKNOWN (NULL) states. A critical aspect is that a NULL input does **not** cause a NULL result - instead, the appropriate test is performed and a definitive boolean Datum is returned.
 

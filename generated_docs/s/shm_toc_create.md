@@ -8,7 +8,10 @@ Initializes a region of shared memory with a table of contents structure, settin
 
 ## Definition
 
-
+```c
+shm_toc *
+shm_toc_create(uint64 magic, void *address, Size nbytes)
+```
 ## Detailed Description
 The  function creates and initializes a shared memory table of contents (TOC) structure at the beginning of a designated shared memory region. This TOC serves as a directory for tracking allocated objects within the shared memory segment, enabling multiple processes to locate and access shared data structures efficiently.
 

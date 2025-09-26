@@ -8,7 +8,19 @@ RuleStmt represents the parsed structure of a CREATE RULE SQL statement that def
 
 ## Definition
 
-
+```c
+typedef struct RuleStmt
+{
+	NodeTag		type;
+	RangeVar   *relation;		/* relation the rule is for */
+	char	   *rulename;		/* name of the rule */
+	Node	   *whereClause;	/* qualifications */
+	CmdType		event;			/* SELECT, INSERT, etc */
+	bool		instead;		/* is a 'do instead'? */
+	List	   *actions;		/* the action statements */
+	bool		replace;		/* OR REPLACE */
+} RuleStmt;
+```
 ## Detailed Description
 RuleStmt is a parse node that represents the CREATE RULE statement in PostgreSQL's SQL grammar. Rules in PostgreSQL are part of the query rewrite system that allows automatic transformation of queries. The statement follows the syntax: `CREATE [OR REPLACE] RULE rulename AS ON event TO table [WHERE condition] DO [INSTEAD] action_list`. This mechanism is primarily used internally for implementing views and can be used to create custom query transformations.
 

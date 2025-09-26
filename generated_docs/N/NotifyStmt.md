@@ -8,7 +8,14 @@ NotifyStmt represents the parsed structure of a NOTIFY SQL statement used for as
 
 ## Definition
 
-
+```c
+typedef struct NotifyStmt
+{
+	NodeTag		type;
+	char	   *conditionname;	/* condition name to notify */
+	char	   *payload;		/* the payload string, or NULL if none */
+} NotifyStmt;
+```
 ## Detailed Description
 NotifyStmt is a parse node that represents the NOTIFY statement in PostgreSQL's SQL grammar. The NOTIFY statement is part of PostgreSQL's asynchronous notification system that allows database sessions to send notifications to other sessions that are listening for specific events. The statement follows the syntax: `NOTIFY channel [, payload]` where channel is an identifier and payload is an optional string message. This mechanism enables efficient inter-session communication without polling.
 

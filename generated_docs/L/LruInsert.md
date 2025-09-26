@@ -8,7 +8,10 @@ Inserts a file descriptor into the LRU cache, reopening the underlying file if n
 
 ## Definition
 
-
+```c
+static int
+LruInsert(File file)
+```
 ## Detailed Description
 LruInsert is a higher-level function that manages both the file system and LRU cache aspects of file descriptor management. When called, it first checks if the underlying file is currently open. If the file is not open (FileIsNotOpen returns true), it attempts to reopen the file by:
 

@@ -8,7 +8,10 @@ PathNameCreateTemporaryFile creates a new temporary file at a specified path wit
 
 ## Definition
 
-
+```c
+File
+PathNameCreateTemporaryFile(const char *path, bool error_on_failure)
+```
 ## Detailed Description
 This function creates a temporary file at the given path with comprehensive resource management features. Unlike automatically generated temporary files, this function allows specification of the exact file path while still providing PostgreSQL's temporary file management benefits.
 

@@ -8,7 +8,12 @@ Converts non-NULL values of various PostgreSQL data types to a scalar comparison
 
 ## Definition
 
-
+```c
+static bool
+convert_to_scalar(Datum value, Oid valuetypid, Oid collid, double *scaledvalue,
+				  Datum lobound, Datum hibound, Oid boundstypid,
+				  double *scaledlobound, double *scaledhibound)
+```
 ## Detailed Description
 This function serves as a central dispatcher for converting PostgreSQL data values to a common scalar representation used in selectivity estimation. It handles multiple data type categories:
 

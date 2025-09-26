@@ -8,7 +8,10 @@ A specialized hash function that computes hash codes for PREDICATELOCKTAG struct
 
 ## Definition
 
-
+```c
+static uint32
+predicatelock_hash(const void *key, Size keysize)
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's serializable snapshot isolation implementation. It computes hash codes for PREDICATELOCKTAG structures with a specific constraint: the hash code must have the same low-order bits as the associated PREDICATELOCKTARGETTAG's hash code. This ensures that both PREDICATELOCKTARGET and PREDICATELOCK entries that are related fall into the same partition when using dynahash.c's partitioned hash tables.
 

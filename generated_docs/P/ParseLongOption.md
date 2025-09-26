@@ -8,7 +8,10 @@ ParseLongOption is a utility function that parses long command-line arguments in
 
 ## Definition
 
-
+```c
+void
+ParseLongOption(const char *string, char **name, char **value)
+```
 ## Detailed Description
 ParseLongOption implements a simplified "long argument" parser that takes a string in the format "some-option=some value" and extracts the option name and value into separate strings. The function performs the following operations:
 

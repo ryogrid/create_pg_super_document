@@ -8,7 +8,10 @@ Appends an OID (Object Identifier) value to a PostgreSQL OidList data structure,
 
 ## Definition
 
-
+```c
+List *
+lappend_oid(List *list, Oid datum)
+```
 ## Detailed Description
 The  function is a specialized version of  designed specifically for OID lists (T_OidList). It appends an OID value to the end of an OidList, handling both empty lists (NIL) and existing lists with elements. Like other lappend variants, this function may or may not destructively modify the original list structure, so callers must use the returned value rather than the original list pointer.
 

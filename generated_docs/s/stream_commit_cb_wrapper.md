@@ -8,7 +8,11 @@ A wrapper function that sets up error handling context and calls the plugin's st
 
 ## Definition
 
-
+```c
+static void
+stream_commit_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+						 XLogRecPtr commit_lsn)
+```
 ## Detailed Description
 This function serves as an internal wrapper for the stream_commit callback in PostgreSQL's logical replication system. It is called when a large streaming transaction is committed. The wrapper performs essential setup tasks including error context management, output state configuration, and validation before delegating to the actual plugin callback.
 

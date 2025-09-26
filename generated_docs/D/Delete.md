@@ -8,7 +8,10 @@ Delete is a static function that removes a virtual file descriptor from the LRU 
 
 ## Definition
 
-
+```c
+static void
+Delete(File file)
+```
 ## Detailed Description
 This function removes a specified virtual file descriptor from the LRU chain by updating the doubly-linked list pointers to bypass the target VFD. It does not close or deallocate the file descriptor itself, but simply removes it from the LRU ordering mechanism used for cache management.
 

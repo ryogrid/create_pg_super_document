@@ -8,7 +8,13 @@ SPNode is a structure that represents a node in a prefix tree (Trie) used to sto
 
 ## Definition
 
-
+```c
+typedef struct SPNode
+{
+	uint32		length;
+	SPNodeData	data[FLEXIBLE_ARRAY_MEMBER];
+} SPNode;
+```
 ## Detailed Description
 SPNode serves as the fundamental building block for implementing a prefix tree data structure in PostgreSQL's spell checking dictionary system. Each node contains a length field indicating the number of child nodes and a flexible array of SPNodeData elements that store the actual character data and navigation information for the trie. This structure enables efficient storage and lookup of dictionary words by organizing them in a tree where each path from root to leaf represents a complete word.
 

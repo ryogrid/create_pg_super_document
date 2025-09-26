@@ -8,7 +8,16 @@ A WAL record structure that carries cache invalidation messages to standby serve
 
 ## Definition
 
-
+```c
+typedef struct xl_invalidations
+{
+	Oid			dbId;			/* MyDatabaseId */
+	Oid			tsId;			/* MyDatabaseTableSpace */
+	bool		relcacheInitFileInval;	/* invalidate relcache init files */
+	int			nmsgs;			/* number of shared inval msgs */
+	SharedInvalidationMessage msgs[FLEXIBLE_ARRAY_MEMBER];
+} xl_invalidations;
+```
 ## Detailed Description
 The  structure is a specialized WAL record format used in PostgreSQL's standby recovery system to propagate cache invalidation messages from the primary to standby servers. This structure is particularly important for transactions that don't have assigned transaction IDs (XIDs) but still need to invalidate cached data structures on standby servers.
 

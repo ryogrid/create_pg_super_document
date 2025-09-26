@@ -8,7 +8,11 @@ LWLockWaitForVar waits until a lock is free or until a monitored atomic variable
 
 ## Definition
 
-
+```c
+bool
+LWLockWaitForVar(LWLock *lock, pg_atomic_uint64 *valptr, uint64 oldval,
+				 uint64 *newval)
+```
 ## Detailed Description
 This function implements a complex waiting mechanism that monitors both lock state and an atomic variable value. It waits until either the lock becomes free (returns true) or the variable value changes (returns false with new value). This dual-condition waiting is essential for WAL insertion coordination where multiple backends wait for insertions to complete.
 

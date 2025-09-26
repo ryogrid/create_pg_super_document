@@ -8,7 +8,14 @@ JsonUniqueHashEntry is a structure that represents individual hash table entries
 
 ## Definition
 
-
+```c
+typedef struct JsonUniqueHashEntry
+{
+	const char *key;
+	int			key_len;
+	int			object_id;
+} JsonUniqueHashEntry;
+```
 ## Detailed Description
 JsonUniqueHashEntry serves as the fundamental data storage unit within the JsonUniqueCheckState hash table. Each entry represents a single JSON object key along with its metadata, enabling efficient duplicate key detection during JSON parsing and manipulation operations. The structure is designed to work seamlessly with PostgreSQL's hash table infrastructure (HTAB) to provide O(1) average-case lookup performance for key uniqueness validation.
 

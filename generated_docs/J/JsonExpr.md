@@ -8,7 +8,56 @@ JsonExpr represents the transformed representation of JSON_VALUE(), JSON_QUERY()
 
 ## Definition
 
+```c
+typedef struct JsonExpr
+{
+	Expr		xpr;
 
+	JsonExprOp	op;
+
+	char	   *column_name;	/* JSON_TABLE() column name or NULL if this is
+								 * not for a JSON_TABLE() */
+
+	/* jsonb-valued expression to query */
+	Node	   *formatted_expr;
+
+	/* Format of the above expression needed by ruleutils.c */
+	JsonFormat *format;
+
+	/* jsonpath-valued expression containing the query pattern */
+	Node	   *path_spec;
+
+	/* Expected type/format of the output. */
+	JsonReturning *returning;
+
+	/* Information about the PASSING argument expressions */
+	List	   *passing_names;
+	List	   *passing_values;
+
+	/* User-specified or default ON EMPTY and ON ERROR behaviors */
+	JsonBehavior *on_empty;
+	JsonBehavior *on_error;
+
+	/*
+	 * Information about converting the result of jsonpath functions
+	 * JsonPathQuery() and JsonPathValue() to the RETURNING type.
+	 */
+	bool		use_io_coercion;
+	bool		use_json_coercion;
+
+	/* WRAPPER specification for JSON_QUERY */
+	JsonWrapper wrapper;
+
+	/* KEEP or OMIT QUOTES for singleton scalars returned by JSON_QUERY() */
+	bool		omit_quotes;
+
+	/* JsonExpr's collation. */
+	Oid			collation;
+
+	/* Original JsonFuncExpr's location */
+	ParseLoc	location;
+} JsonExpr;
+```
 ## Detailed Description
 JsonExpr is a node type that represents JSON path expressions after parsing and transformation. It encapsulates all the necessary information for executing JSON_VALUE(), JSON_QUERY(), and JSON_EXISTS() operations, including the source JSON data, path specification, output format requirements, error handling behaviors, and various execution parameters.
 

@@ -8,7 +8,10 @@ The  function serves as a GUC (Grand Unified Configuration) assign hook that han
 
 ## Definition
 
-
+```c
+void
+assign_stats_fetch_consistency(int newval, void *extra)
+```
 ## Detailed Description
 This function is a callback hook that gets invoked whenever the  GUC parameter is modified. Its primary responsibility is to maintain the integrity of statistics snapshots when the consistency level changes during a transaction.
 

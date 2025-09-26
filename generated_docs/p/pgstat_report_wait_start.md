@@ -8,7 +8,10 @@ Reports the start of a wait event by storing wait event information that can be 
 
 ## Definition
 
-
+```c
+static inline void
+pgstat_report_wait_start(uint32 wait_event_info)
+```
 ## Detailed Description
 This function is called from locations where a server process needs to wait, such as I/O operations, locks, or other blocking operations. It stores wait event information as a 4-byte value where:
 - First byte represents the wait event class (type of wait - see WaitClass enum)

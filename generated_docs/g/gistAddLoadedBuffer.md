@@ -8,7 +8,10 @@ gistAddLoadedBuffer adds a node buffer to the array that tracks buffers currentl
 
 ## Definition
 
-
+```c
+static void
+gistAddLoadedBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer)
+```
 ## Detailed Description
 This static function manages the loadedBuffers array, which keeps track of node buffers that currently have their pages loaded in memory. This tracking is essential for memory management during index construction, as it allows the system to know which buffers are consuming memory and may need to be written to temporary storage if memory becomes constrained.
 

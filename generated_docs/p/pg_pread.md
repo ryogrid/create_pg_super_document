@@ -8,7 +8,10 @@ pg_pread is a PostgreSQL wrapper function for positioned read operations that pr
 
 ## Definition
 
-
+```c
+ssize_t
+pg_pread(int fd, void *buf, size_t size, off_t offset)
+```
 ## Detailed Description
 pg_pread provides a unified interface for reading data from a file descriptor at a specific offset. The function has two distinct implementations:
 

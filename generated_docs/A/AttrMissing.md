@@ -8,7 +8,13 @@ AttrMissing is a structure that represents default values to be used when an att
 
 ## Definition
 
-
+```c
+typedef struct AttrMissing
+{
+	bool		am_present;		/* true if non-NULL missing value exists */
+	Datum		am_value;		/* value when attribute is missing */
+} AttrMissing;
+```
 ## Detailed Description
 The AttrMissing structure is a critical component of PostgreSQL's tuple descriptor system that handles schema evolution scenarios. When a new column is added to an existing table with a default value, existing tuples on disk don't physically contain the new column. Instead of rewriting all existing tuples, PostgreSQL uses the AttrMissing mechanism to provide default values for these "missing" attributes when tuples are read.
 

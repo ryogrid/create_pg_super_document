@@ -8,7 +8,10 @@ A table access method wrapper function that copies data from a relation to a new
 
 ## Definition
 
-
+```c
+static inline void
+table_relation_copy_data(Relation rel, const RelFileLocator *newrlocator)
+```
 ## Detailed Description
 This function provides a high-level interface for copying all data from an existing relation to a new storage location specified by a RelFileLocator. The function is designed for low-level administrative operations that require moving relation data to different storage locations, such as tablespace changes.
 

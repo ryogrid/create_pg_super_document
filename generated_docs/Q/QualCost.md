@@ -8,7 +8,13 @@ QualCost is a structure that represents cost estimates for query qualifiers (WHE
 
 ## Definition
 
-
+```c
+typedef struct QualCost
+{
+	Cost		startup;		/* one-time cost */
+	Cost		per_tuple;		/* per-evaluation cost */
+} QualCost;
+```
 ## Detailed Description
 QualCost is a fundamental cost estimation structure used throughout PostgreSQL's query planner to track the computational cost of evaluating qualifiers (conditions). The structure separates costs into two categories: startup costs that are incurred once regardless of the number of tuples processed, and per-tuple costs that are multiplied by the expected number of tuples. This separation allows the planner to make more accurate cost comparisons between different execution strategies, especially when dealing with operations that have different startup vs. per-tuple cost profiles.
 

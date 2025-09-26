@@ -8,7 +8,10 @@ Attaches a new participant to a dynamic barrier, increasing the participant coun
 
 ## Definition
 
-
+```c
+int
+BarrierAttach(Barrier *barrier)
+```
 ## Detailed Description
 BarrierAttach adds a new participant to a dynamic barrier synchronization group. Once attached, the participant becomes part of the synchronization protocol and must participate in barrier operations before other participants can proceed.
 

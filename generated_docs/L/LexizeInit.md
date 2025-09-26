@@ -8,7 +8,10 @@ LexizeInit initializes a LexizeData structure for text search parsing operations
 
 ## Definition
 
-
+```c
+static void
+LexizeInit(LexizeData *ld, TSConfigCacheEntry *cfg)
+```
 ## Detailed Description
 LexizeInit is a static initialization function that prepares a LexizeData structure for text search operations. It sets up the configuration reference and initializes all internal state variables to their default values. The function establishes the foundation for subsequent lexeme processing by clearing all work queues, resetting dictionary tracking, and preparing the data structure for token processing workflows.
 

@@ -8,7 +8,10 @@ A low-level function that sets the commit status of a single transaction directl
 
 ## Definition
 
-
+```c
+static void
+TransactionIdSetStatusBit(TransactionId xid, XidStatus status, XLogRecPtr lsn, int slotno)
+```
 ## Detailed Description
 TransactionIdSetStatusBit is the core bit-manipulation function for updating transaction statuses in the Commit Log (CLOG). It operates directly on the CLOG buffer pages, performing the low-level work of setting the 2-bit status field for a specific transaction ID.
 

@@ -8,7 +8,15 @@ JsonScalarExpr represents the untransformed representation of the JSON_SCALAR() 
 
 ## Definition
 
-
+```c
+typedef struct JsonScalarExpr
+{
+	NodeTag		type;
+	Expr	   *expr;			/* scalar expression */
+	JsonOutput *output;			/* RETURNING clause, if specified */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} JsonScalarExpr;
+```
 ## Detailed Description
 JsonScalarExpr is a parse tree node that represents a JSON_SCALAR() function call before transformation. This structure is part of PostgreSQL's SQL/JSON standard implementation, specifically handling the conversion of scalar values to JSON format. The structure maintains the original scalar expression along with optional output formatting specifications and location information for error reporting.
 

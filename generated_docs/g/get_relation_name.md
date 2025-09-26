@@ -8,7 +8,10 @@ A utility function that retrieves the unqualified name of a relation by its OID,
 
 ## Definition
 
-
+```c
+static char *
+get_relation_name(Oid relid)
+```
 ## Detailed Description
 This function serves as a wrapper around the lower-level get_rel_name() function, providing more robust error handling. While get_rel_name() returns NULL for invalid OIDs, this function throws an ERROR instead, ensuring that calling code doesn't need to handle NULL returns. This makes it suitable for use in contexts where the relation is expected to exist, and a missing relation indicates a serious problem that should halt execution.
 

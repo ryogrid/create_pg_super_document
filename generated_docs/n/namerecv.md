@@ -8,7 +8,10 @@ The  function converts external binary format data to PostgreSQL's internal Name
 
 ## Definition
 
-
+```c
+Datum
+namerecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the binary input function for PostgreSQL's Name data type, designed to handle Name values transmitted through PostgreSQL's binary protocol (as opposed to text protocol). It receives binary-formatted data from a StringInfo buffer and converts it to the internal Name representation.
 

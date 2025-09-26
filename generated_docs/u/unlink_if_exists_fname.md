@@ -8,7 +8,10 @@ A callback function that removes files and directories, with different handling 
 
 ## Definition
 
-
+```c
+static void
+unlink_if_exists_fname(const char *fname, bool isdir, int elevel)
+```
 ## Detailed Description
 unlink_if_exists_fname is a callback function designed to be used with walkdir() for recursive deletion of directory trees. It handles both regular files and directories using appropriate removal strategies for each type.
 

@@ -8,7 +8,10 @@ SortShimExtra is a structure used to store information needed to use an old-styl
 
 ## Definition
 
-
+```c
+structure */
+} SortShimExtra;
+```
 ## Detailed Description
 SortShimExtra serves as an adapter structure that enables old-style btree comparison functions to work with PostgreSQL's newer SortSupport infrastructure. This structure contains the necessary metadata and call context to efficiently invoke traditional comparison functions within the modern sorting framework.
 

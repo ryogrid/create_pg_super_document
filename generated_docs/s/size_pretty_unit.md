@@ -8,7 +8,17 @@ A structure that defines units of measurement used in PostgreSQL's size formatti
 
 ## Definition
 
-
+```c
+struct size_pretty_unit
+{
+	const char *name;			/* bytes, kB, MB, GB etc */
+	uint32		limit;			/* upper limit, prior to half rounding after
+								 * converting to this unit. */
+	bool		round;			/* do half rounding for this unit */
+	uint8		unitbits;		/* (1 << unitbits) bytes to make 1 of this
+								 * unit */
+};
+```
 ## Detailed Description
 The  structure serves as the foundation for PostgreSQL's byte size formatting system. It defines the characteristics of each unit of measurement used when converting raw byte counts into human-readable strings. The structure is used to create an array of units () that represents the progression from bytes to petabytes, with each unit being a power of 2.
 

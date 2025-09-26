@@ -8,7 +8,9 @@ GUCHashEntry is a hash table entry structure that serves as a wrapper for Postgr
 
 ## Definition
 
-
+```c
+struct config_generic *gconf);
+```
 ## Detailed Description
 GUCHashEntry is a simple two-field structure that acts as an entry in PostgreSQL's GUC hash table (). This structure is designed to enable fast lookup of configuration variables by name. The hash table contains all GUC variables in the system, providing O(1) average-case access time for configuration parameter lookups.
 

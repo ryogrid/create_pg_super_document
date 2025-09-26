@@ -8,7 +8,13 @@ Fetches a tuple at a specific TID with visibility testing, evaluating only the e
 
 ## Definition
 
-
+```c
+static inline bool
+table_tuple_fetch_row_version(Relation rel,
+							  ItemPointer tid,
+							  Snapshot snapshot,
+							  TupleTableSlot *slot)
+```
 ## Detailed Description
 This function is part of PostgreSQL's table access method (tableam) interface designed for non-modifying operations on individual tuples. Unlike table_index_fetch_tuple(), this function fetches and evaluates only the specific tuple version located exactly at the given TID, without any traversal of HOT (Heap-Only Tuple) chains or consideration of multiple row versions.
 

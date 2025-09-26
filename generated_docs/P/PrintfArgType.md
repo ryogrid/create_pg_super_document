@@ -8,7 +8,16 @@ PrintfArgType is an enumeration that defines the argument types supported by Pos
 
 ## Definition
 
-
+```c
+typedef union
+{
+	int			i;
+	long		l;
+	long long	ll;
+	double		d;
+	char	   *cptr;
+} PrintfArgValue;
+```
 ## Detailed Description
 This enum is used internally by PostgreSQL's snprintf implementation to track and validate argument types when processing format strings with POSIX-style positional parameters (dollar notation like %1, %2). It works in conjunction with the  union to provide type-safe handling of variable arguments in format strings that use positional parameter references.
 

@@ -8,7 +8,15 @@ A structure representing a single node in PostgreSQL's parsed format template, u
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	uint8		type;			/* NODE_TYPE_XXX, see below */
+	char		character[MAX_MULTIBYTE_CHAR_LEN + 1];	/* if type is CHAR */
+	uint8		suffix;			/* keyword prefix/suffix code, if any */
+	const KeyWord *key;			/* if type is ACTION */
+} FormatNode;
+```
 ## Detailed Description
 FormatNode represents a single element in a parsed format string used by PostgreSQL's formatting functions like , , and . When a format template string is parsed, it is broken down into an array of FormatNode structures, each representing either a formatting directive, literal character, separator, or space.
 

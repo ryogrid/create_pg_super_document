@@ -8,7 +8,15 @@ HashPath represents a hash join execution path in PostgreSQL's query planner, st
 
 ## Definition
 
-
+```c
+typedef struct HashPath
+{
+	JoinPath	jpath;
+	List	   *path_hashclauses;	/* join clauses used for hashing */
+	int			num_batches;	/* number of batches expected */
+	Cardinality inner_rows_total;	/* total inner rows expected */
+} HashPath;
+```
 ## Detailed Description
 HashPath is a specialized path node that extends JoinPath to represent hash join operations. Hash joins work by building a hash table from the smaller (inner) relation and then probing it with tuples from the larger (outer) relation. Unlike merge joins, hash joins do not require any particular ordering of their inputs, making them more flexible for unordered data.
 

@@ -8,7 +8,10 @@ Returns the next block number to be sampled using Knuth's Algorithm S, implement
 
 ## Definition
 
-
+```c
+BlockNumber
+BlockSampler_Next(BlockSampler bs)
+```
 ## Detailed Description
 BlockSampler_Next implements the core logic of Knuth's Algorithm S for block sampling, but with an important optimization. The standard algorithm would require one random number generation per block examined, but this implementation reduces it to one random call per selected block.
 

@@ -8,7 +8,12 @@ Determines the specific actions needed to revoke a role grant or admin option, h
 
 ## Definition
 
-
+```c
+static bool
+plan_single_revoke(CatCList *memlist, RevokeRoleGrantAction *actions,
+				   Oid member, Oid grantor, GrantRoleOptions *popt,
+				   DropBehavior behavior)
+```
 ## Detailed Description
 This function analyzes what actions are required to revoke a specific role grant based on the options specified. It searches through the membership list to find the matching grant (by member and grantor) and determines the appropriate revocation action. The function handles different types of revocations:
 

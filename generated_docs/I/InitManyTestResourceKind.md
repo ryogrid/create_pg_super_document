@@ -8,7 +8,11 @@ Initializes a ManyTestResourceKind structure by setting up its resource descript
 
 ## Definition
 
-
+```c
+static void
+InitManyTestResourceKind(ManyTestResourceKind *kind, char *name,
+						 ResourceReleasePhase phase, uint32 priority)
+```
 ## Detailed Description
 InitManyTestResourceKind is a constructor function that properly initializes a ManyTestResourceKind structure for use in PostgreSQL's resource management testing framework. This function sets up all the necessary components that define how a particular kind of test resource should be managed.
 

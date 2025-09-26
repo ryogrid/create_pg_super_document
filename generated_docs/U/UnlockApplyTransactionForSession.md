@@ -8,7 +8,11 @@ Releases a lock on a specific apply transaction for a logical replication subscr
 
 ## Definition
 
-
+```c
+void
+UnlockApplyTransactionForSession(Oid suboid, TransactionId xid, uint16 objid,
+								 LOCKMODE lockmode)
+```
 ## Detailed Description
 This function is part of PostgreSQL's logical replication locking mechanism. It releases a lock that was previously acquired on an apply transaction for a specific subscription. The function constructs an apply transaction lock tag using the provided subscription ID, transaction ID, and object ID, then releases the lock using the specified lock mode. This is typically called when a parallel apply worker has finished processing a transaction and needs to release its exclusive access to that transaction.
 

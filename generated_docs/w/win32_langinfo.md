@@ -8,7 +8,10 @@ A Windows-specific helper function that extracts codepage information from local
 
 ## Definition
 
-
+```c
+static char *
+win32_langinfo(const char *ctype)
+```
 ## Detailed Description
 The win32_langinfo function serves as a Windows-specific implementation for extracting codepage information from locale strings. On Windows systems, instead of using the standard nl_langinfo() result, this function parses locale strings to determine the appropriate codepage and returns it in a format that PostgreSQL can use for character encoding.
 

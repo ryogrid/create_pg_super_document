@@ -8,7 +8,10 @@ The  function implements the raw Boyer-Moore-Horspool string search algorithm, p
 
 ## Definition
 
-
+```c
+static char *
+text_position_next_internal(char *start_ptr, TextPositionState *state)
+```
 ## Detailed Description
 The  function is the low-level implementation of the Boyer-Moore-Horspool string searching algorithm in PostgreSQL. It performs raw byte sequence matching without considering multibyte character encoding issues. For single-character needles, it uses a simple linear search. For longer patterns, it implements the full Boyer-Moore-Horspool algorithm, which searches backwards from the end of the potential match and uses a precomputed skip table to efficiently jump over impossible match positions. The algorithm's efficiency comes from being able to skip multiple characters at once when a mismatch is found, based on the character that caused the mismatch.
 

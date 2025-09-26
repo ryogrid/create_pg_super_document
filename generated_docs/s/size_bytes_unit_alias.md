@@ -8,7 +8,13 @@ A structure that defines alternative unit names (aliases) accepted by the  funct
 
 ## Definition
 
-
+```c
+struct size_bytes_unit_alias
+{
+	const char *alias;
+	int			unit_index;		/* corresponding size_pretty_units element */
+};
+```
 ## Detailed Description
 The  structure provides a mechanism for supporting alternative unit names in PostgreSQL's size parsing functionality. It enables the  function to accept additional unit abbreviations beyond the primary names defined in . This structure acts as a lookup table that maps alias names to indices in the main units array, allowing for flexible input parsing while maintaining a single source of truth for unit definitions.
 

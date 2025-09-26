@@ -8,7 +8,10 @@ Parses the fractional part of a number (decimal point and optional digits) and c
 
 ## Definition
 
-
+```c
+static int
+ParseFraction(char *cp, double *frac)
+```
 ## Detailed Description
 ParseFraction is a utility function responsible for parsing fractional seconds in time/date strings. It expects the input string to start with a decimal point followed by optional digits. The function uses strtod() for the actual conversion but includes special handling for the edge case where only a decimal point is provided without any digits, which some versions of strtod() would reject with EINVAL.
 

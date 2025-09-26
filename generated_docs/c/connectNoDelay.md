@@ -8,7 +8,9 @@ Sets the TCP_NODELAY socket option to disable Nagle's algorithm for immediate pa
 
 ## Definition
 
-
+```c
+struct sockaddr_storage *addr = &conn->raddr.addr;
+```
 ## Detailed Description
 This static function configures a PostgreSQL connection socket to use TCP_NODELAY mode, which disables Nagle's algorithm. Nagle's algorithm buffers small packets to reduce network overhead, but this can introduce latency in interactive applications. By setting TCP_NODELAY, the function ensures that data is transmitted immediately without buffering delays, which is beneficial for database connections where low latency is important.
 

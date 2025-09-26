@@ -8,7 +8,56 @@ The Var structure represents a variable in PostgreSQL's expression tree, typical
 
 ## Definition
 
+```c
+typedef struct Var
+{
+	Expr		xpr;
 
+	/*
+	 * index of this var's relation in the range table, or
+	 * INNER_VAR/OUTER_VAR/etc
+	 */
+	int			varno;
+
+	/*
+	 * attribute number of this var, or zero for all attrs ("whole-row Var")
+	 */
+	AttrNumber	varattno;
+
+	/* pg_type OID for the type of this var */
+	Oid			vartype pg_node_attr(query_jumble_ignore);
+	/* pg_attribute typmod value */
+	int32		vartypmod pg_node_attr(query_jumble_ignore);
+	/* OID of collation, or InvalidOid if none */
+	Oid			varcollid pg_node_attr(query_jumble_ignore);
+
+	/*
+	 * RT indexes of outer joins that can replace the Var's value with null.
+	 * We can omit varnullingrels in the query jumble, because it's fully
+	 * determined by varno/varlevelsup plus the Var's query location.
+	 */
+	Bitmapset  *varnullingrels pg_node_attr(query_jumble_ignore);
+
+	/*
+	 * for subquery variables referencing outer relations; 0 in a normal var,
+	 * >0 means N levels up
+	 */
+	Index		varlevelsup;
+
+	/*
+	 * varnosyn/varattnosyn are ignored for equality, because Vars with
+	 * different syntactic identifiers are semantically the same as long as
+	 * their varno/varattno match.
+	 */
+	/* syntactic relation index (0 if unknown) */
+	Index		varnosyn pg_node_attr(equal_ignore, query_jumble_ignore);
+	/* syntactic attribute number */
+	AttrNumber	varattnosyn pg_node_attr(equal_ignore, query_jumble_ignore);
+
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} Var;
+```
 ## Detailed Description
 The Var structure is a fundamental expression node type in PostgreSQL's query processing system. It represents references to table columns, computed expressions, or values from outer query levels. Vars are created during query parsing and planning phases and are used throughout the execution pipeline to identify and access specific data values. The structure includes both semantic information (what the variable actually refers to) and syntactic information (how it appeared in the original query text).
 

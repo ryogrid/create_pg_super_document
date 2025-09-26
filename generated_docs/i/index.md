@@ -8,7 +8,14 @@ The 'index' struct is used in the ECPG parser to track array dimension and strin
 
 ## Definition
 
-
+```c
+struct index
+{
+	char	   *index1;
+	char	   *index2;
+	char	   *str;
+};
+```
 ## Detailed Description
 The 'index' struct is a parser utility structure used in the ECPG (Embedded SQL in C) preprocessor to handle array dimensions and string lengths during variable declaration processing. It is primarily used in the YACC/Bison grammar rules for parsing variable declarations that may include array bounds or string size specifications.
 

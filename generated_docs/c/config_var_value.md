@@ -8,7 +8,13 @@ Represents the actual value of a GUC (Grand Unified Configuration) variable, inc
 
 ## Definition
 
-
+```c
+typedef struct config_var_value
+{
+	union config_var_val val;
+	void	   *extra;
+} config_var_value;
+```
 ## Detailed Description
 The config_var_value struct is a container for GUC variable values that combines the actual variable value with an optional opaque struct "extra". This extra data is created by the variable's check_hook and used by its assign_hook, providing a mechanism for storing additional context or processed data associated with the configuration variable.
 

@@ -8,7 +8,10 @@ XLogFilePath is an inline function that constructs the full file system path for
 
 ## Definition
 
-
+```c
+static inline void
+XLogFilePath(char *path, TimeLineID tli, XLogSegNo logSegNo, int wal_segsz_bytes)
+```
 ## Detailed Description
 This function generates the complete file path for a WAL segment file by formatting the timeline ID and segment coordinates into PostgreSQL's standard WAL file naming convention. The function constructs a path in the format "pg_wal/TTTTTTTTXXXXXXXXYYYYYYYY" where:
 - TTTTTTTT is the 8-digit hexadecimal timeline ID

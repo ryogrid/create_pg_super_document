@@ -8,7 +8,17 @@ RegisNode is a compact data structure that represents a node in a fast regular e
 
 ## Definition
 
-
+```c
+typedef struct RegisNode
+{
+	uint32
+				type:2,
+				len:16,
+				unused:14;
+	struct RegisNode *next;
+	unsigned char data[FLEXIBLE_ARRAY_MEMBER];
+} RegisNode;
+```
 ## Detailed Description
 RegisNode is the fundamental building block for PostgreSQL's fast regex subset implementation used by ISpell dictionaries. This structure is designed to be compact and efficient, using bitfields to pack multiple pieces of information into a single 32-bit word. The node represents a single element in a linked list of regex pattern components, where each node can contain character data and type information for pattern matching operations. The design prioritizes memory efficiency while providing the necessary functionality for fast pattern matching in text search operations.
 

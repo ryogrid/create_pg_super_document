@@ -8,7 +8,10 @@ Checks a tuple's null bitmap to determine whether a specific attribute is null b
 
 ## Definition
 
-
+```c
+static inline bool
+att_isnull(int ATT, const bits8 *BITS)
+```
 ## Detailed Description
 The att_isnull function is a low-level utility that examines a tuple's null bitmap to determine if a specific attribute is null. PostgreSQL uses a bitmap representation where each bit corresponds to an attribute in the tuple - a 0 bit indicates null, while a 1 bit indicates non-null. The function uses bit manipulation to efficiently check the appropriate bit by calculating the byte index (ATT >> 3) and the bit position within that byte (ATT & 0x07).
 

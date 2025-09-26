@@ -8,7 +8,14 @@ CreateOpFamilyStmt represents a CREATE OPERATOR FAMILY statement in the PostgreS
 
 ## Definition
 
-
+```c
+typedef struct CreateOpFamilyStmt
+{
+	NodeTag		type;
+	List	   *opfamilyname;	/* qualified name (list of String) */
+	char	   *amname;			/* name of index AM opfamily is for */
+} CreateOpFamilyStmt;
+```
 ## Detailed Description
 CreateOpFamilyStmt is a parse tree node that represents the CREATE OPERATOR FAMILY SQL statement. Operator families are collections of operator classes and operators that work together for a particular access method (like B-tree, Hash, GiST, etc.). The operator family provides a way to group related operators and operator classes, allowing for more flexible indexing strategies and cross-data-type operations.
 

@@ -8,7 +8,10 @@ Updates the command ID of the active snapshot to the current command ID, ensurin
 
 ## Definition
 
-
+```c
+void
+UpdateActiveSnapshotCommandId(void)
+```
 ## Detailed Description
 UpdateActiveSnapshotCommandId updates the current command ID (curcid) of the active snapshot to match the current transaction's command ID. This function ensures that the snapshot reflects the correct visibility rules for the current command context. The function includes several safety checks: it verifies that the active snapshot exists, has exactly one active reference count, and has zero registered reference count (meaning it's not shared elsewhere). Additionally, it prevents modification during parallel operations to maintain consistency across worker processes, as snapshots are shared at the beginning of parallel operations.
 

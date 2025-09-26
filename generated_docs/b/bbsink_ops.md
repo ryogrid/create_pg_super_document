@@ -8,7 +8,9 @@ A typedef for the callback operations structure that defines the interface metho
 
 ## Definition
 
-
+```c
+typedef struct bbsink_ops bbsink_ops;
+```
 ## Detailed Description
 The  type is a forward declaration typedef for the  structure that contains function pointers defining the operations interface for bbsink objects. This structure implements the strategy pattern, allowing different types of bbsink implementations to provide their own specific behavior for backup processing while maintaining a consistent interface.
 

@@ -8,7 +8,11 @@ Converts a UTC timestamp to local time using timezone state information, impleme
 
 ## Definition
 
-
+```c
+static struct pg_tm *
+localsub(struct state const *sp, pg_time_t const *timep,
+		 struct pg_tm *const tmp)
+```
 ## Detailed Description
 The  function is the core implementation for converting UTC timestamps to local time. It takes a timezone state structure containing transition rules and a UTC timestamp, then calculates the corresponding local time representation. 
 

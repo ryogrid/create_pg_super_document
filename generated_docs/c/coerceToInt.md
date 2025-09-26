@@ -8,7 +8,10 @@ A utility function in pgbench that converts a PgBenchValue to a 64-bit integer, 
 
 ## Definition
 
-
+```c
+static bool
+coerceToInt(PgBenchValue *pval, int64 *ival)
+```
 ## Detailed Description
 The coerceToInt function converts values stored in the PgBenchValue union type to 64-bit integers. It handles different source types appropriately:
 - For integer values (PGBT_INT), performs direct assignment

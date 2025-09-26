@@ -8,7 +8,10 @@ ReadDir provides a simplified interface for reading directory entries with autom
 
 ## Definition
 
-
+```c
+struct dirent *
+ReadDir(DIR *dir, const char *dirname)
+```
 ## Detailed Description
 ReadDir is a convenience wrapper around ReadDirExtended that simplifies directory reading operations by automatically handling error conditions with ERROR-level reporting. It eliminates the need for tedious errno manipulation that would be required with raw readdir() calls. The function is designed to work seamlessly with AllocateDir, allowing for clean directory traversal patterns where a NULL dir parameter (indicating AllocateDir failure) is gracefully handled.
 

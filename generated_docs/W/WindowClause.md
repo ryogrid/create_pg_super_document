@@ -8,7 +8,35 @@ WindowClause represents the transformed representation of WINDOW and OVER clause
 
 ## Definition
 
-
+```c
+typedef struct WindowClause
+{
+	NodeTag		type;
+	/* window name (NULL in an OVER clause) */
+	char	   *name pg_node_attr(query_jumble_ignore);
+	/* referenced window name, if any */
+	char	   *refname pg_node_attr(query_jumble_ignore);
+	List	   *partitionClause;	/* PARTITION BY list */
+	/* ORDER BY list */
+	List	   *orderClause;
+	int			frameOptions;	/* frame_clause options, see WindowDef */
+	Node	   *startOffset;	/* expression for starting bound, if any */
+	Node	   *endOffset;		/* expression for ending bound, if any */
+	/* in_range function for startOffset */
+	Oid			startInRangeFunc pg_node_attr(query_jumble_ignore);
+	/* in_range function for endOffset */
+	Oid			endInRangeFunc pg_node_attr(query_jumble_ignore);
+	/* collation for in_range tests */
+	Oid			inRangeColl pg_node_attr(query_jumble_ignore);
+	/* use ASC sort order for in_range tests? */
+	bool		inRangeAsc pg_node_attr(query_jumble_ignore);
+	/* nulls sort first for in_range tests? */
+	bool		inRangeNullsFirst pg_node_attr(query_jumble_ignore);
+	Index		winref;			/* ID referenced by window functions */
+	/* did we copy orderClause from refname? */
+	bool		copiedOrder pg_node_attr(query_jumble_ignore);
+} WindowClause;
+```
 ## Detailed Description
 WindowClause contains the complete specification for window function processing after parsing and analysis. It supports both named windows (from WINDOW clauses) and inline window specifications (from OVER clauses), with duplicate OVER specifications being collapsed during processing.
 

@@ -8,7 +8,10 @@ Returns a transaction ID that is backed up by a specified amount, handling Postg
 
 ## Definition
 
-
+```c
+static inline TransactionId
+TransactionIdRetreatedBy(TransactionId xid, uint32 amount)
+```
 ## Detailed Description
 This function calculates a transaction ID that is  positions before the given transaction ID  in PostgreSQL's circular transaction ID space. The function handles the special case where the subtraction might result in a transaction ID below , in which case it continues decrementing to maintain the proper wraparound behavior in the modular arithmetic system used by PostgreSQL for transaction IDs.
 

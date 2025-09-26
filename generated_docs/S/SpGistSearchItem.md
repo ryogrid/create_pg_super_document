@@ -8,7 +8,25 @@ SpGistSearchItem represents a work item for SP-GiST index scans, containing info
 
 ## Definition
 
+```c
+typedef struct SpGistSearchItem
+{
+	pairingheap_node phNode;	/* pairing heap node */
+	Datum		value;			/* value reconstructed from parent, or
+								 * leafValue if isLeaf */
+	SpGistLeafTuple leafTuple;	/* whole leaf tuple, if needed */
+	void	   *traversalValue; /* opclass-specific traverse value */
+	int			level;			/* level of items on this page */
+	ItemPointerData heapPtr;	/* heap info, if heap tuple */
+	bool		isNull;			/* SearchItem is NULL item */
+	bool		isLeaf;			/* SearchItem is heap item */
+	bool		recheck;		/* qual recheck is needed */
+	bool		recheckDistances;	/* distance recheck is needed */
 
+	/* array with numberOfOrderBys entries */
+	double		distances[FLEXIBLE_ARRAY_MEMBER];
+} SpGistSearchItem;
+```
 ## Detailed Description
 SpGistSearchItem is the fundamental work unit used during SP-GiST index scans to track items that require further examination. It serves as an entry in a priority queue (implemented as a pairing heap) that manages the search process efficiently. Each item represents either an inner node that needs to be traversed or a leaf tuple that needs to be tested against search conditions.
 

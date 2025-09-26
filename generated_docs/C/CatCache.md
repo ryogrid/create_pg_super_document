@@ -8,7 +8,19 @@ CatCache is a core data structure that represents an individual catalog cache in
 
 ## Definition
 
+```c
+* cc_searches - (cc_hits + cc_neg_hits + cc_newloads) is number of failed
+	 * searches, each of which will result in loading a negative entry
+	 */
+	long		cc_invals;		/* # of entries invalidated from cache */
+	long		cc_lsearches;	/* total # list-searches */
+	long		cc_lhits;		/* # of matches against existing lists */
+#endif
+} CatCache;
 
+
+typedef struct catctup
+```
 ## Detailed Description
 CatCache is the fundamental structure for PostgreSQL's catalog caching system, which provides high-performance access to system catalog information. Each CatCache instance manages a hash table of catalog tuples (CatCTup) for a specific system relation, allowing fast lookups by key combinations instead of requiring expensive sequential scans or index lookups on system tables.
 

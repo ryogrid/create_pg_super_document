@@ -8,7 +8,16 @@ RowMarkClause represents the parser output for FOR UPDATE, FOR SHARE, FOR KEY UP
 
 ## Definition
 
-
+```c
+typedef struct RowMarkClause
+{
+	NodeTag		type;
+	Index		rti;			/* range table index of target relation */
+	LockClauseStrength strength;
+	LockWaitPolicy waitPolicy;	/* NOWAIT and SKIP LOCKED */
+	bool		pushedDown;		/* pushed down from higher query level? */
+} RowMarkClause;
+```
 ## Detailed Description
 RowMarkClause nodes are created for each relation that is targeted by a FOR UPDATE/SHARE clause. Each node specifies the type of lock to acquire, the wait policy for handling conflicts, and whether the locking clause was explicitly written at the current query level or pushed down from a higher level.
 

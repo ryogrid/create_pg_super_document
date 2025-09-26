@@ -8,7 +8,10 @@ A test function that validates the correctness of the rbt_leftmost() operation b
 
 ## Definition
 
-
+```c
+static void
+testleftmost(int size)
+```
 ## Detailed Description
 This test function performs validation of the Red-Black Tree leftmost node retrieval functionality. It tests two key scenarios:
 

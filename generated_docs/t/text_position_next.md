@@ -8,7 +8,10 @@ The  function advances the search to find the next occurrence of a pattern, hand
 
 ## Definition
 
-
+```c
+static bool
+text_position_next(TextPositionState *state)
+```
 ## Detailed Description
 The  function is the core iteration component of PostgreSQL's substring search system. It searches for the next occurrence of a pattern starting from the end of the previous match (or from the beginning on the first call). The function uses the Boyer-Moore-Horspool algorithm through  for efficient searching, then performs additional validation for multibyte encodings to ensure matches occur at proper character boundaries. For complex multibyte encodings, it walks character by character to verify that byte sequence matches don't occur in the middle of multibyte characters, retrying the search from the next character boundary if a false positive is detected.
 

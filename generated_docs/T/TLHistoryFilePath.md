@@ -8,7 +8,10 @@ TLHistoryFilePath is an inline function that constructs the complete file system
 
 ## Definition
 
-
+```c
+static inline void
+TLHistoryFilePath(char *path, TimeLineID tli)
+```
 ## Detailed Description
 This function generates the full file system path for a timeline history file by combining PostgreSQL's WAL directory path (XLOGDIR) with the timeline-specific filename format. The resulting path follows the pattern "pg_wal/TTTTTTTT.history" where TTTTTTTT is the 8-digit hexadecimal representation of the timeline ID. This function is essential for timeline management operations that need to read, write, or check the existence of timeline history files on disk.
 

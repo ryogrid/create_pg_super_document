@@ -8,7 +8,16 @@ A parse tree node structure representing a CREATE PUBLICATION SQL statement, whi
 
 ## Definition
 
-
+```c
+typedef struct CreatePublicationStmt
+{
+	NodeTag		type;
+	char	   *pubname;		/* Name of the publication */
+	List	   *options;		/* List of DefElem nodes */
+	List	   *pubobjects;		/* Optional list of publication objects */
+	bool		for_all_tables; /* Special publication for all tables in db */
+} CreatePublicationStmt;
+```
 ## Detailed Description
 CreatePublicationStmt represents the parsed form of a CREATE PUBLICATION statement used in PostgreSQL's logical replication system. This structure captures all the components needed to create a new publication, which serves as a mechanism to selectively replicate data changes from specific database objects to subscribers.
 

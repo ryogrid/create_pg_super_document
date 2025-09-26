@@ -8,7 +8,9 @@ Verifies that a PostgreSQL binary is available in the same directory as pg_creat
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The  function is a utility function used by pg_createsubscriber to locate and validate companion PostgreSQL utilities. It performs two critical checks: first, it verifies that the requested program exists in the same directory as pg_createsubscriber itself, and second, it ensures that the found program has the same PostgreSQL version. This version compatibility check is essential for ensuring that all tools used during the subscription creation process are compatible.
 

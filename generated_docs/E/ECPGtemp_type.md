@@ -8,7 +8,13 @@ ECPGtemp_type is a simple structure that pairs an ECPGtype with a variable name,
 
 ## Definition
 
-
+```c
+struct ECPGtemp_type
+{
+	struct ECPGtype *type;
+	const char *name;
+};
+```
 ## Detailed Description
 ECPGtemp_type is a lightweight utility structure designed to temporarily associate a data type definition (ECPGtype) with a variable name. This pairing is commonly needed during ECPG preprocessing operations where the preprocessor needs to track both the type information and the corresponding variable identifier.
 

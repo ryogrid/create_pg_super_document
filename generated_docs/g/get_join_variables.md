@@ -8,7 +8,18 @@ Analyzes both sides of a join clause by applying examine_variable() to each argu
 
 ## Definition
 
-
+```c
+struct to describe the expression.
+ *
+ * Inputs:
+ *	root: the planner info
+ *	node: the expression tree to examine
+ *	varRelid: see specs for restriction selectivity functions
+ *
+ * Outputs: *vardata is filled as follows:
+ *	var: the input expression (with any binary relabeling stripped, if
+ *		it is or contains a variable;
+```
 ## Detailed Description
 This function is essential for join selectivity estimation in PostgreSQL's query planner. It processes both arguments of a join clause by examining each side using  to extract statistical information about the variables involved. The function then determines whether the join clause follows the expected orientation relative to the join structure.
 

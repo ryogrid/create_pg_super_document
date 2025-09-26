@@ -8,7 +8,19 @@ StdRdOptions is a structure that defines standard relation options (reloptions) 
 
 ## Definition
 
-
+```c
+typedef struct StdRdOptions
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	int			fillfactor;		/* page fill factor in percent (0..100) */
+	int			toast_tuple_target; /* target for tuple toasting */
+	AutoVacOpts autovacuum;		/* autovacuum-related options */
+	bool		user_catalog_table; /* use as an additional catalog relation */
+	int			parallel_workers;	/* max number of parallel workers */
+	StdRdOptIndexCleanup vacuum_index_cleanup;	/* controls index vacuuming */
+	bool		vacuum_truncate;	/* enables vacuum to truncate a relation */
+} StdRdOptions;
+```
 ## Detailed Description
 StdRdOptions serves as the standard structure for storing relation options (reloptions) for heap tables in PostgreSQL. This structure is embedded in the rd_options field of relation descriptors and contains parameters that affect how tables are stored, maintained, and accessed. The structure follows the PostgreSQL varlena format with a header that allows it to be stored as variable-length data. These options can be set via CREATE TABLE or ALTER TABLE statements and control various aspects of table behavior from storage efficiency to maintenance operations.
 

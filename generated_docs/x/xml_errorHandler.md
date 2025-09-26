@@ -8,7 +8,15 @@ The central error handler callback function for libxml2 that captures, processes
 
 ## Definition
 
-
+```c
+struct.
+	 *
+	 * We force a backend exit if this check fails because longjmp'ing out of
+	 * libxml would likely render it unsafe to use further.
+	 */
+	if (xmlerrcxt->magic != ERRCXT_MAGIC)
+		elog(FATAL, "xml_errorHandler called with invalid PgXmlErrorContext");
+```
 ## Detailed Description
 xml_errorHandler is a comprehensive error handler that serves as the bridge between libxml2's error system and PostgreSQL's error reporting infrastructure. It processes various types of XML errors (parser errors, namespace errors, etc.), applies version-specific compatibility fixes, formats detailed error messages with context information, and either stores them for later reporting or reports them immediately based on severity.
 

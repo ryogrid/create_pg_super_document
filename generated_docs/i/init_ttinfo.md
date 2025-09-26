@@ -8,7 +8,10 @@ Initializes a timezone transition type information structure with specified UTC 
 
 ## Definition
 
-
+```c
+static void
+init_ttinfo(struct ttinfo *s, int32 utoff, bool isdst, int desigidx)
+```
 ## Detailed Description
 The  function is a utility function used in PostgreSQL's timezone handling system to initialize a  object with basic timezone transition information. It sets the primary timezone properties while initializing the standard time and UT flags to false, which can be adjusted later if needed.
 

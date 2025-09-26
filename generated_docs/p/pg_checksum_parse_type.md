@@ -8,7 +8,10 @@ Parses a string representation of a checksum type and converts it to the corresp
 
 ## Definition
 
-
+```c
+bool
+pg_checksum_parse_type(char *name, pg_checksum_type *type)
+```
 ## Detailed Description
 This function performs case-insensitive string comparison to identify valid checksum algorithm names and maps them to their corresponding enumeration constants. It supports various checksum algorithms including CRC32C and multiple SHA variants. The function provides a standardized way to convert user-provided checksum type names into internal PostgreSQL checksum type representations.
 

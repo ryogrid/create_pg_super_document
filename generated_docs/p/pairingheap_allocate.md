@@ -8,7 +8,10 @@ Allocates and initializes a new pairing heap data structure with a custom compar
 
 ## Definition
 
-
+```c
+pairingheap *
+pairingheap_allocate(pairingheap_comparator compare, void *arg)
+```
 ## Detailed Description
 The  function creates a new pairing heap instance by allocating memory for the heap structure and initializing its components. A pairing heap is a type of priority queue that supports efficient insertion and deletion of minimum elements. The function sets up the heap with a user-provided comparison function that defines the heap property (ordering of elements) and an optional argument that will be passed to the comparator during heap operations.
 

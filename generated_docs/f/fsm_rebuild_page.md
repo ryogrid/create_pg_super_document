@@ -8,7 +8,10 @@ Reconstructs the upper levels of a Free Space Map (FSM) page by recalculating no
 
 ## Definition
 
-
+```c
+bool
+fsm_rebuild_page(Page page)
+```
 ## Detailed Description
 The  function is responsible for maintaining the consistency of the FSM tree structure after modifications to leaf nodes. FSM pages are organized as binary trees where leaf nodes represent the available space in individual heap pages, and non-leaf nodes store the maximum available space among their children.
 

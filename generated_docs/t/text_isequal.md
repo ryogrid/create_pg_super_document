@@ -8,7 +8,9 @@ A static convenience function that provides a simple boolean interface for compa
 
 ## Definition
 
-
+```c
+struct_empty_array(TEXTOID));
+```
 ## Detailed Description
 This function serves as a lightweight wrapper around PostgreSQL's texteq function, providing a more convenient interface for internal code that needs to compare text values. It leverages PostgreSQL's built-in text equality operator while handling the function call infrastructure automatically.
 

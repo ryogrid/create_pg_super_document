@@ -8,7 +8,10 @@ Appends an integer value to a PostgreSQL IntList data structure, returning a poi
 
 ## Definition
 
-
+```c
+List *
+lappend_int(List *list, int datum)
+```
 ## Detailed Description
 The  function is a specialized version of  designed specifically for integer lists (T_IntList). It appends an integer value to the end of an IntList, handling both empty lists (NIL) and existing lists with elements. Like , this function may or may not destructively modify the original list structure, so callers must use the returned value rather than the original list pointer.
 

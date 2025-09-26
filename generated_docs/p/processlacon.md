@@ -8,7 +8,15 @@ Generates the NFA representation of a LACON (lookaround constraint) by optimizin
 
 ## Definition
 
-
+```c
+static void
+processlacon(struct vars *v,
+			 struct state *begin,	/* start of parsed LACON sub-re */
+			 struct state *end, /* end of parsed LACON sub-re */
+			 int latype,
+			 struct state *lp,	/* left state to hang it on */
+			 struct state *rp)	/* right state to hang it on */
+```
 ## Detailed Description
 The processlacon function handles the conversion of parsed lookaround assertions (lookahead and lookbehind) into their corresponding NFA representation. It implements significant optimizations for simple cases where the lookaround consists of just a single color or character set, converting them into more efficient arc types rather than full LACON constructs.
 

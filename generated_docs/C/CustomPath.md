@@ -8,7 +8,18 @@ CustomPath represents an extensible path node that allows external extensions to
 
 ## Definition
 
-
+```c
+typedef struct CustomPath
+{
+	Path		path;
+	uint32		flags;			/* mask of CUSTOMPATH_* flags, see
+								 * nodes/extensible.h */
+	List	   *custom_paths;	/* list of child Path nodes, if any */
+	List	   *custom_restrictinfo;
+	List	   *custom_private;
+	const struct CustomPathMethods *methods;
+} CustomPath;
+```
 ## Detailed Description
 CustomPath is part of PostgreSQL's extensibility framework, enabling third-party extensions to implement custom scanning strategies that integrate seamlessly with the core query planner. This path type provides a flexible mechanism for extensions to define their own access methods, optimization strategies, and execution plans while leveraging PostgreSQL's existing cost-based optimization infrastructure.
 

@@ -8,7 +8,11 @@ A static function that captures and accumulates instrumentation statistics from 
 
 ## Definition
 
-
+```c
+static void
+instrumentSortedGroup(IncrementalSortGroupInfo *groupInfo,
+					  Tuplesortstate *sortState)
+```
 ## Detailed Description
 This function is responsible for collecting performance statistics from a completed sort batch in the incremental sort executor. Since incremental sort processes potentially many sort batches (both full sorts and prefix sorts), this function captures tuplesort statistics each time a sort state is finalized. The collected data includes memory/disk space usage, sort methods used, and group counts, which are later aggregated and displayed in EXPLAIN ANALYZE output.
 

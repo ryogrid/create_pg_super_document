@@ -8,7 +8,13 @@ PartitionPruningData holds all the run-time pruning information for a single par
 
 ## Definition
 
-
+```c
+typedef struct PartitionPruningData
+{
+	int			num_partrelprunedata;	/* number of array entries */
+	PartitionedRelPruningData partrelprunedata[FLEXIBLE_ARRAY_MEMBER];
+} PartitionPruningData;
+```
 ## Detailed Description
 This structure serves as the top-level container for partition pruning information in PostgreSQL's executor. It manages a complete partitioning hierarchy by storing an array of PartitionedRelPruningData structures, where each entry represents one level of partitioning. The array is carefully ordered such that parent partitions appear before their children, with the first entry always being the topmost partition that was explicitly named in the SQL query. This hierarchical organization enables efficient traversal and pruning decisions during query execution.
 

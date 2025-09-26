@@ -8,7 +8,12 @@ LockInfoData is a simple wrapper structure that encapsulates lock-related inform
 
 ## Definition
 
-
+```c
+typedef struct LockInfoData
+{
+	LockRelId	lockRelId;
+} LockInfoData;
+```
 ## Detailed Description
 LockInfoData serves as a container structure for lock-related information associated with a relation. Currently, it contains only a LockRelId field, but the structure provides a framework for potentially storing additional lock-related metadata in the future. This structure is embedded within the RelationData structure to provide each relation with its own lock identification information.
 

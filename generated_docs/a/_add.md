@@ -8,7 +8,10 @@ Low-level utility function that safely copies a null-terminated string to the ou
 
 ## Definition
 
-
+```c
+static char *
+_add(const char *str, char *pt, const char *ptlim)
+```
 ## Detailed Description
 _add is a fundamental building block in PostgreSQL's strftime implementation that handles the safe copying of strings into the output buffer. It performs bounds-checked string copying, ensuring that the destination buffer is never overrun. The function copies characters from the source string to the destination buffer one by one, stopping when it encounters a null terminator or reaches the buffer limit.
 

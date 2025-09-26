@@ -8,7 +8,11 @@ Converts a floating-point configuration value from its base unit to a human-frie
 
 ## Definition
 
-
+```c
+static void
+convert_real_from_base_unit(double base_value, int base_unit,
+							double *value, const char **unit)
+```
 ## Detailed Description
 This function takes a floating-point value stored internally in PostgreSQL's base units (like bytes for memory or milliseconds for time) and converts it to a more readable unit format. The conversion logic selects the most appropriate unit that will display the value as close to an integer as possible, making configuration values more user-friendly when displayed.
 

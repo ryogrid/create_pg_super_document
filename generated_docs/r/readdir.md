@@ -8,7 +8,10 @@ The readdir function provides a Windows-compatible implementation of the POSIX r
 
 ## Definition
 
-
+```c
+struct dirent *
+readdir(DIR *d)
+```
 ## Detailed Description
 This function implements the POSIX readdir() interface for Windows systems using the Windows FindFirstFile/FindNextFile APIs. It maintains directory iteration state through the DIR structure and returns directory entries one at a time. On the first call for a given DIR, it uses FindFirstFile to begin enumeration; subsequent calls use FindNextFile to continue. The function handles Windows-specific file attributes and converts them to POSIX-compatible dirent types, including special handling for reparse points (symbolic links) and distinguishing between directories and regular files.
 

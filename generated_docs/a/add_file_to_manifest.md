@@ -8,7 +8,14 @@ Adds a file entry to the backup manifest, encoding file metadata including path,
 
 ## Definition
 
-
+```c
+void
+add_file_to_manifest(manifest_writer *mwriter, const char *manifest_path,
+					 size_t size, time_t mtime,
+					 pg_checksum_type checksum_type,
+					 int checksum_length,
+					 uint8 *checksum_payload)
+```
 ## Detailed Description
 This function adds a complete file entry to the backup manifest being built by the manifest writer. It handles the JSON formatting for file metadata, including proper encoding of file paths (UTF-8 validation and hex encoding for non-UTF-8 paths), file size, modification timestamp, and optional checksum information. The function manages JSON syntax by tracking whether this is the first file entry and adding appropriate separators.
 

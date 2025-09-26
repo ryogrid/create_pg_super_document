@@ -8,7 +8,10 @@ A static helper function that analyzes replacement text for backslash escape seq
 
 ## Definition
 
-
+```c
+static int
+check_replace_text_has_escape(const text *replace_text)
+```
 ## Detailed Description
 This function examines replacement text strings used in regular expression replacement operations to categorize the type of escape sequences present. It performs a single pass through the text looking for backslash characters and classifies them into three categories:
 

@@ -8,7 +8,42 @@ VacuumCutoffs is an immutable structure that holds the transaction ID and multix
 
 ## Definition
 
+```c
+struct VacuumCutoffs
+{
+	/*
+	 * Existing pg_class fields at start of VACUUM
+	 */
+	TransactionId relfrozenxid;
+	MultiXactId relminmxid;
 
+	/*
+	 * OldestXmin is the Xid below which tuples deleted by any xact (that
+	 * committed) should be considered DEAD, not just RECENTLY_DEAD.
+	 *
+	 * OldestMxact is the Mxid below which MultiXacts are definitely not seen
+	 * as visible by any running transaction.
+	 *
+	 * OldestXmin and OldestMxact are also the most recent values that can
+	 * ever be passed to vac_update_relstats() as frozenxid and minmulti
+	 * arguments at the end of VACUUM.  These same values should be passed
+	 * when it turns out that VACUUM will leave no unfrozen XIDs/MXIDs behind
+	 * in the table.
+	 */
+	TransactionId OldestXmin;
+	MultiXactId OldestMxact;
+
+	/*
+	 * FreezeLimit is the Xid below which all Xids are definitely frozen or
+	 * removed in pages VACUUM scans and cleanup locks.
+	 *
+	 * MultiXactCutoff is the value below which all MultiXactIds are
+	 * definitely removed from Xmax in pages VACUUM scans and cleanup locks.
+	 */
+	TransactionId FreezeLimit;
+	MultiXactId MultiXactCutoff;
+};
+```
 ## Detailed Description
 VacuumCutoffs encapsulates the critical transaction ID and multixact ID thresholds that govern VACUUM's behavior throughout the entire operation. These cutoff values are computed once at the start of VACUUM and remain constant during the operation to ensure consistency.
 

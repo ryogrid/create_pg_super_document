@@ -8,7 +8,9 @@ Finds the next daylight saving time (DST) transition boundary after a given time
 
 ## Definition
 
-
+```c
+struct state *sp;
+```
 ## Detailed Description
 The `pg_next_dst_boundary` function locates the next DST transition point after a specified timestamp within a given timezone. It returns detailed information about the timezone state both before and after the transition, including GMT offsets and DST status.
 

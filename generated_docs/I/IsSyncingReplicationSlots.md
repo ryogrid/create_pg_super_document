@@ -8,7 +8,10 @@ Checks whether the current process is performing replication slot synchronizatio
 
 ## Definition
 
-
+```c
+bool
+IsSyncingReplicationSlots(void)
+```
 ## Detailed Description
 This function provides a simple way to determine if the current process is actively synchronizing replication slots from a primary server to a standby. It returns the value of the static  flag, which is set to true only when the current process is performing slot synchronization operations.
 

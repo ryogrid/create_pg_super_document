@@ -8,7 +8,16 @@ The  struct represents a single variable in PostgreSQL's psql command-line clien
 
 ## Definition
 
-
+```c
+struct _variable
+{
+	char	   *name;
+	char	   *value;
+	VariableSubstituteHook substitute_hook;
+	VariableAssignHook assign_hook;
+	struct _variable *next;
+};
+```
 ## Detailed Description
 The  struct is the fundamental building block of psql's variable management system. Each instance represents one named variable that can store a string value, along with optional hook functions that control how values are assigned and processed. The struct forms a linked list through the  pointer, allowing multiple variables to be chained together in a .
 

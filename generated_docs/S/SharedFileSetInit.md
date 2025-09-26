@@ -8,7 +8,10 @@ Initializes a shared file set that can be accessed by multiple backend processes
 
 ## Definition
 
-
+```c
+void
+SharedFileSetInit(SharedFileSet *fileset, dsm_segment *seg)
+```
 ## Detailed Description
 SharedFileSetInit creates and initializes a SharedFileSet structure that enables multiple PostgreSQL backend processes to share temporary files. The function sets up the necessary synchronization primitives and registers a cleanup callback to ensure proper resource management. The shared file set is associated with a dynamic shared memory (DSM) segment, and when the last backend detaches from this segment, all contained files are automatically deleted.
 

@@ -8,7 +8,13 @@ Locates the correct parent page and downlink offset for a given child page durin
 
 ## Definition
 
-
+```c
+static Buffer
+gistBufferingFindCorrectParent(GISTBuildState *buildstate,
+							   BlockNumber childblkno, int level,
+							   BlockNumber *parentblkno,
+							   OffsetNumber *downlinkoffnum)
+```
 ## Detailed Description
 This function serves a similar purpose to gistFindCorrectParent() during normal index insertions, but is simplified for the buffering build algorithm since it doesn't need to handle concurrent operations. It locates the downlink tuple in a parent page that points to a specified child page.
 

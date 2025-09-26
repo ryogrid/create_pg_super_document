@@ -8,7 +8,10 @@ Extends get_role_oid to handle the special "public" pseudo-role by returning ACL
 
 ## Definition
 
-
+```c
+Oid
+get_role_oid_or_public(const char *rolname)
+```
 ## Detailed Description
 This function is a wrapper around get_role_oid that provides special handling for PostgreSQL's "public" pseudo-role. When the input role name is exactly "public" (case-sensitive), the function returns the special constant ACL_ID_PUBLIC instead of performing a catalog lookup.
 

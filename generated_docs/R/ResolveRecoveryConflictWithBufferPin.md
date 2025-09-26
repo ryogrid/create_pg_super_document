@@ -8,7 +8,10 @@ Resolves recovery conflicts with backends holding buffer pins by either sending 
 
 ## Definition
 
-
+```c
+void
+ResolveRecoveryConflictWithBufferPin(void)
+```
 ## Detailed Description
 This function is called from LockBufferForCleanup() to resolve conflicts with other backends holding buffer pins during hot standby recovery. It implements conflict resolution for buffer pin conflicts, which occur when the startup process needs to clean up a buffer but other backends have it pinned.
 

@@ -8,7 +8,17 @@ RecursiveUnionPath represents a path for recursive UNION operations in PostgreSQ
 
 ## Definition
 
-
+```c
+typedef struct RecursiveUnionPath
+{
+	Path		path;
+	Path	   *leftpath;		/* paths representing input sources */
+	Path	   *rightpath;
+	List	   *distinctList;	/* SortGroupClauses identifying target cols */
+	int			wtParam;		/* ID of Param representing work table */
+	Cardinality numGroups;		/* estimated number of groups in input */
+} RecursiveUnionPath;
+```
 ## Detailed Description
 RecursiveUnionPath represents the execution path for recursive UNION operations in PostgreSQL's query planner, primarily used for implementing recursive Common Table Expressions (CTEs). This path type handles the iterative execution pattern where the left path provides the base case (non-recursive term) and the right path provides the recursive term that references the CTE itself. The path manages the work table that stores intermediate results during recursive evaluation and handles duplicate elimination when required.
 

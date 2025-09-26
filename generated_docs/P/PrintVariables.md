@@ -8,7 +8,9 @@ Prints the values of all variables stored in a VariableSpace to standard output.
 
 ## Definition
 
-
+```c
+struct _variable *ptr;
+```
 ## Detailed Description
 The PrintVariables function iterates through all variables in the given VariableSpace and prints each variable's name and value in the format "name = 'value'" to standard output. The function safely handles NULL space parameters by returning immediately, and includes interrupt checking to allow cancellation during the printing process.
 

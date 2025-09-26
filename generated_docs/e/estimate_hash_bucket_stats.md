@@ -8,7 +8,12 @@ Estimates hash bucket statistics for a given expression when used as a hash key,
 
 ## Definition
 
-
+```c
+void
+estimate_hash_bucket_stats(PlannerInfo *root, Node *hashkey, double nbuckets,
+						   Selectivity *mcv_freq,
+						   Selectivity *bucketsize_frac)
+```
 ## Detailed Description
 This function estimates two critical statistics for hash join costing:
 

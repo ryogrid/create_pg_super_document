@@ -8,7 +8,10 @@ Safely appends a subdirectory name to an output path during path canonicalizatio
 
 ## Definition
 
-
+```c
+static char *
+append_subdir_to_path(char *path, char *subdir)
+```
 ## Detailed Description
 This function is specifically designed for use within  operations to append subdirectory names to the output path. It handles the delicate operation of copying potentially overlapping memory regions by using  instead of , which is essential since canonicalize_path updates paths in-place.
 

@@ -8,7 +8,11 @@ DecodeTimeCommon is a shared time parsing function that decodes time strings wit
 
 ## Definition
 
-
+```c
+static int
+DecodeTimeCommon(char *str, int fmask, int range,
+				 int *tmask, struct pg_itm *itm)
+```
 ## Detailed Description
 DecodeTimeCommon parses time strings in various formats (HH:MM, HH:MM:SS, MM:SS.sss) and populates a pg_itm structure with the extracted time components. The function demonstrates sophisticated parsing logic that adapts its field interpretation based on context:
 

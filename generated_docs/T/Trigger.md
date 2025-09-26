@@ -8,7 +8,31 @@ The Trigger struct represents a database trigger definition containing metadata 
 
 ## Definition
 
-
+```c
+typedef struct Trigger
+{
+	Oid			tgoid;			/* OID of trigger (pg_trigger row) */
+	/* Remaining fields are copied from pg_trigger, see pg_trigger.h */
+	char	   *tgname;
+	Oid			tgfoid;
+	int16		tgtype;
+	char		tgenabled;
+	bool		tgisinternal;
+	bool		tgisclone;
+	Oid			tgconstrrelid;
+	Oid			tgconstrindid;
+	Oid			tgconstraint;
+	bool		tgdeferrable;
+	bool		tginitdeferred;
+	int16		tgnargs;
+	int16		tgnattr;
+	int16	   *tgattr;
+	char	  **tgargs;
+	char	   *tgqual;
+	char	   *tgoldtable;
+	char	   *tgnewtable;
+} Trigger;
+```
 ## Detailed Description
 The Trigger struct is a fundamental data structure that encapsulates all metadata required to define and execute database triggers. This structure is designed to be cleanly included in rel.h and other header files without dependencies, as noted in its comment. Each Trigger instance contains both system catalog information (copied from pg_trigger) and runtime configuration data needed for trigger execution. The structure supports various trigger types including constraint triggers, internal triggers, and cloned triggers with comprehensive configuration options for timing, arguments, and transition table support.
 

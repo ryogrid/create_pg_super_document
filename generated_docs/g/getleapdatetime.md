@@ -8,7 +8,9 @@ Parses and validates leap second date/time fields and converts them to a zic_t t
 
 ## Definition
 
-
+```c
+struct lookup *lp;
+```
 ## Detailed Description
 The  function processes leap second date and time information from input fields and converts them to an internal timestamp representation (zic_t). The function performs comprehensive validation and calculation:
 

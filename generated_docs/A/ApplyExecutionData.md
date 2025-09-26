@@ -8,7 +8,19 @@ ApplyExecutionData is a structure that encapsulates execution state and metadata
 
 ## Definition
 
+```c
+typedef struct ApplyExecutionData
+{
+	EState	   *estate;			/* executor state, used to track resources */
 
+	LogicalRepRelMapEntry *targetRel;	/* replication target rel */
+	ResultRelInfo *targetRelInfo;	/* ResultRelInfo for same */
+
+	/* These fields are used when the target relation is partitioned: */
+	ModifyTableState *mtstate;	/* dummy ModifyTable state */
+	PartitionTupleRouting *proute;	/* partition routing info */
+} ApplyExecutionData;
+```
 ## Detailed Description
 ApplyExecutionData serves as a centralized container for execution context during logical replication apply operations. It maintains the executor state, target relation information, and specialized structures for handling partitioned tables. This structure is essential for the logical replication worker to efficiently apply changes from the publisher to the subscriber database while properly managing executor resources and handling complex table structures like partitions.
 

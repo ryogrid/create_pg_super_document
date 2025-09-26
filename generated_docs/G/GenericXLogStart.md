@@ -8,7 +8,10 @@ Initializes and returns a new GenericXLogState structure to begin a generic WAL 
 
 ## Definition
 
-
+```c
+GenericXLogState *
+GenericXLogStart(Relation relation)
+```
 ## Detailed Description
 This function serves as the entry point for PostgreSQL's generic WAL logging mechanism, which allows custom access methods and extensions to efficiently log their page modifications. It allocates and initializes a GenericXLogState structure that will track multiple pages and their modifications throughout a transaction.
 

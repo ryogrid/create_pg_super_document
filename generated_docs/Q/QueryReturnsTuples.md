@@ -8,7 +8,10 @@ QueryReturnsTuples determines whether a parsed query will produce tuple output, 
 
 ## Definition
 
-
+```c
+bool
+QueryReturnsTuples(Query *parsetree)
+```
 ## Detailed Description
 QueryReturnsTuples is a comprehensive function that analyzes a parsed query to determine if it will produce tuple output. It serves as a higher-level wrapper that handles both regular SQL commands and utility statements. The function examines the command type and applies specific logic:
 

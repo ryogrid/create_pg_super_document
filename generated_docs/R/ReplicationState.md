@@ -8,7 +8,42 @@ ReplicationState is a structure that tracks the replay progress of a single remo
 
 ## Definition
 
+```c
+typedef struct ReplicationState
+{
+	/*
+	 * Local identifier for the remote node.
+	 */
+	RepOriginId roident;
 
+	/*
+	 * Location of the latest commit from the remote side.
+	 */
+	XLogRecPtr	remote_lsn;
+
+	/*
+	 * Remember the local lsn of the commit record so we can XLogFlush() to it
+	 * during a checkpoint so we know the commit record actually is safe on
+	 * disk.
+	 */
+	XLogRecPtr	local_lsn;
+
+	/*
+	 * PID of backend that's acquired slot, or 0 if none.
+	 */
+	int			acquired_by;
+
+	/*
+	 * Condition variable that's signaled when acquired_by changes.
+	 */
+	ConditionVariable origin_cv;
+
+	/*
+	 * Lock protecting remote_lsn and local_lsn.
+	 */
+	LWLock		lock;
+} ReplicationState;
+```
 ## Detailed Description
 The ReplicationState structure is a core component of PostgreSQL's logical replication origin tracking system. It maintains the replication progress state for a single remote replication origin, including both the remote and local log sequence numbers (LSNs). This structure is crucial for tracking replication lag, ensuring data consistency, and managing concurrent access to replication state information.
 

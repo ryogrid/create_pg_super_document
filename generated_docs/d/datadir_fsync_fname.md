@@ -8,7 +8,10 @@ A callback function that performs actual fsync operations on files and directori
 
 ## Definition
 
-
+```c
+static void
+datadir_fsync_fname(const char *fname, bool isdir, int elevel)
+```
 ## Detailed Description
 datadir_fsync_fname is a callback function designed to be used with walkdir() during the actual fsync phase of data directory synchronization. This function is called after the pre_sync_fname phase and performs the critical task of ensuring all data is written to persistent storage.
 

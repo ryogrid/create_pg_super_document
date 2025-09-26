@@ -8,7 +8,10 @@ A static node comparator function used by the Red-Black Tree test module to comp
 
 ## Definition
 
-
+```c
+static int
+irbt_cmp(const RBTNode *a, const RBTNode *b, void *arg)
+```
 ## Detailed Description
 This function serves as the comparator callback for integer-based Red-Black Tree nodes in PostgreSQL's test infrastructure. It implements a simple integer comparison by casting generic RBTNode pointers to IntRBTreeNode structures and comparing their key fields. The function returns a negative value if the first node's key is smaller, zero if equal, and positive if larger, following standard comparison function conventions.
 

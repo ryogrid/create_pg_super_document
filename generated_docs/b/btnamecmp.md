@@ -8,7 +8,10 @@ The  function provides a B-tree compatible comparison function for PostgreSQL's 
 
 ## Definition
 
-
+```c
+Datum
+btnamecmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements a three-way comparison for  values that is compatible with B-tree indexing requirements. Unlike boolean comparison functions, it returns a signed integer where negative values indicate the first argument is less than the second, zero indicates equality, and positive values indicate the first argument is greater than the second. The function delegates to  with collation support and is essential for B-tree index operations on  columns.
 

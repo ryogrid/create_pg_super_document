@@ -8,7 +8,10 @@ A perfect hash function used for fast Unicode character decomposition lookups in
 
 ## Definition
 
-
+```c
+static int
+Decomp_hash_func(const void *key)
+```
 ## Detailed Description
  is a static perfect hash function that serves as a key component in PostgreSQL's Unicode normalization functionality. It takes a Unicode character (or character sequence) as input and returns a hash value that can be used to quickly locate the character's decomposition information in the  table.
 

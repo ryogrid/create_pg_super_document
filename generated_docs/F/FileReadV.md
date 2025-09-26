@@ -8,7 +8,11 @@ FileReadV performs vectored (scatter-gather) I/O read operations on a file, allo
 
 ## Definition
 
-
+```c
+ssize_t
+FileReadV(File file, const struct iovec *iov, int iovcnt, off_t offset,
+		  uint32 wait_event_info)
+```
 ## Detailed Description
 FileReadV implements vectored I/O reading for PostgreSQL's virtual file descriptor system. This function allows reading data from a file into multiple non-contiguous memory buffers in a single system call, which can be significantly more efficient than multiple separate read operations.
 

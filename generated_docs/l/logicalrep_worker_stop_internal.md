@@ -8,7 +8,10 @@ Internal function that safely terminates a logical replication worker process an
 
 ## Definition
 
-
+```c
+static void
+logicalrep_worker_stop_internal(LogicalRepWorker *worker, int signo)
+```
 ## Detailed Description
 This function performs a controlled shutdown of a logical replication worker by sending a signal to terminate the worker process and waiting for it to complete cleanup. The function handles two key scenarios: workers that are still starting up (proc not yet set) and fully running workers. It uses a generation-based mechanism to detect if the worker slot has been reused by a different worker during the shutdown process.
 

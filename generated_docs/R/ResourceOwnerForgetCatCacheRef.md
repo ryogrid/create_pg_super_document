@@ -8,7 +8,10 @@ A convenience wrapper function that unregisters a catalog cache reference from a
 
 ## Definition
 
-
+```c
+static inline void
+ResourceOwnerForgetCatCacheRef(ResourceOwner owner, HeapTuple tuple)
+```
 ## Detailed Description
 ResourceOwnerForgetCatCacheRef is a static inline wrapper function that removes a catalog cache reference from the resource owner's tracking system. It serves as the counterpart to ResourceOwnerRememberCatCacheRef, providing symmetric resource management. When a catalog cache reference is explicitly released (rather than through error cleanup), this function ensures that the resource owner stops tracking it by calling ResourceOwnerForget() with the appropriate resource descriptor. This prevents double-cleanup scenarios and maintains accurate resource accounting within PostgreSQL's resource management framework.
 

@@ -8,7 +8,9 @@ JsonPathGinNode represents a node in an expression tree structure used for proce
 
 ## Definition
 
-
+```c
+typedef struct JsonPathGinNode JsonPathGinNode;
+```
 ## Detailed Description
 JsonPathGinNode implements a flexible tree structure for representing JSON path query expressions in a form suitable for GIN index processing. The structure supports three types of nodes defined by JsonPathGinNodeType: JSP_GIN_OR (logical OR), JSP_GIN_AND (logical AND), and JSP_GIN_ENTRY (leaf entry nodes).
 

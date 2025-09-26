@@ -8,7 +8,12 @@ The core implementation function that provides generic tree-walking logic for tr
 
 ## Definition
 
-
+```c
+bool
+expression_tree_walker_impl(Node *node,
+							tree_walker_callback walker,
+							void *context)
+```
 ## Detailed Description
 This function is the heart of PostgreSQL's expression tree traversal infrastructure. It implements a comprehensive switch statement that handles dozens of different node types, recursively calling the provided walker function on all expression subnodes. The function eliminates the need for duplicate tree-walking code across different routines by providing a centralized, well-tested implementation.
 

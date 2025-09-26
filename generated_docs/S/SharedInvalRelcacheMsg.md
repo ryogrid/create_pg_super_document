@@ -8,7 +8,16 @@ SharedInvalRelcacheMsg is a structure that represents a shared invalidation mess
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	/* note: field layout chosen to pack into 16 bytes */
+	int8		id;				/* type field --- must be first */
+	int8		backend_hi;		/* high bits of backend procno, if temprel */
+	uint16		backend_lo;		/* low bits of backend procno, if temprel */
+	RelFileLocator rlocator;	/* spcOid, dbOid, relNumber */
+} SharedInvalSmgrMsg;
+```
 ## Detailed Description
 SharedInvalRelcacheMsg is part of PostgreSQL's shared invalidation system, designed to handle invalidation of relation cache entries. The relation cache (relcache) stores metadata about tables, indexes, and other database relations to avoid repeated lookups of system catalogs. This structure supports both targeted invalidation of specific relations and bulk invalidation of the entire relcache.
 

@@ -8,7 +8,10 @@ An accumulator function that builds statistical information from TSVector data, 
 
 ## Definition
 
-
+```c
+static TSVectorStat *
+ts_accum(MemoryContext persistentContext, TSVectorStat *stat, Datum data)
+```
 ## Detailed Description
 The  function is the central accumulator for PostgreSQL's text search statistics system. It processes TSVector data incrementally, building and maintaining statistical information about words across multiple documents. The function was originally designed to work as a custom aggregate function, but PostgreSQL's limitation on aggregates returning sets led to its current implementation as a helper function.
 

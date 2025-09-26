@@ -8,7 +8,11 @@ A static helper function that handles year conversion for strftime formatting, s
 
 ## Definition
 
-
+```c
+static char *
+_yconv(int a, int b, bool convert_top, bool convert_yy,
+	   char *pt, const char *ptlim)
+```
 ## Detailed Description
 The  function implements year conversion logic for PostgreSQL's timezone strftime functionality. It addresses ambiguities in POSIX and C Standard specifications regarding how %C and %y format specifiers should behave with negative years or years exceeding 9999. The function follows the convention that %C concatenated with %y yields the same output as %Y, ensuring at least 4 bytes of output with additional bytes only when necessary.
 

@@ -8,7 +8,12 @@ A GNU-style command line option parser that handles both short options (like -h)
 
 ## Definition
 
-
+```c
+int
+getopt_long(int argc, char *const argv[],
+			const char *optstring,
+			const struct option *longopts, int *longindex)
+```
 ## Detailed Description
  is PostgreSQL's implementation of the GNU getopt_long function, used for parsing command-line arguments with support for both traditional short options and GNU-style long options. This implementation is provided in  as a compatibility layer for systems that don't have the GNU getopt_long function.
 

@@ -8,7 +8,20 @@ MergeAction represents the transformed representation of a WHEN clause in a Post
 
 ## Definition
 
-
+```c
+typedef struct MergeAction
+{
+	NodeTag		type;
+	MergeMatchKind matchKind;	/* MATCHED/NOT MATCHED BY SOURCE/TARGET */
+	CmdType		commandType;	/* INSERT/UPDATE/DELETE/DO NOTHING */
+	/* OVERRIDING clause */
+	OverridingKind override pg_node_attr(query_jumble_ignore);
+	Node	   *qual;			/* transformed WHEN conditions */
+	List	   *targetList;		/* the target list (of TargetEntry) */
+	/* target attribute numbers of an UPDATE */
+	List	   *updateColnos pg_node_attr(query_jumble_ignore);
+} MergeAction;
+```
 ## Detailed Description
 MergeAction is a node type that represents a transformed WHEN clause within a MERGE statement. Each MergeAction corresponds to one possible action that can be taken based on whether rows match between the source and target tables. The structure encapsulates all the information needed to execute a specific merge action, including the match condition, the type of SQL command to execute, and any associated data such as target lists and column specifications.
 

@@ -8,7 +8,10 @@ Computes ndistinct coefficients for all possible combinations of attributes in a
 
 ## Definition
 
-
+```c
+MVNDistinct *
+statext_ndistinct_build(double totalrows, StatsBuildData *data)
+```
 ## Detailed Description
 This function builds a complete MVNDistinct structure containing ndistinct estimates for all possible combinations of 2 or more attributes from the provided attribute set. It uses a combination generator to systematically create all possible attribute combinations and computes the ndistinct estimate for each combination using the same estimator employed in PostgreSQL's ANALYZE command.
 

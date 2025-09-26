@@ -8,7 +8,14 @@ The Edge struct is a core data structure used in PostgreSQL's Genetic Query Opti
 
 ## Definition
 
-
+```c
+typedef struct Edge
+{
+	Gene		edge_list[4];	/* list of edges */
+	int			total_edges;
+	int			unused_edges;
+} Edge;
+```
 ## Detailed Description
 The Edge structure is used in the GEQO edge recombination crossover algorithm to represent graph edges between genes (which typically correspond to relations in query planning). Each Edge maintains a list of up to 4 connected genes and tracks both the total number of edges and the number of unused edges. This structure is fundamental to the ERX genetic algorithm which attempts to preserve good building blocks (edges) from parent solutions when creating offspring solutions in the genetic optimization process.
 

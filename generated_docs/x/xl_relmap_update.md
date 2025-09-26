@@ -8,7 +8,15 @@ A WAL (Write-Ahead Log) record structure that represents updates to PostgreSQL's
 
 ## Definition
 
-
+```c
+typedef struct xl_relmap_update
+{
+	Oid			dbid;			/* database ID, or 0 for shared map */
+	Oid			tsid;			/* database's tablespace, or pg_global */
+	int32		nbytes;			/* size of relmap data */
+	char		data[FLEXIBLE_ARRAY_MEMBER];
+} xl_relmap_update;
+```
 ## Detailed Description
 The  structure is a WAL record type used to log changes to PostgreSQL's relation mapping files. These mapping files are critical system files that maintain the correspondence between logical relation OIDs and their physical file numbers on disk. When PostgreSQL needs to update these mappings (such as during table rewrites, index rebuilds, or system catalog changes), it creates a WAL record of this type to ensure crash recovery can properly reconstruct the mapping state.
 

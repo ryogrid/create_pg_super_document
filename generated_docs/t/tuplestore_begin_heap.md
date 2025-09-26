@@ -8,7 +8,10 @@ Public API function to create a new tuplestore specifically for heap tuples, pro
 
 ## Definition
 
-
+```c
+Tuplestorestate *
+tuplestore_begin_heap(bool randomAccess, bool interXact, int maxKBytes)
+```
 ## Detailed Description
 This function creates a new tuplestore optimized for heap tuples, which are the standard row storage format in PostgreSQL tables. It serves as the primary public interface for creating tuplestores and is widely used throughout the codebase for temporary tuple storage needs.
 

@@ -8,7 +8,55 @@ A shared memory data structure that tracks OID and transaction ID (XID) assignme
 
 ## Definition
 
+```c
+typedef struct TransamVariablesData
+{
+	/*
+	 * These fields are protected by OidGenLock.
+	 */
+	Oid			nextOid;		/* next OID to assign */
+	uint32		oidCount;		/* OIDs available before must do XLOG work */
 
+	/*
+	 * These fields are protected by XidGenLock.
+	 */
+	FullTransactionId nextXid;	/* next XID to assign */
+
+	TransactionId oldestXid;	/* cluster-wide minimum datfrozenxid */
+	TransactionId xidVacLimit;	/* start forcing autovacuums here */
+	TransactionId xidWarnLimit; /* start complaining here */
+	TransactionId xidStopLimit; /* refuse to advance nextXid beyond here */
+	TransactionId xidWrapLimit; /* where the world ends */
+	Oid			oldestXidDB;	/* database with minimum datfrozenxid */
+
+	/*
+	 * These fields are protected by CommitTsLock
+	 */
+	TransactionId oldestCommitTsXid;
+	TransactionId newestCommitTsXid;
+
+	/*
+	 * These fields are protected by ProcArrayLock.
+	 */
+	FullTransactionId latestCompletedXid;	/* newest full XID that has
+											 * committed or aborted */
+
+	/*
+	 * Number of top-level transactions with xids (i.e. which may have
+	 * modified the database) that completed in some form since the start of
+	 * the server. This currently is solely used to check whether
+	 * GetSnapshotData() needs to recompute the contents of the snapshot, or
+	 * not. There are likely other users of this.  Always above 1.
+	 */
+	uint64		xactCompletionCount;
+
+	/*
+	 * These fields are protected by XactTruncationLock
+	 */
+	TransactionId oldestClogXid;	/* oldest it's safe to look up in clog */
+
+} TransamVariablesData;
+```
 ## Detailed Description
 TransamVariablesData is a central shared memory structure that maintains critical state information for PostgreSQL's transaction and object ID management systems. The structure exists for largely historical reasons as a single struct containing fields protected by different LWLocks, rather than being split into separate structures.
 

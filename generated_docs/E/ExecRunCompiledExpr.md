@@ -8,7 +8,13 @@ Executes a JIT-compiled expression for the first time, performing validation and
 
 ## Definition
 
-
+```c
+struct_gep(b,
+									StructFunctionCallInfoData,
+									v_fcinfo,
+									FIELDNO_FUNCTIONCALLINFODATA_ISNULL,
+									"v_fcinfo_isnull");
+```
 ## Detailed Description
 This function serves as a one-time initialization wrapper for JIT-compiled expressions. It is called only on the first execution of a compiled expression to perform several critical setup tasks:
 

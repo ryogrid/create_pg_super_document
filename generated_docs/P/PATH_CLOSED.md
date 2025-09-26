@@ -8,7 +8,9 @@ PATH_CLOSED is an enumeration constant that represents a closed geometric path i
 
 ## Definition
 
-
+```c
+struct(Point *result, float8 x, float8 y);
+```
 ## Detailed Description
 PATH_CLOSED is one of three possible values in the  enumeration, used to specify the delimiter type when encoding geometric paths for output. It indicates that a geometric path is closed, meaning the path forms a loop where the last point connects back to the first point. When a path is marked as closed, it will be rendered with parentheses '()' as delimiters in its string representation.
 

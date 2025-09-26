@@ -8,7 +8,10 @@ Recursively frees a QTNode tree structure and its associated memory, handling bo
 
 ## Definition
 
-
+```c
+void
+QTNFree(QTNode *in)
+```
 ## Detailed Description
 QTNFree is a recursive function that properly deallocates a QTNode tree and all its associated resources. The function performs a post-order traversal, freeing child nodes before parent nodes to avoid accessing freed memory.
 

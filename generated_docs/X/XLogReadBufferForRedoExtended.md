@@ -8,7 +8,13 @@ Extended version of XLogReadBufferForRedo that provides additional control over 
 
 ## Definition
 
-
+```c
+XLogRedoAction
+XLogReadBufferForRedoExtended(XLogReaderState *record,
+							  uint8 block_id,
+							  ReadBufferMode mode, bool get_cleanup_lock,
+							  Buffer *buf)
+```
 ## Detailed Description
 This is the comprehensive implementation underlying both XLogReadBufferForRedo and XLogInitBufferForRedo. It handles all aspects of reading buffers during WAL replay with fine-grained control over behavior.
 

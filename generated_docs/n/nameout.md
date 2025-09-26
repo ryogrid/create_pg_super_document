@@ -8,7 +8,10 @@ The  function converts PostgreSQL's internal Name data type representation back 
 
 ## Definition
 
-
+```c
+Datum
+nameout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the output function for PostgreSQL's Name data type, serving as the counterpart to . It takes a Name value as input and converts it to a null-terminated C string that can be displayed or transmitted to clients.
 

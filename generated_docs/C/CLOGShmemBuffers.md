@@ -8,7 +8,10 @@ Calculates the number of shared memory buffers to allocate for the Commit Log (C
 
 ## Definition
 
-
+```c
+static int
+CLOGShmemBuffers(void)
+```
 ## Detailed Description
 CLOGShmemBuffers determines how many buffer pages should be allocated in shared memory for the CLOG (Commit Log) SLRU cache. The function implements a dual-mode approach: automatic tuning based on the size of shared_buffers, or manual configuration via the transaction_buffers GUC parameter.
 

@@ -8,7 +8,10 @@ Initializes the merge phase by filling the merge heap with the first tuple from 
 
 ## Definition
 
-
+```c
+static void
+beginmerge(Tuplesortstate *state)
+```
 ## Detailed Description
 The beginmerge function prepares for a merge pass by reading the first tuple from each active input tape and inserting them into a heap-based priority queue. This function is called at the start of merge operations to establish the initial state where the merge heap contains one tuple from each input run that will be merged. The function determines the number of active tapes based on the minimum of available input tapes and input runs, then iterates through each active tape to read and heap-insert the first available tuple.
 

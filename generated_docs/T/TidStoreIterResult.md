@@ -8,7 +8,15 @@ TidStoreIterResult is a result structure used by the TidStore iterator to return
 
 ## Definition
 
-
+```c
+typedef struct TidStoreIterResult
+{
+	BlockNumber blkno;
+	int			max_offset;
+	int			num_offsets;
+	OffsetNumber *offsets;
+} TidStoreIterResult;
+```
 ## Detailed Description
 TidStoreIterResult serves as the output container for the TidStoreIterateNext() function, which iterates over a TidStore and returns TIDs organized by block. This structure efficiently packages all tuple identifiers belonging to a single database block, allowing callers to process TIDs in a block-oriented manner. The structure is designed to support efficient iteration over large collections of tuple identifiers while maintaining the natural clustering of TIDs by their block numbers.
 

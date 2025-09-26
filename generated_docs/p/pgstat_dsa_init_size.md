@@ -8,7 +8,10 @@ Static function that determines the size of shared memory allocation for the dyn
 
 ## Definition
 
-
+```c
+static Size
+pgstat_dsa_init_size(void)
+```
 ## Detailed Description
 This function calculates the initial size allocation for the dynamic shared memory area (DSA) used by PostgreSQL's statistics shared hash table. The allocation is done as part of the main shared memory rather than dynamic shared memory, allowing it to be initialized in the postmaster process. The function returns a fixed size of 256KB, which provides enough space for the dshash header and initial bucket arrays without requiring immediate dynamic shared memory segments.
 

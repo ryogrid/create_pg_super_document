@@ -8,7 +8,13 @@ A structure used in PostgreSQL's WAL to store shared invalidation messages that 
 
 ## Definition
 
-
+```c
+typedef struct xl_xact_invals
+{
+	int			nmsgs;			/* number of shared inval msgs */
+	SharedInvalidationMessage msgs[FLEXIBLE_ARRAY_MEMBER];
+} xl_xact_invals;
+```
 ## Detailed Description
 The xl_xact_invals structure is a critical component of PostgreSQL's cache invalidation system, used in Write-Ahead Logging to record shared invalidation messages that must be processed when a transaction commits. This structure ensures that all backend processes maintain consistent cache states by logging invalidation messages that inform them about changes to cached data such as system catalogs, relation caches, and other shared structures. The flexible array design allows efficient storage of variable numbers of invalidation messages within a single WAL record.
 

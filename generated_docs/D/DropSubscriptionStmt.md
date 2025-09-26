@@ -8,7 +8,15 @@ DropSubscriptionStmt represents a parsed DROP SUBSCRIPTION statement in PostgreS
 
 ## Definition
 
-
+```c
+typedef struct DropSubscriptionStmt
+{
+	NodeTag		type;
+	char	   *subname;		/* Name of the subscription */
+	bool		missing_ok;		/* Skip error if missing? */
+	DropBehavior behavior;		/* RESTRICT or CASCADE behavior */
+} DropSubscriptionStmt;
+```
 ## Detailed Description
 The DropSubscriptionStmt structure is used to represent a DROP SUBSCRIPTION SQL statement after it has been parsed. It contains all the information needed to execute the subscription removal operation, including the subscription name, error handling preferences, and drop behavior options.
 

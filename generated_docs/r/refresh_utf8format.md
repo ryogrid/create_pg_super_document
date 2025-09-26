@@ -8,7 +8,10 @@ Configures the global UTF-8 unicode table formatting structure based on provided
 
 ## Definition
 
-
+```c
+void
+refresh_utf8format(const printTableOpt *opt)
+```
 ## Detailed Description
 This function refreshes the global  printTextFormat structure by configuring Unicode-based table formatting options. It sets up various rule types (TOP, MIDDLE, BOTTOM, DATA) with appropriate Unicode characters for borders, headers, and columns based on the provided line style options. The function maps Unicode style configurations to the internal print format structure, enabling consistent Unicode table rendering across PostgreSQL's frontend utilities.
 

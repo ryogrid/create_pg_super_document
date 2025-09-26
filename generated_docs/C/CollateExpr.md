@@ -8,7 +8,15 @@ CollateExpr represents a COLLATE clause in SQL expressions, specifying the colla
 
 ## Definition
 
-
+```c
+typedef struct CollateExpr
+{
+	Expr		xpr;
+	Expr	   *arg;			/* input expression */
+	Oid			collOid;		/* collation's OID */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} CollateExpr;
+```
 ## Detailed Description
 CollateExpr is a parse-time representation of SQL COLLATE clauses (e.g., ). It wraps an expression to specify that a particular collation should be applied when the expression is used in contexts requiring string comparison, sorting, or other collation-dependent operations.
 

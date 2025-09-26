@@ -8,7 +8,13 @@ The  structure represents the context/state for SHA-1 hash computation in Postgr
 
 ## Definition
 
-
+```c
+union
+	{
+		uint8		b8[64];
+		uint32		b32[16];
+	}			m;
+```
 ## Detailed Description
 The  structure serves as the central state container for PostgreSQL's fallback SHA-1 implementation, based on FIPS pub 180-1. This structure is designed to efficiently store all the intermediate data required during SHA-1 computation, utilizing unions to provide both byte-level and word-level access to the same memory regions for optimal performance across different operations.
 

@@ -8,7 +8,10 @@ Sends a single byte to the self-pipe to wake up processes waiting on a latch, pr
 
 ## Definition
 
-
+```c
+static void
+sendSelfPipeByte(void)
+```
 ## Detailed Description
 The  function is a critical component of PostgreSQL's latch implementation that enables signal-safe wakeup mechanisms. It writes a single dummy byte (value 0) to the write end of a self-pipe, which can then be detected by processes waiting on the read end through polling mechanisms like  or .
 

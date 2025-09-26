@@ -8,7 +8,22 @@ TableFuncRoutine is a structure containing function pointers that define the int
 
 ## Definition
 
-
+```c
+typedef struct TableFuncRoutine
+{
+	void		(*InitOpaque) (struct TableFuncScanState *state, int natts);
+	void		(*SetDocument) (struct TableFuncScanState *state, Datum value);
+	void		(*SetNamespace) (struct TableFuncScanState *state, const char *name,
+								 const char *uri);
+	void		(*SetRowFilter) (struct TableFuncScanState *state, const char *path);
+	void		(*SetColumnFilter) (struct TableFuncScanState *state,
+									const char *path, int colnum);
+	bool		(*FetchRow) (struct TableFuncScanState *state);
+	Datum		(*GetValue) (struct TableFuncScanState *state, int colnum,
+							 Oid typid, int32 typmod, bool *isnull);
+	void		(*DestroyOpaque) (struct TableFuncScanState *state);
+} TableFuncRoutine;
+```
 ## Detailed Description
 TableFuncRoutine serves as a plugin-style interface for implementing table-producing functions in PostgreSQL. It abstracts the common operations needed to process structured documents (like XML or JSON) and extract tabular data from them. The structure provides a complete lifecycle management system for table builders, from initialization through data extraction to cleanup.
 

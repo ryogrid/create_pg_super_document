@@ -8,7 +8,12 @@ Inserts tuples to a given page during GiST index buffering-based construction, h
 
 ## Definition
 
-
+```c
+static BlockNumber
+gistbufferinginserttuples(GISTBuildState *buildstate, Buffer buffer, int level,
+						  IndexTuple *itup, int ntup, OffsetNumber oldoffnum,
+						  BlockNumber parentblk, OffsetNumber downlinkoffnum)
+```
 ## Detailed Description
 This function is analogous to gistinserttuples() in the regular insertion code but operates during the buffering-based index construction phase. It inserts tuples to a specified page and handles the complex logic of page splits, maintaining the parent-child relationship mappings that are crucial for the buffering algorithm.
 

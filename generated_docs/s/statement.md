@@ -8,7 +8,34 @@ A comprehensive structure that represents a single SQL statement in ECPG, contai
 
 ## Definition
 
-
+```c
+struct statement
+{
+	int			lineno;
+	char	   *command;
+	char	   *name;
+	struct connection *connection;
+	enum COMPAT_MODE compat;
+	bool		force_indicator;
+	enum ECPG_statement_type statement_type;
+	bool		questionmarks;
+	struct variable *inlist;
+	struct variable *outlist;
+#ifdef HAVE_USELOCALE
+	locale_t	oldlocale;
+#else
+	char	   *oldlocale;
+#ifdef HAVE__CONFIGTHREADLOCALE
+	int			oldthreadlocale;
+#endif
+#endif
+	int			nparams;
+	char	  **paramvalues;
+	int		   *paramlengths;
+	int		   *paramformats;
+	PGresult   *results;
+};
+```
 ## Detailed Description
 The statement structure is the core data structure in ECPG for representing and managing SQL statements. It encapsulates all aspects of statement execution including the SQL command text, parameter binding, result handling, and execution context. This structure supports both regular SQL statements and prepared statements, with comprehensive parameter management capabilities including support for different parameter formats and lengths.
 

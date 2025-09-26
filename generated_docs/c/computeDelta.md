@@ -8,7 +8,10 @@ Computes the XLOG delta record needed to transform a current page into a target 
 
 ## Definition
 
-
+```c
+static void
+computeDelta(PageData *pageData, Page curpage, Page targetpage)
+```
 ## Detailed Description
 This function serves as the high-level coordinator for generating WAL delta records that capture the differences between two PostgreSQL pages. It leverages the page structure's organization, specifically the lower and upper regions defined by the PageHeader, to efficiently compute deltas for only the meaningful portions of the page.
 

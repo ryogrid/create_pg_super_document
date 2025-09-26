@@ -8,7 +8,10 @@ PathNameOpenFilePerm opens a file in an arbitrary directory with explicit file p
 
 ## Definition
 
-
+```c
+File
+PathNameOpenFilePerm(const char *fileName, int fileFlags, mode_t fileMode)
+```
 ## Detailed Description
 PathNameOpenFilePerm is the primary function for opening files within PostgreSQL's virtual file descriptor management system. It creates a VFD entry for the specified file, manages kernel file descriptor limits through the LRU cache system, and ensures proper cleanup on failure. The function automatically adds O_CLOEXEC to prevent file descriptor inheritance by child processes, and handles memory management for the filename copy. If the pathname is relative, it's interpreted relative to the process working directory (typically $PGDATA). The function integrates with PostgreSQL's resource management by tracking the VFD in the cache and managing kernel FD limits.
 

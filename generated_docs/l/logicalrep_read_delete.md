@@ -8,7 +8,10 @@ Reads a DELETE message from a logical replication stream and populates a tuple d
 
 ## Definition
 
-
+```c
+LogicalRepRelId
+logicalrep_read_delete(StringInfo in, LogicalRepTupleData *oldtup)
+```
 ## Detailed Description
 This function parses a DELETE operation from the logical replication protocol stream. It extracts the relation ID and validates that the action type is either 'K' (key-only old tuple) or 'O' (full old tuple), then reads the tuple data using the shared tuple reading functionality. The action type depends on the table's replica identity setting - tables with REPLICA_IDENTITY_FULL send the complete old tuple ('O'), while others send only key columns ('K').
 

@@ -8,7 +8,12 @@ Computes the properly qualified and quoted name to display for a function specif
 
 ## Definition
 
-
+```c
+static char *
+generate_function_name(Oid funcid, int nargs, List *argnames, Oid *argtypes,
+					   bool has_variadic, bool *use_variadic_p,
+					   bool inGroupBy)
+```
 ## Detailed Description
 This function generates an appropriate display name for a function call, implementing sophisticated logic to determine whether schema qualification is necessary. It considers function overloading resolution rules by checking if the unqualified function name with the given arguments would resolve to the same function. The function also handles variadic functions properly, determining whether the VARIADIC keyword should be displayed, and includes special handling for functions like "cube" and "rollup" that require qualification in GROUP BY contexts due to parser limitations.
 

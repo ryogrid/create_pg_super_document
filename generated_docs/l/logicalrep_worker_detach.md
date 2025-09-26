@@ -8,7 +8,10 @@ Detaches the current logical replication worker process from its slot, stopping 
 
 ## Definition
 
-
+```c
+static void
+logicalrep_worker_detach(void)
+```
 ## Detailed Description
 This static function handles the orderly shutdown and detachment of a logical replication worker process. It performs a comprehensive cleanup that includes stopping parallel apply workers (if the current worker is a leader) and cleaning up the worker's shared memory state.
 

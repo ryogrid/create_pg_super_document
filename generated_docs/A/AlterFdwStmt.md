@@ -8,7 +8,15 @@ AlterFdwStmt represents the parsed representation of an ALTER FOREIGN DATA WRAPP
 
 ## Definition
 
-
+```c
+typedef struct AlterFdwStmt
+{
+	NodeTag		type;
+	char	   *fdwname;		/* foreign-data wrapper name */
+	List	   *func_options;	/* HANDLER/VALIDATOR options */
+	List	   *options;		/* generic options to FDW */
+} AlterFdwStmt;
+```
 ## Detailed Description
 AlterFdwStmt is a parse tree node that encapsulates the information needed to alter an existing foreign data wrapper. This structure stores the parsed components of the ALTER FOREIGN DATA WRAPPER command, allowing modification of handler/validator functions and configuration options of an already created FDW.
 

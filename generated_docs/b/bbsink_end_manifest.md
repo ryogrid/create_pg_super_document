@@ -8,7 +8,19 @@ Signals the completion of backup manifest transmission, allowing sink implementa
 
 ## Definition
 
+```c
+struction. */
+static inline void
+bbsink_cleanup(bbsink *sink)
+{
+	Assert(sink != NULL);
 
+	sink->bbs_ops->cleanup(sink);
+}
+
+/* Forwarding callbacks. Use these to pass operations through to next sink. */
+extern void bbsink_forward_begin_backup(bbsink *sink);
+```
 ## Detailed Description
 This inline function serves as the interface for concluding the backup manifest transmission phase. It delegates to sink-specific implementations to perform any necessary finalization operations for the backup manifest. This may include flushing buffers, finalizing compression, closing files, or performing other cleanup tasks specific to the sink type.
 

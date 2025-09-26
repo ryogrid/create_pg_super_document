@@ -8,7 +8,10 @@ GetPageWithFreeSpace is a core Free Space Map (FSM) API function that searches f
 
 ## Definition
 
-
+```c
+BlockNumber
+GetPageWithFreeSpace(Relation rel, Size spaceNeeded)
+```
 ## Detailed Description
 This function serves as the primary entry point for finding pages with sufficient free space in PostgreSQL's Free Space Map system. It converts the requested space amount into a space category using the FSM's categorization scheme, then searches the FSM for a suitable page. The function is designed to be fault-tolerant - callers must be prepared for the possibility that the returned page may have insufficient space by the time they acquire a lock on it, due to concurrent modifications.
 

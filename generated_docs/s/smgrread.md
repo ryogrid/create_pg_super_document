@@ -8,7 +8,11 @@ A lightweight inline wrapper function that reads a single block from a storage m
 
 ## Definition
 
-
+```c
+static inline void
+smgrread(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+		 void *buffer)
+```
 ## Detailed Description
  is a convenience function that provides a simplified interface for reading a single block from a storage manager relation. It internally calls  (the vectorized read function) with a single buffer, effectively converting the single-block read operation into a batch operation of size 1. This design maintains consistency with the storage manager's vectorized I/O architecture while providing an easy-to-use interface for single block reads.
 

@@ -8,7 +8,10 @@ Increments the appropriate tuple counter (left or right input) based on a flag v
 
 ## Definition
 
-
+```c
+static inline void
+advance_counts(SetOpStatePerGroup pergroup, int flag)
+```
 ## Detailed Description
 This function updates the duplicate counting state for a tuple group in SetOp operations by incrementing either the left-input counter (numLeft) or right-input counter (numRight) based on the flag parameter. It serves as a core counting mechanism for PostgreSQL's set operations (UNION, INTERSECT, EXCEPT) that need to track how many duplicate tuples come from each input relation.
 

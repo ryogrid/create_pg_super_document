@@ -8,7 +8,16 @@ PreparedStatement is a data structure representing a prepared SQL statement in P
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	/* dynahash.c requires key to be first field */
+	char		stmt_name[NAMEDATALEN];
+	CachedPlanSource *plansource;	/* the actual cached plan */
+	bool		from_sql;		/* prepared via SQL, not FE/BE protocol? */
+	TimestampTz prepare_time;	/* the time when the stmt was prepared */
+} PreparedStatement;
+```
 ## Detailed Description
 PreparedStatement represents a named, prepared SQL statement in PostgreSQL's execution system. It acts as a lightweight wrapper around the actual cached plan infrastructure, providing name-based access to prepared statements while maintaining metadata about their origin and creation time.
 

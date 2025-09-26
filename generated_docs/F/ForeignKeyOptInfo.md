@@ -8,7 +8,50 @@ ForeignKeyOptInfo stores per-foreign-key information for planning and optimizati
 
 ## Definition
 
+```c
+typedef struct ForeignKeyOptInfo
+{
+	pg_node_attr(custom_read_write, no_copy_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+
+	/*
+	 * Basic data about the foreign key (fetched from catalogs):
+	 */
+
+	/* RT index of the referencing table */
+	Index		con_relid;
+	/* RT index of the referenced table */
+	Index		ref_relid;
+	/* number of columns in the foreign key */
+	int			nkeys;
+	/* cols in referencing table */
+	AttrNumber	conkey[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys));
+	/* cols in referenced table */
+	AttrNumber	confkey[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys));
+	/* PK = FK operator OIDs */
+	Oid			conpfeqop[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys));
+
+	/*
+	 * Derived info about whether FK's equality conditions match the query:
+	 */
+
+	/* # of FK cols matched by ECs */
+	int			nmatched_ec;
+	/* # of these ECs that are ec_has_const */
+	int			nconst_ec;
+	/* # of FK cols matched by non-EC rinfos */
+	int			nmatched_rcols;
+	/* total # of non-EC rinfos matched to FK */
+	int			nmatched_ri;
+	/* Pointer to eclass matching each column's condition, if there is one */
+	struct EquivalenceClass *eclass[INDEX_MAX_KEYS];
+	/* Pointer to eclass member for the referencing Var, if there is one */
+	struct EquivalenceMember *fk_eclass_member[INDEX_MAX_KEYS];
+	/* List of non-EC RestrictInfos matching each column's condition */
+	List	   *rinfos[INDEX_MAX_KEYS];
+} ForeignKeyOptInfo;
+```
 ## Detailed Description
 ForeignKeyOptInfo is a data structure used by PostgreSQL's query planner to store information about foreign key constraints that can be leveraged for optimization. It combines static foreign key metadata retrieved from system catalogs with dynamically computed information about how the foreign key's equality conditions align with the current query's WHERE clause conditions.
 

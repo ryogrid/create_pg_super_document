@@ -8,7 +8,10 @@ A cleanup function registered as an exit handler for the logical replication lau
 
 ## Definition
 
-
+```c
+static void
+logicalrep_launcher_onexit(int code, Datum arg)
+```
 ## Detailed Description
 This static function serves as an exit handler specifically for the logical replication launcher process. It is designed to be called automatically when the launcher process terminates, regardless of whether the termination is normal or abnormal.
 

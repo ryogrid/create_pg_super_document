@@ -8,7 +8,11 @@ index_concurrently_create_copy creates a concurrent copy of an existing index ba
 
 ## Definition
 
-
+```c
+Oid
+index_concurrently_create_copy(Relation heapRelation, Oid oldIndexId,
+							   Oid tablespaceOid, const char *newName)
+```
 ## Detailed Description
 This function creates a new index that is a copy of an existing index, intended for use during concurrent reindex operations. It extracts all necessary metadata from the original index including column definitions, operator classes, collations, expressions, predicates, and options. The new index is created with INDEX_CREATE_SKIP_BUILD and INDEX_CREATE_CONCURRENT flags, meaning the catalog entries are created but the actual index data building is deferred to a later phase.
 

@@ -8,7 +8,10 @@ Initializes a barrier synchronization structure to coordinate multiple backend p
 
 ## Definition
 
-
+```c
+void
+BarrierInit(Barrier *barrier, int participants)
+```
 ## Detailed Description
 BarrierInit sets up a barrier synchronization primitive that allows multiple PostgreSQL backend processes to synchronize at specific points in their execution. The barrier can operate in two modes:
 

@@ -8,7 +8,25 @@ A utility function that determines if a given character is a valid delimiter for
 
 ## Definition
 
+```c
+enum ARRAY_TYPE isarray, char c)
+{
+	if (isarray == ECPG_ARRAY_ARRAY && c == ',')
+		return true;
 
+	if (isarray == ECPG_ARRAY_VECTOR && c == ' ')
+		return true;
+
+	return false;
+}
+
+/* returns true if character c marks the boundary for the given array type */
+static bool
+array_boundary(enum ARRAY_TYPE isarray, char c)
+{
+	if (isarray == ECPG_ARRAY_ARRAY && c == '}')
+		return true;
+```
 ## Detailed Description
 The  function checks whether a character  serves as a delimiter for arrays based on the specified array type. This function is part of PostgreSQL's ECPG library and is used for parsing array data in embedded SQL applications.
 

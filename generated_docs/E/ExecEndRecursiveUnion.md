@@ -8,7 +8,10 @@ Performs cleanup and resource deallocation for a RecursiveUnion plan node, relea
 
 ## Definition
 
-
+```c
+void
+ExecEndRecursiveUnion(RecursiveUnionState *node)
+```
 ## Detailed Description
 The `ExecEndRecursiveUnion` function is responsible for the orderly cleanup of all resources allocated for recursive UNION query execution. This function is called when the RecursiveUnion node is being shut down, either at the end of query execution or when the node is being destroyed.
 

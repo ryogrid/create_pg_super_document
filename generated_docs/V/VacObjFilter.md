@@ -8,7 +8,46 @@ VacObjFilter is an enumeration that defines bitwise flags used by the vacuumdb u
 
 ## Definition
 
+```c
+OBJFILTER_SCHEMA_EXCLUDE = (1 << 4),	/* -N | --exclude-schema */
+} VacObjFilter;
 
+VacObjFilter objfilter = OBJFILTER_NONE;
+
+static void vacuum_one_database(ConnParams *cparams,
+								vacuumingOptions *vacopts,
+								int stage,
+								SimpleStringList *objects,
+								int concurrentCons,
+								const char *progname, bool echo, bool quiet);
+
+static void vacuum_all_databases(ConnParams *cparams,
+								 vacuumingOptions *vacopts,
+								 bool analyze_in_stages,
+								 SimpleStringList *objects,
+								 int concurrentCons,
+								 const char *progname, bool echo, bool quiet);
+
+static void prepare_vacuum_command(PQExpBuffer sql, int serverVersion,
+								   vacuumingOptions *vacopts, const char *table);
+
+static void run_vacuum_command(PGconn *conn, const char *sql, bool echo,
+							   const char *table);
+
+static void help(const char *progname);
+
+void		check_objfilter(void);
+
+static char *escape_quotes(const char *src);
+
+/* For analyze-in-stages mode */
+#define ANALYZE_NO_STAGE	-1
+#define ANALYZE_NUM_STAGES	3
+
+
+int
+main(int argc, char *argv[])
+```
 ## Detailed Description
 VacObjFilter is a bitwise enumeration that enables the vacuumdb command-line utility to track which object filtering options the user has specified. The enum values are designed as bit flags that can be combined using bitwise OR operations to represent multiple filter types simultaneously. This allows the program to detect incompatible option combinations and validate command-line arguments before proceeding with vacuum operations.
 

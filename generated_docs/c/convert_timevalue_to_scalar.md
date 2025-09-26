@@ -8,7 +8,10 @@ Converts various PostgreSQL timevalue data types to a scalar double value for us
 
 ## Definition
 
-
+```c
+static double
+convert_timevalue_to_scalar(Datum value, Oid typid, bool *failure)
+```
 ## Detailed Description
 This function is a specialized converter that transforms PostgreSQL's various time-related data types into normalized double precision scalar values. It's primarily used by the query planner's selectivity estimation functions to perform arithmetic operations on time values for histogram analysis and statistical calculations. The function handles the complexity of different time representations by converting them to a common scalar format, enabling meaningful comparisons and mathematical operations across different time types.
 

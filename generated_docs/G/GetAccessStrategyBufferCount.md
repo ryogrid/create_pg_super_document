@@ -8,7 +8,10 @@ Returns the number of buffers in a buffer access strategy ring, providing access
 
 ## Definition
 
-
+```c
+int
+GetAccessStrategyBufferCount(BufferAccessStrategy strategy)
+```
 ## Detailed Description
 GetAccessStrategyBufferCount is an accessor function that returns the number of buffers configured in a buffer access strategy ring. This function provides a safe way to query the size of the buffer ring without directly accessing the strategy structure members. The function handles NULL input gracefully by returning 0, which matches the behavior of GetAccessStrategyWithSize() returning NULL when given a size of 0.
 

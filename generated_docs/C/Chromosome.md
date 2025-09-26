@@ -8,7 +8,13 @@ A structure representing a chromosome in PostgreSQL's Genetic Query Optimizer (G
 
 ## Definition
 
-
+```c
+typedef struct Chromosome
+{
+	Gene	   *string;
+	Cost		worth;
+} Chromosome;
+```
 ## Detailed Description
 The Chromosome structure is a core component of PostgreSQL's Genetic Query Optimizer (GEQO), which uses genetic algorithms to solve complex join ordering problems. Each chromosome represents a potential solution (a specific join order) in the genetic algorithm's population. The chromosome contains a sequence of genes (representing relations/tables) and a cost value that indicates the fitness of this particular solution.
 

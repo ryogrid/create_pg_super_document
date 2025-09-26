@@ -8,7 +8,10 @@ index_concurrently_swap swaps the identity, dependencies, and constraints betwee
 
 ## Definition
 
-
+```c
+void
+index_concurrently_swap(Oid newIndexId, Oid oldIndexId, const char *oldName)
+```
 ## Detailed Description
 This function performs the final phase of concurrent index operations by swapping all metadata between the new and old indexes. It swaps names in pg_class, transfers all constraint flags and validity states in pg_index, moves all associated constraints and triggers to point to the new index, transfers comments, handles partition inheritance relationships, swaps all dependencies, and copies statistics.
 

@@ -8,7 +8,11 @@ A static function that validates string GUC parameters by calling their associat
 
 ## Definition
 
-
+```c
+static bool
+call_string_check_hook(struct config_string *conf, char **newval, void **extra,
+					   GucSource source, int elevel)
+```
 ## Detailed Description
 This function validates string-type GUC parameters and includes sophisticated error handling not found in the integer and real variants. The key difference is the use of PostgreSQL's exception handling mechanism (PG_TRY/PG_CATCH) to ensure proper cleanup of dynamically allocated string memory.
 

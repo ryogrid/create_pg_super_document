@@ -8,7 +8,13 @@ A lookup table structure used by initdb to map language names derived from LC_CT
 
 ## Definition
 
-
+```c
+struct tsearch_config_match
+{
+	const char *tsconfname;
+	const char *langname;
+};
+```
 ## Detailed Description
 The  structure serves as a mapping table entry that associates language identifiers with PostgreSQL text search configuration names. During database initialization, initdb uses this structure to automatically select an appropriate default text search configuration based on the system's LC_CTYPE locale setting.
 

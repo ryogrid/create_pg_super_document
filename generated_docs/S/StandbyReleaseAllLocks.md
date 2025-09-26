@@ -8,7 +8,10 @@ StandbyReleaseAllLocks releases all AccessExclusiveLocks held by any transaction
 
 ## Definition
 
-
+```c
+void
+StandbyReleaseAllLocks(void)
+```
 ## Detailed Description
 This function performs a complete cleanup of all locks stored in the RecoveryLockXidHash during standby recovery operations. It iterates through every entry in the hash table and releases all locks held by each transaction. This is a comprehensive lock release operation that ensures no recovery-related locks remain active.
 

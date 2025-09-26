@@ -8,7 +8,10 @@ Marks a postmaster child process as actively using shared memory, transitioning 
 
 ## Definition
 
-
+```c
+void
+MarkPostmasterChildActive(void)
+```
 ## Detailed Description
 This function is called by child processes to signal that they are about to begin actively using shared memory. It updates the child's status in the PMSignalState structure from PM_CHILD_ASSIGNED to PM_CHILD_ACTIVE. The function operates on the child's own slot (identified by MyPMChildSlot) in the shared memory array that tracks child process states.
 

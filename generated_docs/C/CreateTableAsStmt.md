@@ -8,7 +8,17 @@ CreateTableAsStmt represents the parsed structure of CREATE TABLE AS and SELECT 
 
 ## Definition
 
-
+```c
+typedef struct CreateTableAsStmt
+{
+	NodeTag		type;
+	Node	   *query;			/* the query (see comments above) */
+	IntoClause *into;			/* destination table */
+	ObjectType	objtype;		/* OBJECT_TABLE or OBJECT_MATVIEW */
+	bool		is_select_into; /* it was written as SELECT INTO */
+	bool		if_not_exists;	/* just do nothing if it already exists? */
+} CreateTableAsStmt;
+```
 ## Detailed Description
 CreateTableAsStmt unifies the representation of several related SQL constructs that create tables from query results. It handles CREATE TABLE AS statements natively, transforms SELECT ... INTO statements during parse analysis, and also represents CREATE MATERIALIZED VIEW statements since they require the same underlying data structures. The query field can contain either a SELECT or EXECUTE statement, but not other DML statements. This design provides a common framework for all table-creation-from-query operations.
 

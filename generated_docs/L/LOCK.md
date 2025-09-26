@@ -8,7 +8,23 @@ LOCK represents a lockable object in PostgreSQL's shared memory lock manager. It
 
 ## Definition
 
+```c
+typedef struct LOCK
+{
+	/* hash key */
+	LOCKTAG		tag;			/* unique identifier of lockable object */
 
+	/* data */
+	LOCKMASK	grantMask;		/* bitmask for lock types already granted */
+	LOCKMASK	waitMask;		/* bitmask for lock types awaited */
+	dlist_head	procLocks;		/* list of PROCLOCK objects assoc. with lock */
+	dclist_head waitProcs;		/* list of PGPROC objects waiting on lock */
+	int			requested[MAX_LOCKMODES];	/* counts of requested locks */
+	int			nRequested;		/* total of requested[] array */
+	int			granted[MAX_LOCKMODES]; /* counts of granted locks */
+	int			nGranted;		/* total of granted[] array */
+} LOCK;
+```
 ## Detailed Description
 The LOCK structure is the central data structure for managing locks on specific resources in PostgreSQL. Each lockable object (relation, page, tuple, etc.) that has locks requested or granted gets a LOCK entry in the shared lock hashtable.
 

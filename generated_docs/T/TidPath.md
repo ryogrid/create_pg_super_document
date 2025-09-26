@@ -8,7 +8,13 @@ TidPath represents a scan by TID (tuple identifier), allowing direct access to s
 
 ## Definition
 
-
+```c
+typedef struct TidPath
+{
+	Path		path;
+	List	   *tidquals;		/* qual(s) involving CTID = something */
+} TidPath;
+```
 ## Detailed Description
 TidPath represents a specialized access path that scans tuples by their physical tuple identifiers (TIDs). This is one of the most direct and efficient ways to access specific tuples when their physical locations are known, bypassing any index structures entirely.
 

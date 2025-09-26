@@ -8,7 +8,11 @@ Marks and processes Turkish suffix patterns ending with 'DA' (where A represents
 
 ## Definition
 
+```c
+}
 
+static int r_mark_DA(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Turkish Snowball stemmer and specifically handles the identification and processing of suffixes ending with 'DA'. The function performs vowel harmony checking and validates the presence of either 'a' or 'e' characters (ASCII 97 or 101), then processes suffix patterns using predefined character sequences. It's designed to handle Turkish morphological analysis where 'A' represents vowel harmony variations between front and back vowels.
 

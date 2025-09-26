@@ -8,7 +8,13 @@ HASHELEMENT is the private header structure that prefixes every entry in Postgre
 
 ## Definition
 
-
+```c
+typedef struct HASHELEMENT
+{
+	struct HASHELEMENT *link;	/* link to next entry in same bucket */
+	uint32		hashvalue;		/* hash function result for this entry */
+} HASHELEMENT;
+```
 ## Detailed Description
 HASHELEMENT serves as the internal metadata header for entries in PostgreSQL's dynamic hash table implementation. It is prepended to every hash table entry and is invisible to the caller. The actual user data follows this structure on a MAXALIGN'd boundary, with the hash key expected to be at the start of the caller's data structure.
 

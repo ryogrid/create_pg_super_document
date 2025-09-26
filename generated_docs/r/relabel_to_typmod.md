@@ -8,7 +8,10 @@ Adds a RelabelType node that changes only the typmod of an expression, preservin
 
 ## Definition
 
-
+```c
+Node *
+relabel_to_typmod(Node *expr, int32 typmod)
+```
 ## Detailed Description
 The  function is a convenience wrapper around  that specifically handles the common case of changing only the type modifier (typmod) of an expression while preserving its base type and collation.
 

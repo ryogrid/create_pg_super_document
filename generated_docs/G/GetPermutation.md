@@ -8,7 +8,10 @@ Generates a random permutation of integers from 0 to size-1 using the Fisher-Yat
 
 ## Definition
 
-
+```c
+static int *
+GetPermutation(int size)
+```
 ## Detailed Description
 GetPermutation implements the "inside-out" variant of the Fisher-Yates shuffle algorithm to generate a uniformly random permutation of consecutive integers starting from 0. This function is specifically designed for testing red-black tree operations by providing randomized insertion orders.
 

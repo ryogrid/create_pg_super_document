@@ -8,7 +8,10 @@ OpenTemporaryFile creates a temporary file that automatically disappears when cl
 
 ## Definition
 
-
+```c
+File
+OpenTemporaryFile(bool interXact)
+```
 ## Detailed Description
 OpenTemporaryFile is the primary interface for creating temporary files in PostgreSQL. It handles automatic temporary filename generation, tablespace selection logic, and resource ownership management. The function first attempts to use configured temporary tablespaces, falling back to the database's default tablespace if necessary. For files that outlive the current transaction (interXact=true), it forces placement in the default tablespace to avoid conflicts with tablespace drop operations. The function integrates with PostgreSQL's resource management system by registering non-interXact files with the current resource owner, ensuring automatic cleanup at transaction end. All temporary files are marked for deletion when closed and are subject to temporary file size limits.
 

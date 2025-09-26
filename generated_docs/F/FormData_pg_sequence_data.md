@@ -8,7 +8,14 @@ FormData_pg_sequence_data represents the runtime state of a PostgreSQL sequence 
 
 ## Definition
 
-
+```c
+typedef struct FormData_pg_sequence_data
+{
+	int64		last_value;
+	int64		log_cnt;
+	bool		is_called;
+} FormData_pg_sequence_data;
+```
 ## Detailed Description
 This structure defines the data stored in sequence relations to track the current state of a sequence. Each sequence relation contains exactly one tuple with these three fields. The structure is used both for in-memory representation and on-disk storage of sequence state. It works in conjunction with the pg_sequence catalog to provide complete sequence functionality, where pg_sequence stores the sequence parameters (increment, min/max values, etc.) and FormData_pg_sequence_data stores the current runtime state.
 

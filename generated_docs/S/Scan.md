@@ -8,7 +8,15 @@ Scan is an abstract base type that all relation scan plan types inherit from in 
 
 ## Definition
 
+```c
+typedef struct Scan
+{
+	pg_node_attr(abstract)
 
+	Plan		plan;
+	Index		scanrelid;		/* relid is index into the range table */
+} Scan;
+```
 ## Detailed Description
 The Scan struct serves as the foundational structure for all scan operations in PostgreSQL's query planner and executor. It is marked as abstract, meaning it is never instantiated directly but provides common functionality for all specific scan types like sequential scans, index scans, and bitmap scans. This inheritance-based design allows the executor and planner to handle different scan types uniformly while providing specialized behavior for each scan method.
 

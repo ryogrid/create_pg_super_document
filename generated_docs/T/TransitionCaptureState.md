@@ -8,7 +8,35 @@ TransitionCaptureState manages the capture and storage of old and new tuples int
 
 ## Definition
 
+```c
+typedef struct TransitionCaptureState
+{
+	/*
+	 * Is there at least one trigger specifying each transition relation on
+	 * the relation explicitly named in the DML statement or COPY command?
+	 * Note: in current usage, these flags could be part of the private state,
+	 * but it seems possibly useful to let callers see them.
+	 */
+	bool		tcs_delete_old_table;
+	bool		tcs_update_old_table;
+	bool		tcs_update_new_table;
+	bool		tcs_insert_new_table;
 
+	/*
+	 * For INSERT and COPY, it would be wasteful to convert tuples from child
+	 * format to parent format after they have already been converted in the
+	 * opposite direction during routing.  In that case we bypass conversion
+	 * and allow the inserting code (copyfrom.c and nodeModifyTable.c) to
+	 * provide a slot containing the original tuple directly.
+	 */
+	TupleTableSlot *tcs_original_insert_tuple;
+
+	/*
+	 * Private data including the tuplestore(s) into which to insert tuples.
+	 */
+	struct AfterTriggersTableData *tcs_private;
+} TransitionCaptureState;
+```
 ## Detailed Description
 TransitionCaptureState is a per-caller state structure that coordinates the capture of tuples into transition tables for statement-level AFTER triggers. It determines which types of transition tables (OLD/NEW for different operations) are needed and manages the efficient collection of tuples during DML operations like INSERT, UPDATE, DELETE, and MERGE.
 

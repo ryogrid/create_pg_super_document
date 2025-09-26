@@ -8,7 +8,10 @@ Restores the application locale settings and frees statement structures during c
 
 ## Definition
 
-
+```c
+void
+ecpg_do_epilogue(struct statement *stmt)
+```
 ## Detailed Description
 This function performs essential cleanup tasks after ECPG statement execution or when errors occur during statement initialization. It serves as the counterpart to ecpg_do_prologue and ensures proper resource management and locale restoration.
 

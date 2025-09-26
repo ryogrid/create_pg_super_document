@@ -8,7 +8,11 @@ Retrieves the value of a specific field from an expanded record, with optimized 
 
 ## Definition
 
-
+```c
+static inline Datum
+expanded_record_get_field(ExpandedRecordHeader *erh, int fnumber,
+						  bool *isnull)
+```
 ## Detailed Description
 This inline function provides efficient access to individual fields within an expanded record. It implements a two-tier optimization strategy:
 

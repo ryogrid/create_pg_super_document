@@ -8,7 +8,10 @@ Creates a new transaction state record for tracking table statistics at a specif
 
 ## Definition
 
-
+```c
+static void
+add_tabstat_xact_level(PgStat_TableStatus *pgstat_info, int nest_level)
+```
 ## Detailed Description
 This function creates and initializes a new  structure to track table statistics changes at a specific transaction nesting level. It manages the hierarchical transaction state stack by:
 

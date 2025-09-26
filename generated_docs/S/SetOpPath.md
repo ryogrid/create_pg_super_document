@@ -8,7 +8,19 @@ SetOpPath represents a path for set operations (INTERSECT, EXCEPT, UNION) in Pos
 
 ## Definition
 
-
+```c
+typedef struct SetOpPath
+{
+	Path		path;
+	Path	   *subpath;		/* path representing input source */
+	SetOpCmd	cmd;			/* what to do, see nodes.h */
+	SetOpStrategy strategy;		/* how to do it, see nodes.h */
+	List	   *distinctList;	/* SortGroupClauses identifying target cols */
+	AttrNumber	flagColIdx;		/* where is the flag column, if any */
+	int			firstFlag;		/* flag value for first input relation */
+	Cardinality numGroups;		/* estimated number of groups in input */
+} SetOpPath;
+```
 ## Detailed Description
 SetOpPath represents the execution path for set operations in PostgreSQL, specifically handling INTERSECT and EXCEPT operations (UNION is typically handled differently). This path type encapsulates the strategy for efficiently performing set operations between multiple input relations, including the method to use (hash-based or sort-based), the columns to compare for distinctness, and metadata for tracking which input relation contributed each row. The path handles both ALL and DISTINCT variants of set operations.
 

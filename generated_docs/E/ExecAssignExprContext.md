@@ -8,7 +8,10 @@ Initializes the ps_ExprContext field of a PlanState by creating and assigning a 
 
 ## Definition
 
-
+```c
+void
+ExecAssignExprContext(EState *estate, PlanState *planstate)
+```
 ## Detailed Description
 ExecAssignExprContext is a utility function that initializes the expression context field (ps_ExprContext) of a PlanState node. This function is essential for nodes that need to evaluate expressions using ExecQual or ExecProject routines, as these functions require an active expression context to operate.
 

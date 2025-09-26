@@ -8,7 +8,10 @@ Performs a UNION operation between two multibitmapsets by adding all members fro
 
 ## Definition
 
-
+```c
+List *
+mbms_add_members(List *a, const List *b)
+```
 ## Detailed Description
 This function implements a UNION operation for multibitmapsets, which are represented as Lists of Bitmapset structures. It adds all members from multibitmapset b to multibitmapset a, modifying a in-place. The function is analogous to bms_add_members but operates on the more complex multibitmapset data structure.
 

@@ -8,7 +8,12 @@ SeqScan represents a sequential scan plan node that performs a full table scan b
 
 ## Definition
 
-
+```c
+typedef struct SeqScan
+{
+	Scan		scan;
+} SeqScan;
+```
 ## Detailed Description
 The SeqScan structure represents a sequential scan operation in PostgreSQL's query execution plan. It inherits from the abstract Scan base type and implements the simplest form of table access by reading through all tuples in a relation from beginning to end. This scan method is used when no suitable indexes are available, when the query requires a large portion of the table's data, or when the optimizer determines that a sequential scan would be more efficient than an index scan.
 

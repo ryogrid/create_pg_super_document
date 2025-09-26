@@ -8,7 +8,10 @@ ClosePipeStream closes a pipe stream that was previously opened by OpenPipeStrea
 
 ## Definition
 
-
+```c
+int
+ClosePipeStream(FILE *file)
+```
 ## Detailed Description
 ClosePipeStream is responsible for properly closing FILE handles that represent pipe streams created through PostgreSQL's managed OpenPipeStream function. The function searches through the internal allocatedDescs array to find the descriptor corresponding to the provided FILE pointer that has the AllocateDescPipe type. If found, it calls FreeDesc to properly clean up the descriptor and close the pipe. If the file was not obtained through OpenPipeStream, it logs a warning and attempts to close the pipe directly using pclose.
 

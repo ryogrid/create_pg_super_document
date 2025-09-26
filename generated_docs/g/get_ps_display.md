@@ -8,7 +8,10 @@ Retrieves the current activity portion of the process status display string, ret
 
 ## Definition
 
-
+```c
+const char *
+get_ps_display(int *displen)
+```
 ## Detailed Description
 The  function provides read access to the currently active portion of the process status display string. Unlike the full  which includes both fixed prefix information (like program name) and variable activity information, this function returns only the activity part that shows what the current process is doing.
 

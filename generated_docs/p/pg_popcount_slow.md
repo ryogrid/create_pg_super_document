@@ -8,7 +8,10 @@ A fallback implementation for counting the number of 1 bits in a buffer of arbit
 
 ## Definition
 
-
+```c
+static uint64
+pg_popcount_slow(const char *buf, int bytes)
+```
 ## Detailed Description
 This function provides a portable buffer-based population count implementation that operates on arbitrary-length byte arrays. It serves as a fallback when hardware-optimized vectorized popcount instructions are unavailable. The function employs several optimization strategies:
 

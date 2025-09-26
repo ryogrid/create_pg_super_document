@@ -8,7 +8,17 @@ JsonPathVariable represents an external variable that can be passed into and ref
 
 ## Definition
 
-
+```c
+typedef struct JsonPathVariable
+{
+	char	   *name;
+	int			namelen;		/* strlen(name) as cache for GetJsonPathVar() */
+	Oid			typid;
+	int32		typmod;
+	Datum		value;
+	bool		isnull;
+} JsonPathVariable;
+```
 ## Detailed Description
 JsonPathVariable is a data structure that encapsulates external variables used in JSON path expressions. These variables allow JSON path queries to reference external values by name, enabling parameterized queries and dynamic behavior. The structure stores not only the variable's name and value but also complete type information necessary for proper PostgreSQL type handling. The namelen field serves as a performance optimization by caching the string length to avoid repeated strlen() calls during variable lookups. This structure is essential for implementing variable substitution in JSON path expressions, allowing for flexible and reusable query patterns.
 

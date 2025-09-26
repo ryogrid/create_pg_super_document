@@ -8,7 +8,33 @@ PgStat_SubXactStatus maintains transactional context for statistics operations, 
 
 ## Definition
 
+```c
+typedef struct PgStat_SubXactStatus
+{
+	int			nest_level;		/* subtransaction nest level */
 
+	struct PgStat_SubXactStatus *prev;	/* higher-level subxact if any */
+
+	/*
+	 * Statistics for transactionally dropped objects need to be
+	 * transactionally dropped as well. Collect the stats dropped in the
+	 * current (sub-)transaction and only execute the stats drop when we know
+	 * if the transaction commits/aborts. To handle replicas and crashes,
+	 * stats drops are included in commit / abort records.
+	 */
+	dclist_head pending_drops;
+
+	/*
+	 * Tuple insertion/deletion counts for an open transaction can't be
+	 * propagated into PgStat_TableStatus counters until we know if it is
+	 * going to commit or abort.  Hence, we keep these counts in per-subxact
+	 * structs that live in TopTransactionContext.  This data structure is
+	 * designed on the assumption that subxacts won't usually modify very many
+	 * tables.
+	 */
+	PgStat_TableXactStatus *first;	/* head of list for this subxact */
+} PgStat_SubXactStatus;
+```
 ## Detailed Description
 PgStat_SubXactStatus forms part of PostgreSQL's transactional statistics system, managing statistics changes that must be handled atomically with transaction commits and rollbacks. This structure maintains a stack-based hierarchy corresponding to the subtransaction nesting levels, ensuring that statistics operations can be properly rolled back if a subtransaction aborts.
 

@@ -8,7 +8,24 @@ Builds or retrieves a RelOptInfo for post-scan/join query processing operations,
 
 ## Definition
 
+```c
+structure is just a List for each
+	 * relation kind.  If we ever get so many of one kind that this stops
+	 * working well, we can improve it.  No code outside this function should
+	 * assume anything about how to find a particular upperrel.
+	 */
 
+	/* If we already made this upperrel for the query, return it */
+	foreach(lc, root->upper_rels[kind])
+	{
+		upperrel = (RelOptInfo *) lfirst(lc);
+
+		if (bms_equal(upperrel->relids, relids))
+			return upperrel;
+	}
+
+	upperrel = makeNode(RelOptInfo);
+```
 ## Detailed Description
 The  function manages RelOptInfo structures for upper-level query processing operations that occur after basic scanning and joining. These "upper" relations represent processing steps like grouping, windowing, ordering, and set operations.
 

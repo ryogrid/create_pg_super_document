@@ -8,7 +8,15 @@ CreateFdwStmt represents the parsed representation of a CREATE FOREIGN DATA WRAP
 
 ## Definition
 
-
+```c
+typedef struct CreateFdwStmt
+{
+	NodeTag		type;
+	char	   *fdwname;		/* foreign-data wrapper name */
+	List	   *func_options;	/* HANDLER/VALIDATOR options */
+	List	   *options;		/* generic options to FDW */
+} CreateFdwStmt;
+```
 ## Detailed Description
 CreateFdwStmt is a parse tree node that encapsulates the information needed to create a foreign data wrapper. Foreign data wrappers are PostgreSQL extensions that enable access to external data sources as if they were regular PostgreSQL tables. This structure stores the parsed components of the CREATE FOREIGN DATA WRAPPER command, including the wrapper name, handler/validator function specifications, and generic configuration options.
 

@@ -8,7 +8,10 @@ Verifies the validity of a Shift JIS encoded string by checking each character f
 
 ## Definition
 
-
+```c
+static int
+pg_sjis_verifystr(const unsigned char *s, int len)
+```
 ## Detailed Description
 This function validates a Shift JIS (Shift Japanese Industrial Standards) encoded string by iterating through each character and verifying its encoding validity. The function implements a two-path verification strategy:
 

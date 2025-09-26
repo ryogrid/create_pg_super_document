@@ -8,7 +8,10 @@ Searches for an encoding by its name and returns the corresponding encoding ID, 
 
 ## Definition
 
-
+```c
+int
+pg_char_to_encoding(const char *name)
+```
 ## Detailed Description
 The `pg_char_to_encoding` function performs a binary search through PostgreSQL's internal encoding name table (`pg_encname_tbl`) to find a matching encoding name. The function first normalizes the input name using `clean_encoding_name` to ensure consistent matching regardless of case or special characters in the encoding name.
 

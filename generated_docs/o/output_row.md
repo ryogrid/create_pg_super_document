@@ -8,7 +8,12 @@ Formats and outputs a single data row from a PostgreSQL query result with proper
 
 ## Definition
 
-
+```c
+static void
+output_row(FILE *fout, const PQprintOpt *po, const int nFields, char **fields,
+		   unsigned char *fieldNotNum, int *fieldMax, char *border,
+		   const int row_index)
+```
 ## Detailed Description
 The  function outputs a single row of data from a PostgreSQL query result set with appropriate formatting. It works in conjunction with the  and  functions to provide complete table output formatting. The function handles multiple output formats:
 

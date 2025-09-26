@@ -8,7 +8,10 @@ The  function extracts and validates an integer from a timezone string, ensuring
 
 ## Definition
 
-
+```c
+static const char *
+getnum(const char *strp, int *const nump, const int min, const int max)
+```
 ## Detailed Description
 This static function parses numeric values from timezone strings while performing range validation. It scans consecutive digits starting from the given position, converts them to an integer, and validates that the result falls within the specified minimum and maximum bounds. The function provides early termination if the value exceeds the maximum during parsing to prevent integer overflow. It returns a pointer to the first non-digit character if successful, or NULL if the input is invalid or the number is out of range.
 

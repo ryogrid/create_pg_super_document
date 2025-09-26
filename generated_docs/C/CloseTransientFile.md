@@ -8,7 +8,10 @@ CloseTransientFile closes a file descriptor that was previously opened by OpenTr
 
 ## Definition
 
-
+```c
+int
+CloseTransientFile(int fd)
+```
 ## Detailed Description
 CloseTransientFile is responsible for properly closing raw file descriptors that were allocated through PostgreSQL's file descriptor management system via OpenTransientFile. The function searches through the internal allocatedDescs array to find the descriptor corresponding to the provided file descriptor. If found, it calls FreeDesc to properly clean up the descriptor and close the file. If the file descriptor was not obtained through OpenTransientFile, it logs a warning and attempts to close the file directly using the system close() call.
 

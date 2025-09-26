@@ -8,7 +8,12 @@ Checks boolean properties of GiST (Generalized Search Tree) indexes, particularl
 
 ## Definition
 
-
+```c
+bool
+gistproperty(Oid index_oid, int attno,
+			 IndexAMProperty prop, const char *propname,
+			 bool *res, bool *isnull)
+```
 ## Detailed Description
 This function is a required part of the GiST access method interface that checks specific boolean properties of GiST indexes. While most access methods can rely on the core property code, GiST requires this custom implementation because it supports AMPROP_DISTANCE_ORDERABLE, which the core doesn't handle. The function also handles AMPROP_RETURNABLE to avoid the overhead of opening relations to call gistcanreturn.
 

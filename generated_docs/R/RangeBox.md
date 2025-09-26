@@ -8,7 +8,13 @@ RangeBox is a structure used in PostgreSQL's geometric SP-GiST index implementat
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	RangeBox	range_box_x;
+	RangeBox	range_box_y;
+} RectBox;
+```
 ## Detailed Description
 The RangeBox structure represents a 2D rectangular region by combining two Range instances. In PostgreSQL's geometric SP-GiST indexing system, RangeBox serves as an intermediate representation that bridges the gap between PostgreSQL's BOX type and the internal spatial indexing algorithms.
 

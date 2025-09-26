@@ -8,7 +8,10 @@ A PostgreSQL function that demonstrates and tests the COPY TO callback mechanism
 
 ## Definition
 
-
+```c
+Datum
+test_copy_to_callback(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `test_copy_to_callback` function is a PostgreSQL extension function designed to test the COPY TO callback functionality. It takes a relation OID as input, opens the specified table, and performs a complete COPY TO operation using a custom callback function (`to_cb`). 
 

@@ -8,7 +8,31 @@ CkptTsStatus is a structure used internally by BufferSync to track the checkpoin
 
 ## Definition
 
+```c
+typedef struct CkptTsStatus
+{
+	/* oid of the tablespace */
+	Oid			tsId;
 
+	/*
+	 * Checkpoint progress for this tablespace. To make progress comparable
+	 * between tablespaces the progress is, for each tablespace, measured as a
+	 * number between 0 and the total number of to-be-checkpointed pages. Each
+	 * page checkpointed in this tablespace increments this space's progress
+	 * by progress_slice.
+	 */
+	float8		progress;
+	float8		progress_slice;
+
+	/* number of to-be checkpointed pages in this tablespace */
+	int			num_to_scan;
+	/* already processed pages in this tablespace */
+	int			num_scanned;
+
+	/* current offset in CkptBufferIds for this tablespace */
+	int			index;
+} CkptTsStatus;
+```
 ## Detailed Description
 CkptTsStatus is a crucial data structure in PostgreSQL's checkpoint mechanism that maintains per-tablespace state during buffer synchronization. This structure allows the checkpoint process to track progress across multiple tablespaces in a coordinated manner, ensuring fair distribution of I/O operations and providing accurate progress reporting.
 

@@ -8,7 +8,10 @@ StatusFilePath is an inline function that constructs the complete file system pa
 
 ## Definition
 
-
+```c
+static inline void
+StatusFilePath(char *path, const char *xlog, const char *suffix)
+```
 ## Detailed Description
 This function generates the full file system path for archive status files by combining the WAL directory path, the archive_status subdirectory, the base filename, and a status suffix. Archive status files are used by PostgreSQL's WAL archiving mechanism to track whether WAL files are ready for archiving, currently being archived, or have been successfully archived. The resulting path follows the pattern "pg_wal/archive_status/FILENAME.SUFFIX" where:
 - FILENAME is the WAL segment or timeline history file name

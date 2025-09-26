@@ -8,7 +8,13 @@ JsonPathParseResult is a structure that encapsulates the complete result of pars
 
 ## Definition
 
-
+```c
+typedef struct JsonPathParseResult
+{
+	JsonPathParseItem *expr;
+	bool		lax;
+} JsonPathParseResult;
+```
 ## Detailed Description
 JsonPathParseResult serves as the primary container for the output of the JSON path parsing process. It combines the parsed expression tree (represented as a JsonPathParseItem) with the execution mode flag that determines how strictly the path should be evaluated. The 'lax' flag controls whether the JSON path execution should be permissive (lax mode) or strict when encountering structural mismatches or missing keys in the target JSON document. This structure is typically returned by the parsejsonpath() function and used as input for further JSON path processing and compilation.
 

@@ -8,7 +8,10 @@ Resolves symlinks and converts executable paths to absolute form, ensuring Postg
 
 ## Definition
 
-
+```c
+static int
+normalize_exec_path(char *path)
+```
 ## Detailed Description
 The  function performs path normalization on executable paths by:
 

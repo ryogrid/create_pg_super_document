@@ -8,7 +8,10 @@ Eliminates loops containing only constraint arcs from the NFA to prevent infinit
 
 ## Definition
 
-
+```c
+struct nfa *nfa,
+				   FILE *f)		/* for debug output;
+```
 ## Detailed Description
 This function is a critical optimization step in PostgreSQL's regex engine that identifies and removes constraint loops in the NFA (Non-deterministic Finite Automaton). Constraint loops are sequences of states connected only by constraint arcs that form a cycle, which represent no forward progress in pattern matching and would cause infinite loops in subsequent regex compilation phases like pullback/pushfwd operations.
 

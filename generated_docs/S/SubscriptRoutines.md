@@ -8,7 +8,16 @@ The  struct defines the interface for type-specific subscripting operations in P
 
 ## Definition
 
-
+```c
+typedef struct SubscriptRoutines
+{
+	SubscriptTransform transform;	/* parse analysis function */
+	SubscriptExecSetup exec_setup;	/* expression compilation function */
+	bool		fetch_strict;	/* is fetch SubscriptRef strict? */
+	bool		fetch_leakproof;	/* is fetch SubscriptRef leakproof? */
+	bool		store_leakproof;	/* is assignment SubscriptRef leakproof? */
+} SubscriptRoutines;
+```
 ## Detailed Description
  is the core structure of PostgreSQL's generic type subscripting API, returned by SQL-visible subscript handler functions to define how a particular data type handles subscripting operations. Each data type that supports subscripting (like arrays, jsonb, etc.) provides its own implementation of these routines.
 

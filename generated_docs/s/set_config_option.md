@@ -8,7 +8,13 @@ Primary external interface for setting PostgreSQL configuration parameters with 
 
 ## Definition
 
-
+```c
+int
+set_config_option(const char *name, const char *value,
+				  GucContext context, GucSource source,
+				  GucAction action, bool changeVal, int elevel,
+				  bool is_reload)
+```
 ## Detailed Description
 This function serves as the main entry point for setting configuration parameters in PostgreSQL. It handles privilege checking based on the source of the configuration change and delegates the actual work to set_config_with_handle().
 

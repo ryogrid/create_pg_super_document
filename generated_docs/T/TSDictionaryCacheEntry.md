@@ -8,7 +8,21 @@ TSDictionaryCacheEntry is a cache structure that stores precompiled function inf
 
 ## Definition
 
+```c
+typedef struct TSDictionaryCacheEntry
+{
+	/* dictId is the hash lookup key and MUST BE FIRST */
+	Oid			dictId;
+	bool		isvalid;
 
+	/* most frequent fmgr call */
+	Oid			lexizeOid;
+	FmgrInfo	lexize;
+
+	MemoryContext dictCtx;		/* memory context to store private data */
+	void	   *dictData;
+} TSDictionaryCacheEntry;
+```
 ## Detailed Description
 TSDictionaryCacheEntry extends the TSAnyCacheEntry pattern to cache essential information about text search dictionaries. It stores the precompiled lexize function (the most frequently called dictionary operation) and maintains a dedicated memory context for dictionary-specific private data.
 

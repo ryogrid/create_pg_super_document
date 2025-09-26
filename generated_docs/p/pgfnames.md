@@ -8,7 +8,9 @@ Lists all file and directory names in a specified directory path, returning a dy
 
 ## Definition
 
-
+```c
+struct dirent *file;
+```
 ## Detailed Description
 The  function reads a directory specified by the  parameter and returns an array of strings containing all the names of files and directories in that location, excluding the special entries "." and "..". It dynamically allocates memory for the array and strings, starting with space for 200 entries and doubling the size as needed. The function handles directory access errors gracefully by logging warnings and returning NULL on failure. The returned array is NULL-terminated to facilitate iteration.
 

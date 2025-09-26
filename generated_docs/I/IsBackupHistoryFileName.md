@@ -8,7 +8,19 @@ IsBackupHistoryFileName is a static inline function that determines whether a gi
 
 ## Definition
 
-
+```c
+typedef struct xl_parameter_change
+{
+	int			MaxConnections;
+	int			max_worker_processes;
+	int			max_wal_senders;
+	int			max_prepared_xacts;
+	int			max_locks_per_xact;
+	int			wal_level;
+	bool		wal_log_hints;
+	bool		track_commit_timestamp;
+} xl_parameter_change;
+```
 ## Detailed Description
 This function validates whether a filename follows the expected backup history file naming convention in PostgreSQL's WAL system. It performs three checks: verifies the filename is longer than the standard WAL filename length, ensures the initial portion contains only hexadecimal characters (0-9, A-F), and confirms the file ends with the '.backup' extension. This validation is crucial for identifying legitimate backup history files during cleanup and archival operations.
 

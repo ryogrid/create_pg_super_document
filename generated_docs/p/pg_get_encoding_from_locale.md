@@ -8,7 +8,10 @@ Determines the PostgreSQL encoding identifier for a given LC_CTYPE locale settin
 
 ## Definition
 
-
+```c
+int
+pg_get_encoding_from_locale(const char *ctype, bool write_message)
+```
 ## Detailed Description
 The pg_get_encoding_from_locale function serves as the primary interface for determining the appropriate PostgreSQL character encoding based on locale settings. This function is crucial for PostgreSQL's internationalization support and proper character handling across different operating systems and locale configurations.
 

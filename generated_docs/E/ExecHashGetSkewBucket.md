@@ -8,7 +8,10 @@ Retrieves the index of the skew bucket associated with a given hash value, or re
 
 ## Definition
 
-
+```c
+int
+ExecHashGetSkewBucket(HashJoinTable hashtable, uint32 hashvalue)
+```
 ## Detailed Description
 ExecHashGetSkewBucket performs a lookup in the skew hash table to find the bucket index corresponding to a specific hash value. This function is a key component of PostgreSQL's skew optimization for hash joins, allowing the executor to quickly determine if a hash value corresponds to one of the most common values (MCVs) that have dedicated skew buckets.
 

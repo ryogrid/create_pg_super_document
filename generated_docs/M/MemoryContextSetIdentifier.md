@@ -8,7 +8,10 @@ Sets an optional identifier string for a memory context to help distinguish amon
 
 ## Definition
 
-
+```c
+void
+MemoryContextSetIdentifier(MemoryContext context, const char *id)
+```
 ## Detailed Description
 This function assigns an identifier string to a memory context, which is particularly useful for debugging and monitoring purposes. The identifier appears in memory context statistics dumps, helping developers distinguish between multiple contexts of the same type.
 

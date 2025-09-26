@@ -8,7 +8,10 @@ Stops a logical replication parallel apply worker, handling the special cleanup 
 
 ## Definition
 
-
+```c
+void
+logicalrep_pa_worker_stop(ParallelApplyWorkerInfo *winfo)
+```
 ## Detailed Description
 This function terminates a parallel apply worker, which requires special handling compared to regular subscription workers. The key differences are:
 1. Uses SIGINT instead of SIGTERM for cleaner shutdown of parallel workers

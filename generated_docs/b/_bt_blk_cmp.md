@@ -8,7 +8,10 @@ A static inline comparison function used as a qsort callback for sorting arrays 
 
 ## Definition
 
-
+```c
+static inline int
+_bt_blk_cmp(const void *arg1, const void *arg2)
+```
 ## Detailed Description
  is a specialized comparison function designed specifically for use with qsort() to sort arrays of BlockNumber values. The function is used internally by the B-tree simple deletion mechanism, particularly in , to maintain sorted arrays of table block numbers for efficient binary search operations.
 

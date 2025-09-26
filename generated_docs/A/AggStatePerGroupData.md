@@ -8,7 +8,26 @@ AggStatePerGroupData represents per-aggregate-per-group working state that track
 
 ## Definition
 
+```c
+typedef struct AggStatePerGroupData
+{
+#define FIELDNO_AGGSTATEPERGROUPDATA_TRANSVALUE 0
+	Datum		transValue;		/* current transition value */
+#define FIELDNO_AGGSTATEPERGROUPDATA_TRANSVALUEISNULL 1
+	bool		transValueIsNull;
 
+#define FIELDNO_AGGSTATEPERGROUPDATA_NOTRANSVALUE 2
+	bool		noTransValue;	/* true if transValue not set yet */
+
+	/*
+	 * Note: noTransValue initially has the same value as transValueIsNull,
+	 * and if true both are cleared to false at the same time.  They are not
+	 * the same though: if transfn later returns a NULL, we want to keep that
+	 * NULL and not auto-replace it with a later input value. Only the first
+	 * non-NULL input will be auto-substituted.
+	 */
+}			AggStatePerGroupData;
+```
 ## Detailed Description
 AggStatePerGroupData stores the working state for each group in aggregate processing, containing the current transition value and metadata about its status. This structure is used differently depending on the aggregation mode:
 

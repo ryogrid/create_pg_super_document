@@ -8,7 +8,10 @@ Checks whether the BlockSampler has more blocks to sample, determining if the sa
 
 ## Definition
 
-
+```c
+bool
+BlockSampler_HasMore(BlockSampler bs)
+```
 ## Detailed Description
 BlockSampler_HasMore is a predicate function that determines whether the block sampling process should continue. It implements the continuation condition for Knuth's Algorithm S by checking two criteria: whether there are more blocks to examine in the table (t < N) and whether the desired sample size has not yet been reached (m < n).
 

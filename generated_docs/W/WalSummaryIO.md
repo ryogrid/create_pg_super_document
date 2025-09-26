@@ -8,7 +8,13 @@ WalSummaryIO is a structure used for managing I/O operations on WAL summary file
 
 ## Definition
 
-
+```c
+typedef struct WalSummaryIO
+{
+	File		file;
+	off_t		filepos;
+} WalSummaryIO;
+```
 ## Detailed Description
 WalSummaryIO serves as an I/O context structure for WAL summary file operations. It encapsulates the essential components needed for file I/O: a PostgreSQL File descriptor and the current file position. This structure is used by the WAL summary system to maintain state during read and write operations on summary files, which contain metadata about WAL segments for incremental backup functionality.
 

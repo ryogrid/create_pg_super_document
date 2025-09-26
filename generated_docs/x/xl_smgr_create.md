@@ -8,7 +8,13 @@ A WAL record structure that represents the creation of a storage manager file in
 
 ## Definition
 
-
+```c
+typedef struct xl_smgr_create
+{
+	RelFileLocator rlocator;
+	ForkNumber	forkNum;
+} xl_smgr_create;
+```
 ## Detailed Description
 The `xl_smgr_create` structure is used to record storage manager file creation operations in the WAL. When PostgreSQL creates a new relation file (table, index, etc.), it logs this operation using this record structure to ensure crash recovery can properly recreate the file if needed. This is part of PostgreSQL's durability guarantee - all structural changes to the database must be logged before they are applied.
 

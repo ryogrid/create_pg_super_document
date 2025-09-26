@@ -8,7 +8,10 @@ DecodingContextReady determines whether a logical decoding context has built a c
 
 ## Definition
 
-
+```c
+bool
+DecodingContextReady(LogicalDecodingContext *ctx)
+```
 ## Detailed Description
 This function provides a simple but critical check to determine if a logical decoding context is ready to begin processing WAL records for logical replication. It examines the snapshot builder's current state to verify that a consistent snapshot has been established.
 

@@ -6,9 +6,12 @@ src/backend/storage/lmgr/lwlock.c: 1783 - 1855
 ## Overview
 LWLockRelease releases a previously acquired lightweight lock and wakes up waiting processes as necessary.
 
-## Definition  
+## Definition
 
-
+```c
+void
+LWLockRelease(LWLock *lock)
+```
 ## Detailed Description
 This function releases a lightweight lock that was previously acquired by the current process. It first locates the lock in the process's held_lwlocks array (searching backwards since locks are usually released in LIFO order), then atomically decrements the appropriate lock counter based on the lock mode.
 

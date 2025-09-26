@@ -8,7 +8,20 @@ PgStat_ArchiverStats tracks statistics for PostgreSQL's WAL (Write-Ahead Logging
 
 ## Definition
 
-
+```c
+typedef struct PgStat_ArchiverStats
+{
+	PgStat_Counter archived_count;	/* archival successes */
+	char		last_archived_wal[MAX_XFN_CHARS + 1];	/* last WAL file
+														 * archived */
+	TimestampTz last_archived_timestamp;	/* last archival success time */
+	PgStat_Counter failed_count;	/* failed archival attempts */
+	char		last_failed_wal[MAX_XFN_CHARS + 1]; /* WAL file involved in
+													 * last failure */
+	TimestampTz last_failed_timestamp;	/* last archival failure time */
+	TimestampTz stat_reset_timestamp;
+} PgStat_ArchiverStats;
+```
 ## Detailed Description
 PgStat_ArchiverStats is a statistical tracking structure for PostgreSQL's WAL archiver process. The archiver is responsible for copying completed WAL segment files to a safe, typically remote location as part of PostgreSQL's point-in-time recovery (PITR) and backup strategy. This structure maintains comprehensive statistics including success and failure counts, information about the most recently processed WAL files, and timestamps for monitoring archiver health and performance. The structure supports administrative queries and monitoring tools that need to track archiver activity.
 

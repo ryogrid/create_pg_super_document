@@ -8,7 +8,10 @@ Computes and formats the elapsed time and resource usage difference between a ba
 
 ## Definition
 
-
+```c
+const char *
+pg_rusage_show(const PGRUsage *ru0)
+```
 ## Detailed Description
 The  function calculates the difference between a previously captured resource usage snapshot (via ) and the current resource usage state. It computes elapsed wall-clock time, user CPU time, and system CPU time, then formats these measurements into a localized string suitable for performance reporting.
 

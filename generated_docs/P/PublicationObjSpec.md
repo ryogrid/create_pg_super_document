@@ -8,7 +8,16 @@ A structure that represents a specification for objects that can be included in 
 
 ## Definition
 
-
+```c
+typedef struct PublicationObjSpec
+{
+	NodeTag		type;
+	PublicationObjSpecType pubobjtype;	/* type of this publication object */
+	char	   *name;
+	PublicationTable *pubtable;
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} PublicationObjSpec;
+```
 ## Detailed Description
 PublicationObjSpec is a parse tree node structure used during SQL parsing to represent different types of objects that can be included in a publication. It supports four main types of publication objects through the PublicationObjSpecType enum:
 

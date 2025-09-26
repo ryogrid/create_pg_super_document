@@ -8,7 +8,11 @@ Core function that performs Unicode case conversion (lowercase, uppercase, or ti
 
 ## Definition
 
-
+```c
+static size_t
+convert_case(char *dst, size_t dstsize, const char *src, ssize_t srclen,
+			 CaseKind str_casekind, WordBoundaryNext wbnext, void *wbstate)
+```
 ## Detailed Description
 The  function is the central implementation for all case conversion operations in PostgreSQL's Unicode handling. It supports three types of case conversion: lowercase (), uppercase (), and titlecase (). 
 

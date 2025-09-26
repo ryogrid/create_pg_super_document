@@ -8,7 +8,10 @@ A utility function that replaces percent-letter placeholders in strings with sup
 
 ## Definition
 
-
+```c
+char *
+replace_percent_placeholders(const char *instr, const char *param_name, const char *letters,...)
+```
 ## Detailed Description
  processes an input string and replaces percent-encoded placeholders (like %f, %b) with corresponding values provided as variadic arguments. The function is designed for scenarios where all replacement values are readily available or cheap to compute, and most invocations will use most values.
 

@@ -8,7 +8,10 @@ latch_sigurg_handler is a signal handler function that responds to SIGURG signal
 
 ## Definition
 
-
+```c
+static void
+latch_sigurg_handler(SIGNAL_ARGS)
+```
 ## Detailed Description
 latch_sigurg_handler is a static signal handler function that implements the signal-based latch notification mechanism on Unix systems. When a latch is set via SetLatch(), it sends a SIGURG signal to the target process. This signal handler receives that signal and, if the process is currently waiting, writes a byte to the self-pipe to wake up the waiting process.
 

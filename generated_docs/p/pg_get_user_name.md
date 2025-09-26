@@ -8,7 +8,9 @@ Retrieves the username associated with a given user ID (UID) from the system's u
 
 ## Definition
 
-
+```c
+struct passwd pwdstr;
+```
 ## Detailed Description
 The  function performs a thread-safe lookup of a user's name based on their numeric user ID. It uses the POSIX  function to query the system's user database (typically  or equivalent) and retrieve the corresponding username. The function is designed to provide robust error handling, returning localized error messages when the lookup fails.
 

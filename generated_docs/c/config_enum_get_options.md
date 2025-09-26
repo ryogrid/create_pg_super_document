@@ -8,7 +8,11 @@ Returns a dynamically allocated string containing all available options for an e
 
 ## Definition
 
-
+```c
+char *
+config_enum_get_options(struct config_enum *record, const char *prefix,
+						const char *suffix, const char *separator)
+```
 ## Detailed Description
 This function constructs a formatted string listing all non-hidden options available for a PostgreSQL configuration enum parameter. It iterates through the enum's options array, building a StringInfo buffer that contains each visible option name separated by the specified separator string. The function allows customization through optional prefix and suffix strings.
 

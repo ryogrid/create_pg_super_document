@@ -8,7 +8,10 @@ A simple wrapper function that frees memory previously allocated by ECPG memory 
 
 ## Definition
 
-
+```c
+void
+ecpg_free(void *ptr)
+```
 ## Detailed Description
 The  function is a straightforward wrapper around the standard C library's  function. It serves as the deallocation counterpart to the ECPG memory management functions like , , and . By providing this wrapper, ECPG maintains consistency in its memory management API and allows for potential future enhancements like debugging, tracking, or alternative memory management strategies without requiring changes to calling code.
 

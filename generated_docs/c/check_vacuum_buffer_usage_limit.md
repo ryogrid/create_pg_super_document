@@ -8,7 +8,11 @@ A GUC (Grand Unified Configuration) check function that validates the vacuum_buf
 
 ## Definition
 
-
+```c
+bool
+check_vacuum_buffer_usage_limit(int *newval, void **extra,
+								GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for PostgreSQL's GUC system, specifically for the vacuum_buffer_usage_limit parameter. It ensures that any value assigned to this configuration parameter is either 0 (unlimited) or falls within the predefined acceptable range for vacuum buffer ring sizes. The function is called automatically by the GUC system whenever an attempt is made to set the vacuum_buffer_usage_limit parameter, providing runtime validation to prevent invalid configurations.
 

@@ -8,7 +8,10 @@ Finds the best administrative role that grants a member administrative privilege
 
 ## Definition
 
-
+```c
+Oid
+select_best_admin(Oid member, Oid role)
+```
 ## Detailed Description
 This function identifies which specific role grants administrative privileges to a member over a target role. Unlike `is_admin_of_role`, this function:
 

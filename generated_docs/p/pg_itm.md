@@ -8,7 +8,18 @@ The  struct represents a broken-down interval in PostgreSQL, providing a structu
 
 ## Definition
 
-
+```c
+struct pg_itm
+{
+	int			tm_usec;
+	int			tm_sec;
+	int			tm_min;
+	int64		tm_hour;		/* needs to be wide */
+	int			tm_mday;
+	int			tm_mon;
+	int			tm_year;
+};
+```
 ## Detailed Description
 The  structure is modeled after  used for timestamps but is specifically designed for representing intervals. Unlike timestamps, there's no special interpretation needed for months or years - they're simply zero or non-zero values. This structure allows PostgreSQL to work with interval components in a broken-down format, making it easier to perform arithmetic operations and conversions.
 

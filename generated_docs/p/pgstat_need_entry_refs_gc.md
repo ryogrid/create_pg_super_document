@@ -8,7 +8,10 @@ A static helper function that determines whether garbage collection of statistic
 
 ## Definition
 
-
+```c
+static bool
+pgstat_need_entry_refs_gc(void)
+```
 ## Detailed Description
 This function checks if garbage collection of statistics entry references is required by comparing the local reference age () with the current garbage collection request count in shared memory. The function serves as a condition check to determine when cleanup operations should be performed.
 

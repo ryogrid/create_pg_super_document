@@ -8,7 +8,10 @@ The  function performs the core substring search functionality, implementing the
 
 ## Definition
 
-
+```c
+static int
+text_position(text *t1, text *t2, Oid collid)
+```
 ## Detailed Description
 The  function is the internal implementation that performs the actual substring search work for PostgreSQL's text position functions. It takes a haystack string (t1), a needle pattern (t2), and a collation ID, then returns the 1-based character position of the first occurrence of the pattern within the string. The function handles special cases like empty patterns (which always match at position 1) and cases where the haystack is shorter than the needle (which cannot match). It uses a state-based approach with setup, iteration, and cleanup phases to efficiently perform the search while respecting collation rules.
 

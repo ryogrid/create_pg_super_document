@@ -8,7 +8,11 @@ Parses a string containing identifiers separated by a specified character, handl
 
 ## Definition
 
-
+```c
+bool
+SplitIdentifierString(char *rawstring, char separator,
+					  List **namelist)
+```
 ## Detailed Description
 The  function is a fundamental parsing utility that splits strings containing multiple identifiers separated by a delimiter (typically '.' or ','). This function serves as the core parsing engine for qualified object names, GUC variable lists, and other configuration strings throughout PostgreSQL.
 

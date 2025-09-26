@@ -8,7 +8,10 @@ Checks whether there are any predicate locks held by any transaction for a speci
 
 ## Definition
 
-
+```c
+bool
+PageIsPredicateLocked(Relation relation, BlockNumber blkno)
+```
 ## Detailed Description
 This function determines if any predicate locks exist on a specific page of a relation. It's a key component of PostgreSQL's serializable snapshot isolation implementation. The function searches the predicate lock target hash table for locks specifically targeting the given page, without considering broader relation-level locks. It handles cases where transactions may be completed but not yet cleaned up due to overlapping serializable transactions, ensuring reliable information regardless of the current transaction's isolation level.
 

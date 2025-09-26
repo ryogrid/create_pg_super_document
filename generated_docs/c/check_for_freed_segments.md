@@ -8,7 +8,10 @@ Detects and handles segments that have been freed by other processes to ensure d
 
 ## Definition
 
-
+```c
+static void
+check_for_freed_segments(dsa_area *area)
+```
 ## Detailed Description
 The  function implements a lock-free detection mechanism for segment cleanup in multi-process environments. It addresses a critical race condition where:
 

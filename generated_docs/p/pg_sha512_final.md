@@ -8,7 +8,10 @@ Finalizes SHA-512 hash computation by processing any remaining data, outputting 
 
 ## Definition
 
-
+```c
+void
+pg_sha512_final(pg_sha512_ctx *context, uint8 *digest)
+```
 ## Detailed Description
 The  function completes the SHA-512 hashing process by:
 

@@ -8,7 +8,10 @@ _SPI_save_plan creates a permanent "saved" copy of a SPI plan by duplicating it 
 
 ## Definition
 
-
+```c
+static SPIPlanPtr
+_SPI_save_plan(SPIPlanPtr plan)
+```
 ## Detailed Description
 This function creates a fully independent, persistent copy of a SPI plan that will survive beyond the current transaction and SPI connection. Unlike _SPI_make_plan_non_temp which moves a plan to procedure context, this function creates a completely new copy in the global CacheMemoryContext.
 

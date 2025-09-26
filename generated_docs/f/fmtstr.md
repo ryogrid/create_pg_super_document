@@ -8,7 +8,11 @@ Formats and outputs a string value with specified padding, alignment, and width 
 
 ## Definition
 
-
+```c
+static void
+fmtstr(const char *value, int leftjust, int minlen, int maxwidth,
+	   int pointflag, PrintfTarget *target)
+```
 ## Detailed Description
 This function handles the formatting and output of string values (%s format specifier) in PostgreSQL's portable snprintf implementation. It applies width formatting, padding, and precision constraints to string arguments. The function respects both minimum field width (for padding) and maximum width (precision) specifications, ensuring strings are properly truncated and aligned according to printf standards.
 

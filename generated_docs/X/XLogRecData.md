@@ -8,7 +8,14 @@ XLogRecData is a structure used to build a chain of data segments that represent
 
 ## Definition
 
-
+```c
+typedef struct XLogRecData
+{
+	struct XLogRecData *next;	/* next struct in chain, or NULL */
+	char	   *data;			/* start of rmgr data to include */
+	uint32		len;			/* length of rmgr data to include */
+} XLogRecData;
+```
 ## Detailed Description
 The XLogRecData structure is a fundamental component of PostgreSQL's WAL record construction system. It forms a linked list that represents different data segments that need to be included in a WAL record. The functions in xloginsert.c use this structure to construct a chain of data pieces before assembling them into the final WAL record format. This design allows for efficient memory management and flexible composition of WAL records from multiple data sources without requiring immediate concatenation of all data.
 

@@ -8,7 +8,9 @@ config_handle is a typedef alias for struct config_generic, providing an opaque 
 
 ## Definition
 
-
+```c
+typedef struct config_generic config_handle;
+```
 ## Detailed Description
 The config_handle type serves as an opaque handle for configuration variables, hiding the implementation details of the underlying config_generic structure from external code. This typedef provides a clean interface for functions that need to manipulate configuration variables without exposing the full complexity of the config_generic structure.
 

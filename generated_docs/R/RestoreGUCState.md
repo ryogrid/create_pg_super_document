@@ -8,7 +8,10 @@ RestoreGUCState reads GUC (Grand Unified Configuration) state from a serialized 
 
 ## Definition
 
-
+```c
+struct config_generic *gconf = dlist_container(struct config_generic,
+													   nondef_link, iter.cur);
+```
 ## Detailed Description
 RestoreGUCState provides parallel worker processes with a shallow view of the leader's GUC state by deserializing and applying configuration values. The function operates in two main phases:
 

@@ -8,7 +8,10 @@ Function that computes the total shared memory space needed for PostgreSQL's cum
 
 ## Definition
 
-
+```c
+Size
+StatsShmemSize(void)
+```
 ## Detailed Description
 This function calculates the total amount of shared memory required for the PostgreSQL statistics system. It combines the size of the main statistics shared memory control structure (PgStat_ShmemControl) with the dynamic shared memory area size needed for the statistics hash table. The calculation ensures proper memory alignment and uses safe size addition to prevent overflow.
 

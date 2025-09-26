@@ -8,7 +8,10 @@ Converts a multidimensional array subscript list into a linear element offset fo
 
 ## Definition
 
-
+```c
+int
+ArrayGetOffset(int n, const int *dim, const int *lb, const int *indx)
+```
 ## Detailed Description
 ArrayGetOffset calculates the linear offset (0-based index) for accessing an element in a multidimensional array stored in row-major order. The function performs the mathematical conversion from n-dimensional subscripts to a single linear index by multiplying each dimension's offset by the cumulative size of all subsequent dimensions.
 

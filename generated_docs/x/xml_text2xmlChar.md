@@ -8,7 +8,10 @@ A simple conversion utility function that transforms PostgreSQL's text type to l
 
 ## Definition
 
-
+```c
+static xmlChar *
+xml_text2xmlChar(text *in)
+```
 ## Detailed Description
 This function provides a straightforward interface for converting PostgreSQL's variable-length text data type to the null-terminated xmlChar string format required by libxml2 functions. It serves as a bridge between PostgreSQL's internal text representation and libxml2's expected string format.
 

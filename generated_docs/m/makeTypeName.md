@@ -8,7 +8,10 @@ Creates a TypeName node for an unqualified type name, serving as a convenience f
 
 ## Definition
 
-
+```c
+TypeName *
+makeTypeName(char *typnam)
+```
 ## Detailed Description
 The  function is a utility function that constructs a TypeName node for a single, unqualified type name. It acts as a wrapper around , simplifying the creation of TypeName nodes when dealing with basic type names that don't require schema qualification. The function sets up the TypeName with default type modifier settings that can be adjusted later by the caller.
 

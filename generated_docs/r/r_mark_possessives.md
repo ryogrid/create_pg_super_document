@@ -8,7 +8,11 @@ A static function in the Turkish stemmer that identifies and marks possessive su
 
 ## Definition
 
+```c
+}
 
+static int r_mark_possessives(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Turkish language stemming implementation in PostgreSQL's Snowball stemmer library. It identifies possessive suffixes in Turkish words by performing backwards pattern matching against a predefined set of possessive suffix patterns. The function uses bit manipulation to optimize character checking and employs the  function to match against an array of 10 possessive suffix patterns (). Upon successful pattern identification, it calls  to handle vowel harmony rules specific to Turkish morphology.
 

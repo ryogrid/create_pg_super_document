@@ -8,7 +8,10 @@ Adds a whole page to a TIDBitmap, marking it as requiring a recheck when scanned
 
 ## Definition
 
-
+```c
+void
+tbm_add_page(TIDBitmap *tbm, BlockNumber pageno)
+```
 ## Detailed Description
 The  function is used to add an entire page to a TIDBitmap structure. When a page is added through this function, it means that all tuples on that page are considered to potentially match the query condition, but they will need to be rechecked during the actual scan. This is a "lossy" representation where individual tuple locations are not tracked, only the page number.
 

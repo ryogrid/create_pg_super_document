@@ -8,7 +8,12 @@ Core function that verifies whether a server certificate matches the hostname th
 
 ## Definition
 
-
+```c
+int
+pgtls_verify_peer_name_matches_certificate_guts(PGconn *conn,
+												int *names_examined,
+												char **first_name)
+```
 ## Detailed Description
 This function performs SSL/TLS certificate hostname verification by comparing the hostname used to connect to the server against names present in the server's certificate. The verification process follows a specific priority order:
 

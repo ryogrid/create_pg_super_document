@@ -8,7 +8,10 @@ Converts a single character string to a normalized scalar value between 0 and 1 
 
 ## Definition
 
-
+```c
+static double
+convert_one_string_to_scalar(char *value, int rangelo, int rangehi)
+```
 ## Detailed Description
 This function performs the actual mathematical conversion of a string to a scalar value for selectivity estimation. It treats the string as a fractional number where each character represents a digit in a variable base system. The base is determined by the range of characters (rangehi - rangelo + 1).
 

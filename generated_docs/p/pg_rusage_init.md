@@ -8,7 +8,10 @@ Initializes a resource usage snapshot by capturing current process resource usag
 
 ## Definition
 
-
+```c
+void
+pg_rusage_init(PGRUsage *ru0)
+```
 ## Detailed Description
 The  function captures the current state of system resource usage for the calling process. It stores both the CPU time consumption (user and system time) via the  system call and the current wall-clock time via  into a  structure. This snapshot serves as a baseline measurement point that can later be compared with another snapshot using  to calculate elapsed time and resource consumption.
 

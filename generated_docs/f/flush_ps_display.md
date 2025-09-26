@@ -8,7 +8,10 @@ Updates the actual process title display on the system using the current content
 
 ## Definition
 
-
+```c
+static void
+flush_ps_display(void)
+```
 ## Detailed Description
 The  function is a platform-specific implementation that actually commits the process status string (stored in ) to the system's process display. This function handles the diverse ways different operating systems and platforms allow modification of the process title that appears in process lists (like   PID TTY          TIME CMD
 21783 ?        00:00:00 dbus-launch

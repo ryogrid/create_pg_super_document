@@ -8,7 +8,10 @@ Returns the type modifier (typmod) for a specific column in a partition key, use
 
 ## Definition
 
-
+```c
+static inline int32
+get_partition_col_typmod(PartitionKey key, int col)
+```
 ## Detailed Description
 This inline function provides a simple accessor to retrieve the type modifier for a specified column in a partition key. Type modifiers contain additional type information such as precision for numeric types, length limits for character types, or other type-specific constraints. The function is used during partition bound transformations to ensure that partition bounds conform to the expected column types and their modifiers.
 

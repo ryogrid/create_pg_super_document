@@ -8,7 +8,10 @@ Canonicalizes a QTNode tree by recursively sorting the children of AND/OR operat
 
 ## Definition
 
-
+```c
+void
+QTNSort(QTNode *in)
+```
 ## Detailed Description
 QTNSort performs recursive canonicalization of a QTNode tree by sorting the children of operator nodes. This canonicalization is crucial for query normalization, enabling consistent representation of logically equivalent queries and supporting efficient query comparison and optimization operations.
 

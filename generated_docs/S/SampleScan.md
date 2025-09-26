@@ -8,7 +8,14 @@ SampleScan represents a table sample scan plan node that retrieves a statistical
 
 ## Definition
 
-
+```c
+typedef struct SampleScan
+{
+	Scan		scan;
+	/* use struct pointer to avoid including parsenodes.h here */
+	struct TableSampleClause *tablesample;
+} SampleScan;
+```
 ## Detailed Description
 The SampleScan structure represents a sampling scan operation in PostgreSQL's query execution plan. It inherits from the abstract Scan base type and implements statistical sampling of table data using various sampling methods such as BERNOULLI (row-level sampling) or SYSTEM (block-level sampling). This scan type is used to implement the TABLESAMPLE clause in SQL queries, which allows users to retrieve a representative subset of data from large tables for analysis or testing purposes.
 

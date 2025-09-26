@@ -8,7 +8,10 @@ Flushes a fileset-based BufFile and marks it as read-only in preparation for sha
 
 ## Definition
 
-
+```c
+void
+BufFileExportFileSet(BufFile *file)
+```
 ## Detailed Description
 BufFileExportFileSet prepares a fileset-based BufFile for sharing with other backends by ensuring all data is flushed to disk and marking the file as read-only. This function is essential for the inter-backend file sharing mechanism, as it ensures data integrity and prevents further modifications by the creating backend.
 

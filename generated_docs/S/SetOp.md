@@ -8,7 +8,37 @@ The SetOp node implements SQL set operations (INTERSECT, INTERSECT ALL, EXCEPT, 
 
 ## Definition
 
+```c
+typedef struct SetOp
+{
+	Plan		plan;
 
+	/* what to do, see nodes.h */
+	SetOpCmd	cmd;
+
+	/* how to do it, see nodes.h */
+	SetOpStrategy strategy;
+
+	/* number of columns to check for duplicate-ness */
+	int			numCols;
+
+	/* their indexes in the target list */
+	AttrNumber *dupColIdx pg_node_attr(array_size(numCols));
+
+	/* equality operators to compare with */
+	Oid		   *dupOperators pg_node_attr(array_size(numCols));
+	Oid		   *dupCollations pg_node_attr(array_size(numCols));
+
+	/* where is the flag column, if any */
+	AttrNumber	flagColIdx;
+
+	/* flag value for first input relation */
+	int			firstFlag;
+
+	/* estimated number of groups in input */
+	long		numGroups;
+} SetOp;
+```
 ## Detailed Description
 The SetOp node implements SQL set operations by comparing tuples from different input sources. It operates on pre-processed input where tuples from different relations are distinguished by a flag column, allowing the node to determine which set operation to apply.
 

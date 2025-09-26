@@ -8,7 +8,9 @@ A typedef for the base backup sink structure that provides an object-oriented fr
 
 ## Definition
 
-
+```c
+typedef struct bbsink bbsink;
+```
 ## Detailed Description
 The  type is a forward declaration typedef for the  structure defined in the same header file. It represents a base backup sink object used in PostgreSQL's base backup process. The bbsink implements a chain-of-responsibility design pattern where backup data (archives and manifests) flows through a chain of bbsink objects, each responsible for a specific task such as compression, throttling, progress reporting, or final destination handling.
 

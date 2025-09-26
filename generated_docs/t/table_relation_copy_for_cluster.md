@@ -8,7 +8,18 @@ A table access method wrapper function that copies data from an old table to a n
 
 ## Definition
 
-
+```c
+static inline void
+table_relation_copy_for_cluster(Relation OldTable, Relation NewTable,
+								Relation OldIndex,
+								bool use_sort,
+								TransactionId OldestXmin,
+								TransactionId *xid_cutoff,
+								MultiXactId *multi_cutoff,
+								double *num_tuples,
+								double *tups_vacuumed,
+								double *tups_recently_dead)
+```
 ## Detailed Description
 This function is the core data copying mechanism for CLUSTER and VACUUM FULL operations. It handles the complex process of copying data from an old table to a new table while managing transaction visibility, sorting requirements, and statistical collection.
 

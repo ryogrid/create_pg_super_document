@@ -8,7 +8,10 @@ Frees the data buffer of a PQExpBuffer and resets it to an empty but valid state
 
 ## Definition
 
-
+```c
+void
+termPQExpBuffer(PQExpBuffer str)
+```
 ## Detailed Description
 This function cleans up the data buffer associated with a PQExpBuffer while leaving the PQExpBufferData structure itself intact. It performs the following operations:
 

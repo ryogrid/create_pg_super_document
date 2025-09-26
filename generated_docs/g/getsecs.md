@@ -8,7 +8,10 @@ Extracts a number of seconds in hh[:mm[:ss]] format from a timezone string and r
 
 ## Definition
 
-
+```c
+static const char *
+getsecs(const char *strp, int32 *const secsp)
+```
 ## Detailed Description
 The getsecs function parses time specifications from timezone strings, supporting flexible formats including hours, minutes, and seconds. It handles quasi-Posix rules that allow values like "M10.4.6/26" (equivalent to "02:00 on the first Sunday on or after 23 Oct"). The function extracts the time components sequentially:
 

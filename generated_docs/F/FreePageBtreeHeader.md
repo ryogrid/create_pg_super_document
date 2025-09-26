@@ -8,7 +8,15 @@ FreePageBtreeHeader serves as the common header structure for both internal and 
 
 ## Definition
 
-
+```c
+typedef struct FreePageBtreeHeader
+{
+	int			magic;			/* FREE_PAGE_LEAF_MAGIC or
+								 * FREE_PAGE_INTERNAL_MAGIC */
+	Size		nused;			/* number of items used */
+	RelptrFreePageBtree parent; /* uplink */
+} FreePageBtreeHeader;
+```
 ## Detailed Description
 The FreePageBtreeHeader structure provides common metadata and navigation capabilities for btree nodes in PostgreSQL's free page management system. This header appears at the beginning of both internal and leaf btree pages, establishing a consistent format for btree operations.
 

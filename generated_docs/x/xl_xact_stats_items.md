@@ -8,7 +8,13 @@ A structure used in PostgreSQL's WAL to store multiple transactionally dropped s
 
 ## Definition
 
-
+```c
+typedef struct xl_xact_stats_items
+{
+	int			nitems;
+	xl_xact_stats_item items[FLEXIBLE_ARRAY_MEMBER];
+} xl_xact_stats_items;
+```
 ## Detailed Description
 The xl_xact_stats_items structure serves as a container for multiple xl_xact_stats_item entries in PostgreSQL's Write-Ahead Logging system. This structure is designed to efficiently handle transactions that affect multiple statistics objects by storing them in a single WAL record. The use of a flexible array member allows the structure to accommodate varying numbers of statistics items without requiring separate memory allocations, making it both memory-efficient and performance-optimized for bulk statistics operations during transaction commit and abort scenarios.
 

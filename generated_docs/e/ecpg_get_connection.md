@@ -8,7 +8,9 @@ Retrieves a database connection object by name from the ECPG library's connectio
 
 ## Definition
 
-
+```c
+struct connection *ret = NULL;
+```
 ## Detailed Description
 The  function is a central connection retrieval mechanism in PostgreSQL's ECPG (Embedded SQL in C) library. It provides thread-safe access to database connections with support for both named connections and the current/default connection.
 

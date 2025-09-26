@@ -8,7 +8,10 @@ BufFileReadCommon is the core internal function that implements buffered reading
 
 ## Definition
 
-
+```c
+static size_t
+BufFileReadCommon(BufFile *file, void *ptr, size_t size, bool exact, bool eofOK)
+```
 ## Detailed Description
 BufFileReadCommon provides the fundamental read functionality for the BufFile system, similar to the standard library's fread() function but with enhanced error handling and PostgreSQL-specific behavior. This internal function serves as the foundation for all public BufFile read operations.
 

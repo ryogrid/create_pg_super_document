@@ -8,7 +8,10 @@ Validates whether a given wide character value represents a valid Unicode code p
 
 ## Definition
 
-
+```c
+static inline bool
+is_valid_unicode_codepoint(pg_wchar c)
+```
 ## Detailed Description
 This inline function performs a simple range check to determine if a given PostgreSQL wide character () represents a valid Unicode code point. The function validates that the code point falls within the standard Unicode range of U+0001 to U+10FFFF. The function explicitly excludes U+0000 (null character) and any values above the maximum Unicode code point.
 

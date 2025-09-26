@@ -8,7 +8,9 @@ GUCArrayAdd adds or updates a GUC setting entry in a PostgreSQL array, creating 
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 GUCArrayAdd manages GUC setting arrays by adding new entries or updating existing ones. These arrays are commonly used to store configuration settings in system catalogs like pg_db_role_setting.setconfig and pg_proc.proconfig. The function provides intelligent handling of both new arrays and existing arrays.
 

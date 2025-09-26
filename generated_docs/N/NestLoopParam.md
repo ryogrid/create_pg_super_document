@@ -8,7 +8,16 @@ NestLoopParam represents a parameter used in nested loop joins to pass values fr
 
 ## Definition
 
+```c
+typedef struct NestLoopParam
+{
+	pg_node_attr(no_equal, no_query_jumble)
 
+	NodeTag		type;
+	int			paramno;		/* number of the PARAM_EXEC Param to set */
+	Var		   *paramval;		/* outer-relation Var to assign to Param */
+} NestLoopParam;
+```
 ## Detailed Description
 NestLoopParam is a crucial structure in PostgreSQL's nested loop join implementation that facilitates parameterized execution. When executing a nested loop join, values from the outer relation need to be passed to the inner scan to enable efficient filtering or indexing on the inner side. Each NestLoopParam represents one such parameter passing mechanism.
 

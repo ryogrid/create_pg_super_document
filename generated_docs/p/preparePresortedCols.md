@@ -8,7 +8,10 @@ A static initialization function that prepares comparison functions and metadata
 
 ## Definition
 
-
+```c
+static void
+preparePresortedCols(IncrementalSortState *node)
+```
 ## Detailed Description
 This function initializes the data structures needed to perform efficient comparisons on pre-sorted columns during incremental sort execution. It allocates and populates an array of PresortedKeyData structures, one for each pre-sorted column. For each pre-sorted column, the function:
 

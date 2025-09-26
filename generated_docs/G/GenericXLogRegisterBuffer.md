@@ -8,7 +8,10 @@ Registers a buffer with the generic XLOG state and returns a pointer to a modifi
 
 ## Definition
 
-
+```c
+Page
+GenericXLogRegisterBuffer(GenericXLogState *state, Buffer buffer, int flags)
+```
 ## Detailed Description
 This function is a crucial component of PostgreSQL's generic WAL logging system that handles the registration of buffers that will be modified during a transaction. When called, it either locates an existing registration for the buffer or creates a new one in the first available slot.
 

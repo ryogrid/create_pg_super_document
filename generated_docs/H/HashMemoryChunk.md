@@ -8,7 +8,9 @@ HashMemoryChunk is a typedef that provides a convenient pointer type for accessi
 
 ## Definition
 
-
+```c
+typedef struct HashMemoryChunkData *HashMemoryChunk;
+```
 ## Detailed Description
 HashMemoryChunk serves as a standardized pointer type for working with memory chunks in PostgreSQL's hash join implementation. This typedef abstracts the underlying pointer semantics and provides a clean interface for functions that manipulate the chunked memory allocation system used to store hash join tuples efficiently.
 

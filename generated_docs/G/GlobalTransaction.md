@@ -8,7 +8,9 @@ GlobalTransaction is a typedef for a pointer to GlobalTransactionData, represent
 
 ## Definition
 
-
+```c
+typedef struct GlobalTransactionData *GlobalTransaction;
+```
 ## Detailed Description
 GlobalTransaction serves as an opaque handle to the internal GlobalTransactionData structure in PostgreSQL's two-phase commit implementation. It provides a clean interface for external code to reference global transactions without exposing the internal structure details.
 

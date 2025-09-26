@@ -8,7 +8,9 @@ The  structure is the context data structure for MD5 hash computation in Postgre
 
 ## Definition
 
-
+```c
+#define md5_n8  md5_count.md5_count8
+```
 ## Detailed Description
 The  structure serves as the context for PostgreSQL's fallback MD5 implementation. It stores the intermediate state of an MD5 hash computation, enabling the hash to be calculated incrementally over multiple data chunks rather than requiring all data to be available at once.
 

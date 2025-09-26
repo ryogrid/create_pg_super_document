@@ -8,7 +8,12 @@ ExecEvalExpr is the primary interface function for evaluating SQL expressions in
 
 ## Definition
 
-
+```c
+static inline Datum
+ExecEvalExpr(ExprState *state,
+			 ExprContext *econtext,
+			 bool *isNull)
+```
 ## Detailed Description
 ExecEvalExpr serves as the main entry point for expression evaluation in PostgreSQL's executor. It implements a function pointer dispatch mechanism where the actual evaluation is performed by a compiled evaluation function stored in the ExprState's evalfunc field. This design enables PostgreSQL's Just-In-Time (JIT) compilation system and step-wise expression compilation to optimize expression evaluation performance.
 

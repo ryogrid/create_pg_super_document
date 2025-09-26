@@ -8,7 +8,11 @@ Checks if the current user has sufficient privileges to vacuum or analyze a spec
 
 ## Definition
 
-
+```c
+bool
+vacuum_is_permitted_for_relation(Oid relid, Form_pg_class reltuple,
+								 bits32 options)
+```
 ## Detailed Description
 This function implements PostgreSQL's privilege checking mechanism for VACUUM and ANALYZE operations on individual relations. It determines whether the current user has the necessary permissions to perform the requested operation(s) on a specific table or relation.
 

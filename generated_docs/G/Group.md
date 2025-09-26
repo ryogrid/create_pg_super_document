@@ -8,7 +8,22 @@ Group is a plan node that implements GROUP BY operations without aggregates, des
 
 ## Definition
 
+```c
+typedef struct Group
+{
+	Plan		plan;
 
+	/* number of grouping columns */
+	int			numCols;
+
+	/* their indexes in the target list */
+	AttrNumber *grpColIdx pg_node_attr(array_size(numCols));
+
+	/* equality operators to compare with */
+	Oid		   *grpOperators pg_node_attr(array_size(numCols));
+	Oid		   *grpCollations pg_node_attr(array_size(numCols));
+} Group;
+```
 ## Detailed Description
 The Group node is used specifically for queries with GROUP BY clauses that do not contain aggregate functions. It operates on presorted input data and eliminates duplicate rows by comparing consecutive tuples using the specified grouping columns. When the values in the grouping columns change, the node outputs the first tuple of the previous group and begins processing a new group. This approach is efficient because it requires only sequential processing of sorted data without needing to store all group members in memory. The node is distinct from Agg, which handles GROUP BY queries with aggregate functions.
 

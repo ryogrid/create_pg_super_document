@@ -8,7 +8,40 @@ Calculates the length of the decoded byte array that would result from decoding 
 
 ## Definition
 
+```c
+struct
+{
+	const char *name;
+	struct pg_encoding enc;
+}			enclist[] =
 
+{
+	{
+		"hex",
+		{
+			hex_enc_len, hex_dec_len, hex_encode, hex_decode
+		}
+	},
+	{
+		"base64",
+		{
+			pg_base64_enc_len, pg_base64_dec_len, pg_base64_encode, pg_base64_decode
+		}
+	},
+	{
+		"escape",
+		{
+			esc_enc_len, esc_dec_len, esc_encode, esc_decode
+		}
+	},
+	{
+		NULL,
+		{
+			NULL, NULL, NULL, NULL
+		}
+	}
+};
+```
 ## Detailed Description
 This function analyzes an escape-encoded string and determines how many bytes the decoded output would contain. It parses escape sequences used in PostgreSQL's escape encoding format for bytea data types. The function handles three types of sequences:
 

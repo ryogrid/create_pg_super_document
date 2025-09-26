@@ -8,7 +8,15 @@ ViewOptions is a structure that defines relation options (reloptions) specifical
 
 ## Definition
 
-
+```c
+typedef struct ViewOptions
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	bool		security_barrier;
+	bool		security_invoker;
+	ViewOptCheckOption check_option;
+} ViewOptions;
+```
 ## Detailed Description
 ViewOptions serves as the specialized structure for storing relation options for views in PostgreSQL. This structure is stored in the rd_options field of view relation descriptors and contains parameters that control view security behavior and constraint checking policies. The structure follows the PostgreSQL varlena format, allowing it to be stored as variable-length data. These options affect how views handle security contexts, user permissions, and constraint validation, and can be configured through CREATE VIEW or ALTER VIEW statements with specific option clauses.
 

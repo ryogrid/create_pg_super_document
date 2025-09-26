@@ -8,7 +8,15 @@ AlternativeSubPlan is a transient expression node used during planning to repres
 
 ## Definition
 
+```c
+typedef struct AlternativeSubPlan
+{
+	pg_node_attr(no_query_jumble)
 
+	Expr		xpr;
+	List	   *subplans;		/* SubPlan(s) with equivalent results */
+} AlternativeSubPlan;
+```
 ## Detailed Description
 AlternativeSubPlan is used only transiently during the planning phase and is completely removed before the plan reaches the executor. It represents a choice among multiple SubPlans that produce equivalent results but may have different performance characteristics.
 

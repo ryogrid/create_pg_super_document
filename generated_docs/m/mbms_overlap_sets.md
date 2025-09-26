@@ -8,7 +8,10 @@ Identifies which bitmapsets in two multibitmapsets have overlapping members and 
 
 ## Definition
 
-
+```c
+Bitmapset *
+mbms_overlap_sets(const List *a, const List *b)
+```
 ## Detailed Description
 This function compares two multibitmapsets (represented as Lists of Bitmapset structures) to find which corresponding pairs of Bitmapsets have overlapping members. The result is a single Bitmapset where each set bit represents the list index of a position where the corresponding Bitmapsets from the two input multibitmapsets overlap.
 

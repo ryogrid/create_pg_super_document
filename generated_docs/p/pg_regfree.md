@@ -8,7 +8,9 @@ Frees memory and resources associated with a compiled regular expression, provid
 
 ## Definition
 
-
+```c
+struct fns *) re->re_fns)->free) (re);
+```
 ## Detailed Description
  is a generic wrapper function that safely deallocates a compiled regular expression object. It serves as the primary cleanup function for regex_t objects in PostgreSQL's regex subsystem. The function implements a safety check against NULL pointers and then delegates the actual deallocation work to the implementation-specific free function stored in the regex object's function table.
 

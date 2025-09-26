@@ -8,7 +8,10 @@ Tests whether a specific member (identified by list index and bit index) is pres
 
 ## Definition
 
-
+```c
+bool
+mbms_is_member(int listidx, int bitidx, const List *a)
+```
 ## Detailed Description
 This function checks for membership in a multibitmapset, which is represented as a List of Bitmapset structures. It determines whether a specific bit is set within a specific Bitmapset in the List. The function is analogous to bms_is_member but operates on the more complex multibitmapset data structure.
 

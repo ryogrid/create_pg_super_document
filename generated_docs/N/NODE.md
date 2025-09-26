@@ -8,7 +8,14 @@ NODE is a binary tree structure used internally in PostgreSQL's text search (tsq
 
 ## Definition
 
-
+```c
+typedef struct NODE
+{
+	struct NODE *left;
+	struct NODE *right;
+	QueryItem  *valnode;
+} NODE;
+```
 ## Detailed Description
 The NODE structure serves as a fundamental building block for creating binary tree representations of text search queries (TSQuery) during cleanup operations. It is specifically used in the tsquery_cleanup.c module to transform flat QueryItem arrays into tree structures that can be more easily manipulated for removing stopwords and cleaning up NOT operators.
 

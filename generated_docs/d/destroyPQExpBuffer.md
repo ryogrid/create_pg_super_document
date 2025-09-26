@@ -8,7 +8,10 @@ Completely deallocates a PQExpBuffer by freeing both the data buffer and the PQE
 
 ## Definition
 
-
+```c
+void
+destroyPQExpBuffer(PQExpBuffer str)
+```
 ## Detailed Description
 This function provides complete cleanup for a PQExpBuffer that was created with . It performs a two-step deallocation process:
 

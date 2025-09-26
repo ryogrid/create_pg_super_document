@@ -8,7 +8,10 @@ A static utility function that parses and validates integer values for compressi
 
 ## Definition
 
-
+```c
+static int
+expect_integer_value(char *keyword, char *value, pg_compress_specification *result)
+```
 ## Detailed Description
 The  function is a helper function used during compression specification parsing to convert string values to integers. It validates that the provided value is not NULL and contains a valid integer representation. If parsing fails, it sets an appropriate error message in the result structure's parse_error field and returns -1. The function uses  for string-to-integer conversion and performs comprehensive validation to ensure the entire string represents a valid integer.
 

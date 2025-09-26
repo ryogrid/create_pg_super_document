@@ -8,7 +8,10 @@ Initializes the local hash table for caching references to shared memory statist
 
 ## Definition
 
-
+```c
+static void
+pgstat_setup_shared_refs(void)
+```
 ## Detailed Description
 The `pgstat_setup_shared_refs` function performs one-time initialization of the local entry reference hash table used for caching shared memory statistics entry references. This setup is crucial for performance optimization in PostgreSQL's statistics collection system.
 

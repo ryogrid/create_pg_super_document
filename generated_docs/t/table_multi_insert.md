@@ -8,7 +8,11 @@ Inserts multiple tuples into a table in a single operation, providing performanc
 
 ## Definition
 
-
+```c
+static inline void
+table_multi_insert(Relation rel, TupleTableSlot **slots, int nslots,
+				   CommandId cid, int options, struct BulkInsertStateData *bistate)
+```
 ## Detailed Description
 This function provides a high-level interface for inserting multiple tuples into a table simultaneously. It serves as a wrapper around the table access method's multi_insert operation, delegating the actual insertion work to the storage engine specific implementation (e.g., heap, columnar storage).
 

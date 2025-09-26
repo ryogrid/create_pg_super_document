@@ -8,7 +8,11 @@ Loads timezone data from a timezone database file into a timezone state structur
 
 ## Definition
 
-
+```c
+static int
+tzloadbody(char const *name, char *canonname, struct state *sp, bool doextend,
+		   union local_storage *lsp)
+```
 ## Detailed Description
 The `tzloadbody` function is the core timezone file parser in PostgreSQL's timezone system. It reads and validates timezone data files (tzfile format), parsing binary data that includes transition times, timezone types, leap second information, and timezone abbreviations.
 

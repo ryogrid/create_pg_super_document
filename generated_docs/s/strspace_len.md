@@ -8,7 +8,10 @@ A utility function that counts the number of leading whitespace characters in a 
 
 ## Definition
 
-
+```c
+static int
+strspace_len(const char *str)
+```
 ## Detailed Description
 This static function scans through the beginning of a string and counts consecutive whitespace characters. It uses the  function to identify whitespace characters and advances through the string until it encounters a non-whitespace character or reaches the end of the string. The function is primarily used in PostgreSQL's formatting module to handle whitespace parsing during date/time and number formatting operations.
 

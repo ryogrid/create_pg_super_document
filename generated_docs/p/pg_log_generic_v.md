@@ -8,7 +8,11 @@ The core logging function in PostgreSQL's common logging system that handles for
 
 ## Definition
 
-
+```c
+void
+pg_log_generic_v(enum pg_log_level level, enum pg_log_part part,
+				 const char *pg_restrict fmt, va_list ap)
+```
 ## Detailed Description
 This is the fundamental logging function that implements PostgreSQL's common logging infrastructure. It performs level-based filtering, executes registered callbacks, handles internationalization, formats messages with appropriate prefixes and styling (including ANSI color codes), and outputs to stderr. The function manages memory allocation for message formatting, handles error conditions gracefully, and provides consistent formatting across all PostgreSQL components. It supports multi-part messages (primary, detail, hint), location information, and both terse and verbose output modes.
 

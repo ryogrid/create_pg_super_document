@@ -8,7 +8,11 @@ Removes all variables from the global variable list that were defined at or deep
 
 ## Definition
 
-
+```c
+struct variable *p,
+			   *prev,
+			   *next;
+```
 ## Detailed Description
 This function implements comprehensive scope-based cleanup for variables in the ECPG preprocessor. It performs a two-phase cleanup process:
 

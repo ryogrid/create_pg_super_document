@@ -8,7 +8,10 @@ Formats text data using printf-style formatting and appends it to an existing St
 
 ## Definition
 
-
+```c
+void
+appendStringInfo(StringInfo str, const char *fmt,...)
+```
 ## Detailed Description
 The  function provides printf-style formatted text appending to a StringInfo structure. It uses variable arguments (variadic function) to accept format strings and parameters similar to sprintf. The function implements a retry loop that attempts to format the data and, if the buffer is too small, automatically enlarges it using  and tries again. This ensures that formatted text is always successfully appended regardless of the current buffer size. The function preserves the original errno value to avoid interfering with error handling in calling code.
 

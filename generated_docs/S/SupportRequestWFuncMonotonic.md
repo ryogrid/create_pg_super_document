@@ -8,7 +8,19 @@ A support structure used to request monotonic property analysis of window functi
 
 ## Definition
 
+```c
+typedef struct SupportRequestWFuncMonotonic
+{
+	NodeTag		type;
 
+	/* Input fields: */
+	WindowFunc *window_func;	/* Pointer to the window function data */
+	struct WindowClause *window_clause; /* Pointer to the window clause data */
+
+	/* Output fields: */
+	MonotonicFunction monotonic;
+} SupportRequestWFuncMonotonic;
+```
 ## Detailed Description
 This structure is part of PostgreSQL's support function infrastructure for window function optimization. When the planner encounters an OpExpr qualification that directly references a window function in a subquery, it can populate this structure and pass it to the window function's prosupport function to determine the function's monotonic properties within a partition.
 

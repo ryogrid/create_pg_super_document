@@ -8,7 +8,10 @@ Executes ALTER EXTENSION UPDATE command to update an extension from its current 
 
 ## Definition
 
-
+```c
+ObjectAddress
+ExecAlterExtensionStmt(ParseState *pstate, AlterExtensionStmt *stmt)
+```
 ## Detailed Description
 This function implements the ALTER EXTENSION UPDATE command, which upgrades or downgrades an extension to a different version. The function validates the extension exists, determines the current version, identifies the target version (from statement options or extension default), and calculates the sequence of update scripts needed to reach the target version.
 

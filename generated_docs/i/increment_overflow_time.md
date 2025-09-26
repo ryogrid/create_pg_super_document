@@ -8,7 +8,10 @@ Safely adds an integer value to a pg_time_t timestamp while detecting overflow c
 
 ## Definition
 
-
+```c
+static bool
+increment_overflow_time(pg_time_t *tp, int32 j)
+```
 ## Detailed Description
 The `increment_overflow_time` function performs safe addition on `pg_time_t` values (PostgreSQL's time type) with overflow detection. It adds the 32-bit integer value `j` to the timestamp pointed to by `tp`, but first checks if this operation would cause overflow beyond the valid range for time values.
 

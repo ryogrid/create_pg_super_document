@@ -8,7 +8,14 @@ PgStat_FunctionCounts is a structure that stores per-function execution statisti
 
 ## Definition
 
-
+```c
+typedef struct PgStat_FunctionCounts
+{
+	PgStat_Counter numcalls;
+	instr_time	total_time;
+	instr_time	self_time;
+} PgStat_FunctionCounts;
+```
 ## Detailed Description
 This structure is designed to hold actual event counters for function execution statistics in the backend's local memory. It serves as an accumulation buffer for function call statistics before they are flushed to the statistics collector. The structure contains only actual event counters to enable efficient zero-detection through memcmp operations to determine if there are pending statistics to be reported.
 

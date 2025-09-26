@@ -8,7 +8,10 @@ Searches the KnownAssignedXids array for a specific transaction ID and optionall
 
 ## Definition
 
-
+```c
+static bool
+KnownAssignedXidsSearch(TransactionId xid, bool remove)
+```
 ## Detailed Description
 KnownAssignedXidsSearch performs a binary search on the sorted KnownAssignedXids array to locate a specific transaction ID. The function can operate in two modes: search-only mode and search-and-remove mode. In search-only mode, it simply checks for the existence of the transaction ID. In search-and-remove mode, it marks the found entry as invalid and updates the array management pointers.
 

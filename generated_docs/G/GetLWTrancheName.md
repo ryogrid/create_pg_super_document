@@ -8,7 +8,10 @@ Returns the name of an LWLock tranche, handling both built-in tranches and user-
 
 ## Definition
 
-
+```c
+static const char *
+GetLWTrancheName(uint16 trancheId)
+```
 ## Detailed Description
 GetLWTrancheName is a static function that retrieves the human-readable name of an LWLock tranche given its ID. It handles two categories of tranches:
 

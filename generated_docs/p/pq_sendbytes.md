@@ -8,7 +8,10 @@ Appends raw binary data to a StringInfo buffer as part of PostgreSQL protocol me
 
 ## Definition
 
-
+```c
+void
+pq_sendbytes(StringInfo buf, const void *data, int datalen)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's message formatting system that appends raw binary data to a StringInfo buffer. It serves as a wrapper around , specifically choosing the variant that maintains a trailing null-byte for added safety. The function is used extensively throughout PostgreSQL's backend to add binary data to protocol messages, including serialized data structures, authentication tokens, and various data types that need to be transmitted in their binary form.
 

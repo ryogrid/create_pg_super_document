@@ -8,7 +8,15 @@ BTOptions is a structure that holds configuration options for B-tree indexes, in
 
 ## Definition
 
-
+```c
+typedef struct BTOptions
+{
+	int32		varlena_header_;	/* varlena header (do not touch directly!) */
+	int			fillfactor;		/* page fill factor in percent (0..100) */
+	float8		vacuum_cleanup_index_scale_factor;	/* deprecated */
+	bool		deduplicate_items;	/* Try to deduplicate items? */
+} BTOptions;
+```
 ## Detailed Description
 BTOptions encapsulates the configuration parameters that can be set for B-tree indexes in PostgreSQL. This structure follows the PostgreSQL varlena convention, allowing it to be stored as a variable-length data type. The structure contains settings that affect both storage efficiency and performance characteristics of B-tree indexes, including how densely pages should be packed and whether duplicate items should be deduplicated to save space.
 

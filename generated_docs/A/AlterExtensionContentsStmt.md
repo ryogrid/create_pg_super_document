@@ -8,7 +8,16 @@ AlterExtensionContentsStmt represents the parsed structure for an ALTER EXTENSIO
 
 ## Definition
 
-
+```c
+typedef struct AlterExtensionContentsStmt
+{
+	NodeTag		type;
+	char	   *extname;		/* Extension's name */
+	int			action;			/* +1 = add object, -1 = drop object */
+	ObjectType	objtype;		/* Object's type */
+	Node	   *object;			/* Qualified name of the object */
+} AlterExtensionContentsStmt;
+```
 ## Detailed Description
 This structure represents the ALTER EXTENSION ... ADD/DROP commands that allow database administrators to dynamically modify extension membership after installation. Objects can be added to make them part of an extension (making them dependent on the extension and subject to being dropped when the extension is dropped), or removed to make them standalone database objects again.
 

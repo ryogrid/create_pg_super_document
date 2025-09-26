@@ -8,7 +8,11 @@ TS_execute_recurse handles recursive execution of tsquery operators above phrase
 
 ## Definition
 
-
+```c
+static TSTernaryValue
+TS_execute_recurse(QueryItem *curitem, void *arg, uint32 flags,
+				   TSExecuteCallback chkcond)
+```
 ## Detailed Description
 This function implements the core recursive execution logic for PostgreSQL's text search query evaluation system. It handles all boolean operators (OP_NOT, OP_AND, OP_OR) while operating above the phrase level, meaning it doesn't need to track lexeme positions until it encounters OP_PHRASE operators.
 

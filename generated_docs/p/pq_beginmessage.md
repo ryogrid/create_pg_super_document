@@ -8,7 +8,10 @@ Initializes a StringInfo buffer for sending a PostgreSQL protocol message by set
 
 ## Definition
 
-
+```c
+void
+pq_beginmessage(StringInfo buf, char msgtype)
+```
 ## Detailed Description
 This function prepares a StringInfo buffer for constructing a PostgreSQL protocol message. It initializes the buffer using  and cleverly stores the message type character in the buffer's cursor field rather than as the first byte of the message content. This design allows the message type to be preserved throughout the message construction process without interfering with the pq_sendXXX routines that will be used to populate the message content.
 

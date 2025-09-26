@@ -8,7 +8,17 @@ AlterObjectSchemaStmt is a PostgreSQL parse node structure that represents an AL
 
 ## Definition
 
-
+```c
+typedef struct AlterObjectSchemaStmt
+{
+	NodeTag		type;
+	ObjectType	objectType;		/* OBJECT_TABLE, OBJECT_TYPE, etc */
+	RangeVar   *relation;		/* in case it's a table */
+	Node	   *object;			/* in case it's some other object */
+	char	   *newschema;		/* the new schema */
+	bool		missing_ok;		/* skip error if missing? */
+} AlterObjectSchemaStmt;
+```
 ## Detailed Description
 AlterObjectSchemaStmt represents SQL statements that move database objects from one schema to another. This is commonly used for reorganizing database objects, moving objects to different namespaces, or implementing schema-based access control. The structure can handle various object types including tables, types, functions, and other schema-scoped objects. It includes error handling through the missing_ok flag for IF EXISTS semantics.
 

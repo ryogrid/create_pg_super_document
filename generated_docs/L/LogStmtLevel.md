@@ -8,7 +8,15 @@ LogStmtLevel is an enumeration type that defines the different levels of SQL sta
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	LOGSTMT_NONE,				/* log no statements */
+	LOGSTMT_DDL,				/* log data definition statements */
+	LOGSTMT_MOD,				/* log modification statements, plus DDL */
+	LOGSTMT_ALL,				/* log all statements */
+} LogStmtLevel;
+```
 ## Detailed Description
 The LogStmtLevel enum provides a hierarchical classification system for SQL statement logging in PostgreSQL. It is used primarily by the GetCommandLogLevel() function to determine the minimum log level required for a given SQL command. The enum values represent increasingly inclusive logging levels:
 

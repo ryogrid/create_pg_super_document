@@ -8,7 +8,10 @@ Performs the core SHA-512 compression function on a single 128-byte block of dat
 
 ## Definition
 
-
+```c
+static void
+SHA512_Transform(pg_sha512_ctx *context, const uint8 *data)
+```
 ## Detailed Description
 The  function implements the SHA-512 compression algorithm as specified in FIPS 180-4. It processes exactly one 128-byte block of input data through 80 rounds of cryptographic operations:
 

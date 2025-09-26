@@ -8,7 +8,23 @@ The  struct stores configuration and state information for a single timeout mech
 
 ## Definition
 
+```c
+typedef struct timeout_params
+{
+	TimeoutId	index;			/* identifier of timeout reason */
 
+	/* volatile because these may be changed from the signal handler */
+	volatile bool active;		/* true if timeout is in active_timeouts[] */
+	volatile bool indicator;	/* true if timeout has occurred */
+
+	/* callback function for timeout, or NULL if timeout not registered */
+	timeout_handler_proc timeout_handler;
+
+	TimestampTz start_time;		/* time that timeout was last activated */
+	TimestampTz fin_time;		/* time it is, or was last, due to fire */
+	int			interval_in_ms; /* time between firings, or 0 if just once */
+} timeout_params;
+```
 ## Detailed Description
 The  structure is the core data structure for PostgreSQL's unified timeout management system. Each instance represents one timeout reason (such as deadlock detection, statement timeout, or connection timeout) and contains all necessary information to track its state and execute its callback when the timeout expires.
 

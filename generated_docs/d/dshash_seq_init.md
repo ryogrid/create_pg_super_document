@@ -8,7 +8,11 @@ Initializes a sequential scan status structure for iterating through all element
 
 ## Definition
 
-
+```c
+void
+dshash_seq_init(dshash_seq_status *status, dshash_table *hash_table,
+				bool exclusive)
+```
 ## Detailed Description
 dshash_seq_init prepares a dshash_seq_status structure for sequential scanning through a dynamic shared hash table. This function sets up the initial state for iteration, allowing the caller to traverse all elements in the hash table one by one using subsequent calls to dshash_seq_next(). The function supports both shared and exclusive scanning modes, where exclusive mode allows safe deletion of elements during iteration using dshash_delete_current().
 

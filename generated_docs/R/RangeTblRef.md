@@ -8,7 +8,13 @@ RangeTblRef is a simple node structure that references an entry in a query's ran
 
 ## Definition
 
-
+```c
+typedef struct RangeTblRef
+{
+	NodeTag		type;
+	int			rtindex;
+} RangeTblRef;
+```
 ## Detailed Description
 RangeTblRef serves as a reference mechanism to entries in the query's range table (RT). Instead of using direct pointers to RT entries, PostgreSQL uses these index-based references to avoid the complexities and headaches that arise from having multiple pointers to the same node in a query tree structure.
 

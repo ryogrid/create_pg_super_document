@@ -8,7 +8,10 @@ CheckLogicalDecodingRequirements validates that the current PostgreSQL environme
 
 ## Definition
 
-
+```c
+void
+CheckLogicalDecodingRequirements(void)
+```
 ## Detailed Description
 This function performs essential prerequisite validation before logical decoding can be initiated. It ensures that all necessary conditions are met for logical replication to function correctly, including proper WAL level configuration, database connection requirements, and standby-specific constraints.
 

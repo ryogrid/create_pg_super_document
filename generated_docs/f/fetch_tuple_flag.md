@@ -8,7 +8,10 @@ Extracts the flag column value from an input tuple to determine whether the tupl
 
 ## Definition
 
-
+```c
+static int
+fetch_tuple_flag(SetOpState *setopstate, TupleTableSlot *inputslot)
+```
 ## Detailed Description
 This function retrieves the special flag column from a tuple that indicates which input relation (left or right) produced the tuple. The flag column is an integer field that PostgreSQL's planner adds to tuples during SetOp operations to track their origin. The function performs strict validation to ensure the flag value is either 0 (left input) or 1 (right input) and that the column is not NULL.
 

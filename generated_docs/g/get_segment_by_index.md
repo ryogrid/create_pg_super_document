@@ -8,7 +8,10 @@ Returns the segment map corresponding to a given segment index, lazily mapping t
 
 ## Definition
 
-
+```c
+static dsa_segment_map *
+get_segment_by_index(dsa_area *area, dsa_segment_index index)
+```
 ## Detailed Description
 This function provides access to segment maps within a DSA area, handling the lazy mapping of segments that haven't been accessed yet by the current backend process. When a segment hasn't been mapped (indicated by a NULL mapped_address), the function performs the mapping operation by attaching to the underlying dynamic shared memory (DSM) segment and initializing the segment map structure.
 

@@ -8,7 +8,14 @@ HASH_SEQ_STATUS is a state structure that maintains the current position during 
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	HTAB	   *hashp;
+	uint32		curBucket;		/* index of current bucket */
+	HASHELEMENT *curEntry;		/* current entry in bucket */
+} HASH_SEQ_STATUS;
+```
 ## Detailed Description
 HASH_SEQ_STATUS serves as an iterator state object for traversing all entries in a hash table sequentially. It maintains the necessary state information to continue iteration across hash_seq_search() calls, tracking both the current bucket being examined and the current entry within that bucket.
 

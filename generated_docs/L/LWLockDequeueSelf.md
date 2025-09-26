@@ -8,7 +8,10 @@ Internal function that removes the current process from a lightweight lock's wai
 
 ## Definition
 
-
+```c
+static void
+LWLockDequeueSelf(LWLock *lock)
+```
 ## Detailed Description
 LWLockDequeueSelf handles the complex scenario where a process queued itself for a lock but later discovered it doesn't actually need to wait. This can happen due to race conditions where the lock becomes available between queuing and the final check. The function must handle two cases:
 

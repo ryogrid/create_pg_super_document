@@ -8,7 +8,13 @@ Complex is a custom data type structure representing complex numbers in PostgreS
 
 ## Definition
 
-
+```c
+typedef struct Complex
+{
+	double		x;
+	double		y;
+}			Complex;
+```
 ## Detailed Description
 The Complex structure is part of PostgreSQL's tutorial system located in src/tutorial/complex.c, serving as an educational example of how to implement a complete user-defined data type. This structure represents complex numbers with real and imaginary components stored as double-precision floating-point values. The implementation includes comprehensive functionality such as text input/output, binary serialization/deserialization, arithmetic operations, and comparison operators suitable for B-tree indexing.
 

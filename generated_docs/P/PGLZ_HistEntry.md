@@ -8,7 +8,15 @@ A structure used in PostgreSQL's PGLZ compression algorithm to maintain a doubly
 
 ## Definition
 
-
+```c
+typedef struct PGLZ_HistEntry
+{
+	struct PGLZ_HistEntry *next;	/* links for my hash key's list */
+	struct PGLZ_HistEntry *prev;
+	int			hindex;			/* my current hash key */
+	const char *pos;			/* my input position */
+} PGLZ_HistEntry;
+```
 ## Detailed Description
 PGLZ_HistEntry is a fundamental data structure in PostgreSQL's PGLZ (PostgreSQL LZ) compression implementation, which uses a variant of the LZ77 compression algorithm. This structure represents an entry in the compression history table that tracks previously seen byte sequences in the input data.
 

@@ -8,7 +8,10 @@ A PostgreSQL operator function that compares the absolute magnitudes of two comp
 
 ## Definition
 
-
+```c
+Datum
+complex_abs_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that implements the "greater than" comparison operator for complex numbers based on their absolute magnitudes (moduli). It serves as part of the B-tree operator class for complex numbers, enabling indexing and ordering operations on complex data types.
 

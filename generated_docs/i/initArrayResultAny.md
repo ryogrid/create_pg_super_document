@@ -8,7 +8,10 @@ Initializes an empty ArrayBuildStateAny structure that can accept either scalar 
 
 ## Definition
 
-
+```c
+ArrayBuildStateAny *
+initArrayResultAny(Oid input_type, MemoryContext rcontext, bool subcontext)
+```
 ## Detailed Description
 This function provides a unified initialization interface for array building that can handle both scalar elements and array inputs. It examines the input_type to determine whether it represents a scalar type or an array type, then initializes the appropriate underlying state structure (ArrayBuildState for scalars or ArrayBuildStateArr for arrays).
 

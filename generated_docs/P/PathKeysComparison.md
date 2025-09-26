@@ -8,7 +8,15 @@ An enumeration type that represents the relationship between two sets of pathkey
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	PATHKEYS_EQUAL,				/* pathkeys are identical */
+	PATHKEYS_BETTER1,			/* pathkey 1 is a superset of pathkey 2 */
+	PATHKEYS_BETTER2,			/* vice versa */
+	PATHKEYS_DIFFERENT,			/* neither pathkey includes the other */
+} PathKeysComparison;
+```
 ## Detailed Description
 PathKeysComparison is a critical enumeration in PostgreSQL's query optimizer that encodes the relationship between two pathkey lists. Pathkeys represent the ordering properties of query execution paths, and this comparison result is essential for the optimizer to make informed decisions about which execution paths are preferable.
 

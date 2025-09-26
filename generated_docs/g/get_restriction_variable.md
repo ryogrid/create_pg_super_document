@@ -8,7 +8,10 @@ Analyzes the arguments of a restriction clause to identify if it follows the pat
 
 ## Definition
 
-
+```c
+structure (probably var op var) */
+	ReleaseVariableStats(*vardata);
+```
 ## Detailed Description
 This function is a key component of PostgreSQL's selectivity estimation system. It examines the arguments of a restriction clause (typically a WHERE condition) to determine if the clause has the desired structure for statistical analysis: one side being a variable (which could be a column or expression involving columns from a single relation) and the other side being a pseudoconstant (a value that can be evaluated at planning time).
 

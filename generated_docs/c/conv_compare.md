@@ -8,7 +8,10 @@ A comparison function used by bsearch() to locate entries in the Unicode decompo
 
 ## Definition
 
-
+```c
+static int
+conv_compare(const void *p1, const void *p2)
+```
 ## Detailed Description
  is a comparison function specifically designed for use with the standard library's  function. It compares a target Unicode codepoint (passed as ) with the codepoint field of a  structure (passed as ). The function implements the standard comparison semantics required by , returning negative, zero, or positive values to indicate the relative ordering of the compared elements.
 

@@ -8,7 +8,10 @@ Sets the available space to zero for all slots numbered >= nslots in a Free Spac
 
 ## Definition
 
-
+```c
+bool
+fsm_truncate_avail(Page page, int nslots)
+```
 ## Detailed Description
 The  function is used during relation truncation operations to clear the available space information for slots that correspond to blocks that have been removed from the relation. It operates on an FSM page by zeroing out all leaf nodes (slots) starting from the specified  index to the end of the page. After clearing the leaf nodes, it calls  to reconstruct the upper levels of the FSM tree structure to maintain consistency.
 

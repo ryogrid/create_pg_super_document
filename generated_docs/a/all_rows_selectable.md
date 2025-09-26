@@ -8,7 +8,10 @@ Tests whether the current user has permission to select all rows from a specifie
 
 ## Definition
 
-
+```c
+bool
+all_rows_selectable(PlannerInfo *root, Index varno, Bitmapset *varattnos)
+```
 ## Detailed Description
 This function determines if a user has the necessary permissions to access all rows from a relation without any security restrictions. It performs comprehensive security checks including:
 

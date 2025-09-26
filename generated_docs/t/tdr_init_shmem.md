@@ -8,7 +8,10 @@ Initializes a shared memory structure for the test_dsm_registry module by settin
 
 ## Definition
 
-
+```c
+static void
+tdr_init_shmem(void *ptr)
+```
 ## Detailed Description
 The `tdr_init_shmem` function is a static initialization callback used by PostgreSQL's Dynamic Shared Memory (DSM) registry system in the test module. It takes a raw pointer to shared memory and initializes it as a `TestDSMRegistryStruct`. The function performs two key operations: initializing a lightweight lock (`LWLock`) with a new tranche ID for synchronization, and setting the initial value of the structure's integer field to zero.
 

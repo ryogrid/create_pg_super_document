@@ -8,7 +8,13 @@ A structure that maps character encoding names to PostgreSQL encoding identifier
 
 ## Definition
 
-
+```c
+typedef struct pg_encname
+{
+	const char *name;
+	pg_enc		encoding;
+} pg_encname;
+```
 ## Detailed Description
 The  structure serves as an entry in PostgreSQL's encoding name lookup table (). This structure is fundamental to PostgreSQL's character encoding system, providing a mapping between human-readable encoding names (like "utf8", "iso88591") and their corresponding internal encoding identifiers.
 

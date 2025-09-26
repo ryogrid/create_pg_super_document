@@ -8,7 +8,10 @@ Cleans up and resets all fields of a logical replication worker structure to the
 
 ## Definition
 
-
+```c
+static void
+logicalrep_worker_cleanup(LogicalRepWorker *worker)
+```
 ## Detailed Description
 This static function performs a complete cleanup of a LogicalRepWorker structure by resetting all its fields to default or invalid values. The function is designed to be called when a worker is being terminated or when a worker slot needs to be made available for reuse.
 

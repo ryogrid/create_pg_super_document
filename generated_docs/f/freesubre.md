@@ -8,7 +8,11 @@ Frees a subre (sub-regular expression) subtree by recursively freeing all child 
 
 ## Definition
 
-
+```c
+static void
+freesubre(struct vars *v,		/* might be NULL */
+		  struct subre *sr)
+```
 ## Detailed Description
 The freesubre function implements the deallocation of a subre subtree in the regular expression parse tree. It follows a careful recursive strategy that frees all descendant nodes (children and their subtrees) of the given subre node, but deliberately preserves sibling relationships to avoid interfering with the caller's iteration over sibling chains.
 

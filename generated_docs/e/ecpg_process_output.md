@@ -8,7 +8,10 @@ Processes SQL statement results and transfers data into application variables, h
 
 ## Definition
 
-
+```c
+bool
+ecpg_process_output(struct statement *stmt, bool clear_result)
+```
 ## Detailed Description
 This is a comprehensive result processing function that handles the complex task of transferring query results from PostgreSQL into application variables. It supports multiple output scenarios:
 

@@ -8,7 +8,10 @@ A static function that puts a PQExpBuffer into a "broken" (out-of-memory) state 
 
 ## Definition
 
-
+```c
+static void
+markPQExpBufferBroken(PQExpBuffer str)
+```
 ## Detailed Description
 This function is responsible for transitioning a PQExpBuffer to a broken state when memory allocation failures occur. It safely deallocates any existing dynamically allocated buffer and redirects the buffer to point to a static, read-only empty string. This design ensures that:
 

@@ -8,7 +8,14 @@ Adds an item to a PostgreSQL page at a specified or automatically determined off
 
 ## Definition
 
-
+```c
+OffsetNumber
+PageAddItemExtended(Page page,
+					Item item,
+					Size size,
+					OffsetNumber offsetNumber,
+					int flags)
+```
 ## Detailed Description
 PageAddItemExtended is the core function for adding items to PostgreSQL pages. It manages the complex task of finding appropriate storage locations, updating line pointer arrays, and ensuring proper page structure integrity. The function supports both automatic offset assignment (by finding free line pointers) and explicit placement at specified offsets. It handles line pointer recycling, space validation, and can optionally move existing items to make room for new ones. The function includes extensive corruption detection and enforces heap-specific constraints when requested.
 

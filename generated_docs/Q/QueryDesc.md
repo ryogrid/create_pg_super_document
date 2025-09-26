@@ -8,7 +8,32 @@ QueryDesc is a central data structure that encapsulates everything the PostgreSQ
 
 ## Definition
 
+```c
+typedef struct QueryDesc
+{
+	/* These fields are provided by CreateQueryDesc */
+	CmdType		operation;		/* CMD_SELECT, CMD_UPDATE, etc. */
+	PlannedStmt *plannedstmt;	/* planner's output (could be utility, too) */
+	const char *sourceText;		/* source text of the query */
+	Snapshot	snapshot;		/* snapshot to use for query */
+	Snapshot	crosscheck_snapshot;	/* crosscheck for RI update/delete */
+	DestReceiver *dest;			/* the destination for tuple output */
+	ParamListInfo params;		/* param values being passed in */
+	QueryEnvironment *queryEnv; /* query environment passed in */
+	int			instrument_options; /* OR of InstrumentOption flags */
 
+	/* These fields are set by ExecutorStart */
+	TupleDesc	tupDesc;		/* descriptor for result tuples */
+	EState	   *estate;			/* executor's query-wide state */
+	PlanState  *planstate;		/* tree of per-plan-node state */
+
+	/* This field is set by ExecutePlan */
+	bool		already_executed;	/* true if previously executed */
+
+	/* This is always set NULL by the core system, but plugins can change it */
+	struct Instrumentation *totaltime;	/* total time spent in ExecutorRun */
+} QueryDesc;
+```
 ## Detailed Description
 QueryDesc serves as the primary interface between PostgreSQL's query planner and executor. It contains all necessary information for query execution including the planned statement, execution parameters, snapshot information for transaction isolation, and execution state. The structure is designed to support both regular SQL queries and utility statements, though utility statements must not be passed to the executor.
 

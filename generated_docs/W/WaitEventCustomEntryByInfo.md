@@ -8,7 +8,13 @@ A hash table entry structure used to look up custom wait event information by wa
 
 ## Definition
 
-
+```c
+typedef struct WaitEventCustomEntryByInfo
+{
+	uint32		wait_event_info;	/* hash key */
+	char		wait_event_name[NAMEDATALEN];	/* custom wait event name */
+} WaitEventCustomEntryByInfo;
+```
 ## Detailed Description
 WaitEventCustomEntryByInfo is a hash table entry structure that serves as part of PostgreSQL's custom wait event management system. It provides a mapping from wait event information (numeric identifier) to the corresponding human-readable wait event name. This structure is used in hash tables to enable fast lookups when translating wait event IDs to their string representations, which is essential for wait event reporting and monitoring functionality.
 

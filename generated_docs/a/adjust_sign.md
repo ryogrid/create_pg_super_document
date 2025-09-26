@@ -8,7 +8,10 @@ Determines the sign character for numeric formatting and sets the appropriate si
 
 ## Definition
 
-
+```c
+static int
+adjust_sign(int is_negative, int forcesign, int *signvalue)
+```
 ## Detailed Description
 The  function is a utility function used in PostgreSQL's custom sprintf implementation to handle sign character formatting for numeric values. It determines whether a sign character should be displayed and sets the appropriate character ('+' or '-') in the provided output parameter. The function returns a boolean value indicating whether a sign character should be displayed.
 

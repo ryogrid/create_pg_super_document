@@ -8,7 +8,10 @@ A static function that flushes pending output data to the client connection with
 
 ## Definition
 
-
+```c
+static int
+socket_flush(void)
+```
 ## Detailed Description
 The  function provides a safe, reentrant-protected interface for flushing buffered output data to PostgreSQL client connections. It serves as a wrapper around  that adds critical safety features:
 

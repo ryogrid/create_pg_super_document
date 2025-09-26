@@ -8,7 +8,14 @@ Internal function that adds the current process to the wait queue of a lightweig
 
 ## Definition
 
-
+```c
+structure, there's no way to wait. This
+	 * should never occur, since MyProc should only be null during shared
+	 * memory initialization.
+	 */
+	if (MyProc == NULL)
+		elog(PANIC, "cannot wait without a PGPROC structure");
+```
 ## Detailed Description
 LWLockQueueSelf handles the process of enqueueing the current process (MyProc) when it needs to wait for a lightweight lock. The function ensures proper queue ordering and state management:
 

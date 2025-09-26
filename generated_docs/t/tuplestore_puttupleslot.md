@@ -8,7 +8,11 @@ A convenience routine that accepts a TupleTableSlot and appends its tuple to the
 
 ## Definition
 
-
+```c
+void
+tuplestore_puttupleslot(Tuplestorestate *state,
+						TupleTableSlot *slot)
+```
 ## Detailed Description
 This function extracts the tuple data from a TupleTableSlot and stores it in the tuplestore as a MinimalTuple. It serves as a convenience wrapper around the core tuple storage functionality, eliminating the need for callers to manually extract and format tuple data from slots.
 

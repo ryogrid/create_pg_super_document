@@ -8,7 +8,10 @@ A callback function that provides mutex locking/unlocking operations for OpenSSL
 
 ## Definition
 
-
+```c
+static void
+pq_lockingcallback(int mode, int n, const char *file, int line)
+```
 ## Detailed Description
 This function serves as a callback for OpenSSL's legacy thread safety mechanisms. In OpenSSL versions prior to 1.1.0, applications were required to provide both thread identification and locking callbacks to ensure thread safety. This function specifically handles the locking requirement by performing mutex operations on a per-lock basis.
 

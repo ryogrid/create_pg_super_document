@@ -8,7 +8,14 @@ AccessPriv is a parse tree node structure that represents an access privilege sp
 
 ## Definition
 
-
+```c
+typedef struct AccessPriv
+{
+	NodeTag		type;
+	char	   *priv_name;		/* string name of privilege */
+	List	   *cols;			/* list of String */
+} AccessPriv;
+```
 ## Detailed Description
 AccessPriv represents an individual access privilege in SQL GRANT and REVOKE statements. It encapsulates both the privilege name (such as "SELECT", "INSERT", "UPDATE", etc.) and an optional list of column names to which the privilege applies. The structure supports fine-grained privilege specification at the column level.
 

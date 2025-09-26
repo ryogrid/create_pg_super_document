@@ -8,7 +8,11 @@ Handles event trigger calls for PL/Tcl procedures, setting up the Tcl environmen
 
 ## Definition
 
-
+```c
+static void
+pltcl_event_trigger_handler(PG_FUNCTION_ARGS, pltcl_call_state *call_state,
+							bool pltrusted)
+```
 ## Detailed Description
 This function serves as the event trigger handler for PL/Tcl functions. It manages the complete lifecycle of executing a Tcl event trigger procedure, including SPI connection management, function compilation/lookup, Tcl command construction, and proper error handling. The function extracts event trigger data from the function call context and passes the event name and command tag as parameters to the Tcl procedure.
 

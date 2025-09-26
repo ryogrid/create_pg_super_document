@@ -8,7 +8,10 @@ Public interface function for memory allocation that provides PostgreSQL's stand
 
 ## Definition
 
-
+```c
+void *
+pg_malloc(size_t size)
+```
 ## Detailed Description
 pg_malloc is a wrapper function around pg_malloc_internal that provides the standard PostgreSQL memory allocation interface for frontend applications. It allocates the requested amount of memory and exits the program with an error message if allocation fails. This function is the PostgreSQL equivalent of the standard C library malloc() function but with added safety features including handling of malloc(0) edge cases and guaranteed program termination on out-of-memory conditions.
 

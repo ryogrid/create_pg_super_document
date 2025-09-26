@@ -8,7 +8,19 @@ jbvDatetime is a virtual JSON value type constant in PostgreSQL's JSONB implemen
 
 ## Definition
 
+```c
+struct Jsonb) jbvArray/jbvObject */
+	jbvBinary,
 
+	/*
+	 * Virtual types.
+	 *
+	 * These types are used only for in-memory JSON processing and serialized
+	 * into JSON strings when outputted to json/jsonb.
+	 */
+	jbvDatetime = 0x20,
+};
+```
 ## Detailed Description
 jbvDatetime is an enum constant within the jbvType enumeration that represents datetime values in PostgreSQL's JSONB in-memory processing system. Unlike scalar types (jbvNull, jbvString, jbvNumeric, jbvBool) and composite types (jbvArray, jbvObject, jbvBinary), jbvDatetime is classified as a "virtual type". 
 

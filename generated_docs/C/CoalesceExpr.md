@@ -8,7 +8,20 @@ CoalesceExpr represents a COALESCE expression in PostgreSQL's expression tree, w
 
 ## Definition
 
-
+```c
+typedef struct CoalesceExpr
+{
+	Expr		xpr;
+	/* type of expression result */
+	Oid			coalescetype pg_node_attr(query_jumble_ignore);
+	/* OID of collation, or InvalidOid if none */
+	Oid			coalescecollid pg_node_attr(query_jumble_ignore);
+	/* the arguments */
+	List	   *args;
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} CoalesceExpr;
+```
 ## Detailed Description
 CoalesceExpr is a node structure that represents the SQL COALESCE function in PostgreSQL's internal expression representation. The COALESCE function evaluates its arguments from left to right and returns the first non-null value. If all arguments are null, it returns null. This structure stores all necessary information including the result type, collation information, and the list of arguments to be evaluated.
 

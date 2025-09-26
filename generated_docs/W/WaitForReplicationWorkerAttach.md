@@ -8,7 +8,12 @@ Waits for a background logical replication worker to start up and successfully a
 
 ## Definition
 
-
+```c
+static bool
+WaitForReplicationWorkerAttach(LogicalRepWorker *worker,
+							   uint16 generation,
+							   BackgroundWorkerHandle *handle)
+```
 ## Detailed Description
 WaitForReplicationWorkerAttach implements a polling mechanism to monitor the startup process of a newly launched logical replication worker. The function continuously checks the worker's status in shared memory and monitors the background worker's process state to determine if the worker has successfully attached or has died during startup.
 

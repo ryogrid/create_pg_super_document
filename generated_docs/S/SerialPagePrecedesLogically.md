@@ -8,7 +8,10 @@ Determines whether one serial page number logically precedes another for truncat
 
 ## Definition
 
-
+```c
+static bool
+SerialPagePrecedesLogically(int64 page1, int64 page2)
+```
 ## Detailed Description
 This function is analogous to  and is used to determine the logical order of serial pages for SLRU (Simple Least Recently Used) buffer management in the serializable isolation system. It converts page numbers to transaction IDs and uses transaction ID precedence logic to determine ordering.
 

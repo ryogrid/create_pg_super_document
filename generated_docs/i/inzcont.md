@@ -8,7 +8,9 @@ Processes a timezone Zone continuation line from input by validating field count
 
 ## Definition
 
-
+```c
+struct zone z;
+```
 ## Detailed Description
 The  function handles timezone Zone continuation lines in the zic (zone information compiler) input. It performs simple validation to ensure the field count is within acceptable limits for continuation lines, then calls  with the continuation flag set to true. Zone continuation lines are used when a timezone definition spans multiple lines in the input file.
 

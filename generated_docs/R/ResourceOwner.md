@@ -8,7 +8,9 @@ ResourceOwner is an opaque handle type that represents a resource management obj
 
 ## Definition
 
-
+```c
+typedef struct ResourceOwnerData *ResourceOwner;
+```
 ## Detailed Description
 ResourceOwner provides PostgreSQL's primary mechanism for tracking and managing resources that need to be cleaned up at specific points during query execution or transaction processing. The actual ResourceOwnerData structure is opaque and only accessible within resowner.c, ensuring encapsulation of the resource management implementation.
 

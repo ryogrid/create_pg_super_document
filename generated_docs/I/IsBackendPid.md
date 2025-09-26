@@ -8,7 +8,10 @@ Determines whether a given process ID (PID) corresponds to a currently running P
 
 ## Definition
 
-
+```c
+bool
+IsBackendPid(int pid)
+```
 ## Detailed Description
 IsBackendPid is a utility function that checks if a specified process ID belongs to an active PostgreSQL backend. This function is designed to be called by external modules rather than by backend processes themselves. It serves as a simple boolean wrapper around BackendPidGetProc, returning true if the PID corresponds to a valid backend process and false otherwise.
 

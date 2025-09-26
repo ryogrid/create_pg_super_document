@@ -8,7 +8,10 @@ Calculates and returns the total number of buckets allocated up to a given split
 
 ## Definition
 
-
+```c
+uint32
+_hash_get_totalbuckets(uint32 splitpoint_phase)
+```
 ## Detailed Description
 This function computes the total number of buckets that have been allocated in a hash index up to and including a specified splitpoint phase. The hash index uses a dynamic bucket allocation strategy where buckets are added in phases during index growth. The function handles two distinct cases:
 

@@ -8,7 +8,10 @@ A utility function that converts libxml2 error codes into user-friendly, localiz
 
 ## Definition
 
-
+```c
+static int
+errdetail_for_xml_code(int code)
+```
 ## Detailed Description
 errdetail_for_xml_code serves as a translation layer between libxml2's numeric error codes and PostgreSQL's localized error messaging system. It maps specific XML parsing error codes to human-readable error detail messages that can be displayed to users. The function focuses on the most common XML parsing errors that PostgreSQL encounters and provides meaningful explanations for each.
 

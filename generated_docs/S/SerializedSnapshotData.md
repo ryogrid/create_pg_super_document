@@ -8,7 +8,20 @@ A structure containing the essential fields from a PostgreSQL Snapshot that need
 
 ## Definition
 
-
+```c
+typedef struct SerializedSnapshotData
+{
+	TransactionId xmin;
+	TransactionId xmax;
+	uint32		xcnt;
+	int32		subxcnt;
+	bool		suboverflowed;
+	bool		takenDuringRecovery;
+	CommandId	curcid;
+	TimestampTz whenTaken;
+	XLogRecPtr	lsn;
+} SerializedSnapshotData;
+```
 ## Detailed Description
 SerializedSnapshotData represents a compact, serializable version of PostgreSQL's Snapshot structure. It contains only the essential fields that must be transmitted when sharing snapshots between backend processes, particularly during parallel query execution or distributed transaction processing.
 

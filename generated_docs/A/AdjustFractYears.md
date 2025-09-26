@@ -8,7 +8,11 @@ A static helper function that converts fractional years to months and adds them 
 
 ## Definition
 
-
+```c
+static bool
+AdjustFractYears(double frac, int scale,
+				 struct pg_itm_in *itm_in)
+```
 ## Detailed Description
 AdjustFractYears is a utility function used in PostgreSQL's datetime parsing and interval processing. It takes a fractional value representing a portion of years, multiplies it by a scale factor to produce years, then converts those years to months by multiplying by MONTHS_PER_YEAR (12). The resulting integral number of months is added to the tm_mon field of the input pg_itm_in structure.
 

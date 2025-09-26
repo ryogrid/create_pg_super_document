@@ -8,7 +8,9 @@ A structure type that represents Unicode normalization quick check properties fo
 
 ## Definition
 
-
+```c
+typedef int (*qc_hash_func) (const void *key);
+```
 ## Detailed Description
 This structure is a compact representation of Unicode normalization quick check information for specific code points. It uses bit fields to minimize memory usage while storing essential normalization data. The structure is part of PostgreSQL's comprehensive Unicode normalization system, which implements the Unicode Standard's normalization forms (NFC, NFD, NFKC, NFKD).
 

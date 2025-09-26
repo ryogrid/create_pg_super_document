@@ -8,7 +8,14 @@ Sets the local copy of spins_per_delay during backend startup to optimize spinlo
 
 ## Definition
 
-
+```c
+struct test_lock_struct
+{
+	char		pad1;
+	slock_t		lock;
+	char		pad2;
+};
+```
 ## Detailed Description
 The  function is a simple but critical function that updates the local thread-specific copy of the  variable during backend initialization. This variable controls how many CPU cycles a process will spin before yielding when waiting for a spinlock, which is a key performance parameter for PostgreSQL's low-level synchronization mechanisms.
 

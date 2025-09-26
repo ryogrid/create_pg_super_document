@@ -8,7 +8,19 @@ AllocateDescKind is an enumeration type that categorizes different types of OS h
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	AllocateDescKind kind;
+	SubTransactionId create_subid;
+	union
+	{
+		FILE	   *file;
+		DIR		   *dir;
+		int			fd;
+	}			desc;
+} AllocateDesc;
+```
 ## Detailed Description
 AllocateDescKind serves as a discriminator enum within the AllocateDesc structure to identify the type of OS handle being tracked. This enumeration is part of PostgreSQL's file descriptor management system that tracks handles opened with AllocateFile, AllocateDir, OpenPipeStream, and OpenTransientFile functions. The enum enables the system to properly close different types of handles using the appropriate system calls (fclose, pclose, closedir, or close) and to perform type-safe lookups when searching for specific handles.
 

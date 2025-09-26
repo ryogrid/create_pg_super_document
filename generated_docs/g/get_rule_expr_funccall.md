@@ -8,7 +8,11 @@ Ensures that deparsed expressions look like function calls by wrapping non-funct
 
 ## Definition
 
-
+```c
+static void
+get_rule_expr_funccall(Node *node, deparse_context *context,
+					   bool showimplicit)
+```
 ## Detailed Description
  is a specialized wrapper around  that guarantees the output will syntactically resemble a function call or equivalent construct recognized by PostgreSQL's grammar. This function is essential in contexts where the grammar specifically requires a  production and cannot accept a parenthesized .
 

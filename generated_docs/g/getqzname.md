@@ -8,7 +8,10 @@ The  function scans a timezone string until it finds a specified delimiter chara
 
 ## Definition
 
-
+```c
+static const char *
+getqzname(const char *strp, const int delim)
+```
 ## Detailed Description
 This static function extends the functionality of  by allowing parsing of timezone abbreviations that are enclosed within specific delimiters. It scans forward from a given position until it encounters the specified delimiter character or a null terminator. This is particularly useful for parsing extended timezone formats where timezone names may be quoted or otherwise delimited. The function does minimal validation, deferring character set checking to later common-case code for performance reasons.
 

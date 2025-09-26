@@ -8,7 +8,22 @@ ReturnSetInfo is a communication structure passed to functions that return multi
 
 ## Definition
 
-
+```c
+typedef struct ReturnSetInfo
+{
+	NodeTag		type;
+	/* values set by caller: */
+	ExprContext *econtext;		/* context function is being called in */
+	TupleDesc	expectedDesc;	/* tuple descriptor expected by caller */
+	int			allowedModes;	/* bitmask: return modes caller can handle */
+	/* result status from function (but pre-initialized by caller): */
+	SetFunctionReturnMode returnMode;	/* actual return mode */
+	ExprDoneCond isDone;		/* status for ValuePerCall mode */
+	/* fields filled by function in Materialize return mode: */
+	Tuplestorestate *setResult; /* holds the complete returned tuple set */
+	TupleDesc	setDesc;		/* actual descriptor for returned tuples */
+} ReturnSetInfo;
+```
 ## Detailed Description
 ReturnSetInfo serves as the communication protocol between PostgreSQL's function call mechanism and Set Returning Functions (SRFs). When a function is called that might return multiple rows, this structure is passed as fcinfo->resultinfo to coordinate the return of result sets. The structure supports different return modes: ValuePerCall (where the function is called multiple times, once per returned row), and Materialize (where the function returns all rows at once in a tuplestore). The caller sets up the expected result format and supported modes, while the function fills in the actual results and status information.
 

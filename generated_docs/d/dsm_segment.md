@@ -8,7 +8,19 @@ A backend-local structure that maintains state information for a dynamic shared 
 
 ## Definition
 
-
+```c
+struct dsm_segment
+{
+	dlist_node	node;			/* List link in dsm_segment_list. */
+	ResourceOwner resowner;		/* Resource owner. */
+	dsm_handle	handle;			/* Segment name. */
+	uint32		control_slot;	/* Slot in control segment. */
+	void	   *impl_private;	/* Implementation-specific private data. */
+	void	   *mapped_address; /* Mapping address, or NULL if unmapped. */
+	Size		mapped_size;	/* Size of our mapping. */
+	slist_head	on_detach;		/* On-detach callbacks. */
+};
+```
 ## Detailed Description
 The  structure represents the backend-local state for a dynamic shared memory segment in PostgreSQL. Each backend process that attaches to a DSM segment maintains one of these structures to track its relationship with that segment. The structure contains both metadata about the segment (handle, control slot) and runtime information specific to this backend's attachment (mapped address, size, callbacks). This design allows multiple backends to attach to the same underlying shared memory segment while maintaining separate local state in each backend.
 

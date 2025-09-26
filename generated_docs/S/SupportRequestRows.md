@@ -8,7 +8,20 @@ SupportRequestRows is a structure that enables support functions to provide cust
 
 ## Definition
 
+```c
+typedef struct SupportRequestRows
+{
+	NodeTag		type;
 
+	/* Input fields: */
+	struct PlannerInfo *root;	/* Planner's infrastructure (could be NULL) */
+	Oid			funcid;			/* function we are inquiring about */
+	Node	   *node;			/* parse node invoking function */
+
+	/* Output fields: */
+	double		rows;			/* number of rows expected to be returned */
+} SupportRequestRows;
+```
 ## Detailed Description
 The SupportRequestRows structure allows PostgreSQL's query planner to obtain custom rowcount estimates from support functions for set-returning functions (SRFs). This mechanism is crucial for accurate query planning when dealing with functions that return multiple rows, as the number of rows returned can significantly impact the choice of execution strategies.
 

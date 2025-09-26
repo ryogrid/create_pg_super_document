@@ -8,7 +8,12 @@ Formats and outputs integer values for various numeric format specifiers (%d, %i
 
 ## Definition
 
-
+```c
+static void
+fmtint(long long value, char type, int forcesign, int leftjust,
+	   int minlen, int zpad, int precision, int pointflag,
+	   PrintfTarget *target)
+```
 ## Detailed Description
 This comprehensive function handles the formatting and output of integer values for all standard integer format specifiers in PostgreSQL's portable snprintf implementation. It supports decimal (%d, %i), octal (%o), unsigned decimal (%u), and hexadecimal (%x, %X) output formats. The function performs base conversion using optimized division operations specific to each base, handles sign processing, applies precision and width formatting, and manages both leading and trailing padding.
 

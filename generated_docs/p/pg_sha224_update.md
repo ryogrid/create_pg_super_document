@@ -8,7 +8,10 @@ Updates a SHA-224 hash context with new data by delegating to the SHA-256 update
 
 ## Definition
 
-
+```c
+void
+pg_sha224_update(pg_sha224_ctx *context, const uint8 *data, size_t len)
+```
 ## Detailed Description
 This function serves as a thin wrapper around  to provide SHA-224 hash functionality. SHA-224 and SHA-256 use identical algorithms and processing, with the only difference being that SHA-224 uses different initial hash values and truncates the final output to 224 bits instead of 256 bits. Since the update operation is identical for both algorithms, this function simply casts the SHA-224 context to a SHA-256 context and calls .
 

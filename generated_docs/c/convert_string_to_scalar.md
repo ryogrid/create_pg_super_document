@@ -8,7 +8,15 @@ Converts character-string data to a normalized scalar value between 0 and 1 for 
 
 ## Definition
 
-
+```c
+static void
+convert_string_to_scalar(char *value,
+						 double *scaledvalue,
+						 char *lobound,
+						 double *scaledlobound,
+						 char *hibound,
+						 double *scaledhibound)
+```
 ## Detailed Description
 This function performs the core work of  for character-string data types. It converts strings to a scale that ranges from 0 to 1 by treating the bytes of the string as fractional digits. The function employs several optimization strategies:
 

@@ -8,7 +8,16 @@ An enumeration that defines different date interpretation modes used in the Post
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	const char *name;
+	int			len;
+	int			id;
+	bool		is_digit;
+	FromCharDateMode date_mode;
+} KeyWord;
+```
 ## Detailed Description
 FromCharDateMode is used by PostgreSQL's formatting system to enforce consistency in date parsing operations. When parsing date strings using format templates (like in  function), this enum ensures that format elements from different date systems (Gregorian calendar vs. ISO 8601 week dates) are not mixed within the same parsing operation.
 

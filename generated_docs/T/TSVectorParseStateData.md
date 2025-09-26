@@ -8,7 +8,20 @@ TSVectorParseStateData is a private state structure used by PostgreSQL's tsvecto
 
 ## Definition
 
-
+```c
+struct TSVectorParseStateData
+{
+	char	   *prsbuf;			/* next input character */
+	char	   *bufstart;		/* whole string (used only for errors) */
+	char	   *word;			/* buffer to hold the current word */
+	int			len;			/* size in bytes allocated for 'word' */
+	int			eml;			/* max bytes per character */
+	bool		oprisdelim;		/* treat ! | * ( ) as delimiters? */
+	bool		is_tsquery;		/* say "tsquery" not "tsvector" in errors? */
+	bool		is_web;			/* we're in websearch_to_tsquery() */
+	Node	   *escontext;		/* for soft error reporting */
+};
+```
 ## Detailed Description
 TSVectorParseStateData serves as the core parsing state structure for PostgreSQL's text search functionality. It maintains all necessary information to parse both tsvector and tsquery inputs, providing a unified parsing framework with configurable behavior through boolean flags.
 

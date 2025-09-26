@@ -8,7 +8,11 @@ Executes recursive UNION queries by processing non-recursive and recursive terms
 
 ## Definition
 
-
+```c
+structure
+	 */
+	rustate = makeNode(RecursiveUnionState);
+```
 ## Detailed Description
 The `ExecRecursiveUnion` function implements the core logic for executing recursive UNION queries in PostgreSQL. It follows a two-phase approach: first evaluating the non-recursive term (anchor) to establish the initial result set, then iteratively executing the recursive term until no new tuples are generated.
 

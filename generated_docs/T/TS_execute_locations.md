@@ -8,7 +8,12 @@ TS_execute_locations evaluates tsquery expressions and returns detailed location
 
 ## Definition
 
-
+```c
+List *
+TS_execute_locations(QueryItem *curitem, void *arg,
+					 uint32 flags,
+					 TSExecuteCallback chkcond)
+```
 ## Detailed Description
 This function extends the basic tsquery execution model to provide detailed positional information about where matches occur within the text. Unlike the simpler TS_execute variants that only return boolean or ternary match results, this function captures and returns the specific lexeme positions for all successful matches.
 

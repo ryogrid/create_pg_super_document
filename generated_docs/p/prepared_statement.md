@@ -8,7 +8,15 @@ A structure that manages prepared SQL statements in ECPG, maintaining a linked l
 
 ## Definition
 
-
+```c
+struct prepared_statement
+{
+	char	   *name;
+	bool		prepared;
+	struct statement *stmt;
+	struct prepared_statement *next;
+};
+```
 ## Detailed Description
 The prepared_statement structure implements a linked list-based registry for managing prepared SQL statements within ECPG connections. This structure serves as a wrapper around the core statement structure, adding preparation-specific metadata and organization capabilities. It enables ECPG to track which statements have been prepared on the server side, avoid duplicate preparations, and manage the lifecycle of prepared statements efficiently.
 

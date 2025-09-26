@@ -8,7 +8,10 @@ A utility function that advances a source pointer past a null-terminated string 
 
 ## Definition
 
-
+```c
+static char *
+read_gucstate(char **srcptr, char *srcend)
+```
 ## Detailed Description
 The `read_gucstate` function is a helper utility used during GUC state deserialization. Despite its name suggesting it "reads" data, it actually serves as a string pointer advancement function. It returns a pointer to the current string at the source position and advances the source pointer past the null terminator to prepare for reading the next string.
 

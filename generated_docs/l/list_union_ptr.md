@@ -8,7 +8,10 @@ Creates a new list containing the union of two PostgreSQL pointer lists, using s
 
 ## Definition
 
-
+```c
+List *
+list_union_ptr(const List *list1, const List *list2)
+```
 ## Detailed Description
 This function is a variant of list_union() that performs the same basic union operation but uses a different method for determining duplicate elements. Instead of using the equal() function for deep comparison, it uses simple pointer comparison via list_member_ptr().
 

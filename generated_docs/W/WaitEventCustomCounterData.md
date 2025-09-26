@@ -8,7 +8,13 @@ A shared memory structure that manages the dynamic allocation counter for custom
 
 ## Definition
 
-
+```c
+typedef struct WaitEventCustomCounterData
+{
+	int			nextId;			/* next ID to assign */
+	slock_t		mutex;			/* protects the counter */
+} WaitEventCustomCounterData;
+```
 ## Detailed Description
 WaitEventCustomCounterData is a critical component of PostgreSQL's custom wait event system that manages the allocation of unique identifiers for custom wait events. This structure maintains a counter that tracks the next available ID to be assigned to newly registered custom wait events. The structure is protected by a spinlock (mutex) to ensure thread-safe access in PostgreSQL's multi-process environment, preventing race conditions when multiple processes attempt to register custom wait events simultaneously.
 
