@@ -1,0 +1,69 @@
+flowchart LR
+    Start([CheckpointerMain Loop]) --> ClearLatch[Reset Latch]
+    ClearLatch --> AbsorbSync[AbsorbSyncRequests]
+    AbsorbSync --> HandleInt[HandleCheckpointerInterrupts]
+
+    HandleInt --> CheckFlags{Check ckpt_flags<br/>in shared memory}
+    CheckFlags -->|"flags != 0"| SetReq[Set do_checkpoint = true<br/>chkpt_or_rstpt_requested = true]
+    CheckFlags -->|"flags == 0"| CheckTime{elapsed_secs >=<br/>CheckPointTimeout?}
+
+    CheckTime -->|Yes| SetTime[Set do_checkpoint = true<br/>flags |= CHECKPOINT_CAUSE_TIME<br/>chkpt_or_rstpt_timed = true]
+    CheckTime -->|No| NoCheckpoint[No checkpoint needed]
+
+    SetReq --> DetermineType{RecoveryInProgress?}
+    SetTime --> DetermineType
+
+    DetermineType -->|Yes| RestartPoint[do_restartpoint = true]
+    DetermineType -->|No| RegularCP[do_restartpoint = false]
+
+    RestartPoint --> CheckEndRecovery{flags &<br/>CHECKPOINT_END_OF_RECOVERY?}
+    CheckEndRecovery -->|Yes| RegularCP
+    CheckEndRecovery -->|No| ExecuteRestart[CreateRestartPoint]
+
+    RegularCP --> AcquireLock[SpinLockAcquire ckpt_lck]
+    AcquireLock --> FetchFlags[flags |= CheckpointerShmem->ckpt_flags<br/>Clear ckpt_flags<br/>Increment ckpt_started]
+    FetchFlags --> ReleaseLock[SpinLockRelease ckpt_lck]
+    ReleaseLock --> BroadcastStart[ConditionVariableBroadcast start_cv]
+
+    BroadcastStart --> CheckWarning{Too frequent?<br/>CHECKPOINT_CAUSE_XLOG &&<br/>elapsed_secs < CheckPointWarning}
+    CheckWarning -->|Yes| LogWarning[Log frequency warning]
+    CheckWarning -->|No| InitVars[Initialize checkpoint variables]
+    LogWarning --> InitVars
+
+    InitVars --> ExecuteCP[CreateCheckPoint]
+    ExecuteRestart --> CleanupSMGR[smgrdestroyall]
+    ExecuteCP --> CleanupSMGR
+
+    CleanupSMGR --> UpdateStats[Update checkpoint statistics]
+    UpdateStats --> SignalComplete[Signal checkpoint completion<br/>via condition variables]
+    SignalComplete --> CheckArchive[CheckArchiveTimeout]
+
+    NoCheckpoint --> CheckArchive
+    CheckArchive --> CheckMoreFlags{More ckpt_flags<br/>set during processing?}
+    CheckMoreFlags -->|Yes| ClearLatch
+    CheckMoreFlags -->|No| SleepCalc[Calculate sleep timeout]
+
+    SleepCalc --> WaitLatch[WaitLatch with timeout]
+    WaitLatch --> ClearLatch
+
+    %% Flag Types
+    subgraph "Checkpoint Request Flags"
+        F1[CHECKPOINT_IS_SHUTDOWN]
+        F2[CHECKPOINT_END_OF_RECOVERY]
+        F3[CHECKPOINT_IMMEDIATE]
+        F4[CHECKPOINT_FORCE]
+        F5[CHECKPOINT_WAIT]
+        F6[CHECKPOINT_CAUSE_XLOG]
+        F7[CHECKPOINT_CAUSE_TIME]
+    end
+
+    %% Styles
+    classDef decision fill:#fff2cc,stroke:#d6b656,stroke-width:2px
+    classDef action fill:#d5e8d4,stroke:#82b366,stroke-width:2px
+    classDef critical fill:#f8cecc,stroke:#b85450,stroke-width:2px
+    classDef loop fill:#e1d5e7,stroke:#9673a6,stroke-width:2px
+
+    class CheckFlags,CheckTime,DetermineType,CheckEndRecovery,CheckWarning,CheckMoreFlags decision
+    class SetReq,SetTime,AcquireLock,FetchFlags,ExecuteCP,ExecuteRestart action
+    class LogWarning,SignalComplete critical
+    class Start,ClearLatch,WaitLatch loop

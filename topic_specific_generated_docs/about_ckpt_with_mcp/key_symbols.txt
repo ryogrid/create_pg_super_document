@@ -1,0 +1,70 @@
+PostgreSQL Checkpointing Subsystem - Top 30 Key Symbols (Ordered by Importance)
+
+1. CreateCheckPoint (score: 0.95) - CHECKPOINT_CONTROL - Main checkpoint execution function performing complete checkpoint with buffer sync, WAL coordination, and control file updates
+
+2. CheckpointerMain (score: 0.92) - CHECKPOINT_CONTROL - Main loop of checkpointer process handling checkpoint scheduling, execution, and communication
+
+3. BufferSync (score: 0.90) - BUFFER_MANAGEMENT - Checkpoint buffer synchronization coordinating dirty buffer writes across tablespaces with I/O balancing
+
+4. XLogFlush (score: 0.90) - WAL_WRITE - WAL flush to disk ensuring durability before data file changes with write-ahead logging rule
+
+5. RequestCheckpoint (score: 0.88) - CHECKPOINT_CONTROL - Backend interface for requesting checkpoints from checkpointer process with flag coordination
+
+6. CheckPointGuts (score: 0.88) - CHECKPOINT_CORE - Core checkpoint work including relation map, CLOG, buffers, and transaction sync
+
+7. SyncOneBuffer (score: 0.85) - BUFFER_MANAGEMENT - Single buffer sync operation with dirty check, pinning, and flushing for checkpoint and bgwriter
+
+8. CheckPointBuffers (score: 0.85) - CHECKPOINT_CORE - Checkpoint buffer processing delegation to BufferSync for complete dirty buffer flush
+
+9. XLogWrite (score: 0.85) - WAL_WRITE - Physical WAL write operation with file management, fsync coordination, and checkpoint triggering
+
+10. FlushBuffer (score: 0.82) - BUFFER_MANAGEMENT - Physical buffer write to disk with WAL flushing, checksum calculation, and I/O completion
+
+11. CreateRestartPoint (score: 0.82) - RECOVERY_POINTS - Recovery restart point creation during WAL replay with checkpoint-like buffer and metadata sync
+
+12. UpdateControlFile (score: 0.80) - WAL_COORDINATION - Control file update wrapper ensuring checkpoint metadata persistence with flush
+
+13. BackgroundWriterMain (score: 0.78) - BACKGROUND_WRITER - Background writer main loop performing continuous dirty buffer cleaning and hibernation management
+
+14. BgBufferSync (score: 0.75) - BACKGROUND_WRITER - Background writer buffer sync with strategy-based scanning and adaptive cleaning rate
+
+15. smgrwrite (score: 0.75) - STORAGE_IO - Storage manager write interface for physical block I/O to relation files
+
+16. UpdateMinRecoveryPoint (score: 0.72) - WAL_COORDINATION - Recovery point advancement ensuring consistent recovery state with control file updates
+
+17. TerminateBufferIO (score: 0.72) - BUFFER_MANAGEMENT - Buffer I/O completion handling with state cleanup and dirty bit management
+
+18. ProcessSyncRequests (score: 0.70) - SYNC_PROCESSING - Fsync request processing for ensuring data durability with batch optimization and error handling
+
+19. PageSetChecksumCopy (score: 0.68) - DATA_INTEGRITY - Page checksum calculation and copy for torn page protection during writes
+
+20. AbsorbSyncRequests (score: 0.65) - SYNC_PROCESSING - Fsync request absorption during checkpoint to prevent deadlocks and coordinate I/O
+
+21. CheckpointWriteDelay (score: 0.62) - IO_THROTTLING - Checkpoint I/O throttling to spread writes over time and reduce system impact
+
+22. GetVirtualXIDsDelayingChkpt (score: 0.58) - TRANSACTION_SYNC - Transaction delay detection for checkpoint coordination ensuring commit completion
+
+23. UpdateCheckPointDistanceEstimate (score: 0.55) - OPTIMIZATION - Checkpoint distance estimation for WAL preallocation optimization using moving averages
+
+24. ScheduleBufferTagForWriteback (score: 0.52) - IO_OPTIMIZATION - Buffer writeback scheduling for I/O optimization and kernel write batching
+
+25. IssuePendingWritebacks (score: 0.48) - IO_OPTIMIZATION - Pending writeback completion ensuring all scheduled I/O operations are initiated
+
+26. LogCheckpointEnd (score: 0.48) - LOGGING - Checkpoint completion logging with performance statistics and timing details
+
+27. LogCheckpointStart (score: 0.45) - LOGGING - Checkpoint start logging with flag details for monitoring and debugging
+
+28. StartBufferIO (score: 0.42) - BUFFER_MANAGEMENT - Buffer I/O initiation with state management and concurrency control
+
+29. LockBufHdr (score: 0.40) - BUFFER_MANAGEMENT - Buffer header locking for atomic state examination and modification
+
+30. UnlockBufHdr (score: 0.38) - BUFFER_MANAGEMENT - Buffer header unlocking with state update coordination
+
+Key Architectural Patterns:
+- Checkpoint coordination through shared memory and condition variables
+- I/O throttling and spreading to minimize system impact
+- WAL-before-data rule enforcement through XLogFlush
+- Background cleaning to reduce checkpoint burden
+- Full page write protection against torn pages
+- Transaction synchronization during checkpoint boundaries
+- Recovery point management for consistent restart states

@@ -1,0 +1,84 @@
+flowchart LR
+    subgraph "Normal Operation"
+        NormalOp[Normal Page Modifications] --> CheckFPW{full_page_writes<br/>enabled?}
+        CheckFPW -->|Yes| CheckAfterCP{Page modified after<br/>last checkpoint?}
+        CheckFPW -->|No| LogDelta[Log only delta record]
+
+        CheckAfterCP -->|Yes| LogFPW[Log Full Page Write<br/>+ delta record]
+        CheckAfterCP -->|No| LogDelta
+
+        LogFPW --> PageSafe[Page protected from<br/>torn page writes]
+        LogDelta --> PageVulnerable[Page vulnerable to<br/>torn page writes]
+    end
+
+    subgraph "Checkpoint Process"
+        CPStart[Checkpoint Starts] --> MarkBuffers[Mark dirty buffers with<br/>BM_CHECKPOINT_NEEDED]
+        MarkBuffers --> FPWWindow[Full Page Write Window Opens]
+
+        FPWWindow --> BufferFlush[Buffer flushing begins]
+        BufferFlush --> CheckBuffer{For each buffer}
+
+        CheckBuffer --> CheckLSN{Buffer LSN ><br/>checkpoint.redo?}
+        CheckLSN -->|Yes| FlushWAL[XLogFlush(BufferLSN)<br/>WAL-before-data rule]
+        CheckLSN -->|No| DirectWrite[Write buffer directly]
+
+        FlushWAL --> WriteBuffer[Write buffer to disk<br/>with checksum]
+        DirectWrite --> WriteBuffer
+
+        WriteBuffer --> ClearFlag[Clear BM_CHECKPOINT_NEEDED]
+        ClearFlag --> NextBuffer[Next buffer]
+        NextBuffer --> CheckBuffer
+
+        CheckBuffer -->|All buffers done| FPWWindowClose[Full Page Write Window Closes]
+        FPWWindowClose --> CPComplete[Checkpoint Complete]
+    end
+
+    subgraph "Post-Checkpoint Effects"
+        CPComplete --> UpdateRedo[Update RedoRecPtr to<br/>checkpoint.redo]
+        UpdateRedo --> FPWReset[Reset FPW tracking<br/>for all pages]
+
+        FPWReset --> NewFPWCycle[Next modification cycle<br/>requires FPW again]
+    end
+
+    subgraph "Recovery Scenarios"
+        Recovery[Database Recovery] --> FindCP[Find last valid checkpoint]
+        FindCP --> ReadRedo[Read checkpoint.redo]
+        ReadRedo --> ReplayWAL[Replay WAL from redo point]
+
+        ReplayWAL --> EncounterFPW{Encounter Full<br/>Page Write record?}
+        EncounterFPW -->|Yes| RestorePage[Restore complete page<br/>from WAL record]
+        EncounterFPW -->|No| ApplyDelta[Apply delta changes<br/>to existing page]
+
+        RestorePage --> TornPageFixed[Torn page corruption<br/>automatically fixed]
+        ApplyDelta --> CheckTornPage{Page torn during<br/>crash?}
+
+        CheckTornPage -->|Yes| CorruptionDetected[Checksum validation<br/>detects corruption]
+        CheckTornPage -->|No| PageOK[Page intact - apply changes]
+
+        CorruptionDetected --> RecoveryFail[Recovery may fail<br/>without FPW protection]
+    end
+
+    subgraph "Torn Page Prevention"
+        WriteStart[Page write begins] --> PartialWrite{Partial write<br/>due to crash?}
+        PartialWrite -->|Yes - with FPW| RecoverFromWAL[Recover complete page<br/>from WAL FPW record]
+        PartialWrite -->|Yes - no FPW| DataCorruption[Permanent data<br/>corruption possible]
+        PartialWrite -->|No| WriteComplete[Write completes<br/>successfully]
+
+        RecoverFromWAL --> PageRestored[Page fully restored]
+        WriteComplete --> PageRestored
+    end
+
+    %% Critical timing relationships
+    NormalOp -.->|"Concurrent with"| CPStart
+    FPWWindow -.->|"Critical window"| LogFPW
+
+    %% Styles
+    classDef normal fill:#e8f5e8,stroke:#2e7d2e,stroke-width:2px
+    classDef checkpoint fill:#fff2cc,stroke:#d6b656,stroke-width:2px
+    classDef recovery fill:#f8cecc,stroke:#b85450,stroke-width:2px
+    classDef protection fill:#d5e8d4,stroke:#82b366,stroke-width:2px
+
+    class NormalOp,CheckFPW,LogDelta,LogFPW normal
+    class CPStart,MarkBuffers,BufferFlush,CPComplete checkpoint
+    class Recovery,FindCP,ReplayWAL,RecoveryFail recovery
+    class PageSafe,PageRestored,TornPageFixed protection

@@ -1,0 +1,379 @@
+{
+  "symbols": {
+    "CreateCheckPoint": {
+      "overview": "Main checkpoint execution function performing complete checkpoint with buffer sync, WAL coordination, and control file updates",
+      "importance_score": 0.95,
+      "category": "CHECKPOINT_CONTROL",
+      "depth_from_entry": 0,
+      "references_from": ["CheckPointGuts", "XLogFlush", "BufferSync", "UpdateControlFile", "LogCheckpointStart", "LogCheckpointEnd", "GetVirtualXIDsDelayingChkpt", "XLogBeginInsert", "XLogInsert", "UpdateCheckPointDistanceEstimate"],
+      "references_to": ["RequestCheckpoint", "CheckpointerMain"],
+      "metrics": {
+        "ref_count": 52,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "RequestCheckpoint": {
+      "overview": "Backend interface for requesting checkpoints from checkpointer process with flag coordination",
+      "importance_score": 0.88,
+      "category": "CHECKPOINT_CONTROL",
+      "depth_from_entry": 0,
+      "references_from": ["CreateCheckPoint"],
+      "references_to": ["CheckpointerMain", "XLogWrite"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "CheckpointerMain": {
+      "overview": "Main loop of checkpointer process handling checkpoint scheduling, execution, and communication",
+      "importance_score": 0.92,
+      "category": "CHECKPOINT_CONTROL",
+      "depth_from_entry": 0,
+      "references_from": ["CreateCheckPoint", "CreateRestartPoint", "AbsorbSyncRequests", "WaitLatch", "smgrdestroyall"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 35,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "BufferSync": {
+      "overview": "Checkpoint buffer synchronization coordinating dirty buffer writes across tablespaces with I/O balancing",
+      "importance_score": 0.90,
+      "category": "BUFFER_MANAGEMENT",
+      "depth_from_entry": 1,
+      "references_from": ["SyncOneBuffer", "CheckpointWriteDelay", "WritebackContextInit", "binaryheap_allocate", "IssuePendingWritebacks"],
+      "references_to": ["CheckPointBuffers", "CreateCheckPoint"],
+      "metrics": {
+        "ref_count": 28,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SyncOneBuffer": {
+      "overview": "Single buffer sync operation with dirty check, pinning, and flushing for checkpoint and bgwriter",
+      "importance_score": 0.85,
+      "category": "BUFFER_MANAGEMENT",
+      "depth_from_entry": 2,
+      "references_from": ["FlushBuffer", "PinBuffer_Locked", "UnpinBuffer", "ScheduleBufferTagForWriteback"],
+      "references_to": ["BufferSync", "BgBufferSync"],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "FlushBuffer": {
+      "overview": "Physical buffer write to disk with WAL flushing, checksum calculation, and I/O completion",
+      "importance_score": 0.82,
+      "category": "BUFFER_MANAGEMENT",
+      "depth_from_entry": 3,
+      "references_from": ["XLogFlush", "smgrwrite", "PageSetChecksumCopy", "TerminateBufferIO"],
+      "references_to": ["SyncOneBuffer"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BackgroundWriterMain": {
+      "overview": "Background writer main loop performing continuous dirty buffer cleaning and hibernation management",
+      "importance_score": 0.78,
+      "category": "BACKGROUND_WRITER",
+      "depth_from_entry": 0,
+      "references_from": ["BgBufferSync", "LogStandbySnapshot", "StrategyNotifyBgWriter", "WaitLatch"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "BgBufferSync": {
+      "overview": "Background writer buffer sync with strategy-based scanning and adaptive cleaning rate",
+      "importance_score": 0.75,
+      "category": "BACKGROUND_WRITER",
+      "depth_from_entry": 1,
+      "references_from": ["SyncOneBuffer", "StrategySyncStart"],
+      "references_to": ["BackgroundWriterMain"],
+      "metrics": {
+        "ref_count": 18,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "UpdateControlFile": {
+      "overview": "Control file update wrapper ensuring checkpoint metadata persistence with flush",
+      "importance_score": 0.80,
+      "category": "WAL_COORDINATION",
+      "depth_from_entry": 1,
+      "references_from": ["update_controlfile"],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint", "UpdateMinRecoveryPoint"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "UpdateMinRecoveryPoint": {
+      "overview": "Recovery point advancement ensuring consistent recovery state with control file updates",
+      "importance_score": 0.72,
+      "category": "WAL_COORDINATION",
+      "depth_from_entry": 2,
+      "references_from": ["UpdateControlFile", "GetCurrentReplayRecPtr"],
+      "references_to": ["XLogFlush", "CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "LogCheckpointStart": {
+      "overview": "Checkpoint start logging with flag details for monitoring and debugging",
+      "importance_score": 0.45,
+      "category": "LOGGING",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "LogCheckpointEnd": {
+      "overview": "Checkpoint completion logging with performance statistics and timing details",
+      "importance_score": 0.48,
+      "category": "LOGGING",
+      "depth_from_entry": 1,
+      "references_from": ["GetCurrentTimestamp", "TimestampDifferenceMilliseconds"],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CreateRestartPoint": {
+      "overview": "Recovery restart point creation during WAL replay with checkpoint-like buffer and metadata sync",
+      "importance_score": 0.82,
+      "category": "RECOVERY_POINTS",
+      "depth_from_entry": 0,
+      "references_from": ["CheckPointGuts", "UpdateControlFile", "UpdateMinRecoveryPoint", "LogCheckpointStart", "LogCheckpointEnd"],
+      "references_to": ["CheckpointerMain"],
+      "metrics": {
+        "ref_count": 18,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "UpdateCheckPointDistanceEstimate": {
+      "overview": "Checkpoint distance estimation for WAL preallocation optimization using moving averages",
+      "importance_score": 0.55,
+      "category": "OPTIMIZATION",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CheckPointGuts": {
+      "overview": "Core checkpoint work including relation map, CLOG, buffers, and transaction sync",
+      "importance_score": 0.88,
+      "category": "CHECKPOINT_CORE",
+      "depth_from_entry": 1,
+      "references_from": ["CheckPointRelationMap", "CheckPointBuffers", "CheckPointCLOG", "ProcessSyncRequests", "CheckPointTwoPhase"],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "CheckPointBuffers": {
+      "overview": "Checkpoint buffer processing delegation to BufferSync for complete dirty buffer flush",
+      "importance_score": 0.85,
+      "category": "CHECKPOINT_CORE",
+      "depth_from_entry": 2,
+      "references_from": ["BufferSync"],
+      "references_to": ["CheckPointGuts"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "XLogFlush": {
+      "overview": "WAL flush to disk ensuring durability before data file changes with write-ahead logging rule",
+      "importance_score": 0.90,
+      "category": "WAL_WRITE",
+      "depth_from_entry": 2,
+      "references_from": ["XLogWrite", "WaitXLogInsertionsToFinish", "UpdateMinRecoveryPoint"],
+      "references_to": ["FlushBuffer", "CreateCheckPoint"],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "XLogWrite": {
+      "overview": "Physical WAL write operation with file management, fsync coordination, and checkpoint triggering",
+      "importance_score": 0.85,
+      "category": "WAL_WRITE",
+      "depth_from_entry": 3,
+      "references_from": ["pg_pwrite", "issue_xlog_fsync", "RequestCheckpoint", "XLogArchiveNotifySeg"],
+      "references_to": ["XLogFlush"],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ProcessSyncRequests": {
+      "overview": "Fsync request processing for ensuring data durability with batch optimization and error handling",
+      "importance_score": 0.70,
+      "category": "SYNC_PROCESSING",
+      "depth_from_entry": 2,
+      "references_from": ["AbsorbSyncRequests", "hash_seq_search", "INSTR_TIME_SET_CURRENT"],
+      "references_to": ["CheckPointGuts"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "CheckpointWriteDelay": {
+      "overview": "Checkpoint I/O throttling to spread writes over time and reduce system impact",
+      "importance_score": 0.62,
+      "category": "IO_THROTTLING",
+      "depth_from_entry": 2,
+      "references_from": ["AbsorbSyncRequests", "WaitLatch", "ProcessProcSignalBarrier"],
+      "references_to": ["BufferSync"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "AbsorbSyncRequests": {
+      "overview": "Fsync request absorption during checkpoint to prevent deadlocks and coordinate I/O",
+      "importance_score": 0.65,
+      "category": "SYNC_PROCESSING",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["CheckpointerMain", "ProcessSyncRequests", "CheckpointWriteDelay"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "GetVirtualXIDsDelayingChkpt": {
+      "overview": "Transaction delay detection for checkpoint coordination ensuring commit completion",
+      "importance_score": 0.58,
+      "category": "TRANSACTION_SYNC",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["CreateCheckPoint"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ScheduleBufferTagForWriteback": {
+      "overview": "Buffer writeback scheduling for I/O optimization and kernel write batching",
+      "importance_score": 0.52,
+      "category": "IO_OPTIMIZATION",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": ["SyncOneBuffer"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "IssuePendingWritebacks": {
+      "overview": "Pending writeback completion ensuring all scheduled I/O operations are initiated",
+      "importance_score": 0.48,
+      "category": "IO_OPTIMIZATION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["BufferSync"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "smgrwrite": {
+      "overview": "Storage manager write interface for physical block I/O to relation files",
+      "importance_score": 0.75,
+      "category": "STORAGE_IO",
+      "depth_from_entry": 4,
+      "references_from": [],
+      "references_to": ["FlushBuffer"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PageSetChecksumCopy": {
+      "overview": "Page checksum calculation and copy for torn page protection during writes",
+      "importance_score": 0.68,
+      "category": "DATA_INTEGRITY",
+      "depth_from_entry": 4,
+      "references_from": [],
+      "references_to": ["FlushBuffer"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "TerminateBufferIO": {
+      "overview": "Buffer I/O completion handling with state cleanup and dirty bit management",
+      "importance_score": 0.72,
+      "category": "BUFFER_MANAGEMENT",
+      "depth_from_entry": 4,
+      "references_from": [],
+      "references_to": ["FlushBuffer"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    }
+  },
+  "categories": {
+    "CHECKPOINT_CONTROL": ["CreateCheckPoint", "RequestCheckpoint", "CheckpointerMain"],
+    "BUFFER_MANAGEMENT": ["BufferSync", "SyncOneBuffer", "FlushBuffer", "TerminateBufferIO"],
+    "WAL_COORDINATION": ["UpdateControlFile", "UpdateMinRecoveryPoint"],
+    "WAL_WRITE": ["XLogFlush", "XLogWrite"],
+    "BACKGROUND_WRITER": ["BackgroundWriterMain", "BgBufferSync"],
+    "RECOVERY_POINTS": ["CreateRestartPoint"],
+    "CHECKPOINT_CORE": ["CheckPointGuts", "CheckPointBuffers"],
+    "SYNC_PROCESSING": ["ProcessSyncRequests", "AbsorbSyncRequests"],
+    "IO_THROTTLING": ["CheckpointWriteDelay"],
+    "IO_OPTIMIZATION": ["ScheduleBufferTagForWriteback", "IssuePendingWritebacks"],
+    "TRANSACTION_SYNC": ["GetVirtualXIDsDelayingChkpt"],
+    "STORAGE_IO": ["smgrwrite"],
+    "DATA_INTEGRITY": ["PageSetChecksumCopy"],
+    "OPTIMIZATION": ["UpdateCheckPointDistanceEstimate"],
+    "LOGGING": ["LogCheckpointStart", "LogCheckpointEnd"]
+  },
+  "critical_paths": [
+    ["CreateCheckPoint", "CheckPointGuts", "CheckPointBuffers", "BufferSync", "SyncOneBuffer", "FlushBuffer"],
+    ["CreateCheckPoint", "XLogFlush", "XLogWrite"],
+    ["RequestCheckpoint", "CheckpointerMain", "CreateCheckPoint"],
+    ["CreateRestartPoint", "CheckPointGuts", "ProcessSyncRequests"],
+    ["BackgroundWriterMain", "BgBufferSync", "SyncOneBuffer", "FlushBuffer"]
+  ]
+}

@@ -1,0 +1,100 @@
+sequenceDiagram
+    participant BE as Backend
+    participant CP as CreateCheckPoint
+    participant WAL as WAL System
+    participant BM as Buffer Manager
+    participant CF as Control File
+    participant FS as File System
+
+    Note over CP: Checkpoint begins - critical section
+    CP->>CP: START_CRIT_SECTION()
+
+    alt Online Checkpoint
+        Note over CP: Insert REDO record to establish recovery point
+        CP->>WAL: XLogBeginInsert()
+        CP->>WAL: XLogRegisterData(wal_level)
+        CP->>WAL: XLogInsert(XLOG_CHECKPOINT_REDO)
+        Note over WAL: REDO record LSN becomes new RedoRecPtr
+        WAL->>CP: Return LSN (new redo point)
+        CP->>CP: checkpoint.redo = RedoRecPtr
+    else Shutdown Checkpoint
+        Note over CP: Compute REDO point directly
+        CP->>CP: checkpoint.redo = curInsert
+        CP->>WAL: Update RedoRecPtr = checkpoint.redo
+    end
+
+    Note over CP: Collect transaction state for checkpoint record
+    CP->>CP: Get nextXid, oldestXid, etc.
+
+    Note over CP: Wait for commit critical sections
+    CP->>CP: GetVirtualXIDsDelayingChkpt(DELAY_CHKPT_START)
+
+    loop While transactions in commit critical section
+        CP->>CP: AbsorbSyncRequests()
+        CP->>CP: pg_usleep(10ms)
+    end
+
+    Note over CP: Begin core checkpoint work
+    CP->>CP: CheckPointGuts(checkpoint.redo, flags)
+
+    Note over CP: WAL-before-data rule enforcement
+    loop For each dirty buffer
+        BM->>BM: Check BufferGetLSN(bufHdr)
+        alt Buffer LSN > RedoRecPtr
+            BM->>WAL: XLogFlush(BufferGetLSN(bufHdr))
+            WAL->>FS: Write & fsync WAL to disk
+            FS-->>WAL: Confirm WAL flushed
+            WAL-->>BM: LSN flushed confirmation
+        end
+        BM->>FS: Write buffer to data file
+    end
+
+    Note over CP: Process fsync requests
+    CP->>FS: ProcessSyncRequests() - fsync all data files
+
+    Note over CP: Wait for remaining commit critical sections
+    CP->>CP: GetVirtualXIDsDelayingChkpt(DELAY_CHKPT_COMPLETE)
+
+    loop While transactions still in critical section
+        CP->>CP: AbsorbSyncRequests()
+        CP->>CP: pg_usleep(10ms)
+    end
+
+    Note over CP: Insert final checkpoint record
+    CP->>WAL: XLogBeginInsert()
+    CP->>WAL: XLogRegisterData(checkPoint)
+
+    alt Shutdown Checkpoint
+        CP->>WAL: XLogInsert(XLOG_CHECKPOINT_SHUTDOWN)
+    else Online Checkpoint
+        CP->>WAL: XLogInsert(XLOG_CHECKPOINT_ONLINE)
+    end
+
+    WAL->>CP: Return checkpoint record LSN
+
+    Note over CP: Ensure checkpoint record is durable
+    CP->>WAL: XLogFlush(checkpoint_record_LSN)
+    WAL->>FS: Write & fsync checkpoint record
+    FS-->>WAL: Confirm checkpoint record on disk
+
+    Note over CP: Update control file with new checkpoint info
+    CP->>CF: LWLockAcquire(ControlFileLock, LW_EXCLUSIVE)
+    CP->>CF: ControlFile->checkPoint = checkpoint_record_LSN
+    CP->>CF: ControlFile->checkPointCopy = checkPoint
+    CP->>CF: UpdateControlFile()
+    CF->>FS: Write & fsync control file
+    FS-->>CF: Confirm control file updated
+    CP->>CF: LWLockRelease(ControlFileLock)
+
+    Note over CP: Checkpoint complete - end critical section
+    CP->>CP: END_CRIT_SECTION()
+
+    Note over CP: Post-checkpoint cleanup
+    CP->>CP: RemoveOldXlogFiles() - WAL segment cleanup
+    CP->>CP: PreallocXlogFiles() - WAL preallocation
+
+    Note over BE,FS: Timeline showing durability guarantees
+
+    Note right of WAL: WAL records always<br/>flushed before data
+    Note right of CF: Control file update<br/>makes checkpoint<br/>discoverable on restart
+    Note right of FS: All data durable<br/>at checkpoint completion

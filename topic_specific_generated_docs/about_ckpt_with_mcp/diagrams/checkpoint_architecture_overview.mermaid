@@ -1,0 +1,69 @@
+graph TB
+    subgraph "Backend Processes"
+        Backend[Backend Process]
+        Backend -->|"CHECKPOINT command<br/>or auto-trigger"| ReqCP[RequestCheckpoint]
+    end
+
+    subgraph "Checkpointer Process"
+        ChkMain[CheckpointerMain]
+        ChkMain -->|"schedule/signal"| CreateCP[CreateCheckPoint]
+
+        subgraph "Core Checkpoint Work"
+            CreateCP --> CheckGuts[CheckPointGuts]
+            CheckGuts --> ChkBuf[CheckPointBuffers]
+            ChkBuf --> BufSync[BufferSync]
+            BufSync --> SyncOne[SyncOneBuffer]
+            SyncOne --> FlushBuf[FlushBuffer]
+
+            CheckGuts --> ChkCLOG[CheckPointCLOG]
+            CheckGuts --> ChkSUBTRANS[CheckPointSUBTRANS]
+            CheckGuts --> ChkMultiXact[CheckPointMultiXact]
+            CheckGuts --> ProcessSync[ProcessSyncRequests]
+        end
+
+        subgraph "WAL Coordination"
+            CreateCP --> XLogFlushCP[XLogFlush]
+            CreateCP --> UpdateCtl[UpdateControlFile]
+            XLogFlushCP --> XLogWrite[XLogWrite]
+        end
+    end
+
+    subgraph "Background Writer"
+        BGWriter[BackgroundWriterMain]
+        BGWriter --> BgBufSync[BgBufferSync]
+        BgBufSync --> SyncOne
+    end
+
+    subgraph "Storage Layer"
+        FlushBuf --> SMgrWrite[smgrwrite]
+        ProcessSync --> FSyncReq[fsync requests]
+        SMgrWrite --> DiskIO[(Disk I/O)]
+        FSyncReq --> DiskIO
+    end
+
+    subgraph "Control & Metadata"
+        UpdateCtl --> ControlFile[(Control File)]
+        XLogWrite --> WALFiles[(WAL Files)]
+    end
+
+    subgraph "Recovery Process"
+        Recovery[Startup Process]
+        Recovery --> RestartPt[CreateRestartPoint]
+        RestartPt --> CheckGuts
+        RestartPt --> UpdateMinRecovery[UpdateMinRecoveryPoint]
+    end
+
+    %% Shared Memory Communication
+    ReqCP -.->|"shared memory<br/>flags"| ChkMain
+    BGWriter -.->|"buffer state<br/>coordination"| BufSync
+
+    %% Styles
+    classDef processNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef coreWork fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef storage fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef metadata fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+
+    class Backend,ChkMain,BGWriter,Recovery processNode
+    class CreateCP,CheckGuts,ChkBuf,BufSync,SyncOne,FlushBuf coreWork
+    class SMgrWrite,DiskIO,FSyncReq storage
+    class ControlFile,WALFiles,UpdateCtl,XLogFlushCP,XLogWrite metadata

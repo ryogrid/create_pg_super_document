@@ -1,0 +1,91 @@
+stateDiagram-v2
+    [*] --> Idle : Checkpointer startup
+
+    state "Idle State" as Idle {
+        [*] --> Waiting
+        Waiting --> CheckingFlags : Signal received/timeout
+        CheckingFlags --> Waiting : No checkpoint needed
+        CheckingFlags --> RequestReceived : ckpt_flags != 0
+        CheckingFlags --> TimeTriggered : elapsed >= CheckPointTimeout
+    }
+
+    RequestReceived --> Preparing : Request validated
+    TimeTriggered --> Preparing : Time-based trigger
+
+    state "Checkpoint Preparation" as Preparing {
+        [*] --> AcquiringFlags
+        AcquiringFlags --> UpdatingSharedMem : Flags acquired
+        UpdatingSharedMem --> DeterminingType : Shared memory updated
+        DeterminingType --> RegularCheckpoint : !RecoveryInProgress()
+        DeterminingType --> RestartPoint : RecoveryInProgress()
+    }
+
+    RegularCheckpoint --> ExecutingCheckpoint
+    RestartPoint --> ExecutingRestartPoint
+
+    state "Executing Checkpoint" as ExecutingCheckpoint {
+        [*] --> CriticalSection
+        CriticalSection --> WALCoordination
+        WALCoordination --> BufferSync
+        BufferSync --> MetadataSync
+        MetadataSync --> ControlFileUpdate
+        ControlFileUpdate --> [*]
+    }
+
+    state "Executing Restart Point" as ExecutingRestartPoint {
+        [*] --> RecoveryBufferSync
+        RecoveryBufferSync --> RecoveryMetadataSync
+        RecoveryMetadataSync --> MinRecoveryUpdate
+        MinRecoveryUpdate --> [*]
+    }
+
+    ExecutingCheckpoint --> Completing : Checkpoint finished
+    ExecutingRestartPoint --> Completing : Restart point finished
+
+    state "Completion Phase" as Completing {
+        [*] --> CleanupSMGR
+        CleanupSMGR --> UpdatingStats
+        UpdatingStats --> SignalingWaiters
+        SignalingWaiters --> [*]
+    }
+
+    Completing --> Idle : Return to idle
+
+    state "Error Handling" as ErrorState {
+        [*] --> CleanupResources
+        CleanupResources --> ReportingError
+        ReportingError --> SignalingFailure
+        SignalingFailure --> [*]
+    }
+
+    ExecutingCheckpoint --> ErrorState : Error occurs
+    ExecutingRestartPoint --> ErrorState : Error occurs
+    Preparing --> ErrorState : Setup failure
+
+    ErrorState --> Idle : Recovery complete
+
+    state "Buffer States During Checkpoint" as BufferStates {
+        [*] --> BM_DIRTY
+        BM_DIRTY --> BM_CHECKPOINT_NEEDED : BufferSync marking
+        BM_CHECKPOINT_NEEDED --> BM_IO_IN_PROGRESS : SyncOneBuffer
+        BM_IO_IN_PROGRESS --> BM_CLEAN : FlushBuffer complete
+        BM_CLEAN --> [*]
+
+        BM_CHECKPOINT_NEEDED --> BM_CLEAN : Another process wrote
+    }
+
+    note right of Idle
+        Checkpointer sleeps with
+        configurable timeout
+        (CheckPointTimeout)
+    end note
+
+    note right of ExecutingCheckpoint
+        Critical section prevents
+        system panic on errors
+    end note
+
+    note right of BufferStates
+        Buffer state transitions
+        during checkpoint process
+    end note

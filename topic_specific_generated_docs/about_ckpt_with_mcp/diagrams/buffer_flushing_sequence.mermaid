@@ -1,0 +1,86 @@
+sequenceDiagram
+    participant CP as CreateCheckPoint
+    participant CG as CheckPointGuts
+    participant CB as CheckPointBuffers
+    participant BS as BufferSync
+    participant SO as SyncOneBuffer
+    participant FB as FlushBuffer
+    participant SM as smgrwrite
+    participant WT as WritebackContext
+    participant PS as ProcessSyncRequests
+
+    Note over CP: Begin checkpoint critical section
+    CP->>CG: CheckPointGuts(redo, flags)
+
+    Note over CG: Checkpoint core components
+    CG->>CB: CheckPointBuffers(flags)
+    CB->>BS: BufferSync(flags)
+
+    Note over BS: Scan buffer pool for dirty buffers
+    BS->>BS: Lock each buffer header
+    BS->>BS: Mark BM_CHECKPOINT_NEEDED
+    BS->>BS: Build CkptBufferIds array
+
+    Note over BS: Sort buffers by tablespace/relation/block
+    BS->>BS: sort_checkpoint_bufferids()
+    BS->>BS: Allocate per-tablespace progress tracking
+    BS->>BS: Build binary heap for load balancing
+
+    loop For each buffer in sorted order
+        BS->>SO: SyncOneBuffer(buf_id, false, wb_context)
+
+        Note over SO: Check if buffer still needs writing
+        SO->>SO: LockBufHdr(bufHdr)
+
+        alt Buffer is dirty and marked BM_CHECKPOINT_NEEDED
+            SO->>SO: PinBuffer_Locked(bufHdr)
+            SO->>SO: LWLockAcquire(ContentLock, LW_SHARED)
+
+            SO->>FB: FlushBuffer(bufHdr, NULL, IOOBJECT_RELATION, IOCONTEXT_NORMAL)
+
+            Note over FB: WAL-before-data rule enforcement
+            FB->>FB: Check LSN vs RedoRecPtr
+
+            alt WAL needs flushing first
+                FB->>FB: XLogFlush(BufferGetLSN(bufHdr))
+            end
+
+            Note over FB: Prepare page for disk write
+            FB->>FB: PageSetChecksumCopy(page, buf_id)
+            FB->>SM: smgrwrite(reln, forkNum, blockNum, page)
+            FB->>FB: TerminateBufferIO(bufHdr)
+
+            SO->>SO: LWLockRelease(ContentLock)
+            SO->>SO: UnpinBuffer(bufHdr)
+
+            Note over SO: Schedule writeback for batching
+            SO->>WT: ScheduleBufferTagForWriteback(wb_context, tag)
+        else
+            Note over SO: Buffer clean or already written
+            SO->>SO: UnlockBufHdr(bufHdr, buf_state)
+        end
+
+        Note over BS: Update progress tracking
+        BS->>BS: Update tablespace progress
+        BS->>BS: CheckpointWriteDelay() for I/O throttling
+    end
+
+    Note over BS: Issue all pending writebacks
+    BS->>WT: IssuePendingWritebacks(wb_context)
+
+    Note over CG: Continue with other checkpoint components
+    CG->>CG: CheckPointCLOG()
+    CG->>CG: CheckPointSUBTRANS()
+    CG->>CG: CheckPointMultiXact()
+
+    Note over CG: Process all fsync requests
+    CG->>PS: ProcessSyncRequests()
+
+    loop For each pending fsync request
+        PS->>PS: Perform fsync on data files
+    end
+
+    Note over CG: Complete two-phase checkpoint
+    CG->>CG: CheckPointTwoPhase(checkPointRedo)
+
+    Note over CP: End checkpoint critical section
