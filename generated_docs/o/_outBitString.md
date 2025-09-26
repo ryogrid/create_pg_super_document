@@ -1,0 +1,35 @@
+# _outBitString
+
+## Location
+src/backend/nodes/outfuncs.c: 684 - 695
+
+## Overview
+_outBitString is a static helper function that serializes a BitString node to its string representation in PostgreSQL's node output format.
+
+## Definition
+```c
+static void _outBitString(StringInfo str, const BitString *node)
+```
+
+## Detailed Description
+This function converts a BitString node into its textual representation by outputting the bit string value using outToken for proper escaping. The function relies on the lexer guarantee that bit string values always start with 'b' (for binary) or 'x' (for hexadecimal), and outToken preserves these prefixes while escaping any characters that follow. This design ensures that nodeTokenType can correctly identify the token type based on the preserved prefix.
+
+## Parameters / Member Variables
+- `str`: StringInfo buffer where the bit string representation will be appended
+- `node`: Pointer to the BitString node containing the bit string value (bsval field) to be serialized
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Assert (for validating the bit string format)
+  - outToken (for escaping and outputting the bit string value)
+  - BitString (node type)
+- Called from (representative examples):
+  - outNode (main node serialization dispatcher)
+
+## Notes and Other Information
+- This is a static function, meaning it's only accessible within the outfuncs.c file
+- Contains an assertion that validates the bit string format (must start with 'b' or 'x')
+- The lexer guarantees the proper format, but the assertion provides runtime validation
+- The outToken function handles escaping while preserving the 'b'/'x' prefix as required by nodeTokenType
+- Part of PostgreSQL's node serialization system used for debugging, logging, and inter-process communication
+- Bit strings represent binary or hexadecimal literal values in SQL queries

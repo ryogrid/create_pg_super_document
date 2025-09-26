@@ -1,0 +1,54 @@
+# index_concurrently_swap
+
+## Location
+src/backend/catalog/index.c: 1549 - 1819
+
+## Overview
+index_concurrently_swap swaps the identity, dependencies, and constraints between a new concurrent index and the old index it's replacing, effectively completing the concurrent index replacement.
+
+## Definition
+
+
+## Detailed Description
+This function performs the final phase of concurrent index operations by swapping all metadata between the new and old indexes. It swaps names in pg_class, transfers all constraint flags and validity states in pg_index, moves all associated constraints and triggers to point to the new index, transfers comments, handles partition inheritance relationships, swaps all dependencies, and copies statistics.
+
+The operation is comprehensive, ensuring that the new index takes over the complete identity of the old index while the old index is marked as invalid and ready for cleanup. This includes moving primary key, exclusion, and uniqueness constraints, updating trigger references, and maintaining proper dependency relationships throughout the system.
+
+## Parameters / Member Variables
+- : Object identifier of the new index that will replace the old one
+- : Object identifier of the old index being replaced
+- : Name to assign to the old index after the swap
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - relation_open (to lock both indexes)
+  - SearchSysCacheCopy1 (for catalog tuple retrieval)
+  - namestrcpy (for name swapping)
+  - CatalogTupleUpdate (for catalog updates)
+  - heap_freetuple (for memory cleanup)
+  - get_index_ref_constraints/get_index_constraint (for constraint lookup)
+  - systable_beginscan/systable_getnext (for trigger scanning)
+  - heap_copytuple/heap_modify_tuple (for tuple manipulation)
+  - get_rel_relispartition/get_partition_ancestors (for partition handling)
+  - DeleteInheritsTuple/StoreSingleInheritance (for inheritance updates)
+  - changeDependenciesOf/changeDependenciesOn (for dependency swapping)
+  - pgstat_copy_relation_stats (for statistics transfer)
+  - CopyStatistics (for pg_statistic data transfer)
+  - relation_close (for cleanup)
+- Called from (representative examples):
+  - Concurrent reindex completion operations
+
+## Notes and Other Information
+- This is a void function that performs extensive catalog modifications
+- Uses ShareUpdateExclusiveLock on both indexes to prevent concurrent modifications
+- Swaps names, constraint flags, validity states, and partition flags between indexes
+- Moves all constraints (primary key, unique, exclusion) to the new index
+- Updates trigger constraint references to point to the new index
+- Transfers comments from old to new index via pg_description updates
+- Handles partition inheritance by updating pg_inherits relationships
+- Performs complete dependency swapping to maintain referential integrity
+- Copies relation statistics and pg_statistic data to the new index
+- Marks the old index as invalid while making the new index valid and ready
+- Does not call CommandCounterIncrement() to avoid duplicate pg_depend entries
+- Maintains locks until transaction end but closes relations immediately
+- Located at src/backend/catalog/index.c:1549-1819

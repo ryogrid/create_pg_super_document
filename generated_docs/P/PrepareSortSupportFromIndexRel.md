@@ -1,0 +1,47 @@
+# PrepareSortSupportFromIndexRel
+
+## Location
+src/backend/utils/sort/sortsupport.c: 161 - 187
+
+## Overview
+Sets up a SortSupport structure using information from an index relation and a specified strategy to configure sorting for index-related operations.
+
+## Definition
+
+
+## Detailed Description
+PrepareSortSupportFromIndexRel configures sort support functionality specifically for index-based sorting operations. The function:
+
+1. **Extracts operator information**: Retrieves the operator family (opfamily) and input type (opcintype) from the index relation's metadata for the specified attribute
+2. **Validates the index type**: Ensures the relation uses a B-tree access method, as this function is specifically designed for B-tree indexes
+3. **Validates the strategy**: Confirms the strategy is either BTLessStrategyNumber or BTGreaterStrategyNumber
+4. **Sets sort direction**: Configures ssup_reverse based on whether the strategy indicates descending order (BTGreaterStrategyNumber)
+5. **Configures the comparator**: Delegates to FinishSortSupportFunction to set up the actual comparison function
+
+This function is primarily used in contexts where sorting needs to match the ordering defined by an existing B-tree index, such as during index builds, cluster operations, or when leveraging index ordering for query execution.
+
+## Parameters / Member Variables
+- : The index relation containing operator family and type information
+- : B-tree strategy number (BTLessStrategyNumber for ascending, BTGreaterStrategyNumber for descending)
+- : SortSupport structure to be configured (must be pre-initialized with context, attribute number, collation, and nulls handling)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SortSupport (type)
+  - BTGreaterStrategyNumber
+  - BTLessStrategyNumber
+  - FinishSortSupportFunction
+- Called from:
+  - _bt_load (at src/backend/access/nbtree/nbtsort.c:1187)
+  - tuplesort_begin_cluster (at src/backend/utils/sort/tuplesortvariants.c:341)
+  - tuplesort_begin_index_btree (at src/backend/utils/sort/tuplesortvariants.c:426)
+  - ApplySortAbbrevFullComparator (at src/include/utils/sortsupport.h:387)
+
+## Notes and Other Information
+- This is a public function, part of PostgreSQL's sort support API
+- Specifically designed for B-tree indexes and will error if used with other access methods
+- Used primarily in index-related operations like index builds and cluster commands
+- The caller must pre-initialize the SortSupport structure with ssup_cxt, ssup_attno, ssup_collation, and ssup_nulls_first
+- Ensures consistency between sort operations and existing index definitions
+- Strategy validation prevents misuse with invalid B-tree strategy numbers
+- Essential for operations that need to maintain or replicate the sort order of existing B-tree indexes

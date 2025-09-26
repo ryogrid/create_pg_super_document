@@ -1,0 +1,49 @@
+# ForgetPortalSnapshots
+
+## Location
+src/backend/utils/mmgr/portalmem.c: 1256 - 1293
+
+## Overview
+Drops all active snapshots associated with portals during transaction control operations (COMMIT/ROLLBACK) inside procedures, ensuring no snapshots remain active.
+
+## Definition
+```c
+void ForgetPortalSnapshots(void)
+```
+
+## Detailed Description
+ForgetPortalSnapshots is a companion function to HoldPinnedPortals that manages snapshot cleanup during transaction control within stored procedures. Like HoldPinnedPortals, this function must be called when initiating COMMIT or ROLLBACK inside a procedure, but it operates on a different aspect of portal management - the snapshots.
+
+The function performs a two-phase operation:
+1. First phase: Scans all portals in PortalHashTable and clears their portalSnapshot fields, counting how many portal snapshots were found
+2. Second phase: Pops all active snapshots from the snapshot stack, which should correspond exactly to the portal snapshots that were cleared
+
+The function includes a critical validation check to ensure that the number of portal snapshots found matches the number of active snapshots popped, maintaining snapshot stack integrity.
+
+## Parameters / Member Variables
+This function takes no parameters but uses local variables:
+- `numPortalSnaps`: Counter for portal snapshots found and cleared
+- `numActiveSnaps`: Counter for active snapshots popped from the stack
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - hash_seq_init: Initialize hash table iteration
+  - hash_seq_search: Iterate through hash table entries  
+  - ActiveSnapshotSet: Check if active snapshots exist
+  - PopActiveSnapshot: Remove active snapshot from stack
+  - elog: Error logging function
+- Data structures referenced:
+  - HASH_SEQ_STATUS: Hash table iteration status
+  - PortalHashEnt: Hash table entry for portals
+  - PortalHashTable: Global hash table of all portals
+  - Portal: Portal data structure
+- Called from:
+  - _SPI_commit: SPI commit operation (after HoldPinnedPortals)
+  - _SPI_rollback: SPI rollback operation (after HoldPinnedPortals)
+
+## Notes and Other Information
+- This function must be called separately from HoldPinnedPortals and only after steps that are likely to fail have completed
+- The function does not handle holdSnapshot fields - those are cleaned up later in PreCommit_Portals
+- The validation check ensures snapshot stack consistency and prevents snapshot leaks
+- Active snapshots are popped in reverse order, but the portal scan cannot guarantee the correct order for direct snapshot management
+- This separation from PreCommit_Portals avoids the need to clean up snapshot management in VACUUM and other complex areas

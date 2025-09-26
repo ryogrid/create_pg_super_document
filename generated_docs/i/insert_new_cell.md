@@ -1,0 +1,37 @@
+# insert_new_cell
+
+## Location
+src/backend/nodes/list.c: 415 - 438
+
+## Overview
+Creates space for a new cell at a specified position within a PostgreSQL List, returning the address of the newly created cell.
+
+## Definition
+
+
+## Detailed Description
+The  function is a low-level, static utility function that creates space for a new cell at a specific position within an existing PostgreSQL List. Unlike the append functions, this function can insert at any valid position within the list, including the beginning or middle. It handles the memory management aspects of list insertion, including enlarging the array if necessary and shifting existing elements to make room for the new cell.
+
+The function assumes the input list is non-NIL and validates that the position is within valid bounds (0 <= pos <= list length). After ensuring sufficient space is available by potentially enlarging the list, it uses memmove to shift existing elements and increments the list length. The data in the newly created cell is left undefined and must be filled by the caller.
+
+This is an internal implementation function used by the public list insertion APIs.
+
+## Parameters / Member Variables
+- : The non-NIL List to insert into (must be a valid existing list)
+- : The zero-based position where the new cell should be inserted (0 <= pos <= list length)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - enlarge_list (expands list capacity when current space is insufficient)
+- Called from (representative examples):
+  - list_insert_nth (public API for inserting pointer values at specific positions)
+  - list_insert_nth_int (public API for inserting integer values at specific positions)
+  - list_insert_nth_oid (public API for inserting OID values at specific positions)
+
+## Notes and Other Information
+- Static function, not part of the public API - used internally by list insertion functions
+- Performs bounds checking with assertions to ensure position validity
+- Uses memmove for safe memory copying when elements need to be shifted
+- Returns pointer to new cell, but cell data is uninitialized and must be set by caller
+- Automatically handles list expansion when capacity is exceeded
+- More complex than append operations due to need for element shifting

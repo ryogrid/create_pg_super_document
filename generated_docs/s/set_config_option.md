@@ -1,0 +1,53 @@
+# set_config_option
+
+## Location
+src/backend/utils/misc/guc.c: 3345 - 3384
+
+## Overview
+Primary external interface for setting PostgreSQL configuration parameters with comprehensive access control, validation, and context management.
+
+## Definition
+
+
+## Detailed Description
+This function serves as the main entry point for setting configuration parameters in PostgreSQL. It handles privilege checking based on the source of the configuration change and delegates the actual work to set_config_with_handle().
+
+The function implements a security model where interactive sources (like SQL commands) are subject to normal user privilege checks, while non-interactive sources (like config files, defaults, and pg_db_role_setting entries) are treated as having administrative privileges. The key distinction is made between PGC_S_INTERACTIVE and higher privilege sources.
+
+The function supports multiple operational modes through its parameters: it can validate without changing (changeVal=false), apply changes at different transaction scopes (via action parameter), and handle reloading of existing settings (is_reload=true).
+
+Return values indicate the outcome: +1 for successful application, 0 for validation errors (when elevel < ERROR), and -1 for cases where validation passed but the value wasn't applied due to operational constraints.
+
+## Parameters / Member Variables
+- : The configuration parameter name to set
+- : The new value as a string (NULL means set to default value)
+- : The GUC context level (e.g., PGC_SUSET, PGC_USERSET) determining access requirements
+- : Source of the configuration change (e.g., PGC_S_FILE, PGC_S_USER, PGC_S_INTERACTIVE)
+- : Whether to set globally, locally to current transaction, or just for function duration
+- : If false, perform validation only without actually changing the value
+- : Error reporting level to use, or 0 for automatic choice
+- : True when loading settings from another process (affects error handling)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GucContext, GucSource, GucAction (enum types)
+  - GetUserId (current user identification)
+  - set_config_with_handle (actual implementation)
+  - BOOTSTRAP_SUPERUSERID (superuser constant)
+  - PGC_S_INTERACTIVE, PGC_S_CLIENT (source constants)
+- Called from (representative examples):
+  - SetConfigOption (public wrapper)
+  - ExecSetVariableStmt (SQL SET command handling)
+  - ProcessGUCArray (array parameter processing)
+  - set_config_by_name (function-based interface)
+  - RestrictSearchPath (search path manipulation)
+
+## Notes and Other Information
+- Implements privilege-based access control for configuration changes
+- Non-interactive sources bypass normal privilege checks (except PGC_S_CLIENT)
+- Returns different codes to distinguish validation failures from operational constraints
+- Supports dry-run mode via changeVal parameter for validation-only operations
+- Used extensively throughout PostgreSQL for configuration management
+- Integrates with the transaction system through the action parameter
+- Part of PostgreSQL's Grand Unified Configuration (GUC) system
+- The is_reload parameter handles special cases during process startup and configuration reloading

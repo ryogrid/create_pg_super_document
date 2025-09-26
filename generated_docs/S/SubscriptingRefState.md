@@ -1,0 +1,54 @@
+# SubscriptingRefState
+
+## Location
+src/include/executor/execExpr.h: 728 - 755
+
+## Overview
+SubscriptingRefState provides workspace and state management for container subscripting operations (array and JSONB indexing) during expression evaluation, supporting both fetch and assignment operations.
+
+## Definition
+
+
+## Detailed Description
+SubscriptingRefState manages the execution state for container subscripting operations in PostgreSQL, handling both simple indexing (e.g., array[1]) and slice operations (e.g., array[1:3]). The structure supports both fetch operations (retrieving values) and assignment operations (setting values).
+
+The state distinguishes between upper and lower indexes to support slice notation where ranges can be specified. For simple indexing, only upper indexes are used. The structure maintains arrays of index values, their null status, and whether each position is provided (to handle sparse index specifications).
+
+For assignment operations, the structure stores both the new value to assign and can preserve the previous value for nested assignments. A type-specific workspace pointer allows different container types (arrays, JSONB) to maintain their own specialized state.
+
+## Parameters / Member Variables
+- : Boolean flag indicating whether this is an assignment operation (true) or just a fetch operation (false)
+- : Void pointer to type-specific workspace used by container-specific subscripting code
+- : Number of upper index positions
+- : Array indicating which upper index positions are explicitly provided
+- : Array of upper index Datum values
+- : Array indicating null status for upper indexes
+- : Number of lower index positions (for slice operations)
+- : Array indicating which lower index positions are explicitly provided
+- : Array of lower index Datum values
+- : Array indicating null status for lower indexes
+- : For assignments, the new Datum value to assign
+- : Null flag for the replacement value
+- : Previous Datum value, used in nested assignments
+- : Null flag for the previous value
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - (None - this is a data structure)
+- Called from (representative examples):
+  - ExecInitSubscriptingRef (expression initialization)
+  - array_subscript_check_subscripts (array subscript validation)
+  - array_subscript_fetch (array value retrieval)
+  - array_subscript_assign (array value assignment)
+  - jsonb_subscript_fetch (JSONB value retrieval)
+  - jsonb_subscript_assign (JSONB value assignment)
+  - ExprEvalStep (used in subscripting evaluation steps)
+
+## Notes and Other Information
+- Designed as non-inline data for container operations that require substantial workspace
+- Supports both simple indexing (array[1]) and slice operations (array[1:3])
+- The upper/lower index distinction enables proper handling of slice notation
+- Type-specific workspace allows extensibility for different container types
+- Used by both array and JSONB subscripting implementations
+- The provided arrays handle sparse index specifications where some positions may be omitted
+- Assignment operations can preserve previous values for complex nested assignment scenarios

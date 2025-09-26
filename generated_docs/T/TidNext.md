@@ -1,0 +1,58 @@
+# TidNext
+
+## Location
+src/backend/executor/nodeTidscan.c: 312 - 402
+
+## Overview
+TidNext is a static function that retrieves the next tuple from a TID scan by iterating through a pre-computed list of TIDs and fetching the corresponding tuples from the relation.
+
+## Definition
+```c
+static TupleTableSlot *TidNext(TidScanState *node)
+```
+
+## Detailed Description
+This function implements the core tuple retrieval logic for TID scans. It manages the iteration through a list of TIDs (computed by TidListEval) and fetches the actual tuples from the heap relation. The function supports both forward and backward scan directions.
+
+Key operational aspects:
+1. **Lazy initialization**: On first call, invokes TidListEval to compute the TID list
+2. **Bidirectional scanning**: Supports both forward and backward scan directions via scan direction parameter
+3. **Position management**: Maintains tss_TidPtr as the current position in the TID array
+4. **CURRENT OF handling**: For cursor-based operations, retrieves the latest version of tuples using table_tuple_get_latest_tid
+5. **Snapshot compliance**: Uses table_tuple_fetch_row_version to ensure snapshot visibility
+6. **Error handling**: Gracefully handles invalid TIDs and snapshot qualification failures
+
+The function continues iterating through TIDs until it finds a valid, visible tuple or exhausts the TID list. For each TID, it attempts to fetch the tuple version that satisfies the query's snapshot. If a TID is invalid or the tuple doesn't meet snapshot criteria, it advances to the next TID.
+
+## Parameters / Member Variables
+- `node`: Pointer to TidScanState structure containing the scan state, TID list, current position, and other scan-related information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TidListEval
+  - ScanDirectionIsBackward
+  - table_tuple_get_latest_tid
+  - table_tuple_fetch_row_version
+  - ExecClearTuple
+  - CHECK_FOR_INTERRUPTS
+- Types used:
+  - TidScanState
+  - TupleTableSlot
+  - EState
+  - ScanDirection
+  - Snapshot
+  - TableScanDesc
+  - Relation
+  - ItemPointerData
+- Called from:
+  - ExecTidScan
+
+## Notes and Other Information
+- This is a static function, only accessible within nodeTidscan.c
+- Implements lazy evaluation - TID list is computed only when first tuple is requested
+- Supports query cancellation via CHECK_FOR_INTERRUPTS() macro
+- Handles both regular TID expressions and CURRENT OF cursor expressions
+- The function is stateful - maintains position (tss_TidPtr) between calls
+- Returns NULL (via ExecClearTuple) when no more tuples are available
+- Part of PostgreSQL's executor framework for direct tuple access via TID values
+- Optimized for sequential access through the sorted TID list produced by TidListEval

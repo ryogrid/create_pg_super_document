@@ -1,0 +1,46 @@
+# CoerceToDomainValue
+
+## Location
+src/include/nodes/primnodes.h: 2048 - 2059
+
+## Overview
+CoerceToDomainValue is a placeholder node representing the value to be processed by a domain's check constraint during domain type validation in PostgreSQL.
+
+## Definition
+
+
+## Detailed Description
+CoerceToDomainValue is a specialized placeholder node that acts as a substitute for the actual value being tested during domain constraint validation. It functions similarly to a Param node but is implemented more simply since only one replacement value is needed at a time during constraint checking.
+
+This node is used within domain check constraint expressions where it represents the VALUE keyword in constraint definitions. When a domain constraint is evaluated, this placeholder is replaced with the actual value being coerced to the domain type.
+
+A critical design aspect is that the typeId/typeMod/collation fields are set from the domain's base type, not the domain itself. This is intentional because the value should not be considered a member of the domain until all constraints have been successfully validated.
+
+## Parameters / Member Variables
+- : Base Expr node structure
+- : OID of the type for the substituted value (from domain's base type)
+- : Type modifier for the substituted value
+- : OID of the collation for the substituted value
+- : Token location in source query, or -1 if unknown
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ParseLoc (for location tracking)
+  - Expr (base expression structure)
+  - Oid (object identifier type)
+  
+- Called from (representative examples):
+  - domainAddCheckConstraint (when adding check constraints to domains)
+  - replace_domain_constraint_value (constraint value replacement)
+  - exprType (expression type determination)
+  - exprTypmod (expression type modifier determination)
+  - exprCollation (expression collation determination)
+
+## Notes and Other Information
+- Essential component of PostgreSQL's domain constraint system
+- Acts as the VALUE placeholder in domain CHECK constraint expressions
+- The pg_node_attr(query_jumble_ignore) annotations on typeMod and collation indicate these fields should be ignored during query fingerprinting
+- Used primarily during domain constraint validation and constraint manipulation operations
+- The distinction between base type properties and domain type properties is crucial for correct constraint semantics
+- Simpler implementation compared to Param nodes due to the single-value replacement pattern
+- Critical for implementing SQL standard domain constraints with proper VALUE semantics

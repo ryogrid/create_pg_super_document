@@ -1,0 +1,43 @@
+# get_nullingrels
+
+## Location
+src/backend/optimizer/prep/prepjointree.c: 4208 - 4227
+
+## Overview
+Initializes and collects comprehensive information about which outer joins can null which leaf relations throughout the entire query.
+
+## Definition
+```c
+static nullingrel_info *get_nullingrels(Query *parse)
+```
+
+## Detailed Description
+This function serves as the entry point for collecting nulling relationship information across the entire query. It creates and initializes a `nullingrel_info` structure that will contain, for each leaf relation in the query, the complete set of outer join relation IDs that can potentially null that relation.
+
+The function performs these key steps:
+1. Allocates a new `nullingrel_info` structure
+2. Determines the range table length from the query's rtable
+3. Allocates a zero-initialized array of `Relids` (bitmap sets) with one entry per range table slot plus one extra
+4. Calls `get_nullingrels_recurse` to perform the actual recursive analysis of the join tree
+
+The resulting data structure provides a complete mapping from each base relation to all outer joins that could potentially introduce NULL values for that relation, which is crucial for correct handling of outer join semantics during query optimization and execution.
+
+## Parameters / Member Variables
+- `parse`: The Query structure containing the join tree and range table to analyze
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - palloc_object
+  - palloc0_array
+  - get_nullingrels_recurse
+  - list_length
+- Called from (representative examples):
+  - pull_up_simple_subquery
+
+## Notes and Other Information
+- This is a static function, accessible only within prepjointree.c
+- The function allocates memory for (rtlength + 1) entries to handle 1-based range table indexing
+- The array is zero-initialized, meaning relations with no nulling outer joins will have empty bitmap sets
+- The actual analysis work is delegated to `get_nullingrels_recurse`, making this function primarily a setup and initialization routine
+- The returned structure is essential for maintaining correct NULL semantics during subquery flattening and other query transformations
+- Memory allocation uses PostgreSQL's memory management functions (palloc_object, palloc0_array)

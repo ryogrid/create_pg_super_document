@@ -2,6 +2,7 @@ import duckdb
 from pathlib import Path
 from collections import defaultdict
 import sys
+from datetime import datetime
 
 # --- Configuration ---
 DOCS_DB_FILE = Path("data/documents.duckdb")
@@ -100,6 +101,11 @@ def main():
     # Dictionary to count the number of files per directory
     dir_counts = defaultdict(int)
     
+    # prepare log file for recording generated symbols with timestamp suffix    
+    log_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file_path = f"generation_log_{ log_timestamp }.txt"
+    log_file = open(log_file_path, "w", encoding="utf-8")
+
     connection = None
     try:
         # 2. Connect to the documents DuckDB database
@@ -143,12 +149,20 @@ def main():
             file_name = f"{symbol_name}.md"
             file_path = subdir_path / file_name
             
+            # avoid overwriting existing files
+            if file_path.exists():
+                print(f"Warning: File '{file_path}' already exists. Skipping to avoid overwrite.")
+                continue
+            
             try:
                 # Write the modified content to the file
                 file_path.write_text(modified_content, encoding='utf-8')
                 dir_counts[subdir_char] += 1
             except Exception as e:
                 print(f"Warning: Could not write file for '{symbol_name}'. Error: {e}")
+
+            # Log the generated symbol
+            log_file.write(f"{symbol_name}\n")
 
         print("\nAll markdown files have been created successfully.")
 

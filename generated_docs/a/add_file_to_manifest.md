@@ -1,0 +1,53 @@
+# add_file_to_manifest
+
+## Location
+src/bin/pg_combinebackup/write_manifest.c: 76 - 141
+
+## Overview
+Adds a file entry to the backup manifest, encoding file metadata including path, size, modification time, and optional checksum information in JSON format.
+
+## Definition
+
+
+## Detailed Description
+This function adds a complete file entry to the backup manifest being built by the manifest writer. It handles the JSON formatting for file metadata, including proper encoding of file paths (UTF-8 validation and hex encoding for non-UTF-8 paths), file size, modification timestamp, and optional checksum information. The function manages JSON syntax by tracking whether this is the first file entry and adding appropriate separators.
+
+Key features include:
+- UTF-8 path validation with fallback to hex-encoded paths for non-UTF-8 filenames
+- ISO 8601 timestamp formatting for modification times
+- Hex encoding of checksum payloads when present
+- Automatic buffer flushing when the accumulated JSON exceeds 128KB
+- Proper JSON comma separation between file entries
+
+## Parameters / Member Variables
+- : Manifest writer structure maintaining the JSON build state
+- : Relative path of the file within the backup
+- : File size in bytes
+- : File modification time as Unix timestamp
+- : Type of checksum algorithm used (if any)
+- : Length of the checksum payload in bytes
+- : Binary checksum data to be hex-encoded
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - manifest_writer (structure type)
+  - pg_checksum_type (enum type)
+  - pg_encoding_verifymbstr (UTF-8 validation)
+  - PG_UTF8 (encoding constant)
+  - escape_json (JSON string escaping)
+  - enlargeStringInfo (buffer management)
+  - hex_encode (binary to hex conversion)
+  - strftime (timestamp formatting)
+  - flush_manifest (buffer flushing)
+  - pg_checksum_type_name (checksum algorithm name)
+- Called from (representative examples):
+  - write_backup_label (in src/bin/pg_combinebackup/backup_label.c:188)
+  - process_directory_recursively (in src/bin/pg_combinebackup/pg_combinebackup.c:1134)
+
+## Notes and Other Information
+- The function automatically flushes the manifest buffer when it exceeds 128KB to manage memory usage
+- Non-UTF-8 file paths are hex-encoded and stored in an "Encoded-Path" field instead of "Path"
+- Timestamps are formatted in GMT using the ISO format "%Y-%m-%d %H:%M:%S %Z"
+- Checksum information is optional - if checksum_length is 0, no checksum fields are added
+- This is similar to the backend's AddFileToBackupManifest but adapted for frontend use
+- The JSON structure follows PostgreSQL's backup manifest specification

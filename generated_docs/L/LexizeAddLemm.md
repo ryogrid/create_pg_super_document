@@ -1,0 +1,40 @@
+# LexizeAddLemm
+
+## Location
+src/backend/tsearch/ts_parse.c: 100 - 111
+
+## Overview
+LexizeAddLemm creates and adds a new ParsedLex element to the work queue in LexizeData, storing a lexeme with its type and length for subsequent processing.
+
+## Definition
+```c
+static void LexizeAddLemm(LexizeData *ld, int type, char *lemm, int lenlemm)
+```
+
+## Detailed Description
+LexizeAddLemm is a static function that allocates and initializes a new ParsedLex structure, then adds it to the work queue (towork list) within the LexizeData structure. The function encapsulates lexeme data along with its type and length, making it available for dictionary processing and further lexical analysis.
+
+After creating the new ParsedLex element and adding it to the tail of the work queue, the function updates the curSub pointer to reference the newly added element. This allows the lexical processing system to track the current position in the work queue and maintain processing state across multiple dictionary operations.
+
+## Parameters / Member Variables
+- `ld`: Pointer to LexizeData structure containing the work queue and processing state
+- `type`: Integer representing the lexeme type (token classification)
+- `lemm`: Pointer to character string containing the lexeme text
+- `lenlemm`: Length of the lexeme string in characters
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - LexizeData (structure type)
+  - ParsedLex (structure type)
+  - palloc (memory allocation function)
+  - LPLAddTail (list manipulation function)
+- Called from (representative examples):
+  - parsetext
+  - hlparsetext
+
+## Notes and Other Information
+- Static function with local scope to ts_parse.c
+- Allocates memory using PostgreSQL's palloc for ParsedLex structure
+- Updates both the work queue and current processing pointer
+- Essential for building the lexeme processing pipeline
+- Memory allocation follows PostgreSQL memory context patterns

@@ -1,0 +1,37 @@
+# ChooseTablespace
+
+## Location
+src/backend/storage/file/fileset.c: 186 - 196
+
+## Overview
+The ChooseTablespace function determines which tablespace a given temporary file should belong to by using hash-based distribution across available tablespaces.
+
+## Definition
+```c
+static Oid
+ChooseTablespace(const FileSet *fileset, const char *name)
+```
+
+## Detailed Description
+ChooseTablespace implements a hash-based tablespace selection algorithm for temporary files within a FileSet. It computes a hash value from the file name and uses modular arithmetic to distribute files across the available tablespaces configured for the FileSet. This approach ensures relatively even distribution of temporary files across multiple tablespaces, which can help with I/O load balancing and storage utilization.
+
+The function is static and serves as an internal utility within the fileset.c module, primarily used during file creation and path resolution operations.
+
+## Parameters / Member Variables
+- `fileset`: Pointer to the FileSet structure containing the array of available tablespaces and their count
+- `name`: The name of the temporary file for which to select a tablespace
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - hash_any (computes hash value from the file name string)
+  - FileSet (struct type containing tablespace configuration)
+- Called from (representative examples):
+  - FileSetCreate (when setting up initial tablespace selection)
+  - FilePath (when determining the tablespace for a specific file path)
+
+## Notes and Other Information
+- This is a static function, only accessible within the fileset.c compilation unit
+- The hash-based distribution provides good load balancing but is deterministic for the same file name
+- The modular arithmetic ensures the result is always within the valid range of configured tablespaces
+- Used as part of PostgreSQL's temporary file management system for parallel operations
+- The function assumes that fileset->ntablespaces is greater than 0

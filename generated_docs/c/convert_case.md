@@ -1,0 +1,47 @@
+# convert_case
+
+## Location
+src/common/unicode_case.c: 137 - 202
+
+## Overview
+Core function that performs Unicode case conversion (lowercase, uppercase, or titlecase) on UTF-8 encoded strings with support for word boundary detection.
+
+## Definition
+
+
+## Detailed Description
+The  function is the central implementation for all case conversion operations in PostgreSQL's Unicode handling. It supports three types of case conversion: lowercase (), uppercase (), and titlecase (). 
+
+For lowercase and uppercase conversions, it maps each character in the string using the Unicode case mapping table. For titlecase conversion, it uses word boundary detection to map characters at word boundaries to uppercase and other characters to lowercase.
+
+The function processes the source string character by character, converting each Unicode codepoint according to the specified case kind. It uses the  function to locate case mapping information for each character and handles both simple character mapping and characters without case mappings by copying them unchanged.
+
+## Parameters / Member Variables
+- : Destination buffer to store the converted result
+- : Size of the destination buffer in bytes
+- : Source UTF-8 encoded string to convert
+- : Length of source string in bytes, or negative for NUL-terminated strings
+- : Type of case conversion (CaseLower, CaseUpper, or CaseTitle)
+- : Word boundary detection function (required for titlecase, NULL otherwise)
+- : State for word boundary detection (required for titlecase, NULL otherwise)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - utf8_to_unicode (converts UTF-8 bytes to Unicode codepoint)
+  - unicode_utf8len (calculates UTF-8 byte length for a Unicode codepoint)
+  - find_case_map (finds case mapping for a Unicode codepoint)
+  - unicode_to_utf8 (converts Unicode codepoint back to UTF-8 bytes)
+  - pg_case_map (Unicode case mapping structure)
+  - CaseKind (enumeration for case conversion types)
+- Called from (representative examples):
+  - unicode_strlower
+  - unicode_strtitle  
+  - unicode_strupper
+
+## Notes and Other Information
+- This is a static function, only accessible within the unicode_case.c file
+- Handles proper Unicode case conversion according to Unicode standards
+- For titlecase conversion, requires word boundary detection functions to determine where to apply uppercase vs lowercase
+- Returns the total length of the converted result, even if the destination buffer was insufficient
+- Performs assertions to ensure titlecase parameters are properly provided when needed
+- The function gracefully handles buffer overflow by continuing to calculate the correct result length while only writing what fits in the destination buffer

@@ -1,0 +1,38 @@
+# AggStatePerAggData
+
+## Location
+src/include/executor/nodeAgg.h: 187 - 232
+
+## Overview
+AggStatePerAggData contains per-aggregate information needed to produce final aggregate results from transition state values, with support for sharing among multiple identical Aggrefs.
+
+## Definition
+
+
+## Detailed Description
+AggStatePerAggData stores the information required to call the final function and produce a final aggregate result from the transition state value. This struct is complementary to AggStatePerTransData - while the latter handles the transition phase, this struct manages the finalization phase of aggregate computation.
+
+Multiple identical Aggref expressions in a query can share the same AggStatePerAggData instance, enabling optimization by avoiding duplicate final function calls. The struct contains metadata about the final function, result type information, and direct arguments for ordered-set aggregates.
+
+All values in this structure are set up during ExecInitAgg() and remain unchanged throughout query execution, making it a read-only configuration structure for the finalization phase.
+
+## Parameters / Member Variables
+- : Link to the Aggref expression this aggregate data serves (points to first of potentially multiple identical Aggrefs)
+- : Index to the transition state value that this aggregate should use
+- : OID of the final function (may be InvalidOid if no final function needed)
+- : Function manager lookup data for the final function (valid only when finalfn_oid is not InvalidOid)
+- : Number of arguments to pass to the final function (minimum 1 for transition state plus any ordered-set direct args)
+- : List of ExprStates for direct-argument expressions used in ordered-set aggregates
+- : Length of the aggregate's result data type for memory management
+- : Whether the result type is passed by value for efficient copying
+- : False if this aggregate cannot share state values due to read-write final function
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Aggref
+- Called from (representative examples):
+  - ExecInitAgg
+  - AggStatePerAgg
+
+## Notes and Other Information
+This structure is essential for PostgreSQL's two-phase aggregate processing architecture. The separation between transition computation (AggStatePerTransData) and result finalization (AggStatePerAggData) enables important optimizations like state sharing among identical aggregates. The shareable flag prevents incorrect results when final functions modify their input, ensuring data integrity during parallel aggregate processing.

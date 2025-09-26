@@ -1,0 +1,39 @@
+# ActiveSnapshotElt
+
+## Location
+src/backend/utils/time/snapmgr.c: 112 - 117
+
+## Overview
+A data structure representing elements in PostgreSQL's active snapshot stack, managing the hierarchy of transaction snapshots and their nesting levels.
+
+## Definition
+
+
+## Detailed Description
+ActiveSnapshotElt is a fundamental component of PostgreSQL's snapshot management system, specifically designed to maintain a stack of active snapshots. Each element in this stack represents exactly one active_count reference on a SnapshotData structure. The stack is organized as a linked list where elements are maintained in non-increasing order of nesting level (as_level), ensuring proper hierarchical transaction management.
+
+The structure supports PostgreSQL's multi-level transaction system by tracking which snapshot belongs to which transaction nesting level. When transactions are nested (such as with savepoints), this structure allows the system to maintain separate snapshots for different transaction levels while preserving the proper order for cleanup operations.
+
+## Parameters / Member Variables
+- : The actual Snapshot structure containing the snapshot data for this level
+- : The transaction nesting level that owns this snapshot (higher values indicate deeper nesting)
+- : Pointer to the next element in the active snapshot stack (forms a linked list)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Snapshot (data type)
+  - struct ActiveSnapshotElt (self-reference for linked list)
+  
+- Called from (representative examples):
+  - PushActiveSnapshotWithLevel (creates new elements)
+  - PopActiveSnapshot (removes elements)
+  - AtSubCommit_Snapshot (transaction cleanup)
+  - AtSubAbort_Snapshot (transaction rollback)
+  - AtEOXact_Snapshot (end-of-transaction cleanup)
+
+## Notes and Other Information
+- The active snapshot stack must always be NULL-terminated
+- Elements are maintained in non-increasing order of as_level to support proper transaction nesting
+- Each element accounts for exactly one active_count on the associated SnapshotData
+- Memory allocation for elements occurs in TopTransactionContext to ensure proper lifetime management
+- The structure is critical for supporting PostgreSQL's MVCC (Multi-Version Concurrency Control) system across nested transactions

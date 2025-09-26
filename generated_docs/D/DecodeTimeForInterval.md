@@ -1,0 +1,49 @@
+# DecodeTimeForInterval
+
+## Location
+src/backend/utils/adt/datetime.c: 2701 - 2726
+
+## Overview
+DecodeTimeForInterval is an interval-specific wrapper around DecodeTimeCommon that converts parsed time components into a single microsecond value suitable for PostgreSQL interval calculations.
+
+## Definition
+
+
+## Detailed Description
+DecodeTimeForInterval provides specialized processing for interval parsing by converting all time components (hours, minutes, seconds, microseconds) into a unified microsecond representation. This design supports PostgreSQL's internal interval storage format where time components are accumulated as total microseconds. Key features include:
+
+1. **Unified Time Representation**: Converts hours, minutes, and seconds into microseconds and accumulates them into a single tm_usec field, providing a normalized representation for interval arithmetic.
+
+2. **Overflow-Safe Arithmetic**: Uses int64_multiply_add() function calls to perform safe multiplication and addition operations, preventing integer overflow during the conversion process.
+
+3. **Interval-Specific Design**: Unlike DecodeTime which preserves separate fields for timestamp use, this function consolidates time components for interval storage and calculation purposes.
+
+4. **High Precision Support**: Maintains microsecond precision throughout the conversion process, ensuring no loss of temporal resolution.
+
+The function is specifically designed for interval parsing contexts where time components need to be represented as a total microsecond duration.
+
+## Parameters / Member Variables
+- : Input string containing the time to be parsed
+- : Field mask indicating which date/time fields are already present
+- : Range specification for interval parsing (affects field interpretation)
+- : Output parameter receiving a mask of successfully parsed time fields
+- : Output parameter receiving the consolidated time as total microseconds
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - : Core time parsing functionality
+  - : Safe 64-bit multiply-and-add operation
+  - : Intermediate time structure for parsing results
+  - : Interval-specific time input structure
+  - , , : Time conversion constants
+- Called from (representative examples):
+  - : Main interval parsing function (multiple call sites)
+
+## Notes and Other Information
+- Returns 0 for successful parsing, or DTERR_FIELD_OVERFLOW for arithmetic overflow
+- Designed specifically for interval contexts rather than timestamp parsing
+- Uses overflow-safe arithmetic functions to prevent integer overflow during time unit conversions
+- Consolidates all time components into a single microsecond value for simplified interval arithmetic
+- Static function indicating it's an internal utility within the datetime parsing system
+- The accumulated microsecond approach allows for easier interval addition, subtraction, and scaling operations
+- Critical for PostgreSQL's interval type implementation where durations are stored as consolidated microsecond values

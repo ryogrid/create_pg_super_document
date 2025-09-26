@@ -1,0 +1,41 @@
+# ReplicationState
+
+## Location
+src/backend/replication/logical/origin.c: 101 - 134
+
+## Overview
+ReplicationState is a structure that tracks the replay progress of a single remote node in PostgreSQL's logical replication system.
+
+## Definition
+
+
+## Detailed Description
+The ReplicationState structure is a core component of PostgreSQL's logical replication origin tracking system. It maintains the replication progress state for a single remote replication origin, including both the remote and local log sequence numbers (LSNs). This structure is crucial for tracking replication lag, ensuring data consistency, and managing concurrent access to replication state information.
+
+The structure includes synchronization primitives (condition variable and lightweight lock) to coordinate access between different backend processes that may need to read or modify the replication state. The acquired_by field tracks which backend process currently holds exclusive access to modify this replication state.
+
+## Parameters / Member Variables
+- : Local identifier for the remote replication origin node
+- : XLog location of the latest commit received from the remote side
+- : Local XLog location of the commit record for flushing during checkpoints to ensure durability
+- : Process ID of the backend that has acquired this slot, or 0 if available
+- : Condition variable signaled when the acquired_by field changes
+- : Lightweight lock protecting access to remote_lsn and local_lsn fields
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RepOriginId (replication origin identifier type)
+  - ConditionVariable (synchronization primitive)
+  - LWLock (lightweight lock type)
+- Called from (representative examples):
+  - ReplicationStateCtl
+  - replorigin_advance
+  - replorigin_get_progress
+  - replorigin_session_setup
+  - CheckPointReplicationOrigin
+
+## Notes and Other Information
+- The structure is allocated in shared memory as part of the replication origin control structure
+- The lock field specifically protects the LSN fields to ensure atomic updates during replication progress tracking
+- The condition variable mechanism allows efficient waiting for slot availability when multiple processes compete for the same replication origin
+- This structure is persistent across server restarts through checkpoint and recovery mechanisms

@@ -1,0 +1,41 @@
+# pg_getaddrinfo_all
+
+## Location
+src/common/ip.c: 53 - 81
+
+## Overview
+Provides a unified interface for getting address information across Unix domain sockets, IPv4, and IPv6 connections, serving as PostgreSQL's wrapper around the standard getaddrinfo() function.
+
+## Definition
+```c
+int pg_getaddrinfo_all(const char *hostname, const char *servname,
+                      const struct addrinfo *hintp, struct addrinfo **result)
+```
+
+## Detailed Description
+This function acts as PostgreSQL's centralized address resolution interface, handling both network sockets (IPv4/IPv6) and Unix domain sockets through a single API. It determines the socket family from the hints parameter and routes Unix socket requests to a specialized handler while passing network socket requests to the standard system getaddrinfo() function.
+
+The function ensures consistent behavior across different platforms by initializing the result pointer to NULL before processing, addressing variations in getaddrinfo() implementations that may not clear the result on failure.
+
+## Parameters / Member Variables
+- `hostname`: The hostname or IP address to resolve (NULL or empty string has special meaning for getaddrinfo)
+- `servname`: The service name or port number
+- `hintp`: Pointer to addrinfo structure containing hints for address resolution (particularly ai_family)
+- `result`: Pointer to store the resulting linked list of addrinfo structures
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - getaddrinfo_unix (for Unix domain socket handling)
+  - getaddrinfo (standard system call for network sockets)
+- Called from (representative examples):
+  - ident_inet (authentication)
+  - PerformRadiusTransaction (RADIUS authentication)
+  - parse_hba_line (HBA configuration parsing)
+  - ListenServerPort (server connection setup)
+  - PQconnectPoll (client connection establishment)
+
+## Notes and Other Information
+- Special handling for AF_UNIX family addresses through getaddrinfo_unix()
+- Ensures result pointer is always initialized to prevent undefined behavior
+- Empty or NULL hostname is passed as NULL to getaddrinfo() for special binding behavior
+- Located in src/common/ip.c:53-81, making it available to both frontend and backend code

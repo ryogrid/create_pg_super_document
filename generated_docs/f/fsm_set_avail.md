@@ -1,0 +1,54 @@
+# fsm_set_avail
+
+## Location
+src/backend/storage/freespace/fsmpage.c: 63 - 121
+
+## Overview
+The fsm_set_avail function sets the free space value for a specific slot on a Free Space Map page and propagates changes up the binary tree structure to maintain consistency.
+
+## Definition
+```c
+bool fsm_set_avail(Page page, int slot, uint8 value)
+```
+
+## Detailed Description
+This function updates the free space value for a given slot in a Free Space Map page's binary tree structure. It first sets the leaf node value, then propagates the change up through parent nodes to maintain the tree property where each internal node contains the maximum value of its children.
+
+The function performs several key operations:
+1. Converts the slot number to the corresponding leaf node position
+2. Updates the leaf node with the new value
+3. Propagates changes upward through the tree, updating parent nodes with the maximum of their children
+4. Includes a sanity check to detect tree corruption and triggers a rebuild if necessary
+5. Returns early if the value hasn't actually changed and doesn't exceed the root value
+
+The propagation continues until it reaches the root or encounters a node that doesn't need updating (when the parent's value is already correct).
+
+## Parameters / Member Variables
+- `page`: The Free Space Map page to modify (must be exclusively locked by caller)
+- `slot`: The slot number to update (must be less than LeafNodesPerPage)  
+- `value`: The new free space value (uint8) to set for the slot
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - `NonLeafNodesPerPage`: Constant defining number of non-leaf nodes
+  - `PageGetContents`: Extracts page contents as FSMPage structure
+  - `FSMPage`: Type representing Free Space Map page data
+  - `LeafNodesPerPage`: Constant defining number of leaf nodes per page
+  - `parentof`: Macro to calculate parent node index
+  - `leftchild`: Macro to calculate left child node index
+  - `NodesPerPage`: Total number of nodes per page
+  - `fsm_rebuild_page`: Function to rebuild corrupted FSM page
+- Called from (representative examples):
+  - `XLogRecordPageWithFreeSpace`: Records free space changes in WAL
+  - `fsm_set_and_search`: Sets value and searches for available space
+  - `fsm_search`: Part of free space search operations
+  - `fsm_vacuum_page`: Updates free space during vacuum operations
+
+## Notes and Other Information
+- The caller must hold an exclusive lock on the page before calling this function
+- Returns `true` if the page was modified, `false` if no change was needed
+- Includes optimization to avoid unnecessary work when values haven't changed
+- Contains corruption detection logic that triggers page rebuild when tree invariants are violated
+- Part of PostgreSQL's Free Space Map system for tracking available space in heap pages
+- The binary tree structure ensures efficient searches while maintaining space usage information
+- Uses Max() macro to determine the maximum value between left and right children during propagation

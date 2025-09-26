@@ -1,0 +1,39 @@
+# gistAllocateNewPageBuffer
+
+## Location
+src/backend/access/gist/gistbuildbuffers.c: 181 - 197
+
+## Overview
+gistAllocateNewPageBuffer allocates and initializes a new buffer page for storing index tuples during GiST index construction.
+
+## Definition
+
+
+## Detailed Description
+This static function creates a new buffer page that serves as temporary storage for index tuples during the GiST index building process. The function allocates memory for a full block-sized page (BLCKSZ bytes) and initializes it with default values.
+
+The allocated page is zero-initialized using MemoryContextAllocZero to ensure all fields start with clean values. The function sets up the page's metadata including the previous page pointer (set to InvalidBlockNumber for a new page) and calculates the available free space for storing tuples.
+
+The page buffer is designed to hold multiple index tuples until it becomes full, at which point it may be written to the temporary file system managed by the GiST build buffers.
+
+## Parameters / Member Variables
+- : The GiST build buffers structure that provides the memory context for allocation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - MemoryContextAllocZero
+  - PAGE_FREE_SPACE (macro)
+  - BUFFER_PAGE_DATA_OFFSET
+  - BLCKSZ
+  - InvalidBlockNumber
+- Called from (representative examples):
+  - gistLoadNodeBuffer
+  - gistPushItupToNodeBuffer
+
+## Notes and Other Information
+- Function is declared static, making it internal to the gistbuildbuffers.c module
+- Allocates exactly BLCKSZ bytes (typically 8KB) to match PostgreSQL's standard block size
+- Uses MemoryContextAllocZero for zero-initialization, which is more efficient than separate allocation and memset
+- The prev field is set to InvalidBlockNumber to indicate this is a new, unlinked page
+- Free space calculation accounts for page header overhead via BUFFER_PAGE_DATA_OFFSET
+- Memory is allocated in the build context to ensure proper lifetime management during index construction

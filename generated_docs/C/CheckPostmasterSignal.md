@@ -1,0 +1,38 @@
+# CheckPostmasterSignal
+
+## Location
+src/backend/storage/ipc/pmsignal.c: 198 - 217
+
+## Overview
+Checks if a specific signal reason has been set by a child process and atomically clears the flag, typically called by the postmaster after receiving SIGUSR1.
+
+## Definition
+
+
+## Detailed Description
+CheckPostmasterSignal is the counterpart to SendPostmasterSignal, designed to be called by the postmaster process when it receives a SIGUSR1 signal. The function performs an atomic test-and-clear operation on the specified signal flag in shared memory:
+
+1. Checks if the specified reason flag is set in the PMSignalState->PMSignalFlags array
+2. If the flag is set, it clears the flag (sets it to false) and returns true
+3. If the flag is not set, it returns false without modifying anything
+
+The careful design ensures that each signal flag is processed exactly once - the flag is cleared only if it was actually set, preventing spurious processing and ensuring reliable signal delivery semantics.
+
+## Parameters / Member Variables
+- : PMSignalReason enum value indicating which specific signal flag to check and clear
+- Returns: bool - true if the flag was set (and has now been cleared), false if it was not set
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - PMSignalReason (enum type for signal reasons)
+  - PMSignalState (global shared memory structure)
+- Called from (representative examples):
+  - process_pm_pmsignal (postmaster signal processing - multiple calls for different reasons)
+
+## Notes and Other Information
+- This is a public function intended to be called only by the postmaster process
+- Implements atomic test-and-clear semantics to prevent double-processing of signals
+- Typically called from the postmaster's SIGUSR1 signal handler or related processing
+- The comment emphasizes the careful design to avoid clearing flags that weren't actually set
+- Part of PostgreSQL's inter-process communication mechanism between postmaster and backends
+- Each PMSignalReason enum value corresponds to a different type of event or request from child processes

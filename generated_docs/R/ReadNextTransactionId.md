@@ -1,0 +1,46 @@
+# ReadNextTransactionId
+
+## Location
+src/include/access/transam.h: 315 - 321
+
+## Overview
+Returns the 32-bit transaction ID portion of the next available full transaction ID, providing a convenient interface for callers that only need the XID part.
+
+## Definition
+```c
+static inline TransactionId
+ReadNextTransactionId(void)
+```
+
+## Detailed Description
+This function is a convenience wrapper that extracts and returns only the 32-bit transaction ID portion from the next available full transaction ID. It internally calls ReadNextFullTransactionId() to get the complete 64-bit transaction identifier, then uses XidFromFullTransactionId() to extract just the lower 32 bits. This is useful for code that needs to work with traditional 32-bit transaction IDs but still wants to ensure consistency with the current transaction ID allocation system.
+
+The function is designed for scenarios where the full 64-bit transaction ID is not needed, such as when working with legacy code or when the 32-bit XID is sufficient for the operation at hand.
+
+## Parameters / Member Variables
+- None (void function)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ReadNextFullTransactionId
+  - XidFromFullTransactionId
+- Called from (representative examples):
+  - ginDeletePage
+  - heap_vacuum_rel
+  - ActivateCommitTs
+  - GetStableLatestTransactionId
+  - vacuum_get_cutoffs
+  - vacuum_xid_failsafe_check
+  - vac_update_relstats
+  - vac_update_datfrozenxid
+  - vac_truncate_clog
+  - do_start_worker
+  - AutoVacWorkerMain
+
+## Notes and Other Information
+- This is a static inline function for performance
+- Provides compatibility for code that expects 32-bit transaction IDs
+- Commonly used in vacuum operations and maintenance tasks
+- The function maintains consistency with the global transaction ID allocation system
+- Used extensively in autovacuum and cleanup operations where only the XID portion is needed
+- Helps bridge between 64-bit full transaction ID system and legacy 32-bit XID usage

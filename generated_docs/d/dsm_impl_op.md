@@ -1,0 +1,50 @@
+# dsm_impl_op
+
+## Location
+src/backend/storage/ipc/dsm_impl.c: 159 - 211
+
+## Overview
+Platform-independent dispatcher function that routes dynamic shared memory operations to the appropriate platform-specific implementation based on the configured dynamic shared memory type.
+
+## Definition
+
+
+## Detailed Description
+The  function serves as a central dispatcher for all dynamic shared memory operations in PostgreSQL. It abstracts the platform-specific implementations by routing operations to the appropriate implementation (POSIX, System V, Windows, or memory-mapped files) based on the  configuration.
+
+The function supports four fundamental operations:
+- **DSM_OP_CREATE**: Create and map a new shared memory segment
+- **DSM_OP_ATTACH**: Map an existing shared memory segment  
+- **DSM_OP_DETACH**: Unmap a shared memory segment
+- **DSM_OP_DESTROY**: Unmap and destroy a shared memory segment
+
+This design allows PostgreSQL to support multiple shared memory implementations while providing a unified interface to callers.
+
+## Parameters / Member Variables
+- : The operation to perform (CREATE/ATTACH/DETACH/DESTROY)
+- : Handle of existing segment, or identifier for new segment in CREATE operations
+- : Requested size for CREATE operations, otherwise 0
+- : Pointer to implementation-specific private data, maintained across calls
+- : Pointer to current mapping address, updated with new mapping
+- : Pointer to current mapping size, updated with new size
+- : Error logging level for error messages
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - dsm_impl_posix (conditional on USE_DSM_POSIX)
+  - dsm_impl_sysv (conditional on USE_DSM_SYSV) 
+  - dsm_impl_windows (conditional on USE_DSM_WINDOWS)
+  - dsm_impl_mmap (conditional on USE_DSM_MMAP)
+- Called from (representative examples):
+  - dsm_create
+  - dsm_attach
+  - dsm_detach
+  - dsm_backend_startup
+  - dsm_postmaster_startup
+
+## Notes and Other Information
+- Returns true on success, false on failure
+- For DSM_OP_CREATE name collisions, should silently return false without logging
+- Contains compile-time conditionals for different platform implementations
+- Includes assertions to validate parameter consistency based on operation type
+- The function acts as the single point of abstraction between the DSM API and platform-specific implementations

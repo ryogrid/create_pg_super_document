@@ -1,0 +1,42 @@
+# ExecSerializePlan
+
+## Location
+src/backend/executor/execParallel.c: 145 - 228
+
+## Overview
+Creates a serialized representation of a query execution plan to be sent to parallel worker processes in PostgreSQL's parallel query execution framework.
+
+## Definition
+
+
+## Detailed Description
+ExecSerializePlan prepares a query plan for parallel execution by creating a serialized copy that can be transmitted to worker processes. The function performs several critical transformations to ensure the plan is suitable for parallel execution:
+
+1. **Plan Copying**: Creates a deep copy of the original plan to avoid modifying the master's plan structure
+2. **Target List Modification**: Sets all target entries'  flags to false, preventing workers from filtering out columns that may be needed by the master process
+3. **PlannedStmt Construction**: Builds a minimal PlannedStmt wrapper with essential metadata for executor initialization
+4. **Subplan Safety Filtering**: Only includes parallel-safe subplans, leaving NULL placeholders for unsafe ones to maintain proper indexing
+5. **Serialization**: Converts the prepared PlannedStmt to a string representation using PostgreSQL's node serialization system
+
+The function ensures that worker processes receive only the information they need while maintaining safety constraints for parallel execution.
+
+## Parameters / Member Variables
+- : The Plan node to be serialized for parallel execution
+- : The executor state containing runtime information including range tables and parameter types
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - copyObject
+  - makeNode
+  - pgstat_get_my_query_id
+  - nodeToString
+  - lfirst_node
+  - lappend
+- Called from:
+  - ExecInitParallelPlan
+
+## Notes and Other Information
+- The function creates a "dummy" PlannedStmt with minimal required fields since workers only need basic executor initialization data
+- Parallel-unsafe subplans are explicitly excluded to prevent workers from attempting to execute non-parallel-aware operations
+- The resjunk flag modification is described as "sort of a hack" in the comments, indicating this is a workaround for the executor's automatic junk filtering behavior
+- Located in src/backend/executor/execParallel.c:145-228

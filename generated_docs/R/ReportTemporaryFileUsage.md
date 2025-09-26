@@ -1,0 +1,40 @@
+# ReportTemporaryFileUsage
+
+## Location
+src/backend/storage/file/fd.c: 1525 - 1543
+
+## Overview
+ReportTemporaryFileUsage is a static function that reports the usage of temporary files for statistical tracking and logging purposes when temporary files are deleted.
+
+## Definition
+
+
+## Detailed Description
+ReportTemporaryFileUsage is called whenever a temporary file is deleted to report its size for both statistical tracking and optional logging. The function serves two main purposes:
+
+1. **Statistics Reporting**: Always reports the temporary file size to the PostgreSQL statistics system via pgstat_report_tempfile(), which tracks temporary file usage across the database system.
+
+2. **Optional Logging**: Conditionally logs temporary file information based on the log_temp_files configuration parameter. If log_temp_files is set to a non-negative value, files larger than the specified threshold (in KB) will be logged at the LOG level, showing the file path and size.
+
+The logging helps database administrators monitor temporary file usage patterns and identify queries or operations that are creating large temporary files, which can indicate performance issues or suboptimal query plans.
+
+## Parameters / Member Variables
+- : The file system path of the temporary file that was deleted
+- : The size of the deleted temporary file in bytes (off_t type)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pgstat_report_tempfile (function to report temporary file statistics)
+- Called from (representative examples):
+  - PathNameDeleteTemporaryFile
+  - FileClose
+
+## Notes and Other Information
+- This is a static function internal to fd.c, not exposed in the public API
+- The function is called during temporary file cleanup operations
+- The log_temp_files parameter controls the logging threshold in kilobytes
+- Setting log_temp_files to 0 logs all temporary files
+- Setting log_temp_files to -1 disables temporary file logging
+- The size comparison uses integer division (size / 1024) to convert bytes to KB
+- Statistics are always reported regardless of the logging configuration
+- Helps with monitoring and troubleshooting temporary file usage in PostgreSQL

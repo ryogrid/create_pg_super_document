@@ -1,0 +1,46 @@
+# CreateTableAsStmt
+
+## Location
+src/include/nodes/parsenodes.h: 3888 - 3896
+
+## Overview
+CreateTableAsStmt represents the parsed structure of CREATE TABLE AS and SELECT INTO statements, as well as CREATE MATERIALIZED VIEW statements, which all share similar functionality for creating tables from query results.
+
+## Definition
+
+
+## Detailed Description
+CreateTableAsStmt unifies the representation of several related SQL constructs that create tables from query results. It handles CREATE TABLE AS statements natively, transforms SELECT ... INTO statements during parse analysis, and also represents CREATE MATERIALIZED VIEW statements since they require the same underlying data structures. The query field can contain either a SELECT or EXECUTE statement, but not other DML statements. This design provides a common framework for all table-creation-from-query operations.
+
+## Parameters / Member Variables
+- : NodeTag identifying this as a CreateTableAsStmt node
+- : Pointer to the query node (SELECT or EXECUTE) that provides the data
+- : IntoClause specifying the destination table details and options
+- : ObjectType indicating whether this creates a regular table (OBJECT_TABLE) or materialized view (OBJECT_MATVIEW)
+- : Boolean flag indicating if the original syntax was SELECT INTO (vs CREATE TABLE AS)
+- : Boolean flag for IF NOT EXISTS clause - when true, no error if table already exists
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IntoClause (for destination table specification)
+  - ObjectType (for object type classification)
+- Called from (representative examples):
+  - BeginCopyTo
+  - ExecCreateTableAs
+  - CreateTableAsRelExists
+  - ExplainOneUtility
+  - DefineView
+  - _SPI_execute_plan
+  - transformOptionalSelectInto
+  - transformCreateTableAsStmt
+  - ProcessUtilitySlow
+  - UtilityContainsQuery
+  - CreateCommandTag
+
+## Notes and Other Information
+- Provides unified handling for CREATE TABLE AS, SELECT INTO, and CREATE MATERIALIZED VIEW
+- The transformation from SELECT INTO to CREATE TABLE AS form happens during parse analysis
+- Query field is restricted to SELECT and EXECUTE statements for data safety
+- The is_select_into flag preserves the original syntax information for proper error reporting and logging
+- Integration with EXPLAIN allows users to see execution plans for table creation operations
+- Used extensively in stored procedure language implementations through SPI

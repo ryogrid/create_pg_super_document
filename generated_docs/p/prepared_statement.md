@@ -1,0 +1,44 @@
+# prepared_statement
+
+## Location
+src/interfaces/ecpg/ecpglib/ecpglib_extern.h: 95 - 103
+
+## Overview
+A structure that manages prepared SQL statements in ECPG, maintaining a linked list of prepared statements associated with database connections.
+
+## Definition
+
+
+## Detailed Description
+The prepared_statement structure implements a linked list-based registry for managing prepared SQL statements within ECPG connections. This structure serves as a wrapper around the core statement structure, adding preparation-specific metadata and organization capabilities. It enables ECPG to track which statements have been prepared on the server side, avoid duplicate preparations, and manage the lifecycle of prepared statements efficiently.
+
+The structure supports ECPG's prepared statement functionality by maintaining the preparation state and providing a mechanism to locate prepared statements by name. This design allows for efficient reuse of prepared statements and proper cleanup when connections are closed or statements are deallocated.
+
+## Parameters / Member Variables
+- : String identifier for the prepared statement, used for lookups and server-side references
+- : Boolean flag indicating whether this statement has been successfully prepared on the database server
+- : Pointer to the underlying statement structure containing the SQL command and execution details
+- : Pointer to the next prepared statement in the linked list, enabling chaining of multiple prepared statements per connection
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - statement (core statement structure for SQL execution details)
+  - prepared_statement (self-reference for linked list structure)
+- Called from (representative examples):
+  - ECPGdescribe (src/interfaces/ecpg/ecpglib/descriptor.c:851)
+  - connection (src/interfaces/ecpg/ecpglib/ecpglib_extern.h:110)
+  - ecpg_register_prepared_stmt (src/interfaces/ecpg/ecpglib/prepare.c:62-73)
+  - prepare_common (src/interfaces/ecpg/ecpglib/prepare.c:162-166)
+  - ECPGprepare (src/interfaces/ecpg/ecpglib/prepare.c:221-238)
+  - ecpg_find_prepared_statement (src/interfaces/ecpg/ecpglib/prepare.c:240-242)
+  - deallocate_one (src/interfaces/ecpg/ecpglib/prepare.c:261)
+  - ECPGdeallocate (src/interfaces/ecpg/ecpglib/prepare.c:318)
+  - ecpg_auto_prepare (src/interfaces/ecpg/ecpglib/prepare.c:565)
+
+## Notes and Other Information
+- Implements a simple linked list structure for organizing prepared statements per database connection
+- The 'prepared' flag helps avoid redundant server-side preparation calls and tracks preparation status
+- Used extensively in ECPG's automatic statement preparation and caching mechanisms
+- Memory management requires careful handling during connection cleanup and statement deallocation
+- The structure enables efficient statement lookup by name, supporting both explicit and automatic preparation workflows
+- Integrates with ECPG's statement caching system to optimize repeated SQL execution performance

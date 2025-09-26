@@ -1,0 +1,55 @@
+# transformAExprNullIf
+
+## Location
+src/backend/parser/parse_expr.c: 1083 - 1125
+
+## Overview
+Transforms A_Expr nodes representing NULLIF operations into NullIfExpr nodes, performing type validation and ensuring the comparison operator returns boolean results.
+
+## Definition
+```c
+static Node *transformAExprNullIf(ParseState *pstate, A_Expr *a)
+```
+
+## Detailed Description
+This function handles the transformation of SQL NULLIF expressions during expression parsing. NULLIF(expr1, expr2) returns NULL if expr1 equals expr2, otherwise it returns expr1.
+
+The transformation process involves several steps:
+
+1. **Expression Transformation**: Both left and right expressions are recursively transformed using transformExprRecurse.
+
+2. **Operator Creation**: Creates an OpExpr using the equality operator specified in the A_Expr (typically '=').
+
+3. **Type Validation**: Performs strict validation to ensure:
+   - The comparison operator yields a boolean result (BOOLOID)
+   - The operator does not return a set (opretset must be false)
+
+4. **Result Type Adjustment**: The final NullIfExpr inherits the type of the first operand (not boolean), since NULLIF returns either NULL or the first argument's value.
+
+5. **Node Conversion**: Converts the OpExpr structure to a NullIfExpr by changing the node tag, leveraging the fact that both structures are identical in memory layout.
+
+## Parameters / Member Variables
+- `pstate`: ParseState context containing parsing state and environment information
+- `a`: A_Expr node representing the NULLIF expression to transform
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - transformExprRecurse
+  - make_op
+  - exprType
+  - linitial
+  - NodeSetTag
+  - ereport (for error handling)
+  - errcode
+  - errmsg
+  - parser_errposition
+- Called from (representative examples):
+  - transformExprRecurse
+
+## Notes and Other Information
+- The function is static, meaning it's only accessible within parse_expr.c
+- NULLIF expressions require strict type checking since they must use equality comparison
+- The clever reuse of OpExpr structure for NullIfExpr saves memory and simplifies code
+- Error messages are translatable and provide specific location information for debugging
+- The result type adjustment is crucial because NULLIF semantically returns the first argument's type, not boolean
+- Located in src/backend/parser/parse_expr.c:1083-1125

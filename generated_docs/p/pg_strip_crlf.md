@@ -1,0 +1,38 @@
+# pg_strip_crlf
+
+## Location
+src/common/string.c: 155 - 164
+
+## Overview
+A utility function that removes trailing newline and carriage return characters from a string in-place, commonly used for cleaning up file input and command output.
+
+## Definition
+```c
+int pg_strip_crlf(char *str)
+```
+
+## Detailed Description
+This function modifies the input string by removing any trailing '\n' (newline) and '\r' (carriage return) characters, which is particularly useful for processing text that comes from files, command output, or user input. The function works backwards from the end of the string, null-terminating it at the first position that doesn't contain a newline or carriage return character.
+
+The function handles both Unix-style line endings ('\n') and Windows-style line endings ('\r\n' or just '\r'), making it cross-platform compatible. It modifies the original string in-place and returns the new length, providing both string modification and length information in a single operation.
+
+## Parameters / Member Variables
+- : The null-terminated input string to be modified by removing trailing CRLF characters
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - strlen (standard C library function)
+- Called from (representative examples):
+  - run_ssl_passphrase_command (src/backend/libpq/be-secure-common.c:102)
+  - tokenize_auth_file (src/backend/libpq/hba.c:736)
+  - simple_prompt_extended (src/common/sprompt.c:152)
+  - passwordFromFile (src/interfaces/libpq/fe-connect.c:7511)
+  - get_su_pwd (src/bin/initdb/initdb.c:1688)
+
+## Notes and Other Information
+- Modifies the input string in-place rather than creating a copy
+- Returns the new string length after stripping, which can be more efficient than calling  again
+- Handles multiple trailing newlines and carriage returns by continuing to strip until no more are found
+- Commonly used when reading configuration files, command output, and user passwords where trailing whitespace should be removed
+- Essential for processing authentication files and SSL passphrase commands where clean input is required
+- The backwards iteration approach efficiently handles strings with multiple trailing line terminators

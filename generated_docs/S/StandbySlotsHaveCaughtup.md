@@ -1,0 +1,43 @@
+# StandbySlotsHaveCaughtup
+
+## Location
+src/backend/replication/slot.c: 2592 - 2745
+
+## Overview
+StandbySlotsHaveCaughtup checks whether all standby replication slots specified in the synchronized_standby_slots configuration have caught up to a given WAL location, returning true if all specified slots have progressed beyond the target position.
+
+## Definition
+```c
+bool StandbySlotsHaveCaughtup(XLogRecPtr wait_for_lsn, int elevel)
+```
+
+## Detailed Description
+This function validates that all physical replication slots specified in the synchronized_standby_slots configuration parameter have caught up to or beyond a specified WAL (Write-Ahead Log) location. It is primarily used to ensure data consistency in logical replication scenarios where the primary database needs to wait for standby servers to process up to a certain point before proceeding.
+
+The function performs comprehensive validation of each configured slot, checking for existence, validity, activity status, and actual progress. It maintains the ss_oldest_flush_lsn global variable to track the minimum restart LSN across all synchronized slots for performance optimization in subsequent calls.
+
+Early returns occur when: no synchronized slots are configured, the server is in recovery mode (standbys don't sync to cascading standbys), or the cached ss_oldest_flush_lsn already indicates all slots have caught up.
+
+## Parameters / Member Variables
+- `wait_for_lsn`: The target WAL location (XLogRecPtr) that all synchronized standby slots must reach or exceed
+- `elevel`: Error level for logging messages when slots don't exist, are invalidated, or are inactive (e.g., WARNING, ERROR)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - RecoveryInProgress
+  - XLogRecPtrIsInvalid
+  - LWLockAcquire/LWLockRelease (with ReplicationSlotControlLock)
+  - SearchNamedReplicationSlot
+  - SlotIsLogical
+  - ereport
+- Called from (representative examples):
+  - WaitForStandbyConfirmation
+  - NeedToWaitForStandbys
+
+## Notes and Other Information
+- Returns true immediately if synchronized_standby_slots is not configured or if running on a standby server
+- Uses ReplicationSlotControlLock in shared mode to prevent concurrent slot operations during validation
+- Updates the global ss_oldest_flush_lsn variable with the minimum restart LSN of all valid slots for caching purposes
+- Validates that all specified slots are physical (not logical) replication slots
+- Provides detailed error messages with hints for common configuration issues like missing or invalidated slots
+- The function is critical for maintaining consistency in logical replication scenarios where coordination between primary and standby servers is required

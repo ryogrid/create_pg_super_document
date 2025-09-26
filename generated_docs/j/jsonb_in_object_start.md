@@ -1,0 +1,35 @@
+# jsonb_in_object_start
+
+## Location
+src/backend/utils/adt/jsonb.c: 290 - 300
+
+## Overview
+A callback function used during JSONB parsing to handle the start of JSON objects, initializing the parsing state for object processing.
+
+## Definition
+
+
+## Detailed Description
+This function serves as a callback handler in the JSONB input parsing pipeline. When the JSON parser encounters the beginning of an object ('{' character), this function is invoked to set up the internal parsing state. It pushes a WJB_BEGIN_OBJECT token onto the JSONB parse state stack and configures unique key validation settings if enabled.
+
+The function operates within PostgreSQL's streaming JSON parser framework, where different callback functions handle various JSON structural elements. This particular callback ensures that object parsing begins with the correct internal state initialization.
+
+## Parameters / Member Variables
+- : A void pointer that is cast to JsonbInState*, containing the current parsing state and configuration
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pushJsonbValue (pushes parsing tokens onto the state stack)
+  - WJB_BEGIN_OBJECT (token constant indicating object start)
+  - JSON_SUCCESS (return value indicating successful parsing)
+  - JsonbInState (parsing state structure)
+- Called from (representative examples):
+  - jsonb_from_cstring (main JSONB input function)
+  - datum_to_jsonb_internal (internal conversion function)
+
+## Notes and Other Information
+- This is a static function internal to the jsonb.c module
+- Part of the callback-based JSON parsing architecture in PostgreSQL
+- Sets up unique_keys validation when configured in the parsing state
+- Returns JSON_SUCCESS to indicate successful processing of the object start token
+- Works in conjunction with jsonb_in_object_end to bracket object parsing

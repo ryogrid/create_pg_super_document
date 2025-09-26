@@ -1,0 +1,39 @@
+# JsonAggConstructor
+
+## Location
+src/include/nodes/parsenodes.h: 1962 - 1970
+
+## Overview
+JsonAggConstructor represents the common fields for the untransformed (parse tree) representation of JSON aggregate functions JSON_ARRAYAGG() and JSON_OBJECTAGG().
+
+## Definition
+
+
+## Detailed Description
+JsonAggConstructor serves as a base structure containing common elements shared by JSON aggregate functions during the parsing phase. It captures the various optional clauses that can be applied to JSON aggregation operations, including output format specification, filtering conditions, ordering requirements, and window function specifications. This structure is used before transformation into execution-ready forms.
+
+## Parameters / Member Variables
+- : NodeTag identifying this as a JsonAggConstructor node
+- : Pointer to JsonOutput structure specifying the RETURNING clause format, if present
+- : Node representing the FILTER clause condition for conditional aggregation, if any
+- : List of ordering expressions for the ORDER BY clause, if specified
+- : Pointer to WindowDef structure for OVER clause in window function context, if present  
+- : Parse location information for error reporting, or -1 if location is unknown
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - JsonOutput
+  - WindowDef
+  - ParseLoc
+- Called from (representative examples):
+  - exprLocation
+  - transformJsonAggConstructor
+  - transformJsonArrayQueryConstructor
+  - JsonObjectAgg
+  - JsonArrayAgg
+
+## Notes and Other Information
+- This structure is used as a common base for both JSON_ARRAYAGG and JSON_OBJECTAGG parsing
+- The structure supports all standard aggregate function features including filtering, ordering, and windowing
+- Location information is preserved for accurate error reporting during parsing and transformation phases
+- The over field enables these JSON aggregates to function as window functions

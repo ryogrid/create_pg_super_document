@@ -1,0 +1,54 @@
+# BufFileDumpBuffer
+
+## Location
+src/backend/storage/file/buffile.c: 494 - 592
+
+## Overview
+BufFileDumpBuffer writes the contents of a BufFile's dirty buffer to the underlying file system, handling multi-file scenarios and maintaining logical file positioning.
+
+## Definition
+
+
+## Detailed Description
+BufFileDumpBuffer is an internal function that performs the critical task of flushing dirty buffer contents to persistent storage. Unlike BufFileLoadBuffer, this function must handle the entire buffer content even if it spans multiple component files, requiring a loop-based approach to ensure all data is written.
+
+The function manages several complex scenarios:
+1. **Multi-file writes**: When buffer contents exceed the remaining space in the current file, it automatically creates new component files and continues writing
+2. **File size limits**: Ensures no single component file exceeds MAX_PHYSICAL_FILESIZE by splitting writes across files
+3. **Position management**: Carefully maintains both physical file offset and logical buffer position after the write
+4. **Backwards seek handling**: Properly adjusts file position when the logical position is less than the written data end
+
+Key operations performed:
+- Loops through buffer contents, writing chunks that fit within file size limits
+- Extends the file set by creating new component files as needed
+- Tracks I/O timing and buffer usage statistics
+- Handles error conditions with appropriate error reporting
+- Maintains buffer state by clearing dirty flag and adjusting positions
+
+## Parameters / Member Variables
+- : Pointer to the BufFile structure with dirty buffer contents to be written
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - extendBufFile (creates new component files when needed)
+  - FileWrite (performs actual file write operations)
+  - FilePathName (gets file path for error reporting)
+  - INSTR_TIME_SET_CURRENT (timing measurement)
+  - INSTR_TIME_SET_ZERO (timing initialization)
+  - INSTR_TIME_ACCUM_DIFF (timing accumulation)
+  - ereport (error reporting)
+- Called from (representative examples):
+  - BufFileWrite (when buffer needs flushing during write operations)
+  - BufFileFlush (explicit buffer flush requests)
+
+## Notes and Other Information
+- This is a static (internal) function, not part of the public BufFile API
+- Assumes buffer is dirty (dirty = true) and contains data (nbytes > 0) on entry
+- Must write the entire buffer contents, even across file boundaries, unlike read operations
+- Automatically extends the file set when current files are insufficient
+- Includes comprehensive I/O timing tracking for performance monitoring
+- Updates global pgBufferUsage statistics for temporary block writes
+- Handles complex position arithmetic to maintain logical file positioning after writes
+- The function clears the dirty flag only after successful completion of all writes
+- Critical for maintaining data integrity in buffered file operations
+- Handles edge cases like backwards seeks in dirty buffers by proper offset calculations

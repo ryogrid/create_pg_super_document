@@ -1,0 +1,47 @@
+# MergeAppendPath
+
+## Location
+src/include/nodes/pathnodes.h: 1955 - 1960
+
+## Overview
+MergeAppendPath represents a MergeAppend plan that merges sorted results from several member plans to produce similarly-sorted output.
+
+## Definition
+```c
+typedef struct MergeAppendPath
+{
+	Path		path;
+	List	   *subpaths;		/* list of component Paths */
+	Cardinality limit_tuples;	/* hard limit on output tuples, or -1 */
+} MergeAppendPath;
+```
+
+## Detailed Description
+MergeAppendPath is a path node that represents a MergeAppend operation in PostgreSQL query planning. It efficiently combines multiple sorted input paths into a single sorted output stream without requiring a separate sort operation. This is particularly useful for operations on partitioned tables or UNION ALL queries where the individual components are already sorted on the desired key.
+
+The path leverages the fact that if multiple input streams are already sorted on the same key, they can be merged efficiently by comparing the current row from each stream and selecting the smallest one, similar to a merge operation in merge sort.
+
+## Parameters / Member Variables
+- `path`: Base Path structure containing common path information like cost estimates, row count, and pathkeys
+- `subpaths`: List of component Path nodes that will be merged together; each subpath should produce sorted output
+- `limit_tuples`: Hard limit on output tuples (-1 if no limit); used for optimization when query has LIMIT clause
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Cardinality
+- Called from (representative examples):
+  - ExecSupportsMarkRestore
+  - accumulate_append_subpath
+  - get_singleton_append_subpath
+  - create_plan_recurse
+  - create_merge_append_plan
+  - create_merge_append_path
+  - get_param_path_clause_serials
+
+## Notes and Other Information
+- MergeAppend is more efficient than Append + Sort when input paths are already sorted
+- The planner automatically inserts Sort nodes for subpaths that are not adequately ordered
+- Cost calculation considers whether subpaths need additional sorting
+- If there is only one subpath with matching parallel awareness, the MergeAppend becomes a no-op and may be eliminated
+- Particularly useful for partitioned tables where each partition is individually sorted
+- All child paths must have the same parameterization

@@ -1,0 +1,52 @@
+# get_rule_expr
+
+## Location
+src/backend/utils/adt/ruleutils.c: 8956 - 10324
+
+## Overview
+The main recursive function for converting PostgreSQL parse tree nodes back into SQL expressions during rule deparsing.
+
+## Definition
+
+
+## Detailed Description
+ is the central function in PostgreSQL's rule deparsing system that recursively converts various types of expression nodes from the internal parse tree back into their SQL string representation. The function handles over 40 different node types including variables, constants, operators, functions, subqueries, and complex expressions like CASE statements and XML operations.
+
+The function ensures that each level emits an indivisible term (parenthesized if necessary) to guarantee the output can be reparsed into the same expression tree. It performs extensive switch-case handling based on nodeTag() to process each expression type appropriately.
+
+Key design principles:
+- Maintains expression tree fidelity through proper parenthesization
+- Handles implicit vs. explicit type coercions based on showimplicit parameter
+- Manages formatting and indentation through the deparse_context
+- Provides special handling for complex cases like subplans and XML expressions
+
+## Parameters / Member Variables
+- : The parse tree node to convert to SQL text (can be NULL)
+- : Deparse context containing output buffer, formatting options, and namespace information
+- : Boolean flag controlling whether implicit casts are displayed in the output
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - CHECK_FOR_INTERRUPTS
+  - check_stack_depth
+  - nodeTag
+  - get_variable, get_const_expr, get_parameter
+  - get_agg_expr, get_windowfunc_expr, get_func_expr
+  - get_oper_expr, get_sublink_expr
+  - appendStringInfo, appendStringInfoString, appendStringInfoChar
+  - Many specialized helper functions for specific node types
+
+- Called from (representative examples):
+  - deparse_expression_pretty
+  - get_rule_expr_toplevel
+  - get_rule_expr_funccall
+  - Various other rule deparsing functions
+  - Recursively calls itself for nested expressions
+
+## Notes and Other Information
+- Core function of PostgreSQL's rule system for converting internal representations to SQL
+- Handles guard checks against excessively long or deeply-nested queries
+- Special handling for Lists where component items are emitted comma-separated
+- Contains extensive logic for proper formatting and parenthesization
+- Critical for EXPLAIN output, view definitions, and rule reconstruction
+- Must maintain exact semantic equivalence between input and output expressions

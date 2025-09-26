@@ -1,0 +1,40 @@
+# CreateStandaloneExprContext
+
+## Location
+src/backend/executor/execUtils.c: 355 - 413
+
+## Overview
+Creates a standalone ExprContext for expression evaluation that operates independently of an executor state, suitable for evaluating expressions without Params, subplans, or Var references.
+
+## Definition
+
+
+## Detailed Description
+CreateStandaloneExprContext creates an ExprContext structure designed for standalone expression evaluation scenarios where no executor state is available. Unlike regular ExprContexts created within an EState, this standalone version operates in isolation and uses the caller's current memory context as its "per query" context.
+
+The function initializes all tuple slots (scan, inner, outer) to NULL, creates a dedicated working memory context for per-tuple allocations, and sets up default values for special expression evaluation fields like caseValue and domainValue. It explicitly excludes parameter handling and aggregate value storage since these features require executor state support.
+
+The caller is responsible for proper cleanup, either by explicitly freeing the context or ensuring shutdown callbacks are executed via ReScanExprContext() to prevent resource leaks.
+
+## Parameters / Member Variables
+This function takes no parameters and returns a fully initialized ExprContext pointer.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - makeNode (creates the ExprContext node)
+  - AllocSetContextCreate (creates per-tuple memory context)
+  - ALLOCSET_DEFAULT_SIZES (memory allocation sizing constants)
+  - CurrentMemoryContext (uses caller's memory context as per-query context)
+
+- Called from (representative examples):
+  - BuildTupleHashTableExt (in src/backend/executor/execGrouping.c:239)
+  - domain_check_input (in src/backend/utils/adt/domains.c:172)
+  - hypothetical_dense_rank_final (in src/backend/utils/adt/orderedsetaggs.c:1325)
+  - do_text_output_oneline (via inline in src/include/executor/executor.h:541)
+
+## Notes and Other Information
+- The created ExprContext cannot handle Params, subplans, or Var references since it lacks an associated EState
+- Tuple references might work if placed in the scantuple field, but this is discouraged
+- The function is commonly used in utility functions that need to evaluate simple expressions outside the main executor framework
+- Memory management follows PostgreSQL's standard pattern: per-query context for the structure itself, per-tuple context for temporary evaluation work
+- Unlike CreateExprContext, this function does not require or associate with an EState structure

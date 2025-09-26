@@ -1,0 +1,41 @@
+# tuplestore_set_eflags
+
+## Location
+src/backend/utils/sort/tuplestore.c: 359 - 382
+
+## Overview
+Function to set execution capability flags for the primary read pointer of a tuplestore, providing finer control over scanning capabilities than the initial tuplestore creation functions.
+
+## Definition
+
+
+## Detailed Description
+This function allows modification of the execution flags for read pointer 0 after tuplestore creation but before any data insertion. It provides more granular control over scanning capabilities than what is available through the tuplestore_begin_xxx functions. The function updates both the specific read pointer's flags and the global tuplestore flags by combining all read pointers' requirements.
+
+The function enforces strict timing constraints - it must be called while the tuplestore is still in TSS_INMEM status and before any tuples have been inserted. This ensures that the execution strategy can be properly established before tuple storage begins.
+
+## Parameters / Member Variables
+- : Pointer to the Tuplestorestate structure to modify
+- : Bitmask of execution flags defining the required capabilities:
+  - EXEC_FLAG_REWIND: Enables rewinding to the start of the tuplestore
+  - EXEC_FLAG_BACKWARD: Enables backward scanning through tuples
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - elog (error logging function)
+  - ERROR (error level constant)
+  - TSS_INMEM (tuplestore status indicating memory-only storage)
+- Data structures used:
+  - Tuplestorestate (main tuplestore state structure)
+- Called from:
+  - ExecInitCteScan (CTE scan node initialization)
+  - ExecMaterial (material node execution)
+  - begin_partition (window aggregation partitioning)
+
+## Notes and Other Information
+- Must be called before inserting any data (memtupcount must be 0)
+- Can only be called while tuplestore is in TSS_INMEM status
+- The function combines eflags from all read pointers to determine the overall tuplestore capabilities
+- Setting BACKWARD without REWIND allows backward reading but only to the truncation point
+- More flexible than the randomAccess parameter in tuplestore_begin_heap, which sets both REWIND and BACKWARD together
+- Violation of timing constraints results in an ERROR-level log message and query termination

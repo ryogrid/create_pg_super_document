@@ -1,0 +1,36 @@
+# ecpyalloc
+
+## Location
+src/timezone/zic.c: 446 - 451
+
+## Overview
+A utility function in the PostgreSQL timezone compiler (zic) that performs error-checked string duplication.
+
+## Definition
+
+
+## Detailed Description
+The  function is a wrapper around the standard  function that provides memory allocation checking. It duplicates the input string and verifies that the memory allocation was successful through the  function. This is part of the timezone compiler's robust memory management strategy, ensuring that string duplication operations don't silently fail due to memory exhaustion.
+
+The function name suggests "error-checked copy allocation," reflecting its role as a safe alternative to direct  calls throughout the zic codebase.
+
+## Parameters / Member Variables
+- : A constant string pointer to be duplicated
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - memcheck
+  - strdup (implicit via memcheck)
+
+- Called from (representative examples):
+  - inrule (multiple calls)
+  - inzsub (multiple calls) 
+  - inlink (multiple calls)
+  - rulesub (multiple calls)
+  - mkdirs
+
+## Notes and Other Information
+- This function is static, meaning it's only accessible within the src/timezone/zic.c file
+- The function serves as a centralized point for string duplication with error checking
+- It's extensively used throughout the timezone rule parsing and processing logic
+- The memcheck wrapper ensures the program terminates gracefully if memory allocation fails

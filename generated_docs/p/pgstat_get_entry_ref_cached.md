@@ -1,0 +1,44 @@
+# pgstat_get_entry_ref_cached
+
+## Location
+src/backend/utils/activity/pgstat_shmem.c: 362 - 417
+
+## Overview
+Helper function that manages the local cache for statistics entry references, handling cache hits, misses, and entry allocation for PostgreSQL's statistics collection system.
+
+## Definition
+
+
+## Detailed Description
+The `pgstat_get_entry_ref_cached` function is a critical caching mechanism that optimizes access to shared memory statistics entries. It manages a local hash table cache to avoid repeated lookups of the same entries and reduces contention on the shared hash table.
+
+The function implements an optimized caching strategy:
+
+1. **Proactive cache insertion**: Always inserts a cache entry immediately to avoid multiple hash table lookups and handle out-of-memory situations gracefully
+2. **Cache miss handling**: When no valid cached entry exists, allocates a new `PgStat_EntryRef` structure and initializes it with NULL values
+3. **Cache validation**: Verifies that cached entries are still valid by checking for non-NULL shared pointers
+4. **Reference integrity**: Performs assertions to ensure cached references maintain proper state and reference counts
+
+The function returns true for cache hits (when a valid cached entry exists) and false for cache misses (requiring a fresh lookup from shared memory).
+
+## Parameters / Member Variables
+- `key`: Hash key identifying the specific statistics entry to look up in the cache
+- `entry_ref_p`: Output parameter that receives a pointer to the `PgStat_EntryRef` structure (either cached or newly allocated)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pgstat_entry_ref_hash_insert
+  - MemoryContextAlloc
+  - pg_atomic_read_u32
+- Called from (representative examples):
+  - pgstat_get_entry_ref
+
+## Notes and Other Information
+- This is a static helper function, only accessible within the pgstat_shmem.c module
+- Uses the `pgStatSharedRefContext` memory context for allocating entry reference structures
+- The proactive insertion strategy prevents race conditions and simplifies error handling
+- Cache entries with NULL `shared_stats` are considered invalid and trigger cache misses
+- Includes comprehensive assertions to verify the integrity of cached references
+- The magic number check (0xdeadbeef) ensures cached pointers still point to valid statistics entries
+- Critical for performance optimization by reducing shared memory access frequency
+- The `PG_USED_FOR_ASSERTS_ONLY` annotation indicates variables used only in assertion builds

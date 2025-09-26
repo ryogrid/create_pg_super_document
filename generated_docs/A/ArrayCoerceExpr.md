@@ -1,0 +1,51 @@
+# ArrayCoerceExpr
+
+## Location
+src/include/nodes/primnodes.h: 1230 - 1243
+
+## Overview
+ArrayCoerceExpr represents a type coercion from one array type to another, implemented by applying per-element coercion to each array element using a specified element expression.
+
+## Definition
+
+
+## Detailed Description
+ArrayCoerceExpr handles type coercion between different array types by applying element-level transformations. The coercion works by iterating through each element of the source array and applying the  transformation to convert each element from the source element type to the target element type.
+
+Within the , source elements are represented by CaseTestExpr nodes, which serve as placeholders for the actual array element values during execution. Even when the element coercion is minimal (like a simple RelabelType), the coercion process still requires work to update the element type OID stored in the array header.
+
+The execution process involves:
+1. Evaluating the source array expression
+2. Extracting each element from the source array
+3. Applying the element expression to transform each element
+4. Constructing a new array with the transformed elements and updated type information
+
+## Parameters / Member Variables
+- : Base expression node structure
+- : Input expression that yields an array to be coerced
+- : Expression defining how to transform each individual array element
+- : OID of the target array type
+- : Type modifier for the result (also applies to elements, ignored for query jumbling)
+- : OID of the result collation, or InvalidOid if none (ignored for query jumbling)
+- : Controls how this coercion is displayed in query output
+- : Parse location in the original query, or -1 if unknown
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - makeNode (for creating ArrayCoerceExpr instances)
+  - CaseTestExpr (used within elemexpr to represent source elements)
+  - get_element_type (to determine source element type)
+  - ExecEvalArrayCoerce (executor function)
+  - Array manipulation functions
+- Called from (representative examples):
+  - coerce_to_target_type (when COERCION_PATH_ARRAYCOERCE is needed)
+  - ExecInitExprRec (during execution plan initialization)
+  - eval_const_expressions_mutator (during constant folding)
+
+## Notes and Other Information
+- ArrayCoerceExpr is used when PostgreSQL determines COERCION_PATH_ARRAYCOERCE is the appropriate conversion method
+- The elemexpr cannot contain nested CaseExpr or ArrayCoerceExpr nodes due to CaseTestExpr usage constraints
+- Even for "no-op" coercions, the array header's element type OID must be updated
+- The coercion preserves array dimensions and element ordering
+- Performance considerations: operates on each array element individually, so large arrays may have significant overhead
+- Commonly used when converting between compatible array types (e.g., text[] to varchar[])

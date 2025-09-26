@@ -1,0 +1,36 @@
+# AdjustFractYears
+
+## Location
+src/backend/utils/adt/datetime.c: 601 - 617
+
+## Overview
+A static helper function that converts fractional years to months and adds them to the months field of a pg_itm_in structure, handling potential overflow.
+
+## Definition
+
+
+## Detailed Description
+AdjustFractYears is a utility function used in PostgreSQL's datetime parsing and interval processing. It takes a fractional value representing a portion of years, multiplies it by a scale factor to produce years, then converts those years to months by multiplying by MONTHS_PER_YEAR (12). The resulting integral number of months is added to the tm_mon field of the input pg_itm_in structure.
+
+The function performs safe integer arithmetic using PostgreSQL's overflow-checking addition function to prevent integer overflow. It assumes that the absolute value of the fraction is less than 1, which ensures that the multiplication operations cannot overflow for any reasonable scale value.
+
+## Parameters / Member Variables
+- : A double representing the fractional years value (assumed to have absolute value < 1)
+- : An integer scale factor used to convert the fraction to years
+- : A pointer to a pg_itm_in structure whose tm_mon field will be modified
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - pg_add_s32_overflow (for safe integer addition)
+  - MONTHS_PER_YEAR (constant, value 12)
+  - pg_itm_in (structure type)
+- Called from (representative examples):
+  - DecodeInterval (multiple times for different time unit processing)
+  - DecodeISO8601Interval (for ISO 8601 interval parsing)
+
+## Notes and Other Information
+- The function returns true on success, false if integer overflow occurs
+- Uses rint() for proper rounding of the fractional result to the nearest integer
+- Part of PostgreSQL's datetime/interval parsing infrastructure in datetime.c
+- The overflow check ensures robustness when dealing with extreme input values
+- Located at src/backend/utils/adt/datetime.c:601-617

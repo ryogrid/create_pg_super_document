@@ -1,0 +1,51 @@
+# pg_unicode_decomposition
+
+## Location
+src/include/common/unicode_norm_table.h: 26 - 27
+
+## Overview
+A structure that represents a Unicode character's decomposition information, storing the codepoint, combining class, and decomposition data for Unicode normalization operations.
+
+## Definition
+
+
+## Detailed Description
+The  structure is a fundamental data type used in PostgreSQL's Unicode normalization system. It serves as an entry in lookup tables that provide decomposition information for Unicode characters according to the Unicode Standard's normalization forms (NFD, NFC, NFKD, NFKC).
+
+This structure is part of PostgreSQL's implementation of Unicode normalization as defined in Unicode Standard Annex #15 (UAX #15). Each entry represents a single Unicode codepoint that has either decomposition mappings or specific combining class information required for normalization processing.
+
+The structure is designed to be compact and efficient for lookup operations, supporting both backend (using perfect hash functions) and frontend (using binary search) implementations. The decomposition data can be stored either inline in the  field for single-character decompositions or as an index to a separate array for multi-character decompositions.
+
+## Parameters / Member Variables
+- : The Unicode codepoint (32-bit value) that this entry represents
+- : The canonical combining class of the character (0-255), used for proper reordering during normalization
+- : A packed field containing both the size of the decomposition sequence (lower 5 bits) and control flags (upper 3 bits) indicating decomposition properties
+- : Either an index into the UnicodeDecomp_codepoints array for multi-character decompositions, or the decomposed character itself when DECOMP_INLINE flag is set
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - DECOMPOSITION_SIZE (macro)
+  - DECOMPOSITION_NO_COMPOSE (macro) 
+  - DECOMPOSITION_IS_INLINE (macro)
+  - DECOMPOSITION_IS_COMPAT (macro)
+  - UnicodeDecomp_codepoints (external array)
+
+- Called from (representative examples):
+  - conv_compare
+  - get_code_entry
+  - get_canonical_class
+  - get_code_decomposition
+  - get_decomposed_size
+  - recompose_code
+  - decompose_code
+
+## Notes and Other Information
+- The structure is defined in an auto-generated header file () created by the  script
+- The  field uses bit manipulation to pack multiple pieces of information:
+  - Bits 0-4: Decomposition sequence length (max 31 characters)
+  - Bit 5 (DECOMP_COMPAT): Indicates compatibility mapping vs canonical mapping
+  - Bit 6 (DECOMP_INLINE): Indicates decomposition is stored inline in dec_index
+  - Bit 7 (DECOMP_NO_COMPOSE): Indicates character should not be used for recomposition
+- The main lookup table  contains 6775 entries covering all Unicode characters with decompositions or non-zero combining classes
+- Backend and frontend implementations use different lookup strategies: perfect hash function vs binary search respectively
+- This structure is fundamental to PostgreSQL's text processing capabilities for proper Unicode handling in international applications

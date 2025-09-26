@@ -1,0 +1,41 @@
+# SubscriptExecSteps
+
+## Location
+src/include/executor/execExpr.h: 758 - 765
+
+## Overview
+SubscriptExecSteps defines a set of function pointers for executing container subscripting operations, providing a pluggable interface for different container types like arrays and JSONB.
+
+## Definition
+
+
+## Detailed Description
+SubscriptExecSteps provides a function pointer interface that allows different container types (arrays, JSONB, etc.) to implement their own subscripting behavior within PostgreSQL's expression evaluation framework. This design enables type-specific optimizations while maintaining a consistent interface for the expression evaluator.
+
+Each container type implements these four essential operations: checking subscript validity, fetching values, assigning new values, and retrieving old values before assignment. The structure acts as a virtual function table (vtable) allowing polymorphic behavior for subscripting operations.
+
+The functions are designed to work with the SubscriptingRefState structure and integrate seamlessly with PostgreSQL's ExprEvalStep-based expression evaluation system.
+
+## Parameters / Member Variables
+- : Function pointer to validate and process subscript expressions, returns boolean success status
+- : Function pointer to retrieve a value from the container using computed subscripts
+- : Function pointer to assign a new value to the container at the specified subscripts
+- : Function pointer to retrieve the current value before assignment (used for nested assignments and certain update operations)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ExecEvalBoolSubroutine (function pointer type for boolean-returning evaluation routines)
+  - ExecEvalSubroutine (function pointer type for standard evaluation routines)
+- Called from (representative examples):
+  - ExecInitSubscriptingRef (expression initialization, sets up function pointers)
+  - array_exec_setup (array-specific implementation setup)
+  - jsonb_exec_setup (JSONB-specific implementation setup)
+
+## Notes and Other Information
+- Provides a polymorphic interface for container subscripting operations
+- Different container types (arrays, JSONB) provide their own implementations of these function pointers
+- Enables type-specific optimizations while maintaining interface consistency
+- Works closely with SubscriptingRefState to manage operation state
+- Part of PostgreSQL's extensible subscripting system introduced to support different container types
+- The boolean return from sbs_check_subscripts allows for early termination on invalid subscripts
+- Used in expression evaluation steps of type EEOP_SBSREF_SUBSCRIPTS, EEOP_SBSREF_OLD, EEOP_SBSREF_ASSIGN, and EEOP_SBSREF_FETCH

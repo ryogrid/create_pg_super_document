@@ -1,0 +1,45 @@
+# logicalrep_worker_cleanup
+
+## Location
+src/backend/replication/logical/launcher.c: 799 - 819
+
+## Overview
+Cleans up and resets all fields of a logical replication worker structure to their default/invalid states, making the worker slot available for reuse.
+
+## Definition
+
+
+## Detailed Description
+This static function performs a complete cleanup of a LogicalRepWorker structure by resetting all its fields to default or invalid values. The function is designed to be called when a worker is being terminated or when a worker slot needs to be made available for reuse.
+
+The cleanup process resets:
+- Worker type to unknown state
+- Usage flag to indicate the slot is free
+- Process pointer to NULL (detaching from any process)
+- All OID fields (database, user, subscription, relation) to invalid values
+- Leader process ID to invalid PID
+- Parallel apply flag to false
+
+The function includes an assertion to ensure it's called while holding the appropriate exclusive lock, which prevents concurrent modifications to worker state.
+
+## Parameters / Member Variables
+- : Pointer to the LogicalRepWorker structure to be cleaned up
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - Assert
+  - LWLockHeldByMeInMode
+  - WORKERTYPE_UNKNOWN
+  - InvalidOid
+  - InvalidPid
+- Called from (representative examples):
+  - WaitForReplicationWorkerAttach (src/backend/replication/logical/launcher.c:218)
+  - logicalrep_worker_launch (src/backend/replication/logical/launcher.c:398, 521)
+  - logicalrep_worker_detach (src/backend/replication/logical/launcher.c:790)
+
+## Notes and Other Information
+- This is a static function, only accessible within the launcher.c file
+- The function requires the caller to hold LogicalRepWorkerLock in exclusive mode (enforced by assertion)
+- All identity and state information is reset to ensure no stale data remains in the worker slot
+- The function is commonly used in error handling paths and normal worker termination scenarios
+- After calling this function, the worker slot becomes available for allocation to new workers

@@ -1,0 +1,40 @@
+# getsubdfa
+
+## Location
+src/backend/regex/regexec.c: 372 - 399
+
+## Overview
+Creates or re-fetches a DFA (Deterministic Finite Automaton) for a tree subre node during regex execution.
+
+## Definition
+```c
+static struct dfa *
+getsubdfa(struct vars *v, struct subre *t)
+```
+
+## Detailed Description
+The `getsubdfa` function manages DFA creation and caching for subre (subexpression) nodes in the regex execution engine. It implements a lazy initialization pattern where DFAs are created only when first needed and then cached for subsequent use. The function handles special setup for backref nodes by configuring additional DFA properties including backref number and min/max quantifiers. The DFA lifecycle is managed by the cleanup step in `pg_regexec()`.
+
+## Parameters / Member Variables
+- `v`: Pointer to vars structure containing execution state and cached DFAs
+- `t`: Pointer to subre node for which the DFA is needed
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - newdfa
+  - subre
+  - dfa
+  - cnfa
+  - DOMALLOC
+- Called from (representative examples):
+  - ccondissect
+  - crevcondissect
+  - caltdissect
+  - citerdissect
+  - creviterdissect
+
+## Notes and Other Information
+- DFAs are cached in `v->subdfas[t->id]` to avoid recreation during the same regex execution
+- Special handling for backref nodes (op == 'b') includes setting backno, backmin, and backmax fields
+- Returns NULL on allocation failure
+- The function is static and only used within regexec.c

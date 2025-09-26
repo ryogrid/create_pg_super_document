@@ -1,0 +1,39 @@
+# EnterParallelMode
+
+## Location
+src/backend/access/transam/xact.c: 1048 - 1060
+
+## Overview
+EnterParallelMode increments the parallel mode nesting level for the current transaction, enabling parallel execution capabilities.
+
+## Definition
+```c
+void EnterParallelMode(void)
+```
+
+## Detailed Description
+This function manages the parallel mode state within a PostgreSQL transaction by incrementing the `parallelModeLevel` counter in the current transaction state. PostgreSQL uses a nesting model for parallel mode, where multiple operations can enter parallel mode independently, and the system remains in parallel mode until all operations have exited.
+
+The function performs a simple increment operation on the parallel mode level counter, which tracks how deeply nested the current transaction is in parallel execution contexts. This counter-based approach allows for proper nesting of parallel operations and ensures that parallel mode is only fully exited when all parallel contexts have been properly unwound.
+
+## Parameters / Member Variables
+This function takes no parameters.
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TransactionState (type definition)
+  - CurrentTransactionState (global transaction state variable)
+- Called from (representative examples):
+  - _brin_begin_parallel
+  - _bt_begin_parallel  
+  - ParallelWorkerMain
+  - CommitTransaction
+  - parallel_vacuum_init
+  - ExecutePlan
+
+## Notes and Other Information
+- Located in src/backend/access/transam/xact.c:1044-1055
+- Uses Assert to ensure parallelModeLevel is non-negative before incrementing
+- Part of PostgreSQL's parallel query execution infrastructure
+- Must be paired with corresponding ExitParallelMode calls to maintain proper nesting
+- The nesting level approach allows multiple subsystems to independently manage their parallel execution state

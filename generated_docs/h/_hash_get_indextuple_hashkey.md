@@ -1,0 +1,39 @@
+# _hash_get_indextuple_hashkey
+
+## Location
+src/backend/access/hash/hashutil.c: 291 - 317
+
+## Overview
+Extracts the hash key value from a hash index tuple, providing fast access to the stored hash value.
+
+## Definition
+```c
+uint32 _hash_get_indextuple_hashkey(IndexTuple itup)
+```
+
+## Detailed Description
+This function efficiently retrieves the hash key value that is stored within a hash index tuple. Hash indexes store the computed hash value (rather than the original data) as the first attribute of each index tuple. The function uses a highly optimized approach that directly accesses the tuple's data area without going through the normal attribute access mechanisms.
+
+The implementation makes several key assumptions for performance:
+- The hash key is always the first attribute in the tuple
+- The hash key can never be null
+- The hash key is always a 32-bit unsigned integer
+
+This "crude but very very cheaply" approach (as noted in the source comment) bypasses normal tuple processing overhead, making it suitable for high-frequency operations like searches, splits, and bucket management.
+
+## Parameters
+- `itup`: Pointer to the IndexTuple from which to extract the hash key
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - IndexInfoFindDataOffset
+- Called from (representative examples):
+  - hashbucketcleanup
+  - _hash_doinsert
+  - _hash_pgaddtup
+  - _hash_splitbucket
+  - _hash_load_qualified_items
+  - _h_indexbuild
+
+## Notes and Other Information
+This function is fundamental to hash index operations and is called frequently during searches, insertions, deletions, and maintenance operations. Its optimized implementation reflects the critical performance requirements of hash index operations. The function assumes the standard hash index tuple format where the hash key is stored as the first 4 bytes of the tuple data area.

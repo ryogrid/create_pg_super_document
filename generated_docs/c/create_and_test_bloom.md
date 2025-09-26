@@ -1,0 +1,45 @@
+# create_and_test_bloom
+
+## Location
+src/test/modules/test_bloomfilter/test_bloomfilter.c: 72 - 112
+
+## Overview
+Creates and performs comprehensive testing of a Bloom filter with specified parameters, measuring its false positive rate and reporting performance metrics.
+
+## Definition
+```c
+static void create_and_test_bloom(int power, int64 nelements, int callerseed)
+```
+
+## Detailed Description
+This static function is the core testing routine for PostgreSQL's Bloom filter implementation. It orchestrates a complete lifecycle test by creating a Bloom filter, populating it with dummy data, measuring its false positive rate, and reporting detailed performance statistics.
+
+The function calculates the working memory size based on the power parameter (bloom_work_mem = (1L << power) / 8L / 1024L KB), handles random seed generation for reproducible tests, and creates a Bloom filter optimized for the specified number of elements. After populating the filter with dummy strings via `populate_with_dummy_strings`, it measures false positives using `nfalsepos_for_missing_strings` and reports comprehensive statistics including the seed used, false positive count and percentage, and the proportion of bits set in the filter.
+
+The function includes intelligent alerting - it issues a WARNING if the false positive rate exceeds the threshold (1%), otherwise it logs at DEBUG1 level. This helps identify potential issues with filter performance during testing.
+
+## Parameters / Member Variables
+- `power`: Determines the working memory size for the Bloom filter (memory = 2^power / 8 / 1024 KB)
+- `nelements`: The number of elements to add to the filter and use for false positive testing
+- `callerseed`: Seed for random number generation; if negative, a random seed is generated automatically
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - bloom_create (creates the Bloom filter with specified parameters)
+  - populate_with_dummy_strings (adds test data to the filter)
+  - nfalsepos_for_missing_strings (measures false positive rate)
+  - bloom_prop_bits_set (calculates proportion of set bits)
+  - bloom_free (releases filter memory)
+  - pg_prng_int32p (generates random seed when needed)
+  - elog/ereport (logging and reporting functions)
+- Called from (representative examples):
+  - test_bloomfilter
+
+## Notes and Other Information
+- Uses `FPOSITIVE_THRESHOLD` (0.01 or 1%) as the warning threshold for false positive rates
+- Generates comprehensive performance reports including seed, false positive statistics, and bit utilization
+- Ensures reproducible testing by allowing fixed seeds via the callerseed parameter
+- Memory calculation converts bit-based power parameter to KB for bloom_create
+- Automatically cleans up allocated memory via bloom_free
+- This is a static function, only accessible within the test_bloomfilter.c file
+- The function provides both performance validation and debugging information for Bloom filter behavior

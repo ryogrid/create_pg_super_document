@@ -1,0 +1,32 @@
+# LWLockHandle
+
+## Location
+src/backend/storage/lmgr/lwlock.c: 202 - 206
+
+## Overview
+LWLockHandle is a structure that represents a lightweight lock (LWLock) currently held by a process, storing both the lock reference and the mode in which it is held.
+
+## Definition
+
+
+## Detailed Description
+LWLockHandle serves as a handle structure that tracks lightweight locks held by a process. This structure is used internally within the LWLock subsystem to maintain state about acquired locks. It encapsulates the essential information needed to identify a held lock: a pointer to the actual LWLock structure and the mode (shared or exclusive) in which the lock is currently held.
+
+The structure is typically used in scenarios where the system needs to keep track of multiple locks held by a single process, allowing for proper lock management and release operations.
+
+## Parameters / Member Variables
+- : Pointer to the actual LWLock structure that is being held
+- : The mode in which the lock is held (LWLockMode - either shared or exclusive)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - LWLock (structure type)
+  - LWLockMode (enumeration type)
+- Called from (representative examples):
+  - (No direct references found in the codebase)
+
+## Notes and Other Information
+- This is an internal structure used within the lwlock.c implementation
+- The structure provides a lightweight way to track held locks without requiring complex data structures
+- Defined in src/backend/storage/lmgr/lwlock.c at lines 202-206
+- Currently appears to be used internally within the LWLock implementation but no external references were found

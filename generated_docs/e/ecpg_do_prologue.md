@@ -1,0 +1,60 @@
+# ecpg_do_prologue
+
+## Location
+src/interfaces/ecpg/ecpglib/execute.c: 1944 - 2210
+
+## Overview
+Initializes the execution infrastructure for ECPG statements by creating statement structures, setting numeric locale, and preprocessing variable lists.
+
+## Definition
+
+
+## Detailed Description
+This function performs critical initialization tasks before executing any ECPG statement. It serves as the setup phase that prepares all necessary infrastructure:
+
+**Key responsibilities:**
+- Creates and initializes statement structure with execution context
+- Establishes database connection and validates connectivity  
+- Sets the C numeric locale to ensure proper decimal point handling for database communication
+- Processes variable argument lists into structured input/output variable chains
+- Handles prepared statement setup for ECPGst_prepnormal and ECPGst_execute types
+- Performs extensive validation of parameters and connection state
+- Manages memory allocation with proper cleanup on errors
+
+The function processes complex variable argument lists containing type information, pointers, sizes, and indicator variables, organizing them into linked lists for later processing by execution and result handling functions.
+
+## Parameters / Member Variables
+- : Source line number for error reporting and debugging
+- : Compatibility mode (e.g., Informix compatibility settings)
+- : Flag controlling indicator variable behavior
+- : Database connection identifier (NULL for default connection)
+- : Boolean indicating whether query uses ? parameter placeholders
+- : Type of SQL statement (prepare, execute, normal, etc.)
+- : SQL command string to execute or prepare
+- : Variable argument list containing input/output variable specifications
+- : Output parameter returning initialized statement structure
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ecpg_pthreads_init: Initializes threading support
+  - ecpg_get_connection: Retrieves database connection
+  - ecpg_init: Initializes connection state
+  - ecpg_alloc: Allocates memory with error handling
+  - uselocale/setlocale: Manages numeric locale for database communication
+  - ecpg_auto_prepare: Handles automatic statement preparation
+  - ecpg_prepared: Retrieves prepared statement text
+  - ecpg_strdup: Duplicates strings with error handling
+  - ecpg_clear_auto_mem: Initializes automatic memory management
+  - ecpg_do_epilogue: Cleanup function called on errors
+  - ecpg_raise: Error reporting function
+- Called from (representative examples):
+  - ecpg_do: Main ECPG statement execution entry point
+
+## Notes and Other Information
+- Returns true on successful initialization, false on any failure
+- Automatically calls ecpg_do_epilogue() for cleanup when errors occur
+- Thread-safe locale handling using uselocale() when available, falls back to setlocale()
+- Supports complex variable specifications including arrays, indicators, and various data types
+- Critical foundation function that must succeed before any statement execution
+- Handles both simple and complex prepared statement scenarios
+- Essential component of ECPG's statement execution pipeline

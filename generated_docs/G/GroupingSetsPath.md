@@ -1,0 +1,35 @@
+# GroupingSetsPath
+
+## Location
+src/include/nodes/pathnodes.h: 2295 - 2303
+
+## Overview
+GroupingSetsPath represents a GROUPING SETS aggregation path node in PostgreSQL's query planner, used to handle complex aggregation operations involving multiple grouping sets.
+
+## Definition
+
+
+## Detailed Description
+GroupingSetsPath is a specialized path node that handles GROUPING SETS aggregation operations in PostgreSQL's query planning phase. It extends the base Path structure to represent execution plans for queries that use GROUPING SETS, ROLLUP, or CUBE clauses. This path type encapsulates the strategy for performing multi-level aggregations efficiently, including the underlying input path and the aggregation strategy to be employed.
+
+## Parameters / Member Variables
+- : Base Path structure containing common path information like cost estimates and output properties
+- : Pointer to the input path that provides the source data for the grouping sets operation
+- : The aggregation strategy to use (e.g., AGG_PLAIN, AGG_SORTED, AGG_HASHED)
+- : List of RollupData structures that define the specific grouping sets and their relationships
+- : List of qualification expressions (HAVING clauses) to be applied after aggregation
+- : Estimated memory space required for pass-by-reference transition data during aggregation
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - AggStrategy
+- Called from (representative examples):
+  - create_groupingsets_plan
+  - create_groupingsets_path
+  - create_plan_recurse
+
+## Notes and Other Information
+- This path type is specifically designed for handling complex GROUP BY operations with multiple grouping levels
+- The rollups list contains RollupData structures that define the hierarchical grouping relationships
+- Memory estimation via transitionSpace is crucial for choosing between different aggregation strategies
+- The qual field allows HAVING clauses to be efficiently applied after the grouping operation

@@ -1,0 +1,37 @@
+# get_parent_directory
+
+## Location
+src/port/path.c: 1053 - 1069
+
+## Overview
+Modifies a file path string in-place to obtain the parent directory of the specified file or directory.
+
+## Definition
+
+
+## Detailed Description
+This function takes a file path and modifies it in-place to represent the parent directory of the original path. It serves as a simple wrapper around the  function. The function is designed to work with file paths where the next operation will typically be .
+
+Important behavioral notes: If the input is just a filename with no directory component, the result will be an empty string rather than ".". The function may not produce desirable results if the input string ends with "..", so callers should consider applying  first when dealing with potentially non-canonical paths.
+
+## Parameters / Member Variables
+- : Input/output string containing the file path to be modified in-place (must be writable)
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - trim_directory
+- Called from (representative examples):
+  - dbase_redo
+  - destroy_tablespace_directories  
+  - fsync_parent_path
+  - AbsoluteConfigLocation
+  - main (initdb)
+  - process_file
+
+## Notes and Other Information
+- This is a void function that modifies the input string in-place
+- The input string must be mutable (not a string literal)
+- For inputs that are just filenames without directory components, returns empty string, not "."
+- May produce unexpected results with paths ending in ".." - consider using canonicalize_path() first
+- Primarily intended for use cases where the result will be passed to join_path_components()
+- Used extensively throughout PostgreSQL for path manipulation operations

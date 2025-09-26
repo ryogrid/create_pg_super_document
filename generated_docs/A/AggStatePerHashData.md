@@ -1,0 +1,42 @@
+# AggStatePerHashData
+
+## Location
+src/include/executor/nodeAgg.h: 309 - 322
+
+## Overview
+AggStatePerHashData represents per-hashtable state for hash-based aggregation, supporting both simple hashed aggregation and grouping sets with hashing by maintaining one instance per grouping set.
+
+## Definition
+
+
+## Detailed Description
+AggStatePerHashData manages the state for hash-based aggregation processing, providing efficient grouping through hash table operations. When processing grouping sets with hashing, the system maintains one instance of this structure per grouping set. For simple hashed aggregation without grouping sets, only a single instance is used.
+
+The structure contains the core hash table infrastructure including the table itself, iteration support, and slot management for tuple operations. It maintains column mapping information to efficiently translate between input tuple positions and hash table positions, enabling flexible column arrangements during hash key construction.
+
+The hash and equality functions are stored per grouping field, allowing for type-specific optimized operations during hash table lookups and comparisons.
+
+## Parameters / Member Variables
+- : TupleHashTable storing one entry per group with aggregate state values
+- : TupleHashIterator for efficient iteration through all hash table entries
+- : TupleTableSlot used for loading and manipulating hash table entries
+- : Array of FmgrInfo structures containing hash functions for each grouping field
+- : Array of OIDs for equality functions corresponding to each grouping field
+- : Total number of columns used as hash keys
+- : Number of columns actually stored in the hash table structure
+- : Index of the largest column required for hashing operations (optimization hint)
+- : Array mapping hash key column indices to positions in input tuple slots
+- : Array mapping hash key column indices to positions in hash table tuples
+- : Pointer to the original Agg node providing metadata like estimated number of groups
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - TupleHashTable
+  - TupleHashIterator
+  - Agg
+- Called from (representative examples):
+  - ExecInitAgg
+  - AggStatePerHash
+
+## Notes and Other Information
+This structure is central to PostgreSQL's hash-based aggregation strategy, which provides excellent performance for queries with moderate to large numbers of groups when sufficient memory is available. The column index mappings (hashGrpColIdxInput and hashGrpColIdxHash) enable flexible tuple layouts and optimize memory access patterns during hash operations. The separation of hash and equality functions allows for type-specific optimizations while maintaining generality across different data types used in grouping operations.

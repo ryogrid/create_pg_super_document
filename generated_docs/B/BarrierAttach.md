@@ -1,0 +1,47 @@
+# BarrierAttach
+
+## Location
+src/backend/storage/ipc/barrier.c: 236 - 255
+
+## Overview
+Attaches a new participant to a dynamic barrier, increasing the participant count and requiring the new participant to synchronize with other participants.
+
+## Definition
+
+
+## Detailed Description
+BarrierAttach adds a new participant to a dynamic barrier synchronization group. Once attached, the participant becomes part of the synchronization protocol and must participate in barrier operations before other participants can proceed.
+
+The function performs the following operations atomically:
+1. Increments the participant count in the barrier
+2. Captures and returns the current phase number
+3. Makes all existing waiting participants wait for this new participant
+
+After attachment, the new participant must eventually call one of the barrier participation functions:
+-  - to synchronize and wait
+-  - to leave without arriving  
+-  - to arrive and leave atomically
+
+The returned phase number allows the new participant to understand which synchronization phase is currently active.
+
+## Parameters / Member Variables
+- : Pointer to the dynamic Barrier structure to attach to
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - SpinLockAcquire/SpinLockRelease
+  - Barrier (struct type)
+- Called from (representative examples):
+  - MultiExecParallelHash
+  - ExecHashTableCreate
+  - ExecParallelHashJoinSetUpBatches
+  - ExecParallelHashJoinNewBatch
+
+## Notes and Other Information
+- Only valid for dynamic barriers (static_party must be false) - will assert if used on static barriers
+- Returns the current phase number, which can be used to detect if phases have advanced since attachment
+- Once attached, the participant becomes a blocking factor for other participants' synchronization
+- The attachment is permanent until the participant explicitly detaches using detach functions
+- Used primarily in parallel hash operations when new workers join the synchronization group
+- Thread-safe operation protected by spinlock for concurrent access
+- Critical for dynamic parallel processing where the number of participants can change during execution

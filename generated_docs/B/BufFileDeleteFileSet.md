@@ -1,0 +1,39 @@
+# BufFileDeleteFileSet
+
+## Location
+src/backend/storage/file/buffile.c: 364 - 393
+
+## Overview
+Deletes all segments of a BufFile that was created with BufFileCreateFileSet, providing proactive cleanup rather than waiting for FileSet cleanup.
+
+## Definition
+
+
+## Detailed Description
+BufFileDeleteFileSet removes all segments of a BufFile that was previously created using BufFileCreateFileSet within the specified FileSet. The function iteratively deletes segments starting from segment 0 and continuing until no more segments are found, since the total number of segments is not known in advance.
+
+This function provides proactive deletion capability, allowing backends to explicitly clean up BufFiles rather than relying on automatic FileSet cleanup. Only one backend should attempt to delete a given BufFile name, and the caller should know that the BufFile exists and has been properly exported or closed.
+
+## Parameters / Member Variables
+- : Pointer to the FileSet containing the BufFile to delete
+- : String identifier of the BufFile to delete (same as used in creation/opening)
+- : If true, silently succeeds even if no segments are found; if false, throws an error when BufFile doesn't exist
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - FileSetSegmentName: Constructs segment file names for deletion
+  - FileSetDelete: Deletes individual segment files (with missing_ok=true for segments)
+  - CHECK_FOR_INTERRUPTS: Allows interruption during potentially long deletion process
+  - elog: Reports errors when BufFile is not found and missing_ok is false
+- Called from (representative examples):
+  - subxact_info_write: Cleanup during logical replication subxact processing
+  - stream_cleanup_files: File cleanup in logical replication streaming operations
+
+## Notes and Other Information
+- Deletion is optional - files are automatically cleaned up when the FileSet is destroyed
+- Provides proactive cleanup for better resource management in long-running operations
+- Uses iterative approach to discover and delete all segments sequentially
+- Only the first segment's absence is considered an error (when missing_ok is false)
+- The function expects that only one backend will attempt deletion of a given BufFile name
+- Uses CHECK_FOR_INTERRUPTS to remain responsive during deletion of many segments
+- Part of PostgreSQL's comprehensive temporary file management system for inter-backend file sharing

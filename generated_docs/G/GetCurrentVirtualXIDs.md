@@ -1,0 +1,43 @@
+# GetCurrentVirtualXIDs
+
+## Location
+src/backend/storage/ipc/procarray.c: 3323 - 3415
+
+## Overview
+Returns an array of currently active Virtual Transaction IDs (VXIDs) from the process array, with various filtering options to control which VXIDs are included.
+
+## Definition
+
+
+## Detailed Description
+GetCurrentVirtualXIDs scans the process array to collect currently active Virtual Transaction IDs, applying various filters based on the provided parameters. The function is essential for determining which transactions are currently active in the system, which is crucial for operations like waiting for older snapshots to complete.
+
+The function operates under a shared ProcArrayLock to ensure consistency while reading the process array. It allocates memory for the maximum possible number of VXIDs and then filters the results based on the caller's requirements. The caller's own process is always excluded from the results.
+
+The filtering mechanism allows for sophisticated control over which VXIDs are returned, supporting use cases like waiting for transactions with older snapshots to complete, excluding vacuum processes, or limiting results to specific databases.
+
+## Parameters / Member Variables
+- `limitXmin`: Skip processes with xmin > limitXmin (if not InvalidTransactionId)
+- `excludeXmin0`: If true, skip processes with xmin = 0 (invalid transaction ID)
+- `allDbs`: If false, only include processes from the current database
+- `excludeVacuum`: Bit mask to exclude processes with matching status flags (typically vacuum-related)
+- `nvxids`: Output parameter returning the number of valid VXIDs in the result array
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - palloc
+  - LWLockAcquire/LWLockRelease
+  - TransactionIdPrecedesOrEquals
+  - GET_VXID_FROM_PGPROC
+  - VirtualTransactionIdIsValid
+  - UINT32_ACCESS_ONCE
+- Called from (representative examples):
+  - WaitForOlderSnapshots (in commands/indexcmds.c)
+
+## Notes and Other Information
+- The function allocates memory using palloc() - caller is responsible for freeing
+- Race conditions are possible due to shared locking, but are handled safely through proper lock ordering
+- The limitXmin and excludeXmin0 parameters help skip backends whose snapshots are not older than a reference snapshot
+- Memory ordering considerations are addressed through proper use of UINT32_ACCESS_ONCE when reading xmin values
+- The function always excludes the caller's own process from the results
+- Status flags are used to filter out specific types of processes (like vacuum operations)

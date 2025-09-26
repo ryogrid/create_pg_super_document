@@ -1,0 +1,42 @@
+# dsm_segment_handle
+
+## Location
+src/backend/storage/ipc/dsm.c: 1123 - 1131
+
+## Overview
+Returns a handle that uniquely identifies a dynamic shared memory segment for inter-process communication.
+
+## Definition
+```c
+dsm_handle dsm_segment_handle(dsm_segment *seg)
+```
+
+## Detailed Description
+This function retrieves a handle for a dynamic shared memory (DSM) segment that can be passed between processes to establish shared memory communication. The handle serves as a unique identifier that allows other processes to attach to the same shared memory segment using dsm_attach().
+
+This is a crucial function in PostgreSQL's parallel processing infrastructure. When a process creates a shared memory segment with dsm_create(), it uses this function to obtain a handle that can be communicated to other processes (such as background workers or parallel workers) through various means like process arguments or the main shared memory segment. The receiving process can then use this handle to attach to the same memory region.
+
+The function is part of the workflow for establishing inter-process communication via dynamic shared memory in PostgreSQL's parallel execution framework.
+
+## Parameters / Member Variables
+- `seg`: Pointer to a dsm_segment structure representing the dynamic shared memory segment
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - dsm_segment (structure type)
+  - dsm_handle (return type)
+- Called from (representative examples):
+  - GetSessionDsmHandle
+  - LaunchParallelWorkers
+  - pa_launch_parallel_worker
+  - GetNamedDSMSegment
+  - dsa_create_ext
+  - setup_background_workers
+
+## Notes and Other Information
+- The handle is used to coordinate shared memory access between multiple processes
+- Essential for parallel query execution and background worker communication
+- The handle can be passed through various IPC mechanisms (bgw_main_arg, shared memory, etc.)
+- Once obtained, the handle should be communicated to other processes that need to access the same shared memory segment
+- The receiving process uses dsm_attach() with this handle to map the same memory region
+- This is a simple accessor function that returns the handle field from the dsm_segment structure

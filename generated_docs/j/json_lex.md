@@ -1,0 +1,53 @@
+# json_lex
+
+## Location
+src/common/jsonapi.c: 1309 - 1671
+
+## Overview
+The core lexical analyzer function that tokenizes JSON input, handling both streaming and incremental parsing while identifying and classifying JSON tokens.
+
+## Definition
+
+
+## Detailed Description
+The  function is the central component of PostgreSQL's JSON lexical analysis system. It processes JSON input character by character to identify and classify tokens such as strings, numbers, literals (true/false/null), and structural punctuation (braces, brackets, commas, colons). The function supports both traditional parsing and incremental parsing for streaming JSON data.
+
+Key functionality includes:
+1. **Incremental parsing support**: Handles partial tokens across input chunks, maintaining state between calls
+2. **Whitespace management**: Skips whitespace and tracks line numbers for error reporting
+3. **Token classification**: Identifies all valid JSON token types through character analysis
+4. **Partial token reconstruction**: Accumulates incomplete tokens across multiple input chunks
+5. **Error detection**: Validates token structure and reports specific error locations
+
+The function uses a state machine approach, examining the current character to determine token type and delegating to specialized lexers for complex tokens (strings, numbers). For incremental parsing, it maintains partial token buffers and handles token completion across input boundaries.
+
+## Parameters / Member Variables
+- : Pointer to JsonLexContext containing lexical state including input position, token boundaries, line numbers, and incremental parsing state
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - resetStringInfo (partial token buffer management)
+  - appendStringInfoCharMacro (partial token building)
+  - appendBinaryStringInfo (bulk partial token addition)
+  - json_lex_string (string token parsing)
+  - json_lex_number (number token parsing)
+  - JSON_ALPHANUMERIC_CHAR (character classification macro)
+  - JSON token type constants
+  - memcmp (literal token comparison)
+
+- Called from (representative examples):
+  - pg_parse_json (main parsing entry point)
+  - pg_parse_json_incremental (incremental parsing)
+  - parse_scalar, parse_object_field, parse_object, parse_array (recursive parser components)
+  - lex_expect (token validation)
+
+## Notes and Other Information
+- Supports both complete and incremental JSON parsing modes
+- Maintains line number tracking for detailed error reporting
+- Handles UTF-8 encoding considerations through input_encoding context
+- Implements partial token buffering for streaming scenarios where tokens span input chunks
+- Uses recursive self-calls to process completed partial tokens
+- Integrates with specialized token parsers for complex token types
+- Central to PostgreSQL's JSON processing infrastructure across multiple modules
+- Error handling preserves exact token positions for meaningful error messages
+- Supports all JSON specification token types including structural punctuation and literals

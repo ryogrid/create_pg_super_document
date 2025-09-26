@@ -1,0 +1,49 @@
+# FlushDatabaseBuffers
+
+## Location
+src/backend/storage/buffer/bufmgr.c: 4835 - 4876
+
+## Overview
+FlushDatabaseBuffers writes all dirty pages of a specific database to disk, ensuring the kernel has an up-to-date view of the database by flushing all modified buffers.
+
+## Definition
+```c
+void FlushDatabaseBuffers(Oid dbid)
+```
+
+## Detailed Description
+This function performs a comprehensive flush of all dirty buffers belonging to a specific database. It iterates through the entire buffer pool to identify and flush dirty pages that belong to the target database. The operation includes:
+
+- Scanning all buffers in the shared buffer pool (NBuffers)
+- Performing an unlocked precheck for efficiency before acquiring locks
+- Properly pinning buffers and acquiring content locks before flushing
+- Using FlushBuffer to perform the actual write operation
+- Ensuring proper resource management through pins and lock acquisition
+
+The function is designed for situations where a complete database flush is required, such as during database operations that need to ensure all changes are written to disk.
+
+## Parameters / Member Variables
+- `dbid`: OID of the database whose buffers should be flushed to disk
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GetBufferDescriptor
+  - ReservePrivateRefCountEntry
+  - ResourceOwnerEnlarge
+  - LockBufHdr, UnlockBufHdr
+  - PinBuffer_Locked, UnpinBuffer
+  - LWLockAcquire, LWLockRelease
+  - BufferDescriptorGetContentLock
+  - FlushBuffer
+  - BM_VALID, BM_DIRTY flags
+  - IOOBJECT_RELATION, IOCONTEXT_NORMAL constants
+- Called from (representative examples):
+  - dbase_redo
+
+## Notes and Other Information
+- The function assumes the caller holds appropriate locks to prevent other backends from dirtying pages in the target database
+- Uses an unlocked precheck optimization similar to DropRelationBuffers to avoid unnecessary work
+- Temporary relation pages are intentionally ignored as they are not considered interesting for this operation
+- Proper resource management is ensured through ReservePrivateRefCountEntry and ResourceOwnerEnlarge calls
+- Content locks are acquired in shared mode since the buffer content is only being read for flushing
+- The function handles the case where buffer tags might change between the precheck and the locked check

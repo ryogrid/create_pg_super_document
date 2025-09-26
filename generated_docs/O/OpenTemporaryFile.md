@@ -1,0 +1,31 @@
+# OpenTemporaryFile
+
+## Location
+src/backend/storage/file/fd.c: 1721 - 1775
+
+## Overview
+OpenTemporaryFile creates a temporary file that automatically disappears when closed, with intelligent tablespace selection and resource management integration for PostgreSQL's temporary file system.
+
+## Definition
+
+
+## Detailed Description
+OpenTemporaryFile is the primary interface for creating temporary files in PostgreSQL. It handles automatic temporary filename generation, tablespace selection logic, and resource ownership management. The function first attempts to use configured temporary tablespaces, falling back to the database's default tablespace if necessary. For files that outlive the current transaction (interXact=true), it forces placement in the default tablespace to avoid conflicts with tablespace drop operations. The function integrates with PostgreSQL's resource management system by registering non-interXact files with the current resource owner, ensuring automatic cleanup at transaction end. All temporary files are marked for deletion when closed and are subject to temporary file size limits.
+
+## Parameters / Member Variables
+- : If true, the file outlives the current transaction and won't be registered with the resource owner; if false, the file is tied to the current transaction lifecycle
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - ResourceOwnerEnlarge
+  - GetNextTempTableSpace
+  - OpenTemporaryFileInTablespace
+  - RegisterTemporaryFile
+  - Assert
+  - OidIsValid
+- Called from (representative examples):
+  - extendBufFile
+  - BufFileCreateTemp
+
+## Notes and Other Information
+This function is part of PostgreSQL's temporary file management system in src/backend/storage/file/fd.c. It implements sophisticated tablespace management logic, preferring user-configured temporary tablespaces for transaction-scoped files while ensuring long-lived files don't interfere with tablespace administration. The function requires that temporary_files_allowed is true before proceeding. All temporary files created are automatically marked with FD_DELETE_AT_CLOSE and FD_TEMP_FILE_LIMIT flags. The resource owner integration ensures that transaction-scoped temporary files are automatically cleaned up even if not explicitly closed, preventing resource leaks during error conditions.

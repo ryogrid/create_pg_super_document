@@ -1,0 +1,45 @@
+# GetParentPredicateLockTag
+
+## Location
+src/backend/storage/lmgr/predicate.c: 2062 - 2100
+
+## Overview
+Returns the parent lock tag in PostgreSQL's predicate lock hierarchy, providing the next coarser granularity lock that covers the specified lock target.
+
+## Definition
+
+
+## Detailed Description
+This function implements the hierarchical relationship in PostgreSQL's predicate locking system. It determines the parent lock for a given lock target based on the lock granularity hierarchy: tuple locks have page parents, page locks have relation parents, and relation locks have no parent. The function extracts the lock type from the input tag and constructs the appropriate parent tag by preserving database and relation identifiers while adjusting the granularity level.
+
+The lock hierarchy follows this pattern:
+- TUPLE locks → PAGE locks (parent)
+- PAGE locks → RELATION locks (parent)  
+- RELATION locks → no parent
+
+## Parameters / Member Variables
+- : A pointer to the predicate lock target tag for which to find the parent
+- : A pointer to the structure that will be populated with the parent tag information
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - GET_PREDICATELOCKTARGETTAG_TYPE
+  - SET_PREDICATELOCKTARGETTAG_RELATION
+  - SET_PREDICATELOCKTARGETTAG_PAGE
+  - GET_PREDICATELOCKTARGETTAG_DB
+  - GET_PREDICATELOCKTARGETTAG_RELATION
+  - GET_PREDICATELOCKTARGETTAG_PAGE
+- Called from (representative examples):
+  - SerialControl
+  - CoarserLockCovers
+  - CheckAndPromotePredicateLockRequest
+  - DecrementParentLocks
+  - PredicateLockPageSplit
+
+## Notes and Other Information
+- Static function, only accessible within predicate.c
+- Returns true if a parent exists and sets the parent parameter, false if no parent exists
+- Relation-level locks are the coarsest granularity and have no parent
+- Essential for lock escalation and promotion in the predicate locking system
+- Uses assertion to ensure all valid lock types are handled
+- Part of PostgreSQL's serializable snapshot isolation implementation
