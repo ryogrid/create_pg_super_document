@@ -27,12 +27,11 @@ The  structure is designed to handle PostgreSQL's multi-host connection capabili
 The structure supports three types of host addressing: host names, IP addresses, and Unix domain sockets. Each host can have its own port number and password, allowing for flexible connection configurations across different database servers.
 
 ## Parameters / Member Variables
-- : Enum value indicating the type of host address (CHT_HOST_NAME, CHT_HOST_ADDRESS, or CHT_UNIX_SOCKET)
-- : String containing either a hostname, IP address, or Unix socket path depending on the connection type
-- : String containing the numeric IP address representation of the host
-- : String containing the port number; if NULL or empty, defaults to DEF_PGPORT or DEF_PGPORT_STR
-- : String containing the password for this specific host, typically read from a password file; NULL if not available
-
+- `type`: Enum value indicating the type of host address (CHT_HOST_NAME, CHT_HOST_ADDRESS, or CHT_UNIX_SOCKET)
+- `*host`: String containing either a hostname, IP address, or Unix socket path depending on the connection type
+- `*hostaddr`: String containing the numeric IP address representation of the host
+- `*port`: String containing the port number; if NULL or empty, defaults to DEF_PGPORT or DEF_PGPORT_STR
+- `*password`: String containing the password for this specific host, typically read from a password file; NULL if not available
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_conn_host_type (enum for host type classification)

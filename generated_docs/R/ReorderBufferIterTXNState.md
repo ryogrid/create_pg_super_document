@@ -21,11 +21,10 @@ typedef struct ReorderBufferIterTXNState
 This structure serves as the control mechanism for iterating through changes from multiple transactions in a coordinated manner during logical replication. It maintains a binary heap to efficiently order changes by their commit LSN (Log Sequence Number), ensuring that changes are processed in the correct chronological order across transaction boundaries. The structure supports iteration over multiple concurrent transactions while preserving the global ordering required for consistent logical replication.
 
 ## Parameters / Member Variables
-- : Binary heap data structure used to maintain ordering of transaction changes by commit LSN
-- : Number of transactions currently being tracked in the iteration state
-- : Doubly-linked list head for managing previously processed changes that may need to be revisited
-- : Flexible array member containing ReorderBufferIterTXNEntry structures, one for each transaction being iterated
-
+- `*heap`: Binary heap data structure used to maintain ordering of transaction changes by commit LSN
+- `nr_txns`: Number of transactions currently being tracked in the iteration state
+- `old_change`: Doubly-linked list head for managing previously processed changes that may need to be revisited
+- `entries[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing ReorderBufferIterTXNEntry structures, one for each transaction being iterated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [binaryheap](../b/binaryheap.md)

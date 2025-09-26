@@ -28,14 +28,13 @@ MergeAction is a node type that represents a transformed WHEN clause within a ME
 The node is used during query planning and execution to determine which action to take for each row processed during the merge operation.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for node type identification
-- : Specifies the match condition (MERGE_WHEN_MATCHED, MERGE_WHEN_NOT_MATCHED_BY_SOURCE, MERGE_WHEN_NOT_MATCHED_BY_TARGET)
-- : The SQL command to execute (CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_NOTHING)
-- : OVERRIDING clause specification (OVERRIDING_NOT_SET, OVERRIDING_USER_VALUE, OVERRIDING_SYSTEM_VALUE)
-- : Transformed WHEN conditions that determine if this action should be executed
-- : List of TargetEntry nodes specifying the values for INSERT/UPDATE operations
-- : List of target attribute numbers for UPDATE operations (ignored during query jumbling)
-
+- `type`: Standard NodeTag for node type identification
+- `matchKind`: Specifies the match condition (MERGE_WHEN_MATCHED, MERGE_WHEN_NOT_MATCHED_BY_SOURCE, MERGE_WHEN_NOT_MATCHED_BY_TARGET)
+- `commandType`: The SQL command to execute (CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_NOTHING)
+- `pg_node_attr(query_jumble_ignore)`: OVERRIDING clause specification (OVERRIDING_NOT_SET, OVERRIDING_USER_VALUE, OVERRIDING_SYSTEM_VALUE)
+- `*qual`: Transformed WHEN conditions that determine if this action should be executed
+- `*targetList`: List of TargetEntry nodes specifying the values for INSERT/UPDATE operations
+- `pg_node_attr(query_jumble_ignore)`: List of target attribute numbers for UPDATE operations (ignored during query jumbling)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MergeMatchKind](MergeMatchKind.md) (enum for match conditions)

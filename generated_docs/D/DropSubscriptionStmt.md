@@ -29,11 +29,10 @@ This structure is part of PostgreSQL's logical replication infrastructure, which
 The structure provides flexibility in how errors are handled (via missing_ok) and whether dependent objects should be automatically removed (via behavior).
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a DropSubscriptionStmt node in PostgreSQL's parse tree
-- : The name of the subscription to be dropped (as specified in the DROP SUBSCRIPTION statement)
-- : Boolean flag indicating whether to suppress errors if the subscription doesn't exist (corresponds to IF EXISTS clause)
-- : Specifies drop behavior - either DROP_RESTRICT (fail if dependent objects exist) or DROP_CASCADE (automatically drop dependent objects)
-
+- `type`: NodeTag identifying this as a DropSubscriptionStmt node in PostgreSQL's parse tree
+- `*subname`: The name of the subscription to be dropped (as specified in the DROP SUBSCRIPTION statement)
+- `missing_ok`: Boolean flag indicating whether to suppress errors if the subscription doesn't exist (corresponds to IF EXISTS clause)
+- `behavior`: Specifies drop behavior - either DROP_RESTRICT (fail if dependent objects exist) or DROP_CASCADE (automatically drop dependent objects)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DropBehavior (enum type)

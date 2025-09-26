@@ -30,19 +30,18 @@ typedef struct JsonFuncExpr
 JsonFuncExpr is a comprehensive parse tree node representing SQL/JSON query functions in their untransformed state. It encapsulates all aspects of JSON query operations including the operation type, context item, JSON path specification, parameter passing, output formatting, and error/empty handling behaviors. This structure serves as the foundation for JSON functions like JSON_VALUE, JSON_QUERY, and JSON_EXISTS, providing a unified representation before transformation into executable forms. The structure supports both standalone JSON functions and JSON_TABLE() column specifications, making it versatile across different JSON operation contexts.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL node identification
-- : JsonExprOp enum specifying the type of JSON expression (VALUE, QUERY, EXISTS, etc.)
-- : Name of the column when used in JSON_TABLE context (NULL otherwise)
-- : Pointer to JsonValueExpr providing the JSON context for the operation
-- : Pointer to Node containing the JSON path specification expression
-- : List of JsonArgument nodes from PASSING clause for parameter binding
-- : Pointer to JsonOutput specifying return type and format options
-- : Pointer to JsonBehavior defining behavior when no data is found
-- : Pointer to JsonBehavior defining behavior when errors occur
-- : JsonWrapper enum controlling array wrapping behavior (JSON_QUERY specific)
-- : JsonQuotes enum controlling quote handling (JSON_QUERY specific)
-- : ParseLoc indicating source code position for error reporting
-
+- `type`: Standard NodeTag for PostgreSQL node identification
+- `op`: JsonExprOp enum specifying the type of JSON expression (VALUE, QUERY, EXISTS, etc.)
+- `*column_name`: Name of the column when used in JSON_TABLE context (NULL otherwise)
+- `*context_item`: Pointer to JsonValueExpr providing the JSON context for the operation
+- `*pathspec`: Pointer to Node containing the JSON path specification expression
+- `*passing`: List of JsonArgument nodes from PASSING clause for parameter binding
+- `*output`: Pointer to JsonOutput specifying return type and format options
+- `*on_empty`: Pointer to JsonBehavior defining behavior when no data is found
+- `*on_error`: Pointer to JsonBehavior defining behavior when errors occur
+- `wrapper`: JsonWrapper enum controlling array wrapping behavior (JSON_QUERY specific)
+- `quotes`: JsonQuotes enum controlling quote handling (JSON_QUERY specific)
+- `location`: ParseLoc indicating source code position for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonExprOp

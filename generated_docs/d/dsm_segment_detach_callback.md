@@ -20,10 +20,9 @@ typedef struct dsm_segment_detach_callback
 This structure represents a single callback registration in PostgreSQL's Dynamic Shared Memory (DSM) system. When a DSM segment is detached from the current backend, all registered callbacks stored in structures of this type are executed. The structure is designed to be stored in a singly-linked list, allowing multiple callbacks to be registered per DSM segment. Each callback consists of a function pointer and an associated argument that will be passed to the function when invoked.
 
 ## Parameters / Member Variables
-- : A function pointer of type  that points to the callback function to be executed on detachment
-- : A  value that serves as an argument to be passed to the callback function when it is invoked
-- : An  structure that allows this callback to be linked into a singly-linked list of callbacks
-
+- `function`: A function pointer of type  that points to the callback function to be executed on detachment
+- `arg`: A  value that serves as an argument to be passed to the callback function when it is invoked
+- `node`: An  structure that allows this callback to be linked into a singly-linked list of callbacks
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_node](../s/slist_node.md) (for linked list functionality)

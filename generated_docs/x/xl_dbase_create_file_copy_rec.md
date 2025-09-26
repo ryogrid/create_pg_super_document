@@ -23,11 +23,10 @@ The xl_dbase_create_file_copy_rec structure represents a Write-Ahead Log (WAL) r
 This record type is identified by the XLOG_DBASE_CREATE_FILE_COPY (0x00) record type and contains all the necessary information to recreate or undo the database creation operation during WAL replay.
 
 ## Parameters / Member Variables
-- : OID of the newly created database
-- : OID of the tablespace where the new database is created
-- : OID of the source/template database being copied from
-- : OID of the tablespace containing the source database
-
+- `db_id`: OID of the newly created database
+- `tablespace_id`: OID of the tablespace where the new database is created
+- `src_db_id`: OID of the source/template database being copied from
+- `src_tablespace_id`: OID of the tablespace containing the source database
 ## Dependencies
 - Functions called/Symbols referenced: None (struct definition only)
 - Called from (representative examples):

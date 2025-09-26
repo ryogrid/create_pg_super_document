@@ -58,21 +58,20 @@ ForeignKeyOptInfo is a data structure used by PostgreSQL's query planner to stor
 The structure serves as a bridge between the foreign key constraint definition and the optimizer's equivalence class system, enabling optimizations such as join elimination, selectivity estimation improvements, and more efficient join ordering decisions. The derived matching information helps the planner understand which foreign key columns have corresponding equality conditions in the query, either through equivalence classes (ECs) or other restrictive conditions (RestrictInfos).
 
 ## Parameters / Member Variables
-- : Standard NodeTag for node type identification
-- : Range table index of the table containing the foreign key (referencing table)
-- : Range table index of the table referenced by the foreign key
-- : Number of columns participating in the foreign key constraint
-- : Array of attribute numbers for foreign key columns in the referencing table
-- : Array of attribute numbers for corresponding columns in the referenced table
-- : Array of operator OIDs used for primary key = foreign key comparisons
-- : Count of foreign key columns that have matching equivalence classes
-- : Count of matching equivalence classes that contain constants (ec_has_const)
-- : Count of foreign key columns matched by non-EC restrictive conditions
-- : Total number of non-EC RestrictInfo nodes matched to this foreign key
-- : Array of pointers to EquivalenceClass structures matching each FK column
-- : Array of pointers to EquivalenceMember for referencing Var of each column
-- : Array of lists containing RestrictInfo nodes matching each column's condition
-
+- `type`: Standard NodeTag for node type identification
+- `con_relid`: Range table index of the table containing the foreign key (referencing table)
+- `ref_relid`: Range table index of the table referenced by the foreign key
+- `nkeys`: Number of columns participating in the foreign key constraint
+- `conkey[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys))`: Array of attribute numbers for foreign key columns in the referencing table
+- `confkey[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys))`: Array of attribute numbers for corresponding columns in the referenced table
+- `conpfeqop[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys))`: Array of operator OIDs used for primary key = foreign key comparisons
+- `nmatched_ec`: Count of foreign key columns that have matching equivalence classes
+- `nconst_ec`: Count of matching equivalence classes that contain constants (ec_has_const)
+- `nmatched_rcols`: Count of foreign key columns matched by non-EC restrictive conditions
+- `nmatched_ri`: Total number of non-EC RestrictInfo nodes matched to this foreign key
+- `*eclass[INDEX_MAX_KEYS]`: Array of pointers to EquivalenceClass structures matching each FK column
+- `*fk_eclass_member[INDEX_MAX_KEYS]`: Array of pointers to EquivalenceMember for referencing Var of each column
+- `*rinfos[INDEX_MAX_KEYS]`: Array of lists containing RestrictInfo nodes matching each column's condition
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS (constant for maximum key columns)

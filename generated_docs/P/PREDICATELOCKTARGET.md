@@ -23,9 +23,8 @@ typedef struct PREDICATELOCKTARGET
 PREDICATELOCKTARGET is a core data structure in PostgreSQL's predicate locking system for serializable isolation level. It represents any database object (relation, page, tuple, etc.) that can have predicate locks placed on it. The structure is maintained in a shared memory hash table, where entries are dynamically added when the first predicate lock is requested on an object and removed when the last lock is released. Each target maintains a linked list of all predicate locks currently held on that object, enabling efficient conflict detection during serializable transaction processing.
 
 ## Parameters / Member Variables
-- : A PREDICATELOCKTARGETTAG structure that uniquely identifies the lockable database object (serves as the hash key)
-- : A doubly-linked list header containing all PREDICATELOCK structures associated with this target
-
+- `tag`: A PREDICATELOCKTARGETTAG structure that uniquely identifies the lockable database object (serves as the hash key)
+- `predicateLocks`: A doubly-linked list header containing all PREDICATELOCK structures associated with this target
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PREDICATELOCKTARGETTAG](PREDICATELOCKTARGETTAG.md)

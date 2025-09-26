@@ -21,9 +21,8 @@ ReturnStmt is a parse node structure that represents a RETURN statement within S
 During query transformation, ReturnStmt nodes are processed by transformReturnStmt() which converts them into Query nodes with commandType CMD_SELECT and isReturn flag set to true. This allows the return statement to be executed as a special form of SELECT query.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a ReturnStmt node
-- : Node pointer to the expression that should be returned (can be NULL for functions returning void)
-
+- `type`: NodeTag identifying this as a ReturnStmt node
+- `*returnval`: Node pointer to the expression that should be returned (can be NULL for functions returning void)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited node type system)

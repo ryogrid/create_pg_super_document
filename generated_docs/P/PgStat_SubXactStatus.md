@@ -43,11 +43,10 @@ The structure serves two main purposes: tracking statistics drops for objects th
 The pending_drops list contains statistics entries that should be deleted if the transaction commits, while the first field points to a linked list of per-table transaction statistics. The stack-like organization (via prev pointer) mirrors PostgreSQL's subtransaction stack, allowing proper cleanup and rollback behavior at any nesting level.
 
 ## Parameters / Member Variables
-- : Integer indicating the subtransaction nesting depth (0 for main transaction, higher for nested)
-- : Pointer to the PgStat_SubXactStatus of the parent subtransaction, forming a stack
-- : Double-ended circular list of statistics entries to be dropped upon transaction commit
-- : Head pointer to a linked list of PgStat_TableXactStatus entries for table-level transactional statistics
-
+- `nest_level`: Integer indicating the subtransaction nesting depth (0 for main transaction, higher for nested)
+- `*prev`: Pointer to the PgStat_SubXactStatus of the parent subtransaction, forming a stack
+- `pending_drops`: Double-ended circular list of statistics entries to be dropped upon transaction commit
+- `*first`: Head pointer to a linked list of PgStat_TableXactStatus entries for table-level transactional statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dclist_head](../d/dclist_head.md) (double-ended circular list header)

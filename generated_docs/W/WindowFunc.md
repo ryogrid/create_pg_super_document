@@ -42,19 +42,18 @@ WindowFunc is a specialized expression node that represents window functions in 
 The struct includes several fields marked with  which indicates these fields are ignored during query plan hashing for plan cache purposes, as they represent internal execution state rather than semantic query content.
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : OID of the window function from pg_proc catalog
-- : Data type OID of the function's return value
-- : Collation OID for the result value
-- : Collation OID that the function should use for input processing
-- : List of argument expressions passed to the window function
-- : Optional FILTER clause expression for aggregate window functions
-- : List of WindowFuncRunConditions for execution optimization and short-circuiting
-- : Index reference to the associated WindowClause in the query
-- : Boolean flag indicating if the argument list was specified as '*' (e.g., COUNT(*))
-- : Boolean flag indicating if this is a simple aggregate function used as a window function
-- : Parse location in the original query text for error reporting
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `winfnoid`: OID of the window function from pg_proc catalog
+- `pg_node_attr(query_jumble_ignore)`: Data type OID of the function's return value
+- `pg_node_attr(query_jumble_ignore)`: Collation OID for the result value
+- `pg_node_attr(query_jumble_ignore)`: Collation OID that the function should use for input processing
+- `*args`: List of argument expressions passed to the window function
+- `*aggfilter`: Optional FILTER clause expression for aggregate window functions
+- `pg_node_attr(query_jumble_ignore)`: List of WindowFuncRunConditions for execution optimization and short-circuiting
+- `winref`: Index reference to the associated WindowClause in the query
+- `pg_node_attr(query_jumble_ignore)`: Boolean flag indicating if the argument list was specified as '*' (e.g., COUNT(*))
+- `pg_node_attr(query_jumble_ignore)`: Boolean flag indicating if this is a simple aggregate function used as a window function
+- `location`: Parse location in the original query text for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)

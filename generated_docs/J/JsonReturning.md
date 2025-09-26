@@ -23,11 +23,10 @@ JsonReturning is a node structure that encapsulates the specifications for how J
 This structure is created during the parsing and transformation phase when processing JSON expressions that include RETURNING clauses, and is used throughout the execution pipeline to ensure proper formatting and type conversion of JSON results.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for node type identification
-- : Pointer to JsonFormat structure specifying the output JSON format details
-- : OID of the target PostgreSQL data type for the returned value
-- : Type modifier providing additional type-specific information (e.g., precision, length)
-
+- `type`: Standard NodeTag for node type identification
+- `*format`: Pointer to JsonFormat structure specifying the output JSON format details
+- `typid`: OID of the target PostgreSQL data type for the returned value
+- `typmod`: Type modifier providing additional type-specific information (e.g., precision, length)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonFormat](JsonFormat.md)

@@ -26,9 +26,8 @@ The nullingrel_info structure is a critical component of PostgreSQL's query opti
 This information is essential for correct optimization of queries involving outer joins, as the optimizer needs to understand which relations might be nulled by outer joins when making decisions about predicate pushdown, join reordering, and other optimizations. The structure supports PostgreSQL's sophisticated handling of outer join semantics during the query planning phase.
 
 ## Parameters / Member Variables
-- : Array of Relids pointers, where nullingrels[rti] contains the set of relation IDs of outer joins that potentially null the relation with range table index rti
-- : Length of the range table, representing the maximum valid index in the nullingrels array; used primarily for assertion checks to ensure array bounds safety
-
+- `*nullingrels`: Array of Relids pointers, where nullingrels[rti] contains the set of relation IDs of outer joins that potentially null the relation with range table index rti
+- `rtlength`: Length of the range table, representing the maximum valid index in the nullingrels array; used primarily for assertion checks to ensure array bounds safety
 ## Dependencies
 - Functions called/Symbols referenced:
   - Relids (PostgreSQL's bitmap set type for relation IDs)

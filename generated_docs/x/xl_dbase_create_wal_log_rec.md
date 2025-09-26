@@ -21,9 +21,8 @@ The xl_dbase_create_wal_log_rec structure represents a Write-Ahead Log (WAL) rec
 This approach is used when creating databases from templates where individual block-level logging is preferred, typically for smaller template databases or when more granular WAL replay control is desired. The record type is identified by XLOG_DBASE_CREATE_WAL_LOG (0x10).
 
 ## Parameters / Member Variables
-- : OID of the newly created database
-- : OID of the tablespace where the new database is being created
-
+- `db_id`: OID of the newly created database
+- `tablespace_id`: OID of the tablespace where the new database is being created
 ## Dependencies
 - Functions called/Symbols referenced: None (struct definition only)
 - Called from (representative examples):

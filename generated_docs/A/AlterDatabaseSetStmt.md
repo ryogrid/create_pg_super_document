@@ -22,10 +22,9 @@ AlterDatabaseSetStmt is a parse node structure that represents an ALTER DATABASE
 The structure contains the essential information needed to execute the database parameter modification: the target database name and the specific SET or RESET operation to be performed.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as an AlterDatabaseSetStmt node
-- : String containing the name of the target database to modify
-- : Pointer to a VariableSetStmt structure containing the SET or RESET operation details
-
+- `type`: NodeTag identifying this as an AlterDatabaseSetStmt node
+- `*dbname`: String containing the name of the target database to modify
+- `*setstmt`: Pointer to a VariableSetStmt structure containing the SET or RESET operation details
 ## Dependencies
 - Functions called/Symbols referenced:
   - [VariableSetStmt](../V/VariableSetStmt.md) (embedded structure for SET/RESET details)

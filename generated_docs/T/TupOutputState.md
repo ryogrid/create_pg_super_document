@@ -26,9 +26,8 @@ The structure provides a simplified interface for:
 This design pattern allows utility commands to leverage the existing tuple transmission infrastructure while maintaining a clean separation of concerns between tuple storage (slot) and tuple delivery (destination receiver).
 
 ## Parameters / Member Variables
-- : A TupleTableSlot pointer that holds the current tuple being processed for output. This slot is used as a temporary container for formatting and transmitting individual tuples.
-- : A DestReceiver pointer that defines where the output tuples should be sent (e.g., to the frontend client, to a file, or to another processing component).
-
+- `*slot`: A TupleTableSlot pointer that holds the current tuple being processed for output. This slot is used as a temporary container for formatting and transmitting individual tuples.
+- `*dest`: A DestReceiver pointer that defines where the output tuples should be sent (e.g., to the frontend client, to a file, or to another processing component).
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleTableSlot](TupleTableSlot.md) (referenced as member type)

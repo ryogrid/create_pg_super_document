@@ -47,14 +47,13 @@ The structure also handles LATERAL references, where placeholder expressions mig
 Importantly, PlaceHolderInfo can create join order constraints - the ph_eval_at join must be formed below any outer joins that should null the PlaceHolderVar, ensuring correct NULL-handling semantics.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for node type identification
-- : Unique identifier for this placeholder, unique across the entire planner run (not just within a query level)
-- : Copy of the PlaceHolderVar tree structure (kept for comparison purposes, could potentially be ignored)
-- : Bitmap of relation IDs representing the lowest join level where this placeholder's value can be computed
-- : Bitmap of relation IDs for any LATERAL references contained within the placeholder expression
-- : Bitmap of relation IDs representing the highest join level where this placeholder's value is required (similar semantics to attr_needed for regular Vars)
-- : Estimated width in bytes of the placeholder's computed value
-
+- `type`: Standard NodeTag for node type identification
+- `phid`: Unique identifier for this placeholder, unique across the entire planner run (not just within a query level)
+- `*ph_var`: Copy of the PlaceHolderVar tree structure (kept for comparison purposes, could potentially be ignored)
+- `ph_eval_at`: Bitmap of relation IDs representing the lowest join level where this placeholder's value can be computed
+- `ph_lateral`: Bitmap of relation IDs for any LATERAL references contained within the placeholder expression
+- `ph_needed`: Bitmap of relation IDs representing the highest join level where this placeholder's value is required (similar semantics to attr_needed for regular Vars)
+- `ph_width`: Estimated width in bytes of the placeholder's computed value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlaceHolderVar](PlaceHolderVar.md) (placeholder variable node)

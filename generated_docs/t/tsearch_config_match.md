@@ -23,9 +23,8 @@ The structure is used to populate a static array  that contains mappings for doz
 The matching process involves extracting the language portion from LC_CTYPE (stripping country codes and encoding information), then searching through the array to find a corresponding text search configuration name.
 
 ## Parameters / Member Variables
-- : The name of a PostgreSQL text search configuration (e.g., "english", "german", "spanish") that corresponds to a language
-- : A language identifier string that can be extracted from LC_CTYPE locale settings (e.g., "en", "de", "es", "English", "German")
-
+- `*tsconfname`: The name of a PostgreSQL text search configuration (e.g., "english", "german", "spanish") that corresponds to a language
+- `*langname`: A language identifier string that can be extracted from LC_CTYPE locale settings (e.g., "en", "de", "es", "English", "German")
 ## Dependencies
 - Functions called/Symbols referenced:
   - (Used as a data structure; no function calls from within the struct)

@@ -26,11 +26,10 @@ MergeSupportFunc is a specialized expression node designed specifically for Post
 Currently, the primary supported function is MERGE_ACTION(), which returns a string indicating which DML action ("INSERT", "UPDATE", or "DELETE") was performed for the current row during merge execution. This allows applications to determine what specific action was taken for each row processed by the MERGE statement.
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : Data type OID of the function's return value (typically text for MERGE_ACTION())
-- : Collation OID for the result, or InvalidOid if no specific collation is needed
-- : Parse location in the original query text for error reporting and debugging purposes
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `msftype`: Data type OID of the function's return value (typically text for MERGE_ACTION())
+- `msfcollid`: Collation OID for the result, or InvalidOid if no specific collation is needed
+- `location`: Parse location in the original query text for error reporting and debugging purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)

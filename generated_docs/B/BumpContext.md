@@ -33,13 +33,12 @@ The bump allocator is particularly well-suited for scenarios where:
 - Memory fragmentation is not a concern (since memory is never individually freed)
 
 ## Parameters / Member Variables
-- : Standard MemoryContextData structure containing common memory context fields
-- : The initial size for the first block allocated by this context
-- : The maximum size that any block in this context can grow to
-- : The size that will be used for the next block allocation (grows over time)
-- : The effective limit for chunk sizes that can be allocated from regular blocks
-- : Doubly-linked list of BumpBlock structures, with the currently active block at the head
-
+- `header`: Standard MemoryContextData structure containing common memory context fields
+- `initBlockSize`: The initial size for the first block allocated by this context
+- `maxBlockSize`: The maximum size that any block in this context can grow to
+- `nextBlockSize`: The size that will be used for the next block allocation (grows over time)
+- `allocChunkLimit`: The effective limit for chunk sizes that can be allocated from regular blocks
+- `blocks`: Doubly-linked list of BumpBlock structures, with the currently active block at the head
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextData](../M/MemoryContextData.md) (inherited structure)

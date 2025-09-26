@@ -30,13 +30,12 @@ IsoConnInfo serves as the central data structure for managing database connectio
 The isolation tester uses an array of IsoConnInfo structures, where conns[0] is reserved for the global setup, teardown, and watchdog connection, while additional connections (conns[1], conns[2], etc.) represent spec-defined test sessions. This design allows the framework to simulate concurrent database operations and test transaction isolation levels.
 
 ## Parameters / Member Variables
-- : The libpq PGconn connection object that represents the actual database connection
-- : The numeric backend process ID of the PostgreSQL server process handling this connection
-- : String representation of the backend PID for display and logging purposes
-- : Human-readable name of the session associated with this connection (as defined in test specifications)
-- : Pointer to the currently executing PermutationStep on this connection, or NULL if the connection is idle
-- : Counter tracking the total number of NOTICE messages received from this connection during test execution
-
+- `*conn`: The libpq PGconn connection object that represents the actual database connection
+- `backend_pid`: The numeric backend process ID of the PostgreSQL server process handling this connection
+- `*backend_pid_str`: String representation of the backend PID for display and logging purposes
+- `*sessionname`: Human-readable name of the session associated with this connection (as defined in test specifications)
+- `*active_step`: Pointer to the currently executing PermutationStep on this connection, or NULL if the connection is idle
+- `total_notices`: Counter tracking the total number of NOTICE messages received from this connection during test execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PermutationStep](../P/PermutationStep.md) (referenced as a pointer type for tracking active execution steps)

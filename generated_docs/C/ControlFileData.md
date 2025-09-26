@@ -148,42 +148,41 @@ The pg_control file is the first file PostgreSQL reads during startup and contai
 The structure includes several categories of information: system identification and versioning, current database state and checkpoint information, recovery control parameters, WAL configuration settings, hardware/architecture compatibility data, and database configuration parameters that affect storage layout and behavior.
 
 ## Parameters / Member Variables
-- : Unique 64-bit identifier ensuring WAL files match the installation that produced them
-- : Format version identifier for pg_control itself (must be PG_CONTROL_VERSION)
-- : Format version identifier for system catalogs (from catversion.h)
-- : Current database state (DB_STARTUP, DB_IN_PRODUCTION, DB_SHUTDOWNED, etc.)
-- : Timestamp of the last pg_control file update
-- : WAL record pointer to the last checkpoint record
-- : Complete copy of the last checkpoint record for disaster recovery
-- : Current fake LSN value used for unlogged relations
-- : Minimum LSN that must be reached before database can start (archive recovery)
-- : Timeline ID corresponding to minRecoveryPoint
-- : Redo pointer of backup start checkpoint during online backup recovery
-- : Backup end location for standby backups
-- : Boolean indicating if backup-end record is required before startup
-- : WAL logging level (minimal, replica, logical)
-- : Whether WAL logging includes hint bit updates
-- : Maximum number of concurrent connections
-- : Maximum number of background worker processes
-- : Maximum number of WAL sender processes
-- : Maximum number of prepared transactions
-- : Maximum number of locks per transaction
-- : Whether commit timestamps are being tracked
-- : Memory alignment requirement for tuples (architecture compatibility)
-- : Floating-point format test value (1234567.0 for compatibility verification)
-- : Data block size for this database (typically 8192 bytes)
-- : Number of blocks per segment file for large relations
-- : Block size within WAL files
-- : Size of each WAL segment file
-- : Width of catalog name fields (typically 64)
-- : Maximum number of columns allowed in an index
-- : Chunk size for TOAST (The Oversized-Attribute Storage Technique) tables
-- : Chunk size for large objects stored in pg_largeobject
-- : Whether 8-byte types (float8, int8) are passed by value
-- : Data page checksum version (0 if checksums disabled)
-- : Random nonce for authentication procedures
-- : CRC32C checksum of all preceding fields (must be last field)
-
+- `system_identifier`: Unique 64-bit identifier ensuring WAL files match the installation that produced them
+- `pg_control_version`: Format version identifier for pg_control itself (must be PG_CONTROL_VERSION)
+- `catalog_version_no`: Format version identifier for system catalogs (from catversion.h)
+- `state`: Current database state (DB_STARTUP, DB_IN_PRODUCTION, DB_SHUTDOWNED, etc.)
+- `time`: Timestamp of the last pg_control file update
+- `checkPoint`: WAL record pointer to the last checkpoint record
+- `checkPointCopy`: Complete copy of the last checkpoint record for disaster recovery
+- `unloggedLSN`: Current fake LSN value used for unlogged relations
+- `minRecoveryPoint`: Minimum LSN that must be reached before database can start (archive recovery)
+- `minRecoveryPointTLI`: Timeline ID corresponding to minRecoveryPoint
+- `backupStartPoint`: Redo pointer of backup start checkpoint during online backup recovery
+- `backupEndPoint`: Backup end location for standby backups
+- `backupEndRequired`: Boolean indicating if backup-end record is required before startup
+- `wal_level`: WAL logging level (minimal, replica, logical)
+- `wal_log_hints`: Whether WAL logging includes hint bit updates
+- `MaxConnections`: Maximum number of concurrent connections
+- `max_worker_processes`: Maximum number of background worker processes
+- `max_wal_senders`: Maximum number of WAL sender processes
+- `max_prepared_xacts`: Maximum number of prepared transactions
+- `max_locks_per_xact`: Maximum number of locks per transaction
+- `track_commit_timestamp`: Whether commit timestamps are being tracked
+- `maxAlign`: Memory alignment requirement for tuples (architecture compatibility)
+- `floatFormat`: Floating-point format test value (1234567.0 for compatibility verification)
+- `blcksz`: Data block size for this database (typically 8192 bytes)
+- `relseg_size`: Number of blocks per segment file for large relations
+- `xlog_blcksz`: Block size within WAL files
+- `xlog_seg_size`: Size of each WAL segment file
+- `nameDataLen`: Width of catalog name fields (typically 64)
+- `indexMaxKeys`: Maximum number of columns allowed in an index
+- `toast_max_chunk_size`: Chunk size for TOAST (The Oversized-Attribute Storage Technique) tables
+- `loblksize`: Chunk size for large objects stored in pg_largeobject
+- `float8ByVal`: Whether 8-byte types (float8, int8) are passed by value
+- `data_checksum_version`: Data page checksum version (0 if checksums disabled)
+- `mock_authentication_nonce[MOCK_AUTH_NONCE_LEN]`: Random nonce for authentication procedures
+- `crc`: CRC32C checksum of all preceding fields (must be last field)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DBState (database state enumeration)

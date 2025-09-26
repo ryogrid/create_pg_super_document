@@ -22,10 +22,9 @@ StatsElem is a parse tree node that represents individual elements (columns or e
 This flexibility allows PostgreSQL's extended statistics to work not just on simple columns but also on computed values, enabling more sophisticated query optimization through better cardinality estimates on complex predicates.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL parse tree nodes
-- : Name of the table column when referencing a simple attribute (NULL for expressions)
-- : Parse tree node representing the expression to analyze (NULL for simple columns)
-
+- `type`: Standard NodeTag for PostgreSQL parse tree nodes
+- `*name`: Name of the table column when referencing a simple attribute (NULL for expressions)
+- `*expr`: Parse tree node representing the expression to analyze (NULL for simple columns)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (parse tree infrastructure)

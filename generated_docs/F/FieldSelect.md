@@ -30,13 +30,12 @@ This operation is fundamental for accessing individual columns from composite ty
 The query_jumble_ignore attributes on the type-related fields indicate that these fields should be ignored when generating query fingerprints for plan caching, as they represent derived type information rather than the core operation structure.
 
 ## Parameters / Member Variables
-- : Base Expr node structure
-- : Input expression that should yield a rowtype Datum
-- : Attribute number of the field to extract from the composite value
-- : OID of the type of the extracted field (result type of this node)
-- : Type modifier for the result type (usually -1 if not applicable)
-- : OID of the collation for the extracted field
-
+- `xpr`: Base Expr node structure
+- `*arg`: Input expression that should yield a rowtype Datum
+- `fieldnum`: Attribute number of the field to extract from the composite value
+- `pg_node_attr(query_jumble_ignore)`: OID of the type of the extracted field (result type of this node)
+- `pg_node_attr(query_jumble_ignore)`: Type modifier for the result type (usually -1 if not applicable)
+- `pg_node_attr(query_jumble_ignore)`: OID of the collation for the extracted field
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references)

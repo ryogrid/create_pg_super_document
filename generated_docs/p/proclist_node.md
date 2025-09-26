@@ -23,9 +23,8 @@ The  structure implements a doubly-linked list node for managing PostgreSQL proc
 3. **Unlinked State**: A node not currently in any list has both , which is distinguishable from valid list states since circularity is explicitly disallowed.
 
 ## Parameters / Member Variables
-- : ProcNumber (0-based PGPROC index) of the next process in the list, or  if this is the last node
-- : ProcNumber (0-based PGPROC index) of the previous process in the list, or  if this is the first node
-
+- `next`: ProcNumber (0-based PGPROC index) of the next process in the list, or  if this is the last node
+- `prev`: ProcNumber (0-based PGPROC index) of the previous process in the list, or  if this is the first node
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcNumber (typedef used for next/prev fields)

@@ -22,10 +22,9 @@ This structure represents the ALTER EXTENSION SQL command, which is primarily us
 The update process involves reading extension control files and executing SQL update scripts in the correct order to transform the extension from its current state to the desired version. The structure is currently limited to UPDATE operations, as indicated by the comment, but may be extended in the future to support other ALTER EXTENSION actions.
 
 ## Parameters / Member Variables
-- : NodeTag identifier indicating this is an AlterExtensionStmt node
-- : Name of the extension to be altered/updated
-- : List of DefElem structures containing options for the operation (primarily 'new_version' for UPDATE operations)
-
+- `type`: NodeTag identifier indicating this is an AlterExtensionStmt node
+- `*extname`: Name of the extension to be altered/updated
+- `*options`: List of DefElem structures containing options for the operation (primarily 'new_version' for UPDATE operations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (from node system)

@@ -42,17 +42,16 @@ FuncExpr is the fundamental expression node for representing function calls in P
 The structure supports various function call forms including regular functions, set-returning functions, variadic functions, and functions with different display formats. Most type and formatting information is marked as query_jumble_ignore to ensure that functionally equivalent queries produce the same plan cache keys regardless of minor representation differences.
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : OID of the function from the pg_proc system catalog
-- : Data type OID of the function's return value
-- : Boolean flag indicating if the function returns a set of values rather than a single value
-- : Boolean flag indicating if variadic arguments have been combined into an array as the last argument
-- : Enumeration specifying how the function call should be displayed (e.g., COERCE_EXPLICIT_CALL, COERCE_IMPLICIT_CAST)
-- : Collation OID for the function result
-- : Collation OID that the function should use for input processing
-- : List of argument expressions passed to the function
-- : Parse location in the original query text for error reporting
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `funcid`: OID of the function from the pg_proc system catalog
+- `pg_node_attr(query_jumble_ignore)`: Data type OID of the function's return value
+- `pg_node_attr(query_jumble_ignore)`: Boolean flag indicating if the function returns a set of values rather than a single value
+- `pg_node_attr(query_jumble_ignore)`: Boolean flag indicating if variadic arguments have been combined into an array as the last argument
+- `pg_node_attr(query_jumble_ignore)`: Enumeration specifying how the function call should be displayed (e.g., COERCE_EXPLICIT_CALL, COERCE_IMPLICIT_CAST)
+- `pg_node_attr(query_jumble_ignore)`: Collation OID for the function result
+- `pg_node_attr(query_jumble_ignore)`: Collation OID that the function should use for input processing
+- `*args`: List of argument expressions passed to the function
+- `location`: Parse location in the original query text for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - CoercionForm (for function display formatting)

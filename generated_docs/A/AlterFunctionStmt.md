@@ -21,11 +21,10 @@ typedef struct AlterFunctionStmt
 This structure is used during the parsing phase to represent ALTER FUNCTION and ALTER PROCEDURE statements. It stores the target function/procedure identification along with the list of alterations to be applied. The structure is part of PostgreSQL's node system for representing parsed SQL statements and is processed during the utility command execution phase.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as an AlterFunctionStmt node
-- : ObjectType specifying whether this targets a function or procedure 
-- : Pointer to ObjectWithArgs containing the function name and parameter signature for identification
-- : List of DefElem structures representing the alterations to apply (e.g., VOLATILE, IMMUTABLE, RENAME TO, etc.)
-
+- `type`: NodeTag identifying this as an AlterFunctionStmt node
+- `objtype`: ObjectType specifying whether this targets a function or procedure
+- `*func`: Pointer to ObjectWithArgs containing the function name and parameter signature for identification
+- `*actions`: List of DefElem structures representing the alterations to apply (e.g., VOLATILE, IMMUTABLE, RENAME TO, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType

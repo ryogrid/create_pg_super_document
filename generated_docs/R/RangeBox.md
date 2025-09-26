@@ -23,9 +23,8 @@ The structure is designed to represent points in 4D space for spatial indexing p
 RangeBox is commonly used in conjunction with the getRangeBox() function, which converts a PostgreSQL BOX type into a RangeBox for internal processing. The structure enables more convenient access to coordinate bounds compared to the original BOX representation.
 
 ## Parameters / Member Variables
-- : Range structure representing the X-axis boundaries (typically low.x to high.x)
-- : Range structure representing the Y-axis boundaries (typically low.y to high.y)
-
+- `range_box_x`: Range structure representing the X-axis boundaries (typically low.x to high.x)
+- `range_box_y`: Range structure representing the Y-axis boundaries (typically low.y to high.y)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Range](Range.md) (as component type for left and right members)

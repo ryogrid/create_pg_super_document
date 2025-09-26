@@ -22,10 +22,9 @@ PgStat_HashKey serves as the unique identifier for entries in the shared statist
 The key design allows for hierarchical organization where statistics can be scoped by database (using dboid) and then by specific objects within that database (using objoid). For shared objects that exist across databases, InvalidOid is used for the dboid field.
 
 ## Parameters / Member Variables
-- : Specifies the type of statistics entry (e.g., table stats, function stats) using PgStat_Kind enum
-- : Database OID that contains the object; set to InvalidOid for shared objects that span databases
-- : The specific object identifier, typically a table OID or function OID depending on the statistics kind
-
+- `kind`: Specifies the type of statistics entry (e.g., table stats, function stats) using PgStat_Kind enum
+- `dboid`: Database OID that contains the object; set to InvalidOid for shared objects that span databases
+- `objoid`: The specific object identifier, typically a table OID or function OID depending on the statistics kind
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStat_Kind](PgStat_Kind.md) (enum type)

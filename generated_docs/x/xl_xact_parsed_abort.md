@@ -41,21 +41,20 @@ This structure is populated by the  function, which extracts and parses the vari
 The structure supports various optional components that may be present in an abort record, including subtransactions, dropped relations, dropped statistics, two-phase commit information, and replication origin data.
 
 ## Parameters / Member Variables
-- : Timestamp when the transaction was aborted
-- : Extended information flags indicating which optional components are present
-- : Database OID where the transaction occurred (MyDatabaseId)
-- : Tablespace OID for the database (MyDatabaseTableSpace)
-- : Number of subtransactions that were aborted along with the main transaction
-- : Array of subtransaction IDs that were aborted
-- : Number of relations that were dropped during this transaction
-- : Array of RelFileLocator structures for dropped relations
-- : Number of statistics objects that were dropped
-- : Array of xl_xact_stats_item structures describing dropped statistics
-- : Transaction ID for two-phase commit transactions (only for 2PC)
-- : Global transaction identifier string for two-phase commit (only for 2PC)
-- : LSN from the replication origin (for logical replication)
-- : Timestamp from the replication origin (for logical replication)
-
+- `xact_time`: Timestamp when the transaction was aborted
+- `xinfo`: Extended information flags indicating which optional components are present
+- `dbId`: Database OID where the transaction occurred (MyDatabaseId)
+- `tsId`: Tablespace OID for the database (MyDatabaseTableSpace)
+- `nsubxacts`: Number of subtransactions that were aborted along with the main transaction
+- `*subxacts`: Array of subtransaction IDs that were aborted
+- `nrels`: Number of relations that were dropped during this transaction
+- `*xlocators`: Array of RelFileLocator structures for dropped relations
+- `nstats`: Number of statistics objects that were dropped
+- `*stats`: Array of xl_xact_stats_item structures describing dropped statistics
+- `twophase_xid`: Transaction ID for two-phase commit transactions (only for 2PC)
+- `twophase_gid[GIDSIZE]`: Global transaction identifier string for two-phase commit (only for 2PC)
+- `origin_lsn`: LSN from the replication origin (for logical replication)
+- `origin_timestamp`: Timestamp from the replication origin (for logical replication)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_xact_stats_item](xl_xact_stats_item.md)

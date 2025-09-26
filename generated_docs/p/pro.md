@@ -171,12 +171,11 @@ The table supports three main categories of options:
 - **PRO_SPECIAL**: Special-purpose options that require custom handling (e.g., profile loading, version display)
 
 ## Parameters / Member Variables
-- : String containing the option name as it appears on the command line (e.g., "bl", "i", "cli")
-- : Option type constant - PRO_BOOL (2), PRO_INT (3), or PRO_SPECIAL (1)
-- : Default value for integer options, or boolean state for boolean options
-- : Additional type-specific information, often used for ON/OFF constants or special operation codes
-- : Pointer to the global variable that stores this option's runtime value
-
+- `*p_name`: String containing the option name as it appears on the command line (e.g., "bl", "i", "cli")
+- `p_type`: Option type constant - PRO_BOOL (2), PRO_INT (3), or PRO_SPECIAL (1)
+- `p_default`: Default value for integer options, or boolean state for boolean options
+- `p_special`: Additional type-specific information, often used for ON/OFF constants or special operation codes
+- `*p_obj`: Pointer to the global variable that stores this option's runtime value
 ## Dependencies
 - Functions called/Symbols referenced:
   - PRO_BOOL, PRO_INT, PRO_SPECIAL (type constants)

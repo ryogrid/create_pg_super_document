@@ -39,21 +39,20 @@ The tuple count fields distinguish between different types of access: tuples_ret
 The modification counters (tuples_inserted/updated/deleted/hot_updated/newpage_updated) count attempted actions regardless of transaction outcome, while the delta fields (delta_live_tuples, delta_dead_tuples) reflect actual changes based on commit or abort status.
 
 ## Parameters / Member Variables
-- : Number of sequential scans performed on the table
-- : Number of tuples successfully fetched by heap_getnext (or index entries for indexes)
-- : Number of tuples fetched by heap_fetch under bitmap/simple indexscans
-- : Count of tuple insertion attempts
-- : Count of tuple update attempts
-- : Count of tuple deletion attempts
-- : Count of HOT (Heap-Only Tuple) update attempts
-- : Count of updates that created new pages
-- : Boolean flag indicating if table was truncated or dropped
-- : Change in live tuple count (can be negative)
-- : Change in dead tuple count (can be negative)
-- : Total number of tuples changed
-- : Number of disk blocks fetched for this table
-- : Number of buffer cache hits for this table
-
+- `numscans`: Number of sequential scans performed on the table
+- `tuples_returned`: Number of tuples successfully fetched by heap_getnext (or index entries for indexes)
+- `tuples_fetched`: Number of tuples fetched by heap_fetch under bitmap/simple indexscans
+- `tuples_inserted`: Count of tuple insertion attempts
+- `tuples_updated`: Count of tuple update attempts
+- `tuples_deleted`: Count of tuple deletion attempts
+- `tuples_hot_updated`: Count of HOT (Heap-Only Tuple) update attempts
+- `tuples_newpage_updated`: Count of updates that created new pages
+- `truncdropped`: Boolean flag indicating if table was truncated or dropped
+- `delta_live_tuples`: Change in live tuple count (can be negative)
+- `delta_dead_tuples`: Change in dead tuple count (can be negative)
+- `changed_tuples`: Total number of tuples changed
+- `blocks_fetched`: Number of disk blocks fetched for this table
+- `blocks_hit`: Number of buffer cache hits for this table
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter (used for all counter fields)

@@ -26,12 +26,11 @@ When a locking clause is applied to a subquery, PostgreSQL generates RowMarkClau
 The strength field determines the lock level (ranging from FOR KEY SHARE to FOR UPDATE), while waitPolicy controls behavior when encountering locked rows (normal wait, NOWAIT, or SKIP LOCKED). The Query.hasForUpdate flag separately tracks whether explicit FOR UPDATE/SHARE clauses exist at the current query level.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a RowMarkClause node
-- : Range table index identifying the target relation for locking
-- : LockClauseStrength enumeration specifying the lock level (FOR KEY SHARE, FOR SHARE, FOR NO KEY UPDATE, FOR UPDATE)
-- : LockWaitPolicy enumeration controlling lock conflict handling (normal wait, NOWAIT, SKIP LOCKED)
-- : Boolean indicating whether this clause was pushed down from a higher query level rather than explicitly written
-
+- `type`: NodeTag identifying this as a RowMarkClause node
+- `rti`: Range table index identifying the target relation for locking
+- `strength`: LockClauseStrength enumeration specifying the lock level (FOR KEY SHARE, FOR SHARE, FOR NO KEY UPDATE, FOR UPDATE)
+- `waitPolicy`: LockWaitPolicy enumeration controlling lock conflict handling (normal wait, NOWAIT, SKIP LOCKED)
+- `pushedDown`: Boolean indicating whether this clause was pushed down from a higher query level rather than explicitly written
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockClauseStrength (enumeration for lock strength levels)

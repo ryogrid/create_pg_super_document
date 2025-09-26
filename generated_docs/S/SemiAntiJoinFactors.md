@@ -25,9 +25,8 @@ The factors stored in this structure are computed once per relation pair by comp
 These correction factors are essential for both nested loop and hash join cost estimation, allowing the planner to make more accurate decisions about join method selection and join ordering in queries involving these special join semantics.
 
 ## Parameters / Member Variables
-- : The fraction (selectivity) of outer relation tuples that are expected to have at least one matching tuple in the inner relation. This value ranges from 0.0 (no outer tuples have matches) to 1.0 (all outer tuples have matches)
-- : The average number of matches expected for outer tuples that do have at least one match in the inner relation. This accounts for cases where outer tuples might match multiple inner tuples before early termination occurs
-
+- `outer_match_frac`: The fraction (selectivity) of outer relation tuples that are expected to have at least one matching tuple in the inner relation. This value ranges from 0.0 (no outer tuples have matches) to 1.0 (all outer tuples have matches)
+- `match_count`: The average number of matches expected for outer tuples that do have at least one match in the inner relation. This accounts for cases where outer tuples might match multiple inner tuples before early termination occurs
 ## Dependencies
 - Functions called/Symbols referenced:
   - Selectivity (selectivity estimation type)

@@ -21,11 +21,10 @@ typedef struct ViewOptions
 ViewOptions serves as the specialized structure for storing relation options for views in PostgreSQL. This structure is stored in the rd_options field of view relation descriptors and contains parameters that control view security behavior and constraint checking policies. The structure follows the PostgreSQL varlena format, allowing it to be stored as variable-length data. These options affect how views handle security contexts, user permissions, and constraint validation, and can be configured through CREATE VIEW or ALTER VIEW statements with specific option clauses.
 
 ## Parameters / Member Variables
-- : Varlena header for variable-length data structure (internal use, should not be modified directly)
-- : Boolean flag indicating whether the view should be treated as a security barrier view, preventing optimization pushdown that might leak information
-- : Boolean flag controlling whether the view executes with the permissions of the invoker (true) or the view owner (false)
-- : Enum value controlling constraint checking behavior for INSERT/UPDATE operations through the view (NOT_SET, LOCAL, or CASCADED)
-
+- `vl_len_`: Varlena header for variable-length data structure (internal use, should not be modified directly)
+- `security_barrier`: Boolean flag indicating whether the view should be treated as a security barrier view, preventing optimization pushdown that might leak information
+- `security_invoker`: Boolean flag controlling whether the view executes with the permissions of the invoker (true) or the view owner (false)
+- `check_option`: Enum value controlling constraint checking behavior for INSERT/UPDATE operations through the view (NOT_SET, LOCAL, or CASCADED)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ViewOptCheckOption

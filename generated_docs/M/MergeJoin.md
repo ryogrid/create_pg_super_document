@@ -42,14 +42,13 @@ The algorithm works by simultaneously scanning both sorted input streams and adv
 The skip_mark_restore flag optimizes performance by avoiding expensive mark/restore operations when the inner relation has unique values for the join keys, allowing the algorithm to avoid re-scanning portions of the inner stream.
 
 ## Parameters / Member Variables
-- : Base Join structure containing common join information (plan details, join type, join qualifiers)
-- : Boolean flag indicating whether mark/restore calls can be skipped for performance optimization
-- : List of expression trees representing the merge join equality conditions
-- : Array of btree operator family OIDs, one for each merge clause, defining the ordering semantics
-- : Array of collation OIDs specifying the collation to use for each merge clause
-- : Array of sort direction indicators (BTLessStrategyNumber or BTGreaterStrategyNumber) for each merge clause
-- : Array of boolean flags indicating whether NULL values should be ordered first for each merge clause
-
+- `join`: Base Join structure containing common join information (plan details, join type, join qualifiers)
+- `skip_mark_restore`: Boolean flag indicating whether mark/restore calls can be skipped for performance optimization
+- `*mergeclauses`: List of expression trees representing the merge join equality conditions
+- `pg_node_attr(array_size(mergeclauses))`: Array of btree operator family OIDs, one for each merge clause, defining the ordering semantics
+- `pg_node_attr(array_size(mergeclauses))`: Array of collation OIDs specifying the collation to use for each merge clause
+- `pg_node_attr(array_size(mergeclauses))`: Array of sort direction indicators (BTLessStrategyNumber or BTGreaterStrategyNumber) for each merge clause
+- `pg_node_attr(array_size(mergeclauses))`: Array of boolean flags indicating whether NULL values should be ordered first for each merge clause
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Join](../J/Join.md) (inherited base structure)

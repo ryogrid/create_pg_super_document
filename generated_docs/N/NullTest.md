@@ -28,12 +28,11 @@ NullTest is a node type in PostgreSQL's expression tree that handles NULL testin
 The node evaluates the appropriate test and returns a boolean Datum. When argisrow is false with a rowtype input, it represents "row IS [NOT] DISTINCT FROM NULL" rather than the SQL "row IS [NOT] NULL" notation.
 
 ## Parameters / Member Variables
-- : Base Expr node structure
-- : Input expression to be tested for NULL
-- : Type of NULL test (IS_NULL or IS_NOT_NULL from NullTestType enum)
-- : Boolean flag indicating whether to perform field-by-field null checks for row types
-- : Token location in source query, or -1 if unknown
-
+- `xpr`: Base Expr node structure
+- `*arg`: Input expression to be tested for NULL
+- `nulltesttype`: Type of NULL test (IS_NULL or IS_NOT_NULL from NullTestType enum)
+- `pg_node_attr(query_jumble_ignore)`: Boolean flag indicating whether to perform field-by-field null checks for row types
+- `location`: Token location in source query, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NullTestType](NullTestType.md) (enum with IS_NULL, IS_NOT_NULL values)

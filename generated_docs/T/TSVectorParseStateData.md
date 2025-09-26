@@ -30,16 +30,15 @@ The structure is designed to be opaque to external code (defined in tsvector_par
 The parser state tracks the current position in the input string, manages a dynamically allocated word buffer, and maintains parsing configuration through boolean flags that control delimiter treatment and error message formatting.
 
 ## Parameters / Member Variables
-- : Pointer to the current position in the input string being parsed
-- : Pointer to the beginning of the entire input string, used for error reporting and context
-- : Dynamically allocated buffer to hold the current word being parsed
-- : Size in bytes currently allocated for the word buffer (initially 32 bytes)
-- : Maximum bytes per character for the current database encoding
-- : Boolean flag indicating whether operators (\! | * ( )) should be treated as delimiters
-- : Boolean flag affecting error message content ("tsquery" vs "tsvector" in messages)
-- : Boolean flag indicating parsing is for websearch_to_tsquery() functionality
-- : Error context node for soft error reporting, allowing errors to be captured rather than thrown
-
+- `*prsbuf`: Pointer to the current position in the input string being parsed
+- `*bufstart`: Pointer to the beginning of the entire input string, used for error reporting and context
+- `*word`: Dynamically allocated buffer to hold the current word being parsed
+- `len`: Size in bytes currently allocated for the word buffer (initially 32 bytes)
+- `eml`: Maximum bytes per character for the current database encoding
+- `oprisdelim`: Boolean flag indicating whether operators (\! | * ( )) should be treated as delimiters
+- `is_tsquery`: Boolean flag affecting error message content ("tsquery" vs "tsvector" in messages)
+- `is_web`: Boolean flag indicating parsing is for websearch_to_tsquery() functionality
+- `*escontext`: Error context node for soft error reporting, allowing errors to be captured rather than thrown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [word](../w/word.md) (member variable)

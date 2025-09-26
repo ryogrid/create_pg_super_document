@@ -25,11 +25,10 @@ The statement supports truncating multiple tables simultaneously and can handle 
 TRUNCATE operations require special privileges and have various restrictions, such as not being allowed on tables with foreign key references (unless CASCADE is used) and not being possible within user-defined functions.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this parse tree node type
-- : List of RangeVar nodes specifying the tables to be truncated (supports multiple tables in one statement)
-- : Boolean flag for RESTART IDENTITY behavior - when true, sequences owned by the table columns are reset to their start values
-- : DropBehavior enum controlling foreign key constraint handling (DROP_RESTRICT or DROP_CASCADE)
-
+- `type`: NodeTag identifier for this parse tree node type
+- `*relations`: List of RangeVar nodes specifying the tables to be truncated (supports multiple tables in one statement)
+- `restart_seqs`: Boolean flag for RESTART IDENTITY behavior - when true, sequences owned by the table columns are reset to their start values
+- `behavior`: DropBehavior enum controlling foreign key constraint handling (DROP_RESTRICT or DROP_CASCADE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DropBehavior

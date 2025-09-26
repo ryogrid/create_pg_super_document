@@ -24,8 +24,7 @@ When executed, the Material node initially passes through tuples from its subpla
 This node is automatically inserted by the planner when it determines that a subplan will need to be accessed multiple times or when backward scanning capabilities are required by parent nodes.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing target list, qualifications, cost estimates, and child plan references
-
+- `plan`: Base Plan structure containing target list, qualifications, cost estimates, and child plan references
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (inherited base structure)

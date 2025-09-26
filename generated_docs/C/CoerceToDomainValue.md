@@ -30,12 +30,11 @@ This node is used within domain check constraint expressions where it represents
 A critical design aspect is that the typeId/typeMod/collation fields are set from the domain's base type, not the domain itself. This is intentional because the value should not be considered a member of the domain until all constraints have been successfully validated.
 
 ## Parameters / Member Variables
-- : Base Expr node structure
-- : OID of the type for the substituted value (from domain's base type)
-- : Type modifier for the substituted value
-- : OID of the collation for the substituted value
-- : Token location in source query, or -1 if unknown
-
+- `xpr`: Base Expr node structure
+- `typeId`: OID of the type for the substituted value (from domain's base type)
+- `pg_node_attr(query_jumble_ignore)`: Type modifier for the substituted value
+- `pg_node_attr(query_jumble_ignore)`: OID of the collation for the substituted value
+- `location`: Token location in source query, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)

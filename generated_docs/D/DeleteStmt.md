@@ -23,13 +23,12 @@ typedef struct DeleteStmt
 DeleteStmt is a parse tree node that represents a DELETE statement after SQL parsing. It encapsulates all components of a DELETE operation including the target table, optional USING clause for multi-table deletes, WHERE conditions for filtering rows to delete, RETURNING clause for retrieving deleted values, and WITH clause for common table expressions. This structure is created during the parsing phase and later transformed into execution plans by the query planner.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a DeleteStmt node type
-- : RangeVar pointer specifying the target table to delete from
-- : Optional list of additional tables/relations for complex delete operations
-- : Node containing the WHERE condition to determine which rows to delete
-- : List of expressions specifying what values to return from deleted rows
-- : WithClause pointer for common table expressions (CTEs) used in the statement
-
+- `type`: NodeTag identifying this as a DeleteStmt node type
+- `*relation`: RangeVar pointer specifying the target table to delete from
+- `*usingClause`: Optional list of additional tables/relations for complex delete operations
+- `*whereClause`: Node containing the WHERE condition to determine which rows to delete
+- `*returningList`: List of expressions specifying what values to return from deleted rows
+- `*withClause`: WithClause pointer for common table expressions (CTEs) used in the statement
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVar](../R/RangeVar.md)

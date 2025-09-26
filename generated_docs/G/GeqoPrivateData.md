@@ -21,9 +21,8 @@ GeqoPrivateData serves as a private data container for the GEQO genetic algorith
 The GEQO algorithm uses this private data structure to maintain state consistency across multiple genetic algorithm operations including population initialization, crossover operations, mutation, and fitness evaluation. The random_state field is particularly important as it allows for deterministic behavior when a specific seed is set, enabling reproducible query plans for testing and debugging purposes.
 
 ## Parameters / Member Variables
-- : A List containing the base relations (tables) that need to be joined in the query. This provides the genetic algorithm with the fundamental building blocks for constructing join orders.
-- : A pg_prng_state structure that maintains the state of the pseudo-random number generator used throughout the genetic algorithm operations, ensuring consistent and reproducible randomness.
-
+- `*initial_rels`: A List containing the base relations (tables) that need to be joined in the query. This provides the genetic algorithm with the fundamental building blocks for constructing join orders.
+- `random_state`: A pg_prng_state structure that maintains the state of the pseudo-random number generator used throughout the genetic algorithm operations, ensuring consistent and reproducible randomness.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL's list data structure)

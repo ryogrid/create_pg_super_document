@@ -35,10 +35,9 @@ The function operates on a fullness class system where blocks are categorized by
 The algorithm first searches higher-numbered fullness classes (2 to N-2) for spans that have become less full due to deallocations and should be moved to class 1. If no suitable existing span is found, it attempts to transfer spans from other classes. As a last resort, it allocates a new superblock by obtaining pages from a segment and initializing the necessary span management structures.
 
 ## Parameters / Member Variables
-- : The DSA area containing the memory pools and segments
-- : The specific memory pool for the given size class
-- : The object size class for which an active superblock is needed
-
+- `DSA_SCLASS_BLOCK_OF_SPANS)`: The DSA area containing the memory pools and segments
+- `false`: The specific memory pool for the given size class
+- `DSA_PAGES_PER_SUPERBLOCK`: The object size class for which an active superblock is needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsa_get_address](../d/dsa_get_address.md)

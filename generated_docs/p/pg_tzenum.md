@@ -26,12 +26,11 @@ The structure is designed to be used with the timezone enumeration functions (, 
 This struct is primarily used internally by PostgreSQL's timezone system and is not intended for direct external manipulation. It's most notably used by the  SQL function to provide a list of all available timezone names.
 
 ## Parameters / Member Variables
-- : Length of the base timezone directory path, used to calculate relative timezone names by stripping the base path prefix
-- : Current depth in the directory traversal stack (0-based), indicating how deep into subdirectories the enumeration has progressed  
-- : Array of open directory descriptors (DIR*) for each level of the directory stack, allowing concurrent traversal of multiple directory levels
-- : Array of directory name strings corresponding to each level in the traversal stack, used to construct full timezone paths
-- : Working  structure used as a buffer for timezone information during enumeration, contains the canonically-cased timezone name and state information
-
+- `baselen`: Length of the base timezone directory path, used to calculate relative timezone names by stripping the base path prefix
+- `depth`: Current depth in the directory traversal stack (0-based), indicating how deep into subdirectories the enumeration has progressed
+- `*dirdesc[MAX_TZDIR_DEPTH]`: Array of open directory descriptors (DIR*) for each level of the directory stack, allowing concurrent traversal of multiple directory levels
+- `*dirname[MAX_TZDIR_DEPTH]`: Array of directory name strings corresponding to each level in the traversal stack, used to construct full timezone paths
+- `tz`: Working  structure used as a buffer for timezone information during enumeration, contains the canonically-cased timezone name and state information
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (constant set to 10)

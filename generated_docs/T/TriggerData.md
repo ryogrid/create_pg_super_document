@@ -30,18 +30,17 @@ The TriggerData structure serves as a comprehensive data container passed to tri
 The structure supports all trigger timing (BEFORE, AFTER, INSTEAD OF) and events (INSERT, UPDATE, DELETE, TRUNCATE), providing different subsets of information depending on the trigger type and timing.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for memory management and type checking
-- : Bit mask indicating the trigger event type (INSERT/UPDATE/DELETE/TRUNCATE) and timing (BEFORE/AFTER/INSTEAD OF)
-- : The relation (table) on which the trigger was fired
-- : The tuple being inserted, updated, or deleted (NULL for TRUNCATE triggers)
-- : The new tuple version for UPDATE triggers (NULL for other trigger types)
-- : Pointer to the Trigger structure containing trigger metadata and configuration
-- : TupleTableSlot containing the old tuple (alternative to tg_trigtuple for newer code)
-- : TupleTableSlot containing the new tuple (alternative to tg_newtuple for newer code)
-- : Tuplestore containing all old tuple versions for statement-level triggers with OLD transition tables
-- : Tuplestore containing all new tuple versions for statement-level triggers with NEW transition tables
-- : Bitmapset indicating which columns were updated in an UPDATE trigger
-
+- `type`: NodeTag identifier for memory management and type checking
+- `tg_event`: Bit mask indicating the trigger event type (INSERT/UPDATE/DELETE/TRUNCATE) and timing (BEFORE/AFTER/INSTEAD OF)
+- `tg_relation`: The relation (table) on which the trigger was fired
+- `tg_trigtuple`: The tuple being inserted, updated, or deleted (NULL for TRUNCATE triggers)
+- `tg_newtuple`: The new tuple version for UPDATE triggers (NULL for other trigger types)
+- `*tg_trigger`: Pointer to the Trigger structure containing trigger metadata and configuration
+- `*tg_trigslot`: TupleTableSlot containing the old tuple (alternative to tg_trigtuple for newer code)
+- `*tg_newslot`: TupleTableSlot containing the new tuple (alternative to tg_newtuple for newer code)
+- `*tg_oldtable`: Tuplestore containing all old tuple versions for statement-level triggers with OLD transition tables
+- `*tg_newtable`: Tuplestore containing all new tuple versions for statement-level triggers with NEW transition tables
+- `*tg_updatedcols`: Bitmapset indicating which columns were updated in an UPDATE trigger
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

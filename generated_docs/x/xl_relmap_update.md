@@ -23,11 +23,10 @@ The  structure is a WAL record type used to log changes to PostgreSQL's relation
 The structure contains the essential information needed to identify which database and tablespace the mapping update applies to, along with the size and content of the new mapping data. During WAL replay, this information is used to reconstruct the relation mapping files and maintain system consistency.
 
 ## Parameters / Member Variables
-- : Database OID that the mapping update applies to, or 0 if updating the shared relation map (for system catalogs shared across all databases)
-- : Tablespace OID where the database resides, typically either a user-defined tablespace or pg_global for shared system catalogs
-- : Size in bytes of the relation mapping data stored in the data field, used for validation during WAL replay
-- : Variable-length field containing the actual RelMapFile structure data that represents the new mapping state
-
+- `dbid`: Database OID that the mapping update applies to, or 0 if updating the shared relation map (for system catalogs shared across all databases)
+- `tsid`: Tablespace OID where the database resides, typically either a user-defined tablespace or pg_global for shared system catalogs
+- `nbytes`: Size in bytes of the relation mapping data stored in the data field, used for validation during WAL replay
+- `data[FLEXIBLE_ARRAY_MEMBER]`: Variable-length field containing the actual RelMapFile structure data that represents the new mapping state
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (for variable-length data field)

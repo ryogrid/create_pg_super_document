@@ -44,17 +44,16 @@ The structure can represent both simple subscripting (e.g., ) and slice operatio
 The implementation allows for in-place modifications when dealing with read-write expanded containers, providing performance optimizations for large container operations.
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : OID of the actual container type that determines subscripting semantics
-- : OID of the container's element type (saved for subscripting functions)
-- : OID of the SubscriptingRef operation's result type
-- : Type modifier of the result
-- : Collation OID of the result, or InvalidOid if none
-- : List of expressions evaluating to upper container indexes
-- : List of expressions evaluating to lower container indexes (NIL for single element operations)
-- : Expression that evaluates to the container value being subscripted
-- : Expression for the source value in assignment operations (NULL for fetch operations)
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `pg_node_attr(query_jumble_ignore)`: OID of the actual container type that determines subscripting semantics
+- `pg_node_attr(query_jumble_ignore)`: OID of the container's element type (saved for subscripting functions)
+- `pg_node_attr(query_jumble_ignore)`: OID of the SubscriptingRef operation's result type
+- `pg_node_attr(query_jumble_ignore)`: Type modifier of the result
+- `pg_node_attr(query_jumble_ignore)`: Collation OID of the result, or InvalidOid if none
+- `*refupperindexpr`: List of expressions evaluating to upper container indexes
+- `*reflowerindexpr`: List of expressions evaluating to lower container indexes (NIL for single element operations)
+- `*refexpr`: Expression that evaluates to the container value being subscripted
+- `*refassgnexpr`: Expression for the source value in assignment operations (NULL for fetch operations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Expr](../E/Expr.md) (base expression structure and container expressions)

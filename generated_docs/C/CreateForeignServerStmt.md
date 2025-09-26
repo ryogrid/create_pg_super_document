@@ -26,14 +26,13 @@ CreateForeignServerStmt is a parse tree node that encapsulates the information n
 The structure supports the IF NOT EXISTS clause through the if_not_exists boolean field, allowing for conditional server creation. The server acts as an intermediate layer between the FDW and foreign tables, providing connection and configuration details specific to a particular external data source instance.
 
 ## Parameters / Member Variables
-- : NodeTag identifier marking this as a CreateForeignServerStmt node in the parse tree
-- : The name of the foreign server to be created
-- : Optional server type specification for documentation purposes
-- : Optional version string for the external server
-- : Name of the foreign data wrapper this server will use
-- : Boolean flag indicating whether to skip creation if server already exists
-- : List of DefElem nodes containing server-specific configuration options
-
+- `type`: NodeTag identifier marking this as a CreateForeignServerStmt node in the parse tree
+- `*servername`: The name of the foreign server to be created
+- `*servertype`: Optional server type specification for documentation purposes
+- `*version`: Optional version string for the external server
+- `*fdwname`: Name of the foreign data wrapper this server will use
+- `if_not_exists`: Boolean flag indicating whether to skip creation if server already exists
+- `*options`: List of DefElem nodes containing server-specific configuration options
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

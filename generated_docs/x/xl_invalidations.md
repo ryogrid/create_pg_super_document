@@ -26,12 +26,11 @@ When operations modify system catalogs or other cached structures without being 
 During WAL replay on standby servers, this record is processed by  which calls  to apply the invalidations locally, ensuring cache coherency across the cluster.
 
 ## Parameters / Member Variables
-- : Database ID (MyDatabaseId) where the invalidations originated
-- : Tablespace ID (MyDatabaseTableSpace) associated with the invalidations  
-- : Boolean flag indicating whether relation cache initialization files need to be invalidated
-- : Number of shared invalidation messages contained in the msgs array
-- : Flexible array containing  structures with the actual invalidation data
-
+- `dbId`: Database ID (MyDatabaseId) where the invalidations originated
+- `tsId`: Tablespace ID (MyDatabaseTableSpace) associated with the invalidations
+- `relcacheInitFileInval`: Boolean flag indicating whether relation cache initialization files need to be invalidated
+- `nmsgs`: Number of shared invalidation messages contained in the msgs array
+- `msgs[FLEXIBLE_ARRAY_MEMBER]`: Flexible array containing  structures with the actual invalidation data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SharedInvalidationMessage](../S/SharedInvalidationMessage.md)

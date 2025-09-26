@@ -19,9 +19,8 @@ typedef struct WorkTableScan
 WorkTableScan is a specialized scan node used in PostgreSQL's recursive CTE implementation. It inherits from the base Scan structure and adds a single parameter to identify the working table parameter. During recursive CTE execution, PostgreSQL uses a working table (tuplestore) to store intermediate results from each iteration of the recursive process. The WorkTableScan node provides access to this working table for the recursive arm of the CTE. The node operates by locating the appropriate RecursiveUnion ancestor through the parameter mechanism and then scanning the tuples stored in the working table.
 
 ## Parameters / Member Variables
-- : Base Scan structure containing common scan fields (Plan plan, Index scanrelid)
-- : Integer ID of the execution parameter that represents the work table, used to locate the RecursiveUnion state containing the working table tuplestore
-
+- `scan`: Base Scan structure containing common scan fields (Plan plan, Index scanrelid)
+- `wtParam`: Integer ID of the execution parameter that represents the work table, used to locate the RecursiveUnion state containing the working table tuplestore
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Scan](../S/Scan.md) (base structure)

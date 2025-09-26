@@ -21,9 +21,8 @@ WaitEventCustomEntryByInfo is a hash table entry structure that serves as part o
 The structure is designed for use in shared memory hash tables where multiple processes need to access wait event information concurrently.
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer serving as the hash key, containing the unique identifier for the custom wait event
-- : A character array of size NAMEDATALEN containing the human-readable name of the custom wait event
-
+- `wait_event_info`: A 32-bit unsigned integer serving as the hash key, containing the unique identifier for the custom wait event
+- `wait_event_name[NAMEDATALEN]`: A character array of size NAMEDATALEN containing the human-readable name of the custom wait event
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN (constant defining maximum length for names)

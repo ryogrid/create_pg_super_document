@@ -31,14 +31,13 @@ The need for RelabelType arises because simply overwriting the type field of an 
 The node is commonly used in situations where the physical representation of data remains the same but the logical type interpretation changes, such as between related types like OID and int4, or when dealing with domain types and their base types.
 
 ## Parameters / Member Variables
-- : Base Expr node structure
-- : Input expression to be reinterpreted
-- : OID of the output type after coercion
-- : Type modifier for the result type (usually -1)
-- : OID of collation for the result, or InvalidOid if none
-- : CoercionForm indicating how this coercion should be displayed
-- : Parse location of the coercion in the original query, or -1 if unknown
-
+- `xpr`: Base Expr node structure
+- `*arg`: Input expression to be reinterpreted
+- `resulttype`: OID of the output type after coercion
+- `pg_node_attr(query_jumble_ignore)`: Type modifier for the result type (usually -1)
+- `pg_node_attr(query_jumble_ignore)`: OID of collation for the result, or InvalidOid if none
+- `pg_node_attr(query_jumble_ignore)`: CoercionForm indicating how this coercion should be displayed
+- `location`: Parse location of the coercion in the original query, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - CoercionForm

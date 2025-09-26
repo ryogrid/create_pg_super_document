@@ -29,12 +29,11 @@ PublicationObjSpec is a parse tree node structure used during SQL parsing to rep
 This structure is primarily used during the parsing phase of CREATE PUBLICATION and ALTER PUBLICATION statements to capture the user's intent regarding what database objects should be included in the publication.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for identifying the node type in PostgreSQL's parse tree system
-- : Enum value specifying the type of publication object (table, schema tables, etc.)
-- : String name of the object (table name, schema name, etc.), can be NULL for certain types
-- : Pointer to PublicationTable structure containing detailed table specification including relation, WHERE clause, and column list; used when pubobjtype is PUBLICATIONOBJ_TABLE
-- : Parse location information for error reporting, set to -1 if location is unknown
-
+- `type`: Standard NodeTag for identifying the node type in PostgreSQL's parse tree system
+- `pubobjtype`: Enum value specifying the type of publication object (table, schema tables, etc.)
+- `*name`: String name of the object (table name, schema name, etc.), can be NULL for certain types
+- `*pubtable`: Pointer to PublicationTable structure containing detailed table specification including relation, WHERE clause, and column list; used when pubobjtype is PUBLICATIONOBJ_TABLE
+- `location`: Parse location information for error reporting, set to -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PublicationObjSpecType](PublicationObjSpecType.md) (enum defining object types)

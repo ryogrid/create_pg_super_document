@@ -56,16 +56,15 @@ Key operational characteristics:
 The node is essential for parallel execution of queries requiring ordered results, such as ORDER BY clauses, merge joins, and other sort-dependent operations.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common plan node information
-- : The planned number of parallel worker processes to launch
-- : Parameter ID used to signal rescans to parallel-aware child nodes (-1 if not needed)
-- : Number of columns in the sort key specification
-- : Array of target list column indexes to use as sort keys
-- : Array of comparison operator OIDs for each sort column
-- : Array of collation OIDs for locale-specific sorting of each column
-- : Array of boolean flags indicating NULL ordering (NULLS FIRST vs NULLS LAST) for each column
-- : Bitmap set of parameter IDs for InitPlans referenced by this node or its children
-
+- `plan`: Base Plan structure containing common plan node information
+- `num_workers`: The planned number of parallel worker processes to launch
+- `rescan_param`: Parameter ID used to signal rescans to parallel-aware child nodes (-1 if not needed)
+- `numCols`: Number of columns in the sort key specification
+- `pg_node_attr(array_size(numCols))`: Array of target list column indexes to use as sort keys
+- `pg_node_attr(array_size(numCols))`: Array of comparison operator OIDs for each sort column
+- `pg_node_attr(array_size(numCols))`: Array of collation OIDs for locale-specific sorting of each column
+- `pg_node_attr(array_size(numCols))`: Array of boolean flags indicating NULL ordering (NULLS FIRST vs NULLS LAST) for each column
+- `*initParam`: Bitmap set of parameter IDs for InitPlans referenced by this node or its children
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

@@ -22,10 +22,9 @@ SavedTransactionCharacteristics is a simple data structure that provides a syste
 The structure works in conjunction with SaveTransactionCharacteristics() and RestoreTransactionCharacteristics() functions to preserve transaction state across transaction boundaries. This is necessary because the GUC (Grand Unified Configuration) system automatically resets transaction characteristics at transaction end, so simply skipping the reset in StartTransaction() would not be sufficient.
 
 ## Parameters / Member Variables
-- : Stores the saved transaction isolation level (e.g., READ COMMITTED, SERIALIZABLE, etc.)
-- : Stores the saved read-only status of the transaction
-- : Stores the saved deferrable status of the transaction
-
+- `save_XactIsoLevel`: Stores the saved transaction isolation level (e.g., READ COMMITTED, SERIALIZABLE, etc.)
+- `save_XactReadOnly`: Stores the saved read-only status of the transaction
+- `save_XactDeferrable`: Stores the saved deferrable status of the transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a data structure)

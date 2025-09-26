@@ -41,17 +41,16 @@ struct cursor
 This structure is used by the ECPG preprocessor to maintain information about SQL cursors during the compilation of embedded SQL statements in C programs. It tracks the cursor's name, the SQL command it executes, connection details, and various argument lists for insert and result operations. The structure forms a linked list through the  pointer to manage multiple cursors.
 
 ## Parameters / Member Variables
-- : Pointer to the cursor's name string
-- : Pointer to the function name where the cursor is defined
-- : Pointer to the SQL command string associated with this cursor
-- : Pointer to the database connection name string
-- : Boolean flag indicating whether the cursor is currently open
-- : Pointer to arguments structure for insert operations
-- : Pointer to out-of-scope arguments structure for insert operations
-- : Pointer to arguments structure for result operations
-- : Pointer to out-of-scope arguments structure for result operations
-- : Pointer to the next cursor in the linked list
-
+- `*name`: Pointer to the cursor's name string
+- `*function`: Pointer to the function name where the cursor is defined
+- `*command`: Pointer to the SQL command string associated with this cursor
+- `*connection`: Pointer to the database connection name string
+- `opened`: Boolean flag indicating whether the cursor is currently open
+- `*argsinsert`: Pointer to arguments structure for insert operations
+- `*argsinsert_oos`: Pointer to out-of-scope arguments structure for insert operations
+- `*argsresult`: Pointer to arguments structure for result operations
+- `*argsresult_oos`: Pointer to out-of-scope arguments structure for result operations
+- `*next`: Pointer to the next cursor in the linked list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [arguments](../a/arguments.md) (struct used for argsinsert, argsinsert_oos, argsresult, argsresult_oos)

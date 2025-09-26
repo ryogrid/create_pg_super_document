@@ -33,17 +33,16 @@ The structure is designed to handle PostgreSQL's rich privilege system, which su
 The structure supports PostgreSQL's advanced privilege features including grant options (allowing grantees to further grant privileges to others), custom grantors (for privilege delegation), and different revocation behaviors (CASCADE vs RESTRICT) that control how dependent privileges are handled when privileges are revoked.
 
 ## Parameters / Member Variables
-- : NodeTag for node type identification in PostgreSQL's node system
-- : Boolean flag distinguishing between GRANT (true) and REVOKE (false) operations
-- : GrantTargetType enum indicating the category of target objects (tables, columns, sequences, etc.)
-- : ObjectType enum specifying the precise type of database object being operated on
-- : List of target objects represented as RangeVar nodes (for relations), ObjectWithArgs nodes (for functions), or String values (for simple names)
-- : List of AccessPriv nodes specifying the individual privileges; NIL indicates ALL PRIVILEGES
-- : List of RoleSpec nodes identifying the roles receiving or losing the privileges
-- : Boolean flag indicating whether the GRANT OPTION is being granted or revoked
-- : RoleSpec identifying the role performing the grant (for privilege delegation scenarios)
-- : DropBehavior enum (RESTRICT or CASCADE) controlling dependent privilege handling during REVOKE operations
-
+- `type`: NodeTag for node type identification in PostgreSQL's node system
+- `is_grant`: Boolean flag distinguishing between GRANT (true) and REVOKE (false) operations
+- `targtype`: GrantTargetType enum indicating the category of target objects (tables, columns, sequences, etc.)
+- `objtype`: ObjectType enum specifying the precise type of database object being operated on
+- `*objects`: List of target objects represented as RangeVar nodes (for relations), ObjectWithArgs nodes (for functions), or String values (for simple names)
+- `*privileges`: List of AccessPriv nodes specifying the individual privileges; NIL indicates ALL PRIVILEGES
+- `*grantees`: List of RoleSpec nodes identifying the roles receiving or losing the privileges
+- `grant_option`: Boolean flag indicating whether the GRANT OPTION is being granted or revoked
+- `*grantor`: RoleSpec identifying the role performing the grant (for privilege delegation scenarios)
+- `behavior`: DropBehavior enum (RESTRICT or CASCADE) controlling dependent privilege handling during REVOKE operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GrantTargetType](GrantTargetType.md)

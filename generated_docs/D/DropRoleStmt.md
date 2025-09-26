@@ -22,10 +22,9 @@ DropRoleStmt is a parser node structure that encapsulates information needed to 
 The structure supports dropping multiple roles in a single statement and includes an option to suppress errors when attempting to drop non-existent roles (IF EXISTS clause).
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as a DropRoleStmt node
-- : List containing the names of roles to be dropped (can contain multiple role names)
-- : Boolean flag indicating whether to skip errors if a specified role does not exist (corresponds to IF EXISTS clause)
-
+- `type`: Standard NodeTag identifying this as a DropRoleStmt node
+- `*roles`: List containing the names of roles to be dropped (can contain multiple role names)
+- `missing_ok`: Boolean flag indicating whether to skip errors if a specified role does not exist (corresponds to IF EXISTS clause)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

@@ -23,13 +23,12 @@ typedef struct dsm_control_item
 The  structure represents shared-memory state for a dynamic shared memory segment in PostgreSQL's DSM system. Unlike the backend-local  structure, this structure resides in shared memory and is visible to all backend processes. It serves as the authoritative source of information about a DSM segment's global state, including its reference count, physical location, and lifecycle status. The structure is part of the DSM control segment infrastructure that coordinates DSM operations across multiple backends.
 
 ## Parameters / Member Variables
-- : A  that uniquely identifies this DSM segment across the entire PostgreSQL cluster
-- : A  reference count that tracks the segment's lifecycle state - values of 2 or higher indicate the segment is active, 1 indicates it's moribund (marked for deletion but still in use), and 0 indicates it has been destroyed
-- : A  value indicating the first page number in the underlying storage where this segment begins
-- : A  value indicating the number of pages occupied by this segment
-- : A  pointer to implementation-specific private data for the postmaster handle, primarily used on Windows platforms
-- : A  flag indicating whether this segment is pinned in memory and should not be automatically destroyed
-
+- `handle`: A  that uniquely identifies this DSM segment across the entire PostgreSQL cluster
+- `refcnt`: A  reference count that tracks the segment's lifecycle state - values of 2 or higher indicate the segment is active, 1 indicates it's moribund (marked for deletion but still in use), and 0 indicates it has been destroyed
+- `first_page`: A  value indicating the first page number in the underlying storage where this segment begins
+- `npages`: A  value indicating the number of pages occupied by this segment
+- `*impl_private_pm_handle`: A  pointer to implementation-specific private data for the postmaster handle, primarily used on Windows platforms
+- `pinned`: A  flag indicating whether this segment is pinned in memory and should not be automatically destroyed
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsm_handle (segment identifier type)

@@ -22,10 +22,9 @@ The DropOwnedStmt structure is a parse node that encapsulates the information ne
 The structure follows PostgreSQL's standard parse node pattern, inheriting from Node through the NodeTag field, and contains the essential information needed by the command execution phase: the list of roles whose objects should be dropped and the drop behavior (CASCADE or RESTRICT).
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a DropOwnedStmt parse node
-- : List of RoleSpec nodes representing the roles whose owned objects should be dropped  
-- : DropBehavior enum value specifying whether to CASCADE (automatically drop dependent objects) or RESTRICT (fail if dependent objects exist)
-
+- `type`: NodeTag identifying this as a DropOwnedStmt parse node
+- `*roles`: List of RoleSpec nodes representing the roles whose owned objects should be dropped
+- `behavior`: DropBehavior enum value specifying whether to CASCADE (automatically drop dependent objects) or RESTRICT (fail if dependent objects exist)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DropBehavior (enum type for specifying drop behavior)

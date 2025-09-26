@@ -19,9 +19,8 @@ typedef struct xl_xact_stats_items
 The xl_xact_stats_items structure serves as a container for multiple xl_xact_stats_item entries in PostgreSQL's Write-Ahead Logging system. This structure is designed to efficiently handle transactions that affect multiple statistics objects by storing them in a single WAL record. The use of a flexible array member allows the structure to accommodate varying numbers of statistics items without requiring separate memory allocations, making it both memory-efficient and performance-optimized for bulk statistics operations during transaction commit and abort scenarios.
 
 ## Parameters / Member Variables
-- : An integer specifying the number of statistics items contained in the items array
-- : A flexible array of xl_xact_stats_item structures containing the individual statistics entries being processed
-
+- `nitems`: An integer specifying the number of statistics items contained in the items array
+- `items[FLEXIBLE_ARRAY_MEMBER]`: A flexible array of xl_xact_stats_item structures containing the individual statistics entries being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_xact_stats_item](xl_xact_stats_item.md)

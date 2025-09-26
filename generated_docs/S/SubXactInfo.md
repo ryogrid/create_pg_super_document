@@ -20,10 +20,9 @@ typedef struct SubXactInfo
 SubXactInfo serves as a metadata record for subtransactions in logical replication. When processing large transactions that contain multiple subtransactions, the logical replication worker may need to spill subtransaction data to temporary files to manage memory usage. This structure maintains the mapping between a subtransaction ID and its storage location within the buffer file system, enabling efficient retrieval of subtransaction data when needed during the apply process.
 
 ## Parameters / Member Variables
-- : TransactionId of the subtransaction being tracked
-- : File number within the buffer file set where the subtransaction data is stored
-- : Byte offset within the specified file where the subtransaction data begins
-
+- `xid`: TransactionId of the subtransaction being tracked
+- `fileno`: File number within the buffer file set where the subtransaction data is stored
+- `offset`: Byte offset within the specified file where the subtransaction data begins
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId

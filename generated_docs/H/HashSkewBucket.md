@@ -23,9 +23,8 @@ This optimization is particularly effective because it treats tuples with skewed
 The design focuses on optimizing for the outer relation's distribution because: (1) the outer relation is typically larger, providing greater I/O savings, and (2) the planner tends to place more uniformly distributed relations on the inner side, making outer relation skew more likely and impactful.
 
 ## Parameters / Member Variables
-- : The 32-bit hash value that is common among all tuples stored in this skew bucket, corresponding to a Most Common Value from the outer relation
-- : Head pointer to a linked list of HashJoinTuple structures containing all inner-relation tuples that hash to this particular value
-
+- `hashvalue`: The 32-bit hash value that is common among all tuples stored in this skew bucket, corresponding to a Most Common Value from the outer relation
+- `tuples`: Head pointer to a linked list of HashJoinTuple structures containing all inner-relation tuples that hash to this particular value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HashJoinTuple](HashJoinTuple.md) (for storing the linked list of matching tuples)

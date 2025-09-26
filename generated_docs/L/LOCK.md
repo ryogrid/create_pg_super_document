@@ -40,16 +40,15 @@ Key design features:
 The lock manager uses this structure to implement PostgreSQL's multi-granularity locking protocol, deadlock detection, and fair lock scheduling.
 
 ## Parameters / Member Variables
-- : LOCKTAG that uniquely identifies the lockable object (serves as hash key)
-- : Bitmask indicating which lock types are currently granted on this object
-- : Bitmask indicating which lock types have processes waiting
-- : Doubly-linked list of PROCLOCK objects representing individual backend holdings
-- : Doubly-linked circular list of PGPROC objects waiting for this lock
-- : Array counting requested locks by mode (includes already granted locks)
-- : Total count of all requested locks across all modes
-- : Array counting granted locks by mode
-- : Total count of all granted locks across all modes
-
+- `tag`: LOCKTAG that uniquely identifies the lockable object (serves as hash key)
+- `grantMask`: Bitmask indicating which lock types are currently granted on this object
+- `waitMask`: Bitmask indicating which lock types have processes waiting
+- `procLocks`: Doubly-linked list of PROCLOCK objects representing individual backend holdings
+- `waitProcs`: Doubly-linked circular list of PGPROC objects waiting for this lock
+- `requested[MAX_LOCKMODES]`: Array counting requested locks by mode (includes already granted locks)
+- `nRequested`: Total count of all requested locks across all modes
+- `granted[MAX_LOCKMODES]`: Array counting granted locks by mode
+- `nGranted`: Total count of all granted locks across all modes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCKTAG](LOCKTAG.md)

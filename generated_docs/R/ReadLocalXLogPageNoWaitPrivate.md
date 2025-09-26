@@ -22,8 +22,7 @@ The structure is used specifically in scenarios where the caller does not want t
 This mechanism is essential for applications like logical decoding that need to process WAL records but should not block when reaching the end of available WAL data.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the end of currently available WAL data has been reached during a non-blocking read operation
-
+- `end_of_wal`: Boolean flag indicating whether the end of currently available WAL data has been reached during a non-blocking read operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure)

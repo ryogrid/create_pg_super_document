@@ -21,9 +21,8 @@ ECPGgeneric_bytea is a fundamental data structure in PostgreSQL's ECPG library t
 Unlike ECPGgeneric_varchar which handles character data, this structure is specifically designed for binary data that may contain null bytes or other non-printable characters, making it suitable for storing images, encrypted data, or any arbitrary binary content.
 
 ## Parameters / Member Variables
-- : An integer storing the actual length of the binary data in bytes
-- : A flexible array member containing the actual binary data (may contain null bytes)
-
+- `len`: An integer storing the actual length of the binary data in bytes
+- `arr[FLEXIBLE_ARRAY_MEMBER]`: A flexible array member containing the actual binary data (may contain null bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array declaration)

@@ -20,10 +20,9 @@ typedef struct AlterTypeStmt
 AlterTypeStmt is a parse node that represents the ALTER TYPE SET statement in PostgreSQL's SQL grammar. This statement allows users to modify properties of existing types, particularly for customizing type behavior through operator-related definitions. The statement follows the syntax:  where the options are parsed into DefElem structures that specify what properties to modify.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as an AlterTypeStmt parse node
-- : List representation of the type name, which may be schema-qualified (e.g., schema.typename)
-- : List of DefElem nodes containing the property definitions to be set for the type
-
+- `type`: Standard NodeTag identifying this as an AlterTypeStmt parse node
+- `*typeName`: List representation of the type name, which may be schema-qualified (e.g., schema.typename)
+- `*options`: List of DefElem nodes containing the property definitions to be set for the type
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

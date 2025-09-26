@@ -30,9 +30,8 @@ This design allows PostgreSQL to efficiently track which backends hold which loc
 The structure is fundamental to PostgreSQL's multi-process locking system, as it bridges the gap between locks (resources) and processes (lock holders).
 
 ## Parameters / Member Variables
-- : Pointer to the LOCK structure representing the lockable object being held/awaited
-- : Pointer to the PGPROC structure representing the backend process that holds or awaits the lock
-
+- `*myLock`: Pointer to the LOCK structure representing the lockable object being held/awaited
+- `*myProc`: Pointer to the PGPROC structure representing the backend process that holds or awaits the lock
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCK](../L/LOCK.md)

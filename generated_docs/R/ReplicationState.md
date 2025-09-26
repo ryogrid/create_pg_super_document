@@ -50,13 +50,12 @@ The ReplicationState structure is a core component of PostgreSQL's logical repli
 The structure includes synchronization primitives (condition variable and lightweight lock) to coordinate access between different backend processes that may need to read or modify the replication state. The acquired_by field tracks which backend process currently holds exclusive access to modify this replication state.
 
 ## Parameters / Member Variables
-- : Local identifier for the remote replication origin node
-- : XLog location of the latest commit received from the remote side
-- : Local XLog location of the commit record for flushing during checkpoints to ensure durability
-- : Process ID of the backend that has acquired this slot, or 0 if available
-- : Condition variable signaled when the acquired_by field changes
-- : Lightweight lock protecting access to remote_lsn and local_lsn fields
-
+- `roident`: Local identifier for the remote replication origin node
+- `remote_lsn`: XLog location of the latest commit received from the remote side
+- `local_lsn`: Local XLog location of the commit record for flushing during checkpoints to ensure durability
+- `acquired_by`: Process ID of the backend that has acquired this slot, or 0 if available
+- `origin_cv`: Condition variable signaled when the acquired_by field changes
+- `lock`: Lightweight lock protecting access to remote_lsn and local_lsn fields
 ## Dependencies
 - Functions called/Symbols referenced:
   - RepOriginId (replication origin identifier type)

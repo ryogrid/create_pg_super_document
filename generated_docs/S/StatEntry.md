@@ -28,13 +28,12 @@ The binary tree organization allows for efficient alphabetical ordering of lexem
 The structure uses a flexible array member for the lexeme text, allowing for variable-length lexeme storage without additional memory allocations. This design optimizes memory usage by storing the lexeme text directly within the StatEntry structure.
 
 ## Parameters / Member Variables
-- : Document frequency count for this lexeme; also used as a visited flag (0 = already visited) during tree traversal operations
-- : Number of entries/occurrences of this lexeme in the analyzed text corpus
-- : Pointer to the left child node in the binary search tree (lexemes that come before this one alphabetically)
-- : Pointer to the right child node in the binary search tree (lexemes that come after this one alphabetically) 
-- : Length in bytes of the lexeme string stored in the  field
-- : Variable-length array containing the actual lexeme text (word/token)
-
+- `ndoc`: Document frequency count for this lexeme; also used as a visited flag (0 = already visited) during tree traversal operations
+- `nentry`: Number of entries/occurrences of this lexeme in the analyzed text corpus
+- `*left`: Pointer to the left child node in the binary search tree (lexemes that come before this one alphabetically)
+- `*right`: Pointer to the right child node in the binary search tree (lexemes that come after this one alphabetically)
+- `lenlexeme`: Length in bytes of the lexeme string stored in the  field
+- `lexeme[FLEXIBLE_ARRAY_MEMBER]`: Variable-length array containing the actual lexeme text (word/token)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length arrays)

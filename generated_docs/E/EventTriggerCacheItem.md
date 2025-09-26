@@ -24,10 +24,9 @@ When PostgreSQL builds the event trigger cache, it reads from the pg_event_trigg
 The structure supports filtering based on session replication roles and command tags, allowing PostgreSQL to quickly determine which triggers are applicable for a given operation without expensive catalog lookups during command execution.
 
 ## Parameters / Member Variables
-- : The OID of the event trigger function that should be called when this trigger fires. This references a function in pg_proc that contains the actual trigger logic.
-- : Controls when the trigger fires based on the current session replication role. Uses the same values as SESSION_REPLICATION_ROLE_* constants (TRIGGER_FIRES_ON_ORIGIN, TRIGGER_FIRES_ON_REPLICA, etc.).
-- : A bitmapset containing the command tags that this event trigger should respond to. If NULL or empty, the trigger fires for all commands of the associated event type. Otherwise, it only fires for commands whose tags are present in this set.
-
+- `fnoid`: The OID of the event trigger function that should be called when this trigger fires. This references a function in pg_proc that contains the actual trigger logic.
+- `enabled`: Controls when the trigger fires based on the current session replication role. Uses the same values as SESSION_REPLICATION_ROLE_* constants (TRIGGER_FIRES_ON_ORIGIN, TRIGGER_FIRES_ON_REPLICA, etc.).
+- `*tagset`: A bitmapset containing the command tags that this event trigger should respond to. If NULL or empty, the trigger fires for all commands of the associated event type. Otherwise, it only fires for commands whose tags are present in this set.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [EventCacheLookup](EventCacheLookup.md) (function that retrieves lists of these items)

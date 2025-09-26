@@ -29,13 +29,12 @@ TSDictionaryCacheEntry extends the TSAnyCacheEntry pattern to cache essential in
 The structure follows the common header pattern with dictId and isvalid at the beginning, ensuring compatibility with generic cache operations. The dictCtx memory context allows dictionaries to maintain persistent state across calls, while the cached FmgrInfo structure eliminates function lookup overhead for the lexize operation.
 
 ## Parameters / Member Variables
-- : OID of the text search dictionary (serves as hash lookup key, must be first)
-- : Boolean flag indicating cache entry validity (inherited from TSAnyCacheEntry pattern)
-- : OID of the dictionary's lexize function (most frequently called operation)
-- : Pre-compiled function manager info for the lexize function
-- : Dedicated memory context for storing dictionary-specific private data
-- : Pointer to dictionary's private data structure
-
+- `dictId`: OID of the text search dictionary (serves as hash lookup key, must be first)
+- `isvalid`: Boolean flag indicating cache entry validity (inherited from TSAnyCacheEntry pattern)
+- `lexizeOid`: OID of the dictionary's lexize function (most frequently called operation)
+- `lexize`: Pre-compiled function manager info for the lexize function
+- `dictCtx`: Dedicated memory context for storing dictionary-specific private data
+- `*dictData`: Pointer to dictionary's private data structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

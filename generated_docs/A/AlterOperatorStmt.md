@@ -20,10 +20,9 @@ typedef struct AlterOperatorStmt
 AlterOperatorStmt represents SQL statements that modify properties of existing operators in PostgreSQL. This allows database administrators and extension developers to alter operator characteristics such as cost estimates, selectivity estimates, and other operator-specific properties that affect query planning and execution. The structure uses ObjectWithArgs to precisely identify the operator by name and argument types, and a list of DefElem nodes to specify the properties being modified.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for parse tree identification
-- : ObjectWithArgs pointer containing the operator name and its argument types for precise identification
-- : List of DefElem nodes specifying the operator properties to be modified
-
+- `type`: Standard NodeTag for parse tree identification
+- `*opername`: ObjectWithArgs pointer containing the operator name and its argument types for precise identification
+- `*options`: List of DefElem nodes specifying the operator properties to be modified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ObjectWithArgs](../O/ObjectWithArgs.md) (structure for objects with argument specifications)

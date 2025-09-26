@@ -25,11 +25,10 @@ The ForeignPath supports various scenarios including simple foreign table scans,
 The structure accommodates complex scenarios like foreign joins where restrictinfo clauses can be evaluated as gating conditions, and provides fdw_private storage for FDW-specific execution parameters that need to be passed from planning to execution time.
 
 ## Parameters / Member Variables
-- : Base Path structure containing common path information including pathtype (T_ForeignScan), cost estimates, row estimates, pathkeys, and parallel execution properties
-- : Optional outer path for foreign joins, representing the local side of a join when the foreign side needs access to local data
-- : List of RestrictInfo nodes containing join clauses for foreign joins, used to create gating Result plan nodes for pseudoconstant clause evaluation
-- : List containing FDW-specific private data about the scan operation, passed from planning to execution phases (should use nodeToString()-compatible format for debugging)
-
+- `path`: Base Path structure containing common path information including pathtype (T_ForeignScan), cost estimates, row estimates, pathkeys, and parallel execution properties
+- `*fdw_outerpath`: Optional outer path for foreign joins, representing the local side of a join when the foreign side needs access to local data
+- `*fdw_restrictinfo`: List of RestrictInfo nodes containing join clauses for foreign joins, used to create gating Result plan nodes for pseudoconstant clause evaluation
+- `*fdw_private`: List containing FDW-specific private data about the scan operation, passed from planning to execution phases (should use nodeToString()-compatible format for debugging)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Path](../P/Path.md) (base structure)

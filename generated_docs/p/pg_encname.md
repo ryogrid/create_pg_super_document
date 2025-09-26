@@ -23,9 +23,8 @@ The structure is used primarily in binary search operations within the  function
 The design follows PostgreSQL's approach of maintaining a static, read-only lookup table that maps various encoding name formats and aliases to standardized internal encoding identifiers, facilitating consistent character set handling across the system.
 
 ## Parameters / Member Variables
-- : A normalized encoding name string (lowercase, alphanumeric only) that serves as the lookup key. Examples include "utf8", "iso88591", "eucjp"
-- : The corresponding PostgreSQL encoding identifier of type  (an enumerated value) that represents the internal encoding ID
-
+- `*name`: A normalized encoding name string (lowercase, alphanumeric only) that serves as the lookup key. Examples include "utf8", "iso88591", "eucjp"
+- `encoding`: The corresponding PostgreSQL encoding identifier of type  (an enumerated value) that represents the internal encoding ID
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_enc](pg_enc.md) (enumerated type)

@@ -19,9 +19,8 @@ typedef struct config_var_value
 The config_var_value struct is a container for GUC variable values that combines the actual variable value with an optional opaque struct "extra". This extra data is created by the variable's check_hook and used by its assign_hook, providing a mechanism for storing additional context or processed data associated with the configuration variable.
 
 ## Parameters / Member Variables
-- : A union containing the actual value of the GUC variable, which can be of different types (bool, int, double, string, or enum)
-- : A void pointer to malloc'd opaque data created by the check_hook and used by the assign_hook for additional variable-specific processing
-
+- `val`: A union containing the actual value of the GUC variable, which can be of different types (bool, int, double, string, or enum)
+- `*extra`: A void pointer to malloc'd opaque data created by the check_hook and used by the assign_hook for additional variable-specific processing
 ## Dependencies
 - Types referenced:
   - config_var_val (union containing the actual variable value)

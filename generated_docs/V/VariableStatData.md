@@ -30,16 +30,15 @@ VariableStatData serves as a container for statistical data gathered about varia
 The structure bridges the gap between abstract query expressions and concrete statistical information stored in the database catalogs, allowing selectivity functions to access histogram data, most common values, and other statistics needed for cost estimation.
 
 ## Parameters / Member Variables
-- : Pointer to the Var node or expression tree being analyzed
-- : Pointer to RelOptInfo structure for the relation, NULL if the relation cannot be identified
-- : HeapTuple containing the pg_statistic row for this variable, NULL if no statistics available
-- : Function pointer specifying how to free the statsTuple when done (important for memory management)
-- : OID of the exposed/visible type of the expression
-- : OID of the actual underlying type after stripping any RelabelType nodes
-- : Type modifier of the actual type after stripping RelabelType nodes
-- : Boolean indicating if this variable matches a unique index or appears in a DISTINCT clause
-- : Boolean indicating if the current user has SELECT privilege on all relevant rows/columns
-
+- `*var`: Pointer to the Var node or expression tree being analyzed
+- `*rel`: Pointer to RelOptInfo structure for the relation, NULL if the relation cannot be identified
+- `statsTuple`: HeapTuple containing the pg_statistic row for this variable, NULL if no statistics available
+- `tuple)`: Function pointer specifying how to free the statsTuple when done (important for memory management)
+- `vartype`: OID of the exposed/visible type of the expression
+- `atttype`: OID of the actual underlying type after stripping any RelabelType nodes
+- `atttypmod`: Type modifier of the actual type after stripping RelabelType nodes
+- `isunique`: Boolean indicating if this variable matches a unique index or appears in a DISTINCT clause
+- `acl_ok`: Boolean indicating if the current user has SELECT privilege on all relevant rows/columns
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Node](../N/Node.md) (expression tree node)

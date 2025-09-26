@@ -37,12 +37,11 @@ WindowFuncRunCondition is an optimization structure used by the PostgreSQL query
 This structure encapsulates a comparison operation between a window function result and another expression, allowing the WindowAgg executor node to skip unnecessary computations when the condition indicates that further processing would not change the final result.
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : OID of the comparison operator from pg_operator catalog (e.g., equality, less than, etc.)
-- : Collation OID that the operator should use for comparison operations (ignored in query jumbling)
-- : Boolean flag indicating the position of the WindowFunc in the resulting comparison expression - true if WindowFunc is on the left side, false if on the right side
-- : The expression being compared against the window function result in the OpExpr used for the run condition
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `opno`: OID of the comparison operator from pg_operator catalog (e.g., equality, less than, etc.)
+- `pg_node_attr(query_jumble_ignore)`: Collation OID that the operator should use for comparison operations (ignored in query jumbling)
+- `wfunc_left`: Boolean flag indicating the position of the WindowFunc in the resulting comparison expression - true if WindowFunc is on the left side, false if on the right side
+- `*arg`: The expression being compared against the window function result in the OpExpr used for the run condition
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Expr](../E/Expr.md) (base expression structure)

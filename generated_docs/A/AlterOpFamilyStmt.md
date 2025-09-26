@@ -24,12 +24,11 @@ AlterOpFamilyStmt is a parse tree node that represents the ALTER OPERATOR FAMILY
 The structure reuses CreateOpClassItem nodes to represent the items being added or dropped, providing a consistent interface for specifying operators, functions, and storage types. The isDrop flag determines whether the operation is additive or subtractive, allowing the same parser structure to handle both variants of the ALTER OPERATOR FAMILY statement.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this parse tree node type
-- : List of String nodes representing the qualified name of the operator family (schema.name)
-- : String containing the name of the index access method the operator family belongs to
-- : Boolean flag indicating the operation type (true for DROP, false for ADD)
-- : List of CreateOpClassItem nodes specifying the operators, functions, or storage types to add or drop
-
+- `type`: NodeTag identifier for this parse tree node type
+- `*opfamilyname`: List of String nodes representing the qualified name of the operator family (schema.name)
+- `*amname`: String containing the name of the index access method the operator family belongs to
+- `isDrop`: Boolean flag indicating the operation type (true for DROP, false for ADD)
+- `*items`: List of CreateOpClassItem nodes specifying the operators, functions, or storage types to add or drop
 ## Dependencies
 - Functions called/Symbols referenced:
   - (Uses CreateOpClassItem nodes in items list)

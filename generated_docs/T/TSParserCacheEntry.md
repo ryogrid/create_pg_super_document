@@ -36,18 +36,17 @@ TSParserCacheEntry extends TSAnyCacheEntry to cache essential information about 
 The structure follows the common header pattern by placing prsId and isvalid at the beginning, making it compatible with the generic cache invalidation mechanism. The cached FmgrInfo structures significantly improve performance by avoiding the overhead of function manager lookups for each parsing operation.
 
 ## Parameters / Member Variables
-- : OID of the text search parser (serves as hash lookup key, must be first)
-- : Boolean flag indicating cache entry validity (inherited from TSAnyCacheEntry pattern)
-- : OID of the parser's start function
-- : OID of the parser's token extraction function  
-- : OID of the parser's end function
-- : OID of the parser's headline generation function
-- : OID of the parser's lexical type function
-- : Pre-compiled function manager info for the start function
-- : Pre-compiled function manager info for the token function
-- : Pre-compiled function manager info for the end function
-- : Pre-compiled function manager info for the headline function
-
+- `prsId`: OID of the text search parser (serves as hash lookup key, must be first)
+- `isvalid`: Boolean flag indicating cache entry validity (inherited from TSAnyCacheEntry pattern)
+- `startOid`: OID of the parser's start function
+- `tokenOid`: OID of the parser's token extraction function
+- `endOid`: OID of the parser's end function
+- `headlineOid`: OID of the parser's headline generation function
+- `lextypeOid`: OID of the parser's lexical type function
+- `prsstart`: Pre-compiled function manager info for the start function
+- `prstoken`: Pre-compiled function manager info for the token function
+- `prsend`: Pre-compiled function manager info for the end function
+- `prsheadline`: Pre-compiled function manager info for the headline function
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

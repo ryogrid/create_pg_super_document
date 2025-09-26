@@ -23,11 +23,10 @@ This structure is filled in by table access methods when operations like table_t
 The structure captures the state of a tuple that has been modified or deleted by another transaction, providing both the location information and transaction details needed for the caller to make informed decisions about how to proceed.
 
 ## Parameters / Member Variables
-- : The target tuple's ctid link - contains the same TID as the target if it was deleted, or points to the location of the replacement tuple if it was updated
-- : The XID of the transaction that outdated the target tuple; set to InvalidTransactionId if the target was !LP_NORMAL (typically for TIDs from syscache)
-- : The Command ID of the outdating command, but only valid when failure code is TM_SelfModified (current transaction modified the tuple); zero otherwise due to HeapTupleHeaderGetCmax limitations for cross-transaction scenarios  
-- : Boolean flag indicating whether the tuple chain has been traversed during the operation
-
+- `ctid`: The target tuple's ctid link - contains the same TID as the target if it was deleted, or points to the location of the replacement tuple if it was updated
+- `xmax`: The XID of the transaction that outdated the target tuple; set to InvalidTransactionId if the target was !LP_NORMAL (typically for TIDs from syscache)
+- `cmax`: The Command ID of the outdating command, but only valid when failure code is TM_SelfModified (current transaction modified the tuple); zero otherwise due to HeapTupleHeaderGetCmax limitations for cross-transaction scenarios
+- `traversed`: Boolean flag indicating whether the tuple chain has been traversed during the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandId (type definition)

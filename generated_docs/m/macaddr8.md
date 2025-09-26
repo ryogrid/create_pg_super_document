@@ -27,15 +27,14 @@ The  structure is PostgreSQL's internal representation for 8-byte MAC addresses,
 The structure stores an 8-byte MAC address as eight individual unsigned char fields (a through h), corresponding to the eight octets of an extended MAC address. Like its 6-byte counterpart , this structure uses separate byte fields for direct octet access and optimal memory alignment. The  type supports all standard MAC address operations and provides interoperability with the traditional  format through conversion functions.
 
 ## Parameters / Member Variables
-- : First octet of the 8-byte MAC address (most significant byte)
-- : Second octet of the 8-byte MAC address
-- : Third octet of the 8-byte MAC address
-- : Fourth octet of the 8-byte MAC address
-- : Fifth octet of the 8-byte MAC address
-- : Sixth octet of the 8-byte MAC address
-- : Seventh octet of the 8-byte MAC address
-- : Eighth octet of the 8-byte MAC address (least significant byte)
-
+- `a`: First octet of the 8-byte MAC address (most significant byte)
+- `b`: Second octet of the 8-byte MAC address
+- `c`: Third octet of the 8-byte MAC address
+- `d`: Fourth octet of the 8-byte MAC address
+- `e`: Fifth octet of the 8-byte MAC address
+- `f`: Sixth octet of the 8-byte MAC address
+- `g`: Seventh octet of the 8-byte MAC address
+- `h`: Eighth octet of the 8-byte MAC address (least significant byte)
 ## Dependencies
 - Functions called/Symbols referenced: None (primitive struct definition)
 - Called from (representative examples):

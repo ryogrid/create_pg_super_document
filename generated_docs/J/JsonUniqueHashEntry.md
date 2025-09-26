@@ -22,10 +22,9 @@ JsonUniqueHashEntry serves as the fundamental data storage unit within the JsonU
 The structure stores both the key string and its length for efficient comparison operations, while the object_id field enables hierarchical key checking in nested JSON objects, allowing the system to maintain separate key namespaces for different object scopes.
 
 ## Parameters / Member Variables
-- : Pointer to the JSON object key string (null-terminated C string)
-- : Length of the key string in bytes, enabling efficient string operations without strlen() calls
-- : Integer identifier for the JSON object scope, allowing nested objects to maintain separate key namespaces
-
+- `*key`: Pointer to the JSON object key string (null-terminated C string)
+- `key_len`: Length of the key string in bytes, enabling efficient string operations without strlen() calls
+- `object_id`: Integer identifier for the JSON object scope, allowing nested objects to maintain separate key namespaces
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)

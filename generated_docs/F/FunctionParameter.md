@@ -24,12 +24,11 @@ FunctionParameter is a parse tree node that represents individual parameters in 
 The parameter mode determines how the parameter behaves: IN parameters are input-only, OUT parameters are output-only, INOUT parameters serve both purposes, and VARIADIC parameters accept a variable number of arguments. Default expressions allow parameters to be optional in function calls.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL parse tree nodes  
-- : Name of the parameter (can be NULL for unnamed parameters)
-- : TypeName node specifying the parameter's data type
-- : FunctionParameterMode enum value (IN, OUT, INOUT, VARIADIC, or TABLE)
-- : Parse tree node containing the default value expression (NULL if no default)
-
+- `type`: Standard NodeTag for PostgreSQL parse tree nodes
+- `*name`: Name of the parameter (can be NULL for unnamed parameters)
+- `*argType`: TypeName node specifying the parameter's data type
+- `mode`: FunctionParameterMode enum value (IN, OUT, INOUT, VARIADIC, or TABLE)
+- `*defexpr`: Parse tree node containing the default value expression (NULL if no default)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TypeName](../T/TypeName.md) (for parameter type specification)

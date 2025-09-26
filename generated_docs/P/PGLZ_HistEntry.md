@@ -25,11 +25,10 @@ The structure implements a doubly-linked list where all entries sharing the same
 Each history entry points to a specific position in the input buffer and is indexed by a hash value computed from the bytes at that position. When the compressor encounters new data, it searches through the linked list of entries with matching hash values to find the longest matching sequence, which can then be encoded as a back-reference instead of literal bytes.
 
 ## Parameters / Member Variables
-- : Pointer to the next PGLZ_HistEntry in the doubly-linked list for entries sharing the same hash key
-- : Pointer to the previous PGLZ_HistEntry in the doubly-linked list, used for efficient removal during recycling
-- : The hash key/index value for this entry, computed from the byte sequence at the referenced position
-- : Pointer to the position in the input buffer that this history entry represents
-
+- `*next`: Pointer to the next PGLZ_HistEntry in the doubly-linked list for entries sharing the same hash key
+- `*prev`: Pointer to the previous PGLZ_HistEntry in the doubly-linked list, used for efficient removal during recycling
+- `hindex`: The hash key/index value for this entry, computed from the byte sequence at the referenced position
+- `*pos`: Pointer to the position in the input buffer that this history entry represents
 ## Dependencies
 - Functions that use this structure:
   - pglz_hist_add (macro that adds new entries to the history table)

@@ -21,11 +21,10 @@ typedef struct CommentStmt
 The CommentStmt structure is a parse tree node that encapsulates all information needed to execute a COMMENT ON SQL statement. It stores the type of database object being commented on, a reference to the object itself, and the comment text. When the comment field is NULL, it indicates that any existing comment should be removed from the object. This structure is used throughout PostgreSQL's command processing pipeline to handle comment operations on various database objects like tables, columns, functions, indexes, and other schema objects.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a CommentStmt parse node
-- : ObjectType enum value specifying what kind of database object is being commented (table, function, index, etc.)
-- : Node pointer to the qualified name representation of the target object
-- : Character string containing the comment text to be stored, or NULL to remove existing comments
-
+- `type`: NodeTag identifying this as a CommentStmt parse node
+- `objtype`: ObjectType enum value specifying what kind of database object is being commented (table, function, index, etc.)
+- `*object`: Node pointer to the qualified name representation of the target object
+- `*comment`: Character string containing the comment text to be stored, or NULL to remove existing comments
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enum for database object types)

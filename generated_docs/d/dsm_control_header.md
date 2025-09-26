@@ -21,11 +21,10 @@ typedef struct dsm_control_header
 The  structure serves as the header for PostgreSQL's DSM control segment, which is a special shared memory segment used to coordinate the lifecycle of all other DSM segments in the system. This structure appears at the beginning of the control segment and is followed by an array of  structures. The control segment acts as a registry where all active DSM segments are tracked, enabling proper cleanup, reference counting, and coordination across multiple backend processes. The magic number provides validation that the control segment is properly initialized and formatted.
 
 ## Parameters / Member Variables
-- : A  magic number (value  defined as ) used to validate the integrity and proper initialization of the control segment
-- : A  value indicating the current number of active DSM segments tracked in the control segment
-- : A  value indicating the maximum number of DSM segments that can be tracked in this control segment (determines the size of the item array)
-- : A flexible array member of  structures, each representing the global state of a single DSM segment
-
+- `magic`: A  magic number (value  defined as ) used to validate the integrity and proper initialization of the control segment
+- `nitems`: A  value indicating the current number of active DSM segments tracked in the control segment
+- `maxitems`: A  value indicating the maximum number of DSM segments that can be tracked in this control segment (determines the size of the item array)
+- `item[FLEXIBLE_ARRAY_MEMBER]`: A flexible array member of  structures, each representing the global state of a single DSM segment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_control_item](dsm_control_item.md) (the structure type used for the flexible array member)

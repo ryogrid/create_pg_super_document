@@ -23,11 +23,10 @@ This structure is part of PostgreSQL's parse tree node system and represents the
 The structure is processed during query execution to modify the pg_tablespace system catalog, specifically updating the spcoptions column which stores tablespace-specific options as a text array.
 
 ## Parameters / Member Variables
-- : NodeTag identifier indicating this is an AlterTableSpaceOptionsStmt node
-- : Name of the tablespace whose options are to be modified
-- : List of DefElem structures representing the options to set or modify
-- : Boolean flag indicating whether to reset options to defaults (true) or set new values (false)
-
+- `type`: NodeTag identifier indicating this is an AlterTableSpaceOptionsStmt node
+- `*tablespacename`: Name of the tablespace whose options are to be modified
+- `*options`: List of DefElem structures representing the options to set or modify
+- `isReset`: Boolean flag indicating whether to reset options to defaults (true) or set new values (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (from node system)

@@ -36,13 +36,12 @@ JumbleState serves as the central working data structure for PostgreSQL's query 
 The structure supports both the creation of query fingerprints and the generation of normalized query text by maintaining detailed location information about constants in the original query. This enables features like pg_stat_statements to efficiently aggregate statistics for similar query patterns.
 
 ## Parameters / Member Variables
-- : A binary buffer (allocated as 1024 bytes initially) that accumulates the structural representation of the query tree as it's traversed
-- : The current number of bytes used in the jumble buffer, tracking how much of the buffer contains valid data
-- : A dynamically allocated array of LocationLen structures that records the positions and lengths of constants in the original query text
-- : The allocated size of the clocations array, which grows as needed (starts at 32 entries)
-- : The current number of valid entries stored in the clocations array
-- : Tracks the highest external parameter ID encountered during jumbling, used for proper normalization of parameterized queries
-
+- `*jumble`: A binary buffer (allocated as 1024 bytes initially) that accumulates the structural representation of the query tree as it's traversed
+- `jumble_len`: The current number of bytes used in the jumble buffer, tracking how much of the buffer contains valid data
+- `*clocations`: A dynamically allocated array of LocationLen structures that records the positions and lengths of constants in the original query text
+- `clocations_buf_size`: The allocated size of the clocations array, which grows as needed (starts at 32 entries)
+- `clocations_count`: The current number of valid entries stored in the clocations array
+- `highest_extern_param_id`: Tracks the highest external parameter ID encountered during jumbling, used for proper normalization of parameterized queries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LocationLen](../L/LocationLen.md) (component structure)

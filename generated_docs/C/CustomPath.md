@@ -28,13 +28,12 @@ The CustomPath supports hierarchical planning through child paths, making it sui
 This extensibility mechanism is used by various PostgreSQL extensions for specialized data access patterns, parallel processing frameworks, and integration with external systems that require custom optimization strategies.
 
 ## Parameters / Member Variables
-- : Base Path structure containing standard path information including pathtype, parent relation, costs, and execution properties
-- : Bitmask of CUSTOMPATH_* flags defined in nodes/extensible.h that control various aspects of custom path behavior and capabilities
-- : List of child Path nodes that this custom path depends on, enabling hierarchical planning and composite operations
-- : List of RestrictInfo nodes containing restriction clauses specific to this custom path
-- : List containing extension-private data needed for plan creation and execution, passed from planning to execution time
-- : Pointer to CustomPathMethods structure containing callback functions for plan creation and reparameterization
-
+- `path`: Base Path structure containing standard path information including pathtype, parent relation, costs, and execution properties
+- `flags`: Bitmask of CUSTOMPATH_* flags defined in nodes/extensible.h that control various aspects of custom path behavior and capabilities
+- `*custom_paths`: List of child Path nodes that this custom path depends on, enabling hierarchical planning and composite operations
+- `*custom_restrictinfo`: List of RestrictInfo nodes containing restriction clauses specific to this custom path
+- `*custom_private`: List containing extension-private data needed for plan creation and execution, passed from planning to execution time
+- `*methods`: Pointer to CustomPathMethods structure containing callback functions for plan creation and reparameterization
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Path](../P/Path.md) (base structure)

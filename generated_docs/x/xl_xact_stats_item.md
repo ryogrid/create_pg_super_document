@@ -20,10 +20,9 @@ typedef struct xl_xact_stats_item
 The xl_xact_stats_item structure represents a transactionally dropped statistics entry used in WAL logging. This structure is specifically designed to be readable by frontend programs and is declared in xact.h rather than pgstat.h to avoid frontend code inclusion issues. It tracks individual statistics objects that are dropped as part of transaction commit, abort, or prepare operations. The structure is used extensively in PostgreSQL's statistics management system to ensure proper cleanup of statistics entries during various transaction states.
 
 ## Parameters / Member Variables
-- : An integer identifying the type or kind of statistics entry being dropped
-- : The Object Identifier (Oid) of the database containing the statistics object
-- : The Object Identifier (Oid) of the specific statistics object being dropped
-
+- `kind`: An integer identifying the type or kind of statistics entry being dropped
+- `dboid`: The Object Identifier (Oid) of the database containing the statistics object
+- `objoid`: The Object Identifier (Oid) of the specific statistics object being dropped
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (data type)

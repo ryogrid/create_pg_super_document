@@ -23,11 +23,10 @@ CaseWhen is a node type that represents a single WHEN clause within a CASE expre
 The structure inherits from Expr, making it a proper expression node that can be integrated into the broader expression tree. The location field helps with error reporting by tracking where in the original SQL text this WHEN clause appeared.
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : The condition expression that is evaluated to determine if this WHEN arm should be selected
-- : The expression whose value is returned if the condition is true
-- : Parse location in the original SQL text for error reporting, or -1 if location is unknown
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `*expr`: The condition expression that is evaluated to determine if this WHEN arm should be selected
+- `*result`: The expression whose value is returned if the condition is true
+- `location`: Parse location in the original SQL text for error reporting, or -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)

@@ -20,10 +20,9 @@ typedef struct ExplainStmt
 ExplainStmt encapsulates an EXPLAIN command in PostgreSQL's parse tree. The query field initially contains a raw parse tree and is converted to a Query node during parse analysis. An important characteristic is that rewriting and planning of the query are always postponed until execution time. This allows EXPLAIN to show the actual execution plan that would be used. The options field contains various EXPLAIN modifiers like ANALYZE, VERBOSE, COSTS, etc.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as an ExplainStmt node
-- : Pointer to the query node being explained (initially raw parse tree, later converted to Query node)
-- : List of DefElem nodes representing EXPLAIN options (ANALYZE, VERBOSE, COSTS, BUFFERS, etc.)
-
+- `type`: NodeTag identifying this as an ExplainStmt node
+- `*query`: Pointer to the query node being explained (initially raw parse tree, later converted to Query node)
+- `*options`: List of DefElem nodes representing EXPLAIN options (ANALYZE, VERBOSE, COSTS, BUFFERS, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Node](../N/Node.md) (base type for query)

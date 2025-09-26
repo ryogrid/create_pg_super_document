@@ -26,14 +26,13 @@ The  structure serves as a centralized repository of backup state information th
 The structure must be initialized before starting a backup and remains valid for the entire backup duration. It provides both static information (like the list of tablespaces and backup start position) that is set once and never modified, as well as dynamic information (like current tablespace index and bytes processed) that is updated as the backup progresses.
 
 ## Parameters / Member Variables
-- : List of tablespaceinfo objects representing all tablespaces to be backed up (set once, never modified)
-- : Current index within the tablespaces list indicating which tablespace is being processed
-- : Running count of bytes read so far from $PGDATA during the backup
-- : Total estimated number of bytes present in $PGDATA (used for progress reporting)
-- : Boolean flag indicating whether bytes_total contains a valid estimate
-- : WAL stream position (XLogRecPtr) where the backup began (set once, never modified)
-- : Timeline ID corresponding to the backup start position (set once, never modified)
-
+- `*tablespaces`: List of tablespaceinfo objects representing all tablespaces to be backed up (set once, never modified)
+- `tablespace_num`: Current index within the tablespaces list indicating which tablespace is being processed
+- `bytes_done`: Running count of bytes read so far from $PGDATA during the backup
+- `bytes_total`: Total estimated number of bytes present in $PGDATA (used for progress reporting)
+- `bytes_total_is_valid`: Boolean flag indicating whether bytes_total contains a valid estimate
+- `startptr`: WAL stream position (XLogRecPtr) where the backup began (set once, never modified)
+- `starttli`: Timeline ID corresponding to the backup start position (set once, never modified)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL list structure for tablespaces)

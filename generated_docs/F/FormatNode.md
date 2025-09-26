@@ -29,11 +29,10 @@ The structure supports different node types:
 This parsed representation allows efficient processing during formatting operations without re-parsing the format string each time.
 
 ## Parameters / Member Variables
-- : Specifies the node type using NODE_TYPE_XXX constants (END=1, ACTION=2, CHAR=3, SEPARATOR=4, SPACE=5)
-- : Stores literal character data when type is NODE_TYPE_CHAR, supporting multibyte characters up to MAX_MULTIBYTE_CHAR_LEN
-- : Stores prefix/suffix code for keywords that support modifiers (SUFFTYPE_PREFIX=1, SUFFTYPE_POSTFIX=2)
-- : Pointer to the KeyWord structure containing formatting directive details when type is NODE_TYPE_ACTION
-
+- `type`: Specifies the node type using NODE_TYPE_XXX constants (END=1, ACTION=2, CHAR=3, SEPARATOR=4, SPACE=5)
+- `character[MAX_MULTIBYTE_CHAR_LEN + 1]`: Stores literal character data when type is NODE_TYPE_CHAR, supporting multibyte characters up to MAX_MULTIBYTE_CHAR_LEN
+- `suffix`: Stores prefix/suffix code for keywords that support modifiers (SUFFTYPE_PREFIX=1, SUFFTYPE_POSTFIX=2)
+- `*key`: Pointer to the KeyWord structure containing formatting directive details when type is NODE_TYPE_ACTION
 ## Dependencies
 - Functions called/Symbols referenced:
   - KeyWord struct (for ACTION nodes)

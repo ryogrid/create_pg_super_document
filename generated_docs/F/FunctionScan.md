@@ -22,10 +22,9 @@ FunctionScan is a plan node type that handles the execution of table-valued func
 This node type is essential for queries that involve set-returning functions, table functions, or any scenario where a function call needs to be treated as a table source in the FROM clause. The executor uses this node to iterate through function results and present them as relational data.
 
 ## Parameters / Member Variables
-- : Base Scan structure containing common scanning information like target lists and qualifications
-- : List of RangeTblFunction nodes representing the functions to be executed and scanned
-- : Boolean flag indicating whether to include row ordinality (sequential numbering) with WITH ORDINALITY clause
-
+- `scan`: Base Scan structure containing common scanning information like target lists and qualifications
+- `*functions`: List of RangeTblFunction nodes representing the functions to be executed and scanned
+- `funcordinality`: Boolean flag indicating whether to include row ordinality (sequential numbering) with WITH ORDINALITY clause
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Scan](../S/Scan.md) (base structure)

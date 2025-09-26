@@ -24,12 +24,11 @@ SlotSyncCtxStruct serves as a coordination mechanism for slot synchronization op
 The structure implements a locking mechanism to prevent concurrent slot synchronization operations that could lead to slot overwrites. It also tracks timing information to ensure the postmaster starts the slot sync worker at appropriate intervals defined by SLOTSYNC_RESTART_INTERVAL_SEC.
 
 ## Parameters / Member Variables
-- : Process ID of the currently running slot sync worker, used by the startup process to shut down the worker during promotion
-- : Boolean flag set during promotion to prevent the slot sync worker from restarting and to make pg_sync_replication_slots() error out
-- : Boolean flag that prevents concurrent slot synchronization operations to avoid slot overwrites
-- : Timestamp used by the postmaster to control slot sync worker restart intervals, can be reset by the worker to trigger immediate restart
-- : Spinlock (slock_t) that provides thread-safe access to the structure members
-
+- `pid`: Process ID of the currently running slot sync worker, used by the startup process to shut down the worker during promotion
+- `stopSignaled`: Boolean flag set during promotion to prevent the slot sync worker from restarting and to make pg_sync_replication_slots() error out
+- `syncing`: Boolean flag that prevents concurrent slot synchronization operations to avoid slot overwrites
+- `last_start_time`: Timestamp used by the postmaster to control slot sync worker restart intervals, can be reset by the worker to trigger immediate restart
+- `mutex`: Spinlock (slock_t) that provides thread-safe access to the structure members
 ## Dependencies
 - Functions called/Symbols referenced:
   - pid_t (system type for process IDs)

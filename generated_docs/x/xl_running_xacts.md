@@ -29,14 +29,13 @@ This record is periodically logged by  and contains both main transaction IDs an
 During WAL replay, standby servers use this information via  to update their local transaction state, ensuring that snapshot visibility rules are correctly applied to read-only queries. The structure is also used by logical decoding in  for maintaining consistent snapshots during logical replication.
 
 ## Parameters / Member Variables
-- : Number of main transaction IDs in the xids array
-- : Number of subtransaction IDs in the xids array  
-- : Boolean flag indicating whether the snapshot overflowed and some subtransaction IDs are missing
-- : The next transaction ID to be assigned (from TransamVariables->nextXid)
-- : The oldest currently running transaction ID (not the same as oldestXmin)
-- : The most recently completed transaction ID, used to set xmax for snapshots
-- : Flexible array containing the actual transaction IDs (both main transactions and subtransactions)
-
+- `xcnt`: Number of main transaction IDs in the xids array
+- `subxcnt`: Number of subtransaction IDs in the xids array
+- `subxid_overflow`: Boolean flag indicating whether the snapshot overflowed and some subtransaction IDs are missing
+- `nextXid`: The next transaction ID to be assigned (from TransamVariables->nextXid)
+- `oldestRunningXid`: The oldest currently running transaction ID (not the same as oldestXmin)
+- `latestCompletedXid`: The most recently completed transaction ID, used to set xmax for snapshots
+- `xids[FLEXIBLE_ARRAY_MEMBER]`: Flexible array containing the actual transaction IDs (both main transactions and subtransactions)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

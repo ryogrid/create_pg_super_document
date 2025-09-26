@@ -34,18 +34,17 @@ The accessor maintains separate counters for memory usage, tuple counts, and pro
 The design follows a pattern where shared state is minimized and contention is reduced by maintaining per-backend copies of frequently updated counters. These local counters are periodically merged back to the shared state when coordination is required.
 
 ## Parameters / Member Variables
-- : Pointer to the shared ParallelHashJoinBatch structure that coordinates all backends working on this batch
-- : Amount of memory space this backend has pre-allocated for the batch to reduce future allocation overhead
-- : Local count of tuples this backend has processed for this batch
-- : Current memory size of the partition as seen by this backend
-- : Estimated disk size of the partition, used for memory management decisions
-- : Number of tuples that existed before any repartitioning operations
-- : Boolean flag indicating whether this backend has allocated at least one chunk of memory
-- : Boolean flag indicating whether this backend has reached the end of the outer relation for this batch
-- : Boolean flag marking that this backend has completed processing this batch
-- : Accessor for reading tuples from the inner relation's shared tuple store
-- : Accessor for reading tuples from the outer relation's shared tuple store
-
+- `*shared`: Pointer to the shared ParallelHashJoinBatch structure that coordinates all backends working on this batch
+- `preallocated`: Amount of memory space this backend has pre-allocated for the batch to reduce future allocation overhead
+- `ntuples`: Local count of tuples this backend has processed for this batch
+- `size`: Current memory size of the partition as seen by this backend
+- `estimated_size`: Estimated disk size of the partition, used for memory management decisions
+- `old_ntuples`: Number of tuples that existed before any repartitioning operations
+- `at_least_one_chunk`: Boolean flag indicating whether this backend has allocated at least one chunk of memory
+- `outer_eof`: Boolean flag indicating whether this backend has reached the end of the outer relation for this batch
+- `done`: Boolean flag marking that this backend has completed processing this batch
+- `*inner_tuples`: Accessor for reading tuples from the inner relation's shared tuple store
+- `*outer_tuples`: Accessor for reading tuples from the outer relation's shared tuple store
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParallelHashJoinBatch](ParallelHashJoinBatch.md)

@@ -23,9 +23,8 @@ The structure is designed specifically for use with PostgreSQL's hash table impl
 The hash table using these entries (ParallelApplyTxnHash) is created when the first parallel worker is allocated and serves as the central registry for tracking active parallel apply workers and their assigned transactions.
 
 ## Parameters / Member Variables
-- : Transaction ID that serves as the hash key for the entry. Must be positioned first in the structure to comply with PostgreSQL's hash table requirements. This identifies the specific transaction being processed by the associated worker.
-- : Pointer to ParallelApplyWorkerInfo structure containing detailed information about the parallel worker assigned to process this transaction, including communication queues, shared memory segments, and worker state.
-
+- `xid`: Transaction ID that serves as the hash key for the entry. Must be positioned first in the structure to comply with PostgreSQL's hash table requirements. This identifies the specific transaction being processed by the associated worker.
+- `*winfo`: Pointer to ParallelApplyWorkerInfo structure containing detailed information about the parallel worker assigned to process this transaction, including communication queues, shared memory segments, and worker state.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParallelApplyWorkerInfo](ParallelApplyWorkerInfo.md)

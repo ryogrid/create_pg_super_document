@@ -21,8 +21,7 @@ This structure is used in PostgreSQL's WAL system to log sequence state changes 
 The xl_seq_rec is specifically used with the XLOG_SEQ_LOG WAL record type (defined as 0x00) and is part of the RM_SEQ_ID resource manager for sequence operations. During recovery, the seq_redo() function uses this structure to replay sequence modifications and restore the correct sequence state.
 
 ## Parameters / Member Variables
-- : RelFileLocator that uniquely identifies the sequence relation (contains space OID, database OID, and relation number)
-
+- `locator`: RelFileLocator that uniquely identifies the sequence relation (contains space OID, database OID, and relation number)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileLocator](../R/RelFileLocator.md) (embedded structure for relation identification)

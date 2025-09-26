@@ -23,9 +23,8 @@ The Integer node is one of the fundamental value node types in PostgreSQL's pars
 The Integer node type is part of a family of value nodes (Integer, Float, String, BitString) that replaced the older unified Value node type. These nodes are primarily used during lexical analysis and parsing to represent literal constants found in SQL statements.
 
 ## Parameters / Member Variables
-- : NodeTag that identifies this as an Integer node type for the node system
-- : The actual integer value stored in this node
-
+- `type`: NodeTag that identifies this as an Integer node type for the node system
+- `ival`: The actual integer value stored in this node
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for node type identification)

@@ -19,9 +19,8 @@ typedef struct PgStat_BackendSubEntry
 This structure maintains error counts for logical replication subscriptions that are accumulated in backend local memory before being flushed to the statistics collector. It tracks two types of errors that can occur during logical replication: apply errors that happen during the application of changes from the publisher, and sync errors that occur during table synchronization operations. The structure is part of PostgreSQL's subscription statistics system and is used to monitor the health and performance of logical replication.
 
 ## Parameters / Member Variables
-- : Counter tracking the number of errors encountered while applying replicated changes from the publisher
-- : Counter tracking the number of errors encountered during table synchronization operations
-
+- `apply_error_count`: Counter tracking the number of errors encountered while applying replicated changes from the publisher
+- `sync_error_count`: Counter tracking the number of errors encountered during table synchronization operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter (used for both counter fields)

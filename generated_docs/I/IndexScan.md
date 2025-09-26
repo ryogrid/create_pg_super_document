@@ -27,15 +27,14 @@ The IndexScan structure represents an index-based scan operation in PostgreSQL's
 The structure contains both original and transformed versions of index qualification expressions to support both planning-time optimization and runtime execution. It also supports ordered scans for queries with ORDER BY clauses that match the index ordering.
 
 ## Parameters / Member Variables
-- : The base Scan structure containing the Plan node and scanrelid
-- : The OID (object identifier) of the specific index to scan
-- : List of index qualification expressions with index keys on the left side, used for execution
-- : Original form of index qualification expressions as they appeared in the WHERE clause
-- : List of ORDER BY expressions modified to have index column variables on the left
-- : Original form of ORDER BY expressions, used for runtime rechecking and EXPLAIN
-- : List of operator OIDs for ORDER BY expressions, used with indexorderbyorig for runtime recheck
-- : Scan direction (forward, backward, or don't care) for ordered index scans
-
+- `scan`: The base Scan structure containing the Plan node and scanrelid
+- `indexid`: The OID (object identifier) of the specific index to scan
+- `*indexqual`: List of index qualification expressions with index keys on the left side, used for execution
+- `*indexqualorig`: Original form of index qualification expressions as they appeared in the WHERE clause
+- `*indexorderby`: List of ORDER BY expressions modified to have index column variables on the left
+- `*indexorderbyorig`: Original form of ORDER BY expressions, used for runtime rechecking and EXPLAIN
+- `*indexorderbyops`: List of operator OIDs for ORDER BY expressions, used with indexorderbyorig for runtime recheck
+- `indexorderdir`: Scan direction (forward, backward, or don't care) for ordered index scans
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Scan](../S/Scan.md) (inherited base structure)

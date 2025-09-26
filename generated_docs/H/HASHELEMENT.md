@@ -21,9 +21,8 @@ HASHELEMENT serves as the internal metadata header for entries in PostgreSQL's d
 This design enables efficient hash table operations by maintaining bucket chains through the link pointer and storing the computed hash value for quick comparisons during lookups. The structure facilitates collision resolution through chaining, where entries with the same hash bucket are linked together.
 
 ## Parameters / Member Variables
-- : Pointer to the next HASHELEMENT in the same hash bucket, forming a singly-linked list for collision resolution
-- : The 32-bit hash function result computed for this entry, stored to avoid recomputation during operations
-
+- `*link`: Pointer to the next HASHELEMENT in the same hash bucket, forming a singly-linked list for collision resolution
+- `hashvalue`: The 32-bit hash function result computed for this entry, stored to avoid recomputation during operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - struct HASHELEMENT (self-reference for linked list)

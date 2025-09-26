@@ -24,12 +24,11 @@ This structure represents the ALTER EXTENSION ... ADD/DROP commands that allow d
 The operation involves managing dependency records in pg_depend, handling initial ACL records in pg_init_privs, and potentially updating extension configuration arrays. The system automatically handles dependent objects like array types for base types, multirange types for range types, and row types for tables.
 
 ## Parameters / Member Variables
-- : NodeTag identifier indicating this is an AlterExtensionContentsStmt node
-- : Name of the extension to modify
-- : Numeric action indicator (+1 for ADD operations, -1 for DROP operations)
-- : Type of the database object being added/removed (from ObjectType enum)
-- : Parse tree node representing the qualified name of the target object
-
+- `type`: NodeTag identifier indicating this is an AlterExtensionContentsStmt node
+- `*extname`: Name of the extension to modify
+- `action`: Numeric action indicator (+1 for ADD operations, -1 for DROP operations)
+- `objtype`: Type of the database object being added/removed (from ObjectType enum)
+- `*object`: Parse tree node representing the qualified name of the target object
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enumeration defining object types)

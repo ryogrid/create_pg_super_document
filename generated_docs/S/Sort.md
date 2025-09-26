@@ -33,13 +33,12 @@ typedef struct Sort
 The Sort node is a fundamental plan node in PostgreSQL's execution framework that implements tuple sorting functionality. It inherits from the base Plan structure and extends it with sort-specific metadata. The Sort node maintains arrays of sort keys, operators, collations, and null handling directives that define how the sorting operation should be performed. This node is created by the planner when ORDER BY clauses, merge joins, or other operations require sorted input.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common plan node information
-- : Number of columns to sort by
-- : Array of attribute numbers indicating which columns from the target list to sort by
-- : Array of OIDs identifying the comparison operators for each sort column
-- : Array of OIDs specifying the collation to use for each sort column
-- : Array of boolean values indicating whether NULL values should sort first (true) or last (false) for each column
-
+- `plan`: Base Plan structure containing common plan node information
+- `numCols`: Number of columns to sort by
+- `pg_node_attr(array_size(numCols))`: Array of attribute numbers indicating which columns from the target list to sort by
+- `pg_node_attr(array_size(numCols))`: Array of OIDs identifying the comparison operators for each sort column
+- `pg_node_attr(array_size(numCols))`: Array of OIDs specifying the collation to use for each sort column
+- `pg_node_attr(array_size(numCols))`: Array of boolean values indicating whether NULL values should sort first (true) or last (false) for each column
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

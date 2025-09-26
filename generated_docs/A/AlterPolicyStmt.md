@@ -23,13 +23,12 @@ typedef struct AlterPolicyStmt
 AlterPolicyStmt is a parse tree node that captures the components of an ALTER POLICY statement. It allows modification of existing row-level security (RLS) policies, including changing the roles that the policy applies to, the USING expression that determines which rows are visible, and the WITH CHECK expression that determines which rows can be added or updated. The statement is parsed from SQL syntax like 'ALTER POLICY name ON table_name TO role_list USING (expression) WITH CHECK (expression)'.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as an AlterPolicyStmt node
-- : The name of the policy to be altered
-- : RangeVar representing the table that the policy applies to
-- : List of role names that the policy should apply to (can be NULL to keep existing roles)
-- : Node representing the USING clause expression for row visibility (can be NULL to keep existing)
-- : Node representing the WITH CHECK clause expression for row modification (can be NULL to keep existing)
-
+- `type`: NodeTag identifying this as an AlterPolicyStmt node
+- `*policy_name`: The name of the policy to be altered
+- `*table`: RangeVar representing the table that the policy applies to
+- `*roles`: List of role names that the policy should apply to (can be NULL to keep existing roles)
+- `*qual`: Node representing the USING clause expression for row visibility (can be NULL to keep existing)
+- `*with_check`: Node representing the WITH CHECK clause expression for row modification (can be NULL to keep existing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating the node)

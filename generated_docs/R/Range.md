@@ -21,9 +21,8 @@ The Range structure is a fundamental building block for 2D geometric indexing op
 This structure is specifically designed for geometric operations and spatial indexing, where efficient range comparisons and containment checks are essential for query performance.
 
 ## Parameters / Member Variables
-- : The lower boundary of the range (float8/double precision)
-- : The upper boundary of the range (float8/double precision)
-
+- `left`: The lower boundary of the range (float8/double precision)
+- `right`: The upper boundary of the range (float8/double precision)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (Used as a basic data structure, doesn't directly call other functions)

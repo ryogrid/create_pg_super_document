@@ -29,12 +29,11 @@ The operation takes an input tuple and produces a new tuple with specified field
 While the parser generates FieldStores with single-element lists for individual field updates, the planner optimizes multiple updates to the same base column by collapsing them into a single FieldStore node with multiple fields and values.
 
 ## Parameters / Member Variables
-- : Base Expr node structure
-- : Input tuple value expression to be modified
-- : List of new value expressions for the fields being updated
-- : List of integers representing attribute numbers of fields to be modified
-- : OID of the result type (same as the type of the input arg)
-
+- `xpr`: Base Expr node structure
+- `*arg`: Input tuple value expression to be modified
+- `*newvals`: List of new value expressions for the fields being updated
+- `pg_node_attr(query_jumble_ignore)`: List of integers representing attribute numbers of fields to be modified
+- `pg_node_attr(query_jumble_ignore)`: OID of the result type (same as the type of the input arg)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references)

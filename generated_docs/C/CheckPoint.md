@@ -49,24 +49,23 @@ The structure is designed to be written to WAL (Write-Ahead Log) records during 
 The checkpoint data enables PostgreSQL to determine the starting point for crash recovery (the redo point) and maintains critical system-wide state information including transaction ID allocation, timeline management, and freeze boundaries for vacuum operations.
 
 ## Parameters / Member Variables
-- : The WAL record pointer indicating where crash recovery should begin; represents the next available RecPtr when checkpoint creation started
-- : Current timeline identifier, used for point-in-time recovery and replication scenarios
-- : Previous timeline identifier; equals ThisTimeLineID unless this checkpoint begins a new timeline
-- : Current setting of the full_page_writes parameter, affecting WAL logging behavior
-- : Current WAL logging level (minimal, replica, or logical), determining what information is logged
-- : Next available full transaction ID to be assigned to new transactions
-- : Next available object identifier for new database objects
-- : Next available MultiXactId for tuple locking operations involving multiple transactions
-- : Next available offset in the MultiXact member space
-- : Cluster-wide minimum datfrozenxid value, used for vacuum freeze horizon calculations
-- : Database OID containing the minimum datfrozenxid value
-- : Cluster-wide minimum datminmxid value for MultiXact cleanup
-- : Database OID containing the minimum datminmxid value
-- : Timestamp when the checkpoint was created
-- : Oldest transaction ID with a valid commit timestamp (for commit timestamp tracking)
-- : Newest transaction ID with a valid commit timestamp
-- : Oldest transaction ID that was still running at checkpoint time (used for hot standby initialization)
-
+- `redo`: The WAL record pointer indicating where crash recovery should begin; represents the next available RecPtr when checkpoint creation started
+- `ThisTimeLineID`: Current timeline identifier, used for point-in-time recovery and replication scenarios
+- `PrevTimeLineID`: Previous timeline identifier; equals ThisTimeLineID unless this checkpoint begins a new timeline
+- `fullPageWrites`: Current setting of the full_page_writes parameter, affecting WAL logging behavior
+- `wal_level`: Current WAL logging level (minimal, replica, or logical), determining what information is logged
+- `nextXid`: Next available full transaction ID to be assigned to new transactions
+- `nextOid`: Next available object identifier for new database objects
+- `nextMulti`: Next available MultiXactId for tuple locking operations involving multiple transactions
+- `nextMultiOffset`: Next available offset in the MultiXact member space
+- `oldestXid`: Cluster-wide minimum datfrozenxid value, used for vacuum freeze horizon calculations
+- `oldestXidDB`: Database OID containing the minimum datfrozenxid value
+- `oldestMulti`: Cluster-wide minimum datminmxid value for MultiXact cleanup
+- `oldestMultiDB`: Database OID containing the minimum datminmxid value
+- `time`: Timestamp when the checkpoint was created
+- `oldestCommitTsXid`: Oldest transaction ID with a valid commit timestamp (for commit timestamp tracking)
+- `newestCommitTsXid`: Newest transaction ID with a valid commit timestamp
+- `oldestActiveXid`: Oldest transaction ID that was still running at checkpoint time (used for hot standby initialization)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FullTransactionId](../F/FullTransactionId.md)

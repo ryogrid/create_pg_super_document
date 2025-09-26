@@ -21,9 +21,8 @@ TidRangePath is a specialized scan path node used in PostgreSQL's query planner 
 The TID range scan is particularly useful for queries that need to access specific physical locations within a table based on CTID predicates. Unlike regular index scans, TID range scans directly target physical tuple locations, making them suitable for maintenance operations or queries with explicit CTID constraints.
 
 ## Parameters / Member Variables
-- : Base Path structure containing common path information (cost estimates, parent relation, etc.)
-- : List of qualifier expressions that define the TID range conditions, containing implicitly AND'ed expressions of the form "CTID relop pseudoconstant" where relop is one of >, >=, <, <=
-
+- `path`: Base Path structure containing common path information (cost estimates, parent relation, etc.)
+- `*tidrangequals`: List of qualifier expressions that define the TID range conditions, containing implicitly AND'ed expressions of the form "CTID relop pseudoconstant" where relop is one of >, >=, <, <=
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Path](../P/Path.md) (base structure)

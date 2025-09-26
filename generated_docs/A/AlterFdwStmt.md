@@ -23,11 +23,10 @@ AlterFdwStmt is a parse tree node that encapsulates the information needed to al
 The structure maintains the same basic format as CreateFdwStmt but is used specifically for modification operations. It enables users to update FDW configurations without recreating the entire wrapper, which is particularly useful for adjusting connection parameters or changing handler functions.
 
 ## Parameters / Member Variables
-- : NodeTag identifier marking this as an AlterFdwStmt node in the parse tree
-- : The name of the existing foreign data wrapper to be modified
-- : List of DefElem nodes specifying updated HANDLER and VALIDATOR function options
-- : List of DefElem nodes containing updated generic configuration options for the FDW
-
+- `type`: NodeTag identifier marking this as an AlterFdwStmt node in the parse tree
+- `*fdwname`: The name of the existing foreign data wrapper to be modified
+- `*func_options`: List of DefElem nodes specifying updated HANDLER and VALIDATOR function options
+- `*options`: List of DefElem nodes containing updated generic configuration options for the FDW
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

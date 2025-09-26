@@ -21,9 +21,8 @@ WaitEventCustomEntryByName is a hash table entry structure that complements Wait
 The structure is used in shared memory hash tables to ensure that custom wait events can be quickly located and referenced by name across different PostgreSQL processes.
 
 ## Parameters / Member Variables
-- : A character array of size NAMEDATALEN serving as the hash key, containing the human-readable name of the custom wait event
-- : A 32-bit unsigned integer containing the unique numeric identifier for the custom wait event
-
+- `wait_event_name[NAMEDATALEN]`: A character array of size NAMEDATALEN serving as the hash key, containing the human-readable name of the custom wait event
+- `wait_event_info`: A 32-bit unsigned integer containing the unique numeric identifier for the custom wait event
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN (constant defining maximum length for names)

@@ -25,10 +25,9 @@ The  structure encapsulates the state and configuration of a Tcl interpreter wit
 This separation ensures that unprivileged users cannot inject Tcl code that would execute with elevated privileges of other SQL users. The structures are stored in a PostgreSQL hash table indexed by the user_id field.
 
 ## Parameters / Member Variables
-- : OID serving as the hash key for the interpreter table; must be the first field for hash table functionality. Set to 0 for the single untrusted interpreter, or to the actual user OID for trusted interpreters
-- : Pointer to the actual Tcl interpreter instance that executes PL/Tcl functions
-- : Hash table containing  structures that manage prepared queries and cached execution plans for this interpreter
-
+- `user_id`: OID serving as the hash key for the interpreter table; must be the first field for hash table functionality. Set to 0 for the single untrusted interpreter, or to the actual user OID for trusted interpreters
+- `*interp`: Pointer to the actual Tcl interpreter instance that executes PL/Tcl functions
+- `query_hash`: Hash table containing  structures that manage prepared queries and cached execution plans for this interpreter
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

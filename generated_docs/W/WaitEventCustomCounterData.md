@@ -21,9 +21,8 @@ WaitEventCustomCounterData is a critical component of PostgreSQL's custom wait e
 The counter starts from a base value and increments for each new custom wait event registration, ensuring that each custom wait event receives a unique identifier that can be used for tracking and reporting purposes.
 
 ## Parameters / Member Variables
-- : An integer containing the next ID number to be assigned to a new custom wait event
-- : A spinlock (slock_t) that protects concurrent access to the counter, ensuring atomic updates
-
+- `nextId`: An integer containing the next ID number to be assigned to a new custom wait event
+- `mutex`: A spinlock (slock_t) that protects concurrent access to the counter, ensuring atomic updates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slock_t](../s/slock_t.md) (PostgreSQL spinlock type for lightweight synchronization)

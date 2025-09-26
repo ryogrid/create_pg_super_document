@@ -23,11 +23,10 @@ CreateFdwStmt is a parse tree node that encapsulates the information needed to c
 The structure is part of PostgreSQL's parse tree infrastructure and is created during the parsing phase of SQL statement processing. It serves as an intermediate representation before the actual foreign data wrapper is created in the system catalogs.
 
 ## Parameters / Member Variables
-- : NodeTag identifier marking this as a CreateFdwStmt node in the parse tree
-- : The name of the foreign data wrapper to be created
-- : List of DefElem nodes specifying HANDLER and VALIDATOR function options
-- : List of DefElem nodes containing generic configuration options for the FDW
-
+- `type`: NodeTag identifier marking this as a CreateFdwStmt node in the parse tree
+- `*fdwname`: The name of the foreign data wrapper to be created
+- `*func_options`: List of DefElem nodes specifying HANDLER and VALIDATOR function options
+- `*options`: List of DefElem nodes containing generic configuration options for the FDW
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

@@ -25,11 +25,10 @@ This structure exists only during parsing and analysis phases. While WithClause 
 The recursive flag applies to the entire WITH clause and enables different processing rules during analysis, particularly for dependency checking and recursion validation. When true, it allows CTEs within the clause to reference each other, including self-references for recursive queries.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a WithClause node
-- : List of CommonTableExpr nodes representing the individual CTEs in the WITH clause
-- : Boolean flag indicating whether this is a WITH RECURSIVE clause
-- : ParseLoc indicating the source location of the WITH keyword for error reporting
-
+- `type`: NodeTag identifying this as a WithClause node
+- `*ctes`: List of CommonTableExpr nodes representing the individual CTEs in the WITH clause
+- `recursive`: Boolean flag indicating whether this is a WITH RECURSIVE clause
+- `location`: ParseLoc indicating the source location of the WITH keyword for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommonTableExpr (individual CTE nodes)

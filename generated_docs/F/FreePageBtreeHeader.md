@@ -25,10 +25,9 @@ The magic field distinguishes between different types of btree pages (internal v
 The header is followed by a variable-length array of keys, with the specific key type determined by the page type indicated in the magic field.
 
 ## Parameters / Member Variables
-- : Magic number identifying page type (FREE_PAGE_LEAF_MAGIC for leaf pages, FREE_PAGE_INTERNAL_MAGIC for internal pages)
-- : Current number of active items stored in this btree page
-- : Relative pointer to the parent btree page, enabling upward traversal
-
+- `magic`: Magic number identifying page type (FREE_PAGE_LEAF_MAGIC for leaf pages, FREE_PAGE_INTERNAL_MAGIC for internal pages)
+- `nused`: Current number of active items stored in this btree page
+- `parent`: Relative pointer to the parent btree page, enabling upward traversal
 ## Dependencies
 - Functions called/Symbols referenced:
   - Size (PostgreSQL size type)

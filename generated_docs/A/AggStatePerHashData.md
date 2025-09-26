@@ -32,18 +32,17 @@ The structure contains the core hash table infrastructure including the table it
 The hash and equality functions are stored per grouping field, allowing for type-specific optimized operations during hash table lookups and comparisons.
 
 ## Parameters / Member Variables
-- : TupleHashTable storing one entry per group with aggregate state values
-- : TupleHashIterator for efficient iteration through all hash table entries
-- : TupleTableSlot used for loading and manipulating hash table entries
-- : Array of FmgrInfo structures containing hash functions for each grouping field
-- : Array of OIDs for equality functions corresponding to each grouping field
-- : Total number of columns used as hash keys
-- : Number of columns actually stored in the hash table structure
-- : Index of the largest column required for hashing operations (optimization hint)
-- : Array mapping hash key column indices to positions in input tuple slots
-- : Array mapping hash key column indices to positions in hash table tuples
-- : Pointer to the original Agg node providing metadata like estimated number of groups
-
+- `hashtable`: TupleHashTable storing one entry per group with aggregate state values
+- `hashiter`: TupleHashIterator for efficient iteration through all hash table entries
+- `*hashslot`: TupleTableSlot used for loading and manipulating hash table entries
+- `*hashfunctions`: Array of FmgrInfo structures containing hash functions for each grouping field
+- `*eqfuncoids`: Array of OIDs for equality functions corresponding to each grouping field
+- `numCols`: Total number of columns used as hash keys
+- `numhashGrpCols`: Number of columns actually stored in the hash table structure
+- `largestGrpColIdx`: Index of the largest column required for hashing operations (optimization hint)
+- `*hashGrpColIdxInput`: Array mapping hash key column indices to positions in input tuple slots
+- `*hashGrpColIdxHash`: Array mapping hash key column indices to positions in hash table tuples
+- `*aggnode`: Pointer to the original Agg node providing metadata like estimated number of groups
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleHashTable](../T/TupleHashTable.md)

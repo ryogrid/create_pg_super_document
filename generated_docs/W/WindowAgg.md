@@ -83,28 +83,27 @@ typedef struct WindowAgg
 The WindowAgg node implements SQL window functions such as ROW_NUMBER(), RANK(), SUM() OVER(), and LAG()/LEAD(). It processes input data partitioned by specified columns and ordered within each partition. The node maintains a sliding window frame that can be defined using ROWS or RANGE clauses with PRECEDING/FOLLOWING boundaries. It supports both bounded and unbounded frames, and can efficiently handle peer groups (rows with identical values in ORDER BY columns). The node can run multiple window functions simultaneously if they share the same window specification, optimizing execution by avoiding redundant sorting and partitioning operations.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common plan node information
-- : Window reference ID used to identify the window specification
-- : Number of columns in the PARTITION BY clause
-- : Array of attribute numbers for partition columns
-- : Array of equality operators for partition column comparisons
-- : Array of collations for partition columns
-- : Number of columns in the ORDER BY clause within the window
-- : Array of attribute numbers for ordering columns
-- : Array of comparison operators for ordering columns
-- : Array of collations for ordering columns
-- : Bit flags defining frame type (ROWS/RANGE/GROUPS) and bounds
-- : Expression defining the starting boundary of the frame
-- : Expression defining the ending boundary of the frame
-- : Optimized conditions for early termination
-- : Original run condition for EXPLAIN output
-- : Function for RANGE frame start boundary calculations
-- : Function for RANGE frame end boundary calculations
-- : Collation for in-range function calls
-- : Sort order for range comparisons
-- : NULL handling for range comparisons
-- : True if this is the topmost WindowAgg node in the plan
-
+- `plan`: Base Plan structure containing common plan node information
+- `winref`: Window reference ID used to identify the window specification
+- `partNumCols`: Number of columns in the PARTITION BY clause
+- `pg_node_attr(array_size(partNumCols))`: Array of attribute numbers for partition columns
+- `pg_node_attr(array_size(partNumCols))`: Array of equality operators for partition column comparisons
+- `pg_node_attr(array_size(partNumCols))`: Array of collations for partition columns
+- `ordNumCols`: Number of columns in the ORDER BY clause within the window
+- `pg_node_attr(array_size(ordNumCols))`: Array of attribute numbers for ordering columns
+- `pg_node_attr(array_size(ordNumCols))`: Array of comparison operators for ordering columns
+- `pg_node_attr(array_size(ordNumCols))`: Array of collations for ordering columns
+- `frameOptions`: Bit flags defining frame type (ROWS/RANGE/GROUPS) and bounds
+- `*startOffset`: Expression defining the starting boundary of the frame
+- `*endOffset`: Expression defining the ending boundary of the frame
+- `*runCondition`: Optimized conditions for early termination
+- `*runConditionOrig`: Original run condition for EXPLAIN output
+- `startInRangeFunc`: Function for RANGE frame start boundary calculations
+- `endInRangeFunc`: Function for RANGE frame end boundary calculations
+- `inRangeColl`: Collation for in-range function calls
+- `inRangeAsc`: Sort order for range comparisons
+- `inRangeNullsFirst`: NULL handling for range comparisons
+- `topWindow`: True if this is the topmost WindowAgg node in the plan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

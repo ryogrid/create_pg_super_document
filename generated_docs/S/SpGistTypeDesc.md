@@ -24,12 +24,11 @@ SpGistTypeDesc serves as a compact descriptor for data types used in SP-GiST ind
 The structure is designed to be lightweight while providing all necessary type information that SP-GiST operations need to function correctly across PostgreSQL's diverse type system.
 
 ## Parameters / Member Variables
-- : OID of the PostgreSQL data type being described
-- : Length of the attribute (-1 for variable-length types, positive for fixed-length)
-- : Boolean indicating whether values are passed by value (true) or by reference (false)
-- : Alignment requirement for the type ('c'=char, 's'=short, 'i'=int, 'd'=double)
-- : Storage strategy ('p'=plain, 'e'=external, 'm'=main, 'x'=extended)
-
+- `type`: OID of the PostgreSQL data type being described
+- `attlen`: Length of the attribute (-1 for variable-length types, positive for fixed-length)
+- `attbyval`: Boolean indicating whether values are passed by value (true) or by reference (false)
+- `attalign`: Alignment requirement for the type ('c'=char, 's'=short, 'i'=int, 'd'=double)
+- `attstorage`: Storage strategy ('p'=plain, 'e'=external, 'm'=main, 'x'=extended)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

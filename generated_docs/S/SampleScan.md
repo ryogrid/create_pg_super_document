@@ -22,9 +22,8 @@ The SampleScan structure represents a sampling scan operation in PostgreSQL's qu
 Sample scans are particularly useful for statistical analysis, query testing on large datasets, or when approximate results are acceptable and performance is more important than completeness.
 
 ## Parameters / Member Variables
-- : The base Scan structure containing the Plan node and scanrelid that identifies which relation to sample
-- : A pointer to the TableSampleClause structure that contains the sampling method specification, sample parameters, and any additional sampling arguments
-
+- `scan`: The base Scan structure containing the Plan node and scanrelid that identifies which relation to sample
+- `*tablesample`: A pointer to the TableSampleClause structure that contains the sampling method specification, sample parameters, and any additional sampling arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Scan](Scan.md) (inherited base structure)

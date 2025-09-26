@@ -29,11 +29,10 @@ The transformation process:
 4. The executor works with RelabelType nodes that carry collation metadata
 
 ## Parameters / Member Variables
-- : Base expression node structure
-- : The input expression to which the collation applies
-- : OID of the collation to be applied to the expression
-- : Parse location in the original query, or -1 if unknown
-
+- `xpr`: Base expression node structure
+- `*arg`: The input expression to which the collation applies
+- `collOid`: OID of the collation to be applied to the expression
+- `location`: Parse location in the original query, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating CollateExpr instances)

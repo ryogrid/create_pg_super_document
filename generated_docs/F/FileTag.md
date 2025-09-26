@@ -25,11 +25,10 @@ The FileTag abstraction allows the sync system (sync.c) to remain agnostic about
 The structure is specifically optimized for use in hash tables and as a key for sync request tracking, which is why space-saving 16-bit integers are used for handler and forknum fields, and the struct must not contain padding bytes.
 
 ## Parameters / Member Variables
-- : Specifies which SyncRequestHandler should process this file (SYNC_HANDLER_MD for regular relations, SYNC_HANDLER_CLOG for transaction logs, etc.)
-- : Identifies the specific fork of a relation (MAIN_FORKNUM for data, FSM_FORKNUM for free space map, VISIBILITYMAP_FORKNUM for visibility map, INIT_FORKNUM for unlogged relations)
-- : Contains the RelFileLocator with tablespace OID, database OID, and relation file number to fully locate the relation
-- : Segment number within the file, used when files are split into multiple segments (typically 1GB each)
-
+- `handler`: Specifies which SyncRequestHandler should process this file (SYNC_HANDLER_MD for regular relations, SYNC_HANDLER_CLOG for transaction logs, etc.)
+- `forknum`: Identifies the specific fork of a relation (MAIN_FORKNUM for data, FSM_FORKNUM for free space map, VISIBILITYMAP_FORKNUM for visibility map, INIT_FORKNUM for unlogged relations)
+- `rlocator`: Contains the RelFileLocator with tablespace OID, database OID, and relation file number to fully locate the relation
+- `segno`: Segment number within the file, used when files are split into multiple segments (typically 1GB each)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileLocator](../R/RelFileLocator.md) (for physical file location)

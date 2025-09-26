@@ -26,11 +26,10 @@ Each container type implements these four essential operations: checking subscri
 The functions are designed to work with the SubscriptingRefState structure and integrate seamlessly with PostgreSQL's ExprEvalStep-based expression evaluation system.
 
 ## Parameters / Member Variables
-- : Function pointer to validate and process subscript expressions, returns boolean success status
-- : Function pointer to retrieve a value from the container using computed subscripts
-- : Function pointer to assign a new value to the container at the specified subscripts
-- : Function pointer to retrieve the current value before assignment (used for nested assignments and certain update operations)
-
+- `sbs_check_subscripts`: Function pointer to validate and process subscript expressions, returns boolean success status
+- `sbs_fetch`: Function pointer to retrieve a value from the container using computed subscripts
+- `sbs_assign`: Function pointer to assign a new value to the container at the specified subscripts
+- `sbs_fetch_old`: Function pointer to retrieve the current value before assignment (used for nested assignments and certain update operations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecEvalBoolSubroutine (function pointer type for boolean-returning evaluation routines)

@@ -25,13 +25,12 @@ The  structure is PostgreSQL's internal representation for MAC addresses, define
 The design uses separate byte fields rather than an array, which allows for direct access to individual octets and potentially better memory alignment on some architectures. This structure is used extensively throughout PostgreSQL's MAC address handling functions for input/output operations, comparisons, and various network-related computations.
 
 ## Parameters / Member Variables
-- : First octet of the MAC address (most significant byte)
-- : Second octet of the MAC address
-- : Third octet of the MAC address  
-- : Fourth octet of the MAC address
-- : Fifth octet of the MAC address
-- : Sixth octet of the MAC address (least significant byte)
-
+- `a`: First octet of the MAC address (most significant byte)
+- `b`: Second octet of the MAC address
+- `c`: Third octet of the MAC address
+- `d`: Fourth octet of the MAC address
+- `e`: Fifth octet of the MAC address
+- `f`: Sixth octet of the MAC address (least significant byte)
 ## Dependencies
 - Functions called/Symbols referenced: None (primitive struct definition)
 - Called from (representative examples):

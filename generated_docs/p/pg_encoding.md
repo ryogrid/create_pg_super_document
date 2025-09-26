@@ -25,11 +25,10 @@ The struct is used internally by PostgreSQL's encoding conversion system to supp
 The API is designed with safety in mind - the length estimation functions (_len functions) are allowed to return overestimates but not underestimates, ensuring sufficient buffer space is allocated before the actual conversion operations.
 
 ## Parameters / Member Variables
-- : Function pointer to estimate the output length needed for encoding the given input data
-- : Function pointer to estimate the output length needed for decoding the given input data  
-- : Function pointer to perform the actual encoding conversion from binary to text format
-- : Function pointer to perform the actual decoding conversion from text to binary format
-
+- `dlen)`: Function pointer to estimate the output length needed for encoding the given input data
+- `dlen)`: Function pointer to estimate the output length needed for decoding the given input data
+- `*res)`: Function pointer to perform the actual encoding conversion from binary to text format
+- `*res)`: Function pointer to perform the actual decoding conversion from text to binary format
 ## Dependencies
 - Functions called/Symbols referenced:
   - Used by  function to locate encoding implementations

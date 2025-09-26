@@ -22,8 +22,7 @@ The structure is intentionally wrapped in a struct rather than using a raw uint6
 Not all FullTransactionId values represent valid normal XIDs - some may be special values like InvalidTransactionId or bootstrap transaction IDs.
 
 ## Parameters / Member Variables
-- : A 64-bit unsigned integer where bits 63-32 contain the epoch (generation counter) and bits 31-0 contain the 32-bit TransactionId
-
+- `value`: A 64-bit unsigned integer where bits 63-32 contain the epoch (generation counter) and bits 31-0 contain the 32-bit TransactionId
 ## Dependencies
 - Functions called/Symbols referenced:
   - InvalidTransactionId (for InvalidFullTransactionId constant)

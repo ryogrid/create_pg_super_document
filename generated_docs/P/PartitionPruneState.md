@@ -24,14 +24,13 @@ typedef struct PartitionPruneState
 This structure is the central execution state object for PostgreSQL's run-time partition pruning mechanism. It can be attached to plan types that support arbitrary lists of subplans containing partitions (such as Append and MergeAppend nodes) to eliminate subplans whose partitions cannot possibly produce tuples matching the query conditions. The structure tracks execution parameters that affect pruning decisions, maintains a dedicated memory context for pruning operations, and holds references to the pruning data for all partitioned relations involved in the query.
 
 ## Parameters / Member Variables
-- : Bitmapset containing parameter IDs of PARAM_EXEC parameters found within partprunedata structs; pruning must be redone when any of these parameter values change
-- : Bitmapset with indexes of subplans that don't belong to any partprunedata (e.g., UNION ALL children that aren't partitioned tables, or partitioned tables deemed unsuitable for run-time pruning); these must not be pruned
-- : Short-lived memory context used for executing partition pruning functions to avoid memory leaks
-- : Boolean flag indicating whether pruning should be performed during executor startup (at any hierarchy level)
-- : Boolean flag indicating whether pruning should be performed during executor runtime (at any hierarchy level)  
-- : Number of items in the partprunedata array
-- : Flexible array of PartitionPruningData pointers, one for each partitioning hierarchy that requires run-time pruning
-
+- `*execparamids`: Bitmapset containing parameter IDs of PARAM_EXEC parameters found within partprunedata structs; pruning must be redone when any of these parameter values change
+- `*other_subplans`: Bitmapset with indexes of subplans that don't belong to any partprunedata (e.g., UNION ALL children that aren't partitioned tables, or partitioned tables deemed unsuitable for run-time pruning); these must not be pruned
+- `prune_context`: Short-lived memory context used for executing partition pruning functions to avoid memory leaks
+- `do_initial_prune`: Boolean flag indicating whether pruning should be performed during executor startup (at any hierarchy level)
+- `do_exec_prune`: Boolean flag indicating whether pruning should be performed during executor runtime (at any hierarchy level)
+- `num_partprunedata`: Number of items in the partprunedata array
+- `*partprunedata[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of PartitionPruningData pointers, one for each partitioning hierarchy that requires run-time pruning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionPruningData](PartitionPruningData.md) (referenced partition pruning data)

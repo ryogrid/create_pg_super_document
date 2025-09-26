@@ -24,10 +24,9 @@ The structure uses a flexible array member to accommodate databases that span mu
 The record type is identified by XLOG_DBASE_DROP (0x20) and ensures that all database files across all relevant tablespaces are properly removed during the drop operation.
 
 ## Parameters / Member Variables
-- : OID of the database being dropped
-- : Number of tablespace IDs in the tablespace_ids array, indicating how many tablespaces contain files for this database
-- : Variable-length array containing the OIDs of all tablespaces that contain files for the database being dropped
-
+- `db_id`: OID of the database being dropped
+- `ntablespaces`: Number of tablespace IDs in the tablespace_ids array, indicating how many tablespaces contain files for this database
+- `tablespace_ids[FLEXIBLE_ARRAY_MEMBER]`: Variable-length array containing the OIDs of all tablespaces that contain files for the database being dropped
 ## Dependencies
 - Functions called/Symbols referenced: 
   - FLEXIBLE_ARRAY_MEMBER (macro)

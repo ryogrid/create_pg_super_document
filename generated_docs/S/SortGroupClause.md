@@ -28,13 +28,12 @@ The structure maintains both equality and ordering operators because grouping ca
 For ORDER BY items, all fields must be valid (though collation information is obtained from the referenced targetlist expression). For grouping items, the eqop must be valid, and if it's a btree equality operator, sortop should contain a compatible ordering operator. For hash-only datatypes, sortop remains InvalidOid and the item can only use hash-based grouping.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a SortGroupClause node
-- : Index referencing the targetlist entry that contains the expression to be sorted or grouped
-- : OID of the equality operator used for grouping comparisons
-- : OID of the ordering operator for sorting, or InvalidOid if not available/applicable
-- : Boolean indicating whether NULL values should sort before non-NULL values
-- : Boolean flag indicating whether the equality operator supports hash-based implementation
-
+- `type`: NodeTag identifying this as a SortGroupClause node
+- `tleSortGroupRef`: Index referencing the targetlist entry that contains the expression to be sorted or grouped
+- `eqop`: OID of the equality operator used for grouping comparisons
+- `sortop`: OID of the ordering operator for sorting, or InvalidOid if not available/applicable
+- `nulls_first`: Boolean indicating whether NULL values should sort before non-NULL values
+- `pg_node_attr(query_jumble_ignore)`: Boolean flag indicating whether the equality operator supports hash-based implementation
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

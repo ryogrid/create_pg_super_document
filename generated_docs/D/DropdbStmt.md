@@ -23,11 +23,10 @@ DropdbStmt is a parse node structure that represents a DROP DATABASE SQL stateme
 The structure captures all the necessary information for the database removal operation, including the database name, error handling preferences, and any additional options specified in the command.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a DropdbStmt node
-- : String containing the name of the database to be dropped
-- : Boolean flag indicating whether to skip errors if the database doesn't exist (IF EXISTS clause)
-- : List of DefElem nodes containing additional options (currently only FORCE is supported)
-
+- `type`: NodeTag identifying this as a DropdbStmt node
+- `*dbname`: String containing the name of the database to be dropped
+- `missing_ok`: Boolean flag indicating whether to skip errors if the database doesn't exist (IF EXISTS clause)
+- `*options`: List of DefElem nodes containing additional options (currently only FORCE is supported)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL list structure for options)

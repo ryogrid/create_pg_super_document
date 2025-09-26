@@ -32,15 +32,14 @@ The routine operates in phases: first initializing private state, then configuri
 Each function pointer represents a specific phase or operation in the table generation process, with the TableFuncScanState serving as the shared context that maintains state across all operations.
 
 ## Parameters / Member Variables
-- : Initializes table builder private objects with tuple descriptor, input functions, and type parameters from executor state
-- : Defines the input document for processing, allowing additional transformations within the table builder context
-- : Passes namespace declarations from table expressions (may be NULL if namespaces not supported); must be called before setting row/column filters
-- : Defines the row-generating filter used to extract each row from the input document
-- : Called once per column to define the column-generating filter for the specified column
-- : Called repeatedly until no more rows found; sets up state for subsequent GetValue calls to return column values for current row
-- : Returns the value for the specified column of the current row, with proper type conversion and null handling
-- : Releases all resources associated with table builder context (called on completion or error)
-
+- `natts)`: Initializes table builder private objects with tuple descriptor, input functions, and type parameters from executor state
+- `value)`: Defines the input document for processing, allowing additional transformations within the table builder context
+- `*uri)`: Passes namespace declarations from table expressions (may be NULL if namespaces not supported); must be called before setting row/column filters
+- `*path)`: Defines the row-generating filter used to extract each row from the input document
+- `colnum)`: Called once per column to define the column-generating filter for the specified column
+- `*state)`: Called repeatedly until no more rows found; sets up state for subsequent GetValue calls to return column values for current row
+- `*isnull)`: Returns the value for the specified column of the current row, with proper type conversion and null handling
+- `*state)`: Releases all resources associated with table builder context (called on completion or error)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableFuncScanState](TableFuncScanState.md) (primary state structure)

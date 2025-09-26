@@ -27,13 +27,12 @@ The removeType field specifies what kind of object is being dropped using the Ob
 Special handling is provided for index drops through the concurrent flag, which enables DROP INDEX CONCURRENTLY operations that don't block concurrent operations on the table.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this parse tree node type
-- : List of object names to be dropped (can be qualified names for schema.object notation)
-- : ObjectType enum specifying the type of objects being dropped (OBJECT_TABLE, OBJECT_INDEX, etc.)
-- : DropBehavior enum controlling dependency handling (DROP_RESTRICT or DROP_CASCADE)
-- : Boolean flag for IF EXISTS behavior - when true, no error is raised if the object doesn't exist
-- : Boolean flag for DROP INDEX CONCURRENTLY - allows concurrent operations during index removal
-
+- `type`: NodeTag identifier for this parse tree node type
+- `*objects`: List of object names to be dropped (can be qualified names for schema.object notation)
+- `removeType`: ObjectType enum specifying the type of objects being dropped (OBJECT_TABLE, OBJECT_INDEX, etc.)
+- `behavior`: DropBehavior enum controlling dependency handling (DROP_RESTRICT or DROP_CASCADE)
+- `missing_ok`: Boolean flag for IF EXISTS behavior - when true, no error is raised if the object doesn't exist
+- `concurrent`: Boolean flag for DROP INDEX CONCURRENTLY - allows concurrent operations during index removal
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType

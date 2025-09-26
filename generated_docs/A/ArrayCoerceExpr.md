@@ -36,15 +36,14 @@ The execution process involves:
 4. Constructing a new array with the transformed elements and updated type information
 
 ## Parameters / Member Variables
-- : Base expression node structure
-- : Input expression that yields an array to be coerced
-- : Expression defining how to transform each individual array element
-- : OID of the target array type
-- : Type modifier for the result (also applies to elements, ignored for query jumbling)
-- : OID of the result collation, or InvalidOid if none (ignored for query jumbling)
-- : Controls how this coercion is displayed in query output
-- : Parse location in the original query, or -1 if unknown
-
+- `xpr`: Base expression node structure
+- `*arg`: Input expression that yields an array to be coerced
+- `*elemexpr`: Expression defining how to transform each individual array element
+- `resulttype`: OID of the target array type
+- `pg_node_attr(query_jumble_ignore)`: Type modifier for the result (also applies to elements, ignored for query jumbling)
+- `pg_node_attr(query_jumble_ignore)`: OID of the result collation, or InvalidOid if none (ignored for query jumbling)
+- `pg_node_attr(query_jumble_ignore)`: Controls how this coercion is displayed in query output
+- `location`: Parse location in the original query, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating ArrayCoerceExpr instances)

@@ -23,11 +23,10 @@ The prepared_statement structure implements a linked list-based registry for man
 The structure supports ECPG's prepared statement functionality by maintaining the preparation state and providing a mechanism to locate prepared statements by name. This design allows for efficient reuse of prepared statements and proper cleanup when connections are closed or statements are deallocated.
 
 ## Parameters / Member Variables
-- : String identifier for the prepared statement, used for lookups and server-side references
-- : Boolean flag indicating whether this statement has been successfully prepared on the database server
-- : Pointer to the underlying statement structure containing the SQL command and execution details
-- : Pointer to the next prepared statement in the linked list, enabling chaining of multiple prepared statements per connection
-
+- `*name`: String identifier for the prepared statement, used for lookups and server-side references
+- `prepared`: Boolean flag indicating whether this statement has been successfully prepared on the database server
+- `*stmt`: Pointer to the underlying statement structure containing the SQL command and execution details
+- `*next`: Pointer to the next prepared statement in the linked list, enabling chaining of multiple prepared statements per connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [statement](../s/statement.md) (core statement structure for SQL execution details)

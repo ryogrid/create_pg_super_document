@@ -33,13 +33,12 @@ During execution, the process involves:
 3. Handling any errors that occur during this conversion process
 
 ## Parameters / Member Variables
-- : Base expression node structure
-- : The input expression to be coerced
-- : OID of the target type for the coercion
-- : OID of the result collation, or InvalidOid if none (ignored for query jumbling)
-- : Controls how this coercion is displayed (COERCE_EXPLICIT_CAST, COERCE_IMPLICIT_CAST, etc.)
-- : Parse location in the original query, or -1 if unknown
-
+- `xpr`: Base expression node structure
+- `*arg`: The input expression to be coerced
+- `resulttype`: OID of the target type for the coercion
+- `pg_node_attr(query_jumble_ignore)`: OID of the result collation, or InvalidOid if none (ignored for query jumbling)
+- `pg_node_attr(query_jumble_ignore)`: Controls how this coercion is displayed (COERCE_EXPLICIT_CAST, COERCE_IMPLICIT_CAST, etc.)
+- `location`: Parse location in the original query, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - Type-specific output functions (determined at runtime)

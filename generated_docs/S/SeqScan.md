@@ -20,8 +20,7 @@ The SeqScan structure represents a sequential scan operation in PostgreSQL's que
 Sequential scans are the most straightforward scan method but can be expensive for large tables. However, they have predictable I/O patterns and can be very efficient when most of the table needs to be read.
 
 ## Parameters / Member Variables
-- : The base Scan structure containing the Plan node and scanrelid that identifies which relation to scan sequentially
-
+- `scan`: The base Scan structure containing the Plan node and scanrelid that identifies which relation to scan sequentially
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Scan](Scan.md) (inherited base structure)

@@ -26,11 +26,10 @@ The AppendPath supports both regular and parallel execution modes. For parallel 
 A key feature is support for "dummy" AppendPaths with no subpaths, representing provably empty relations. This optimization allows the planner to recognize when constraint exclusion has eliminated all possible data sources without requiring special case handling throughout the planning process.
 
 ## Parameters / Member Variables
-- : Base Path structure containing standard path information including pathtype (T_Append), cost estimates, parallel execution properties, and pathkeys for ordered results
-- : List of component Path nodes to be executed sequentially, with non-partial paths listed before partial paths in parallel mode
-- : Index marking the first partial path in the subpaths list, or list_length(subpaths) if no partial paths exist
-- : Hard limit on output tuples when query-wide LIMIT applies to sole base relation, or -1 if no limit
-
+- `path`: Base Path structure containing standard path information including pathtype (T_Append), cost estimates, parallel execution properties, and pathkeys for ordered results
+- `*subpaths`: List of component Path nodes to be executed sequentially, with non-partial paths listed before partial paths in parallel mode
+- `first_partial_path`: Index marking the first partial path in the subpaths list, or list_length(subpaths) if no partial paths exist
+- `limit_tuples`: Hard limit on output tuples when query-wide LIMIT applies to sole base relation, or -1 if no limit
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Path](../P/Path.md) (base structure)

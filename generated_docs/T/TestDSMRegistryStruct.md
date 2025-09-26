@@ -23,9 +23,8 @@ This structure is allocated in dynamic shared memory via the DSM registry mechan
 The test module uses this structure to demonstrate proper initialization, attachment, and synchronized access patterns for DSM registry-managed shared memory segments.
 
 ## Parameters / Member Variables
-- : Integer value used for testing shared memory operations - stores and retrieves test data across processes
-- : LWLock (lightweight lock) that provides thread-safe access coordination for the shared memory segment
-
+- `val`: Integer value used for testing shared memory operations - stores and retrieves test data across processes
+- `lck`: LWLock (lightweight lock) that provides thread-safe access coordination for the shared memory segment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLock](../L/LWLock.md) (from storage/lwlock.h)

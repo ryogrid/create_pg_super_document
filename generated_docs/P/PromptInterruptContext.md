@@ -30,10 +30,9 @@ The design uses a three-part coordination mechanism:
 This approach ensures that cancellation only happens when it's safe to do so, and provides feedback about whether the operation completed normally or was canceled.
 
 ## Parameters / Member Variables
-- : A pointer to a setjmp/longjmp buffer that serves as the target for cancellation jumps. Declared as void* to avoid including setjmp.h in the header file.
-- : A pointer to a volatile sig_atomic_t flag that controls whether signal handlers should perform longjmp operations. The volatile and sig_atomic_t qualifiers ensure safe access from signal handlers.
-- : A boolean flag that indicates whether the operation was actually canceled via signal interruption, allowing callers to distinguish between normal completion and cancellation.
-
+- `*jmpbuf`: A pointer to a setjmp/longjmp buffer that serves as the target for cancellation jumps. Declared as void* to avoid including setjmp.h in the header file.
+- `*enabled`: A pointer to a volatile sig_atomic_t flag that controls whether signal handlers should perform longjmp operations. The volatile and sig_atomic_t qualifiers ensure safe access from signal handlers.
+- `canceled`: A boolean flag that indicates whether the operation was actually canceled via signal interruption, allowing callers to distinguish between normal completion and cancellation.
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure)

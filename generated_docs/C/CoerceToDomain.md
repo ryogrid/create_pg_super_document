@@ -29,14 +29,13 @@ CoerceToDomain is a specialized expression node that handles coercion of values 
 If the input value satisfies all domain constraints, it is returned as the result with the domain type. If any constraint is violated, an error is raised. In scenarios where no constraints need to be applied, this operation is functionally equivalent to RelabelType.
 
 ## Parameters / Member Variables
-- : Base Expr node structure
-- : Input expression to be coerced to the domain type
-- : OID of the target domain type (result type)
-- : Output type modifier (currently always -1 for domains)
-- : OID of the result collation, or InvalidOid if no collation applies
-- : How to display this coercion (COERCE_EXPLICIT_CALL, COERCE_EXPLICIT_CAST, COERCE_IMPLICIT_CAST, COERCE_SQL_SYNTAX)
-- : Token location in source query, or -1 if unknown
-
+- `xpr`: Base Expr node structure
+- `*arg`: Input expression to be coerced to the domain type
+- `resulttype`: OID of the target domain type (result type)
+- `pg_node_attr(query_jumble_ignore)`: Output type modifier (currently always -1 for domains)
+- `pg_node_attr(query_jumble_ignore)`: OID of the result collation, or InvalidOid if no collation applies
+- `pg_node_attr(query_jumble_ignore)`: How to display this coercion (COERCE_EXPLICIT_CALL, COERCE_EXPLICIT_CAST, COERCE_IMPLICIT_CAST, COERCE_SQL_SYNTAX)
+- `location`: Token location in source query, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - CoercionForm (enum for display formatting)

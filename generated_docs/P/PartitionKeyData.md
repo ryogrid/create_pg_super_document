@@ -40,21 +40,20 @@ PartitionKeyData is the core data structure that encapsulates all metadata requi
 The structure supports both column-based partitioning (using attribute numbers) and expression-based partitioning (using arbitrary expressions), making it flexible enough to handle complex partitioning schemes. The type and operator information is essential for the query planner and executor to make informed decisions about partition operations.
 
 ## Parameters / Member Variables
-- : The partitioning strategy (RANGE, LIST, HASH) that determines how partition bounds are interpreted and how tuples are routed
-- : The number of columns/expressions in the partition key, determining the size of all the arrays that follow
-- : Array of attribute numbers for columns used in partitioning; contains 0 for positions that use expressions instead of columns
-- : List of expressions used for partitioning, corresponding to zero entries in partattrs array
-- : Array of OIDs identifying the operator families used for comparing partition key values
-- : Array of OIDs specifying the input data types declared by the operator classes
-- : Array of function manager info structures for support functions needed by the partitioning operators
-- : Array of OIDs specifying the collation to use for each partition key attribute
-- : Array of OIDs identifying the data type of each partition key attribute
-- : Array of type modifiers for each partition key attribute (e.g., precision for numeric types)
-- : Array of storage lengths for each partition key attribute type
-- : Array of boolean flags indicating whether each partition key attribute type is passed by value
-- : Array of alignment requirements for each partition key attribute type
-- : Array of OIDs specifying the default collation for each partition key attribute type
-
+- `strategy`: The partitioning strategy (RANGE, LIST, HASH) that determines how partition bounds are interpreted and how tuples are routed
+- `partnatts`: The number of columns/expressions in the partition key, determining the size of all the arrays that follow
+- `*partattrs`: Array of attribute numbers for columns used in partitioning; contains 0 for positions that use expressions instead of columns
+- `*partexprs`: List of expressions used for partitioning, corresponding to zero entries in partattrs array
+- `*partopfamily`: Array of OIDs identifying the operator families used for comparing partition key values
+- `*partopcintype`: Array of OIDs specifying the input data types declared by the operator classes
+- `*partsupfunc`: Array of function manager info structures for support functions needed by the partitioning operators
+- `*partcollation`: Array of OIDs specifying the collation to use for each partition key attribute
+- `*parttypid`: Array of OIDs identifying the data type of each partition key attribute
+- `*parttypmod`: Array of type modifiers for each partition key attribute (e.g., precision for numeric types)
+- `*parttyplen`: Array of storage lengths for each partition key attribute type
+- `*parttypbyval`: Array of boolean flags indicating whether each partition key attribute type is passed by value
+- `*parttypalign`: Array of alignment requirements for each partition key attribute type
+- `*parttypcoll`: Array of OIDs specifying the default collation for each partition key attribute type
 ## Dependencies
 - Functions called/Symbols referenced:
   - PartitionStrategy (enum defining partitioning strategies)

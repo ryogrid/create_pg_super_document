@@ -23,11 +23,10 @@ EventTriggerData serves as a parameter structure for event trigger functions in 
 The structure follows PostgreSQL's standard node structure pattern by including a NodeTag as its first member, allowing it to participate in the node system used throughout the parser and executor. The structure contains the event name, the original parse tree of the command that triggered the event, and a command tag that identifies the specific SQL command type.
 
 ## Parameters / Member Variables
-- : NodeTag that identifies this as an EventTriggerData node structure
-- : String name of the event that triggered the event trigger (e.g., "ddl_command_start", "ddl_command_end", "sql_drop", "login", "table_rewrite")
-- : Pointer to the Node representing the parsed SQL command that caused the trigger event; provides access to the full command structure
-- : CommandTag enumeration value that identifies the specific type of SQL command (e.g., CMDTAG_CREATE_TABLE, CMDTAG_ALTER_TABLE, etc.)
-
+- `type`: NodeTag that identifies this as an EventTriggerData node structure
+- `*event`: String name of the event that triggered the event trigger (e.g., "ddl_command_start", "ddl_command_end", "sql_drop", "login", "table_rewrite")
+- `*parsetree`: Pointer to the Node representing the parsed SQL command that caused the trigger event; provides access to the full command structure
+- `tag`: CommandTag enumeration value that identifies the specific type of SQL command (e.g., CMDTAG_CREATE_TABLE, CMDTAG_ALTER_TABLE, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

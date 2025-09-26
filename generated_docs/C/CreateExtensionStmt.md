@@ -23,11 +23,10 @@ This structure represents the CREATE EXTENSION SQL command, which is used to ins
 Extensions are installed from control files and SQL scripts located in the PostgreSQL installation's extension directory. The system prevents nested extension creation and ensures extension names are valid and unique within the database.
 
 ## Parameters / Member Variables
-- : NodeTag identifier indicating this is a CreateExtensionStmt node
-- : Name of the extension to be created/installed
-- : Boolean flag controlling behavior when extension already exists (true = issue NOTICE and continue, false = raise ERROR)
-- : List of DefElem structures containing optional parameters like schema, version, and cascade settings
-
+- `type`: NodeTag identifier indicating this is a CreateExtensionStmt node
+- `*extname`: Name of the extension to be created/installed
+- `if_not_exists`: Boolean flag controlling behavior when extension already exists (true = issue NOTICE and continue, false = raise ERROR)
+- `*options`: List of DefElem structures containing optional parameters like schema, version, and cascade settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (from node system)

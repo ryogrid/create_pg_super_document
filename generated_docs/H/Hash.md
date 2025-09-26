@@ -39,13 +39,12 @@ Key operational characteristics:
 The node includes optimization features for handling skewed data distributions, where certain hash values occur much more frequently than others, which can degrade hash table performance.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common plan node information
-- : List of expressions that will be evaluated and hashed for each tuple to determine hash table placement
-- : OID of the table containing the join key column for skew optimization (InvalidOid if not applicable)
-- : Column number of the join key in the outer relation for skew optimization (zero if not applicable)
-- : Boolean indicating whether the outer join relation involves inheritance tables
-- : Estimated total number of rows across all parallel workers (used in parallel-aware plans)
-
+- `plan`: Base Plan structure containing common plan node information
+- `*hashkeys`: List of expressions that will be evaluated and hashed for each tuple to determine hash table placement
+- `skewTable`: OID of the table containing the join key column for skew optimization (InvalidOid if not applicable)
+- `skewColumn`: Column number of the join key in the outer relation for skew optimization (zero if not applicable)
+- `skewInherit`: Boolean indicating whether the outer join relation involves inheritance tables
+- `rows_total`: Estimated total number of rows across all parallel workers (used in parallel-aware plans)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

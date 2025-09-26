@@ -22,10 +22,9 @@ The LockRows node is responsible for acquiring row-level locks on tuples as they
 The LockRows node works by processing tuples from its child plan and applying the appropriate locks based on the PlanRowMark specifications. It integrates with PostgreSQL's EvalPlanQual (EPQ) mechanism to handle concurrent updates by providing a parameter that forces re-evaluation of the plan when concurrent modifications are detected.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common plan node information like cost estimates, target lists, and child plan references
-- : List of PlanRowMark structures that specify which relations should be locked and how they should be locked (FOR UPDATE, FOR SHARE, etc.)
-- : Parameter ID used by EvalPlanQual for re-evaluation of the plan when concurrent tuple modifications are detected during execution
-
+- `plan`: Base Plan structure containing common plan node information like cost estimates, target lists, and child plan references
+- `*rowMarks`: List of PlanRowMark structures that specify which relations should be locked and how they should be locked (FOR UPDATE, FOR SHARE, etc.)
+- `epqParam`: Parameter ID used by EvalPlanQual for re-evaluation of the plan when concurrent tuple modifications are detected during execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

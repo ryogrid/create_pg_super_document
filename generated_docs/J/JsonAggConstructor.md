@@ -23,13 +23,12 @@ typedef struct JsonAggConstructor
 JsonAggConstructor serves as a base structure containing common elements shared by JSON aggregate functions during the parsing phase. It captures the various optional clauses that can be applied to JSON aggregation operations, including output format specification, filtering conditions, ordering requirements, and window function specifications. This structure is used before transformation into execution-ready forms.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a JsonAggConstructor node
-- : Pointer to JsonOutput structure specifying the RETURNING clause format, if present
-- : Node representing the FILTER clause condition for conditional aggregation, if any
-- : List of ordering expressions for the ORDER BY clause, if specified
-- : Pointer to WindowDef structure for OVER clause in window function context, if present  
-- : Parse location information for error reporting, or -1 if location is unknown
-
+- `type`: NodeTag identifying this as a JsonAggConstructor node
+- `*output`: Pointer to JsonOutput structure specifying the RETURNING clause format, if present
+- `*agg_filter`: Node representing the FILTER clause condition for conditional aggregation, if any
+- `*agg_order`: List of ordering expressions for the ORDER BY clause, if specified
+- `*over`: Pointer to WindowDef structure for OVER clause in window function context, if present
+- `location`: Parse location information for error reporting, or -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonOutput](JsonOutput.md)

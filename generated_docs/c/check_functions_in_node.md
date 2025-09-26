@@ -29,10 +29,9 @@ The function handles various expression node types including Aggref, WindowFunc,
 Important: This function does NOT recurse into sub-expressions; it only examines the given node. Callers are responsible for controlling recursion through the expression tree.
 
 ## Parameters / Member Variables
-- : The expression node to examine (must not be NULL)
-- : Callback function that takes a function OID and context, returns bool
-- : Arbitrary context data passed to the checker function
-
+- `node`: The expression node to examine (must not be NULL)
+- `set_opfuncid(expr)`: Callback function that takes a function OID and context, returns bool
+- `true`: Arbitrary context data passed to the checker function
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag

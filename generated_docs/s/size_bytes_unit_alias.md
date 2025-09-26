@@ -21,9 +21,8 @@ The  structure provides a mechanism for supporting alternative unit names in Pos
 The primary use case is to support common abbreviations like "B" for "bytes", providing user-friendly input options without duplicating unit logic. When  encounters a unit string that doesn't match the primary unit names, it searches through the alias table to find alternative representations.
 
 ## Parameters / Member Variables
-- : String representation of the alternative unit name (e.g., "B" as an alias for "bytes")
-- : Zero-based index into the  array, indicating which primary unit this alias corresponds to
-
+- `*alias`: String representation of the alternative unit name (e.g., "B" as an alias for "bytes")
+- `unit_index`: Zero-based index into the  array, indicating which primary unit this alias corresponds to
 ## Dependencies
 - Functions called/Symbols referenced:
   - References  array through 

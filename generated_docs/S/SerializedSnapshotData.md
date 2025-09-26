@@ -30,16 +30,15 @@ This structure is designed for efficient serialization and deserialization of sn
 The structure serves as an intermediate representation between the full in-memory Snapshot structure and its serialized form in shared memory or inter-process communication channels.
 
 ## Parameters / Member Variables
-- : Oldest transaction ID that was still active when the snapshot was taken
-- : First transaction ID that was not yet assigned when the snapshot was taken  
-- : Number of transaction IDs in the active XID array (xip)
-- : Number of subtransaction IDs in the subXID array (subxip)
-- : True if the subtransaction array overflowed and contains incomplete data
-- : True if the snapshot was taken during WAL recovery
-- : Current command ID within the transaction when snapshot was taken
-- : Timestamp when the snapshot was created
-- : WAL Log Sequence Number at the time the snapshot was taken
-
+- `xmin`: Oldest transaction ID that was still active when the snapshot was taken
+- `xmax`: First transaction ID that was not yet assigned when the snapshot was taken
+- `xcnt`: Number of transaction IDs in the active XID array (xip)
+- `subxcnt`: Number of subtransaction IDs in the subXID array (subxip)
+- `suboverflowed`: True if the subtransaction array overflowed and contains incomplete data
+- `takenDuringRecovery`: True if the snapshot was taken during WAL recovery
+- `curcid`: Current command ID within the transaction when snapshot was taken
+- `whenTaken`: Timestamp when the snapshot was created
+- `lsn`: WAL Log Sequence Number at the time the snapshot was taken
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId (transaction identifier type)

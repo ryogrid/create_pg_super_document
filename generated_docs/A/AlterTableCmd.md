@@ -31,16 +31,15 @@ AlterTableCmd is a fundamental data structure in PostgreSQL's DDL (Data Definiti
 The structure provides a flexible framework for representing various types of table alterations, from adding/dropping columns to modifying constraints, changing ownership, or altering table properties. The design allows the ALTER TABLE infrastructure to process different types of operations uniformly while maintaining type-specific information in the subtype and auxiliary fields.
 
 ## Parameters / Member Variables
-- : NodeTag for node type identification in PostgreSQL's node system
-- : AlterTableType enum specifying the exact type of alteration (ADD_COLUMN, DROP_COLUMN, ALTER_COLUMN_TYPE, etc.)
-- : String identifier for the target object (column name, constraint name, trigger name, tablespace name, or access method name)
-- : Attribute number used when referencing columns by position rather than name
-- : RoleSpec structure defining the new owner for ownership change operations
-- : Generic Node pointer containing the definition data for new objects (column definitions, constraint definitions, etc.)
-- : DropBehavior enum (RESTRICT or CASCADE) controlling how dependent objects are handled during DROP operations
-- : Boolean flag indicating whether to skip errors if the target object doesn't exist (IF EXISTS semantics)
-- : Boolean flag controlling whether the operation should be applied recursively to child tables
-
+- `type`: NodeTag for node type identification in PostgreSQL's node system
+- `subtype`: AlterTableType enum specifying the exact type of alteration (ADD_COLUMN, DROP_COLUMN, ALTER_COLUMN_TYPE, etc.)
+- `*name`: String identifier for the target object (column name, constraint name, trigger name, tablespace name, or access method name)
+- `num`: Attribute number used when referencing columns by position rather than name
+- `*newowner`: RoleSpec structure defining the new owner for ownership change operations
+- `*def`: Generic Node pointer containing the definition data for new objects (column definitions, constraint definitions, etc.)
+- `behavior`: DropBehavior enum (RESTRICT or CASCADE) controlling how dependent objects are handled during DROP operations
+- `missing_ok`: Boolean flag indicating whether to skip errors if the target object doesn't exist (IF EXISTS semantics)
+- `recurse`: Boolean flag controlling whether the operation should be applied recursively to child tables
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AlterTableType](AlterTableType.md)

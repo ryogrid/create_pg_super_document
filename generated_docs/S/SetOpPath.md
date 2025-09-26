@@ -25,15 +25,14 @@ typedef struct SetOpPath
 SetOpPath represents the execution path for set operations in PostgreSQL, specifically handling INTERSECT and EXCEPT operations (UNION is typically handled differently). This path type encapsulates the strategy for efficiently performing set operations between multiple input relations, including the method to use (hash-based or sort-based), the columns to compare for distinctness, and metadata for tracking which input relation contributed each row. The path handles both ALL and DISTINCT variants of set operations.
 
 ## Parameters / Member Variables
-- : Base Path structure containing cost estimates, cardinality, and other standard path properties
-- : Pointer to the input path that provides the combined source data from multiple relations
-- : SetOpCmd enum value specifying the type of set operation (SETOPCMD_INTERSECT, SETOPCMD_EXCEPT)
-- : SetOpStrategy enum indicating the execution method (SETOP_SORTED for sort-based, SETOP_HASHED for hash-based)
-- : List of SortGroupClause structures identifying which columns are used for distinctness comparison
-- : Column index of the flag column that identifies which input relation each row came from (0 if no flag column)
-- : Integer value used as the flag for rows from the first input relation
-- : Estimated cardinality representing the expected number of distinct groups in the input
-
+- `path`: Base Path structure containing cost estimates, cardinality, and other standard path properties
+- `*subpath`: Pointer to the input path that provides the combined source data from multiple relations
+- `cmd`: SetOpCmd enum value specifying the type of set operation (SETOPCMD_INTERSECT, SETOPCMD_EXCEPT)
+- `strategy`: SetOpStrategy enum indicating the execution method (SETOP_SORTED for sort-based, SETOP_HASHED for hash-based)
+- `*distinctList`: List of SortGroupClause structures identifying which columns are used for distinctness comparison
+- `flagColIdx`: Column index of the flag column that identifies which input relation each row came from (0 if no flag column)
+- `firstFlag`: Integer value used as the flag for rows from the first input relation
+- `numGroups`: Estimated cardinality representing the expected number of distinct groups in the input
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetOpCmd](SetOpCmd.md)

@@ -22,12 +22,11 @@ typedef struct AlterOwnerStmt
 AlterOwnerStmt represents SQL statements that transfer ownership of database objects from one role to another. This operation is fundamental for database administration and access control, allowing administrators to reassign ownership of tables, functions, schemas, and other database objects. The ownership change affects permissions and privileges associated with the object, as the new owner gains full control over the object.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for parse tree identification
-- : Specifies the type of object whose ownership is being changed (OBJECT_TABLE, OBJECT_TYPE, etc.)
-- : RangeVar pointer used when the object being transferred is a table or relation
-- : Generic Node pointer for other types of objects being transferred
-- : RoleSpec pointer specifying the new owner role
-
+- `type`: Standard NodeTag for parse tree identification
+- `objectType`: Specifies the type of object whose ownership is being changed (OBJECT_TABLE, OBJECT_TYPE, etc.)
+- `*relation`: RangeVar pointer used when the object being transferred is a table or relation
+- `*object`: Generic Node pointer for other types of objects being transferred
+- `*newowner`: RoleSpec pointer specifying the new owner role
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enumeration for database object types)

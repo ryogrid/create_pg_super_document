@@ -70,12 +70,11 @@ The structure implements a sophisticated reference counting mechanism to manage 
 The generation counter tracks how many times an entry has been reused, which helps detect stale references and supports entry recycling. All atomic operations on refcount and generation require at least a shared lock on the dshash partition to ensure consistency across multiple backends.
 
 ## Parameters / Member Variables
-- : PgStat_HashKey structure that uniquely identifies this statistics entry (kind, dboid, objoid)
-- : Boolean flag indicating the entry is marked for deletion and no new references should be made
-- : Atomic reference counter managing the entry's lifetime; entry is freed when this reaches zero
-- : Atomic counter incremented each time the entry is reinitialized, used to detect stale references
-- : Dynamic shared area (DSA) pointer to the actual statistics data, which starts with PgStatShared_Common
-
+- `key`: PgStat_HashKey structure that uniquely identifies this statistics entry (kind, dboid, objoid)
+- `dropped`: Boolean flag indicating the entry is marked for deletion and no new references should be made
+- `refcount`: Atomic reference counter managing the entry's lifetime; entry is freed when this reaches zero
+- `generation`: Atomic counter incremented each time the entry is reinitialized, used to detect stale references
+- `body`: Dynamic shared area (DSA) pointer to the actual statistics data, which starts with PgStatShared_Common
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStat_HashKey](PgStat_HashKey.md) (key structure)

@@ -64,16 +64,15 @@ Multiple identical Aggref expressions in a query can share the same AggStatePerA
 All values in this structure are set up during ExecInitAgg() and remain unchanged throughout query execution, making it a read-only configuration structure for the finalization phase.
 
 ## Parameters / Member Variables
-- : Link to the Aggref expression this aggregate data serves (points to first of potentially multiple identical Aggrefs)
-- : Index to the transition state value that this aggregate should use
-- : OID of the final function (may be InvalidOid if no final function needed)
-- : Function manager lookup data for the final function (valid only when finalfn_oid is not InvalidOid)
-- : Number of arguments to pass to the final function (minimum 1 for transition state plus any ordered-set direct args)
-- : List of ExprStates for direct-argument expressions used in ordered-set aggregates
-- : Length of the aggregate's result data type for memory management
-- : Whether the result type is passed by value for efficient copying
-- : False if this aggregate cannot share state values due to read-write final function
-
+- `*aggref`: Link to the Aggref expression this aggregate data serves (points to first of potentially multiple identical Aggrefs)
+- `transno`: Index to the transition state value that this aggregate should use
+- `finalfn_oid`: OID of the final function (may be InvalidOid if no final function needed)
+- `finalfn`: Function manager lookup data for the final function (valid only when finalfn_oid is not InvalidOid)
+- `numFinalArgs`: Number of arguments to pass to the final function (minimum 1 for transition state plus any ordered-set direct args)
+- `*aggdirectargs`: List of ExprStates for direct-argument expressions used in ordered-set aggregates
+- `resulttypeLen`: Length of the aggregate's result data type for memory management
+- `resulttypeByVal`: Whether the result type is passed by value for efficient copying
+- `shareable`: False if this aggregate cannot share state values due to read-write final function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Aggref](Aggref.md)

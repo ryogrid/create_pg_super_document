@@ -55,17 +55,16 @@ Set operations implemented:
 The flag column mechanism allows the node to distinguish which input relation each tuple originated from, enabling proper set operation semantics.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common plan node information
-- : Specifies which set operation to perform (INTERSECT, INTERSECT_ALL, EXCEPT, EXCEPT_ALL)
-- : Execution strategy (SETOP_SORTED for sorted input, SETOP_HASHED for hash-based processing)
-- : Number of columns to compare when determining tuple equality
-- : Array of target list column indexes to use for equality comparisons
-- : Array of equality operator OIDs for comparing corresponding columns
-- : Array of collation OIDs for locale-specific equality comparisons
-- : Index of the flag column that identifies which input relation each tuple came from
-- : Flag value used to identify tuples from the first input relation
-- : Estimated number of distinct tuple groups in the input (for optimization)
-
+- `plan`: Base Plan structure containing common plan node information
+- `cmd`: Specifies which set operation to perform (INTERSECT, INTERSECT_ALL, EXCEPT, EXCEPT_ALL)
+- `strategy`: Execution strategy (SETOP_SORTED for sorted input, SETOP_HASHED for hash-based processing)
+- `numCols`: Number of columns to compare when determining tuple equality
+- `pg_node_attr(array_size(numCols))`: Array of target list column indexes to use for equality comparisons
+- `pg_node_attr(array_size(numCols))`: Array of equality operator OIDs for comparing corresponding columns
+- `pg_node_attr(array_size(numCols))`: Array of collation OIDs for locale-specific equality comparisons
+- `flagColIdx`: Index of the flag column that identifies which input relation each tuple came from
+- `firstFlag`: Flag value used to identify tuples from the first input relation
+- `numGroups`: Estimated number of distinct tuple groups in the input (for optimization)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

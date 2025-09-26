@@ -34,18 +34,17 @@ The  structure manages the lifecycle and execution state of prepared SQL stateme
 The structure also supports "one-shot" plans optimized for single execution, where CachedPlanSources remain incomplete until execution time. Plans handle edge cases like whitespace-only queries by maintaining argument type arrays even when plancache_list is empty.
 
 ## Parameters / Member Variables
-- : Magic number validation field (should equal _SPI_PLAN_MAGIC)
-- : Boolean flag indicating whether the plan is saved (persistent) or unsaved (temporary)
-- : Boolean flag marking plans intended for single execution with specific optimizations
-- : List of CachedPlanSource objects, one per parsed statement tree
-- : Memory context containing the _SPI_plan structure and associated data (NULL for temporary plans)
-- : Parsing mode used by raw_parser() for SQL statement processing
-- : Options flags used during query planning for cursor operations
-- : Count of plan arguments/parameters
-- : Array of PostgreSQL type OIDs for plan arguments (NULL when nargs is 0)
-- : Hook function pointer for alternative parameter specification methods
-- : Argument passed to the parserSetup hook function
-
+- `magic`: Magic number validation field (should equal _SPI_PLAN_MAGIC)
+- `saved`: Boolean flag indicating whether the plan is saved (persistent) or unsaved (temporary)
+- `oneshot`: Boolean flag marking plans intended for single execution with specific optimizations
+- `*plancache_list`: List of CachedPlanSource objects, one per parsed statement tree
+- `plancxt`: Memory context containing the _SPI_plan structure and associated data (NULL for temporary plans)
+- `parse_mode`: Parsing mode used by raw_parser() for SQL statement processing
+- `cursor_options`: Options flags used during query planning for cursor operations
+- `nargs`: Count of plan arguments/parameters
+- `*argtypes`: Array of PostgreSQL type OIDs for plan arguments (NULL when nargs is 0)
+- `parserSetup`: Hook function pointer for alternative parameter specification methods
+- `*parserSetupArg`: Argument passed to the parserSetup hook function
 ## Dependencies
 - Functions called/Symbols referenced:
   - RawParseMode (enum type for parsing modes)

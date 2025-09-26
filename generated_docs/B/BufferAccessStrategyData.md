@@ -39,11 +39,10 @@ The ring buffer approach prevents these operations from flooding the entire shar
 The struct uses a flexible array member to store the actual buffer identifiers, with the memory allocated in a single palloc call that includes both the fixed fields and the variable-length buffer array.
 
 ## Parameters / Member Variables
-- : The type of buffer access strategy (e.g., BAS_NORMAL, BAS_BULKREAD, BAS_BULKWRITE, BAS_VACUUM)
-- : The total number of buffer slots in the ring array
-- : Index pointing to the most recently used slot in the ring buffer; used to track position for the next buffer allocation
-- : Flexible array containing Buffer identifiers; InvalidBuffer (0) indicates an uninitialized slot
-
+- `btype`: The type of buffer access strategy (e.g., BAS_NORMAL, BAS_BULKREAD, BAS_BULKWRITE, BAS_VACUUM)
+- `nbuffers`: The total number of buffer slots in the ring array
+- `current`: Index pointing to the most recently used slot in the ring buffer; used to track position for the next buffer allocation
+- `buffers[FLEXIBLE_ARRAY_MEMBER]`: Flexible array containing Buffer identifiers; InvalidBuffer (0) indicates an uninitialized slot
 ## Dependencies
 - Types referenced:
   - BufferAccessStrategyType

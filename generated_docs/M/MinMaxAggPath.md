@@ -20,10 +20,9 @@ typedef struct MinMaxAggPath
 MinMaxAggPath is an optimization path node used when PostgreSQL can compute MIN and MAX aggregate functions directly from index information rather than scanning the entire table. This path type is employed when the query planner determines that the required MIN/MAX values can be obtained by reading the first or last entries from a sorted index, significantly reducing I/O and computation costs. This optimization is particularly effective for queries that only need MIN/MAX aggregates without complex grouping.
 
 ## Parameters / Member Variables
-- : Base Path structure containing common path information including cost estimates and expected output properties
-- : List of MinMaxAggInfo structures, each describing a MIN or MAX aggregate that can be computed from index data
-- : List of qualification expressions (HAVING clauses) to be applied after the MIN/MAX computation
-
+- `path`: Base Path structure containing common path information including cost estimates and expected output properties
+- `*mmaggregates`: List of MinMaxAggInfo structures, each describing a MIN or MAX aggregate that can be computed from index data
+- `*quals`: List of qualification expressions (HAVING clauses) to be applied after the MIN/MAX computation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MinMaxAggInfo](MinMaxAggInfo.md) (referenced in mmaggregates list)

@@ -25,12 +25,11 @@ The SQLFunctionParseInfo structure serves as a critical component in PostgreSQL'
 The structure is primarily used during the CREATE FUNCTION process for SQL functions and during function execution when parsing is required. It enables the parser to validate parameter references and perform proper type resolution, ensuring that SQL function bodies correctly reference their declared parameters.
 
 ## Parameters / Member Variables
-- : The function's name, used to qualify argument names during parsing and for error reporting
-- : The total number of input arguments the function accepts
-- : An array of OIDs representing the resolved data types of input arguments, with polymorphic types resolved to their actual types
-- : An array of argument names; can be NULL if no argument names are provided, and individual elements can be NULL for unnamed arguments  
-- : The input collation for the function, used for proper string comparison and sorting operations
-
+- `*fname`: The function's name, used to qualify argument names during parsing and for error reporting
+- `nargs`: The total number of input arguments the function accepts
+- `*argtypes`: An array of OIDs representing the resolved data types of input arguments, with polymorphic types resolved to their actual types
+- `**argnames`: An array of argument names; can be NULL if no argument names are provided, and individual elements can be NULL for unnamed arguments
+- `collation`: The input collation for the function, used for proper string comparison and sorting operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

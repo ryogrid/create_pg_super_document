@@ -21,9 +21,8 @@ The Complex structure is part of PostgreSQL's tutorial system located in src/tut
 The design follows PostgreSQL's extension architecture patterns, providing all necessary functions for the type to be fully integrated into the database system. It demonstrates key concepts including memory allocation using palloc(), error handling with ereport(), and the PostgreSQL function calling convention using PG_FUNCTION_ARGS and related macros.
 
 ## Parameters / Member Variables
-- : The real component of the complex number, stored as a double-precision floating-point value
-- : The imaginary component of the complex number, stored as a double-precision floating-point value
-
+- `x`: The real component of the complex number, stored as a double-precision floating-point value
+- `y`: The imaginary component of the complex number, stored as a double-precision floating-point value
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct references - this is a simple struct definition)

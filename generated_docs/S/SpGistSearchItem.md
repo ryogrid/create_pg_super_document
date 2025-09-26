@@ -33,18 +33,17 @@ SpGistSearchItem is the fundamental work unit used during SP-GiST index scans to
 The structure supports sophisticated search operations including distance-based ordering for nearest-neighbor queries. It maintains both the reconstructed value from traversing the tree and optional operator class-specific traversal information. This design enables SP-GiST to efficiently handle complex spatial and hierarchical search patterns while supporting features like index-only scans and distance calculations.
 
 ## Parameters / Member Variables
-- : Pairing heap node for priority queue management during search
-- : The data value reconstructed from traversing parent nodes, or actual leaf value for leaf items
-- : Complete leaf tuple data when needed for the search operation
-- : Operator class-specific data used for tree traversal decisions
-- : Tree level indicator for items on the current page being processed
-- : ItemPointerData containing heap tuple location information
-- : Boolean flag indicating this item represents a NULL value
-- : Boolean flag indicating this item represents a heap tuple (leaf level)
-- : Boolean flag indicating search conditions need to be rechecked
-- : Boolean flag indicating distance calculations need to be rechecked
-- : Flexible array of distance values for ordered search operations
-
+- `phNode`: Pairing heap node for priority queue management during search
+- `value`: The data value reconstructed from traversing parent nodes, or actual leaf value for leaf items
+- `leafTuple`: Complete leaf tuple data when needed for the search operation
+- `*traversalValue`: Operator class-specific data used for tree traversal decisions
+- `level`: Tree level indicator for items on the current page being processed
+- `heapPtr`: ItemPointerData containing heap tuple location information
+- `isNull`: Boolean flag indicating this item represents a NULL value
+- `isLeaf`: Boolean flag indicating this item represents a heap tuple (leaf level)
+- `recheck`: Boolean flag indicating search conditions need to be rechecked
+- `recheckDistances`: Boolean flag indicating distance calculations need to be rechecked
+- `distances[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of distance values for ordered search operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pairingheap_node](../p/pairingheap_node.md) (priority queue implementation)

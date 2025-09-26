@@ -52,9 +52,8 @@ This function analyzes an escape-encoded string and determines how many bytes th
 If an invalid escape sequence is encountered (a backslash not followed by valid octal digits or another backslash), the function raises an error.
 
 ## Parameters / Member Variables
-- : Pointer to the escape-encoded input string to analyze
-- : Length in bytes of the input string
-
+- `*name`: Pointer to the escape-encoded input string to analyze
+- `enc`: Length in bytes of the input string
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting)

@@ -27,10 +27,9 @@ Each NODE represents a single element in the query tree, where:
 The NODE structure enables recursive traversal and modification of query trees, allowing cleanup algorithms to efficiently identify and remove unwanted elements while preserving the logical structure of the remaining query.
 
 ## Parameters / Member Variables
-- : Pointer to the left child NODE in the binary tree structure. For binary operators (AND, OR), this represents the left operand. For unary operators (NOT), this is typically NULL.
-- : Pointer to the right child NODE in the binary tree structure. This represents the right operand for binary operators or the single operand for unary operators like NOT.
-- : Pointer to the actual QueryItem that this NODE represents. This contains the operator or operand data from the original TSQuery structure.
-
+- `*left`: Pointer to the left child NODE in the binary tree structure. For binary operators (AND, OR), this represents the left operand. For unary operators (NOT), this is typically NULL.
+- `*right`: Pointer to the right child NODE in the binary tree structure. This represents the right operand for binary operators or the single operand for unary operators like NOT.
+- `*valnode`: Pointer to the actual QueryItem that this NODE represents. This contains the operator or operand data from the original TSQuery structure.
 ## Dependencies
 - Functions called/Symbols referenced:
   - QueryItem (referenced as pointer type for valnode member)

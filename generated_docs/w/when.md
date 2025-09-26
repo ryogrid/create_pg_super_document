@@ -24,10 +24,9 @@ Each 'when' struct instance represents one specific handler configuration. The E
 The structure supports various predefined actions (CONTINUE, BREAK, STOP, etc.) as well as custom actions (GOTO with a label, or DO with custom code), providing flexible error handling strategies for embedded SQL applications.
 
 ## Parameters / Member Variables
-- : A WHEN_TYPE enumeration value specifying the type of action (W_CONTINUE, W_BREAK, W_STOP, W_GOTO, W_DO, W_SQLPRINT, W_NOTHING)
-- : String containing the specific command or label for certain action types (e.g., label name for W_GOTO, code for W_DO)
-- : Additional string parameter used for certain action types or descriptive purposes
-
+- `code`: A WHEN_TYPE enumeration value specifying the type of action (W_CONTINUE, W_BREAK, W_STOP, W_GOTO, W_DO, W_SQLPRINT, W_NOTHING)
+- `*command`: String containing the specific command or label for certain action types (e.g., label name for W_GOTO, code for W_DO)
+- `*str`: Additional string parameter used for certain action types or descriptive purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - WHEN_TYPE (enumeration defining action types)

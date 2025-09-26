@@ -26,14 +26,13 @@ The IndexOnlyScan structure represents an optimized index-based scan operation t
 Unlike regular IndexScan, all variables in IndexOnlyScan reference index columns (varno = INDEX_VAR), and the scan includes specialized recheck capabilities for handling lossy index operators when some index columns are not directly retrievable.
 
 ## Parameters / Member Variables
-- : The base Scan structure containing the Plan node and scanrelid
-- : The OID of the specific index to scan that contains all required columns
-- : List of index qualification expressions using index column variables
-- : Index qualification expressions in recheckable form, using only retrievable index columns for handling lossy operators
-- : List of ORDER BY expressions for ordered index scans
-- : Target entry list describing the index columns, used by EXPLAIN and containing base table variable references (marked resjunk if not reconstructible)
-- : Scan direction (forward, backward, or don't care) for ordered results
-
+- `scan`: The base Scan structure containing the Plan node and scanrelid
+- `indexid`: The OID of the specific index to scan that contains all required columns
+- `*indexqual`: List of index qualification expressions using index column variables
+- `*recheckqual`: Index qualification expressions in recheckable form, using only retrievable index columns for handling lossy operators
+- `*indexorderby`: List of ORDER BY expressions for ordered index scans
+- `*indextlist`: Target entry list describing the index columns, used by EXPLAIN and containing base table variable references (marked resjunk if not reconstructible)
+- `indexorderdir`: Scan direction (forward, backward, or don't care) for ordered results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Scan](../S/Scan.md) (inherited base structure)

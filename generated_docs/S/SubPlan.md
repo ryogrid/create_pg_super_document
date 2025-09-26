@@ -57,24 +57,23 @@ When a sub-select becomes an initplan rather than a subplan, the executable expr
 The planner derives lists of values needed for passing into and out of the subplan. Input values are represented as "args" expressions evaluated in outer-query context, assigned to global PARAM_EXEC params indexed by parParam. The setParam list contains PARAM_EXEC params computed by the sub-select for initplan or MULTIEXPR plans.
 
 ## Parameters / Member Variables
-- : Base Expr node structure
-- : Type of sublink copied from original SubLink
-- : OpExpr or RowCompareExpr expression tree for combining operators
-- : IDs of Params embedded in the testexpr
-- : Index (from 1) in PlannedStmt.subplans identifying the Plan tree to use
-- : Name assigned during planning for EXPLAIN and debugging purposes
-- : Type of first column of subplan result
-- : Typmod of first column of subplan result
-- : Collation of first column of subplan result
-- : True to store subselect output in hash table (implies "IN" operation)
-- : True if okay to return FALSE when spec result is UNKNOWN
-- : Whether the subplan is parallel-safe
-- : List of PARAM_EXEC params set by initplan/MULTIEXPR subqueries for parent plan
-- : Indices of input Params from parent plan
-- : Expressions to pass as parParam values
-- : One-time setup cost
-- : Cost for each subplan evaluation
-
+- `xpr`: Base Expr node structure
+- `subLinkType`: Type of sublink copied from original SubLink
+- `*testexpr`: OpExpr or RowCompareExpr expression tree for combining operators
+- `*paramIds`: IDs of Params embedded in the testexpr
+- `plan_id`: Index (from 1) in PlannedStmt.subplans identifying the Plan tree to use
+- `*plan_name`: Name assigned during planning for EXPLAIN and debugging purposes
+- `firstColType`: Type of first column of subplan result
+- `firstColTypmod`: Typmod of first column of subplan result
+- `firstColCollation`: Collation of first column of subplan result
+- `useHashTable`: True to store subselect output in hash table (implies "IN" operation)
+- `unknownEqFalse`: True if okay to return FALSE when spec result is UNKNOWN
+- `parallel_safe`: Whether the subplan is parallel-safe
+- `*setParam`: List of PARAM_EXEC params set by initplan/MULTIEXPR subqueries for parent plan
+- `*parParam`: Indices of input Params from parent plan
+- `*args`: Expressions to pass as parParam values
+- `startup_cost`: One-time setup cost
+- `per_call_cost`: Cost for each subplan evaluation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SubLinkType](SubLinkType.md)

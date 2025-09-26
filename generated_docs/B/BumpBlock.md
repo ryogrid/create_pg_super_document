@@ -25,11 +25,10 @@ BumpBlock is the fundamental storage unit used by the bump allocator memory cont
 The block maintains pointers to track the free space region (between freeptr and endptr) and integrates with PostgreSQL's doubly-linked list infrastructure for efficient block management. During debug builds, it also maintains a back-pointer to the owning context for validation purposes.
 
 ## Parameters / Member Variables
-- : dlist_node structure enabling the block to be part of a doubly-linked list of blocks within the BumpContext
-- : (Debug builds only) Back-pointer to the BumpContext that owns this block, used for memory context checking and validation
-- : Pointer to the start of available/unallocated space within this block - advanced as allocations are made
-- : Pointer to the end of the allocated memory region for this block, marking the boundary of available space
-
+- `node`: dlist_node structure enabling the block to be part of a doubly-linked list of blocks within the BumpContext
+- `*context`: (Debug builds only) Back-pointer to the BumpContext that owns this block, used for memory context checking and validation
+- `*freeptr`: Pointer to the start of available/unallocated space within this block - advanced as allocations are made
+- `*endptr`: Pointer to the end of the allocated memory region for this block, marking the boundary of available space
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node](../d/dlist_node.md) (for linked list functionality)

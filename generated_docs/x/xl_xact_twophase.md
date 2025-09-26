@@ -18,8 +18,7 @@ typedef struct xl_xact_twophase
 The xl_xact_twophase structure is a minimal WAL record format used specifically for logging two-phase commit transaction identifiers. In PostgreSQL's distributed transaction system, two-phase commit (2PC) is a protocol that ensures atomicity across multiple databases or transaction managers. This structure captures the essential information needed to identify a transaction participating in a two-phase commit protocol within WAL records, enabling proper recovery and coordination of distributed transactions during commit and abort operations.
 
 ## Parameters / Member Variables
-- : A TransactionId representing the identifier of the transaction participating in the two-phase commit protocol
-
+- `xid`: A TransactionId representing the identifier of the transaction participating in the two-phase commit protocol
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId (data type)

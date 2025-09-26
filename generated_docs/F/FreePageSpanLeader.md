@@ -23,11 +23,10 @@ The FreePageSpanLeader structure serves as a header for contiguous spans of free
 The structure uses relative pointers (RelptrFreePageSpanLeader) for the linked list connections, which enables the free page manager to work correctly even when the memory segment is mapped at different virtual addresses across processes or when relocated.
 
 ## Parameters / Member Variables
-- : Magic number constant (FREE_PAGE_SPAN_LEADER_MAGIC) used for validation and debugging
-- : Number of contiguous pages in this free span, including the leader page itself
-- : Relative pointer to the previous span leader in the doubly-linked list
-- : Relative pointer to the next span leader in the doubly-linked list
-
+- `magic`: Magic number constant (FREE_PAGE_SPAN_LEADER_MAGIC) used for validation and debugging
+- `npages`: Number of contiguous pages in this free span, including the leader page itself
+- `prev`: Relative pointer to the previous span leader in the doubly-linked list
+- `next`: Relative pointer to the next span leader in the doubly-linked list
 ## Dependencies
 - Functions called/Symbols referenced:
   - Size (PostgreSQL size type)

@@ -22,10 +22,9 @@ ActiveSnapshotElt is a fundamental component of PostgreSQL's snapshot management
 The structure supports PostgreSQL's multi-level transaction system by tracking which snapshot belongs to which transaction nesting level. When transactions are nested (such as with savepoints), this structure allows the system to maintain separate snapshots for different transaction levels while preserving the proper order for cleanup operations.
 
 ## Parameters / Member Variables
-- : The actual Snapshot structure containing the snapshot data for this level
-- : The transaction nesting level that owns this snapshot (higher values indicate deeper nesting)
-- : Pointer to the next element in the active snapshot stack (forms a linked list)
-
+- `as_snap`: The actual Snapshot structure containing the snapshot data for this level
+- `as_level`: The transaction nesting level that owns this snapshot (higher values indicate deeper nesting)
+- `*as_next`: Pointer to the next element in the active snapshot stack (forms a linked list)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Snapshot](../S/Snapshot.md) (data type)

@@ -1,10 +1,11 @@
 import re
+import sys
 from pathlib import Path
 
 # --- Configuration ---
 ROOT_DIR = Path("generated_docs")
 
-def extract_struct_members(code: str) -> list or None:
+def extract_struct_members(code: str) -> list | None:
     """
     Extracts member variable names from a struct definition in a C code block.
     This version correctly handles complex declarations with spaces in array specifiers.
@@ -46,6 +47,22 @@ def extract_struct_members(code: str) -> list or None:
     return members if members else None
 
 
+def load_symbol_names(symbol_file: str) -> set:
+    """
+    Load symbol names from a text file (one symbol per line).
+    """
+    try:
+        with open(symbol_file, 'r', encoding='utf-8') as f:
+            symbols = {line.strip() for line in f if line.strip()}
+        return symbols
+    except FileNotFoundError:
+        print(f"Error: Symbol file '{symbol_file}' not found.")
+        return set()
+    except Exception as e:
+        print(f"Error reading symbol file '{symbol_file}': {e}")
+        return set()
+
+
 def main():
     """
     Main function to scan files and update member variable names with detailed skip reporting.
@@ -54,7 +71,17 @@ def main():
         print(f"Error: Directory '{ROOT_DIR}' not found. Please run this script from the correct location.")
         return
 
-    print(f"Scanning markdown files in '{ROOT_DIR}' to update struct member names...")
+    # Check for symbol file argument
+    target_symbols = None
+    if len(sys.argv) > 1:
+        symbol_file = sys.argv[1]
+        target_symbols = load_symbol_names(symbol_file)
+        if not target_symbols:
+            print("No valid symbols found in the file. Exiting.")
+            return
+        print(f"Processing only symbols from '{symbol_file}': {len(target_symbols)} symbols loaded.")
+    else:
+        print(f"Scanning all markdown files in '{ROOT_DIR}' to update struct member names...")
 
     files_scanned = 0
     files_changed = 0
@@ -63,12 +90,20 @@ def main():
     skipped_mismatch = 0
     skipped_annotated = 0
     skipped_other_errors = 0
+    skipped_not_in_list = 0
     
     definition_pattern = re.compile(r"## Definition\s*\n+```c\n([\s\S]*?)\n```", flags=re.DOTALL)
     params_header_pattern = re.compile(r"^## Parameters / Member Variables\s*$", flags=re.MULTILINE)
     next_header_pattern = re.compile(r"^## \w+", flags=re.MULTILINE)
 
     for md_path in ROOT_DIR.rglob("*.md"):
+        # If target symbols are specified, check if this file should be processed
+        if target_symbols is not None:
+            symbol_name = md_path.stem  # Get filename without extension
+            if symbol_name not in target_symbols:
+                skipped_not_in_list += 1
+                continue
+        
         files_scanned += 1
         try:
             content = md_path.read_text(encoding='utf-8')
@@ -164,6 +199,8 @@ def main():
     print(f"Total files scanned: {files_scanned}")
     print(f"Total files modified: {files_changed}")
     print("\nBreakdown of skipped files:")
+    if target_symbols is not None:
+        print(f"  - Skipped (not in symbol list): {skipped_not_in_list}")
     print(f"  - Skipped (no members found in definition): {skipped_no_members}")
     print(f"  - Skipped (member/parameter count mismatch): {skipped_mismatch}")
     print(f"  - Skipped (already annotated or manually formatted): {skipped_annotated}")

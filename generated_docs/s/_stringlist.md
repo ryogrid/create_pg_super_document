@@ -21,9 +21,8 @@ The  structure implements a basic singly-linked list specifically designed for s
 The structure is typically manipulated through helper functions like  which appends new items to the end of the list, and  which recursively deallocates the entire list. This design pattern allows for easy accumulation of string values during program execution.
 
 ## Parameters / Member Variables
-- : A dynamically allocated string containing the actual string value stored in this list node
-- : A pointer to the next  node in the linked list, or NULL if this is the last node
-
+- `*str`: A dynamically allocated string containing the actual string value stored in this list node
+- `*next`: A pointer to the next  node in the linked list, or NULL if this is the last node
 ## Dependencies
 - Functions called/Symbols referenced:
   - (Self-referential in the  pointer)

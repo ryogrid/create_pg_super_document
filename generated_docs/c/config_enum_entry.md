@@ -24,10 +24,9 @@ This structure enables PostgreSQL to provide user-friendly string-based configur
 The hidden flag provides a mechanism to accept certain values for backward compatibility or internal use while not exposing them to users when they request a list of valid options. This allows for deprecated or special-purpose values to remain functional without cluttering user documentation.
 
 ## Parameters / Member Variables
-- : The human-readable string name for this enum value (e.g., "on", "off", "debug")
-- : The internal integer value that corresponds to this name
-- : Flag indicating whether this value should be hidden from user-visible option lists (true = hidden from display but still accepted)
-
+- `*name`: The human-readable string name for this enum value (e.g., "on", "off", "debug")
+- `val`: The internal integer value that corresponds to this name
+- `hidden`: Flag indicating whether this value should be hidden from user-visible option lists (true = hidden from display but still accepted)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource (referenced in nearby code sections)

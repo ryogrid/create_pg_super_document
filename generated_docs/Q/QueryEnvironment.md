@@ -25,8 +25,7 @@ The primary use case is for managing named tuplestores containing delta informat
 The implementation uses a simple linked list (List) because the number of ephemeral relations in any context is expected to be very small. If performance becomes an issue, the implementation can be changed transparently since the structure is opaque to callers.
 
 ## Parameters / Member Variables
-- : A PostgreSQL List containing EphemeralNamedRelation objects. Each entry represents a named temporary relation that can be referenced during query execution.
-
+- `*namedRelList`: A PostgreSQL List containing EphemeralNamedRelation objects. Each entry represents a named temporary relation that can be referenced during query execution.
 ## Dependencies
 
 ### Functions called/Symbols referenced:

@@ -26,12 +26,11 @@ A subscription acts as the consumer side of logical replication, connecting to a
 The structure supports subscription to multiple publications from the same publisher, allowing fine-grained control over which data changes are replicated to the subscriber database.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifier for the parse tree node system
-- : String containing the name of the subscription being created; must be unique within the current database
-- : PostgreSQL connection string specifying how to connect to the publisher database; contains host, port, database name, user credentials, and other connection parameters
-- : List of string values representing the names of publications on the publisher database to subscribe to; must contain at least one publication name
-- : List of DefElem nodes representing subscription options such as 'connect' (whether to connect immediately), 'enabled' (whether subscription is active), 'create_slot' (whether to create replication slot), 'slot_name', 'synchronous_commit', 'binary', 'streaming', 'two_phase', etc.
-
+- `type`: Standard NodeTag identifier for the parse tree node system
+- `*subname`: String containing the name of the subscription being created; must be unique within the current database
+- `*conninfo`: PostgreSQL connection string specifying how to connect to the publisher database; contains host, port, database name, user credentials, and other connection parameters
+- `*publication`: List of string values representing the names of publications on the publisher database to subscribe to; must contain at least one publication name
+- `*options`: List of DefElem nodes representing subscription options such as 'connect' (whether to connect immediately), 'enabled' (whether subscription is active), 'create_slot' (whether to create replication slot), 'slot_name', 'synchronous_commit', 'binary', 'streaming', 'two_phase', etc.
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (standard parse tree node identifier)

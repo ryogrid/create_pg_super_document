@@ -43,13 +43,12 @@ TransitionCaptureState is a per-caller state structure that coordinates the capt
 The structure is designed to handle complex scenarios involving table inheritance hierarchies, where tuple format conversions between child and parent tables need to be optimized. It also ensures that per SQL specification, all operations of the same kind on the same table during one query share a single transition table through shared AfterTriggersTableData structures.
 
 ## Parameters / Member Variables
-- : Flag indicating whether any trigger requires an OLD transition table for DELETE operations
-- : Flag indicating whether any trigger requires an OLD transition table for UPDATE operations  
-- : Flag indicating whether any trigger requires a NEW transition table for UPDATE operations
-- : Flag indicating whether any trigger requires a NEW transition table for INSERT operations
-- : TupleTableSlot containing the original tuple format for INSERT/COPY operations to avoid redundant format conversions in inheritance scenarios
-- : Pointer to AfterTriggersTableData containing the actual tuplestore(s) and shared state across multiple callers
-
+- `tcs_delete_old_table`: Flag indicating whether any trigger requires an OLD transition table for DELETE operations
+- `tcs_update_old_table`: Flag indicating whether any trigger requires an OLD transition table for UPDATE operations
+- `tcs_update_new_table`: Flag indicating whether any trigger requires a NEW transition table for UPDATE operations
+- `tcs_insert_new_table`: Flag indicating whether any trigger requires a NEW transition table for INSERT operations
+- `*tcs_original_insert_tuple`: TupleTableSlot containing the original tuple format for INSERT/COPY operations to avoid redundant format conversions in inheritance scenarios
+- `*tcs_private`: Pointer to AfterTriggersTableData containing the actual tuplestore(s) and shared state across multiple callers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleTableSlot](TupleTableSlot.md)

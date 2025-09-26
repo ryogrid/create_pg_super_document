@@ -21,11 +21,10 @@ typedef struct TriggerTransition
 TriggerTransition represents the syntactic structure for naming transition rows or tables in trigger definitions. This allows triggers to reference the OLD and NEW data sets using user-defined names in trigger functions. Initially, only transition tables are supported in the syntax and only for AFTER triggers, though the parser accepts other permutations to provide meaningful error messages from C code. This structure captures the essential information needed to establish the relationship between user-defined names and the underlying transition data.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL node identification
-- : User-defined name for the transition table or row reference
-- : Boolean flag indicating whether this references NEW data (true) or OLD data (false)
-- : Boolean flag indicating whether this is a table reference (true) or row reference (false)
-
+- `type`: Standard NodeTag for PostgreSQL node identification
+- `*name`: User-defined name for the transition table or row reference
+- `isNew`: Boolean flag indicating whether this references NEW data (true) or OLD data (false)
+- `isTable`: Boolean flag indicating whether this is a table reference (true) or row reference (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references)

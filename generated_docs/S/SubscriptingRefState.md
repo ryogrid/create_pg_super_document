@@ -46,21 +46,20 @@ The state distinguishes between upper and lower indexes to support slice notatio
 For assignment operations, the structure stores both the new value to assign and can preserve the previous value for nested assignments. A type-specific workspace pointer allows different container types (arrays, JSONB) to maintain their own specialized state.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this is an assignment operation (true) or just a fetch operation (false)
-- : Void pointer to type-specific workspace used by container-specific subscripting code
-- : Number of upper index positions
-- : Array indicating which upper index positions are explicitly provided
-- : Array of upper index Datum values
-- : Array indicating null status for upper indexes
-- : Number of lower index positions (for slice operations)
-- : Array indicating which lower index positions are explicitly provided
-- : Array of lower index Datum values
-- : Array indicating null status for lower indexes
-- : For assignments, the new Datum value to assign
-- : Null flag for the replacement value
-- : Previous Datum value, used in nested assignments
-- : Null flag for the previous value
-
+- `isassignment`: Boolean flag indicating whether this is an assignment operation (true) or just a fetch operation (false)
+- `*workspace`: Void pointer to type-specific workspace used by container-specific subscripting code
+- `numupper`: Number of upper index positions
+- `*upperprovided`: Array indicating which upper index positions are explicitly provided
+- `*upperindex`: Array of upper index Datum values
+- `*upperindexnull`: Array indicating null status for upper indexes
+- `numlower`: Number of lower index positions (for slice operations)
+- `*lowerprovided`: Array indicating which lower index positions are explicitly provided
+- `*lowerindex`: Array of lower index Datum values
+- `*lowerindexnull`: Array indicating null status for lower indexes
+- `replacevalue`: For assignments, the new Datum value to assign
+- `replacenull`: Null flag for the replacement value
+- `prevvalue`: Previous Datum value, used in nested assignments
+- `prevnull`: Null flag for the previous value
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a data structure)

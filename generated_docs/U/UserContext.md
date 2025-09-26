@@ -27,10 +27,9 @@ The structure captures three critical pieces of state information:
 When switching to an untrusted user (one who cannot SET ROLE back to the original user), the system imposes  restrictions and creates a new GUC nest level to isolate any configuration changes made by the untrusted user's code.
 
 ## Parameters / Member Variables
-- : The original user ID (Oid) before the user context switch, used to restore the original user identity
-- : The original security context flags, including any security restrictions that were in effect
-- : The GUC nest level for rolling back configuration changes; set to -1 when no GUC rollback is needed (mutual SET ROLE capability)
-
+- `save_userid`: The original user ID (Oid) before the user context switch, used to restore the original user identity
+- `save_sec_context`: The original security context flags, including any security restrictions that were in effect
+- `save_nestlevel`: The GUC nest level for rolling back configuration changes; set to -1 when no GUC rollback is needed (mutual SET ROLE capability)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

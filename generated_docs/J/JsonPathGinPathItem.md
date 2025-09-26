@@ -26,10 +26,9 @@ The keyName field stores the actual key data for specific key lookups (jpiKey ty
 This structure is specifically designed for the jsonb_ops indexing approach, where individual path components are indexed separately, as opposed to jsonb_path_ops which uses path-aware hashing.
 
 ## Parameters / Member Variables
-- : Pointer to the parent (previous) path item in the linked list structure
-- : Datum containing the key name for '.key' path items, or NULL for generic operations
-- : JsonPathItemType enumeration value indicating the type of path operation (jpiKey, jpiAny, jpiAnyKey, jpiAnyArray, jpiIndexArray, etc.)
-
+- `*parent`: Pointer to the parent (previous) path item in the linked list structure
+- `keyName`: Datum containing the key name for '.key' path items, or NULL for generic operations
+- `type`: JsonPathItemType enumeration value indicating the type of path operation (jpiKey, jpiAny, jpiAnyKey, jpiAnyArray, jpiIndexArray, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonPathItemType (enumeration from jsonpath system)

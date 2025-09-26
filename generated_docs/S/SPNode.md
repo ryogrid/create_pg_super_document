@@ -21,9 +21,8 @@ SPNode serves as the fundamental building block for implementing a prefix tree d
 The prefix tree implementation allows for memory-efficient storage of large dictionaries while providing fast prefix-based lookups, which is essential for spell checking and word suggestion functionality in PostgreSQL's full-text search capabilities.
 
 ## Parameters / Member Variables
-- : Number of SPNodeData elements in the data array, representing the number of child branches from this node
-- : Flexible array of SPNodeData structures containing character values, word flags, affix references, and pointers to child nodes
-
+- `length`: Number of SPNodeData elements in the data array, representing the number of child branches from this node
+- `data[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of SPNodeData structures containing character values, word flags, affix references, and pointers to child nodes
 ## Dependencies
 - Functions called/Symbols referenced:
   - SPNodeData (struct for node data storage)

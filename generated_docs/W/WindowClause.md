@@ -45,22 +45,21 @@ The structure handles window inheritance where one window can reference another 
 For RANGE frame specifications with offset bounds, the structure maintains detailed information about the in_range functions and collation requirements needed for proper boundary calculations. The query planner optimizes the partitionClause by removing columns that belong to redundant PathKeys.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a WindowClause node
-- : Name of the window if originally from a WINDOW clause, NULL for OVER clauses
-- : Name of referenced window for inheritance, if any
-- : List of SortGroupClause nodes defining PARTITION BY specification
-- : List of SortGroupClause nodes defining ORDER BY specification
-- : Bit flags specifying frame clause options (see WindowDef)
-- : Expression defining the starting frame boundary offset
-- : Expression defining the ending frame boundary offset
-- : OID of in_range function for start boundary calculations
-- : OID of in_range function for end boundary calculations
-- : Collation OID for in_range function calls
-- : Boolean indicating ASC sort order for in_range tests
-- : Boolean indicating null handling for in_range tests
-- : Unique identifier referenced by WindowFunc nodes
-- : Boolean indicating if orderClause was inherited from refname
-
+- `type`: NodeTag identifying this as a WindowClause node
+- `pg_node_attr(query_jumble_ignore)`: Name of the window if originally from a WINDOW clause, NULL for OVER clauses
+- `pg_node_attr(query_jumble_ignore)`: Name of referenced window for inheritance, if any
+- `*partitionClause`: List of SortGroupClause nodes defining PARTITION BY specification
+- `*orderClause`: List of SortGroupClause nodes defining ORDER BY specification
+- `frameOptions`: Bit flags specifying frame clause options (see WindowDef)
+- `*startOffset`: Expression defining the starting frame boundary offset
+- `*endOffset`: Expression defining the ending frame boundary offset
+- `pg_node_attr(query_jumble_ignore)`: OID of in_range function for start boundary calculations
+- `pg_node_attr(query_jumble_ignore)`: OID of in_range function for end boundary calculations
+- `pg_node_attr(query_jumble_ignore)`: Collation OID for in_range function calls
+- `pg_node_attr(query_jumble_ignore)`: Boolean indicating ASC sort order for in_range tests
+- `pg_node_attr(query_jumble_ignore)`: Boolean indicating null handling for in_range tests
+- `winref`: Unique identifier referenced by WindowFunc nodes
+- `pg_node_attr(query_jumble_ignore)`: Boolean indicating if orderClause was inherited from refname
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortGroupClause](../S/SortGroupClause.md) (for partition and order specifications)

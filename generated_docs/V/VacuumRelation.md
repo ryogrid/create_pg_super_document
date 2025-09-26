@@ -21,11 +21,10 @@ typedef struct VacuumRelation
 VacuumRelation encapsulates the target information for VACUUM and ANALYZE commands. It can identify a table either by name (through RangeVar) or by OID. If the OID field is set, it always identifies the table to process. The relation field can be NULL in such cases; when present, it's used only to report failure to open/lock the relation. This dual identification mechanism provides flexibility in how tables are specified and helps with error reporting.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a VacuumRelation node
-- : RangeVar pointer containing the table name to process, or NULL if identification is done by OID
-- : Object identifier of the table; set to InvalidOid if not looked up yet
-- : List of column names for ANALYZE operations, or NIL to analyze all columns
-
+- `type`: NodeTag identifying this as a VacuumRelation node
+- `*relation`: RangeVar pointer containing the table name to process, or NULL if identification is done by OID
+- `oid`: Object identifier of the table; set to InvalidOid if not looked up yet
+- `*va_cols`: List of column names for ANALYZE operations, or NIL to analyze all columns
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVar](../R/RangeVar.md) (for table name specification)

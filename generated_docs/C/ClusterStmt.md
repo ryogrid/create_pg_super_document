@@ -23,11 +23,10 @@ ClusterStmt is a parse node structure that represents a CLUSTER SQL statement. T
 The clustering operation requires an exclusive lock on the table and can be time-consuming for large tables. It supports both single-table clustering and clustering multiple tables in separate transactions to avoid deadlocks.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a ClusterStmt node
-- : Pointer to RangeVar identifying the target table, or NULL to cluster all tables with clustered indexes
-- : String containing the name of the index to cluster on, or NULL to use the previously clustered index
-- : List of DefElem nodes containing options (currently supports VERBOSE option)
-
+- `type`: NodeTag identifying this as a ClusterStmt node
+- `*relation`: Pointer to RangeVar identifying the target table, or NULL to cluster all tables with clustered indexes
+- `*indexname`: String containing the name of the index to cluster on, or NULL to use the previously clustered index
+- `*params`: List of DefElem nodes containing options (currently supports VERBOSE option)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVar](../R/RangeVar.md) (for table identification)

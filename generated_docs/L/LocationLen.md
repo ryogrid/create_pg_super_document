@@ -21,9 +21,8 @@ LocationLen serves as a fundamental data structure in PostgreSQL's query jumblin
 The structure is used to build an array of constant locations that can later be processed to generate normalized query text where constants are replaced with placeholders.
 
 ## Parameters / Member Variables
-- : The start offset (byte position) in the original query text where a constant begins. A value of -1 indicates an unknown or undefined location.
-- : The length of the constant in bytes. A value of -1 is used to indicate that the length should be ignored, which simplifies usage for third-party modules.
-
+- `location`: The start offset (byte position) in the original query text where a constant begins. A value of -1 indicates an unknown or undefined location.
+- `length`: The length of the constant in bytes. A value of -1 is used to indicate that the length should be ignored, which simplifies usage for third-party modules.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Used within JumbleState structure

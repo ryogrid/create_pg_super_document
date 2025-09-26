@@ -23,11 +23,10 @@ AlterStatsStmt is a parse tree node that represents the SQL ALTER STATISTICS com
 The statement can optionally use IF EXISTS semantics through the missing_ok flag, allowing scripts to alter statistics objects without failing when they don't exist.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL parse tree nodes
-- : Qualified name of the statistics object as a list of strings (schema.stats_name)
-- : Node representing the new statistics target value (typically an integer constant)
-- : Boolean flag for IF EXISTS clause - true to skip errors when statistics object doesn't exist
-
+- `type`: Standard NodeTag for PostgreSQL parse tree nodes
+- `*defnames`: Qualified name of the statistics object as a list of strings (schema.stats_name)
+- `*stxstattarget`: Node representing the new statistics target value (typically an integer constant)
+- `missing_ok`: Boolean flag for IF EXISTS clause - true to skip errors when statistics object doesn't exist
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (parse tree infrastructure)

@@ -33,14 +33,13 @@ The structure is designed to be signal-safe, with volatile fields that can be mo
 The timeout system uses SIGALRM signals and supports both one-shot and repeating timeouts. The structure enables efficient timeout scheduling by storing both absolute expiration times and repeat intervals.
 
 ## Parameters / Member Variables
-- : The  enum value that uniquely identifies this timeout reason (e.g., DEADLOCK_TIMEOUT, STATEMENT_TIMEOUT)
-- : Volatile boolean indicating whether this timeout is currently in the active_timeouts[] array and scheduled to fire
-- : Volatile boolean flag set to true when the timeout has actually occurred, used by timeout handlers to check if their timeout fired
-- : Function pointer to the callback function executed when this timeout fires, or NULL if the timeout is not currently registered
-- : The  when this timeout was last activated or rescheduled
-- : The absolute  when this timeout is scheduled to expire (or did expire for completed timeouts)
-- : For repeating timeouts, the interval in milliseconds between firings; 0 for one-shot timeouts
-
+- `index`: The  enum value that uniquely identifies this timeout reason (e.g., DEADLOCK_TIMEOUT, STATEMENT_TIMEOUT)
+- `active`: Volatile boolean indicating whether this timeout is currently in the active_timeouts[] array and scheduled to fire
+- `indicator`: Volatile boolean flag set to true when the timeout has actually occurred, used by timeout handlers to check if their timeout fired
+- `timeout_handler`: Function pointer to the callback function executed when this timeout fires, or NULL if the timeout is not currently registered
+- `start_time`: The  when this timeout was last activated or rescheduled
+- `fin_time`: The absolute  when this timeout is scheduled to expire (or did expire for completed timeouts)
+- `interval_in_ms`: For repeating timeouts, the interval in milliseconds between firings; 0 for one-shot timeouts
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (enum type for timeout identification)

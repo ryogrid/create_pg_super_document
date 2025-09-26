@@ -25,10 +25,9 @@ Special handling is provided for the ALL PRIVILEGES case:
 - Simple "ALL PRIVILEGES" without column specification is represented as a NIL list, not as an AccessPriv with both fields null
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as an AccessPriv node in the parse tree
-- : String name of the specific privilege (e.g., "SELECT", "INSERT", "UPDATE", "DELETE", etc.). NULL indicates ALL PRIVILEGES when used with a column list
-- : List of String nodes representing column names. NIL (empty list) indicates the privilege applies to all columns
-
+- `type`: NodeTag identifying this as an AccessPriv node in the parse tree
+- `*priv_name`: String name of the specific privilege (e.g., "SELECT", "INSERT", "UPDATE", "DELETE", etc.). NULL indicates ALL PRIVILEGES when used with a column list
+- `*cols`: List of String nodes representing column names. NIL (empty list) indicates the privilege applies to all columns
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for parse tree node identification)

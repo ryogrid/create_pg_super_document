@@ -22,10 +22,9 @@ CreateForeignTableStmt is a specialized parse tree node that extends the standar
 The base CreateStmt contains standard table definition elements like column definitions, constraints, and table options, while the additional fields specify the connection to external data through a named foreign server and foreign-table-specific options.
 
 ## Parameters / Member Variables
-- : CreateStmt structure containing standard table creation elements (columns, constraints, etc.)
-- : Name of the foreign server that will provide access to the external data
-- : List of DefElem nodes containing foreign-table-specific configuration options
-
+- `base`: CreateStmt structure containing standard table creation elements (columns, constraints, etc.)
+- `*servername`: Name of the foreign server that will provide access to the external data
+- `*options`: List of DefElem nodes containing foreign-table-specific configuration options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateStmt](CreateStmt.md) (base structure for table creation)

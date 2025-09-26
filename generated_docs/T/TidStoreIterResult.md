@@ -23,11 +23,10 @@ TidStoreIterResult serves as the output container for the TidStoreIterateNext() 
 The offsets array contains the actual offset numbers within the block, ordered in ascending order to facilitate efficient processing. The max_offset field provides optimization hints for operations that need to understand the range of offsets present.
 
 ## Parameters / Member Variables
-- : The block number for which this result contains tuple identifiers
-- : The maximum offset number in the offsets array, used for optimization purposes
-- : The number of valid entries in the offsets array
-- : Pointer to an array of OffsetNumber values representing tuple positions within the block
-
+- `blkno`: The block number for which this result contains tuple identifiers
+- `max_offset`: The maximum offset number in the offsets array, used for optimization purposes
+- `num_offsets`: The number of valid entries in the offsets array
+- `*offsets`: Pointer to an array of OffsetNumber values representing tuple positions within the block
 ## Dependencies
 - Functions called/Symbols referenced: 
   - Uses PostgreSQL built-in types: BlockNumber, OffsetNumber

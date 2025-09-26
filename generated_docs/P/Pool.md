@@ -22,10 +22,9 @@ The Pool structure is a fundamental component of PostgreSQL's Genetic Query Opti
 During query optimization, when the number of relations exceeds the threshold for exhaustive search, GEQO creates and maintains pools of chromosomes representing different join orders. The genetic algorithm evolves these pools over multiple generations to find near-optimal solutions.
 
 ## Parameters / Member Variables
-- : A pointer to an array of Chromosome structures representing the population of potential solutions
-- : The number of chromosomes currently in the pool (population size)
-- : The length of the gene string in each chromosome, typically corresponding to the number of relations in the query
-
+- `*data`: A pointer to an array of Chromosome structures representing the population of potential solutions
+- `size`: The number of chromosomes currently in the pool (population size)
+- `string_length`: The length of the gene string in each chromosome, typically corresponding to the number of relations in the query
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Chromosome](../C/Chromosome.md)

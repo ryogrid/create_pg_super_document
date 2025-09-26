@@ -23,9 +23,8 @@ RangeTblRef nodes function as the leaves of a join tree structure. Above these l
 During the parsing process, the raw output of gram.y contains RangeVar, RangeSubselect, and RangeFunction nodes, which are all eventually replaced by RangeTblRef nodes during the parse analysis phase.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a RangeTblRef node
-- : Integer index pointing to the corresponding entry in the query's range table
-
+- `type`: NodeTag identifying this as a RangeTblRef node
+- `rtindex`: Integer index pointing to the corresponding entry in the query's range table
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for node identification)

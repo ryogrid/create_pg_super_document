@@ -21,9 +21,8 @@ AlterCollationStmt is a parse tree node structure that represents ALTER COLLATIO
 The structure is part of PostgreSQL's SQL parser output and is used by the utility command processing infrastructure to handle collation modification operations. Currently, PostgreSQL supports limited ALTER COLLATION functionality, primarily for refreshing collation versions when the underlying system collation changes.
 
 ## Parameters / Member Variables
-- : NodeTag for node type identification in PostgreSQL's node system
-- : List of strings representing the qualified name of the collation to be altered (e.g., schema.collation_name)
-
+- `type`: NodeTag for node type identification in PostgreSQL's node system
+- `*collname`: List of strings representing the qualified name of the collation to be altered (e.g., schema.collation_name)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct references from this symbol)

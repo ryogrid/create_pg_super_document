@@ -30,15 +30,11 @@ Set-returning functions can have highly variable output row counts depending on 
 When a support function can provide an estimate, it stores the expected row count in the rows field and returns the address of the SupportRequestRows node. If no estimate can be made, it returns NULL, causing the planner to fall back to the target function's prorows field.
 
 ## Parameters / Member Variables
-**Input fields:**
-- : NodeTag identifying this as a SupportRequestRows structure
-- : Pointer to PlannerInfo containing planner's infrastructure; may be NULL in some contexts
-- : OID of the set-returning function being analyzed for row count estimation
-- : Parse node that is invoking the target function; currently always a FuncExpr or OpExpr
-
-**Output fields:**
-- : Estimated number of rows expected to be returned by the function execution
-
+- `type`: NodeTag identifying this as a SupportRequestRows structure
+- `*root`: Pointer to PlannerInfo containing planner's infrastructure; may be NULL in some contexts
+- `funcid`: OID of the set-returning function being analyzed for row count estimation
+- `*node`: Parse node that is invoking the target function; currently always a FuncExpr or OpExpr
+- `rows`: Estimated number of rows expected to be returned by the function execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

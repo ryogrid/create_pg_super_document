@@ -31,14 +31,13 @@ The structure supports three types of items:
 - **OPCLASS_ITEM_STORAGETYPE (3)**: Specifies the storage data type for the index
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this parse tree node type
-- : Item type code (OPCLASS_ITEM_OPERATOR, OPCLASS_ITEM_FUNCTION, or OPCLASS_ITEM_STORAGETYPE)
-- : ObjectWithArgs structure containing the operator or function name and its arguments
-- : Strategy number for operators or support procedure number for functions
-- : List used specifically for ordering operators to specify operator family relationships
-- : List containing argument types (amproclefttype/amprocrighttype for procedures, amoplefttype/amoprighttype for operators)
-- : TypeName specifying the datatype stored in the index (used only for storage type items)
-
+- `type`: NodeTag identifier for this parse tree node type
+- `itemtype`: Item type code (OPCLASS_ITEM_OPERATOR, OPCLASS_ITEM_FUNCTION, or OPCLASS_ITEM_STORAGETYPE)
+- `*name`: ObjectWithArgs structure containing the operator or function name and its arguments
+- `number`: Strategy number for operators or support procedure number for functions
+- `*order_family`: List used specifically for ordering operators to specify operator family relationships
+- `*class_args`: List containing argument types (amproclefttype/amprocrighttype for procedures, amoplefttype/amoprighttype for operators)
+- `*storedtype`: TypeName specifying the datatype stored in the index (used only for storage type items)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ObjectWithArgs](../O/ObjectWithArgs.md)

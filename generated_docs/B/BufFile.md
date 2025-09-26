@@ -57,20 +57,19 @@ BufFile supports two main modes of operation:
 The structure also supports transaction-spanning files (isInterXact flag) and read-only mode for optimization purposes.
 
 ## Parameters / Member Variables
-- : Number of physical files that make up this logical buffered file
-- : Dynamically allocated array of File handles, one for each physical segment
-- : Flag indicating whether the file should remain open across transaction boundaries
-- : Flag indicating whether the current buffer contains modified data that needs to be written to disk
-- : Flag indicating whether the file has been set to read-only mode for optimization
-- : Pointer to FileSet structure for shared, named temporary files
-- : Name identifier for FileSet-based BufFiles
-- : ResourceOwner responsible for cleanup of underlying temporary files
-- : Index (0-based) of the currently active physical file segment
-- : Byte offset within the current physical file where the buffer starts
-- : Current read/write position within the internal buffer
-- : Number of valid bytes currently stored in the buffer
-- : Internal I/O buffer using aligned block allocation for performance
-
+- `numFiles`: Number of physical files that make up this logical buffered file
+- `*files`: Dynamically allocated array of File handles, one for each physical segment
+- `isInterXact`: Flag indicating whether the file should remain open across transaction boundaries
+- `dirty`: Flag indicating whether the current buffer contains modified data that needs to be written to disk
+- `readOnly`: Flag indicating whether the file has been set to read-only mode for optimization
+- `*fileset`: Pointer to FileSet structure for shared, named temporary files
+- `*name`: Name identifier for FileSet-based BufFiles
+- `resowner`: ResourceOwner responsible for cleanup of underlying temporary files
+- `curFile`: Index (0-based) of the currently active physical file segment
+- `curOffset`: Byte offset within the current physical file where the buffer starts
+- `pos`: Current read/write position within the internal buffer
+- `nbytes`: Number of valid bytes currently stored in the buffer
+- `buffer`: Internal I/O buffer using aligned block allocation for performance
 ## Dependencies
 - Functions called/Symbols referenced:
   - File (virtual file descriptor type from fd.c)

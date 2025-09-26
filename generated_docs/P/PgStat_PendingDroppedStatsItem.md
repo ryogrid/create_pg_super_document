@@ -24,10 +24,9 @@ The structure serves as a container for statistics operations that need to be de
 This is part of PostgreSQL's cumulative statistics system's transactional integration, which ensures that statistics collection and management remain consistent with the database's ACID properties.
 
 ## Parameters / Member Variables
-- : An  structure containing the core statistics information including the kind of statistics object, database OID, and object OID. This represents the actual statistics entry being tracked.
-- : A boolean flag indicating whether this entry represents a statistics creation () or deletion () operation. This determines the action to be taken upon transaction commit.
-- : A  structure that allows this item to be linked into doubly-linked lists for efficient management of multiple pending statistics operations within the same transaction context.
-
+- `item`: An  structure containing the core statistics information including the kind of statistics object, database OID, and object OID. This represents the actual statistics entry being tracked.
+- `is_create`: A boolean flag indicating whether this entry represents a statistics creation () or deletion () operation. This determines the action to be taken upon transaction commit.
+- `node`: A  structure that allows this item to be linked into doubly-linked lists for efficient management of multiple pending statistics operations within the same transaction context.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (embedded struct for WAL-compatible stats item representation)

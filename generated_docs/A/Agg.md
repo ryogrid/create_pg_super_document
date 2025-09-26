@@ -51,19 +51,18 @@ typedef struct Agg
 The Agg node is PostgreSQL's primary mechanism for implementing aggregate functions and GROUP BY operations. It can handle both simple aggregation (like COUNT(*) over all rows) and grouped aggregation (like GROUP BY clauses). The node supports multiple execution strategies: sorted aggregation (which requires presorted input) and hashed aggregation (which uses an internal hash table). The node dynamically determines which aggregate functions to compute by scanning its target list and qualifiers during executor startup. It also supports advanced features like grouping sets, partial aggregation for parallel processing, and aggregate splitting modes.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common plan node information
-- : Execution strategy (AGG_PLAIN, AGG_SORTED, AGG_HASHED, AGG_MIXED)
-- : Aggregate splitting mode for parallel aggregation (AGGSPLIT_SIMPLE, AGGSPLIT_INITIAL_SERIAL, etc.)
-- : Number of grouping columns (0 for plain aggregation)
-- : Array of attribute numbers for grouping columns
-- : Array of OIDs for equality operators used in grouping
-- : Array of OIDs for collations used in grouping
-- : Estimated number of groups (used for hash table sizing)
-- : Estimated memory needed for transition data
-- : Bitmap of parameter IDs used in aggregate expressions
-- : List of grouping sets for advanced GROUP BY operations
-- : List of chained Agg/Sort nodes for complex aggregation plans
-
+- `plan`: Base Plan structure containing common plan node information
+- `aggstrategy`: Execution strategy (AGG_PLAIN, AGG_SORTED, AGG_HASHED, AGG_MIXED)
+- `aggsplit`: Aggregate splitting mode for parallel aggregation (AGGSPLIT_SIMPLE, AGGSPLIT_INITIAL_SERIAL, etc.)
+- `numCols`: Number of grouping columns (0 for plain aggregation)
+- `pg_node_attr(array_size(numCols))`: Array of attribute numbers for grouping columns
+- `pg_node_attr(array_size(numCols))`: Array of OIDs for equality operators used in grouping
+- `pg_node_attr(array_size(numCols))`: Array of OIDs for collations used in grouping
+- `numGroups`: Estimated number of groups (used for hash table sizing)
+- `transitionSpace`: Estimated memory needed for transition data
+- `*aggParams`: Bitmap of parameter IDs used in aggregate expressions
+- `*groupingSets`: List of grouping sets for advanced GROUP BY operations
+- `*chain`: List of chained Agg/Sort nodes for complex aggregation plans
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

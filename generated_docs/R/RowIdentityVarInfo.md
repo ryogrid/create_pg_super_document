@@ -27,12 +27,11 @@ This structure is used during query planning for UPDATE/DELETE/MERGE operations 
 The structure uses a special convention where all Vars stored must have varno ROWID_VAR for easy duplicate detection. In the final plan, this gets replaced with the actual varno of the generating relation. References to these identity variables use varno ROWID_VAR with varattno k to refer to the k-th element in the row_identity_vars list.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for node type identification
-- : The Var expression to be evaluated, with varno set to ROWID_VAR as a placeholder
-- : Estimated average width in bytes of this row identity column
-- : String name assigned to this resjunk column in the targetlist  
-- : Bitmap of RTE (Range Table Entry) indexes indicating which target relations use this particular row identity variable
-
+- `type`: Standard NodeTag for node type identification
+- `*rowidvar`: The Var expression to be evaluated, with varno set to ROWID_VAR as a placeholder
+- `rowidwidth`: Estimated average width in bytes of this row identity column
+- `*rowidname`: String name assigned to this resjunk column in the targetlist
+- `rowidrels`: Bitmap of RTE (Range Table Entry) indexes indicating which target relations use this particular row identity variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node type system)

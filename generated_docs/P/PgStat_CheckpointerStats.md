@@ -26,16 +26,15 @@ typedef struct PgStat_CheckpointerStats
 PgStat_CheckpointerStats maintains detailed statistics for PostgreSQL's checkpointer process, which is responsible for writing dirty buffers to disk at regular intervals and during shutdown. The checkpointer ensures data durability by creating consistent recovery points and manages WAL recycling. In standby servers, the checkpointer creates restartpoints instead of checkpoints. This structure tracks both the frequency and performance characteristics of these critical operations, including timing information that helps administrators understand I/O performance and system load patterns.
 
 ## Parameters / Member Variables
-- : Counter tracking the number of scheduled checkpoints triggered by timeout (checkpoint_timeout parameter)
-- : Counter tracking the number of checkpoints requested by other processes (e.g., due to WAL segment threshold)
-- : Counter tracking the number of scheduled restartpoints on standby servers
-- : Counter tracking the number of requested restartpoints on standby servers  
-- : Counter tracking the total number of restartpoints actually completed on standby servers
-- : Counter tracking the total time spent writing buffers to disk during checkpoints/restartpoints (in milliseconds)
-- : Counter tracking the total time spent syncing (fsync) files during checkpoints/restartpoints (in milliseconds)
-- : Counter tracking the total number of buffers written by the checkpointer process
-- : Timestamp indicating when these checkpointer statistics were last reset to zero
-
+- `num_timed`: Counter tracking the number of scheduled checkpoints triggered by timeout (checkpoint_timeout parameter)
+- `num_requested`: Counter tracking the number of checkpoints requested by other processes (e.g., due to WAL segment threshold)
+- `restartpoints_timed`: Counter tracking the number of scheduled restartpoints on standby servers
+- `restartpoints_requested`: Counter tracking the number of requested restartpoints on standby servers
+- `restartpoints_performed`: Counter tracking the total number of restartpoints actually completed on standby servers
+- `write_time`: Counter tracking the total time spent writing buffers to disk during checkpoints/restartpoints (in milliseconds)
+- `sync_time`: Counter tracking the total time spent syncing (fsync) files during checkpoints/restartpoints (in milliseconds)
+- `buffers_written`: Counter tracking the total number of buffers written by the checkpointer process
+- `stat_reset_timestamp`: Timestamp indicating when these checkpointer statistics were last reset to zero
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter

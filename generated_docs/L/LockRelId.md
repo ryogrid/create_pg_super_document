@@ -21,9 +21,8 @@ LockRelId is a fundamental structure used in PostgreSQL's lock manager system to
 The structure is declared in  but logically belongs to the lock manager (). It's placed in  for convenience so that it can be embedded in the  structure as a  field.
 
 ## Parameters / Member Variables
-- : The Object Identifier (OID) of the relation being locked. This identifies a specific table, index, or other relation within a database.
-- : The Object Identifier (OID) of the database containing the relation. This ensures the relation can be uniquely identified across the entire PostgreSQL cluster.
-
+- `relId`: The Object Identifier (OID) of the relation being locked. This identifies a specific table, index, or other relation within a database.
+- `dbId`: The Object Identifier (OID) of the database containing the relation. This ensures the relation can be uniquely identified across the entire PostgreSQL cluster.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (typedef)

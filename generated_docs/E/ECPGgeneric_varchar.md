@@ -21,9 +21,8 @@ ECPGgeneric_varchar is a fundamental data structure in PostgreSQL's ECPG library
 The structure is designed to be memory-efficient and compatible with C's memory layout requirements, making it suitable for interfacing between SQL VARCHAR types and C programs.
 
 ## Parameters / Member Variables
-- : An integer storing the actual length of the character string (not including null terminator)
-- : A flexible array member containing the actual character data
-
+- `len`: An integer storing the actual length of the character string (not including null terminator)
+- `arr[FLEXIBLE_ARRAY_MEMBER]`: A flexible array member containing the actual character data
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array declaration)

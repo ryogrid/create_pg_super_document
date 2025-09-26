@@ -28,11 +28,10 @@ LogicalRepCtxStruct serves as the central coordination structure for PostgreSQL'
 The structure uses dynamic shared memory areas (DSA) to maintain a hash table that tracks the last start times of subscription apply workers, which is essential for implementing proper restart throttling and avoiding rapid restart loops when workers encounter errors.
 
 ## Parameters / Member Variables
-- : Process ID of the logical replication launcher supervisor process
-- : Handle to the dynamic shared memory area containing the hash table for worker start times
-- : Handle to the dynamic shared hash table that stores last start times of subscriptions' apply workers
-- : Flexible array member containing LogicalRepWorker structures representing background worker processes
-
+- `launcher_pid`: Process ID of the logical replication launcher supervisor process
+- `last_start_dsa`: Handle to the dynamic shared memory area containing the hash table for worker start times
+- `last_start_dsh`: Handle to the dynamic shared hash table that stores last start times of subscriptions' apply workers
+- `workers[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing LogicalRepWorker structures representing background worker processes
 ## Dependencies
 - Functions called/Symbols referenced:
   - pid_t

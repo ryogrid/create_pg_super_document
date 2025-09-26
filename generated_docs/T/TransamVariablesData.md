@@ -71,21 +71,20 @@ The structure serves multiple purposes:
 The structure is initialized in shared memory during server startup and accessed throughout the system for transaction and OID assignment operations.
 
 ## Parameters / Member Variables
-- : Next Object ID to be assigned (protected by OidGenLock)
-- : Number of OIDs available before requiring XLOG work (protected by OidGenLock)
-- : Next transaction ID to be assigned as a FullTransactionId (protected by XidGenLock)
-- : Cluster-wide minimum datfrozenxid value (protected by XidGenLock)
-- : Threshold where autovacuum is forced to start (protected by XidGenLock)
-- : Threshold where XID wraparound warnings begin (protected by XidGenLock)
-- : Threshold where new XID assignment is refused (protected by XidGenLock)
-- : Absolute limit where transaction wraparound occurs (protected by XidGenLock)
-- : Database OID that has the minimum datfrozenxid (protected by XidGenLock)
-- : Oldest XID for which commit timestamp is available (protected by CommitTsLock)
-- : Newest XID for which commit timestamp is available (protected by CommitTsLock)
-- : Most recent completed (committed or aborted) transaction (protected by ProcArrayLock)
-- : Count of completed top-level transactions, used for snapshot optimization (protected by ProcArrayLock)
-- : Oldest XID safe to look up in commit log (protected by XactTruncationLock)
-
+- `nextOid`: Next Object ID to be assigned (protected by OidGenLock)
+- `oidCount`: Number of OIDs available before requiring XLOG work (protected by OidGenLock)
+- `nextXid`: Next transaction ID to be assigned as a FullTransactionId (protected by XidGenLock)
+- `oldestXid`: Cluster-wide minimum datfrozenxid value (protected by XidGenLock)
+- `xidVacLimit`: Threshold where autovacuum is forced to start (protected by XidGenLock)
+- `xidWarnLimit`: Threshold where XID wraparound warnings begin (protected by XidGenLock)
+- `xidStopLimit`: Threshold where new XID assignment is refused (protected by XidGenLock)
+- `xidWrapLimit`: Absolute limit where transaction wraparound occurs (protected by XidGenLock)
+- `oldestXidDB`: Database OID that has the minimum datfrozenxid (protected by XidGenLock)
+- `oldestCommitTsXid`: Oldest XID for which commit timestamp is available (protected by CommitTsLock)
+- `newestCommitTsXid`: Newest XID for which commit timestamp is available (protected by CommitTsLock)
+- `latestCompletedXid`: Most recent completed (committed or aborted) transaction (protected by ProcArrayLock)
+- `xactCompletionCount`: Count of completed top-level transactions, used for snapshot optimization (protected by ProcArrayLock)
+- `oldestClogXid`: Oldest XID safe to look up in commit log (protected by XactTruncationLock)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FullTransactionId](../F/FullTransactionId.md) (for nextXid and latestCompletedXid fields)

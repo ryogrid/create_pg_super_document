@@ -23,9 +23,8 @@ When a snapshot is exported using the ExportSnapshot() function, an ExportedSnap
 The structure is allocated in TopTransactionContext to ensure it persists for the entire transaction lifetime, and the associated snapshot is pseudo-registered to prevent premature cleanup.
 
 ## Parameters / Member Variables
-- : Path to the file where the snapshot has been exported (stored as a string)
-- : Reference to the actual Snapshot structure containing the snapshot data
-
+- `*snapfile`: Path to the file where the snapshot has been exported (stored as a string)
+- `snapshot`: Reference to the actual Snapshot structure containing the snapshot data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Snapshot](../S/Snapshot.md) (data type)

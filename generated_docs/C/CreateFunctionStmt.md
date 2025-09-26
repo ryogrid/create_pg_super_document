@@ -27,15 +27,14 @@ CreateFunctionStmt is a parse tree node that represents both CREATE FUNCTION and
 The structure handles the dual nature of functions and procedures in PostgreSQL, where procedures are essentially functions that don't return values. The sql_body field can contain the function implementation for SQL-language functions, while other languages use the options list to specify the function implementation.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL parse tree nodes
-- : Boolean flag indicating this is CREATE PROCEDURE rather than CREATE FUNCTION
-- : Boolean flag for CREATE OR REPLACE semantics - allows overwriting existing functions
-- : Qualified name of the function as a list of strings (schema.function_name)
-- : List of FunctionParameter nodes defining the function's parameter list
-- : TypeName node specifying the return type (NULL for procedures)
-- : List of DefElem nodes containing function options (LANGUAGE, VOLATILITY, SECURITY, etc.)
-- : Parse tree containing the function body for SQL-language functions
-
+- `type`: Standard NodeTag for PostgreSQL parse tree nodes
+- `is_procedure`: Boolean flag indicating this is CREATE PROCEDURE rather than CREATE FUNCTION
+- `replace`: Boolean flag for CREATE OR REPLACE semantics - allows overwriting existing functions
+- `*funcname`: Qualified name of the function as a list of strings (schema.function_name)
+- `*parameters`: List of FunctionParameter nodes defining the function's parameter list
+- `*returnType`: TypeName node specifying the return type (NULL for procedures)
+- `*options`: List of DefElem nodes containing function options (LANGUAGE, VOLATILITY, SECURITY, etc.)
+- `*sql_body`: Parse tree containing the function body for SQL-language functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TypeName](../T/TypeName.md) (for return type specification)

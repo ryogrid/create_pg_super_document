@@ -25,14 +25,13 @@ typedef struct MergeWhenClause
 MergeWhenClause is a parse tree node that represents the syntactic structure of WHEN clauses within MERGE statements during the raw parsing phase. It captures the essential components of a WHEN clause including the match condition type (MATCHED vs NOT MATCHED), the command to execute (INSERT, UPDATE, DELETE, or DO NOTHING), and associated data like target lists and values. This structure serves as an intermediate representation that is later processed and transformed into executable MergeAction nodes during parse analysis.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL node identification
-- : Specifies whether this clause handles MATCHED or NOT MATCHED cases, and by SOURCE or TARGET
-- : The SQL command type to execute (INSERT, UPDATE, DELETE, or DO NOTHING)
-- : Specifies the OVERRIDING clause behavior for identity/default columns
-- : Pointer to the conditional expression node that determines when this clause applies
-- : List of target expressions for INSERT/UPDATE operations
-- : List of values to insert (used only for INSERT actions, NULL otherwise)
-
+- `type`: Standard NodeTag for PostgreSQL node identification
+- `matchKind`: Specifies whether this clause handles MATCHED or NOT MATCHED cases, and by SOURCE or TARGET
+- `commandType`: The SQL command type to execute (INSERT, UPDATE, DELETE, or DO NOTHING)
+- `override`: Specifies the OVERRIDING clause behavior for identity/default columns
+- `*condition`: Pointer to the conditional expression node that determines when this clause applies
+- `*targetList`: List of target expressions for INSERT/UPDATE operations
+- `*values`: List of values to insert (used only for INSERT actions, NULL otherwise)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MergeMatchKind](MergeMatchKind.md)

@@ -26,14 +26,13 @@ CreatePLangStmt is a parser node structure that encapsulates all the information
 The structure supports both creating new languages and replacing existing ones through the 'replace' flag. It specifies the essential components of a procedural language: the handler function (required), optional inline and validator functions, and whether the language should be trusted or untrusted.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as a CreatePLangStmt node
-- : Boolean flag indicating whether to replace an existing language with the same name (CREATE OR REPLACE LANGUAGE)
-- : String containing the name of the procedural language to be created
-- : List containing the qualified name of the language's call handler function
-- : List containing the qualified name of the optional inline function for the language
-- : List containing the qualified name of the optional validator function for the language
-- : Boolean flag indicating whether the language is trusted (can be used by non-superusers)
-
+- `type`: Standard NodeTag identifying this as a CreatePLangStmt node
+- `replace`: Boolean flag indicating whether to replace an existing language with the same name (CREATE OR REPLACE LANGUAGE)
+- `*plname`: String containing the name of the procedural language to be created
+- `*plhandler`: List containing the qualified name of the language's call handler function
+- `*plinline`: List containing the qualified name of the optional inline function for the language
+- `*plvalidator`: List containing the qualified name of the optional validator function for the language
+- `pltrusted`: Boolean flag indicating whether the language is trusted (can be used by non-superusers)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

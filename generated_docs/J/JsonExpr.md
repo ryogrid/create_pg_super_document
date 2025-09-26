@@ -62,24 +62,23 @@ typedef struct JsonExpr
 JsonExpr is a node type that represents JSON path expressions after parsing and transformation. It encapsulates all the necessary information for executing JSON_VALUE(), JSON_QUERY(), and JSON_EXISTS() operations, including the source JSON data, path specification, output format requirements, error handling behaviors, and various execution parameters.
 
 ## Parameters / Member Variables
-- : Base Expr structure for expression tree integration
-- : JsonExprOp specifying the type of JSON operation (VALUE, QUERY, EXISTS)
-- : Name of JSON_TABLE() column, or NULL for standalone expressions
-- : The jsonb-valued expression to be queried
-- : JsonFormat specification for the input expression format
-- : The jsonpath-valued expression containing the query pattern
-- : JsonReturning specification for expected output type and format
-- : List of parameter names for PASSING clause
-- : List of parameter values for PASSING clause
-- : JsonBehavior defining action when no results are found
-- : JsonBehavior defining action when errors occur
-- : Flag indicating whether I/O coercion should be used for type conversion
-- : Flag indicating whether JSON-specific coercion should be used
-- : JsonWrapper specification for JSON_QUERY result wrapping
-- : Flag to keep or omit quotes for singleton scalars in JSON_QUERY()
-- : Collation OID for string operations
-- : Parse location for error reporting
-
+- `xpr`: Base Expr structure for expression tree integration
+- `op`: JsonExprOp specifying the type of JSON operation (VALUE, QUERY, EXISTS)
+- `*column_name`: Name of JSON_TABLE() column, or NULL for standalone expressions
+- `*formatted_expr`: The jsonb-valued expression to be queried
+- `*format`: JsonFormat specification for the input expression format
+- `*path_spec`: The jsonpath-valued expression containing the query pattern
+- `*returning`: JsonReturning specification for expected output type and format
+- `*passing_names`: List of parameter names for PASSING clause
+- `*passing_values`: List of parameter values for PASSING clause
+- `*on_empty`: JsonBehavior defining action when no results are found
+- `*on_error`: JsonBehavior defining action when errors occur
+- `use_io_coercion`: Flag indicating whether I/O coercion should be used for type conversion
+- `use_json_coercion`: Flag indicating whether JSON-specific coercion should be used
+- `wrapper`: JsonWrapper specification for JSON_QUERY result wrapping
+- `omit_quotes`: Flag to keep or omit quotes for singleton scalars in JSON_QUERY()
+- `collation`: Collation OID for string operations
+- `location`: Parse location for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonExprOp

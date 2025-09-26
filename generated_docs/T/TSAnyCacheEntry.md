@@ -21,9 +21,8 @@ TSAnyCacheEntry serves as the base structure that must be placed at the beginnin
 The structure implements a simple validity tracking mechanism where cache entries can be marked as invalid without being immediately removed from the hash table, allowing for lazy cleanup and reducing the overhead of frequent cache modifications.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) that serves as the hash lookup key for the cache entry
-- : Boolean flag indicating whether the cached information is still valid; set to false during cache invalidation
-
+- `objId`: The object identifier (OID) that serves as the hash lookup key for the cache entry
+- `isvalid`: Boolean flag indicating whether the cached information is still valid; set to false during cache invalidation
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

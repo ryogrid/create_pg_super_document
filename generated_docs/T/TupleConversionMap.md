@@ -32,14 +32,13 @@ The structure contains both metadata (tuple descriptors and attribute mapping) a
 The conversion process works by using the AttrMap to determine how to map each output column to the corresponding input column (or to NULL for dropped columns), then using the workspace arrays to deconstruct the input tuple and reconstruct the output tuple.
 
 ## Parameters / Member Variables
-- : TupleDesc describing the structure of the source/input tuple format
-- : TupleDesc describing the structure of the target/output tuple format  
-- : Pointer to AttrMap structure containing the mapping between input and output column numbers, with 0 entries indicating NULL values for dropped columns
-- : Preallocated Datum array workspace used for deconstructing the source tuple values (size: indesc->natts + 1)
-- : Preallocated boolean array workspace indicating NULL status of source tuple values
-- : Preallocated Datum array workspace used for constructing the result tuple values (size: outdesc->natts + 1)  
-- : Preallocated boolean array workspace indicating NULL status of result tuple values
-
+- `indesc`: TupleDesc describing the structure of the source/input tuple format
+- `outdesc`: TupleDesc describing the structure of the target/output tuple format
+- `*attrMap`: Pointer to AttrMap structure containing the mapping between input and output column numbers, with 0 entries indicating NULL values for dropped columns
+- `*invalues`: Preallocated Datum array workspace used for deconstructing the source tuple values (size: indesc->natts + 1)
+- `*inisnull`: Preallocated boolean array workspace indicating NULL status of source tuple values
+- `*outvalues`: Preallocated Datum array workspace used for constructing the result tuple values (size: outdesc->natts + 1)
+- `*outisnull`: Preallocated boolean array workspace indicating NULL status of result tuple values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AttrMap](../A/AttrMap.md) (attribute mapping structure)

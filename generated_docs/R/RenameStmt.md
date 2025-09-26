@@ -27,16 +27,15 @@ typedef struct RenameStmt
 RenameStmt is a parse tree node that encapsulates all the information needed to rename various PostgreSQL database objects. It supports renaming tables, columns, constraints, triggers, types, policies, and other schema objects. The structure provides flexibility to handle different object types through its renameType field and can optionally specify CASCADE or RESTRICT behavior for objects that have dependencies.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for parse tree identification
-- : Specifies the type of object being renamed (OBJECT_TABLE, OBJECT_COLUMN, etc.)
-- : When renaming a column, specifies the type of the containing relation
-- : RangeVar pointer used when the object being renamed is a table or relation
-- : Generic Node pointer for other types of objects being renamed
-- : Name of the contained object (used for columns, rules, triggers within a relation)
-- : The new name to assign to the object
-- : Specifies CASCADE or RESTRICT behavior for handling dependencies
-- : Boolean flag to suppress errors if the object doesn't exist (IF EXISTS semantics)
-
+- `type`: Standard NodeTag for parse tree identification
+- `renameType`: Specifies the type of object being renamed (OBJECT_TABLE, OBJECT_COLUMN, etc.)
+- `relationType`: When renaming a column, specifies the type of the containing relation
+- `*relation`: RangeVar pointer used when the object being renamed is a table or relation
+- `*object`: Generic Node pointer for other types of objects being renamed
+- `*subname`: Name of the contained object (used for columns, rules, triggers within a relation)
+- `*newname`: The new name to assign to the object
+- `behavior`: Specifies CASCADE or RESTRICT behavior for handling dependencies
+- `missing_ok`: Boolean flag to suppress errors if the object doesn't exist (IF EXISTS semantics)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enumeration for object types)

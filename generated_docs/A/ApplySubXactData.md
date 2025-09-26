@@ -21,11 +21,10 @@ typedef struct ApplySubXactData
 ApplySubXactData serves as a container for managing subtransaction metadata during streaming logical replication. When a large transaction is being streamed and contains multiple subtransactions, this structure tracks the collection of subtransactions, maintaining both current count and capacity for dynamic array management. It provides efficient access to subtransaction information stored in temporary files through the SubXactInfo array, enabling the logical replication worker to properly handle complex transaction hierarchies during the apply process.
 
 ## Parameters / Member Variables
-- : Current number of subtransactions being tracked
-- : Maximum capacity of the subxacts array (for dynamic resizing)
-- : TransactionId of the most recently processed subtransaction
-- : Pointer to an array of SubXactInfo structures containing file location metadata for each subtransaction
-
+- `nsubxacts`: Current number of subtransactions being tracked
+- `nsubxacts_max`: Maximum capacity of the subxacts array (for dynamic resizing)
+- `subxact_last`: TransactionId of the most recently processed subtransaction
+- `*subxacts`: Pointer to an array of SubXactInfo structures containing file location metadata for each subtransaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SubXactInfo](../S/SubXactInfo.md)

@@ -29,15 +29,14 @@ This structure serves as a snapshot of the current transaction state, containing
 The structure captures both main transactions and subtransactions, along with metadata about transaction ID boundaries and the status of subtransaction information completeness.
 
 ## Parameters / Member Variables
-- : Number of main transaction IDs stored in the xids array
-- : Number of subtransaction IDs stored in the xids array
-- : Indicates the completeness and location of subtransaction information (enum subxids_array_status)
-- : The next transaction ID that will be assigned, copied from TransamVariables->nextXid
-- : The oldest transaction ID that is still running (not the same as oldestXmin)
-- : Similar to oldestRunningXid but scoped to the current database only
-- : The most recent transaction ID that has completed, used for setting xmax values
-- : Dynamic array containing the actual transaction IDs (both main transactions and subtransactions) that are currently running
-
+- `xcnt`: Number of main transaction IDs stored in the xids array
+- `subxcnt`: Number of subtransaction IDs stored in the xids array
+- `subxid_status`: Indicates the completeness and location of subtransaction information (enum subxids_array_status)
+- `nextXid`: The next transaction ID that will be assigned, copied from TransamVariables->nextXid
+- `oldestRunningXid`: The oldest transaction ID that is still running (not the same as oldestXmin)
+- `oldestDatabaseRunningXid`: Similar to oldestRunningXid but scoped to the current database only
+- `latestCompletedXid`: The most recent transaction ID that has completed, used for setting xmax values
+- `*xids`: Dynamic array containing the actual transaction IDs (both main transactions and subtransactions) that are currently running
 ## Dependencies
 - Functions called/Symbols referenced:
   - [subxids_array_status](../s/subxids_array_status.md)

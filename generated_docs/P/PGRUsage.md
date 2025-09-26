@@ -21,9 +21,8 @@ The PGRUsage structure is a composite data type that combines two POSIX system s
 The structure enables PostgreSQL to capture resource usage snapshots at specific points in time and later compute differences to determine how much CPU time (both user and system) and wall-clock time was consumed by particular operations. This information is valuable for performance analysis, debugging, and optimization purposes.
 
 ## Parameters / Member Variables
-- : A  that captures wall-clock time information, containing seconds and microseconds since the Unix epoch. Used to measure elapsed real time between operations.
-- : A  that contains detailed resource usage information including user CPU time, system CPU time, memory usage, and various I/O statistics. Provides comprehensive process resource consumption data.
-
+- `tv`: A  that captures wall-clock time information, containing seconds and microseconds since the Unix epoch. Used to measure elapsed real time between operations.
+- `ru`: A  that contains detailed resource usage information including user CPU time, system CPU time, memory usage, and various I/O statistics. Provides comprehensive process resource consumption data.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (system structure)

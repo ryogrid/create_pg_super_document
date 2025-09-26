@@ -27,15 +27,14 @@ CreateStatsStmt is a parse tree node that represents the SQL CREATE STATISTICS c
 The node supports creating multi-column statistics (like multi-variate correlation statistics) and can handle both simple column references and complex expressions. The transformed flag indicates whether the statement has gone through semantic analysis and transformation.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL parse tree nodes
-- : Qualified name of the statistics object as a list of strings (schema.stats_name)
-- : List of statistics types to collect (e.g., 'ndistinct', 'dependencies', 'mcv')
-- : List of column references or expressions to build statistics on
-- : List of RangeVar nodes representing the tables to analyze
-- : Optional comment string to associate with the statistics object
-- : Boolean flag indicating completion of semantic transformation
-- : Boolean flag for IF NOT EXISTS clause handling
-
+- `type`: Standard NodeTag for PostgreSQL parse tree nodes
+- `*defnames`: Qualified name of the statistics object as a list of strings (schema.stats_name)
+- `*stat_types`: List of statistics types to collect (e.g., 'ndistinct', 'dependencies', 'mcv')
+- `*exprs`: List of column references or expressions to build statistics on
+- `*relations`: List of RangeVar nodes representing the tables to analyze
+- `*stxcomment`: Optional comment string to associate with the statistics object
+- `transformed`: Boolean flag indicating completion of semantic transformation
+- `if_not_exists`: Boolean flag for IF NOT EXISTS clause handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for node creation)

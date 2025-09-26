@@ -23,11 +23,10 @@ HashPath is a specialized path node that extends JoinPath to represent hash join
 The planner creates HashPath nodes when evaluating different join strategies, and these paths compete with other join methods (nested loop, merge join) based on cost estimates. The hash join implementation can handle cases where the inner relation is too large to fit entirely in memory by using batching - dividing both relations into corresponding batches that can be processed sequentially.
 
 ## Parameters / Member Variables
-- : The base JoinPath structure containing common join path information (join type, outer/inner paths, join conditions, etc.)
-- : List of join clauses that will be used for hash table construction and probing - these are the equality conditions suitable for hashing
-- : Expected number of batches needed if the hash table doesn't fit in available memory (1 means no batching required)
-- : Total estimated cardinality of the inner relation, used for cost calculations and memory allocation decisions
-
+- `jpath`: The base JoinPath structure containing common join path information (join type, outer/inner paths, join conditions, etc.)
+- `*path_hashclauses`: List of join clauses that will be used for hash table construction and probing - these are the equality conditions suitable for hashing
+- `num_batches`: Expected number of batches needed if the hash table doesn't fit in available memory (1 means no batching required)
+- `inner_rows_total`: Total estimated cardinality of the inner relation, used for cost calculations and memory allocation decisions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JoinPath](../J/JoinPath.md) (inherited base structure)

@@ -24,14 +24,13 @@ typedef struct backup_manifest_info
 The backup_manifest_info structure serves as the primary state container for backup manifest generation during PostgreSQL base backup operations. This structure tracks all necessary information to create a comprehensive manifest file that documents the contents and integrity of a backup. The manifest includes metadata about all files in the backup, their checksums, and various backup parameters. When a backup manifest is disabled (MANIFEST_OPTION_NO), the buffile field is set to NULL to indicate no manifest processing should occur.
 
 ## Parameters / Member Variables
-- : Temporary buffer file used to store the manifest content as it's being generated; NULL if manifest is disabled
-- : The checksum algorithm type used for data file verification within the backup
-- : Cryptographic hash context for computing SHA-256 checksum of the manifest file itself (always SHA-256 regardless of data file checksum type)
-- : Running count of bytes written to the manifest file
-- : Boolean flag indicating whether to force base64 encoding of file paths and other content in the manifest
-- : Boolean flag tracking whether the next file to be added will be the first file entry in the manifest JSON structure
-- : Boolean flag indicating whether manifest checksumming is still active and updating
-
+- `*buffile`: Temporary buffer file used to store the manifest content as it's being generated; NULL if manifest is disabled
+- `checksum_type`: The checksum algorithm type used for data file verification within the backup
+- `*manifest_ctx`: Cryptographic hash context for computing SHA-256 checksum of the manifest file itself (always SHA-256 regardless of data file checksum type)
+- `manifest_size`: Running count of bytes written to the manifest file
+- `force_encode`: Boolean flag indicating whether to force base64 encoding of file paths and other content in the manifest
+- `first_file`: Boolean flag tracking whether the next file to be added will be the first file entry in the manifest JSON structure
+- `still_checksumming`: Boolean flag indicating whether manifest checksumming is still active and updating
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufFile](../B/BufFile.md)

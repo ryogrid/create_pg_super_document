@@ -23,11 +23,10 @@ GroupPath is a specialized path node in PostgreSQL's query planner that represen
 The GroupPath is designed to handle both simple grouping operations and more complex scenarios involving HAVING clauses. It maintains information about the underlying data source (subpath), the grouping criteria (groupClause), and any post-grouping filters (qual).
 
 ## Parameters / Member Variables
-- : Base Path structure containing common path information (cost, parent relation, target, etc.)
-- : Pointer to the input Path node that provides the source data for grouping
-- : List of SortGroupClause structures defining the columns to group by
-- : List of qualification expressions representing HAVING clauses to be applied after grouping
-
+- `path`: Base Path structure containing common path information (cost, parent relation, target, etc.)
+- `*subpath`: Pointer to the input Path node that provides the source data for grouping
+- `*groupClause`: List of SortGroupClause structures defining the columns to group by
+- `*qual`: List of qualification expressions representing HAVING clauses to be applied after grouping
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Path](../P/Path.md) (base structure)

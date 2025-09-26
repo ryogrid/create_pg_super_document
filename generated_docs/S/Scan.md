@@ -23,9 +23,8 @@ The Scan struct serves as the foundational structure for all scan operations in 
 The Scan structure extends the basic Plan node with scan-specific information, primarily the relation identifier that indicates which table or relation is being scanned.
 
 ## Parameters / Member Variables
-- : The base Plan node containing common plan information such as target list, qualification conditions, and cost estimates
-- : An index into the query's range table that identifies which relation (table) this scan operation targets
-
+- `plan`: The base Plan node containing common plan information such as target list, qualification conditions, and cost estimates
+- `scanrelid`: An index into the query's range table that identifies which relation (table) this scan operation targets
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (inherited base structure)

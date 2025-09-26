@@ -28,10 +28,9 @@ Examples of simplifications include:
 The simplification process operates on FuncExpr nodes, even when the original parse tree contained operator calls (a FuncExpr is synthesized for this purpose).
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a SupportRequestSimplify structure
-- : Pointer to PlannerInfo containing planner infrastructure; may be NULL in some contexts but can be consulted to obtain information about Vars in the node tree
-- : FuncExpr representing the function call to be simplified; contains the target function invocation that the support function should analyze for potential optimizations
-
+- `type`: NodeTag identifying this as a SupportRequestSimplify structure
+- `*root`: Pointer to PlannerInfo containing planner infrastructure; may be NULL in some contexts but can be consulted to obtain information about Vars in the node tree
+- `*fcall`: FuncExpr representing the function call to be simplified; contains the target function invocation that the support function should analyze for potential optimizations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FuncExpr](../F/FuncExpr.md)

@@ -38,16 +38,15 @@ The structure also tracks memory usage and tuple counts, both current and histor
 Variable-sized SharedTuplestore objects are allocated immediately after this structure in memory, accessible through specialized macros, providing efficient shared storage for batch data across all participating processes.
 
 ## Parameters / Member Variables
-- : DSA pointer to the array of hash table buckets for this batch, shared across all worker processes
-- : Synchronization barrier ensuring coordinated execution phases (build/probe) among all workers processing this batch
-- : DSA pointer to the linked list of memory chunks containing the actual tuple data for this batch
-- : Current total memory consumption in bytes for both buckets and chunks
-- : Estimated memory size during the writing/building phase, used for capacity planning
-- : Current count of tuples loaded into this batch
-- : Historical tuple count before any repartitioning operations, used for performance analysis
-- : Boolean flag indicating whether this batch has exceeded available memory limits
-- : Boolean flag controlling whether to skip the unmatched tuple scan phase for optimization
-
+- `buckets`: DSA pointer to the array of hash table buckets for this batch, shared across all worker processes
+- `batch_barrier`: Synchronization barrier ensuring coordinated execution phases (build/probe) among all workers processing this batch
+- `chunks`: DSA pointer to the linked list of memory chunks containing the actual tuple data for this batch
+- `size`: Current total memory consumption in bytes for both buckets and chunks
+- `estimated_size`: Estimated memory size during the writing/building phase, used for capacity planning
+- `ntuples`: Current count of tuples loaded into this batch
+- `old_ntuples`: Historical tuple count before any repartitioning operations, used for performance analysis
+- `space_exhausted`: Boolean flag indicating whether this batch has exceeded available memory limits
+- `skip_unmatched`: Boolean flag controlling whether to skip the unmatched tuple scan phase for optimization
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer (for shared memory access to buckets and chunks)

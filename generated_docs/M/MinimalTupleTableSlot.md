@@ -40,12 +40,11 @@ The minhdr.t_data field is set to point MINIMAL_TUPLE_OFFSET bytes before the ac
 The off field stores saved state information used during tuple deformation, allowing efficient incremental column access by remembering where the previous deformation operation left off.
 
 ## Parameters / Member Variables
-- : Base TupleTableSlot structure containing common slot functionality
-- : HeapTuple wrapper that points to minhdr for unified access interface
-- : Pointer to the actual MinimalTuple data, or NULL if no tuple is stored
-- : HeapTupleData workspace structure configured to make minimal tuple appear like a regular heap tuple
-- : Saved offset state for efficient incremental tuple deformation operations
-
+- `base`: Base TupleTableSlot structure containing common slot functionality
+- `tuple`: HeapTuple wrapper that points to minhdr for unified access interface
+- `mintuple`: Pointer to the actual MinimalTuple data, or NULL if no tuple is stored
+- `minhdr`: HeapTupleData workspace structure configured to make minimal tuple appear like a regular heap tuple
+- `off`: Saved offset state for efficient incremental tuple deformation operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleTableSlot](../T/TupleTableSlot.md)

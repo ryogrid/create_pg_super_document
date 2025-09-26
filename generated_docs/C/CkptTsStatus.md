@@ -39,13 +39,12 @@ CkptTsStatus is a crucial data structure in PostgreSQL's checkpoint mechanism th
 The structure is designed to enable smooth checkpoint progress by managing how pages from different tablespaces are written to disk. It implements a progress tracking system that normalizes progress across tablespaces regardless of their individual sizes, allowing for more predictable checkpoint behavior.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the tablespace being checkpointed
-- : Current checkpoint progress for this tablespace, normalized as a value between 0 and the total pages to be checkpointed
-- : The increment value added to progress for each page checkpointed in this tablespace
-- : Total number of pages that need to be checkpointed in this tablespace
-- : Number of pages already processed/checkpointed in this tablespace
-- : Current position/offset in the CkptBufferIds array for this tablespace's buffers
-
+- `tsId`: The OID (Object Identifier) of the tablespace being checkpointed
+- `progress`: Current checkpoint progress for this tablespace, normalized as a value between 0 and the total pages to be checkpointed
+- `progress_slice`: The increment value added to progress for each page checkpointed in this tablespace
+- `num_to_scan`: Total number of pages that need to be checkpointed in this tablespace
+- `num_scanned`: Number of pages already processed/checkpointed in this tablespace
+- `index`: Current position/offset in the CkptBufferIds array for this tablespace's buffers
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (type)

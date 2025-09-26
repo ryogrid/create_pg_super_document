@@ -61,23 +61,22 @@ typedef struct ExprContext
 ExprContext serves as the runtime environment for expression evaluation in PostgreSQL's executor. It provides access to current tuples from different sources (scan, inner, outer), manages memory allocation for expression evaluation, and maintains parameter substitution values. The context supports complex query operations including joins (through inner/outer tuple access), aggregate functions (through precomputed aggregate values), CASE expressions, and domain constraint checking. Two distinct memory contexts are maintained: per-query memory for persistent data like function call caches, and per-tuple memory that is reset for each tuple evaluation to prevent memory leaks.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL node tag for type identification
-- : TupleTableSlot containing the current tuple being scanned by this node
-- : TupleTableSlot containing the current inner tuple for join operations
-- : TupleTableSlot containing the current outer tuple for join operations
-- : Long-term memory context with query lifespan, used for function call caches
-- : Short-term memory context reset per tuple, used for expression results
-- : Array of ParamExecData for PARAM_EXEC parameter substitution
-- : ParamListInfo for other parameter types (external, user-defined)
-- : Array of precomputed Datum values for aggregate and window function nodes
-- : Array of null flags corresponding to aggregate and window function values
-- : Datum value to substitute for CaseTestExpr nodes in CASE expressions
-- : Null flag for the CASE test expression value
-- : Datum value for CoerceToDomainValue nodes in domain constraint checking
-- : Null flag for domain constraint value
-- : Pointer to the containing executor state, NULL for standalone contexts
-- : Linked list of cleanup callback functions to execute on context shutdown
-
+- `type`: Standard PostgreSQL node tag for type identification
+- `*ecxt_scantuple`: TupleTableSlot containing the current tuple being scanned by this node
+- `*ecxt_innertuple`: TupleTableSlot containing the current inner tuple for join operations
+- `*ecxt_outertuple`: TupleTableSlot containing the current outer tuple for join operations
+- `ecxt_per_query_memory`: Long-term memory context with query lifespan, used for function call caches
+- `ecxt_per_tuple_memory`: Short-term memory context reset per tuple, used for expression results
+- `*ecxt_param_exec_vals`: Array of ParamExecData for PARAM_EXEC parameter substitution
+- `ecxt_param_list_info`: ParamListInfo for other parameter types (external, user-defined)
+- `*ecxt_aggvalues`: Array of precomputed Datum values for aggregate and window function nodes
+- `*ecxt_aggnulls`: Array of null flags corresponding to aggregate and window function values
+- `caseValue_datum`: Datum value to substitute for CaseTestExpr nodes in CASE expressions
+- `caseValue_isNull`: Null flag for the CASE test expression value
+- `domainValue_datum`: Datum value for CoerceToDomainValue nodes in domain constraint checking
+- `domainValue_isNull`: Null flag for domain constraint value
+- `*ecxt_estate`: Pointer to the containing executor state, NULL for standalone contexts
+- `*ecxt_callbacks`: Linked list of cleanup callback functions to execute on context shutdown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParamExecData](../P/ParamExecData.md) (executor parameter data structure)

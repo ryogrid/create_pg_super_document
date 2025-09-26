@@ -37,26 +37,25 @@ typedef struct Trigger
 The Trigger struct is a fundamental data structure that encapsulates all metadata required to define and execute database triggers. This structure is designed to be cleanly included in rel.h and other header files without dependencies, as noted in its comment. Each Trigger instance contains both system catalog information (copied from pg_trigger) and runtime configuration data needed for trigger execution. The structure supports various trigger types including constraint triggers, internal triggers, and cloned triggers with comprehensive configuration options for timing, arguments, and transition table support.
 
 ## Parameters / Member Variables
-- : OID of the trigger in the pg_trigger system catalog
-- : Name of the trigger
-- : OID of the trigger function to be executed
-- : Trigger type flags indicating timing (BEFORE/AFTER/INSTEAD) and events (INSERT/UPDATE/DELETE/TRUNCATE)
-- : Trigger enabled status (enabled, disabled, replica, always)
-- : Flag indicating if this is an internal system trigger
-- : Flag indicating if this trigger was cloned from a parent table
-- : OID of the referenced table for constraint triggers
-- : OID of the unique index for constraint triggers
-- : OID of the constraint this trigger implements
-- : Whether the constraint trigger can be deferred
-- : Whether the constraint trigger is initially deferred
-- : Number of arguments passed to the trigger function
-- : Number of attributes (columns) the trigger is defined on
-- : Array of attribute numbers the trigger monitors
-- : Array of string arguments passed to the trigger function
-- : WHEN clause expression for conditional triggers
-- : Name of the OLD transition table (for statement-level triggers)
-- : Name of the NEW transition table (for statement-level triggers)
-
+- `tgoid`: OID of the trigger in the pg_trigger system catalog
+- `*tgname`: Name of the trigger
+- `tgfoid`: OID of the trigger function to be executed
+- `tgtype`: Trigger type flags indicating timing (BEFORE/AFTER/INSTEAD) and events (INSERT/UPDATE/DELETE/TRUNCATE)
+- `tgenabled`: Trigger enabled status (enabled, disabled, replica, always)
+- `tgisinternal`: Flag indicating if this is an internal system trigger
+- `tgisclone`: Flag indicating if this trigger was cloned from a parent table
+- `tgconstrrelid`: OID of the referenced table for constraint triggers
+- `tgconstrindid`: OID of the unique index for constraint triggers
+- `tgconstraint`: OID of the constraint this trigger implements
+- `tgdeferrable`: Whether the constraint trigger can be deferred
+- `tginitdeferred`: Whether the constraint trigger is initially deferred
+- `tgnargs`: Number of arguments passed to the trigger function
+- `tgnattr`: Number of attributes (columns) the trigger is defined on
+- `*tgattr`: Array of attribute numbers the trigger monitors
+- `**tgargs`: Array of string arguments passed to the trigger function
+- `*tgqual`: WHEN clause expression for conditional triggers
+- `*tgoldtable`: Name of the OLD transition table (for statement-level triggers)
+- `*tgnewtable`: Name of the NEW transition table (for statement-level triggers)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

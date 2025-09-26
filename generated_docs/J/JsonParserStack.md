@@ -25,14 +25,13 @@ struct JsonParserStack
 JsonParserStack is a core data structure used in PostgreSQL's non-recursive JSON parsing implementation. It maintains the parsing state across multiple calls to incremental parsing functions, enabling the parser to handle large JSON documents without deep recursion that could cause stack overflow. The structure contains three main stacks: prediction stack for tracking parsing expectations, field name stack, and null indicator stack, along with storage for scalar tokens and values that span parsing boundaries.
 
 ## Parameters / Member Variables
-- : The allocated size of the various stacks within the structure
-- : Stack used for tracking parsing predictions and expectations during non-recursive parsing
-- : Current index position within the prediction stack
-- : Array of field name strings indexed by lexical level, used to track nested object field names
-- : Array of boolean flags indexed by lexical level, indicating null values for corresponding field names
-- : Token type for scalar values that need to be preserved across parsing calls
-- : String value for scalars that need to be preserved across parsing calls
-
+- `stack_size`: The allocated size of the various stacks within the structure
+- `*prediction`: Stack used for tracking parsing predictions and expectations during non-recursive parsing
+- `pred_index`: Current index position within the prediction stack
+- `**fnames`: Array of field name strings indexed by lexical level, used to track nested object field names
+- `*fnull`: Array of boolean flags indexed by lexical level, indicating null values for corresponding field names
+- `scalar_tok`: Token type for scalar values that need to be preserved across parsing calls
+- `*scalar_val`: String value for scalars that need to be preserved across parsing calls
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonTokenType](JsonTokenType.md)

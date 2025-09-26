@@ -23,9 +23,8 @@ PartitionPruneStep serves as an abstract Node type within PostgreSQL's partition
 The partition pruning system uses these steps to build a logical representation of how partitions should be eliminated during query planning, enabling PostgreSQL to avoid scanning irrelevant partitions and improve query performance.
 
 ## Parameters / Member Variables
-- : NodeTag identifying the specific concrete type of partition pruning step (since this is an abstract base)
-- : Global identifier for this step within its pruning context, used to reference and coordinate between different steps
-
+- `type`: NodeTag identifying the specific concrete type of partition pruning step (since this is an abstract base)
+- `step_id`: Global identifier for this step within its pruning context, used to reference and coordinate between different steps
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (PostgreSQL's node type system)

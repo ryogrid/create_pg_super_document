@@ -24,9 +24,8 @@ The magic field provides a basic integrity check to detect corruption or invalid
 This design pattern ensures that all specific shared statistics structures (PgStatShared_Database, PgStatShared_Relation, PgStatShared_Function, etc.) have consistent locking semantics and can be safely accessed through generic interfaces that expect this common header.
 
 ## Parameters / Member Variables
-- : A magic number used for validity checking to detect memory corruption or invalid access
-- : Lightweight lock (LWLock) that protects the statistics data that follows this header structure
-
+- `magic`: A magic number used for validity checking to detect memory corruption or invalid access
+- `lock`: Lightweight lock (LWLock) that protects the statistics data that follows this header structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLock](../L/LWLock.md) (lightweight lock type)

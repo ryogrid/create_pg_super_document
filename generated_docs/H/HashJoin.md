@@ -33,12 +33,11 @@ The hashclauses contain the join equality conditions, while hashoperators and ha
 Hash joins are particularly effective for large datasets where neither relation is pre-sorted, as they have O(M+N) time complexity and can handle very large datasets efficiently, though they require sufficient memory to hold the hash table.
 
 ## Parameters / Member Variables
-- : Base Join structure containing common join information (plan details, join type, join qualifiers)
-- : List of join equality clauses that will be evaluated using hash-based matching
-- : List of equality operator OIDs corresponding to each hash clause for performing tuple comparisons
-- : List of collation OIDs to use when hashing and comparing values for each hash clause
-- : List of expressions to be evaluated and hashed for outer relation tuples when probing the hash table
-
+- `join`: Base Join structure containing common join information (plan details, join type, join qualifiers)
+- `*hashclauses`: List of join equality clauses that will be evaluated using hash-based matching
+- `*hashoperators`: List of equality operator OIDs corresponding to each hash clause for performing tuple comparisons
+- `*hashcollations`: List of collation OIDs to use when hashing and comparing values for each hash clause
+- `*hashkeys`: List of expressions to be evaluated and hashed for outer relation tuples when probing the hash table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Join](../J/Join.md) (inherited base structure)

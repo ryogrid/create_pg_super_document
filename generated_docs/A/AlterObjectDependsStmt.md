@@ -23,13 +23,12 @@ typedef struct AlterObjectDependsStmt
 AlterObjectDependsStmt represents SQL statements that establish or remove dependencies between database objects and extensions. This allows objects to be marked as belonging to an extension, which affects their lifecycle - when the extension is dropped, dependent objects are automatically dropped as well. The structure supports both adding dependencies (when remove is false) and removing them (when remove is true).
 
 ## Parameters / Member Variables
-- : Standard NodeTag for parse tree identification
-- : Specifies the type of object (OBJECT_FUNCTION, OBJECT_TRIGGER, etc.)
-- : RangeVar pointer used when the object is associated with a table or relation
-- : Generic Node pointer containing the name/identifier of the target object
-- : String containing the name of the extension
-- : Boolean flag - true to remove the dependency, false to add it
-
+- `type`: Standard NodeTag for parse tree identification
+- `objectType`: Specifies the type of object (OBJECT_FUNCTION, OBJECT_TRIGGER, etc.)
+- `*relation`: RangeVar pointer used when the object is associated with a table or relation
+- `*object`: Generic Node pointer containing the name/identifier of the target object
+- `*extname`: String containing the name of the extension
+- `remove`: Boolean flag - true to remove the dependency, false to add it
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enumeration for database object types)

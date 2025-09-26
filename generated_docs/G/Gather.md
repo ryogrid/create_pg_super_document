@@ -34,13 +34,12 @@ Key operational aspects:
 - The node handles worker lifecycle management and cleanup
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common plan node information
-- : The planned number of parallel worker processes to launch
-- : Parameter ID used to signal rescans to parallel-aware child nodes (-1 if not needed)
-- : When true, prevents executing the plan more than once (used for certain operations that should not be duplicated)
-- : Flag to suppress display in EXPLAIN output (primarily for testing purposes)
-- : Bitmap set of parameter IDs for InitPlans referenced by this node or its children
-
+- `plan`: Base Plan structure containing common plan node information
+- `num_workers`: The planned number of parallel worker processes to launch
+- `rescan_param`: Parameter ID used to signal rescans to parallel-aware child nodes (-1 if not needed)
+- `single_copy`: When true, prevents executing the plan more than once (used for certain operations that should not be duplicated)
+- `invisible`: Flag to suppress display in EXPLAIN output (primarily for testing purposes)
+- `*initParam`: Bitmap set of parameter IDs for InitPlans referenced by this node or its children
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

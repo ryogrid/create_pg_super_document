@@ -33,16 +33,12 @@ The cost estimate includes two components:
 The estimate should only include the cost of executing the target function itself, not the cost of evaluating its arguments. If a support function can provide an estimate, it stores the values in the cost fields and returns the address of the SupportRequestCost node. If no estimate can be made, it returns NULL, causing the planner to fall back to the function's procost field from the system catalog.
 
 ## Parameters / Member Variables
-**Input fields:**
-- : NodeTag identifying this as a SupportRequestCost structure
-- : Pointer to PlannerInfo containing planner's infrastructure; may be NULL in some contexts
-- : OID of the function being analyzed for cost estimation
-- : Parse node that is invoking the target function; can be FuncExpr, OpExpr, DistinctExpr, NullIfExpr, WindowFunc, or other node types; NULL if function arguments cannot be presumed equivalent to calling node's arguments
-
-**Output fields:**
-- : One-time startup cost estimate for query initialization
-- : Per-evaluation cost estimate for each execution of the function
-
+- `type`: NodeTag identifying this as a SupportRequestCost structure
+- `*root`: Pointer to PlannerInfo containing planner's infrastructure; may be NULL in some contexts
+- `funcid`: OID of the function being analyzed for cost estimation
+- `*node`: Parse node that is invoking the target function; can be FuncExpr, OpExpr, DistinctExpr, NullIfExpr, WindowFunc, or other node types; NULL if function arguments cannot be presumed equivalent to calling node's arguments
+- `startup`: One-time startup cost estimate for query initialization
+- `per_tuple`: Per-evaluation cost estimate for each execution of the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

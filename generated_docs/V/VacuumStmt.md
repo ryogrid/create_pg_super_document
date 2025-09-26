@@ -23,11 +23,10 @@ VacuumStmt is a parse node structure that represents both VACUUM and ANALYZE SQL
 The structure supports extensive options for controlling vacuum behavior including parallelism, buffer usage limits, index cleanup strategies, and selective processing of main tables versus TOAST tables. Both operations can be combined in a single command for efficiency.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a VacuumStmt node
-- : List of DefElem nodes containing command options (FULL, VERBOSE, ANALYZE, FREEZE, etc.)
-- : List of VacuumRelation structures specifying target tables, or NIL to process all tables
-- : Boolean flag distinguishing VACUUM (true) from ANALYZE (false) commands
-
+- `type`: NodeTag identifying this as a VacuumStmt node
+- `*options`: List of DefElem nodes containing command options (FULL, VERBOSE, ANALYZE, FREEZE, etc.)
+- `*rels`: List of VacuumRelation structures specifying target tables, or NIL to process all tables
+- `is_vacuumcmd`: Boolean flag distinguishing VACUUM (true) from ANALYZE (false) commands
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL list structure for options and relations)

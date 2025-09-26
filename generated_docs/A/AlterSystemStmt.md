@@ -21,9 +21,8 @@ AlterSystemStmt is a parse node structure that represents an ALTER SYSTEM SQL st
 Unlike regular SET commands that affect only the current session, ALTER SYSTEM changes are written to the automatic configuration file and take effect after a configuration reload or server restart, depending on the parameter's context.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as an AlterSystemStmt node
-- : Pointer to a VariableSetStmt structure containing the SET or RESET operation details
-
+- `type`: NodeTag identifying this as an AlterSystemStmt node
+- `*setstmt`: Pointer to a VariableSetStmt structure containing the SET or RESET operation details
 ## Dependencies
 - Functions called/Symbols referenced:
   - [VariableSetStmt](../V/VariableSetStmt.md) (embedded structure for SET/RESET details)

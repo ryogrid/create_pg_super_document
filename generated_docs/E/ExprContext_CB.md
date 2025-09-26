@@ -20,10 +20,9 @@ typedef struct ExprContext_CB
 ExprContext_CB forms part of a callback system that allows registering cleanup functions to be executed when an expression context is destroyed. The structure implements a simple linked list where each node contains a function pointer and an argument to pass to that function. This mechanism is particularly useful for cleaning up resources allocated during expression evaluation, such as temporary memory, file handles, or other resources that need explicit cleanup when the expression evaluation context terminates.
 
 ## Parameters / Member Variables
-- : Pointer to the next callback node in the linked list, NULL for the last node
-- : Function pointer of type ExprContextCallbackFunction to be called during cleanup
-- : Datum argument to be passed to the callback function when invoked
-
+- `*next`: Pointer to the next callback node in the linked list, NULL for the last node
+- `function`: Function pointer of type ExprContextCallbackFunction to be called during cleanup
+- `arg`: Datum argument to be passed to the callback function when invoked
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExprContextCallbackFunction (callback function type definition)

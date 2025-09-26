@@ -25,15 +25,14 @@ struct dsm_segment
 The  structure represents the backend-local state for a dynamic shared memory segment in PostgreSQL. Each backend process that attaches to a DSM segment maintains one of these structures to track its relationship with that segment. The structure contains both metadata about the segment (handle, control slot) and runtime information specific to this backend's attachment (mapped address, size, callbacks). This design allows multiple backends to attach to the same underlying shared memory segment while maintaining separate local state in each backend.
 
 ## Parameters / Member Variables
-- : A  that links this segment into the backend's global list of attached DSM segments ()
-- : A  that tracks ownership of this DSM segment for proper cleanup during transaction or session termination
-- : A  that uniquely identifies this DSM segment across the entire PostgreSQL cluster
-- : A  index into the control segment that tracks global information about this DSM segment
-- : A  pointer to implementation-specific private data, used by different DSM implementations (POSIX, System V, mmap, etc.)
-- : A  pointer to the memory address where this segment is mapped in the current backend's address space, or NULL if not currently mapped
-- : A  value indicating the size of the mapped region in bytes
-- : An  that maintains a list of callback functions to be executed when this segment is detached from the current backend
-
+- `node`: A  that links this segment into the backend's global list of attached DSM segments ()
+- `resowner`: A  that tracks ownership of this DSM segment for proper cleanup during transaction or session termination
+- `handle`: A  that uniquely identifies this DSM segment across the entire PostgreSQL cluster
+- `control_slot`: A  index into the control segment that tracks global information about this DSM segment
+- `*impl_private`: A  pointer to implementation-specific private data, used by different DSM implementations (POSIX, System V, mmap, etc.)
+- `*mapped_address`: A  pointer to the memory address where this segment is mapped in the current backend's address space, or NULL if not currently mapped
+- `mapped_size`: A  value indicating the size of the mapped region in bytes
+- `on_detach`: An  that maintains a list of callback functions to be executed when this segment is detached from the current backend
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node](dlist_node.md) (for doubly-linked list functionality)

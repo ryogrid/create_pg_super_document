@@ -25,13 +25,12 @@ typedef struct ApplyErrorCallbackArg
 ApplyErrorCallbackArg serves as a context container for error reporting during logical replication operations. When errors occur during the application of logical replication changes, this structure provides essential information about the failing operation, including the command type, target relation, remote transaction details, and replication origin. This enables the system to generate informative error messages that help diagnose replication issues by providing context about what operation was being performed and on which relation.
 
 ## Parameters / Member Variables
-- : LogicalRepMsgType indicating the type of replication command being processed (0 if invalid)
-- : LogicalRepRelMapEntry pointer to the relation mapping entry for the target relation
-- : Remote attribute number being processed (-1 if invalid or not applicable)
-- : Transaction ID from the remote/publisher node that generated the change
-- : XLogRecPtr indicating the LSN where the transaction finished
-- : String containing the name of the replication origin
-
+- `command`: LogicalRepMsgType indicating the type of replication command being processed (0 if invalid)
+- `*rel`: LogicalRepRelMapEntry pointer to the relation mapping entry for the target relation
+- `remote_attnum`: Remote attribute number being processed (-1 if invalid or not applicable)
+- `remote_xid`: Transaction ID from the remote/publisher node that generated the change
+- `finish_lsn`: XLogRecPtr indicating the LSN where the transaction finished
+- `*origin_name`: String containing the name of the replication origin
 ## Dependencies
 - Functions called/Symbols referenced:
   - LogicalRepMsgType

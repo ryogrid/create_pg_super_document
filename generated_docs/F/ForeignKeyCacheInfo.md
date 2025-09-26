@@ -42,15 +42,14 @@ The structure is implemented as a Node subclass, making it compatible with Postg
 The structure caches the essential information about a foreign key constraint, including the OIDs of both the referencing and referenced relations, the column mappings between them, and the equality operators used for constraint checking. This information is particularly valuable to the query planner for optimization decisions involving foreign key relationships.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the node type system
-- : Object identifier of the foreign key constraint itself in pg_constraint
-- : OID of the relation that contains the foreign key (referencing table)
-- : OID of the relation that is referenced by the foreign key (referenced table)
-- : Number of columns participating in the foreign key constraint
-- : Array of attribute numbers for columns in the referencing table (size limited by INDEX_MAX_KEYS)
-- : Array of attribute numbers for columns in the referenced table (size limited by INDEX_MAX_KEYS)
-- : Array of OIDs for the equality operators used to compare primary key and foreign key values (size limited by INDEX_MAX_KEYS)
-
+- `type`: NodeTag identifier for the node type system
+- `conoid`: Object identifier of the foreign key constraint itself in pg_constraint
+- `conrelid`: OID of the relation that contains the foreign key (referencing table)
+- `confrelid`: OID of the relation that is referenced by the foreign key (referenced table)
+- `nkeys`: Number of columns participating in the foreign key constraint
+- `conkey[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys))`: Array of attribute numbers for columns in the referencing table (size limited by INDEX_MAX_KEYS)
+- `confkey[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys))`: Array of attribute numbers for columns in the referenced table (size limited by INDEX_MAX_KEYS)
+- `conpfeqop[INDEX_MAX_KEYS] pg_node_attr(array_size(nkeys))`: Array of OIDs for the equality operators used to compare primary key and foreign key values (size limited by INDEX_MAX_KEYS)
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS (constant defining maximum array size)

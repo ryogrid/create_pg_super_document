@@ -24,12 +24,11 @@ AlterForeignServerStmt is a parse tree node that encapsulates the information ne
 The has_version boolean field explicitly tracks whether a version was specified in the ALTER command, distinguishing between setting a version to NULL versus not specifying a version at all. This enables precise control over version updates.
 
 ## Parameters / Member Variables
-- : NodeTag identifier marking this as an AlterForeignServerStmt node in the parse tree
-- : The name of the existing foreign server to be modified
-- : Optional new version string for the external server
-- : List of DefElem nodes containing updated server-specific configuration options
-- : Boolean flag indicating whether a version specification was provided
-
+- `type`: NodeTag identifier marking this as an AlterForeignServerStmt node in the parse tree
+- `*servername`: The name of the existing foreign server to be modified
+- `*version`: Optional new version string for the external server
+- `*options`: List of DefElem nodes containing updated server-specific configuration options
+- `has_version`: Boolean flag indicating whether a version specification was provided
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

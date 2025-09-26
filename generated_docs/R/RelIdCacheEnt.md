@@ -21,9 +21,8 @@ RelIdCacheEnt is a fundamental data structure in PostgreSQL's relation cache sys
 The relation cache is critical for PostgreSQL's performance as it avoids repeatedly reading system catalogs to get relation metadata. Each RelIdCacheEnt entry in the hash table maps a relation's OID to its complete relation descriptor, allowing fast access to table/index metadata during query processing.
 
 ## Parameters / Member Variables
-- : The Object Identifier (OID) of the relation - serves as the hash key for cache lookups
-- : Pointer to the complete Relation descriptor containing all metadata about the relation (table, index, etc.)
-
+- `reloid`: The Object Identifier (OID) of the relation - serves as the hash key for cache lookups
+- `invalidated`: Pointer to the complete Relation descriptor containing all metadata about the relation (table, index, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HTAB](../H/HTAB.md) (used by RelationIdCache)

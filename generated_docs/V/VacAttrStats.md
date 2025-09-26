@@ -84,46 +84,36 @@ The structure contains statistical slots (STATISTIC_NUM_SLOTS) that can hold dif
 
 ## Parameters / Member Variables
 
-### Main ANALYZE Code Fields:
-- : Statistics target (-1 for default, 0-10000 for custom)
-- : OID of the data type being analyzed
-- : Type modifier for the data type
-- : Cached pg_type tuple for the data type
-- : Collation OID for collatable types
-- : Memory context for long-lived statistical data
-
-### Typanalyze Function Fields:
-- : Function pointer to compute statistical values
-- : Minimum sample rows requested for reliable statistics
-- : Type-specific additional data for compute_stats
-
-### Computed Statistics Fields:
-- : Whether any useful statistics were computed
-- : Fraction of NULL values (0.0 to 1.0)
-- : Average storage width in bytes
-- : Number of distinct values (negative for fraction)
-- : Array of statistic slot kinds (see STATISTIC_KIND_*)
-- : Operator OIDs used for each statistic slot
-- : Collation OIDs for each statistic slot
-- : Count of numeric values in each stanumbers slot
-- : Arrays of float4 statistical values
-- : Count of Datum values in each stavalues slot  
-- : Arrays of Datum statistical values
-
-### Element Type Information:
-- : Type OID for stavalues array elements
-- : Type length for stavalues elements
-- : Pass-by-value flag for stavalues elements
-- : Alignment requirements for stavalues elements
-
-### Private Fields:
-- : Attribute number in tuple descriptor
-- : Sample tuples for standard fetch function
-- : Tuple descriptor for sample data
-- : Computed expression values
-- : NULL flags for expression values
-- : Stride for accessing expression arrays
-
+- `attstattarget`: Statistics target (-1 for default, 0-10000 for custom)
+- `attrtypid`: OID of the data type being analyzed
+- `attrtypmod`: Type modifier for the data type
+- `attrtype`: Cached pg_type tuple for the data type
+- `attrcollid`: Collation OID for collatable types
+- `anl_context`: Memory context for long-lived statistical data
+- `compute_stats`: Function pointer to compute statistical values
+- `minrows`: Minimum sample rows requested for reliable statistics
+- `*extra_data`: Type-specific additional data for compute_stats
+- `stats_valid`: Whether any useful statistics were computed
+- `stanullfrac`: Fraction of NULL values (0.0 to 1.0)
+- `stawidth`: Average storage width in bytes
+- `stadistinct`: Number of distinct values (negative for fraction)
+- `stakind[STATISTIC_NUM_SLOTS]`: Array of statistic slot kinds (see STATISTIC_KIND_*)
+- `staop[STATISTIC_NUM_SLOTS]`: Operator OIDs used for each statistic slot
+- `stacoll[STATISTIC_NUM_SLOTS]`: Collation OIDs for each statistic slot
+- `numnumbers[STATISTIC_NUM_SLOTS]`: Count of numeric values in each stanumbers slot
+- `*stanumbers[STATISTIC_NUM_SLOTS]`: Arrays of float4 statistical values
+- `numvalues[STATISTIC_NUM_SLOTS]`: Count of Datum values in each stavalues slot
+- `*stavalues[STATISTIC_NUM_SLOTS]`: Arrays of Datum statistical values
+- `statypid[STATISTIC_NUM_SLOTS]`: Type OID for stavalues array elements
+- `statyplen[STATISTIC_NUM_SLOTS]`: Type length for stavalues elements
+- `statypbyval[STATISTIC_NUM_SLOTS]`: Pass-by-value flag for stavalues elements
+- `statypalign[STATISTIC_NUM_SLOTS]`: Alignment requirements for stavalues elements
+- `tupattnum`: Attribute number in tuple descriptor
+- `*rows`: Sample tuples for standard fetch function
+- `tupDesc`: Tuple descriptor for sample data
+- `*exprvals`: Computed expression values
+- `*exprnulls`: NULL flags for expression values
+- `rowstride`: Stride for accessing expression arrays
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_type (pg_type catalog form)

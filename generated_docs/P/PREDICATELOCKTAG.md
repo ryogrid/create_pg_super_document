@@ -19,9 +19,8 @@ typedef struct PREDICATELOCKTAG
 PREDICATELOCKTAG serves as a unique identifier for individual predicate locks within PostgreSQL's serializable isolation implementation. It establishes the relationship between a specific lockable database object (represented by PREDICATELOCKTARGET) and the serializable transaction (SERIALIZABLEXACT) that has acquired a predicate lock on that object. This combination ensures that each predicate lock can be uniquely identified and managed within the system's hash tables and data structures. The tag is essential for lock lookup, conflict detection, and cleanup operations during transaction processing.
 
 ## Parameters / Member Variables
-- : Pointer to the PREDICATELOCKTARGET structure representing the database object being locked
-- : Pointer to the SERIALIZABLEXACT structure representing the transaction holding the lock
-
+- `*myTarget`: Pointer to the PREDICATELOCKTARGET structure representing the database object being locked
+- `*myXact`: Pointer to the SERIALIZABLEXACT structure representing the transaction holding the lock
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PREDICATELOCKTARGET](PREDICATELOCKTARGET.md)

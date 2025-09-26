@@ -27,10 +27,9 @@ The btree implementation provides efficient organization of free memory spans, e
 This btree serves as the primary data structure for tracking and allocating free memory spans larger than what can be efficiently managed by simple freelists.
 
 ## Parameters / Member Variables
-- : Common header containing magic number (page type), usage count, and parent pointer
-- : Array of internal keys for navigation when page serves as internal node (capacity: FPM_ITEMS_PER_INTERNAL_PAGE)
-- : Array of leaf keys containing free span data when page serves as leaf node (capacity: FPM_ITEMS_PER_LEAF_PAGE)
-
+- `hdr`: Common header containing magic number (page type), usage count, and parent pointer
+- `internal_key[FPM_ITEMS_PER_INTERNAL_PAGE]`: Array of internal keys for navigation when page serves as internal node (capacity: FPM_ITEMS_PER_INTERNAL_PAGE)
+- `leaf_key[FPM_ITEMS_PER_LEAF_PAGE]`: Array of leaf keys containing free span data when page serves as leaf node (capacity: FPM_ITEMS_PER_LEAF_PAGE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FreePageBtreeHeader](FreePageBtreeHeader.md) (common page header structure)

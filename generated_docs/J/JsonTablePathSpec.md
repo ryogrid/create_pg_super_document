@@ -23,12 +23,11 @@ typedef struct JsonTablePathSpec
 JsonTablePathSpec is a parse node structure that holds information about JSON path specifications used in JSON table operations. It contains the raw path expression string along with optional naming information and location tracking for parser error reporting. This structure is part of the untransformed parse tree and gets processed during the transformation phase of query planning.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as a JsonTablePathSpec node
-- : Node representing the JSON path expression string
-- : Optional name identifier for the path specification
-- : ParseLoc tracking the location of the name in the source query
-- : ParseLoc tracking the location of the path string in the source query
-
+- `type`: Standard NodeTag identifying this as a JsonTablePathSpec node
+- `*string`: Node representing the JSON path expression string
+- `*name`: Optional name identifier for the path specification
+- `name_location`: ParseLoc tracking the location of the name in the source query
+- `location`: ParseLoc tracking the location of the path string in the source query
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)

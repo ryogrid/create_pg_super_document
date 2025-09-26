@@ -27,9 +27,8 @@ This structure provides a caching mechanism for composite type descriptors in Po
 The caching strategy uses a dual-purpose pointer system where  can point to either a TypeCacheEntry (for named composite types) or directly to a cached tuple descriptor (for anonymous RECORD types), with  serving as a validation mechanism to ensure cache consistency.
 
 ## Parameters / Member Variables
-- : A void pointer that serves dual purposes - points to a composite type's TypeCacheEntry when tupdesc_id is non-zero, or points directly to the cached tuple descriptor for anonymous RECORD types when tupdesc_id is 0. Initial state is NULL.
-- : A 64-bit identifier for the last-seen tuple descriptor, used for cache validation. Set to 0 for anonymous RECORD types or when the cache is invalid.
-
+- `*cacheptr`: A void pointer that serves dual purposes - points to a composite type's TypeCacheEntry when tupdesc_id is non-zero, or points directly to the cached tuple descriptor for anonymous RECORD types when tupdesc_id is 0. Initial state is NULL.
+- `tupdesc_id`: A 64-bit identifier for the last-seen tuple descriptor, used for cache validation. Set to 0 for anonymous RECORD types or when the cache is invalid.
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a passive data structure)

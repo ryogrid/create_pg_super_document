@@ -23,9 +23,8 @@ Unlike internal keys which only store boundary information for navigation, leaf 
 The structure is designed to be compact, containing only the essential information needed to identify and allocate free memory spans, with no additional payload data.
 
 ## Parameters / Member Variables
-- : The page number of the first page in the free span, serving as both the search key and location identifier
-- : The total number of contiguous pages in this free span, indicating the size available for allocation
-
+- `first_page`: The page number of the first page in the free span, serving as both the search key and location identifier
+- `npages`: The total number of contiguous pages in this free span, indicating the size available for allocation
 ## Dependencies
 - Functions called/Symbols referenced:
   - Size (PostgreSQL size type for page numbers and counts)

@@ -53,16 +53,15 @@ PartitionBoundInfoData serves as the central data structure for managing partiti
 The datums array is always sorted in increasing order according to the partition key's operator classes and collations.
 
 ## Parameters / Member Variables
-- : Specifies the partitioning method (hash, list, or range)
-- : Number of entries in the datums array
-- : Array of datum-tuples containing partition boundary values
-- : Array specifying the kind of each range bound datum (NULL for non-range partitioning)
-- : Bitmapset tracking potentially interleaved list partitions
-- : Number of entries in the indexes array
-- : Array mapping boundary positions to partition indexes
-- : Index of partition accepting NULL values (-1 if none)
-- : Index of default partition (-1 if none)
-
+- `strategy`: Specifies the partitioning method (hash, list, or range)
+- `ndatums`: Number of entries in the datums array
+- `**datums`: Array of datum-tuples containing partition boundary values
+- `**kind`: Array specifying the kind of each range bound datum (NULL for non-range partitioning)
+- `*interleaved_parts`: Bitmapset tracking potentially interleaved list partitions
+- `nindexes`: Number of entries in the indexes array
+- `*indexes`: Array mapping boundary positions to partition indexes
+- `null_index`: Index of partition accepting NULL values (-1 if none)
+- `default_index`: Index of default partition (-1 if none)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PartitionStrategy

@@ -27,9 +27,8 @@ This inline function serves as an interface wrapper for processing backup manife
 The function performs basic validation checks ensuring the sink is valid and the data length is within acceptable bounds before delegating to the sink-specific manifest_contents callback. This design allows for modular processing of backup manifest data through different sink implementations while maintaining a consistent interface.
 
 ## Parameters / Member Variables
-- : Pointer to the bbsink object that will process the manifest contents. Must not be NULL.
-- : Size of the manifest data to process. Must be greater than 0 and not exceed sink->bbs_buffer_length.
-
+- `NULL)`: Pointer to the bbsink object that will process the manifest contents. Must not be NULL.
+- `sink->bbs_ops->cleanup(sink)`: Size of the manifest data to process. Must be greater than 0 and not exceed sink->bbs_buffer_length.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbsink](bbsink.md) (struct type)

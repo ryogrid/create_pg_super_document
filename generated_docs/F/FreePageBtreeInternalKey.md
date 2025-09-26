@@ -21,9 +21,8 @@ The FreePageBtreeInternalKey structure serves as an internal node entry in the f
 The structure uses relative pointers for child references, allowing the btree to function correctly even when memory segments are mapped at different virtual addresses. Internal keys are stored as arrays within internal btree pages, with the number of keys per page calculated based on available space after accounting for the page header.
 
 ## Parameters / Member Variables
-- : The minimum page number (key value) that can be found in the child subtree rooted at the corresponding child page
-- : Relative pointer to the child btree page that contains keys greater than or equal to first_page
-
+- `first_page`: The minimum page number (key value) that can be found in the child subtree rooted at the corresponding child page
+- `child`: Relative pointer to the child btree page that contains keys greater than or equal to first_page
 ## Dependencies
 - Functions called/Symbols referenced:
   - Size (PostgreSQL size type for page numbers)

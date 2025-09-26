@@ -25,10 +25,9 @@ The structure is designed to support the standard init/update/final pattern of h
 3. Finalize the hash and extract the digest
 
 ## Parameters / Member Variables
-- : Array of 8 32-bit words containing the intermediate hash state values (A, B, C, D, E, F, G, H registers in SHA-256 algorithm)
-- : 64-bit counter tracking the total number of bits processed, required for proper padding in the final step
-- : Internal buffer of 64 bytes (512 bits) used to accumulate input data until a complete block can be processed
-
+- `state[8]`: Array of 8 32-bit words containing the intermediate hash state values (A, B, C, D, E, F, G, H registers in SHA-256 algorithm)
+- `bitcount`: 64-bit counter tracking the total number of bits processed, required for proper padding in the final step
+- `buffer[PG_SHA256_BLOCK_LENGTH]`: Internal buffer of 64 bytes (512 bits) used to accumulate input data until a complete block can be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_SHA256_BLOCK_LENGTH (constant defining 64-byte block size)

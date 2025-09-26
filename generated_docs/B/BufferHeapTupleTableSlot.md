@@ -32,9 +32,8 @@ The key design principle is that when a tuple is stored in a buffer page, the sl
 When the buffer field is set to a valid buffer ID (not InvalidBuffer), the slot holds a pin on that buffer page, and the tuple data pointed to by base.tuple is expected to reside within that buffer page. In this case, the TTS_FLAG_SHOULDFREE flag should not be set since the tuple data is not separately allocated but rather points into the buffer page.
 
 ## Parameters / Member Variables
-- : HeapTupleTableSlot structure containing the basic tuple slot functionality and tuple pointer
-- : Buffer identifier for the buffer page containing the tuple data, or InvalidBuffer if the tuple is not in a buffer
-
+- `base`: HeapTupleTableSlot structure containing the basic tuple slot functionality and tuple pointer
+- `buffer`: Buffer identifier for the buffer page containing the tuple data, or InvalidBuffer if the tuple is not in a buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HeapTupleTableSlot](../H/HeapTupleTableSlot.md)

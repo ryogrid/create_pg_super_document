@@ -26,15 +26,14 @@ typedef struct RmgrData
 RmgrData serves as the method table for resource managers in PostgreSQL's WAL system. Each resource manager type (such as heap, btree, hash, etc.) registers an RmgrData structure that defines how to handle WAL records specific to that resource manager. This structure must be kept in sync with the PG_RMGR definition in rmgr.c. The RmgrTable[] array is indexed by RmgrId values, and entries with NULL rm_name are considered invalid. This design enables a pluggable architecture where different storage components can register their own WAL processing logic.
 
 ## Parameters / Member Variables
-- : Name identifier for the resource manager (e.g., "Heap", "Btree")
-- : Function pointer for replaying/redoing WAL records during recovery
-- : Function pointer for generating human-readable descriptions of WAL records (used by tools like pg_waldump)
-- : Function pointer that returns a name for the record type based on xl_info field (without reference to rmid)
-- : Function pointer called during WAL recovery startup for this resource manager
-- : Function pointer called during WAL recovery cleanup for this resource manager  
-- : Function pointer that masks out bits in pages that shouldn't be flagged by wal_consistency_checking
-- : Function pointer for logical decoding of WAL records for replication purposes
-
+- `*rm_name`: Name identifier for the resource manager (e.g., "Heap", "Btree")
+- `*record)`: Function pointer for replaying/redoing WAL records during recovery
+- `*record)`: Function pointer for generating human-readable descriptions of WAL records (used by tools like pg_waldump)
+- `info)`: Function pointer that returns a name for the record type based on xl_info field (without reference to rmid)
+- `(void)`: Function pointer called during WAL recovery startup for this resource manager
+- `(void)`: Function pointer called during WAL recovery cleanup for this resource manager
+- `blkno)`: Function pointer that masks out bits in pages that shouldn't be flagged by wal_consistency_checking
+- `*buf)`: Function pointer for logical decoding of WAL records for replication purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogReaderState](../X/XLogReaderState.md) (used in rm_redo and rm_desc)

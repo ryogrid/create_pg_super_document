@@ -38,14 +38,13 @@ During parse analysis, the simple CASE form is transformed so that condition exp
 The execution model uses conditional jumps: each WHEN clause is evaluated in sequence, and if a condition is true, the corresponding result is computed and control jumps to the end. If no conditions match, the ELSE result is used (transformCaseExpr always ensures a default exists).
 
 ## Parameters / Member Variables
-- : Base expression node structure
-- : OID of the result type for the CASE expression (ignored for query jumbling)
-- : OID of the result collation, or InvalidOid if none (ignored for query jumbling)
-- : Test expression for simple CASE form, NULL for searched CASE form
-- : List of CaseWhen nodes representing WHEN clauses
-- : Default result expression (ELSE clause)
-- : Parse location in the original query, or -1 if unknown
-
+- `xpr`: Base expression node structure
+- `pg_node_attr(query_jumble_ignore)`: OID of the result type for the CASE expression (ignored for query jumbling)
+- `pg_node_attr(query_jumble_ignore)`: OID of the result collation, or InvalidOid if none (ignored for query jumbling)
+- `*arg`: Test expression for simple CASE form, NULL for searched CASE form
+- `*args`: List of CaseWhen nodes representing WHEN clauses
+- `*defresult`: Default result expression (ELSE clause)
+- `location`: Parse location in the original query, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CaseWhen](CaseWhen.md) (for individual WHEN clauses)

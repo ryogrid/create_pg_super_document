@@ -37,8 +37,7 @@ This function provides a convenient way to access the read-write TOAST pointer s
 The returned Datum represents a TOAST pointer that can be used to access and modify the expanded object. This is part of PostgreSQL's expanded object infrastructure that allows certain data types (like arrays and records) to maintain an "expanded" in-memory representation for efficiency while still being able to produce flattened representations when needed.
 
 ## Parameters / Member Variables
-- : Pointer to an ExpandedObjectHeader structure containing the expanded object metadata and TOAST pointers
-
+- `PointerGetDatum(eohptr->eoh_rw_ptr)`: Pointer to an ExpandedObjectHeader structure containing the expanded object metadata and TOAST pointers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PointerGetDatum](../P/PointerGetDatum.md)

@@ -35,23 +35,22 @@ BufferUsage provides comprehensive tracking of buffer I/O operations and timing 
 The counters are designed to be monotonically increasing and are never reset to zero, allowing for accurate calculation of incremental usage during any time period by taking the difference between two measurements. This design supports performance monitoring, query profiling, and system analysis.
 
 ## Parameters / Member Variables
-- : Count of buffer hits in the shared buffer pool (data found in memory)
-- : Count of shared buffer blocks read from disk storage
-- : Count of shared buffer blocks that were modified
-- : Count of shared buffer blocks written to disk
-- : Count of buffer hits in local buffers for temporary tables
-- : Count of local buffer blocks read from disk
-- : Count of local buffer blocks that were modified
-- : Count of local buffer blocks written to disk
-- : Count of temporary buffer blocks read during operations like sorting
-- : Count of temporary buffer blocks written during operations
-- : Time spent reading shared buffer blocks from disk
-- : Time spent writing shared buffer blocks to disk
-- : Time spent reading local buffer blocks from disk
-- : Time spent writing local buffer blocks to disk
-- : Time spent reading temporary buffer blocks
-- : Time spent writing temporary buffer blocks
-
+- `shared_blks_hit`: Count of buffer hits in the shared buffer pool (data found in memory)
+- `shared_blks_read`: Count of shared buffer blocks read from disk storage
+- `shared_blks_dirtied`: Count of shared buffer blocks that were modified
+- `shared_blks_written`: Count of shared buffer blocks written to disk
+- `local_blks_hit`: Count of buffer hits in local buffers for temporary tables
+- `local_blks_read`: Count of local buffer blocks read from disk
+- `local_blks_dirtied`: Count of local buffer blocks that were modified
+- `local_blks_written`: Count of local buffer blocks written to disk
+- `temp_blks_read`: Count of temporary buffer blocks read during operations like sorting
+- `temp_blks_written`: Count of temporary buffer blocks written during operations
+- `shared_blk_read_time`: Time spent reading shared buffer blocks from disk
+- `shared_blk_write_time`: Time spent writing shared buffer blocks to disk
+- `local_blk_read_time`: Time spent reading local buffer blocks from disk
+- `local_blk_write_time`: Time spent writing local buffer blocks to disk
+- `temp_blk_read_time`: Time spent reading temporary buffer blocks
+- `temp_blk_write_time`: Time spent writing temporary buffer blocks
 ## Dependencies
 - Functions called/Symbols referenced:
   - [instr_time](../i/instr_time.md) (timing infrastructure)

@@ -40,10 +40,9 @@ The function works by:
 5. Copying data to the caller's buffer until the request is satisfied or EOF is reached
 
 ## Parameters / Member Variables
-- : Pointer to the LogicalTape structure representing the tape to read from
-- : Destination buffer where the read data will be stored
-- : Number of bytes requested to read
-
+- `lt->nbytes)`: Pointer to the LogicalTape structure representing the tape to read from
+- `lt->nbytes)`: Destination buffer where the read data will be stored
+- `lt->buffer)`: Number of bytes requested to read
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalTape](LogicalTape.md) (structure type)

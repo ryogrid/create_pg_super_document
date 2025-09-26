@@ -32,13 +32,12 @@ The Append execution node is responsible for concatenating results from multiple
 The Append node supports both synchronous and asynchronous execution modes, allowing for parallel execution of some child plans when beneficial. It also includes runtime partition pruning capabilities to skip unnecessary partitions based on query conditions.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common plan node information
-- : Bitmapset containing Range Table Indexes (RTIs) of append relations formed by this node
-- : List of child Plan nodes whose results will be concatenated
-- : Number of child plans that can be executed asynchronously for parallel processing
-- : Index separating non-partial plans (before this index) from partial plans (from this index onwards)
-- : Pointer to PartitionPruneInfo structure for runtime subplan pruning, NULL if pruning is not used
-
+- `plan`: Base Plan structure containing common plan node information
+- `*apprelids`: Bitmapset containing Range Table Indexes (RTIs) of append relations formed by this node
+- `*appendplans`: List of child Plan nodes whose results will be concatenated
+- `nasyncplans`: Number of child plans that can be executed asynchronously for parallel processing
+- `first_partial_plan`: Index separating non-partial plans (before this index) from partial plans (from this index onwards)
+- `*part_prune_info`: Pointer to PartitionPruneInfo structure for runtime subplan pruning, NULL if pruning is not used
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionPruneInfo](../P/PartitionPruneInfo.md)

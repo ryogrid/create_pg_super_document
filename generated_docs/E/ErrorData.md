@@ -51,35 +51,34 @@ The structure supports internationalization through message domains and provides
 All non-NULL string pointers (except const ones) must point to palloc'd data, with the associated memory context tracking allocations for proper cleanup. This design ensures memory safety during error handling scenarios.
 
 ## Parameters / Member Variables
-- : Error severity level (DEBUG, INFO, NOTICE, WARNING, ERROR, FATAL, PANIC)
-- : Boolean flag controlling whether error is written to server log
-- : Boolean flag controlling whether error is sent to client
-- : When true, prevents STATEMENT: section from being included in error output
-- : When true, prevents CONTEXT: section from being included in error output  
-- : Source file name where ereport() was called (__FILE__ macro)
-- : Line number in source file where ereport() was called (__LINE__ macro)
-- : Function name where ereport() was called (__func__ macro)
-- : Message translation domain for primary message
-- : Message translation domain for context message
-- : Encoded SQL error state code (SQLSTATE)
-- : Primary error message, potentially translated
-- : Detailed error explanation for both client and server
-- : Detailed error explanation for server log only
-- : Suggestion for resolving the error
-- : Contextual information about where error occurred
-- : Stack backtrace information for debugging
-- : Original untranslated message identifier
-- : Database schema name related to the error
-- : Database table name related to the error
-- : Database column name related to the error
-- : Database data type name related to the error
-- : Database constraint name related to the error
-- : Character position in query string where error occurred
-- : Character position in internal query where error occurred
-- : Text of internally generated query that caused error
-- : System errno value captured when error was detected
-- : Memory context for managing associated string allocations
-
+- `elevel`: Error severity level (DEBUG, INFO, NOTICE, WARNING, ERROR, FATAL, PANIC)
+- `output_to_server`: Boolean flag controlling whether error is written to server log
+- `output_to_client`: Boolean flag controlling whether error is sent to client
+- `hide_stmt`: When true, prevents STATEMENT: section from being included in error output
+- `hide_ctx`: When true, prevents CONTEXT: section from being included in error output
+- `*filename`: Source file name where ereport() was called (__FILE__ macro)
+- `lineno`: Line number in source file where ereport() was called (__LINE__ macro)
+- `*funcname`: Function name where ereport() was called (__func__ macro)
+- `*domain`: Message translation domain for primary message
+- `*context_domain`: Message translation domain for context message
+- `sqlerrcode`: Encoded SQL error state code (SQLSTATE)
+- `*message`: Primary error message, potentially translated
+- `*detail`: Detailed error explanation for both client and server
+- `*detail_log`: Detailed error explanation for server log only
+- `*hint`: Suggestion for resolving the error
+- `*context`: Contextual information about where error occurred
+- `*backtrace`: Stack backtrace information for debugging
+- `*message_id`: Original untranslated message identifier
+- `*schema_name`: Database schema name related to the error
+- `*table_name`: Database table name related to the error
+- `*column_name`: Database column name related to the error
+- `*datatype_name`: Database data type name related to the error
+- `*constraint_name`: Database constraint name related to the error
+- `cursorpos`: Character position in query string where error occurred
+- `internalpos`: Character position in internal query where error occurred
+- `*internalquery`: Text of internally generated query that caused error
+- `saved_errno`: System errno value captured when error was detected
+- `*assoc_context`: Memory context for managing associated string allocations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextData](../M/MemoryContextData.md)

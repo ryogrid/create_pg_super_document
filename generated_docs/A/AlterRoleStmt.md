@@ -23,11 +23,10 @@ AlterRoleStmt is a parser node structure that encapsulates information needed to
 The structure supports both attribute modifications and membership operations through the same node type, with the action field distinguishing between adding and removing members when dealing with role membership operations.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as an AlterRoleStmt node
-- : RoleSpec pointer specifying the target role to be altered (can reference role by name or special keywords)
-- : List of DefElem nodes containing the role options to be modified (password, privileges, etc.)
-- : Integer indicating the type of membership operation (+1 for adding members, -1 for dropping members, 0 for attribute changes)
-
+- `type`: Standard NodeTag identifying this as an AlterRoleStmt node
+- `*role`: RoleSpec pointer specifying the target role to be altered (can reference role by name or special keywords)
+- `*options`: List of DefElem nodes containing the role options to be modified (password, privileges, etc.)
+- `action`: Integer indicating the type of membership operation (+1 for adding members, -1 for dropping members, 0 for attribute changes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RoleSpec](../R/RoleSpec.md) (for role specification)

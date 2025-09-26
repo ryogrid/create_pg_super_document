@@ -41,13 +41,12 @@ The structure uses the  field to differentiate between three types of object ope
 For all-tables publications, the  flag indicates operations on the publication's all-tables status.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifier for the parse tree node system
-- : String containing the name of the publication being altered; must reference an existing publication
-- : List of DefElem nodes containing publication options for WITH clause modifications (e.g., publish settings, publish_via_partition_root)
-- : Optional list of PublicationObjSpec nodes specifying which database objects to add, drop, or set; used with ADD/DROP/SET object operations
-- : Boolean flag used when converting to/from all-tables publication mode; indicates whether the operation involves all tables in the database
-- : AlterPublicationAction enum value specifying the type of object operation (AP_AddObjects, AP_DropObjects, or AP_SetObjects)
-
+- `type`: Standard NodeTag identifier for the parse tree node system
+- `*pubname`: String containing the name of the publication being altered; must reference an existing publication
+- `*options`: List of DefElem nodes containing publication options for WITH clause modifications (e.g., publish settings, publish_via_partition_root)
+- `*pubobjects`: Optional list of PublicationObjSpec nodes specifying which database objects to add, drop, or set; used with ADD/DROP/SET object operations
+- `for_all_tables`: Boolean flag used when converting to/from all-tables publication mode; indicates whether the operation involves all tables in the database
+- `action`: AlterPublicationAction enum value specifying the type of object operation (AP_AddObjects, AP_DropObjects, or AP_SetObjects)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AlterPublicationAction](AlterPublicationAction.md) (enum defining the type of alteration)

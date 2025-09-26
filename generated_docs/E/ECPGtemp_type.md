@@ -21,9 +21,8 @@ ECPGtemp_type is a lightweight utility structure designed to temporarily associa
 The structure serves as a convenient container for passing around type-name pairs in function calls, temporary storage during parsing operations, or when building lists of typed variables. Its simple design makes it suitable for stack allocation and short-term use cases.
 
 ## Parameters / Member Variables
-- : A pointer to an ECPGtype structure containing the complete type information
-- : A constant string containing the variable name associated with this type
-
+- `*type`: A pointer to an ECPGtype structure containing the complete type information
+- `*name`: A constant string containing the variable name associated with this type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGtype](ECPGtype.md) (type information structure)

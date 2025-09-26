@@ -25,13 +25,12 @@ typedef struct ReorderBufferToastEnt
 This structure is responsible for managing the reconstruction of TOAST data during logical replication. When large attributes are stored using PostgreSQL's TOAST mechanism, they are split into multiple chunks. During logical decoding, these chunks need to be reassembled in the correct order to reconstruct the original value. The ReorderBufferToastEnt tracks the state of this reconstruction process, collecting chunks as they are encountered and maintaining metadata about the reconstruction progress.
 
 ## Parameters / Member Variables
-- : The OID identifier from the toast_table.chunk_id, uniquely identifying this TOAST entry
-- : The sequence number of the most recently processed chunk from toast_table.chunk_seq
-- : Count of the total number of chunks that have been collected so far
-- : The cumulative size in bytes of all chunks seen for this TOAST entry
-- : Doubly-linked list head managing the collection of individual TOAST chunks
-- : Pointer to the fully reconstructed varlena structure once all chunks are assembled
-
+- `chunk_id`: The OID identifier from the toast_table.chunk_id, uniquely identifying this TOAST entry
+- `last_chunk_seq`: The sequence number of the most recently processed chunk from toast_table.chunk_seq
+- `num_chunks`: Count of the total number of chunks that have been collected so far
+- `size`: The cumulative size in bytes of all chunks seen for this TOAST entry
+- `chunks`: Doubly-linked list head managing the collection of individual TOAST chunks
+- `*reconstructed`: Pointer to the fully reconstructed varlena structure once all chunks are assembled
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_head](../d/dlist_head.md)

@@ -23,11 +23,10 @@ This structure encapsulates the complete result of a B-tree search operation in 
 The search result indicates either an exact match position or the insertion point where a new key should be placed. Additionally, it calculates the number of B-tree pages that would need to be split if an insertion were to occur at the found position, enabling efficient resource planning for write operations.
 
 ## Parameters / Member Variables
-- : Pointer to the FreePageBtree page where the search terminated (typically a leaf page)
-- : The index position within the page - either the exact match location or the insertion point
-- : Boolean flag indicating whether an exact match was found (true) or just an insertion point (false)  
-- : Pre-calculated number of additional B-tree pages needed for a split operation during insertion
-
+- `*page`: Pointer to the FreePageBtree page where the search terminated (typically a leaf page)
+- `index`: The index position within the page - either the exact match location or the insertion point
+- `found`: Boolean flag indicating whether an exact match was found (true) or just an insertion point (false)
+- `split_pages`: Pre-calculated number of additional B-tree pages needed for a split operation during insertion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FreePageBtree](FreePageBtree.md)

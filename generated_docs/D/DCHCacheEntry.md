@@ -26,12 +26,11 @@ The cache operates as a least-recently-used (LRU) replacement policy using an ag
 The cache only stores format strings up to DCH_CACHE_SIZE length. Longer format strings are parsed dynamically each time without caching.
 
 ## Parameters / Member Variables
-- : Array of FormatNode structures representing the parsed format template, sized to accommodate maximum cacheable format length plus null terminator
-- : Copy of the original format string for lookup purposes, null-terminated
-- : Boolean flag indicating whether this is a "standard" format (affects parsing behavior, particularly error handling)
-- : Boolean flag indicating whether this cache entry contains valid data and can be used
-- : Integer counter used for LRU replacement policy - incremented on each cache access, entries with highest age are replaced first
-
+- `format[NUM_CACHE_SIZE + 1]`: Array of FormatNode structures representing the parsed format template, sized to accommodate maximum cacheable format length plus null terminator
+- `str[NUM_CACHE_SIZE + 1]`: Copy of the original format string for lookup purposes, null-terminated
+- `valid`: Boolean flag indicating whether this is a "standard" format (affects parsing behavior, particularly error handling)
+- `age`: Boolean flag indicating whether this cache entry contains valid data and can be used
+- `Num`: Integer counter used for LRU replacement policy - incremented on each cache access, entries with highest age are replaced first
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FormatNode](../F/FormatNode.md) structure (for parsed format storage)

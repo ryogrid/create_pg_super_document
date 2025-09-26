@@ -24,10 +24,9 @@ The structure forms the building blocks of timeline history lists, which track h
 Timeline history entries are typically organized in lists where each entry represents a chronological segment of database operations within a specific timeline. The begin and end fields define the exact WAL position range where the timeline was active, enabling precise navigation through the database's recovery history.
 
 ## Parameters / Member Variables
-- : The Timeline ID (uint32) that identifies which specific timeline this entry represents
-- : The starting WAL position (XLogRecPtr/uint64) where this timeline segment begins, inclusive of this position
-- : The ending WAL position (XLogRecPtr/uint64) where this timeline segment ends, exclusive of this position; InvalidXLogRecPtr indicates the timeline extends infinitely (current/active timeline)
-
+- `tli`: The Timeline ID (uint32) that identifies which specific timeline this entry represents
+- `begin`: The starting WAL position (XLogRecPtr/uint64) where this timeline segment begins, inclusive of this position
+- `end`: The ending WAL position (XLogRecPtr/uint64) where this timeline segment ends, exclusive of this position; InvalidXLogRecPtr indicates the timeline extends infinitely (current/active timeline)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [readTimeLineHistory](../r/readTimeLineHistory.md)

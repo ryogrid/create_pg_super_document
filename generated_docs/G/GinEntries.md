@@ -24,10 +24,9 @@ The structure supports automatic memory management with exponential growth strat
 The buffer is used throughout the JSONB GIN extraction process, collecting entries that represent either individual JSON values (for jsonb_ops) or path-aware hash values (for jsonb_path_ops). Once all entries are collected, the final buffer is returned to PostgreSQL's GIN indexing infrastructure.
 
 ## Parameters / Member Variables
-- : Pointer to dynamically allocated array of Datum values representing the collected GIN entries
-- : Current number of entries stored in the buffer
-- : Total capacity of the buffer (number of Datum slots allocated)
-
+- `*buf`: Pointer to dynamically allocated array of Datum values representing the collected GIN entries
+- `count`: Current number of entries stored in the buffer
+- `allocated`: Total capacity of the buffer (number of Datum slots allocated)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL's generic data type)

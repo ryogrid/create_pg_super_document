@@ -25,11 +25,10 @@ The  structure serves as the foundation for PostgreSQL's byte size formatting sy
 The structure enables flexible size formatting by encapsulating unit properties such as display name, conversion thresholds, rounding behavior, and bit-shift values for efficient calculations. This design supports consistent formatting across PostgreSQL's size-related functions while maintaining precision control for different unit scales.
 
 ## Parameters / Member Variables
-- : String representation of the unit (e.g., "bytes", "kB", "MB", "GB", "TB", "PB")
-- : Upper threshold value used to determine when to switch to the next larger unit, applied before half-rounding calculations
-- : Boolean flag indicating whether half-rounding should be applied when converting to this unit (false for bytes, true for larger units)
-- : Number of bits to shift left to convert from bytes to this unit (0 for bytes, 10 for kB, 20 for MB, etc.)
-
+- `*name`: String representation of the unit (e.g., "bytes", "kB", "MB", "GB", "TB", "PB")
+- `limit`: Upper threshold value used to determine when to switch to the next larger unit, applied before half-rounding calculations
+- `round`: Boolean flag indicating whether half-rounding should be applied when converting to this unit (false for bytes, true for larger units)
+- `unitbits`: Number of bits to shift left to convert from bytes to this unit (0 for bytes, 10 for kB, 20 for MB, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Used as array element type in 

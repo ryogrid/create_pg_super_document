@@ -22,10 +22,9 @@ CreateOpFamilyStmt is a parse tree node that represents the CREATE OPERATOR FAMI
 When a CREATE OPERATOR FAMILY statement is parsed, it creates this structure which contains the essential information needed to create the operator family: its qualified name and the access method it belongs to. The actual creation of the operator family in the system catalogs is handled by the DefineOpFamily function.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this parse tree node type
-- : List of String nodes representing the qualified name of the operator family (schema.name)
-- : String containing the name of the index access method (e.g., 'btree', 'hash', 'gist', 'gin', 'spgist', 'brin')
-
+- `type`: NodeTag identifier for this parse tree node type
+- `*opfamilyname`: List of String nodes representing the qualified name of the operator family (schema.name)
+- `*amname`: String containing the name of the index access method (e.g., 'btree', 'hash', 'gist', 'gin', 'spgist', 'brin')
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None directly - uses basic List and string types)

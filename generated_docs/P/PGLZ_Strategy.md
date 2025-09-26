@@ -27,13 +27,12 @@ The strategy is used by the  function to determine when and how to compress data
 The compression algorithm uses a history-based approach with configurable parameters for match finding and early termination conditions. The strategy allows tuning these parameters based on the expected data characteristics and performance requirements.
 
 ## Parameters / Member Variables
-- : Minimum input data size (in bytes) to consider for compression. Data smaller than this threshold will not be compressed.
-- : Maximum input data size (in bytes) to consider for compression. Data larger than this threshold will not be compressed.  
-- : Minimum compression rate (0-99%) required for the compression to be considered successful. If compression doesn't achieve this rate, the original uncompressed data is used instead.
-- : Early termination threshold - abandon compression if no compressible data is found within the first this-many bytes of input.
-- : Initial "good" match size when starting history lookup. This value determines what constitutes a satisfactory match during the compression process and is lowered iteratively to allow smaller matches as the search continues.
-- : Percentage (0-100) by which  is reduced after each history check iteration. A value of 0 means no change until the end, while 100 means only the latest history entry is checked.
-
+- `min_input_size`: Minimum input data size (in bytes) to consider for compression. Data smaller than this threshold will not be compressed.
+- `max_input_size`: Maximum input data size (in bytes) to consider for compression. Data larger than this threshold will not be compressed.
+- `min_comp_rate`: Minimum compression rate (0-99%) required for the compression to be considered successful. If compression doesn't achieve this rate, the original uncompressed data is used instead.
+- `first_success_by`: Early termination threshold - abandon compression if no compressible data is found within the first this-many bytes of input.
+- `match_size_good`: Initial "good" match size when starting history lookup. This value determines what constitutes a satisfactory match during the compression process and is lowered iteratively to allow smaller matches as the search continues.
+- `match_size_drop`: Percentage (0-100) by which  is reduced after each history check iteration. A value of 0 means no change until the end, while 100 means only the latest history entry is checked.
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure)

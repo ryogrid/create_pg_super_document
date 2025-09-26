@@ -22,10 +22,9 @@ JsonUniqueBuilderState provides specialized support for JSON object construction
 The structure is optimized for JSON building scenarios where keys with NULL values might be excluded from the final JSON object, requiring temporary storage and special handling. The integrated memory context ensures proper cleanup of temporary data structures used during the building process.
 
 ## Parameters / Member Variables
-- : Hash table state (JsonUniqueCheckState) for fast duplicate key detection during JSON object construction
-- : StringInfoData buffer for temporarily storing keys that have NULL values and may be excluded from the final JSON object
-- : Memory context for managing allocations related to skipped key storage and other temporary data structures
-
+- `check`: Hash table state (JsonUniqueCheckState) for fast duplicate key detection during JSON object construction
+- `skipped_keys`: StringInfoData buffer for temporarily storing keys that have NULL values and may be excluded from the final JSON object
+- `mcxt`: Memory context for managing allocations related to skipped key storage and other temporary data structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonUniqueCheckState](JsonUniqueCheckState.md) (hash table for key uniqueness checking)

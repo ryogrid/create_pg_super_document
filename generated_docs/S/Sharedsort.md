@@ -46,13 +46,12 @@ The structure manages the parallel sorting lifecycle from worker registration th
 The SharedFileSet provides a unified temporary file space that all workers can access, enabling them to write their sorted runs to shared storage. The flexible array of TapeShare structures allows workers to communicate metadata about their output tapes back to the leader, including tape positioning and run information needed for the final merge phase.
 
 ## Parameters / Member Variables
-- : Spinlock protecting all shared fields before the tapes array
-- : Counter generating unique ordinal identifiers for workers (starting from 0, gapless sequence)
-- : Count of workers that have completed their sorting phase
-- : Shared temporary file space accessible by all parallel workers
-- : Size of the flexible tapes array
-- : Flexible array of TapeShare structures containing worker tape metadata
-
+- `mutex`: Spinlock protecting all shared fields before the tapes array
+- `currentWorker`: Counter generating unique ordinal identifiers for workers (starting from 0, gapless sequence)
+- `workersFinished`: Count of workers that have completed their sorting phase
+- `fileset`: Shared temporary file space accessible by all parallel workers
+- `nTapes`: Size of the flexible tapes array
+- `tapes[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of TapeShare structures containing worker tape metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slock_t](../s/slock_t.md) (spinlock primitive)

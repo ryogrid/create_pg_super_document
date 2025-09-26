@@ -28,12 +28,11 @@ The structure supports two main modes of operation:
 Publications can be configured with various options such as whether to replicate INSERT, UPDATE, DELETE operations, and can include WHERE clauses and column lists for fine-grained control over what data gets replicated.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifier for the parse tree node system
-- : String containing the name of the publication being created; this name must be unique within the database
-- : List of DefElem nodes representing publication options such as 'publish' (specifying which DML operations to replicate), 'publish_via_partition_root', etc.
-- : Optional list of PublicationObjSpec nodes defining which database objects (tables, schemas) to include in the publication; NULL when creating an all-tables publication
-- : Boolean flag indicating whether this is a special publication that includes all tables in the database, bypassing the need for explicit object specification
-
+- `type`: Standard NodeTag identifier for the parse tree node system
+- `*pubname`: String containing the name of the publication being created; this name must be unique within the database
+- `*options`: List of DefElem nodes representing publication options such as 'publish' (specifying which DML operations to replicate), 'publish_via_partition_root', etc.
+- `*pubobjects`: Optional list of PublicationObjSpec nodes defining which database objects (tables, schemas) to include in the publication; NULL when creating an all-tables publication
+- `for_all_tables`: Boolean flag indicating whether this is a special publication that includes all tables in the database, bypassing the need for explicit object specification
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (standard parse tree node identifier)

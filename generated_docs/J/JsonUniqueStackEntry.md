@@ -21,9 +21,8 @@ JsonUniqueStackEntry implements a linked-list-based stack structure that maintai
 The structure supports the recursive nature of JSON by providing a parent pointer that creates a chain back to outer object scopes. This design enables efficient push/pop operations when entering and exiting JSON object boundaries during parsing, while the object_id field provides a unique identifier for each object scope level.
 
 ## Parameters / Member Variables
-- : Pointer to the parent stack entry, creating a linked-list chain representing the nesting hierarchy (NULL for the root level)
-- : Unique integer identifier for the current JSON object scope, used to associate keys with their containing object
-
+- `*parent`: Pointer to the parent stack entry, creating a linked-list chain representing the nesting hierarchy (NULL for the root level)
+- `object_id`: Unique integer identifier for the current JSON object scope, used to associate keys with their containing object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonUniqueStackEntry](JsonUniqueStackEntry.md) (self-reference for parent pointer)

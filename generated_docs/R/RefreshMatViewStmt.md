@@ -21,11 +21,10 @@ typedef struct RefreshMatViewStmt
 RefreshMatViewStmt encapsulates the REFRESH MATERIALIZED VIEW command, which rebuilds the stored data in a materialized view. The statement provides two important modes of operation: concurrent refresh (CONCURRENTLY) which allows read access during the refresh process, and the option to clear the view's data (WITH NO DATA) instead of refreshing it. The relation field identifies the specific materialized view to be refreshed.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a RefreshMatViewStmt node
-- : Boolean flag indicating if CONCURRENTLY option was specified, allowing read access during refresh
-- : Boolean flag indicating if WITH NO DATA was specified, which clears the view rather than refreshing it
-- : RangeVar pointer identifying the materialized view to be refreshed
-
+- `type`: NodeTag identifying this as a RefreshMatViewStmt node
+- `concurrent`: Boolean flag indicating if CONCURRENTLY option was specified, allowing read access during refresh
+- `skipData`: Boolean flag indicating if WITH NO DATA was specified, which clears the view rather than refreshing it
+- `*relation`: RangeVar pointer identifying the materialized view to be refreshed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVar](RangeVar.md) (for materialized view identification)

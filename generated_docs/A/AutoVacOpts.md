@@ -37,23 +37,22 @@ The structure is part of the relation options system and is embedded within the 
 The parameters control various aspects of autovacuum behavior including triggering thresholds, cost-based vacuum delay settings, transaction ID freezing behavior, and logging preferences. This granular control is essential for tuning autovacuum behavior for relations with different access patterns and maintenance requirements.
 
 ## Parameters / Member Variables
-- : Whether autovacuum is enabled for this relation
-- : Minimum number of dead tuples needed to trigger vacuum
-- : Minimum number of inserted tuples needed to trigger vacuum  
-- : Minimum number of changed tuples needed to trigger analyze
-- : Cost-based vacuum delay limit for this relation
-- : Minimum age of tuples before they can be frozen
-- : Maximum age of tuples before they must be frozen
-- : Age at which to scan entire table for freezing
-- : Minimum age for multixact ID freezing
-- : Maximum age for multixact ID freezing  
-- : Age at which to scan entire table for multixact freezing
-- : Minimum duration to log autovacuum actions (milliseconds)
-- : Delay between vacuum cost units (seconds)
-- : Scale factor for vacuum threshold calculation
-- : Scale factor for insert-triggered vacuum threshold
-- : Scale factor for analyze threshold calculation
-
+- `enabled`: Whether autovacuum is enabled for this relation
+- `vacuum_threshold`: Minimum number of dead tuples needed to trigger vacuum
+- `vacuum_ins_threshold`: Minimum number of inserted tuples needed to trigger vacuum
+- `analyze_threshold`: Minimum number of changed tuples needed to trigger analyze
+- `vacuum_cost_limit`: Cost-based vacuum delay limit for this relation
+- `freeze_min_age`: Minimum age of tuples before they can be frozen
+- `freeze_max_age`: Maximum age of tuples before they must be frozen
+- `freeze_table_age`: Age at which to scan entire table for freezing
+- `multixact_freeze_min_age`: Minimum age for multixact ID freezing
+- `multixact_freeze_max_age`: Maximum age for multixact ID freezing
+- `multixact_freeze_table_age`: Age at which to scan entire table for multixact freezing
+- `log_min_duration`: Minimum duration to log autovacuum actions (milliseconds)
+- `vacuum_cost_delay`: Delay between vacuum cost units (seconds)
+- `vacuum_scale_factor`: Scale factor for vacuum threshold calculation
+- `vacuum_ins_scale_factor`: Scale factor for insert-triggered vacuum threshold
+- `analyze_scale_factor`: Scale factor for analyze threshold calculation
 ## Dependencies
 - Functions called/Symbols referenced:
   - float8 (PostgreSQL's double precision type)

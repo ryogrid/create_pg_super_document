@@ -25,13 +25,12 @@ This structure represents a bulk tablespace move operation that allows moving al
 The statement provides a NOWAIT option to avoid blocking if any required locks cannot be immediately acquired. The operation scans the pg_class system catalog to find all matching objects and moves them one by one using the standard ALTER TABLE SET TABLESPACE mechanism.
 
 ## Parameters / Member Variables
-- : NodeTag identifier indicating this is an AlterTableMoveAllStmt node
-- : Name of the source tablespace from which objects will be moved
-- : Type of database objects to move (OBJECT_TABLE, OBJECT_INDEX, or OBJECT_MATVIEW)
-- : Optional list of role specifications to filter objects by ownership (NULL means all owners)
-- : Name of the destination tablespace where objects will be moved
-- : Boolean flag indicating whether to fail immediately if locks cannot be acquired (true) or wait for locks (false)
-
+- `type`: NodeTag identifier indicating this is an AlterTableMoveAllStmt node
+- `*orig_tablespacename`: Name of the source tablespace from which objects will be moved
+- `objtype`: Type of database objects to move (OBJECT_TABLE, OBJECT_INDEX, or OBJECT_MATVIEW)
+- `*roles`: Optional list of role specifications to filter objects by ownership (NULL means all owners)
+- `*new_tablespacename`: Name of the destination tablespace where objects will be moved
+- `nowait`: Boolean flag indicating whether to fail immediately if locks cannot be acquired (true) or wait for locks (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enumeration defining object types)

@@ -33,11 +33,10 @@ The monotonic analysis helps optimize query execution by understanding the behav
 The analysis is performed per partition, and "previous call" refers to earlier calls to the same WindowFunc within the same window partition.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this structure type
-- : Input field pointing to the WindowFunc structure being analyzed for monotonic properties
-- : Input field pointing to the WindowClause containing frame bounds and partitioning information
-- : Output field that receives the MonotonicFunction result indicating the function's monotonic behavior (MONOTONICFUNC_NONE, MONOTONICFUNC_INCREASING, MONOTONICFUNC_DECREASING, or MONOTONICFUNC_BOTH)
-
+- `type`: NodeTag identifier for this structure type
+- `*window_func`: Input field pointing to the WindowFunc structure being analyzed for monotonic properties
+- `*window_clause`: Input field pointing to the WindowClause containing frame bounds and partitioning information
+- `monotonic`: Output field that receives the MonotonicFunction result indicating the function's monotonic behavior (MONOTONICFUNC_NONE, MONOTONICFUNC_INCREASING, MONOTONICFUNC_DECREASING, or MONOTONICFUNC_BOTH)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WindowFunc](../W/WindowFunc.md)

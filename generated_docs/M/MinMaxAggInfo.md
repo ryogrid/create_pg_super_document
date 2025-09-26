@@ -50,15 +50,14 @@ When a MinMaxAggPath containing these structures is accepted during planning, th
 The optimization is particularly effective for queries like "SELECT MIN(column) FROM table" where an appropriate index exists on the column, allowing PostgreSQL to avoid scanning the entire table.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for node type identification
-- : Object ID (OID) of the aggregate function from pg_proc catalog (e.g., MIN or MAX function)
-- : Object ID of the sort operator used by this aggregate to determine ordering semantics
-- : The expression being aggregated (the argument to MIN/MAX function)
-- : Modified PlannerInfo structure for planning the subquery that will replace the aggregate (marked with read_write_ignore attribute)
-- : The access path (typically an index scan) that will be used in the subquery to efficiently find the MIN/MAX value
-- : Estimated cost to fetch the first row using the chosen access path
-- : Parameter node representing the subplan's output in the larger query plan
-
+- `type`: Standard NodeTag for node type identification
+- `aggfnoid`: Object ID (OID) of the aggregate function from pg_proc catalog (e.g., MIN or MAX function)
+- `aggsortop`: Object ID of the sort operator used by this aggregate to determine ordering semantics
+- `*target`: The expression being aggregated (the argument to MIN/MAX function)
+- `pg_node_attr(read_write_ignore)`: Modified PlannerInfo structure for planning the subquery that will replace the aggregate (marked with read_write_ignore attribute)
+- `*path`: The access path (typically an index scan) that will be used in the subquery to efficiently find the MIN/MAX value
+- `pathcost`: Estimated cost to fetch the first row using the chosen access path
+- `*param`: Parameter node representing the subplan's output in the larger query plan
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node type system)

@@ -25,15 +25,14 @@ typedef struct StdRdOptions
 StdRdOptions serves as the standard structure for storing relation options (reloptions) for heap tables in PostgreSQL. This structure is embedded in the rd_options field of relation descriptors and contains parameters that affect how tables are stored, maintained, and accessed. The structure follows the PostgreSQL varlena format with a header that allows it to be stored as variable-length data. These options can be set via CREATE TABLE or ALTER TABLE statements and control various aspects of table behavior from storage efficiency to maintenance operations.
 
 ## Parameters / Member Variables
-- : Varlena header for variable-length data structure (internal use, should not be modified directly)
-- : Page fill factor as a percentage (0-100), controlling how much of each page to fill during INSERT operations
-- : Target size for TOAST (The Oversized-Attribute Storage Technique) compression and external storage
-- : Structure containing autovacuum-related configuration options such as thresholds and scale factors
-- : Boolean flag indicating whether the table should be treated as an additional system catalog table
-- : Maximum number of parallel workers that can be used for operations on this table
-- : Enum controlling index cleanup behavior during VACUUM operations (AUTO, OFF, or ON)
-- : Boolean flag enabling or disabling table truncation during VACUUM operations
-
+- `vl_len_`: Varlena header for variable-length data structure (internal use, should not be modified directly)
+- `fillfactor`: Page fill factor as a percentage (0-100), controlling how much of each page to fill during INSERT operations
+- `toast_tuple_target`: Target size for TOAST (The Oversized-Attribute Storage Technique) compression and external storage
+- `autovacuum`: Structure containing autovacuum-related configuration options such as thresholds and scale factors
+- `user_catalog_table`: Boolean flag indicating whether the table should be treated as an additional system catalog table
+- `parallel_workers`: Maximum number of parallel workers that can be used for operations on this table
+- `vacuum_index_cleanup`: Enum controlling index cleanup behavior during VACUUM operations (AUTO, OFF, or ON)
+- `vacuum_truncate`: Boolean flag enabling or disabling table truncation during VACUUM operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AutoVacOpts](../A/AutoVacOpts.md)

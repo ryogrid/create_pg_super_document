@@ -57,18 +57,12 @@ The cutoffs are carefully calculated based on current system state, active trans
 
 ## Parameters / Member Variables
 
-### Existing pg_class Fields:
-- : The relation's frozen transaction ID from pg_class at VACUUM start
-- : The relation's minimum multixact ID from pg_class at VACUUM start
-
-### Visibility Cutoffs:
-- : Transaction ID below which tuples deleted by committed transactions are considered DEAD (not RECENTLY_DEAD)
-- : Multixact ID below which multixacts are not visible to any running transaction
-
-### Freezing Cutoffs:
-- : Transaction ID below which all XIDs are frozen or removed during page processing
-- : Multixact ID below which all multixact IDs are removed from Xmax during page processing
-
+- `relfrozenxid`: The relation's frozen transaction ID from pg_class at VACUUM start
+- `relminmxid`: The relation's minimum multixact ID from pg_class at VACUUM start
+- `OldestXmin`: Transaction ID below which tuples deleted by committed transactions are considered DEAD (not RECENTLY_DEAD)
+- `OldestMxact`: Multixact ID below which multixacts are not visible to any running transaction
+- `FreezeLimit`: Transaction ID below which all XIDs are frozen or removed during page processing
+- `MultiXactCutoff`: Multixact ID below which all multixact IDs are removed from Xmax during page processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId (transaction identifier type)

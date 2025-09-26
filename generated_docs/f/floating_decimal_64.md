@@ -23,9 +23,8 @@ The struct is part of the Ryu algorithm, which is a fast algorithm for convertin
 This representation allows the algorithm to work with decimal arithmetic instead of binary arithmetic during the final stages of conversion, which simplifies the process of generating the correct decimal output with the minimum number of digits needed to uniquely represent the original floating-point value.
 
 ## Parameters / Member Variables
-- : A 64-bit unsigned integer representing the significant digits of the decimal number
-- : A 32-bit signed integer representing the power of 10 by which the mantissa should be multiplied
-
+- `mantissa`: A 64-bit unsigned integer representing the significant digits of the decimal number
+- `exponent`: A 32-bit signed integer representing the power of 10 by which the mantissa should be multiplied
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a data structure definition)
 - Used by:

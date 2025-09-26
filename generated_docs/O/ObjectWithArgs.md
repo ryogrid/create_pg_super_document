@@ -26,12 +26,11 @@ The structure provides two levels of parameter specification: objargs contains o
 The args_unspecified flag handles cases where SQL syntax allows parameter lists to be omitted entirely, enabling lookup by name alone when the object name is unique in its namespace. This flexibility accommodates different SQL language constructs while maintaining precise object identification when needed.
 
 ## Parameters / Member Variables
-- : NodeTag for node type identification in PostgreSQL's node system
-- : List of strings representing the qualified name of the function or operator (e.g., schema.function_name)
-- : List of Typename nodes specifying only the input parameter types, used for traditional PostgreSQL object lookup rules
-- : List of FunctionParameter nodes providing complete parameter specifications including modes, names, and defaults; NIL if not needed
-- : Boolean flag indicating whether the argument list was entirely omitted in the original SQL, enabling name-only lookup for unique objects
-
+- `type`: NodeTag for node type identification in PostgreSQL's node system
+- `*objname`: List of strings representing the qualified name of the function or operator (e.g., schema.function_name)
+- `*objargs`: List of Typename nodes specifying only the input parameter types, used for traditional PostgreSQL object lookup rules
+- `*objfuncargs`: List of FunctionParameter nodes providing complete parameter specifications including modes, names, and defaults; NIL if not needed
+- `args_unspecified`: Boolean flag indicating whether the argument list was entirely omitted in the original SQL, enabling name-only lookup for unique objects
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct references from this symbol)

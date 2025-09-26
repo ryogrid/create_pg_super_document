@@ -21,9 +21,8 @@ SMgrSortArray is a specialized structure used in PostgreSQL's buffer management 
 This design allows both functions to share the same comparator function, as the memory layout ensures that a pointer to SMgrSortArray can be treated as compatible with a pointer to RelFileLocator for comparison purposes. This is a common C programming pattern that leverages the guaranteed memory layout of structures to enable type punning for optimization.
 
 ## Parameters / Member Variables
-- : RelFileLocator that identifies the relation's file location; positioned as the first member to ensure pointer compatibility with RelFileLocator for sorting operations
-- : SMgrRelation object containing the storage manager relation information
-
+- `rlocator`: RelFileLocator that identifies the relation's file location; positioned as the first member to ensure pointer compatibility with RelFileLocator for sorting operations
+- `srel`: SMgrRelation object containing the storage manager relation information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileLocator](../R/RelFileLocator.md) (type)

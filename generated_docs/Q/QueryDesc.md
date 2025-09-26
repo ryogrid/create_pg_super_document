@@ -40,21 +40,20 @@ QueryDesc serves as the primary interface between PostgreSQL's query planner and
 The QueryDesc lifecycle follows a typical pattern: it's created by CreateQueryDesc with initial query information, populated with execution state during ExecutorStart, used during query execution via ExecutePlan, and finally cleaned up with FreeQueryDesc. The structure supports query instrumentation and performance monitoring through the totaltime field, which can be utilized by plugins for execution time tracking.
 
 ## Parameters / Member Variables
-- : Specifies the type of SQL command (CMD_SELECT, CMD_UPDATE, CMD_INSERT, CMD_DELETE, etc.)
-- : Points to the output from the query planner, containing the optimized execution plan
-- : Contains the original SQL query text as submitted by the client
-- : Transaction snapshot used for query execution to ensure proper isolation
-- : Additional snapshot used for referential integrity checks during updates/deletes
-- : Destination receiver that handles where query results should be sent
-- : Parameter list containing values for parameterized queries (prepared statements)
-- : Query environment containing additional context and ephemeral relations
-- : Bitmask of instrumentation flags controlling performance monitoring
-- : Tuple descriptor defining the structure of result tuples (set during ExecutorStart)
-- : Executor state containing query-wide execution information and context
-- : Root of the plan state tree representing per-node execution state
-- : Flag indicating whether the query has been executed previously
-- : Instrumentation data tracking total execution time (extensible by plugins)
-
+- `operation`: Specifies the type of SQL command (CMD_SELECT, CMD_UPDATE, CMD_INSERT, CMD_DELETE, etc.)
+- `*plannedstmt`: Points to the output from the query planner, containing the optimized execution plan
+- `*sourceText`: Contains the original SQL query text as submitted by the client
+- `snapshot`: Transaction snapshot used for query execution to ensure proper isolation
+- `crosscheck_snapshot`: Additional snapshot used for referential integrity checks during updates/deletes
+- `*dest`: Destination receiver that handles where query results should be sent
+- `params`: Parameter list containing values for parameterized queries (prepared statements)
+- `*queryEnv`: Query environment containing additional context and ephemeral relations
+- `instrument_options`: Bitmask of instrumentation flags controlling performance monitoring
+- `tupDesc`: Tuple descriptor defining the structure of result tuples (set during ExecutorStart)
+- `*estate`: Executor state containing query-wide execution information and context
+- `*planstate`: Root of the plan state tree representing per-node execution state
+- `already_executed`: Flag indicating whether the query has been executed previously
+- `*totaltime`: Instrumentation data tracking total execution time (extensible by plugins)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CmdType

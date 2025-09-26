@@ -32,13 +32,12 @@ The structure supports both directly-usable indexclauses (typically of the form 
 The indexquals list contains RestrictInfos for directly-usable index conditions. In simple cases, it's a single-element list containing the original rinfo. For transformed conditions, it may contain multiple derived indexqual conditions. The lossy flag indicates whether these conditions are semantically equivalent to the original or represent a weaker condition.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL node tag for type identification
-- : Pointer to the original RestrictInfo representing the WHERE/JOIN clause
-- : List of RestrictInfo nodes for directly-usable index conditions derived from the original clause
-- : Boolean flag indicating whether indexquals represent a lossy (weaker) version of the original clause
-- : Zero-based index of the primary index column used by this clause
-- : List of all affected index columns for RowCompareExpr clauses (NIL for single-column clauses)
-
+- `type`: Standard PostgreSQL node tag for type identification
+- `*rinfo`: Pointer to the original RestrictInfo representing the WHERE/JOIN clause
+- `*indexquals`: List of RestrictInfo nodes for directly-usable index conditions derived from the original clause
+- `lossy`: Boolean flag indicating whether indexquals represent a lossy (weaker) version of the original clause
+- `indexcol`: Zero-based index of the primary index column used by this clause
+- `*indexcols`: List of all affected index columns for RowCompareExpr clauses (NIL for single-column clauses)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RestrictInfo](../R/RestrictInfo.md) (referenced structure)

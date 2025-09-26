@@ -23,9 +23,8 @@ The function includes explicit null pointer checking - if the input string is NU
 Unlike the standard , this function ensures proper error reporting through ECPG's error handling system, making it easier to debug memory-related issues in embedded SQL applications.
 
 ## Parameters / Member Variables
-- : Pointer to the null-terminated string to duplicate (can be NULL)
-- : Line number in the source code where the string duplication is requested, used for error reporting and debugging
-
+- `*pointer`: Pointer to the null-terminated string to duplicate (can be NULL)
+- `*next`: Line number in the source code where the string duplication is requested, used for error reporting and debugging
 ## Dependencies
 - Functions called/Symbols referenced:
   - strdup (standard C library function)

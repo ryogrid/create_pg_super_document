@@ -22,10 +22,9 @@ ECPGstruct_member is a fundamental data structure used in the ECPG preprocessor 
 The structure is part of the ECPG type system that allows the preprocessor to understand and validate C data structures used in SQL operations, ensuring proper data type mapping between C and SQL.
 
 ## Parameters / Member Variables
-- : A string containing the name of the struct member
-- : A pointer to an ECPGtype structure that describes the data type of this member
-- : A pointer to the next ECPGstruct_member in the linked list, or NULL if this is the last member
-
+- `*name`: A string containing the name of the struct member
+- `*type`: A pointer to an ECPGtype structure that describes the data type of this member
+- `*next`: A pointer to the next ECPGstruct_member in the linked list, or NULL if this is the last member
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGtype](ECPGtype.md) (referenced as member type)

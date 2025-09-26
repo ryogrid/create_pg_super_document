@@ -48,12 +48,11 @@ The structure implements a two-level caching system where backends maintain loca
 The pending mechanism allows backends to accumulate statistics updates locally without immediately writing to shared memory, improving performance by batching updates and reducing lock contention. The generation field helps detect when the shared entry has been reused, ensuring that stale local references can be detected and refreshed.
 
 ## Parameters / Member Variables
-- : Pointer to the corresponding PgStatShared_HashEntry in the shared statistics hashtable
-- : Cached local pointer to the actual statistics data, avoiding repeated dsa_get_address() calls
-- : Local copy of the shared entry's generation counter to detect entry reuse
-- : Pointer to pending statistics data that needs to be flushed; format is kind-specific
-- : Double-linked list node for membership in the global pgStatPending list
-
+- `*shared_entry`: Pointer to the corresponding PgStatShared_HashEntry in the shared statistics hashtable
+- `*shared_stats`: Cached local pointer to the actual statistics data, avoiding repeated dsa_get_address() calls
+- `generation`: Local copy of the shared entry's generation counter to detect entry reuse
+- `*pending`: Pointer to pending statistics data that needs to be flushed; format is kind-specific
+- `pending_node`: Double-linked list node for membership in the global pgStatPending list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStatShared_HashEntry](PgStatShared_HashEntry.md) (shared hashtable entry type)

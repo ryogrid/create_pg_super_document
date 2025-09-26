@@ -22,10 +22,9 @@ This structure defines the data stored in sequence relations to track the curren
 The structure is essential for sequence operations like nextval(), currval(), and setval(), allowing PostgreSQL to maintain sequence state across transactions and system restarts.
 
 ## Parameters / Member Variables
-- : The last value returned by the sequence (or the starting value if the sequence has never been used)
-- : The number of sequence values that have been preallocated and logged to WAL but not yet used - used for performance optimization
-- : Boolean flag indicating whether nextval() has been called on this sequence (false for newly created sequences)
-
+- `last_value`: The last value returned by the sequence (or the starting value if the sequence has never been used)
+- `log_cnt`: The number of sequence values that have been preallocated and logged to WAL but not yet used - used for performance optimization
+- `is_called`: Boolean flag indicating whether nextval() has been called on this sequence (false for newly created sequences)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is a pure data structure)

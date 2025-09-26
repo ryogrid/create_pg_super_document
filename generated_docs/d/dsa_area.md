@@ -49,12 +49,11 @@ Key aspects of the design:
 - **Synchronization**: The control structure coordinates access across backends
 
 ## Parameters / Member Variables
-- : Pointer to the shared  structure that coordinates the DSA across all backends
-- : ResourceOwner that owns all memory mappings for this DSA attachment; NULL if the attachment has session lifespan (after )
-- : Array of segment mappings ordered by segment index, corresponding to segments in the control structure; not all segments may be mapped locally
-- : The highest segment index that this backend has ever mapped, used for optimization
-- : Cached value of the freed segment counter to detect when segments have been freed by other backends
-
+- `*control`: Pointer to the shared  structure that coordinates the DSA across all backends
+- `resowner`: ResourceOwner that owns all memory mappings for this DSA attachment; NULL if the attachment has session lifespan (after )
+- `segment_maps[DSA_MAX_SEGMENTS]`: Array of segment mappings ordered by segment index, corresponding to segments in the control structure; not all segments may be mapped locally
+- `high_segment_index`: The highest segment index that this backend has ever mapped, used for optimization
+- `freed_segment_counter`: Cached value of the freed segment counter to detect when segments have been freed by other backends
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (shared control structure)

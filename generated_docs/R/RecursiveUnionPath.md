@@ -23,13 +23,12 @@ typedef struct RecursiveUnionPath
 RecursiveUnionPath represents the execution path for recursive UNION operations in PostgreSQL's query planner, primarily used for implementing recursive Common Table Expressions (CTEs). This path type handles the iterative execution pattern where the left path provides the base case (non-recursive term) and the right path provides the recursive term that references the CTE itself. The path manages the work table that stores intermediate results during recursive evaluation and handles duplicate elimination when required.
 
 ## Parameters / Member Variables
-- : Base Path structure containing cost estimates, expected row count, and other standard path properties
-- : Pointer to the path representing the non-recursive term (base case) of the recursive UNION
-- : Pointer to the path representing the recursive term that references the CTE being defined
-- : List of SortGroupClause structures identifying columns used for duplicate elimination (NULL for UNION ALL)
-- : Parameter ID for the work table that stores intermediate results during recursive execution
-- : Estimated cardinality representing the expected number of distinct groups in the combined input
-
+- `path`: Base Path structure containing cost estimates, expected row count, and other standard path properties
+- `*leftpath`: Pointer to the path representing the non-recursive term (base case) of the recursive UNION
+- `*rightpath`: Pointer to the path representing the recursive term that references the CTE being defined
+- `*distinctList`: List of SortGroupClause structures identifying columns used for duplicate elimination (NULL for UNION ALL)
+- `wtParam`: Parameter ID for the work table that stores intermediate results during recursive execution
+- `numGroups`: Estimated cardinality representing the expected number of distinct groups in the combined input
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cardinality

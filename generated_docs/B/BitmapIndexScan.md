@@ -24,12 +24,11 @@ BitmapIndexScan is a specialized scan node that delivers a bitmap of potential t
 Unlike regular IndexScan nodes, BitmapIndexScan does not store a direction flag since scan direction is irrelevant for bitmap generation. The targetlist and qual fields are not used in BitmapIndexScan plans and are always NIL, while indexqualorig is preserved only for EXPLAIN output.
 
 ## Parameters / Member Variables
-- : Base Scan structure containing common scan node fields
-- : OID of the index to scan for generating the bitmap
-- : Boolean flag indicating whether to create a shared bitmap (used in parallel query execution)
-- : List of index qualification expressions (OpExprs) used to filter index entries
-- : Original form of index qualifications, preserved for EXPLAIN purposes
-
+- `scan`: Base Scan structure containing common scan node fields
+- `indexid`: OID of the index to scan for generating the bitmap
+- `isshared`: Boolean flag indicating whether to create a shared bitmap (used in parallel query execution)
+- `*indexqual`: List of index qualification expressions (OpExprs) used to filter index entries
+- `*indexqualorig`: Original form of index qualifications, preserved for EXPLAIN purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Scan](../S/Scan.md) (base structure)

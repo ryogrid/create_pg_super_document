@@ -22,10 +22,9 @@ This structure is designed to hold actual event counters for function execution 
 The time counters are stored in instr_time format within this structure and are converted to microseconds in PgStat_Counter format when the pending statistics are flushed out to the statistics collector.
 
 ## Parameters / Member Variables
-- : Counter tracking the number of times the function has been called
-- : Total time spent in function execution, including time spent in called functions (instr_time format)
-- : Time spent in the function itself, excluding time spent in called functions (instr_time format)
-
+- `numcalls`: Counter tracking the number of times the function has been called
+- `total_time`: Total time spent in function execution, including time spent in called functions (instr_time format)
+- `self_time`: Time spent in the function itself, excluding time spent in called functions (instr_time format)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter

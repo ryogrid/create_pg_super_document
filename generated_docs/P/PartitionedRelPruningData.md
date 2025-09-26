@@ -25,15 +25,14 @@ typedef struct PartitionedRelPruningData
 This structure is essential for PostgreSQL's partition pruning optimization, storing all the information needed to eliminate unnecessary partition scans at execution time. It contains mapping arrays that relate partition indexes to subplan/subpart indexes, bitmapsets tracking which partitions are present, and separate pruning step lists for startup pruning (done once) and per-scan pruning (done for each scan). The structure supports multilevel partitioned tables by maintaining hierarchical relationships through subpart_map indexing into the broader PartitionPruningData array.
 
 ## Parameters / Member Variables
-- : Length of subplan_map[] and subpart_map[] arrays, representing the total number of partitions
-- : Array mapping partition indexes to subplan indexes, with -1 indicating no corresponding subplan
-- : Array mapping partition indexes to subpart indexes in PartitionPruningData.partrelprunedata[], with -1 indicating no subpart
-- : Bitmapset containing partition indexes that have either subplans or subparts available
-- : List of PartitionPruneSteps executed during executor startup for initial pruning
-- : List of PartitionPruneSteps executed during each scan for dynamic pruning
-- : Execution context details for initial_pruning_steps (only valid if initial_pruning_steps isn't NIL)
-- : Execution context details for exec_pruning_steps (only valid if exec_pruning_steps isn't NIL)
-
+- `nparts`: Length of subplan_map[] and subpart_map[] arrays, representing the total number of partitions
+- `*subplan_map`: Array mapping partition indexes to subplan indexes, with -1 indicating no corresponding subplan
+- `*subpart_map`: Array mapping partition indexes to subpart indexes in PartitionPruningData.partrelprunedata[], with -1 indicating no subpart
+- `*present_parts`: Bitmapset containing partition indexes that have either subplans or subparts available
+- `*initial_pruning_steps`: List of PartitionPruneSteps executed during executor startup for initial pruning
+- `*exec_pruning_steps`: List of PartitionPruneSteps executed during each scan for dynamic pruning
+- `initial_context`: Execution context details for initial_pruning_steps (only valid if initial_pruning_steps isn't NIL)
+- `exec_context`: Execution context details for exec_pruning_steps (only valid if exec_pruning_steps isn't NIL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionPruneContext](PartitionPruneContext.md) (for execution contexts)

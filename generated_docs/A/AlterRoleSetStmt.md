@@ -23,11 +23,10 @@ AlterRoleSetStmt is a parser node structure that encapsulates information needed
 This mechanism enables database administrators to customize the environment for individual roles, such as setting default search paths, work memory limits, or other session parameters that will be applied automatically when the role establishes a connection.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as an AlterRoleSetStmt node
-- : RoleSpec pointer specifying the target role for which to set configuration defaults
-- : String containing the database name to which this setting applies, or NULL for all databases
-- : VariableSetStmt pointer containing the actual SET or RESET command to be applied
-
+- `type`: Standard NodeTag identifying this as an AlterRoleSetStmt node
+- `*role`: RoleSpec pointer specifying the target role for which to set configuration defaults
+- `*database`: String containing the database name to which this setting applies, or NULL for all databases
+- `*setstmt`: VariableSetStmt pointer containing the actual SET or RESET command to be applied
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RoleSpec](../R/RoleSpec.md) (for role specification)

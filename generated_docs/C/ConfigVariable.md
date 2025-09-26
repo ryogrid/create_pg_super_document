@@ -29,15 +29,14 @@ This structure is also used to carry error reports about configuration files. Wh
 The structure supports a linked list implementation through the next pointer, allowing multiple configuration variables to be chained together during processing.
 
 ## Parameters / Member Variables
-- : The configuration parameter name (e.g., "shared_buffers")
-- : The configuration parameter value (e.g., "128MB")
-- : Error message if there was a problem parsing this entry (NULL for successful entries)
-- : Name of the configuration file where this entry was found
-- : Line number in the configuration file where this entry appears
-- : Flag indicating whether to skip processing this item (true for errors or duplicate items)
-- : Flag set to true if the setting was successfully applied or could have been applied
-- : Pointer to the next ConfigVariable in a linked list
-
+- `*name`: The configuration parameter name (e.g., "shared_buffers")
+- `*value`: The configuration parameter value (e.g., "128MB")
+- `*errmsg`: Error message if there was a problem parsing this entry (NULL for successful entries)
+- `*filename`: Name of the configuration file where this entry was found
+- `sourceline`: Line number in the configuration file where this entry appears
+- `ignore`: Flag indicating whether to skip processing this item (true for errors or duplicate items)
+- `applied`: Flag set to true if the setting was successfully applied or could have been applied
+- `*next`: Pointer to the next ConfigVariable in a linked list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ConfigVariable](ConfigVariable.md) (self-reference for linked list structure)

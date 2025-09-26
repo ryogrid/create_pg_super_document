@@ -28,11 +28,10 @@ This structure serves as temporary working state to accurately measure and accum
 The fs pointer links to the function's entry in the statistics hash table, and when NULL, indicates that the current function call is not being tracked for statistics purposes.
 
 ## Parameters / Member Variables
-- : Pointer to the function's hashtable entry in PgStat_FunctionCounts; NULL indicates no tracking for current call
-- : Snapshot of total time previously charged to this function at the start of current call
-- : Snapshot of backend-wide total execution time at function start
-- : System clock timestamp marking when the function call began
-
+- `*fs`: Pointer to the function's hashtable entry in PgStat_FunctionCounts; NULL indicates no tracking for current call
+- `save_f_total_time`: Snapshot of total time previously charged to this function at the start of current call
+- `save_total`: Snapshot of backend-wide total execution time at function start
+- `start`: System clock timestamp marking when the function call began
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStat_FunctionCounts](PgStat_FunctionCounts.md)

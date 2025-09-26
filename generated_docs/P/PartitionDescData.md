@@ -54,15 +54,14 @@ The structure maintains arrays of partition OIDs and their leaf status, ensuring
 For performance optimization, the structure includes caching fields specifically designed to speed up get_partition_for_tuple() operations. These fields maintain state about the most recently found partition, allowing the system to take advantage of locality patterns where consecutive tuple lookups often target the same partition.
 
 ## Parameters / Member Variables
-- : Total number of partitions in the partitioned table
-- : Boolean flag indicating whether any detached partitions exist
-- : Array containing partition OIDs ordered by their partition bounds
-- : Array indicating whether each corresponding partition OID represents a leaf partition (not further partitioned)
-- : Collection of partition boundary information used for determining which partition a tuple belongs to
-- : Index into PartitionBoundInfo's datum array for the most recently found partition (-1 if none)
-- : Partition index of the most recently found partition (-1 if none found yet)
-- : Counter for consecutive hits on the same partition, used differently for LIST vs RANGE partitioning to optimize lookup performance
-
+- `nparts`: Total number of partitions in the partitioned table
+- `detached_exist`: Boolean flag indicating whether any detached partitions exist
+- `*oids`: Array containing partition OIDs ordered by their partition bounds
+- `*is_leaf`: Array indicating whether each corresponding partition OID represents a leaf partition (not further partitioned)
+- `boundinfo`: Collection of partition boundary information used for determining which partition a tuple belongs to
+- `last_found_datum_index`: Index into PartitionBoundInfo's datum array for the most recently found partition (-1 if none)
+- `last_found_part_index`: Partition index of the most recently found partition (-1 if none found yet)
+- `last_found_count`: Counter for consecutive hits on the same partition, used differently for LIST vs RANGE partitioning to optimize lookup performance
 ## Dependencies
 - Types referenced:
   - [PartitionBoundInfo](PartitionBoundInfo.md) (partition boundary information structure)

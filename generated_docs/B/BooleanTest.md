@@ -23,11 +23,10 @@ BooleanTest is a node type in PostgreSQL's expression tree that handles boolean 
 The node supports all six meaningful boolean test combinations defined by the SQL standard, allowing precise control over three-valued logic behavior in queries.
 
 ## Parameters / Member Variables
-- : Base Expr node structure
-- : Input expression to be tested (typically evaluates to a boolean or NULL)
-- : Type of boolean test from BoolTestType enum (IS_TRUE, IS_NOT_TRUE, IS_FALSE, IS_NOT_FALSE, IS_UNKNOWN, IS_NOT_UNKNOWN)
-- : Token location in source query, or -1 if unknown
-
+- `xpr`: Base Expr node structure
+- `*arg`: Input expression to be tested (typically evaluates to a boolean or NULL)
+- `booltesttype`: Type of boolean test from BoolTestType enum (IS_TRUE, IS_NOT_TRUE, IS_FALSE, IS_NOT_FALSE, IS_UNKNOWN, IS_NOT_UNKNOWN)
+- `location`: Token location in source query, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BoolTestType](BoolTestType.md) (enum with six test type values)

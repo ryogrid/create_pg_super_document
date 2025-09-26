@@ -28,12 +28,11 @@ CoalesceExpr is a node structure that represents the SQL COALESCE function in Po
 The structure includes query jumble ignore attributes on type and collation fields, indicating these fields should be ignored when generating query fingerprints for query plan caching and statistics.
 
 ## Parameters / Member Variables
-- : Base expression node containing common expression information
-- : OID of the data type that the COALESCE expression will return
-- : OID of the collation to use for the result, or InvalidOid if no collation applies
-- : List of expression nodes representing the arguments to COALESCE
-- : Parse location in the original SQL text, or -1 if location is unknown
-
+- `xpr`: Base expression node containing common expression information
+- `pg_node_attr(query_jumble_ignore)`: OID of the data type that the COALESCE expression will return
+- `pg_node_attr(query_jumble_ignore)`: OID of the collation to use for the result, or InvalidOid if no collation applies
+- `*args`: List of expression nodes representing the arguments to COALESCE
+- `location`: Parse location in the original SQL text, or -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc

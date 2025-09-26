@@ -31,12 +31,11 @@ NamedArgExpr is a node type that represents named arguments in function calls, a
 During parse analysis, the argnumber field is set to the positional index of the argument, but the argument list structure is preserved. The planner later converts all argument lists to pure positional notation during expression preprocessing, which means execution never encounters NamedArgExpr nodes - they are resolved away before runtime.
 
 ## Parameters / Member Variables
-- : Base Expr node structure containing common expression fields
-- : Pointer to the actual argument expression being passed to the function
-- : String containing the parameter name, ignored during query jumbling for plan caching
-- : Integer representing the argument's position in the function's parameter list (0-based)
-- : Parse location of the argument name in the original query text, or -1 if location is unknown
-
+- `xpr`: Base Expr node structure containing common expression fields
+- `*arg`: Pointer to the actual argument expression being passed to the function
+- `pg_node_attr(query_jumble_ignore)`: String containing the parameter name, ignored during query jumbling for plan caching
+- `argnumber`: Integer representing the argument's position in the function's parameter list (0-based)
+- `location`: Parse location of the argument name in the original query text, or -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc

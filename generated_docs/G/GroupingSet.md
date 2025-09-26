@@ -29,11 +29,10 @@ The transformation process converts expressions into targetlist references and b
 This design enables PostgreSQL to efficiently process complex grouping operations while preserving the logical structure needed for correct query execution.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a GroupingSet node
-- : GroupingSetKind enumeration specifying the type (EMPTY, SIMPLE, CUBE, ROLLUP, or SETS)
-- : List containing the contents of this grouping set (expressions, ressortgroupref values, or nested GroupingSet nodes depending on processing stage and kind)
-- : ParseLoc indicating the location in the source query for error reporting
-
+- `type`: NodeTag identifying this as a GroupingSet node
+- `pg_node_attr(query_jumble_ignore)`: GroupingSetKind enumeration specifying the type (EMPTY, SIMPLE, CUBE, ROLLUP, or SETS)
+- `*content`: List containing the contents of this grouping set (expressions, ressortgroupref values, or nested GroupingSet nodes depending on processing stage and kind)
+- `location`: ParseLoc indicating the location in the source query for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GroupingSetKind](GroupingSetKind.md) (enumeration for node types)

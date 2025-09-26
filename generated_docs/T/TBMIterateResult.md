@@ -28,11 +28,10 @@ The structure supports both exact and lossy storage modes:
 This design allows PostgreSQL to handle very large result sets by trading precision for memory efficiency when necessary.
 
 ## Parameters / Member Variables
-- : The block (page) number in the relation that contains the tuples of interest
-- : The number of tuples found on this page. A value of -1 indicates "lossy" storage, meaning individual tuple locations are not tracked
-- : Boolean flag indicating whether the tuples should be rechecked against the original query conditions. Always true when ntuples < 0 (lossy mode)
-- : Flexible array member containing the specific OffsetNumbers (tuple positions within the page) when operating in exact mode. Empty when in lossy mode
-
+- `blockno`: The block (page) number in the relation that contains the tuples of interest
+- `ntuples`: The number of tuples found on this page. A value of -1 indicates "lossy" storage, meaning individual tuple locations are not tracked
+- `recheck`: Boolean flag indicating whether the tuples should be rechecked against the original query conditions. Always true when ntuples < 0 (lossy mode)
+- `offsets[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the specific OffsetNumbers (tuple positions within the page) when operating in exact mode. Empty when in lossy mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length array)

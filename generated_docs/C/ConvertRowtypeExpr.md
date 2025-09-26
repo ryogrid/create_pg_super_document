@@ -33,12 +33,11 @@ Key characteristics:
 - Type modifiers and collations are deliberately omitted (like RowExpr)
 
 ## Parameters / Member Variables
-- : Base expression node structure
-- : Input expression yielding a composite value to be converted
-- : OID of the target composite type
-- : Controls how this conversion is displayed (ignored for query jumbling)
-- : Parse location in the original query, or -1 if unknown
-
+- `xpr`: Base expression node structure
+- `*arg`: Input expression yielding a composite value to be converted
+- `resulttype`: OID of the target composite type
+- `pg_node_attr(query_jumble_ignore)`: Controls how this conversion is displayed (ignored for query jumbling)
+- `location`: Parse location in the original query, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating ConvertRowtypeExpr instances)

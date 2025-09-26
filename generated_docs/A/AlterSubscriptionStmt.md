@@ -32,13 +32,12 @@ AlterSubscriptionStmt represents the parsed form of ALTER SUBSCRIPTION statement
 The structure is designed to handle all ALTER SUBSCRIPTION variants using a single parse tree node, with different fields being relevant depending on the specific alteration type.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifier for the parse tree node system
-- : AlterSubscriptionType enum value specifying the type of alteration being performed (OPTIONS, CONNECTION, SET_PUBLICATION, ADD_PUBLICATION, DROP_PUBLICATION, REFRESH, ENABLED, SKIP)
-- : String containing the name of the subscription being altered; must reference an existing subscription
-- : New connection string for ALTER SUBSCRIPTION CONNECTION operations; specifies updated publisher connection parameters
-- : List of publication names for publication-related operations (ADD, DROP, SET); contains the publications to be added, removed, or set as the complete list
-- : List of DefElem nodes containing subscription options for various alter operations; specific options vary by operation type
-
+- `type`: Standard NodeTag identifier for the parse tree node system
+- `kind`: AlterSubscriptionType enum value specifying the type of alteration being performed (OPTIONS, CONNECTION, SET_PUBLICATION, ADD_PUBLICATION, DROP_PUBLICATION, REFRESH, ENABLED, SKIP)
+- `*subname`: String containing the name of the subscription being altered; must reference an existing subscription
+- `*conninfo`: New connection string for ALTER SUBSCRIPTION CONNECTION operations; specifies updated publisher connection parameters
+- `*publication`: List of publication names for publication-related operations (ADD, DROP, SET); contains the publications to be added, removed, or set as the complete list
+- `*options`: List of DefElem nodes containing subscription options for various alter operations; specific options vary by operation type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AlterSubscriptionType](AlterSubscriptionType.md) (enum defining the type of subscription alteration)

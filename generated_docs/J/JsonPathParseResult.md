@@ -19,9 +19,8 @@ typedef struct JsonPathParseResult
 JsonPathParseResult serves as the primary container for the output of the JSON path parsing process. It combines the parsed expression tree (represented as a JsonPathParseItem) with the execution mode flag that determines how strictly the path should be evaluated. The 'lax' flag controls whether the JSON path execution should be permissive (lax mode) or strict when encountering structural mismatches or missing keys in the target JSON document. This structure is typically returned by the parsejsonpath() function and used as input for further JSON path processing and compilation.
 
 ## Parameters / Member Variables
-- : Pointer to the root JsonPathParseItem representing the parsed JSON path expression tree
-- : Boolean flag indicating execution mode - true for lax mode (permissive), false for strict mode
-
+- `*expr`: Pointer to the root JsonPathParseItem representing the parsed JSON path expression tree
+- `lax`: Boolean flag indicating execution mode - true for lax mode (permissive), false for strict mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonPathParseItem](JsonPathParseItem.md) (for the expr member)

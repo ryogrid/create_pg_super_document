@@ -21,9 +21,8 @@ PrivateRefCountEntry is a lightweight structure that maintains local reference c
 The private reference count system works alongside the shared buffer management to optimize performance by reducing contention on shared memory structures. Each backend maintains its own array of PrivateRefCountEntry structures to track buffers it has referenced.
 
 ## Parameters / Member Variables
-- : The Buffer identifier that this entry tracks references for
-- : The number of times this backend has pinned the specified buffer (private reference count)
-
+- `buffer`: The Buffer identifier that this entry tracks references for
+- `refcount`: The number of times this backend has pinned the specified buffer (private reference count)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Buffer (type)

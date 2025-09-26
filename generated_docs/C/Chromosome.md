@@ -21,9 +21,8 @@ The Chromosome structure is a core component of PostgreSQL's Genetic Query Optim
 The GEQO module is used when the number of relations in a query exceeds a threshold (typically 12), where exhaustive search becomes impractical. The genetic algorithm evolves populations of chromosomes through selection, crossover, and mutation operations to find near-optimal join orders.
 
 ## Parameters / Member Variables
-- : A pointer to an array of Gene values representing the sequence of relations in a particular join order
-- : The cost (fitness value) associated with this chromosome, representing the estimated execution cost of the join order it represents
-
+- `*string`: A pointer to an array of Gene values representing the sequence of relations in a particular join order
+- `worth`: The cost (fitness value) associated with this chromosome, representing the estimated execution cost of the join order it represents
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Gene](../G/Gene.md)

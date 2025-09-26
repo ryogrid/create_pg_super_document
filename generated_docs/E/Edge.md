@@ -22,10 +22,9 @@ The Edge structure is used in the GEQO edge recombination crossover algorithm to
 The edge recombination crossover is designed to preserve adjacency information from parent tours, making it particularly suitable for problems where the ordering and adjacency relationships are important, such as in query join ordering optimization.
 
 ## Parameters / Member Variables
-- : Array of Gene values representing up to 4 edges connected to this node in the adjacency graph
-- : Integer count of the total number of edges associated with this node
-- : Integer count of edges that have not yet been used during the recombination process
-
+- `edge_list[4]`: Array of Gene values representing up to 4 edges connected to this node in the adjacency graph
+- `total_edges`: Integer count of the total number of edges associated with this node
+- `unused_edges`: Integer count of edges that have not yet been used during the recombination process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Gene](../G/Gene.md) (typedef for int, representing a relation identifier)

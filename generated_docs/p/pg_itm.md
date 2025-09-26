@@ -26,14 +26,13 @@ The  structure is modeled after  used for timestamps but is specifically designe
 The structure supports negative values in its fields, which is important for representing negative intervals. However, due to the divisions performed during conversion from , only  could potentially reach . This limitation is significant because the code may need to negate values in various code paths.
 
 ## Parameters / Member Variables
-- : Microseconds component of the interval (0-999999)
-- : Seconds component of the interval (0-59)  
-- : Minutes component of the interval (0-59)
-- : Hours component of the interval (uses int64 for wide range support)
-- : Days component of the interval
-- : Months component of the interval
-- : Years component of the interval
-
+- `tm_usec`: Microseconds component of the interval (0-999999)
+- `tm_sec`: Seconds component of the interval (0-59)
+- `tm_min`: Minutes component of the interval (0-59)
+- `tm_hour`: Hours component of the interval (uses int64 for wide range support)
+- `tm_mday`: Days component of the interval
+- `tm_mon`: Months component of the interval
+- `tm_year`: Years component of the interval
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is a data structure)

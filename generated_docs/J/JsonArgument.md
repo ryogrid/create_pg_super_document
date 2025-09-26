@@ -20,10 +20,9 @@ typedef struct JsonArgument
 JsonArgument represents individual named arguments from the PASSING clause in SQL/JSON expressions. The PASSING clause allows users to bind external values to named parameters that can be referenced within JSON path expressions and other JSON operations. This structure encapsulates both the parameter name and its associated value expression, enabling dynamic parameter substitution in JSON processing. JsonArgument serves as a bridge between SQL expressions and JSON path contexts, allowing complex JSON operations to access external data through named parameter bindings.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL node identification
-- : Pointer to JsonValueExpr representing the argument's value expression
-- : String containing the name of the argument parameter
-
+- `type`: Standard NodeTag for PostgreSQL node identification
+- `*val`: Pointer to JsonValueExpr representing the argument's value expression
+- `*name`: String containing the name of the argument parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonValueExpr](JsonValueExpr.md)

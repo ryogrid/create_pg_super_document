@@ -23,9 +23,8 @@ This structure is part of PostgreSQL's efficient approach to handling ALTER TABL
 The AttrMissing structure is typically used as part of an array within the TupleConstr structure, with one AttrMissing entry for each attribute that might be missing from older tuples.
 
 ## Parameters / Member Variables
-- : A boolean flag indicating whether a non-NULL default value exists for this missing attribute. When true, am_value contains a valid default value; when false, the missing attribute should be treated as NULL.
-- : The actual default value (as a Datum) to use when the attribute is missing from a tuple. This value is only meaningful when am_present is true.
-
+- `am_present`: A boolean flag indicating whether a non-NULL default value exists for this missing attribute. When true, am_value contains a valid default value; when false, the missing attribute should be treated as NULL.
+- `am_value`: The actual default value (as a Datum) to use when the attribute is missing from a tuple. This value is only meaningful when am_present is true.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL's generic data type)

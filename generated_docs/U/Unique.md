@@ -36,12 +36,11 @@ The node works by:
 4. If the tuples differ, the new tuple is returned and becomes the new comparison baseline
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common plan node information
-- : Number of columns to examine when determining tuple uniqueness
-- : Array of column indexes in the target list to compare for uniqueness
-- : Array of equality operator OIDs used for comparing corresponding columns
-- : Array of collation OIDs for performing equality comparisons on each column
-
+- `plan`: Base Plan structure containing common plan node information
+- `numCols`: Number of columns to examine when determining tuple uniqueness
+- `pg_node_attr(array_size(numCols))`: Array of column indexes in the target list to compare for uniqueness
+- `pg_node_attr(array_size(numCols))`: Array of equality operator OIDs used for comparing corresponding columns
+- `pg_node_attr(array_size(numCols))`: Array of collation OIDs for performing equality comparisons on each column
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

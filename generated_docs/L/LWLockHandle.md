@@ -21,9 +21,8 @@ LWLockHandle serves as a handle structure that tracks lightweight locks held by 
 The structure is typically used in scenarios where the system needs to keep track of multiple locks held by a single process, allowing for proper lock management and release operations.
 
 ## Parameters / Member Variables
-- : Pointer to the actual LWLock structure that is being held
-- : The mode in which the lock is held (LWLockMode - either shared or exclusive)
-
+- `*lock`: Pointer to the actual LWLock structure that is being held
+- `mode`: The mode in which the lock is held (LWLockMode - either shared or exclusive)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLock](LWLock.md) (structure type)

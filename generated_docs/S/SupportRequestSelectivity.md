@@ -35,20 +35,16 @@ When a support function can provide a selectivity estimate, it stores the value 
 This functionality is particularly important for custom data types and functions that have domain-specific knowledge about data distribution that the standard planner algorithms cannot capture.
 
 ## Parameters / Member Variables
-**Input fields:**
-- : NodeTag identifying this as a SupportRequestSelectivity structure
-- : Pointer to PlannerInfo containing planner's infrastructure information
-- : OID of the function being analyzed for selectivity
-- : List of pre-simplified arguments to the function
-- : OID of the function's input collation
-- : Boolean indicating whether this is a join selectivity case or a restriction selectivity case
-- : If this is a restriction case, the range table index (RTI) of the target relation
-- : If this is a join case, specifies the type of outer join
-- : If this is an outer join case, provides additional information about the join
-
-**Output fields:**
-- : The returned selectivity estimate (must be between 0 and 1 inclusive)
-
+- `type`: NodeTag identifying this as a SupportRequestSelectivity structure
+- `*root`: Pointer to PlannerInfo containing planner's infrastructure information
+- `funcid`: OID of the function being analyzed for selectivity
+- `*args`: List of pre-simplified arguments to the function
+- `inputcollid`: OID of the function's input collation
+- `is_join`: Boolean indicating whether this is a join selectivity case or a restriction selectivity case
+- `varRelid`: If this is a restriction case, the range table index (RTI) of the target relation
+- `jointype`: If this is a join case, specifies the type of outer join
+- `*sjinfo`: If this is an outer join case, provides additional information about the join
+- `selectivity`: The returned selectivity estimate (must be between 0 and 1 inclusive)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

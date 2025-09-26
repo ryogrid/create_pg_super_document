@@ -19,9 +19,8 @@ typedef struct xl_xact_relfilelocators
 The xl_xact_relfilelocators structure is a WAL record format used to log relation file locator information during transaction commit and abort operations. This structure is part of PostgreSQL's transaction logging mechanism and helps track which relation files are affected by a transaction. The structure uses a flexible array member to accommodate a variable number of RelFileLocator entries, making it efficient for transactions that affect different numbers of relations.
 
 ## Parameters / Member Variables
-- : An integer specifying the number of relations whose file locators are stored in this record
-- : A flexible array of RelFileLocator structures containing the actual file locator information for each affected relation
-
+- `nrels`: An integer specifying the number of relations whose file locators are stored in this record
+- `xlocators[FLEXIBLE_ARRAY_MEMBER]`: A flexible array of RelFileLocator structures containing the actual file locator information for each affected relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

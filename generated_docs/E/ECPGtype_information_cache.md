@@ -22,10 +22,9 @@ ECPGtype_information_cache is a linked list structure that implements a cache fo
 This caching mechanism avoids repeated database queries to determine type characteristics, improving performance when the same types are encountered multiple times during SQL operations. The cache is particularly important for handling complex data types and arrays in embedded SQL applications.
 
 ## Parameters / Member Variables
-- : Pointer to the next cache entry in the linked list, forming a chain of cached type information
-- : The PostgreSQL Object ID (OID) that uniquely identifies the database type being cached
-- : An enumeration value indicating whether this type is an array type or not
-
+- `*next`: Pointer to the next cache entry in the linked list, forming a chain of cached type information
+- `oid`: The PostgreSQL Object ID (OID) that uniquely identifies the database type being cached
+- `isarray`: An enumeration value indicating whether this type is an array type or not
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGtype_information_cache](ECPGtype_information_cache.md) (self-reference for linked list structure)

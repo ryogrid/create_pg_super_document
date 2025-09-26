@@ -26,11 +26,10 @@ The structure is designed to work with PostgreSQL's hash table system (dynahash.
 All subsidiary storage for the actual statement parsing and planning is managed by the referenced plancache entry, making PreparedStatement primarily a naming and tracking mechanism rather than a storage container for the statement's execution components.
 
 ## Parameters / Member Variables
-- : The name of the prepared statement, limited to 64 characters including null terminator. This serves as the key for hash table lookups and must be the first field for dynahash.c compatibility.
-- : Pointer to the CachedPlanSource containing the actual parsed and planned statement. This is where the real execution plan and related metadata are stored.
-- : Boolean flag indicating whether the statement was prepared via SQL PREPARE command (true) or through the frontend/backend protocol (false). This affects how the statement is handled during execution and cleanup.
-- : Timestamp recording when the statement was initially prepared, useful for monitoring, debugging, and potential cache eviction policies.
-
+- `stmt_name[NAMEDATALEN]`: The name of the prepared statement, limited to 64 characters including null terminator. This serves as the key for hash table lookups and must be the first field for dynahash.c compatibility.
+- `*plansource`: Pointer to the CachedPlanSource containing the actual parsed and planned statement. This is where the real execution plan and related metadata are stored.
+- `from_sql`: Boolean flag indicating whether the statement was prepared via SQL PREPARE command (true) or through the frontend/backend protocol (false). This affects how the statement is handled during execution and cleanup.
+- `prepare_time`: Timestamp recording when the statement was initially prepared, useful for monitoring, debugging, and potential cache eviction policies.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CachedPlanSource](../C/CachedPlanSource.md) (from utils/plancache.h)

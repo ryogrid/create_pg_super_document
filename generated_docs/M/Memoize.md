@@ -57,16 +57,15 @@ The cache uses an LRU (Least Recently Used) eviction policy when memory limits a
 The singlerow flag optimizes for unique joins where only one tuple is expected per parameter set, allowing the cache entry to be marked complete immediately. Binary mode enables bit-by-bit comparison of cache keys for improved performance when appropriate.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing target list, qualifications, cost estimates, and child plan references
-- : Number of cache key expressions and corresponding size of the hashOperators and collations arrays
-- : Array of hash operator OIDs used for hashing and comparing cache key values
-- : Array of collation OIDs for proper comparison of cache keys with locale-specific ordering
-- : List of expressions containing parameters that form the cache keys for lookup and storage
-- : Boolean flag indicating whether cache entries should be marked complete after storing just the first tuple (optimization for unique joins)
-- : Boolean flag controlling whether cache keys should be compared using bitwise comparison (true) or hash equality operations (false)
-- : Planner's estimate of the maximum number of cache entries that will fit in memory, used for cache sizing decisions
-- : Bitmap set containing the parameter IDs referenced in the cache key expressions
-
+- `plan`: Base Plan structure containing target list, qualifications, cost estimates, and child plan references
+- `numKeys`: Number of cache key expressions and corresponding size of the hashOperators and collations arrays
+- `pg_node_attr(array_size(numKeys))`: Array of hash operator OIDs used for hashing and comparing cache key values
+- `pg_node_attr(array_size(numKeys))`: Array of collation OIDs for proper comparison of cache keys with locale-specific ordering
+- `*param_exprs`: List of expressions containing parameters that form the cache keys for lookup and storage
+- `singlerow`: Boolean flag indicating whether cache entries should be marked complete after storing just the first tuple (optimization for unique joins)
+- `binary_mode`: Boolean flag controlling whether cache keys should be compared using bitwise comparison (true) or hash equality operations (false)
+- `est_entries`: Planner's estimate of the maximum number of cache entries that will fit in memory, used for cache sizing decisions
+- `*keyparamids`: Bitmap set containing the parameter IDs referenced in the cache key expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (inherited base structure)

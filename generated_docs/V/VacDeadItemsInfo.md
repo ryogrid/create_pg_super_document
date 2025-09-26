@@ -29,9 +29,8 @@ This information is crucial for VACUUM's memory management strategy, allowing it
 - Make decisions about when to perform index cleanup based on the number of collected dead items
 
 ## Parameters / Member Variables
-- : Maximum memory in bytes that the associated TidStore is allowed to consume. This limit helps prevent VACUUM from using excessive memory during dead tuple collection.
-- : Current number of dead tuple identifiers stored in the TidStore. This count is used to track collection progress and make decisions about when to perform index cleanup operations.
-
+- `max_bytes`: Maximum memory in bytes that the associated TidStore is allowed to consume. This limit helps prevent VACUUM from using excessive memory during dead tuple collection.
+- `num_items`: Current number of dead tuple identifiers stored in the TidStore. This count is used to track collection progress and make decisions about when to perform index cleanup operations.
 ## Dependencies
 - Functions called/Symbols referenced:
   - size_t (standard size type)

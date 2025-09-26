@@ -30,11 +30,10 @@ Since RANGE is included in default frame options, functions like row_number() th
 The planner coordinates this optimization across all WindowFuncs using the same WindowClause, ensuring all functions agree on the optimized frame options before making any changes. If any WindowFunc lacks a support function or disagrees with the optimization, no changes are made.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this structure type
-- : Input field pointing to the WindowFunc being analyzed for frame optimization opportunities
-- : Input field pointing to the WindowClause containing current frame options and other window specifications
-- : Input/Output field initialized with WindowClause.frameOptions; support functions modify this to suggest optimized frame options, or leave unchanged if no optimizations are possible
-
+- `type`: NodeTag identifier for this structure type
+- `*window_func`: Input field pointing to the WindowFunc being analyzed for frame optimization opportunities
+- `*window_clause`: Input field pointing to the WindowClause containing current frame options and other window specifications
+- `frameOptions`: Input/Output field initialized with WindowClause.frameOptions; support functions modify this to suggest optimized frame options, or leave unchanged if no optimizations are possible
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WindowFunc](../W/WindowFunc.md)

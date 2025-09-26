@@ -24,12 +24,11 @@ JsonUniqueParsingState serves as the central coordination structure for PostgreS
 The structure coordinates between the JSON lexer for token processing, the hash table for key storage, the stack for nested object tracking, and maintains both sequential object identification and overall validation status. This design provides a complete solution for ensuring JSON objects comply with uniqueness requirements at all nesting levels.
 
 ## Parameters / Member Variables
-- : Pointer to the JSON lexical analyzer context (JsonLexContext) that provides tokenized JSON input
-- : Hash table state (JsonUniqueCheckState) for fast key lookup and duplicate detection
-- : Pointer to the current top of the object scope stack (JsonUniqueStackEntry) for nested object tracking
-- : Sequential counter for assigning unique object IDs to different JSON object scopes
-- : Boolean flag indicating whether all keys processed so far are unique (true) or duplicates have been found (false)
-
+- `*lex`: Pointer to the JSON lexical analyzer context (JsonLexContext) that provides tokenized JSON input
+- `check`: Hash table state (JsonUniqueCheckState) for fast key lookup and duplicate detection
+- `*stack`: Pointer to the current top of the object scope stack (JsonUniqueStackEntry) for nested object tracking
+- `id_counter`: Sequential counter for assigning unique object IDs to different JSON object scopes
+- `unique`: Boolean flag indicating whether all keys processed so far are unique (true) or duplicates have been found (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonLexContext](JsonLexContext.md) (JSON lexical analyzer)

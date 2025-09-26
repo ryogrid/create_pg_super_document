@@ -26,10 +26,9 @@ The structure works by capturing a Var from the outer relation (paramval) and as
 This mechanism is essential for enabling index nested loop joins, where the inner scan can use an index with the parameter value as a key, dramatically improving performance compared to a simple nested loop that scans the entire inner relation for each outer tuple.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL node identification
-- : The PARAM_EXEC parameter number used to store the outer relation value; this corresponds to an index in the parameter execution array
-- : A Var node pointing to a specific attribute in the outer relation whose value will be passed as a parameter to the inner scan
-
+- `type`: Standard NodeTag for PostgreSQL node identification
+- `paramno`: The PARAM_EXEC parameter number used to store the outer relation value; this corresponds to an index in the parameter execution array
+- `*paramval`: A Var node pointing to a specific attribute in the outer relation whose value will be passed as a parameter to the inner scan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Var](../V/Var.md) (referenced as paramval member type)

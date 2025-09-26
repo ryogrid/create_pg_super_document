@@ -23,11 +23,10 @@ The City structure is used in multiple genetic crossover algorithms within GEQO,
 The structure serves as a mapping and tracking mechanism that allows different crossover algorithms to maintain correspondence between elements in parent solutions while constructing offspring solutions. This is crucial for preserving beneficial characteristics from parent query plans during genetic optimization.
 
 ## Parameters / Member Variables
-- : Integer representing the position of this element in the second parent tour/solution
-- : Integer representing the position of this element in the first parent tour/solution  
-- : Integer flag indicating whether this city/element has been used during the current crossover operation
-- : Integer flag or identifier used for selection criteria during crossover operations
-
+- `tour2_position`: Integer representing the position of this element in the second parent tour/solution
+- `tour1_position`: Integer representing the position of this element in the first parent tour/solution
+- `used`: Integer flag indicating whether this city/element has been used during the current crossover operation
+- `select_list`: Integer flag or identifier used for selection criteria during crossover operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is a simple data structure with no direct symbol dependencies)

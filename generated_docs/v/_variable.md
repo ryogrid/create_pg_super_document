@@ -28,12 +28,11 @@ Key behavioral characteristics:
 - Variables form a singly-linked list for efficient traversal and management
 
 ## Parameters / Member Variables
-- : String containing the variable name (e.g., "AUTOCOMMIT", "PROMPT1")
-- : String containing the current variable value, or NULL if unset
-- : Function pointer for value normalization/transformation before assignment
-- : Function pointer for value validation during assignment
-- : Pointer to the next variable in the linked list, forming a chain
-
+- `*name`: String containing the variable name (e.g., "AUTOCOMMIT", "PROMPT1")
+- `*value`: String containing the current variable value, or NULL if unset
+- `substitute_hook`: Function pointer for value normalization/transformation before assignment
+- `assign_hook`: Function pointer for value validation during assignment
+- `*next`: Pointer to the next variable in the linked list, forming a chain
 ## Dependencies
 - Functions called/Symbols referenced:
   - VariableSubstituteHook (typedef)

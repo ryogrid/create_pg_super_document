@@ -35,17 +35,16 @@ SpGistState serves as the comprehensive operational context for all SP-GiST inde
 The structure is designed to support SP-GiST's sophisticated approach to space partitioning, where inner nodes may store compressed or transformed representations of the original data (prefixes, labels) while leaf nodes contain the actual indexed values or suffixes. The type descriptors allow proper handling of these varied data representations throughout the index hierarchy.
 
 ## Parameters / Member Variables
-- : The Relation structure representing the SP-GiST index being operated on
-- : Configuration output from the operator class, containing function pointers and parameters
-- : Type descriptor for the original values being indexed or restored
-- : Type descriptor for values stored in leaf tuples (may differ from attType)
-- : Type descriptor for prefix values stored in inner tuples
-- : Type descriptor for node label values used in tree navigation
-- : Tuple descriptor for leaf-level tuples (usually points to index's tupdesc)
-- : Workspace buffer for constructing dead tuples during operations
-- : Transaction ID to assign when creating redirect tuples during splits
-- : Boolean flag indicating whether currently performing index build operations
-
+- `index`: The Relation structure representing the SP-GiST index being operated on
+- `config`: Configuration output from the operator class, containing function pointers and parameters
+- `attType`: Type descriptor for the original values being indexed or restored
+- `attLeafType`: Type descriptor for values stored in leaf tuples (may differ from attType)
+- `attPrefixType`: Type descriptor for prefix values stored in inner tuples
+- `attLabelType`: Type descriptor for node label values used in tree navigation
+- `leafTupDesc`: Tuple descriptor for leaf-level tuples (usually points to index's tupdesc)
+- `*deadTupleStorage`: Workspace buffer for constructing dead tuples during operations
+- `redirectXid`: Transaction ID to assign when creating redirect tuples during splits
+- `isBuild`: Boolean flag indicating whether currently performing index build operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spgConfigOut](../s/spgConfigOut.md) (operator class configuration)

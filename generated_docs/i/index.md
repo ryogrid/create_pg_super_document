@@ -24,10 +24,9 @@ The structure supports two-dimensional indexing where index1 typically represent
 This struct is part of the parser's union type system and is used during the semantic analysis phase to collect dimension information before creating the final ECPGtype structures that represent the complete type information.
 
 ## Parameters / Member Variables
-- : String representing the first dimension, typically array size or primary dimension (uses "-1" for unspecified)
-- : String representing the second dimension, typically string length or secondary dimension (uses "-1" for unspecified)  
-- : String representation of the dimension syntax as it appears in the source code (e.g., "[10][20]")
-
+- `*index1`: String representing the first dimension, typically array size or primary dimension (uses "-1" for unspecified)
+- `*index2`: String representing the second dimension, typically string length or secondary dimension (uses "-1" for unspecified)
+- `*str`: String representation of the dimension syntax as it appears in the source code (e.g., "[10][20]")
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mm_strdup](../m/mm_strdup.md) (for string duplication during parsing)

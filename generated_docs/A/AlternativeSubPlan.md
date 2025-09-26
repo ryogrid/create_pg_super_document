@@ -25,9 +25,8 @@ The subplans are stored as a List to allow for potential future expansion beyond
 This node allows the planner to defer the choice between different execution strategies until more information is available about the query context and requirements.
 
 ## Parameters / Member Variables
-- : Base Expr node structure
-- : List of SubPlan nodes with equivalent results (currently always exactly two, with the first being the fast-start plan)
-
+- `xpr`: Base Expr node structure
+- `*subplans`: List of SubPlan nodes with equivalent results (currently always exactly two, with the first being the fast-start plan)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references)

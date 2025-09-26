@@ -25,11 +25,10 @@ The structure is designed to be immutable - all data is constant and kept in sta
 The conflict checking is performed using the conflictTab array, where each lock mode has an associated bitmask indicating which other lock modes it conflicts with. This allows for very fast conflict detection using bitwise operations.
 
 ## Parameters / Member Variables
-- : Number of distinct lock modes defined for this lock method (must be less than MAX_LOCKMODES)
-- : Array of bitmasks defining lock mode conflicts; conflictTab[i] has the j-th bit set if modes i and j conflict (index 0 is unused, modes numbered 1..numLockModes)
-- : Array of string names for each lock mode, used for debugging and logging
-- : Pointer to GUC trace flag that controls debug output for this lock method
-
+- `numLockModes`: Number of distinct lock modes defined for this lock method (must be less than MAX_LOCKMODES)
+- `*conflictTab`: Array of bitmasks defining lock mode conflicts; conflictTab[i] has the j-th bit set if modes i and j conflict (index 0 is unused, modes numbered 1..numLockModes)
+- `*lockModeNames`: Array of string names for each lock mode, used for debugging and logging
+- `*trace_flag`: Pointer to GUC trace flag that controls debug output for this lock method
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKMASK

@@ -20,8 +20,7 @@ LockInfoData serves as a container structure for lock-related information associ
 The structure is part of PostgreSQL's relation management system and works in conjunction with the lock manager to provide relation-level locking capabilities. By encapsulating the LockRelId within this structure, PostgreSQL maintains a clean separation between the relation's core data and its locking metadata.
 
 ## Parameters / Member Variables
-- : A LockRelId structure that uniquely identifies this relation for locking purposes, containing both the relation OID and database OID.
-
+- `lockRelId`: A LockRelId structure that uniquely identifies this relation for locking purposes, containing both the relation OID and database OID.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockRelId](LockRelId.md)

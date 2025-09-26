@@ -36,10 +36,9 @@ The system supports three types of items:
 The planner performs duplicate elimination for Var and PlaceHolderVar parameters within the same scope (either parameters passed to a single subquery or nestloop parameters within a single query level), but doesn't optimize Aggref duplicates.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for node type identification
-- : Pointer to the actual expression node being parameterized - can be a Var, PlaceHolderVar, or Aggref representing the value that needs to be passed through the PARAM_EXEC mechanism
-- : The unique PARAM_EXEC slot number assigned to this parameter by the planner, ensuring non-conflicting parameter passing throughout the query plan
-
+- `type`: Standard NodeTag for node type identification
+- `*item`: Pointer to the actual expression node being parameterized - can be a Var, PlaceHolderVar, or Aggref representing the value that needs to be passed through the PARAM_EXEC mechanism
+- `paramId`: The unique PARAM_EXEC slot number assigned to this parameter by the planner, ensuring non-conflicting parameter passing throughout the query plan
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node type system)

@@ -37,10 +37,9 @@ AggStatePerGroupData stores the working state for each group in aggregate proces
 The structure handles the distinction between NULL transition values and uninitialized values, which is crucial for correct aggregate behavior, especially for aggregates that should substitute the first non-NULL input value.
 
 ## Parameters / Member Variables
-- : Current transition value for the aggregate computation (Datum type for type flexibility)
-- : Boolean indicating whether the current transition value is NULL
-- : Boolean indicating whether the transition value has been set yet (initially true)
-
+- `transValue`: Current transition value for the aggregate computation (Datum type for type flexibility)
+- `transValueIsNull`: Boolean indicating whether the current transition value is NULL
+- `noTransValue`: Boolean indicating whether the transition value has been set yet (initially true)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references)

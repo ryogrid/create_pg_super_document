@@ -20,10 +20,9 @@ typedef struct JsonOutput
 JsonOutput is a parse tree node that represents the output specification for JSON functions and expressions in PostgreSQL's SQL/JSON support. It encapsulates the RETURNING clause which allows users to specify the data type and format for JSON operation results. This structure provides flexibility in how JSON data is returned, allowing conversion to various PostgreSQL data types and controlling the output format. The structure serves as an intermediate representation during parsing that is later processed to determine the actual return type and format handling for JSON operations.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL node identification
-- : Pointer to the specified return type name in the RETURNING clause (NULL if not specified)
-- : Pointer to JsonReturning structure containing FORMAT clause details and resolved type OIDs
-
+- `type`: Standard NodeTag for PostgreSQL node identification
+- `*typeName`: Pointer to the specified return type name in the RETURNING clause (NULL if not specified)
+- `*returning`: Pointer to JsonReturning structure containing FORMAT clause details and resolved type OIDs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TypeName](../T/TypeName.md)

@@ -23,9 +23,8 @@ The subpath comes from a different planning context where RTE (Range Table Entry
 This approach is essential for handling complex subqueries that cannot be merged with the outer query, such as those containing aggregates, window functions, DISTINCT, LIMIT/OFFSET, or set operations.
 
 ## Parameters / Member Variables
-- : Base Path structure containing common path information including cost estimates, parent relation, pathkeys, and parallel execution properties
-- : Path representing the execution plan for the subquery itself, created within the subquery's own planning domain
-
+- `path`: Base Path structure containing common path information including cost estimates, parent relation, pathkeys, and parallel execution properties
+- `*subpath`: Path representing the execution plan for the subquery itself, created within the subquery's own planning domain
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Path](../P/Path.md) (base structure)

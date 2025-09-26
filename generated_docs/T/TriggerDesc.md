@@ -47,30 +47,29 @@ typedef struct TriggerDesc
 TriggerDesc serves as an efficient container and index for all triggers associated with a database relation. The structure is designed with performance optimization in mind, using boolean flags to quickly determine whether specific types of triggers exist without needing to iterate through the entire triggers array. This design pattern is crucial for PostgreSQL's trigger execution system, where the database needs to quickly determine which triggers should fire for a given operation. The structure covers all possible combinations of trigger timing (BEFORE/AFTER/INSTEAD), events (INSERT/UPDATE/DELETE/TRUNCATE), and levels (row/statement), plus support for transition tables that provide OLD and NEW table references in statement-level triggers.
 
 ## Parameters / Member Variables
-- : Pointer to array of Trigger structures containing the actual trigger definitions
-- : Total number of triggers in the array
-- : Flag indicating presence of BEFORE INSERT row-level triggers
-- : Flag indicating presence of AFTER INSERT row-level triggers
-- : Flag indicating presence of INSTEAD OF INSERT triggers (for views)
-- : Flag indicating presence of BEFORE INSERT statement-level triggers
-- : Flag indicating presence of AFTER INSERT statement-level triggers
-- : Flag indicating presence of BEFORE UPDATE row-level triggers
-- : Flag indicating presence of AFTER UPDATE row-level triggers
-- : Flag indicating presence of INSTEAD OF UPDATE triggers (for views)
-- : Flag indicating presence of BEFORE UPDATE statement-level triggers
-- : Flag indicating presence of AFTER UPDATE statement-level triggers
-- : Flag indicating presence of BEFORE DELETE row-level triggers
-- : Flag indicating presence of AFTER DELETE row-level triggers
-- : Flag indicating presence of INSTEAD OF DELETE triggers (for views)
-- : Flag indicating presence of BEFORE DELETE statement-level triggers
-- : Flag indicating presence of AFTER DELETE statement-level triggers
-- : Flag indicating presence of BEFORE TRUNCATE statement-level triggers
-- : Flag indicating presence of AFTER TRUNCATE statement-level triggers
-- : Flag indicating presence of triggers using NEW transition table for INSERT
-- : Flag indicating presence of triggers using OLD transition table for UPDATE
-- : Flag indicating presence of triggers using NEW transition table for UPDATE
-- : Flag indicating presence of triggers using OLD transition table for DELETE
-
+- `*triggers`: Pointer to array of Trigger structures containing the actual trigger definitions
+- `numtriggers`: Total number of triggers in the array
+- `trig_insert_before_row`: Flag indicating presence of BEFORE INSERT row-level triggers
+- `trig_insert_after_row`: Flag indicating presence of AFTER INSERT row-level triggers
+- `trig_insert_instead_row`: Flag indicating presence of INSTEAD OF INSERT triggers (for views)
+- `trig_insert_before_statement`: Flag indicating presence of BEFORE INSERT statement-level triggers
+- `trig_insert_after_statement`: Flag indicating presence of AFTER INSERT statement-level triggers
+- `trig_update_before_row`: Flag indicating presence of BEFORE UPDATE row-level triggers
+- `trig_update_after_row`: Flag indicating presence of AFTER UPDATE row-level triggers
+- `trig_update_instead_row`: Flag indicating presence of INSTEAD OF UPDATE triggers (for views)
+- `trig_update_before_statement`: Flag indicating presence of BEFORE UPDATE statement-level triggers
+- `trig_update_after_statement`: Flag indicating presence of AFTER UPDATE statement-level triggers
+- `trig_delete_before_row`: Flag indicating presence of BEFORE DELETE row-level triggers
+- `trig_delete_after_row`: Flag indicating presence of AFTER DELETE row-level triggers
+- `trig_delete_instead_row`: Flag indicating presence of INSTEAD OF DELETE triggers (for views)
+- `trig_delete_before_statement`: Flag indicating presence of BEFORE DELETE statement-level triggers
+- `trig_delete_after_statement`: Flag indicating presence of AFTER DELETE statement-level triggers
+- `trig_truncate_before_statement`: Flag indicating presence of BEFORE TRUNCATE statement-level triggers
+- `trig_truncate_after_statement`: Flag indicating presence of AFTER TRUNCATE statement-level triggers
+- `trig_insert_new_table`: Flag indicating presence of triggers using NEW transition table for INSERT
+- `trig_update_old_table`: Flag indicating presence of triggers using OLD transition table for UPDATE
+- `trig_update_new_table`: Flag indicating presence of triggers using NEW transition table for UPDATE
+- `trig_delete_old_table`: Flag indicating presence of triggers using OLD transition table for DELETE
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Trigger](Trigger.md) (struct type for the triggers array)

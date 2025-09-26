@@ -23,11 +23,10 @@ CreateRoleStmt is a parser node structure that encapsulates the information need
 The structure contains the role name and a list of options that specify the role's properties and privileges. The stmt_type field distinguishes between the different SQL statement variants, which affects the default values applied during role creation.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as a CreateRoleStmt node
-- : Enumeration value indicating whether this was CREATE ROLE, CREATE USER, or CREATE GROUP (affects default privileges)
-- : String containing the name of the role to be created
-- : List of DefElem nodes containing role options such as PASSWORD, SUPERUSER, CREATEDB, etc.
-
+- `type`: Standard NodeTag identifying this as a CreateRoleStmt node
+- `stmt_type`: Enumeration value indicating whether this was CREATE ROLE, CREATE USER, or CREATE GROUP (affects default privileges)
+- `*role`: String containing the name of the role to be created
+- `*options`: List of DefElem nodes containing role options such as PASSWORD, SUPERUSER, CREATEDB, etc.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RoleStmtType](../R/RoleStmtType.md) (enumeration for statement type)

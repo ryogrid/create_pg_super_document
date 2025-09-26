@@ -23,9 +23,8 @@ When a transaction acquires AccessExclusiveLocks on tables, these locks must be 
 During WAL replay on standby servers, this record is processed by the  function, which iterates through the locks array and calls  for each lock entry to establish the same lock state on the standby.
 
 ## Parameters / Member Variables
-- : The number of lock entries contained in the locks array
-- : A flexible array member containing  structures, each representing an individual AccessExclusiveLock
-
+- `nlocks`: The number of lock entries contained in the locks array
+- `locks[FLEXIBLE_ARRAY_MEMBER]`: A flexible array member containing  structures, each representing an individual AccessExclusiveLock
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_standby_lock](xl_standby_lock.md)

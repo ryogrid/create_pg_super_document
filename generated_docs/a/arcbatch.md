@@ -20,10 +20,9 @@ struct arcbatch
 The  structure implements a memory pool mechanism for efficiently allocating multiple arc structures at once. This approach reduces memory fragmentation and allocation overhead when creating many arcs for regular expression NFAs. The structure uses a linked list design where each batch can hold a variable number of arc structures, with the actual arcs stored in a flexible array member at the end of the structure.
 
 ## Parameters / Member Variables
-- : Pointer to the next arcbatch in the chain, forming a linked list of batches
-- : The number of arc structures allocated in this particular batch
-- : Flexible array member containing the actual arc structures
-
+- `*next`: Pointer to the next arcbatch in the chain, forming a linked list of batches
+- `narcs`: The number of arc structures allocated in this particular batch
+- `a[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the actual arc structures
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (struct arc for the flexible array member)

@@ -22,10 +22,9 @@ HASH_SEQ_STATUS serves as an iterator state object for traversing all entries in
 The structure is used with the hash table sequential search API: hash_seq_init() initializes the status, hash_seq_search() retrieves the next entry and advances the state, and hash_seq_term() cleans up the iteration state. This design allows for safe iteration through hash tables while supporting interruption and resumption of the traversal process.
 
 ## Parameters / Member Variables
-- : Pointer to the hash table being iterated over (HTAB type)
-- : Index of the current bucket being examined in the hash table
-- : Pointer to the current HASHELEMENT entry within the current bucket
-
+- `*hashp`: Pointer to the hash table being iterated over (HTAB type)
+- `curBucket`: Index of the current bucket being examined in the hash table
+- `*curEntry`: Pointer to the current HASHELEMENT entry within the current bucket
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HTAB](HTAB.md)
