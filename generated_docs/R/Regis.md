@@ -22,10 +22,10 @@ typedef struct Regis
 Regis serves as the top-level container for a compiled regular expression pattern in PostgreSQL's fast regex subset engine. This structure is specifically designed for ISpell dictionaries and provides an efficient way to store and execute pattern matching operations. The structure contains a pointer to a linked list of RegisNode elements that represent the compiled pattern, along with metadata about the pattern's characteristics. The design emphasizes memory efficiency through bitfield packing while maintaining the necessary functionality for fast pattern matching in text search operations. The regex subset supported includes basic character matching and character class operations ([abc] and [^abc] patterns).
 
 ## Parameters / Member Variables
-- : Pointer to the first RegisNode in the linked list representing the compiled regex pattern
-- : 1-bit flag indicating whether this pattern is used for suffix matching (1) or prefix matching (0)
-- : 16-bit field storing the number of characters in the compiled pattern
-- : 15-bit padding field reserved for future use or alignment purposes
+- `node`: Pointer to the first RegisNode in the linked list representing the compiled regex pattern
+- `issuffix`: 1-bit flag indicating whether this pattern is used for suffix matching (1) or prefix matching (0)
+- `nchar`: 16-bit field storing the number of characters in the compiled pattern
+- `unused`: 15-bit padding field reserved for future use or alignment purposes
 
 ## Dependencies
 - Functions called/Symbols referenced:

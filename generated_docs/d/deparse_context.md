@@ -11,28 +11,21 @@ deparse_context is a central data structure used in PostgreSQL's rule utility mo
 ```c
 typedef struct
 {
-	List	   *rtable;			/* List of RangeTblEntry nodes */
-	List	   *rtable_names;	/* Parallel list of names for RTEs */
-	List	   *rtable_columns; /* Parallel list of deparse_columns structs */
-	List	   *subplans;		/* List of Plan trees for SubPlans */
-	List	   *ctes;			/* List of CommonTableExpr nodes */
-	AppendRelInfo **appendrels; /* Array of AppendRelInfo nodes, or NULL */
-	/* Workspace for column alias assignment: */
-	bool		unique_using;	/* Are we making USING names globally unique */
-	List	   *using_names;	/* List of assigned names for USING columns */
-	/* Remaining fields are used only when deparsing a Plan tree: */
-	Plan	   *plan;			/* immediate parent of current expression */
-	List	   *ancestors;		/* ancestors of plan */
-	Plan	   *outer_plan;		/* outer subnode, or NULL if none */
-	Plan	   *inner_plan;		/* inner subnode, or NULL if none */
-	List	   *outer_tlist;	/* referent for OUTER_VAR Vars */
-	List	   *inner_tlist;	/* referent for INNER_VAR Vars */
-	List	   *index_tlist;	/* referent for INDEX_VAR Vars */
-	/* Special namespace representing a function signature: */
-	char	   *funcname;
-	int			numargs;
-	char	  **argnames;
-} deparse_namespace;
+	StringInfo	buf;			/* output buffer to append to */
+	List	   *namespaces;		/* List of deparse_namespace nodes */
+	TupleDesc	resultDesc;		/* if top level of a view, the view's tupdesc */
+	List	   *targetList;		/* Current query level's SELECT targetlist */
+	List	   *windowClause;	/* Current query level's WINDOW clause */
+	int			prettyFlags;	/* enabling of pretty-print functions */
+	int			wrapColumn;		/* max line length, or -1 for no limit */
+	int			indentLevel;	/* current indent level for pretty-print */
+	bool		varprefix;		/* true to print prefixes on Vars */
+	bool		colNamesVisible;	/* do we care about output column names? */
+	bool		inGroupBy;		/* deparsing GROUP BY clause? */
+	bool		varInOrderBy;	/* deparsing simple Var in ORDER BY? */
+	Bitmapset  *appendparents;	/* if not null, map child Vars of these relids
+								 * back to the parent rel */
+} deparse_context;
 ```
 ## Detailed Description
 The deparse_context structure serves as the primary coordination mechanism for PostgreSQL's SQL deparsing functionality in ruleutils.c. This structure maintains all the contextual information necessary to convert PostgreSQL's internal query tree representation back into readable SQL text format. It is used extensively throughout the rule system for generating views, rules, triggers, and other SQL constructs from their internal representations.
@@ -40,19 +33,19 @@ The deparse_context structure serves as the primary coordination mechanism for P
 The structure manages output formatting through pretty-printing controls, maintains namespace information for proper variable resolution, and tracks the current parsing state across nested query levels. It supports both Query tree deparsing and PlannedStmt tree deparsing with different field usage patterns.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the generated SQL text is accumulated
-- : List of deparse_namespace nodes providing variable resolution context for nested query levels
-- : Tuple descriptor for the view's output columns (used only at top level of view deparsing)
-- : Current query level's SELECT target list for column reference resolution
-- : Current query level's WINDOW clause specifications
-- : Bit flags controlling various pretty-printing formatting options
-- : Maximum line length for output formatting (-1 for unlimited)
-- : Current indentation depth for pretty-printed output
-- : Boolean flag indicating whether variable references should include table prefixes
-- : Boolean flag indicating whether output column names matter for current context
-- : Boolean flag indicating if currently deparsing a GROUP BY clause
-- : Boolean flag indicating if deparsing a simple variable in ORDER BY context
-- : Bitmapset for mapping child relation variables back to their parent relations in inheritance scenarios
+- `buf`: StringInfo buffer where the generated SQL text is accumulated
+- `namespaces`: List of deparse_namespace nodes providing variable resolution context for nested query levels
+- `resultDesc`: Tuple descriptor for the view's output columns (used only at top level of view deparsing)
+- `targetList`: Current query level's SELECT target list for column reference resolution
+- `windowClause`: Current query level's WINDOW clause specifications
+- `prettyFlags`: Bit flags controlling various pretty-printing formatting options
+- `wrapColumn`: Maximum line length for output formatting (-1 for unlimited)
+- `indentLevel`: Current indentation depth for pretty-printed output
+- `varprefix`: Boolean flag indicating whether variable references should include table prefixes
+- `colNamesVisible`: Boolean flag indicating whether output column names matter for current context
+- `inGroupBy`: Boolean flag indicating if currently deparsing a GROUP BY clause
+- `varInOrderBy`: Boolean flag indicating if deparsing a simple variable in ORDER BY context
+- `appendparents`: Bitmapset for mapping child relation variables back to their parent relations in inheritance scenarios
 
 ## Dependencies
 - Functions called/Symbols referenced:

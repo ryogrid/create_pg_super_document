@@ -9,13 +9,11 @@ Enumeration value representing a timezone rule type that specifies the nth occur
 ## Definition
 
 ```c
-struct rule
+enum r_type
 {
-	enum r_type r_type;			/* type of rule */
-	int			r_day;			/* day number of rule */
-	int			r_week;			/* week number of rule */
-	int			r_mon;			/* month number of rule */
-	int32		r_time;			/* transition time of rule */
+	JULIAN_DAY,					/* Jn = Julian day */
+	DAY_OF_YEAR,				/* n = day of year */
+	MONTH_NTH_DAY_OF_WEEK,		/* Mm.n.d = month, week, day of week */
 };
 ```
 ## Detailed Description
@@ -31,7 +29,7 @@ For example, "M3.2.0" would represent the 2nd Sunday in March.
 When this rule type is used, the system employs Zeller's Congruence algorithm to calculate the day-of-week of the first day of the specified month, then determines which specific date corresponds to the nth occurrence of the target day within that month.
 
 ## Parameters / Member Variables
-This is an enumeration constant with no parameters or member variables. It is used as a value assignment to the  field in timezone rule structures.
+This is an enumeration constant with no parameters or member variables. It is used as a value assignment to the `r_type` field in timezone rule structures.
 
 ## Dependencies
 - Functions called/Symbols referenced:

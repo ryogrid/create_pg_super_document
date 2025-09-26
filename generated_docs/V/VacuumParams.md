@@ -48,7 +48,7 @@ VacuumParams serves as the central configuration structure for both VACUUM and A
 The structure is passed through the vacuum/analyze call chain to ensure consistent configuration across all components involved in the maintenance operation. At least one of VACOPT_VACUUM or VACOPT_ANALYZE must be set in the options bitmask.
 
 ## Parameters / Member Variables
-- : Bitmask of VACOPT_* flags controlling operation behavior
+- `options`: Bitmask of VACOPT_* flags controlling operation behavior
   - VACOPT_VACUUM: Perform vacuum operation
   - VACOPT_ANALYZE: Perform analyze operation
   - VACOPT_VERBOSE: Enable verbose output
@@ -60,16 +60,16 @@ The structure is passed through the vacuum/analyze call chain to ensure consiste
   - VACOPT_DISABLE_PAGE_SKIPPING: Don't skip any pages
   - VACOPT_SKIP_DATABASE_STATS: Skip database-wide statistics update
   - VACOPT_ONLY_DATABASE_STATS: Only update database-wide statistics
-- : Minimum transaction age before tuple can be frozen (-1 for default)
-- : Transaction age threshold for full table scan
-- : Minimum multixact age for freezing (-1 for default)
-- : Multixact age threshold for full table scan
-- : Boolean flag forcing wraparound-prevention vacuum
-- : Minimum execution time (ms) for autovacuum logging (-1 for default)
-- : Index vacuum and cleanup behavior (VACOPTVALUE_UNSPECIFIED/AUTO/DISABLED/ENABLED)
-- : Empty page truncation behavior (VACOPTVALUE_UNSPECIFIED/AUTO/DISABLED/ENABLED)
-- : Parent table OID for TOAST table privilege checks
-- : Number of parallel workers (0=auto, -1=disabled, >0=specific count)
+- `freeze_min_age`: Minimum transaction age before tuple can be frozen (-1 for default)
+- `freeze_table_age`: Transaction age threshold for full table scan
+- `multixact_freeze_min_age`: Minimum multixact age for freezing (-1 for default)
+- `multixact_freeze_table_age`: Multixact age threshold for full table scan
+- `is_wraparound`: Boolean flag forcing wraparound-prevention vacuum
+- `log_min_duration`: Minimum execution time (ms) for autovacuum logging (-1 for default)
+- `index_cleanup`: Index vacuum and cleanup behavior (VACOPTVALUE_UNSPECIFIED/AUTO/DISABLED/ENABLED)
+- `truncate`: Empty page truncation behavior (VACOPTVALUE_UNSPECIFIED/AUTO/DISABLED/ENABLED)
+- `toast_parent`: Parent table OID for TOAST table privilege checks
+- `nworkers`: Number of parallel workers (0=auto, -1=disabled, >0=specific count)
 
 ## Dependencies
 - Functions called/Symbols referenced:

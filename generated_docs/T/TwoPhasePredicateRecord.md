@@ -32,8 +32,8 @@ During the prepare phase of two-phase commit, the system generates one per-trans
 
 ## Parameters / Member Variables
 - `type`: TwoPhasePredicateRecordType enum value indicating the record type:
-  - TWOPHASEPREDICATERECORD_XACT: Contains transaction-level information
-  - TWOPHASEPREDICATERECORD_LOCK: Contains individual predicate lock information
+  - `TWOPHASEPREDICATERECORD_XACT`: Contains transaction-level information
+  - `TWOPHASEPREDICATERECORD_LOCK`: Contains individual predicate lock information
 - `data`: Union containing the actual record data:
   - `xactRecord`: TwoPhasePredicateXactRecord containing per-transaction information for SERIALIZABLEXACT reconstruction
   - `lockRecord`: TwoPhasePredicateLockRecord containing per-lock state information

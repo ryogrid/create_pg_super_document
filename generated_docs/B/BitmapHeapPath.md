@@ -29,8 +29,8 @@ The execution process involves:
 The output is always considered unordered since tuples are retrieved in physical heap order regardless of the underlying index ordering. This design provides efficient scattered I/O patterns and allows complex boolean combinations of index conditions.
 
 ## Parameters / Member Variables
-- : Base Path structure containing cost estimates, row counts, and other path properties
-- : Pointer to the bitmap-generating portion of the plan, which can be:
+- `path`: Base Path structure containing cost estimates, row counts, and other path properties
+- `bitmapqual`: Pointer to the bitmap-generating portion of the plan, which can be:
   - IndexPath (for single index bitmap generation)
   - BitmapAndPath (for AND combinations of bitmaps)
   - BitmapOrPath (for OR combinations of bitmaps)

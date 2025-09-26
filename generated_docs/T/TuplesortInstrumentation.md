@@ -25,3 +25,5 @@ The parallel sort infrastructure relies on having a zero TuplesortMethod to indi
 
 ## Parameters / Member Variables
 - `sortMethod`: Enumerated value indicating which sorting algorithm was used (heapsort, quicksort, external sort, or external merge). Can be ORed together to represent multiple methods used by different workers
+- `spaceType`: Enumerated value indicating the type of space that spaceUsed represents (memory or disk)
+- `spaceUsed`: 64-bit integer representing space consumption in kilobytes

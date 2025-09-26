@@ -35,18 +35,18 @@ The structure uses a character-based subtype field to distinguish between differ
 The structure supports the full range of domain alterations including setting or dropping default values, modifying null constraints, and adding or removing check constraints. The design allows for both destructive operations (with CASCADE semantics) and safe operations that respect dependencies.
 
 ## Parameters / Member Variables
-- : NodeTag for node type identification in PostgreSQL's node system
-- : Character code indicating the specific type of alteration:
+- `type`: NodeTag for node type identification in PostgreSQL's node system
+- `subtype`: Character code indicating the specific type of alteration:
   - 'T': Alter column default value
   - 'N': Drop NOT NULL constraint
-  - 'O': Set NOT NULL constraint  
+  - 'O': Set NOT NULL constraint
   - 'C': Add constraint
   - 'X': Drop constraint
-- : List of strings representing the qualified name of the domain to be altered
-- : String identifier for the column or constraint name being acted upon
-- : Generic Node pointer containing the definition of new defaults or constraints
-- : DropBehavior enum (RESTRICT or CASCADE) controlling how dependent objects are handled during DROP operations
-- : Boolean flag indicating whether to skip errors if the target object doesn't exist (IF EXISTS semantics)
+- `typeName`: List of strings representing the qualified name of the domain to be altered
+- `name`: String identifier for the column or constraint name being acted upon
+- `def`: Generic Node pointer containing the definition of new defaults or constraints
+- `behavior`: DropBehavior enum (RESTRICT or CASCADE) controlling how dependent objects are handled during DROP operations
+- `missing_ok`: Boolean flag indicating whether to skip errors if the target object doesn't exist (IF EXISTS semantics)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -34,15 +34,15 @@ HashMemoryChunkData implements a chunked memory allocation strategy to optimize 
 
 The structure manages both the metadata about the chunk (number of tuples, buffer size, usage tracking) and serves as the header for the actual tuple data buffer that immediately follows in memory. This design minimizes memory fragmentation and reduces the number of memory allocation calls during hash table construction.
 
-Like other hash join structures, it supports both shared and unshared memory configurations through the union in the  field, enabling efficient operation in both single-process and parallel hash join scenarios. The chunks are organized as a linked list, allowing dynamic expansion of storage as needed during hash table construction.
+Like other hash join structures, it supports both shared and unshared memory configurations through the union in the `next` field, enabling efficient operation in both single-process and parallel hash join scenarios. The chunks are organized as a linked list, allowing dynamic expansion of storage as needed during hash table construction.
 
 ## Parameters / Member Variables
-- : Count of HashJoinTuple structures currently stored within this memory chunk
-- : Total size in bytes of the tuple buffer portion (excluding the header), representing the maximum storage capacity
-- : Number of bytes currently consumed within the tuple buffer, tracking space utilization
-- : Union containing the link to the next memory chunk in the linked list
-  - : Direct pointer to the next HashMemoryChunkData structure for single-process joins
-  - : DSA (Dynamic Shared Area) pointer for accessing the next chunk in parallel hash joins
+- `ntuples`: Count of HashJoinTuple structures currently stored within this memory chunk
+- `maxlen`: Total size in bytes of the tuple buffer portion (excluding the header), representing the maximum storage capacity
+- `used`: Number of bytes currently consumed within the tuple buffer, tracking space utilization
+- `next`: Union containing the link to the next memory chunk in the linked list
+  - `unshared`: Direct pointer to the next HashMemoryChunkData structure for single-process joins
+  - `shared`: DSA (Dynamic Shared Area) pointer for accessing the next chunk in parallel hash joins
 
 ## Dependencies
 - Functions called/Symbols referenced:

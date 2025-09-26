@@ -11,15 +11,9 @@ A simple data structure that represents a list of dictionary OIDs for text searc
 ```c
 typedef struct
 {
-	/* cfgId is the hash lookup key and MUST BE FIRST */
-	Oid			cfgId;
-	bool		isvalid;
-
-	Oid			prsId;
-
-	int			lenmap;
-	ListDictionary *map;
-} TSConfigCacheEntry;
+	int		len;
+	Oid	   *dictIds;
+} ListDictionary;
 ```
 ## Detailed Description
 ListDictionary is a lightweight structure that holds an array of dictionary OIDs along with its length. It serves as a building block within the text search configuration caching mechanism, specifically used to store lists of dictionaries associated with different token types in text search configurations. Each text search configuration can have multiple token types, and each token type can be processed by multiple dictionaries in a specific order. This structure encapsulates that ordered list of dictionaries for a particular token type.

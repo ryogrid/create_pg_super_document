@@ -22,17 +22,17 @@ typedef struct HashJoinTupleData
 }			HashJoinTupleData;
 ```
 ## Detailed Description
-HashJoinTupleData serves as the core building block for hash join operations in PostgreSQL's executor. Each tuple from the inner relation of a hash join is wrapped in this structure and stored in hash buckets within the hash table. The structure implements a chained hash table design where colliding tuples (those with the same hash bucket) are linked together via the  pointer.
+HashJoinTupleData serves as the core building block for hash join operations in PostgreSQL's executor. Each tuple from the inner relation of a hash join is wrapped in this structure and stored in hash buckets within the hash table. The structure implements a chained hash table design where colliding tuples (those with the same hash bucket) are linked together via the `next` pointer.
 
-The structure supports both shared and unshared memory configurations through a union in the  field -  for single-process hash joins and  (using dsa_pointer) for parallel hash joins where multiple processes need to access the same hash table data.
+The structure supports both shared and unshared memory configurations through a union in the `next` field - `unshared` for single-process hash joins and `shared` (using dsa_pointer) for parallel hash joins where multiple processes need to access the same hash table data.
 
 The actual tuple data is stored immediately after the HashJoinTupleData header in MinimalTuple format, aligned on a MAXALIGN boundary for optimal memory access performance.
 
 ## Parameters / Member Variables
-- : Union containing the link to the next tuple in the same hash bucket
-  - : Direct pointer to the next HashJoinTupleData structure for single-process joins
-  - : DSA (Dynamic Shared Area) pointer for accessing the next tuple in parallel hash joins
-- : The 32-bit hash code computed for this tuple, used for bucket assignment and comparison optimization
+- `next`: Union containing the link to the next tuple in the same hash bucket
+  - `unshared`: Direct pointer to the next HashJoinTupleData structure for single-process joins
+  - `shared`: DSA (Dynamic Shared Area) pointer for accessing the next tuple in parallel hash joins
+- `hashvalue`: The 32-bit hash code computed for this tuple, used for bucket assignment and comparison optimization
 
 ## Dependencies
 - Functions called/Symbols referenced:

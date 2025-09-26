@@ -9,17 +9,8 @@ Signals the completion of an entire base backup operation, allowing sink impleme
 ## Definition
 
 ```c
-struction. */
 static inline void
-bbsink_cleanup(bbsink *sink)
-{
-	Assert(sink != NULL);
-
-	sink->bbs_ops->cleanup(sink);
-}
-
-/* Forwarding callbacks. Use these to pass operations through to next sink. */
-extern void bbsink_forward_begin_backup(bbsink *sink);
+bbsink_end_backup(bbsink *sink, XLogRecPtr endptr, TimeLineID endtli)
 ```
 ## Detailed Description
 This inline function marks the successful completion of a base backup operation. It is called after all tablespace archives and the backup manifest have been transmitted. The function delegates to sink-specific implementations to perform final operations such as recording the backup end position, finalizing any remaining data structures, and conducting final validation.
@@ -27,9 +18,9 @@ This inline function marks the successful completion of a base backup operation.
 The function includes an assertion to verify that all tablespaces have been processed correctly (tablespace_num equals the total number of tablespaces), ensuring the backup process has completed all required components before finalizing.
 
 ## Parameters / Member Variables
-- : Pointer to the bbsink object that should finalize the backup operation. Must not be NULL.
-- : The WAL position where the backup ended, used for recovery and consistency verification.
-- : The timeline ID at the backup end point, ensuring proper timeline tracking for recovery.
+- `sink`: Pointer to the bbsink object that should finalize the backup operation. Must not be NULL.
+- `endptr`: The WAL position where the backup ended, used for recovery and consistency verification.
+- `endtli`: The timeline ID at the backup end point, ensuring proper timeline tracking for recovery.
 
 ## Dependencies
 - Functions called/Symbols referenced:

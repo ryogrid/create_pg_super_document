@@ -24,11 +24,11 @@ The node takes multiple bitmap-generating paths (IndexPaths or BitmapAndPaths) a
 Like BitmapAndPath, the Path structure provides consistency with other path types, though it's somewhat heavyweight for this specific use case. The design maintains simplicity and uniformity across the planner's path representation.
 
 ## Parameters / Member Variables
-- : Base Path structure containing cost estimates, row counts, and path properties for the OR operation
-- : List of child paths that generate bitmaps to be ORed together, containing:
+- `path`: Base Path structure containing cost estimates, row counts, and path properties for the OR operation
+- `bitmapquals`: List of child paths that generate bitmaps to be ORed together, containing:
   - IndexPaths (for individual index bitmap generation)
   - BitmapAndPaths (for AND-combined bitmaps)
-- : Combined selectivity estimate for the OR operation, representing the fraction of pages expected to contain qualifying tuples
+- `bitmapselectivity`: Combined selectivity estimate for the OR operation, representing the fraction of pages expected to contain qualifying tuples
 
 ## Dependencies
 - Functions called/Symbols referenced:

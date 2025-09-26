@@ -9,20 +9,14 @@ GucStackState is an enumeration that defines the different states for GUC (Grand
 ## Definition
 
 ```c
-typedef struct guc_stack
+typedef enum
 {
-	struct guc_stack *prev;		/* previous stack item, if any */
-	int			nest_level;		/* nesting depth at which we made entry */
-	GucStackState state;		/* see enum above */
-	GucSource	source;			/* source of the prior value */
-	/* masked value's source must be PGC_S_SESSION, so no need to store it */
-	GucContext	scontext;		/* context that set the prior value */
-	GucContext	masked_scontext;	/* context that set the masked value */
-	Oid			srole;			/* role that set the prior value */
-	Oid			masked_srole;	/* role that set the masked value */
-	config_var_value prior;		/* previous value of variable */
-	config_var_value masked;	/* SET value in a GUC_SET_LOCAL entry */
-} GucStack;
+	/* This is almost GucAction, but we need a fourth state for SET+LOCAL */
+	GUC_SAVE,					/* entry caused by function SET option */
+	GUC_SET,					/* entry caused by plain SET command */
+	GUC_LOCAL,					/* entry caused by SET LOCAL command */
+	GUC_SET_LOCAL,				/* entry caused by SET then SET LOCAL */
+} GucStackState;
 ```
 ## Detailed Description
 GucStackState is used within PostgreSQL's GUC system to track the state of configuration parameter changes in a transactional context. It maintains a stack of previous values that allows proper rollback behavior when transactions abort or when leaving function scope.
@@ -36,10 +30,10 @@ The enumeration represents different ways a GUC parameter value can be modified:
 This state tracking is essential for PostgreSQL's transactional behavior, ensuring that parameter changes can be properly rolled back and that the scope of changes (global vs transaction-local) is maintained correctly.
 
 ## Parameters / Member Variables
-- : Entry caused by function SET option - automatically restored when function exits
-- : Entry caused by plain SET command - persists beyond transaction boundary  
-- : Entry caused by SET LOCAL command - restored at transaction end
-- : Entry caused by SET followed by SET LOCAL - complex state for nested changes
+- `GUC_SAVE`: Entry caused by function SET option - automatically restored when function exits
+- `GUC_SET`: Entry caused by plain SET command - persists beyond transaction boundary
+- `GUC_LOCAL`: Entry caused by SET LOCAL command - restored at transaction end
+- `GUC_SET_LOCAL`: Entry caused by SET followed by SET LOCAL - complex state for nested changes
 
 ## Dependencies
 - Functions called/Symbols referenced: None (enum definition)

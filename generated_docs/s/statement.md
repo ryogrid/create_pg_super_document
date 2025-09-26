@@ -42,23 +42,23 @@ The statement structure is the core data structure in ECPG for representing and 
 The structure handles locale-specific operations and maintains compatibility across different PostgreSQL versions through its compatibility mode settings. It manages both input parameters (for SQL execution) and output variables (for result retrieval), making it suitable for complex SQL operations that involve data binding in both directions.
 
 ## Parameters / Member Variables
-- : Source line number where the statement appears in the original ECPG source code
-- : The actual SQL command string to be executed
-- : Optional name identifier for the statement (used for prepared statements)
-- : Pointer to the database connection structure this statement belongs to
-- : Compatibility mode enumeration controlling PostgreSQL version-specific behavior
-- : Boolean flag controlling whether indicator variables are required
-- : Enumeration specifying the type of SQL statement (SELECT, INSERT, etc.)
-- : Boolean flag indicating whether the statement uses question mark parameter placeholders
-- : Linked list of input variables/parameters for the statement
-- : Linked list of output variables for result retrieval
-- : Saved locale information for locale-sensitive operations (type varies by system)
-- : Saved thread locale configuration (Windows-specific)
-- : Number of parameters in the statement
-- : Array of parameter values as strings
-- : Array containing the length of each parameter
-- : Array specifying the format (text/binary) for each parameter
-- : Pointer to PostgreSQL result set from statement execution
+- `lineno`: Source line number where the statement appears in the original ECPG source code
+- `command`: The actual SQL command string to be executed
+- `name`: Optional name identifier for the statement (used for prepared statements)
+- `connection`: Pointer to the database connection structure this statement belongs to
+- `compat`: Compatibility mode enumeration controlling PostgreSQL version-specific behavior
+- `force_indicator`: Boolean flag controlling whether indicator variables are required
+- `statement_type`: Enumeration specifying the type of SQL statement (SELECT, INSERT, etc.)
+- `questionmarks`: Boolean flag indicating whether the statement uses question mark parameter placeholders
+- `inlist`: Linked list of input variables/parameters for the statement
+- `outlist`: Linked list of output variables for result retrieval
+- `oldlocale`: Saved locale information for locale-sensitive operations (type varies by system)
+- `oldthreadlocale`: Saved thread locale configuration (Windows-specific)
+- `nparams`: Number of parameters in the statement
+- `paramvalues`: Array of parameter values as strings
+- `paramlengths`: Array containing the length of each parameter
+- `paramformats`: Array specifying the format (text/binary) for each parameter
+- `results`: Pointer to PostgreSQL result set from statement execution
 
 ## Dependencies
 - Functions called/Symbols referenced:

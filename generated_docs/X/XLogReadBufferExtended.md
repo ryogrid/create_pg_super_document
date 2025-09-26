@@ -9,11 +9,10 @@ Low-level function that reads pages during WAL replay with extended functionalit
 ## Definition
 
 ```c
-typedef struct
-{
-	RelationData reldata;		/* Note: this must be first */
-	FormData_pg_class pgc;
-} FakeRelCacheEntryData;
+Buffer
+XLogReadBufferExtended(RelFileLocator rlocator, ForkNumber forknum,
+					   BlockNumber blkno, ReadBufferMode mode,
+					   Buffer recent_buffer)
 ```
 ## Detailed Description
 This function provides the core buffer reading functionality during WAL replay, comparable to ReadBufferExtended but with specialized behavior for recovery scenarios. It handles multiple reading modes with different behaviors for missing or invalid pages.
@@ -28,11 +27,11 @@ The function includes optimizations for buffer cache hits via recent_buffer hint
 Important: Redo functions should typically use XLogReadBufferForRedoExtended instead of calling this directly, as it ensures proper WAL record registration for page modifications.
 
 ## Parameters / Member Variables
-- : RelFileLocator identifying the target relation
-- : Fork number (main, FSM, VM, or init fork)
-- : Block number within the fork to read
-- : ReadBufferMode specifying read behavior and extension policy
-- : Hint buffer that might contain the target page for optimization
+- `rlocator`: RelFileLocator identifying the target relation
+- `forknum`: Fork number (main, FSM, VM, or init fork)
+- `blkno`: Block number within the fork to read
+- `mode`: ReadBufferMode specifying read behavior and extension policy
+- `recent_buffer`: Hint buffer that might contain the target page for optimization
 
 ## Dependencies
 - Functions called/Symbols referenced:

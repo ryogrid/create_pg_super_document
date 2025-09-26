@@ -9,22 +9,7 @@ Builds or retrieves a RelOptInfo for post-scan/join query processing operations,
 ## Definition
 
 ```c
-structure is just a List for each
-	 * relation kind.  If we ever get so many of one kind that this stops
-	 * working well, we can improve it.  No code outside this function should
-	 * assume anything about how to find a particular upperrel.
-	 */
-
-	/* If we already made this upperrel for the query, return it */
-	foreach(lc, root->upper_rels[kind])
-	{
-		upperrel = (RelOptInfo *) lfirst(lc);
-
-		if (bms_equal(upperrel->relids, relids))
-			return upperrel;
-	}
-
-	upperrel = makeNode(RelOptInfo);
+RelOptInfo *fetch_upper_rel(PlannerInfo *root, UpperRelationKind kind, Relids relids)
 ```
 ## Detailed Description
 The  function manages RelOptInfo structures for upper-level query processing operations that occur after basic scanning and joining. These "upper" relations represent processing steps like grouping, windowing, ordering, and set operations.
@@ -34,9 +19,9 @@ The function first searches the existing upper_rels list for the specified kind 
 Upper relations are identified by an UpperRelationKind enum value and a Relids set. The meaning of the Relids set varies depending on the specific relation kind. Most fields in upper-level RelOptInfo structures are not used and remain zero-initialized, with the function focusing only on fields relevant to path management.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global query planning state
-- : UpperRelationKind enum specifying the type of upper relation (grouping, window, etc.)
-- : Relids set identifying the specific upper relation (meaning varies by kind)
+- `root`: PlannerInfo structure containing global query planning state
+- `kind`: UpperRelationKind enum specifying the type of upper relation (grouping, window, etc.)
+- `relids`: Relids set identifying the specific upper relation (meaning varies by kind)
 
 ## Dependencies
 - Functions called/Symbols referenced:

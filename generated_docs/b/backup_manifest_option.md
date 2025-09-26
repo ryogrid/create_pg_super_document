@@ -9,24 +9,20 @@ The backup_manifest_option enumeration defines the available options for control
 ## Definition
 
 ```c
-typedef struct backup_manifest_info
+typedef enum manifest_option
 {
-	BufFile    *buffile;
-	pg_checksum_type checksum_type;
-	pg_cryptohash_ctx *manifest_ctx;
-	uint64		manifest_size;
-	bool		force_encode;
-	bool		first_file;
-	bool		still_checksumming;
-} backup_manifest_info;
+	MANIFEST_OPTION_YES,
+	MANIFEST_OPTION_NO,
+	MANIFEST_OPTION_FORCE_ENCODE,
+} backup_manifest_option;
 ```
 ## Detailed Description
 The backup_manifest_option enumeration provides three distinct modes for controlling how backup manifests are generated during base backup operations. This enumeration allows users to specify whether they want a manifest generated, whether to skip manifest generation entirely, or whether to enable special encoding behavior for the manifest content. The option directly influences the initialization and behavior of the backup_manifest_info structure, particularly determining whether manifest processing occurs and how content is encoded.
 
 ## Parameters / Member Variables
-- : Enable standard manifest generation with normal encoding behavior
-- : Disable manifest generation entirely; no manifest file will be created
-- : Enable manifest generation with forced base64 encoding of file paths and content for safe text transmission
+- `MANIFEST_OPTION_YES`: Enable standard manifest generation with normal encoding behavior
+- `MANIFEST_OPTION_NO`: Disable manifest generation entirely; no manifest file will be created
+- `MANIFEST_OPTION_FORCE_ENCODE`: Enable manifest generation with forced base64 encoding of file paths and content for safe text transmission
 
 ## Dependencies
 - Functions called/Symbols referenced:

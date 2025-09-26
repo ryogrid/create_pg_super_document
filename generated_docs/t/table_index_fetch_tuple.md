@@ -9,35 +9,9 @@ Fetches a tuple at a specific TID as part of an index scan, performing visibilit
 ## Definition
 
 ```c
-struct IndexFetchTableData *scan,
-						ItemPointer tid,
-						Snapshot snapshot,
-						TupleTableSlot *slot,
-						bool *call_again, bool *all_dead)
-{
-	/*
-	 * We don't expect direct calls to table_index_fetch_tuple with valid
-	 * CheckXidAlive for catalog or regular tables.  See detailed comments in
-	 * xact.c where these variables are declared.
-	 */
-	if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan))
-		elog(ERROR, "unexpected table_index_fetch_tuple call during logical decoding");
-
-	return scan->rel->rd_tableam->index_fetch_tuple(scan, tid, snapshot,
-													slot, call_again,
-													all_dead);
-}
-
-/*
- * This is a convenience wrapper around table_index_fetch_tuple() which
- * returns whether there are table tuple items corresponding to an index
- * entry.  This likely is only useful to verify if there's a conflict in a
- * unique index.
- */
-extern bool table_index_fetch_tuple_check(Relation rel,
-										  ItemPointer tid,
-										  Snapshot snapshot,
-										  bool *all_dead);
+static inline bool table_index_fetch_tuple(struct IndexFetchTableData *scan,
+					ItemPointer tid, Snapshot snapshot,
+					TupleTableSlot *slot, bool *call_again, bool *all_dead)
 ```
 ## Detailed Description
 This function is a core component of PostgreSQL's index scanning mechanism within the table access method (tableam) interface. It retrieves a tuple identified by a tuple ID (TID) and tests its visibility according to the provided snapshot. The function is designed to handle advanced scenarios like PostgreSQL's Heap-Only Tuple (HOT) optimization, where multiple row versions can be reached through a single index entry.
@@ -52,12 +26,12 @@ The function includes several sophisticated features:
 The key distinction from table_tuple_fetch_row_version() is that this function can return the currently visible version of a row when multiple versions exist, whereas table_tuple_fetch_row_version() only evaluates the exact tuple at the specified TID.
 
 ## Parameters / Member Variables
-- : Pointer to IndexFetchTableData structure containing the index fetch state and associated table relation
-- : ItemPointer identifying the specific tuple to fetch (may be modified on return for HOT chains)
-- : Snapshot used for visibility testing to determine which tuple versions are visible
-- : TupleTableSlot where the fetched tuple data will be stored
-- : Output parameter set to true if there are more tuple versions to process for the same TID
-- : Output parameter set to true if all tuple versions are guaranteed to be dead to all backends
+- `scan`: Pointer to IndexFetchTableData structure containing the index fetch state and associated table relation
+- `tid`: ItemPointer identifying the specific tuple to fetch (may be modified on return for HOT chains)
+- `snapshot`: Snapshot used for visibility testing to determine which tuple versions are visible
+- `slot`: TupleTableSlot where the fetched tuple data will be stored
+- `call_again`: Output parameter set to true if there are more tuple versions to process for the same TID
+- `all_dead`: Output parameter set to true if all tuple versions are guaranteed to be dead to all backends
 
 ## Dependencies
 - Functions called/Symbols referenced:

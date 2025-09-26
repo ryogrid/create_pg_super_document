@@ -9,11 +9,8 @@ Resizes previously allocated memory blocks with error handling and line number t
 ## Definition
 
 ```c
-struct auto_mem
-{
-	void	   *pointer;
-	struct auto_mem *next;
-};
+char *
+ecpg_realloc(void *ptr, long size, int lineno)
 ```
 ## Detailed Description
 The  function provides a safe wrapper around the standard  function, offering memory reallocation with comprehensive error handling and debugging support. This function is essential for dynamically growing or shrinking memory blocks during ECPG operations, particularly when dealing with variable-length data or growing collections.
@@ -23,9 +20,9 @@ When reallocation fails, the function raises an ECPG error with the specific lin
 The function handles all standard realloc() scenarios: expanding existing blocks, shrinking blocks, or moving data to new locations when necessary. It maintains the existing data in the memory block up to the minimum of the old and new sizes.
 
 ## Parameters / Member Variables
-- : Pointer to the previously allocated memory block to be resized (can be NULL, in which case this behaves like malloc)
-- : New size in bytes for the memory block
-- : Line number in the source code where the reallocation is requested, used for error reporting and debugging
+- `ptr`: Pointer to the previously allocated memory block to be resized (can be NULL, in which case this behaves like malloc)
+- `size`: New size in bytes for the memory block
+- `lineno`: Line number in the source code where the reallocation is requested, used for error reporting and debugging
 
 ## Dependencies
 - Functions called/Symbols referenced:

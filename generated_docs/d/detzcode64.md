@@ -9,15 +9,8 @@ Decodes an 8-byte big-endian signed 64-bit integer from a byte array, handling t
 ## Definition
 
 ```c
-union input_buffer
-{
-	/* The first part of the buffer, interpreted as a header.  */
-	struct tzhead tzhead;
-
-	/* The entire buffer.  */
-	char		buf[2 * sizeof(struct tzhead) + 2 * sizeof(struct state)
-					+ 4 * TZ_MAX_TIMES];
-};
+static int64
+detzcode64(const char *const codep)
 ```
 ## Detailed Description
 The `detzcode64` function is the 64-bit version of `detzcode`, designed to handle larger integer values in timezone data files. It reads 8 bytes from the input pointer and reconstructs a 64-bit signed integer value, maintaining compatibility with big-endian timezone file formats while ensuring correct two's-complement representation across different machine architectures.

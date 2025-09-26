@@ -9,35 +9,14 @@ JsonbIterState is an enumeration that defines the current state of iteration thr
 ## Definition
 
 ```c
-typedef struct JsonbIterator
+typedef enum
 {
-	/* Container being iterated */
-	JsonbContainer *container;
-	uint32		nElems;			/* Number of elements in children array (will
-								 * be nPairs for objects) */
-	bool		isScalar;		/* Pseudo-array scalar value? */
-	JEntry	   *children;		/* JEntrys for child nodes */
-	/* Data proper.  This points to the beginning of the variable-length data */
-	char	   *dataProper;
-
-	/* Current item in buffer (up to nElems) */
-	int			curIndex;
-
-	/* Data offset corresponding to current item */
-	uint32		curDataOffset;
-
-	/*
-	 * If the container is an object, we want to return keys and values
-	 * alternately; so curDataOffset points to the current key, and
-	 * curValueOffset points to the current value.
-	 */
-	uint32		curValueOffset;
-
-	/* Private state */
-	JsonbIterState state;
-
-	struct JsonbIterator *parent;
-} JsonbIterator;
+	JBI_ARRAY_START,
+	JBI_ARRAY_ELEM,
+	JBI_OBJECT_START,
+	JBI_OBJECT_KEY,
+	JBI_OBJECT_VALUE,
+} JsonbIterState;
 ```
 ## Detailed Description
 JsonbIterState is a crucial component of PostgreSQL's JSONB iterator mechanism, providing state management for traversing complex JSON structures. This enumeration tracks the current position and context within nested JSON arrays and objects during iteration operations.
@@ -50,11 +29,11 @@ Each state represents a specific phase in the iteration process:
 - The state transitions follow JSON structure rules (objects alternate between keys and values, arrays process elements sequentially)
 
 ## Parameters / Member Variables
-- : Indicates the iterator is at the beginning of a JSON array
-- : Indicates the iterator is processing an element within a JSON array
-- : Indicates the iterator is at the beginning of a JSON object
-- : Indicates the iterator is processing a key within a JSON object
-- : Indicates the iterator is processing a value within a JSON object
+- `JBI_ARRAY_START`: Indicates the iterator is at the beginning of a JSON array
+- `JBI_ARRAY_ELEM`: Indicates the iterator is processing an element within a JSON array
+- `JBI_OBJECT_START`: Indicates the iterator is at the beginning of a JSON object
+- `JBI_OBJECT_KEY`: Indicates the iterator is processing a key within a JSON object
+- `JBI_OBJECT_VALUE`: Indicates the iterator is processing a value within a JSON object
 
 ## Dependencies
 - Functions called/Symbols referenced:

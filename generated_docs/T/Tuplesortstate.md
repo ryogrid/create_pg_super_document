@@ -178,41 +178,41 @@ The structure supports multiple sorting phases:
 The sorting system employs several memory management strategies including slab allocation during merge phases to reduce palloc/pfree overhead, and sophisticated memory tracking to balance between in-memory and disk-based operations.
 
 ## Parameters / Member Variables
-- : Public interface structure containing shared sorting functionality
-- : Current phase of sorting operation (INITIAL, SORTEDINMEM, BUILDRUNS, FINALMERGE, SORTEDONTAPE)
-- : Whether caller specified a maximum number of tuples to return
-- : Whether bounded heap optimization was actually employed
-- : Maximum number of tuples to return if bounded
-- : Memory consumed by individual tuples, tracked separately for accurate accounting
-- : Remaining memory available for sorting operations
-- : Total memory budget allocated for this sort
-- : Maximum number of input tapes that can be merged in a single pass
-- : Peak space usage recorded during sorting (either memory or disk)
-- : Whether maxSpace represents disk usage (true) or memory usage (false)
-- : Sort phase when maximum space usage was recorded
-- : Logical tape set for managing temporary files during external sorting
-- : Array of SortTuple structs holding tuples in memory
-- : Current number of tuples stored in memtuples array
-- : Allocated capacity of memtuples array
-- : Whether memtuples array is still growing or has reached final size
-- : Whether slab allocation is active for memory management
-- /: Boundaries of slab memory arena
-- : Head of linked list tracking free slab slots
-- : Memory allocated for tape I/O buffers
-- : Last tuple returned to caller, held for memory recycling
-- : Current output run number during run building, or total runs after completion
-- /: Arrays of logical tapes for merge operations
-- /: Number of input and output tapes
-- /: Number of runs on input and output tapes
-- : Current destination tape for output
-- : Final tape containing sorted results
-- : Current position index for in-memory sorted results
-- : Whether end-of-file has been reached during result retrieval
-- //: Saved position for mark/restore functionality
-- : Worker identifier for parallel sorting (-1 for leader, ≥0 for workers)
-- : Shared memory structure for coordinating parallel workers
-- : Number of participating workers (maintained by leader)
-- : Next tuple count at which to test abbreviated key optimization effectiveness
+- `base`: Public interface structure containing shared sorting functionality
+- `status`: Current phase of sorting operation (INITIAL, SORTEDINMEM, BUILDRUNS, FINALMERGE, SORTEDONTAPE)
+- `bounded`: Whether caller specified a maximum number of tuples to return
+- `boundUsed`: Whether bounded heap optimization was actually employed
+- `bound`: Maximum number of tuples to return if bounded
+- `tupleMem`: Memory consumed by individual tuples, tracked separately for accurate accounting
+- `availMem`: Remaining memory available for sorting operations
+- `allowedMem`: Total memory budget allocated for this sort
+- `maxTapes`: Maximum number of input tapes that can be merged in a single pass
+- `maxSpace`: Peak space usage recorded during sorting (either memory or disk)
+- `isMaxSpaceDisk`: Whether maxSpace represents disk usage (true) or memory usage (false)
+- `maxSpaceStatus`: Sort phase when maximum space usage was recorded
+- `tapeset`: Logical tape set for managing temporary files during external sorting
+- `memtuples`: Array of SortTuple structs holding tuples in memory
+- `memtupcount`: Current number of tuples stored in memtuples array
+- `memtupsize`: Allocated capacity of memtuples array
+- `growmemtuples`: Whether memtuples array is still growing or has reached final size
+- `slabAllocatorUsed`: Whether slab allocation is active for memory management
+- `slabMemoryBegin`/`slabMemoryEnd`: Boundaries of slab memory arena
+- `slabFreeHead`: Head of linked list tracking free slab slots
+- `tape_buffer_mem`: Memory allocated for tape I/O buffers
+- `lastReturnedTuple`: Last tuple returned to caller, held for memory recycling
+- `currentRun`: Current output run number during run building, or total runs after completion
+- `inputTapes`/`outputTapes`: Arrays of logical tapes for merge operations
+- `nInputTapes`/`nOutputTapes`: Number of input and output tapes
+- `nInputRuns`/`nOutputRuns`: Number of runs on input and output tapes
+- `destTape`: Current destination tape for output
+- `result_tape`: Final tape containing sorted results
+- `current`: Current position index for in-memory sorted results
+- `eof_reached`: Whether end-of-file has been reached during result retrieval
+- `markpos_block`/`markpos_offset`/`markpos_eof`: Saved position for mark/restore functionality
+- `worker`: Worker identifier for parallel sorting (-1 for leader, ≥0 for workers)
+- `shared`: Shared memory structure for coordinating parallel workers
+- `nParticipants`: Number of participating workers (maintained by leader)
+- `abbrevNext`: Next tuple count at which to test abbreviated key optimization effectiveness
 
 ## Dependencies
 - Functions called/Symbols referenced:

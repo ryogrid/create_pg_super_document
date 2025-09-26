@@ -35,13 +35,13 @@ The structure uses a discriminated union approach where the 'type' field (ECPGtt
 This type system enables the ECPG preprocessor to perform type checking, generate appropriate C code for data conversion between C and SQL representations, and handle memory allocation for complex data structures.
 
 ## Parameters / Member Variables
-- : An ECPGttype enumeration value indicating the specific data type (ECPGt_int, ECPGt_struct, ECPGt_array, etc.)
-- : String containing the name of struct/union types, or NULL for simple types
-- : String representing array size (number of elements) or varchar maximum size
-- : String containing the sizeof() expression for struct types, used for memory allocation
-- : For array types, points to an ECPGtype describing the array element type
-- : For struct/union types, points to the first ECPGstruct_member in the linked list of members
-- : Reference counter or usage tracking field
+- `type`: An ECPGttype enumeration value indicating the specific data type (ECPGt_int, ECPGt_struct, ECPGt_array, etc.)
+- `type_name`: String containing the name of struct/union types, or NULL for simple types
+- `size`: String representing array size (number of elements) or varchar maximum size
+- `struct_sizeof`: String containing the sizeof() expression for struct types, used for memory allocation
+- `u.element`: For array types, points to an ECPGtype describing the array element type
+- `u.members`: For struct/union types, points to the first ECPGstruct_member in the linked list of members
+- `counter`: Reference counter or usage tracking field
 
 ## Dependencies
 - Functions called/Symbols referenced:

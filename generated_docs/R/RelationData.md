@@ -227,47 +227,78 @@ This cache entry is reference-counted and managed by the relcache system, which 
 
 ## Parameters / Member Variables
 Core identification and storage:
-- : Physical identifier for the relation's storage files
-- : Cached storage manager relation handle for file operations
-- : Reference count for memory management
-- : Object identifier (OID) of the relation
+- `rd_locator`: Physical identifier for the relation's storage files
+- `rd_smgr`: Cached storage manager relation handle for file operations
+- `rd_refcnt`: Reference count for memory management
+- `rd_id`: Object identifier (OID) of the relation
 
 State and validity tracking:
-- : Process number of owning backend for temporary relations
-- : Whether this is a temporary relation of the current session
-- : Whether this entry should never be removed from cache
-- : Whether the relcache entry contains valid data
-- : Whether the cached index list is valid
-- : Whether the cached statistics list is valid
+- `rd_backend`: Process number of owning backend for temporary relations
+- `rd_islocaltemp`: Whether this is a temporary relation of the current session
+- `rd_isnailed`: Whether this entry should never be removed from cache
+- `rd_isvalid`: Whether the relcache entry contains valid data
+- `rd_indexvalid`: Whether the cached index list is valid
+- `rd_statvalid`: Whether the cached statistics list is valid
 
 Transaction tracking:
-- : Subtransaction ID when relation was created
-- : Subtransaction ID of most recent relfilenumber change
-- : Subtransaction ID of first rd_locator change
-- : Subtransaction ID when relation was dropped
+- `rd_createSubid`: Subtransaction ID when relation was created
+- `rd_newRelfilelocatorSubid`: Subtransaction ID of most recent relfilenumber change
+- `rd_firstRelfilelocatorSubid`: Subtransaction ID of first rd_locator change
+- `rd_droppedSubid`: Subtransaction ID when relation was dropped
 
 Core metadata:
-- : Pointer to the pg_class catalog tuple for this relation
-- : Tuple descriptor defining the relation's column structure
-- : Lock manager information for relation-level locking
-- : Query rewrite rules associated with the relation
-- : Trigger definitions and metadata
+- `rd_rel`: Pointer to the pg_class catalog tuple for this relation
+- `rd_att`: Tuple descriptor defining the relation's column structure
+- `rd_lockInfo`: Lock manager information for relation-level locking
+- `rd_rules`: Query rewrite rules associated with the relation
+- `trigdesc`: Trigger definitions and metadata
+- `rd_rsdesc`: Row security policies, or NULL
 
-Partitioning support:
-- : Partition key specification for partitioned tables
-- : Partition descriptor with child partition information
-- : Partition constraint expressions
+Foreign key and partitioning support:
+- `rd_fkeylist`: List of ForeignKeyCacheInfo structures
+- `rd_fkeyvalid`: Whether the foreign key list has been computed
+- `rd_partkey`: Partition key specification for partitioned tables
+- `rd_partkeycxt`: Private context for partition key
+- `rd_partdesc`: Partition descriptor with child partition information
+- `rd_pdcxt`: Private context for partition descriptor
+- `rd_partdesc_nodetached`: Partition descriptor without detached partitions
+- `rd_pddcxt`: Private context for non-detached partition descriptor
+- `rd_partdesc_nodetached_xmin`: Transaction ID for excluded partition validation
+- `rd_partcheck`: Partition constraint expressions
+- `rd_partcheckvalid`: Whether partition check has been computed
+- `rd_partcheckcxt`: Private context for partition check
 
 Index and constraint information:
-- : List of OIDs of all indexes on the relation
-- : OID of the primary key index
-- : OID of the replica identity index
-- : Bitmap of columns referenced by foreign keys
+- `rd_indexlist`: List of OIDs of all indexes on the relation
+- `rd_pkindex`: OID of the primary key index
+- `rd_ispkdeferrable`: Whether primary key index is deferrable
+- `rd_replidindex`: OID of the replica identity index
+- `rd_statlist`: List of OIDs of extended statistics
+- `rd_attrsvalid`: Whether attribute bitmaps are valid
+- `rd_keyattr`: Bitmap of columns referenced by foreign keys
+- `rd_pkattr`: Bitmap of columns included in primary key
+- `rd_idattr`: Bitmap of columns in replica identity index
+- `rd_hotblockingattr`: Bitmap of columns blocking HOT updates
+- `rd_summarizedattr`: Bitmap of columns indexed by summarizing indexes
 
-Access methods:
-- : Table access method function pointers
-- : Index access method function pointers
-- : OID of the access method handler function
+Access methods and options:
+- `rd_pubdesc`: Publication descriptor, or NULL
+- `rd_options`: Parsed pg_class.reloptions
+- `rd_amhandler`: OID of the access method handler function
+- `rd_tableam`: Table access method function pointers
+- `rd_index`: pg_index tuple for index relations
+- `rd_indextuple`: Complete pg_index tuple data
+- `rd_indexcxt`: Private memory context for index data
+- `rd_indam`: Index access method API struct
+- `rd_amcache`: Available for use by index/table access methods
+
+Foreign table support:
+- `rd_fdwroutine`: Cached foreign data wrapper function pointers
+- `rd_toastoid`: Real TOAST table's OID for rewriting operations
+
+Statistics and monitoring:
+- `pgstat_enabled`: Whether relation statistics should be collected
+- `pgstat_info`: Statistics collection area
 
 ## Dependencies
 - Functions called/Symbols referenced:

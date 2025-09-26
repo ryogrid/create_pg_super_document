@@ -36,17 +36,12 @@ The  is a core data structure in PostgreSQL's locale handling system that provid
 The structure is designed to be used as a pointer type (pg_locale_t) since it's occasionally checked for truth values, making pointer semantics more appropriate than value semantics.
 
 ## Parameters / Member Variables
-- : Character identifying the collation provider type (builtin, libc, or ICU)
-- : Boolean flag indicating whether the collation produces deterministic results
-- File: dir,	Node: Top,	This is the top of the INFO tree.
-
-This is the Info main menu (aka directory node).
-A few useful Info commands:
-
-  'q' quits;
-  'H' lists all Info commands;
-  'h' starts the Info tutorial;
-  'mTexinfo RET' visits the Texinfo manual, etc.
+- `provider`: Character identifying the collation provider type (builtin, libc, or ICU)
+- `deterministic`: Boolean flag indicating whether the collation produces deterministic results
+- `info`: Union containing provider-specific locale information:
+  - `builtin`: Structure for builtin collations containing locale name string
+  - `lt`: locale_t object for libc-based locales
+  - `icu`: Structure for ICU collations containing locale string and UCollator pointer (when USE_ICU is defined)
 
 * Menu:
 

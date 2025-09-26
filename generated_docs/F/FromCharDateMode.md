@@ -9,14 +9,12 @@ An enumeration that defines different date interpretation modes used in the Post
 ## Definition
 
 ```c
-typedef struct
+typedef enum
 {
-	const char *name;
-	int			len;
-	int			id;
-	bool		is_digit;
-	FromCharDateMode date_mode;
-} KeyWord;
+	FROM_CHAR_DATE_NONE = 0,	/* Value does not affect date mode. */
+	FROM_CHAR_DATE_GREGORIAN,	/* Gregorian (day, month, year) style date */
+	FROM_CHAR_DATE_ISOWEEK,		/* ISO 8601 week date */
+} FromCharDateMode;
 ```
 ## Detailed Description
 FromCharDateMode is used by PostgreSQL's formatting system to enforce consistency in date parsing operations. When parsing date strings using format templates (like in  function), this enum ensures that format elements from different date systems (Gregorian calendar vs. ISO 8601 week dates) are not mixed within the same parsing operation.
@@ -29,9 +27,9 @@ The enum tracks the current parsing mode:
 The system prevents mixing these modes to avoid ambiguous or contradictory date interpretations.
 
 ## Parameters / Member Variables
-- : Default state indicating no date mode has been established, or used for format elements that don't influence date parsing mode (like time components, AM/PM indicators)
-- : Indicates Gregorian calendar date parsing mode, used when format contains elements like DD (day), MM (month), YYYY (year), DDD (day of year)
-- : Indicates ISO 8601 week date parsing mode, used when format contains elements like IW (ISO week), IYYY (ISO year), ID (ISO day), IDDD (ISO day of year)
+- `FROM_CHAR_DATE_NONE`: Default state indicating no date mode has been established, or used for format elements that don't influence date parsing mode (like time components, AM/PM indicators)
+- `FROM_CHAR_DATE_GREGORIAN`: Indicates Gregorian calendar date parsing mode, used when format contains elements like DD (day), MM (month), YYYY (year), DDD (day of year)
+- `FROM_CHAR_DATE_ISOWEEK`: Indicates ISO 8601 week date parsing mode, used when format contains elements like IW (ISO week), IYYY (ISO year), ID (ISO day), IDDD (ISO day of year)
 
 ## Dependencies
 - Functions called/Symbols referenced:

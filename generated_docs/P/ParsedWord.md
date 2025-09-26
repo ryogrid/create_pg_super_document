@@ -11,11 +11,17 @@ ParsedWord is a structure that represents a single lexeme (word) that has been p
 ```c
 typedef struct
 {
-	ParsedWord *words;
-	int32		lenwords;
-	int32		curwords;
-	int32		pos;
-} ParsedText;
+	uint16		flags;			/* currently, only TSL_PREFIX */
+	uint16		len;
+	uint16		nvariant;
+	uint16		alen;
+	union
+	{
+		uint16		pos;
+		uint16	   *apos;
+	}			pos;
+	char	   *word;
+} ParsedWord;
 ```
 ## Detailed Description
 ParsedWord is a fundamental data structure in PostgreSQL's text search system, defined in . This structure represents a single parsed word (lexeme) extracted from text during the text search parsing process. It contains both the actual word text and associated metadata including positional information and processing flags.
@@ -25,14 +31,14 @@ The structure supports two modes for storing positional information: a single po
 The structure is primarily used during the text parsing phase of full-text search operations, where raw text is tokenized, normalized, and converted into a format suitable for indexing and searching.
 
 ## Parameters / Member Variables
-- : Bit flags for special processing options. Currently only supports  (0x02) to indicate prefix matching
-- : The length of the word string pointed to by the  field
-- : Number of lexeme variants for this word (used in morphological processing)
-- : Allocated size of the  array when multiple positions are stored
-- : Union containing either a single position () or pointer to position array ()
-  - : Single position value when word appears once
-  - : Pointer to array of positions when word appears multiple times. Array format: apos[0] contains count, subsequent elements contain positions. Limited to MAXNUMPOS (256) elements
-- : Pointer to the null-terminated word string
+- `flags`: Bit flags for special processing options. Currently only supports TSL_PREFIX (0x02) to indicate prefix matching
+- `len`: The length of the word string pointed to by the word field
+- `nvariant`: Number of lexeme variants for this word (used in morphological processing)
+- `alen`: Allocated size of the apos array when multiple positions are stored
+- `pos`: Union containing either a single position (pos) or pointer to position array (apos)
+  - `pos`: Single position value when word appears once
+  - `apos`: Pointer to array of positions when word appears multiple times. Array format: apos[0] contains count, subsequent elements contain positions. Limited to MAXNUMPOS (256) elements
+- `word`: Pointer to the null-terminated word string
 
 ## Dependencies
 - Functions called/Symbols referenced:

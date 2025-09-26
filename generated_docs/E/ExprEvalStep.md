@@ -465,10 +465,10 @@ The opcode field initially contains an ExprEvalOp enum value during preparation,
 The large union 'd' contains operation-specific data for different types of steps, including variable fetches, function calls, boolean operations, array operations, JSON operations, aggregate functions, and many others. The union is constrained to 40 bytes on 64-bit systems to maintain the overall 64-byte step size.
 
 ## Parameters / Member Variables
-- : Instruction identifier, initially an ExprEvalOp enum but may be modified for optimization (e.g., function pointers for computed goto)
-- : Pointer to where the result Datum of this step should be stored
-- : Pointer to where the null flag for this step's result should be stored
-- : Union containing operation-specific inline data, limited to 40 bytes on 64-bit systems for cache efficiency
+- `opcode`: Instruction identifier, initially an ExprEvalOp enum but may be modified for optimization (e.g., function pointers for computed goto)
+- `resvalue`: Pointer to where the result Datum of this step should be stored
+- `resnull`: Pointer to where the null flag for this step's result should be stored
+- `d`: Union containing operation-specific inline data, limited to 40 bytes on 64-bit systems for cache efficiency
 
 ## Dependencies
 - Functions called/Symbols referenced:

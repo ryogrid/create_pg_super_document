@@ -31,14 +31,14 @@ The state manages arrays of argument values, null flags, and type information, a
 This structure works closely with the expression evaluator to efficiently construct JSON objects and arrays from SQL expressions, handling type coercion and null value processing as needed.
 
 ## Parameters / Member Variables
-- : Pointer to the original JsonConstructorExpr parse node containing the expression definition
-- : Array storing the evaluated Datum values for each argument to the JSON constructor
-- : Array storing null flags corresponding to each argument value
-- : Array storing the OID of the data type for each argument
-- : Array of cache structures for optimizing type conversions, each containing:
-  - : Type category for the argument (used by datum_to_json functions)
-  - : OID of the output function for converting this type to JSON format
-- : Total number of arguments to the JSON constructor expression
+- `constructor`: Pointer to the original JsonConstructorExpr parse node containing the expression definition
+- `arg_values`: Array storing the evaluated Datum values for each argument to the JSON constructor
+- `arg_nulls`: Array storing null flags corresponding to each argument value
+- `arg_types`: Array storing the OID of the data type for each argument
+- `arg_type_cache`: Array of cache structures for optimizing type conversions, each containing:
+  - `category`: Type category for the argument (used by datum_to_json functions)
+  - `outfuncid`: OID of the output function for converting this type to JSON format
+- `nargs`: Total number of arguments to the JSON constructor expression
 
 ## Dependencies
 - Functions called/Symbols referenced:

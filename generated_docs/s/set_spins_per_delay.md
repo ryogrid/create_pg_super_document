@@ -9,20 +9,16 @@ Sets the local copy of spins_per_delay during backend startup to optimize spinlo
 ## Definition
 
 ```c
-struct test_lock_struct
-{
-	char		pad1;
-	slock_t		lock;
-	char		pad2;
-};
+void
+set_spins_per_delay(int shared_spins_per_delay)
 ```
 ## Detailed Description
-The  function is a simple but critical function that updates the local thread-specific copy of the  variable during backend initialization. This variable controls how many CPU cycles a process will spin before yielding when waiting for a spinlock, which is a key performance parameter for PostgreSQL's low-level synchronization mechanisms.
+The `set_spins_per_delay` function is a simple but critical function that updates the local thread-specific copy of the `spins_per_delay` variable during backend initialization. This variable controls how many CPU cycles a process will spin before yielding when waiting for a spinlock, which is a key performance parameter for PostgreSQL's low-level synchronization mechanisms.
 
 The function is designed to be extremely fast since it may be called while holding a spinlock, where any delay could impact system-wide performance. It performs a simple assignment operation to synchronize the local spinlock behavior with the shared system configuration.
 
 ## Parameters / Member Variables
-- : The shared system-wide value for spins per delay that should be copied to the local thread context
+- `shared_spins_per_delay`: The shared system-wide value for spins per delay that should be copied to the local thread context
 
 ## Dependencies
 - Functions called/Symbols referenced:

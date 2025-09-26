@@ -9,26 +9,22 @@ AllocateDescKind is an enumeration type that categorizes different types of OS h
 ## Definition
 
 ```c
-typedef struct
+typedef enum
 {
-	AllocateDescKind kind;
-	SubTransactionId create_subid;
-	union
-	{
-		FILE	   *file;
-		DIR		   *dir;
-		int			fd;
-	}			desc;
-} AllocateDesc;
+	AllocateDescFile,
+	AllocateDescPipe,
+	AllocateDescDir,
+	AllocateDescRawFD,
+} AllocateDescKind;
 ```
 ## Detailed Description
 AllocateDescKind serves as a discriminator enum within the AllocateDesc structure to identify the type of OS handle being tracked. This enumeration is part of PostgreSQL's file descriptor management system that tracks handles opened with AllocateFile, AllocateDir, OpenPipeStream, and OpenTransientFile functions. The enum enables the system to properly close different types of handles using the appropriate system calls (fclose, pclose, closedir, or close) and to perform type-safe lookups when searching for specific handles.
 
 ## Parameters / Member Variables
-- : Indicates the handle is a FILE* opened with AllocateFile() (uses fclose() for cleanup)
-- : Indicates the handle is a pipe FILE* opened with OpenPipeStream() (uses pclose() for cleanup)
-- : Indicates the handle is a DIR* opened with AllocateDir() (uses closedir() for cleanup)  
-- : Indicates the handle is a raw file descriptor opened with OpenTransientFile() (uses close() for cleanup)
+- `AllocateDescFile`: Indicates the handle is a FILE* opened with AllocateFile() (uses fclose() for cleanup)
+- `AllocateDescPipe`: Indicates the handle is a pipe FILE* opened with OpenPipeStream() (uses pclose() for cleanup)
+- `AllocateDescDir`: Indicates the handle is a DIR* opened with AllocateDir() (uses closedir() for cleanup)
+- `AllocateDescRawFD`: Indicates the handle is a raw file descriptor opened with OpenTransientFile() (uses close() for cleanup)
 
 ## Dependencies
 - Functions called/Symbols referenced:

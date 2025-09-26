@@ -118,17 +118,18 @@ The callbacks are organized into logical groups covering all aspects of table ma
 ## Parameters / Member Variables
 - `type`: NodeTag that must be set to T_TableAmRoutine for type identification
 - `slot_callbacks`: Returns appropriate TupleTableSlot implementation for the AM
-- Scan callbacks (scan_begin, scan_end, scan_rescan, scan_getnextslot): Core sequential scanning functionality
-- TID range callbacks (scan_set_tidrange, scan_getnextslot_tidrange): Optional TID-based range scanning
-- Parallel scan callbacks: Support for parallel table scanning operations
-- Index scan callbacks: Support for index-driven tuple retrieval
-- Tuple operation callbacks: Non-modifying tuple access and validation
+- Scan callbacks (`scan_begin`, `scan_end`, `scan_rescan`, `scan_getnextslot`): Core sequential scanning functionality
+- TID range callbacks (`scan_set_tidrange`, `scan_getnextslot_tidrange`): Optional TID-based range scanning
+- Parallel scan callbacks (`parallelscan_estimate`, `parallelscan_initialize`, `parallelscan_reinitialize`): Support for parallel table scanning operations
+- Index scan callbacks (`index_fetch_begin`, `index_fetch_reset`, `index_fetch_end`, `index_fetch_tuple`): Support for index-driven tuple retrieval
+- Tuple operation callbacks (`tuple_fetch_row_version`, `tuple_tid_valid`, `tuple_get_latest_tid`, `tuple_satisfies_snapshot`): Non-modifying tuple access and validation
 - `index_delete_tuples`: Performs index tuple deletion coordination using TM_IndexDeleteOp
-- Modification callbacks (tuple_insert, tuple_update, tuple_delete, tuple_lock): Core CRUD operations
-- DDL callbacks: Support for schema and storage management operations
-- Maintenance callbacks (relation_vacuum, analyze support): Support for database maintenance
-- Utility callbacks: Size estimation, TOAST support, planner integration
-- Executor callbacks: Support for specialized scan types (bitmap, sample)
+- Modification callbacks (`tuple_insert`, `tuple_insert_speculative`, `tuple_complete_speculative`, `multi_insert`, `tuple_update`, `tuple_delete`, `tuple_lock`, `finish_bulk_insert`): Core CRUD operations
+- DDL callbacks (`relation_set_new_filelocator`, `relation_nontransactional_truncate`, `relation_copy_data`, `relation_copy_for_cluster`): Support for schema and storage management operations
+- Maintenance callbacks (`relation_vacuum`, `scan_analyze_next_block`, `scan_analyze_next_tuple`): Support for database maintenance
+- Index building callbacks (`index_build_range_scan`, `index_validate_scan`): Support for index creation and validation
+- Utility callbacks (`relation_size`, `relation_needs_toast_table`, `relation_toast_am`, `relation_fetch_toast_slice`, `relation_estimate_size`): Size estimation, TOAST support, planner integration
+- Executor callbacks (`scan_bitmap_next_block`, `scan_bitmap_next_tuple`, `scan_sample_next_block`, `scan_sample_next_tuple`): Support for specialized scan types (bitmap, sample)
 
 ## Dependencies
 - Functions called/Symbols referenced:

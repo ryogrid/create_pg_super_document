@@ -9,57 +9,7 @@ Computes derived connection options after absorbing all user-supplied informatio
 ## Definition
 
 ```c
-structure per possible host.  Fill in the
-	 * host and hostaddr fields for each, by splitting the parameter strings.
-	 */
-	if (conn->pghostaddr != NULL && conn->pghostaddr[0] != '\0')
-	{
-		char	   *s = conn->pghostaddr;
-		bool		more = true;
-
-		for (i = 0; i < conn->nconnhost && more; i++)
-		{
-			conn->connhost[i].hostaddr = parse_comma_separated_list(&s, &more);
-			if (conn->connhost[i].hostaddr == NULL)
-				goto oom_error;
-		}
-
-		/*
-		 * If hostaddr was given, the array was allocated according to the
-		 * number of elements in the hostaddr list, so it really should be the
-		 * right size.
-		 */
-		Assert(!more);
-		Assert(i == conn->nconnhost);
-	}
-
-	if (conn->pghost != NULL && conn->pghost[0] != '\0')
-	{
-		char	   *s = conn->pghost;
-		bool		more = true;
-
-		for (i = 0; i < conn->nconnhost && more; i++)
-		{
-			conn->connhost[i].host = parse_comma_separated_list(&s, &more);
-			if (conn->connhost[i].host == NULL)
-				goto oom_error;
-		}
-
-		/* Check for wrong number of host items. */
-		if (more || i != conn->nconnhost)
-		{
-			conn->status = CONNECTION_BAD;
-			libpq_append_conn_error(conn, "could not match %d host names to %d hostaddr values",
-									count_comma_separated_elems(conn->pghost), conn->nconnhost);
-			return false;
-		}
-	}
-
-	/*
-	 * Now, for each host slot, identify the type of address spec, and fill in
-	 * the default address if nothing was given.
-	 */
-	for (i = 0;
+bool pqConnectOptions2(PGconn *conn)
 ```
 ## Detailed Description
 This function performs comprehensive validation and processing of connection parameters for a PostgreSQL connection. It takes the raw connection parameters provided by the user and transforms them into a structured format suitable for establishing connections. The function handles multiple hosts, validates SSL/TLS options, processes authentication requirements, and sets up connection-specific configurations.
@@ -77,7 +27,7 @@ Key responsibilities include:
 The function returns true on success and false on failure, setting appropriate error messages and connection status.
 
 ## Parameters / Member Variables
-- : Pointer to PGconn structure containing connection parameters to be processed and validated
+- `conn`: Pointer to PGconn structure containing connection parameters to be processed and validated
 
 ## Dependencies
 - Functions called/Symbols referenced:

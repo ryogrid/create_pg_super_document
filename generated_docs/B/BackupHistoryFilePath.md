@@ -9,17 +9,7 @@ BackupHistoryFilePath is a static inline function that constructs the complete f
 ## Definition
 
 ```c
-typedef struct xl_parameter_change
-{
-	int			MaxConnections;
-	int			max_worker_processes;
-	int			max_wal_senders;
-	int			max_prepared_xacts;
-	int			max_locks_per_xact;
-	int			wal_level;
-	bool		wal_log_hints;
-	bool		track_commit_timestamp;
-} xl_parameter_change;
+static inline void BackupHistoryFilePath(char *path, TimeLineID tli, XLogSegNo logSegNo, XLogRecPtr startpoint, int wal_segsz_bytes)
 ```
 ## Detailed Description
 This function generates the full file system path for backup history files by combining the XLOGDIR directory path with a standardized backup history filename. It works as a companion to BackupHistoryFileName, but provides the complete path including the WAL directory prefix. The path construction ensures that backup history files are properly located within the PostgreSQL data directory structure, making them accessible to WAL management processes.

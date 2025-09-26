@@ -163,43 +163,43 @@ AggStatePerTransData stores the working state needed to update an aggregate's tr
 The struct supports various aggregate types including simple aggregates, DISTINCT aggregates, and ORDER BY aggregates. For simple aggregates, input values are fed directly to the transition function. For DISTINCT or ORDER BY aggregates, input values are processed through a Tuplesort object, with duplicates eliminated and values sorted before applying the transition function.
 
 ## Parameters / Member Variables
-- : Link to the Aggref expression this state value serves (can be shared among multiple Aggrefs)
-- : Indicates if this state value is shared by multiple Aggref expressions
-- : True for ORDER BY and DISTINCT aggregates that are not pre-sorted
-- : Total number of aggregated input columns including ORDER BY expressions
-- : Number of input columns to pass to the transition function
-- : OID of the state transition or combine function
-- : OID of the serialization function (InvalidOid if none)
-- : OID of the deserialization function (InvalidOid if none)
-- : OID of the state value's data type
-- : Function manager lookup data for the transition/combine function
-- : Function manager lookup data for serialization function
-- : Function manager lookup data for deserialization function
-- : Input collation derived for the aggregate
-- : Number of sorting columns
-- : Number of columns for DISTINCT comparisons (0 or same as numSortCols)
-- : Array of sort column indices (length numSortCols)
-- : Array of sort operator OIDs (length numSortCols)
-- : Array of sort collation OIDs (length numSortCols)
-- : Array of null-first flags (length numSortCols)
-- : Comparator function for single-column DISTINCT comparisons
-- : Expression state for multi-column DISTINCT comparisons
-- : Initial value from pg_aggregate catalog entry
-- : Whether the initial value is NULL
-- : Length of input data type
-- : Length of transition data type
-- : Whether input type is passed by value
-- : Whether transition type is passed by value
-- : Tuple slot for current input tuple (used for FILTER/ORDER BY/DISTINCT)
-- : Tuple slot for multi-column DISTINCT processing
-- : Tuple descriptor for input tuples
-- : Last datum value for single-column DISTINCT checking
-- : Whether last value was NULL for DISTINCT checking
-- : Whether we have a last value for DISTINCT comparison
-- : Array of Tuplesort objects for each grouping set
-- : Pre-initialized FunctionCallInfo for transition function calls
-- : Pre-initialized FunctionCallInfo for serialization function calls
-- : Pre-initialized FunctionCallInfo for deserialization function calls
+- `aggref`: Link to the Aggref expression this state value serves (can be shared among multiple Aggrefs)
+- `aggshared`: Indicates if this state value is shared by multiple Aggref expressions
+- `aggsortrequired`: True for ORDER BY and DISTINCT aggregates that are not pre-sorted
+- `numInputs`: Total number of aggregated input columns including ORDER BY expressions
+- `numTransInputs`: Number of input columns to pass to the transition function
+- `transfn_oid`: OID of the state transition or combine function
+- `serialfn_oid`: OID of the serialization function (InvalidOid if none)
+- `deserialfn_oid`: OID of the deserialization function (InvalidOid if none)
+- `aggtranstype`: OID of the state value's data type
+- `transfn`: Function manager lookup data for the transition/combine function
+- `serialfn`: Function manager lookup data for serialization function
+- `deserialfn`: Function manager lookup data for deserialization function
+- `aggCollation`: Input collation derived for the aggregate
+- `numSortCols`: Number of sorting columns
+- `numDistinctCols`: Number of columns for DISTINCT comparisons (0 or same as numSortCols)
+- `sortColIdx`: Array of sort column indices (length numSortCols)
+- `sortOperators`: Array of sort operator OIDs (length numSortCols)
+- `sortCollations`: Array of sort collation OIDs (length numSortCols)
+- `sortNullsFirst`: Array of null-first flags (length numSortCols)
+- `equalfnOne`: Comparator function for single-column DISTINCT comparisons
+- `equalfnMulti`: Expression state for multi-column DISTINCT comparisons
+- `initValue`: Initial value from pg_aggregate catalog entry
+- `initValueIsNull`: Whether the initial value is NULL
+- `inputtypeLen`: Length of input data type
+- `transtypeLen`: Length of transition data type
+- `inputtypeByVal`: Whether input type is passed by value
+- `transtypeByVal`: Whether transition type is passed by value
+- `sortslot`: Tuple slot for current input tuple (used for FILTER/ORDER BY/DISTINCT)
+- `uniqslot`: Tuple slot for multi-column DISTINCT processing
+- `sortdesc`: Tuple descriptor for input tuples
+- `lastdatum`: Last datum value for single-column DISTINCT checking
+- `lastisnull`: Whether last value was NULL for DISTINCT checking
+- `haslast`: Whether we have a last value for DISTINCT comparison
+- `sortstates`: Array of Tuplesort objects for each grouping set
+- `transfn_fcinfo`: Pre-initialized FunctionCallInfo for transition function calls
+- `serialfn_fcinfo`: Pre-initialized FunctionCallInfo for serialization function calls
+- `deserialfn_fcinfo`: Pre-initialized FunctionCallInfo for deserialization function calls
 
 ## Dependencies
 - Functions called/Symbols referenced:

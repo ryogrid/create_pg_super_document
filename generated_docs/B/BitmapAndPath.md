@@ -24,11 +24,11 @@ The node takes multiple bitmap-generating paths (IndexPaths or BitmapOrPaths) an
 The Path structure provides a consistent interface, though it's somewhat heavyweight for this specific use case. The design choice maintains simplicity and consistency with other path node types in the PostgreSQL planner.
 
 ## Parameters / Member Variables
-- : Base Path structure containing cost estimates, row counts, and path properties for the AND operation
-- : List of child paths that generate bitmaps to be ANDed together, containing:
+- `path`: Base Path structure containing cost estimates, row counts, and path properties for the AND operation
+- `bitmapquals`: List of child paths that generate bitmaps to be ANDed together, containing:
   - IndexPaths (for individual index bitmap generation)
   - BitmapOrPaths (for OR-combined bitmaps)
-- : Combined selectivity estimate for the AND operation, representing the fraction of pages expected to contain qualifying tuples
+- `bitmapselectivity`: Combined selectivity estimate for the AND operation, representing the fraction of pages expected to contain qualifying tuples
 
 ## Dependencies
 - Functions called/Symbols referenced:

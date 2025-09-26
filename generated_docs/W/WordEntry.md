@@ -9,14 +9,13 @@ WordEntry is a compact data structure representing individual word entries withi
 ## Definition
 
 ```c
-typedef struct {
- *		uint16
- *			weight:2,
- *			pos:14;
- * }
- */
-
-typedef uint16 WordEntryPos;
+typedef struct
+{
+	uint32
+				haspos:1,
+				len:11,			/* MAX 2Kb */
+				pos:20;			/* MAX 1Mb */
+} WordEntry;
 ```
 ## Detailed Description
 WordEntry is a fundamental building block of PostgreSQL's full-text search functionality. It serves as a header structure for individual words within a tsvector, using bit fields to pack three pieces of information into a single 32-bit integer:
@@ -28,9 +27,9 @@ WordEntry is a fundamental building block of PostgreSQL's full-text search funct
 This compact representation is crucial for memory efficiency in text search operations, as a single tsvector may contain hundreds or thousands of word entries.
 
 ## Parameters / Member Variables
-- : 1-bit flag indicating whether this word entry has associated position vectors (weight and position information)
-- : 11-bit field storing the length of the word string, with a maximum of 2KB (2047 bytes)
-- : 20-bit field storing the byte offset where this word's data begins within the tsvector's data area, allowing up to 1MB total data
+- `haspos`: 1-bit flag indicating whether this word entry has associated position vectors (weight and position information)
+- `len`: 11-bit field storing the length of the word string, with a maximum of 2KB (2047 bytes)
+- `pos`: 20-bit field storing the byte offset where this word's data begins within the tsvector's data area, allowing up to 1MB total data
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -11,9 +11,13 @@ ManyTestResourceKind is a custom resource type definition used in PostgreSQL's r
 ```c
 typedef struct
 {
-	ManyTestResourceKind *kind;
-	dlist_node	node;
-} ManyTestResource;
+	ResourceOwnerDesc desc;
+	int			nremembered;
+	int			nforgotten;
+	int			nreleased;
+	int			nleaked;
+	dlist_head	current_resources;
+} ManyTestResourceKind;
 ```
 ## Detailed Description
 ManyTestResourceKind is a specialized structure designed for testing PostgreSQL's ResourceOwner functionality with large numbers of resources. It extends the basic ResourceOwnerDesc with additional tracking counters and a linked list to maintain cross-references of remembered resources. This allows the test framework to verify that the ResourceOwner system correctly calls callback functions for resource management operations like remember, forget, release, and leak detection.
@@ -21,12 +25,12 @@ ManyTestResourceKind is a specialized structure designed for testing PostgreSQL'
 The structure serves as both a resource type descriptor and a tracking mechanism to ensure that resource management operations are performed in the correct order and with proper counts. It's specifically used in the test_resowner_many.c module to validate resource owner behavior under high-volume scenarios.
 
 ## Parameters / Member Variables
-- : ResourceOwnerDesc structure containing callback functions and metadata for this resource type
-- : Counter tracking how many times resources of this type have been remembered by the ResourceOwner
-- : Counter tracking how many times resources of this type have been forgotten by the ResourceOwner  
-- : Counter tracking how many times resources of this type have been released by the ResourceOwner
-- : Counter tracking how many times resources of this type have been detected as leaked
-- : Doubly-linked list head maintaining the list of currently tracked ManyTestResource instances
+- `desc`: ResourceOwnerDesc structure containing callback functions and metadata for this resource type
+- `nremembered`: Counter tracking how many times resources of this type have been remembered by the ResourceOwner
+- `nforgotten`: Counter tracking how many times resources of this type have been forgotten by the ResourceOwner
+- `nreleased`: Counter tracking how many times resources of this type have been released by the ResourceOwner
+- `nleaked`: Counter tracking how many times resources of this type have been detected as leaked
+- `current_resources`: Doubly-linked list head maintaining the list of currently tracked ManyTestResource instances
 
 ## Dependencies
 - Functions called/Symbols referenced:

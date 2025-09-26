@@ -26,8 +26,8 @@ The path is used in scenarios where:
 TID scans are extremely fast for small numbers of known tuple locations since they avoid index overhead and go directly to the heap pages. However, they require prior knowledge of the exact physical tuple locations.
 
 ## Parameters / Member Variables
-- : Base Path structure containing cost estimates, row counts, and other path properties for the TID scan
-- : List of qualifier expressions that specify which TIDs to scan, containing:
+- `path`: Base Path structure containing cost estimates, row counts, and other path properties for the TID scan
+- `tidquals`: List of qualifier expressions that specify which TIDs to scan, containing:
   - Expressions of the form "CTID = pseudoconstant" for single TID lookups
   - Expressions of the form "CTID = ANY(pseudoconstant_array)" for multiple TID lookups
   - CurrentOfExpr nodes for cursor-based positioned operations
