@@ -7,6 +7,7 @@ corresponding content column in the DuckDB documents table based on symbol_name 
 """
 
 import os
+import sys
 import glob
 import duckdb
 from pathlib import Path
@@ -38,6 +39,28 @@ def find_markdown_file(symbol_name, docs_dir):
 
     return None
 
+def read_symbol_list(file_path):
+    """
+    Read symbol names from a text file (one symbol per line).
+
+    Args:
+        file_path (str): Path to the text file containing symbol names
+
+    Returns:
+        set: Set of symbol names, or None if error
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            symbols = set()
+            for line in f:
+                symbol = line.strip()
+                if symbol:  # Skip empty lines
+                    symbols.add(symbol)
+            return symbols
+    except Exception as e:
+        print(f"Error reading symbol list file {file_path}: {e}")
+        return None
+
 def read_markdown_content(file_path):
     """
     Read the content of a markdown file.
@@ -55,23 +78,31 @@ def read_markdown_content(file_path):
         print(f"Error reading file {file_path}: {e}")
         return None
 
-def update_database_content(db_path, docs_dir):
+def update_database_content(db_path, docs_dir, target_symbols=None):
     """
     Update the content column in the documents table with markdown file contents.
 
     Args:
         db_path (str): Path to the DuckDB database file
         docs_dir (str): Path to the generated_docs directory
+        target_symbols (set, optional): Set of symbol names to process. If None, process all symbols.
     """
     try:
         # Connect to DuckDB
         conn = duckdb.connect(db_path)
 
-        # Get all symbol names from the database
-        symbols_query = "SELECT symbol_id, symbol_name FROM documents WHERE symbol_name IS NOT NULL"
-        symbols = conn.execute(symbols_query).fetchall()
-
-        print(f"Found {len(symbols)} symbols in the database")
+        # Get symbol names from the database
+        if target_symbols:
+            # Filter by target symbols
+            symbol_placeholders = ','.join(['?' for _ in target_symbols])
+            symbols_query = f"SELECT symbol_id, symbol_name FROM documents WHERE symbol_name IS NOT NULL AND symbol_name IN ({symbol_placeholders})"
+            symbols = conn.execute(symbols_query, list(target_symbols)).fetchall()
+            print(f"Found {len(symbols)} target symbols in the database (out of {len(target_symbols)} requested)")
+        else:
+            # Get all symbols
+            symbols_query = "SELECT symbol_id, symbol_name FROM documents WHERE symbol_name IS NOT NULL"
+            symbols = conn.execute(symbols_query).fetchall()
+            print(f"Found {len(symbols)} symbols in the database")
 
         updated_count = 0
         not_found_count = 0
@@ -118,6 +149,21 @@ def main():
     # Define paths
     db_path = "data/documents.duckdb"
     docs_dir = "generated_docs"
+    target_symbols = None
+
+    # Check for command line argument (symbol list file)
+    if len(sys.argv) > 1:
+        symbol_list_file = sys.argv[1]
+        if not os.path.exists(symbol_list_file):
+            print(f"Symbol list file not found: {symbol_list_file}")
+            return
+        
+        target_symbols = read_symbol_list(symbol_list_file)
+        if target_symbols is None:
+            print("Failed to read symbol list file")
+            return
+        
+        print(f"Processing {len(target_symbols)} symbols from: {symbol_list_file}")
 
     # Check if paths exist
     if not os.path.exists(db_path):
@@ -130,10 +176,14 @@ def main():
 
     print(f"Updating database: {db_path}")
     print(f"Using documentation from: {docs_dir}")
+    if target_symbols:
+        print(f"Target symbols: {len(target_symbols)} symbols specified")
+    else:
+        print("Target symbols: All symbols in database")
     print("-" * 50)
 
     # Perform the update
-    update_database_content(db_path, docs_dir)
+    update_database_content(db_path, docs_dir, target_symbols)
 
 if __name__ == "__main__":
     main()
