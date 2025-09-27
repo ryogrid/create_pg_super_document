@@ -31,27 +31,27 @@ This documentation adds **implementation-specific value** not covered in the fou
    - Detailed XLogInsert flow analysis
    - Buffer management and memory copying
    - WalSender wakeup coordination
-   - **Extends**: [Sender Component - WalSndLoop](../topic_specific_generated_docs/about_wal/component_replication_sender.md#walsndloop)
+   - **Extends**: [Sender Component - WalSndLoop](../about_wal/component_replication_sender.md#walsndloop)
 
 2. **[WalSender Transmission](primary_side_processing/walsender_transmission.md)**
    - Network transmission mechanics
    - Copy protocol implementation details
    - Client feedback processing
-   - **Extends**: [Sender Component - Core APIs](../topic_specific_generated_docs/about_wal/component_replication_sender.md#core-apis)
+   - **Extends**: [Sender Component - Core APIs](../about_wal/component_replication_sender.md#core-apis)
 
 ### Standby Side Processing
 1. **[WalReceiver Operations](standby_side_processing/walreceiver_operations.md)**
    - Connection management and message processing
    - Storage persistence constraints
-   - **Extends**: [Receiver Component - WalReceiverMain](../topic_specific_generated_docs/about_wal/component_replication_receiver.md#walreceivermain)
+   - **Extends**: [Receiver Component - WalReceiverMain](../about_wal/component_replication_receiver.md#walreceivermain)
 
 2. **[Startup Decoding Process](standby_side_processing/startup_decoding_process.md)**
    - WAL record reading implementation
-   - **Extends**: [Recovery Component - PerformWalRecovery](../topic_specific_generated_docs/about_wal/component_recovery.md#performwalrecovery)
+   - **Extends**: [Recovery Component - PerformWalRecovery](../about_wal/component_recovery.md#performwalrecovery)
 
 3. **[Startup Replay Process](standby_side_processing/startup_replay_process.md)**
    - Record application mechanics
-   - **Extends**: [Recovery Component - ApplyWalRecord](../topic_specific_generated_docs/about_wal/component_recovery.md#applywalrecord)
+   - **Extends**: [Recovery Component - ApplyWalRecord](../about_wal/component_recovery.md#applywalrecord)
 
 ### Inter-Process Coordination
 1. **[BGWriter Integration](inter_process_coordination/bgwriter_integration.md)**
