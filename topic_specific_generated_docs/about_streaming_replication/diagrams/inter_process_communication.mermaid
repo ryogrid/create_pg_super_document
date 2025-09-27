@@ -1,0 +1,126 @@
+graph TB
+    subgraph "Primary Server"
+        BE[Backend Processes]
+        WAL[WAL Writer]
+        WS[WalSender]
+        CP1[Checkpointer]
+    end
+
+    subgraph "Standby Server"
+        WR[WalReceiver]
+        SP[Startup Process]
+        CP2[Checkpointer]
+        HS[Hot Standby Backends]
+    end
+
+    subgraph "Shared Memory - Primary"
+        XLC1[XLogCtl]
+        WSC[WalSndCtlData]
+        CPS1[CheckpointerShmem]
+    end
+
+    subgraph "Shared Memory - Standby"
+        WRC[WalRcvData]
+        XRC[XLogRecoveryCtl]
+        CPS2[CheckpointerShmem]
+    end
+
+    subgraph "Network Communication"
+        NET[TCP Connection]
+    end
+
+    %% Primary Side Communication
+    BE -->|XLogInsert| XLC1
+    XLC1 -->|WalSndWakeup| WS
+    WAL -->|XLogWrite/Flush| XLC1
+    WS -->|Update positions| WSC
+
+    BE -->|RequestCheckpoint| CPS1
+    CPS1 -->|Latch signal| CP1
+    CP1 -->|BufferSync| XLC1
+
+    %% Network Communication
+    WS -->|WAL data + keepalive| NET
+    NET -->|Standby feedback| WS
+
+    %% Standby Side Communication
+    NET -->|WAL data| WR
+    WR -->|Update received/flushed| WRC
+    WRC -->|Signal new WAL| SP
+    SP -->|Update replay position| XRC
+
+    SP -->|RequestCheckpoint| CPS2
+    CPS2 -->|Latch signal| CP2
+
+    HS -->|Query execution| XRC
+    XRC -->|Snapshot info| HS
+
+    %% Inter-Process Coordination Mechanisms
+
+    %% Latches and Signals
+    WS -.->|SetLatch| WS
+    WR -.->|SetLatch| SP
+    CP1 -.->|SetLatch| CP1
+    CP2 -.->|SetLatch| CP2
+
+    %% Spinlocks for Shared Memory
+    WSC -.->|spinlock| WS
+    WRC -.->|spinlock| WR
+    XRC -.->|spinlock| SP
+    CPS1 -.->|spinlock| CP1
+    CPS2 -.->|spinlock| CP2
+
+    %% Condition Variables
+    CPS1 -.->|ConditionVariable| BE
+    CPS2 -.->|ConditionVariable| SP
+
+    %% Memory Barriers and Atomic Operations
+    XLC1 -.->|memory barriers| WAL
+    XRC -.->|atomic reads| WR
+    WSC -.->|atomic updates| WS
+
+    %% Cross-Process Event Coordination
+
+    %% WAL Generation to Transmission Flow
+    BE -->|1. Generate WAL| WAL
+    WAL -->|2. Write to disk| WS
+    WS -->|3. Send to standby| NET
+
+    %% Standby Processing Flow
+    NET -->|4. Receive WAL| WR
+    WR -->|5. Write to disk| SP
+    SP -->|6. Apply changes| HS
+
+    %% Feedback Loop
+    WR -->|7. Send positions| NET
+    NET -->|8. Update primary| WS
+    WS -->|9. Release sync waiters| BE
+
+    %% Error Handling Communication
+    WS -.->|Connection loss| NET
+    NET -.->|Reconnection| WR
+    WR -.->|Signal restart| SP
+
+    %% Performance Coordination
+    SP -.->|Memory pressure| CP2
+    CP2 -.->|Buffer cleaning| SP
+
+    WS -.->|Lag monitoring| NET
+    NET -.->|Feedback timing| WR
+
+    %% Timeline Management
+    SP -.->|Timeline switch| WR
+    WR -.->|History request| NET
+    NET -.->|Timeline data| WS
+
+    %% Styling
+    classDef primaryProc fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef standbyProc fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef sharedMem fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef network fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef coordination fill:#fff8e1,stroke:#f57f17,stroke-width:2px,stroke-dasharray: 5 5
+
+    class BE,WAL,WS,CP1 primaryProc
+    class WR,SP,CP2,HS standbyProc
+    class XLC1,WSC,CPS1,WRC,XRC,CPS2 sharedMem
+    class NET network

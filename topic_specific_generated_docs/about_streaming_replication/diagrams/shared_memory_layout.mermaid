@@ -1,0 +1,81 @@
+graph LR
+    subgraph "Primary Server Shared Memory"
+        subgraph "WAL Control (XLogCtl)"
+            XLC_INSERT[Insert State<br/>- WALInsertLocks<br/>- CurrBytePos<br/>- PrevBytePos]
+            XLC_WRITE[Write State<br/>- LogwrtResult<br/>- LogwrtRqst<br/>- asyncXactLSN]
+            XLC_BUFFER[WAL Buffers<br/>- XLogRecPtr positions<br/>- Buffer pages<br/>- XLOG_BLCKSZ aligned]
+        end
+
+        subgraph "WalSender Control (WalSndCtlData)"
+            WSC_GLOBAL[Global State<br/>- sync_standbys_defined<br/>- replication_slot_catalog_xmin]
+            WSC_ARRAY[WalSnd Array<br/>- max_wal_senders entries<br/>- Per-sender state]
+        end
+
+        subgraph "Individual WalSnd"
+            WS_PID[Process Info<br/>- pid<br/>- state (STARTUP/CATCHUP/STREAMING)]
+            WS_POSITIONS[WAL Positions<br/>- sentPtr<br/>- write, flush, apply<br/>- sync_standby_priority]
+            WS_SYNC[Synchronization<br/>- mutex (spinlock)<br/>- latch<br/>- replyTime]
+        end
+
+        subgraph "Checkpointer Control"
+            CP_FLAGS[Request Flags<br/>- ckpt_flags<br/>- ckpt_started/done<br/>- ckpt_failed]
+            CP_SYNC[Coordination<br/>- ConditionVariable start_cv<br/>- ConditionVariable done_cv<br/>- ckpt_lck spinlock]
+        end
+    end
+
+    subgraph "Standby Server Shared Memory"
+        subgraph "WalReceiver Data (WalRcvData)"
+            WRC_PROC[Process State<br/>- pid<br/>- startTime<br/>- ready_to_display]
+            WRC_POSITIONS[WAL Positions<br/>- receivedUpto<br/>- flushedUpto<br/>- latestChunkStart]
+            WRC_CONN[Connection Info<br/>- conninfo<br/>- slotname<br/>- sender_host/port]
+            WRC_LOCK[Synchronization<br/>- mutex (spinlock)<br/>- latch]
+        end
+
+        subgraph "Recovery Control (XLogRecoveryCtl)"
+            XRC_REPLAY[Replay Progress<br/>- lastReplayedReadRecPtr<br/>- lastReplayedEndRecPtr<br/>- replayEndRecPtr]
+            XRC_TIME[Timeline State<br/>- lastReplayedTLI<br/>- replayEndTLI<br/>- recoveryLastXTime]
+            XRC_CONTROL[Recovery Control<br/>- recoveryPauseState<br/>- currentChunkStartTime]
+            XRC_LOCK[Synchronization<br/>- info_lck spinlock]
+        end
+
+        subgraph "Standby Checkpointer"
+            SCP_FLAGS[Request Flags<br/>- Same structure as primary<br/>- Restartpoint handling]
+            SCP_COORD[Coordination<br/>- Recovery-aware logic<br/>- Buffer sync coordination]
+        end
+    end
+
+    %% Memory Access Patterns
+    XLC_INSERT -.->|WAL insertion| XLC_BUFFER
+    XLC_WRITE -.->|Disk writes| XLC_BUFFER
+    WSC_ARRAY -.->|Per-sender| WS_PID
+    WSC_ARRAY -.->|Position tracking| WS_POSITIONS
+    WS_SYNC -.->|Cross-process| WS_POSITIONS
+
+    WRC_POSITIONS -.->|Atomic updates| WRC_LOCK
+    XRC_REPLAY -.->|Position tracking| XRC_LOCK
+    XRC_TIME -.->|Timeline coordination| XRC_LOCK
+
+    %% Access Pattern Annotations
+    XLC_INSERT -.->|High contention<br/>WALInsertLock| XLC_WRITE
+    WS_POSITIONS -.->|Frequent reads<br/>Low contention| WS_SYNC
+    WRC_POSITIONS -.->|WalRcv writes<br/>Startup reads| XRC_REPLAY
+
+    %% Size and Alignment Constraints
+    XLC_BUFFER -.->|XLOG_BLCKSZ aligned<br/>Shared WAL buffers| XLC_WRITE
+    WSC_ARRAY -.->|max_wal_senders * sizeof(WalSnd)| WS_PID
+    WRC_POSITIONS -.->|Single global structure| WRC_CONN
+
+    %% Coordination Mechanisms
+    CP_FLAGS -.->|Request coordination| CP_SYNC
+    SCP_FLAGS -.->|Recovery coordination| SCP_COORD
+
+    %% Memory Layout Properties
+    classDef highContention fill:#ffcccc,stroke:#cc0000,stroke-width:2px
+    classDef mediumContention fill:#ffffcc,stroke:#cccc00,stroke-width:2px
+    classDef lowContention fill:#ccffcc,stroke:#00cc00,stroke-width:2px
+    classDef coordinationStruct fill:#ccccff,stroke:#0000cc,stroke-width:2px
+
+    class XLC_INSERT,XLC_WRITE highContention
+    class WS_POSITIONS,WRC_POSITIONS mediumContention
+    class WS_PID,WRC_PROC,XRC_TIME lowContention
+    class WS_SYNC,WRC_LOCK,XRC_LOCK,CP_SYNC,SCP_COORD coordinationStruct

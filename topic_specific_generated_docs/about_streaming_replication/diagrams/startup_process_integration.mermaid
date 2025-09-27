@@ -1,0 +1,181 @@
+sequenceDiagram
+    participant WR as WalReceiver
+    participant SM as Shared Memory
+    participant SP as Startup Process
+    participant PF as Prefetcher
+    participant RM as Resource Managers
+    participant CP as Checkpointer
+
+    Note over WR,CP: Startup Process Integration During WAL Replay
+
+    %% Initialization Phase
+    WR->>+SM: Update WalRcvData
+    Note right of SM: receivedUpto, flushedUpto
+
+    SM->>+SP: Signal new WAL available
+    Note right of SP: Latch-based notification
+
+    SP->>SP: PerformWalRecovery()
+    Note right of SP: Main recovery loop entry
+
+    %% WAL Reading with Prefetching
+    SP->>+PF: XLogPrefetcherReadRecord()
+    Note right of PF: Read with I/O prefetching
+
+    PF->>PF: Check prefetch config changes
+    Note right of PF: recovery_prefetch, maintenance_io_concurrency
+
+    PF->>PF: XLogPrefetcherReleasePreviousRecord()
+    Note right of PF: Cleanup previous record
+
+    PF->>PF: XLogReadAhead(non-blocking)
+    Note right of PF: Initiate async I/O
+
+    PF->>SP: XLogNextRecord()
+    Note right of SP: Decoded WAL record
+
+    SP-->>-PF: Record processing complete
+    PF-->>-SP: Next record ready
+
+    %% Record Processing and Application
+    SP->>SP: HandleStartupProcInterrupts()
+    Note right of SP: Process signals
+
+    SP->>SP: Check recovery pause state
+    Note right of SP: recoveryPauseState check
+
+    SP->>SP: recoveryStopsBefore()
+    Note right of SP: Check recovery target
+
+    SP->>SP: recoveryApplyDelay()
+    Note right of SP: Apply configured delay
+
+    SP->>+RM: ApplyWalRecord()
+    Note right of RM: Dispatch to resource manager
+
+    RM->>RM: rmgr_redo() function
+    Note right of RM: Manager-specific redo
+
+    RM->>RM: Handle Full-Page Images
+    Note right of RM: RestoreBlockImage() if needed
+
+    RM-->>-SP: Record applied
+
+    %% Shared State Updates
+    SP->>+SM: Update XLogRecoveryCtl
+    Note right of SM: Atomic position updates
+
+    SM->>SM: SpinLockAcquire(&info_lck)
+    Note right of SM: Protect shared state
+
+    SM->>SM: Update replayEndRecPtr
+    Note right of SM: Current replay position
+
+    SM->>SM: Update lastReplayedEndRecPtr
+    Note right of SM: Last completed record
+
+    SM->>SM: SpinLockRelease(&info_lck)
+
+    SM-->>-SP: Position updated
+
+    %% Coordination with WalReceiver
+    SP->>WR: Coordinate WAL consumption
+    Note left of WR: Indirect coordination via shared memory
+
+    WR->>WR: Check GetXLogReplayRecPtr()
+    Note right of WR: Current replay position
+
+    WR->>WR: Adjust feedback timing
+    Note right of WR: Based on replay progress
+
+    %% Checkpointer Coordination
+    SP->>+CP: RequestCheckpoint() [conditional]
+    Note right of CP: Memory pressure or interval
+
+    CP->>CP: Check RecoveryInProgress()
+    Note right of CP: Determine checkpoint type
+
+    CP->>CP: CreateRestartPoint()
+    Note right of CP: Recovery-specific checkpoint
+
+    CP->>SM: Update checkpoint state
+    Note right of SM: Coordinate with ongoing replay
+
+    CP-->>-SP: Checkpoint complete
+
+    %% Memory Management Integration
+    SP->>SP: Check memory pressure
+    Note right of SP: Buffer pool utilization
+
+    alt High Memory Pressure
+        SP->>CP: Force immediate checkpoint
+        Note right of CP: CHECKPOINT_IMMEDIATE
+        CP->>CP: Accelerated buffer cleaning
+        CP-->>SP: Memory pressure relieved
+    else Normal Operation
+        SP->>SP: Continue normal replay
+    end
+
+    %% Error Handling and Recovery
+    alt WAL Read Error
+        SP->>SP: WALReadError()
+        Note right of SP: Handle corruption/missing WAL
+
+        SP->>WR: Signal need for WAL
+        Note left of WR: Request retransmission
+
+        WR->>WR: Reconnect if needed
+        WR-->>SP: WAL available
+
+    else Timeline Switch
+        SP->>SP: Detect timeline change
+        Note right of SP: Timeline ID mismatch
+
+        SP->>SP: readTimeLineHistory()
+        Note right of SP: Fetch timeline history
+
+        SP->>SP: Validate timeline switch
+        Note right of SP: Ensure consistency
+
+        SP->>WR: Update timeline requirements
+        Note left of WR: New timeline context
+
+    else Recovery Target Reached
+        SP->>SP: recoveryStopsAfter()
+        Note right of SP: Check inclusive target
+
+        SP->>SP: Exit recovery loop
+        Note right of SP: Prepare for promotion
+
+        SP->>SM: Signal recovery complete
+        Note right of SM: Update recovery state
+    end
+
+    %% Performance Optimization
+    Note over SP,PF: Prefetching Optimization
+    SP->>PF: XLogPrefetcherComputeStats()
+    Note right of PF: Periodic statistics update
+
+    PF->>PF: Adjust prefetch distance
+    Note right of PF: Based on hit ratios
+
+    Note over SP,RM: Resource Manager Coordination
+    SP->>RM: RmgrStartup()
+    Note right of RM: Initialize managers
+
+    SP->>RM: RmgrCleanup()
+    Note right of RM: Cleanup on completion
+
+    %% Continuous Loop Coordination
+    loop Continuous Replay
+        WR->>SM: New WAL received
+        SM->>SP: Wake startup process
+        SP->>PF: Read next record
+        PF-->>SP: Record available
+        SP->>RM: Apply record
+        RM-->>SP: Record applied
+        SP->>SM: Update positions
+        SM-->>WR: Position feedback
+    end
+
+    Note over WR,CP: End Startup Process Integration

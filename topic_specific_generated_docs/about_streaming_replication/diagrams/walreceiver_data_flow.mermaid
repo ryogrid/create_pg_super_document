@@ -1,0 +1,115 @@
+flowchart TD
+    A[Network Data Arrival] --> B{Message Type?}
+
+    B -->|CopyData - WAL| C[XLogWalRcvProcessMsg]
+    B -->|CopyData - Keepalive| D[Process Keepalive]
+    B -->|CopyDone| E[End Streaming]
+    B -->|Error/EOF| F[Connection Error]
+
+    C --> G{WAL Data Validation}
+    G -->|Valid| H[Update receivedUpto]
+    G -->|Invalid| I[Protocol Error]
+
+    H --> J[XLogWalRcvWrite]
+    J --> K{Write to Disk}
+    K -->|Success| L[Update LogstreamResult.Write]
+    K -->|Failure| M[Write Error]
+
+    L --> N[XLogWalRcvFlush]
+    N --> O{fsync Operation}
+    O -->|Success| P[Update LogstreamResult.Flush]
+    O -->|Failure| Q[Flush Error]
+
+    P --> R[Update WalRcvData Shared Memory]
+    R --> S[Signal Startup Process]
+
+    S --> T{Reply Needed?}
+    T -->|Yes - Status Interval| U[XLogWalRcvSendReply]
+    T -->|Yes - HS Feedback| V[XLogWalRcvSendHSFeedback]
+    T -->|No| W[Continue Processing]
+
+    U --> X[Construct 'r' Message]
+    X --> Y[Send Status Reply]
+    Y --> W
+
+    V --> Z[Get Replication Horizons]
+    Z --> AA[Construct 'h' Message]
+    AA --> BB[Send HS Feedback]
+    BB --> W
+
+    D --> CC[Update Keepalive Timestamp]
+    CC --> DD{Reply Requested?}
+    DD -->|Yes| UU[Force Reply Send]
+    DD -->|No| W
+    UU --> U
+
+    W --> EE{More Data Available?}
+    EE -->|Yes| A
+    EE -->|No| FF[WaitLatchOrSocket]
+    FF --> A
+
+    %% Error Handling Paths
+    I --> GG[Log Protocol Violation]
+    GG --> HH[Attempt Recovery]
+    HH --> II{Recoverable?}
+    II -->|Yes| A
+    II -->|No| F
+
+    M --> JJ[Log Write Error]
+    JJ --> KK[Retry Write]
+    KK --> LL{Retry Success?}
+    LL -->|Yes| L
+    LL -->|No| F
+
+    Q --> MM[Log Flush Error]
+    MM --> NN[Retry Flush]
+    NN --> OO{Retry Success?}
+    OO -->|Yes| P
+    OO -->|No| F
+
+    F --> PP[WalRcvDie]
+    E --> QQ[Clean Shutdown]
+
+    %% Memory Management
+    R --> RR{Memory Pressure?}
+    RR -->|High| SS[Request Checkpoint]
+    RR -->|Normal| W
+    SS --> W
+
+    %% Timeline Management
+    C --> TT{Timeline Change?}
+    TT -->|Yes| UUU[Process Timeline Switch]
+    TT -->|No| G
+    UUU --> VV[Fetch Timeline History]
+    VV --> WW[Validate Timeline]
+    WW --> XX{Valid Timeline?}
+    XX -->|Yes| H
+    XX -->|No| I
+
+    %% Performance Monitoring
+    P --> YY[Update Statistics]
+    YY --> ZZ[LagTrackerWrite]
+    ZZ --> W
+
+    %% Buffer Management
+    J --> AAA{WAL Segment Boundary?}
+    AAA -->|Yes| BBB[XLogWalRcvClose]
+    AAA -->|No| K
+    BBB --> CCC[Open New Segment]
+    CCC --> K
+
+    %% Connection Management
+    FF --> DDD{Connection Alive?}
+    DDD -->|No| F
+    DDD -->|Yes| A
+
+    %% Styling
+    classDef errorState fill:#ffcccc,stroke:#ff0000,stroke-width:2px
+    classDef normalOp fill:#ccffcc,stroke:#00aa00,stroke-width:2px
+    classDef decision fill:#ffffcc,stroke:#aaaa00,stroke-width:2px
+    classDef networkOp fill:#ccccff,stroke:#0000aa,stroke-width:2px
+
+    class F,I,M,Q,PP errorState
+    class H,L,P,R,S,W normalOp
+    class B,G,K,O,T,EE,RR,TT,XX,AAA,DDD decision
+    class A,U,V,Y,BB networkOp

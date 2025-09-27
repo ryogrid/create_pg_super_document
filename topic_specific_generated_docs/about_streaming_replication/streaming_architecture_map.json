@@ -1,0 +1,356 @@
+{
+  "processes": {
+    "WalSender": {
+      "entry_points": ["WalSndLoop", "WalSndMain"],
+      "key_functions": [
+        "XLogSendPhysical",
+        "XLogSendLogical",
+        "WalSndComputeSleeptime",
+        "WalSndSetState",
+        "WalSndWakeup",
+        "ProcessRepliesIfAny",
+        "WalSndKeepaliveIfNecessary"
+      ],
+      "shared_memory": ["WalSndCtlData", "WalSnd"],
+      "communication_targets": ["WalReceiver"],
+      "performance_critical": true,
+      "process_type": "PRIMARY_SIDE"
+    },
+    "WalReceiver": {
+      "entry_points": ["WalReceiverMain"],
+      "key_functions": [
+        "XLogWalRcvProcessMsg",
+        "XLogWalRcvWrite",
+        "XLogWalRcvFlush",
+        "XLogWalRcvSendReply",
+        "XLogWalRcvSendHSFeedback",
+        "WalRcvComputeNextWakeup"
+      ],
+      "shared_memory": ["WalRcvData"],
+      "communication_targets": ["StartupProcess", "WalSender"],
+      "performance_critical": true,
+      "process_type": "STANDBY_SIDE"
+    },
+    "StartupProcess": {
+      "entry_points": ["StartupXLOG"],
+      "key_functions": [
+        "XLogReadRecord",
+        "GetCurrentReplayRecPtr",
+        "GetXLogReplayRecPtr"
+      ],
+      "shared_memory": ["XLogReaderState"],
+      "communication_targets": ["WalReceiver"],
+      "performance_critical": true,
+      "process_type": "STANDBY_SIDE"
+    },
+    "WALWriter": {
+      "entry_points": ["XLogWrite"],
+      "key_functions": [
+        "XLogWrite",
+        "XLogFlush",
+        "GetFlushRecPtr"
+      ],
+      "shared_memory": ["XLogCtl"],
+      "communication_targets": ["WalSender"],
+      "performance_critical": true,
+      "process_type": "PRIMARY_SIDE"
+    }
+  },
+  "symbols": {
+    "XLogInsert": {
+      "importance_score": 0.98,
+      "process": "Backend",
+      "category": "WAL_GENERATION",
+      "dependencies": ["XLogRecordAssemble", "XLogInsertRecord"],
+      "shared_state": ["XLogCtl"],
+      "constraints": {
+        "record_alignment": "MAXALIGN",
+        "max_record_size": "1GB theoretical limit"
+      }
+    },
+    "XLogInsertRecord": {
+      "importance_score": 0.97,
+      "process": "Backend",
+      "category": "WAL_PERSISTENCE",
+      "dependencies": ["WAL buffer management"],
+      "shared_state": ["XLogCtl->Insert"],
+      "constraints": {
+        "atomic_insertion": true,
+        "proper_locking": "WALInsertLock"
+      }
+    },
+    "XLogWrite": {
+      "importance_score": 0.95,
+      "process": "WALWriter",
+      "category": "STORAGE_PERSISTENCE",
+      "dependencies": ["XLogFlush"],
+      "shared_state": ["XLogCtl->LogwrtResult"],
+      "constraints": {
+        "write_alignment": "XLOG_BLCKSZ",
+        "segment_management": "automatic"
+      }
+    },
+    "XLogFlush": {
+      "importance_score": 0.94,
+      "process": "WALWriter",
+      "category": "STORAGE_PERSISTENCE",
+      "dependencies": ["fsync operations"],
+      "shared_state": ["XLogCtl->LogwrtResult"],
+      "constraints": {
+        "group_commit_optimization": true,
+        "durability_guarantee": "fsync"
+      }
+    },
+    "WalSndLoop": {
+      "importance_score": 0.96,
+      "process": "WalSender",
+      "category": "NETWORK_TRANSMISSION",
+      "dependencies": ["XLogSendPhysical", "XLogSendLogical", "ProcessRepliesIfAny"],
+      "shared_state": ["WalSnd struct"],
+      "constraints": {
+        "copy_protocol": "streaming replication protocol",
+        "buffering": "configurable send buffer"
+      }
+    },
+    "XLogSendPhysical": {
+      "importance_score": 0.93,
+      "process": "WalSender",
+      "category": "NETWORK_TRANSMISSION",
+      "dependencies": ["WALRead", "pq_putmessage_noblock"],
+      "shared_state": ["WalSnd->sentPtr"],
+      "constraints": {
+        "max_send_size": "MAX_SEND_SIZE",
+        "timeline_handling": "automatic switch detection"
+      }
+    },
+    "WalReceiverMain": {
+      "importance_score": 0.95,
+      "process": "WalReceiver",
+      "category": "NETWORK_RECEPTION",
+      "dependencies": ["walrcv_connect", "walrcv_startstreaming", "XLogWalRcvProcessMsg"],
+      "shared_state": ["WalRcvData"],
+      "constraints": {
+        "connection_management": "libpq based",
+        "protocol_handling": "streaming replication protocol"
+      }
+    },
+    "XLogWalRcvWrite": {
+      "importance_score": 0.92,
+      "process": "WalReceiver",
+      "category": "STORAGE_PERSISTENCE",
+      "dependencies": ["XLogWalRcvFlush"],
+      "shared_state": ["WalRcv->receivedUpto"],
+      "constraints": {
+        "write_alignment": "XLOG_BLCKSZ",
+        "segment_boundaries": "respected",
+        "atomic_writes": "page-level"
+      }
+    },
+    "XLogWalRcvFlush": {
+      "importance_score": 0.91,
+      "process": "WalReceiver",
+      "category": "STORAGE_PERSISTENCE",
+      "dependencies": ["fsync operations"],
+      "shared_state": ["WalRcv->flushedUpto"],
+      "constraints": {
+        "durability_guarantee": "fsync",
+        "notification": "shared memory update"
+      }
+    },
+    "XLogWalRcvProcessMsg": {
+      "importance_score": 0.89,
+      "process": "WalReceiver",
+      "category": "PROTOCOL_HANDLING",
+      "dependencies": ["XLogWalRcvWrite"],
+      "shared_state": ["message processing state"],
+      "constraints": {
+        "message_types": "WAL data, keepalive",
+        "error_handling": "connection recovery"
+      }
+    },
+    "GetFlushRecPtr": {
+      "importance_score": 0.88,
+      "process": "Multiple",
+      "category": "STATE_QUERY",
+      "dependencies": [],
+      "shared_state": ["XLogCtl->LogwrtResult"],
+      "constraints": {
+        "thread_safety": "read-only access",
+        "consistency": "memory barriers"
+      }
+    },
+    "GetCurrentReplayRecPtr": {
+      "importance_score": 0.85,
+      "process": "StartupProcess",
+      "category": "STATE_QUERY",
+      "dependencies": [],
+      "shared_state": ["XLogCtl->lastReplayedEndRecPtr"],
+      "constraints": {
+        "real_time_tracking": true,
+        "include_in_progress": true
+      }
+    },
+    "WalSndWakeup": {
+      "importance_score": 0.84,
+      "process": "Multiple",
+      "category": "PROCESS_COORDINATION",
+      "dependencies": ["latch operations"],
+      "shared_state": ["WalSnd->latch"],
+      "constraints": {
+        "signal_efficiency": "latch based",
+        "type_specific": "physical vs logical"
+      }
+    },
+    "ProcessRepliesIfAny": {
+      "importance_score": 0.82,
+      "process": "WalSender",
+      "category": "NETWORK_RECEPTION",
+      "dependencies": ["pq_getmessage_timeout"],
+      "shared_state": ["WalSnd feedback fields"],
+      "constraints": {
+        "non_blocking": true,
+        "feedback_processing": "write/flush/apply positions"
+      }
+    },
+    "SyncRepInitConfig": {
+      "importance_score": 0.78,
+      "process": "WalSender",
+      "category": "CONFIGURATION",
+      "dependencies": ["synchronous_standby_names parsing"],
+      "shared_state": ["WalSnd->sync_standby_priority"],
+      "constraints": {
+        "dynamic_reconfiguration": true,
+        "priority_ordering": "configuration based"
+      }
+    }
+  },
+  "data_flows": {
+    "primary_to_standby_physical": {
+      "path": [
+        "XLogInsert",
+        "XLogInsertRecord",
+        "XLogWrite",
+        "XLogFlush",
+        "WalSndWakeup",
+        "WalSndLoop",
+        "XLogSendPhysical",
+        "Network",
+        "WalReceiverMain",
+        "XLogWalRcvProcessMsg",
+        "XLogWalRcvWrite",
+        "XLogWalRcvFlush"
+      ],
+      "data_units": "WAL records with CopyData message framing",
+      "constraints": [
+        "Network MTU limitations",
+        "WAL record boundaries",
+        "XLOG_BLCKSZ alignment",
+        "MAX_SEND_SIZE buffer limits"
+      ],
+      "synchronization_points": [
+        "XLogFlush (durability on primary)",
+        "XLogWalRcvFlush (durability on standby)",
+        "Synchronous replication feedback"
+      ]
+    },
+    "standby_feedback_loop": {
+      "path": [
+        "XLogWalRcvFlush",
+        "XLogWalRcvSendReply",
+        "Network",
+        "ProcessRepliesIfAny",
+        "WalSnd state update"
+      ],
+      "data_units": "Standby status messages",
+      "constraints": [
+        "Feedback frequency limits",
+        "Network round-trip time"
+      ],
+      "synchronization_points": [
+        "Synchronous commit points"
+      ]
+    }
+  },
+  "shared_memory_layout": {
+    "WalSndCtlData": {
+      "size": "calculated from max_wal_senders",
+      "key_fields": ["walsnds[]", "replication_slot_catalog_xmin"],
+      "access_pattern": "multiple readers, exclusive writers per slot"
+    },
+    "WalSnd": {
+      "size": "fixed per sender",
+      "key_fields": [
+        "pid",
+        "state",
+        "sentPtr",
+        "write/flush/apply (feedback)",
+        "sync_standby_priority",
+        "mutex",
+        "latch"
+      ],
+      "access_pattern": "owner writes, others read with spinlock"
+    },
+    "WalRcvData": {
+      "size": "single global structure",
+      "key_fields": [
+        "pid",
+        "receivedUpto",
+        "flushedUpto",
+        "startTime",
+        "conninfo",
+        "slotname"
+      ],
+      "access_pattern": "walreceiver writes, others read"
+    },
+    "XLogCtl": {
+      "size": "large shared structure",
+      "key_fields": [
+        "Insert (WAL insertion state)",
+        "LogwrtResult (write positions)",
+        "lastReplayedEndRecPtr",
+        "replicationSlotMinLSN"
+      ],
+      "access_pattern": "complex multi-process coordination"
+    }
+  },
+  "network_protocol": {
+    "connection_establishment": {
+      "phases": ["libpq connection", "START_REPLICATION command", "Copy protocol switch"],
+      "authentication": "standard PostgreSQL authentication",
+      "parameters": ["LSN start point", "timeline", "slot name"]
+    },
+    "message_formats": {
+      "CopyData": {
+        "wal_data": "LSN + timeline + WAL record data",
+        "keepalive": "LSN + timestamp + reply_requested flag"
+      },
+      "CopyDone": "End of stream marker",
+      "standby_status": "write_lsn + flush_lsn + apply_lsn + timestamp + reply_requested"
+    },
+    "error_handling": {
+      "connection_loss": "automatic reconnection with position recovery",
+      "timeline_divergence": "fetch timeline history and restart",
+      "lag_monitoring": "keepalive message timing"
+    }
+  },
+  "performance_characteristics": {
+    "critical_paths": [
+      "WAL insertion to WalSender wakeup latency",
+      "Network transmission batching efficiency",
+      "Standby write and flush latency",
+      "Synchronous replication feedback round-trip"
+    ],
+    "bottlenecks": [
+      "Network bandwidth and latency",
+      "Disk I/O on both primary and standby",
+      "WAL generation rate vs transmission rate",
+      "Synchronous replication commit waits"
+    ],
+    "optimizations": [
+      "Group commit on primary",
+      "Batched WAL transmission",
+      "Asynchronous standby feedback",
+      "Parallel replay (future enhancement)"
+    ]
+  }
+}

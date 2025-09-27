@@ -1,0 +1,122 @@
+Critical Symbols for PostgreSQL Streaming Replication (Top 80)
+================================================================
+
+WAL GENERATION AND PERSISTENCE (Primary Side)
+---------------------------------------------
+XLogInsert (score: 0.98) - Backend - WAL_GENERATION - Record assembly and insertion entry point
+XLogInsertRecord (score: 0.97) - Backend - WAL_PERSISTENCE - Core WAL insertion with locking
+XLogRecordAssemble (score: 0.96) - Backend - WAL_GENERATION - WAL record construction from components
+XLogWrite (score: 0.95) - WALWriter - STORAGE_PERSISTENCE - WAL buffer to disk writing
+XLogFlush (score: 0.94) - WALWriter - STORAGE_PERSISTENCE - Durability via fsync operations
+GetFlushRecPtr (score: 0.88) - Multiple - STATE_QUERY - Current durable WAL position
+
+WALSENDER PROCESS (Primary Side)
+--------------------------------
+WalSndLoop (score: 0.96) - WalSender - NETWORK_TRANSMISSION - Main sender control loop
+XLogSendPhysical (score: 0.93) - WalSender - NETWORK_TRANSMISSION - Physical WAL streaming
+XLogSendLogical (score: 0.90) - WalSender - NETWORK_TRANSMISSION - Logical replication streaming
+WalSndSetState (score: 0.87) - WalSender - PROCESS_COORDINATION - Replication state management
+WalSndWakeup (score: 0.84) - Multiple - PROCESS_COORDINATION - Wake sender for new WAL
+WalSndComputeSleeptime (score: 0.82) - WalSender - TIMING_CONTROL - Optimal sleep duration calculation
+ProcessRepliesIfAny (score: 0.82) - WalSender - NETWORK_RECEPTION - Standby feedback processing
+WalSndKeepaliveIfNecessary (score: 0.80) - WalSender - NETWORK_MAINTENANCE - Connection keepalive
+SyncRepInitConfig (score: 0.78) - WalSender - CONFIGURATION - Synchronous replication setup
+WalSndCheckTimeOut (score: 0.77) - WalSender - CONNECTION_MANAGEMENT - Timeout detection
+WalSndWait (score: 0.76) - WalSender - TIMING_CONTROL - Event-driven waiting
+WalSndKeepalive (score: 0.75) - WalSender - NETWORK_MAINTENANCE - Explicit keepalive sending
+WalSndWriteData (score: 0.74) - WalSender - NETWORK_TRANSMISSION - Low-level data transmission
+WalSndPrepareWrite (score: 0.73) - WalSender - NETWORK_TRANSMISSION - Transmission preparation
+
+WALRECEIVER PROCESS (Standby Side)
+----------------------------------
+WalReceiverMain (score: 0.95) - WalReceiver - NETWORK_RECEPTION - Main receiver process entry
+XLogWalRcvWrite (score: 0.92) - WalReceiver - STORAGE_PERSISTENCE - Received WAL to disk
+XLogWalRcvFlush (score: 0.91) - WalReceiver - STORAGE_PERSISTENCE - Durability on standby
+XLogWalRcvProcessMsg (score: 0.89) - WalReceiver - PROTOCOL_HANDLING - Message processing
+XLogWalRcvSendReply (score: 0.85) - WalReceiver - NETWORK_TRANSMISSION - Standby feedback
+XLogWalRcvSendHSFeedback (score: 0.83) - WalReceiver - NETWORK_TRANSMISSION - Hot standby feedback
+WalRcvComputeNextWakeup (score: 0.81) - WalReceiver - TIMING_CONTROL - Next wakeup timing
+XLogWalRcvClose (score: 0.79) - WalReceiver - FILE_MANAGEMENT - WAL file closure
+GetWalRcvWriteRecPtr (score: 0.78) - WalReceiver - STATE_QUERY - Received WAL position
+GetWalRcvFlushRecPtr (score: 0.77) - WalReceiver - STATE_QUERY - Flushed WAL position
+ProcessWalRcvInterrupts (score: 0.76) - WalReceiver - SIGNAL_HANDLING - Interrupt processing
+WalRcvForceReply (score: 0.75) - WalReceiver - NETWORK_TRANSMISSION - Force reply sending
+WalRcvFetchTimeLineHistoryFiles (score: 0.74) - WalReceiver - TIMELINE_MANAGEMENT - Timeline history
+WalRcvWaitForStartPosition (score: 0.73) - WalReceiver - SYNCHRONIZATION - Wait for start LSN
+
+STARTUP PROCESS AND REPLAY (Standby Side)
+-----------------------------------------
+XLogReadRecord (score: 0.88) - StartupProcess - WAL_READING - WAL record reading interface
+GetCurrentReplayRecPtr (score: 0.85) - StartupProcess - STATE_QUERY - Current replay position
+GetXLogReplayRecPtr (score: 0.84) - StartupProcess - STATE_QUERY - Latest replay position
+HotStandbyActiveInReplay (score: 0.82) - StartupProcess - STATE_QUERY - Hot standby status
+GetCurrentChunkReplayStartTime (score: 0.80) - StartupProcess - TIMING_TRACKING - Replay timing
+
+SHARED MEMORY STRUCTURES
+------------------------
+WalSnd (score: 0.90) - Shared - DATA_STRUCTURE - Per-sender state and coordination
+WalRcvData (score: 0.89) - Shared - DATA_STRUCTURE - Global receiver state
+WalSndCtlData (score: 0.87) - Shared - DATA_STRUCTURE - Sender control structure
+XLogCtl (score: 0.86) - Shared - DATA_STRUCTURE - Global WAL control structure
+
+NETWORK PROTOCOL AND CONNECTION MANAGEMENT
+------------------------------------------
+walrcv_connect (score: 0.88) - WalReceiver - CONNECTION_MANAGEMENT - Establish replication connection
+walrcv_startstreaming (score: 0.86) - WalReceiver - CONNECTION_MANAGEMENT - Start WAL streaming
+walrcv_receive (score: 0.84) - WalReceiver - NETWORK_RECEPTION - Receive network data
+walrcv_endstreaming (score: 0.82) - WalReceiver - CONNECTION_MANAGEMENT - End streaming session
+walrcv_identify_system (score: 0.80) - WalReceiver - CONNECTION_MANAGEMENT - System identification
+pq_putmessage_noblock (score: 0.79) - Network - NETWORK_TRANSMISSION - Non-blocking message send
+pq_getmessage_timeout (score: 0.78) - Network - NETWORK_RECEPTION - Timeout message receive
+
+TIMELINE AND SLOT MANAGEMENT
+----------------------------
+readTimeLineHistory (score: 0.83) - Multiple - TIMELINE_MANAGEMENT - Timeline history reading
+tliSwitchPoint (score: 0.81) - Multiple - TIMELINE_MANAGEMENT - Timeline switch detection
+walrcv_create_slot (score: 0.79) - WalReceiver - SLOT_MANAGEMENT - Replication slot creation
+CheckXLogRemoved (score: 0.77) - Multiple - FILE_MANAGEMENT - WAL file removal check
+
+BUFFER AND FILE MANAGEMENT
+--------------------------
+WALRead (score: 0.85) - Multiple - FILE_IO - WAL file reading
+WALReadFromBuffers (score: 0.83) - Multiple - BUFFER_MANAGEMENT - WAL buffer reading
+XLogFileInit (score: 0.81) - Multiple - FILE_MANAGEMENT - WAL file initialization
+XLogFileName (score: 0.79) - Multiple - FILE_MANAGEMENT - WAL filename generation
+XLogSegmentOffset (score: 0.78) - Multiple - ADDRESS_CALCULATION - Segment offset calculation
+XLByteToSeg (score: 0.77) - Multiple - ADDRESS_CALCULATION - LSN to segment conversion
+XLByteInSeg (score: 0.76) - Multiple - ADDRESS_CALCULATION - LSN within segment check
+
+SYNCHRONIZATION AND COORDINATION
+--------------------------------
+LagTrackerWrite (score: 0.84) - WalSender - PERFORMANCE_TRACKING - Replication lag tracking
+GetStandbyFlushRecPtr (score: 0.82) - Multiple - STATE_QUERY - Standby flush position
+RecoveryInProgress (score: 0.80) - Multiple - STATE_QUERY - Recovery status check
+ConditionVariableBroadcast (score: 0.78) - Multiple - SYNCHRONIZATION - Process coordination
+WaitLatchOrSocket (score: 0.77) - Multiple - EVENT_HANDLING - Wait for events
+ResetLatch (score: 0.76) - Multiple - EVENT_HANDLING - Latch reset operation
+
+UTILITY AND SUPPORT FUNCTIONS
+-----------------------------
+GetCurrentTimestamp (score: 0.79) - Multiple - TIMING - Current timestamp acquisition
+TimestampDifferenceExceeds (score: 0.77) - Multiple - TIMING - Time difference calculation
+pg_atomic_write_u64 (score: 0.76) - Multiple - ATOMIC_OPERATIONS - Atomic 64-bit write
+pg_memory_barrier (score: 0.75) - Multiple - MEMORY_ORDERING - Memory ordering barrier
+strlcpy (score: 0.74) - Multiple - STRING_OPERATIONS - Safe string copying
+enlargeStringInfo (score: 0.73) - Multiple - BUFFER_MANAGEMENT - Dynamic string buffer
+resetStringInfo (score: 0.72) - Multiple - BUFFER_MANAGEMENT - String buffer reset
+
+ERROR HANDLING AND DIAGNOSTICS
+------------------------------
+WALReadError (score: 0.81) - Multiple - ERROR_HANDLING - WAL read error processing
+WALReadRaiseError (score: 0.80) - Multiple - ERROR_HANDLING - WAL read error reporting
+WalRcvDie (score: 0.78) - WalReceiver - ERROR_HANDLING - Receiver shutdown
+WalSndErrorCleanup (score: 0.77) - WalSender - ERROR_HANDLING - Sender error cleanup
+ShutdownWalRcv (score: 0.76) - WalReceiver - PROCESS_MANAGEMENT - Receiver shutdown
+XLogShutdownWalRcv (score: 0.75) - WalReceiver - PROCESS_MANAGEMENT - WAL receiver shutdown
+
+CONFIGURATION AND STATE MANAGEMENT
+----------------------------------
+WalSndGetStateString (score: 0.74) - WalSender - STATE_QUERY - State string representation
+WalRcvGetStateString (score: 0.73) - WalReceiver - STATE_QUERY - State string representation
+WalRcvStreaming (score: 0.72) - WalReceiver - STATE_QUERY - Streaming status check
+WalRcvRunning (score: 0.71) - WalReceiver - STATE_QUERY - Running status check

@@ -1,0 +1,118 @@
+sequenceDiagram
+    participant T as Transaction
+    participant WAL as WAL Writer
+    participant BUF as WAL Buffers
+    participant WS as WalSender
+    participant NET as Network
+
+    Note over T,NET: Primary Side WAL Generation to Transmission Flow
+
+    %% WAL Record Generation Phase
+    T->>+WAL: XLogInsert(rmid, info)
+    Note right of WAL: Begin WAL record insertion
+
+    WAL->>WAL: XLogBeginInsert()
+    Note right of WAL: Initialize insertion context
+
+    WAL->>WAL: XLogRegisterData(data, len)
+    Note right of WAL: Register record data components
+
+    WAL->>WAL: XLogRecordAssemble()
+    Note right of WAL: Assemble complete record chain
+
+    WAL->>+BUF: XLogInsertRecord(rdt, fpw_lsn, flags)
+    Note right of BUF: Core insertion with buffer management
+
+    BUF->>BUF: WALInsertLock acquisition
+    Note right of BUF: Exclusive lock for insertion
+
+    BUF->>BUF: Copy data to WAL buffers
+    Note right of BUF: Atomic data copying
+
+    BUF->>BUF: WALInsertLock release
+
+    BUF-->>-WAL: Return EndRecPtr
+    WAL-->>-T: Return WAL LSN
+
+    %% WAL Persistence Phase
+    T->>+WAL: XLogFlush(EndRecPtr)
+    Note right of WAL: Ensure durability
+
+    WAL->>WAL: XLogWrite(WriteRqst)
+    Note right of WAL: Write buffers to disk
+
+    WAL->>WAL: issue_xlog_fsync()
+    Note right of WAL: Force sync to storage
+
+    WAL->>WAL: Update LogwrtResult
+    Note right of WAL: Update shared write position
+
+    WAL-->>-T: Confirm durability
+
+    %% WalSender Wakeup and Transmission
+    WAL->>+WS: WalSndWakeup()
+    Note right of WS: Signal new WAL available
+
+    WS->>WS: SetLatch(procLatch)
+    Note right of WS: Wake up sender process
+
+    WS->>+WS: WalSndLoop()
+    Note right of WS: Main sender processing loop
+
+    WS->>WS: Check WAL availability
+    Note right of WS: Determine send range
+
+    WS->>WS: XLogSendPhysical()
+    Note right of WS: Prepare WAL data for transmission
+
+    WS->>BUF: WALRead(startptr, count, tli)
+    Note right of BUF: Read WAL from buffers/disk
+
+    BUF-->>WS: Return WAL data
+
+    WS->>WS: Construct CopyData message
+    Note right of WS: Frame WAL data with protocol headers
+
+    WS->>+NET: pq_putmessage_noblock()
+    Note right of NET: Non-blocking network transmission
+
+    NET->>NET: Send to standby
+
+    NET-->>-WS: Transmission complete
+
+    WS->>WS: Update sentPtr
+    Note right of WS: Track sent position
+
+    %% Feedback Reception
+    NET->>+WS: Standby reply message
+    Note left of NET: Async feedback from standby
+
+    WS->>WS: ProcessRepliesIfAny()
+    Note right of WS: Non-blocking reply processing
+
+    WS->>WS: ProcessStandbyReplyMessage()
+    Note right of WS: Update standby positions
+
+    WS->>WS: Update MyWalSnd state
+    Note right of WS: write, flush, apply positions
+
+    WS->>WS: SyncRepReleaseWaiters()
+    Note right of WS: Wake synchronous commit waiters
+
+    WS-->>-NET: Process complete
+
+    WS-->>-WS: Continue loop
+
+    %% Performance Optimization Paths
+    Note over WAL,WS: Group Commit Optimization
+    WAL->>WAL: Group multiple commits
+    Note right of WAL: Batch fsync operations
+
+    Note over WS,NET: Transmission Batching
+    WS->>WS: Accumulate WAL records
+    Note right of WS: Batch transmission for efficiency
+
+    WS->>NET: Send larger messages
+    Note right of NET: Reduce network round-trips
+
+    Note over T,NET: End Primary WAL Flow

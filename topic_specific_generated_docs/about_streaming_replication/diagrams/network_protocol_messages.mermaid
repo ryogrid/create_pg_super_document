@@ -1,0 +1,141 @@
+sequenceDiagram
+    participant P as Primary (WalSender)
+    participant N as Network
+    participant S as Standby (WalReceiver)
+
+    Note over P,S: PostgreSQL Streaming Replication Protocol Messages
+
+    %% Connection Establishment
+    S->>+N: libpq connection
+    N->>+P: TCP connection established
+    P-->>-N: Connection acknowledged
+    N-->>-S: Connection ready
+
+    S->>+N: Authentication
+    N->>+P: Auth request
+    P-->>-N: Auth response
+    N-->>-S: Authentication complete
+
+    %% Replication Protocol Initiation
+    S->>+N: START_REPLICATION command
+    Note right of S: START_REPLICATION slot_name start_lsn timeline
+
+    N->>+P: Parse START_REPLICATION
+    P->>P: Validate parameters
+    P->>P: Switch to Copy protocol
+    P-->>-N: CopyBothResponse
+    N-->>-S: Copy protocol active
+
+    %% WAL Data Streaming
+    loop Continuous WAL Streaming
+        P->>+N: CopyData - WAL Record
+        Note right of P: Message format:<br/>- 'w' (WAL data)<br/>- WAL start LSN (8 bytes)<br/>- WAL end LSN (8 bytes)<br/>- Send timestamp (8 bytes)<br/>- WAL record data
+
+        N->>+S: WAL data received
+        S->>S: XLogWalRcvProcessMsg()
+        S->>S: Write WAL to disk
+        S->>S: Flush WAL to storage
+        S-->>-N: WAL processed
+        N-->>-P: Processing complete
+
+        %% Keepalive Messages
+        alt Keepalive Needed
+            P->>+N: CopyData - Keepalive
+            Note right of P: Message format:<br/>- 'k' (keepalive)<br/>- WAL end LSN (8 bytes)<br/>- Send timestamp (8 bytes)<br/>- Reply requested (1 byte)
+
+            N->>+S: Keepalive received
+            S->>S: Process keepalive
+            S-->>-N: Keepalive processed
+            N-->>-P: Keepalive acknowledged
+        end
+
+        %% Standby Status Replies
+        alt Status Interval Reached
+            S->>+N: CopyData - Standby Reply
+            Note left of S: Message format:<br/>- 'r' (reply)<br/>- Write LSN (8 bytes)<br/>- Flush LSN (8 bytes)<br/>- Apply LSN (8 bytes)<br/>- Timestamp (8 bytes)<br/>- Reply requested (1 byte)
+
+            N->>+P: Status reply received
+            P->>P: ProcessStandbyReplyMessage()
+            P->>P: Update standby positions
+            P->>P: SyncRepReleaseWaiters()
+            P-->>-N: Reply processed
+            N-->>-S: Reply acknowledged
+        end
+
+        %% Hot Standby Feedback
+        alt Hot Standby Active
+            S->>+N: CopyData - HS Feedback
+            Note left of S: Message format:<br/>- 'h' (hs feedback)<br/>- Timestamp (8 bytes)<br/>- xmin (4 bytes)<br/>- xmin epoch (4 bytes)<br/>- catalog_xmin (4 bytes)<br/>- catalog_xmin_epoch (4 bytes)
+
+            N->>+P: HS feedback received
+            P->>P: ProcessStandbyHSFeedbackMessage()
+            P->>P: Update replication slots
+            P-->>-N: Feedback processed
+            N-->>-S: Feedback acknowledged
+        end
+    end
+
+    %% Error Scenarios
+    alt Network Error
+        N->>P: Connection lost
+        P->>P: Cleanup resources
+        P->>P: Log disconnection
+
+        N->>S: Connection lost
+        S->>S: WalRcvDie()
+        S->>S: Attempt reconnection
+    end
+
+    alt Protocol Error
+        S->>+N: Invalid message
+        N->>+P: Protocol violation
+        P->>P: ereport(FATAL)
+        P->>P: proc_exit(0)
+        P-->>-N: Connection terminated
+        N-->>-S: Connection closed
+    end
+
+    alt Timeline Switch
+        P->>+N: CopyData - Timeline History
+        Note right of P: Timeline change detection<br/>Send timeline history files
+
+        N->>+S: Timeline data
+        S->>S: Process timeline switch
+        S->>S: Validate timeline consistency
+        S-->>-N: Timeline switch complete
+        N-->>-P: Continue streaming
+    end
+
+    %% Graceful Shutdown
+    S->>+N: CopyDone
+    Note left of S: Request streaming termination
+
+    N->>+P: CopyDone received
+    P->>P: Stop streaming
+    P->>P: Send final CopyDone
+    P-->>-N: CopyDone sent
+    N-->>-S: Streaming terminated
+
+    S->>+N: Terminate ('X')
+    N->>+P: Connection termination
+    P->>P: Clean shutdown
+    P-->>-N: Connection closed
+    N-->>-S: Connection closed
+
+    %% Message Size and Frequency Analysis
+    Note over P,S: Message Characteristics
+    Note right of P: WAL Data Messages:<br/>- Variable size (1KB - 1MB typical)<br/>- High frequency during peak load<br/>- Batched for efficiency
+
+    Note left of S: Status Messages:<br/>- Fixed size (34 bytes reply, 25 bytes HS)<br/>- Low frequency (10-30 second intervals)<br/>- Minimal overhead
+
+    Note over N: Network Optimization:<br/>- TCP Nagle disabled for low latency<br/>- Large send/receive buffers<br/>- Keep-alive for connection monitoring
+
+    %% Protocol State Tracking
+    Note over P,S: Protocol State Management
+    Note right of P: Primary tracks:<br/>- Last sent position<br/>- Standby acknowledged positions<br/>- Synchronous replication waiters
+
+    Note left of S: Standby tracks:<br/>- Last received position<br/>- Last written/flushed positions<br/>- Last applied position
+
+    %% Performance Considerations
+    Note over P,S: Performance Optimizations
+    Note over P,S: - Non-blocking I/O operations<br/>- Batch message processing<br/>- Adaptive keepalive intervals<br/>- Efficient binary protocol<br/>- Compression for WAL data (future)

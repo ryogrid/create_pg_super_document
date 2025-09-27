@@ -1,0 +1,90 @@
+stateDiagram-v2
+    [*] --> STARTUP : WalSenderMain()
+
+    state STARTUP {
+        [*] --> INIT : Process initialization
+        INIT --> AUTH : Authentication setup
+        AUTH --> CONNECT : Connection established
+        CONNECT --> NEGOTIATION : Protocol negotiation
+        NEGOTIATION --> READY : Ready for commands
+    }
+
+    STARTUP --> CATCHUP : START_REPLICATION command
+
+    state CATCHUP {
+        [*] --> READING : WAL position behind
+        READING --> SENDING : XLogSendPhysical()
+        SENDING --> READING : More WAL to catch up
+        SENDING --> CHECK_CURRENT : Caught up to current
+        CHECK_CURRENT --> READING : Still behind
+        CHECK_CURRENT --> [*] : Up to date
+    }
+
+    CATCHUP --> STREAMING : All historical WAL sent
+
+    state STREAMING {
+        [*] --> WAITING : WalSndWait()
+        WAITING --> WAKEUP : New WAL available
+        WAKEUP --> SEND_WAL : XLogSendPhysical()
+        SEND_WAL --> PROCESS_REPLIES : ProcessRepliesIfAny()
+        PROCESS_REPLIES --> KEEPALIVE_CHECK : Check keepalive needed
+        KEEPALIVE_CHECK --> SEND_KEEPALIVE : WalSndKeepalive()
+        SEND_KEEPALIVE --> WAITING
+        KEEPALIVE_CHECK --> WAITING : No keepalive needed
+        PROCESS_REPLIES --> WAITING : No replies pending
+        SEND_WAL --> WAITING : WAL sent
+    }
+
+    state ERROR_RECOVERY {
+        [*] --> DETECT : Error detected
+        DETECT --> CLEANUP : WalSndErrorCleanup()
+        CLEANUP --> RECONNECT : Attempt reconnection
+        RECONNECT --> STARTUP : Connection restored
+        RECONNECT --> SHUTDOWN : Connection failed
+    }
+
+    state SYNC_REP_WAIT {
+        [*] --> WAITING_FLUSH : Waiting for standby flush
+        WAITING_FLUSH --> CHECK_POSITION : Reply received
+        CHECK_POSITION --> RELEASE_WAITERS : SyncRepReleaseWaiters()
+        CHECK_POSITION --> WAITING_FLUSH : Position insufficient
+        RELEASE_WAITERS --> [*] : Waiters released
+    }
+
+    STREAMING --> ERROR_RECOVERY : Network/protocol error
+    CATCHUP --> ERROR_RECOVERY : Read/send error
+    STARTUP --> ERROR_RECOVERY : Connection/auth error
+
+    STREAMING --> SYNC_REP_WAIT : Synchronous commit
+    SYNC_REP_WAIT --> STREAMING : Sync rep complete
+
+    STREAMING --> TIMELINE_SWITCH : Timeline change detected
+    CATCHUP --> TIMELINE_SWITCH : Timeline change during catchup
+
+    state TIMELINE_SWITCH {
+        [*] --> READ_HISTORY : readTimeLineHistory()
+        READ_HISTORY --> VALIDATE : Validate timeline
+        VALIDATE --> SWITCH : Switch to new timeline
+        SWITCH --> [*] : Timeline switched
+    }
+
+    TIMELINE_SWITCH --> CATCHUP : Resume from new position
+    TIMELINE_SWITCH --> STREAMING : Continue streaming
+
+    STREAMING --> SHUTDOWN : CopyDone/Terminate received
+    CATCHUP --> SHUTDOWN : Connection closed
+    ERROR_RECOVERY --> SHUTDOWN : Unrecoverable error
+    STARTUP --> SHUTDOWN : Startup failure
+
+    state SHUTDOWN {
+        [*] --> CLEANUP : Clean up resources
+        CLEANUP --> NOTIFY : Notify postmaster
+        NOTIFY --> [*] : Process exit
+    }
+
+    SHUTDOWN --> [*]
+
+    note right of CATCHUP : High I/O activity\nReading historical WAL
+    note right of STREAMING : Normal operation\nEvent-driven processing
+    note right of SYNC_REP_WAIT : Blocking synchronous\ncommit coordination
+    note right of ERROR_RECOVERY : Robust error handling\nConnection recovery

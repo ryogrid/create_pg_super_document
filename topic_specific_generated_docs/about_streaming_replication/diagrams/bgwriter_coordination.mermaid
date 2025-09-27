@@ -1,0 +1,205 @@
+sequenceDiagram
+    participant SP as Startup Process
+    participant SM as Shared Memory
+    participant CP as Checkpointer
+    participant BUF as Buffer Pool
+    participant DISK as Storage
+
+    Note over SP,DISK: Checkpointer Coordination During WAL Replay
+
+    %% Normal Operation Cycle
+    SP->>SP: PerformWalRecovery()
+    Note right of SP: Continuous WAL replay
+
+    SP->>+BUF: Buffer allocation for replay
+    BUF->>BUF: Check buffer availability
+    BUF-->>-SP: Buffers allocated
+
+    %% Memory Pressure Detection
+    BUF->>BUF: Monitor buffer pool usage
+    Note right of BUF: Track dirty buffer count
+
+    alt Memory Pressure Detected
+        BUF->>+SM: Signal memory pressure
+        Note right of SM: High dirty buffer ratio
+
+        SM->>+CP: SetLatch(&checkpointerLatch)
+        Note right of CP: Wake checkpointer process
+
+        CP->>CP: CheckpointerMain() loop
+        CP->>CP: Detect checkpoint request
+
+        CP->>+SM: RequestCheckpoint processing
+        Note right of SM: Atomic flag setting
+
+        SM->>SM: SpinLockAcquire(&ckpt_lck)
+        SM->>SM: Set ckpt_flags |= CHECKPOINT_FORCE
+        SM->>SM: SpinLockRelease(&ckpt_lck)
+        SM-->>-CP: Request acknowledged
+
+        %% Checkpoint vs Restartpoint Decision
+        CP->>CP: Check RecoveryInProgress()
+        Note right of CP: Determine checkpoint type
+
+        alt Recovery In Progress
+            CP->>CP: CreateRestartPoint()
+            Note right CP: Recovery-specific checkpoint
+        else Normal Operation
+            CP->>CP: CreateCheckPoint()
+            Note right of CP: Full checkpoint
+        end
+
+        %% Buffer Synchronization Phase
+        CP->>+BUF: BufferSync(flags)
+        Note right of BUF: Coordinate with ongoing replay
+
+        BUF->>BUF: Mark buffers with BM_CHECKPOINT_NEEDED
+        Note right of BUF: Two-phase buffer processing
+
+        loop For Each Dirty Buffer
+            BUF->>BUF: Check BM_CHECKPOINT_NEEDED flag
+
+            alt Buffer Needs Checkpoint
+                BUF->>+DISK: SyncOneBuffer()
+                Note right of DISK: Write dirty buffer
+
+                DISK->>DISK: Write buffer page
+                DISK-->>-BUF: Write complete
+
+                BUF->>BUF: Clear BM_CHECKPOINT_NEEDED
+
+                %% Coordination with Replay
+                BUF->>SP: CheckpointWriteDelay()
+                Note left of SP: Throttle I/O for replay progress
+
+                SP->>SP: HandleStartupProcInterrupts()
+                Note right of SP: Process signals during delay
+
+                SP-->>BUF: Continue checkpoint
+            end
+        end
+
+        BUF-->>-CP: BufferSync complete
+
+        %% Completion Notification
+        CP->>+SM: Update checkpoint completion
+        SM->>SM: SpinLockAcquire(&ckpt_lck)
+        SM->>SM: ckpt_done = ckpt_started
+        SM->>SM: SpinLockRelease(&ckpt_lck)
+        SM->>SM: ConditionVariableBroadcast(&done_cv)
+        SM-->>-CP: Completion signaled
+
+        CP-->>-SM: Checkpoint complete
+        SM-->>-BUF: Memory pressure relieved
+    end
+
+    %% Continuous Coordination Loop
+    loop During Active Replay
+        SP->>SP: Apply WAL record
+        SP->>BUF: Read/modify buffer pages
+
+        %% Buffer State Management
+        BUF->>BUF: Mark buffer dirty
+        Note right of BUF: Set BM_DIRTY flag
+
+        %% Background Cleaning Coordination
+        alt Background Cleaning Triggered
+            CP->>+BUF: Background buffer cleaning
+            Note right of BUF: Clean buffers without checkpoint
+
+            BUF->>BUF: Select clean candidates
+            Note right of BUF: LRU-based selection
+
+            BUF->>+DISK: Write clean buffers
+            DISK-->>-BUF: Cleaning complete
+
+            BUF-->>-CP: Background cleaning done
+        end
+
+        %% Timeline Switch Coordination
+        alt Timeline Switch Detected
+            SP->>SP: Process timeline change
+            Note right of SP: readTimeLineHistory()
+
+            SP->>+CP: RequestCheckpoint(CHECKPOINT_FORCE)
+            Note right of CP: Ensure consistency before switch
+
+            CP->>CP: Force immediate checkpoint
+            CP-->>-SP: Checkpoint complete
+
+            SP->>SP: Continue with new timeline
+        end
+
+        %% Recovery Target Coordination
+        alt Recovery Target Reached
+            SP->>SP: Prepare for promotion
+            Note right of SP: End of recovery processing
+
+            SP->>+CP: RequestCheckpoint(CHECKPOINT_END_OF_RECOVERY)
+            Note right of CP: Special end-recovery checkpoint
+
+            CP->>CP: CreateCheckPoint() [not restartpoint]
+            Note right of CP: Real checkpoint during recovery
+
+            CP-->>-SP: End-recovery checkpoint complete
+
+            SP->>SP: Complete recovery process
+        end
+    end
+
+    %% Error Handling Coordination
+    alt Checkpointer Error
+        CP->>CP: Checkpoint failure detected
+        Note right of CP: I/O error or resource exhaustion
+
+        CP->>+SM: Mark checkpoint failed
+        SM->>SM: ckpt_failed++
+        SM->>SM: ConditionVariableBroadcast(&done_cv)
+        SM-->>-CP: Failure recorded
+
+        CP->>CP: Schedule retry with backoff
+        Note right of CP: 15-second retry delay
+
+        alt Startup Process Waiting
+            SP->>SP: Check checkpoint completion
+            SP->>SM: Wait on condition variable
+            SM->>SP: Timeout or failure notification
+            SP->>SP: Continue without checkpoint
+            Note right of SP: Degrade gracefully
+        end
+    end
+
+    %% Performance Optimization
+    Note over SP,DISK: Performance Coordination Strategies
+
+    %% I/O Bandwidth Management
+    CP->>CP: Monitor I/O bandwidth usage
+    Note right of CP: Balance checkpoint vs replay I/O
+
+    alt High Replay I/O Rate
+        CP->>CP: Reduce checkpoint aggressiveness
+        Note right of CP: Increase completion_target
+
+        CP->>BUF: Larger write batches
+        Note right of BUF: Reduce I/O overhead
+
+        CP->>SP: Brief yield periods
+        Note left of SP: Allow replay progress
+    end
+
+    %% Adaptive Checkpoint Timing
+    CP->>CP: Calculate optimal checkpoint interval
+    Note right of CP: Based on WAL generation rate
+
+    CP->>SM: Update checkpoint scheduling
+    Note right of SM: Adaptive timing logic
+
+    %% Resource Contention Minimization
+    Note over BUF: Buffer Lock Coordination
+    BUF->>BUF: Minimize lock hold times
+    Note right of BUF: Quick spinlock operations
+
+    BUF->>SP: Coordinated buffer access
+    Note left of SP: Avoid lock contention
+
+    Note over SP,DISK: End Checkpointer Coordination
