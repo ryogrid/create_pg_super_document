@@ -14,7 +14,7 @@ graph LR
         subgraph "Individual WalSnd"
             WS_PID[Process Info<br/>- pid<br/>- state &#40;STARTUP/CATCHUP/STREAMING&#41;]
             WS_POSITIONS[WAL Positions<br/>- sentPtr<br/>- write, flush, apply<br/>- sync_standby_priority]
-            WS_SYNC[Synchronization<br/>- mutex (spinlock)<br/>- latch<br/>- replyTime]
+            WS_SYNC[Synchronization<br/>- mutex &#40;spinlock#41;<br/>- latch<br/>- replyTime]
         end
 
         subgraph "Checkpointer Control"
@@ -28,7 +28,7 @@ graph LR
             WRC_PROC[Process State<br/>- pid<br/>- startTime<br/>- ready_to_display]
             WRC_POSITIONS[WAL Positions<br/>- receivedUpto<br/>- flushedUpto<br/>- latestChunkStart]
             WRC_CONN[Connection Info<br/>- conninfo<br/>- slotname<br/>- sender_host/port]
-            WRC_LOCK[Synchronization<br/>- mutex (spinlock)<br/>- latch]
+            WRC_LOCK[Synchronization<br/>- mutex &#40;spinlock#41;<br/>- latch]
         end
 
         subgraph "Recovery Control (XLogRecoveryCtl)"
@@ -62,7 +62,7 @@ graph LR
 
     %% Size and Alignment Constraints
     XLC_BUFFER -.->|XLOG_BLCKSZ aligned<br/>Shared WAL buffers| XLC_WRITE
-    WSC_ARRAY -.->|max_wal_senders * sizeof(WalSnd)| WS_PID
+    WSC_ARRAY -.->|max_wal_senders * sizeof&#40;WalSnd#41;| WS_PID
     WRC_POSITIONS -.->|Single global structure| WRC_CONN
 
     %% Coordination Mechanisms
