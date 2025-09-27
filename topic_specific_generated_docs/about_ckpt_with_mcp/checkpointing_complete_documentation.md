@@ -2060,7 +2060,7 @@ flowchart LR
         BufferFlush --> CheckBuffer{For each buffer}
 
         CheckBuffer --> CheckLSN{Buffer LSN ><br/>checkpoint.redo?}
-        CheckLSN -->|Yes| FlushWAL[XLogFlush(BufferLSN)<br/>WAL-before-data rule]
+        CheckLSN -->|Yes| FlushWAL["XLogFlush(BufferLSN)"<br/>WAL before data rule]
         CheckLSN -->|No| DirectWrite[Write buffer directly]
 
         FlushWAL --> WriteBuffer[Write buffer to disk<br/>with checksum]
