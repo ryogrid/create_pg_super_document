@@ -43,3 +43,44 @@ This function is called during normal ("smart" or "fast") database shutdown to h
 - Prevents indefinite waiting for background workers that cannot start due to shutdown
 - Part of PostgreSQL's graceful shutdown process for background worker management
 - The complete cancellation of registrations is intentionally "overkill" but acceptable during shutdown
+
+## Simplified Source
+
+```c
+// Simplified version of ForgetUnstartedBackgroundWorkers
+void ForgetUnstartedBackgroundWorkers(void) {
+    slist_mutable_iter iter;
+
+    // Iterate through all registered background workers
+    slist_foreach_modify(iter, &BackgroundWorkerList) {
+        RegisteredBgWorker *rw;
+        BackgroundWorkerSlot *slot;
+
+        rw = slist_container(RegisteredBgWorker, rw_lnode, iter.cur);
+        Assert(rw->rw_shmem_slot < max_worker_processes);
+        slot = &BackgroundWorkerData->slot[rw->rw_shmem_slot];
+
+        // Check if worker is not yet started and has someone waiting
+        if (slot->pid == InvalidPid && rw->rw_worker.bgw_notify_pid != 0) {
+            // Save notification PID before removing worker
+            int notify_pid = rw->rw_worker.bgw_notify_pid;
+
+            // Remove the worker registration entirely
+            ForgetBackgroundWorker(&iter);
+
+            // Notify the waiting process that worker won't start
+            if (notify_pid != 0) {
+                kill(notify_pid, SIGUSR1);
+            }
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Clarified the conditions for worker removal
+- Explained the purpose of saving the notification PID
+- Simplified the logic for worker removal and notification
+- Maintained the essential shutdown cleanup functionality
+- Preserved the safety assertion and notification mechanism

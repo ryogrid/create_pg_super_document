@@ -68,3 +68,116 @@ The function ensures proper memory management by carefully switching memory cont
 - Expression parsing converts stored text representations back into executable expression trees
 - The hassublinks flag optimization helps the planner make informed decisions about policy evaluation costs
 - Proper error handling is included for unexpected null values in required policy fields
+
+## Simplified Source
+
+```c
+// Simplified version of RelationBuildRowSecurity
+void RelationBuildRowSecurity(Relation relation) {
+    MemoryContext rscxt;
+    MemoryContext oldcxt = CurrentMemoryContext;
+    RowSecurityDesc *rsdesc;
+    Relation catalog;
+    ScanKeyData skey;
+    SysScanDesc sscan;
+    HeapTuple tuple;
+
+    // Step 1: Create dedicated memory context for row security policies
+    rscxt = AllocSetContextCreate(CurrentMemoryContext,
+                                  "row security descriptor",
+                                  ALLOCSET_SMALL_SIZES);
+    MemoryContextCopyAndSetIdentifier(rscxt, RelationGetRelationName(relation));
+
+    // Step 2: Initialize row security descriptor
+    rsdesc = MemoryContextAllocZero(rscxt, sizeof(RowSecurityDesc));
+    rsdesc->rscxt = rscxt;
+
+    // Step 3: Open pg_policy catalog and prepare scan
+    catalog = table_open(PolicyRelationId, AccessShareLock);
+    ScanKeyInit(&skey,
+                Anum_pg_policy_polrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(relation)));
+
+    // Step 4: Scan policies for this relation (ordered by policy name)
+    sscan = systable_beginscan(catalog, PolicyPolrelidPolnameIndexId, true,
+                               NULL, 1, &skey);
+
+    while (HeapTupleIsValid(tuple = systable_getnext(sscan))) {
+        Form_pg_policy policy_form = (Form_pg_policy) GETSTRUCT(tuple);
+        RowSecurityPolicy *policy;
+        Datum datum;
+        bool isnull;
+        char *str_value;
+
+        // Step 5: Create new policy structure
+        policy = MemoryContextAllocZero(rscxt, sizeof(RowSecurityPolicy));
+
+        // Step 6: Extract basic policy attributes
+        policy->polcmd = policy_form->polcmd;            // Command type
+        policy->permissive = policy_form->polpermissive; // Policy type
+        policy->policy_name = MemoryContextStrdup(rscxt, NameStr(policy_form->polname));
+
+        // Step 7: Extract policy roles array
+        datum = heap_getattr(tuple, Anum_pg_policy_polroles,
+                             RelationGetDescr(catalog), &isnull);
+        if (isnull)
+            elog(ERROR, "unexpected null value in pg_policy.polroles");
+
+        MemoryContextSwitchTo(rscxt);
+        policy->roles = DatumGetArrayTypePCopy(datum);
+        MemoryContextSwitchTo(oldcxt);
+
+        // Step 8: Extract and parse USING clause (qual expression)
+        datum = heap_getattr(tuple, Anum_pg_policy_polqual,
+                             RelationGetDescr(catalog), &isnull);
+        if (!isnull) {
+            str_value = TextDatumGetCString(datum);
+            MemoryContextSwitchTo(rscxt);
+            policy->qual = (Expr *) stringToNode(str_value);
+            MemoryContextSwitchTo(oldcxt);
+            pfree(str_value);
+        } else {
+            policy->qual = NULL;
+        }
+
+        // Step 9: Extract and parse WITH CHECK clause
+        datum = heap_getattr(tuple, Anum_pg_policy_polwithcheck,
+                             RelationGetDescr(catalog), &isnull);
+        if (!isnull) {
+            str_value = TextDatumGetCString(datum);
+            MemoryContextSwitchTo(rscxt);
+            policy->with_check_qual = (Expr *) stringToNode(str_value);
+            MemoryContextSwitchTo(oldcxt);
+            pfree(str_value);
+        } else {
+            policy->with_check_qual = NULL;
+        }
+
+        // Step 10: Check for sublinks in expressions (optimization flag)
+        policy->hassublinks = checkExprHasSubLink((Node *) policy->qual) ||
+                             checkExprHasSubLink((Node *) policy->with_check_qual);
+
+        // Step 11: Add policy to descriptor list (in reverse order)
+        MemoryContextSwitchTo(rscxt);
+        rsdesc->policies = lcons(policy, rsdesc->policies);
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Step 12: Clean up scan and catalog
+    systable_endscan(sscan);
+    table_close(catalog, AccessShareLock);
+
+    // Step 13: Make descriptor persistent and attach to relation cache
+    MemoryContextSetParent(rscxt, CacheMemoryContext);
+    relation->rd_rsdesc = rsdesc;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments to clarify the main workflow
+- Preserved all essential logic and error handling
+- Maintained proper memory context management patterns
+- Kept the core algorithm structure intact
+- Focused on the main execution path without removing critical functionality
+- Simplified variable declarations while maintaining clarity

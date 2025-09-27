@@ -37,3 +37,29 @@ The function follows PostgreSQL's exit callback pattern, accepting status and ar
 - Sets AnonymousShmem to NULL after successful munmap() to prevent double-free
 - Part of PostgreSQL's resource cleanup framework for proper shared memory management
 - Handles only anonymous (mmap-based) shared memory, not System V shared memory segments
+
+## Simplified Source
+
+```c
+// Simplified version of AnonymousShmemDetach
+static void AnonymousShmemDetach(int status, Datum arg) {
+    // Check if anonymous shared memory is currently mapped
+    if (AnonymousShmem != NULL) {
+        // Unmap the anonymous shared memory block
+        if (munmap(AnonymousShmem, AnonymousShmemSize) < 0) {
+            // Log error if unmapping fails, but don't terminate
+            elog(LOG, "munmap(%p, %zu) failed: %m",
+                 AnonymousShmem, AnonymousShmemSize);
+        }
+
+        // Clear the pointer to prevent double-free
+        AnonymousShmem = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Maintained the essential error handling logic
+- Preserved the cleanup semantics and null pointer management
+- Kept the original structure since the function is already quite clean and focused

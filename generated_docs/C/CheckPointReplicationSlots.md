@@ -41,3 +41,58 @@ The function iterates through all replication slots in the shared memory array a
 - For logical slots during shutdown, checks if confirmed_flush LSN has advanced since last save to avoid unnecessary LSN retreat
 - Error handling is delegated to SaveSlotToPath function with LOG error level
 - The function is designed to be non-blocking for slot iteration and acquisition operations
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointReplicationSlots
+void CheckPointReplicationSlots(bool is_shutdown) {
+    int i;
+
+    // Log the checkpoint operation
+    elog(DEBUG1, "performing replication slot checkpoint");
+
+    // Acquire lock to prevent slot creation/deletion during checkpoint
+    LWLockAcquire(ReplicationSlotAllocationLock, LW_SHARED);
+
+    // Iterate through all replication slots
+    for (i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *slot = &ReplicationSlotCtl->replication_slots[i];
+        char path[MAXPGPATH];
+
+        // Skip unused slots
+        if (!slot->in_use)
+            continue;
+
+        // Build the slot directory path
+        sprintf(path, "pg_replslot/%s", NameStr(slot->data.name));
+
+        // Special handling for logical slots during shutdown
+        if (is_shutdown && SlotIsLogical(slot)) {
+            SpinLockAcquire(&slot->mutex);
+
+            // Mark slot as dirty if confirmed_flush LSN has advanced
+            if (slot->data.invalidated == RS_INVAL_NONE &&
+                slot->data.confirmed_flush > slot->last_saved_confirmed_flush) {
+                slot->just_dirtied = true;
+                slot->dirty = true;
+            }
+
+            SpinLockRelease(&slot->mutex);
+        }
+
+        // Save the slot to disk
+        SaveSlotToPath(slot, path, LOG);
+    }
+
+    // Release the allocation lock
+    LWLockRelease(ReplicationSlotAllocationLock);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Removed detailed comments that repeat the code logic
+- Simplified variable names (s -> slot) for better readability
+- Focused on the main execution path and core algorithm
+- Preserved all essential logic including locking, iteration, and special shutdown handling

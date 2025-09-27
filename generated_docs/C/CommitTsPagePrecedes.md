@@ -33,3 +33,30 @@ This function decides whether a commit timestamp page number is "older" for trun
 - The function converts page numbers to transaction IDs by multiplying by COMMIT_TS_XACTS_PER_PAGE and adding FirstNormalTransactionId + 1
 - Uses double TransactionIdPrecedes() calls to ensure both the start and end of the page range are properly ordered
 - Part of the commit timestamp SLRU management system for determining which pages can be safely truncated
+
+## Simplified Source
+
+```c
+// Simplified version of CommitTsPagePrecedes
+static bool CommitTsPagePrecedes(int64 page1, int64 page2) {
+    TransactionId xid1, xid2;
+
+    // Convert page numbers to representative transaction IDs
+    // Add offset to ensure all XIDs are normal (not permanent)
+    xid1 = ((TransactionId) page1) * COMMIT_TS_XACTS_PER_PAGE;
+    xid1 += FirstNormalTransactionId + 1;
+    xid2 = ((TransactionId) page2) * COMMIT_TS_XACTS_PER_PAGE;
+    xid2 += FirstNormalTransactionId + 1;
+
+    // Check if entire page1 range precedes entire page2 range
+    // Both first XID of page1 must precede first AND last XID of page2
+    return (TransactionIdPrecedes(xid1, xid2) &&
+            TransactionIdPrecedes(xid1, xid2 + COMMIT_TS_XACTS_PER_PAGE - 1));
+}
+```
+
+Key simplifications made:
+- Removed extensive mathematical explanation comments (preserved in documentation)
+- Added clear comments explaining the core conversion and comparison logic
+- Maintained the dual TransactionIdPrecedes check which is essential for correctness
+- Focused on the essential algorithm while preserving wraparound-safe semantics

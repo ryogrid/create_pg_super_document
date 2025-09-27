@@ -31,3 +31,20 @@ This function is responsible for calculating the total shared memory size needed
 - This function is part of the shared memory size calculation infrastructure in PostgreSQL
 - The returned size is used by the shared memory allocator to reserve appropriate space for WAL receiver data
 - Essential for proper initialization of streaming replication functionality
+
+## Simplified Source
+
+```c
+// Simplified version of WalRcvShmemSize
+Size WalRcvShmemSize(void) {
+    // Calculate memory needed for WAL receiver shared data
+    // Only needs space for the main WalRcvData structure
+    return sizeof(WalRcvData);
+}
+```
+
+Key simplifications made:
+- Removed intermediate variable assignment for clarity
+- Added descriptive comments explaining the purpose
+- Directly returned the size calculation since only one structure is involved
+- Maintained the core functionality while making the logic more explicit

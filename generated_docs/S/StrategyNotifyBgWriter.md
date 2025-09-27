@@ -33,3 +33,27 @@ The function uses a spinlock (buffer_strategy_lock) to ensure atomic updates to 
 - This function is specifically designed for use by the background writer process and is not intended for general use by other processes
 - The spinlock acquisition ensures thread-safe atomic updates despite the infrequent calls from the background writer
 - Setting bgwprocno to -1 clears any pending notification, allowing fine-grained control over when the background writer should be awakened
+
+## Simplified Source
+
+```c
+// Simplified version of StrategyNotifyBgWriter
+void StrategyNotifyBgWriter(int bgwprocno) {
+    // Step 1: Acquire lock to ensure atomic update
+    SpinLockAcquire(&StrategyControl->buffer_strategy_lock);
+
+    // Step 2: Set or clear the background writer process notification
+    // bgwprocno = valid process number -> enable notification
+    // bgwprocno = -1 -> disable notification
+    StrategyControl->bgwprocno = bgwprocno;
+
+    // Step 3: Release lock
+    SpinLockRelease(&StrategyControl->buffer_strategy_lock);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the core logic
+- Clarified the purpose of each parameter value
+- Maintained the essential spinlock protection mechanism
+- Focused on the main execution path

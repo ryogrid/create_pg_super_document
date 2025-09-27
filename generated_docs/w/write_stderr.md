@@ -97,3 +97,46 @@ The function supports variable arguments like printf-style formatting and automa
 - Format strings are automatically translated for internationalization
 - Essential for pg_ctl utility error reporting
 - Buffer size on Windows is arbitrarily set to 2048 characters
+
+## Simplified Source
+
+```c
+// Simplified version of write_stderr
+void write_stderr(const char *fmt, ...) {
+    va_list ap;
+
+    // Apply internationalization to format string
+    fmt = _(fmt);
+
+    va_start(ap, fmt);
+
+#ifndef WIN32
+    // Unix path: Direct output to stderr
+    vfprintf(stderr, fmt, ap);
+    fflush(stderr);
+#else
+    // Windows path: Buffer the message first
+    char errbuf[2048];
+    vsnprintf(errbuf, sizeof(errbuf), fmt, ap);
+
+    // Choose output method based on service vs console mode
+    if (pgwin32_is_service()) {
+        // Running as Windows service: write to event log
+        write_eventlog(ERROR, errbuf, strlen(errbuf));
+    } else {
+        // Running as console app: write to console
+        write_console(errbuf, strlen(errbuf));
+        fflush(stderr);
+    }
+#endif
+
+    va_end(ap);
+}
+```
+
+Key simplifications made:
+- Consolidated platform-specific conditional compilation into clear sections
+- Added descriptive comments for each major code path
+- Simplified variable declarations to focus on essential functionality
+- Maintained the core logic: format message, choose output method, write message
+- Preserved critical platform differences between Unix and Windows handling

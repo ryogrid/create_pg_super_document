@@ -60,3 +60,60 @@ The sendOnly parameter determines whether the backend can only send invalidation
 - Setting nextMsgNum to maxMsgNum means the new backend starts by considering all existing messages as already processed
 - The sendOnly parameter is important for auxiliary processes that generate invalidations but don't maintain caches themselves
 - Failure cases (slot already in use, invalid MyProcNumber) result in ERROR or PANIC to prevent system corruption
+
+## Simplified Source
+
+```c
+// Simplified version of SharedInvalBackendInit
+void SharedInvalBackendInit(bool sendOnly) {
+    ProcState *stateP;
+    pid_t oldPid;
+    SISeg *segP = shmInvalBuffer;
+
+    // Validate MyProcNumber is properly set and within bounds
+    if (MyProcNumber < 0) {
+        elog(ERROR, "MyProcNumber not set");
+    }
+    if (MyProcNumber >= NumProcStateSlots) {
+        elog(PANIC, "MyProcNumber out of bounds");
+    }
+
+    stateP = &segP->procState[MyProcNumber];
+
+    // Acquire exclusive lock for process registration
+    LWLockAcquire(SInvalWriteLock, LW_EXCLUSIVE);
+
+    // Check that the slot is not already in use
+    oldPid = stateP->procPid;
+    if (oldPid != 0) {
+        LWLockRelease(SInvalWriteLock);
+        elog(ERROR, "sinval slot already in use");
+    }
+
+    // Add this process to the active processes array
+    shmInvalBuffer->pgprocnos[shmInvalBuffer->numProcs++] = MyProcNumber;
+
+    // Initialize local transaction ID
+    nextLocalTransactionId = stateP->nextLXID;
+
+    // Mark this process as active and initialize message state
+    stateP->procPid = MyProcPid;
+    stateP->nextMsgNum = segP->maxMsgNum;  // Start with all existing messages processed
+    stateP->resetState = false;
+    stateP->signaled = false;
+    stateP->hasMessages = false;
+    stateP->sendOnly = sendOnly;
+
+    LWLockRelease(SInvalWriteLock);
+
+    // Register cleanup handler for process exit
+    on_shmem_exit(CleanupInvalidationState, PointerGetDatum(segP));
+}
+```
+
+Key simplifications made:
+- Simplified error messages while preserving the essential validation logic
+- Consolidated comments to explain the main purpose of each section
+- Maintained the exact lock acquisition/release pattern as it's critical
+- Preserved all the state initialization steps which are necessary for proper operation
+- Removed detailed error message formatting but kept the core safety checks

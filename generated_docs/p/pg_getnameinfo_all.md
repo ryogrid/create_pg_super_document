@@ -49,3 +49,42 @@ The function routes Unix domain socket requests to a specialized handler while d
 - Special handling for AF_UNIX addresses through getnameinfo_unix()
 - Located in src/common/ip.c:114-152, available to both frontend and backend code
 - Critical for logging, authentication, and network statistics functionality
+
+## Simplified Source
+
+```c
+// Simplified version of pg_getnameinfo_all
+int pg_getnameinfo_all(const struct sockaddr_storage *addr, int salen,
+                       char *node, int nodelen,
+                       char *service, int servicelen,
+                       int flags) {
+    int result;
+
+    // Route Unix domain sockets to specialized handler
+    if (addr && addr->ss_family == AF_UNIX) {
+        result = getnameinfo_unix((const struct sockaddr_un *) addr, salen,
+                                  node, nodelen, service, servicelen, flags);
+    } else {
+        // Use standard getnameinfo for network sockets (IPv4/IPv6)
+        result = getnameinfo((const struct sockaddr *) addr, salen,
+                             node, nodelen, service, servicelen, flags);
+    }
+
+    // Guarantee non-empty output on failure
+    if (result != 0) {
+        if (node)
+            strlcpy(node, "???", nodelen);
+        if (service)
+            strlcpy(service, "???", servicelen);
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Renamed variable `rc` to more descriptive `result`
+- Added explanatory comments for the main logic branches
+- Preserved the essential algorithm: route by socket family type
+- Maintained the critical failure handling that guarantees output
+- Focused on the core functionality without changing the logic flow

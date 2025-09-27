@@ -41,3 +41,24 @@ The function is implemented as a static inline function for performance, as it's
 - Used extensively in PostgreSQL's process management and synchronization code
 - Only returns true for nodes that have been explicitly detached through proper initialization or thorough deletion
 - The assertion helps catch bugs where nodes might be left in inconsistent states during list operations
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_node_is_detached
+static inline bool dlist_node_is_detached(const dlist_node *node) {
+    // Verify node is in a consistent state: both pointers NULL or both non-NULL
+    Assert((node->next == NULL && node->prev == NULL) ||
+           (node->next != NULL && node->prev != NULL));
+
+    // A detached node has NULL pointers
+    return node->next == NULL;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the logic
+- Clarified the assertion's purpose (consistency check)
+- Preserved the essential safety check and return logic
+- Maintained inline optimization for performance
+- Emphasized the simple boolean test for detachment status

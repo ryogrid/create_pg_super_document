@@ -42,3 +42,60 @@ The function handles both named and unnamed portals, providing appropriate conte
 - Provides different error context messages for named vs unnamed portals
 - Essential for debugging parameter binding errors in the extended query protocol
 - Part of PostgreSQL's comprehensive error context and reporting system
+
+## Simplified Source
+
+```c
+// Simplified version of bind_param_error_callback
+static void bind_param_error_callback(void *arg) {
+    BindParamCbData *data = (BindParamCbData *) arg;
+
+    // Skip if parameter number is invalid
+    if (data->paramno < 0) {
+        return;
+    }
+
+    // Quote parameter value if available
+    char *quoted_value = NULL;
+    if (data->paramval) {
+        StringInfoData buf;
+        initStringInfo(&buf);
+        appendStringInfoStringQuoted(&buf, data->paramval,
+                                   log_parameter_max_length_on_error);
+        quoted_value = buf.data;
+    }
+
+    // Generate appropriate error context message
+    if (data->portalName && data->portalName[0] != '\0') {
+        // Named portal
+        if (quoted_value) {
+            errcontext("portal \"%s\" parameter $%d = %s",
+                      data->portalName, data->paramno + 1, quoted_value);
+        } else {
+            errcontext("portal \"%s\" parameter $%d",
+                      data->portalName, data->paramno + 1);
+        }
+    } else {
+        // Unnamed portal
+        if (quoted_value) {
+            errcontext("unnamed portal parameter $%d = %s",
+                      data->paramno + 1, quoted_value);
+        } else {
+            errcontext("unnamed portal parameter $%d",
+                      data->paramno + 1);
+        }
+    }
+
+    // Clean up quoted value buffer
+    if (quoted_value) {
+        pfree(quoted_value);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major logic section
+- Renamed `quotedval` to `quoted_value` for clarity
+- Consolidated the portal name checking logic with clearer comments
+- Preserved all essential error handling and memory management
+- Maintained the exact same functionality while improving readability

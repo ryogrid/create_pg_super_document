@@ -45,3 +45,51 @@ The implementation handles both regular Unix sockets and abstract namespace sock
 - Buffer overflow protection through snprintf return value checking
 - Does not use salen or flags parameters but maintains API compatibility
 - Located in src/common/ip.c:228-262
+
+## Simplified Source
+
+```c
+// Simplified version of getnameinfo_unix
+static int getnameinfo_unix(const struct sockaddr_un *sa, int salen,
+                           char *node, int nodelen,
+                           char *service, int servicelen,
+                           int flags) {
+    // Validate input parameters
+    if (sa == NULL || sa->sun_family != AF_UNIX ||
+        (node == NULL && service == NULL)) {
+        return EAI_FAIL;
+    }
+
+    // Fill hostname buffer with "[local]" for Unix sockets
+    if (node) {
+        if (snprintf(node, nodelen, "%s", "[local]") >= nodelen) {
+            return EAI_MEMORY;
+        }
+    }
+
+    // Fill service buffer with socket path
+    if (service) {
+        // Handle abstract sockets (starting with null byte)
+        if (sa->sun_path[0] == '\0' && sa->sun_path[1] != '\0') {
+            // Abstract socket: add '@' prefix
+            if (snprintf(service, servicelen, "@%s", sa->sun_path + 1) >= servicelen) {
+                return EAI_MEMORY;
+            }
+        } else {
+            // Regular socket: use path as-is
+            if (snprintf(service, servicelen, "%s", sa->sun_path) >= servicelen) {
+                return EAI_MEMORY;
+            }
+        }
+    }
+
+    return 0; // Success
+}
+```
+
+Key simplifications made:
+- Combined buffer overflow checks into single condition per snprintf call
+- Added descriptive comments for each major logic block
+- Simplified error handling while preserving essential checks
+- Clarified the distinction between abstract and regular Unix sockets
+- Focused on the main execution path while maintaining correctness

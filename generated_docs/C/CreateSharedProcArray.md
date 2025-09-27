@@ -47,3 +47,63 @@ This function takes no parameters.
 - The procArray global variable is set to point to the shared memory structure
 - Initial values include setting numProcs to 0, indicating no active processes at startup
 - Transaction completion count is initialized to 1 to avoid wraparound issues
+
+## Simplified Source
+
+```c
+// Simplified version of CreateSharedProcArray
+void CreateSharedProcArray(void) {
+    bool found;
+
+    // Step 1: Create or attach to main ProcArray shared memory structure
+    procArray = (ProcArrayStruct *)
+        ShmemInitStruct("Proc Array",
+                       calculated_procarray_size,
+                       &found);
+
+    // Step 2: Initialize structure if we're the first process
+    if (!found) {
+        // Initialize process tracking counters
+        procArray->numProcs = 0;
+        procArray->maxProcs = PROCARRAY_MAXPROCS;
+
+        // Initialize transaction ID tracking for hot standby
+        procArray->maxKnownAssignedXids = TOTAL_MAX_CACHED_SUBXIDS;
+        procArray->numKnownAssignedXids = 0;
+        procArray->tailKnownAssignedXids = 0;
+        procArray->headKnownAssignedXids = 0;
+        procArray->lastOverflowedXid = InvalidTransactionId;
+
+        // Initialize replication slot tracking
+        procArray->replication_slot_xmin = InvalidTransactionId;
+        procArray->replication_slot_catalog_xmin = InvalidTransactionId;
+
+        // Initialize transaction completion counter
+        TransamVariables->xactCompletionCount = 1;
+    }
+
+    // Step 3: Set global reference to all processes
+    allProcs = ProcGlobal->allProcs;
+
+    // Step 4: Initialize hot standby arrays if needed
+    if (EnableHotStandby) {
+        // Create shared arrays for tracking known assigned transaction IDs
+        KnownAssignedXids = (TransactionId *)
+            ShmemInitStruct("KnownAssignedXids",
+                           known_xids_array_size,
+                           &found);
+
+        KnownAssignedXidsValid = (bool *)
+            ShmemInitStruct("KnownAssignedXidsValid",
+                           validity_array_size,
+                           &found);
+    }
+}
+```
+
+Key simplifications made:
+- Replaced complex size calculations with descriptive variable names
+- Added step-by-step comments explaining the initialization process
+- Grouped related field initializations with explanatory comments
+- Focused on the main execution path and key functionality
+- Abstracted low-level size calculation details while preserving logic

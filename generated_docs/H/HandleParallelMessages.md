@@ -52,3 +52,65 @@ This function takes no parameters.
 - Error handling includes reporting lost connections to parallel workers
 - The dedicated memory context ('HandleParallelMessages') ensures clean memory management
 - Messages are processed non-blocking to avoid hanging the main process
+
+## Simplified Source
+
+```c
+// Simplified version of HandleParallelMessages
+void HandleParallelMessages(void) {
+    // Block interrupts to prevent recursive calls
+    HOLD_INTERRUPTS();
+
+    // Set up dedicated memory context for safe memory management
+    if (hpm_context == NULL) {
+        hpm_context = AllocSetContextCreate(TopMemoryContext, "HandleParallelMessages", ALLOCSET_DEFAULT_SIZES);
+    } else {
+        MemoryContextReset(hpm_context);
+    }
+    oldcontext = MemoryContextSwitchTo(hpm_context);
+
+    // Clear the pending message flag
+    ParallelMessagePending = false;
+
+    // Process messages from all parallel contexts
+    dlist_foreach(iter, &pcxt_list) {
+        ParallelContext *pcxt = dlist_container(ParallelContext, node, iter.cur);
+
+        if (pcxt->worker == NULL) continue;
+
+        // Check each worker for messages
+        for (int i = 0; i < pcxt->nworkers_launched; ++i) {
+            // Read all available messages from this worker
+            while (pcxt->worker[i].error_mqh != NULL) {
+                res = shm_mq_receive(pcxt->worker[i].error_mqh, &nbytes, &data, true);
+
+                if (res == SHM_MQ_WOULD_BLOCK) {
+                    break;  // No more messages available
+                } else if (res == SHM_MQ_SUCCESS) {
+                    // Process the received message
+                    StringInfoData msg;
+                    initStringInfo(&msg);
+                    appendBinaryStringInfo(&msg, data, nbytes);
+                    HandleParallelMessage(pcxt, i, &msg);
+                    pfree(msg.data);
+                } else {
+                    // Handle connection error
+                    ereport(ERROR, (errmsg("lost connection to parallel worker")));
+                }
+            }
+        }
+    }
+
+    // Restore memory context and cleanup
+    MemoryContextSwitchTo(oldcontext);
+    MemoryContextReset(hpm_context);
+    RESUME_INTERRUPTS();
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for brevity while preserving essential logic
+- Consolidated variable declarations
+- Simplified error handling structure
+- Focused on the main message processing flow
+- Maintained all critical functionality and safety measures

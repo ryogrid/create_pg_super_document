@@ -79,3 +79,103 @@ This function takes no parameters and operates on the global CurrentTransactionS
 - The function records the transaction abort in pg_xact to advertise the abort to other processes
 - Parallel operation cleanup is performed without warnings, unlike in the commit case
 - Located in src/backend/access/transam/xact.c:5162-5320
+
+## Simplified Source
+
+```c
+// Simplified version of AbortSubTransaction
+static void AbortSubTransaction(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Prevent interrupts during cleanup
+    HOLD_INTERRUPTS();
+
+    // Setup memory context and resource owner
+    AtSubAbort_Memory();
+    AtSubAbort_ResourceOwner();
+
+    // Release all lightweight locks immediately
+    LWLockReleaseAll();
+
+    // Clean up progress reporting and buffers
+    pgstat_report_wait_end();
+    pgstat_progress_end_command();
+    UnlockBuffers();
+
+    // Reset WAL and condition variables
+    XLogResetInsertion();
+    ConditionVariableCancelSleep();
+
+    // Clean up locks and reschedule timeouts
+    LockErrorCleanup();
+    reschedule_timeouts();
+
+    // Re-enable signals for timeout infrastructure
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+
+    // Validate transaction state
+    if (s->state != TRANS_INPROGRESS) {
+        elog(WARNING, "AbortSubTransaction while in %s state",
+             TransStateAsString(s->state));
+    }
+    s->state = TRANS_ABORT;
+
+    // Restore user context and reset subsystem state
+    SetUserIdAndSecContext(s->prevUser, s->prevSecContext);
+    ResetReindexState(s->nestingLevel);
+    ResetLogicalStreamingState();
+
+    // Clean up parallel operations
+    AtEOSubXact_Parallel(false, s->subTransactionId);
+    s->parallelModeLevel = 0;
+
+    // Main cleanup - only if resource owner exists
+    if (s->curTransactionOwner) {
+        // Clean up triggers, portals, large objects
+        AfterTriggerEndSubXact(false);
+        AtSubAbort_Portals(s->subTransactionId, s->parent->subTransactionId,
+                          s->curTransactionOwner, s->parent->curTransactionOwner);
+        AtEOSubXact_LargeObject(false, s->subTransactionId, s->parent->subTransactionId);
+        AtSubAbort_Notify();
+
+        // Record abort in pg_xact
+        RecordTransactionAbort(true);
+
+        // Handle child XIDs and callbacks
+        if (FullTransactionIdIsValid(s->fullTransactionId)) {
+            AtSubAbort_childXids();
+        }
+        CallSubXactCallbacks(SUBXACT_EVENT_ABORT_SUB, s->subTransactionId,
+                            s->parent->subTransactionId);
+
+        // Release resources in phases
+        ResourceOwnerRelease(s->curTransactionOwner, RESOURCE_RELEASE_BEFORE_LOCKS, false, false);
+        AtEOSubXact_RelationCache(false, s->subTransactionId, s->parent->subTransactionId);
+        AtEOSubXact_Inval(false);
+        ResourceOwnerRelease(s->curTransactionOwner, RESOURCE_RELEASE_LOCKS, false, false);
+        ResourceOwnerRelease(s->curTransactionOwner, RESOURCE_RELEASE_AFTER_LOCKS, false, false);
+
+        // Clean up storage manager and various subsystems
+        AtSubAbort_smgr();
+        AtEOXact_GUC(false, s->gucNestLevel);
+        AtEOSubXact_SPI(false, s->subTransactionId);
+        AtEOSubXact_on_commit_actions(false, s->subTransactionId, s->parent->subTransactionId);
+        AtEOSubXact_Namespace(false, s->subTransactionId, s->parent->subTransactionId);
+        AtEOSubXact_Files(false, s->subTransactionId, s->parent->subTransactionId);
+        AtEOSubXact_HashTables(false, s->nestingLevel);
+        AtEOSubXact_PgStat(false, s->nestingLevel);
+        AtSubAbort_Snapshot(s->nestingLevel);
+    }
+
+    // Restore read-only state and resume interrupts
+    XactReadOnly = s->prevXactReadOnly;
+    RESUME_INTERRUPTS();
+}
+```
+
+Key simplifications made:
+- Consolidated multiple cleanup phases into logical groups
+- Removed detailed comments while preserving structure clarity
+- Simplified conditional logic flow
+- Focused on the main execution path
+- Grouped related operations together for better readability

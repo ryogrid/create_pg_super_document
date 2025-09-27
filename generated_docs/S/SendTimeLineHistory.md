@@ -58,3 +58,91 @@ The function includes comprehensive error handling for file operations including
 - The function sends data using PostgreSQL's protocol messaging system with proper message framing
 - Timeline history files are typically small but the streaming approach ensures scalability
 - Part of PostgreSQL's streaming replication protocol and used by standby servers to understand timeline history
+
+## Simplified Source
+
+```c
+// Simplified version of SendTimeLineHistory
+static void SendTimeLineHistory(TimeLineHistoryCmd *cmd) {
+    DestReceiver *dest;
+    TupleDesc tupdesc;
+    StringInfoData buf;
+    char histfname[MAXFNAMELEN];
+    char path[MAXPGPATH];
+    int fd;
+    off_t histfilelen;
+    off_t bytesleft;
+
+    // Step 1: Set up result destination for remote client
+    dest = CreateDestReceiver(DestRemoteSimple);
+
+    // Step 2: Create tuple descriptor for 2-column result set (filename, content)
+    tupdesc = CreateTemplateTupleDesc(2);
+    TupleDescInitBuiltinEntry(tupdesc, 1, "filename", TEXTOID, -1, 0);
+    TupleDescInitBuiltinEntry(tupdesc, 2, "content", TEXTOID, -1, 0);
+
+    // Step 3: Generate timeline history filename and path
+    TLHistoryFileName(histfname, cmd->timeline);
+    TLHistoryFilePath(path, cmd->timeline);
+
+    // Step 4: Send result set header to client
+    dest->rStartup(dest, CMD_SELECT, tupdesc);
+
+    // Step 5: Begin data row message with filename column
+    pq_beginmessage(&buf, PqMsg_DataRow);
+    pq_sendint16(&buf, 2);  // 2 columns
+    pq_sendint32(&buf, strlen(histfname));
+    pq_sendbytes(&buf, histfname, strlen(histfname));
+
+    // Step 6: Open timeline history file
+    fd = OpenTransientFile(path, O_RDONLY | PG_BINARY);
+    if (fd < 0) {
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not open file \"%s\": %m", path)));
+    }
+
+    // Step 7: Get file size and reset to beginning
+    histfilelen = lseek(fd, 0, SEEK_END);
+    if (histfilelen < 0 || lseek(fd, 0, SEEK_SET) != 0) {
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not seek in file \"%s\": %m", path)));
+    }
+
+    // Step 8: Send file size and stream file contents in chunks
+    pq_sendint32(&buf, histfilelen);
+    bytesleft = histfilelen;
+
+    while (bytesleft > 0) {
+        PGAlignedBlock rbuf;
+        int nread;
+
+        // Read chunk from file with wait event reporting
+        pgstat_report_wait_start(WAIT_EVENT_WALSENDER_TIMELINE_HISTORY_READ);
+        nread = read(fd, rbuf.data, sizeof(rbuf));
+        pgstat_report_wait_end();
+
+        // Basic error checking for read operation
+        if (nread <= 0) {
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not read file \"%s\": %m", path)));
+        }
+
+        // Send chunk to client and update remaining bytes
+        pq_sendbytes(&buf, rbuf.data, nread);
+        bytesleft -= nread;
+    }
+
+    // Step 9: Clean up file and complete message
+    CloseTransientFile(fd);
+    pq_endmessage(&buf);
+}
+```
+
+Key simplifications made:
+- Consolidated error handling for file operations
+- Combined similar error reporting into single blocks
+- Removed detailed error differentiation between read failures
+- Simplified variable declarations and combined related operations
+- Added step-by-step comments to clarify the main execution flow
+- Focused on the core algorithm: setup → open file → stream contents → cleanup
+- Maintained all essential functionality while improving readability

@@ -35,3 +35,22 @@ The function performs a simple calculation: , which represents the difference be
 - Includes an assertion that  to ensure buffer integrity
 - Guarantees that reading up to the returned number of bytes will not cause additional network reads
 - Commonly used for determining buffer state before making read decisions in connection handling
+
+## Simplified Source
+
+```c
+// Simplified version of pq_buffer_remaining_data
+ssize_t pq_buffer_remaining_data(void) {
+    // Ensure buffer pointers are in valid state
+    Assert(PqRecvLength >= PqRecvPointer);
+
+    // Return unread bytes: total length minus current position
+    return (PqRecvLength - PqRecvPointer);
+}
+```
+
+Key simplifications made:
+- Preserved the core calculation logic
+- Kept the essential assertion for buffer integrity
+- Added descriptive comments for clarity
+- Maintained the simple, straightforward structure of the original function

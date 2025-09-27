@@ -36,3 +36,24 @@ This function takes no parameters.
 - The actual message processing is deferred to HandleParallelMessages() which is called later during CHECK_FOR_INTERRUPTS()
 - The function works in conjunction with the parallel worker communication system
 - Setting MyLatch ensures that processes waiting on latches are awakened to handle the pending messages promptly
+
+## Simplified Source
+
+```c
+// Simplified version of HandleParallelMessageInterrupt
+void HandleParallelMessageInterrupt(void) {
+    // Step 1: Signal that an interrupt needs processing
+    InterruptPending = true;
+
+    // Step 2: Mark that parallel messages are waiting
+    ParallelMessagePending = true;
+
+    // Step 3: Wake up any waiting processes
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the purpose of each flag
+- Preserved the complete original logic as the function is already minimal
+- Emphasized the three-step process: general interrupt flag, specific parallel message flag, and latch notification

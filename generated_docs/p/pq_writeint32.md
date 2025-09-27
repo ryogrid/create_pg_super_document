@@ -35,3 +35,31 @@ This function is commonly used throughout PostgreSQL's protocol handling for wri
 - Uses `pg_restrict` annotations for performance optimization by informing the compiler about non-overlapping memory regions
 - Extensively used in PostgreSQL's protocol implementation for transmitting row description metadata, message lengths, and object identifiers
 - Part of the core protocol serialization infrastructure that ensures consistent data representation across different machine architectures
+
+## Simplified Source
+
+```c
+// Simplified version of pq_writeint32
+static inline void
+pq_writeint32(StringInfoData *buf, uint32 i)
+{
+    // Convert to network byte order (big-endian)
+    uint32 network_value = pg_hton32(i);
+
+    // Verify buffer has sufficient space
+    Assert(buf->len + (int) sizeof(uint32) <= buf->maxlen);
+
+    // Copy 32-bit value to buffer
+    memcpy(buf->data + buf->len, &network_value, sizeof(uint32));
+
+    // Update buffer length
+    buf->len += sizeof(uint32);
+}
+```
+
+Key simplifications made:
+- Renamed variable from `ni` to `network_value` for clarity
+- Added explanatory comments for each step
+- Removed `pg_restrict` annotations for readability
+- Preserved essential logic: convert byte order, validate space, copy data, update length
+- Maintained the critical network byte order conversion for protocol compatibility

@@ -34,3 +34,20 @@ The handler uses _exit(2) instead of the standard exit(0) to signal to the postm
 - The "dead man switch" mechanism in pmsignal.c works in conjunction with this handler to ensure the postmaster detects crashed processes
 - This is a safety mechanism that prioritizes system stability over graceful cleanup when corruption is suspected
 - The immediate termination without cleanup is by design - any attempt to clean up potentially corrupted state could cause further problems
+
+## Simplified Source
+
+```c
+// Simplified version of SignalHandlerForCrashExit
+void SignalHandlerForCrashExit(SIGNAL_ARGS) {
+    // Immediate exit without any cleanup to avoid potential corruption issues
+    // Exit code 2 signals abnormal termination to postmaster
+    _exit(2);
+}
+```
+
+Key simplifications made:
+- Removed extensive comments while preserving essential understanding
+- Focused on the core action: immediate termination with exit code 2
+- Maintained the critical safety aspect of avoiding cleanup routines
+- Preserved the signal handler signature

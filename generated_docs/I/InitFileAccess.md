@@ -39,3 +39,33 @@ This function takes no parameters.
 - VfdCache[0] serves as a sentinel/header entry and is never used for actual file operations
 - Critical for PostgreSQL's file management infrastructure - without this initialization, file operations would fail
 - The VFD system provides resource management, automatic cleanup, and efficient file descriptor reuse
+
+## Simplified Source
+
+```c
+// Simplified version of InitFileAccess
+void InitFileAccess(void) {
+    // Ensure this is called only once during backend startup
+    Assert(SizeVfdCache == 0);
+
+    // Allocate memory for the VFD cache header
+    VfdCache = (Vfd *) malloc(sizeof(Vfd));
+    if (VfdCache == NULL)
+        ereport(FATAL, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of memory")));
+
+    // Initialize the header entry to empty state
+    MemSet((char *) &(VfdCache[0]), 0, sizeof(Vfd));
+    VfdCache->fd = VFD_CLOSED;
+
+    // Set initial cache size
+    SizeVfdCache = 1;
+}
+```
+
+Key simplifications made:
+- Preserved the essential initialization logic
+- Kept critical error handling for memory allocation failure
+- Maintained the Assert for preventing double initialization
+- Focused on the core steps: allocate, initialize, and set size
+- Added clear comments explaining each major step

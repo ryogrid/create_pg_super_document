@@ -39,3 +39,41 @@ The  function determines when the next automatic log rotation should occur based
 - The "multiple" alignment is interpreted loosely but ensures consistent rotation scheduling
 - Critical for maintaining predictable log rotation schedules in production environments
 - Handles timezone transitions gracefully by working in local time and converting back to UTC
+
+## Simplified Source
+
+```c
+// Simplified version of set_next_rotation_time
+static void set_next_rotation_time(void) {
+    pg_time_t now;
+    struct pg_tm *tm;
+    int rotation_interval;
+
+    // Skip if time-based rotation is disabled
+    if (Log_RotationAge <= 0)
+        return;
+
+    // Convert rotation age from minutes to seconds
+    rotation_interval = Log_RotationAge * SECS_PER_MINUTE;
+
+    // Get current time and convert to local timezone
+    now = (pg_time_t) time(NULL);
+    tm = pg_localtime(&now, log_timezone);
+
+    // Align to rotation interval boundary in local time
+    now += tm->tm_gmtoff;              // Convert to local time
+    now -= now % rotation_interval;    // Round down to interval boundary
+    now += rotation_interval;          // Move to next interval
+    now -= tm->tm_gmtoff;              // Convert back to UTC
+
+    // Store the calculated next rotation time
+    next_rotation_time = now;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Renamed `rotinterval` to `rotation_interval` for clarity
+- Grouped timezone conversion logic with explanatory comments
+- Simplified the overall flow while preserving the exact algorithm
+- Focused on the core logic: check if enabled, get current time, align to next interval boundary

@@ -37,3 +37,29 @@ This function is responsible for actually performing memory context logging afte
 - Implements protective limits (100 max depth, 100 max children) to prevent disk space issues
 - Part of PostgreSQL's debugging and monitoring infrastructure for memory usage analysis
 - The logging output helps diagnose memory consumption patterns in backend processes
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessLogMemoryContextInterrupt
+void ProcessLogMemoryContextInterrupt(void) {
+    // Step 1: Clear the pending interrupt flag
+    LogMemoryContextPending = false;
+
+    // Step 2: Log the start of memory context dump
+    ereport(LOG_SERVER_ONLY,
+            (errhidestmt(true),
+             errhidecontext(true),
+             errmsg("logging memory contexts of PID %d", MyProcPid)));
+
+    // Step 3: Generate detailed memory context statistics with protective limits
+    // Limit depth and children to 100 to prevent disk space issues
+    MemoryContextStatsDetail(TopMemoryContext, 100, 100, false);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining the rationale (kept in documentation above)
+- Consolidated the multi-line ereport call for better readability
+- Added step-by-step comments explaining the three main actions
+- Focused on the essential flow: clear flag → log message → dump stats

@@ -39,3 +39,22 @@ This design ensures that the actual configuration reload processing happens in t
 - Essential for PostgreSQL's operational flexibility - allows configuration changes without downtime
 - Part of PostgreSQL's broader signal-based inter-process communication system
 - Commonly triggered by database administrators using pg_ctl reload command
+
+## Simplified Source
+
+```c
+// Simplified version of handle_pm_reload_request_signal
+static void handle_pm_reload_request_signal(SIGNAL_ARGS) {
+    // Step 1: Mark that a configuration reload is pending
+    pending_pm_reload_request = true;
+
+    // Step 2: Wake up the main postmaster loop to process the reload
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two-step process
+- Preserved the essential signal handler pattern
+- Function is already quite simple - minimal simplification needed
+- Focused on the deferred processing approach for signal safety

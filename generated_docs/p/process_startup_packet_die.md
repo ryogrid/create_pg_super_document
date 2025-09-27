@@ -35,3 +35,21 @@ The design philosophy prioritizes security by avoiding any communication with po
 - Intentionally avoids logging or sending messages to prevent information disclosure to unauthenticated clients
 - Part of PostgreSQL's defense-in-depth security strategy during the authentication phase
 - The function is static and only used within the backend_startup.c module
+
+## Simplified Source
+
+```c
+// Simplified version of process_startup_packet_die
+static void process_startup_packet_die(SIGNAL_ARGS) {
+    // Immediate process termination on SIGTERM during startup
+    // Uses _exit(1) instead of proc_exit() for signal handler safety
+    // No cleanup needed since shared memory hasn't been touched yet
+    _exit(1);
+}
+```
+
+Key simplifications made:
+- Condensed the extensive comment block into concise inline comments
+- Focused on the core functionality: immediate termination on SIGTERM
+- Highlighted the safety rationale: using _exit() vs proc_exit()
+- Emphasized the context: startup phase before shared memory access

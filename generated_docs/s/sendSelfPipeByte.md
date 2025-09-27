@@ -45,3 +45,40 @@ This function takes no parameters and operates on global state:
 - Error handling is deliberately minimal to maintain signal safety - extensive error reporting could cause deadlocks in signal handler context
 - The function is part of PostgreSQL's broader latch system which provides efficient cross-process signaling capabilities
 - Only one byte needs to be written since the mere presence of data in the pipe is sufficient to wake up waiting processes
+
+## Simplified Source
+
+```c
+// Simplified version of sendSelfPipeByte
+static void sendSelfPipeByte(void) {
+    char dummy_byte = 0;
+
+    // Try to write one byte to the self-pipe
+    retry:
+    int result = write(selfpipe_writefd, &dummy_byte, 1);
+
+    if (result < 0) {
+        // If interrupted by signal, retry the operation
+        if (errno == EINTR) {
+            goto retry;
+        }
+
+        // If pipe is full, we're done - existing data will wake up waiters
+        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            return;
+        }
+
+        // For any other error, silently ignore (signal-safe behavior)
+        return;
+    }
+
+    // Success - byte written, latch waiters will be awakened
+}
+```
+
+Key simplifications made:
+- Combined variable declaration and initialization for clarity
+- Added descriptive comments explaining each logical step
+- Preserved the essential retry logic for signal interruption
+- Maintained the signal-safe error handling approach
+- Kept the core self-pipe wakeup mechanism intact

@@ -49,3 +49,37 @@ This function takes no parameters.
 - The sequential processing ensures that conflicts are handled in a deterministic order
 - If ProcessRecoveryConflictInterrupt() throws an ERROR or FATAL, remaining conflicts in the loop may not be processed
 - The function is part of PostgreSQL's interrupt handling infrastructure for hot standby systems
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessRecoveryConflictInterrupts
+static void ProcessRecoveryConflictInterrupts(void) {
+    // Safety assertions for interrupt processing
+    Assert(!proc_exit_inprogress);
+    Assert(InterruptHoldoffCount == 0);
+    Assert(RecoveryConflictPending);
+
+    // Clear the global pending flag
+    RecoveryConflictPending = false;
+
+    // Process each type of recovery conflict
+    for (ProcSignalReason reason = PROCSIG_RECOVERY_CONFLICT_FIRST;
+         reason <= PROCSIG_RECOVERY_CONFLICT_LAST;
+         reason++) {
+
+        if (RecoveryConflictPendingReasons[reason]) {
+            // Clear the specific conflict flag and process it
+            RecoveryConflictPendingReasons[reason] = false;
+            ProcessRecoveryConflictInterrupt(reason);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Simplified loop structure for better readability
+- Maintained all safety assertions and conflict processing logic
+- Focused on the core conflict dispatch mechanism
+- Preserved the sequential processing pattern for deterministic handling

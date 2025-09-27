@@ -37,3 +37,25 @@ Finally, it calls SetLatch() to wake up any process that might be waiting on the
 - The actual message processing is deferred to HandleParallelApplyMessages() which runs outside signal context
 - Works in conjunction with the CHECK_FOR_INTERRUPTS() mechanism to provide safe signal handling
 - Critical for enabling leader apply workers to notify parallel workers of pending messages or errors
+
+## Simplified Source
+
+```c
+// Simplified version of HandleParallelApplyMessageInterrupt
+void HandleParallelApplyMessageInterrupt(void) {
+    // Step 1: Mark that an interrupt is pending for CHECK_FOR_INTERRUPTS()
+    InterruptPending = true;
+
+    // Step 2: Mark that parallel apply message processing is needed
+    ParallelApplyMessagePending = true;
+
+    // Step 3: Wake up any waiting processes to handle the pending message
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each step
+- Preserved the exact original logic (no actual simplification needed due to function's brevity)
+- Emphasized the signal-safe nature and minimal operations
+- Maintained the three-step process: interrupt flagging, message flagging, and process awakening

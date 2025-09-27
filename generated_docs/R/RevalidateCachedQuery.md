@@ -61,3 +61,128 @@ The function implements a race condition-safe locking protocol and handles memor
 - Manages snapshots appropriately for parse analysis operations
 - Updates result tuple descriptors and enforces fixed_result constraints
 - Critical for maintaining cache coherency in the face of DDL changes
+
+## Simplified Source
+
+```c
+// Simplified version of RevalidateCachedQuery
+static List *RevalidateCachedQuery(CachedPlanSource *plansource, QueryEnvironment *queryEnv) {
+    bool snapshot_set;
+    RawStmt *rawtree;
+    List *tlist;
+
+    // Skip revalidation for one-shot plans or statements that don't need it
+    if (plansource->is_oneshot || !StmtPlanRequiresRevalidation(plansource)) {
+        return NIL;
+    }
+
+    // Check if search path or RLS settings have changed
+    if (plansource->is_valid) {
+        if (!SearchPathMatchesCurrentEnvironment(plansource->search_path) ||
+            (plansource->dependsOnRLS &&
+             (plansource->rewriteRoleId != GetUserId() ||
+              plansource->rewriteRowSecurity != row_security))) {
+            plansource->is_valid = false;
+        }
+    }
+
+    // Try to revalidate by acquiring locks
+    if (plansource->is_valid) {
+        AcquirePlannerLocks(plansource->query_list, true);
+
+        if (plansource->is_valid) {
+            return NIL; // Successfully revalidated
+        }
+
+        // Race condition occurred, release locks
+        AcquirePlannerLocks(plansource->query_list, false);
+    }
+
+    // Invalidate and clean up old data
+    plansource->is_valid = false;
+    plansource->query_list = NIL;
+    plansource->relationOids = NIL;
+    plansource->invalItems = NIL;
+
+    if (plansource->query_context) {
+        MemoryContextDelete(plansource->query_context);
+        plansource->query_context = NULL;
+    }
+
+    ReleaseGenericPlan(plansource);
+
+    // Set up snapshot for parsing if needed
+    snapshot_set = false;
+    if (!ActiveSnapshotSet()) {
+        PushActiveSnapshot(GetTransactionSnapshot());
+        snapshot_set = true;
+    }
+
+    // Re-parse and rewrite the query
+    rawtree = copyObject(plansource->raw_parse_tree);
+    if (rawtree == NULL) {
+        tlist = NIL;
+    } else if (plansource->parserSetup != NULL) {
+        tlist = pg_analyze_and_rewrite_withcb(rawtree, plansource->query_string,
+                                            plansource->parserSetup,
+                                            plansource->parserSetupArg, queryEnv);
+    } else {
+        tlist = pg_analyze_and_rewrite_fixedparams(rawtree, plansource->query_string,
+                                                 plansource->param_types,
+                                                 plansource->num_params, queryEnv);
+    }
+
+    if (snapshot_set) {
+        PopActiveSnapshot();
+    }
+
+    // Update result descriptor and create new query context
+    TupleDesc resultDesc = PlanCacheComputeResultDesc(tlist);
+    if (resultDesc != plansource->resultDesc) {
+        if (plansource->fixed_result && resultDesc != NULL) {
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                          errmsg("cached plan must not change result type")));
+        }
+        // Update result descriptor
+        if (plansource->resultDesc) {
+            FreeTupleDesc(plansource->resultDesc);
+        }
+        plansource->resultDesc = resultDesc ? CreateTupleDescCopy(resultDesc) : NULL;
+    }
+
+    // Create new query context and copy query tree
+    MemoryContext querytree_context = AllocSetContextCreate(CurrentMemoryContext,
+                                                           "CachedPlanQuery",
+                                                           ALLOCSET_START_SMALL_SIZES);
+    MemoryContext oldcxt = MemoryContextSwitchTo(querytree_context);
+
+    List *qlist = copyObject(tlist);
+
+    // Extract dependencies and update metadata
+    extract_query_dependencies((Node *) qlist,
+                              &plansource->relationOids,
+                              &plansource->invalItems,
+                              &plansource->dependsOnRLS);
+
+    plansource->rewriteRoleId = GetUserId();
+    plansource->rewriteRowSecurity = row_security;
+    plansource->search_path = GetSearchPathMatcher(querytree_context);
+
+    MemoryContextSwitchTo(oldcxt);
+
+    // Finalize the new query context
+    MemoryContextSetParent(querytree_context, plansource->context);
+    plansource->query_context = querytree_context;
+    plansource->query_list = qlist;
+    plansource->is_valid = true;
+
+    return tlist; // Return transient copy for planning
+}
+```
+
+Key simplifications made:
+- Consolidated error handling and validation checks into clearer logical blocks
+- Removed detailed comments and merged similar operations
+- Simplified memory context management while preserving essential logic
+- Combined related validation checks for readability
+- Focused on the main execution path while preserving all critical functionality

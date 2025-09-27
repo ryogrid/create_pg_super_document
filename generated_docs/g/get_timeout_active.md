@@ -36,3 +36,20 @@ The function includes an important caveat about race conditions - since timeouts
 - Returns boolean true if timeout is active, false otherwise
 - Used primarily in timeout management logic to avoid redundant operations
 - The function performs no validation of the TimeoutId parameter - callers must ensure valid timeout IDs
+
+## Simplified Source
+
+```c
+// Simplified version of get_timeout_active
+// Check if a timeout is currently enabled and hasn't fired yet
+bool get_timeout_active(TimeoutId id) {
+    // Direct lookup: return the active status from the global timeout array
+    return all_timeouts[id].active;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the function purpose
+- Highlighted the direct array lookup operation
+- Maintained the original simple logic (no simplification needed as it's already minimal)
+- Emphasized the race condition aspect mentioned in original comments

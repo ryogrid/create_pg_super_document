@@ -39,3 +39,32 @@ This function is commonly used in PostgreSQL's subscription and replication syst
 - Memory allocated for the expanded filename is properly cleaned up with pfree()
 - Commonly used in replication and subscription management operations
 - The function does not return any value or handle - it simply ensures the library is loaded into memory
+
+## Simplified Source
+
+```c
+// Simplified version of load_file
+void load_file(const char *filename, bool restricted) {
+    char *fullname;
+
+    // Step 1: Apply security check if requested
+    if (restricted) {
+        check_restricted_library_name(filename);
+    }
+
+    // Step 2: Convert filename to full path
+    fullname = expand_dynamic_library_name(filename);
+
+    // Step 3: Load the shared library into memory
+    internal_load_library(fullname);
+
+    // Step 4: Clean up allocated memory
+    pfree(fullname);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments for clarity
+- Removed the `(void)` cast since return value is ignored
+- Focused on the main execution path
+- Preserved all essential functionality and error handling

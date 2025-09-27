@@ -39,3 +39,26 @@ The careful design ensures that each signal flag is processed exactly once - the
 - The comment emphasizes the careful design to avoid clearing flags that weren't actually set
 - Part of PostgreSQL's inter-process communication mechanism between postmaster and backends
 - Each PMSignalReason enum value corresponds to a different type of event or request from child processes
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPostmasterSignal
+bool CheckPostmasterSignal(PMSignalReason reason) {
+    // Check if the signal flag is set for this reason
+    if (PMSignalState->PMSignalFlags[reason]) {
+        // Clear the flag atomically and return true
+        PMSignalState->PMSignalFlags[reason] = false;
+        return true;
+    }
+
+    // Flag was not set, return false without modifying anything
+    return false;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Emphasized the atomic test-and-clear operation
+- Highlighted the careful design that only clears flags that were actually set
+- Focused on the core logic: check flag, clear if set, return status

@@ -44,3 +44,22 @@ static inline void pq_sendint64(StringInfo buf, uint64 i)
 - The 64-bit capacity is necessary for PostgreSQL's high-precision timestamps and large transaction identifiers
 - Vital for maintaining consistency in distributed PostgreSQL environments
 - Used in both logical and physical replication protocols
+
+## Simplified Source
+
+```c
+// Simplified version of pq_sendint64
+static inline void pq_sendint64(StringInfo buf, uint64 i) {
+    // Step 1: Ensure buffer has space for 8 bytes
+    enlargeStringInfo(buf, sizeof(uint64));
+
+    // Step 2: Write the 64-bit integer in network byte order
+    pq_writeint64(buf, i);
+}
+```
+
+Key simplifications made:
+- Preserved the essential two-step process: ensure space, then write
+- Added explanatory comments for each core step
+- Maintained the function signature and behavior unchanged
+- The function is already quite simple, so minimal simplification was needed

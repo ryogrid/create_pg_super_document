@@ -55,3 +55,116 @@ The function supports different locale providers (builtin, ICU, libc) and handle
 - Warns about collation version mismatches rather than failing
 - Critical for ensuring database compatibility and proper locale setup
 - Part of the database initialization sequence after authentication
+
+## Simplified Source
+
+```c
+// Simplified version of CheckMyDatabase
+static void CheckMyDatabase(const char *name, bool am_superuser, bool override_allow_connections) {
+    HeapTuple tup;
+    Form_pg_database dbform;
+    Datum datum;
+    bool isnull;
+    char *collate, *ctype, *datlocale;
+
+    // Fetch database entry from pg_database catalog
+    tup = SearchSysCache1(DATABASEOID, ObjectIdGetDatum(MyDatabaseId));
+    if (!HeapTupleIsValid(tup)) {
+        elog(ERROR, "cache lookup failed for database %u", MyDatabaseId);
+    }
+    dbform = (Form_pg_database) GETSTRUCT(tup);
+
+    // Paranoia check: ensure database name matches
+    if (strcmp(name, NameStr(dbform->datname)) != 0) {
+        ereport(FATAL, "database has disappeared from pg_database");
+    }
+
+    // Connection permission checks (only when under postmaster)
+    if (IsUnderPostmaster) {
+        // Check if database allows connections
+        if (!dbform->datallowconn && !override_allow_connections) {
+            ereport(FATAL, "database is not currently accepting connections");
+        }
+
+        // Check user privilege to connect
+        if (!am_superuser && !override_allow_connections &&
+            object_aclcheck(DatabaseRelationId, MyDatabaseId, GetUserId(), ACL_CONNECT) != ACLCHECK_OK) {
+            ereport(FATAL, "permission denied for database");
+        }
+
+        // Check connection limit
+        if (dbform->datconnlimit >= 0 && AmRegularBackendProcess() &&
+            !am_superuser && CountDBConnections(MyDatabaseId) > dbform->datconnlimit) {
+            ereport(FATAL, "too many connections for database");
+        }
+    }
+
+    // Set up database encoding
+    SetDatabaseEncoding(dbform->encoding);
+    SetConfigOption("server_encoding", GetDatabaseEncodingName(), PGC_INTERNAL, PGC_S_DYNAMIC_DEFAULT);
+    SetConfigOption("client_encoding", GetDatabaseEncodingName(), PGC_BACKEND, PGC_S_DYNAMIC_DEFAULT);
+
+    // Get and set locale information
+    datum = SysCacheGetAttrNotNull(DATABASEOID, tup, Anum_pg_database_datcollate);
+    collate = TextDatumGetCString(datum);
+    datum = SysCacheGetAttrNotNull(DATABASEOID, tup, Anum_pg_database_datctype);
+    ctype = TextDatumGetCString(datum);
+
+    // Set system locales
+    if (pg_perm_setlocale(LC_COLLATE, collate) == NULL) {
+        ereport(FATAL, "database locale is incompatible with operating system");
+    }
+    if (pg_perm_setlocale(LC_CTYPE, ctype) == NULL) {
+        ereport(FATAL, "database locale is incompatible with operating system");
+    }
+
+    // Set ctype flag for optimization
+    if (strcmp(ctype, "C") == 0 || strcmp(ctype, "POSIX") == 0) {
+        database_ctype_is_c = true;
+    }
+
+    // Handle different locale providers
+    default_locale.provider = dbform->datlocprovider;
+    default_locale.deterministic = true;
+
+    if (dbform->datlocprovider == COLLPROVIDER_BUILTIN) {
+        datum = SysCacheGetAttrNotNull(DATABASEOID, tup, Anum_pg_database_datlocale);
+        datlocale = TextDatumGetCString(datum);
+        builtin_validate_locale(dbform->encoding, datlocale);
+        default_locale.info.builtin.locale = MemoryContextStrdup(TopMemoryContext, datlocale);
+    } else if (dbform->datlocprovider == COLLPROVIDER_ICU) {
+        datum = SysCacheGetAttrNotNull(DATABASEOID, tup, Anum_pg_database_datlocale);
+        datlocale = TextDatumGetCString(datum);
+
+        // Get ICU rules if present
+        datum = SysCacheGetAttr(DATABASEOID, tup, Anum_pg_database_daticurules, &isnull);
+        char *icurules = isnull ? NULL : TextDatumGetCString(datum);
+
+        make_icu_collator(datlocale, icurules, &default_locale);
+    }
+
+    // Check collation version and warn if mismatch
+    datum = SysCacheGetAttr(DATABASEOID, tup, Anum_pg_database_datcollversion, &isnull);
+    if (!isnull) {
+        char *collversionstr = TextDatumGetCString(datum);
+        char *locale = (dbform->datlocprovider == COLLPROVIDER_LIBC) ? collate : datlocale;
+        char *actual_versionstr = get_collation_actual_version(dbform->datlocprovider, locale);
+
+        if (actual_versionstr && strcmp(actual_versionstr, collversionstr) != 0) {
+            ereport(WARNING, "database has a collation version mismatch");
+        }
+    }
+
+    ReleaseSysCache(tup);
+}
+```
+
+Key simplifications made:
+- Condensed error messages while preserving essential information
+- Simplified complex conditional logic for readability
+- Abstracted detailed error message formatting into concise versions
+- Consolidated similar locale provider handling patterns
+- Removed extensive error detail and hint messages for brevity
+- Maintained all critical validation and setup operations
+- Reduced from ~200 lines to ~80 lines while preserving core functionality
+- Kept all essential security checks and configuration steps

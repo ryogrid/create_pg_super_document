@@ -40,3 +40,40 @@ This function takes no parameters.
 - Output format: "LRU: MOST [mru_id] [next_id] ... [lru_id] LEAST"
 - Uses fixed buffer size of 2048 bytes for the output string
 - Part of PostgreSQL's internal VFD cache debugging infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of _dump_lru
+static void _dump_lru(void) {
+    int mru = VfdCache[0].lruLessRecently;
+    Vfd *vfdP = &VfdCache[mru];
+    char buf[2048];
+
+    // Start building the LRU chain representation
+    snprintf(buf, sizeof(buf), "LRU: MOST %d ", mru);
+
+    // Traverse the LRU chain from most to least recently used
+    while (mru != 0) {
+        mru = vfdP->lruLessRecently;
+        vfdP = &VfdCache[mru];
+
+        // Append each VFD index to the output string
+        snprintf(buf + strlen(buf), sizeof(buf) - strlen(buf), "%d ", mru);
+    }
+
+    // Add the end marker
+    snprintf(buf + strlen(buf), sizeof(buf) - strlen(buf), "LEAST");
+
+    // Output the complete LRU chain state for debugging
+    elog(LOG, "%s", buf);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the LRU traversal logic
+- Preserved the essential chain walking algorithm
+- Maintained the string building approach for debugging output
+- Simplified to show the core purpose: traverse and log LRU chain state
+- Kept the debugging output format for consistency
+- Explained the traversal direction from most to least recently used

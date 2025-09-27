@@ -47,3 +47,25 @@ This effectively removes the node from the chain while maintaining list integrit
 - Extensively used throughout PostgreSQL for managing various data structures including GIN indexes, parallel processing contexts, lock management, cache systems, and memory management
 - The function does not perform any validation to ensure the node is actually in a list
 - For safer deletion that also clears the node's pointers, use dlist_delete_thoroughly instead
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_delete
+static inline void dlist_delete(dlist_node *node) {
+    // Step 1: Update previous node to skip over this node
+    node->prev->next = node->next;
+
+    // Step 2: Update next node to skip back over this node
+    node->next->prev = node->prev;
+
+    // Node is now effectively removed from the list
+    // (Note: node's own pointers remain unchanged)
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the two pointer updates
+- Emphasized the core concept of "skipping over" the node to be deleted
+- Added note about the node's own pointers remaining unchanged
+- Maintained the original logic flow while making it more readable

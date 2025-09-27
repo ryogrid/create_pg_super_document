@@ -37,3 +37,36 @@ This function takes no parameters and maintains internal state through a static 
 - Designed for lightweight, frequent polling by background processes
 - The function is thread-safe due to the spinlock protection around shared memory access
 - Enables checkpoint-synchronized operations without requiring explicit checkpoint completion notifications
+
+## Simplified Source
+
+```c
+// Simplified version of FirstCallSinceLastCheckpoint
+bool FirstCallSinceLastCheckpoint(void) {
+    static int last_checkpoint_id = 0;
+    int current_checkpoint_id;
+    bool is_first_call = false;
+
+    // Get current checkpoint completion counter from shared memory
+    SpinLockAcquire(&CheckpointerShmem->ckpt_lck);
+    current_checkpoint_id = CheckpointerShmem->ckpt_done;
+    SpinLockRelease(&CheckpointerShmem->ckpt_lck);
+
+    // Check if a new checkpoint has completed since last call
+    if (current_checkpoint_id != last_checkpoint_id) {
+        is_first_call = true;
+    }
+
+    // Update our local tracking variable
+    last_checkpoint_id = current_checkpoint_id;
+
+    return is_first_call;
+}
+```
+
+Key simplifications made:
+- Renamed variables for clarity (ckpt_done → last_checkpoint_id, new_done → current_checkpoint_id, FirstCall → is_first_call)
+- Added explanatory comments for each logical step
+- Maintained the essential algorithm: compare current checkpoint counter with locally stored value
+- Preserved the spinlock mechanism for thread-safe shared memory access
+- Focused on the core logic flow without losing any functionality

@@ -49,3 +49,25 @@ This approach ensures that even if consecutive or similar seed values are used, 
 - This function is widely used throughout PostgreSQL for initializing random number generators in various subsystems including the postmaster, pgbench, libpq, and testing modules
 - The initialization process specifically avoids the all-zero state which would cause the xoroshiro128** algorithm to always generate zero
 - Located in src/common/pg_prng.c, making it available to both frontend and backend code
+
+## Simplified Source
+
+```c
+// Simplified version of pg_prng_seed
+void pg_prng_seed(pg_prng_state *state, uint64 seed) {
+    // Generate first 64-bit value using SplitMix64 algorithm
+    state->s0 = splitmix64(&seed);
+
+    // Generate second 64-bit value using modified seed
+    state->s1 = splitmix64(&seed);
+
+    // Ensure the state is valid (not all zeros)
+    pg_prng_seed_check(state);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Removed the cast to void since it was just for suppressing unused return value warnings
+- Focused on the core logic: generate two 64-bit values and validate the result
+- Maintained the essential algorithm flow while making it more readable

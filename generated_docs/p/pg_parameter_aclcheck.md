@@ -38,3 +38,23 @@ This function serves as an exported routine for checking access privileges to Po
 - Returns ACLCHECK_OK if the role has the required privileges, ACLCHECK_NO_PRIV otherwise
 - Part of PostgreSQL's access control system for configuration parameters
 - Used extensively in GUC (Grand Unified Configuration) system for parameter validation
+
+## Simplified Source
+
+```c
+// Simplified version of pg_parameter_aclcheck
+AclResult pg_parameter_aclcheck(const char *name, Oid roleid, AclMode mode) {
+    // Check if the role has the required privileges for the parameter
+    if (pg_parameter_aclmask(name, roleid, mode, ACLMASK_ANY) != 0) {
+        return ACLCHECK_OK;         // Access granted
+    } else {
+        return ACLCHECK_NO_PRIV;    // Access denied
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the privilege check logic
+- Preserved the essential access control validation
+- Maintained the simple boolean-like return pattern
+- Function is already straightforward and focused

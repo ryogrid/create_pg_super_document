@@ -36,3 +36,36 @@ The function maintains the ordered structure of the active timeouts array by shi
 - Increments the global `num_active_timeouts` counter
 - It is the caller's responsibility to protect this function from signal handler interruption
 - Part of the internal helper functions for PostgreSQL's timeout management system
+
+## Simplified Source
+
+```c
+// Simplified version of insert_timeout
+static void insert_timeout(TimeoutId id, int index) {
+    // Validate the insertion index is within bounds
+    if (index < 0 || index > num_active_timeouts) {
+        elog(FATAL, "timeout index %d out of range 0..%d", index, num_active_timeouts);
+    }
+
+    // Mark the timeout as active in the global timeout registry
+    Assert(!all_timeouts[id].active);
+    all_timeouts[id].active = true;
+
+    // Shift existing timeouts to make room at the insertion point
+    for (int i = num_active_timeouts - 1; i >= index; i--) {
+        active_timeouts[i + 1] = active_timeouts[i];
+    }
+
+    // Insert the new timeout at the specified position
+    active_timeouts[index] = &all_timeouts[id];
+
+    // Update the count of active timeouts
+    num_active_timeouts++;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Used inline variable declaration in the for loop for clarity
+- Preserved all essential logic including bounds checking and array shifting
+- Maintained the exact same functionality while improving readability

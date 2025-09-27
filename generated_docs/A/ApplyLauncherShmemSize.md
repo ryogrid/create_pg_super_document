@@ -35,3 +35,29 @@ This function calculates the total shared memory size required for the logical r
 - The returned size includes space for the main context structure plus an array of worker structures
 - Part of PostgreSQL's shared memory subsystem initialization process
 - Returns a Size type representing the total bytes needed
+
+## Simplified Source
+
+```c
+// Simplified version of ApplyLauncherShmemSize
+Size ApplyLauncherShmemSize(void) {
+    Size size;
+
+    // Calculate size for the main context structure
+    size = sizeof(LogicalRepCtxStruct);
+    size = MAXALIGN(size);
+
+    // Add space for array of worker structures
+    size = add_size(size, mul_size(max_logical_replication_workers,
+                                   sizeof(LogicalRepWorker)));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Preserved the core memory calculation logic
+- Kept essential comments explaining the two main components
+- Maintained the safe arithmetic functions (add_size, mul_size)
+- Retained proper memory alignment handling
+- Focused on the straightforward calculation flow

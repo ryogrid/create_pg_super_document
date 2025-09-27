@@ -42,3 +42,35 @@ The core update operation is delegated to heap_inplace_update_and_unlock(), whic
 - Should not be called if no actual changes were made to the tuple (use systable_inplace_update_cancel() instead)
 - The state parameter becomes invalid after this call and should not be reused
 - Part of the three-function in-place update API: begin, finish, and cancel
+
+## Simplified Source
+
+```c
+// Simplified version of systable_inplace_update_finish
+void systable_inplace_update_finish(void *state, HeapTuple tuple) {
+    // Cast the opaque state back to scan descriptor
+    SysScanDesc scan = (SysScanDesc) state;
+
+    // Extract components from the scan state
+    Relation relation = scan->heap_rel;
+    TupleTableSlot *slot = scan->slot;
+    BufferHeapTupleTableSlot *buffer_slot = (BufferHeapTupleTableSlot *) slot;
+
+    // Get the original tuple and its buffer from the slot
+    HeapTuple original_tuple = buffer_slot->base.tuple;
+    Buffer buffer = buffer_slot->buffer;
+
+    // Perform the actual in-place update and unlock the buffer
+    heap_inplace_update_and_unlock(relation, original_tuple, tuple, buffer);
+
+    // Clean up the scan state
+    systable_endscan(scan);
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names (buffer_slot, original_tuple)
+- Added explanatory comments for each major step
+- Clarified the casting operation with a comment
+- Emphasized the two main operations: update and cleanup
+- Maintained the exact logic flow and all critical operations

@@ -41,3 +41,29 @@ When overflow is detected, the function raises an ERROR with ERRCODE_PROGRAM_LIM
 - Widely used throughout PostgreSQL for accumulating shared memory requirements from different subsystems
 - Essential for security as integer overflow in memory calculations could lead to buffer overflows
 - The error thrown is fatal and will terminate the current operation/process initialization
+
+## Simplified Source
+
+```c
+// Simplified version of add_size
+Size add_size(Size s1, Size s2) {
+    // Perform the addition
+    Size result = s1 + s2;
+
+    // Check for overflow: if result wrapped around, it will be smaller than inputs
+    if (result < s1 || result < s2) {
+        // Report overflow error and terminate
+        ereport(ERROR,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("requested shared memory size overflows size_t")));
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Clarified the overflow detection logic with inline comments
+- Maintained the essential safety check and error handling
+- Preserved the exact error reporting mechanism

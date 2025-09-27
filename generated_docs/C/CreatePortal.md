@@ -54,3 +54,68 @@ Portal creation involves setting up proper transaction and subtransaction tracki
 - Records creation timestamp and transaction identifiers for debugging and transaction management
 - [Portal](../P/Portal.md) name validation ensures crashes are prevented from NULL pointer access
 - Duplicate handling provides flexible conflict resolution for different usage scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of CreatePortal
+Portal CreatePortal(const char *name, bool allowDup, bool dupSilent) {
+    Portal portal;
+
+    // Validate input parameters
+    Assert(PointerIsValid(name));
+
+    // Check if portal with this name already exists
+    portal = GetPortalByName(name);
+    if (PortalIsValid(portal)) {
+        // Handle duplicate portal based on flags
+        if (!allowDup) {
+            ereport(ERROR, "cursor already exists");
+        }
+        if (!dupSilent) {
+            ereport(WARNING, "closing existing cursor");
+        }
+        PortalDrop(portal, false);
+    }
+
+    // Allocate new portal structure in TopPortalContext
+    portal = (Portal) MemoryContextAllocZero(TopPortalContext, sizeof *portal);
+
+    // Create dedicated memory context for this portal
+    portal->portalContext = AllocSetContextCreate(TopPortalContext,
+                                                  "PortalContext",
+                                                  ALLOCSET_SMALL_SIZES);
+
+    // Create resource owner for cleanup tracking
+    portal->resowner = ResourceOwnerCreate(CurTransactionResourceOwner, "Portal");
+
+    // Initialize portal with default values
+    portal->status = PORTAL_NEW;
+    portal->cleanup = PortalCleanup;
+    portal->createSubid = GetCurrentSubTransactionId();
+    portal->activeSubid = portal->createSubid;
+    portal->createLevel = GetCurrentTransactionNestLevel();
+    portal->strategy = PORTAL_MULTI_QUERY;
+    portal->cursorOptions = CURSOR_OPT_NO_SCROLL;
+    portal->atStart = true;
+    portal->atEnd = true;  // Prevent fetches until query is set
+    portal->visible = true;
+    portal->creation_time = GetCurrentStatementStartTimestamp();
+
+    // Register portal in hash table (sets portal->name)
+    PortalHashTableInsert(portal, name);
+
+    // Set memory context identifier for debugging
+    MemoryContextSetIdentifier(portal->portalContext,
+                              portal->name[0] ? portal->name : "<unnamed>");
+
+    return portal;
+}
+```
+
+Key simplifications made:
+- Simplified error reporting to show essential logic without detailed error codes
+- Consolidated duplicate portal handling logic for clarity
+- Added inline comments explaining each major step
+- Focused on the main execution path and core functionality
+- Preserved all essential initialization steps and their relationships

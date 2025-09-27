@@ -52,3 +52,66 @@ The function operates in an infinite loop, handling pipe creation, client connec
 - Maintains pipe connection lifecycle: connect → read → queue → respond → flush → disconnect
 - Returns 0 on exit (though the function runs in an infinite loop)
 - Critical for PostgreSQL's signal emulation system on Windows platforms
+
+## Simplified Source
+
+```c
+// Simplified version of pg_signal_thread
+static DWORD WINAPI pg_signal_thread(LPVOID param) {
+    char pipename[128];
+    HANDLE pipe = pgwin32_initial_signal_pipe;
+
+    // Set up process-specific pipe name
+    snprintf(pipename, sizeof(pipename), "\\\\.\\pipe\\pgsignal_%lu", GetCurrentProcessId());
+
+    // Main signal listening loop
+    for (;;) {
+        // Create new pipe if needed
+        if (pipe == INVALID_HANDLE_VALUE) {
+            pipe = CreateNamedPipe(pipename, PIPE_ACCESS_DUPLEX,
+                                 PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT,
+                                 PIPE_UNLIMITED_INSTANCES, 16, 16, 1000, NULL);
+
+            if (pipe == INVALID_HANDLE_VALUE) {
+                write_stderr("could not create signal listener pipe: error code %lu; retrying\n", GetLastError());
+                SleepEx(500, FALSE);
+                continue;
+            }
+        }
+
+        // Wait for client connection (handle Windows quirk where ERROR_PIPE_CONNECTED = success)
+        BOOL connected = ConnectNamedPipe(pipe, NULL) ? TRUE : (GetLastError() == ERROR_PIPE_CONNECTED);
+
+        if (connected) {
+            // Read signal number from client
+            BYTE sigNum;
+            DWORD bytes;
+
+            if (ReadFile(pipe, &sigNum, 1, &bytes, NULL) && bytes == 1) {
+                // Queue signal before responding to ensure ordering
+                pg_queue_signal(sigNum);
+
+                // Respond to client to allow their call to complete
+                WriteFile(pipe, &sigNum, 1, &bytes, NULL);
+                FlushFileBuffers(pipe);
+            }
+
+            // Disconnect to reuse pipe
+            DisconnectNamedPipe(pipe);
+        } else {
+            // Connection failed - close and recreate pipe
+            CloseHandle(pipe);
+            pipe = INVALID_HANDLE_VALUE;
+        }
+    }
+    return 0;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for brevity
+- Consolidated variable declarations where appropriate
+- Simplified the connection logic explanation
+- Focused on the main execution flow
+- Retained critical Windows-specific handling and ordering guarantees
+- Preserved the essential signal processing workflow

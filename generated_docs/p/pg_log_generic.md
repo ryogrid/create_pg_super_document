@@ -39,3 +39,28 @@ This function serves as a variadic wrapper around , providing a more convenient 
 - The format string should not end with a newline character as this is handled automatically by the logging system
 - This function is part of the common logging infrastructure shared across multiple PostgreSQL components
 - Performance considerations: the function creates a va_list copy, so for performance-critical code, consider using  directly
+
+## Simplified Source
+
+```c
+// Simplified version of pg_log_generic
+void pg_log_generic(enum pg_log_level level, enum pg_log_part part,
+                    const char *pg_restrict fmt, ...) {
+    va_list ap;
+
+    // Set up variable argument list
+    va_start(ap, fmt);
+
+    // Delegate to the core logging function with va_list
+    pg_log_generic_v(level, part, fmt, ap);
+
+    // Clean up variable argument list
+    va_end(ap);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each step
+- Maintained the essential variadic argument handling logic
+- Preserved the delegation pattern to pg_log_generic_v
+- Kept all core functionality intact while improving readability

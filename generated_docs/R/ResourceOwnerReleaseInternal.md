@@ -51,3 +51,81 @@ The function recursively processes all child resource owners first, then sorts r
 - Handles both commit and abort scenarios with different lock management strategies
 - Includes support for add-on modules through ResourceRelease_callbacks
 - Critical for transaction cleanup and proper resource management in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerReleaseInternal
+static void ResourceOwnerReleaseInternal(ResourceOwner owner,
+                                       ResourceReleasePhase phase,
+                                       bool isCommit,
+                                       bool isTopLevel) {
+    ResourceOwner child;
+    ResourceOwner saved_owner;
+
+    // Recursively release resources for all child owners first
+    for (child = owner->firstchild; child != NULL; child = child->nextchild) {
+        ResourceOwnerReleaseInternal(child, phase, isCommit, isTopLevel);
+    }
+
+    // Initialize release state and sort resources if needed
+    if (!owner->releasing) {
+        owner->releasing = true;
+    }
+    if (!owner->sorted) {
+        ResourceOwnerSort(owner);
+        owner->sorted = true;
+    }
+
+    // Set current owner context for callbacks
+    saved_owner = CurrentResourceOwner;
+    CurrentResourceOwner = owner;
+
+    // Handle different release phases
+    if (phase == RESOURCE_RELEASE_BEFORE_LOCKS) {
+        // Release resources that must be freed before locks
+        ResourceOwnerReleaseAll(owner, phase, isCommit);
+    }
+    else if (phase == RESOURCE_RELEASE_LOCKS) {
+        if (isTopLevel && owner == TopTransactionResourceOwner) {
+            // Release all locks at once for top-level transactions
+            ProcReleaseLocks(isCommit);
+            ReleasePredicateLocks(isCommit, false);
+        }
+        else if (!isTopLevel) {
+            // Handle locks for subtransactions
+            LOCALLOCK **locks = (owner->nlocks > MAX_RESOWNER_LOCKS) ?
+                               NULL : owner->locks;
+            int nlocks = (owner->nlocks > MAX_RESOWNER_LOCKS) ?
+                        0 : owner->nlocks;
+
+            if (isCommit) {
+                LockReassignCurrentOwner(locks, nlocks);
+            } else {
+                LockReleaseCurrentOwner(locks, nlocks);
+            }
+        }
+    }
+    else if (phase == RESOURCE_RELEASE_AFTER_LOCKS) {
+        // Release resources that depend on locks being released
+        ResourceOwnerReleaseAll(owner, phase, isCommit);
+    }
+
+    // Execute registered cleanup callbacks
+    ResourceReleaseCallbackItem *item;
+    for (item = ResourceRelease_callbacks; item; item = item->next) {
+        item->callback(phase, isCommit, isTopLevel, item->arg);
+    }
+
+    // Restore previous owner context
+    CurrentResourceOwner = saved_owner;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about implementation constraints
+- Simplified conditional logic for lock overflow handling
+- Consolidated callback execution into cleaner loop
+- Removed phase validation assertions for clarity
+- Focused on the three-phase resource release pattern
+- Maintained all essential logic for proper resource cleanup ordering

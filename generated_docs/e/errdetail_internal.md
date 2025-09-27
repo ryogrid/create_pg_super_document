@@ -48,3 +48,35 @@ Like other error reporting functions, it operates within PostgreSQL's error hand
 - Part of PostgreSQL's structured error reporting system
 - Helps separate user-facing error information from technical diagnostic details
 - Useful for providing context that aids in debugging without cluttering translated message catalogs
+
+## Simplified Source
+
+```c
+// Simplified version of errdetail_internal
+int errdetail_internal(const char *fmt, ...) {
+    ErrorData *edata = &errordata[errordata_stack_depth];
+    MemoryContext oldcontext;
+
+    // Manage recursion depth for safety
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+
+    // Switch to error data memory context
+    oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Process the message without translation
+    EVALUATE_MESSAGE(edata->domain, detail, false, false);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+
+    return 0;  // Return value is not meaningful
+}
+```
+
+Key simplifications made:
+- Focused on the core operation: process error detail message without translation
+- Preserved essential recursion safety and memory context management
+- Emphasized the difference from errdetail(): no translation (false, false parameters)
+- Maintained the structured error reporting framework integration

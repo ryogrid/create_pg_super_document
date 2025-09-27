@@ -34,3 +34,25 @@ The principal name is stored in the port's GSSAPI structure (port->gss->princ) a
 - The returned string is managed by the GSSAPI structure and should not be freed by the caller
 - This function is part of PostgreSQL's GSSAPI authentication infrastructure
 - Used primarily for logging, monitoring, and authentication verification purposes
+
+## Simplified Source
+
+```c
+// Simplified version of be_gssapi_get_princ
+const char *be_gssapi_get_princ(Port *port) {
+    // Step 1: Validate port and GSSAPI state exist
+    if (!port || !port->gss) {
+        return NULL;
+    }
+
+    // Step 2: Return the GSSAPI principal name
+    return port->gss->princ;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the validation and access logic
+- Maintained the essential null safety checks for port and GSSAPI structure
+- Preserved the straightforward principal name query functionality
+- Kept the const char* return type for safe access to the principal string
+- Maintained consistency with other GSSAPI getter functions

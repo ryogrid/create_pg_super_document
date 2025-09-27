@@ -40,3 +40,38 @@ For oneshot plans, the function only performs cleanup operations that don't invo
 - The magic number is cleared to prevent reuse of the destroyed structure
 - Memory context deletion is skipped for oneshot plans since callers manage that memory
 - The function safely handles concurrent access to plans during destruction
+
+## Simplified Source
+
+```c
+// Simplified version of DropCachedPlan
+void DropCachedPlan(CachedPlanSource *plansource) {
+    // Validate the plan source is legitimate
+    Assert(plansource->magic == CACHEDPLANSOURCE_MAGIC);
+
+    // Remove from global saved plans list if it was saved
+    if (plansource->is_saved) {
+        dlist_delete(&plansource->node);
+        plansource->is_saved = false;
+    }
+
+    // Release any generic plan (decrements refcount, may not destroy immediately)
+    ReleaseGenericPlan(plansource);
+
+    // Mark the plan source as invalid to prevent reuse
+    plansource->magic = 0;
+
+    // Free all memory associated with this plan source
+    // (Skip for oneshot plans - caller manages memory)
+    if (!plansource->is_oneshot) {
+        MemoryContextDelete(plansource->context);
+    }
+}
+```
+
+Key simplifications made:
+- Focused on the main execution flow
+- Added descriptive comments for each major step
+- Preserved the essential safety checks and cleanup operations
+- Maintained the critical oneshot plan handling logic
+- Removed detailed implementation comments for clarity

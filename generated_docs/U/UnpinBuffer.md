@@ -35,3 +35,24 @@ UnpinBuffer is a static function that serves as a wrapper around UnpinBufferNoOw
 - Always adjusts CurrentResourceOwner to maintain proper resource tracking
 - Acts as a resource-aware wrapper around the lower-level UnpinBufferNoOwner function
 - Critical for preventing buffer pin leaks in PostgreSQL's memory management system
+
+## Simplified Source
+
+```c
+// Simplified version of UnpinBuffer
+static void UnpinBuffer(BufferDesc *buf) {
+    // Get the buffer identifier
+    Buffer buffer = BufferDescriptorGetBuffer(buf);
+
+    // Remove buffer from resource owner tracking
+    ResourceOwnerForgetBuffer(CurrentResourceOwner, buffer);
+
+    // Perform the actual unpinning
+    UnpinBufferNoOwner(buf);
+}
+```
+
+Key simplifications made:
+- Simple wrapper function with minimal complexity
+- Core functionality preserved: resource owner management and unpinning
+- Essential resource tracking and cleanup operations maintained

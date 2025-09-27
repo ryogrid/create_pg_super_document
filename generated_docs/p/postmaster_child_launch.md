@@ -50,3 +50,60 @@ The function ensures that child processes are properly isolated from the postmas
 - Memory context is switched to TopMemoryContext before calling the child main function
 - Located in src/backend/postmaster/launch_backend.c:231-282
 - Returns the PID of the newly created child process to the parent (postmaster)
+
+## Simplified Source
+
+```c
+// Simplified version of postmaster_child_launch
+pid_t postmaster_child_launch(BackendType child_type,
+                             char *startup_data, size_t startup_data_len,
+                             ClientSocket *client_sock) {
+    pid_t pid;
+
+    // Verify we're running in the postmaster process
+    Assert(IsPostmasterEnvironment && !IsUnderPostmaster);
+
+#ifdef EXEC_BACKEND
+    // Platform-specific: Use fork+exec approach (Windows, etc.)
+    pid = internal_forkexec(child_process_kinds[child_type].name,
+                           startup_data, startup_data_len, client_sock);
+#else
+    // Standard Unix: Use fork() and setup child process
+    pid = fork_process();
+
+    if (pid == 0) {  // Child process
+        // Step 1: Clean up inherited postmaster resources
+        ClosePostmasterPorts(child_type == B_LOGGER);
+        InitPostmasterChild();
+
+        // Step 2: Detach shared memory if not needed by this child type
+        if (!child_process_kinds[child_type].shmem_attach) {
+            dsm_detach_all();
+            PGSharedMemoryDetach();
+        }
+
+        // Step 3: Setup memory context for child execution
+        MemoryContextSwitchTo(TopMemoryContext);
+
+        // Step 4: Copy client socket info if provided
+        if (client_sock) {
+            MyClientSocket = palloc(sizeof(ClientSocket));
+            memcpy(MyClientSocket, client_sock, sizeof(ClientSocket));
+        }
+
+        // Step 5: Transfer control to appropriate child main function
+        child_process_kinds[child_type].main_fn(startup_data, startup_data_len);
+        // Never returns - child process continues in main_fn
+    }
+#endif
+
+    return pid;  // Parent process returns child PID
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about memory context handling
+- Consolidated child process setup into clear numbered steps
+- Abstracted platform-specific differences with simple comments
+- Focused on the main execution flow and resource management
+- Preserved essential logic while improving readability

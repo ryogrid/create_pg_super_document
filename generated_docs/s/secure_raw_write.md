@@ -40,3 +40,31 @@ Unlike its read counterpart (secure_raw_read), this function does not handle any
 - This function represents the ultimate fallback for all PostgreSQL socket write operations when no encryption layer is active
 - The simplicity of this function reflects the direct nature of raw socket operations compared to the complexity of encrypted communications
 - Platform-specific handling demonstrates PostgreSQL's commitment to consistent behavior across different operating systems
+
+## Simplified Source
+
+```c
+// Simplified version of secure_raw_write
+ssize_t secure_raw_write(Port *port, const void *ptr, size_t len) {
+    // Enable non-blocking mode on Windows for consistent behavior
+    #ifdef WIN32
+    pgwin32_noblock = true;
+    #endif
+
+    // Send data directly through socket
+    ssize_t bytes_sent = send(port->sock, ptr, len, 0);
+
+    // Restore blocking mode on Windows
+    #ifdef WIN32
+    pgwin32_noblock = false;
+    #endif
+
+    return bytes_sent;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each step
+- Used more descriptive variable name (bytes_sent vs n)
+- Preserved platform-specific Windows handling
+- Focused on the core socket transmission functionality

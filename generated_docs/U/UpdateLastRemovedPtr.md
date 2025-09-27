@@ -36,3 +36,28 @@ The function employs proper concurrency control by acquiring a spin lock before 
 - Provides thread-safe access to shared WAL control structures through spin lock protection
 - The updated lastRemovedSegNo value is used by functions like CheckXLogRemoved and XLogGetLastRemovedSegno
 - Critical component in the WAL segment lifecycle management system
+
+## Simplified Source
+
+```c
+// Simplified version of UpdateLastRemovedPtr
+static void UpdateLastRemovedPtr(char *filename) {
+    uint32 tli;
+    XLogSegNo segno;
+
+    // Extract segment number from filename
+    XLogFromFileName(filename, &tli, &segno, wal_segment_size);
+
+    // Thread-safe update of shared memory tracking
+    SpinLockAcquire(&XLogCtl->info_lck);
+    if (segno > XLogCtl->lastRemovedSegNo)
+        XLogCtl->lastRemovedSegNo = segno;
+    SpinLockRelease(&XLogCtl->info_lck);
+}
+```
+
+Key simplifications made:
+- Focused on the core operation: parse filename and update shared memory
+- Preserved essential thread safety with spin lock protection
+- Emphasized the conditional update logic (only update if segment number is higher)
+- Removed complexity while maintaining the essential tracking functionality

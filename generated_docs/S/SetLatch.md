@@ -42,3 +42,58 @@ The function performs a quick exit if the latch is already set to avoid unnecess
 - Race conditions are carefully managed through atomic operations and proper memory barriers
 - Error handling is minimal to maintain safety in critical code paths
 - The function assumes that pid_t is atomic, which may not be strictly guaranteed but works in practice
+
+## Simplified Source
+
+```c
+// Simplified version of SetLatch
+void SetLatch(Latch *latch) {
+    // Ensure memory ordering for any flag variables changed by this process
+    pg_memory_barrier();
+
+    // Quick exit if latch is already set
+    if (latch->is_set)
+        return;
+
+    // Set the latch state
+    latch->is_set = true;
+
+    // Check if anyone is waiting
+    pg_memory_barrier();
+    if (!latch->maybe_sleeping)
+        return;
+
+#ifndef WIN32
+    // Unix/Linux: Wake up waiting processes using signals
+    pid_t owner_pid = latch->owner_pid;
+
+    if (owner_pid == 0) {
+        // No owner, nothing to wake up
+        return;
+    } else if (owner_pid == MyProcPid) {
+        // Wake up ourselves (signal handler case)
+        if (waiting) {
+            // Use self-pipe or SIGURG to wake up current process
+            sendSelfPipeByte_or_kill_self();
+        }
+    } else {
+        // Wake up another process
+        kill(owner_pid, SIGURG);
+    }
+#else
+    // Windows: Wake up waiting processes using events
+    HANDLE handle = latch->event;
+    if (handle) {
+        SetEvent(handle);  // Ignore any errors for safety
+    }
+#endif
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and explanations for clarity
+- Abstracted the self-pipe vs SIGURG choice into a single conceptual operation
+- Consolidated the signal handling logic into clearer branches
+- Focused on the main execution flow
+- Simplified error handling strategy to just "ignore errors for safety"
+- Removed detailed race condition explanations while preserving the essential logic

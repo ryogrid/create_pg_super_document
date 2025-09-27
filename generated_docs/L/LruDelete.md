@@ -51,3 +51,44 @@ The error logging behavior differs based on the file type: temporary files (FD_T
 - Decrements global nfile counter to track open file descriptor count
 - Combines file descriptor closure with LRU chain removal in single operation
 - Used when VFDs need to be completely removed from the cache, not just reordered
+
+## Simplified Source
+
+```c
+// Simplified version of LruDelete
+static void LruDelete(File file) {
+    // Validate the file descriptor
+    Assert(file != 0);
+
+    // Debug logging (if enabled)
+    DO_DB(elog(LOG, "LruDelete %d (%s)", file, VfdCache[file].fileName));
+
+    // Get the VFD entry
+    Vfd *vfdP = &VfdCache[file];
+
+    // Close the underlying file descriptor
+    // If close fails, log error but continue cleanup to maintain consistency
+    if (close(vfdP->fd) != 0) {
+        // Use different log levels for temp files vs regular files
+        int log_level = (vfdP->fdstate & FD_TEMP_FILE_LIMIT) ? LOG : data_sync_elevel(LOG);
+        elog(log_level, "could not close file \"%s\": %m", vfdP->fileName);
+    }
+
+    // Mark the VFD as closed
+    vfdP->fd = VFD_CLOSED;
+
+    // Decrement the global count of open file descriptors
+    --nfile;
+
+    // Remove the VFD from the LRU chain
+    Delete(file);
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining each major step
+- Clarified the error handling philosophy (continue cleanup even on close failure)
+- Explained the different logging levels for temporary vs regular files
+- Made the VFD cleanup sequence more explicit
+- Preserved all original logic while improving readability
+- Highlighted the difference between LruDelete and simple Delete operation

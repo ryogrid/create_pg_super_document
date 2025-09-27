@@ -37,3 +37,19 @@ The  function initializes a doubly-linked list by setting up the head node to po
 - The circular reference design (head pointing to itself when empty) is a key feature that simplifies many list operations
 - Commonly used in PostgreSQL's memory management, transaction processing, and storage subsystems
 - Located in src/include/lib/ilist.h:314-324
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_init
+static inline void dlist_init(dlist_head *head) {
+    // Initialize empty doubly-linked list by making head point to itself
+    head->head.next = &head->head;
+    head->head.prev = &head->head;
+}
+```
+
+Key simplifications made:
+- Separated the circular reference assignments for clarity
+- Added explanatory comment about the circular reference pattern
+- Maintained the essential initialization logic

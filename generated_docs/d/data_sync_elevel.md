@@ -43,3 +43,20 @@ When `data_sync_retry` is enabled (for systems known not to drop dirty data on w
 - The PANIC ensures no further checkpoints are attempted after fsync failure
 - Systems with reliable write-back behavior can potentially enable data_sync_retry
 - Part of PostgreSQL's comprehensive approach to preventing silent data corruption
+
+## Simplified Source
+
+```c
+// Simplified version of data_sync_elevel
+int data_sync_elevel(int elevel) {
+    // Return PANIC if data_sync_retry is disabled, otherwise return original error level
+    // PANIC prevents further operations after fsync failure to protect data integrity
+    return data_sync_retry ? elevel : PANIC;
+}
+```
+
+Key simplifications made:
+- Removed the extensive comment block (preserved in documentation above)
+- Added concise inline comment explaining the core logic
+- Preserved the critical conditional logic for data safety
+- Function is already very simple, minimal changes needed

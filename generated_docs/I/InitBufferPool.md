@@ -51,3 +51,77 @@ This function takes no parameters.
 - The free list linking (freeNext) is later managed by freelist.c
 - Memory allocation failures during initialization are fatal to the system
 - The checkpoint buffer IDs array is pre-allocated to avoid memory allocation during checkpoints when the system is under stress
+
+## Simplified Source
+
+```c
+// Simplified version of InitBufferPool
+void InitBufferPool(void) {
+    bool foundDescs, foundBufs, foundIOCV, foundBufCkpt;
+
+    // Step 1: Allocate buffer descriptors aligned to cacheline boundaries
+    BufferDescriptors = (BufferDescPadded *)
+        ShmemInitStruct("Buffer Descriptors",
+                        NBuffers * sizeof(BufferDescPadded),
+                        &foundDescs);
+
+    // Step 2: Allocate buffer blocks aligned to IO page boundaries
+    BufferBlocks = (char *)
+        TYPEALIGN(PG_IO_ALIGN_SIZE,
+                  ShmemInitStruct("Buffer Blocks",
+                                  NBuffers * BLCKSZ + PG_IO_ALIGN_SIZE,
+                                  &foundBufs));
+
+    // Step 3: Allocate condition variables for IO synchronization
+    BufferIOCVArray = (ConditionVariableMinimallyPadded *)
+        ShmemInitStruct("Buffer IO Condition Variables",
+                        NBuffers * sizeof(ConditionVariableMinimallyPadded),
+                        &foundIOCV);
+
+    // Step 4: Allocate checkpoint buffer IDs array
+    CkptBufferIds = (CkptSortItem *)
+        ShmemInitStruct("Checkpoint BufferIds",
+                        NBuffers * sizeof(CkptSortItem),
+                        &foundBufCkpt);
+
+    // Step 5: Handle fresh initialization vs reattachment
+    if (foundDescs || foundBufs || foundIOCV || foundBufCkpt) {
+        // Reattaching to existing shared memory (EXEC_BACKEND case)
+        Assert(foundDescs && foundBufs && foundIOCV && foundBufCkpt);
+    } else {
+        // Fresh initialization - set up all buffer descriptors
+        for (int i = 0; i < NBuffers; i++) {
+            BufferDesc *buf = GetBufferDescriptor(i);
+
+            // Initialize buffer metadata
+            ClearBufferTag(&buf->tag);
+            pg_atomic_init_u32(&buf->state, 0);
+            buf->wait_backend_pgprocno = INVALID_PROC_NUMBER;
+            buf->buf_id = i;
+
+            // Link buffers into free list
+            buf->freeNext = i + 1;
+
+            // Initialize synchronization primitives
+            LWLockInitialize(BufferDescriptorGetContentLock(buf),
+                           LWTRANCHE_BUFFER_CONTENT);
+            ConditionVariableInit(BufferDescriptorGetIOCV(buf));
+        }
+
+        // Mark end of free list
+        GetBufferDescriptor(NBuffers - 1)->freeNext = FREENEXT_END_OF_LIST;
+    }
+
+    // Step 6: Initialize buffer management subsystems
+    StrategyInitialize(!foundDescs);
+    WritebackContextInit(&BackendWritebackContext, &backend_flush_after);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about data structures and synchronization (preserved in header)
+- Consolidated variable declarations at the top
+- Added step-by-step comments for main phases
+- Simplified the conditional logic explanation
+- Focused on the core initialization sequence
+- Maintained all essential functionality and error checking

@@ -43,3 +43,46 @@ The function distinguishes between different archive modes - for non-ALWAYS mode
 - Handles different archive modes appropriately for streaming replication scenarios
 - Includes assertions to validate segment boundary conditions
 - Located in src/backend/replication/walreceiver.c:1048-1099
+
+## Simplified Source
+
+```c
+// Simplified version of XLogWalRcvClose
+static void XLogWalRcvClose(XLogRecPtr recptr, TimeLineID tli) {
+    char xlogfname[MAXFNAMELEN];
+
+    // Validate we're at segment boundary and timeline is valid
+    Assert(recvFile >= 0 && !XLByteInSeg(recptr, recvSegNo, wal_segment_size));
+    Assert(tli != 0);
+
+    // Flush and sync data to disk before closing
+    XLogWalRcvFlush(false, tli);
+
+    // Generate filename for the completed segment
+    XLogFileName(xlogfname, recvFileTLI, recvSegNo, wal_segment_size);
+
+    // Close the file descriptor (PANIC on failure since this is critical)
+    if (close(recvFile) != 0) {
+        ereport(PANIC, (errmsg("could not close WAL segment %s: %m", xlogfname)));
+    }
+
+    // Set up archive notification based on archive mode
+    if (XLogArchiveMode != ARCHIVE_MODE_ALWAYS) {
+        // Force .done to prevent re-archival for streaming replication
+        XLogArchiveForceDone(xlogfname);
+    } else {
+        // Normal archive notification (.ready file)
+        XLogArchiveNotify(xlogfname);
+    }
+
+    // Reset file descriptor to indicate no file is open
+    recvFile = -1;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Preserved critical error handling with PANIC for file close failures
+- Maintained the essential flush-before-close pattern for data safety
+- Kept the archive mode logic for proper WAL archival workflow
+- Simplified assertions while preserving validation logic

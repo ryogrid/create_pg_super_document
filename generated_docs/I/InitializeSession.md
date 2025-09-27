@@ -32,3 +32,18 @@ This function takes no parameters.
 - This function only creates the basic Session structure; actual DSM segments and shared areas are created later by GetSessionDsmHandle() when needed
 - The Session infrastructure is primarily used for parallel query execution to share state like typemod registries between leader and worker processes
 - Must be called before any other session-related operations that depend on CurrentSession being non-NULL
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeSession
+void InitializeSession(void) {
+    // Allocate and zero-initialize a new Session object in permanent memory
+    CurrentSession = MemoryContextAllocZero(TopMemoryContext, sizeof(Session));
+}
+```
+
+Key simplifications made:
+- Added descriptive comment explaining the allocation and initialization
+- This function is already very simple, so minimal changes were needed
+- Preserved the essential operation of creating a zero-initialized Session object

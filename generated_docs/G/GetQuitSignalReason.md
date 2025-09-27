@@ -35,3 +35,27 @@ This function allows child processes to determine why they are being terminated 
 - Used by signal handlers to determine appropriate shutdown behavior
 - Located in src/backend/storage/ipc/pmsignal.c:229-246
 - Complements SetQuitSignalReason in the postmaster signaling mechanism
+
+## Simplified Source
+
+```c
+// Simplified version of GetQuitSignalReason
+QuitSignalReason
+GetQuitSignalReason(void)
+{
+    // Signal-safe paranoid checks
+    // Verify we're running under postmaster and shared memory is valid
+    if (!IsUnderPostmaster || PMSignalState == NULL)
+        return PMQUIT_NOT_SENT;
+
+    // Return the shutdown reason from shared memory
+    return PMSignalState->sigquit_reason;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the safety checks
+- Grouped the validation conditions with descriptive comments
+- Preserved essential logic: validate context and return shutdown reason
+- Maintained the signal-safe paranoid checking which is critical for signal handlers
+- Clear separation of validation and data retrieval phases

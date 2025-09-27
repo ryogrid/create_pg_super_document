@@ -41,3 +41,24 @@ This function is part of PostgreSQL's authentication configuration file processi
 - The depth parameter is crucial for proper memory management - the tokenization context is only deleted when depth equals CONF_FILE_START_DEPTH, indicating the completion of the entire configuration file processing
 - This function works in conjunction with open_auth_file() to provide proper resource management for authentication configuration file processing
 - The tokenize_context is a global memory context used during the tokenization process of authentication files
+
+## Simplified Source
+
+```c
+// Simplified version of free_auth_file
+void free_auth_file(FILE *file, int depth) {
+    // Step 1: Close the file handle
+    FreeFile(file);
+
+    // Step 2: Clean up tokenization context if at top level
+    if (depth == CONF_FILE_START_DEPTH) {
+        MemoryContextDelete(tokenize_context);
+        tokenize_context = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the two main operations
+- Preserved the exact logic flow as the original is already quite simple
+- Focused on the core functionality: file cleanup and conditional memory context cleanup

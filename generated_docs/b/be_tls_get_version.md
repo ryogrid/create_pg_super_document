@@ -34,3 +34,22 @@ This information is valuable for security monitoring, compliance checking, and d
 - This function is part of PostgreSQL's TLS abstraction layer for OpenSSL
 - Used for security auditing and connection monitoring
 - Located in src/backend/libpq/be-secure-openssl.c:1498-1506
+
+## Simplified Source
+
+```c
+// Simplified version of be_tls_get_version
+const char *be_tls_get_version(Port *port) {
+    // Return TLS version if connection exists
+    if (port->ssl) {
+        return SSL_get_version(port->ssl);
+    }
+
+    // Return NULL if no TLS connection
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Function is already very simple - only added explanatory comments
+- Core logic: Check if SSL connection exists, return version string or NULL

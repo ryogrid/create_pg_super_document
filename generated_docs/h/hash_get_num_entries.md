@@ -40,3 +40,29 @@ The function is designed to be called when the caller has appropriate locks on t
 - Widely used throughout PostgreSQL for statistics, monitoring, and space estimation
 - The function assumes the caller has established proper synchronization if exact counts are required
 - Used extensively in system administration and monitoring functions
+
+## Simplified Source
+
+```c
+// Simplified version of hash_get_num_entries
+long hash_get_num_entries(HTAB *hashp) {
+    // Start with entries from the first freelist
+    long total_entries = hashp->hctl->freeList[0].nentries;
+
+    // If table is partitioned, sum entries from all partitions
+    if (IS_PARTITIONED(hashp->hctl)) {
+        for (int i = 1; i < NUM_FREELISTS; i++) {
+            total_entries += hashp->hctl->freeList[i].nentries;
+        }
+    }
+
+    return total_entries;
+}
+```
+
+Key simplifications made:
+- Removed detailed comment about mutex handling for clarity
+- Used more descriptive variable name (total_entries instead of sum)
+- Added inline comments explaining the core logic steps
+- Consolidated variable declaration with initialization
+- Focused on the main algorithm: sum entries from all relevant freelists

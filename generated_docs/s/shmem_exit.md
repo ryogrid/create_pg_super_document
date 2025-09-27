@@ -37,3 +37,41 @@ shmem_exit implements a three-phase shared memory cleanup strategy during proces
 - Callbacks are removed from lists before execution to prevent infinite loops on errors
 - Sets shmem_exit_inprogress flag during execution to track cleanup state
 - All callback arrays are reset to index 0 after execution
+
+## Simplified Source
+
+```c
+// Simplified version of shmem_exit
+void shmem_exit(int code) {
+    // Mark shared memory exit in progress
+    shmem_exit_inprogress = true;
+
+    // Phase 1: Run before_shmem_exit callbacks (high-level cleanup)
+    // These need most system functionality still available
+    while (--before_shmem_exit_index >= 0) {
+        before_shmem_exit_list[before_shmem_exit_index].function(code,
+            before_shmem_exit_list[before_shmem_exit_index].arg);
+    }
+    before_shmem_exit_index = 0;
+
+    // Phase 2: Clean up dynamic shared memory
+    dsm_backend_shutdown();
+
+    // Phase 3: Run on_shmem_exit callbacks (low-level cleanup)
+    // These handle low-level shared memory resource release
+    while (--on_shmem_exit_index >= 0) {
+        on_shmem_exit_list[on_shmem_exit_index].function(code,
+            on_shmem_exit_list[on_shmem_exit_index].arg);
+    }
+    on_shmem_exit_index = 0;
+
+    // Clear the in-progress flag
+    shmem_exit_inprogress = false;
+}
+```
+
+Key simplifications made:
+- Removed detailed debug logging for clarity
+- Consolidated comment blocks to highlight the three-phase approach
+- Focused on the main execution flow
+- Abstracted callback execution details while preserving the core logic

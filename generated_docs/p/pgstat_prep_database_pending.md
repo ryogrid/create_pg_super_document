@@ -35,3 +35,27 @@ This function serves as a helper routine in PostgreSQL's statistics system to ob
 - This function is part of PostgreSQL's lazy statistics reporting system where statistics are accumulated locally before being sent to the collector
 - The returned PgStat_StatDBEntry pointer can be used to update various database-level counters and metrics
 - This function is widely used throughout the database statistics reporting subsystem for various events like deadlocks, recovery conflicts, and connection events
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_prep_database_pending
+PgStat_StatDBEntry *pgstat_prep_database_pending(Oid dboid) {
+    // Ensure we don't report stats before connecting to a database
+    Assert(!OidIsValid(dboid) || OidIsValid(MyDatabaseId));
+
+    // Get or create a pending statistics entry for the database
+    PgStat_EntryRef *entry_ref = pgstat_prep_pending_entry(PGSTAT_KIND_DATABASE, dboid,
+                                                           InvalidOid, NULL);
+
+    // Return the pending statistics structure
+    return entry_ref->pending;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the assertion check
+- Highlighted the purpose of getting pending statistics entry
+- Consolidated the entry reference retrieval and return
+- Maintained the essential database statistics preparation logic
+- Focused on the core functionality of preparing database-level statistics

@@ -38,3 +38,34 @@ This function takes no parameters and returns the previous stack base reference 
 - The HAVE__BUILTIN_FRAME_ADDRESS macro determines which implementation path is used
 - This is part of PostgreSQL's defensive programming approach to prevent stack overflow crashes
 - The stack base pointer is stored in the global variable stack_base_ptr for use by other stack depth checking functions
+
+## Simplified Source
+
+```c
+// Simplified version of set_stack_base
+pg_stack_base_t set_stack_base(void) {
+    char stack_base;  // Local variable for stack reference
+    pg_stack_base_t old;
+
+    // Save the current stack base pointer
+    old = stack_base_ptr;
+
+    // Set new stack base reference point
+    // Uses compiler builtin if available, otherwise local variable address
+    #ifdef HAVE__BUILTIN_FRAME_ADDRESS
+        stack_base_ptr = __builtin_frame_address(0);
+    #else
+        stack_base_ptr = &stack_base;
+    #endif
+
+    // Return previous reference point for restoration
+    return old;
+}
+```
+
+Key simplifications made:
+- Consolidated conditional compilation logic for clarity
+- Added descriptive comments for each major step
+- Removed detailed technical comments about gcc warnings
+- Focused on the core functionality: save old, set new, return old
+- Maintained the essential platform-specific implementation choices

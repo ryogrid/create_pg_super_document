@@ -47,3 +47,41 @@ This function takes no parameters.
 - Temporary file access is initialized after pgstat to enable proper statistics reporting for temporary files
 - Replication slots are initialized after pgstat to allow ephemeral slot cleanup to trigger stats reporting
 - This function is essential for both regular backend processes and auxiliary processes, making it a cornerstone of PostgreSQL's process initialization architecture
+
+## Simplified Source
+
+```c
+// Simplified version of BaseInit
+void BaseInit(void) {
+    // Ensure process structure is initialized
+    Assert(MyProc != NULL);
+
+    // Step 1: Initialize file I/O capabilities
+    DebugFileOpen();
+    InitFileAccess();
+
+    // Step 2: Set up statistics reporting early for proper shutdown order
+    pgstat_initialize();
+
+    // Step 3: Initialize storage and buffer management
+    InitSync();
+    smgrinit();
+    InitBufferPoolAccess();
+
+    // Step 4: Initialize temporary file access after stats
+    InitTemporaryFileAccess();
+
+    // Step 5: Set up WAL record construction capabilities
+    InitXLogInsert();
+
+    // Step 6: Initialize replication slots after stats for proper cleanup
+    ReplicationSlotInitialize();
+}
+```
+
+Key simplifications made:
+- Removed detailed comment blocks for clarity
+- Consolidated initialization steps into logical groups
+- Added step-by-step comments explaining the initialization sequence
+- Preserved the critical assertion and initialization order
+- Focused on the main execution path without auxiliary details

@@ -37,3 +37,32 @@ For Unix domain sockets (AF_UNIX), it manually frees each node in the linked lis
 - Safe to call with NULL ai pointer (checked before calling system freeaddrinfo)
 - Manual memory management for Unix sockets reflects custom allocation in getaddrinfo_unix()
 - Located in src/common/ip.c:82-113, available to both frontend and backend code
+
+## Simplified Source
+
+```c
+// Simplified version of pg_freeaddrinfo_all
+void pg_freeaddrinfo_all(int hint_ai_family, struct addrinfo *ai) {
+    if (hint_ai_family == AF_UNIX) {
+        // Manual cleanup for Unix sockets (custom allocation)
+        while (ai != NULL) {
+            struct addrinfo *current = ai;
+            ai = ai->ai_next;           // Move to next before freeing
+            free(current->ai_addr);     // Free the socket address
+            free(current);              // Free the addrinfo node
+        }
+    } else {
+        // Standard cleanup for network sockets (system allocation)
+        if (ai != NULL) {
+            freeaddrinfo(ai);          // System handles the cleanup
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated comments for better readability
+- Used more descriptive variable name (`current` instead of `p`)
+- Emphasized the two distinct cleanup paths
+- Removed detailed block comments in favor of inline explanations
+- Maintained the essential algorithm and safety checks

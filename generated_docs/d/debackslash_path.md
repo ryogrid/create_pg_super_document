@@ -35,3 +35,35 @@ The function is designed to normalize Windows-style path separators to Unix-styl
 - Special handling for Shift-JIS is necessary because this encoding can contain bytes equal to 0x5C (backslash) as part of valid multi-byte characters
 - For non-SJIS encodings, the function assumes that 0x5C bytes can only represent actual backslash characters
 - This function is part of PostgreSQL's path manipulation utilities for cross-platform compatibility
+
+## Simplified Source
+
+```c
+// Simplified version of debackslash_path
+static void debackslash_path(char *path, int encoding) {
+    char *p;
+
+    // Special case for Shift-JIS encoding (has multibyte chars with backslash bytes)
+    if (encoding == PG_SJIS) {
+        // Use proper multibyte character length calculation
+        for (p = path; *p; p += pg_sjis_mblen((const unsigned char *) p)) {
+            if (*p == '\\') {
+                *p = '/';  // Convert backslash to forward slash
+            }
+        }
+    } else {
+        // For all other encodings, simple byte-by-byte conversion
+        for (p = path; *p; p++) {
+            if (*p == '\\') {
+                *p = '/';  // Convert backslash to forward slash
+            }
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the encoding-aware conversion
+- Preserved the essential Shift-JIS special handling
+- Maintained the simple character replacement logic
+- Kept the important multibyte character safety for SJIS

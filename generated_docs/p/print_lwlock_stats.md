@@ -47,3 +47,44 @@ The function acquires an exclusive lock on the first element of MainLWLockArray 
 - Statistics include: shared acquisitions, exclusive acquisitions, blocks, spin delays, and self-dequeue counts
 - Only compiled and functional when LWLOCK_STATS debugging is enabled
 - Output goes to stderr to separate it from normal application output
+
+## Simplified Source
+
+```c
+// Simplified version of print_lwlock_stats
+static void print_lwlock_stats(int code, Datum arg) {
+    HASH_SEQ_STATUS scan;
+    lwlock_stats *lock_stats;
+
+    // Initialize hash table scan to iterate through all lock statistics
+    hash_seq_init(&scan, lwlock_stats_htab);
+
+    // Acquire exclusive lock to prevent multiple backends from mixing output
+    LWLockAcquire(&MainLWLockArray[0].lock, LW_EXCLUSIVE);
+
+    // Iterate through all collected lock statistics
+    while ((lock_stats = (lwlock_stats *) hash_seq_search(&scan)) != NULL) {
+        // Print detailed statistics for this lock
+        fprintf(stderr,
+                "PID %d lwlock %s %p: shacq %u exacq %u blk %u spindelay %u dequeue self %u\n",
+                MyProcPid,
+                GetLWTrancheName(lock_stats->key.tranche),
+                lock_stats->key.instance,
+                lock_stats->sh_acquire_count,
+                lock_stats->ex_acquire_count,
+                lock_stats->block_count,
+                lock_stats->spin_delay_count,
+                lock_stats->dequeue_self_count);
+    }
+
+    // Release the synchronization lock
+    LWLockRelease(&MainLWLockArray[0].lock);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Used more descriptive variable name (lock_stats vs lwstats)
+- Formatted the fprintf call for better readability
+- Preserved essential locking mechanism for output synchronization
+- Maintained all statistical reporting functionality

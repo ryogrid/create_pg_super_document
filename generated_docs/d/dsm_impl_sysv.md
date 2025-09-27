@@ -49,3 +49,120 @@ Key features:
 - For shmget() with existing segments, must pass size as 0 to avoid EINVAL errors
 - Comprehensive cleanup on failure paths including removal of newly created segments
 - Identifier caching in impl_private improves performance for repeated operations on same segment
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_impl_sysv
+static bool dsm_impl_sysv(dsm_op op, dsm_handle handle, Size request_size,
+                         void **impl_private, void **mapped_address, Size *mapped_size,
+                         int elevel) {
+    key_t key;
+    int ident;
+    char *address;
+    char name[64];
+    int *ident_cache;
+
+    // Generate name for error messages
+    snprintf(name, 64, "%u", handle);
+
+    // Convert handle to System V key
+    key = (key_t) handle;
+    if (key < 1) {
+        key = -key;  // Ensure positive key
+    }
+
+    // Special handling for IPC_PRIVATE key
+    if (key == IPC_PRIVATE) {
+        if (op != DSM_OP_CREATE) {
+            elog(DEBUG4, "System V shared memory key may not be IPC_PRIVATE");
+        }
+        errno = EEXIST;
+        return false;
+    }
+
+    // Get or use cached shared memory identifier
+    if (*impl_private != NULL) {
+        ident_cache = *impl_private;
+        ident = *ident_cache;
+    } else {
+        int flags = IPCProtection;
+        size_t segsize = 0;
+
+        // Allocate cache for identifier
+        ident_cache = MemoryContextAlloc(TopMemoryContext, sizeof(int));
+
+        if (op == DSM_OP_CREATE) {
+            flags |= IPC_CREAT | IPC_EXCL;
+            segsize = request_size;
+        }
+
+        if ((ident = shmget(key, segsize, flags)) == -1) {
+            if (op == DSM_OP_ATTACH || errno != EEXIST) {
+                pfree(ident_cache);
+                ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                               errmsg("could not get shared memory segment: %m")));
+            }
+            return false;
+        }
+
+        *ident_cache = ident;
+        *impl_private = ident_cache;
+    }
+
+    // Handle teardown cases (detach/destroy)
+    if (op == DSM_OP_DETACH || op == DSM_OP_DESTROY) {
+        pfree(ident_cache);
+        *impl_private = NULL;
+
+        if (*mapped_address != NULL && shmdt(*mapped_address) != 0) {
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not unmap shared memory segment \"%s\": %m", name)));
+            return false;
+        }
+        *mapped_address = NULL;
+        *mapped_size = 0;
+
+        if (op == DSM_OP_DESTROY && shmctl(ident, IPC_RMID, NULL) < 0) {
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not remove shared memory segment \"%s\": %m", name)));
+            return false;
+        }
+        return true;
+    }
+
+    // Determine size for attach operation
+    if (op == DSM_OP_ATTACH) {
+        struct shmid_ds shm;
+        if (shmctl(ident, IPC_STAT, &shm) != 0) {
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not stat shared memory segment \"%s\": %m", name)));
+            return false;
+        }
+        request_size = shm.shm_segsz;
+    }
+
+    // Attach the shared memory segment
+    address = shmat(ident, NULL, PG_SHMAT_FLAGS);
+    if (address == (void *) -1) {
+        if (op == DSM_OP_CREATE) {
+            shmctl(ident, IPC_RMID, NULL);
+        }
+        ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                       errmsg("could not map shared memory segment \"%s\": %m", name)));
+        return false;
+    }
+
+    *mapped_address = address;
+    *mapped_size = request_size;
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about key_t handling for clarity
+- Consolidated error handling paths
+- Removed some errno saving/restoration
+- Focused on the main logic flow: key handling, identifier caching, and System V operations
+- Maintained essential error reporting and resource cleanup

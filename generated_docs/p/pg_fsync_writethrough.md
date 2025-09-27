@@ -35,3 +35,31 @@ The pg_fsync_writethrough function provides write-through filesystem synchroniza
 - Part of PostgreSQL's abstraction layer for different fsync behaviors
 - More aggressive than regular fsync as it bypasses OS-level write caching
 - Used primarily for critical data integrity operations like WAL synchronization
+
+## Simplified Source
+
+```c
+// Simplified version of pg_fsync_writethrough
+int pg_fsync_writethrough(int fd) {
+    // Check if fsync operations are enabled globally
+    if (enableFsync) {
+        // On macOS and similar platforms: use full fsync that bypasses OS cache
+        #if defined(F_FULLFSYNC)
+            return (fcntl(fd, F_FULLFSYNC, 0) == -1) ? -1 : 0;
+        #else
+            // Platform doesn't support write-through fsync
+            errno = ENOSYS;
+            return -1;
+        #endif
+    }
+
+    // Fsync disabled - return success without doing anything
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical section
+- Clarified the conditional compilation logic
+- Explained the purpose of each return path
+- Maintained the exact same logic flow and error handling

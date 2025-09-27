@@ -38,3 +38,25 @@ XLogFileName constructs a WAL segment file name in the standard PostgreSQL forma
 - The generated filename follows the format: TTTTTTTTFFFFFFFFSSSSSSSS where T=timeline, F=file, S=segment
 - Should not be used in helper functions that allocate the result due to its inline nature
 - Critical for WAL file management across PostgreSQL's transaction logging system
+
+## Simplified Source
+
+```c
+// Simplified version of XLogFileName
+static inline void XLogFileName(char *fname, TimeLineID tli, XLogSegNo logSegNo, int wal_segsz_bytes) {
+    // Calculate file number: divide logical segment by segments per XLogId
+    uint32 file_number = logSegNo / XLogSegmentsPerXLogId(wal_segsz_bytes);
+
+    // Calculate segment number: remainder of division
+    uint32 segment_number = logSegNo % XLogSegmentsPerXLogId(wal_segsz_bytes);
+
+    // Format filename as: TimelineID + FileNumber + SegmentNumber (all in hex)
+    snprintf(fname, MAXFNAMELEN, "%08X%08X%08X", tli, file_number, segment_number);
+}
+```
+
+Key simplifications made:
+- Extracted intermediate calculations into descriptive variables
+- Added clear comments explaining each step of the filename generation
+- Preserved the core logic and algorithm intact
+- Maintained the inline function characteristics

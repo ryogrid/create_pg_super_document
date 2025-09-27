@@ -35,3 +35,29 @@ This function configures PostgreSQL's file and directory creation permissions by
 - This is a security-critical function that determines file access controls for the entire PostgreSQL data directory
 - The group permissions feature allows multiple users in the same group to access PostgreSQL data files, useful for certain deployment scenarios
 - On Windows platforms, Unix-style permissions may not be fully supported, but the function is still called for consistency
+
+## Simplified Source
+
+```c
+// Simplified version of SetDataDirectoryCreatePerm
+void SetDataDirectoryCreatePerm(int dataDirMode) {
+    // Check if data directory allows group access
+    if ((PG_DIR_MODE_GROUP & dataDirMode) == PG_DIR_MODE_GROUP) {
+        // Enable group permissions for new files and directories
+        pg_dir_create_mode = PG_DIR_MODE_GROUP;
+        pg_file_create_mode = PG_FILE_MODE_GROUP;
+        pg_mode_mask = PG_MODE_MASK_GROUP;
+    } else {
+        // Use restrictive owner-only permissions
+        pg_dir_create_mode = PG_DIR_MODE_OWNER;
+        pg_file_create_mode = PG_FILE_MODE_OWNER;
+        pg_mode_mask = PG_MODE_MASK_OWNER;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core logic
+- Preserved the essential conditional logic structure
+- Maintained all critical permission assignments
+- Focused on the main execution path without removing any functionality

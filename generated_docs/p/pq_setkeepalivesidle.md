@@ -42,3 +42,66 @@ This function configures the TCP keepalive idle time for a port connection. The 
 - Returns STATUS_ERROR on unsupported platforms when idle != 0
 - Handles default value retrieval and validation logic
 - Short-circuits if requested value matches current setting
+
+## Simplified Source
+
+```c
+// Simplified version of pq_setkeepalivesidle
+int pq_setkeepalivesidle(int idle, Port *port) {
+    // Skip Unix domain sockets - they don't need keepalive
+    if (port == NULL || port->laddr.addr.ss_family == AF_UNIX)
+        return STATUS_OK;
+
+#if defined(PG_TCP_KEEPALIVE_IDLE) || defined(SIO_KEEPALIVE_VALS)
+    // Skip if value is already set
+    if (idle == port->keepalives_idle)
+        return STATUS_OK;
+
+#ifndef WIN32
+    // Unix/Linux implementation
+
+    // Get system default if not already known
+    if (port->default_keepalives_idle <= 0) {
+        if (pq_getkeepalivesidle(port) < 0) {
+            // Handle case where default is unknown
+            return (idle == 0) ? STATUS_OK : STATUS_ERROR;
+        }
+    }
+
+    // Use system default if idle is 0
+    if (idle == 0)
+        idle = port->default_keepalives_idle;
+
+    // Set the keepalive idle time via socket option
+    if (setsockopt(port->sock, IPPROTO_TCP, PG_TCP_KEEPALIVE_IDLE,
+                   (char *) &idle, sizeof(idle)) < 0) {
+        ereport(LOG, (errmsg("setsockopt(%s) failed: %m", PG_TCP_KEEPALIVE_IDLE_STR)));
+        return STATUS_ERROR;
+    }
+
+    // Cache the successfully set value
+    port->keepalives_idle = idle;
+
+#else
+    // Windows implementation - delegate to specialized function
+    return pq_setkeepaliveswin32(port, idle, port->keepalives_interval);
+#endif
+
+#else
+    // Platform doesn't support keepalive configuration
+    if (idle != 0) {
+        ereport(LOG, (errmsg("setting the keepalive idle time is not supported")));
+        return STATUS_ERROR;
+    }
+#endif
+
+    return STATUS_OK;
+}
+```
+
+Key simplifications made:
+- Consolidated platform-specific conditional compilation blocks with clear comments
+- Simplified error handling logic for unknown defaults
+- Added descriptive comments for each major logic section
+- Streamlined the flow while preserving all essential functionality
+- Maintained the core algorithm: validation → default handling → system call → caching

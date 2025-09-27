@@ -36,3 +36,24 @@ The function is specifically designed for MultiXact member pages, which store th
 - It ensures that the entire range of page1 precedes the entire range of page2
 - Used in MultiXact cleanup and truncation logic to determine which pages can be safely removed
 - The comparison logic accounts for the wrap-around nature of MultiXact offsets
+
+## Simplified Source
+
+```c
+// Simplified version of MultiXactMemberPagePrecedes
+static bool MultiXactMemberPagePrecedes(int64 page1, int64 page2) {
+    // Convert page numbers to their starting offset ranges
+    MultiXactOffset offset1 = ((MultiXactOffset) page1) * MULTIXACT_MEMBERS_PER_PAGE;
+    MultiXactOffset offset2 = ((MultiXactOffset) page2) * MULTIXACT_MEMBERS_PER_PAGE;
+
+    // Check if page1's range entirely precedes page2's range
+    return (MultiXactOffsetPrecedes(offset1, offset2) &&
+            MultiXactOffsetPrecedes(offset1, offset2 + MULTIXACT_MEMBERS_PER_PAGE - 1));
+}
+```
+
+Key simplifications made:
+- Added comments explaining the offset conversion logic
+- Clarified the range-based comparison approach
+- Preserved the essential dual precedence check
+- Maintained the original logic for wrap-around handling

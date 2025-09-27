@@ -31,3 +31,29 @@ This function returns the time when the last WAL (Write-Ahead Log) segment switc
 - Accesses global XLogCtl structure fields: lastSegSwitchTime and lastSegSwitchLSN
 - Returns pg_time_t timestamp of the last segment switch
 - Used primarily in checkpoint and archiving operations for timing decisions
+
+## Simplified Source
+
+```c
+// Simplified version of GetLastSegSwitchData
+pg_time_t GetLastSegSwitchData(XLogRecPtr *lastSwitchLSN) {
+    pg_time_t result;
+
+    // Step 1: Acquire shared lock for reading WAL control data
+    LWLockAcquire(WALWriteLock, LW_SHARED);
+
+    // Step 2: Read timing data from global WAL control structure
+    result = XLogCtl->lastSegSwitchTime;
+    *lastSwitchLSN = XLogCtl->lastSegSwitchLSN;
+
+    // Step 3: Release lock and return timestamp
+    LWLockRelease(WALWriteLock);
+    return result;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the three main phases
+- Clarified that shared lock is used for read-only access
+- Emphasized the function's simple read-extract-return pattern
+- Focused on the core synchronization and data retrieval logic

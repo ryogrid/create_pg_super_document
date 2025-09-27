@@ -36,3 +36,27 @@ The function handles both Unix-style line endings ('\n') and Windows-style line 
 - Commonly used when reading configuration files, command output, and user passwords where trailing whitespace should be removed
 - Essential for processing authentication files and SSL passphrase commands where clean input is required
 - The backwards iteration approach efficiently handles strings with multiple trailing line terminators
+
+## Simplified Source
+
+```c
+// Simplified version of pg_strip_crlf
+int pg_strip_crlf(char *str) {
+    // Get the current length of the string
+    int len = strlen(str);
+
+    // Remove trailing newlines and carriage returns by working backwards
+    while (len > 0 && (str[len - 1] == '\n' || str[len - 1] == '\r')) {
+        str[--len] = '\0';  // Null-terminate at the new position
+    }
+
+    // Return the new length after stripping
+    return len;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Maintained the core algorithm without changes since it's already quite simple
+- Preserved the efficient backwards iteration approach
+- Kept the in-place modification behavior which is essential to the function's purpose

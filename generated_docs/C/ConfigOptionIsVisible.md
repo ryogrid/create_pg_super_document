@@ -41,3 +41,27 @@ The function serves as a security gate for sensitive configuration parameters th
 - Returns true by default for non-restricted parameters, ensuring normal parameters remain visible to all users
 - Used throughout the GUC system to maintain consistent access control across different interfaces
 - Located in src/backend/utils/misc/guc_funcs.c:581-593
+
+## Simplified Source
+
+```c
+// Simplified version of ConfigOptionIsVisible
+bool ConfigOptionIsVisible(struct config_generic *conf) {
+    // Check if parameter requires superuser privileges
+    if (conf->flags & GUC_SUPERUSER_ONLY) {
+        // Verify current user has pg_read_all_settings role privileges
+        if (!has_privs_of_role(GetUserId(), ROLE_PG_READ_ALL_SETTINGS)) {
+            return false;  // Access denied - insufficient privileges
+        }
+    }
+
+    // Parameter is visible to current user
+    return true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Restructured the conditional logic for better readability
+- Made the access control flow more explicit
+- Focused on the core security check mechanism

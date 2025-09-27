@@ -40,3 +40,44 @@ This function takes no parameters.
 - Initializes three types of synchronization primitives per slot: spinlock (mutex), lightweight lock (io_in_progress_lock), and condition variable (active_cv)
 - The io_in_progress_lock uses the LWTRANCHE_REPLICATION_SLOT_IO tranche for lock wait event tracking
 - This function is called once during PostgreSQL startup as part of shared memory initialization
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotsShmemInit
+void ReplicationSlotsShmemInit(void) {
+    bool found;
+
+    // Early return if replication slots are disabled
+    if (max_replication_slots == 0)
+        return;
+
+    // Initialize or attach to shared memory for replication slot control
+    ReplicationSlotCtl = (ReplicationSlotCtlData *)
+        ShmemInitStruct("ReplicationSlot Ctl", ReplicationSlotsShmemSize(), &found);
+
+    // First-time initialization: set up all slot synchronization primitives
+    if (!found) {
+        // Zero out the entire control structure
+        MemSet(ReplicationSlotCtl, 0, ReplicationSlotsShmemSize());
+
+        // Initialize synchronization primitives for each slot
+        for (int i = 0; i < max_replication_slots; i++) {
+            ReplicationSlot *slot = &ReplicationSlotCtl->replication_slots[i];
+
+            // Set up three types of synchronization for each slot
+            SpinLockInit(&slot->mutex);                    // Basic mutual exclusion
+            LWLockInitialize(&slot->io_in_progress_lock,   // I/O operation locking
+                           LWTRANCHE_REPLICATION_SLOT_IO);
+            ConditionVariableInit(&slot->active_cv);       // Activity signaling
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added descriptive comments for each major operation
+- Simplified the loop structure while preserving logic
+- Emphasized the two-phase behavior (attach vs initialize)
+- Focused on the core purpose: shared memory setup and synchronization primitive initialization

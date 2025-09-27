@@ -35,3 +35,31 @@ This function takes no parameters.
 - The choice between SIGINT and SIGTERM reflects PostgreSQL's approach to graceful vs. immediate termination
 - This is a static function, indicating it's only used within the postinit.c module
 - The timeout mechanism helps prevent runaway queries from consuming system resources indefinitely
+
+## Simplified Source
+
+```c
+// Simplified version of StatementTimeoutHandler
+static void StatementTimeoutHandler(void) {
+    int sig = SIGINT;
+
+    // During authentication, use SIGTERM to quit entirely
+    if (ClientAuthInProgress) {
+        sig = SIGTERM;
+    }
+
+    // Try to signal entire process group if possible
+#ifdef HAVE_SETSID
+    kill(-MyProcPid, sig);
+#endif
+
+    // Signal this process
+    kill(MyProcPid, sig);
+}
+```
+
+Key simplifications made:
+- This function is already very simple, so minimal simplification was needed
+- Added descriptive comments explaining the signal selection logic
+- Maintained the exact same logic structure including conditional compilation
+- Preserved both the process group and individual process signaling approach

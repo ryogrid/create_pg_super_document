@@ -39,3 +39,59 @@ This internal function is responsible for processing all pending statistics entr
 - Asserts that all kind_info entries have valid flush_pending_cb callbacks
 - May queue additional pending entries during processing, which will also be processed in the same call
 - Part of PostgreSQL's statistics reporting infrastructure for maintaining up-to-date shared memory statistics
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_flush_pending_entries
+static bool
+pgstat_flush_pending_entries(bool nowait)
+{
+    bool have_pending = false;
+    dlist_node *cur = NULL;
+
+    // Start iteration from head of pending list
+    if (!dlist_is_empty(&pgStatPending))
+        cur = dlist_head_node(&pgStatPending);
+
+    // Process each pending entry
+    while (cur)
+    {
+        // Get entry reference and metadata
+        PgStat_EntryRef *entry_ref = dlist_container(PgStat_EntryRef, pending_node, cur);
+        PgStat_HashKey key = entry_ref->shared_entry->key;
+        PgStat_Kind kind = key.kind;
+        const PgStat_KindInfo *kind_info = pgstat_get_kind_info(kind);
+
+        // Get next node before potentially deleting current
+        dlist_node *next = dlist_has_next(&pgStatPending, cur)
+                          ? dlist_next_node(&pgStatPending, cur)
+                          : NULL;
+
+        // Validate entry type and attempt flush
+        Assert(!kind_info->fixed_amount);
+        Assert(kind_info->flush_pending_cb != NULL);
+
+        bool did_flush = kind_info->flush_pending_cb(entry_ref, nowait);
+        Assert(did_flush || nowait);
+
+        // Remove entry if flush succeeded, otherwise mark as pending
+        if (did_flush)
+            pgstat_delete_pending_entry(entry_ref);
+        else
+            have_pending = true;
+
+        cur = next;
+    }
+
+    return have_pending;
+}
+```
+
+Key simplifications made:
+- Consolidated next-pointer logic for clearer flow
+- Added comments explaining each major step
+- Simplified variable declarations and assignments
+- Removed detailed comments about iteration complexity
+- Preserved essential logic: iterate, flush, and clean up entries
+- Maintained the careful list traversal pattern needed for safe deletion

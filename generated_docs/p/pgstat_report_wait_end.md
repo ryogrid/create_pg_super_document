@@ -45,3 +45,20 @@ This function takes no parameters.
 - Clearing the wait event (setting to 0) immediately makes the process appear as "not waiting" in system activity views
 - Essential for accurate wait event monitoring and performance analysis
 - The function safely handles calls at any point in the backend lifecycle
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_report_wait_end
+static inline void
+pgstat_report_wait_end(void) {
+    // Clear wait event info: Set to 0 to indicate process is no longer waiting
+    *(volatile uint32 *) my_wait_event_info = 0;
+}
+```
+
+Key simplifications made:
+- Added explanatory comment for the core operation
+- The function is already extremely simple with just one operation
+- Preserved the volatile pointer access which is essential for correct behavior
+- No error handling or complex logic to simplify - this is a minimal atomic operation

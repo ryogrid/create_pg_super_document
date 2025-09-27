@@ -39,3 +39,29 @@ This function is essential for parsing environment variables like PATH, LD_LIBRA
 - Commonly used in library path resolution and executable finding operations
 - The comment "skip_drive is not needed" in the source emphasizes that this function works directly on the input without platform-specific path preprocessing
 - Essential for parsing PATH-like environment variables when searching for executables or libraries
+
+## Simplified Source
+
+```c
+// Simplified version of first_path_var_separator
+char *first_path_var_separator(const char *pathlist) {
+    // Iterate through each character in the path list
+    for (const char *p = pathlist; *p; p++) {
+        // Check if current character is a path variable separator (':' on Unix, ';' on Windows)
+        if (IS_PATH_VAR_SEP(*p)) {
+            // Return pointer to the first separator found
+            return unconstify(char *, p);
+        }
+    }
+
+    // No separator found - return NULL
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Combined variable declaration with loop initialization for clarity
+- Added descriptive comments explaining each logical step
+- Emphasized the platform-specific nature of path separators
+- Maintained the essential search algorithm and return logic
+- Preserved the original function's simplicity while improving readability

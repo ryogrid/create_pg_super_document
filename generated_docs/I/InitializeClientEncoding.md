@@ -46,3 +46,52 @@ None (void function)
 - Skips UTF8 conversion setup if server encoding is UTF8 or SQL_ASCII
 - Uses TopMemoryContext to ensure conversion functions persist throughout backend lifetime
 - Only processes UTF8-to-server conversion if in a transaction state (can access catalogs)
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeClientEncoding
+void InitializeClientEncoding(void) {
+    int current_server_encoding;
+
+    Assert(!backend_startup_complete);
+    backend_startup_complete = true;
+
+    // Finalize pending client encoding setup
+    if (PrepareClientEncoding(pending_client_encoding) < 0 ||
+        SetClientEncoding(pending_client_encoding) < 0) {
+        // Fatal error if encoding conversion not supported
+        ereport(FATAL,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("conversion between %s and %s is not supported",
+                        pg_enc2name_tbl[pending_client_encoding].name,
+                        GetDatabaseEncodingName())));
+    }
+
+    // Set up UTF8-to-server conversion function if needed
+    current_server_encoding = GetDatabaseEncoding();
+    if (current_server_encoding != PG_UTF8 &&
+        current_server_encoding != PG_SQL_ASCII) {
+        Oid utf8_to_server_proc;
+
+        Assert(IsTransactionState());
+        utf8_to_server_proc = FindDefaultConversionProc(PG_UTF8, current_server_encoding);
+
+        // Cache the conversion function if found
+        if (OidIsValid(utf8_to_server_proc)) {
+            FmgrInfo *finfo;
+
+            finfo = (FmgrInfo *) MemoryContextAlloc(TopMemoryContext, sizeof(FmgrInfo));
+            fmgr_info_cxt(utf8_to_server_proc, finfo, TopMemoryContext);
+            Utf8ToServerConvProc = finfo;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major operation section
+- Simplified the UTF8 conversion setup logic with clearer variable flow
+- Removed detailed comments while preserving essential error handling
+- Maintained all critical functionality including encoding validation and caching
+- Preserved the backend startup completion flag and conversion function setup

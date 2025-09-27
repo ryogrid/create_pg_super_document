@@ -35,3 +35,35 @@ This function provides a comprehensive integrity check mechanism for memory cont
 - The check methods can detect issues like memory overruns, corruption, and structural inconsistencies
 - Traverses the entire descendant tree, not just immediate children
 - Used proactively in PostgreSQL to catch memory management issues early
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextCheck
+void MemoryContextCheck(MemoryContext context) {
+    // Step 1: Validate the root context structure
+    Assert(MemoryContextIsValid(context));
+
+    // Step 2: Run context-specific integrity checks on root
+    context->methods->check(context);
+
+    // Step 3: Traverse and check all descendant contexts
+    for (MemoryContext current_child = context->firstchild;
+         current_child != NULL;
+         current_child = MemoryContextTraverseNext(current_child, context)) {
+
+        // Validate each child context structure
+        Assert(MemoryContextIsValid(current_child));
+
+        // Run context-specific checks on each child
+        current_child->methods->check(current_child);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Renamed loop variable from `curr` to `current_child` for clarity
+- Organized the function into three clear logical steps
+- Maintained the essential validation and traversal logic
+- Preserved the recursive checking behavior through MemoryContextTraverseNext

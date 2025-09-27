@@ -40,3 +40,40 @@ The function uses the EVALUATE_MESSAGE_PLURAL macro to handle the pluralization 
 - Part of the PostgreSQL error reporting infrastructure for user-facing error messages
 - Manages recursion depth and memory context for safe operation
 - Used extensively throughout PostgreSQL for providing user-friendly error details with proper pluralization
+
+## Simplified Source
+
+```c
+// Simplified version of errdetail_plural
+int errdetail_plural(const char *fmt_singular, const char *fmt_plural,
+                    unsigned long n, ...) {
+    // Get current error data structure
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Track recursion depth for safety
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+
+    // Switch to error's memory context for proper allocation
+    MemoryContext oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Set the detail message using pluralization logic
+    // Chooses fmt_singular or fmt_plural based on value of n
+    EVALUATE_MESSAGE_PLURAL(edata->domain, detail, false);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    // Clean up recursion tracking
+    recursion_depth--;
+
+    return 0;  // Return value is ignored
+}
+```
+
+Key simplifications made:
+- Removed complex error handling for clarity
+- Added descriptive comments explaining each step
+- Focused on the main execution path
+- Abstracted the EVALUATE_MESSAGE_PLURAL macro behavior
+- Consolidated variable declarations with their usage

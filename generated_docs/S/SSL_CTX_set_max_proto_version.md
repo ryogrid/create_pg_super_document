@@ -38,3 +38,37 @@ Unlike the minimum version function, this implementation does not disable SSLv2 
 - Does not automatically disable older insecure protocols like SSLv2/SSLv3 (unlike the min_proto_version function)
 - The implementation uses conditional compilation to handle different OpenSSL versions gracefully
 - Located in src/common/protocol_openssl.c:80-117
+
+## Simplified Source
+
+```c
+// Simplified version of SSL_CTX_set_max_proto_version
+int SSL_CTX_set_max_proto_version(SSL_CTX *ctx, int version) {
+    int ssl_options = 0;
+
+    // Validate input
+    Assert(version != 0);
+
+    // Disable TLS 1.1 if requested version is lower
+    if (version < TLS1_1_VERSION) {
+        ssl_options |= SSL_OP_NO_TLSv1_1;
+    }
+
+    // Disable TLS 1.2 if requested version is lower
+    if (version < TLS1_2_VERSION) {
+        ssl_options |= SSL_OP_NO_TLSv1_2;
+    }
+
+    // Apply the SSL options to disable newer protocols
+    SSL_CTX_set_options(ctx, ssl_options);
+
+    return 1; // success
+}
+```
+
+Key simplifications made:
+- Removed conditional compilation directives for clarity
+- Consolidated error handling paths
+- Focused on the main logic flow of disabling newer protocols
+- Abstracted platform-specific macro checks
+- Added clear comments explaining each step

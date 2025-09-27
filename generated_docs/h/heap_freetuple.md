@@ -43,3 +43,20 @@ This function is used extensively throughout the PostgreSQL codebase whenever he
 - It's critical to call this function to prevent memory leaks when heap tuples are no longer needed
 - The function is used in both normal database operations and system catalog maintenance
 - Used extensively in trigger execution, replication, and storage layer operations
+
+## Simplified Source
+
+```c
+// Simplified version of heap_freetuple
+void heap_freetuple(HeapTuple htup) {
+    // Free the memory allocated for the heap tuple
+    // This releases the tuple back to PostgreSQL's memory context system
+    pfree(htup);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for clarity
+- The function is already at its simplest form - it's a direct wrapper around pfree()
+- No simplification of logic was needed as the function contains only one operation
+- Preserved the essential memory deallocation functionality

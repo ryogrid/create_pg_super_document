@@ -41,3 +41,30 @@ This function deallocates a slot in the PMChildFlags array when a child process 
 - Part of the postmaster child process lifecycle management system
 - Located in src/backend/storage/ipc/pmsignal.c:284-306
 - Complements AssignPostmasterChildSlot in the slot management system
+
+## Simplified Source
+
+```c
+// Simplified version of ReleasePostmasterChildSlot
+bool ReleasePostmasterChildSlot(int slot) {
+    // Convert from 1-based to 0-based indexing
+    slot--;
+
+    // Check if slot was properly assigned before releasing
+    bool was_assigned = (PMSignalState->PMChildFlags[slot] == PM_CHILD_ASSIGNED);
+
+    // Mark slot as unused in both tracking arrays
+    PMSignalState->PMChildFlags[slot] = PM_CHILD_UNUSED;
+    PMChildInUse[slot] = false;
+
+    // Return whether child cleaned up properly
+    return was_assigned;
+}
+```
+
+Key simplifications made:
+- Removed debug assertion (assumes valid input)
+- Simplified the result variable logic
+- Added explanatory comments for each major step
+- Focused on the core slot release mechanism
+- Preserved the idempotent design and return value semantics

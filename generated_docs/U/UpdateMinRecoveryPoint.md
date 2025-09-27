@@ -45,3 +45,60 @@ The function acquires an exclusive lock on the control file to ensure atomic upd
 - Includes protection against corrupted LSN values from damaged heap pages
 - Critical for ensuring ACID properties during crash recovery scenarios
 - The updateMinRecoveryPoint flag can be disabled to prevent unnecessary updates during crash recovery
+
+## Simplified Source
+
+```c
+// Simplified version of UpdateMinRecoveryPoint
+static void UpdateMinRecoveryPoint(XLogRecPtr lsn, bool force) {
+    // Quick check: Skip if updates disabled or LSN not advancing
+    if (!updateMinRecoveryPoint || (!force && lsn <= LocalMinRecoveryPoint))
+        return;
+
+    // Skip updates during crash recovery to ensure all WAL is replayed
+    if (XLogRecPtrIsInvalid(LocalMinRecoveryPoint) && InRecovery) {
+        updateMinRecoveryPoint = false;
+        return;
+    }
+
+    // Acquire exclusive lock on control file
+    LWLockAcquire(ControlFileLock, LW_EXCLUSIVE);
+
+    // Update local copies from control file
+    LocalMinRecoveryPoint = ControlFile->minRecoveryPoint;
+    LocalMinRecoveryPointTLI = ControlFile->minRecoveryPointTLI;
+
+    // Check if update is needed
+    if (XLogRecPtrIsInvalid(LocalMinRecoveryPoint)) {
+        updateMinRecoveryPoint = false;
+    } else if (force || LocalMinRecoveryPoint < lsn) {
+        // Get current replay position (protects against bogus LSNs)
+        XLogRecPtr newMinRecoveryPoint = GetCurrentReplayRecPtr(&newMinRecoveryPointTLI);
+
+        // Log warning if requested LSN is beyond current replay point
+        if (!force && newMinRecoveryPoint < lsn)
+            elog(WARNING, "xlog min recovery request is past current point");
+
+        // Update control file if new point is higher
+        if (ControlFile->minRecoveryPoint < newMinRecoveryPoint) {
+            ControlFile->minRecoveryPoint = newMinRecoveryPoint;
+            ControlFile->minRecoveryPointTLI = newMinRecoveryPointTLI;
+            UpdateControlFile();
+
+            // Update local copies
+            LocalMinRecoveryPoint = newMinRecoveryPoint;
+            LocalMinRecoveryPointTLI = newMinRecoveryPointTLI;
+        }
+    }
+
+    LWLockRelease(ControlFileLock);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated them into brief explanatory comments
+- Simplified variable declarations (moved TimeLineID declaration inline)
+- Condensed the warning message format
+- Removed the detailed debug reporting
+- Focused on the main execution flow while preserving all essential logic
+- Maintained the critical safety checks and error handling

@@ -39,3 +39,47 @@ The function first checks if the backend is actively listening on any channels b
 - Updates process status to "notify interrupt" during processing and "idle" when complete
 - Conditional flushing allows optimization for end-of-command vs. interrupt-driven scenarios
 - Includes debug tracing support via Trace_notify flag
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessIncomingNotify
+static void ProcessIncomingNotify(bool flush) {
+    MemoryContext saved_context;
+
+    // Reset interrupt flag to prevent repeated processing
+    notifyInterruptPending = false;
+
+    // Exit early if not listening to any channels
+    if (listenChannels == NIL)
+        return;
+
+    // Update process status for monitoring
+    set_ps_display("notify interrupt");
+
+    // Save current memory context before transaction
+    saved_context = CurrentMemoryContext;
+
+    // Process notifications within a transaction for safety
+    StartTransactionCommand();
+    asyncQueueReadAllNotifications();
+    CommitTransactionCommand();
+
+    // Restore original memory context
+    MemoryContextSwitchTo(saved_context);
+
+    // Flush messages to frontend if requested
+    if (flush)
+        pq_flush();
+
+    // Reset process status to idle
+    set_ps_display("idle");
+}
+```
+
+Key simplifications made:
+- Removed debug tracing and logging statements for clarity
+- Consolidated memory context handling with clearer variable naming
+- Removed detailed comments that explained implementation details
+- Focused on the core transaction-wrapped notification processing logic
+- Maintained all essential error handling and safety checks

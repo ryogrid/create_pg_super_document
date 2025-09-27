@@ -38,3 +38,26 @@ None (void function)
 - The progress tracking helps ensure this function is only called at the appropriate time during startup
 - Libraries that need shared memory typically use this mechanism rather than trying to allocate memory directly
 - Common use cases include shared statistics collectors, inter-process communication structures, and cached data shared across backends
+
+## Simplified Source
+
+```c
+// Simplified version of process_shmem_requests
+void process_shmem_requests(void) {
+    // Set progress flag to indicate processing is active
+    process_shmem_requests_in_progress = true;
+
+    // Execute hook if any library has registered one
+    if (shmem_request_hook) {
+        shmem_request_hook();
+    }
+
+    // Clear progress flag when done
+    process_shmem_requests_in_progress = false;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- The function is already quite simple, so minimal changes were needed
+- Preserved the essential three-step process: set flag, call hook if present, clear flag

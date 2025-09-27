@@ -39,3 +39,27 @@ Unlike WAL receivers which can start during various recovery states, WAL summari
 - Respects shutdown modes - won't start during immediate shutdown
 - Simpler startup logic compared to WAL receivers since it doesn't need complex race condition handling
 - The summarizer process runs continuously once started, until shutdown or process termination
+
+## Simplified Source
+
+```c
+// Simplified version of MaybeStartWalSummarizer
+static void MaybeStartWalSummarizer(void) {
+    // Check if WAL summarization is enabled and conditions are met
+    if (summarize_wal &&
+        WalSummarizerPID == 0 &&                    // No summarizer running
+        (pmState == PM_RUN || pmState == PM_HOT_STANDBY) &&  // Normal operation
+        Shutdown <= SmartShutdown) {                // Not in immediate shutdown
+
+        // Start the WAL summarizer child process
+        WalSummarizerPID = StartChildProcess(B_WAL_SUMMARIZER);
+    }
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining each condition check
+- Reformatted the compound conditional for better readability
+- Preserved the essential logic flow: check conditions → start process if needed
+- Maintained the single function call to StartChildProcess
+- Kept the straightforward conditional structure intact

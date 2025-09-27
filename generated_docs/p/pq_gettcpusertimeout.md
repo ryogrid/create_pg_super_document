@@ -35,3 +35,42 @@ The function implements a caching mechanism similar to keep-alive functions to a
 - If getsockopt fails, it logs an error and sets the default to -1 to indicate unknown status
 - TCP user timeout is measured in milliseconds and provides more aggressive connection failure detection than keep-alive alone
 - The user timeout setting works independently of keep-alive settings and can detect connection failures even during active data transmission
+
+## Simplified Source
+
+```c
+// Simplified version of pq_gettcpusertimeout
+int pq_gettcpusertimeout(Port *port) {
+#ifdef TCP_USER_TIMEOUT
+    // Return 0 for NULL port or Unix sockets
+    if (port == NULL || port->laddr.addr.ss_family == AF_UNIX)
+        return 0;
+
+    // Return cached custom value if set
+    if (port->tcp_user_timeout != 0)
+        return port->tcp_user_timeout;
+
+    // Get system default if not cached
+    if (port->default_tcp_user_timeout == 0) {
+        socklen_t size = sizeof(port->default_tcp_user_timeout);
+
+        if (getsockopt(port->sock, IPPROTO_TCP, TCP_USER_TIMEOUT,
+                       &port->default_tcp_user_timeout, &size) < 0) {
+            // Log error and mark as unknown
+            ereport(LOG, (errmsg("getsockopt(TCP_USER_TIMEOUT) failed: %m")));
+            port->default_tcp_user_timeout = -1;
+        }
+    }
+
+    return port->default_tcp_user_timeout;
+#else
+    return 0;
+#endif
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logic block
+- Simplified error message formatting
+- Focused on the main execution path
+- Maintained essential caching and error handling logic

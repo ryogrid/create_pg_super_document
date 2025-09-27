@@ -33,3 +33,32 @@ The  function is responsible for properly destroying an SMgrRelation object. It 
 - It systematically closes all fork files (0 to MAX_FORKNUM) before cleanup
 - If the hash table removal fails, it triggers an ERROR indicating hash table corruption
 - The function maintains the integrity of both the doubly-linked list and hash table data structures
+
+## Simplified Source
+
+```c
+// Simplified version of smgrdestroy
+static void smgrdestroy(SMgrRelation reln) {
+    // Verify relation is not in use
+    Assert(reln->pincount == 0);
+
+    // Close all fork files for this relation
+    for (ForkNumber forknum = 0; forknum <= MAX_FORKNUM; forknum++) {
+        smgrsw[reln->smgr_which].smgr_close(reln, forknum);
+    }
+
+    // Remove from doubly-linked list
+    dlist_delete(&reln->node);
+
+    // Remove from hash table
+    if (hash_search(SMgrRelationHash, &(reln->smgr_rlocator), HASH_REMOVE, NULL) == NULL) {
+        elog(ERROR, "SMgrRelation hashtable corrupted");
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the essential cleanup sequence: close files → remove from list → remove from hash
+- Kept critical error checking for hash table corruption
+- Added descriptive comments for each cleanup step
+- Maintained the exact logic flow of the original function

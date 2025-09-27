@@ -321,3 +321,178 @@ Text creation and manipulation
 - Handles pre-allocation of elements for performance optimization
 - Returns NULL on allocation failure when using MCXT_ALLOC_NO_OOM
 - Located at src/backend/utils/hash/dynahash.c:352-629
+
+## Simplified Source
+
+```c
+// Simplified version of hash_create
+HTAB *hash_create(const char *tabname, long nelem, const HASHCTL *info, int flags) {
+    HTAB *hashp;
+    HASHHDR *hctl;
+
+    // Validate required parameters
+    Assert(flags & HASH_ELEM);
+    Assert(info->keysize > 0);
+    Assert(info->entrysize >= info->keysize);
+
+    // Set up memory context - shared vs private
+    if (flags & HASH_SHARED_MEM) {
+        CurrentDynaHashCxt = TopMemoryContext;
+    } else {
+        // Create private memory context for hash table
+        if (flags & HASH_CONTEXT) {
+            CurrentDynaHashCxt = info->hcxt;
+        } else {
+            CurrentDynaHashCxt = TopMemoryContext;
+        }
+        CurrentDynaHashCxt = AllocSetContextCreate(CurrentDynaHashCxt,
+                                                   "dynahash",
+                                                   ALLOCSET_DEFAULT_SIZES);
+    }
+
+    // Allocate and initialize hash table header
+    hashp = (HTAB *) MemoryContextAlloc(CurrentDynaHashCxt,
+                                        sizeof(HTAB) + strlen(tabname) + 1);
+    MemSet(hashp, 0, sizeof(HTAB));
+    hashp->tabname = (char *) (hashp + 1);
+    strcpy(hashp->tabname, tabname);
+
+    // Select hash function based on key type
+    if (flags & HASH_FUNCTION) {
+        hashp->hash = info->hash;
+    } else if (flags & HASH_BLOBS) {
+        // Optimize for common key sizes
+        if (info->keysize == sizeof(uint32)) {
+            hashp->hash = uint32_hash;
+        } else {
+            hashp->hash = tag_hash;
+        }
+    } else {
+        // String hashing (HASH_STRINGS)
+        Assert(flags & HASH_STRINGS);
+        hashp->hash = string_hash;
+    }
+
+    // Set comparison function
+    if (flags & HASH_COMPARE) {
+        hashp->match = info->match;
+    } else if (hashp->hash == string_hash) {
+        hashp->match = (HashCompareFunc) string_compare;
+    } else {
+        hashp->match = memcmp;
+    }
+
+    // Set key copying function
+    if (flags & HASH_KEYCOPY) {
+        hashp->keycopy = info->keycopy;
+    } else if (hashp->hash == string_hash) {
+        hashp->keycopy = (HashCopyFunc) (pg_funcptr_t) strlcpy;
+    } else {
+        hashp->keycopy = memcpy;
+    }
+
+    // Set allocation function
+    if (flags & HASH_ALLOC) {
+        hashp->alloc = info->alloc;
+    } else {
+        hashp->alloc = DynaHashAlloc;
+    }
+
+    // Handle shared memory setup
+    if (flags & HASH_SHARED_MEM) {
+        hashp->hctl = info->hctl;
+        hashp->dir = (HASHSEGMENT *) (((char *) info->hctl) + sizeof(HASHHDR));
+        hashp->isshared = true;
+
+        // If attaching to existing table, copy parameters and return
+        if (flags & HASH_ATTACH) {
+            hctl = hashp->hctl;
+            hashp->keysize = hctl->keysize;
+            hashp->ssize = hctl->ssize;
+            hashp->sshift = hctl->sshift;
+            return hashp;
+        }
+    } else {
+        // Private hash table setup
+        hashp->hctl = NULL;
+        hashp->dir = NULL;
+        hashp->hcxt = CurrentDynaHashCxt;
+        hashp->isshared = false;
+    }
+
+    // Allocate header control structure if needed
+    if (!hashp->hctl) {
+        hashp->hctl = (HASHHDR *) hashp->alloc(sizeof(HASHHDR));
+        if (!hashp->hctl) {
+            ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                           errmsg("out of memory")));
+        }
+    }
+
+    // Initialize hash table defaults and configure parameters
+    hashp->frozen = false;
+    hdefault(hashp);
+    hctl = hashp->hctl;
+
+    // Configure partitioning, segments, and directory size
+    if (flags & HASH_PARTITION) {
+        hctl->num_partitions = info->num_partitions;
+    }
+    if (flags & HASH_SEGMENT) {
+        hctl->ssize = info->ssize;
+        hctl->sshift = my_log2(info->ssize);
+    }
+    if (flags & HASH_DIRSIZE) {
+        hctl->max_dsize = info->max_dsize;
+        hctl->dsize = info->dsize;
+    }
+
+    // Store entry parameters
+    hctl->keysize = info->keysize;
+    hctl->entrysize = info->entrysize;
+    hashp->keysize = hctl->keysize;
+    hashp->ssize = hctl->ssize;
+    hashp->sshift = hctl->sshift;
+
+    // Build hash directory structure
+    if (!init_htab(hashp, nelem)) {
+        elog(ERROR, "failed to initialize hash table \"%s\"", hashp->tabname);
+    }
+
+    // Pre-allocate elements if needed
+    if ((flags & HASH_SHARED_MEM) || nelem < hctl->nelem_alloc) {
+        // Calculate allocation distribution across freelists
+        int freelist_partitions = IS_PARTITIONED(hashp->hctl) ? NUM_FREELISTS : 1;
+        int nelem_alloc = nelem / freelist_partitions;
+        if (nelem_alloc <= 0) nelem_alloc = 1;
+
+        // Allocate elements for each freelist
+        for (int i = 0; i < freelist_partitions; i++) {
+            int allocation_size = (i == 0) ?
+                nelem - nelem_alloc * (freelist_partitions - 1) : nelem_alloc;
+
+            if (!element_alloc(hashp, allocation_size, i)) {
+                ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                               errmsg("out of memory")));
+            }
+        }
+    }
+
+    // Set fixed size flag if specified
+    if (flags & HASH_FIXED_SIZE) {
+        hashp->isfixed = true;
+    }
+
+    return hashp;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity while preserving essential logic
+- Consolidated parameter validation into clear assertions
+- Simplified memory context setup logic flow
+- Streamlined hash function selection with clear branching
+- Abstracted complex freelist allocation logic into simpler loops
+- Focused on main execution path while preserving all core functionality
+- Maintained error handling for critical allocation failures
+- Preserved all essential configuration and initialization steps

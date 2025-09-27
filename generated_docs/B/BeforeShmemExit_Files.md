@@ -38,3 +38,24 @@ This ensures that no temporary files are left behind when a backend process term
 - The use of (false, true) parameters to CleanupTempFiles ensures all temporary files are cleaned, not just transaction-local ones
 - The temporary_files_allowed flag is only set in assertion-enabled builds for debugging purposes
 - This provides a final safety net to ensure temporary files don't persist after backend process termination
+
+## Simplified Source
+
+```c
+// Simplified version of BeforeShmemExit_Files
+static void BeforeShmemExit_Files(int code, Datum arg) {
+    // Clean up all temporary files, including inter-transaction ones
+    CleanupTempFiles(false, true);
+
+    // Prevent creation of new temp files (debug builds only)
+#ifdef USE_ASSERT_CHECKING
+    temporary_files_allowed = false;
+#endif
+}
+```
+
+Key simplifications made:
+- Simplified the function comment to focus on main purpose
+- Consolidated cleanup explanation in one comment
+- Preserved debug-only code with clear comment
+- Maintained essential cleanup logic

@@ -41,3 +41,37 @@ The function is intentionally conservative - it checks only what's necessary to 
 - Returns true if the segment passes basic sanity checks, false otherwise
 - Critical for safe iteration over DSM control segment items
 - Located in src/backend/storage/ipc/dsm.c:1237-1254
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_control_segment_sane
+static bool dsm_control_segment_sane(dsm_control_header *control, Size mapped_size) {
+    // Check if mapped size is large enough for header
+    if (mapped_size < offsetof(dsm_control_header, item)) {
+        return false;
+    }
+
+    // Verify magic number
+    if (control->magic != PG_DYNSHMEM_CONTROL_MAGIC) {
+        return false;
+    }
+
+    // Check if max items can fit in mapped size
+    if (dsm_control_bytes_needed(control->maxitems) > mapped_size) {
+        return false;
+    }
+
+    // Ensure current item count doesn't exceed max
+    if (control->nitems > control->maxitems) {
+        return false;
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Function is already very simple, maintained the essential validation checks
+- Focused on the four core sanity checks: size, magic, capacity, and bounds

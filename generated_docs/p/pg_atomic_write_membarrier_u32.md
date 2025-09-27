@@ -35,3 +35,22 @@ The function includes pointer alignment verification and provides full barrier s
 - Limited usage in codebase, primarily in archiver components
 - Part of PostgreSQL's portable atomic operations abstraction layer
 - Should be used in conjunction with other barrier-semantic atomic operations for consistency
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_write_membarrier_u32
+static inline void pg_atomic_write_membarrier_u32(volatile pg_atomic_uint32 *ptr, uint32 val) {
+    // Verify pointer is properly aligned to 4-byte boundary
+    AssertPointerAlignment(ptr, 4);
+
+    // Perform atomic write with full memory barrier semantics
+    pg_atomic_write_membarrier_u32_impl(ptr, val);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining alignment check and barrier semantics
+- Function is already very simple, minimal changes needed
+- Preserved the essential atomic write operation with barriers
+- Maintained the critical alignment verification

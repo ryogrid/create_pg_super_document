@@ -50,3 +50,79 @@ Key validation includes checking for concurrent backups in the same session and 
 - Supports multiple compression algorithms through modular bbsink architecture
 - Prevents concurrent backup operations within the same session
 - The bbsink pipeline architecture allows flexible composition of backup processing features
+
+## Simplified Source
+
+```c
+// Simplified version of SendBaseBackup
+void SendBaseBackup(BaseBackupCmd *cmd, IncrementalBackupInfo *ib) {
+    basebackup_options opt;
+    bbsink *sink;
+    SessionBackupState status = get_backup_status();
+
+    // Core logic step 1: Check if backup is already running
+    if (status == SESSION_BACKUP_RUNNING)
+        ereport(ERROR, "a backup is already in progress in this session");
+
+    // Core logic step 2: Parse backup options from command
+    parse_basebackup_options(cmd->options, &opt);
+
+    // Core logic step 3: Set WAL sender state to backup mode
+    WalSndSetState(WALSNDSTATE_BACKUP);
+
+    // Core logic step 4: Update process title for monitoring
+    if (update_process_title) {
+        char activitymsg[50];
+        snprintf(activitymsg, sizeof(activitymsg), "sending backup \"%s\"", opt.label);
+        set_ps_display(activitymsg);
+    }
+
+    // Core logic step 5: Handle incremental vs full backup validation
+    if (!opt.incremental) {
+        ib = NULL;  // Ignore manifest for full backup
+    } else if (ib == NULL) {
+        ereport(ERROR, "must UPLOAD_MANIFEST before performing an incremental BASE_BACKUP");
+    }
+
+    // Core logic step 6: Set up backup data sink pipeline
+    sink = bbsink_copystream_new(opt.send_to_client);
+
+    // Add target-specific sink wrapper if needed
+    if (opt.target_handle != NULL)
+        sink = BaseBackupGetSink(opt.target_handle, sink);
+
+    // Add throttling if requested
+    if (opt.maxrate > 0)
+        sink = bbsink_throttle_new(sink, opt.maxrate);
+
+    // Add compression if requested
+    if (opt.compression == PG_COMPRESSION_GZIP)
+        sink = bbsink_gzip_new(sink, &opt.compression_specification);
+    else if (opt.compression == PG_COMPRESSION_LZ4)
+        sink = bbsink_lz4_new(sink, &opt.compression_specification);
+    else if (opt.compression == PG_COMPRESSION_ZSTD)
+        sink = bbsink_zstd_new(sink, &opt.compression_specification);
+
+    // Add progress reporting
+    sink = bbsink_progress_new(sink, opt.progress);
+
+    // Core logic step 7: Perform the backup with guaranteed cleanup
+    PG_TRY();
+    {
+        perform_base_backup(&opt, sink, ib);
+    }
+    PG_FINALLY();
+    {
+        bbsink_cleanup(sink);
+    }
+    PG_END_TRY();
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for clarity
+- Consolidated sink setup into logical groupings
+- Abstracted complex option parsing details
+- Focused on the main execution path
+- Added clear comments for each major step
+- Simplified conditional logic flow

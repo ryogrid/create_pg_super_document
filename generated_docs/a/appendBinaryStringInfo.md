@@ -44,3 +44,30 @@ The function includes an assertion to ensure the StringInfo parameter is valid, 
 - Serves as the foundation for other specialized append functions like appendStringInfoString
 - Critical for PostgreSQL's client-server communication protocol and internal data handling
 - Can handle embedded null bytes and arbitrary binary data safely
+
+## Simplified Source
+
+```c
+// Simplified version of appendBinaryStringInfo
+void appendBinaryStringInfo(StringInfo str, const void *data, int datalen) {
+    // Validate input parameter
+    Assert(str != NULL);
+
+    // Ensure buffer has enough space for new data
+    enlargeStringInfo(str, datalen);
+
+    // Copy the binary data to the buffer
+    memcpy(str->data + str->len, data, datalen);
+    str->len += datalen;
+
+    // Maintain null termination for compatibility
+    str->data[str->len] = '\0';
+}
+```
+
+Key simplifications made:
+- Preserved the core algorithm flow: validate, enlarge, copy, update, terminate
+- Kept essential error checking (Assert)
+- Maintained the buffer management logic
+- Focused on the main execution path
+- Added clear comments explaining each step

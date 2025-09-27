@@ -53,3 +53,41 @@ The ordering is critical for consistency - two-phase commit checkpointing is del
 - Order of operations is critical for maintaining data consistency guarantees
 - Performance tracing points enable monitoring of checkpoint I/O patterns
 - The function represents the most I/O-intensive part of checkpoint processing
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointGuts
+static void CheckPointGuts(XLogRecPtr checkPointRedo, int flags) {
+    // Phase 1: Checkpoint metadata and control structures
+    CheckPointRelationMap();
+    CheckPointReplicationSlots(flags & CHECKPOINT_IS_SHUTDOWN);
+    CheckPointSnapBuild();
+    CheckPointLogicalRewriteHeap();
+    CheckPointReplicationOrigin();
+
+    // Phase 2: Flush all dirty data in SLRU caches and buffer pool
+    CheckpointStats.ckpt_write_t = GetCurrentTimestamp();
+    CheckPointCLOG();
+    CheckPointCommitTs();
+    CheckPointSUBTRANS();
+    CheckPointMultiXact();
+    CheckPointPredicate();
+    CheckPointBuffers(flags);
+
+    // Phase 3: Force all pending writes to disk
+    CheckpointStats.ckpt_sync_t = GetCurrentTimestamp();
+    ProcessSyncRequests();
+    CheckpointStats.ckpt_sync_end_t = GetCurrentTimestamp();
+
+    // Phase 4: Handle two-phase commit state (done last for consistency)
+    CheckPointTwoPhase(checkPointRedo);
+}
+```
+
+Key simplifications made:
+- Removed performance tracing calls for clarity
+- Consolidated the function into logical phases with descriptive comments
+- Focused on the core checkpoint workflow
+- Maintained the critical ordering of operations
+- Kept essential timing statistics collection

@@ -52,3 +52,49 @@ The function iterates through each query in the input list, determines the appro
 - The function maintains the order of queries in the input list in the output planned statement list
 - Utility commands bypass the planner entirely, improving performance for DDL operations
 - Used extensively in prepared statement caching and extension SQL execution contexts
+
+## Simplified Source
+
+```c
+// Simplified version of pg_plan_queries
+List *
+pg_plan_queries(List *querytrees, const char *query_string, int cursorOptions,
+                ParamListInfo boundParams) {
+    List *planned_statements = NIL;
+    ListCell *query_cell;
+
+    // Process each query in the input list
+    foreach(query_cell, querytrees) {
+        Query *query = lfirst_node(Query, query_cell);
+        PlannedStmt *planned_stmt;
+
+        // Check if this is a utility command (DDL, etc.)
+        if (query->commandType == CMD_UTILITY) {
+            // Utility commands don't need planning - create wrapper node
+            planned_stmt = makeNode(PlannedStmt);
+            planned_stmt->commandType = CMD_UTILITY;
+            planned_stmt->canSetTag = query->canSetTag;
+            planned_stmt->utilityStmt = query->utilityStmt;
+            planned_stmt->stmt_location = query->stmt_location;
+            planned_stmt->stmt_len = query->stmt_len;
+            planned_stmt->queryId = query->queryId;
+        } else {
+            // Regular DML queries - invoke the planner
+            planned_stmt = pg_plan_query(query, query_string, cursorOptions,
+                                       boundParams);
+        }
+
+        // Add the planned statement to our result list
+        planned_statements = lappend(planned_statements, planned_stmt);
+    }
+
+    return planned_statements;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (planned_statements, query_cell, planned_stmt)
+- Added clear comments explaining the two main execution paths
+- Maintained the essential logic flow: iterate through queries, handle utility vs regular commands differently
+- Preserved all critical operations and metadata copying
+- Focused on the core algorithm without changing functionality

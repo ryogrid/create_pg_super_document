@@ -41,3 +41,28 @@ The function includes safety checks to verify that the hash table uses the stand
 - Calls hash_stats() to collect final statistics before destruction
 - Widely used throughout PostgreSQL for cleanup in various subsystems
 - More efficient than individual component deallocation due to context-based approach
+
+## Simplified Source
+
+```c
+// Simplified version of hash_destroy
+void hash_destroy(HTAB *hashp) {
+    if (hashp != NULL) {
+        // Verify this is a standard dynamically allocated hash table
+        Assert(hashp->alloc == DynaHashAlloc);
+        Assert(hashp->hcxt != NULL);
+
+        // Collect final statistics before destruction
+        hash_stats("destroy", hashp);
+
+        // Free everything by destroying the hash table's memory context
+        MemoryContextDelete(hashp->hcxt);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each validation and action
+- Emphasized the memory context-based cleanup approach
+- Maintained all safety checks and functionality
+- Simple and straightforward logic flow

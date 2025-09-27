@@ -33,3 +33,31 @@ The function uses ShmemInitStruct to either create a new shared memory segment o
 - The DSA and DSHASH handles are initialized to invalid values and will be properly set up later by init_dsm_registry
 - Part of the initialization sequence for PostgreSQL's dynamic shared memory registry infrastructure
 - The 'found' parameter from ShmemInitStruct indicates whether this is a fresh initialization or attachment to existing shared memory
+
+## Simplified Source
+
+```c
+// Simplified version of DSMRegistryShmemInit
+void DSMRegistryShmemInit(void) {
+    bool found;
+
+    // Initialize or attach to shared memory structure for DSM registry
+    DSMRegistryCtx = (DSMRegistryCtxStruct *)
+        ShmemInitStruct("DSM Registry Data",
+                        DSMRegistryShmemSize(),
+                        &found);
+
+    // If creating new structure (not attaching to existing)
+    if (!found) {
+        // Initialize handles to invalid state - will be set up later
+        DSMRegistryCtx->dsah = DSA_HANDLE_INVALID;
+        DSMRegistryCtx->dshh = DSHASH_HANDLE_INVALID;
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major operation
+- Clarified the purpose of the 'found' flag check
+- Emphasized that handle initialization is deferred to later setup
+- Maintained the essential initialization logic flow

@@ -53,3 +53,65 @@ The protocol uses a header structure (PipeProtoHeader) that includes:
 - Buffer management includes slot reuse to minimize memory allocation overhead
 - Critical for PostgreSQL's ability to maintain clean, ordered logs in multi-process environments
 - The function is designed to handle incomplete reads and partial headers, making it robust against network and pipe timing issues
+
+## Simplified Source
+
+```c
+// Simplified version of process_pipe_input
+static void process_pipe_input(char *logbuffer, int *bytes_in_logbuffer) {
+    char *cursor = logbuffer;
+    int count = *bytes_in_logbuffer;
+    int dest = LOG_DESTINATION_STDERR;
+
+    // Main processing loop: handle complete chunks
+    while (count >= PIPE_HEADER_SIZE) {
+        PipeProtoHeader header;
+        memcpy(&header, cursor, sizeof(header));
+
+        // Check if this is a valid protocol message
+        if (is_valid_protocol_header(&header)) {
+            int chunk_size = PIPE_HEADER_SIZE + header.len;
+
+            // Skip if we don't have the complete chunk yet
+            if (count < chunk_size) break;
+
+            // Determine log destination from header flags
+            dest = get_log_destination(header.flags);
+
+            // Handle message buffering and assembly
+            if (header.flags & PIPE_PROTO_IS_LAST) {
+                // Final chunk: complete the message and write it out
+                complete_and_write_message(header.pid, cursor, header.len, dest);
+            } else {
+                // Non-final chunk: buffer it for later assembly
+                buffer_partial_message(header.pid, cursor + PIPE_HEADER_SIZE, header.len);
+            }
+
+            // Move to next chunk
+            cursor += chunk_size;
+            count -= chunk_size;
+        } else {
+            // Non-protocol data: find next potential header or write everything
+            int non_protocol_len = find_next_header_or_end(cursor, count);
+            write_syslogger_file(cursor, non_protocol_len, LOG_DESTINATION_STDERR);
+            cursor += non_protocol_len;
+            count -= non_protocol_len;
+        }
+    }
+
+    // Compact remaining data to start of buffer
+    if (count > 0 && cursor != logbuffer) {
+        memmove(logbuffer, cursor, count);
+    }
+    *bytes_in_logbuffer = count;
+}
+```
+
+Key simplifications made:
+- Abstracted complex header validation into `is_valid_protocol_header()`
+- Simplified destination determination with `get_log_destination()`
+- Consolidated message assembly logic into `complete_and_write_message()` and `buffer_partial_message()`
+- Removed detailed buffer list management implementation details
+- Abstracted non-protocol data scanning into `find_next_header_or_end()`
+- Focused on the main algorithm flow: validate headers, buffer partial chunks, complete messages
+- Maintained the essential chunked protocol logic while removing low-level memory management details

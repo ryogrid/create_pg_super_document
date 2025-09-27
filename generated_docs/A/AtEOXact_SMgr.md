@@ -37,3 +37,19 @@ The function is part of PostgreSQL's "AtEOXact" (At End Of Transaction) callback
 - Only destroys unpinned SMgrRelation objects, preserving those that are still actively referenced
 - Critical for proper cleanup in both foreground transactions and background processes
 - Helps prevent file descriptor exhaustion in long-running PostgreSQL instances
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_SMgr
+void AtEOXact_SMgr(void) {
+    // Clean up all unpinned storage manager relations at transaction end
+    // This ensures file descriptors are closed and resources are freed
+    smgrdestroyall();
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose
+- Function is already quite simple, so main simplification is adding clarity through comments
+- The single function call represents the core cleanup operation for storage manager resources

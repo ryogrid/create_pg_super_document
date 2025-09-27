@@ -45,3 +45,38 @@ This function is part of PostgreSQL's file descriptor management system that tra
 - Returns the result of FreeDesc if the file descriptor is found in the allocated descriptors list, or the result of close() otherwise
 - This function handles raw file descriptors (int) while FreeFile handles FILE* pointers
 - Used extensively throughout PostgreSQL for temporary file operations, WAL operations, replication, and backup processes
+
+## Simplified Source
+
+```c
+// Simplified version of CloseTransientFile
+int CloseTransientFile(int fd) {
+    int i;
+
+    // Debug logging for allocated descriptors count
+    DO_DB(elog(LOG, "CloseTransientFile: Allocated %d", numAllocatedDescs));
+
+    // Search for fd in allocated descriptors list
+    for (i = numAllocatedDescs; --i >= 0;) {
+        AllocateDesc *desc = &allocatedDescs[i];
+
+        // If found, free it properly through the descriptor system
+        if (desc->kind == AllocateDescRawFD && desc->desc.fd == fd) {
+            return FreeDesc(desc);
+        }
+    }
+
+    // Handle case where fd was not obtained from OpenTransientFile
+    elog(WARNING, "fd passed to CloseTransientFile was not obtained from OpenTransientFile");
+
+    // Fallback to direct close()
+    return close(fd);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Preserved the essential search and cleanup logic
+- Maintained the warning for mismatched file descriptors
+- Kept the fallback close() mechanism for safety
+- Organized the flow with descriptive comments

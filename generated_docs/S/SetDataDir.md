@@ -29,3 +29,25 @@ SetDataDir is the canonical function for setting the global DataDir variable in 
 
 ## Notes and Other Information
 This function is the recommended way to set the DataDir global variable, as indicated by the source comment "Use this, never set DataDir directly." The absolute path conversion is essential for PostgreSQL's portability and reliability, especially in environments where the working directory may change. The function's memory management ensures that multiple calls won't leak memory, making it safe to use during configuration processing where the data directory path might be refined through multiple steps.
+
+## Simplified Source
+
+```c
+// Simplified version of SetDataDir
+void SetDataDir(const char *dir) {
+    // Step 1: Convert relative path to absolute path for consistency
+    char *absolute_path = make_absolute_path(dir);
+
+    // Step 2: Clean up previous data directory path
+    free(DataDir);
+
+    // Step 3: Set the new data directory path
+    DataDir = absolute_path;
+}
+```
+
+Key simplifications made:
+- Removed Assert() call for clarity (input validation assumed)
+- Used more descriptive variable name (absolute_path vs new)
+- Added step-by-step comments explaining the core logic
+- Focused on the three essential operations: convert, cleanup, assign

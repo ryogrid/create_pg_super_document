@@ -54,3 +54,66 @@ The function balances performance optimization (avoiding unnecessary work on sub
 - Accepts that concurrent updates may overwrite the flag changes, as subsequent connections can retry
 - Part of PostgreSQL's session-level event trigger system for connection monitoring and initialization
 - Requires a valid database ID and active postmaster environment
+
+## Simplified Source
+
+```c
+// Simplified version of EventTriggerOnLogin
+void EventTriggerOnLogin(void) {
+    List *trigger_list;
+    EventTriggerData trigger_context;
+
+    // Early exit if event triggers are disabled or no database connection
+    if (!IsUnderPostmaster || !event_triggers ||
+        !OidIsValid(MyDatabaseId) || !MyDatabaseHasLoginEventTriggers)
+        return;
+
+    // Start transaction for trigger execution
+    StartTransactionCommand();
+
+    // Find all login event triggers that should fire
+    trigger_list = EventTriggerCommonSetup(NULL, EVT_Login, "login",
+                                          &trigger_context, false);
+
+    if (trigger_list != NIL) {
+        // Execute the login triggers with proper snapshot
+        PushActiveSnapshot(GetTransactionSnapshot());
+        EventTriggerInvoke(trigger_list, &trigger_context);
+        PopActiveSnapshot();
+
+        list_free(trigger_list);
+    }
+    else {
+        // No triggers exist - try to clear the database flag to optimize future connections
+        if (ConditionalLockSharedObject(DatabaseRelationId, MyDatabaseId, 0, AccessExclusiveLock)) {
+            // Double-check no triggers were added concurrently
+            trigger_list = EventTriggerCommonSetup(NULL, EVT_Login, "login",
+                                                  &trigger_context, true);
+
+            if (trigger_list == NIL) {
+                // Clear the dathasloginevt flag in pg_database
+                clear_database_login_event_flag();
+            } else {
+                list_free(trigger_list);
+            }
+        }
+    }
+
+    CommitTransactionCommand();
+}
+
+// Helper function (abstracted from complex catalog update logic)
+static void clear_database_login_event_flag(void) {
+    // Open pg_database catalog and find our database row
+    // Update dathasloginevt = false using in-place update
+    // Close catalog and cleanup
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and validation checks for clarity
+- Abstracted complex catalog update logic into a helper function
+- Consolidated the conditional locking and flag clearing logic
+- Simplified variable declarations and memory management details
+- Focused on the main execution flow: check conditions → find triggers → execute or optimize
+- Preserved the essential double-check pattern for concurrent safety

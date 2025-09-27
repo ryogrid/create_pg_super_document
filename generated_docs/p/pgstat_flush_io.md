@@ -44,3 +44,58 @@ This function transfers accumulated I/O statistics from the local backend's pend
 - Processes statistics in nested loops across I/O objects, contexts, and operations
 - Accumulates both count and timing statistics from pending to shared memory
 - Located in src/backend/utils/activity/pgstat_io.c:173-220
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_flush_io
+bool pgstat_flush_io(bool nowait) {
+    // Early exit if no IO stats have been recorded
+    if (!have_iostats)
+        return false;
+
+    // Get the lock and shared stats for this backend type
+    LWLock *bktype_lock = &pgStatLocal.shmem->io.locks[MyBackendType];
+    PgStat_BktypeIO *bktype_shstats = &pgStatLocal.shmem->io.stats.stats[MyBackendType];
+
+    // Acquire lock (either blocking or non-blocking based on nowait)
+    if (!nowait) {
+        LWLockAcquire(bktype_lock, LW_EXCLUSIVE);
+    } else if (!LWLockConditionalAcquire(bktype_lock, LW_EXCLUSIVE)) {
+        return true;  // Could not acquire lock
+    }
+
+    // Transfer all pending stats to shared memory
+    // Three nested loops for: IO objects, contexts, and operations
+    for (int io_object = 0; io_object < IOOBJECT_NUM_TYPES; io_object++) {
+        for (int io_context = 0; io_context < IOCONTEXT_NUM_TYPES; io_context++) {
+            for (int io_op = 0; io_op < IOOP_NUM_TYPES; io_op++) {
+                // Add pending counts to shared stats
+                bktype_shstats->counts[io_object][io_context][io_op] +=
+                    PendingIOStats.counts[io_object][io_context][io_op];
+
+                // Add pending times to shared stats (converted to microseconds)
+                instr_time time = PendingIOStats.pending_times[io_object][io_context][io_op];
+                bktype_shstats->times[io_object][io_context][io_op] +=
+                    INSTR_TIME_GET_MICROSEC(time);
+            }
+        }
+    }
+
+    // Release the lock
+    LWLockRelease(bktype_lock);
+
+    // Clear local pending stats and reset flag
+    memset(&PendingIOStats, 0, sizeof(PendingIOStats));
+    have_iostats = false;
+
+    return false;  // Success
+}
+```
+
+Key simplifications made:
+- Removed assertion check for brevity (pgstat_bktype_io_stats_valid)
+- Added descriptive comments explaining each major step
+- Clarified the purpose of the triple nested loop
+- Made the lock acquisition logic more readable
+- Explained the return values in comments

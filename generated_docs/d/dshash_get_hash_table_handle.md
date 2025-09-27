@@ -36,3 +36,21 @@ The function includes validation to ensure the hash table is still valid by chec
 - Multiple processes can use the same handle to attach to the hash table
 - Commonly used immediately after dshash_create to store the handle for later access
 - The handle can be passed between processes through shared memory or other IPC mechanisms
+
+## Simplified Source
+
+```c
+// Simplified version of dshash_get_hash_table_handle
+dshash_table_handle dshash_get_hash_table_handle(dshash_table *hash_table) {
+    // Core logic: Validate table and return handle
+    Assert(hash_table->control->magic == DSHASH_MAGIC);
+
+    return hash_table->control->handle;
+}
+```
+
+Key simplifications made:
+- Combined assertion and return into a clear two-step process
+- Focused on the essential validation and access operations
+- Maintained critical magic number validation
+- Simplified to show the core function: validate then return handle

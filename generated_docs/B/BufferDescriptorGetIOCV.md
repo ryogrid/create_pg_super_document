@@ -36,3 +36,18 @@ This inline function provides access to the condition variable (CV) associated w
 - Essential for coordinating concurrent access to buffers during I/O operations
 - Located in buf_internals.h as a core utility for buffer I/O management
 - Enables non-blocking I/O patterns by allowing processes to sleep until I/O completion
+
+## Simplified Source
+
+```c
+// Simplified version of BufferDescriptorGetIOCV
+static inline ConditionVariable *BufferDescriptorGetIOCV(const BufferDesc *bdesc) {
+    // Return pointer to condition variable for this buffer's I/O operations
+    return &(BufferIOCVArray[bdesc->buf_id]).cv;
+}
+```
+
+Key simplifications made:
+- Simple inline accessor function with minimal complexity
+- Core functionality: maps buffer ID to its associated condition variable
+- No simplification needed - already concise and clear

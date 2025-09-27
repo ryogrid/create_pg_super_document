@@ -32,3 +32,24 @@ This function takes no parameters.
 - The function cannot make assumptions about checkpoint completion, as the checkpoint might still fail after this point
 - Essential for ensuring that DROP TABLESPACE and similar operations work correctly by guaranteeing their unlink requests are processed in the expected checkpoint cycle
 - The cycle counter mechanism provides a clean separation between "old" and "new" unlink requests relative to the checkpoint boundary
+
+## Simplified Source
+
+```c
+// Simplified version of SyncPreCheckpoint
+void SyncPreCheckpoint(void) {
+    // Step 1: Process all pending unlink requests that arrived before checkpoint
+    // This ensures DROP TABLESPACE and similar operations work correctly
+    AbsorbSyncRequests();
+
+    // Step 2: Increment cycle counter to mark the checkpoint boundary
+    // Any new unlink requests after this point go to the next checkpoint cycle
+    checkpoint_cycle_ctr++;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity while preserving essential explanations
+- Focused on the two core operations: absorbing requests and incrementing counter
+- Emphasized the checkpoint boundary concept with clear step-by-step comments
+- Maintained the essential logic flow and purpose of the function

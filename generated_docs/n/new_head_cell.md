@@ -9,8 +9,7 @@ Creates space for a new head cell at the beginning of an existing PostgreSQL lis
 ## Definition
 
 ```c
-structively
- * modify the list;
+static void new_head_cell(List *list)
 ```
 ## Detailed Description
 The new_head_cell function is a static utility function that prepares an existing list for insertion of a new element at the head (beginning) of the list. It handles the necessary memory management by first enlarging the list's capacity if needed, then shifting all existing elements one position to the right using memmove. This creates an empty slot at position 0 where the new head element can be inserted.
@@ -35,3 +34,28 @@ The function only creates the space - it does not initialize the data in the new
 - The caller must initialize the data in list->elements[0] after calling this function
 - This function automatically increments the list's length counter
 - Performance consideration: shifting all elements makes head insertion O(n) in complexity
+
+## Simplified Source
+
+```c
+// Simplified version of new_head_cell
+static void new_head_cell(List *list) {
+    // Expand list capacity if needed
+    if (list->length >= list->max_length)
+        enlarge_list(list, list->length + 1);
+
+    // Shift all existing elements one position to the right
+    memmove(&list->elements[1], &list->elements[0],
+            list->length * sizeof(ListCell));
+
+    // Update list length to account for new head slot
+    list->length++;
+}
+```
+
+Key simplifications made:
+- Preserved all essential functionality without changes
+- Added clear comments explaining each operation
+- Maintained the memory management and data shifting logic
+- Focused on the core responsibility: creating space for a new head element
+- Kept the O(n) complexity characteristic that's inherent to the operation

@@ -40,3 +40,34 @@ The returned target list is local storage within the cached plan and may disappe
 - Returns NIL for statements that don't produce output tuples
 - The target list is guaranteed to be up-to-date at the time of the call
 - Located in src/backend/utils/cache/plancache.c:1640-1676
+
+## Simplified Source
+
+```c
+// Simplified version of CachedPlanGetTargetList
+List *CachedPlanGetTargetList(CachedPlanSource *plansource, QueryEnvironment *queryEnv) {
+    // Validate input: check magic number and completeness
+    Assert(plansource->magic == CACHEDPLANSOURCE_MAGIC);
+    Assert(plansource->is_complete);
+
+    // Early exit: return NIL if statement doesn't return tuples
+    if (plansource->resultDesc == NULL)
+        return NIL;
+
+    // Ensure cached query is current and we have parse-time locks
+    RevalidateCachedQuery(plansource, queryEnv);
+
+    // Get the primary statement from the query list
+    Query *primary_stmt = QueryListGetPrimaryStmt(plansource->query_list);
+
+    // Extract and return the target list from the statement
+    return FetchStatementTargetList((Node *) primary_stmt);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations with usage
+- Added descriptive comments for each logical step
+- Renamed variable from `pstmt` to `primary_stmt` for clarity
+- Maintained the exact same logic flow and functionality
+- Preserved all essential error checking and validation

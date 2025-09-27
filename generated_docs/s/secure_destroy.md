@@ -34,3 +34,21 @@ This function is typically called during configuration reloads to clean up the o
 - The function's behavior is entirely dependent on compile-time SSL support
 - Part of PostgreSQL's resource management strategy for the security subsystem
 - Safe to call multiple times or when no SSL context exists
+
+## Simplified Source
+
+```c
+// Simplified version of secure_destroy
+void secure_destroy(void) {
+    // Clean up SSL/TLS resources if SSL support is enabled
+    #ifdef USE_SSL
+        be_tls_destroy();
+    #endif
+    // Function is a no-op when SSL is not compiled in
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the conditional compilation
+- Clarified the no-op behavior when SSL is disabled
+- Maintained the essential cleanup logic

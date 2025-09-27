@@ -43,3 +43,28 @@ This function takes no parameters.
 - Critical for maintaining MultiXact consistency across system restarts
 - Works with two separate data structures: offset control and member control
 - The 'true' parameter to SimpleLruWriteAll indicates this is a checkpoint operation
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointMultiXact
+void CheckPointMultiXact(void) {
+    // Start performance tracing
+    TRACE_POSTGRESQL_MULTIXACT_CHECKPOINT_START(true);
+
+    // Write all dirty MultiXact pages to disk
+    // This includes both offset mappings and member data
+    SimpleLruWriteAll(MultiXactOffsetCtl, true);  // Write offset control data
+    SimpleLruWriteAll(MultiXactMemberCtl, true);  // Write member control data
+
+    // End performance tracing
+    TRACE_POSTGRESQL_MULTIXACT_CHECKPOINT_DONE(true);
+}
+```
+
+Key simplifications made:
+- Preserved the essential two-step write operation for MultiXact data
+- Kept performance tracing calls for monitoring
+- Added inline comments explaining what each data structure contains
+- Maintained the checkpoint flag parameter (true) to SimpleLruWriteAll
+- Simplified the function to show its core purpose: ensuring MultiXact durability

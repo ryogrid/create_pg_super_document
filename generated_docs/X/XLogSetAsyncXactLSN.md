@@ -40,3 +40,54 @@ XLogSetAsyncXactLSN is specifically designed for asynchronous transaction proces
 - Thread-safe implementation using spinlocks around shared state modifications
 - Part of PostgreSQL's async commit performance optimization, allowing transactions to complete without waiting for disk I/O
 - Declared in src/include/access/xlog.h at line 213
+
+## Simplified Source
+
+```c
+// Simplified version of XLogSetAsyncXactLSN
+void XLogSetAsyncXactLSN(XLogRecPtr asyncXactLSN) {
+    XLogRecPtr WriteRqstPtr = asyncXactLSN;
+    bool sleeping;
+    bool wakeup = false;
+    XLogRecPtr prevAsyncXactLSN;
+
+    // Update shared async transaction LSN under spinlock
+    SpinLockAcquire(&XLogCtl->info_lck);
+    sleeping = XLogCtl->WalWriterSleeping;
+    prevAsyncXactLSN = XLogCtl->asyncXactLSN;
+    if (XLogCtl->asyncXactLSN < asyncXactLSN) {
+        XLogCtl->asyncXactLSN = asyncXactLSN;
+    }
+    SpinLockRelease(&XLogCtl->info_lck);
+
+    // Return early if someone else already handled a higher LSN
+    if (asyncXactLSN <= prevAsyncXactLSN) {
+        return;
+    }
+
+    // Determine whether to wake the WAL writer
+    if (sleeping) {
+        wakeup = true;  // Always wake if sleeping
+    } else {
+        // Check if enough data is pending to justify waking
+        RefreshXLogWriteResult(LogwrtResult);
+        int flushblocks = WriteRqstPtr / XLOG_BLCKSZ - LogwrtResult.Flush / XLOG_BLCKSZ;
+
+        if (WalWriterFlushAfter == 0 || flushblocks >= WalWriterFlushAfter) {
+            wakeup = true;
+        }
+    }
+
+    // Wake the WAL writer if needed
+    if (wakeup && ProcGlobal->walwriterLatch) {
+        SetLatch(ProcGlobal->walwriterLatch);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated logic flow
+- Simplified the WAL writer wakeup decision logic
+- Focused on the core async LSN tracking and smart awakening algorithm
+- Maintained essential spinlock protection and early return optimization
+- Preserved the dual-strategy wakeup approach (sleeping vs. volume-based)

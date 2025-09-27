@@ -36,3 +36,36 @@ All ResourceOwner objects are allocated in TopMemoryContext to ensure they persi
 - Parent-child relationships are maintained through a singly-linked list where each parent tracks its first child, and children are linked via nextchild pointers
 - The name parameter is stored as-is without duplication, so callers should ensure the name string remains valid for the lifetime of the ResourceOwner
 - This function is fundamental to PostgreSQL's resource management system and is called during critical operations like transaction management and portal creation
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerCreate
+ResourceOwner ResourceOwnerCreate(ResourceOwner parent, const char *name) {
+    // Step 1: Allocate new ResourceOwner in TopMemoryContext (persistent storage)
+    ResourceOwner new_owner = (ResourceOwner) MemoryContextAllocZero(TopMemoryContext,
+                                                                     sizeof(struct ResourceOwnerData));
+
+    // Step 2: Set the descriptive name for debugging/error reporting
+    new_owner->name = name;
+
+    // Step 3: Establish parent-child relationship if parent is provided
+    if (parent) {
+        new_owner->parent = parent;
+
+        // Add to parent's child list (insert at head of linked list)
+        new_owner->nextchild = parent->firstchild;
+        parent->firstchild = new_owner;
+    }
+
+    return new_owner;
+}
+```
+
+Key simplifications made:
+- Renamed owner to new_owner for clarity
+- Added step-by-step comments explaining the hierarchy setup
+- Clarified the linked list insertion logic
+- Maintained the essential parent-child relationship establishment
+- Preserved the TopMemoryContext allocation for persistence
+- Kept the zero-initialization for clean state

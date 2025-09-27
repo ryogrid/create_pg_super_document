@@ -48,3 +48,29 @@ The isCommit and isTopLevel parameters provide context to resource release callb
 - Critical for PostgreSQL's error recovery and transaction management systems
 - The function marks the ResourceOwner as 'releasing' to prevent further resource registration
 - Phase ordering is crucial for maintaining system consistency during cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerRelease
+void ResourceOwnerRelease(ResourceOwner owner,
+                          ResourceReleasePhase phase,
+                          bool isCommit,
+                          bool isTopLevel) {
+    // Core logic: Delegate to internal implementation for recursive release
+    ResourceOwnerReleaseInternal(owner, phase, isCommit, isTopLevel);
+
+    // Optional statistics logging for top-level releases
+    if (isTopLevel && RESOWNER_STATS_ENABLED) {
+        log_resource_owner_statistics();
+        reset_statistics_counters();
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity while preserving essential algorithm
+- Abstracted the conditional compilation directives into conceptual operations
+- Consolidated the statistics handling into logical steps
+- Focused on the main execution path: delegation to internal function + optional stats
+- Preserved the essential multi-phase cleanup strategy

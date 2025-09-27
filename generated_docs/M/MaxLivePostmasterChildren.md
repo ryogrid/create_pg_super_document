@@ -38,3 +38,26 @@ This function takes no parameters and returns an integer representing the maximu
 - The exact value isn't critical as long as it exceeds MaxBackends
 - This sizing is crucial for proper memory allocation and process management in PostgreSQL's multi-process architecture
 - The function helps maintain system stability by preventing resource exhaustion from too many child processes
+
+## Simplified Source
+
+```c
+// Simplified version of MaxLivePostmasterChildren
+int MaxLivePostmasterChildren(void) {
+    // Calculate total child processes across all categories
+    int total_children = MaxConnections +           // Regular backend connections
+                        autovacuum_max_workers +    // Autovacuum workers
+                        1 +                         // Additional buffer
+                        max_wal_senders +           // WAL sender processes
+                        max_worker_processes;       // Background workers
+
+    // Apply 2x safety factor for array sizing
+    return 2 * total_children;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each component of the calculation
+- Broke down the single return statement into intermediate variable for clarity
+- Explained the purpose of each term in the calculation
+- Maintained the original logic while improving readability

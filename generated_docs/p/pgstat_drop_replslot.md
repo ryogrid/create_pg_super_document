@@ -33,3 +33,27 @@ This function is called when a replication slot is being dropped to clean up its
 - Part of the replication slot lifecycle management in the statistics system
 - Works in conjunction with pgstat_acquire_replslot() for complete slot statistics lifecycle
 - Helps prevent memory leaks in the statistics hash table
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_drop_replslot
+void pgstat_drop_replslot(ReplicationSlot *slot) {
+    // Verify we have exclusive lock on replication slot allocation
+    Assert(LWLockHeldByMeInMode(ReplicationSlotAllocationLock, LW_EXCLUSIVE));
+
+    // Attempt to drop the statistics entry for this replication slot
+    if (!pgstat_drop_entry(PGSTAT_KIND_REPLSLOT, InvalidOid, ReplicationSlotIndex(slot))) {
+        // If immediate removal failed, request garbage collection
+        // to ensure eventual cleanup
+        pgstat_request_entry_refs_gc();
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Clarified the purpose of the assertion (lock verification)
+- Explained the conditional garbage collection request
+- Preserved essential lock safety check and cleanup logic
+- Emphasized the fallback mechanism for failed entry removal

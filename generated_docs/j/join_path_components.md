@@ -42,3 +42,33 @@ The function is designed to be safe for in-place operations where the output buf
 - Handles drive letters on Windows by using skip_drive() to determine if head is just a drive
 - Previously attempted to handle "." and ".." components but now leaves that to canonicalization
 - Part of PostgreSQL's cross-platform path manipulation utilities
+
+## Simplified Source
+
+```c
+// Simplified version of join_path_components
+void join_path_components(char *ret_path, const char *head, const char *tail) {
+    // Copy head to output buffer if they're different
+    if (ret_path != head) {
+        strlcpy(ret_path, head, MAXPGPATH);
+    }
+
+    // Append tail if it's not empty
+    if (*tail) {
+        // Add slash separator only if head is not empty (skip drive check)
+        bool need_slash = (*(skip_drive(head)) != '\0');
+        snprintf(ret_path + strlen(ret_path),
+                 MAXPGPATH - strlen(ret_path),
+                 "%s%s",
+                 need_slash ? "/" : "",
+                 tail);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining historical behavior
+- Extracted slash decision logic into a clear boolean variable
+- Consolidated the snprintf formatting for better readability
+- Focused on the main execution path
+- Preserved all essential functionality including edge case handling

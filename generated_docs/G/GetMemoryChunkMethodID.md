@@ -35,3 +35,33 @@ This function retrieves the MemoryContextMethodID from the uint64 header that pr
 - Valgrind integration helps detect memory access violations during debugging
 - The method ID extraction uses bitwise AND with MEMORY_CONTEXT_METHODID_MASK to isolate the relevant bits from the header
 - Part of PostgreSQL's memory context system which tracks allocation methods for each memory chunk
+
+## Simplified Source
+
+```c
+// Simplified version of GetMemoryChunkMethodID
+static inline MemoryContextMethodID GetMemoryChunkMethodID(const void *pointer) {
+    // Validate pointer alignment - ensures pointer points to valid allocated chunk
+    Assert(pointer == (const void *) MAXALIGN(pointer));
+
+    // Allow Valgrind to access the header for debugging purposes
+    VALGRIND_MAKE_MEM_DEFINED((char *) pointer - sizeof(uint64), sizeof(uint64));
+
+    // Read the 64-bit header that precedes the memory chunk
+    uint64 header = *((const uint64 *) ((const char *) pointer - sizeof(uint64)));
+
+    // Restore Valgrind memory protection
+    VALGRIND_MAKE_MEM_NOACCESS((char *) pointer - sizeof(uint64), sizeof(uint64));
+
+    // Extract and return the method ID from the header's lower bits
+    return (MemoryContextMethodID) (header & MEMORY_CONTEXT_METHODID_MASK);
+}
+```
+
+Key simplifications made:
+- Preserved the essential logic flow and all operations
+- Added clear comments explaining each step's purpose
+- Maintained the Assert for pointer validation
+- Kept Valgrind integration for memory debugging
+- Focused on the core functionality: reading header and extracting method ID
+- No actual simplification was needed as the function is already quite clean and focused

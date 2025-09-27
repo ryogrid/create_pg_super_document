@@ -34,3 +34,27 @@ This function takes no parameters and returns a boolean value indicating whether
 
 ## Notes and Other Information
 The function's comment explicitly states that the backend is only really "idle" when this returns false, emphasizing its role in determining true idle state. This function should logically align with IsTransactionBlock and IsTransactionState, providing a consistent view of transaction activity across different contexts. It's particularly important for interrupt handling and cleanup operations that need to behave differently when any transaction context is active.
+
+## Simplified Source
+
+```c
+// Simplified version of IsTransactionOrTransactionBlock
+bool IsTransactionOrTransactionBlock(void) {
+    // Get current transaction state
+    TransactionState currentState = CurrentTransactionState;
+
+    // Check if we're in the default (idle) state
+    if (currentState->blockState == TBLOCK_DEFAULT) {
+        return false;  // Backend is truly idle
+    }
+
+    // Any other state means we have active transaction context
+    return true;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for better readability
+- Added explanatory comments for each logical step
+- Made the idle state check more explicit with clear comments
+- Preserved the core logic while improving code clarity

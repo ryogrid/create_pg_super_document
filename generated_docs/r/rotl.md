@@ -32,3 +32,22 @@ The function is declared as `static inline`, making it an internal utility funct
 - This function is specifically designed to support the xoroshiro128** pseudo-random number generator algorithm
 - The implementation assumes the compiler will optimize the bit operations efficiently
 - Located in src/common/pg_prng.c, which contains PostgreSQL's pseudo-random number generation utilities
+
+## Simplified Source
+
+```c
+// Simplified version of rotl
+static inline uint64 rotl(uint64 x, int bits) {
+    // Perform 64-bit left rotation by combining left shift with right shift
+    // Left part: shift bits left
+    // Right part: capture overflow bits and place them at the right end
+    return (x << bits) | (x >> (64 - bits));
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the rotation operation
+- Explained how the left and right shift operations work together
+- This function is already very simple and efficient
+- Preserved the essential bit manipulation logic
+- Maintained the inline declaration for performance

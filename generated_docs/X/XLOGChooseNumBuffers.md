@@ -39,3 +39,32 @@ This function takes no parameters and returns an integer representing the recomm
 - The lower limit ensures reasonable performance even for very small shared_buffers settings
 - This function is part of PostgreSQL's automatic configuration tuning to reduce the need for manual parameter adjustment
 - Located in src/backend/access/transam/xlog.c:4576-4591
+
+## Simplified Source
+
+```c
+// Simplified version of XLOGChooseNumBuffers
+static int XLOGChooseNumBuffers(void) {
+    int xbuffers;
+
+    // Start with ~3% of shared buffers (NBuffers / 32)
+    xbuffers = NBuffers / 32;
+
+    // Cap at one WAL segment worth of buffers (no benefit beyond this)
+    if (xbuffers > (wal_segment_size / XLOG_BLCKSZ))
+        xbuffers = (wal_segment_size / XLOG_BLCKSZ);
+
+    // Ensure minimum of 8 buffers for reasonable performance
+    if (xbuffers < 8)
+        xbuffers = 8;
+
+    return xbuffers;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the 3% ratio calculation
+- Preserved essential upper and lower bound logic
+- Maintained the empirically-tested performance optimizations
+- Focused on the core auto-tuning algorithm
+- Kept the balance between memory usage and WAL performance

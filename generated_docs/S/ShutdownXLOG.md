@@ -39,3 +39,43 @@ This function handles the orderly shutdown of the WAL (Write-Ahead Log) subsyste
 - Ensures WAL senders are stopped before proceeding with final operations
 - In normal mode with archiving, rotates WAL file to archive remaining records
 - Creates shutdown checkpoint with IMMEDIATE flag for fast completion
+
+## Simplified Source
+
+```c
+// Simplified version of ShutdownXLOG
+void ShutdownXLOG(int code, Datum arg) {
+    // Set up resource owner for cleanup operations
+    CurrentResourceOwner = AuxProcessResourceOwner;
+
+    // Log shutdown message
+    ereport(IsPostmasterEnvironment ? LOG : NOTICE,
+            (errmsg("shutting down")));
+
+    // Step 1: Stop all WAL senders to prevent new WAL writes
+    WalSndInitStopping();
+    WalSndWaitStopping();
+
+    // Step 2: Create final checkpoint or restart point
+    if (RecoveryInProgress()) {
+        // During recovery: create restart point
+        CreateRestartPoint(CHECKPOINT_IS_SHUTDOWN | CHECKPOINT_IMMEDIATE);
+    } else {
+        // During normal operation: handle archiving and create checkpoint
+        if (XLogArchivingActive()) {
+            // Rotate WAL file to archive remaining records
+            RequestXLogSwitch(false);
+        }
+
+        // Create final shutdown checkpoint
+        CreateCheckPoint(CHECKPOINT_IS_SHUTDOWN | CHECKPOINT_IMMEDIATE);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity
+- Consolidated the shutdown flow into clear steps
+- Added explanatory comments for each major operation
+- Focused on the main execution paths
+- Simplified resource owner setup explanation

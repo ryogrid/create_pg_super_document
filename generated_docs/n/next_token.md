@@ -45,3 +45,74 @@ The function modifies the input line pointer to advance past the processed token
 - Comments are completely skipped - once a '#' is encountered outside quotes, the rest of the line is ignored
 - The function returns true if a token was found (either quoted or non-empty), false if no more tokens exist
 - Used primarily in PostgreSQL's authentication subsystem for parsing configuration files
+
+## Simplified Source
+
+```c
+// Simplified version of next_token
+static bool next_token(char **lineptr, StringInfo buf,
+                      bool *initial_quote, bool *terminating_comma) {
+    int c;
+    bool in_quote = false;
+    bool was_quote = false;
+    bool saw_quote = false;
+
+    // Initialize output parameters
+    resetStringInfo(buf);
+    *initial_quote = false;
+    *terminating_comma = false;
+
+    // Skip whitespace and commas before token
+    while ((c = (*(*lineptr)++)) != '\0' && (pg_isblank(c) || c == ','))
+        ;
+
+    // Extract token until EOL, unquoted comma, or unquoted whitespace
+    while (c != '\0' && (!pg_isblank(c) || in_quote)) {
+        // Skip comments to end of line
+        if (c == '#' && !in_quote) {
+            while ((c = (*(*lineptr)++)) != '\0')
+                ;
+            break;
+        }
+
+        // Stop at unquoted comma (don't include it in token)
+        if (c == ',' && !in_quote) {
+            *terminating_comma = true;
+            break;
+        }
+
+        // Add character to token (unless it's a quote being processed)
+        if (c != '"' || was_quote)
+            appendStringInfoChar(buf, c);
+
+        // Handle double-quote escaping (two quotes = one literal quote)
+        if (in_quote && c == '"')
+            was_quote = !was_quote;
+        else
+            was_quote = false;
+
+        // Toggle quote state and track if we saw any quotes
+        if (c == '"') {
+            in_quote = !in_quote;
+            saw_quote = true;
+            if (buf->len == 0)
+                *initial_quote = true;
+        }
+
+        c = *(*lineptr)++;
+    }
+
+    // Back up one character (important for null terminator)
+    (*lineptr)--;
+
+    // Return true if we found a token (quoted or non-empty)
+    return (saw_quote || buf->len > 0);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major section
+- Grouped related logic together for better readability
+- Preserved all quote handling and escape logic
+- Maintained the complex state tracking needed for proper parsing
+- Kept the efficient single-pass tokenization algorithm

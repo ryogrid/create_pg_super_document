@@ -49,3 +49,68 @@ Error handling is limited to direct stderr writes using  rather than PostgreSQL'
 - Critical for PostgreSQL's logging and error handling behavior on Windows, as services have different I/O characteristics
 - The function is Windows-specific and located in the port-specific directory structure
 - Used by error logging systems to adapt behavior based on execution context (service vs. interactive)
+
+## Simplified Source
+
+```c
+// Simplified version of pgwin32_is_service
+int pgwin32_is_service(void) {
+    static int cached_result = -1;
+    BOOL is_member;
+    PSID service_sid, local_system_sid;
+    SID_IDENTIFIER_AUTHORITY nt_authority = {SECURITY_NT_AUTHORITY};
+    HANDLE stderr_handle;
+
+    // Return cached result if already determined
+    if (cached_result != -1)
+        return cached_result;
+
+    // Check 1: Services typically don't have valid stderr
+    stderr_handle = GetStdHandle(STD_ERROR_HANDLE);
+    if (stderr_handle != INVALID_HANDLE_VALUE && stderr_handle != NULL) {
+        cached_result = 0;  // Not a service
+        return cached_result;
+    }
+
+    // Check 2: Are we running as LocalSystem?
+    if (AllocateAndInitializeSid(&nt_authority, 1, SECURITY_LOCAL_SYSTEM_RID,
+                                 0, 0, 0, 0, 0, 0, 0, &local_system_sid)) {
+        if (CheckTokenMembership(NULL, local_system_sid, &is_member)) {
+            FreeSid(local_system_sid);
+            if (is_member) {
+                cached_result = 1;  // Is a service
+                return cached_result;
+            }
+        } else {
+            FreeSid(local_system_sid);
+            return -1;  // Error checking membership
+        }
+    } else {
+        return -1;  // Error getting LocalSystem SID
+    }
+
+    // Check 3: Do we have service group membership?
+    if (AllocateAndInitializeSid(&nt_authority, 1, SECURITY_SERVICE_RID,
+                                 0, 0, 0, 0, 0, 0, 0, &service_sid)) {
+        if (CheckTokenMembership(NULL, service_sid, &is_member)) {
+            FreeSid(service_sid);
+            cached_result = is_member ? 1 : 0;
+        } else {
+            FreeSid(service_sid);
+            return -1;  // Error checking membership
+        }
+    } else {
+        return -1;  // Error getting Service SID
+    }
+
+    return cached_result;
+}
+```
+
+Key simplifications made:
+- Removed detailed error messages for clarity (kept error return codes)
+- Consolidated similar SID allocation and membership checking patterns
+- Used more descriptive variable names (cached_result vs _is_service)
+- Simplified the final result assignment logic
+- Focused on the three main detection criteria without low-level error handling details
+- Maintained the essential caching mechanism and all three service detection methods

@@ -49,3 +49,76 @@ The function handles platform differences between Unix/Linux and Windows, using 
 - Uses different code paths for EXEC_BACKEND builds (Windows) vs fork-based systems
 - The function ensures that log files are writable before launching the logger process to catch permission issues early
 - After successful launch, the postmaster no longer writes directly to log files, instead sending all output through the pipe to the logger process
+
+## Simplified Source
+
+```c
+// Simplified version of SysLogger_Start
+int SysLogger_Start(void) {
+    pid_t syslogger_pid;
+    char *log_filename;
+
+    // Core logic step 1: Check if logging is enabled
+    if (!Logging_collector) {
+        return 0;
+    }
+
+    // Core logic step 2: Create communication pipe (first time only)
+    if (syslog_pipe_not_created) {
+        create_pipe_for_logging();  // Unix: pipe(), Windows: CreatePipe()
+    }
+
+    // Core logic step 3: Ensure log directory exists
+    create_log_directory_if_needed();
+
+    // Core logic step 4: Create initial log files to verify permissions
+    first_syslogger_file_time = time(NULL);
+
+    // Open main stderr log file
+    log_filename = logfile_getname(first_syslogger_file_time, NULL);
+    syslogFile = logfile_open(log_filename, "a", false);
+
+    // Open CSV log file if enabled
+    if (csv_logging_enabled) {
+        csv_filename = logfile_getname(first_syslogger_file_time, ".csv");
+        csvlogFile = logfile_open(csv_filename, "a", false);
+    }
+
+    // Open JSON log file if enabled
+    if (json_logging_enabled) {
+        json_filename = logfile_getname(first_syslogger_file_time, ".json");
+        jsonlogFile = logfile_open(json_filename, "a", false);
+    }
+
+    // Core logic step 5: Launch the syslogger child process
+    syslogger_pid = postmaster_child_launch(B_LOGGER, startup_data, size, NULL);
+
+    if (syslogger_pid == -1) {
+        log_error("could not fork system logger");
+        return 0;
+    }
+
+    // Core logic step 6: Redirect stderr/stdout to pipe (first time only)
+    if (!redirection_done) {
+        log_info("redirecting log output to logging collector process");
+
+        // Redirect stdout and stderr to the pipe
+        redirect_stdout_stderr_to_pipe();
+
+        redirection_done = true;
+    }
+
+    // Core logic step 7: Clean up file handles in postmaster
+    close_log_files_in_postmaster();
+
+    return (int) syslogger_pid;
+}
+```
+
+Key simplifications made:
+- Removed detailed platform-specific pipe creation code
+- Consolidated error handling to focus on main logic flow
+- Abstracted low-level file descriptor operations
+- Simplified the stderr redirection process
+- Removed EXEC_BACKEND conditional compilation details
+- Focused on the essential algorithm: check config → create pipe → create files → launch process → redirect → cleanup

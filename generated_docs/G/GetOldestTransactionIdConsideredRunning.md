@@ -39,3 +39,22 @@ The function simply computes all visibility horizons and returns the most conser
 - Critical for maintaining system consistency during log truncation operations
 - Used primarily during checkpoint operations to ensure that truncating system logs doesn't remove information that running backends might still need
 - The distinction between this function and GetOldestNonRemovableTransactionId() reflects PostgreSQL's careful separation of concerns between tuple visibility (MVCC) and system metadata management
+
+## Simplified Source
+
+```c
+// Simplified version of GetOldestTransactionIdConsideredRunning
+TransactionId GetOldestTransactionIdConsideredRunning(void) {
+    // Step 1: Calculate all transaction visibility horizons
+    ComputeXidHorizonsResult horizons;
+    ComputeXidHorizons(&horizons);
+
+    // Step 2: Return the most conservative horizon for system log truncation
+    return horizons.oldest_considered_running;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two-step process
+- Emphasized the purpose: providing conservative bounds for system log truncation
+- Highlighted the distinction from visibility-based functions

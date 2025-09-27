@@ -52,3 +52,78 @@ Process title is updated to reflect the current activity state for monitoring pu
 - Handles graceful shutdown scenarios during waiting periods
 - Part of PostgreSQL's streaming replication restart mechanism
 - Process title updates help with monitoring and debugging replication issues
+
+## Simplified Source
+
+```c
+// Simplified version of WalRcvWaitForStartPosition
+static void WalRcvWaitForStartPosition(XLogRecPtr *startpoint, TimeLineID *startpointTLI) {
+    WalRcvData *walrcv = WalRcv;
+
+    // Step 1: Validate current state and transition to waiting
+    SpinLockAcquire(&walrcv->mutex);
+    if (walrcv->walRcvState != WALRCV_STREAMING) {
+        SpinLockRelease(&walrcv->mutex);
+        // Handle unexpected states (exit if stopping, fatal otherwise)
+        if (walrcv->walRcvState == WALRCV_STOPPING)
+            proc_exit(0);
+        else
+            elog(FATAL, "unexpected walreceiver state");
+    }
+
+    // Step 2: Reset streaming state and coordinates
+    walrcv->walRcvState = WALRCV_WAITING;
+    walrcv->receiveStart = InvalidXLogRecPtr;
+    walrcv->receiveStartTLI = 0;
+    SpinLockRelease(&walrcv->mutex);
+
+    // Step 3: Signal that we're waiting for instructions
+    set_ps_display("idle");
+    WakeupRecovery();
+
+    // Step 4: Wait loop for new streaming coordinates
+    for (;;) {
+        ResetLatch(MyLatch);
+        ProcessWalRcvInterrupts();
+
+        SpinLockAcquire(&walrcv->mutex);
+
+        // Check for restart signal with new coordinates
+        if (walrcv->walRcvState == WALRCV_RESTARTING) {
+            *startpoint = walrcv->receiveStart;
+            *startpointTLI = walrcv->receiveStartTLI;
+            walrcv->walRcvState = WALRCV_STREAMING;
+            SpinLockRelease(&walrcv->mutex);
+            break;  // Exit loop with new coordinates
+        }
+
+        // Check for shutdown signal
+        if (walrcv->walRcvState == WALRCV_STOPPING) {
+            SpinLockRelease(&walrcv->mutex);
+            exit(1);
+        }
+
+        SpinLockRelease(&walrcv->mutex);
+
+        // Wait for next signal
+        WaitLatch(MyLatch, WL_LATCH_SET | WL_EXIT_ON_PM_DEATH, 0,
+                  WAIT_EVENT_WAL_RECEIVER_WAIT_START);
+    }
+
+    // Step 5: Update process title with restart coordinates
+    if (update_process_title) {
+        char activitymsg[50];
+        snprintf(activitymsg, sizeof(activitymsg), "restarting at %X/%X",
+                 LSN_FORMAT_ARGS(*startpoint));
+        set_ps_display(activitymsg);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for clarity
+- Consolidated state checking logic into clearer conditional blocks
+- Added step-by-step comments explaining the main execution flow
+- Simplified variable declarations and removed some intermediate variables
+- Focused on the main state machine logic rather than low-level details
+- Preserved the essential algorithm: state transition → wait loop → coordinate extraction

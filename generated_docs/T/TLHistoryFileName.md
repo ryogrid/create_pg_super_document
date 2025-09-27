@@ -36,3 +36,18 @@ This function constructs a filename for a timeline history file by formatting th
 - Timeline IDs start from 1, with higher numbers representing newer timeline branches
 - History files contain information about when timeline switches occurred and their parent timelines
 - These files are replicated along with WAL data to ensure consistency across standby servers
+
+## Simplified Source
+
+```c
+// Simplified version of TLHistoryFileName
+static inline void TLHistoryFileName(char *fname, TimeLineID tli) {
+    // Generate timeline history filename: format timeline ID as 8-digit hex + ".history"
+    snprintf(fname, MAXFNAMELEN, "%08X.history", tli);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - no simplification needed
+- Added explanatory comment describing the filename format
+- Core logic: converts timeline ID to 8-digit hexadecimal filename with .history extension

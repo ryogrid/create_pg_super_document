@@ -35,3 +35,31 @@ choose_nelem_alloc calculates the optimal number of hash table elements to alloc
 - Algorithm starts with 128-byte base allocation and scales up as needed
 - Essential for the performance characteristics of PostgreSQL's hash table expansion
 - Located at src/backend/utils/hash/dynahash.c:657-689
+
+## Simplified Source
+
+```c
+// Simplified version of choose_nelem_alloc
+static int choose_nelem_alloc(Size entrysize) {
+    int nelem_alloc;
+    Size elementSize;
+    Size allocSize;
+
+    // Calculate total element size (header + user data)
+    elementSize = MAXALIGN(sizeof(HASHELEMENT)) + MAXALIGN(entrysize);
+
+    // Start with base allocation size and scale up
+    allocSize = 32 * 4;  // Base size: 128 bytes
+    do {
+        allocSize <<= 1;  // Double allocation size
+        nelem_alloc = allocSize / elementSize;
+    } while (nelem_alloc < 32);  // Ensure minimum 32 elements
+
+    return nelem_alloc;
+}
+```
+
+Key simplifications made:
+- Removed detailed explanatory comments for clarity
+- Focused on the core algorithm: calculate element size and find optimal allocation count
+- Maintained the essential power-of-2 optimization logic

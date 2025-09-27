@@ -42,3 +42,25 @@ The function reads binary data from a StringInfo buffer and converts it accordin
 - The function is located in src/backend/utils/fmgr/fmgr.c at lines 1772-1781
 - For performance-critical code, cache the FmgrInfo and use ReceiveFunctionCall directly
 - The StringInfo buffer parameter allows efficient binary data processing without additional copying
+
+## Simplified Source
+
+```c
+// Simplified version of OidReceiveFunctionCall
+Datum OidReceiveFunctionCall(Oid functionId, StringInfo buf,
+                            Oid typioparam, int32 typmod) {
+    FmgrInfo flinfo;
+
+    // Setup function manager info for the receive function
+    fmgr_info(functionId, &flinfo);
+
+    // Call the actual receive function to convert binary data to Datum
+    return ReceiveFunctionCall(&flinfo, buf, typioparam, typmod);
+}
+```
+
+Key simplifications made:
+- Function is already very simple with minimal logic
+- Added descriptive comments for the two main steps
+- No error handling or complex logic to simplify
+- Preserved the essential wrapper pattern around ReceiveFunctionCall

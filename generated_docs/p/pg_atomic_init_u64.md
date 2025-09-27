@@ -47,3 +47,24 @@ The function includes conditional pointer alignment enforcement based on whether
 - Platform-specific behavior: alignment requirements depend on the underlying atomic implementation
 - Unlike the 32-bit counterpart, this function may use spinlock-based simulation on platforms without native 64-bit atomic support
 - Critical for initializing shared memory structures that require atomic access across multiple processes
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_init_u64
+static inline void pg_atomic_init_u64(volatile pg_atomic_uint64 *ptr, uint64 val) {
+    // Core logic step 1: Enforce alignment when using hardware atomics
+#ifndef PG_HAVE_ATOMIC_U64_SIMULATION
+    AssertPointerAlignment(ptr, 8);
+#endif
+
+    // Core logic step 2: Initialize the atomic variable using platform implementation
+    pg_atomic_init_u64_impl(ptr, val);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about alignment requirements in different implementations
+- Focused on the two core steps: conditional alignment check and actual initialization
+- Maintained the essential conditional compilation for alignment enforcement
+- Simplified to show the wrapper nature around the platform-specific implementation

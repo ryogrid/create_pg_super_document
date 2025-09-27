@@ -38,3 +38,45 @@ This function implements PostgreSQL's debug level functionality triggered by the
 - Level 5+: Enables rewritten query debugging output
 - The function differs from simply setting log_min_messages as it enables additional specialized debugging options
 - Connection/disconnection logging is only enabled in PGC_POSTMASTER context for security and performance reasons
+
+## Simplified Source
+
+```c
+// Simplified version of set_debug_options
+void set_debug_options(int debug_flag, GucContext context, GucSource source) {
+    // Step 1: Set base logging level based on debug flag
+    if (debug_flag > 0) {
+        char debugstr[64];
+        sprintf(debugstr, "debug%d", debug_flag);
+        SetConfigOption("log_min_messages", debugstr, context, source);
+    } else {
+        SetConfigOption("log_min_messages", "notice", context, source);
+    }
+
+    // Step 2: Enable connection logging for debug level 1+ (postmaster context only)
+    if (debug_flag >= 1 && context == PGC_POSTMASTER) {
+        SetConfigOption("log_connections", "true", context, source);
+        SetConfigOption("log_disconnections", "true", context, source);
+    }
+
+    // Step 3: Progressively enable more detailed debugging output
+    if (debug_flag >= 2)
+        SetConfigOption("log_statement", "all", context, source);
+
+    if (debug_flag >= 3)
+        SetConfigOption("debug_print_parse", "true", context, source);
+
+    if (debug_flag >= 4)
+        SetConfigOption("debug_print_plan", "true", context, source);
+
+    if (debug_flag >= 5)
+        SetConfigOption("debug_print_rewritten", "true", context, source);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Grouped related functionality with clear step labels
+- Maintained the original logic flow and conditional structure
+- Enhanced readability with better code organization
+- Preserved all essential functionality and parameter handling

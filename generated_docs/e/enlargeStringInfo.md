@@ -49,3 +49,53 @@ External callers typically don't need to call this function directly since all s
 - Includes comprehensive overflow protection
 - The 'needed' parameter does not include space for the terminating null byte
 - Buffer expansion is automatic in most stringinfo.c operations
+
+## Simplified Source
+
+```c
+// Simplified version of enlargeStringInfo
+void
+enlargeStringInfo(StringInfo str, int needed)
+{
+    // Validate StringInfo is not read-only
+    Assert(str->maxlen != 0);
+
+    // Validate request size
+    if (needed < 0)
+        elog(ERROR, "invalid string enlargement request size: %d", needed);
+
+    // Check for potential overflow
+    if (((Size) needed) >= (MaxAllocSize - (Size) str->len))
+        ereport(ERROR,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("out of memory")));
+
+    // Calculate total space required (including null terminator)
+    int total_needed = needed + str->len + 1;
+
+    // Return if we already have enough space
+    if (total_needed <= str->maxlen)
+        return;
+
+    // Calculate new buffer size using exponential growth
+    int newlen = 2 * str->maxlen;
+    while (total_needed > newlen)
+        newlen = 2 * newlen;
+
+    // Clamp to maximum allocation size
+    if (newlen > (int) MaxAllocSize)
+        newlen = (int) MaxAllocSize;
+
+    // Reallocate buffer and update maxlen
+    str->data = (char *) repalloc(str->data, newlen);
+    str->maxlen = newlen;
+}
+```
+
+Key simplifications made:
+- Consolidated frontend/backend error handling to backend version for clarity
+- Added explanatory comments for each major step
+- Simplified variable names and calculations
+- Grouped related validation checks together
+- Preserved essential logic: validate input, check overflow, calculate new size with exponential growth, reallocate
+- Maintained the critical exponential growth strategy and overflow protection

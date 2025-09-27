@@ -45,3 +45,32 @@ The returned string pointer references static data within the enum definition an
 - Used extensively throughout the GUC system for displaying enum values
 - Part of PostgreSQL's configuration system infrastructure for enum-type parameters
 - The search is linear through the options array until a matching value is found
+
+## Simplified Source
+
+```c
+// Simplified version of config_enum_lookup_by_value
+const char *config_enum_lookup_by_value(struct config_enum *record, int val) {
+    // Search through enum options array
+    for (const struct config_enum_entry *entry = record->options;
+         entry && entry->name;
+         entry++) {
+
+        // Return name if value matches
+        if (entry->val == val) {
+            return entry->name;
+        }
+    }
+
+    // Value not found - this indicates a programming error
+    elog(ERROR, "could not find enum option %d for %s", val, record->gen.name);
+    return NULL;  // Never reached, silences compiler warning
+}
+```
+
+Key simplifications made:
+- Consolidated variable declaration with loop initialization for clarity
+- Added inline comments explaining each logical step
+- Maintained the essential linear search algorithm
+- Preserved error handling as it's critical for debugging
+- Kept the function signature and return behavior identical

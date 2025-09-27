@@ -32,3 +32,28 @@ This function efficiently computes the ceiling of the base-2 logarithm for 64-bi
 - Much more efficient than using floating-point logarithm functions
 - Commonly used in memory management where large block sizes require bit count calculations
 - Examples: ceil(log2(2^32)) = 32, ceil(log2(2^32 + 1)) = 33
+
+## Simplified Source
+
+```c
+// Simplified version of pg_ceil_log2_64
+// Returns the ceiling of log2(num) - the minimum number of bits needed
+static inline uint64 pg_ceil_log2_64(uint64 num) {
+    // Special case: log2 of 0 or 1 is 0
+    if (num < 2) {
+        return 0;
+    }
+
+    // Core algorithm: find leftmost bit position of (num-1) and add 1
+    // The (num-1) trick handles both powers of 2 and non-powers correctly
+    // For powers of 2: leftmost_bit(2^n - 1) + 1 = (n-1) + 1 = n
+    // For others: leftmost_bit(num-1) + 1 gives the ceiling
+    return pg_leftmost_one_pos64(num - 1) + 1;
+}
+```
+
+Key simplifications made:
+- Added detailed comments explaining the algorithm logic
+- Clarified the special case handling
+- Explained why the (num-1) trick works for both powers of 2 and other values
+- Made the core algorithm more readable with explanatory comments

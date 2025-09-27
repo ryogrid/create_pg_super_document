@@ -38,3 +38,22 @@ This function converts a multibyte character string to an array of wide characte
 - The length parameter provides bounds checking to prevent buffer overflows
 - The actual conversion logic is encoding-specific and handled by function pointers in pg_wchar_table
 - Returns the number of wide characters produced by the conversion
+
+## Simplified Source
+
+```c
+// Simplified version of pg_mb2wchar_with_len
+int pg_mb2wchar_with_len(const char *from, pg_wchar *to, int len) {
+    // Get the encoding-specific conversion function from the table
+    // and call it with the current database encoding
+    return pg_wchar_table[DatabaseEncoding->encoding].mb2wchar_with_len(
+        (const unsigned char *) from, to, len);
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the function pointer lookup and delegation
+- Broke the function call into multiple lines for better readability
+- Preserved the cast to unsigned char for the source parameter
+- Maintained the length-limited conversion functionality
+- This function is already quite simple as it's primarily a wrapper

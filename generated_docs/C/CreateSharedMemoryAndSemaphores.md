@@ -48,3 +48,65 @@ The function then sets up the shared memory allocation framework and calls Creat
 - Includes EXEC_BACKEND-specific backend array allocation
 - Provides extension hook for modules to initialize shared memory structures
 - Critical for establishing the foundation of PostgreSQL's inter-process communication
+
+## Simplified Source
+
+```c
+// Simplified version of CreateSharedMemoryAndSemaphores
+void CreateSharedMemoryAndSemaphores(void) {
+    PGShmemHeader *shim;
+    PGShmemHeader *seghdr;
+    Size size;
+    int numSemas;
+
+    // Ensure this is only called by postmaster, not child processes
+    Assert(!IsUnderPostmaster);
+
+    // Step 1: Calculate required shared memory size and semaphore count
+    size = CalculateShmemSize(&numSemas);
+    elog(DEBUG3, "invoking IpcMemoryCreate(size=%zu)", size);
+
+    // Step 2: Create the shared memory segment
+    seghdr = PGSharedMemoryCreate(size, &shim);
+
+    // Step 3: Validate huge pages configuration
+    Assert(strcmp("unknown", GetConfigOption("huge_pages_status", false, false)) != 0);
+
+    // Step 4: Initialize shared memory access mechanisms
+    InitShmemAccess(seghdr);
+
+    // Step 5: Create semaphores for synchronization
+    PGReserveSemaphores(numSemas);
+
+    // Step 6: Initialize spinlock emulation if hardware spinlocks unavailable
+#ifndef HAVE_SPINLOCKS
+    SpinlockSemaInit();
+#endif
+
+    // Step 7: Set up shared memory allocation framework
+    InitShmemAllocation();
+
+    // Step 8: Initialize all PostgreSQL subsystem shared memory structures
+    CreateOrAttachShmemStructs();
+
+    // Step 9: Platform-specific backend tracking (Windows)
+#ifdef EXEC_BACKEND
+    ShmemBackendArrayAllocation();
+#endif
+
+    // Step 10: Initialize dynamic shared memory facilities
+    dsm_postmaster_startup(shim);
+
+    // Step 11: Allow extensions to initialize their shared memory
+    if (shmem_startup_hook)
+        shmem_startup_hook();
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the logical flow
+- Preserved all essential function calls and logic
+- Simplified complex comment blocks into concise explanations
+- Maintained conditional compilation directives as they're essential
+- Focused on the main execution path while keeping error checks
+- Made the initialization sequence more apparent through numbered steps

@@ -49,3 +49,62 @@ This is essential for maintaining data consistency in replication scenarios - wi
 - Called whenever slot state changes that might affect the global xmin requirement
 - Uses TransactionIdPrecedes to handle transaction ID wraparound correctly
 - Updates both regular xmin and catalog_xmin for different types of replication needs
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotsComputeRequiredXmin
+void ReplicationSlotsComputeRequiredXmin(bool already_locked) {
+    TransactionId oldest_xmin = InvalidTransactionId;
+    TransactionId oldest_catalog_xmin = InvalidTransactionId;
+
+    // Lock to safely read all replication slots
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+    // Scan all replication slots to find the oldest required transaction IDs
+    for (int i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *slot = &ReplicationSlotCtl->replication_slots[i];
+
+        // Skip unused slots
+        if (!slot->in_use)
+            continue;
+
+        // Get slot's transaction IDs safely
+        SpinLockAcquire(&slot->mutex);
+        TransactionId slot_xmin = slot->effective_xmin;
+        TransactionId slot_catalog_xmin = slot->effective_catalog_xmin;
+        bool is_invalidated = slot->data.invalidated != RS_INVAL_NONE;
+        SpinLockRelease(&slot->mutex);
+
+        // Skip invalidated slots
+        if (is_invalidated)
+            continue;
+
+        // Update oldest data xmin if this slot has an older one
+        if (TransactionIdIsValid(slot_xmin) &&
+            (!TransactionIdIsValid(oldest_xmin) ||
+             TransactionIdPrecedes(slot_xmin, oldest_xmin))) {
+            oldest_xmin = slot_xmin;
+        }
+
+        // Update oldest catalog xmin if this slot has an older one
+        if (TransactionIdIsValid(slot_catalog_xmin) &&
+            (!TransactionIdIsValid(oldest_catalog_xmin) ||
+             TransactionIdPrecedes(slot_catalog_xmin, oldest_catalog_xmin))) {
+            oldest_catalog_xmin = slot_catalog_xmin;
+        }
+    }
+
+    LWLockRelease(ReplicationSlotControlLock);
+
+    // Update global ProcArray with the computed minimums
+    ProcArraySetReplicationSlotXmin(oldest_xmin, oldest_catalog_xmin, already_locked);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (oldest_xmin vs agg_xmin, slot vs s)
+- Added explanatory comments for each major step
+- Reorganized variable declarations for clarity
+- Simplified the complex conditional logic with clearer formatting
+- Focused on the main algorithm flow without changing the essential logic

@@ -38,3 +38,25 @@ XLogGetReplicationSlotMinimumLSN is a getter function that provides thread-safe 
 - Complementary function to XLogSetReplicationSlotMinimumLSN for complete get/set access pattern
 - Thread-safe implementation prevents race conditions when reading shared state
 - Key input for functions that determine WAL availability and cleanup boundaries
+
+## Simplified Source
+
+```c
+// Simplified version of XLogGetReplicationSlotMinimumLSN
+static XLogRecPtr XLogGetReplicationSlotMinimumLSN(void) {
+    XLogRecPtr minimum_lsn;
+
+    // Thread-safe read of shared replication slot minimum LSN
+    SpinLockAcquire(&XLogCtl->info_lck);
+    minimum_lsn = XLogCtl->replicationSlotMinLSN;
+    SpinLockRelease(&XLogCtl->info_lck);
+
+    return minimum_lsn;
+}
+```
+
+Key simplifications made:
+- Renamed variable from `retval` to `minimum_lsn` for clarity
+- Added descriptive comment explaining the thread-safe read operation
+- Maintained the essential spinlock protection pattern
+- Preserved the core functionality of atomically reading shared state

@@ -48,3 +48,46 @@ The function ensures that the shared invalidation subsystem starts in a clean, w
 - All process slots are initialized to inactive state (procPid = 0) and will be activated when backends connect
 - The pgprocnos array is positioned immediately after the procState array in memory
 - This is a critical component of PostgreSQL's cache invalidation system that ensures data consistency across multiple backend processes
+
+## Simplified Source
+
+```c
+// Simplified version of CreateSharedInvalidationState
+void CreateSharedInvalidationState(void) {
+    bool found;
+
+    // Allocate shared memory for invalidation buffer
+    shmInvalBuffer = (SISeg *) ShmemInitStruct("shmInvalBuffer", SInvalShmemSize(), &found);
+
+    // If already exists, nothing more to do
+    if (found)
+        return;
+
+    // Initialize message counters and cleanup threshold
+    shmInvalBuffer->minMsgNum = 0;
+    shmInvalBuffer->maxMsgNum = 0;
+    shmInvalBuffer->nextThreshold = CLEANUP_MIN;
+    SpinLockInit(&shmInvalBuffer->msgnumLock);
+
+    // Initialize all process state slots to inactive
+    for (int i = 0; i < NumProcStateSlots; i++) {
+        shmInvalBuffer->procState[i].procPid = 0;  // inactive
+        shmInvalBuffer->procState[i].nextMsgNum = 0;
+        shmInvalBuffer->procState[i].resetState = false;
+        shmInvalBuffer->procState[i].signaled = false;
+        shmInvalBuffer->procState[i].hasMessages = false;
+        shmInvalBuffer->procState[i].nextLXID = InvalidLocalTransactionId;
+    }
+
+    // Complete initialization
+    shmInvalBuffer->numProcs = 0;
+    shmInvalBuffer->pgprocnos = (int *) &shmInvalBuffer->procState[i];
+}
+```
+
+Key simplifications made:
+- Moved variable declaration inline for better readability
+- Added descriptive comments for each major initialization step
+- Preserved all essential initialization logic
+- Maintained the idempotent behavior with early return
+- Kept the critical loop structure for process state initialization

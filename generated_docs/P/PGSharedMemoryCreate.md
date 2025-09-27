@@ -59,3 +59,119 @@ The function initializes a PGShmemHeader structure with metadata including creat
 - Returns pointer to actual memory (anonymous) or System V header depending on mode
 - Initializes PGShmemHeader with creator PID, magic number, and data directory info
 - Handles dynamic shared memory segment cleanup for recycled segments
+
+## Simplified Source
+
+```c
+// Simplified version of PGSharedMemoryCreate
+PGShmemHeader *
+PGSharedMemoryCreate(Size size, PGShmemHeader **shim) {
+    IpcMemoryKey NextShmemSegID;
+    void *memAddress;
+    PGShmemHeader *hdr;
+    struct stat statbuf;
+    Size sysvsize;
+
+    // Get data directory stats for unique identification
+    if (stat(DataDir, &statbuf) < 0)
+        ereport(FATAL, "could not stat data directory");
+
+    // Validate huge pages configuration
+    if (huge_pages == HUGE_PAGES_ON && shared_memory_type != SHMEM_TYPE_MMAP)
+        ereport(ERROR, "huge pages not supported with current shared_memory_type");
+
+    // Determine memory allocation strategy
+    if (shared_memory_type == SHMEM_TYPE_MMAP) {
+        // Create anonymous mmap segment
+        AnonymousShmem = CreateAnonymousSegment(&size);
+        on_shmem_exit(AnonymousShmemDetach, 0);
+        sysvsize = sizeof(PGShmemHeader);  // Just need small SysV shim
+    } else {
+        // Use full System V shared memory
+        sysvsize = size;
+        SetConfigOption("huge_pages_status", "off", PGC_INTERNAL, PGC_S_DYNAMIC_DEFAULT);
+    }
+
+    // Search for available IPC key, starting from data directory inode
+    NextShmemSegID = statbuf.st_ino;
+
+    for (;;) {
+        IpcMemoryId shmid;
+        PGShmemHeader *oldhdr;
+        IpcMemoryState state;
+
+        // Try to create new segment
+        memAddress = InternalIpcMemoryCreate(NextShmemSegID, sysvsize);
+        if (memAddress)
+            break;  // Success - got our segment
+
+        // Handle existing segment at this key
+        shmid = shmget(NextShmemSegID, sizeof(PGShmemHeader), 0);
+        if (shmid < 0) {
+            state = SHMSTATE_FOREIGN;  // Foreign or non-existent segment
+        } else {
+            state = PGSharedMemoryAttach(shmid, NULL, &oldhdr);
+        }
+
+        switch (state) {
+            case SHMSTATE_ATTACHED:
+                // Still in use - fatal error
+                ereport(FATAL, "shared memory block still in use");
+                break;
+
+            case SHMSTATE_FOREIGN:
+                // Not ours - try next key
+                NextShmemSegID++;
+                break;
+
+            case SHMSTATE_UNATTACHED:
+                // Dead PostgreSQL segment - clean it up and retry
+                if (oldhdr->dsm_control != 0)
+                    dsm_cleanup_using_control_segment(oldhdr->dsm_control);
+                if (shmctl(shmid, IPC_RMID, NULL) < 0)
+                    NextShmemSegID++;  // Cleanup failed, try next key
+                break;
+
+            default:
+                // Unexpected state - try next key
+                NextShmemSegID++;
+                break;
+        }
+
+        // Cleanup temporary attachment
+        if (oldhdr && shmdt(oldhdr) < 0)
+            elog(LOG, "shmdt failed");
+    }
+
+    // Initialize the new shared memory header
+    hdr = (PGShmemHeader *) memAddress;
+    hdr->creatorPID = getpid();
+    hdr->magic = PGShmemMagic;
+    hdr->dsm_control = 0;
+    hdr->device = statbuf.st_dev;
+    hdr->inode = statbuf.st_ino;
+    hdr->totalsize = size;
+    hdr->freeoffset = MAXALIGN(sizeof(PGShmemHeader));
+
+    *shim = hdr;
+    UsedShmemSegAddr = memAddress;
+    UsedShmemSegID = NextShmemSegID;
+
+    // Return appropriate pointer based on memory type
+    if (AnonymousShmem == NULL) {
+        return hdr;  // System V mode - return SysV header
+    } else {
+        // mmap mode - copy header to anonymous segment and return that
+        memcpy(AnonymousShmem, hdr, sizeof(PGShmemHeader));
+        return (PGShmemHeader *) AnonymousShmem;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and platform-specific checks for clarity
+- Consolidated similar switch cases and error conditions
+- Abstracted complex state checking logic into simpler flow
+- Focused on the main execution paths for both mmap and SysV modes
+- Simplified the segment recycling loop while preserving core logic
+- Removed verbose error messages and detailed logging for readability

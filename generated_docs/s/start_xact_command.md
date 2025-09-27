@@ -41,3 +41,34 @@ The function is designed to be called repeatedly without overhead - it won't res
 - Client connection check timeout is only enabled if configured and not already active
 - Part of PostgreSQL's transaction management system for individual SQL commands
 - Commonly used at the beginning of command processing functions
+
+## Simplified Source
+
+```c
+// Simplified version of start_xact_command
+static void start_xact_command(void) {
+    // Step 1: Start transaction if not already started
+    if (!xact_started) {
+        StartTransactionCommand();
+        xact_started = true;
+    }
+
+    // Step 2: Enable statement timeout (won't reset existing timeout)
+    enable_statement_timeout();
+
+    // Step 3: Enable client connection check timeout if needed
+    if (client_connection_check_interval > 0 &&
+        IsUnderPostmaster &&
+        MyProcPort &&
+        !get_timeout_active(CLIENT_CONNECTION_CHECK_TIMEOUT)) {
+        enable_timeout_after(CLIENT_CONNECTION_CHECK_TIMEOUT,
+                           client_connection_check_interval);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated them into step descriptions
+- Simplified the conditional logic formatting for better readability
+- Focused on the three main operations: transaction start, statement timeout, and client timeout
+- Preserved the essential logic flow and all important conditions

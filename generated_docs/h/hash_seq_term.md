@@ -34,3 +34,21 @@ The hash_seq_term function is responsible for properly cleaning up after a seque
 - The frozen check prevents deregistration attempts on immutable hash tables
 - Part of the PostgreSQL dynamic hash table implementation in dynahash.c
 - Essential for proper resource cleanup and maintaining hash table consistency
+
+## Simplified Source
+
+```c
+// Simplified version of hash_seq_term
+void hash_seq_term(HASH_SEQ_STATUS *status) {
+    // Only deregister scan if hash table is not frozen (mutable)
+    if (!status->hashp->frozen) {
+        deregister_seq_scan(status->hashp);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comment explaining the frozen check logic
+- Function is already very simple with minimal complexity
+- Preserved the essential conditional logic for scan deregistration
+- Maintained the core functionality of resource cleanup

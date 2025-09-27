@@ -40,3 +40,30 @@ The function uses a circular doubly-linked list where VfdCache[0] serves as the 
 - Debug logging is conditional on DO_DB macro compilation
 - The LRU list structure is critical for PostgreSQL's file descriptor management, allowing the system to close least recently used files when approaching file descriptor limits
 - The function maintains the invariant that after insertion, the specified file becomes the most recently used item in the cache
+
+## Simplified Source
+
+```c
+// Simplified version of Insert
+static void Insert(File file) {
+    // Get pointer to the file descriptor entry
+    Vfd *vfdP = &VfdCache[file];
+
+    // Insert at head of LRU list (most recently used position)
+    // Make this file point to current head
+    vfdP->lruMoreRecently = 0;  // Point to sentinel
+    vfdP->lruLessRecently = VfdCache[0].lruLessRecently;  // Point to old head
+
+    // Update sentinel to point to this file as new head
+    VfdCache[0].lruLessRecently = file;
+
+    // Update old head to point back to this file
+    VfdCache[vfdP->lruLessRecently].lruMoreRecently = file;
+}
+```
+
+Key simplifications made:
+- Removed debug logging and assertions for clarity
+- Added explanatory comments for each pointer manipulation step
+- Focused on the core LRU list insertion algorithm
+- Maintained the essential doubly-linked list update logic

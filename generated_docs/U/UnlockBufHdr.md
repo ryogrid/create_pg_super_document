@@ -46,3 +46,22 @@ The write barrier (pg_write_barrier) is crucial for ensuring memory ordering - i
 - This function is complementary to LockBufHdr and is used extensively throughout buffer management operations
 - The function is performance-critical and is implemented as a static inline for efficiency
 - Used in various buffer lifecycle operations including allocation, invalidation, I/O operations, and cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of UnlockBufHdr
+static inline void UnlockBufHdr(BufferDesc *desc, uint32 buf_state) {
+    // Step 1: Ensure all previous writes are visible before unlocking
+    pg_write_barrier();
+
+    // Step 2: Atomically clear the lock bit and update buffer state
+    pg_atomic_write_u32(&desc->state, buf_state & (~BM_LOCKED));
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two-step unlock process
+- Highlighted the memory ordering guarantee provided by the write barrier
+- Emphasized the atomic nature of the state update
+- Focused on the core logic: barrier + atomic unlock operation

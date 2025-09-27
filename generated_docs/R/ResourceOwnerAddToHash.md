@@ -42,3 +42,38 @@ The function uses open addressing with linear probing, which provides good cache
 - The hash table capacity is always a power of 2, enabling efficient modular arithmetic using bitwise operations
 - The function includes an assertion to ensure the kind parameter is not NULL, helping catch programming errors early
 - After insertion, the nhash counter is incremented to track the number of items in the hash table
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerAddToHash
+static void ResourceOwnerAddToHash(ResourceOwner owner, Datum value, const ResourceOwnerDesc *kind) {
+    // Validate input parameters
+    Assert(kind != NULL);
+
+    // Calculate hash table mask for efficient modulo operations
+    uint32 mask = owner->capacity - 1;
+
+    // Compute initial hash index for the resource
+    uint32 idx = hash_resource_elem(value, kind) & mask;
+
+    // Linear probing: find the first free slot
+    while (owner->hash[idx].kind != NULL) {
+        idx = (idx + 1) & mask;  // Wrap around using bitwise AND
+    }
+
+    // Store the resource in the found slot
+    owner->hash[idx].item = value;
+    owner->hash[idx].kind = kind;
+
+    // Update the item count
+    owner->nhash++;
+}
+```
+
+Key simplifications made:
+- Converted infinite for loop to a more readable while loop
+- Added inline comments explaining the hash table mechanics
+- Clarified the linear probing collision resolution strategy
+- Explained the efficient modulo operation using bitwise AND
+- Maintained all original logic while improving readability

@@ -45,3 +45,69 @@ The function handles line continuation with backslashes in plain mode and proper
 - The assembled command is null-terminated before returning to make it compatible with message processing
 - This function is primarily used for debugging and development purposes when PostgreSQL is run in interactive mode
 - EOF handling allows for graceful shutdown when the input stream is closed
+
+## Simplified Source
+
+```c
+// Simplified version of InteractiveBackend
+static int InteractiveBackend(StringInfo inBuf) {
+    int c;
+
+    // Display prompt and prepare buffer
+    printf("backend> ");
+    fflush(stdout);
+    resetStringInfo(inBuf);
+
+    // Read characters until command completion
+    while ((c = interactive_getc()) != EOF) {
+        if (c == '\n') {
+            if (UseSemiNewlineNewline) {
+                // Semicolon + two newlines mode: check for ';' followed by '\n'
+                if (inBuf->len > 1 &&
+                    inBuf->data[inBuf->len - 1] == '\n' &&
+                    inBuf->data[inBuf->len - 2] == ';') {
+                    break; // Command complete
+                }
+            } else {
+                // Plain mode: newline ends command unless escaped
+                if (inBuf->len > 0 && inBuf->data[inBuf->len - 1] == '\\') {
+                    // Remove backslash and continue (line continuation)
+                    inBuf->data[--inBuf->len] = '\0';
+                    continue;
+                } else {
+                    // Add newline and end command
+                    appendStringInfoChar(inBuf, '\n');
+                    break;
+                }
+            }
+        }
+
+        // Add character to buffer
+        appendStringInfoChar(inBuf, (char) c);
+    }
+
+    // Handle EOF with no input
+    if (c == EOF && inBuf->len == 0) {
+        return EOF;
+    }
+
+    // Null-terminate the command
+    appendStringInfoChar(inBuf, '\0');
+
+    // Optional: echo the query
+    if (EchoQuery) {
+        printf("statement: %s\n", inBuf->data);
+        fflush(stdout);
+    }
+
+    return PqMsg_Query;
+}
+```
+
+Key simplifications made:
+- Consolidated the input mode logic into clearer conditional blocks
+- Simplified comments to focus on core functionality
+- Removed detailed comment blocks that explained obvious operations
+- Kept the essential two-mode operation (plain vs semicolon-newline-newline)
+- Preserved all critical logic including backslash escaping and EOF handling
+- Maintained the exact same functional behavior as the original

@@ -44,3 +44,63 @@ The function includes comprehensive error handling - if process creation fails, 
 - Uses deferred signaling approach to avoid ping-pong effects with the autovac launcher
 - Code structure roughly matches BackendStartup for consistency
 - Workers are marked as non-dead_end processes requiring child slots
+
+## Simplified Source
+
+```c
+// Simplified version of StartAutovacuumWorker
+static void StartAutovacuumWorker(void) {
+    Backend *bn;
+
+    // Check if system can accept autovac connections
+    if (canAcceptConnections(BACKEND_TYPE_AUTOVAC) == CAC_OK) {
+
+        // Generate security cancel key
+        if (!RandomCancelKey(&MyCancelKey)) {
+            ereport(LOG, (errmsg("could not generate random cancel key")));
+            return;
+        }
+
+        // Allocate backend structure
+        bn = (Backend *) palloc_extended(sizeof(Backend), MCXT_ALLOC_NO_OOM);
+        if (bn) {
+            // Initialize backend properties
+            bn->cancel_key = MyCancelKey;
+            bn->dead_end = false;
+            bn->child_slot = MyPMChildSlot = AssignPostmasterChildSlot();
+            bn->bgworker_notify = false;
+
+            // Create the worker process
+            bn->pid = StartChildProcess(B_AUTOVAC_WORKER);
+            if (bn->pid > 0) {
+                // Success: register the worker
+                bn->bkend_type = BACKEND_TYPE_AUTOVAC;
+                dlist_push_head(&BackendList, &bn->elem);
+                #ifdef EXEC_BACKEND
+                ShmemBackendArrayAdd(bn);
+                #endif
+                return;
+            }
+
+            // Process creation failed - cleanup
+            ReleasePostmasterChildSlot(bn->child_slot);
+            pfree(bn);
+        } else {
+            ereport(LOG, (errmsg("out of memory")));
+        }
+    }
+
+    // Notify launcher of failure (if it's running)
+    if (AutoVacPID != 0) {
+        AutoVacWorkerFailed();
+        avlauncher_needs_signal = true;
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated error handling paths for clarity
+- Removed detailed comments that explained implementation details
+- Simplified conditional structure while preserving all logic paths
+- Focused on the main execution flow: check conditions → allocate → create → register → cleanup on failure
+- Preserved all essential functionality including security, resource management, and error reporting

@@ -47,3 +47,35 @@ This function takes no parameters.
 - Critical for security: ensures unpredictable random number generation across processes
 - The random(3) seeding is maintained for extension compatibility despite being deprecated in core PostgreSQL
 - The seed combines PID, shifted timestamp, and high bits to avoid predictable patterns
+
+## Simplified Source
+
+```c
+// Simplified version of InitProcessGlobals
+void InitProcessGlobals(void) {
+    // Step 1: Initialize process start time globals
+    MyStartTimestamp = GetCurrentTimestamp();
+    MyStartTime = timestamptz_to_time_t(MyStartTimestamp);
+
+    // Step 2: Set up secure random number generation
+    if (!pg_prng_strong_seed(&pg_global_prng_state)) {
+        // Fallback: create seed from PID and timestamp
+        uint64 seed = MyProcPid ^
+                     (MyStartTimestamp << 12) ^
+                     (MyStartTimestamp >> 20);
+        pg_prng_seed(&pg_global_prng_state, seed);
+    }
+
+    // Step 3: Initialize legacy random() for extension compatibility
+#ifndef WIN32
+    srandom(pg_prng_uint32(&pg_global_prng_state));
+#endif
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about bit manipulation rationale
+- Consolidated the fallback seed calculation into a single expression
+- Simplified variable declarations and assignments
+- Focused on the three main logical steps
+- Maintained the essential algorithm and platform-specific behavior

@@ -39,3 +39,40 @@ This function handles the cleanup and notification process when a background wor
 - The function handles both terminating workers and workers configured to never restart by calling ForgetBackgroundWorker
 - Strategic ordering of deregistration before notification helps prevent race conditions in slot reuse
 - Part of PostgreSQL's background worker lifecycle management, specifically handling the termination phase
+
+## Simplified Source
+
+```c
+// Simplified version of ReportBackgroundWorkerExit
+void ReportBackgroundWorkerExit(slist_mutable_iter *cur) {
+    RegisteredBgWorker *rw;
+    BackgroundWorkerSlot *slot;
+    int notify_pid;
+
+    // Get the worker from the iterator
+    rw = slist_container(RegisteredBgWorker, rw_lnode, cur->cur);
+
+    // Update the shared memory slot with worker's PID
+    Assert(rw->rw_shmem_slot < max_worker_processes);
+    slot = &BackgroundWorkerData->slot[rw->rw_shmem_slot];
+    slot->pid = rw->rw_pid;
+    notify_pid = rw->rw_worker.bgw_notify_pid;
+
+    // Remove worker if it's terminating or configured to never restart
+    if (rw->rw_terminate || rw->rw_worker.bgw_restart_time == BGW_NEVER_RESTART) {
+        ForgetBackgroundWorker(cur);
+    }
+
+    // Notify the requesting process if specified
+    if (notify_pid != 0) {
+        kill(notify_pid, SIGUSR1);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Clarified the purpose of shared memory slot update
+- Explained the conditions for worker deregistration
+- Simplified the notification logic explanation
+- Maintained the strategic ordering to prevent race conditions

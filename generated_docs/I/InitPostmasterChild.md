@@ -46,3 +46,71 @@ This function takes no parameters.
 - Removes SIGQUIT from the blocked signal set to ensure responsive crash handling
 - Establishes file descriptor monitoring for postmaster death detection
 - Critical for proper subprocess initialization in PostgreSQL's process model
+
+## Simplified Source
+
+```c
+// Simplified version of InitPostmasterChild
+void InitPostmasterChild(void) {
+    // Mark this process as a postmaster subprocess
+    IsUnderPostmaster = true;
+
+    // Platform-specific initialization (Windows signal handling)
+#ifdef WIN32
+    pgwin32_signal_initialize();
+#endif
+
+    // Set up stack depth checking reference point
+    set_stack_base();
+
+    // Initialize global process state
+    InitProcessGlobals();
+
+    // Set stderr to binary mode on Windows (for syslogger pipe)
+#ifdef WIN32
+    _setmode(fileno(stderr), _O_BINARY);
+#endif
+
+    // Clear parent's exit handlers - we want our own
+    on_exit_reset();
+
+    // Initialize signal mask for EXEC_BACKEND builds
+#ifdef EXEC_BACKEND
+    pqinitmask();
+#endif
+
+    // Set up latch support for inter-process communication
+    InitializeLatchSupport();
+    InitProcessLocalLatch();
+    InitializeLatchWaitSet();
+
+    // Become process group leader for signal propagation
+#ifdef HAVE_SETSID
+    if (setsid() < 0)
+        elog(FATAL, "setsid() failed: %m");
+#endif
+
+    // Install crash exit handler for SIGQUIT and unblock it
+    pqsignal(SIGQUIT, SignalHandlerForCrashExit);
+    sigdelset(&BlockSig, SIGQUIT);
+    sigprocmask(SIG_SETMASK, &BlockSig, NULL);
+
+    // Set up monitoring for postmaster death
+    PostmasterDeathSignalInit();
+
+    // Prevent subprograms from inheriting postmaster monitoring pipe
+#ifndef WIN32
+    if (fcntl(postmaster_alive_fds[POSTMASTER_FD_WATCH], F_SETFD, FD_CLOEXEC) < 0)
+        ereport(FATAL, (errcode_for_socket_access(),
+                errmsg_internal("could not set postmaster death monitoring pipe to FD_CLOEXEC mode: %m")));
+#endif
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major initialization step
+- Preserved all platform-specific conditional compilation blocks
+- Maintained the logical flow and essential error handling
+- Focused on the core purpose of each operation
+- Kept critical error reporting intact
+- Organized the code into clear functional groups

@@ -37,3 +37,39 @@ This function sets up and registers a background worker process for the logical 
 - Part of PostgreSQL's background worker infrastructure for managing logical replication
 - The actual worker process runs the ApplyLauncherMain function
 - Returns void (no return value)
+
+## Simplified Source
+
+```c
+// Simplified version of ApplyLauncherRegister
+void ApplyLauncherRegister(void) {
+    BackgroundWorker bgw;
+
+    // Skip registration if logical replication disabled or during binary upgrade
+    if (max_logical_replication_workers == 0 || IsBinaryUpgrade)
+        return;
+
+    // Initialize background worker structure
+    memset(&bgw, 0, sizeof(bgw));
+
+    // Configure worker properties
+    bgw.bgw_flags = BGWORKER_SHMEM_ACCESS | BGWORKER_BACKEND_DATABASE_CONNECTION;
+    bgw.bgw_start_time = BgWorkerStart_RecoveryFinished;
+    bgw.bgw_restart_time = 5;  // Restart every 5 seconds if crashed
+
+    // Set worker identification and entry point
+    snprintf(bgw.bgw_library_name, MAXPGPATH, "postgres");
+    snprintf(bgw.bgw_function_name, BGW_MAXLEN, "ApplyLauncherMain");
+    snprintf(bgw.bgw_name, BGW_MAXLEN, "logical replication launcher");
+    snprintf(bgw.bgw_type, BGW_MAXLEN, "logical replication launcher");
+
+    // Register the background worker with the system
+    RegisterBackgroundWorker(&bgw);
+}
+```
+
+Key simplifications made:
+- Consolidated comments to focus on main logic flow
+- Grouped related configuration steps together
+- Emphasized the core purpose: conditional registration of a background worker
+- Maintained all essential functionality while improving readability

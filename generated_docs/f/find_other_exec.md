@@ -54,3 +54,51 @@ This process ensures that PostgreSQL utilities can reliably find and use compati
 - Critical for PostgreSQL utilities that need to invoke other PostgreSQL programs
 - Used extensively by administrative utilities like initdb, pg_ctl, and pg_dump
 - Ensures consistent behavior across PostgreSQL toolchain by enforcing version compatibility
+
+## Simplified Source
+
+```c
+// Simplified version of find_other_exec
+int find_other_exec(const char *argv0, const char *target,
+                   const char *versionstr, char *retpath) {
+    char cmd[MAXPGPATH];
+    char *line;
+
+    // Step 1: Find the current executable's path
+    if (find_my_exec(argv0, retpath) < 0)
+        return -1;
+
+    // Step 2: Extract directory by removing program name
+    *last_dir_separator(retpath) = '\0';
+    canonicalize_path(retpath);
+
+    // Step 3: Build path to target executable
+    snprintf(retpath + strlen(retpath), MAXPGPATH - strlen(retpath),
+             "/%s%s", target, EXE);
+
+    // Step 4: Verify the target executable exists and is valid
+    if (validate_exec(retpath) != 0)
+        return -1;
+
+    // Step 5: Execute target program to get its version
+    snprintf(cmd, sizeof(cmd), "\"%s\" -V", retpath);
+    if ((line = pipe_read_line(cmd)) == NULL)
+        return -1;
+
+    // Step 6: Compare version strings
+    if (strcmp(line, versionstr) != 0) {
+        pfree(line);
+        return -2;  // Version mismatch
+    }
+
+    pfree(line);
+    return 0;  // Success
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments to clarify the main workflow
+- Preserved all essential error checking logic
+- Maintained the exact return value semantics (-1 for errors, -2 for version mismatch, 0 for success)
+- Kept the core algorithm intact while improving readability
+- Added descriptive comments for each major phase of execution

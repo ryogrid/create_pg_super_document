@@ -31,3 +31,21 @@ XLogRecoveryShmemSize is a utility function that computes the amount of shared m
 - The returned size is used to allocate shared memory segments for WAL recovery
 - Essential for proper initialization of recovery-related data structures in shared memory
 - Located in src/backend/access/transam/xlogrecovery.c:447-457
+
+## Simplified Source
+
+```c
+// Simplified version of XLogRecoveryShmemSize
+Size XLogRecoveryShmemSize(void) {
+    // Calculate memory needed for WAL recovery control structure
+    Size memory_size = sizeof(XLogRecoveryCtlData);
+
+    // Return the total shared memory requirement
+    return memory_size;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name (memory_size instead of size)
+- Added explanatory comments for each step
+- Maintained the core functionality while improving readability

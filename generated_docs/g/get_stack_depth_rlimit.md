@@ -36,3 +36,47 @@ This function takes no parameters.
 - Handles overflow protection when converting from potentially unsigned rlim_cur to signed long
 - On Windows, uses a compile-time constant instead of runtime detection
 - Critical for PostgreSQL's stack depth checking mechanism to prevent stack overflow crashes
+
+## Simplified Source
+
+```c
+// Simplified version of get_stack_depth_rlimit
+long get_stack_depth_rlimit(void) {
+    // Cache the result since stack limits don't change during process execution
+    static long cached_limit = 0;
+
+    if (cached_limit == 0) {
+#if defined(HAVE_GETRLIMIT)
+        // Unix/Linux systems: use POSIX getrlimit system call
+        struct rlimit stack_limit;
+
+        if (getrlimit(RLIMIT_STACK, &stack_limit) < 0) {
+            // System call failed - unknown limit
+            cached_limit = -1;
+        } else if (stack_limit.rlim_cur == RLIM_INFINITY) {
+            // Unlimited stack - return maximum possible value
+            cached_limit = LONG_MAX;
+        } else if (stack_limit.rlim_cur >= LONG_MAX) {
+            // Prevent overflow when converting to signed long
+            cached_limit = LONG_MAX;
+        } else {
+            // Normal case - return the actual limit
+            cached_limit = stack_limit.rlim_cur;
+        }
+#else
+        // Windows systems: use compile-time constant
+        cached_limit = WIN32_STACK_RLIMIT;
+#endif
+    }
+
+    return cached_limit;
+}
+```
+
+Key simplifications made:
+- Renamed variable `val` to `cached_limit` for clarity
+- Renamed `rlim` to `stack_limit` for better readability
+- Added descriptive comments for each major logic branch
+- Consolidated the overflow checking logic with clearer explanations
+- Simplified the conditional structure while preserving all functionality
+- Emphasized the caching mechanism and platform differences

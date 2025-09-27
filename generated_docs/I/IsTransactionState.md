@@ -42,3 +42,31 @@ This function takes no parameters.
 - The function is particularly important for preventing operations during transaction state transitions
 - Used extensively in GUC (Grand Unified Configuration) check functions and cache management
 - Critical for logical replication and background worker processes to ensure they operate within proper transaction boundaries
+
+## Simplified Source
+
+```c
+// Simplified version of IsTransactionState
+bool IsTransactionState(void) {
+    // Get the current transaction state
+    TransactionState s = CurrentTransactionState;
+
+    // Only TRANS_INPROGRESS is considered a valid transaction state
+    // All other states are unsafe for database operations:
+    // - TRANS_DEFAULT: No transaction active
+    // - TRANS_ABORT: Transaction aborted
+    // - TRANS_START: Transaction starting (transition state)
+    // - TRANS_COMMIT: Transaction committing (transition state)
+    // - TRANS_PREPARE: Transaction preparing (transition state)
+
+    return (s->state == TRANS_INPROGRESS);
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining the safety criteria
+- Listed all the unsafe transaction states with their meanings
+- Clarified that only TRANS_INPROGRESS allows database operations
+- Explained why transition states are considered unsafe
+- Maintained the exact same logic while making the safety model explicit
+- This function is already very simple, so changes focus on explanation

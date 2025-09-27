@@ -38,3 +38,42 @@ The function is designed to handle both critical and non-critical contexts - err
 - Error handling is designed to work both inside and outside critical sections
 - Returns a file descriptor (>= 0) on success
 - Located in src/backend/access/transam/xlog.c:3357-3394
+
+## Simplified Source
+
+```c
+// Simplified version of XLogFileInit
+int XLogFileInit(XLogSegNo logsegno, TimeLineID logtli) {
+    bool ignore_added;
+    char path[MAXPGPATH];
+    int fd;
+
+    // Ensure timeline ID is valid
+    Assert(logtli != 0);
+
+    // Try to create or reuse a WAL segment file
+    fd = XLogFileInitInternal(logsegno, logtli, &ignore_added, path);
+    if (fd >= 0) {
+        return fd;  // Successfully created/reused file
+    }
+
+    // Open the target segment file directly
+    fd = BasicOpenFile(path, O_RDWR | PG_BINARY | O_CLOEXEC |
+                       get_sync_bit(wal_sync_method));
+
+    if (fd < 0) {
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not open file \"%s\": %m", path)));
+    }
+
+    return fd;
+}
+```
+
+Key simplifications made:
+- Added comments explaining the two-phase approach (try internal init, then direct open)
+- Clarified the success condition check for the internal init
+- Maintained all essential error handling and file opening logic
+- No significant simplification needed due to the function's focused design
+- Preserved the timeline validation and proper file descriptor management

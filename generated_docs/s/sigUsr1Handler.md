@@ -42,3 +42,21 @@ The actual log rotation is performed later by the main syslogger loop when it de
 - SIGUSR1 is commonly used in PostgreSQL for requesting log rotation from external tools
 - The actual rotation logic is handled in the main syslogger loop, not in this signal handler
 - This follows PostgreSQL's pattern of keeping signal handlers minimal and deferring work to the main event loop
+
+## Simplified Source
+
+```c
+// Simplified version of sigUsr1Handler
+static void sigUsr1Handler(SIGNAL_ARGS) {
+    // Step 1: Mark that log rotation is needed
+    rotation_requested = true;
+
+    // Step 2: Wake up the main syslogger loop
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each operation
+- Highlighted the two-step process: flag setting and latch signaling
+- Maintained the original logic while making the purpose clearer

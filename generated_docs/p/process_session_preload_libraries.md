@@ -40,3 +40,26 @@ None (void function)
 - [Session](../S/Session.md) preload libraries are useful for debugging tools, session-specific extensions, and per-connection customizations
 - Libraries loaded here are not inherited by other sessions, providing isolation between different client connections
 - The order of loading (session_preload_libraries first, then local_preload_libraries) may be significant for library dependencies
+
+## Simplified Source
+
+```c
+// Simplified version of process_session_preload_libraries
+void process_session_preload_libraries(void) {
+    // Load session-level preload libraries (unrestricted paths)
+    load_libraries(session_preload_libraries_string,
+                   "session_preload_libraries",
+                   false);
+
+    // Load local preload libraries (restricted to $libdir/plugins/)
+    load_libraries(local_preload_libraries_string,
+                   "local_preload_libraries",
+                   true);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the purpose of each library loading call
+- Highlighted the security difference between the two types of preload libraries
+- Maintained the essential two-step loading process
+- Preserved the order and parameters for both load_libraries calls

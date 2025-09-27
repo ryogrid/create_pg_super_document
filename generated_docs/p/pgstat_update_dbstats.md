@@ -32,3 +32,55 @@ This function serves as a key component of PostgreSQL's statistics reporting sys
 - [Session](../S/Session.md) time is calculated from pgLastSessionReportTime which is initialized by pgstat_report_connect()
 - Time values are stored in microseconds for precision
 - This function is part of the regular statistics reporting cycle and helps maintain database performance metrics
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_update_dbstats
+void
+pgstat_update_dbstats(TimestampTz ts)
+{
+    // Skip if not connected to a valid database
+    if (!OidIsValid(MyDatabaseId))
+        return;
+
+    // Get database statistics entry
+    PgStat_StatDBEntry *dbentry = pgstat_prep_database_pending(MyDatabaseId);
+
+    // Accumulate transaction and I/O statistics
+    dbentry->xact_commit += pgStatXactCommit;
+    dbentry->xact_rollback += pgStatXactRollback;
+    dbentry->blk_read_time += pgStatBlockReadTime;
+    dbentry->blk_write_time += pgStatBlockWriteTime;
+
+    // Update session timing if connection stats should be reported
+    if (pgstat_should_report_connstat())
+    {
+        // Calculate time elapsed since last report
+        long secs;
+        int usecs;
+        TimestampDifference(pgLastSessionReportTime, ts, &secs, &usecs);
+        pgLastSessionReportTime = ts;
+
+        // Accumulate session timing statistics
+        dbentry->session_time += (PgStat_Counter) secs * 1000000 + usecs;
+        dbentry->active_time += pgStatActiveTime;
+        dbentry->idle_in_transaction_time += pgStatTransactionIdleTime;
+    }
+
+    // Reset global counters for next reporting cycle
+    pgStatXactCommit = 0;
+    pgStatXactRollback = 0;
+    pgStatBlockReadTime = 0;
+    pgStatBlockWriteTime = 0;
+    pgStatActiveTime = 0;
+    pgStatTransactionIdleTime = 0;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining each phase
+- Grouped related operations with descriptive comments
+- Simplified variable declarations inline
+- Preserved essential logic: validate database, accumulate stats, conditionally report session timing, reset counters
+- Maintained the precise timing calculations and counter reset behavior

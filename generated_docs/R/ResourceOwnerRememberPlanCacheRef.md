@@ -35,3 +35,18 @@ The function uses the planref_resowner_desc descriptor which defines how plan ca
 - Works in tandem with ResourceOwnerForgetPlanCacheRef for complete lifecycle management
 - Part of PostgreSQL's resource management system that ensures cleanup even during error conditions
 - The ResourceOwner system provides automatic cleanup during transaction abort or other error scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerRememberPlanCacheRef
+static inline void ResourceOwnerRememberPlanCacheRef(ResourceOwner owner, CachedPlan *plan) {
+    // Register the cached plan with the resource owner for automatic cleanup
+    ResourceOwnerRemember(owner, PointerGetDatum(plan), &planref_resowner_desc);
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the purpose of the function
+- Preserved the essential logic of registering the plan with the resource owner
+- Maintained the inline and static qualifiers for performance

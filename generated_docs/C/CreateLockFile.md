@@ -50,3 +50,117 @@ This function implements PostgreSQL's lockfile creation mechanism, which prevent
 - Includes comprehensive error handling with context-appropriate error messages
 - Reports wait events for performance monitoring during file operations
 - File permissions use pg_file_create_mode for security (typically 0600/0640)
+
+## Simplified Source
+
+```c
+// Simplified version of CreateLockFile
+static void CreateLockFile(const char *filename, bool amPostmaster,
+                          const char *socketDir, bool isDDLock, const char *refName) {
+    int fd;
+    char buffer[MAXPGPATH * 2 + 256];
+    int ntries;
+    pid_t my_pid, my_p_pid, my_gp_pid;
+    pid_t other_pid;
+    int encoded_pid;
+
+    // Get current process info for stale lockfile detection
+    my_pid = getpid();
+    my_p_pid = getppid();
+
+    // Check for grandparent PID from environment (for pg_ctl)
+    const char *envvar = getenv("PG_GRANDPARENT_PID");
+    my_gp_pid = envvar ? atoi(envvar) : 0;
+
+    // Retry loop to handle race conditions (max 100 attempts)
+    for (ntries = 0; ; ntries++) {
+        // Try atomic lockfile creation
+        fd = open(filename, O_RDWR | O_CREAT | O_EXCL, pg_file_create_mode);
+        if (fd >= 0)
+            break;  // Success - exit retry loop
+
+        // Handle creation failure
+        if ((errno != EEXIST && errno != EACCES) || ntries > 100)
+            ereport(FATAL, "could not create lock file");
+
+        // Read existing lockfile to check if process is still alive
+        fd = open(filename, O_RDONLY, pg_file_create_mode);
+        if (fd < 0) {
+            if (errno == ENOENT)
+                continue;  // Race condition - file disappeared, retry
+            ereport(FATAL, "could not open existing lock file");
+        }
+
+        // Read PID from existing lockfile
+        int len = read(fd, buffer, sizeof(buffer) - 1);
+        close(fd);
+
+        if (len <= 0)
+            ereport(FATAL, "lock file is empty or unreadable");
+
+        buffer[len] = '\0';
+        encoded_pid = atoi(buffer);
+        other_pid = (encoded_pid < 0) ? -encoded_pid : encoded_pid;
+
+        // Check if the PID in lockfile is still running
+        if (other_pid != my_pid && other_pid != my_p_pid && other_pid != my_gp_pid) {
+            if (kill(other_pid, 0) == 0 || (errno != ESRCH && errno != EPERM)) {
+                // Process is still alive - cannot proceed
+                ereport(FATAL, "lock file already exists, another server running");
+            }
+        }
+
+        // For data directory locks, check shared memory segments
+        if (isDDLock) {
+            unsigned long shmem_id1, shmem_id2;
+            if (parse_shmem_ids_from_buffer(buffer, &shmem_id1, &shmem_id2)) {
+                if (PGSharedMemoryIsInUse(shmem_id1, shmem_id2))
+                    ereport(FATAL, "shared memory still in use");
+            }
+        }
+
+        // Stale lockfile detected - remove it and retry
+        if (unlink(filename) < 0)
+            ereport(FATAL, "could not remove old lock file");
+    }
+
+    // Write lockfile contents (PID, data dir, start time, port, socket dir)
+    snprintf(buffer, sizeof(buffer), "%d\n%s\n" INT64_FORMAT "\n%d\n%s\n",
+             amPostmaster ? (int)my_pid : -((int)my_pid),
+             DataDir, MyStartTime, PostPortNumber, socketDir);
+
+    // For standalone backends, add empty listen address line
+    if (isDDLock && !amPostmaster)
+        strlcat(buffer, "\n", sizeof(buffer));
+
+    // Write and sync lockfile to disk
+    if (write(fd, buffer, strlen(buffer)) != strlen(buffer)) {
+        close(fd);
+        unlink(filename);
+        ereport(FATAL, "could not write lock file");
+    }
+
+    if (pg_fsync(fd) != 0) {
+        close(fd);
+        unlink(filename);
+        ereport(FATAL, "could not sync lock file");
+    }
+
+    close(fd);
+
+    // Register for automatic cleanup on process exit
+    if (lock_files == NIL)
+        on_proc_exit(UnlinkLockFiles, 0);
+
+    lock_files = lcons(pstrdup(filename), lock_files);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for clarity while keeping essential checks
+- Abstracted shared memory parsing into conceptual `parse_shmem_ids_from_buffer()` function
+- Consolidated similar error conditions into single ereport calls
+- Simplified complex conditional expressions for readability
+- Focused on the main execution path while preserving critical logic
+- Removed platform-specific details (Windows vs Unix) for clarity
+- Kept the essential race condition handling and atomic file creation logic

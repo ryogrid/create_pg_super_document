@@ -38,3 +38,51 @@ The function handles the special case of timeline 1 (master timeline) by immedia
 - During archive recovery, it may trigger restoration of the history file from archive
 - File access errors other than ENOENT (file not found) result in FATAL errors
 - Located in src/backend/access/transam/timeline.c:222-263
+
+## Simplified Source
+
+```c
+// Simplified version of existsTimeLineHistory
+bool existsTimeLineHistory(TimeLineID probeTLI) {
+    char path[MAXPGPATH];
+    char histfname[MAXFNAMELEN];
+    FILE *fd;
+
+    // Timeline 1 has no history file by design
+    if (probeTLI == 1)
+        return false;
+
+    // Get the timeline history file path
+    if (ArchiveRecoveryRequested) {
+        // During recovery: try to restore from archive
+        TLHistoryFileName(histfname, probeTLI);
+        RestoreArchivedFile(path, histfname, "RECOVERYHISTORY", 0, false);
+    } else {
+        // Normal operation: use local path
+        TLHistoryFilePath(path, probeTLI);
+    }
+
+    // Check if file exists by trying to open it
+    fd = AllocateFile(path, "r");
+    if (fd != NULL) {
+        FreeFile(fd);
+        return true;
+    }
+
+    // File doesn't exist or access error
+    if (errno != ENOENT) {
+        // Fatal error for unexpected file access problems
+        ereport(FATAL, (errcode_for_file_access(),
+                       errmsg("could not open file \"%s\": %m", path)));
+    }
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added descriptive comments for each major logic step
+- Clarified the two different path resolution strategies (archive vs local)
+- Simplified the file existence check logic flow
+- Maintained all essential error handling while making it more readable

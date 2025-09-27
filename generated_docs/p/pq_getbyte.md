@@ -33,3 +33,31 @@ pq_getbyte is the primary function for reading individual bytes from a PostgreSQ
 - Automatically manages buffer pointer advancement
 - This is a non-static function, available throughout the PostgreSQL backend
 - Critical for parsing protocol messages that require byte-level access
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getbyte
+int pq_getbyte(void) {
+    // Ensure we're in message reading state
+    Assert(PqCommReadingMsg);
+
+    // Check if buffer needs refilling
+    while (PqRecvPointer >= PqRecvLength) {
+        // Attempt to receive more data into buffer
+        if (pq_recvbuf()) {
+            return EOF;  // Failed to receive data
+        }
+    }
+
+    // Return next byte from buffer and advance pointer
+    return (unsigned char) PqRecvBuffer[PqRecvPointer++];
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Clarified the buffer management logic (check if refill needed)
+- Preserved the essential EOF error handling
+- Maintained the unsigned char casting for proper byte handling
+- Emphasized the automatic pointer advancement

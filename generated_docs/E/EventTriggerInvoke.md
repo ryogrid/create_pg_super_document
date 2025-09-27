@@ -49,3 +49,69 @@ The function operates in a temporary memory context that is reset after each tri
 - Memory context isolation prevents interference between different trigger executions
 - The first trigger doesn't require CommandCounterIncrement() as there are no previous changes to see
 - Function call statistics are properly tracked for performance monitoring
+
+## Simplified Source
+
+```c
+// Simplified version of EventTriggerInvoke
+static void
+EventTriggerInvoke(List *fn_oid_list, EventTriggerData *trigdata)
+{
+    MemoryContext event_context;
+    MemoryContext old_context;
+    ListCell *cell;
+    bool first_trigger = true;
+
+    // Prevent infinite recursion from nested event triggers
+    check_stack_depth();
+
+    // Create isolated memory context for trigger execution
+    event_context = AllocSetContextCreate(CurrentMemoryContext,
+                                        "event trigger context",
+                                        ALLOCSET_DEFAULT_SIZES);
+    old_context = MemoryContextSwitchTo(event_context);
+
+    // Execute each event trigger function in sequence
+    foreach(cell, fn_oid_list)
+    {
+        Oid trigger_function_oid = lfirst_oid(cell);
+        LOCAL_FCINFO(fcinfo, 0);
+        FmgrInfo function_info;
+        PgStat_FunctionCallUsage stats;
+
+        // Log trigger execution for debugging
+        elog(DEBUG1, "EventTriggerInvoke %u", trigger_function_oid);
+
+        // Allow each trigger to see previous trigger results
+        if (first_trigger) {
+            first_trigger = false;
+        } else {
+            CommandCounterIncrement();
+        }
+
+        // Setup and invoke the trigger function
+        fmgr_info(trigger_function_oid, &function_info);
+        InitFunctionCallInfoData(*fcinfo, &function_info, 0,
+                               InvalidOid, (Node *) trigdata, NULL);
+
+        // Track function usage statistics
+        pgstat_init_function_usage(fcinfo, &stats);
+        FunctionCallInvoke(fcinfo);
+        pgstat_end_function_usage(&stats, true);
+
+        // Clean up memory after each trigger
+        MemoryContextReset(event_context);
+    }
+
+    // Restore original memory context and cleanup
+    MemoryContextSwitchTo(old_context);
+    MemoryContextDelete(event_context);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (event_context, first_trigger, etc.)
+- Added explanatory comments for each major operation
+- Consolidated function call setup into logical groups
+- Removed complex macro formatting for better readability
+- Focused on the main execution flow while preserving all essential functionality

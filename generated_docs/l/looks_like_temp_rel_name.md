@@ -44,3 +44,75 @@ The function parses each component sequentially, ensuring proper formatting at e
 - Segment numbers must be purely numeric and non-empty
 - Used in both cleanup operations (removing temp files) and backup operations (identifying temp files to potentially exclude)
 - Part of PostgreSQLs file management system for distinguishing temporary relations from permanent ones
+
+## Simplified Source
+
+```c
+// Simplified version of looks_like_temp_rel_name
+bool looks_like_temp_rel_name(const char *name) {
+    int pos;
+
+    // Pattern: t<digits>_<digits>[_<forkname>][.<segment>]
+
+    // Must start with "t"
+    if (name[0] != 't') {
+        return false;
+    }
+
+    // Parse first digit sequence (relation OID)
+    pos = 1;
+    if (!isdigit((unsigned char) name[pos])) {
+        return false;  // Must have at least one digit
+    }
+    while (isdigit((unsigned char) name[pos])) {
+        pos++;
+    }
+
+    // Must have underscore separator
+    if (name[pos] != '_') {
+        return false;
+    }
+    pos++;
+
+    // Parse second digit sequence (additional identifier)
+    int digit_start = pos;
+    while (isdigit((unsigned char) name[pos])) {
+        pos++;
+    }
+    if (pos == digit_start) {
+        return false;  // Must have at least one digit
+    }
+
+    // Optional fork name: _<forkname>
+    if (name[pos] == '_') {
+        int forkchar = forkname_chars(&name[pos + 1], NULL);
+        if (forkchar <= 0) {
+            return false;  // Invalid fork name
+        }
+        pos += forkchar + 1;  // Skip '_' and fork name
+    }
+
+    // Optional segment: .<digits>
+    if (name[pos] == '.') {
+        pos++;  // Skip the dot
+        int segment_start = pos;
+        while (isdigit((unsigned char) name[pos])) {
+            pos++;
+        }
+        if (pos == segment_start) {
+            return false;  // Segment must have digits
+        }
+    }
+
+    // Must be at end of string
+    return (name[pos] == '\0');
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining the expected pattern
+- Clarified the parsing logic for each component
+- Simplified the digit validation loops
+- Made the optional components (fork name and segment) more explicit
+- Removed unnecessary variables and consolidated logic
+- Maintained all validation checks while improving readability

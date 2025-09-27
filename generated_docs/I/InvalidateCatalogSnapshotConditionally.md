@@ -34,3 +34,29 @@ If other snapshots are active or registered, the catalog snapshot is likely not 
 - Preserves catalog snapshot when other snapshots are active
 - Located in src/backend/utils/time/snapmgr.c:443-455
 - Critical for proper garbage collection in long-running sessions
+
+## Simplified Source
+
+```c
+// Simplified version of InvalidateCatalogSnapshotConditionally
+void InvalidateCatalogSnapshotConditionally(void) {
+    // Only invalidate catalog snapshot if all three conditions are met:
+    // 1. We have a catalog snapshot
+    // 2. No other active snapshots exist
+    // 3. Catalog snapshot is the only registered snapshot
+    if (CatalogSnapshot &&
+        ActiveSnapshot == NULL &&
+        pairingheap_is_singular(&RegisteredSnapshots)) {
+
+        // Safe to invalidate - won't block other transactions
+        InvalidateCatalogSnapshot();
+    }
+    // Otherwise keep the catalog snapshot for efficiency
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the three key conditions
+- Formatted the conditional logic for better readability
+- Added comments about the purpose and safety of the invalidation
+- Preserved the essential logic while making it more self-documenting

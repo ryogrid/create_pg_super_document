@@ -41,3 +41,38 @@ This function takes no parameters.
 - The shared memory structure includes atomic counters for thread-safe access across multiple processes
 - Uses assertions to verify correct initialization state between postmaster and child processes
 - The global variable ActiveInjectionPoints is set to point to the shared memory structure
+
+## Simplified Source
+
+```c
+// Simplified version of InjectionPointShmemInit
+void InjectionPointShmemInit(void) {
+#ifdef USE_INJECTION_POINTS
+    bool found;
+
+    // Step 1: Allocate or attach to shared memory structure
+    ActiveInjectionPoints = ShmemInitStruct("InjectionPoint hash",
+                                           sizeof(InjectionPointsCtl),
+                                           &found);
+
+    // Step 2: Initialize counters if we're the postmaster
+    if (!IsUnderPostmaster) {
+        // First time initialization - set up all atomic counters
+        pg_atomic_init_u32(&ActiveInjectionPoints->max_inuse, 0);
+
+        // Initialize all injection point entries
+        for (int i = 0; i < MAX_INJECTION_POINTS; i++) {
+            pg_atomic_init_u64(&ActiveInjectionPoints->entries[i].generation, 0);
+        }
+    }
+    // Step 3: Child processes just verify shared memory exists
+    // (Assertion checks removed for clarity)
+#endif
+}
+```
+
+Key simplifications made:
+- Removed assertion checks for clarity while preserving core logic
+- Added descriptive comments for each initialization step
+- Consolidated the postmaster vs child process logic explanation
+- Focused on the main execution path while noting the conditional compilation

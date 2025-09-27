@@ -31,3 +31,18 @@ This function implements a simple bitwise check to distinguish between main regi
 
 ## Notes and Other Information
 This function is marked as static inline for performance optimization since it is called frequently throughout the DSM subsystem. The bitwise check (handle & 1) is a very fast operation that allows PostgreSQL to quickly determine the type of DSM handle without additional lookups or data structures. The main region concept is central to PostgreSQL's dynamic shared memory architecture, where main regions serve as the primary coordination point for shared memory management.
+
+## Simplified Source
+
+```c
+// Simplified version of is_main_region_dsm_handle
+static inline bool is_main_region_dsm_handle(dsm_handle handle) {
+    // Check if least significant bit is set
+    return handle & 1;
+}
+```
+
+Key simplifications made:
+- Function is already extremely simple, maintained the essential bitwise check
+- Removed inline comments as the operation is self-explanatory
+- Preserved the inline optimization for performance

@@ -50,3 +50,29 @@ Like other locking functions in this family, it calls AcceptInvalidationMessages
 - Critical for maintaining consistency of shared catalog operations across the entire cluster
 - Commonly used in DDL operations involving shared objects like CREATE/DROP ROLE, CREATE DATABASE, etc.
 - Located in src/backend/storage/lmgr/lmgr.c:1079-1102
+
+## Simplified Source
+
+```c
+// Simplified version of LockSharedObject
+void LockSharedObject(Oid classid, Oid objid, uint16 objsubid, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Create lock tag for cluster-wide shared object
+    // InvalidOid as database ID indicates this is shared across all databases
+    SET_LOCKTAG_OBJECT(tag, InvalidOid, classid, objid, objsubid);
+
+    // Acquire the lock (non-session lock, don't log)
+    (void) LockAcquire(&tag, lockmode, false, false);
+
+    // Update system caches with any changes that occurred while waiting for lock
+    AcceptInvalidationMessages();
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the cluster-wide nature of the lock
+- Highlighted the significance of using InvalidOid for the database ID
+- Explained the purpose of invalidation message processing
+- Maintained the essential lock acquisition and cache synchronization logic
+- Focused on the core functionality of shared object locking

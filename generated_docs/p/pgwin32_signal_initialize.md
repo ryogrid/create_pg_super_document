@@ -49,3 +49,47 @@ This function takes no parameters.
 - Failure to create any of the required resources results in a FATAL error, terminating the process
 - The function sets up both programmatic signal handling (via the signal thread) and interactive signal handling (via console control handler)
 - All signal-related global variables are initialized to safe default states
+
+## Simplified Source
+
+```c
+// Simplified version of pgwin32_signal_initialize
+void pgwin32_signal_initialize(void) {
+    // Initialize thread synchronization
+    InitializeCriticalSection(&pg_signal_crit_sec);
+
+    // Initialize signal handler array with defaults
+    for (int i = 0; i < PG_SIGNAL_COUNT; i++) {
+        pg_signal_array[i].sa_handler = SIG_DFL;
+        pg_signal_array[i].sa_mask = 0;
+        pg_signal_array[i].sa_flags = 0;
+        pg_signal_defaults[i] = SIG_IGN;
+    }
+
+    // Clear signal state
+    pg_signal_mask = 0;
+    pg_signal_queue = 0;
+
+    // Create event for signal coordination between threads
+    pgwin32_signal_event = CreateEvent(NULL, TRUE, FALSE, NULL);
+    if (pgwin32_signal_event == NULL)
+        ereport(FATAL, (errmsg_internal("could not create signal event")));
+
+    // Start dedicated signal processing thread
+    HANDLE signal_thread = CreateThread(NULL, 0, pg_signal_thread, NULL, 0, NULL);
+    if (signal_thread == NULL)
+        ereport(FATAL, (errmsg_internal("could not create signal handler thread")));
+
+    // Register console handler for Ctrl-C events
+    if (!SetConsoleCtrlHandler(pg_console_handler, TRUE))
+        ereport(FATAL, (errmsg_internal("could not set console control handler")));
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations inline
+- Simplified error messages by removing detailed error codes
+- Added descriptive comments for each major step
+- Maintained the essential initialization sequence
+- Preserved all critical error handling
+- Focused on the main execution path without platform-specific details

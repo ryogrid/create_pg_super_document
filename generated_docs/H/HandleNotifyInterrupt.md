@@ -35,3 +35,22 @@ This function takes no parameters and operates on global state variables.
 - **Latch Mechanism**: Uses PostgreSQL's latch system to ensure the backend's main loop will process the pending interrupt
 - Part of the inter-process communication system for LISTEN/NOTIFY functionality
 - Located in src/backend/commands/async.c:1804-1833
+
+## Simplified Source
+
+```c
+// Simplified version of HandleNotifyInterrupt
+void HandleNotifyInterrupt(void) {
+    // Step 1: Mark that notification processing is needed
+    notifyInterruptPending = true;
+
+    // Step 2: Wake up the backend's main event loop
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Removed detailed signal handler safety comments for clarity
+- Focused on the two core operations: flag setting and latch signaling
+- Emphasized the minimal, signal-safe nature of the function
+- Preserved the essential deferred-processing pattern

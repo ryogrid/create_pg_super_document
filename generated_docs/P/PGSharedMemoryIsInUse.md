@@ -43,3 +43,42 @@ The function only considers segments associated with the intended DataDir to avo
 - Returns false for states indicating the segment is not in use (ENOENT, FOREIGN, UNATTACHED)
 - Returns true for states indicating active use (ANALYSIS_FAILURE, ATTACHED) with a conservative default
 - Critical for preventing multiple PostgreSQL instances from conflicting over the same data directory
+
+## Simplified Source
+
+```c
+// Simplified version of PGSharedMemoryIsInUse
+bool PGSharedMemoryIsInUse(unsigned long id1, unsigned long id2) {
+    PGShmemHeader *memAddress;
+    IpcMemoryState state;
+
+    // Try to attach to the shared memory segment to check its state
+    state = PGSharedMemoryAttach((IpcMemoryId) id2, NULL, &memAddress);
+
+    // If we successfully attached, immediately detach to avoid interference
+    if (memAddress && shmdt((void *) memAddress) < 0)
+        elog(LOG, "shmdt(%p) failed: %m", memAddress);
+
+    // Check the attachment state to determine if segment is in use
+    switch (state) {
+        case SHMSTATE_ENOENT:      // Segment doesn't exist
+        case SHMSTATE_FOREIGN:     // Segment exists but not PostgreSQL
+        case SHMSTATE_UNATTACHED:  // Segment exists but no processes attached
+            return false;
+
+        case SHMSTATE_ANALYSIS_FAILURE:  // Can't determine state - assume in use
+        case SHMSTATE_ATTACHED:          // Active PostgreSQL processes attached
+            return true;
+    }
+
+    // Conservative default: assume segment is in use
+    return true;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major step
+- Clarified the purpose of each state case with inline comments
+- Grouped similar return cases together for better readability
+- Preserved the essential logic flow and error handling
+- Maintained the conservative default behavior

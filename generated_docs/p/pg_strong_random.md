@@ -51,3 +51,46 @@ The function is designed to run early in startup and cannot rely on backend infr
 - For OpenSSL builds, retries RAND_poll() up to 8 times if CSPRNG is insufficiently seeded
 - Used throughout PostgreSQL for generating cryptographically secure random data
 - Implementation varies by platform but provides consistent security guarantees
+
+## Simplified Source
+
+```c
+// Simplified version of pg_strong_random
+bool pg_strong_random(void *buf, size_t len) {
+    char *p = buf;
+    ssize_t res;
+
+    // Open /dev/urandom for cryptographically secure random bytes
+    int f = open("/dev/urandom", O_RDONLY, 0);
+    if (f == -1) {
+        return false;
+    }
+
+    // Read random bytes until buffer is filled
+    while (len > 0) {
+        res = read(f, p, len);
+
+        if (res <= 0) {
+            if (errno == EINTR) {
+                continue;  // Retry if interrupted by signal
+            }
+            close(f);
+            return false;  // Read error
+        }
+
+        // Advance buffer pointer and reduce remaining length
+        p += res;
+        len -= res;
+    }
+
+    close(f);
+    return true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Clarified the loop logic for handling partial reads
+- Simplified error handling flow
+- Focused on the Unix/Linux implementation path (/dev/urandom)
+- Maintained all essential security and robustness features

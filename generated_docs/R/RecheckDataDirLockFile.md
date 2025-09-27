@@ -37,3 +37,56 @@ This function performs a safety check by reading the data directory lock file an
 - Only triggers panic shutdown on clear evidence of lock file problems (ENOENT, ENOTDIR, wrong PID)
 - Critical safety mechanism to prevent multiple PostgreSQL instances from accessing the same data directory
 - Returns false only when there's definitive evidence of lock file compromise
+
+## Simplified Source
+
+```c
+// Simplified version of RecheckDataDirLockFile
+bool RecheckDataDirLockFile(void) {
+    int fd;
+    int len;
+    long file_pid;
+    char buffer[BLCKSZ];
+
+    // Try to open the lock file
+    fd = open(DIRECTORY_LOCK_FILE, O_RDWR | PG_BINARY, 0);
+    if (fd < 0) {
+        // Only treat file-not-found errors as fatal
+        if (errno == ENOENT || errno == ENOTDIR) {
+            ereport(LOG, (errmsg("could not open lock file: disaster")));
+            return false;
+        }
+        // All other errors are treated as transient
+        return true;
+    }
+
+    // Read the PID from the lock file
+    len = read(fd, buffer, sizeof(buffer) - 1);
+    if (len < 0) {
+        close(fd);
+        return true;  // Treat read failure as non-fatal
+    }
+
+    // Parse the PID and compare with current process
+    buffer[len] = '\0';
+    close(fd);
+    file_pid = atol(buffer);
+
+    if (file_pid == getpid()) {
+        return true;  // Lock file contains our PID - all is well
+    }
+
+    // Wrong PID in lock file - someone else overwrote it
+    ereport(LOG, (errmsg("lock file contains wrong PID: %ld instead of %ld",
+                         file_pid, (long) getpid())));
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed detailed error logging for non-fatal cases
+- Consolidated switch statement into simple if-else logic
+- Removed statistics reporting calls for brevity
+- Simplified error messages while preserving essential information
+- Focused on the main execution path: open → read → compare PID
+- Maintained the conservative approach of treating ambiguous errors as non-fatal

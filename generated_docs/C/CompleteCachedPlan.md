@@ -61,3 +61,102 @@ The function provides flexible memory management options: it can adopt an existi
 - Row Level Security (RLS) information is captured and stored for proper security enforcement
 - The current search_path is saved to ensure consistent query planning across different sessions
 - Memory context reparenting is used to efficiently manage the lifecycle of query trees
+
+## Simplified Source
+
+```c
+// Simplified version of CompleteCachedPlan
+void CompleteCachedPlan(CachedPlanSource *plansource,
+                       List *querytree_list,
+                       MemoryContext querytree_context,
+                       Oid *param_types,
+                       int num_params,
+                       ParserSetupHook parserSetup,
+                       void *parserSetupArg,
+                       int cursor_options,
+                       bool fixed_result)
+{
+    MemoryContext source_context = plansource->context;
+    MemoryContext oldcxt = CurrentMemoryContext;
+
+    // Validate that the plan source is in the correct state
+    Assert(plansource->magic == CACHEDPLANSOURCE_MAGIC);
+    Assert(!plansource->is_complete);
+
+    // Handle memory context setup for query trees
+    if (plansource->is_oneshot) {
+        // Oneshot plans: use current context, no copying needed
+        querytree_context = CurrentMemoryContext;
+    }
+    else if (querytree_context != NULL) {
+        // Reuse provided context: reparent under source context
+        MemoryContextSetParent(querytree_context, source_context);
+        MemoryContextSwitchTo(querytree_context);
+    }
+    else {
+        // Create fresh context and copy query trees
+        querytree_context = AllocSetContextCreate(source_context,
+                                                  "CachedPlanQuery",
+                                                  ALLOCSET_START_SMALL_SIZES);
+        MemoryContextSwitchTo(querytree_context);
+        querytree_list = copyObject(querytree_list);
+    }
+
+    // Store query context and query list in plan source
+    plansource->query_context = querytree_context;
+    plansource->query_list = querytree_list;
+
+    // Extract dependencies for cache invalidation (skip for oneshot plans)
+    if (!plansource->is_oneshot && StmtPlanRequiresRevalidation(plansource)) {
+        // Extract relation dependencies and invalidation items
+        extract_query_dependencies((Node *) querytree_list,
+                                   &plansource->relationOids,
+                                   &plansource->invalItems,
+                                   &plansource->dependsOnRLS);
+
+        // Capture RLS info for security enforcement
+        plansource->rewriteRoleId = GetUserId();
+        plansource->rewriteRowSecurity = row_security;
+
+        // Save current search_path for consistent planning
+        plansource->search_path = GetSearchPathMatcher(querytree_context);
+    }
+
+    // Store parameter types and other configuration in source context
+    MemoryContextSwitchTo(source_context);
+
+    if (num_params > 0) {
+        // Copy parameter type array
+        plansource->param_types = (Oid *) palloc(num_params * sizeof(Oid));
+        memcpy(plansource->param_types, param_types, num_params * sizeof(Oid));
+    }
+    else {
+        plansource->param_types = NULL;
+    }
+
+    // Store all configuration parameters
+    plansource->num_params = num_params;
+    plansource->parserSetup = parserSetup;
+    plansource->parserSetupArg = parserSetupArg;
+    plansource->cursor_options = cursor_options;
+    plansource->fixed_result = fixed_result;
+
+    // Compute and store result tuple descriptor
+    plansource->resultDesc = PlanCacheComputeResultDesc(querytree_list);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcxt);
+
+    // Mark plan source as complete and valid
+    plansource->is_complete = true;
+    plansource->is_valid = true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about memory management trade-offs for clarity
+- Consolidated parameter copying logic into a clearer if-else structure
+- Abstracted low-level memory operations with high-level comments
+- Focused on the main execution path and core functionality
+- Added descriptive comments for each major logical step
+- Simplified the dependency extraction section while preserving essential logic

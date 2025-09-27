@@ -36,3 +36,22 @@ The deletion is performed using the shmctl() system call with the IPC_RMID comma
 - The function converts the Datum parameter to an integer using DatumGetInt32()
 - Automatically registered by InternalIpcMemoryCreate to ensure segments are cleaned up during process exit
 - The IPC_RMID operation marks the segment for deletion but actual removal occurs when all processes detach
+
+## Simplified Source
+
+```c
+// Simplified version of IpcMemoryDelete
+static void IpcMemoryDelete(int status, Datum shmId) {
+    // Delete the shared memory segment using System V IPC
+    if (shmctl(DatumGetInt32(shmId), IPC_RMID, NULL) < 0) {
+        elog(LOG, "shmctl(%d, %d, 0) failed: %m",
+             DatumGetInt32(shmId), IPC_RMID);
+    }
+}
+```
+
+Key simplifications made:
+- Added comment explaining the System V IPC deletion operation
+- Preserved the callback function signature required by on_shmem_exit
+- Maintained error logging for cleanup failure diagnostics
+- Kept the original structure as function is already minimal

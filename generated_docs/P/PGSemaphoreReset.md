@@ -36,3 +36,38 @@ The function handles interrupts (EINTR) by retrying the operation, and reports f
 - Any other errno values result in a FATAL error
 - After reset, the semaphore will block any lock attempts until explicitly unlocked
 - This is commonly used during process initialization to ensure semaphores start in a known state
+
+## Simplified Source
+
+```c
+// Simplified version of PGSemaphoreReset
+void PGSemaphoreReset(PGSemaphore sema) {
+    // Core logic: Repeatedly try to decrement semaphore until count reaches 0
+    for (;;) {
+        // Try to decrement the semaphore without blocking
+        if (sem_trywait(PG_SEM_REF(sema)) < 0) {
+            // Check if semaphore is already at 0 (success condition)
+            if (errno == EAGAIN || errno == EDEADLK) {
+                break; // Semaphore count is now 0
+            }
+
+            // Handle interrupts by retrying
+            if (errno == EINTR) {
+                continue;
+            }
+
+            // Any other error is fatal
+            elog(FATAL, "sem_trywait failed: %m");
+        }
+        // If sem_trywait succeeded, continue looping to decrement further
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major step
+- Clarified the loop's purpose (ratcheting down to 0)
+- Explained the success condition (EAGAIN/EDEADLK means count is 0)
+- Simplified error handling logic with clearer comments
+- Maintained the essential "ratcheting down" algorithm
+- Preserved all critical error handling paths

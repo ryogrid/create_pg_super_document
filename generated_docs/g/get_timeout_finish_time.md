@@ -35,3 +35,18 @@ Like the start time, the finish time is preserved across timeout events and is n
 - Provides absolute timestamp information useful for determining remaining time
 - The persistent nature helps maintain consistent timing information across timeout events
 - No validation is performed on the TimeoutId parameter
+
+## Simplified Source
+
+```c
+// Simplified version of get_timeout_finish_time
+TimestampTz get_timeout_finish_time(TimeoutId id) {
+    return all_timeouts[id].fin_time;
+}
+```
+
+Key simplifications made:
+- Removed detailed comment about race conditions and implementation details
+- Maintained essential function signature and return logic
+- Kept simple array access to timeout finish time
+- Preserved core functionality without additional complexity

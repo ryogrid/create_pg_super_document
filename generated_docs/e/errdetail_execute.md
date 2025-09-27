@@ -36,3 +36,40 @@ The function iterates through the provided parse tree list, identifies EXECUTE s
 - Safely handles cases where the prepared statement cannot be found
 - Used specifically for error reporting to provide better context to users
 - Part of PostgreSQL's error handling and reporting system
+
+## Simplified Source
+
+```c
+// Simplified version of errdetail_execute
+static int errdetail_execute(List *raw_parsetree_list) {
+    ListCell *parsetree_item;
+
+    // Iterate through each parse tree in the list
+    foreach(parsetree_item, raw_parsetree_list) {
+        RawStmt *parsetree = lfirst_node(RawStmt, parsetree_item);
+
+        // Check if this is an EXECUTE statement
+        if (IsA(parsetree->stmt, ExecuteStmt)) {
+            ExecuteStmt *stmt = (ExecuteStmt *) parsetree->stmt;
+
+            // Look up the prepared statement by name
+            PreparedStatement *pstmt = FetchPreparedStatement(stmt->name, false);
+
+            // If found, add the original query text to error details
+            if (pstmt) {
+                errdetail("prepare: %s", pstmt->plansource->query_string);
+                return 0;
+            }
+        }
+    }
+
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Maintained the exact logic flow and structure
+- Preserved all variable names and function calls
+- Focused on clarity without changing functionality
+- Kept the essential error handling pattern

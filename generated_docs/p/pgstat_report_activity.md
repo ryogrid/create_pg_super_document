@@ -53,3 +53,87 @@ The function implements a protocol where all status updates are bracketed by inc
 - When activity tracking is disabled, the function performs a final cleanup to set STATE_DISABLED
 - State duration tracking helps with performance analysis by measuring time spent in different backend states
 - Part of PostgreSQL's comprehensive statistics collection framework for monitoring database activity
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_report_activity
+void pgstat_report_activity(BackendState state, const char *cmd_str) {
+    volatile PgBackendStatus *beentry = MyBEEntry;
+    TimestampTz start_timestamp;
+    TimestampTz current_timestamp;
+    int len = 0;
+
+    // Early exit if no backend entry exists
+    if (!beentry)
+        return;
+
+    // Handle case where activity tracking is disabled
+    if (!pgstat_track_activities) {
+        if (beentry->st_state != STATE_DISABLED) {
+            // Final cleanup: disable tracking and clear fields
+            PGSTAT_BEGIN_WRITE_ACTIVITY(beentry);
+            beentry->st_state = STATE_DISABLED;
+            beentry->st_state_start_timestamp = 0;
+            beentry->st_activity_raw[0] = '\0';
+            beentry->st_activity_start_timestamp = 0;
+            beentry->st_xact_start_timestamp = 0;
+            beentry->st_query_id = 0;
+            MyProc->wait_event_info = 0;
+            PGSTAT_END_WRITE_ACTIVITY(beentry);
+        }
+        return;
+    }
+
+    // Prepare data outside critical section for efficiency
+    start_timestamp = GetCurrentStatementStartTimestamp();
+    if (cmd_str != NULL) {
+        len = Min(strlen(cmd_str), pgstat_track_activity_query_size - 1);
+    }
+    current_timestamp = GetCurrentTimestamp();
+
+    // Calculate duration if transitioning from active/idle states
+    if (state_is_active_or_idle(beentry->st_state) &&
+        state != beentry->st_state) {
+
+        long secs;
+        int usecs;
+
+        TimestampDifference(beentry->st_state_start_timestamp,
+                           current_timestamp, &secs, &usecs);
+
+        // Count time appropriately based on previous state
+        if (state_was_active(beentry->st_state)) {
+            pgstat_count_conn_active_time(secs * 1000000 + usecs);
+        } else {
+            pgstat_count_conn_txn_idle_time(secs * 1000000 + usecs);
+        }
+    }
+
+    // Update status entry atomically
+    PGSTAT_BEGIN_WRITE_ACTIVITY(beentry);
+
+    beentry->st_state = state;
+    beentry->st_state_start_timestamp = current_timestamp;
+
+    // Reset query ID when starting new query
+    if (state == STATE_RUNNING)
+        beentry->st_query_id = 0;
+
+    // Update command string if provided
+    if (cmd_str != NULL) {
+        memcpy((char *) beentry->st_activity_raw, cmd_str, len);
+        beentry->st_activity_raw[len] = '\0';
+        beentry->st_activity_start_timestamp = start_timestamp;
+    }
+
+    PGSTAT_END_WRITE_ACTIVITY(beentry);
+}
+```
+
+Key simplifications made:
+- Extracted complex state checking logic into helper function concepts (state_is_active_or_idle, state_was_active)
+- Consolidated the state transition duration calculation logic
+- Simplified the conditional checks for better readability
+- Removed detailed comments and focused on the main execution flow
+- Maintained the critical atomic update section structure

@@ -40,3 +40,26 @@ This function is commonly used in cleanup scenarios where the main context needs
 - This is a safer alternative to manual traversal and deletion when you only want to clear children
 - Commonly used in portal management, relation cache cleanup, and transaction abort scenarios
 - The operation is non-recursive in implementation but achieves recursive deletion through repeated calls to MemoryContextDelete
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextDeleteChildren
+void MemoryContextDeleteChildren(MemoryContext context) {
+    // Validate the input context
+    Assert(MemoryContextIsValid(context));
+
+    // Delete all children one by one
+    // Note: Each deletion automatically unlinks the child from parent,
+    // so we always delete the first child until none remain
+    while (context->firstchild != NULL) {
+        MemoryContextDelete(context->firstchild);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear explanatory comments for each major step
+- Emphasized the automatic unlinking behavior that makes the algorithm work
+- Maintained the exact same logic as the original (no actual simplification needed as the function is already optimal)
+- Focused on clarity of the deletion strategy

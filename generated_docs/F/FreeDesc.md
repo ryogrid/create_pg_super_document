@@ -44,3 +44,46 @@ The function is designed to be type-aware, supporting the four different kinds o
 - The function decrements numAllocatedDescs to maintain the correct count of active descriptors
 - Used internally by all public descriptor closing functions to ensure consistent cleanup behavior
 - Critical for preventing resource leaks in PostgreSQL's file descriptor management system
+
+## Simplified Source
+
+```c
+// Simplified version of FreeDesc
+static int FreeDesc(AllocateDesc *desc) {
+    int result;
+
+    // Close the underlying resource based on its type
+    switch (desc->kind) {
+        case AllocateDescFile:
+            result = fclose(desc->desc.file);
+            break;
+        case AllocateDescPipe:
+            result = pclose(desc->desc.file);
+            break;
+        case AllocateDescDir:
+            result = closedir(desc->desc.dir);
+            break;
+        case AllocateDescRawFD:
+            result = close(desc->desc.fd);
+            break;
+        default:
+            // Invalid descriptor type - should never happen
+            elog(ERROR, "AllocateDesc kind not recognized");
+            result = 0;
+            break;
+    }
+
+    // Compact the allocatedDescs array by moving last element to freed position
+    numAllocatedDescs--;
+    *desc = allocatedDescs[numAllocatedDescs];
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Clarified the purpose of each switch case
+- Simplified the error handling comment
+- Made the array compaction logic more explicit with comments
+- Preserved all essential functionality and control flow

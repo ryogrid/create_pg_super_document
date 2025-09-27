@@ -55,3 +55,87 @@ The function is optimized for use cases like archive_command where string templa
 - All replacement values must be strings (char*) - the function doesn't support mixed data types
 - The letters parameter and variadic arguments must correspond exactly in order and count
 - Located in src/common/percentrepl.c:59-137, making it available to both frontend and backend code
+
+## Simplified Source
+
+```c
+// Simplified version of replace_percent_placeholders
+char *replace_percent_placeholders(const char *instr, const char *param_name,
+                                   const char *letters, ...) {
+    StringInfoData result;
+    initStringInfo(&result);
+
+    // Process input string character by character
+    for (const char *sp = instr; *sp; sp++) {
+        if (*sp == '%') {
+            if (sp[1] == '%') {
+                // Convert %% to single %
+                sp++;
+                appendStringInfoChar(&result, *sp);
+            }
+            else if (sp[1] == '\0') {
+                // Error: incomplete escape sequence
+#ifdef FRONTEND
+                pg_log_error("invalid value for parameter \"%s\": \"%s\"", param_name, instr);
+                pg_log_error_detail("String ends unexpectedly after escape character \"%%\".");
+                exit(1);
+#else
+                ereport(ERROR,
+                        (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                         errmsg("invalid value for parameter \"%s\": \"%s\"", param_name, instr),
+                         errdetail("String ends unexpectedly after escape character \"%%\".")));
+#endif
+            }
+            else {
+                // Look up placeholder character
+                bool found = false;
+                va_list ap;
+                sp++;
+
+                va_start(ap, letters);
+                for (const char *lp = letters; *lp; lp++) {
+                    char *val = va_arg(ap, char *);
+
+                    if (*sp == *lp) {
+                        if (val) {
+                            appendStringInfoString(&result, val);
+                            found = true;
+                        }
+                        // If val is NULL, treat as unsupported placeholder
+                        break;
+                    }
+                }
+                va_end(ap);
+
+                if (!found) {
+                    // Error: unknown placeholder
+#ifdef FRONTEND
+                    pg_log_error("invalid value for parameter \"%s\": \"%s\"", param_name, instr);
+                    pg_log_error_detail("String contains unexpected placeholder \"%%%c\".", *sp);
+                    exit(1);
+#else
+                    ereport(ERROR,
+                            (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                             errmsg("invalid value for parameter \"%s\": \"%s\"", param_name, instr),
+                             errdetail("String contains unexpected placeholder \"%%%c\".", *sp)));
+#endif
+                }
+            }
+        }
+        else {
+            // Regular character: copy as-is
+            appendStringInfoChar(&result, *sp);
+        }
+    }
+
+    return result.data;
+}
+```
+
+Key simplifications made:
+- Organized into clear sections with descriptive comments
+- Simplified the conditional flow while preserving all error cases
+- Maintained platform-specific error handling (frontend vs backend)
+- Consolidated placeholder lookup logic
+- Preserved variadic argument handling and NULL value detection
+- Focused on the core string processing and substitution algorithm

@@ -40,3 +40,31 @@ The function first determines the length of the input string, then calls pg_serv
 - Character set conversion is conditional - if no conversion is needed, the original string is used directly
 - This function is part of PostgreSQL's libpq format utilities used in client-server communication
 - Memory management is handled automatically - converted strings are properly freed when no longer needed
+
+## Simplified Source
+
+```c
+// Simplified version of pq_sendstring
+void pq_sendstring(StringInfo buf, const char *str) {
+    int slen = strlen(str);
+    char *p;
+
+    // Perform character set conversion from server to client encoding
+    p = pg_server_to_client(str, slen);
+
+    if (p != str) {
+        // Conversion occurred - use converted string
+        slen = strlen(p);
+        appendBinaryStringInfoNT(buf, p, slen + 1);  // +1 for null terminator
+        pfree(p);  // Free converted string
+    } else {
+        // No conversion needed - use original string
+        appendBinaryStringInfoNT(buf, str, slen + 1);  // +1 for null terminator
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for character set conversion logic
+- Clarified memory management for converted vs original strings
+- Maintained essential encoding conversion and null termination handling

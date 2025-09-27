@@ -31,3 +31,22 @@ This function takes no parameters and returns void.
 - The actual reset logic is implemented by the JIT provider through the `reset_after_error` function pointer in the provider interface
 - Called from the main PostgreSQL loop to ensure JIT state is properly cleaned up after error conditions
 - Essential for maintaining JIT subsystem stability across error boundaries
+
+## Simplified Source
+
+```c
+// Simplified version of jit_reset_after_error
+void jit_reset_after_error(void) {
+    // Check if JIT provider is available and loaded
+    if (provider_successfully_loaded) {
+        // Call the provider's error reset function to clean up JIT state
+        provider.reset_after_error();
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each step
+- Maintained the simple conditional logic structure
+- Focused on the core functionality: checking provider availability and calling reset function
+- Preserved the essential error recovery mechanism

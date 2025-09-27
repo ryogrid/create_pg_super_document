@@ -50,3 +50,33 @@ This function is essential for PostgreSQL's ability to manage more logical file 
 - Critical for preventing file descriptor exhaustion in PostgreSQL
 - Debug logging is conditional on DO_DB macro compilation
 - The assertion ensures consistency - if nfile > 0, there must be at least one file in the LRU ring
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseLruFile
+static bool ReleaseLruFile(void) {
+    // Log current state for debugging
+    DO_DB(elog(LOG, "ReleaseLruFile. Opened %d", nfile));
+
+    // Check if any files are currently open
+    if (nfile > 0) {
+        // Ensure LRU ring has at least one file (consistency check)
+        Assert(VfdCache[0].lruMoreRecently != 0);
+
+        // Remove and close the least recently used file
+        LruDelete(VfdCache[0].lruMoreRecently);
+
+        return true;  // Successfully freed a file descriptor
+    }
+
+    return false;  // No files available to close
+}
+```
+
+Key simplifications made:
+- Preserved the core LRU eviction logic
+- Kept essential error checking (Assert)
+- Added descriptive comments for each logical step
+- Maintained the simple control flow structure
+- Focused on the main execution path without low-level implementation details

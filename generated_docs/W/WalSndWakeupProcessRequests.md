@@ -37,3 +37,26 @@ The function first checks if `wake_wal_senders` is true, indicating that a wake-
 - It's part of PostgreSQL's streaming replication infrastructure
 - The function is typically called after WAL records are flushed to disk, ensuring that standby servers can receive updates promptly
 - The conditional check on `max_wal_senders` prevents unnecessary work when no WAL senders are configured
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndWakeupProcessRequests
+static inline void WalSndWakeupProcessRequests(bool physical, bool logical) {
+    // Check if a wake-up is needed using global flag
+    if (wake_wal_senders) {
+        // Reset the flag to prevent redundant wake-ups
+        wake_wal_senders = false;
+
+        // Only wake up if WAL senders are configured
+        if (max_wal_senders > 0) {
+            WalSndWakeup(physical, logical);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the logic flow
+- The function is already quite simple, so minimal changes were needed
+- Focused on the conditional wake-up pattern and flag management

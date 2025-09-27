@@ -41,3 +41,37 @@ This function takes no parameters.
 - Uses PG_USED_FOR_ASSERTS_ONLY to mark variables only used in assertions
 - The LatchWaitSet is a global resource that improves performance by avoiding repeated WaitEventSet creation
 - Essential for PostgreSQL's efficient process coordination and cleanup mechanisms
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeLatchWaitSet
+void InitializeLatchWaitSet(void) {
+    int latch_pos;
+
+    // Ensure we haven't already initialized the wait set
+    Assert(LatchWaitSet == NULL);
+
+    // Create a wait event set for latch operations
+    LatchWaitSet = CreateWaitEventSet(NULL, 2);
+
+    // Add our own latch to the wait set
+    latch_pos = AddWaitEventToSet(LatchWaitSet, WL_LATCH_SET, PGINVALID_SOCKET,
+                                  MyLatch, NULL);
+
+    // For child processes, also watch for postmaster death
+    if (IsUnderPostmaster)
+        AddWaitEventToSet(LatchWaitSet, WL_EXIT_ON_PM_DEATH,
+                          PGINVALID_SOCKET, NULL, NULL);
+
+    // Verify the latch was added at the expected position
+    Assert(latch_pos == LatchWaitSetLatchPos);
+}
+```
+
+Key simplifications made:
+- Removed debug-only variable annotation for clarity
+- Added descriptive comments for each major operation
+- Preserved all essential logic and assertions
+- Maintained the process safety mechanism for postmaster death detection
+- Focused on the core purpose: setting up efficient latch waiting infrastructure

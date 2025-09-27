@@ -37,3 +37,18 @@ The function simply returns the current value of the  global flag, providing a n
 - Part of the defensive programming approach in PostgreSQL's communication handling
 - Allows the system to detect and respond to communication state inconsistencies proactively
 - Used in conjunction with  and  for comprehensive message state management
+
+## Simplified Source
+
+```c
+// Simplified version of pq_is_reading_msg
+bool pq_is_reading_msg(void) {
+    // Simply return the global message reading state flag
+    return PqCommReadingMsg;
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple with no simplification needed
+- Removed detailed comments for brevity while preserving the core functionality
+- The function directly returns a global boolean flag indicating message reading state

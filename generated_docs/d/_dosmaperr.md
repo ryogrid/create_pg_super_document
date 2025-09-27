@@ -57,3 +57,41 @@ The function includes conditional compilation directives to handle different bui
 - The function is declared in `src/include/port/win32_port.h` for use across the PostgreSQL codebase
 - Commonly used in conjunction with `GetLastError()` to translate Windows API errors immediately after they occur
 - Essential for maintaining consistent error handling behavior across different operating systems in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of _dosmaperr
+void _dosmaperr(unsigned long win_error_code) {
+    // No error case: clear errno and return
+    if (win_error_code == 0) {
+        errno = 0;
+        return;
+    }
+
+    // Search through mapping table for Windows error code
+    for (int i = 0; i < lengthof(doserrors); i++) {
+        if (doserrors[i].winerr == win_error_code) {
+            int posix_errno = doserrors[i].doserr;
+
+            // Log the successful mapping (debug builds only)
+            // Backend: ereport(DEBUG5, ...) / Frontend: fprintf(stderr, ...)
+
+            errno = posix_errno;
+            return;
+        }
+    }
+
+    // No mapping found: log error and set fallback errno
+    // Backend: ereport(LOG, ...) / Frontend: fprintf(stderr, ...)
+
+    errno = EINVAL;  // Default fallback error
+}
+```
+
+Key simplifications made:
+- Removed conditional compilation directives for clarity
+- Consolidated debug logging into comments
+- Used descriptive variable names (win_error_code, posix_errno)
+- Abstracted the specific logging calls to focus on core logic
+- Simplified loop structure while preserving the mapping algorithm

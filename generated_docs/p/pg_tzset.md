@@ -40,3 +40,70 @@ This function serves as the primary interface for loading timezone information i
 - Supports both filesystem-based timezone files and POSIX timezone specifications
 - The cache is automatically initialized on first use if not already present
 - Location: src/timezone/pgtz.c:234-319
+
+## Simplified Source
+
+```c
+// Simplified version of pg_tzset
+pg_tz *pg_tzset(const char *tzname) {
+    pg_tz_cache *cache_entry;
+    struct state timezone_state;
+    char uppercase_name[TZ_STRLEN_MAX + 1];
+    char canonical_name[TZ_STRLEN_MAX + 1];
+    char *p;
+
+    // Check timezone name length
+    if (strlen(tzname) > TZ_STRLEN_MAX)
+        return NULL;
+
+    // Initialize cache if needed
+    if (!timezone_cache) {
+        if (!init_timezone_hashtable())
+            return NULL;
+    }
+
+    // Convert timezone name to uppercase for case-insensitive lookup
+    p = uppercase_name;
+    while (*tzname)
+        *p++ = pg_toupper((unsigned char) *tzname++);
+    *p = '\0';
+
+    // Check if timezone is already cached
+    cache_entry = hash_search(timezone_cache, uppercase_name, HASH_FIND, NULL);
+    if (cache_entry) {
+        return &cache_entry->tz;  // Return cached timezone
+    }
+
+    // Handle "GMT" specially - always use tzparse for reliability
+    if (strcmp(uppercase_name, "GMT") == 0) {
+        if (!tzparse(uppercase_name, &timezone_state, true)) {
+            elog(ERROR, "could not initialize GMT time zone");
+        }
+        strcpy(canonical_name, uppercase_name);
+    }
+    // Try to load timezone from filesystem
+    else if (tzload(uppercase_name, canonical_name, &timezone_state, true) != 0) {
+        // If filesystem load fails, try parsing as POSIX timezone spec
+        if (uppercase_name[0] == ':' || !tzparse(uppercase_name, &timezone_state, false)) {
+            return NULL;  // Unknown timezone
+        }
+        strcpy(canonical_name, uppercase_name);
+    }
+
+    // Cache the loaded timezone for future use
+    cache_entry = hash_search(timezone_cache, uppercase_name, HASH_ENTER, NULL);
+    strcpy(cache_entry->tz.TZname, canonical_name);
+    memcpy(&cache_entry->tz.state, &timezone_state, sizeof(timezone_state));
+
+    return &cache_entry->tz;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added descriptive comments for each major logic step
+- Simplified the name conversion loop structure
+- Clarified the special GMT handling logic
+- Made the filesystem vs POSIX timezone parsing flow more readable
+- Emphasized the caching mechanism with clear comments
+- Focused on the main execution paths without losing essential functionality

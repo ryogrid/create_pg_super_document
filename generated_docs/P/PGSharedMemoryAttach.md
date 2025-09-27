@@ -48,3 +48,61 @@ The function handles various error conditions gracefully, including platform-spe
 - The magic number, device, and inode verification ensures the segment belongs to the current PostgreSQL instance
 - Returns different IpcMemoryState values: SHMSTATE_ENOENT (doesn't exist), SHMSTATE_FOREIGN (belongs to different instance), SHMSTATE_UNATTACHED (exists but no processes attached), SHMSTATE_ATTACHED (active), SHMSTATE_ANALYSIS_FAILURE (couldn't determine state)
 - Critical for preventing conflicts between multiple PostgreSQL instances on the same system
+
+## Simplified Source
+
+```c
+// Simplified version of PGSharedMemoryAttach
+static IpcMemoryState
+PGSharedMemoryAttach(IpcMemoryId shmId, void *attachAt, PGShmemHeader **addr)
+{
+    struct shmid_ds shmStat;
+    struct stat statbuf;
+    PGShmemHeader *hdr;
+
+    *addr = NULL;
+
+    // Step 1: Check if shared memory segment exists
+    if (shmctl(shmId, IPC_STAT, &shmStat) < 0) {
+        if (errno == EINVAL || errno == EIDRM) // Segment doesn't exist
+            return SHMSTATE_ENOENT;
+        if (errno == EACCES) // No permissions, not our segment
+            return SHMSTATE_FOREIGN;
+        return SHMSTATE_ANALYSIS_FAILURE; // Other errors
+    }
+
+    // Step 2: Get data directory info for ownership verification
+    if (stat(DataDir, &statbuf) < 0)
+        return SHMSTATE_ANALYSIS_FAILURE;
+
+    // Step 3: Attempt to attach to the shared memory segment
+    hdr = (PGShmemHeader *) shmat(shmId, attachAt, PG_SHMAT_FLAGS);
+    if (hdr == (PGShmemHeader *) -1) {
+        // Attachment failed - similar error handling as above
+        if (errno == EINVAL || errno == EIDRM)
+            return SHMSTATE_ENOENT;
+        if (errno == EACCES)
+            return SHMSTATE_FOREIGN;
+        return SHMSTATE_ANALYSIS_FAILURE;
+    }
+    *addr = hdr;
+
+    // Step 4: Verify this segment belongs to our PostgreSQL instance
+    if (hdr->magic != PGShmemMagic ||
+        hdr->device != statbuf.st_dev ||
+        hdr->inode != statbuf.st_ino) {
+        return SHMSTATE_FOREIGN; // Not our segment
+    }
+
+    // Step 5: Check if other processes are attached
+    return shmStat.shm_nattch == 0 ? SHMSTATE_UNATTACHED : SHMSTATE_ATTACHED;
+}
+```
+
+Key simplifications made:
+- Removed detailed platform-specific error handling comments
+- Consolidated error conditions for readability
+- Simplified Linux EIDRM bug handling into main error check
+- Added step-by-step comments explaining the main logic flow
+- Focused on the core algorithm: check existence → verify ownership → determine usage state
+- Maintained all essential functionality and return values

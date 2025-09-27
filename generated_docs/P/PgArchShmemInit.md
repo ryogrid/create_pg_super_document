@@ -35,3 +35,33 @@ This function is responsible for setting up the shared memory segment for the Po
 - Uses the "found" parameter to determine if this is first-time initialization
 - Part of the PostgreSQL server startup sequence
 - Must be called after PgArchShmemSize during shared memory setup
+
+## Simplified Source
+
+```c
+// Simplified version of PgArchShmemInit
+void PgArchShmemInit(void) {
+    bool found;
+
+    // Allocate or attach to shared memory for archiver data
+    PgArch = (PgArchData *) ShmemInitStruct("Archiver Data", PgArchShmemSize(), &found);
+
+    // Initialize structure on first access
+    if (!found) {
+        // Clear all memory to zero
+        MemSet(PgArch, 0, PgArchShmemSize());
+
+        // Initialize process number as invalid
+        PgArch->pgprocno = INVALID_PROC_NUMBER;
+
+        // Initialize atomic flag for directory scanning control
+        pg_atomic_init_u32(&PgArch->force_dir_scan, 0);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Preserved the complete logic flow as the function is already quite simple
+- Maintained all essential initialization steps
+- Enhanced readability through better comment descriptions

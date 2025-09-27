@@ -41,3 +41,34 @@ If the receiver starts successfully, the function clears the WalReceiverRequeste
 - Uses B_WAL_RECEIVER backend type for the child process
 - Designed to be called repeatedly - handles its own state checking and flag management
 - WAL receivers have built-in logic to detect when they're not needed and exit gracefully
+
+## Simplified Source
+
+```c
+// Simplified version of MaybeStartWalReceiver
+static void MaybeStartWalReceiver(void) {
+    // Check if we should start a WAL receiver:
+    // 1. No receiver currently running
+    // 2. Postmaster is in recovery mode (startup, recovery, or hot standby)
+    // 3. Not in immediate shutdown
+    if (WalReceiverPID == 0 &&
+        (pmState == PM_STARTUP || pmState == PM_RECOVERY || pmState == PM_HOT_STANDBY) &&
+        Shutdown <= SmartShutdown) {
+
+        // Start the WAL receiver child process
+        WalReceiverPID = StartChildProcess(B_WAL_RECEIVER);
+
+        // Clear the request flag if successful
+        if (WalReceiverPID != 0) {
+            WalReceiverRequested = false;
+        }
+        // If failed, leave flag set for retry later
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the three main conditions
+- Consolidated the conditional logic explanation into numbered points
+- Simplified the success/failure handling explanation
+- Focused on the main execution path while preserving all essential logic

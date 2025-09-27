@@ -40,3 +40,35 @@ This function takes no parameters.
 - Failure to call this function before XLogRegister* functions will result in assertion failures
 - The function maintains a global flag  to prevent duplicate calls
 - Called extensively throughout PostgreSQL for all WAL logging operations including heap operations, index operations, system catalogs, and checkpoints
+
+## Simplified Source
+
+```c
+// Simplified version of XLogBeginInsert
+void XLogBeginInsert(void) {
+    // Verify clean starting state - no ongoing WAL record construction
+    Assert(max_registered_block_id == 0);
+    Assert(mainrdata_last == (XLogRecData *) &mainrdata_head);
+    Assert(mainrdata_len == 0);
+
+    // Check if WAL insertion is allowed (not during recovery)
+    if (!XLogInsertAllowed()) {
+        elog(ERROR, "cannot make new WAL entries during recovery");
+    }
+
+    // Prevent duplicate calls without completing previous WAL record
+    if (begininsert_called) {
+        elog(ERROR, "XLogBeginInsert was already called");
+    }
+
+    // Mark that WAL record construction has begun
+    begininsert_called = true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each validation step
+- Grouped related assertions together with explanatory comment
+- Clarified the purpose of each error condition
+- Maintained all original logic and error handling (none removed as all are essential)
+- Enhanced readability through better commenting structure

@@ -43,3 +43,31 @@ The error is always reported at COMMERROR level to prevent infinite recursion th
 - The function assumes the primary error message is already translated
 - Both backend and frontend versions exist with identical functionality
 - Memory allocation is avoided during error reporting for reliability
+
+## Simplified Source
+
+```c
+// Simplified version of pg_GSS_error
+void pg_GSS_error(const char *errmsg, OM_uint32 maj_stat, OM_uint32 min_stat) {
+    char msg_major[128];
+    char msg_minor[128];
+
+    // Extract human-readable GSS major status message
+    pg_GSS_error_int(msg_major, sizeof(msg_major), maj_stat, GSS_C_GSS_CODE);
+
+    // Extract mechanism-specific minor status message
+    pg_GSS_error_int(msg_minor, sizeof(msg_minor), min_stat, GSS_C_MECH_CODE);
+
+    // Report error with primary message and GSS details
+    // Use COMMERROR to prevent infinite recursion
+    ereport(COMMERROR,
+            (errmsg_internal("%s", errmsg),
+             errdetail_internal("%s: %s", msg_major, msg_minor)));
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each error extraction step
+- Clarified the purpose of COMMERROR level (preventing recursion)
+- Maintained essential GSS-API error message formatting
+- Preserved fixed-size buffer approach for reliability during error reporting

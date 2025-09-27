@@ -45,3 +45,42 @@ The function validates that the timeout system has been properly initialized and
 - Does not require signal handler disabling during registration as it only modifies handler pointers
 - Thread-safe assuming single-threaded access per process (standard PostgreSQL assumption)
 - Once registered, timeout handlers remain registered for the lifetime of the process
+
+## Simplified Source
+
+```c
+// Simplified version of RegisterTimeout
+TimeoutId RegisterTimeout(TimeoutId id, timeout_handler_proc handler) {
+    // Verify timeout system is initialized
+    Assert(all_timeouts_initialized);
+
+    // Handle user-defined timeout allocation
+    if (id >= USER_TIMEOUT) {
+        // Find first available slot in user timeout range
+        for (id = USER_TIMEOUT; id < MAX_TIMEOUTS; id++) {
+            if (all_timeouts[id].timeout_handler == NULL)
+                break;
+        }
+
+        // Error if no slots available
+        if (id >= MAX_TIMEOUTS) {
+            ereport(FATAL, "cannot add more timeout reasons");
+        }
+    }
+
+    // Verify slot is not already in use
+    Assert(all_timeouts[id].timeout_handler == NULL);
+
+    // Register the handler function
+    all_timeouts[id].timeout_handler = handler;
+
+    return id;
+}
+```
+
+Key simplifications made:
+- Removed detailed error code structure for clarity
+- Simplified error message for readability
+- Removed unnecessary comment about signal handler
+- Consolidated the core logic flow into clear steps
+- Focused on the main execution path

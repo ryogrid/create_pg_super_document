@@ -46,3 +46,45 @@ Returns:
 - The Assert(msgtype != 0) ensures that null message types are caught during development
 - Implements the same goto fail error handling pattern as other message functions
 - This function serves as a bridge between modern PostgreSQL and legacy protocol requirements
+
+## Simplified Source
+
+```c
+// Simplified version of pq_putmessage_v2
+int pq_putmessage_v2(char msgtype, const char *s, size_t len) {
+    Assert(msgtype != 0);
+
+    // Skip if communication is busy to prevent message interleaving
+    if (PqCommBusy) {
+        return 0;
+    }
+
+    // Set busy flag during message construction
+    PqCommBusy = true;
+
+    // Send message type byte (protocol v2 format: type + body, no length)
+    if (internal_putbytes(&msgtype, 1)) {
+        goto fail;
+    }
+
+    // Send message body
+    if (internal_putbytes(s, len)) {
+        goto fail;
+    }
+
+    // Success - clear busy flag
+    PqCommBusy = false;
+    return 0;
+
+fail:
+    // Error - clear busy flag and return EOF
+    PqCommBusy = false;
+    return EOF;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining protocol v2 format difference
+- Clarified the purpose of PqCommBusy flag
+- Explained the goto fail error handling pattern
+- Core logic: Set busy flag, send message type and body, handle errors with cleanup

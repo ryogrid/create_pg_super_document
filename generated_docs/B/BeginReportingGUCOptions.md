@@ -39,3 +39,42 @@ This function takes no parameters.
 - The in_hot_standby handling is explicitly noted as a "hack" in the comments, indicating this may not be the ideal location for this logic
 - Sets the global reporting_enabled flag which controls whether subsequent configuration changes trigger automatic reports
 - Essential for PostgreSQL protocol compliance as clients expect to receive GUC parameter updates
+
+## Simplified Source
+
+```c
+// Simplified version of BeginReportingGUCOptions
+void BeginReportingGUCOptions(void) {
+    // Only proceed if connected to interactive frontend
+    if (whereToSendOutput != DestRemote)
+        return;
+
+    // Enable automatic GUC reporting
+    reporting_enabled = true;
+
+    // Special case: set in_hot_standby during recovery
+    if (RecoveryInProgress()) {
+        SetConfigOption("in_hot_standby", "true",
+                       PGC_INTERNAL, PGC_S_OVERRIDE);
+    }
+
+    // Send initial values of all GUC_REPORT variables
+    HASH_SEQ_STATUS status;
+    GUCHashEntry *hentry;
+
+    hash_seq_init(&status, guc_hashtab);
+    while ((hentry = hash_seq_search(&status)) != NULL) {
+        struct config_generic *conf = hentry->gucvar;
+
+        if (conf->flags & GUC_REPORT) {
+            ReportGUCOption(conf);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity while preserving essential logic
+- Consolidated the hash table iteration into a cleaner flow
+- Maintained all core functionality: frontend check, reporting enablement, hot standby handling, and GUC reporting
+- Focused on the main execution path without losing important operations

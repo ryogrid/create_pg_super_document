@@ -52,3 +52,49 @@ Returns:
 - Allows checkpoint processes to wait for blocking transactions to finish
 - Shared lock on ProcArrayLock ensures consistent view during scanning
 - Returns immediately upon finding any matching virtual transaction ID still active
+
+## Simplified Source
+
+```c
+// Simplified version of HaveVirtualXIDsDelayingChkpt
+bool HaveVirtualXIDsDelayingChkpt(VirtualTransactionId *vxids, int nvxids, int type) {
+    // Acquire shared lock on process array
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Scan all active processes
+    for (int i = 0; i < procArray->numProcs; i++) {
+        PGPROC *proc = &allProcs[procArray->pgprocnos[i]];
+        VirtualTransactionId current_vxid;
+
+        // Get virtual transaction ID from this process
+        GET_VXID_FROM_PGPROC(current_vxid, *proc);
+
+        // Check if process has specified delay flags and valid VXID
+        if ((proc->delayChkptFlags & type) != 0 &&
+            VirtualTransactionIdIsValid(current_vxid)) {
+
+            // Check if this VXID matches any in our input list
+            for (int j = 0; j < nvxids; j++) {
+                if (VirtualTransactionIdEquals(current_vxid, vxids[j])) {
+                    // Found a match - release lock and return true
+                    LWLockRelease(ProcArrayLock);
+                    return true;
+                }
+            }
+        }
+    }
+
+    // No matches found - release lock and return false
+    LWLockRelease(ProcArrayLock);
+    return false;
+}
+```
+
+Key simplifications made:
+- Simplified variable naming for clarity (i, j instead of index, pgprocno)
+- Combined variable declarations with loop initializations
+- Added descriptive comments for each major step
+- Removed intermediate result variable, using direct returns
+- Maintained the essential O(N^2) nested loop structure
+- Preserved early termination optimization
+- Kept all critical locking and validation logic

@@ -44,3 +44,40 @@ The function sets the global variable `max_safe_fds` which is used throughout Po
 - Terminates the server with FATAL error if insufficient descriptors are available
 - Logs the calculated limits at DEBUG2 level for diagnostics
 - This is a critical initialization function that affects all subsequent file operations in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of set_max_safe_fds
+void set_max_safe_fds(void) {
+    int usable_fds;
+    int already_open;
+
+    // Determine how many file descriptors are actually available
+    count_usable_fds(max_files_per_process, &usable_fds, &already_open);
+
+    // Calculate safe limit: MIN(available, configured - already_used)
+    max_safe_fds = Min(usable_fds, max_files_per_process - already_open);
+
+    // Reserve file descriptors for system calls (system(), etc.)
+    max_safe_fds -= NUM_RESERVED_FDS;
+
+    // Ensure we have minimum required descriptors
+    if (max_safe_fds < FD_MINFREE) {
+        ereport(FATAL,
+                (errcode(ERRCODE_INSUFFICIENT_RESOURCES),
+                 errmsg("insufficient file descriptors available to start server process")));
+    }
+
+    // Log the calculated limits for debugging
+    elog(DEBUG2, "max_safe_fds = %d, usable_fds = %d, already_open = %d",
+         max_safe_fds, usable_fds, already_open);
+}
+```
+
+Key simplifications made:
+- Removed verbose multi-line comments explaining the calculation
+- Condensed the error message details for clarity
+- Added concise inline comments explaining each step
+- Focused on the main execution path
+- Maintained all essential logic and error handling

@@ -33,3 +33,30 @@ When enableFsync is disabled, the function immediately returns 0 without perform
 - Can be completely disabled via the enableFsync configuration setting, useful for testing and development
 - Does not provide writethrough semantics, which may allow disk drive caches to delay actual writes to platters
 - Part of PostgreSQL's configurable durability system that balances performance and data safety requirements
+
+## Simplified Source
+
+```c
+// Simplified version of pg_fsync_no_writethrough
+int pg_fsync_no_writethrough(int fd) {
+    // Step 1: Check if fsync is globally enabled
+    if (!enableFsync) {
+        return 0;  // Skip sync if disabled (for testing/development)
+    }
+
+    // Step 2: Perform fsync with interrupt handling
+    int result;
+    do {
+        result = fsync(fd);
+        // Retry if interrupted by signal, otherwise return result
+    } while (result == -1 && errno == EINTR);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Converted goto retry loop to a clearer do-while structure
+- Added descriptive comments for each logical step
+- Clarified the purpose of the enableFsync check
+- Made the interrupt handling logic more explicit

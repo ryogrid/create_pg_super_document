@@ -41,3 +41,29 @@ None (void function)
 - Shared preload libraries are typically used for monitoring tools, custom background workers, and system-wide extensions
 - Loading failures are handled by the underlying load_libraries function
 - This is different from process_session_preload_libraries which loads libraries per-session with security restrictions
+
+## Simplified Source
+
+```c
+// Simplified version of process_shared_preload_libraries
+void process_shared_preload_libraries(void) {
+    // Mark that shared library loading is starting
+    process_shared_preload_libraries_in_progress = true;
+
+    // Load all libraries from shared_preload_libraries configuration
+    // with unrestricted path access (restricted=false)
+    load_libraries(shared_preload_libraries_string,
+                   "shared_preload_libraries",
+                   false);
+
+    // Mark loading as complete
+    process_shared_preload_libraries_in_progress = false;
+    process_shared_preload_libraries_done = true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Clarified the purpose of the boolean flags
+- Explained the significance of the `false` parameter (unrestricted loading)
+- Maintained the original simple and clean structure since the function was already well-written

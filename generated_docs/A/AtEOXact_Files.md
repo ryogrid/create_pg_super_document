@@ -38,3 +38,25 @@ The function ensures that no temporary files or file descriptors leak beyond tra
 - It's called by both foreground transactions and background processes to ensure clean resource state
 - The temporary tablespace reset ensures that transaction-local tablespace settings don't persist beyond transaction boundaries
 - Works in conjunction with ResourceOwner cleanup mechanisms for comprehensive resource management
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_Files
+void AtEOXact_Files(bool isCommit) {
+    // Step 1: Close all temporary files and clean up file descriptors
+    // This removes any remaining temp files from the transaction
+    CleanupTempFiles(isCommit, false);
+
+    // Step 2: Reset temporary tablespace configuration
+    // Clear the list of temp tablespaces used in this transaction
+    tempTableSpaces = NULL;
+    numTempTableSpaces = -1;
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the purpose of each action
+- Emphasized the two main responsibilities: file cleanup and tablespace reset
+- Maintained the simple structure since the original function is already concise
+- Focused on the logical flow rather than implementation details

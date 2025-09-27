@@ -38,3 +38,32 @@ The function uses PANIC-level error reporting, indicating that failure to open a
 - Used primarily by XLogWrite for accessing existing WAL segments during normal operations
 - Simpler than XLogFileInit as it doesn't handle file creation or initialization
 - Located in src/backend/access/transam/xlog.c:3595-3615
+
+## Simplified Source
+
+```c
+// Simplified version of XLogFileOpen
+int XLogFileOpen(XLogSegNo segno, TimeLineID tli) {
+    char path[MAXPGPATH];
+
+    // Step 1: Build the file path for the WAL segment
+    XLogFilePath(path, tli, segno, wal_segment_size);
+
+    // Step 2: Open the existing file with appropriate flags
+    int fd = BasicOpenFile(path, O_RDWR | PG_BINARY | O_CLOEXEC | get_sync_bit(wal_sync_method));
+
+    // Step 3: Handle critical failure - panic if can't open existing WAL file
+    if (fd < 0) {
+        ereport(PANIC, (errcode_for_file_access(),
+                       errmsg("could not open file \"%s\": %m", path)));
+    }
+
+    return fd;
+}
+```
+
+Key simplifications made:
+- Combined variable declaration and usage where possible
+- Added step-by-step comments explaining the core logic
+- Maintained the essential error handling with PANIC level
+- Preserved all critical functionality while improving readability

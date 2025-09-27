@@ -51,3 +51,53 @@ If successful, the function registers the directory handle in the allocatedDescs
 - This should ideally be the only direct call to opendir() in the PostgreSQL backend
 - Part of PostgreSQL's comprehensive file descriptor management strategy to prevent resource leaks
 - Used extensively for directory traversal operations in WAL management, backup processes, extension handling, and database maintenance
+
+## Simplified Source
+
+```c
+// Simplified version of AllocateDir
+DIR *AllocateDir(const char *dirname) {
+    // Step 1: Check if we can allocate another descriptor
+    if (!reserveAllocatedDesc()) {
+        ereport(ERROR, "exceeded maxAllocatedDescs while trying to open directory");
+    }
+
+    // Step 2: Release excess file descriptors to make room
+    ReleaseLruFiles();
+
+TryAgain:
+    // Step 3: Attempt to open the directory
+    DIR *dir = opendir(dirname);
+    if (dir != NULL) {
+        // Step 4: Register the directory handle for management
+        AllocateDesc *desc = &allocatedDescs[numAllocatedDescs];
+        desc->kind = AllocateDescDir;
+        desc->desc.dir = dir;
+        desc->create_subid = GetCurrentSubTransactionId();
+        numAllocatedDescs++;
+        return dir;
+    }
+
+    // Step 5: Handle "too many open files" errors by releasing one file and retrying
+    if (errno == EMFILE || errno == ENFILE) {
+        int save_errno = errno;
+        ereport(LOG, "out of file descriptors: release and retry");
+        errno = 0;
+        if (ReleaseLruFile()) {
+            goto TryAgain;
+        }
+        errno = save_errno;
+    }
+
+    // Step 6: Return failure
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Removed debug logging for clarity
+- Simplified error reporting messages
+- Abstracted complex error code handling
+- Added step-by-step comments explaining the algorithm
+- Focused on the main execution path
+- Consolidated variable declarations with usage

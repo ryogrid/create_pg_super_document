@@ -45,3 +45,45 @@ This function takes no parameters and returns a boolean indicating success or fa
 - Initial allocation failures are treated as fatal errors requiring process termination
 - The function supports PostgreSQL's three-way partitioning of file descriptors: VFD cache, allocated descriptors, and external descriptors
 - Part of PostgreSQL's resource management system to ensure stable operation under file descriptor pressure
+
+## Simplified Source
+
+```c
+// Simplified version of reserveAllocatedDesc
+static bool reserveAllocatedDesc(void) {
+    // Quick check: return if space already available
+    if (numAllocatedDescs < maxAllocatedDescs)
+        return true;
+
+    // Initial allocation: create array if it doesn't exist
+    if (allocatedDescs == NULL) {
+        int newMax = FD_MINFREE / 3;
+        allocatedDescs = malloc(newMax * sizeof(AllocateDesc));
+        if (allocatedDescs == NULL)
+            ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+        maxAllocatedDescs = newMax;
+        return true;
+    }
+
+    // Array expansion: try to enlarge existing array
+    int newMax = max_safe_fds / 3;
+    if (newMax > maxAllocatedDescs) {
+        AllocateDesc *newDescs = realloc(allocatedDescs, newMax * sizeof(AllocateDesc));
+        if (newDescs == NULL)
+            return false;  // Expansion failed, but non-fatal
+        allocatedDescs = newDescs;
+        maxAllocatedDescs = newMax;
+        return true;
+    }
+
+    // Cannot enlarge further
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic flow
+- Consolidated variable declarations closer to usage
+- Streamlined error handling paths
+- Focused on the three main execution branches
+- Preserved the critical difference between fatal initial allocation failure vs non-fatal expansion failure

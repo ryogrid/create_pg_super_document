@@ -50,3 +50,82 @@ The function uses a static table of error mappings (rerrs[]) that contains error
 - Uses sprintf for numeric conversions, which could theoretically overflow the convbuf but the buffer is sized generously
 - Part of PostgreSQL's custom regex implementation based on Henry Spencer's regex library
 - The error table is built from regex/regerrs.h and includes both standard POSIX error codes and PostgreSQL-specific extensions
+
+## Simplified Source
+
+```c
+// Simplified version of pg_regerror
+size_t pg_regerror(int errcode, const regex_t *preg, char *errbuf, size_t errbuf_size) {
+    const struct rerr *r;
+    const char *msg;
+    char convbuf[sizeof(unk) + 50];  // Buffer for conversions
+    size_t len;
+    int icode;
+
+    switch (errcode) {
+        case REG_ATOI:  // Convert error name to number
+            // Find the error name in the table
+            for (r = rerrs; r->code >= 0; r++)
+                if (strcmp(r->name, errbuf) == 0)
+                    break;
+            // Convert code to string (-1 if not found)
+            sprintf(convbuf, "%d", r->code);
+            msg = convbuf;
+            break;
+
+        case REG_ITOA:  // Convert error number to name
+            // Parse the number from the buffer
+            icode = atoi(errbuf);
+            // Find the matching code in the table
+            for (r = rerrs; r->code >= 0; r++)
+                if (r->code == icode)
+                    break;
+            if (r->code >= 0)
+                msg = r->name;
+            else {
+                // Unknown code - generate generic name
+                sprintf(convbuf, "REG_%u", (unsigned) icode);
+                msg = convbuf;
+            }
+            break;
+
+        default:  // Normal error code - get explanation
+            // Find the error code in the table
+            for (r = rerrs; r->code >= 0; r++)
+                if (r->code == errcode)
+                    break;
+            if (r->code >= 0)
+                msg = r->explain;  // Use explanation message
+            else {
+                // Unknown error - generate generic message
+                sprintf(convbuf, unk, errcode);
+                msg = convbuf;
+            }
+            break;
+    }
+
+    // Calculate space needed (including null terminator)
+    len = strlen(msg) + 1;
+
+    // Copy to buffer if provided and sized
+    if (errbuf_size > 0) {
+        if (errbuf_size > len)
+            strcpy(errbuf, msg);  // Full copy
+        else {
+            // Truncate to fit and ensure null termination
+            memcpy(errbuf, msg, errbuf_size - 1);
+            errbuf[errbuf_size - 1] = '\0';
+        }
+    }
+
+    return len;  // Return space needed
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each operation mode
+- Grouped related logic sections together
+- Explained the buffer handling and truncation logic
+- Clarified the purpose of the conversion buffer
+- Maintained all safety checks and POSIX compliance
+- Preserved the three distinct operation modes (normal, ATOI, ITOA)

@@ -45,3 +45,41 @@ The function allocates memory for the returned strings using palloc functions, m
 - The dash-to-underscore conversion ensures consistency with PostgreSQL's internal parameter naming conventions
 - Input parameters are validated with Assert statements in debug builds
 - Handles both "name=value" and "name" (no value) formats gracefully
+
+## Simplified Source
+
+```c
+// Simplified version of ParseLongOption
+void ParseLongOption(const char *string, char **name, char **value) {
+    // Core logic step 1: Find the position of '=' delimiter
+    size_t equal_pos = strcspn(string, "=");
+
+    // Core logic step 2: Split string based on whether '=' exists
+    if (string[equal_pos] == '=') {
+        // Extract name part (before '=')
+        *name = palloc(equal_pos + 1);
+        strlcpy(*name, string, equal_pos + 1);
+
+        // Extract value part (after '=')
+        *value = pstrdup(&string[equal_pos + 1]);
+    } else {
+        // No '=' found - entire string is the name
+        *name = pstrdup(string);
+        *value = NULL;
+    }
+
+    // Core logic step 3: Convert dashes to underscores in name
+    for (char *cp = *name; *cp; cp++) {
+        if (*cp == '-') {
+            *cp = '_';
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed Assert statements for clarity
+- Consolidated variable declarations
+- Added inline comments explaining each logical step
+- Simplified the dash-to-underscore loop with clearer variable names
+- Focused on the main execution path without error handling details

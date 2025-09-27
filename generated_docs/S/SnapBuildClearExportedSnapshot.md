@@ -45,3 +45,38 @@ This function takes no parameters and operates on global state variables related
 - Restores the original resource owner to maintain proper resource management
 - This function ensures that exported snapshot transactions don't remain open indefinitely
 - Typically called when replication commands complete or encounter errors
+
+## Simplified Source
+
+```c
+// Simplified version of SnapBuildClearExportedSnapshot
+void SnapBuildClearExportedSnapshot(void) {
+    ResourceOwner tmpResOwner;
+
+    // Core logic step 1: Check if there's an exported snapshot to clear
+    if (!ExportInProgress) {
+        return;  // Nothing to do - this is the common case
+    }
+
+    // Core logic step 2: Validate we're in a proper transaction state
+    if (!IsTransactionState()) {
+        elog(ERROR, "clearing exported snapshot in wrong transaction state");
+    }
+
+    // Core logic step 3: Save the original resource owner before cleanup
+    tmpResOwner = SavedResourceOwnerDuringExport;
+
+    // Core logic step 4: Abort the transaction (this handles snapshot cleanup)
+    AbortCurrentTransaction();
+
+    // Core logic step 5: Restore the original resource owner
+    CurrentResourceOwner = tmpResOwner;
+}
+```
+
+Key simplifications made:
+- Preserved the essential logic flow: check export state, validate transaction, save owner, abort transaction, restore owner
+- Maintained all critical error checking and state validation
+- Kept important comments explaining the purpose of each step
+- Focused on the main execution path without losing functionality
+- Simplified variable declarations while preserving the core resource management pattern

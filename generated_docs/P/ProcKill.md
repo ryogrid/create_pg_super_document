@@ -64,3 +64,91 @@ The function handles sophisticated scenarios like lock group leadership transfer
 - Sends SIGUSR2 to autovacuum launcher if needed to wake it up after worker termination
 - The function ensures proper transfer of latch ownership to prevent resource leaks
 - Registered as an exit callback during process initialization for automatic cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of ProcKill
+static void ProcKill(int code, Datum arg) {
+    PGPROC *proc;
+    dlist_head *procgloballist;
+
+    // Safety check: ensure not called in child process
+    if (MyProc->pid != (int) getpid()) {
+        elog(PANIC, "ProcKill() called in child process");
+    }
+
+    // Step 1: Clean up synchronous replication
+    SyncRepCleanupAtProcExit();
+
+    // Step 2: Release all lightweight locks and condition variables
+    LWLockReleaseAll();
+    ConditionVariableCancelSleep();
+
+    // Step 3: Handle lock group cleanup
+    if (MyProc->lockGroupLeader != NULL) {
+        PGPROC *leader = MyProc->lockGroupLeader;
+        LWLock *leader_lwlock = LockHashPartitionLockByProc(leader);
+
+        LWLockAcquire(leader_lwlock, LW_EXCLUSIVE);
+        dlist_delete(&MyProc->lockGroupLink);
+
+        // If no more group members, clean up leader
+        if (dlist_is_empty(&leader->lockGroupMembers)) {
+            leader->lockGroupLeader = NULL;
+            if (leader != MyProc) {
+                // Return leader's PGPROC to freelist
+                procgloballist = leader->procgloballist;
+                SpinLockAcquire(ProcStructLock);
+                dlist_push_head(procgloballist, &leader->links);
+                SpinLockRelease(ProcStructLock);
+            }
+        }
+        LWLockRelease(leader_lwlock);
+    }
+
+    // Step 4: Reset latch and clear process information
+    SwitchBackToLocalLatch();
+    pgstat_reset_wait_event_storage();
+
+    proc = MyProc;
+    MyProc = NULL;
+    MyProcNumber = INVALID_PROC_NUMBER;
+    DisownLatch(&proc->procLatch);
+
+    // Step 5: Mark process as no longer in use
+    proc->pid = 0;
+    proc->vxid.procNumber = INVALID_PROC_NUMBER;
+    proc->vxid.lxid = InvalidTransactionId;
+
+    // Step 6: Return PGPROC to freelist if not a group leader
+    procgloballist = proc->procgloballist;
+    SpinLockAcquire(ProcStructLock);
+
+    if (proc->lockGroupLeader == NULL) {
+        dlist_push_tail(procgloballist, &proc->links);
+    }
+
+    // Update global statistics
+    ProcGlobal->spins_per_delay = update_spins_per_delay(ProcGlobal->spins_per_delay);
+    SpinLockRelease(ProcStructLock);
+
+    // Step 7: Notify postmaster and autovacuum launcher
+    if (IsUnderPostmaster && !AmAutoVacuumLauncherProcess() &&
+        !AmLogicalSlotSyncWorkerProcess()) {
+        MarkPostmasterChildInactive();
+    }
+
+    if (AutovacuumLauncherPid != 0) {
+        kill(AutovacuumLauncherPid, SIGUSR2);
+    }
+}
+```
+
+Key simplifications made:
+- Removed debug assertion code for clarity
+- Consolidated complex lock group logic into essential steps
+- Abstracted detailed error handling paths
+- Focused on the main execution flow
+- Added step-by-step comments for major phases
+- Simplified conditional logic while preserving functionality

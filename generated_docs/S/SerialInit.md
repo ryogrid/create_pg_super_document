@@ -51,3 +51,45 @@ This function takes no parameters but initializes several key components:
 - Uses exclusive locking (SerialControlLock) when initializing control structure state
 - The SLRU is configured with no sync handler (SYNC_HANDLER_NONE) and no directory creation (false flag)
 - Unit tests are automatically run in debug builds to ensure correctness of the page precedence logic
+
+## Simplified Source
+
+```c
+// Simplified version of SerialInit
+static void SerialInit(void) {
+    bool found;
+
+    // Set up SLRU management for pg_serial data
+    SerialSlruCtl->PagePrecedes = SerialPagePrecedesLogically;
+    SimpleLruInit(SerialSlruCtl, "serializable",
+                  serializable_buffers, 0, "pg_serial",
+                  LWTRANCHE_SERIAL_BUFFER, LWTRANCHE_SERIAL_SLRU,
+                  SYNC_HANDLER_NONE, false);
+
+#ifdef USE_ASSERT_CHECKING
+    // Run unit tests in debug builds
+    SerialPagePrecedesLogicallyUnitTests();
+#endif
+    SlruPagePrecedesUnitTests(SerialSlruCtl, SERIAL_ENTRIESPERPAGE);
+
+    // Create or attach to the SerialControl structure
+    serialControl = (SerialControl)
+        ShmemInitStruct("SerialControlData", sizeof(SerialControlData), &found);
+
+    Assert(found == IsUnderPostmaster);
+    if (!found) {
+        // Initialize control structure to reflect empty SLRU (postmaster only)
+        LWLockAcquire(SerialControlLock, LW_EXCLUSIVE);
+        serialControl->headPage = -1;
+        serialControl->headXid = InvalidTransactionId;
+        serialControl->tailXid = InvalidTransactionId;
+        LWLockRelease(SerialControlLock);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major initialization phase
+- Grouped related operations together logically
+- Clarified the distinction between postmaster and backend initialization
+- Maintained all essential functionality including debug unit tests

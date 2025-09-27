@@ -36,3 +36,21 @@ This cleanup mechanism is essential for proper system integration, preventing ac
 - No error handling for unlink() failure - this is intentional as the file removal is not critical for database operation
 - The external PID file feature is commonly used by system service managers like systemd, SysV init scripts, or Docker containers
 - Complements the main postmaster.pid lock file in the data directory but serves different purposes
+
+## Simplified Source
+
+```c
+// Simplified version of unlink_external_pid_file
+static void unlink_external_pid_file(int status, Datum arg) {
+    // Core logic: Remove external PID file if it exists
+    if (external_pid_file) {
+        unlink(external_pid_file);
+    }
+}
+```
+
+Key simplifications made:
+- Function is already very simple - only added explanatory comment
+- Core logic is straightforward: check if external PID file exists, then remove it
+- No error handling needed as file removal failure is non-critical
+- Both callback parameters (status, arg) are unused as expected for this cleanup function

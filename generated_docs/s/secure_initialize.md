@@ -35,3 +35,24 @@ The function handles two different operational contexts based on the `isServerSt
 - The function's behavior is entirely dependent on compile-time SSL support
 - Error handling strategy varies based on the operational context (startup vs reload)
 - Part of PostgreSQL's modular security architecture that allows building with or without SSL support
+
+## Simplified Source
+
+```c
+// Simplified version of secure_initialize
+int secure_initialize(bool isServerStart) {
+    // Initialize SSL/TLS if compiled with SSL support
+    #ifdef USE_SSL
+        return be_tls_init(isServerStart);
+    #else
+        // No SSL support compiled in - return success
+        return 0;
+    #endif
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the conditional compilation logic
+- Focused on the core branching behavior based on SSL support
+- Maintained the simple wrapper function structure
+- Emphasized the conditional nature of SSL initialization

@@ -40,3 +40,35 @@ This function takes no parameters.
 - Uses PORTALS_PER_USER as initial hash table size estimate
 - Asserts that TopPortalContext is NULL to ensure single initialization
 - [Hash](../H/Hash.md) table is configured for string-based keys with portal name length limits
+
+## Simplified Source
+
+```c
+// Simplified version of EnablePortalManager
+void EnablePortalManager(void) {
+    HASHCTL ctl;
+
+    // Ensure we're not already initialized
+    Assert(TopPortalContext == NULL);
+
+    // Create the top-level portal memory context
+    TopPortalContext = AllocSetContextCreate(TopMemoryContext,
+                                             "TopPortalContext",
+                                             ALLOCSET_DEFAULT_SIZES);
+
+    // Set up hash table configuration
+    ctl.keysize = MAX_PORTALNAME_LEN;
+    ctl.entrysize = sizeof(PortalHashEnt);
+
+    // Create portal hash table for name-based lookups
+    PortalHashTable = hash_create("Portal hash", PORTALS_PER_USER,
+                                  &ctl, HASH_ELEM | HASH_STRINGS);
+}
+```
+
+Key simplifications made:
+- This function is already quite simple, so minimal simplification was needed
+- Added descriptive comments explaining the purpose of each initialization step
+- Maintained the exact same logic structure including the assertion
+- Consolidated the hash table configuration setup for better readability
+- The initialization pattern is standard and cannot be simplified further without losing functionality

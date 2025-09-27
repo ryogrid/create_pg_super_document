@@ -48,3 +48,54 @@ The function validates that the statement is not executing within a transaction 
 
 ## Notes and Other Information
 This function is essential for maintaining PostgreSQL's ACID properties by preventing statements with non-transactional effects from running in transactional contexts. Common commands that use this include VACUUM, CLUSTER, REINDEX, subscription commands, and database modification commands. The immediate commit flag ensures these operations are committed as soon as they complete successfully, providing the atomicity guarantee these statements require.
+
+## Simplified Source
+
+```c
+// Simplified version of PreventInTransactionBlock
+void PreventInTransactionBlock(bool isTopLevel, const char *stmtType) {
+    // Check 1: Already in a transaction block?
+    if (IsTransactionBlock()) {
+        ereport(ERROR,
+                (errcode(ERRCODE_ACTIVE_SQL_TRANSACTION),
+                 errmsg("%s cannot run inside a transaction block", stmtType)));
+    }
+
+    // Check 2: In a subtransaction?
+    if (IsSubTransaction()) {
+        ereport(ERROR,
+                (errcode(ERRCODE_ACTIVE_SQL_TRANSACTION),
+                 errmsg("%s cannot run inside a subtransaction", stmtType)));
+    }
+
+    // Check 3: In a pipeline with implicit transaction?
+    if (MyXactFlags & XACT_FLAGS_PIPELINING) {
+        ereport(ERROR,
+                (errcode(ERRCODE_ACTIVE_SQL_TRANSACTION),
+                 errmsg("%s cannot be executed within a pipeline", stmtType)));
+    }
+
+    // Check 4: Called from within a function?
+    if (!isTopLevel) {
+        ereport(ERROR,
+                (errcode(ERRCODE_ACTIVE_SQL_TRANSACTION),
+                 errmsg("%s cannot be executed from a function", stmtType)));
+    }
+
+    // Verify we're in the expected transaction state
+    if (CurrentTransactionState->blockState != TBLOCK_DEFAULT &&
+        CurrentTransactionState->blockState != TBLOCK_STARTED) {
+        elog(FATAL, "cannot prevent transaction chain");
+    }
+
+    // All checks passed - set flag for immediate commit after statement
+    MyXactFlags |= XACT_FLAGS_NEEDIMMEDIATECOMMIT;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major check
+- Preserved all four critical validation checks
+- Maintained exact error handling and messaging
+- Kept the essential state verification and flag setting
+- Focused on the sequential validation logic flow

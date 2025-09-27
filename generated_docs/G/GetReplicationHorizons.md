@@ -41,3 +41,29 @@ The function specifically avoids using `shared_oldest_nonremovable` because that
 - The "raw" horizon excludes replication slot influence to provide cleaner feedback boundaries
 - Critical for maintaining consistency in replication while allowing optimal cleanup on the primary server
 - The function design reflects PostgreSQL's sophisticated approach to balancing replication needs with storage efficiency
+
+## Simplified Source
+
+```c
+// Simplified version of GetReplicationHorizons
+void GetReplicationHorizons(TransactionId *xmin, TransactionId *catalog_xmin) {
+    ComputeXidHorizonsResult horizons;
+
+    // Get current transaction horizons from the system
+    ComputeXidHorizons(&horizons);
+
+    // Set data table horizon (excludes replication slot catalog influence)
+    // This allows more aggressive cleanup of regular data
+    *xmin = horizons.shared_oldest_nonremovable_raw;
+
+    // Set catalog table horizon (based on replication slot requirements)
+    // This is more conservative to preserve catalog data for logical replication
+    *catalog_xmin = horizons.slot_catalog_xmin;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the purpose of each horizon
+- Clarified why the "raw" horizon is used for data tables
+- Explained the conservative approach for catalog tables
+- Maintained the essential two-step process: compute horizons, then extract specific values

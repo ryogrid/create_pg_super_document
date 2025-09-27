@@ -41,3 +41,23 @@ The function is part of PostgreSQL's internal protocol formatting system and is 
 - This approach avoids having to manage the message type as the first byte of the buffer content during message construction
 - Used extensively throughout PostgreSQL's backend for all client communication that follows the PostgreSQL wire protocol
 - Must be followed by appropriate pq_sendXXX calls to build the message content and pq_endmessage to finalize the message
+
+## Simplified Source
+
+```c
+// Simplified version of pq_beginmessage
+void pq_beginmessage(StringInfo buf, char msgtype) {
+    // Step 1: Initialize the string buffer for message construction
+    initStringInfo(buf);
+
+    // Step 2: Store message type in cursor field for later use
+    // This clever approach keeps the message type accessible without
+    // interfering with the actual message content being built
+    buf->cursor = msgtype;
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the purpose of each operation
+- Emphasized the clever design choice of using the cursor field to store the message type
+- Maintained the complete original logic as the function is already quite minimal and focused

@@ -47,3 +47,50 @@ Error handling distinguishes between normal command failures and signal-based te
 - Signal handling follows the same safety principles as RestoreArchivedFile for recovery robustness
 - Commands are executed with full shell interpretation, allowing complex scripting
 - Failure behavior is configurable - some commands may warrant recovery termination while others should only generate warnings
+
+## Simplified Source
+
+```c
+// Simplified version of ExecuteRecoveryCommand
+void ExecuteRecoveryCommand(const char *command, const char *commandName,
+                           bool failOnSignal, uint32 wait_event_info) {
+    char *xlogRecoveryCmd;
+    char lastRestartPointFname[MAXPGPATH];
+    int rc;
+    XLogSegNo restartSegNo;
+    XLogRecPtr restartRedoPtr;
+    TimeLineID restartTli;
+
+    // Core logic step 1: Get the oldest restart point for archive cleanup
+    GetOldestRestartPoint(&restartRedoPtr, &restartTli);
+    XLByteToSeg(restartRedoPtr, restartSegNo, wal_segment_size);
+    XLogFileName(lastRestartPointFname, restartTli, restartSegNo, wal_segment_size);
+
+    // Core logic step 2: Replace placeholders in command with actual values
+    xlogRecoveryCmd = replace_percent_placeholders(command, commandName, "r", lastRestartPointFname);
+
+    // Core logic step 3: Execute the command with wait event reporting
+    ereport(DEBUG3, (errmsg_internal("executing %s \"%s\"", commandName, command)));
+
+    fflush(NULL);
+    pgstat_report_wait_start(wait_event_info);
+    rc = system(xlogRecoveryCmd);
+    pgstat_report_wait_end();
+
+    pfree(xlogRecoveryCmd);
+
+    // Core logic step 4: Handle command execution results
+    if (rc != 0) {
+        // Report FATAL error if signal termination and failOnSignal is true, otherwise WARNING
+        ereport((failOnSignal && wait_result_is_any_signal(rc, true)) ? FATAL : WARNING,
+                (errmsg("%s \"%s\": %s", commandName, command, wait_result_to_str(rc))));
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and focused on core algorithm steps
+- Consolidated variable declarations at the top
+- Simplified error reporting logic explanation
+- Maintained the essential flow: calculate restart point → build command → execute → handle results
+- Preserved all critical functionality and error handling patterns

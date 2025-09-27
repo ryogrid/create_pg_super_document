@@ -46,3 +46,53 @@ This function takes no parameters.
 - Memory allocation for the request copy uses palloc, which could theoretically fail and cause a PANIC
 - The shared memory queue is completely cleared in one atomic operation to prevent partial processing
 - Export function designed to be callable from CreateCheckPoint in various process contexts
+
+## Simplified Source
+
+```c
+// Simplified version of AbsorbSyncRequests
+void AbsorbSyncRequests(void) {
+    CheckpointerRequest *requests = NULL;
+    CheckpointerRequest *request;
+    int n;
+
+    // Only process if running in checkpointer process
+    if (!AmCheckpointerProcess()) {
+        return;
+    }
+
+    // Acquire exclusive lock on shared memory
+    LWLockAcquire(CheckpointerCommLock, LW_EXCLUSIVE);
+
+    // Copy all pending requests from shared memory
+    n = CheckpointerShmem->num_requests;
+    if (n > 0) {
+        requests = palloc(n * sizeof(CheckpointerRequest));
+        memcpy(requests, CheckpointerShmem->requests, n * sizeof(CheckpointerRequest));
+    }
+
+    // Clear shared memory queue atomically
+    START_CRIT_SECTION();
+    CheckpointerShmem->num_requests = 0;
+    LWLockRelease(CheckpointerCommLock);
+
+    // Process each copied request
+    for (request = requests; n > 0; request++, n--) {
+        RememberSyncRequest(&request->ftag, request->type);
+    }
+
+    END_CRIT_SECTION();
+
+    // Clean up allocated memory
+    if (requests) {
+        pfree(requests);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining the copy-and-process strategy
+- Consolidated the critical section logic
+- Simplified the loop structure for clarity
+- Focused on the main execution path without extensive error handling explanations
+- Preserved the essential algorithm: check process type, copy requests, clear queue, process requests

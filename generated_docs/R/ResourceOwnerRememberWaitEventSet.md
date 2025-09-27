@@ -133,3 +133,20 @@ gawkpath_prepend ()
 - Part of PostgreSQL's resource management system that prevents resource leaks
 - Works in conjunction with ResourceOwnerForgetWaitEventSet for complete lifecycle management
 - The function uses a predefined resource descriptor (wait_event_set_resowner_desc) to specify cleanup behavior
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerRememberWaitEventSet
+static inline void
+ResourceOwnerRememberWaitEventSet(ResourceOwner owner, WaitEventSet *set) {
+    // Register the WaitEventSet with the ResourceOwner for automatic cleanup
+    // Convert WaitEventSet pointer to Datum and use predefined descriptor
+    ResourceOwnerRemember(owner, PointerGetDatum(set), &wait_event_set_resowner_desc);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the main logic
+- This function is already very simple, so no major simplifications were needed
+- The core purpose is clearly shown: registering a resource for automatic cleanup

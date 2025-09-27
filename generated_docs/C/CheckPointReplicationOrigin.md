@@ -53,3 +53,79 @@ This function creates a persistent checkpoint of all active replication origin s
 - Temporary file creation uses O_EXCL to prevent race conditions between concurrent checkpoint attempts
 - All padding bytes in disk structures are zeroed to ensure deterministic output
 - Part of PostgreSQL's critical recovery infrastructure - checkpoint failures can prevent database startup
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointReplicationOrigin
+void CheckPointReplicationOrigin(void) {
+    const char *tmppath = "pg_logical/replorigin_checkpoint.tmp";
+    const char *path = "pg_logical/replorigin_checkpoint";
+    int tmpfd;
+    int i;
+    uint32 magic = REPLICATION_STATE_MAGIC;
+    pg_crc32c crc;
+
+    // Early exit if no replication slots configured
+    if (max_replication_slots == 0)
+        return;
+
+    INIT_CRC32C(crc);
+
+    // Step 1: Prepare temporary file for atomic write
+    cleanup_temp_file(tmppath);
+    tmpfd = create_checkpoint_file(tmppath);
+
+    // Step 2: Write file header with magic number
+    write_with_crc(tmpfd, &magic, sizeof(magic), &crc);
+
+    // Step 3: Write replication origin states
+    LWLockAcquire(ReplicationOriginLock, LW_SHARED);
+
+    for (i = 0; i < max_replication_slots; i++) {
+        ReplicationStateOnDisk disk_state;
+        ReplicationState *curstate = &replication_states[i];
+        XLogRecPtr local_lsn;
+
+        // Skip inactive origins
+        if (curstate->roident == InvalidRepOriginId)
+            continue;
+
+        // Step 3a: Copy current state under lock
+        memset(&disk_state, 0, sizeof(disk_state));
+        LWLockAcquire(&curstate->lock, LW_SHARED);
+
+        disk_state.roident = curstate->roident;
+        disk_state.remote_lsn = curstate->remote_lsn;
+        local_lsn = curstate->local_lsn;
+
+        LWLockRelease(&curstate->lock);
+
+        // Step 3b: Ensure WAL consistency before writing
+        XLogFlush(local_lsn);  // Guarantee local_lsn is on disk
+
+        // Step 3c: Write state to checkpoint file
+        write_with_crc(tmpfd, &disk_state, sizeof(disk_state), &crc);
+    }
+
+    LWLockRelease(ReplicationOriginLock);
+
+    // Step 4: Write CRC and finalize file
+    FIN_CRC32C(crc);
+    write_with_crc(tmpfd, &crc, sizeof(crc), NULL);
+
+    close_checkpoint_file(tmpfd);
+
+    // Step 5: Atomically replace old checkpoint with new one
+    durable_rename(tmppath, path, PANIC);
+}
+```
+
+Key simplifications made:
+- Abstracted repetitive error handling into conceptual helper functions
+- Organized the checkpoint process into clear sequential steps
+- Preserved the critical WAL flushing logic that ensures consistency
+- Maintained the atomic write pattern (temp file + rename)
+- Simplified while keeping the essential CRC integrity checking
+- Focused on the core algorithm: header, state iteration, finalization
+- Retained the lock acquisition patterns for proper concurrency control

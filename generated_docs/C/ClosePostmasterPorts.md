@@ -46,3 +46,59 @@ The function handles platform-specific differences between Unix and Windows syst
 - Listen sockets are marked FD_CLOEXEC in EXEC_BACKEND mode, making explicit closure unnecessary
 - Bonjour support is conditionally compiled based on USE_BONJOUR
 - Error handling differs between fatal errors (postmaster death pipe) and logged warnings (listen sockets)
+
+## Simplified Source
+
+```c
+// Simplified version of ClosePostmasterPorts
+void ClosePostmasterPorts(bool am_syslogger) {
+    // Step 1: Clean up postmaster's WaitEventSet
+    if (pm_wait_set) {
+        FreeWaitEventSetAfterFork(pm_wait_set);
+        pm_wait_set = NULL;
+    }
+
+    // Step 2: Close postmaster death watch pipe (Unix only)
+    // This is critical - if postmaster dies, others need to know immediately
+    if (close(postmaster_alive_fds[POSTMASTER_FD_OWN]) != 0) {
+        // Fatal error - this must succeed
+        ereport(FATAL, "could not close postmaster death monitoring pipe");
+    }
+    postmaster_alive_fds[POSTMASTER_FD_OWN] = -1;
+    ReleaseExternalFD();
+
+    // Step 3: Close all listen sockets (non-EXEC_BACKEND mode)
+    // These sockets accept new client connections
+    if (ListenSockets) {
+        for (int i = 0; i < NumListenSockets; i++) {
+            if (closesocket(ListenSockets[i]) != 0) {
+                // Log warning but continue - not fatal
+                elog(LOG, "could not close listen socket");
+            }
+        }
+        pfree(ListenSockets);
+        NumListenSockets = 0;
+        ListenSockets = NULL;
+    }
+
+    // Step 4: Close syslog pipe (unless we are the syslogger)
+    // Syslogger process needs to keep the pipe open to receive log messages
+    if (!am_syslogger && syslogPipe[0] >= 0) {
+        close(syslogPipe[0]);
+        syslogPipe[0] = -1;
+    }
+
+    // Step 5: Close Bonjour service connection (if enabled)
+    if (bonjour_sdref) {
+        close(DNSServiceRefSockFD(bonjour_sdref));
+    }
+}
+```
+
+Key simplifications made:
+- Removed platform-specific #ifdef blocks for clarity
+- Consolidated error handling logic
+- Abstracted detailed error codes and messages
+- Focused on the core sequence of cleanup operations
+- Added descriptive comments for each cleanup phase
+- Maintained the essential logic flow and critical error handling

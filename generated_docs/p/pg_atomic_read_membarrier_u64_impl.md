@@ -38,3 +38,22 @@ The memory barrier read is crucial in concurrent programming scenarios where str
 - Part of PostgreSQL's comprehensive atomic operations framework
 - More expensive than regular atomic reads due to the memory barrier overhead
 - Should be used only when memory ordering guarantees are specifically required
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_read_membarrier_u64_impl
+static inline uint64 pg_atomic_read_membarrier_u64_impl(volatile pg_atomic_uint64 *ptr) {
+    // Perform atomic read with memory barrier by using fetch-and-add with zero
+    // This provides full memory ordering: all memory operations before this read
+    // complete before the read, and all after complete after the read
+    return pg_atomic_fetch_add_u64_impl(ptr, 0);
+}
+```
+
+Key simplifications made:
+- Added detailed comment explaining the memory barrier technique
+- Preserved the clever use of fetch-add with zero to achieve barrier semantics
+- Maintained the function's role in providing ordered atomic reads
+- Simplified to show the core concept: leveraging fetch-add for memory ordering
+- Explained why this provides stronger guarantees than plain atomic reads

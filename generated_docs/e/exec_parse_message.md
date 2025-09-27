@@ -50,3 +50,131 @@ The function performs comprehensive validation including transaction state check
 - Integrates with PostgreSQL's monitoring facilities including debug logging, statistics collection, and process display updates
 - Sends ParseComplete message to client upon successful completion
 - Memory management differs significantly between named and unnamed prepared statements for performance optimization
+
+## Simplified Source
+
+```c
+// Simplified version of exec_parse_message
+static void
+exec_parse_message(const char *query_string,    /* string to execute */
+                   const char *stmt_name,       /* name for prepared stmt */
+                   Oid *paramTypes,            /* parameter types */
+                   int numParams)              /* number of parameters */
+{
+    MemoryContext unnamed_stmt_context = NULL;
+    MemoryContext oldcontext;
+    List *parsetree_list;
+    RawStmt *raw_parse_tree;
+    List *querytree_list;
+    CachedPlanSource *psrc;
+    bool is_named;
+
+    // Setup monitoring and logging
+    debug_query_string = query_string;
+    pgstat_report_activity(STATE_RUNNING, query_string);
+    set_ps_display("PARSE");
+
+    // Start transaction if needed
+    start_xact_command();
+
+    // Choose memory management strategy based on statement type
+    is_named = (stmt_name[0] != '\0');
+    if (is_named) {
+        // Named statement: use MessageContext for parsing
+        oldcontext = MemoryContextSwitchTo(MessageContext);
+    } else {
+        // Unnamed statement: create dedicated context
+        drop_unnamed_stmt();
+        unnamed_stmt_context = AllocSetContextCreate(MessageContext,
+                                                   "unnamed prepared statement",
+                                                   ALLOCSET_DEFAULT_SIZES);
+        oldcontext = MemoryContextSwitchTo(unnamed_stmt_context);
+    }
+
+    // Parse the SQL query
+    parsetree_list = pg_parse_query(query_string);
+
+    // Validate single statement per prepared statement
+    if (list_length(parsetree_list) > 1)
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                errmsg("cannot insert multiple commands into a prepared statement")));
+
+    if (parsetree_list != NIL) {
+        raw_parse_tree = linitial_node(RawStmt, parsetree_list);
+
+        // Check transaction state for non-exit statements
+        if (IsAbortedTransactionBlockState() &&
+            !IsTransactionExitStmt(raw_parse_tree->stmt))
+            ereport(ERROR, (errcode(ERRCODE_IN_FAILED_SQL_TRANSACTION),
+                    errmsg("current transaction is aborted, commands ignored until end of transaction block")));
+
+        // Create cached plan source
+        psrc = CreateCachedPlan(raw_parse_tree, query_string,
+                              CreateCommandTag(raw_parse_tree->stmt));
+
+        // Setup snapshot if needed for analysis
+        bool snapshot_set = false;
+        if (analyze_requires_snapshot(raw_parse_tree)) {
+            PushActiveSnapshot(GetTransactionSnapshot());
+            snapshot_set = true;
+        }
+
+        // Analyze and rewrite the query
+        querytree_list = pg_analyze_and_rewrite_varparams(raw_parse_tree,
+                                                        query_string,
+                                                        &paramTypes,
+                                                        &numParams,
+                                                        NULL);
+
+        // Clean up snapshot
+        if (snapshot_set)
+            PopActiveSnapshot();
+    } else {
+        // Handle empty query string
+        raw_parse_tree = NULL;
+        psrc = CreateCachedPlan(raw_parse_tree, query_string, CMDTAG_UNKNOWN);
+        querytree_list = NIL;
+    }
+
+    // Fix memory context hierarchy for unnamed statements
+    if (unnamed_stmt_context)
+        MemoryContextSetParent(psrc->context, MessageContext);
+
+    // Complete the cached plan
+    CompleteCachedPlan(psrc, querytree_list, unnamed_stmt_context,
+                      paramTypes, numParams, NULL, NULL,
+                      CURSOR_OPT_PARALLEL_OK, true);
+
+    // Check for cancellation
+    CHECK_FOR_INTERRUPTS();
+
+    // Store the prepared statement
+    if (is_named) {
+        StorePreparedStatement(stmt_name, psrc, false);
+    } else {
+        SaveCachedPlan(psrc);
+        unnamed_stmt_psrc = psrc;
+    }
+
+    // Restore memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    // Update command counter and send completion message
+    CommandCounterIncrement();
+    if (whereToSendOutput == DestRemote)
+        pq_putemptymessage(PqMsg_ParseComplete);
+
+    // Cleanup
+    debug_query_string = NULL;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and logging complexity
+- Consolidated duration logging logic into brief comments
+- Abstracted low-level memory operations with descriptive comments
+- Simplified variable declarations and initialization
+- Focused on the main execution path
+- Removed performance statistics collection details
+- Maintained essential algorithm flow and error checking
+- Preserved transaction management and protocol compliance

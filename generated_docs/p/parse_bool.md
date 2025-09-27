@@ -38,3 +38,86 @@ The  function is a convenience wrapper around  that attempts to interpret a null
 - [Unique](../U/Unique.md) prefixes of the above values are also accepted
 - The result parameter can be NULL if only validation (not the actual value) is needed
 - This function is commonly used throughout PostgreSQL for parsing configuration options and user input
+
+## Simplified Source
+
+```c
+// Simplified version of parse_bool
+bool parse_bool(const char *value, bool *result) {
+    size_t len = strlen(value);
+
+    // Check the most common boolean representations
+    switch (*value) {
+        case 't': case 'T':
+            // "true" and variants
+            if (pg_strncasecmp(value, "true", len) == 0) {
+                if (result) *result = true;
+                return true;
+            }
+            break;
+
+        case 'f': case 'F':
+            // "false" and variants
+            if (pg_strncasecmp(value, "false", len) == 0) {
+                if (result) *result = false;
+                return true;
+            }
+            break;
+
+        case 'y': case 'Y':
+            // "yes" and variants
+            if (pg_strncasecmp(value, "yes", len) == 0) {
+                if (result) *result = true;
+                return true;
+            }
+            break;
+
+        case 'n': case 'N':
+            // "no" and variants
+            if (pg_strncasecmp(value, "no", len) == 0) {
+                if (result) *result = false;
+                return true;
+            }
+            break;
+
+        case 'o': case 'O':
+            // "on" or "off" - requires at least 2 characters for disambiguation
+            if (pg_strncasecmp(value, "on", max(len, 2)) == 0) {
+                if (result) *result = true;
+                return true;
+            }
+            if (pg_strncasecmp(value, "off", max(len, 2)) == 0) {
+                if (result) *result = false;
+                return true;
+            }
+            break;
+
+        case '1':
+            // Single digit "1"
+            if (len == 1) {
+                if (result) *result = true;
+                return true;
+            }
+            break;
+
+        case '0':
+            // Single digit "0"
+            if (len == 1) {
+                if (result) *result = false;
+                return true;
+            }
+            break;
+    }
+
+    // No valid boolean representation found
+    return false;
+}
+```
+
+Key simplifications made:
+- Combined the wrapper function with the actual parsing logic for clarity
+- Consolidated the case-insensitive string matching logic
+- Simplified the 'o' case handling while preserving the disambiguation requirement
+- Removed redundant error suppression code
+- Added clear comments for each boolean representation type
+- Maintained the exact same functionality and return behavior

@@ -41,3 +41,24 @@ The function handles all three WAL metrics: the number of WAL records produced, 
 - Essential for parallel query execution where WAL statistics from multiple workers need to be aggregated
 - Tracks only WAL activity that can be meaningfully measured per query, not global WAL activities
 - Located in src/backend/executor/instrument.c:286-291
+
+## Simplified Source
+
+```c
+// Simplified version of WalUsageAccumDiff
+void WalUsageAccumDiff(WalUsage *dst, const WalUsage *add, const WalUsage *sub) {
+    // Accumulate difference in WAL bytes written
+    dst->wal_bytes += add->wal_bytes - sub->wal_bytes;
+
+    // Accumulate difference in WAL records written
+    dst->wal_records += add->wal_records - sub->wal_records;
+
+    // Accumulate difference in full page images written
+    dst->wal_fpi += add->wal_fpi - sub->wal_fpi;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each counter accumulation
+- Function is already very simple, so minimal changes needed
+- Preserved the core arithmetic operation: dst += (add - sub)

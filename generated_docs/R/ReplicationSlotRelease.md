@@ -44,3 +44,81 @@ This function takes no parameters but operates on the global MyReplicationSlot v
 - Process status flags are updated to reflect that logical decoding has stopped
 - Appropriate logging is performed for WAL sender processes
 - The function is designed to be safe even in error conditions where cleanup may be incomplete
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotRelease
+void ReplicationSlotRelease(void) {
+    ReplicationSlot *slot = MyReplicationSlot;
+    char *slotname = NULL;
+    bool is_logical = false;
+    TimestampTz now = 0;
+
+    // Basic validation
+    Assert(slot != NULL && slot->active_pid != 0);
+
+    // Save slot info for logging if this is a WAL sender
+    if (am_walsender) {
+        slotname = pstrdup(NameStr(slot->data.name));
+        is_logical = SlotIsLogical(slot);
+    }
+
+    // Core logic step 1: Handle ephemeral slots by dropping them completely
+    if (slot->data.persistency == RS_EPHEMERAL) {
+        ReplicationSlotDropAcquired();
+    }
+
+    // Core logic step 2: Remove temporary transaction ID constraints
+    if (!TransactionIdIsValid(slot->data.xmin) &&
+        TransactionIdIsValid(slot->effective_xmin)) {
+        SpinLockAcquire(&slot->mutex);
+        slot->effective_xmin = InvalidTransactionId;
+        SpinLockRelease(&slot->mutex);
+        ReplicationSlotsComputeRequiredXmin(false);
+    }
+
+    // Core logic step 3: Mark slot as inactive with timestamp
+    now = GetCurrentTimestamp();
+
+    if (slot->data.persistency == RS_PERSISTENT) {
+        // Mark persistent slot inactive and notify waiters
+        SpinLockAcquire(&slot->mutex);
+        slot->active_pid = 0;
+        slot->inactive_since = now;
+        SpinLockRelease(&slot->mutex);
+        ConditionVariableBroadcast(&slot->active_cv);
+    } else {
+        // Just set inactive time for non-persistent slots
+        SpinLockAcquire(&slot->mutex);
+        slot->inactive_since = now;
+        SpinLockRelease(&slot->mutex);
+    }
+
+    // Core logic step 4: Clear global slot reference
+    MyReplicationSlot = NULL;
+
+    // Core logic step 5: Update process status flags
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+    MyProc->statusFlags &= ~PROC_IN_LOGICAL_DECODING;
+    ProcGlobal->statusFlags[MyProc->pgxactoff] = MyProc->statusFlags;
+    LWLockRelease(ProcArrayLock);
+
+    // Core logic step 6: Log the release for WAL senders
+    if (am_walsender) {
+        ereport(log_replication_commands ? LOG : DEBUG1,
+                is_logical
+                ? errmsg("released logical replication slot \"%s\"", slotname)
+                : errmsg("released physical replication slot \"%s\"", slotname));
+        pfree(slotname);
+    }
+}
+```
+
+Key simplifications made:
+- Removed redundant variable initializations and comments for compiler quieting
+- Consolidated the slot type handling logic flow
+- Abstracted low-level spinlock operations with clear descriptions
+- Focused on the main execution path and core functionality
+- Added step-by-step comments for each major operation
+- Maintained the essential algorithm while improving readability

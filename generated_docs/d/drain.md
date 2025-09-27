@@ -49,3 +49,61 @@ This function takes no parameters and operates on global state:
 - Supports both traditional Unix self-pipe and Linux signalfd mechanisms through conditional compilation
 - EOF conditions are treated as fatal errors since they indicate unexpected descriptor closure
 - The function must completely drain the descriptor to ensure clean state for subsequent waits
+
+## Simplified Source
+
+```c
+// Simplified version of drain
+static void drain(void) {
+    char buf[1024];
+    int rc;
+    int fd;
+
+    // Select appropriate file descriptor based on mechanism
+#ifdef WAIT_USE_SELF_PIPE
+    fd = selfpipe_readfd;
+#else
+    fd = signal_fd;
+#endif
+
+    // Read all available data until descriptor is empty
+    for (;;) {
+        rc = read(fd, buf, sizeof(buf));
+
+        if (rc < 0) {
+            if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                break;  // Descriptor is empty, done draining
+            } else if (errno == EINTR) {
+                continue;  // Interrupted, retry
+            } else {
+                // Fatal error - reset waiting flag and report
+                waiting = false;
+#ifdef WAIT_USE_SELF_PIPE
+                elog(ERROR, "read() on self-pipe failed: %m");
+#else
+                elog(ERROR, "read() on signalfd failed: %m");
+#endif
+            }
+        } else if (rc == 0) {
+            // Unexpected EOF - reset waiting flag and report
+            waiting = false;
+#ifdef WAIT_USE_SELF_PIPE
+            elog(ERROR, "unexpected EOF on self-pipe");
+#else
+            elog(ERROR, "unexpected EOF on signalfd");
+#endif
+        } else if (rc < sizeof(buf)) {
+            // Successfully drained everything in one read
+            break;
+        }
+        // Continue if buffer was full (more data might be available)
+    }
+}
+```
+
+Key simplifications made:
+- Removed extensive comments and consolidated error handling logic
+- Simplified the conditional compilation structure
+- Focused on the core drain-until-empty algorithm
+- Maintained essential error recovery and waiting flag management
+- Preserved the complete draining behavior to prevent spurious wakeups

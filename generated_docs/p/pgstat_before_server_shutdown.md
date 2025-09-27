@@ -46,3 +46,35 @@ When writing statistics during normal shutdown, the function:
 - Statistics file writing uses a temporary file and atomic rename for consistency
 - Irregular shutdowns skip file writing since the data will be discarded on next startup
 - The function is located in src/backend/utils/activity/pgstat.c:462-502
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_before_server_shutdown
+void pgstat_before_server_shutdown(int code, Datum arg) {
+    // Verify statistics system is properly initialized
+    Assert(pgStatLocal.shmem != NULL);
+    Assert(!pgStatLocal.shmem->is_shutdown);
+    Assert(pgstat_is_initialized && !pgstat_is_shutdown);
+
+    // Flush any pending statistics from this process
+    pgstat_report_stat(true);
+
+    // Only write statistics file during normal shutdown (code == 0)
+    // Skip during irregular shutdowns to avoid coordination issues
+    if (code == 0) {
+        // Mark shared memory as shutdown
+        pgStatLocal.shmem->is_shutdown = true;
+
+        // Write all statistics to persistent file
+        pgstat_write_statsfile();
+    }
+}
+```
+
+Key simplifications made:
+- Condensed multi-line comments into single-line explanations
+- Grouped related assertions together with unified comment
+- Simplified the shutdown condition explanation
+- Maintained the essential two-phase logic: flush then write
+- Preserved all critical functionality and error checking

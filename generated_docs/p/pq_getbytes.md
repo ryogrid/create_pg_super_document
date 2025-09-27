@@ -31,3 +31,50 @@ pq_getbytes is designed for reading larger chunks of data from the client connec
 - Critical for reading protocol message bodies and startup packets
 - Uses memcpy for efficient bulk data transfer from buffer to destination
 - Automatically manages buffer pointer advancement and length tracking
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getbytes
+int pq_getbytes(char *destination_buffer, size_t bytes_to_read) {
+    size_t chunk_size;
+
+    // Assert we're in message reading mode
+    Assert(PqCommReadingMsg);
+
+    // Read data in chunks until we have all requested bytes
+    while (bytes_to_read > 0) {
+
+        // Refill buffer if empty
+        while (current_buffer_position >= buffer_end_position) {
+            if (pq_recvbuf()) {  // Try to receive more data
+                return EOF;      // Failed to get more data
+            }
+        }
+
+        // Calculate how much we can copy from current buffer
+        chunk_size = buffer_end_position - current_buffer_position;
+        if (chunk_size > bytes_to_read) {
+            chunk_size = bytes_to_read;
+        }
+
+        // Copy data from buffer to destination
+        memcpy(destination_buffer, receive_buffer + current_buffer_position, chunk_size);
+
+        // Update positions and counters
+        current_buffer_position += chunk_size;
+        destination_buffer += chunk_size;
+        bytes_to_read -= chunk_size;
+    }
+
+    return 0;  // Success
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (destination_buffer, bytes_to_read, chunk_size)
+- Added explanatory comments for each major logic block
+- Abstracted buffer pointer variables with clearer names
+- Focused on the main execution path: refill buffer when needed, copy chunks, repeat
+- Removed detailed pointer arithmetic complexity while preserving the core algorithm
+- Emphasized the chunked reading strategy that handles partial buffer contents

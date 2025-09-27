@@ -53,3 +53,79 @@ This function takes no parameters.
 - Database name is set to NULL if not connected to a specific database (MyDatabaseId == InvalidOid)
 - This command is fundamental to PostgreSQL's streaming replication protocol and is typically the first command executed by replication clients
 - The system identifier uniquely identifies a PostgreSQL cluster and is used to prevent replication between incompatible systems
+
+## Simplified Source
+
+```c
+// Simplified version of IdentifySystem
+static void IdentifySystem(void) {
+    char system_id[32];
+    char wal_location[MAXFNAMELEN];
+    XLogRecPtr log_position;
+    char *database_name = NULL;
+    TimeLineID current_timeline;
+
+    // Get system identifier as string
+    snprintf(system_id, sizeof(system_id), UINT64_FORMAT, GetSystemIdentifier());
+
+    // Determine if we're in recovery mode and get appropriate WAL position
+    am_cascading_walsender = RecoveryInProgress();
+    if (am_cascading_walsender) {
+        log_position = GetStandbyFlushRecPtr(&current_timeline);
+    } else {
+        log_position = GetFlushRecPtr(&current_timeline);
+    }
+
+    // Format WAL position as string
+    snprintf(wal_location, sizeof(wal_location), "%X/%X", LSN_FORMAT_ARGS(log_position));
+
+    // Get database name if connected to a specific database
+    if (MyDatabaseId != InvalidOid) {
+        MemoryContext saved_context = CurrentMemoryContext;
+        StartTransactionCommand();
+        MemoryContextSwitchTo(saved_context);
+        database_name = get_database_name(MyDatabaseId);
+        CommitTransactionCommand();
+        MemoryContextSwitchTo(saved_context);
+    }
+
+    // Create result destination and tuple descriptor
+    DestReceiver *destination = CreateDestReceiver(DestRemoteSimple);
+    TupleDesc tuple_desc = CreateTemplateTupleDesc(4);
+
+    // Define four columns: systemid, timeline, xlogpos, dbname
+    TupleDescInitBuiltinEntry(tuple_desc, 1, "systemid", TEXTOID, -1, 0);
+    TupleDescInitBuiltinEntry(tuple_desc, 2, "timeline", INT8OID, -1, 0);
+    TupleDescInitBuiltinEntry(tuple_desc, 3, "xlogpos", TEXTOID, -1, 0);
+    TupleDescInitBuiltinEntry(tuple_desc, 4, "dbname", TEXTOID, -1, 0);
+
+    // Prepare tuple output
+    TupOutputState *output_state = begin_tup_output_tupdesc(destination, tuple_desc, &TTSOpsVirtual);
+
+    // Build result tuple with four values
+    Datum values[4];
+    bool nulls[4] = {false, false, false, false};
+
+    values[0] = CStringGetTextDatum(system_id);        // System identifier
+    values[1] = Int64GetDatum(current_timeline);       // Timeline ID
+    values[2] = CStringGetTextDatum(wal_location);     // WAL position
+
+    if (database_name) {
+        values[3] = CStringGetTextDatum(database_name); // Database name
+    } else {
+        nulls[3] = true;                               // NULL if no database
+    }
+
+    // Send the result tuple and finish
+    do_tup_output(output_state, values, nulls);
+    end_tup_output(output_state);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (system_id, wal_location, etc.)
+- Added clear comments explaining each logical step
+- Consolidated the tuple building logic into a clearer sequence
+- Removed detailed memory context comments while preserving the essential operations
+- Focused on the main execution path and core functionality
+- Maintained the essential algorithm for handling recovery vs normal mode

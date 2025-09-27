@@ -39,3 +39,21 @@ The function is implemented as a thin wrapper around `pg_atomic_exchange_u32_imp
 - This is a platform-independent interface that delegates to platform-specific implementations
 - Commonly used in PostgreSQL for implementing lock-free data structures and coordination between processes
 - The atomic exchange is fundamental for implementing compare-and-swap loops and other synchronization patterns
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_exchange_u32
+static inline uint32 pg_atomic_exchange_u32(volatile pg_atomic_uint32 *ptr, uint32 newval) {
+    // Ensure pointer is properly aligned for atomic operations
+    AssertPointerAlignment(ptr, 4);
+
+    // Delegate to platform-specific implementation
+    return pg_atomic_exchange_u32_impl(ptr, newval);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the alignment requirement
+- Clarified the delegation to platform-specific implementation
+- Core logic: Verify alignment, call platform-specific atomic exchange implementation

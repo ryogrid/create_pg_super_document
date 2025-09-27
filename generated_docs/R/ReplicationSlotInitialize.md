@@ -31,3 +31,18 @@ This function takes no parameters.
 - The cleanup function ReplicationSlotShmemExit will be called automatically during process termination
 - Called during backend process initialization (BaseInit) to ensure cleanup is always registered
 - Essential for preventing replication slot leaks that could exhaust the max_replication_slots limit
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotInitialize
+void ReplicationSlotInitialize(void) {
+    // Register cleanup callback to ensure proper slot cleanup on process exit
+    before_shmem_exit(ReplicationSlotShmemExit, 0);
+}
+```
+
+Key simplifications made:
+- Already minimal function with only one essential operation
+- Added explanatory comment describing the core purpose
+- No simplification needed as the function is already straightforward

@@ -42,3 +42,27 @@ The function is primarily designed for equality checks and should be used with c
 - Bounded comparison using  to prevent reading beyond name boundaries
 - Located in  at lines 247-262
 - Part of PostgreSQL's internal utility functions for  data type manipulation
+
+## Simplified Source
+
+```c
+// Simplified version of namestrcmp
+int namestrcmp(Name name, const char *str) {
+    // Handle NULL cases: NULL < anything, NULL == NULL
+    if (!name && !str)
+        return 0;           // Both NULL - equal
+    if (!name)
+        return -1;          // NULL name < non-NULL string
+    if (!str)
+        return 1;           // Non-NULL name > NULL string
+
+    // Compare using bounded string comparison
+    return strncmp(NameStr(*name), str, NAMEDATALEN);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining NULL handling logic
+- Simplified conditional structure while preserving all comparison cases
+- Maintained the bounded string comparison using NAMEDATALEN
+- Preserved the essential logic for PostgreSQL Name vs C string comparison

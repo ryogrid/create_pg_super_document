@@ -58,3 +58,121 @@ The function iterates through all resolved addresses and attempts to bind to eac
 - Listen queue size is set to MaxConnections * 2 for optimal connection handling
 - Platform-specific socket options are conditionally applied (Windows vs Unix)
 - Comprehensive error reporting includes hints about potential postmaster conflicts
+
+## Simplified Source
+
+```c
+// Simplified version of ListenServerPort
+int ListenServerPort(int family, const char *hostName, unsigned short portNumber,
+                     const char *unixSocketDir,
+                     pgsocket ListenSockets[], int *NumListenSockets, int MaxListen)
+{
+    pgsocket fd;
+    struct addrinfo *addrs = NULL, *addr;
+    struct addrinfo hint;
+    int added = 0;
+    char unixSocketPath[MAXPGPATH];
+    char portNumberStr[32];
+    const char *service;
+    int one = 1;
+
+    // Initialize address resolution hints
+    MemSet(&hint, 0, sizeof(hint));
+    hint.ai_family = family;
+    hint.ai_flags = AI_PASSIVE;
+    hint.ai_socktype = SOCK_STREAM;
+
+    // Set up service string based on socket type
+    if (family == AF_UNIX) {
+        // Create Unix socket path and lock it
+        UNIXSOCK_PATH(unixSocketPath, portNumber, unixSocketDir);
+        if (strlen(unixSocketPath) >= UNIXSOCK_PATH_BUFLEN) {
+            ereport(LOG, (errmsg("Unix socket path too long")));
+            return STATUS_ERROR;
+        }
+        if (Lock_AF_UNIX(unixSocketDir, unixSocketPath) != STATUS_OK)
+            return STATUS_ERROR;
+        service = unixSocketPath;
+    } else {
+        // Use port number for TCP/IP
+        snprintf(portNumberStr, sizeof(portNumberStr), "%d", portNumber);
+        service = portNumberStr;
+    }
+
+    // Resolve addresses for the service
+    if (pg_getaddrinfo_all(hostName, service, &hint, &addrs) || !addrs) {
+        ereport(LOG, (errmsg("could not resolve address for service")));
+        return STATUS_ERROR;
+    }
+
+    // Try to create socket for each resolved address
+    for (addr = addrs; addr; addr = addr->ai_next) {
+        // Skip if we've reached the maximum number of sockets
+        if (*NumListenSockets == MaxListen) {
+            ereport(LOG, (errmsg("maximum listen sockets exceeded")));
+            break;
+        }
+
+        // Create socket
+        fd = socket(addr->ai_family, SOCK_STREAM, 0);
+        if (fd == PGINVALID_SOCKET) {
+            // Log error and try next address
+            continue;
+        }
+
+        // Set socket options for reusability and platform-specific settings
+        if (addr->ai_family != AF_UNIX) {
+            setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+        }
+
+        // Set IPv6-only flag if needed
+        if (addr->ai_family == AF_INET6) {
+            setsockopt(fd, IPPROTO_IPV6, IPV6_V6ONLY, &one, sizeof(one));
+        }
+
+        // Bind socket to address
+        if (bind(fd, addr->ai_addr, addr->ai_addrlen) < 0) {
+            ereport(LOG, (errmsg("could not bind to address")));
+            closesocket(fd);
+            continue;
+        }
+
+        // Set up Unix socket permissions if needed
+        if (addr->ai_family == AF_UNIX) {
+            if (Setup_AF_UNIX(service) != STATUS_OK) {
+                closesocket(fd);
+                break;
+            }
+        }
+
+        // Start listening with appropriate queue size
+        int maxconn = MaxConnections * 2;
+        if (listen(fd, maxconn) < 0) {
+            ereport(LOG, (errmsg("could not listen on socket")));
+            closesocket(fd);
+            continue;
+        }
+
+        // Successfully created socket - add to array
+        ereport(LOG, (errmsg("listening on socket")));
+        ListenSockets[*NumListenSockets] = fd;
+        (*NumListenSockets)++;
+        added++;
+    }
+
+    // Clean up address info
+    pg_freeaddrinfo_all(hint.ai_family, addrs);
+
+    // Return success if at least one socket was created
+    return added ? STATUS_OK : STATUS_ERROR;
+}
+```
+
+Key simplifications made:
+- Removed detailed error messages and logging specifics for clarity
+- Consolidated address family handling into simpler conditional blocks
+- Abstracted platform-specific socket option details
+- Simplified error handling to focus on main execution flow
+- Reduced verbose logging to essential status messages
+- Consolidated similar error cases into generic handlers
+- Focused on the core algorithm: resolve addresses, create sockets, bind, listen

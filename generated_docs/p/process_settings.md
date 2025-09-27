@@ -49,3 +49,46 @@ The function only operates under the postmaster (not in standalone mode) and ens
 - Critical for implementing per-database and per-role configuration customization
 - Part of PostgreSQL's flexible configuration system that allows fine-grained control over server parameters
 - Uses proper locking (AccessShareLock) to ensure safe concurrent access to the system catalog
+
+## Simplified Source
+
+```c
+// Simplified version of process_settings
+static void process_settings(Oid databaseid, Oid roleid) {
+    // Skip if not running under postmaster
+    if (!IsUnderPostmaster)
+        return;
+
+    // Open pg_db_role_setting catalog
+    Relation relsetting = table_open(DbRoleSettingRelationId, AccessShareLock);
+
+    // Use single snapshot for consistency across all reads
+    Snapshot snapshot = RegisterSnapshot(GetCatalogSnapshot(DbRoleSettingRelationId));
+
+    // Apply settings in hierarchical order (most specific to general)
+    // Earlier settings take precedence over later ones
+
+    // 1. Database + Role specific settings (highest precedence)
+    ApplySetting(snapshot, databaseid, roleid, relsetting, PGC_S_DATABASE_USER);
+
+    // 2. Role-only settings
+    ApplySetting(snapshot, InvalidOid, roleid, relsetting, PGC_S_USER);
+
+    // 3. Database-only settings
+    ApplySetting(snapshot, databaseid, InvalidOid, relsetting, PGC_S_DATABASE);
+
+    // 4. Global settings (lowest precedence)
+    ApplySetting(snapshot, InvalidOid, InvalidOid, relsetting, PGC_S_GLOBAL);
+
+    // Clean up resources
+    UnregisterSnapshot(snapshot);
+    table_close(relsetting, AccessShareLock);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the hierarchical precedence order
+- Consolidated variable declarations
+- Explained the early return condition
+- Highlighted the precedence system with numbered comments
+- Maintained proper resource management and snapshot handling

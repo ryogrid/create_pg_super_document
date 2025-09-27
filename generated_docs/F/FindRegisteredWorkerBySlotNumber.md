@@ -36,3 +36,36 @@ This static function performs a linear search through the postmaster's backend-p
 - Critical for maintaining the correspondence between private worker list and shared memory slots
 - Used primarily for handling worker state changes and lifecycle management
 - The slot number serves as the key for mapping between the postmaster's private data and shared memory
+
+## Simplified Source
+
+```c
+// Simplified version of FindRegisteredWorkerBySlotNumber
+static RegisteredBgWorker *FindRegisteredWorkerBySlotNumber(int slotno) {
+    slist_iter siter;
+
+    // Search through all registered background workers
+    slist_foreach(siter, &BackgroundWorkerList) {
+        RegisteredBgWorker *rw;
+
+        // Get the worker from the list node
+        rw = slist_container(RegisteredBgWorker, rw_lnode, siter.cur);
+
+        // Check if this worker matches the requested slot number
+        if (rw->rw_shmem_slot == slotno) {
+            return rw;
+        }
+    }
+
+    // Worker not found for this slot number
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Clarified the purpose of the linear search
+- Explained the slot number matching logic
+- Simplified the return value explanation
+- Maintained the essential worker lookup functionality
+- Preserved the straightforward search algorithm

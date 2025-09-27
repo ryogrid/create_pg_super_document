@@ -35,3 +35,30 @@ This function takes no parameters.
 - Returns 0 if max_replication_slots is 0, effectively disabling replication slot shared memory allocation
 - Uses PostgreSQL's safe arithmetic functions (add_size, mul_size) to prevent integer overflow
 - This function is called during PostgreSQL startup to determine total shared memory requirements
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotsShmemSize
+Size ReplicationSlotsShmemSize(void) {
+    Size size = 0;
+
+    // Early return if replication slots are disabled
+    if (max_replication_slots == 0)
+        return size;
+
+    // Calculate base size: offset to replication_slots array
+    size = offsetof(ReplicationSlotCtlData, replication_slots);
+
+    // Add space for all replication slot structures
+    size = add_size(size, mul_size(max_replication_slots, sizeof(ReplicationSlot)));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Preserved the essential memory calculation logic
+- Kept the early return for disabled replication slots
+- Maintained the safe arithmetic operations for overflow protection
+- Added clear comments explaining each calculation step

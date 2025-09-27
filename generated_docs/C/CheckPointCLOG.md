@@ -35,3 +35,26 @@ This function takes no parameters.
 - May result in sync requests being queued for later processing by ProcessSyncRequests()
 - Includes PostgreSQL tracing hooks for performance monitoring and debugging
 - Essential for ensuring ACID properties by guaranteeing transaction status persistence
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointCLOG
+void CheckPointCLOG(void) {
+    // Start CLOG checkpoint tracing
+    TRACE_POSTGRESQL_CLOG_CHECKPOINT_START(true);
+
+    // Write all dirty CLOG pages to disk
+    // May result in sync requests queued for later processing
+    SimpleLruWriteAll(XactCtl, true);
+
+    // Mark CLOG checkpoint completion
+    TRACE_POSTGRESQL_CLOG_CHECKPOINT_DONE(true);
+}
+```
+
+Key simplifications made:
+- Focused on the core operation: flush all dirty CLOG pages using SimpleLruWriteAll
+- Preserved essential tracing hooks for performance monitoring
+- Emphasized the checkpoint participation role for transaction status persistence
+- Maintained the delegation pattern to SLRU subsystem

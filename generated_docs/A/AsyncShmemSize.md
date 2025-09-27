@@ -35,3 +35,29 @@ The `AsyncShmemSize` function computes the amount of shared memory space needed 
 - Allocates space for notification buffers using SimpleLruShmemSize with notify_buffers parameter
 - Critical that calculations match AsyncShmemInit implementation to prevent memory allocation mismatches
 - Part of the shared memory subsystem initialization process during PostgreSQL startup
+
+## Simplified Source
+
+```c
+// Simplified version of AsyncShmemSize
+Size AsyncShmemSize(void) {
+    Size size;
+
+    // Calculate space for backend status structures (one per backend)
+    size = mul_size(MaxBackends, sizeof(QueueBackendStatus));
+
+    // Add space for the main control structure
+    size = add_size(size, offsetof(AsyncQueueControl, backend));
+
+    // Add space for notification buffers using LRU management
+    size = add_size(size, SimpleLruShmemSize(notify_buffers, 0));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Removed detailed comment about matching AsyncShmemInit (kept essential logic)
+- Added descriptive comments for each calculation step
+- Maintained the exact calculation sequence and function calls
+- Preserved the use of safe arithmetic functions for overflow protection

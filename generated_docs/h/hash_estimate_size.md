@@ -39,3 +39,57 @@ The calculation considers the dynamic growth patterns of hash tables, estimating
 - Elements are allocated in groups, not individually, for efficiency
 - Critical for PostgreSQL shared memory management and sizing decisions
 - All size calculations include proper alignment requirements
+
+## Simplified Source
+
+```c
+// Simplified version of hash_estimate_size
+Size hash_estimate_size(long num_entries, Size entrysize) {
+    Size total_size;
+    long num_buckets, num_segments, num_dir_entries;
+    long element_alloc_count, element_size, element_allocations;
+
+    // Step 1: Calculate bucket count (next power of 2)
+    num_buckets = next_pow2_long(num_entries);
+
+    // Step 2: Calculate segments needed for buckets
+    num_segments = next_pow2_long((num_buckets - 1) / DEF_SEGSIZE + 1);
+
+    // Step 3: Calculate directory entries (grows by doubling)
+    num_dir_entries = DEF_DIRSIZE;
+    while (num_dir_entries < num_segments) {
+        num_dir_entries <<= 1;
+    }
+
+    // Step 4: Calculate total size components
+    // Hash header structure
+    total_size = MAXALIGN(sizeof(HASHHDR));
+
+    // Directory space
+    total_size = add_size(total_size,
+                         mul_size(num_dir_entries, sizeof(HASHSEGMENT)));
+
+    // Segment space
+    total_size = add_size(total_size,
+                         mul_size(num_segments,
+                                 MAXALIGN(DEF_SEGSIZE * sizeof(HASHBUCKET))));
+
+    // Step 5: Calculate element storage space
+    element_alloc_count = choose_nelem_alloc(entrysize);
+    element_allocations = (num_entries - 1) / element_alloc_count + 1;
+    element_size = MAXALIGN(sizeof(HASHELEMENT)) + MAXALIGN(entrysize);
+
+    total_size = add_size(total_size,
+                         mul_size(element_allocations,
+                                 mul_size(element_alloc_count, element_size)));
+
+    return total_size;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names for clarity
+- Broken down calculation into logical steps with comments
+- Preserved all essential calculations and logic flow
+- Maintained the exact algorithm while improving readability
+- Kept all important mathematical operations and alignment requirements

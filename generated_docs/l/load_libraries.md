@@ -54,3 +54,59 @@ The function performs the following operations:
 - Syntax errors in the library list are logged but do not cause fatal errors
 - The function uses PostgreSQL's memory management functions (pstrdup, pfree) rather than standard C library functions
 - Debug logging helps administrators track which libraries have been successfully loaded
+
+## Simplified Source
+
+```c
+// Simplified version of load_libraries
+static void load_libraries(const char *libraries, const char *gucname, bool restricted) {
+    // Early return for empty input
+    if (libraries == NULL || libraries[0] == '\0')
+        return;
+
+    // Create modifiable copy and parse into list
+    char *rawstring = pstrdup(libraries);
+    List *elemlist;
+    if (!SplitDirectoriesString(rawstring, ',', &elemlist)) {
+        // Handle syntax error - log and cleanup
+        list_free_deep(elemlist);
+        pfree(rawstring);
+        ereport(LOG, (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("invalid list syntax in parameter \"%s\"", gucname)));
+        return;
+    }
+
+    // Load each library in the list
+    ListCell *l;
+    foreach(l, elemlist) {
+        char *filename = (char *) lfirst(l);
+        char *expanded = NULL;
+
+        // For restricted mode: prepend plugin directory path
+        if (restricted && first_dir_separator(filename) == NULL) {
+            expanded = psprintf("$libdir/plugins/%s", filename);
+            filename = expanded;
+        }
+
+        // Load the library file
+        load_file(filename, restricted);
+        ereport(DEBUG1, (errmsg_internal("loaded library \"%s\"", filename)));
+
+        // Cleanup expanded path if allocated
+        if (expanded)
+            pfree(expanded);
+    }
+
+    // Cleanup allocated memory
+    list_free_deep(elemlist);
+    pfree(rawstring);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for better readability
+- Added descriptive comments for each major logical section
+- Simplified the foreach loop structure
+- Maintained all essential error handling and memory management
+- Preserved the core algorithm and security restrictions
+- Focused on the main execution path while keeping critical error checks

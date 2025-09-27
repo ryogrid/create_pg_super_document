@@ -43,3 +43,44 @@ In cases where the shared memory structure already exists (found == true), the f
 - Sets global dsm_main_space_begin pointer for use by other DSM functions
 - The FreePageManager provides bitmap-based tracking of allocated vs free pages
 - Works in conjunction with dsm_estimate_size() to properly size the allocation
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_shmem_init
+void dsm_shmem_init(void) {
+    // Step 1: Calculate required space for dynamic shared memory
+    size_t size = dsm_estimate_size();
+    bool found;
+
+    // Step 2: Early return if no dynamic shared memory needed
+    if (size == 0)
+        return;
+
+    // Step 3: Allocate space in main shared memory segment
+    dsm_main_space_begin = ShmemInitStruct("Preallocated DSM", size, &found);
+
+    // Step 4: Initialize free page manager (only for new allocation)
+    if (!found) {
+        FreePageManager *fpm = (FreePageManager *) dsm_main_space_begin;
+        size_t first_page = 0;
+        size_t pages;
+
+        // Reserve space for the FreePageManager control structure
+        while (first_page * FPM_PAGE_SIZE < sizeof(FreePageManager))
+            ++first_page;
+
+        // Initialize the page manager and give it the remaining space
+        FreePageManagerInitialize(fpm, dsm_main_space_begin);
+        pages = (size / FPM_PAGE_SIZE) - first_page;
+        FreePageManagerPut(fpm, first_page, pages);
+    }
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the main logic flow
+- Preserved the essential algorithm and error-free execution path
+- Maintained all critical functionality including size calculation, space allocation, and page manager initialization
+- Kept the early return optimization for zero-size case
+- Focused on the main execution path while preserving correctness

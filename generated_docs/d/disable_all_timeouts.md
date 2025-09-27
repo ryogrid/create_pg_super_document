@@ -37,3 +37,33 @@ The function is designed with performance considerations in mind - it deliberate
 - All timeout slots in the  array are marked as inactive
 - The  parameter allows callers to preserve timeout indicator states when needed for diagnostic or recovery purposes
 - This function is typically called during process shutdown or error recovery scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of disable_all_timeouts
+void disable_all_timeouts(bool keep_indicators) {
+    // Step 1: Disable the alarm signal handler
+    disable_alarm();
+
+    // Step 2: Clear active timeout counter
+    num_active_timeouts = 0;
+
+    // Step 3: Mark all timeout slots as inactive
+    for (int i = 0; i < MAX_TIMEOUTS; i++) {
+        all_timeouts[i].active = false;
+
+        // Step 4: Optionally reset timeout indicators
+        if (!keep_indicators) {
+            all_timeouts[i].indicator = false;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about timer interrupt optimization for clarity
+- Consolidated the core logic into clear sequential steps
+- Simplified variable declarations
+- Focused on the main execution path
+- Added descriptive comments for each major operation

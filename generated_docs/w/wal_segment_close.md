@@ -45,3 +45,21 @@ This is the counterpart to wal_segment_open and is called automatically by the X
 - Essential for preventing file descriptor leaks in long-running WAL reading operations
 - Used in both physical and logical replication contexts
 - Part of the standard callback pair with wal_segment_open for local WAL file access
+
+## Simplified Source
+
+```c
+// Simplified version of wal_segment_close
+void wal_segment_close(XLogReaderState *state) {
+    // Close the currently open WAL segment file
+    close(state->seg.ws_file);
+
+    // Reset file descriptor to indicate no file is open
+    state->seg.ws_file = -1;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each step
+- Removed the TODO comment about errno checking for clarity
+- Focused on the two core operations: close file and reset descriptor

@@ -42,3 +42,45 @@ This function manages Windows-specific event handle configuration for PostgreSQL
 - Part of PostgreSQL's cross-platform abstraction for efficient I/O multiplexing
 - Essential for Windows builds of PostgreSQL server and background processes
 - The handles array in WaitEventSet stores Windows HANDLE objects that can be used with WaitForMultipleObjects
+
+## Simplified Source
+
+```c
+// Simplified version of WaitEventAdjustWin32
+static void WaitEventAdjustWin32(WaitEventSet *set, WaitEvent *event) {
+    HANDLE *handle = &set->handles[event->pos + 1];
+
+    // Handle latch events: use the latch's event handle
+    if (event->events == WL_LATCH_SET) {
+        *handle = set->latch->event;
+    }
+    // Handle postmaster death monitoring: use global postmaster handle
+    else if (event->events == WL_POSTMASTER_DEATH) {
+        *handle = PostmasterHandle;
+    }
+    // Handle socket I/O events: set up WSA event with appropriate flags
+    else {
+        // Map PostgreSQL event flags to Windows socket flags
+        int flags = FD_CLOSE;  // Always monitor for errors/EOF
+        if (event->events & WL_SOCKET_READABLE) flags |= FD_READ;
+        if (event->events & WL_SOCKET_WRITEABLE) flags |= FD_WRITE;
+        if (event->events & WL_SOCKET_CONNECTED) flags |= FD_CONNECT;
+        if (event->events & WL_SOCKET_ACCEPT) flags |= FD_ACCEPT;
+
+        // Create WSA event if needed
+        if (*handle == WSA_INVALID_EVENT) {
+            *handle = WSACreateEvent();
+        }
+
+        // Associate socket with event and specify monitoring conditions
+        WSAEventSelect(event->fd, *handle, flags);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for clarity (WSACreateEvent and WSAEventSelect error checking)
+- Consolidated flag setting logic with inline comments
+- Abstracted low-level Windows API error reporting
+- Focused on the main execution path and core logic
+- Maintained the three-way branching structure (latch/postmaster/socket events)

@@ -35,3 +35,61 @@ This function performs cleanup of dynamic shared memory segments that may have b
 - The function is resilient to corruption and safely detaches from invalid segments
 - Part of PostgreSQL's shared memory management during startup cleanup phase
 - Essential for preventing shared memory leaks across postmaster restarts
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_cleanup_using_control_segment
+void dsm_cleanup_using_control_segment(dsm_handle old_control_handle) {
+    void *mapped_address = NULL;
+    void *impl_private = NULL;
+    Size mapped_size = 0;
+    dsm_control_header *old_control;
+
+    // Step 1: Try to attach to the old control segment
+    if (!dsm_impl_op(DSM_OP_ATTACH, old_control_handle, 0, &impl_private,
+                     &mapped_address, &mapped_size, DEBUG1)) {
+        // Segment no longer exists (e.g., after reboot) - nothing to clean
+        return;
+    }
+
+    // Step 2: Validate the control segment contents
+    old_control = (dsm_control_header *) mapped_address;
+    if (!dsm_control_segment_sane(old_control, mapped_size)) {
+        // Contents are corrupted - detach and exit
+        dsm_impl_op(DSM_OP_DETACH, old_control_handle, 0, &impl_private,
+                    &mapped_address, &mapped_size, LOG);
+        return;
+    }
+
+    // Step 3: Clean up all referenced DSM segments
+    uint32 nitems = old_control->nitems;
+    for (uint32 i = 0; i < nitems; i++) {
+        uint32 refcnt = old_control->item[i].refcnt;
+        dsm_handle handle = old_control->item[i].handle;
+
+        // Skip unused slots and main region handles
+        if (refcnt == 0 || is_main_region_dsm_handle(handle)) {
+            continue;
+        }
+
+        // Destroy the orphaned segment
+        elog(DEBUG2, "cleaning up orphaned dynamic shared memory with ID %u", handle);
+        dsm_impl_op(DSM_OP_DESTROY, handle, 0, NULL, NULL, NULL, LOG);
+    }
+
+    // Step 4: Destroy the control segment itself
+    elog(DEBUG2, "cleaning up dynamic shared memory control segment with ID %u",
+         old_control_handle);
+    dsm_impl_op(DSM_OP_DESTROY, old_control_handle, 0, &impl_private,
+                &mapped_address, &mapped_size, LOG);
+}
+```
+
+Key simplifications made:
+- Removed duplicate variables for junk operations (simplified to NULL parameters)
+- Consolidated variable declarations for clarity
+- Added step-by-step comments explaining the main phases
+- Simplified error handling while preserving essential logic
+- Focused on the core cleanup algorithm flow
+- Removed detailed debugging parameter handling for brevity

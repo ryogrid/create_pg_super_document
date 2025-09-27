@@ -41,3 +41,28 @@ The  function performs a comprehensive cleanup of all unpinned SMgrRelation obje
 - The function assumes that all external references to unpinned relations have been properly cleared
 - Essential for preventing resource leaks in long-running PostgreSQL processes
 - Part of the storage manager's resource management strategy for maintaining system performance
+
+## Simplified Source
+
+```c
+// Simplified version of smgrdestroyall
+void smgrdestroyall(void) {
+    dlist_mutable_iter iterator;
+
+    // Iterate through all unpinned storage manager relations
+    // Use safe iteration since smgrdestroy() modifies the list
+    dlist_foreach_modify(iterator, &unpinned_relns) {
+        // Extract the SMgrRelation from the list node
+        SMgrRelation relation = dlist_container(SMgrRelationData, node, iterator.cur);
+
+        // Destroy this relation (automatically removes it from the list)
+        smgrdestroy(relation);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Used more descriptive variable names (iterator, relation)
+- Focused on the core algorithm: iterate and destroy
+- Emphasized the safe iteration pattern used for list modification

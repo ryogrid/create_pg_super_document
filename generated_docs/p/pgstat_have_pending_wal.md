@@ -36,3 +36,26 @@ The function compares the current WAL record count with the previous count and a
 - Used as a guard condition before attempting to flush WAL statistics
 - Critical for maintaining efficient statistics collection performance by avoiding work when no activity has occurred
 - The comprehensive checking approach ensures accurate detection of all WAL system interactions
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_have_pending_wal
+bool
+pgstat_have_pending_wal(void)
+{
+    // Check for any type of WAL activity:
+    // 1. New WAL records generated
+    // 2. Pending WAL writes
+    // 3. Pending WAL syncs
+    return pgWalUsage.wal_records != prevWalUsage.wal_records ||
+           PendingWalStats.wal_write != 0 ||
+           PendingWalStats.wal_sync != 0;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the three types of WAL activity checked
+- Maintained the essential logic: detect any form of WAL activity
+- Preserved the comprehensive checking approach that catches all WAL interactions
+- Simplified formatting while keeping the logical OR structure clear

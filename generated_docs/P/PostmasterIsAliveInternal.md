@@ -50,3 +50,57 @@ This function takes no parameters but accesses:
 - The function includes careful error handling and will call elog(FATAL) for unexpected conditions
 - Critical for proper cleanup and error handling when the postmaster process terminates unexpectedly
 - Uses non-blocking I/O operations to avoid hanging the calling process
+
+## Simplified Source
+
+```c
+// Simplified version of PostmasterIsAliveInternal
+bool PostmasterIsAliveInternal(void) {
+#ifdef USE_POSTMASTER_DEATH_SIGNAL
+    // Reset the death flag before checking
+    postmaster_possibly_dead = false;
+#endif
+
+#ifndef WIN32
+    // Unix/Linux: Check via pipe read
+    char c;
+    ssize_t rc = read(postmaster_alive_fds[POSTMASTER_FD_WATCH], &c, 1);
+
+    // If read would block, postmaster is alive
+    if (rc < 0 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+        return true;
+    }
+
+    // If we get here, postmaster is dead or error occurred
+#ifdef USE_POSTMASTER_DEATH_SIGNAL
+    postmaster_possibly_dead = true;
+#endif
+
+    // Handle unexpected conditions with fatal errors
+    if (rc < 0) {
+        elog(FATAL, "read on postmaster death monitoring pipe failed: %m");
+    } else if (rc > 0) {
+        elog(FATAL, "unexpected data in postmaster death monitoring pipe");
+    }
+
+    return false;
+
+#else  // WIN32
+    // Windows: Check process handle status
+    if (WaitForSingleObject(PostmasterHandle, 0) == WAIT_TIMEOUT) {
+        return true;  // Still running
+    } else {
+#ifdef USE_POSTMASTER_DEATH_SIGNAL
+        postmaster_possibly_dead = true;
+#endif
+        return false;  // Process terminated
+    }
+#endif
+}
+```
+
+Key simplifications made:
+- Consolidated platform-specific logic into clear sections
+- Added inline comments explaining the core detection mechanism
+- Simplified the control flow while preserving all error handling
+- Maintained the essential pipe-based detection on Unix and handle-based detection on Windows

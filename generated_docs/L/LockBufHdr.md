@@ -44,3 +44,44 @@ This function implements a spinlock-style mechanism to acquire exclusive access 
 - Critical for buffer management synchronization
 - Must be paired with UnlockBufHdr() to release the lock
 - Part of PostgreSQL low-level buffer synchronization infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of LockBufHdr
+uint32 LockBufHdr(BufferDesc *desc) {
+    uint32 old_buf_state;
+
+    // Ensure we're working with a shared buffer (not local)
+    Assert(!BufferIsLocal(BufferDescriptorGetBuffer(desc)));
+
+    // Initialize spin delay mechanism for contention handling
+    SpinDelayStatus delayStatus;
+    init_local_spin_delay(&delayStatus);
+
+    // Spin until we successfully acquire the lock
+    while (true) {
+        // Atomically set the BM_LOCKED flag and get the old state
+        old_buf_state = pg_atomic_fetch_or_u32(&desc->state, BM_LOCKED);
+
+        // If the lock wasn't already held, we got it - break out
+        if (!(old_buf_state & BM_LOCKED)) {
+            break;
+        }
+
+        // Lock was contended - wait with exponential backoff
+        perform_spin_delay(&delayStatus);
+    }
+
+    // Clean up delay state and return the new state
+    finish_spin_delay(&delayStatus);
+    return old_buf_state | BM_LOCKED;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Clarified the atomic operation and its purpose
+- Explained the spin-wait mechanism with backoff
+- Focused on the core lock acquisition algorithm
+- Maintained the essential error checking and synchronization logic

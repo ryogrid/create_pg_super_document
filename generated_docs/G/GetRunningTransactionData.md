@@ -60,3 +60,97 @@ This function takes no parameters but returns a RunningTransactions structure co
 - Handles subtransaction overflow by setting appropriate status flags
 - Does not update snapshot counters, leaving that to GetSnapshotData
 - Includes duplicate TransactionIds from prepared transactions finishing preparation
+
+## Simplified Source
+
+```c
+// Simplified version of GetRunningTransactionData
+RunningTransactions GetRunningTransactionData(void) {
+    // Static result workspace (reused across calls)
+    static RunningTransactionsData CurrentRunningXactsData;
+
+    ProcArrayStruct *arrayP = procArray;
+    TransactionId *other_xids = ProcGlobal->xids;
+    RunningTransactions result = &CurrentRunningXactsData;
+    TransactionId *xids;
+    int count = 0, subcount = 0;
+    bool suboverflowed = false;
+
+    // Allocate memory for transaction IDs on first call
+    if (result->xids == NULL) {
+        result->xids = malloc(TOTAL_MAX_CACHED_SUBXIDS * sizeof(TransactionId));
+        // Handle allocation failure
+    }
+    xids = result->xids;
+
+    // Acquire locks to ensure consistent snapshot
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+    LWLockAcquire(XidGenLock, LW_SHARED);
+
+    // Initialize tracking variables from global transaction state
+    TransactionId latestCompletedXid = XidFromFullTransactionId(TransamVariables->latestCompletedXid);
+    TransactionId oldestRunningXid = XidFromFullTransactionId(TransamVariables->nextXid);
+    TransactionId oldestDatabaseRunningXid = oldestRunningXid;
+
+    // First pass: collect all main transaction IDs
+    for (int index = 0; index < arrayP->numProcs; index++) {
+        PGPROC *proc = &allProcs[arrayP->pgprocnos[index]];
+        TransactionId xid = UINT32_ACCESS_ONCE(other_xids[index]);
+
+        // Skip processes without valid transaction IDs
+        if (!TransactionIdIsValid(xid))
+            continue;
+
+        // Track oldest running transactions
+        if (TransactionIdPrecedes(xid, oldestRunningXid))
+            oldestRunningXid = xid;
+
+        if (proc->databaseId == MyDatabaseId &&
+            TransactionIdPrecedes(xid, oldestDatabaseRunningXid))
+            oldestDatabaseRunningXid = xid;
+
+        // Check for subtransaction overflow
+        if (ProcGlobal->subxidStates[index].overflowed)
+            suboverflowed = true;
+
+        xids[count++] = xid;
+    }
+
+    // Second pass: collect subtransaction IDs if no overflow occurred
+    if (!suboverflowed) {
+        for (int index = 0; index < arrayP->numProcs; index++) {
+            PGPROC *proc = &allProcs[arrayP->pgprocnos[index]];
+            int nsubxids = ProcGlobal->subxidStates[index].count;
+
+            if (nsubxids > 0) {
+                // Copy subtransaction IDs to result array
+                memcpy(&xids[count], proc->subxids.xids,
+                       nsubxids * sizeof(TransactionId));
+                count += nsubxids;
+                subcount += nsubxids;
+            }
+        }
+    }
+
+    // Fill in the result structure
+    result->xcnt = count - subcount;  // Main transaction count
+    result->subxcnt = subcount;       // Subtransaction count
+    result->subxid_status = suboverflowed ? SUBXIDS_IN_SUBTRANS : SUBXIDS_IN_ARRAY;
+    result->nextXid = XidFromFullTransactionId(TransamVariables->nextXid);
+    result->oldestRunningXid = oldestRunningXid;
+    result->oldestDatabaseRunningXid = oldestDatabaseRunningXid;
+    result->latestCompletedXid = latestCompletedXid;
+
+    // Caller must release locks after WAL-logging the snapshot
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and memory allocation checks for clarity
+- Consolidated variable declarations at the top
+- Simplified loop logic while preserving the two-pass structure
+- Abstracted memory barrier and locking details
+- Focused on the core algorithm: collect main XIDs, then subtransaction XIDs
+- Removed verbose comments and kept only essential logic explanations
+- Maintained the essential structure of collecting running transaction data for checkpointing

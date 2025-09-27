@@ -46,3 +46,39 @@ The function includes robust memory management with graceful handling of out-of-
 - If guc_strdup() fails due to OOM, may result in duplicate reports in future calls
 - Essential component of PostgreSQL's client-server parameter synchronization mechanism
 - Uses LOG level for memory allocation in guc_strdup, indicating non-critical nature of tracking
+
+## Simplified Source
+
+```c
+// Simplified version of ReportGUCOption
+static void ReportGUCOption(struct config_generic *record) {
+    // Get current parameter value as string
+    char *current_value = ShowGUCOption(record, false);
+
+    // Check if value has changed since last report
+    if (record->last_reported == NULL ||
+        strcmp(current_value, record->last_reported) != 0) {
+
+        // Send ParameterStatus message to frontend
+        StringInfoData message;
+        pq_beginmessage(&message, PqMsg_ParameterStatus);
+        pq_sendstring(&message, record->name);
+        pq_sendstring(&message, current_value);
+        pq_endmessage(&message);
+
+        // Update tracking for duplicate detection
+        guc_free(record->last_reported);
+        record->last_reported = guc_strdup(LOG, current_value);
+    }
+
+    // Clean up temporary value
+    pfree(current_value);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about OOM handling for clarity
+- Used more descriptive variable name (current_value instead of val)
+- Simplified condition checking logic presentation
+- Focused on the main execution path
+- Maintained all essential functionality and error handling

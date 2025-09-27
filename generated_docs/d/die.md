@@ -46,4 +46,40 @@ The graceful approach allows for proper transaction cleanup and resource dealloc
 
 ## Notes and Other Information
 - Provides graceful shutdown mechanism compared to immediate termination in `quickdie`
-- Uses interrupt pending flags to integrate with PostgreSQL's normal interrupt processing\n- Records session termination cause for monitoring and statistics\n- Handles special case for single-user mode where latches are not available\n- Widely used across PostgreSQL processes including parallel workers, autovacuum, and replication workers\n- The function name \"die\" reflects its role in process termination, but in a controlled manner\n- Critical component of PostgreSQL's process lifecycle and shutdown management
+- Uses interrupt pending flags to integrate with PostgreSQL's normal interrupt processing
+- Records session termination cause for monitoring and statistics
+- Handles special case for single-user mode where latches are not available
+- Widely used across PostgreSQL processes including parallel workers, autovacuum, and replication workers
+- The function name "die" reflects its role in process termination, but in a controlled manner
+- Critical component of PostgreSQL's process lifecycle and shutdown management
+
+## Simplified Source
+
+```c
+// Simplified version of die - graceful shutdown signal handler
+void die(SIGNAL_ARGS) {
+    // Step 1: Schedule graceful termination (if not already exiting)
+    if (!proc_exit_inprogress) {
+        InterruptPending = true;
+        ProcDiePending = true;
+    }
+
+    // Step 2: Record shutdown reason for statistics
+    pgStatSessionEndCause = DISCONNECT_KILLED;
+
+    // Step 3: Wake up any waiting processes
+    SetLatch(MyLatch);
+
+    // Step 4: Handle special case for single-user mode
+    // (immediate processing needed since latches don't work with file I/O)
+    if (DoingCommandRead && whereToSendOutput != DestRemote) {
+        ProcessInterrupts();
+    }
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the main phases
+- Removed low-level implementation comments for clarity
+- Focused on the core logic flow: schedule termination → record stats → wake processes → handle special case
+- Abstracted the signal handler mechanics while preserving the essential shutdown sequence

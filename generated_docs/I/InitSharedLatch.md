@@ -32,3 +32,36 @@ InitSharedLatch initializes a latch structure for shared memory usage across mul
 - The latch starts with owner_pid = 0, indicating no current owner
 - Designed for use in shared memory structures allocated with ShmemInitStruct
 - Other handles in the latch module are never marked as inheritable for security
+
+## Simplified Source
+
+```c
+// Simplified version of InitSharedLatch
+void InitSharedLatch(Latch *latch) {
+#ifdef WIN32
+    // Core logic step 1: Set up Windows security attributes for inheritance
+    SECURITY_ATTRIBUTES sa;
+    ZeroMemory(&sa, sizeof(sa));
+    sa.nLength = sizeof(sa);
+    sa.bInheritHandle = TRUE;
+
+    // Core logic step 2: Create inheritable event object
+    latch->event = CreateEvent(&sa, TRUE, FALSE, NULL);
+    if (latch->event == NULL) {
+        elog(ERROR, "CreateEvent failed: error code %lu", GetLastError());
+    }
+#endif
+
+    // Core logic step 3: Initialize latch state
+    latch->is_set = false;
+    latch->maybe_sleeping = false;
+    latch->owner_pid = 0;
+    latch->is_shared = true;
+}
+```
+
+Key simplifications made:
+- Focused on the three main steps: Windows event setup, error handling, and state initialization
+- Removed detailed explanatory comments about timing and inheritance rules
+- Maintained essential platform-specific conditional compilation
+- Simplified to show the core initialization sequence across platforms

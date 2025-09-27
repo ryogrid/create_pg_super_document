@@ -42,3 +42,42 @@ This function takes no parameters.
 - Part of PostgreSQL's comprehensive resource leak detection infrastructure
 - The function complements the shared buffer leak detection provided by CheckForBufferLeaks()
 - Warning messages provide detailed information about leaked buffers to aid in debugging
+
+## Simplified Source
+
+```c
+// Simplified version of CheckForLocalBufferLeaks
+static void CheckForLocalBufferLeaks(void) {
+#ifdef USE_ASSERT_CHECKING
+    // Only run in debug builds
+    if (LocalRefCount) {
+        int leak_count = 0;
+
+        // Step 1: Scan all local buffers for non-zero reference counts
+        for (int i = 0; i < NLocBuffer; i++) {
+            if (LocalRefCount[i] != 0) {
+                // Step 2: Found a leak - convert index to buffer ID and report
+                Buffer leaked_buffer = -i - 1;
+                char *debug_info = DebugPrintBufferRefcount(leaked_buffer);
+
+                elog(WARNING, "local buffer refcount leak: %s", debug_info);
+                pfree(debug_info);
+
+                leak_count++;
+            }
+        }
+
+        // Step 3: Assert no leaks found (will abort if any detected)
+        Assert(leak_count == 0);
+    }
+#endif
+}
+```
+
+Key simplifications made:
+- Renamed RefCountErrors to leak_count for clarity
+- Combined loop variable declaration with for loop
+- Added step-by-step comments explaining the leak detection process
+- Simplified variable names (s -> debug_info, b -> leaked_buffer)
+- Maintained all essential debugging functionality
+- Preserved the debug-only compilation conditional

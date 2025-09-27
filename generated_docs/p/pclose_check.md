@@ -36,3 +36,37 @@ This function extends the standard  system call by adding comprehensive error re
 - Follows PostgreSQL error reporting conventions with appropriate error codes
 - Essential for robust pipe operation error handling in PostgreSQL utilities
 - Memory management includes proper cleanup of dynamically allocated error message strings
+
+## Simplified Source
+
+```c
+// Simplified version of pclose_check
+int pclose_check(FILE *stream) {
+    // Close the pipe and get exit status
+    int exitstatus = pclose(stream);
+
+    // Success case
+    if (exitstatus == 0) {
+        return 0;
+    }
+
+    // Handle pclose() system call failure
+    if (exitstatus == -1) {
+        log_error(errcode(ERRCODE_SYSTEM_ERROR),
+                  _("%s() failed: %m"), "pclose");
+    } else {
+        // Handle child process failure - get readable error description
+        char *reason = wait_result_to_str(exitstatus);
+        log_error(errcode(ERRCODE_SYSTEM_ERROR), "%s", reason);
+        pfree(reason);
+    }
+
+    return exitstatus;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each logical section
+- Separated success and error handling paths
+- Maintained comprehensive error reporting functionality
+- Preserved memory management for error strings

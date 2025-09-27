@@ -40,3 +40,48 @@ This function is specifically designed for the mmap implementation of dynamic sh
 - Logs each file removal at DEBUG2 level for troubleshooting
 - Called during postmaster startup before creating new control segment
 - Essential for preventing accumulation of stale mmap files across restarts
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_cleanup_for_mmap
+static void dsm_cleanup_for_mmap(void) {
+    DIR *dir;
+    struct dirent *dent;
+
+    // Open the dynamic shared memory directory
+    dir = AllocateDir(PG_DYNSHMEM_DIR);
+
+    // Scan directory for mmap DSM files
+    while ((dent = ReadDir(dir, PG_DYNSHMEM_DIR)) != NULL) {
+        // Check if filename matches DSM mmap file pattern
+        if (strncmp(dent->d_name, PG_DYNSHMEM_MMAP_FILE_PREFIX,
+                    strlen(PG_DYNSHMEM_MMAP_FILE_PREFIX)) == 0) {
+            char buf[MAXPGPATH + sizeof(PG_DYNSHMEM_DIR)];
+
+            // Build full file path
+            snprintf(buf, sizeof(buf), PG_DYNSHMEM_DIR "/%s", dent->d_name);
+
+            // Log file removal for debugging
+            elog(DEBUG2, "removing file \"%s\"", buf);
+
+            // Remove the DSM file
+            if (unlink(buf) != 0) {
+                ereport(ERROR,
+                        (errcode_for_file_access(),
+                         errmsg("could not remove file \"%s\": %m", buf)));
+            }
+        }
+    }
+
+    // Clean up directory handle
+    FreeDir(dir);
+}
+```
+
+Key simplifications made:
+- Preserved the essential directory scanning and file removal logic
+- Kept critical error handling for file removal failures
+- Maintained the pattern matching logic for DSM files
+- Preserved logging for debugging purposes
+- Focused on the main execution path without removing important functionality

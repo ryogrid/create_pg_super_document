@@ -34,3 +34,25 @@ The system_user function implements the SQL SYSTEM_USER function in PostgreSQL. 
 - It's commonly referenced in HBA (Host-Based Authentication) processing for identity mapping
 - The function may return NULL if no system user information is available
 - It serves as the backend implementation for the SQL SYSTEM_USER function that can be called from SQL queries
+
+## Simplified Source
+
+```c
+// Simplified version of system_user
+Datum system_user(PG_FUNCTION_ARGS) {
+    // Get the system user name from the authentication system
+    const char *sysuser = GetSystemUser();
+
+    // Return the system user as text, or NULL if unavailable
+    if (sysuser)
+        PG_RETURN_DATUM(CStringGetTextDatum(sysuser));
+    else
+        PG_RETURN_NULL();
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- The function is already quite simple, so minimal changes were needed
+- Preserved the essential null-checking logic
+- Focused on the core functionality: retrieve system user and return as PostgreSQL datum

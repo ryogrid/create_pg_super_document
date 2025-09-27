@@ -42,3 +42,49 @@ This function takes no parameters and returns void.
 - The function sets up head and tail pointers for the LRU list to enable O(1) operations
 - Critical for multi-process coordination of table scan starting positions
 - Part of PostgreSQL's shared memory subsystem initialization sequence
+
+## Simplified Source
+
+```c
+// Simplified version of SyncScanShmemInit
+void SyncScanShmemInit(void) {
+    bool found;
+
+    // Step 1: Allocate or attach to shared memory for scan locations
+    scan_locations = (ss_scan_locations_t *)
+        ShmemInitStruct("Sync Scan Locations List",
+                       SizeOfScanLocations(SYNC_SCAN_NELEM),
+                       &found);
+
+    // Step 2: Initialize structures only in postmaster process
+    if (!IsUnderPostmaster) {
+        // Set up LRU list head and tail pointers
+        scan_locations->head = &scan_locations->items[0];
+        scan_locations->tail = &scan_locations->items[SYNC_SCAN_NELEM - 1];
+
+        // Step 3: Initialize all LRU cache entries with invalid values
+        for (int i = 0; i < SYNC_SCAN_NELEM; i++) {
+            ss_lru_item_t *item = &scan_locations->items[i];
+
+            // Mark entry as invalid (will be replaced by real scan locations)
+            item->location.relfilelocator.spcOid = InvalidOid;
+            item->location.relfilelocator.dbOid = InvalidOid;
+            item->location.relfilelocator.relNumber = InvalidRelFileNumber;
+            item->location.location = InvalidBlockNumber;
+
+            // Link items in doubly-linked list
+            item->prev = (i > 0) ? &scan_locations->items[i - 1] : NULL;
+            item->next = (i < SYNC_SCAN_NELEM - 1) ? &scan_locations->items[i + 1] : NULL;
+        }
+    }
+    // Worker processes just verify shared memory was found
+}
+```
+
+Key simplifications made:
+- Removed detailed comments that explained the obvious
+- Consolidated variable declarations inline where appropriate
+- Simplified the conditional logic for prev/next pointer assignment
+- Added high-level step comments to show the main phases
+- Focused on the core algorithm: allocate memory, set boundaries, initialize LRU list
+- Preserved the essential dual-role behavior (postmaster vs worker process)

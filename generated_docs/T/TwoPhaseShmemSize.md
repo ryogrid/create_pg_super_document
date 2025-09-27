@@ -37,3 +37,34 @@ The function performs careful size calculations using PostgreSQL's safe arithmet
 - Memory alignment is enforced through MAXALIGN to ensure proper structure alignment
 - This function is called during PostgreSQL startup to determine shared memory requirements
 - Part of the shared memory initialization sequence for two-phase commit support
+
+## Simplified Source
+
+```c
+// Simplified version of TwoPhaseShmemSize
+Size TwoPhaseShmemSize(void) {
+    Size size;
+
+    // Step 1: Calculate base size for TwoPhaseStateData structure (up to prepXacts field)
+    size = offsetof(TwoPhaseStateData, prepXacts);
+
+    // Step 2: Add space for array of GlobalTransaction pointers
+    size = add_size(size, mul_size(max_prepared_xacts, sizeof(GlobalTransaction)));
+
+    // Step 3: Ensure proper memory alignment
+    size = MAXALIGN(size);
+
+    // Step 4: Add space for actual GlobalTransactionData structures
+    size = add_size(size, mul_size(max_prepared_xacts, sizeof(GlobalTransactionData)));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining each calculation phase
+- Preserved all essential size calculations and safety measures
+- Maintained the exact logic flow and arithmetic operations
+- Kept the safe arithmetic functions (add_size, mul_size) for overflow protection
+- Preserved MAXALIGN for proper memory alignment
+- Focused on the core purpose: calculating shared memory requirements for two-phase commit

@@ -42,3 +42,34 @@ The  function adds a new node to the front of a doubly-linked list by updating t
 - Commonly used in PostgreSQL's parallel processing, autovacuum, replication, and memory management subsystems
 - The node being inserted should not already be part of another list to avoid corruption
 - Located in src/include/lib/ilist.h:347-363
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_push_head
+static inline void
+dlist_push_head(dlist_head *head, dlist_node *node)
+{
+    // Initialize empty list if needed
+    if (head->head.next == NULL)
+        dlist_init(head);
+
+    // Connect new node to current first element
+    node->next = head->head.next;
+    node->prev = &head->head;
+
+    // Update pointers to insert node at head
+    node->next->prev = node;
+    head->head.next = node;
+
+    // Validate list integrity (debug builds only)
+    dlist_check(head);
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the insertion process
+- Grouped related pointer updates logically
+- Emphasized the automatic list initialization feature
+- Focused on the core doubly-linked list insertion algorithm
+- Maintained all essential functionality while improving readability

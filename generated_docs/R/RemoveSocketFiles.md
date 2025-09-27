@@ -38,3 +38,29 @@ The function is designed to be called during shutdown sequences and deliberately
 - The sock_paths list is set to NIL after processing, though this is mainly for completeness as the process is exiting
 - Essential for preventing leftover socket files in the filesystem after PostgreSQL shutdown
 - Works in conjunction with TouchSocketFiles to manage socket file lifecycle
+
+## Simplified Source
+
+```c
+// Simplified version of RemoveSocketFiles
+void RemoveSocketFiles(void) {
+    ListCell *l;
+
+    // Iterate through all socket file paths
+    foreach(l, sock_paths) {
+        char *socket_path = (char *) lfirst(l);
+
+        // Remove the socket file (ignore any errors)
+        unlink(socket_path);
+    }
+
+    // Clear the list (cleanup, though not strictly necessary before exit)
+    sock_paths = NIL;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Used more descriptive variable name (socket_path instead of sock_path)
+- Removed the explicit error handling comment in favor of inline comment
+- Focused on the main execution path: iterate, unlink, clear list

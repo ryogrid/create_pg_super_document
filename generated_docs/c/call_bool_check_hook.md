@@ -49,3 +49,49 @@ Before calling the hook, it resets all error reporting variables to ensure clean
 - Uses FlushErrorState() to clean up any temporary strings created during error reporting
 - Part of PostgreSQL's GUC validation infrastructure specifically for boolean parameters
 - Maintains consistent error reporting protocol across all boolean GUC parameter validations
+
+## Simplified Source
+
+```c
+// Simplified version of call_bool_check_hook
+static bool call_bool_check_hook(struct config_bool *conf, bool *newval, void **extra,
+                                GucSource source, int elevel) {
+    // Quick exit if no validation hook is defined
+    if (!conf->check_hook)
+        return true;
+
+    // Reset error reporting variables to clean state
+    GUC_check_errcode_value = ERRCODE_INVALID_PARAMETER_VALUE;
+    GUC_check_errmsg_string = NULL;
+    GUC_check_errdetail_string = NULL;
+    GUC_check_errhint_string = NULL;
+
+    // Call the validation hook
+    if (!conf->check_hook(newval, extra, source)) {
+        // Hook failed - report comprehensive error
+        ereport(elevel,
+                (errcode(GUC_check_errcode_value),
+                 GUC_check_errmsg_string ?
+                 errmsg_internal("%s", GUC_check_errmsg_string) :
+                 errmsg("invalid value for parameter \"%s\": %d",
+                        conf->gen.name, (int) *newval),
+                 GUC_check_errdetail_string ?
+                 errdetail_internal("%s", GUC_check_errdetail_string) : 0,
+                 GUC_check_errhint_string ?
+                 errhint("%s", GUC_check_errhint_string) : 0));
+
+        // Clean up any temporary error strings
+        FlushErrorState();
+        return false;
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Preserved the essential validation workflow and error reporting logic
+- Maintained the complete ereport call structure as it's critical for proper error handling
+- Kept all error state management as it's fundamental to the GUC system
+- Added clearer comments explaining each major step
+- Reformatted for better readability while preserving all functionality

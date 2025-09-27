@@ -34,3 +34,25 @@ The function uses exclusive locking to ensure thread-safe modification of the ar
 - This is a soft limit that only affects future segment allocations, not existing allocations
 - Virtual memory usage may temporarily exceed the limit due to delayed segment detachment by backends
 - The limit is stored in the area's control structure as max_total_segment_size
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_set_size_limit
+void dsa_set_size_limit(dsa_area *area, size_t limit) {
+    // Core logic step 1: Acquire exclusive lock for thread safety
+    LWLockAcquire(DSA_AREA_LOCK(area), LW_EXCLUSIVE);
+
+    // Core logic step 2: Set the new size limit
+    area->control->max_total_segment_size = limit;
+
+    // Core logic step 3: Release lock
+    LWLockRelease(DSA_AREA_LOCK(area));
+}
+```
+
+Key simplifications made:
+- Focused on the essential three-step process: lock, set limit, unlock
+- Removed detailed explanatory comments about limit enforcement behavior
+- Maintained thread safety through proper locking
+- Simplified to show the core operation of updating the size limit field

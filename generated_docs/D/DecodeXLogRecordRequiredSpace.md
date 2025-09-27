@@ -36,3 +36,38 @@ DecodeXLogRecordRequiredSpace calculates the worst-case buffer space needed to d
 - Accounts for alignment padding that may be required for proper data alignment
 - Used primarily for buffer allocation before actual record decoding
 - The actual space used may be less than the computed value, but will never exceed it
+
+## Simplified Source
+
+```c
+// Simplified version of DecodeXLogRecordRequiredSpace
+size_t DecodeXLogRecordRequiredSpace(size_t xl_tot_len) {
+    size_t size = 0;
+
+    // Fixed size part of DecodedXLogRecord structure
+    size += offsetof(DecodedXLogRecord, blocks[0]);
+
+    // Maximum possible blocks array
+    size += sizeof(DecodedBkpBlock) * (XLR_MAX_BLOCK_ID + 1);
+
+    // All raw record data
+    size += xl_tot_len;
+
+    // Alignment padding for main data
+    size += (MAXIMUM_ALIGNOF - 1);
+
+    // Alignment padding for each block's data
+    size += (MAXIMUM_ALIGNOF - 1) * (XLR_MAX_BLOCK_ID + 1);
+
+    // Final alignment padding
+    size += (MAXIMUM_ALIGNOF - 1);
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while keeping essential information
+- Grouped similar operations with clear descriptions
+- Simplified calculation steps for better readability
+- Maintained pessimistic calculation approach

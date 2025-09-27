@@ -40,3 +40,24 @@ This information is crucial for certificate-based authentication and auditing, a
 - The peer certificate is typically populated during the TLS handshake process
 - Subject name is used for certificate-based authentication and access control
 - Located in src/backend/libpq/be-secure-openssl.c:1516-1524
+
+## Simplified Source
+
+```c
+// Simplified version of be_tls_get_peer_subject_name
+void be_tls_get_peer_subject_name(Port *port, char *ptr, size_t len) {
+    // Copy subject name if peer certificate exists
+    if (port->peer) {
+        char *subject_name = X509_NAME_to_cstring(X509_get_subject_name(port->peer));
+        strlcpy(ptr, subject_name, len);
+    } else {
+        // Set empty string if no peer certificate
+        ptr[0] = '\0';
+    }
+}
+```
+
+Key simplifications made:
+- Extracted subject name conversion to a separate variable for clarity
+- Added explanatory comments for each major step
+- Core logic: Get subject name from peer certificate or set empty string

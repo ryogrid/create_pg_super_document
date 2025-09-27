@@ -39,3 +39,35 @@ The serial number is a unique identifier assigned by the Certificate Authority (
 - Uses strlcpy() for safe string copying with length bounds checking
 - The serial number is converted from ASN.1 INTEGER to BIGNUM to decimal string for human-readable output
 - Part of the TLS/SSL certificate information extraction functionality in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of be_tls_get_peer_serial
+void be_tls_get_peer_serial(Port *port, char *ptr, size_t len) {
+    // Extract serial number if peer certificate exists
+    if (port->peer) {
+        // Get serial number from certificate
+        ASN1_INTEGER *serial = X509_get_serialNumber(port->peer);
+
+        // Convert to BIGNUM for decimal conversion
+        BIGNUM *bignum = ASN1_INTEGER_to_BN(serial, NULL);
+
+        // Convert to decimal string
+        char *decimal_string = BN_bn2dec(bignum);
+
+        // Copy to output buffer and cleanup
+        strlcpy(ptr, decimal_string, len);
+        BN_free(bignum);
+        OPENSSL_free(decimal_string);
+    } else {
+        // Set empty string if no peer certificate
+        ptr[0] = '\0';
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names and inline comments
+- Broke down the conversion process into clear steps
+- Core logic: Extract serial from certificate, convert to decimal string, or set empty

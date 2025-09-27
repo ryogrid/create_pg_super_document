@@ -43,3 +43,51 @@ This function takes no parameters.
 - Blocks indefinitely until all WAL senders reach the required state
 - Essential for preventing race conditions between shutdown checkpoint and active replication
 - Works with pg_usleep which is optimized for different platforms and remains responsive to signals
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndWaitStopping
+void WalSndWaitStopping(void) {
+    // Poll until all WAL senders reach stopping state
+    for (;;) {
+        bool all_stopped = true;
+
+        // Check state of all WAL sender slots
+        for (int i = 0; i < max_wal_senders; i++) {
+            WalSnd *walsnd = &WalSndCtl->walsnds[i];
+
+            // Thread-safe access to WAL sender state
+            SpinLockAcquire(&walsnd->mutex);
+
+            // Skip inactive WAL sender slots
+            if (walsnd->pid == 0) {
+                SpinLockRelease(&walsnd->mutex);
+                continue;
+            }
+
+            // Check if this WAL sender has reached stopping state
+            if (walsnd->state != WALSNDSTATE_STOPPING) {
+                all_stopped = false;
+                SpinLockRelease(&walsnd->mutex);
+                break;
+            }
+            SpinLockRelease(&walsnd->mutex);
+        }
+
+        // Exit if all active WAL senders are in stopping state
+        if (all_stopped)
+            return;
+
+        // Wait 10ms before checking again
+        pg_usleep(10000L);
+    }
+}
+```
+
+Key simplifications made:
+- Simplified loop structure and variable declarations
+- Added clear comments for each major phase
+- Maintained thread-safe state checking pattern
+- Preserved the polling mechanism with appropriate sleep interval
+- Focused on the core waiting and validation logic

@@ -48,3 +48,39 @@ This implementation is not intended for high-precision timing operations within 
 - The timezone parameter assertion ensures PostgreSQL code remains portable across platforms
 - Not suitable for high-precision timing measurements - use  for performance-critical timing operations
 - Part of PostgreSQL's platform abstraction layer for Windows compatibility
+
+## Simplified Source
+
+```c
+// Simplified version of gettimeofday
+int gettimeofday(struct timeval *tp, void *tzp) {
+    FILETIME file_time;
+    ULARGE_INTEGER ularge;
+
+    // Ensure timezone parameter is NULL for portability
+    Assert(tzp == NULL);
+
+    // Get high-precision system time from Windows
+    GetSystemTimePreciseAsFileTime(&file_time);
+
+    // Convert FILETIME to 64-bit integer for easier manipulation
+    ularge.LowPart = file_time.dwLowDateTime;
+    ularge.HighPart = file_time.dwHighDateTime;
+
+    // Convert from Windows epoch (1601) to POSIX epoch (1970) and extract seconds
+    tp->tv_sec = (long) ((ularge.QuadPart - epoch) / FILETIME_UNITS_PER_SEC);
+
+    // Extract microseconds from remainder
+    tp->tv_usec = (long) (((ularge.QuadPart - epoch) % FILETIME_UNITS_PER_SEC)
+                          / FILETIME_UNITS_PER_USEC);
+
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major step
+- Preserved the essential Windows FILETIME to POSIX timeval conversion logic
+- Kept the portability assertion as it's critical for PostgreSQL's cross-platform compatibility
+- Maintained the precise time conversion calculations
+- Focused on the main execution path without losing important functionality

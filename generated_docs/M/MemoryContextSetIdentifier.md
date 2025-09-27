@@ -45,3 +45,22 @@ Setting the identifier to NULL will clear any existing identifier for the contex
 - Pass NULL to clear an existing identifier
 - Widely used across PostgreSQL for context identification in various subsystems
 - Located in src/backend/utils/mmgr/mcxt.c:612-636
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextSetIdentifier
+void MemoryContextSetIdentifier(MemoryContext context, const char *id) {
+    // Validate that the memory context is properly initialized
+    Assert(MemoryContextIsValid(context));
+
+    // Set the identifier string (or NULL to clear existing identifier)
+    context->ident = id;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the validation step
+- Added comment explaining the identifier assignment
+- The function is already quite simple, so minimal changes were needed
+- Preserved the essential validation and assignment logic

@@ -50,3 +50,40 @@ The function safely handles the case where a timeout is already disabled (it's n
 - The keep_indicator parameter allows for timeout firing detection even after disabling
 - Widely used throughout PostgreSQL for transaction management, authentication, statement timeouts, and process control
 - Part of PostgreSQL's comprehensive timeout management system for coordinating time-sensitive operations
+
+## Simplified Source
+
+```c
+// Simplified version of disable_timeout
+void disable_timeout(TimeoutId id, bool keep_indicator) {
+    // Safety checks: ensure timeout system is initialized and timeout exists
+    Assert(all_timeouts_initialized);
+    Assert(all_timeouts[id].timeout_handler != NULL);
+
+    // Step 1: Disable alarm interrupts for thread safety
+    disable_alarm();
+
+    // Step 2: Remove timeout from active list if it's currently active
+    if (all_timeouts[id].active) {
+        int timeout_index = find_active_timeout(id);
+        remove_timeout_index(timeout_index);
+    }
+
+    // Step 3: Reset the fired indicator unless caller wants to keep it
+    if (!keep_indicator) {
+        all_timeouts[id].indicator = false;
+    }
+
+    // Step 4: Reschedule alarm for remaining active timeouts
+    if (num_active_timeouts > 0) {
+        schedule_alarm(GetCurrentTimestamp());
+    }
+}
+```
+
+Key simplifications made:
+- Combined the find and remove operations into clearer steps
+- Added descriptive comments for each major operation
+- Emphasized the safety and thread protection aspects
+- Maintained the essential logic flow while making it more readable
+- Clarified the purpose of the keep_indicator parameter

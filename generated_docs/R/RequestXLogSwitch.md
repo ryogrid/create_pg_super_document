@@ -38,3 +38,32 @@ The function optionally marks the switch record as unimportant, which affects ho
 - XLOG SWITCH records contain no data payload - they exist solely to trigger the segment switch
 - This function is commonly used in backup and archiving workflows to ensure clean segment boundaries
 - The actual segment switching logic is handled internally by XLogInsert, making this function a simple interface wrapper
+
+## Simplified Source
+
+```c
+// Simplified version of RequestXLogSwitch
+XLogRecPtr RequestXLogSwitch(bool mark_unimportant) {
+    XLogRecPtr RecPtr;
+
+    // Step 1: Prepare to insert a new WAL record (no data payload)
+    XLogBeginInsert();
+
+    // Step 2: Optionally mark this switch as unimportant for recovery
+    if (mark_unimportant) {
+        XLogSetRecordFlags(XLOG_MARK_UNIMPORTANT);
+    }
+
+    // Step 3: Insert the XLOG SWITCH record (triggers actual segment switch)
+    RecPtr = XLogInsert(RM_XLOG_ID, XLOG_SWITCH);
+
+    // Step 4: Return the LSN where the switch record was written
+    return RecPtr;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the core logic flow
+- Emphasized that XLOG SWITCH records have no data payload
+- Clarified that XLogInsert handles the actual switching mechanism
+- Focused on the main execution path without losing essential functionality

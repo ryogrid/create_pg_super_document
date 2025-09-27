@@ -42,3 +42,74 @@ For WAL record messages, the function extracts header information including the 
 - Performs strict protocol validation, raising errors for invalid message types or malformed messages
 - The function is critical for maintaining data consistency during streaming replication
 - Located in src/backend/replication/walreceiver.c:839-909
+
+## Simplified Source
+
+```c
+// Simplified version of XLogWalRcvProcessMsg
+static void
+XLogWalRcvProcessMsg(unsigned char type, char *buf, Size len, TimeLineID tli)
+{
+    XLogRecPtr dataStart;
+    XLogRecPtr walEnd;
+    TimestampTz sendTime;
+    bool replyRequested;
+
+    switch (type)
+    {
+        case 'w':  // WAL records message
+        {
+            // Validate message has minimum required header
+            int hdrlen = sizeof(int64) + sizeof(int64) + sizeof(int64);
+            if (len < hdrlen)
+                ereport(ERROR, "invalid WAL message received from primary");
+
+            // Parse header: dataStart, walEnd, sendTime
+            StringInfoData incoming_message;
+            initReadOnlyStringInfo(&incoming_message, buf, hdrlen);
+            dataStart = pq_getmsgint64(&incoming_message);
+            walEnd = pq_getmsgint64(&incoming_message);
+            sendTime = pq_getmsgint64(&incoming_message);
+
+            // Process sender message and write WAL data
+            ProcessWalSndrMessage(walEnd, sendTime);
+            XLogWalRcvWrite(buf + hdrlen, len - hdrlen, dataStart, tli);
+            break;
+        }
+
+        case 'k':  // Keepalive message
+        {
+            // Validate exact message size
+            int hdrlen = sizeof(int64) + sizeof(int64) + sizeof(char);
+            if (len != hdrlen)
+                ereport(ERROR, "invalid keepalive message received from primary");
+
+            // Parse header: walEnd, sendTime, replyRequested flag
+            StringInfoData incoming_message;
+            initReadOnlyStringInfo(&incoming_message, buf, hdrlen);
+            walEnd = pq_getmsgint64(&incoming_message);
+            sendTime = pq_getmsgint64(&incoming_message);
+            replyRequested = pq_getmsgbyte(&incoming_message);
+
+            // Process sender message
+            ProcessWalSndrMessage(walEnd, sendTime);
+
+            // Send immediate reply if requested by primary
+            if (replyRequested)
+                XLogWalRcvSendReply(true, false);
+            break;
+        }
+
+        default:
+            ereport(ERROR, "invalid replication message type %d", type);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated error handling into single-line checks
+- Added descriptive comments for each major step
+- Simplified variable declarations to focus on core logic
+- Removed redundant StringInfo initialization details
+- Focused on the main message processing flow
+- Clarified the two distinct message types and their handling

@@ -42,3 +42,22 @@ The function serves as a high-level wrapper around the platform-specific impleme
 - Commonly used in PostgreSQL's locking mechanisms and signal handling
 - The inline nature of the function ensures minimal overhead while maintaining atomicity guarantees
 - Used extensively in buffer management and lightweight lock implementations
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_fetch_or_u32
+static inline uint32 pg_atomic_fetch_or_u32(volatile pg_atomic_uint32 *ptr, uint32 or_) {
+    // Verify proper alignment for atomic operations
+    AssertPointerAlignment(ptr, 4);
+
+    // Perform atomic fetch-and-OR operation
+    return pg_atomic_fetch_or_u32_impl(ptr, or_);
+}
+```
+
+Key simplifications made:
+- Added comments explaining the alignment check and atomic operation
+- Maintained the complete function as it's already very simple and focused
+- No significant simplification needed due to the function's inherent simplicity
+- Preserved all essential safety checks and atomic operation semantics

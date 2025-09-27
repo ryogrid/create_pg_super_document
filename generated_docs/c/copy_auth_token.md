@@ -38,3 +38,21 @@ The copy is completely independent of the original - modifications to either the
 - Useful when the same token needs to be used in multiple contexts or when building authentication rule structures
 - The copied token will have the same string content and quoted flag as the original
 - Memory for the copy is allocated using PostgreSQL's memory management system (palloc)
+
+## Simplified Source
+
+```c
+// Simplified version of copy_auth_token
+static AuthToken *copy_auth_token(AuthToken *in) {
+    // Create a new AuthToken with the same string and quoted flag
+    // This allocates fresh memory and copies the string content
+    AuthToken *out = make_auth_token(in->string, in->quoted);
+
+    return out;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core operation
+- The function is already quite simple, so minimal changes were needed
+- Emphasized that this creates a completely independent copy with fresh memory

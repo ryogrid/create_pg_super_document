@@ -53,3 +53,32 @@ This function takes no parameters.
 - Critical function for transaction timing, WAL operations, statistics, and monitoring
 - The function is defined in `src/backend/utils/adt/timestamp.c` at lines 1654-1671
 - Returns `TimestampTz` which includes timezone information and microsecond precision
+
+## Simplified Source
+
+```c
+// Simplified version of GetCurrentTimestamp
+TimestampTz GetCurrentTimestamp(void) {
+    TimestampTz result;
+    struct timeval current_time;
+
+    // Get current system time with microsecond precision
+    gettimeofday(&current_time, NULL);
+
+    // Convert Unix epoch (1970) to PostgreSQL epoch (2000)
+    // Subtract the 30-year difference in seconds
+    result = (TimestampTz) current_time.tv_sec -
+        ((POSTGRES_EPOCH_JDATE - UNIX_EPOCH_JDATE) * SECS_PER_DAY);
+
+    // Convert to microseconds and add microsecond component
+    result = (result * USECS_PER_SEC) + current_time.tv_usec;
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Used more descriptive variable name (current_time instead of tp)
+- Clarified the epoch conversion logic with inline comments
+- Maintained the exact same functionality and precision

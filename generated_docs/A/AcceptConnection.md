@@ -59,3 +59,38 @@ The function is designed to be used in a blocking context where the postmaster p
 - The most common cause of accept() failure is running out of kernel file table slots
 - The client_sock->raddr structure is populated with the remote client's address information
 - Returns STATUS_OK on successful connection acceptance, STATUS_ERROR on failure
+
+## Simplified Source
+
+```c
+// Simplified version of AcceptConnection
+int AcceptConnection(pgsocket server_fd, ClientSocket *client_sock) {
+    // Set up address buffer size
+    client_sock->raddr.salen = sizeof(client_sock->raddr.addr);
+
+    // Accept the incoming connection
+    client_sock->sock = accept(server_fd,
+                              (struct sockaddr *) &client_sock->raddr.addr,
+                              &client_sock->raddr.salen);
+
+    // Handle connection failure
+    if (client_sock->sock == PGINVALID_SOCKET) {
+        // Log the connection failure
+        ereport(LOG, (errcode_for_socket_access(),
+                     errmsg("could not accept new connection: %m")));
+
+        // Brief delay to prevent CPU spinning on repeated failures
+        pg_usleep(100000L);  // wait 0.1 sec
+        return STATUS_ERROR;
+    }
+
+    return STATUS_OK;
+}
+```
+
+Key simplifications made:
+- Preserved the core accept() system call logic
+- Maintained essential error handling and logging
+- Kept the CPU protection delay mechanism
+- Added descriptive comments for each main step
+- Focused on the primary execution flow

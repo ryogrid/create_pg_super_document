@@ -44,3 +44,32 @@ Return value:
 - Essential for crash recovery scenarios where precise position tracking is required
 - The timeline ID parameter allows atomic retrieval of both position and timeline information
 - Primarily used within xlog_redo operations for maintaining recovery consistency
+
+## Simplified Source
+
+```c
+// Simplified version of GetCurrentReplayRecPtr
+XLogRecPtr GetCurrentReplayRecPtr(TimeLineID *replayEndTLI) {
+    XLogRecPtr recptr;
+    TimeLineID tli;
+
+    // Thread-safe access to shared recovery state
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+    recptr = XLogRecoveryCtl->replayEndRecPtr;
+    tli = XLogRecoveryCtl->replayEndTLI;
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    // Return timeline ID if requested
+    if (replayEndTLI)
+        *replayEndTLI = tli;
+
+    return recptr;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the thread safety mechanism
+- Simplified variable declarations and flow
+- Maintained the atomic read pattern with spinlock protection
+- Preserved optional timeline ID output parameter handling
+- Focused on the core functionality of retrieving current replay position

@@ -39,3 +39,22 @@ The  function determines if a doubly-linked list contains any elements by checki
 - Widely used across PostgreSQL subsystems including GIN indexes, parallel processing, replication, locking, and memory management
 - The const qualifier on the parameter ensures the function doesn't modify the list structure
 - Located in src/include/lib/ilist.h:336-346
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_is_empty
+static inline bool dlist_is_empty(const dlist_head *head) {
+    // Validate list structure in debug builds
+    dlist_check(head);
+
+    // Check for empty list: either uninitialized (NULL) or initialized empty (self-pointing)
+    return (head->head.next == NULL) || (head->head.next == &(head->head));
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two empty state conditions
+- Maintained the original logic flow with improved readability
+- Preserved the debug validation call
+- Emphasized the dual nature of empty list detection

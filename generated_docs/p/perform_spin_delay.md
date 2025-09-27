@@ -49,3 +49,50 @@ The exponential backoff with randomization helps reduce contention while the del
 - The spins counter resets after each delay period
 - Critical component of PostgreSQL's spinlock infrastructure used throughout the system
 - Balances CPU efficiency (short spins) with system responsiveness (progressive delays)
+
+## Simplified Source
+
+```c
+// Simplified version of perform_spin_delay
+void perform_spin_delay(SpinDelayStatus *status) {
+    // Execute CPU-specific delay
+    SPIN_DELAY();
+
+    // Check if we should block after spinning enough times
+    if (++(status->spins) >= spins_per_delay) {
+        // Detect stuck locks after too many delays
+        if (++(status->delays) > NUM_DELAYS) {
+            s_lock_stuck(status->file, status->line, status->func);
+        }
+
+        // Initialize delay on first blocking
+        if (status->cur_delay == 0) {
+            status->cur_delay = MIN_DELAY_USEC;
+        }
+
+        // Report wait event and sleep for current delay
+        pgstat_report_wait_start(WAIT_EVENT_SPIN_DELAY);
+        pg_usleep(status->cur_delay);
+        pgstat_report_wait_end();
+
+        // Increase delay with random factor (1X to 2X)
+        status->cur_delay += (int)(status->cur_delay *
+                                  pg_prng_double(&pg_global_prng_state) + 0.5);
+
+        // Wrap delay back to minimum if maximum exceeded
+        if (status->cur_delay > MAX_DELAY_USEC) {
+            status->cur_delay = MIN_DELAY_USEC;
+        }
+
+        // Reset spin counter for next cycle
+        status->spins = 0;
+    }
+}
+```
+
+Key simplifications made:
+- Removed test-specific debug output code
+- Consolidated the delay adjustment logic with clearer comments
+- Simplified the exponential backoff explanation in comments
+- Maintained all essential logic for spin counting, delay management, and stuck lock detection
+- Preserved the randomization and wrap-around behavior for proper contention handling

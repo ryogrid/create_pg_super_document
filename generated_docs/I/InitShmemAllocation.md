@@ -45,3 +45,38 @@ None - this function takes no parameters.
 - Cache line alignment is crucial for performance on modern multi-core systems
 - Uses ShmemAllocUnlocked for the initial spinlock allocation since ShmemAlloc is not yet operational
 - Located in src/backend/storage/ipc/shmem.c:115-151
+
+## Simplified Source
+
+```c
+// Simplified version of InitShmemAllocation
+void InitShmemAllocation(void) {
+    PGShmemHeader *shmhdr = ShmemSegHdr;
+    char *aligned;
+
+    // Validate shared memory header is available
+    Assert(shmhdr != NULL);
+
+    // Step 1: Initialize the shared memory allocation spinlock
+    // Use unlocked allocation since ShmemAlloc isn't ready yet
+    ShmemLock = (slock_t *) ShmemAllocUnlocked(sizeof(slock_t));
+    SpinLockInit(ShmemLock);
+
+    // Step 2: Align future allocations to cache line boundaries
+    // Calculate aligned position for next allocation
+    aligned = (char *) CACHELINEALIGN((char *)shmhdr + shmhdr->freeoffset);
+    shmhdr->freeoffset = aligned - (char *)shmhdr;
+
+    // Step 3: Initialize index placeholders
+    // ShmemIndex will be set up later when LWLocks are available
+    shmhdr->index = NULL;
+    ShmemIndex = NULL;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated into step-by-step descriptions
+- Simplified the cache line alignment calculation for readability
+- Clarified the order of operations with numbered steps
+- Maintained the essential logic while improving code clarity
+- Preserved all critical functionality and assertions

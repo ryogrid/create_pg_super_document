@@ -42,3 +42,26 @@ This implementation ensures that PostgreSQL code can use the standard link() int
 - The function interface matches the standard Unix link() system call exactly
 - Error handling follows Unix conventions with errno being set appropriately
 - Note: There is also a different link() function in src/timezone/zic.c for WIN32 that uses CopyFile instead of CreateHardLinkA
+
+## Simplified Source
+
+```c
+// Simplified version of link - Windows hard link implementation
+int link(const char *src, const char *dst) {
+    // Create hard link using Windows API (dst -> src)
+    if (CreateHardLinkA(dst, src, NULL) == 0) {
+        // Map Windows error to Unix errno and return failure
+        _dosmaperr(GetLastError());
+        return -1;
+    }
+
+    // Success
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the core logic
+- Highlighted the parameter order (dst, src) which differs from intuition
+- Simplified the else branch to focus on the success path
+- Emphasized the error mapping mechanism

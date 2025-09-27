@@ -44,3 +44,30 @@ The function is commonly used in path parsing operations where you need to split
 - Particularly important for security checks in extension and library loading where directory separators in names could indicate path traversal attempts
 - The function handles both absolute and relative paths correctly by skipping drive prefixes first
 - Used extensively in dynamic library management and extension system for path validation
+
+## Simplified Source
+
+```c
+// Simplified version of first_dir_separator
+char *first_dir_separator(const char *filename) {
+    const char *p;
+
+    // Skip any drive prefix (e.g., "C:" on Windows)
+    for (p = skip_drive(filename); *p; p++) {
+        // Check if current character is a directory separator
+        if (IS_DIR_SEP(*p)) {
+            return unconstify(char *, p);
+        }
+    }
+
+    // No separator found
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Preserved the core algorithm: skip drive prefix, then scan for separators
+- Maintained the essential loop structure and logic flow
+- Kept all critical function calls (skip_drive, IS_DIR_SEP, unconstify)
+- Added explanatory comments for each major step
+- Focused on the main execution path without platform-specific details

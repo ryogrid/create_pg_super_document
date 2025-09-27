@@ -40,3 +40,29 @@ The function uses PostgreSQL's safe arithmetic functions (add_size and mul_size)
 - This function is part of the shared memory initialization process and must be called before allocating shared memory for the invalidation subsystem
 - The size calculation is critical for proper shared memory layout and must account for all processes that will participate in cache invalidation
 - Uses safe arithmetic functions to prevent overflow, which is important for large numbers of backend processes
+
+## Simplified Source
+
+```c
+// Simplified version of SInvalShmemSize
+Size SInvalShmemSize(void) {
+    Size size;
+
+    // Calculate base size of SISeg structure up to procState field
+    size = offsetof(SISeg, procState);
+
+    // Add space for procState array (one entry per process slot)
+    size = add_size(size, mul_size(sizeof(ProcState), NumProcStateSlots));
+
+    // Add space for pgprocnos array (one int per process slot)
+    size = add_size(size, mul_size(sizeof(int), NumProcStateSlots));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each calculation step
+- Preserved the original logic completely (no simplification needed as function is already concise)
+- Maintained use of safe arithmetic functions for overflow protection
+- Focused on the three-step calculation: base size + procState array + pgprocnos array

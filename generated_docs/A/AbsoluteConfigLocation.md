@@ -41,3 +41,39 @@ The function uses PostgreSQL's path manipulation utilities to ensure proper path
 - Uses Assert(DataDir) when no calling file is provided, indicating DataDir must be set
 - Part of PostgreSQL's configuration file processing system, particularly for handling included files and directories
 - Ensures consistent absolute path resolution across different configuration contexts
+
+## Simplified Source
+
+```c
+// Simplified version of AbsoluteConfigLocation
+char *AbsoluteConfigLocation(const char *location, const char *calling_file) {
+    // If already absolute, just duplicate and return
+    if (is_absolute_path(location)) {
+        return pstrdup(location);
+    }
+
+    // Handle relative paths
+    char abs_path[MAXPGPATH];
+
+    if (calling_file != NULL) {
+        // Resolve relative to calling file's directory
+        strlcpy(abs_path, calling_file, sizeof(abs_path));
+        get_parent_directory(abs_path);
+        join_path_components(abs_path, abs_path, location);
+        canonicalize_path(abs_path);
+    } else {
+        // Resolve relative to DataDir
+        Assert(DataDir);
+        join_path_components(abs_path, DataDir, location);
+        canonicalize_path(abs_path);
+    }
+
+    return pstrdup(abs_path);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two resolution strategies
+- Separated absolute vs relative path handling logic
+- Maintained the path manipulation and canonicalization steps
+- Preserved the memory allocation pattern with pstrdup

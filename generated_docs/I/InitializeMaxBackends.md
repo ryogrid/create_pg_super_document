@@ -42,3 +42,28 @@ This function takes no parameters.
 - The calculation excludes "auxiliary" processes from the count
 - If the computed MaxBackends exceeds MAX_BACKENDS, it's considered an internal error since all individual values should have been validated previously
 - NUM_SPECIAL_WORKER_PROCS accounts for special background worker processes like checkpointer, background writer, etc.
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeMaxBackends
+void InitializeMaxBackends(void) {
+    // Calculate total backends needed by summing all process types
+    MaxBackends = MaxConnections +           // Regular client connections
+                  autovacuum_max_workers +   // Autovacuum processes
+                  max_worker_processes +     // Background worker processes
+                  max_wal_senders +          // WAL sender processes
+                  NUM_SPECIAL_WORKER_PROCS;  // Special system processes
+
+    // Ensure we don't exceed system limits
+    if (MaxBackends > MAX_BACKENDS) {
+        elog(ERROR, "too many backends configured");
+    }
+}
+```
+
+Key simplifications made:
+- Removed assertion check for clarity
+- Added inline comments explaining each component of the calculation
+- Focused on the core logic: calculate total and validate against limits
+- Maintained the essential error checking functionality

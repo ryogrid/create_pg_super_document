@@ -40,3 +40,45 @@ This function is particularly useful for scenarios where multiple threads need t
 - Guarantees monotonic advancement - the value can only increase, never decrease
 - Returns the final observed value, which may be higher than the target if another thread advanced it further
 - This is commonly used in PostgreSQL's WAL system for coordinating write operations across multiple processes
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_monotonic_advance_u64
+static inline uint64 pg_atomic_monotonic_advance_u64(volatile pg_atomic_uint64 *ptr, uint64 target) {
+    uint64 current_value;
+
+    // Verify alignment when not using simulation mode
+    #ifndef PG_HAVE_ATOMIC_U64_SIMULATION
+    AssertPointerAlignment(ptr, 8);
+    #endif
+
+    // Read current value atomically
+    current_value = pg_atomic_read_u64_impl(ptr);
+
+    // If already at or above target, return with memory barrier
+    if (current_value >= target) {
+        pg_memory_barrier();
+        return current_value;
+    }
+
+    // Loop until we reach the target or another thread does
+    while (current_value < target) {
+        // Try to set value to target using compare-and-exchange
+        if (pg_atomic_compare_exchange_u64(ptr, &current_value, target)) {
+            return target;  // Successfully set to target
+        }
+        // current_value was updated by compare_exchange to the actual value
+    }
+
+    return current_value;
+}
+```
+
+Key simplifications made:
+- Added comments explaining the monotonic advancement logic
+- Clarified the compare-and-exchange loop behavior
+- Explained how current_value gets updated by the failed compare-exchange
+- Maintained all essential atomic operations and memory barriers
+- Preserved the alignment checks and simulation mode handling
+- Simplified variable naming for clarity

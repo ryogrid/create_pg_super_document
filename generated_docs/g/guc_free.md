@@ -48,3 +48,25 @@ The function includes an important safety feature that helps catch programming e
 - The assertion helps catch bugs where non-GUC memory is passed to GUC memory functions
 - Provides consistent memory management within the GUC subsystem
 - Essential for proper cleanup of configuration-related memory allocations
+
+## Simplified Source
+
+```c
+// Simplified version of guc_free
+void guc_free(void *ptr) {
+    // Allow NULL pointers (unlike standard pfree)
+    if (ptr != NULL) {
+        // Verify memory belongs to GUC context (debug safety check)
+        Assert(GetMemoryChunkContext(ptr) == GUCMemoryContext);
+
+        // Free the memory
+        pfree(ptr);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two main operations
+- Preserved the essential NULL check and assertion logic
+- Maintained the core functionality while making the purpose more explicit
+- Focused on the main execution path

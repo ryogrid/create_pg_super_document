@@ -35,3 +35,51 @@ This function is a simple wrapper that drops a replication slot by calling the c
 - If wait is true, the operation will block until the slot becomes inactive, then drop it
 - Used by both physical and logical replication slot management
 - Part of the replication protocol command processing in WAL sender processes
+
+## Simplified Source
+
+```c
+// Simplified version of DropReplicationSlot
+bool DropReplicationSlot(PGconn *conn, const char *slot_name) {
+    PQExpBuffer query;
+    PGresult *res;
+
+    // Validate input
+    Assert(slot_name != NULL);
+
+    // Build the DROP_REPLICATION_SLOT command
+    query = createPQExpBuffer();
+    appendPQExpBuffer(query, "DROP_REPLICATION_SLOT \"%s\"", slot_name);
+
+    // Execute the command
+    res = PQexec(conn, query->data);
+
+    // Check if command executed successfully
+    if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        // Log error and cleanup
+        pg_log_error("could not send replication command \"%s\": %s",
+                     query->data, PQerrorMessage(conn));
+        cleanup_and_return_false();
+    }
+
+    // Verify result format (should be empty)
+    if (PQntuples(res) != 0 || PQnfields(res) != 0) {
+        // Log unexpected result format and cleanup
+        pg_log_error("could not drop replication slot \"%s\": got %d rows and %d fields, expected %d rows and %d fields",
+                     slot_name, PQntuples(res), PQnfields(res), 0, 0);
+        cleanup_and_return_false();
+    }
+
+    // Success - cleanup and return true
+    destroyPQExpBuffer(query);
+    PQclear(res);
+    return true;
+}
+```
+
+Key simplifications made:
+- Consolidated error handling into a conceptual `cleanup_and_return_false()` function
+- Added descriptive comments for each major step
+- Grouped related operations together logically
+- Focused on the main execution path: build query → execute → validate → cleanup
+- Preserved all essential error checking and resource management

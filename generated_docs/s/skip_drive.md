@@ -42,3 +42,35 @@ The function returns a pointer to the portion of the path after the drive specif
 - Uses the IS_DIR_SEP macro to handle different directory separator characters across platforms
 - For UNC paths, it skips past the server name but stops at the first directory separator after the server name
 - Essential for path manipulation functions that need to work with the directory structure independent of drive specifications
+
+## Simplified Source
+
+```c
+// Simplified version of skip_drive
+static char *skip_drive(const char *path) {
+    // Handle UNC paths (\\server\share)
+    if (IS_DIR_SEP(path[0]) && IS_DIR_SEP(path[1])) {
+        // Skip past the initial double separators
+        path += 2;
+
+        // Skip past the server name
+        while (*path && !IS_DIR_SEP(*path)) {
+            path++;
+        }
+    }
+    // Handle Windows drive letters (C:)
+    else if (isalpha((unsigned char) path[0]) && path[1] == ':') {
+        // Skip past drive letter and colon
+        path += 2;
+    }
+
+    // Return pointer past the drive specification
+    return (char *) path;
+}
+```
+
+Key simplifications made:
+- Added clear comments for both UNC and drive letter handling
+- Preserved the essential dual path format support
+- Maintained the cross-platform compatibility logic
+- Kept the important pointer advancement for each case

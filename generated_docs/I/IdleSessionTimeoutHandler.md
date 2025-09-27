@@ -41,3 +41,25 @@ This function takes no parameters.
 - Important for systems with limited connection capacity or high connection churn
 - Works in conjunction with idle_session_timeout configuration parameter
 - Less aggressive than idle-in-transaction timeouts since idle sessions typically hold fewer resources
+
+## Simplified Source
+
+```c
+// Simplified version of IdleSessionTimeoutHandler
+static void IdleSessionTimeoutHandler(void) {
+    // Mark that idle session timeout has occurred
+    IdleSessionTimeoutPending = true;
+
+    // Set interrupt flag for deferred processing
+    InterruptPending = true;
+
+    // Wake up the process to handle the timeout
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each timeout handling step
+- This function is already extremely simple with only three flag/latch operations
+- Preserved the essential deferred timeout handling pattern
+- Maintained the critical process wake-up mechanism via SetLatch

@@ -40,3 +40,31 @@ This function takes no parameters.
 - Enables continued latch functionality during process shutdown even after shared memory detachment
 - Ensures proper state transition during process cleanup to avoid accessing freed shared memory
 - The reverse operation of SwitchToSharedLatch, completing the latch lifecycle
+
+## Simplified Source
+
+```c
+// Simplified version of SwitchBackToLocalLatch
+void SwitchBackToLocalLatch(void) {
+    // Verify we're currently using a shared latch
+    Assert(MyLatch != &LocalLatchData);
+    Assert(MyProc != NULL && MyLatch == &MyProc->procLatch);
+
+    // Switch back to the local latch
+    MyLatch = &LocalLatchData;
+
+    // Update wait event set if it exists
+    if (FeBeWaitSet) {
+        ModifyWaitEvent(FeBeWaitSet, FeBeWaitSetLatchPos, WL_LATCH_SET, MyLatch);
+    }
+
+    // Activate the local latch to preserve any pending signals
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Preserved the essential assertion checks for correctness
+- Maintained the core logic flow: verify state, switch latch, update wait events, set latch
+- Focused on the main execution path without removing any actual functionality

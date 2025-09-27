@@ -52,3 +52,54 @@ The timing and locking strategy is carefully designed to handle race conditions 
 - Standby servers use this information to transition to STANDBY_SNAPSHOT_READY state
 - Contains extensive documentation about the hot standby recovery process and timing considerations
 - Located in src/backend/storage/ipc/standby.c:1285-1344
+
+## Simplified Source
+
+```c
+// Simplified version of LogStandbySnapshot
+XLogRecPtr LogStandbySnapshot(void) {
+    XLogRecPtr recptr;
+    RunningTransactions running;
+    xl_standby_lock *locks;
+    int nlocks;
+
+    // Verify standby logging is active
+    Assert(XLogStandbyInfoActive());
+
+    // Phase 1: Log current AccessExclusiveLocks
+    locks = GetRunningTransactionLocks(&nlocks);
+    if (nlocks > 0) {
+        LogAccessExclusiveLocks(nlocks, locks);
+    }
+    pfree(locks);
+
+    // Phase 2: Get snapshot of all running transactions
+    // This must be the last record written for standby to open
+    running = GetRunningTransactionData();
+
+    // Handle lock release timing based on WAL level
+    // For hot standby: release early (clog rechecks commit status)
+    // For logical decoding: hold longer (avoid "future" clog issues)
+    if (wal_level < WAL_LEVEL_LOGICAL) {
+        LWLockRelease(ProcArrayLock);
+    }
+
+    // Log the running transaction snapshot
+    recptr = LogCurrentRunningXacts(running);
+
+    // Release remaining locks
+    if (wal_level >= WAL_LEVEL_LOGICAL) {
+        LWLockRelease(ProcArrayLock);
+    }
+    LWLockRelease(XidGenLock);
+
+    return recptr;
+}
+```
+
+Key simplifications made:
+- Removed extensive comments about hot standby implementation details
+- Consolidated lock release logic with clear explanations
+- Focused on the two main phases: lock logging and transaction snapshot logging
+- Preserved the critical locking strategy differences for different WAL levels
+- Abstracted the complex race condition handling described in comments

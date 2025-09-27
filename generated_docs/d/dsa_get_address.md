@@ -53,3 +53,42 @@ The function may trigger segment mapping operations if the target segment is not
 - Uses  compiler hint to optimize for the common case where segments are already mapped
 - Thread-safe through the underlying segment mapping mechanisms
 - Performance consideration: First access to a segment in a process may be slower due to mapping overhead
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_get_address
+void *dsa_get_address(dsa_area *area, dsa_pointer dp) {
+    dsa_segment_index index;
+    size_t offset;
+
+    // Handle invalid pointer: convert to NULL
+    if (!DsaPointerIsValid(dp))
+        return NULL;
+
+    // Clean up any freed segments that are pending detachment
+    check_for_freed_segments(area);
+
+    // Extract segment and offset from the dsa_pointer
+    index = DSA_EXTRACT_SEGMENT_NUMBER(dp);
+    offset = DSA_EXTRACT_OFFSET(dp);
+    Assert(index < DSA_MAX_SEGMENTS);
+
+    // Ensure target segment is mapped into current process
+    if (unlikely(area->segment_maps[index].mapped_address == NULL)) {
+        // Trigger segment mapping (don't need the return value)
+        get_segment_by_index(area, index);
+    }
+
+    // Return local address: segment base + offset
+    return area->segment_maps[index].mapped_address + offset;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major operation phase
+- Simplified the segment mapping check and operation
+- Maintained the unlikely() compiler hint for optimization
+- Preserved all essential validation and error handling
+- Focused on the core address translation mechanism
+- Documented the automatic segment mapping behavior

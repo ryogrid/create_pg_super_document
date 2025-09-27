@@ -41,3 +41,31 @@ The function executes on a thread created by the Windows operating system at the
 - Registered with the system via SetConsoleCtrlHandler() during signal initialization
 - Provides a bridge between Windows console events and PostgreSQL's Unix-like signal system
 - Essential for proper signal handling in PostgreSQL console applications on Windows
+
+## Simplified Source
+
+```c
+// Simplified version of pg_console_handler
+// Windows console control handler - converts console events to SIGINT signals
+static BOOL WINAPI pg_console_handler(DWORD dwCtrlType) {
+    // Check if this is one of the console events we handle
+    if (dwCtrlType == CTRL_C_EVENT ||       // Ctrl+C pressed
+        dwCtrlType == CTRL_BREAK_EVENT ||   // Ctrl+Break pressed
+        dwCtrlType == CTRL_CLOSE_EVENT ||   // Console window closed
+        dwCtrlType == CTRL_SHUTDOWN_EVENT)  // System shutdown
+    {
+        // Convert all these events to SIGINT signal
+        pg_queue_signal(SIGINT);
+        return TRUE;  // Event handled
+    }
+
+    // Unknown event - let other handlers process it
+    return FALSE;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each console event type
+- Clarified the purpose of return values (TRUE/FALSE)
+- Maintained the original logic flow without changes
+- Focused on the core functionality: event detection and signal queuing

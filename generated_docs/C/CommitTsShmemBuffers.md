@@ -34,3 +34,23 @@ This function takes no parameters.
 - The auto-tuning logic helps optimize memory usage based on the system's shared buffer configuration
 - The minimum buffer count of 16 ensures basic functionality even with small configurations
 - This is part of PostgreSQL's commit timestamp tracking infrastructure, which records when transactions commit
+
+## Simplified Source
+
+```c
+// Simplified version of CommitTsShmemBuffers
+static int CommitTsShmemBuffers(void) {
+    // Auto-tune based on shared buffers if not configured
+    if (commit_timestamp_buffers == 0) {
+        return SimpleLruAutotuneBuffers(512, 1024);
+    }
+
+    // Use configured value within reasonable bounds
+    return Min(Max(16, commit_timestamp_buffers), SLRU_MAX_ALLOWED_BUFFERS);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the two main logic paths: auto-tune vs manual configuration
+- Maintained the essential buffer calculation logic

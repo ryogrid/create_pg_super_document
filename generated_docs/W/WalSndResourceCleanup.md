@@ -40,3 +40,39 @@ The function implements a careful protocol where it first saves the CurrentResou
 - Setting CurrentResourceOwner to NULL before cleanup prevents potential issues with recursive cleanup attempts
 - The isCommit parameter allows different cleanup behaviors for normal completion versus error conditions
 - This function is specifically designed for WAL sender processes which may create ResourceOwners outside of normal transaction contexts
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndResourceCleanup
+void WalSndResourceCleanup(bool isCommit) {
+    // Early exit if no resource owner exists
+    if (CurrentResourceOwner == NULL)
+        return;
+
+    // Save the current resource owner and clear the global pointer
+    // This prevents issues with deleting the currently active resource owner
+    ResourceOwner resowner = CurrentResourceOwner;
+    CurrentResourceOwner = NULL;
+
+    // Release resources in the required three-phase order
+    // Phase 1: Release resources that must be freed before locks
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_BEFORE_LOCKS, isCommit, true);
+
+    // Phase 2: Release lock resources
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_LOCKS, isCommit, true);
+
+    // Phase 3: Release resources that must be freed after locks
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_AFTER_LOCKS, isCommit, true);
+
+    // Finally delete the resource owner itself
+    ResourceOwnerDelete(resowner);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each phase of the cleanup process
+- Combined variable declaration with assignment for clarity
+- Emphasized the three-phase cleanup pattern with clear phase descriptions
+- Highlighted the safety mechanism of clearing CurrentResourceOwner before cleanup
+- Maintained the essential logic and error handling pattern

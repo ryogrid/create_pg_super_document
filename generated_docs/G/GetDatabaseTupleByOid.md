@@ -42,3 +42,48 @@ The function opens the pg_database relation, performs a scan to find the tuple m
 - Returns a copied tuple to ensure the data remains valid after the relation buffer is released
 - Returns NULL (invalid HeapTuple) if the specified database OID is not found
 - Critical for database startup process, especially when switching databases by OID
+
+## Simplified Source
+
+```c
+// Simplified version of GetDatabaseTupleByOid
+static HeapTuple GetDatabaseTupleByOid(Oid dboid) {
+    HeapTuple tuple;
+    Relation relation;
+    SysScanDesc scan;
+    ScanKeyData key[1];
+
+    // Set up scan key to search by database OID
+    ScanKeyInit(&key[0],
+                Anum_pg_database_oid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(dboid));
+
+    // Open pg_database relation for reading
+    relation = table_open(DatabaseRelationId, AccessShareLock);
+
+    // Start scan (uses OID index if available, otherwise sequential scan)
+    scan = systable_beginscan(relation, DatabaseOidIndexId,
+                              criticalSharedRelcachesBuilt,
+                              NULL, 1, key);
+
+    // Get the matching tuple
+    tuple = systable_getnext(scan);
+
+    // Copy tuple to ensure it survives after buffer release
+    if (HeapTupleIsValid(tuple))
+        tuple = heap_copytuple(tuple);
+
+    // Clean up scan and close relation
+    systable_endscan(scan);
+    table_close(relation, AccessShareLock);
+
+    return tuple;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each main operation
+- Removed detailed comments about scan modes and kept essential logic
+- Preserved the critical tuple copying logic and proper resource cleanup
+- Maintained the adaptive scan strategy using DatabaseOidIndexId instead of DatabaseNameIndexId

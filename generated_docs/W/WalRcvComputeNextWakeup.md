@@ -42,3 +42,52 @@ The calculated wakeup times are stored in a global wakeup array indexed by the w
 - When timeouts or intervals are disabled (≤ 0), wakeup times are set to TIMESTAMP_INFINITY (never)
 - The function intentionally has no default case to ensure all wakeup reasons are explicitly handled
 - Wakeup times can be recomputed when GUC parameters change during runtime
+
+## Simplified Source
+
+```c
+// Simplified version of WalRcvComputeNextWakeup
+static void
+WalRcvComputeNextWakeup(WalRcvWakeupReason reason, TimestampTz now) {
+    switch (reason) {
+        case WALRCV_WAKEUP_TERMINATE:
+            // Set timeout for connection termination detection
+            if (wal_receiver_timeout <= 0)
+                wakeup[reason] = TIMESTAMP_INFINITY;  // Never timeout
+            else
+                wakeup[reason] = now + wal_receiver_timeout;  // Full timeout period
+            break;
+
+        case WALRCV_WAKEUP_PING:
+            // Send keepalive ping at half the timeout interval
+            if (wal_receiver_timeout <= 0)
+                wakeup[reason] = TIMESTAMP_INFINITY;  // Never ping
+            else
+                wakeup[reason] = now + (wal_receiver_timeout / 2);  // Half timeout period
+            break;
+
+        case WALRCV_WAKEUP_HSFEEDBACK:
+            // Send hot standby feedback at configured interval
+            if (!hot_standby_feedback || wal_receiver_status_interval <= 0)
+                wakeup[reason] = TIMESTAMP_INFINITY;  // Disabled
+            else
+                wakeup[reason] = now + wal_receiver_status_interval;
+            break;
+
+        case WALRCV_WAKEUP_REPLY:
+            // Send status reply at configured interval
+            if (wal_receiver_status_interval <= 0)
+                wakeup[reason] = TIMESTAMP_INFINITY;  // Disabled
+            else
+                wakeup[reason] = now + wal_receiver_status_interval;
+            break;
+    }
+}
+```
+
+Key simplifications made:
+- Replaced TimestampTzPlusMilliseconds/TimestampTzPlusSeconds with simple addition for clarity
+- Added descriptive comments for each wakeup reason
+- Consolidated the timeout logic pattern across all cases
+- Emphasized the core purpose of each wakeup type
+- Removed intentional default case comment as it's obvious in simplified version

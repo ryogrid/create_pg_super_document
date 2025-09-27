@@ -44,3 +44,50 @@ This function takes no parameters.
 - Critical signals like SIGSEGV, SIGILL, SIGFPE, SIGABRT, and SIGTRAP are never blocked as they typically indicate serious program errors that must be handled immediately
 - StartupBlockSig allows SIGTERM, SIGQUIT, and SIGALRM during startup to enable proper shutdown and timeout handling during the initial connection phase
 - The UnBlockSig set may be modified by other initialization routines, particularly InitializeLatchSupport()
+
+## Simplified Source
+
+```c
+// Simplified version of pqinitmask
+void pqinitmask(void) {
+    // Initialize UnBlockSig as empty set
+    sigemptyset(&UnBlockSig);
+
+    // Start with all signals blocked for both sets
+    sigfillset(&BlockSig);
+    sigfillset(&StartupBlockSig);
+
+    // Remove critical signals that should never be blocked
+    // These are serious error signals that must be handled immediately
+    sigdelset(&BlockSig, SIGTRAP);      // Debugger breakpoint
+    sigdelset(&BlockSig, SIGABRT);      // Program abort
+    sigdelset(&BlockSig, SIGILL);       // Illegal instruction
+    sigdelset(&BlockSig, SIGFPE);       // Floating point exception
+    sigdelset(&BlockSig, SIGSEGV);      // Segmentation violation
+    sigdelset(&BlockSig, SIGBUS);       // Bus error
+    sigdelset(&BlockSig, SIGSYS);       // Bad system call
+    sigdelset(&BlockSig, SIGCONT);      // Continue process
+
+    // Apply same exceptions to startup set
+    sigdelset(&StartupBlockSig, SIGTRAP);
+    sigdelset(&StartupBlockSig, SIGABRT);
+    sigdelset(&StartupBlockSig, SIGILL);
+    sigdelset(&StartupBlockSig, SIGFPE);
+    sigdelset(&StartupBlockSig, SIGSEGV);
+    sigdelset(&StartupBlockSig, SIGBUS);
+    sigdelset(&StartupBlockSig, SIGSYS);
+    sigdelset(&StartupBlockSig, SIGCONT);
+
+    // Additional startup-specific exceptions for shutdown/timeout handling
+    sigdelset(&StartupBlockSig, SIGQUIT);   // Quit signal
+    sigdelset(&StartupBlockSig, SIGTERM);   // Termination signal
+    sigdelset(&StartupBlockSig, SIGALRM);   // Alarm signal
+}
+```
+
+Key simplifications made:
+- Removed conditional compilation guards for clarity (actual code needs them for portability)
+- Consolidated repetitive sigdelset operations with explanatory comments
+- Grouped signals by their purpose (critical errors vs startup-specific)
+- Added high-level comments explaining the logic flow
+- Focused on the main algorithm: empty UnBlockSig, fill both sets, then remove exceptions

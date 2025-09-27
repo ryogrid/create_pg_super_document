@@ -40,3 +40,38 @@ hdefault serves as the default initialization function for HASHHDR structures wi
 - Conditionally initializes statistics counters when HASH_STATISTICS is enabled
 - Essential for ensuring consistent hash table initialization across all use cases
 - Located at src/backend/utils/hash/dynahash.c:630-656
+
+## Simplified Source
+
+```c
+// Simplified version of hdefault
+static void hdefault(HTAB *hashp) {
+    HASHHDR *hctl = hashp->hctl;
+
+    // Clear the entire header structure
+    MemSet(hctl, 0, sizeof(HASHHDR));
+
+    // Set default directory and segment parameters
+    hctl->dsize = DEF_DIRSIZE;           // Initial directory size
+    hctl->nsegs = 0;                     // No segments initially
+    hctl->ssize = DEF_SEGSIZE;           // Default segment size
+    hctl->sshift = DEF_SEGSIZE_SHIFT;    // Segment size shift value
+
+    // Configure as non-partitioned table
+    hctl->num_partitions = 0;
+
+    // Set no maximum size limit
+    hctl->max_dsize = NO_MAX_DSIZE;
+
+    // Initialize statistics counters (if enabled)
+    #ifdef HASH_STATISTICS
+    hctl->accesses = hctl->collisions = 0;
+    #endif
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each configuration step
+- Grouped related assignments logically
+- Preserved all essential initialization logic
+- Maintained the exact same functionality with improved readability

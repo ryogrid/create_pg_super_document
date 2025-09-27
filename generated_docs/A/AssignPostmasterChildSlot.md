@@ -39,3 +39,39 @@ This function manages the allocation of slots in the PMChildFlags array for new 
 - Part of the postmaster child process management system
 - Located in src/backend/storage/ipc/pmsignal.c:247-283
 - Tracks both local (PMChildInUse) and shared memory (PMChildFlags) state
+
+## Simplified Source
+
+```c
+// Simplified version of AssignPostmasterChildSlot
+int AssignPostmasterChildSlot(void) {
+    int slot = next_child_inuse;
+    int n;
+
+    // Scan for a free slot using circular search starting from last assigned position
+    for (n = num_child_inuse; n > 0; n--) {
+        // Wrap around to end if we reach the beginning
+        if (--slot < 0)
+            slot = num_child_inuse - 1;
+
+        // Found a free slot - mark it as assigned
+        if (!PMChildInUse[slot]) {
+            PMChildInUse[slot] = true;
+            PMSignalState->PMChildFlags[slot] = PM_CHILD_ASSIGNED;
+            next_child_inuse = slot;
+            return slot + 1;  // Return 1-based slot number
+        }
+    }
+
+    // All slots are in use - this should never happen
+    elog(FATAL, "no free slots in PMChildFlags array");
+    return 0;
+}
+```
+
+Key simplifications made:
+- Condensed the verbose comment about trusting PMSignalState contents
+- Simplified the slot assignment logic flow with clearer comments
+- Focused on the core circular search algorithm
+- Maintained the essential error handling for the no-slots-available case
+- Preserved the 1-based return value conversion

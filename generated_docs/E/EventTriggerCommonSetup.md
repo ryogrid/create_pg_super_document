@@ -49,3 +49,72 @@ This function serves as the central coordination point for event trigger executi
 - Populates trigdata with T_EventTriggerData type marker and execution context
 - Critical performance optimization: fast exit when no triggers are registered for an event
 - Ensures command tag validation across different event types (DDL, table rewrite, login)
+
+## Simplified Source
+
+```c
+// Simplified version of EventTriggerCommonSetup
+static List *
+EventTriggerCommonSetup(Node *parsetree, EventTriggerEvent event,
+                       const char *eventstr, EventTriggerData *trigdata,
+                       bool unfiltered)
+{
+    CommandTag tag;
+    List *cachelist;
+    List *runlist = NIL;
+    ListCell *lc;
+
+    // Debug validation: ensure command tag is valid for the event type
+#ifdef USE_ASSERT_CHECKING
+    CommandTag dbgtag = EventTriggerGetTag(parsetree, event);
+
+    // Validate command tag based on event type
+    if (event == EVT_DDLCommandStart || event == EVT_DDLCommandEnd ||
+        event == EVT_SQLDrop || event == EVT_Login) {
+        if (!command_tag_event_trigger_ok(dbgtag))
+            elog(ERROR, "unexpected command tag \"%s\"", GetCommandTagName(dbgtag));
+    }
+    else if (event == EVT_TableRewrite) {
+        if (!command_tag_table_rewrite_ok(dbgtag))
+            elog(ERROR, "unexpected command tag \"%s\"", GetCommandTagName(dbgtag));
+    }
+#endif
+
+    // Fast exit: check if any triggers exist for this event
+    cachelist = EventCacheLookup(event);
+    if (cachelist == NIL)
+        return NIL;
+
+    // Get the command tag for filtering
+    tag = EventTriggerGetTag(parsetree, event);
+
+    // Build list of triggers to execute by filtering cache entries
+    foreach(lc, cachelist) {
+        EventTriggerCacheItem *item = lfirst(lc);
+
+        // Include trigger if unfiltered or passes command tag filter
+        if (unfiltered || filter_event_trigger(tag, item)) {
+            runlist = lappend_oid(runlist, item->fnoid);
+        }
+    }
+
+    // Fast exit: no triggers to run
+    if (runlist == NIL)
+        return NIL;
+
+    // Setup trigger data context for execution
+    trigdata->type = T_EventTriggerData;
+    trigdata->event = eventstr;
+    trigdata->parsetree = parsetree;
+    trigdata->tag = tag;
+
+    return runlist;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for brevity while keeping essential ones
+- Consolidated debug checking logic into clear validation blocks
+- Emphasized the two fast-exit paths for performance
+- Simplified the trigger filtering loop structure
+- Focused on the main execution flow: validate → lookup → filter → setup context

@@ -36,3 +36,28 @@ This function optionally suppresses the STATEMENT: field from appearing in log e
 - Commonly used in query processing functions where the statement is already included in error messages
 - Part of PostgreSQL's error reporting system that helps avoid duplicate information in logs
 - Particularly useful for avoiding redundancy when custom error messages already contain the SQL statement text
+
+## Simplified Source
+
+```c
+// Simplified version of errhidestmt
+int errhidestmt(bool hide_stmt) {
+    // Get current error data from the error stack
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Verify we're within valid stack bounds
+    CHECK_STACK_DEPTH();
+
+    // Set the flag to control STATEMENT field visibility in logs
+    edata->hide_stmt = hide_stmt;
+
+    // Return value is meaningless (always 0)
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Preserved the essential logic flow
+- Maintained all critical operations (stack depth check, flag setting)
+- Clarified that the return value is not meaningful

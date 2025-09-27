@@ -37,3 +37,34 @@ The function performs proper multi-byte character handling by clipping the appli
 - Typically called when the application_name GUC parameter is set or changed
 - Part of PostgreSQL's client connection tracking and monitoring infrastructure
 - Returns early if no backend status entry exists (MyBEEntry is NULL)
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_report_appname
+void pgstat_report_appname(const char *appname) {
+    volatile PgBackendStatus *status_entry = MyBEEntry;
+
+    // Return early if no backend status entry
+    if (!status_entry) {
+        return;
+    }
+
+    // Clip application name to fit within allocated space
+    int safe_length = pg_mbcliplen(appname, strlen(appname), NAMEDATALEN - 1);
+
+    // Atomic update of status entry with change counting protocol
+    PGSTAT_BEGIN_WRITE_ACTIVITY(status_entry);
+
+    // Copy application name and null terminate
+    memcpy((char *) status_entry->st_appname, appname, safe_length);
+    status_entry->st_appname[safe_length] = '\0';
+
+    PGSTAT_END_WRITE_ACTIVITY(status_entry);
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names and inline comments
+- Clarified the purpose of each major operation
+- Core logic: Check status entry exists, clip name length, atomic update with protocol

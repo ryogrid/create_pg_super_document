@@ -41,3 +41,48 @@ durable_rename(const char *oldfile, const char *newfile)
 
 ## Notes and Other Information
 This function is critical for PostgreSQL's crash recovery and data durability guarantees. It's extensively used in WAL (Write-Ahead Logging) operations, configuration file updates, and other scenarios where file operations must survive system crashes. The function returns 0 on success and -1 on failure, with errno not guaranteed to be valid upon return. There's also a simpler version in src/common/file_utils.c used by client utilities. The careful fsync sequence ensures that the rename operation is atomic from a durability perspective, even though the underlying rename(2) system call itself is not crash-safe without explicit synchronization.
+
+## Simplified Source
+
+```c
+// Simplified version of durable_rename
+int durable_rename(const char *oldfile, const char *newfile, int elevel) {
+    // Step 1: Sync the old file to ensure it's persistent
+    if (fsync_fname_ext(oldfile, false, false, elevel) != 0)
+        return -1;
+
+    // Step 2: Sync the target file if it exists (makes crash behavior predictable)
+    int fd = OpenTransientFile(newfile, PG_BINARY | O_RDWR);
+    if (fd >= 0) {
+        // Target file exists, sync it before rename
+        if (pg_fsync(fd) != 0 || CloseTransientFile(fd) != 0) {
+            // Handle sync/close errors
+            return -1;
+        }
+    }
+    // If target doesn't exist (ENOENT), that's fine - continue
+
+    // Step 3: Perform the actual rename operation
+    if (rename(oldfile, newfile) < 0) {
+        // Report rename failure
+        return -1;
+    }
+
+    // Step 4: Ensure the renamed file is persistent
+    if (fsync_fname_ext(newfile, false, false, elevel) != 0)
+        return -1;
+
+    // Step 5: Sync the parent directory to persist the directory entry
+    if (fsync_parent_path(newfile, elevel) != 0)
+        return -1;
+
+    return 0;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and reporting for clarity
+- Consolidated file open/sync/close logic for target file
+- Abstracted the specific error codes and errno handling
+- Focused on the five main steps of the durability protocol
+- Simplified the conditional logic while preserving the core algorithm

@@ -38,3 +38,25 @@ Since CopySnapshot allocates the snapshot structure and its XID arrays in a sing
 - The assertions ensure memory safety by preventing premature deallocation
 - Memory layout created by CopySnapshot allows single pfree() to clean up everything
 - Called during snapshot cleanup operations when snapshots are no longer needed
+
+## Simplified Source
+
+```c
+// Simplified version of FreeSnapshot
+static void FreeSnapshot(Snapshot snapshot) {
+    // Safety checks: ensure snapshot is safe to free
+    Assert(snapshot->regd_count == 0);    // No registered references
+    Assert(snapshot->active_count == 0);  // No active uses
+    Assert(snapshot->copied);             // Must be a copied snapshot
+
+    // Free the snapshot memory (includes XID arrays due to CopySnapshot layout)
+    pfree(snapshot);
+}
+```
+
+Key simplifications made:
+- This function is already very simple as it's just a cleanup function
+- Added clear comments explaining each assertion's purpose
+- Highlighted that pfree() frees both the structure and XID arrays
+- Emphasized the safety checks that prevent memory corruption
+- Focused on the essential memory management aspect

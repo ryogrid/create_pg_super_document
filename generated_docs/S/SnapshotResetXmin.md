@@ -46,3 +46,39 @@ No parameters (void function)
 - Updates both MyProc->xmin and TransactionXmin global variables
 - The function avoids using GetOldestSnapshot() to prevent dependency on LSN-based comparisons
 - Does not track which active snapshot is oldest, relying on empty active stack for simplicity
+
+## Simplified Source
+
+```c
+// Simplified version of SnapshotResetXmin
+static void SnapshotResetXmin(void) {
+    Snapshot minSnapshot;
+
+    // Don't reset if there are active snapshots
+    if (ActiveSnapshot != NULL) {
+        return;
+    }
+
+    // If no registered snapshots, reset xmin completely
+    if (pairingheap_is_empty(&RegisteredSnapshots)) {
+        MyProc->xmin = TransactionXmin = InvalidTransactionId;
+        return;
+    }
+
+    // Find the oldest registered snapshot's xmin
+    minSnapshot = pairingheap_container(SnapshotData, ph_node,
+                                        pairingheap_first(&RegisteredSnapshots));
+
+    // Advance our xmin to match the oldest registered snapshot
+    if (TransactionIdPrecedes(MyProc->xmin, minSnapshot->xmin)) {
+        MyProc->xmin = TransactionXmin = minSnapshot->xmin;
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the three main scenarios
+- Simplified the logic flow with descriptive comments
+- Highlighted the optimization purpose (enabling garbage collection)
+- Preserved the essential MVCC optimization logic
+- Focused on the main execution paths without complex implementation details

@@ -43,3 +43,58 @@ The decision process follows a hierarchical approach: first checking for mandato
 - Generic plan cost of -1 indicates the generic plan hasn't been evaluated yet, favoring generic planning
 - The cost comparison includes planning costs in custom plan costs, making the comparison fair
 - This function is central to PostgreSQL's adaptive query planning performance optimization
+
+## Simplified Source
+
+```c
+// Simplified version of choose_custom_plan
+static bool choose_custom_plan(CachedPlanSource *plansource, ParamListInfo boundParams) {
+    // One-shot plans always use custom planning
+    if (plansource->is_oneshot) {
+        return true;
+    }
+
+    // No point in custom plan without parameters or if planning is not needed
+    if (boundParams == NULL || !StmtPlanRequiresRevalidation(plansource)) {
+        return false;
+    }
+
+    // Check global configuration overrides
+    if (plan_cache_mode == PLAN_CACHE_MODE_FORCE_GENERIC_PLAN) {
+        return false;
+    }
+    if (plan_cache_mode == PLAN_CACHE_MODE_FORCE_CUSTOM_PLAN) {
+        return true;
+    }
+
+    // Check cursor-specific overrides
+    if (plansource->cursor_options & CURSOR_OPT_GENERIC_PLAN) {
+        return false;
+    }
+    if (plansource->cursor_options & CURSOR_OPT_CUSTOM_PLAN) {
+        return true;
+    }
+
+    // Learning phase: use custom plans for first 5 executions
+    if (plansource->num_custom_plans < 5) {
+        return true;
+    }
+
+    // Cost-based decision: compare average custom cost vs generic cost
+    double avg_custom_cost = plansource->total_custom_cost / plansource->num_custom_plans;
+
+    // Use generic plan if it's cheaper than average custom plan
+    // Note: generic_cost of -1 means not yet determined, so prefer generic
+    if (plansource->generic_cost < avg_custom_cost) {
+        return false;
+    }
+
+    return true; // Use custom plan if it's more cost-effective
+}
+```
+
+Key simplifications made:
+- Organized the decision logic into clear hierarchical blocks
+- Added comments explaining the purpose of each decision point
+- Simplified the cost comparison logic while preserving the essential algorithm
+- Removed detailed explanatory comments and consolidated similar checks

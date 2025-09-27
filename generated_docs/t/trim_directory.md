@@ -40,3 +40,50 @@ For the convenience of , the function returns a pointer to the new end location 
 - Used as the core implementation for higher-level path manipulation functions
 - Input string must be mutable (cannot be a string literal)
 - Designed to be robust across different filesystem path conventions
+
+## Simplified Source
+
+```c
+// Simplified version of trim_directory
+static char *trim_directory(char *path) {
+    char *p;
+
+    // Skip drive prefix (Windows compatibility)
+    path = skip_drive(path);
+
+    // Handle empty path
+    if (path[0] == '\0') {
+        return path;
+    }
+
+    // Step 1: Remove trailing slashes
+    for (p = path + strlen(path) - 1; IS_DIR_SEP(*p) && p > path; p--) {
+        // Move backward past trailing slashes
+    }
+
+    // Step 2: Remove the last directory/file name
+    for (; !IS_DIR_SEP(*p) && p > path; p--) {
+        // Move backward past the pathname component
+    }
+
+    // Step 3: Remove multiple slashes before the directory name
+    for (; p > path && IS_DIR_SEP(*(p - 1)); p--) {
+        // Remove consecutive slashes
+    }
+
+    // Step 4: Preserve leading slash for absolute paths
+    if (p == path && IS_DIR_SEP(*p)) {
+        p++;  // Keep one leading slash
+    }
+
+    // Terminate the string and return new end position
+    *p = '\0';
+    return p;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the trimming process
+- Preserved the essential four-phase trimming algorithm
+- Maintained platform compatibility with skip_drive and IS_DIR_SEP
+- Kept the important edge case handling for leading slashes

@@ -35,3 +35,24 @@ This function takes no parameters.
 - In debug/development builds with LWLOCK_STATS enabled, this sets up statistics collection infrastructure
 - The function is safe to call multiple times in the same process, though typically it's called only once during process startup
 - Unlike the shared memory LWLock functions, this operates on process-local state only
+
+## Simplified Source
+
+```c
+// Simplified version of InitLWLockAccess
+void InitLWLockAccess(void) {
+    // Initialize LWLock statistics collection if enabled
+    #ifdef LWLOCK_STATS
+        init_lwlock_stats();
+    #endif
+
+    // Note: Function provides extension point for future
+    // per-process LWLock initialization needs
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose
+- Highlighted the conditional compilation aspect
+- Noted the extensibility purpose of the function
+- Maintained the original simple structure since it's already quite minimal

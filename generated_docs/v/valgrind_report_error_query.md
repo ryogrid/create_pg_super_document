@@ -38,3 +38,27 @@ The function uses Valgrind's built-in macros  to get the current error count and
 - It's typically called at the end of message processing to check if any memory errors occurred during query execution
 - The function is purely diagnostic and doesn't affect normal PostgreSQL operation
 - It relies on the global variable  being properly maintained by other parts of the system
+
+## Simplified Source
+
+```c
+// Simplified version of valgrind_report_error_query
+static void valgrind_report_error_query(const char *query) {
+    // Get current Valgrind error count
+    unsigned int current_errors = VALGRIND_COUNT_ERRORS;
+
+    // Check if new errors occurred and we have a valid query
+    if (current_errors != old_valgrind_error_count && query != NULL) {
+        // Report which query caused the errors
+        VALGRIND_PRINTF("Valgrind detected %u error(s) during execution of \"%s\"\n",
+                       current_errors - old_valgrind_error_count,
+                       query);
+    }
+}
+```
+
+Key simplifications made:
+- Removed unlikely() compiler hint for clarity
+- Added descriptive comments for each logical step
+- Simplified variable name from valgrind_error_count to current_errors
+- Maintained the core logic: check for new errors and report with query context

@@ -45,3 +45,51 @@ SlruScanDirectory is a fundamental utility function in the PostgreSQL SLRU subsy
 - Provides DEBUG2-level logging for each callback invocation
 - Returns the last return value from the callback, enabling result propagation
 - Core infrastructure function used by all major SLRU maintenance operations including truncation and cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of SlruScanDirectory
+bool SlruScanDirectory(SlruCtl ctl, SlruScanCallback callback, void *data) {
+    bool retval = false;
+    DIR *cldir;
+    struct dirent *clde;
+
+    // Core logic step 1: Open SLRU directory
+    cldir = AllocateDir(ctl->Dir);
+
+    // Core logic step 2: Scan all files in directory
+    while ((clde = ReadDir(cldir, ctl->Dir)) != NULL) {
+        size_t len = strlen(clde->d_name);
+
+        // Core logic step 3: Validate filename format (length and hex characters)
+        if (SlruCorrectSegmentFilenameLength(ctl, len) &&
+            strspn(clde->d_name, "0123456789ABCDEF") == len) {
+
+            // Core logic step 4: Convert filename to segment info and invoke callback
+            int64 segno = strtoi64(clde->d_name, NULL, 16);
+            int64 segpage = segno * SLRU_PAGES_PER_SEGMENT;
+
+            elog(DEBUG2, "SlruScanDirectory invoking callback on %s/%s",
+                 ctl->Dir, clde->d_name);
+
+            retval = callback(ctl, clde->d_name, segpage, data);
+            if (retval) {
+                break; // Stop scanning if callback returns true
+            }
+        }
+    }
+
+    // Core logic step 5: Clean up directory handle
+    FreeDir(cldir);
+
+    return retval;
+}
+```
+
+Key simplifications made:
+- Focused on the five core steps: open directory, scan files, validate format, invoke callback, cleanup
+- Removed detailed explanatory comments about callback parameters
+- Maintained essential validation and error handling logic
+- Simplified variable declarations
+- Preserved early termination behavior when callback returns true

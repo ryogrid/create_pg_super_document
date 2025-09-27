@@ -36,3 +36,45 @@ This function measures the replication lag by calculating the time difference be
 - Used in replication status reporting and monitoring systems
 - Helps identify when standby servers are falling behind in applying WAL
 - Located in src/backend/replication/walreceiverfuncs.c:364-393
+
+## Simplified Source
+
+```c
+// Simplified version of GetReplicationApplyDelay
+int GetReplicationApplyDelay(void) {
+    WalRcvData *walrcv = WalRcv;
+    XLogRecPtr receivePtr;
+    XLogRecPtr replayPtr;
+    TimestampTz chunkReplayStartTime;
+
+    // Get current receive position (with spinlock protection)
+    SpinLockAcquire(&walrcv->mutex);
+    receivePtr = walrcv->flushedUpto;
+    SpinLockRelease(&walrcv->mutex);
+
+    // Get current replay position
+    replayPtr = GetXLogReplayRecPtr(NULL);
+
+    // No delay if receive and replay positions are equal
+    if (receivePtr == replayPtr) {
+        return 0;
+    }
+
+    // Get when current chunk started replaying
+    chunkReplayStartTime = GetCurrentChunkReplayStartTime();
+
+    // Return -1 if timing information unavailable
+    if (chunkReplayStartTime == 0) {
+        return -1;
+    }
+
+    // Calculate delay in milliseconds
+    return TimestampDifferenceMilliseconds(chunkReplayStartTime, GetCurrentTimestamp());
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step
+- Preserved essential spinlock protection for shared memory access
+- Maintained the logic for detecting no-delay and unavailable-timing cases
+- Kept the core delay calculation using timestamp differences

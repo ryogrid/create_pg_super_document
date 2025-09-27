@@ -34,3 +34,26 @@ This function calculates the total amount of shared memory required for the Post
 - Ensures proper alignment of all statistics-related shared memory structures
 - Uses safe arithmetic operations to prevent integer overflow
 - The total size includes both the control structure and the dynamic hash table area
+
+## Simplified Source
+
+```c
+// Simplified version of StatsShmemSize
+Size StatsShmemSize(void) {
+    Size total_size;
+
+    // Step 1: Calculate aligned size for main control structure
+    total_size = MAXALIGN(sizeof(PgStat_ShmemControl));
+
+    // Step 2: Add DSA initialization area size (256KB for hash tables)
+    total_size = add_size(total_size, pgstat_dsa_init_size());
+
+    return total_size;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name (total_size instead of sz)
+- Added step-by-step comments explaining the calculation
+- Made the two-part calculation more explicit
+- Preserved the essential logic and safety measures

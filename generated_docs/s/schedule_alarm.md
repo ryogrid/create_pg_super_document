@@ -56,3 +56,71 @@ The function implements an optimization where if a signal is already pending for
 - Handles cases where the current time has passed the scheduled timeout
 - Will call elog(FATAL) if setitimer() system call fails
 - Part of PostgreSQL's sophisticated timeout management system designed for high performance
+
+## Simplified Source
+
+```c
+// Simplified version of schedule_alarm
+static void schedule_alarm(TimestampTz now) {
+    if (num_active_timeouts > 0) {
+        struct itimerval timeval;
+        TimestampTz nearest_timeout;
+        long secs;
+        int usecs;
+
+        // Clear the timer structure
+        MemSet(&timeval, 0, sizeof(struct itimerval));
+
+        // Reset signal_pending if we think a signal was lost (>10ms overdue)
+        if (signal_pending && now > signal_due_at + 10 * 1000) {
+            signal_pending = false;
+        }
+
+        // Get the nearest timeout and calculate time remaining
+        nearest_timeout = active_timeouts[0]->fin_time;
+        if (now > nearest_timeout) {
+            // We missed the timeout - schedule immediate interrupt
+            signal_pending = false;
+            secs = 0;
+            usecs = 1;  // Force immediate interrupt
+        } else {
+            // Calculate time difference to nearest timeout
+            TimestampDifference(now, nearest_timeout, &secs, &usecs);
+
+            // Ensure at least 1 microsecond to avoid canceling timer
+            if (secs == 0 && usecs == 0) {
+                usecs = 1;
+            }
+        }
+
+        // Set up the timer values
+        timeval.it_value.tv_sec = secs;
+        timeval.it_value.tv_usec = usecs;
+
+        // Enable alarm handler before setting timer (race condition prevention)
+        enable_alarm();
+
+        // Skip setitimer if we already have a pending signal for earlier/same time
+        if (signal_pending && nearest_timeout >= signal_due_at) {
+            return;
+        }
+
+        // Mark signal as pending and record when it's due
+        signal_due_at = nearest_timeout;
+        signal_pending = true;
+
+        // Set the system alarm timer
+        if (setitimer(ITIMER_REAL, &timeval, NULL) != 0) {
+            signal_pending = false;
+            elog(FATAL, "could not enable SIGALRM timer: %m");
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed extensive comments about race conditions while preserving the actual race condition handling logic
+- Consolidated the logic flow into clearer sections: signal loss detection, timeout calculation, timer setup, and system call
+- Simplified variable declarations and kept essential error handling
+- Preserved the core optimization that avoids redundant setitimer() calls
+- Maintained all critical timing and synchronization logic

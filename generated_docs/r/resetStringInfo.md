@@ -38,3 +38,22 @@ The  function clears the content of a StringInfo structure without deallocating 
 - Sets str->data[0] = '\0', str->len = 0, and str->cursor = 0
 - Widely used in PostgreSQL for message processing, replication, and data parsing where StringInfo objects are reused multiple times
 - Maintains the maxlen field unchanged, preserving the allocated buffer size
+
+## Simplified Source
+
+```c
+// Simplified version of resetStringInfo
+void resetStringInfo(StringInfo str) {
+    // Clear the string content by null-terminating at the beginning
+    str->data[0] = '\0';
+
+    // Reset length and cursor to indicate empty string
+    str->len = 0;
+    str->cursor = 0;
+}
+```
+
+Key simplifications made:
+- Removed assertion check for read-only StringInfos for clarity
+- Added descriptive comments explaining each step
+- Focused on the core functionality of clearing the string content

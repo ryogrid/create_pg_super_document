@@ -41,3 +41,39 @@ This function serves as a critical bridge between Windows' codepage system and P
 - Part of the Windows-specific locale and encoding handling infrastructure
 - Relies on the encoding_match_list table which contains mappings between system encoding names and PostgreSQL encoding codes
 - This function is typically used during database initialization or when processing locale-related configuration on Windows systems
+
+## Simplified Source
+
+```c
+// Simplified version of pg_codepage_to_encoding
+int pg_codepage_to_encoding(UINT cp) {
+    // Convert Windows code page number to string format (e.g., "CP1252")
+    char sys[16];
+    sprintf(sys, "CP%u", cp);
+
+    // Search through the encoding mapping table
+    for (int i = 0; encoding_match_list[i].system_enc_name; i++) {
+        // Case-insensitive comparison with table entries
+        if (pg_strcasecmp(sys, encoding_match_list[i].system_enc_name) == 0) {
+            // Found a match - return PostgreSQL encoding code
+            return encoding_match_list[i].pg_enc_code;
+        }
+    }
+
+    // No matching encoding found - issue warning and return failure
+    ereport(WARNING,
+            (errmsg("could not determine encoding for codeset \"%s\"", sys)));
+
+    return -1;  // Indicates failure to find mapping
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining the conversion process
+- Clarified the string format used for code page names
+- Explained the table lookup mechanism
+- Made the case-insensitive comparison logic explicit
+- Highlighted the error handling for unmapped code pages
+- Simplified the loop variable declaration
+- Maintained all original functionality while improving readability
+- Emphasized the Windows-specific nature of this function

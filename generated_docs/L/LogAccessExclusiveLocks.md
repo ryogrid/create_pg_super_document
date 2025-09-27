@@ -42,3 +42,36 @@ The function constructs an xl_standby_locks WAL record containing the lock count
 - The logging mechanism is part of the Hot Standby conflict resolution system
 - More details about lock logging rationale can be found in backend/storage/lmgr/README
 - Located in src/backend/storage/ipc/standby.c:1405-1422
+
+## Simplified Source
+
+```c
+// Simplified version of LogAccessExclusiveLocks
+static void LogAccessExclusiveLocks(int nlocks, xl_standby_lock *locks) {
+    // Step 1: Create WAL record structure
+    xl_standby_locks xlrec;
+    xlrec.nlocks = nlocks;
+
+    // Step 2: Begin WAL record construction
+    XLogBeginInsert();
+
+    // Step 3: Register the record header (lock count)
+    XLogRegisterData((char *) &xlrec, offsetof(xl_standby_locks, locks));
+
+    // Step 4: Register the actual lock data array
+    XLogRegisterData((char *) locks, nlocks * sizeof(xl_standby_lock));
+
+    // Step 5: Mark record as unimportant for performance
+    XLogSetRecordFlags(XLOG_MARK_UNIMPORTANT);
+
+    // Step 6: Insert the complete record into WAL
+    XLogInsert(RM_STANDBY_ID, XLOG_STANDBY_LOCK);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the WAL record construction process
+- Clarified the purpose of each XLogRegisterData call (header vs. data)
+- Explained why XLOG_MARK_UNIMPORTANT flag is used
+- Maintained the exact original logic flow without any functional changes
+- Focused on the core workflow: create record structure → register data → insert to WAL

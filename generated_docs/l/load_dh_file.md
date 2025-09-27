@@ -41,3 +41,74 @@ The function handles errors differently based on the server state - during serve
 - Error severity depends on  parameter - FATAL during startup, LOG during runtime
 - File absence is not treated as an error condition
 - Part of PostgreSQL's SSL/TLS security infrastructure for secure connections
+
+## Simplified Source
+
+```c
+// Simplified version of load_dh_file
+static DH *load_dh_file(char *filename, bool isServerStart) {
+    FILE *fp;
+    DH *dh = NULL;
+    int codes;
+
+    // Step 1: Open the DH parameters file
+    fp = AllocateFile(filename, "r");
+    if (fp == NULL) {
+        // Report error - severity depends on server startup state
+        ereport(isServerStart ? FATAL : LOG,
+                (errcode_for_file_access(),
+                 errmsg("could not open DH parameters file \"%s\": %m", filename)));
+        return NULL;
+    }
+
+    // Step 2: Read DH parameters from PEM format file
+    dh = PEM_read_DHparams(fp, NULL, NULL, NULL);
+    FreeFile(fp);
+
+    if (dh == NULL) {
+        ereport(isServerStart ? FATAL : LOG,
+                (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                 errmsg("could not load DH parameters file: %s",
+                        SSLerrmessage(ERR_get_error()))));
+        return NULL;
+    }
+
+    // Step 3: Validate DH parameters for security
+    if (DH_check(dh, &codes) == 0) {
+        ereport(isServerStart ? FATAL : LOG,
+                (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                 errmsg("invalid DH parameters: %s",
+                        SSLerrmessage(ERR_get_error()))));
+        DH_free(dh);
+        return NULL;
+    }
+
+    // Step 4: Check specific cryptographic requirements
+    if (codes & DH_CHECK_P_NOT_PRIME) {
+        ereport(isServerStart ? FATAL : LOG,
+                (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                 errmsg("invalid DH parameters: p is not prime")));
+        DH_free(dh);
+        return NULL;
+    }
+
+    if ((codes & DH_NOT_SUITABLE_GENERATOR) && (codes & DH_CHECK_P_NOT_SAFE_PRIME)) {
+        ereport(isServerStart ? FATAL : LOG,
+                (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                 errmsg("invalid DH parameters: neither suitable generator or safe prime")));
+        DH_free(dh);
+        return NULL;
+    }
+
+    // Step 5: Return validated DH parameters
+    return dh;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments to clarify the process flow
+- Grouped logical operations together for better readability
+- Maintained all error handling as it's critical for security
+- Preserved the exact validation logic since DH parameter security is essential
+- Kept the conditional error severity (FATAL vs LOG) as it's important behavior
+- Maintained proper resource cleanup (DH_free) on error paths

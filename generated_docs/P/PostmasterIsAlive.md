@@ -44,3 +44,27 @@ This function takes no parameters and returns a boolean value:
 - On platforms without death signal support, this becomes a direct call to PostmasterIsAliveInternal()
 - The `postmaster_possibly_dead` flag is of type `volatile sig_atomic_t` to ensure thread-safe access from signal handlers
 - This is a critical function for detecting postmaster death in background processes, allowing them to terminate gracefully when the postmaster dies
+
+## Simplified Source
+
+```c
+// Simplified version of PostmasterIsAlive
+static inline bool PostmasterIsAlive(void) {
+    // Fast path: Check the signal-based flag first
+    // This avoids expensive system calls in the common case
+    if (likely(!postmaster_possibly_dead)) {
+        return true;  // Postmaster is alive (common case)
+    }
+
+    // Slow path: Actually check if postmaster is alive
+    // using platform-specific mechanisms
+    return PostmasterIsAliveInternal();
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining the two-tier checking strategy
+- Clarified the purpose of the fast path optimization
+- Explained the likely() compiler hint for branch prediction
+- Maintained the exact same logic while making the optimization strategy clear
+- Preserved the performance-critical nature of this function

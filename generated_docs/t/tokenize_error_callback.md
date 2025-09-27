@@ -35,3 +35,22 @@ The function extracts filename and line number information from the callback arg
 - The tokenize_error_callback_arg structure contains filename (const char*) and linenum (int) fields
 - Integrates with PostgreSQL's ereport/elog error reporting framework to enhance error messages with file location context
 - Essential for debugging configuration file syntax errors in pg_hba.conf and pg_ident.conf
+
+## Simplified Source
+
+```c
+// Simplified version of tokenize_error_callback
+static void tokenize_error_callback(void *arg) {
+    // Extract callback arguments containing file location info
+    tokenize_error_callback_arg *callback_arg = (tokenize_error_callback_arg *) arg;
+
+    // Add file location context to current error message
+    errcontext("line %d of configuration file \"%s\"",
+               callback_arg->linenum, callback_arg->filename);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- The function is already quite simple, so minimal changes were needed
+- Focused on the core purpose: providing file location context for errors

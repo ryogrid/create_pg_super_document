@@ -34,3 +34,33 @@ This function is called during backend startup (whether standalone or under the 
 - Registers AtProcExit_Buffers as a shutdown callback to ensure proper cleanup when the backend exits
 - Includes an assertion to verify that MyProc is properly initialized before registering the exit callback
 - The function is essential for proper buffer pin tracking and prevents buffer leaks
+
+## Simplified Source
+
+```c
+// Simplified version of InitBufferPoolAccess
+void InitBufferPoolAccess(void) {
+    HASHCTL hash_ctl;
+
+    // Step 1: Initialize private reference count array to zero
+    memset(&PrivateRefCountArray, 0, sizeof(PrivateRefCountArray));
+
+    // Step 2: Set up hash table configuration
+    hash_ctl.keysize = sizeof(int32);
+    hash_ctl.entrysize = sizeof(PrivateRefCountEntry);
+
+    // Step 3: Create hash table for overflow reference counts
+    PrivateRefCountHash = hash_create("PrivateRefCount", 100, &hash_ctl,
+                                      HASH_ELEM | HASH_BLOBS);
+
+    // Step 4: Register cleanup function for backend shutdown
+    Assert(MyProc != NULL);
+    on_shmem_exit(AtProcExit_Buffers, 0);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the main operations
+- Preserved all essential initialization logic
+- Maintained the exact function signature and core functionality
+- Focused on the four main initialization steps: array clearing, hash config, hash creation, and cleanup registration

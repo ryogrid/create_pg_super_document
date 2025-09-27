@@ -46,3 +46,70 @@ This function performs comprehensive user identity initialization for PostgreSQL
 - Sets session_authorization GUC with PGC_S_OVERRIDE to prevent later changes
 - Connection limits are only enforced for regular backend processes and non-superusers
 - Critical part of PostgreSQL's authentication and authorization infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeSessionUserId
+void InitializeSessionUserId(const char *rolename, Oid roleid, bool bypass_login_check) {
+    // Skip for parallel workers - already initialized by ParallelWorkerMain
+    if (InitializingParallelWorker) {
+        Assert(bypass_login_check);
+        return;
+    }
+
+    // Bootstrap mode should not reach here
+    Assert(!IsBootstrapProcessingMode());
+
+    // Refresh syscache to find recently created roles
+    AcceptInvalidationMessages();
+
+    // Look up role by name or OID
+    HeapTuple roleTup;
+    if (rolename != NULL) {
+        roleTup = SearchSysCache1(AUTHNAME, PointerGetDatum(rolename));
+        if (!HeapTupleIsValid(roleTup))
+            ereport(FATAL, (errcode(ERRCODE_INVALID_AUTHORIZATION_SPECIFICATION),
+                           errmsg("role \"%s\" does not exist", rolename)));
+    } else {
+        roleTup = SearchSysCache1(AUTHOID, ObjectIdGetDatum(roleid));
+        if (!HeapTupleIsValid(roleTup))
+            ereport(FATAL, (errcode(ERRCODE_INVALID_AUTHORIZATION_SPECIFICATION),
+                           errmsg("role with OID %u does not exist", roleid)));
+    }
+
+    // Extract role information
+    Form_pg_authid rform = (Form_pg_authid) GETSTRUCT(roleTup);
+    roleid = rform->oid;
+    char *rname = NameStr(rform->rolname);
+    bool is_superuser = rform->rolsuper;
+
+    // Set authenticated user ID and session authorization
+    SetAuthenticatedUserId(roleid);
+    SetConfigOption("session_authorization", rname, PGC_BACKEND, PGC_S_OVERRIDE);
+
+    // Enforce login restrictions (only under postmaster)
+    if (IsUnderPostmaster) {
+        // Check if role can login
+        if (!bypass_login_check && !rform->rolcanlogin)
+            ereport(FATAL, (errcode(ERRCODE_INVALID_AUTHORIZATION_SPECIFICATION),
+                           errmsg("role \"%s\" is not permitted to log in", rname)));
+
+        // Check connection limit for regular backends
+        if (rform->rolconnlimit >= 0 && AmRegularBackendProcess() && !is_superuser &&
+            CountUserBackends(roleid) > rform->rolconnlimit)
+            ereport(FATAL, (errcode(ERRCODE_TOO_MANY_CONNECTIONS),
+                           errmsg("too many connections for role \"%s\"", rname)));
+    }
+
+    ReleaseSysCache(roleTup);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about GUC handling complexity
+- Consolidated variable declarations closer to usage
+- Simplified role lookup logic flow
+- Removed extensive commentary about race conditions
+- Focused on the main authentication and authorization logic
+- Maintained all critical security checks and error handling

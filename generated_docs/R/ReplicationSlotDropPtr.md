@@ -53,3 +53,72 @@ The function performs these key operations:
 - Statistics are only dropped for logical replication slots
 - Uses comprehensive locking strategy to handle concurrent operations safely
 - Directory removal failure is non-fatal and only generates a warning
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotDropPtr
+static void ReplicationSlotDropPtr(ReplicationSlot *slot) {
+    char path[MAXPGPATH];
+    char tmppath[MAXPGPATH];
+
+    // Step 1: Lock to prevent concurrent slot operations
+    LWLockAcquire(ReplicationSlotAllocationLock, LW_EXCLUSIVE);
+
+    // Step 2: Generate file paths for slot directory
+    sprintf(path, "pg_replslot/%s", NameStr(slot->data.name));
+    sprintf(tmppath, "pg_replslot/%s.tmp", NameStr(slot->data.name));
+
+    // Step 3: Rename slot directory to invalidate it immediately
+    if (rename(path, tmppath) == 0) {
+        // Ensure changes are crash-safe with fsync
+        START_CRIT_SECTION();
+        fsync_fname(tmppath, true);
+        fsync_fname("pg_replslot", true);
+        END_CRIT_SECTION();
+    } else {
+        // Handle rename failure - mark slot inactive
+        SpinLockAcquire(&slot->mutex);
+        slot->active_pid = 0;
+        SpinLockRelease(&slot->mutex);
+        ConditionVariableBroadcast(&slot->active_cv);
+
+        // Report error (soft fail for non-persistent slots)
+        bool fail_softly = (slot->data.persistency != RS_PERSISTENT);
+        ereport(fail_softly ? WARNING : ERROR,
+                (errmsg("could not rename slot directory")));
+    }
+
+    // Step 4: Mark slot as inactive in shared memory
+    LWLockAcquire(ReplicationSlotControlLock, LW_EXCLUSIVE);
+    slot->active_pid = 0;
+    slot->in_use = false;
+    LWLockRelease(ReplicationSlotControlLock);
+    ConditionVariableBroadcast(&slot->active_cv);
+
+    // Step 5: Recompute replication limits (slot no longer constrains resources)
+    ReplicationSlotsComputeRequiredXmin(false);
+    ReplicationSlotsComputeRequiredLSN();
+
+    // Step 6: Remove the temporary directory (non-fatal if it fails)
+    if (!rmtree(tmppath, true)) {
+        ereport(WARNING, (errmsg("could not remove slot directory")));
+    }
+
+    // Step 7: Drop statistics for logical slots
+    if (SlotIsLogical(slot)) {
+        pgstat_drop_replslot(slot);
+    }
+
+    // Step 8: Release allocation lock
+    LWLockRelease(ReplicationSlotAllocationLock);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling paths for clarity
+- Consolidated error reporting with simplified messages
+- Abstracted low-level file operations details
+- Focused on the main execution flow and core logic
+- Added step-by-step comments explaining the process
+- Simplified condition checks while preserving essential logic

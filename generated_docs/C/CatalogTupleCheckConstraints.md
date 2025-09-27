@@ -42,3 +42,31 @@ This function serves as a defensive programming measure and debugging aid, using
 - Future expansion could include support for CHECK constraints or other constraint types as needed
 - The function assumes that constraint violations in system catalogs represent programming errors rather than user data errors
 - Part of PostgreSQL's defensive programming strategy to catch system catalog integrity issues during development
+
+## Simplified Source
+
+```c
+// Simplified version of CatalogTupleCheckConstraints
+static void CatalogTupleCheckConstraints(Relation heapRel, HeapTuple tup) {
+    // Only check constraints if tuple has NULL values
+    if (HeapTupleHasNulls(tup)) {
+        TupleDesc tupdesc = RelationGetDescr(heapRel);
+        bits8 *nulls_bitmap = tup->t_data->t_bits;
+
+        // Check each attribute for NOT NULL constraint violations
+        for (int attnum = 0; attnum < tupdesc->natts; attnum++) {
+            Form_pg_attribute attribute = TupleDescAttr(tupdesc, attnum);
+
+            // Assert that NOT NULL attributes don't contain NULL values
+            Assert(!(attribute->attnotnull && att_isnull(attnum, nulls_bitmap)));
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity while preserving essential logic
+- Renamed variables for better readability (bp → nulls_bitmap, thisatt → attribute)
+- Consolidated the constraint checking logic into a clear flow
+- Focused on the main execution path of NOT NULL constraint validation
+- Maintained the optimization of early exit when no NULLs are present

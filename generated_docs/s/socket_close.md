@@ -44,3 +44,46 @@ The function deliberately leaves the socket open until the process actually dies
 - Does nothing in standalone backend mode (when MyProcPort is NULL)
 - Supports both GSSAPI and SSL/TLS cleanup when those features are compiled in
 - The decision to not explicitly close the socket allows for better client-side connection handling
+
+## Simplified Source
+
+```c
+// Simplified version of socket_close
+static void socket_close(int code, Datum arg) {
+    // Do nothing if we're in standalone backend mode
+    if (MyProcPort == NULL) {
+        return;
+    }
+
+    // Step 1: Clean up GSSAPI security context if enabled
+    #ifdef ENABLE_GSS
+    if (MyProcPort->gss) {
+        // Delete security context if it exists
+        if (MyProcPort->gss->ctx != GSS_C_NO_CONTEXT) {
+            gss_delete_sec_context(&min_s, &MyProcPort->gss->ctx, NULL);
+        }
+
+        // Release credentials if they exist
+        if (MyProcPort->gss->cred != GSS_C_NO_CREDENTIAL) {
+            gss_release_cred(&min_s, &MyProcPort->gss->cred);
+        }
+    }
+    #endif
+
+    // Step 2: Clean shutdown of SSL/TLS layer
+    secure_close(MyProcPort);
+
+    // Step 3: Invalidate socket to prevent further I/O
+    // Note: We don't explicitly close() the socket - this allows
+    // clients to detect clean connection closure
+    MyProcPort->sock = PGINVALID_SOCKET;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for conciseness while preserving essential information
+- Consolidated GSSAPI cleanup logic with clearer structure
+- Added step-by-step comments to show the logical flow
+- Preserved the important design decision about not closing the socket
+- Maintained the conditional compilation directives for GSSAPI
+- Simplified variable declarations by showing only the essential parts

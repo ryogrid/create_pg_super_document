@@ -52,3 +52,60 @@ This function takes no parameters.
 - Handles race conditions where the process may have been granted the lock or removed from the queue during cleanup
 - Part of PostgreSQL's robust error recovery mechanism for lock management
 - The lockAwaited global variable is cleared to indicate no pending lock wait
+
+## Simplified Source
+
+```c
+// Simplified version of LockErrorCleanup
+void LockErrorCleanup(void) {
+    LWLock *partitionLock;
+    DisableTimeoutParams timeouts[2];
+
+    // Block interrupts for atomic cleanup
+    HOLD_INTERRUPTS();
+
+    // Abort any strong lock acquisition in progress
+    AbortStrongLockAcquire();
+
+    // Check if we were actually waiting for a lock
+    if (lockAwaited == NULL) {
+        RESUME_INTERRUPTS();
+        return;
+    }
+
+    // Disable deadlock and lock timeout timers
+    timeouts[0].id = DEADLOCK_TIMEOUT;
+    timeouts[0].keep_indicator = false;
+    timeouts[1].id = LOCK_TIMEOUT;
+    timeouts[1].keep_indicator = true;  // Preserve lock timeout indicator
+    disable_timeouts(timeouts, 2);
+
+    // Remove ourselves from the wait queue
+    partitionLock = LockHashPartitionLock(lockAwaited->hashcode);
+    LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+
+    if (!dlist_node_is_detached(&MyProc->links)) {
+        // Still in queue - remove ourselves
+        RemoveFromWaitQueue(MyProc, lockAwaited->hashcode);
+    } else {
+        // Already removed from queue - check if lock was granted
+        if (MyProc->waitStatus == PROC_WAIT_STATUS_OK) {
+            GrantAwaitedLock();
+        }
+    }
+
+    // Clear the awaited lock state
+    lockAwaited = NULL;
+
+    LWLockRelease(partitionLock);
+    RESUME_INTERRUPTS();
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Consolidated variable declarations
+- Simplified the timeout handling structure
+- Focused on the main cleanup workflow
+- Maintained all critical error recovery functionality
+- Preserved interrupt handling and race condition management

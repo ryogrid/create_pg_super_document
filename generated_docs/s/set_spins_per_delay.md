@@ -34,3 +34,19 @@ The function is designed to be extremely fast since it may be called while holdi
 - The spins_per_delay parameter is crucial for PostgreSQL's spinlock performance tuning
 - Different backends may have different optimal spin counts based on their workload characteristics
 - The function is called during both regular backend and auxiliary process initialization
+
+## Simplified Source
+
+```c
+// Simplified version of set_spins_per_delay
+void set_spins_per_delay(int shared_spins_per_delay) {
+    // Copy shared spinlock delay setting to local backend
+    // This controls how long to spin before yielding CPU when waiting for locks
+    spins_per_delay = shared_spins_per_delay;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments to clarify the function's purpose
+- Emphasized the performance-critical nature of the operation
+- The function is already minimal - just a simple assignment operation

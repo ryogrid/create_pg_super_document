@@ -36,3 +36,47 @@ The function iterates through all buffer lists (NBUFFER_LISTS), examining each s
 - Handles both structured protocol messages and raw pipe data
 - Ensures proper cleanup by freeing allocated string storage and marking buffers as unused
 - All output is directed to stderr during the flush operation
+
+## Simplified Source
+
+```c
+// Simplified version of flush_pipe_input
+static void flush_pipe_input(char *logbuffer, int *bytes_in_logbuffer) {
+    // Phase 1: Process all incomplete protocol messages in buffer lists
+    for (int i = 0; i < NBUFFER_LISTS; i++) {
+        List *list = buffer_lists[i];
+        ListCell *cell;
+
+        foreach(cell, list) {
+            save_buffer *buf = (save_buffer *) lfirst(cell);
+
+            // If buffer contains active data, write it out
+            if (buf->pid != 0) {
+                StringInfo str = &(buf->data);
+
+                // Write buffered content to stderr
+                write_syslogger_file(str->data, str->len, LOG_DESTINATION_STDERR);
+
+                // Clean up: mark buffer unused and free memory
+                buf->pid = 0;
+                pfree(str->data);
+            }
+        }
+    }
+
+    // Phase 2: Flush any remaining raw pipe data
+    if (*bytes_in_logbuffer > 0) {
+        write_syslogger_file(logbuffer, *bytes_in_logbuffer, LOG_DESTINATION_STDERR);
+    }
+
+    // Reset buffer counter
+    *bytes_in_logbuffer = 0;
+}
+```
+
+Key simplifications made:
+- Combined variable declarations with initialization where possible
+- Added phase comments to clarify the two-stage process
+- Simplified comments to focus on core actions
+- Maintained the essential logic flow and cleanup operations
+- Preserved all critical functionality while improving readability

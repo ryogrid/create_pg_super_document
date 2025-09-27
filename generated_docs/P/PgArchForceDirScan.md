@@ -37,3 +37,20 @@ The forced directory scan bypasses any caching or optimization that the archiver
 - Primarily used for timeline history files and other critical WAL-related files that require prompt archival
 - The actual directory scan occurs in `pgarch_readyXlog()` when it detects the flag is set
 - This mechanism helps maintain PostgreSQLs reliability guarantees for point-in-time recovery scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of PgArchForceDirScan
+void PgArchForceDirScan(void) {
+    // Signal the archiver to perform a directory scan on next iteration
+    // Uses atomic write with memory barrier for thread-safe communication
+    pg_atomic_write_membarrier_u32(&PgArch->force_dir_scan, 1);
+}
+```
+
+Key simplifications made:
+- The function is already very simple and focused
+- Added explanatory comments to clarify the atomic operation purpose
+- Maintained the essential logic: setting a flag to trigger directory scanning
+- Preserved the atomic memory barrier semantics which are critical for correctness

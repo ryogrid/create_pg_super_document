@@ -69,3 +69,45 @@ canAcceptConnections serves as the gatekeeper for all new database connections, 
 - Different return codes enable callers to provide appropriate error messages to clients
 - Hot standby mode allows read-only connections while the primary recovery is in progress
 - The function must coordinate with MaxLivePostmasterChildren() for proper resource management
+
+## Simplified Source
+
+```c
+// Simplified version of canAcceptConnections
+static CAC_state canAcceptConnections(int backend_type) {
+    CAC_state result = CAC_OK;
+
+    // Check if system is in a state that can accept connections
+    // Skip this check for background workers (they have their own logic)
+    if (pmState != PM_RUN && pmState != PM_HOT_STANDBY &&
+        backend_type != BACKEND_TYPE_BGWORKER) {
+
+        // Return appropriate state based on current condition
+        if (Shutdown > NoShutdown)
+            return CAC_SHUTDOWN;        // Shutdown in progress
+        else if (!FatalError && pmState == PM_STARTUP)
+            return CAC_STARTUP;         // System starting up
+        else if (!FatalError && pmState == PM_RECOVERY)
+            return CAC_NOTCONSISTENT;   // Recovery not yet consistent
+        else
+            return CAC_RECOVERY;        // Crash recovery mode
+    }
+
+    // Smart shutdown: block normal connections but allow maintenance
+    if (!connsAllowed && backend_type == BACKEND_TYPE_NORMAL)
+        return CAC_SHUTDOWN;
+
+    // Check resource limits: don't exceed maximum children
+    if (CountChildren(BACKEND_TYPE_ALL) >= MaxLivePostmasterChildren())
+        result = CAC_TOOMANY;
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Consolidated comments for better readability
+- Simplified conditional logic explanations
+- Maintained the essential decision tree structure
+- Preserved all critical state checks and return values
+- Focused on the main execution path without losing functionality

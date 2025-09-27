@@ -31,3 +31,20 @@ This function computes the total shared memory size needed by the PostgreSQL arc
 - Must be called before PgArchShmemInit during server startup
 - The function uses add_size() for safe arithmetic to prevent integer overflow
 - Currently only accounts for the PgArchData structure size
+
+## Simplified Source
+
+```c
+// Simplified version of PgArchShmemSize
+Size PgArchShmemSize(void) {
+    // Calculate shared memory size for archiver subsystem
+    // Only needs space for the main PgArchData structure
+    return sizeof(PgArchData);
+}
+```
+
+Key simplifications made:
+- Removed intermediate variable assignment for clarity
+- Added explanatory comments about the function's purpose
+- Directly returned the size calculation since it's a single operation
+- Focused on the core functionality: calculating memory needed for archiver data

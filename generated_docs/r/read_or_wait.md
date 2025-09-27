@@ -47,3 +47,58 @@ This function is specifically designed for the GSSAPI handshake phase where comp
 - Uses PostgreSQL's latch mechanism for efficient waiting, allowing for clean shutdown
 - Handles partial reads transparently, which can occur on slow or busy networks
 - The function accumulates data in  starting from the current  position
+
+## Simplified Source
+
+```c
+// Simplified version of read_or_wait
+static ssize_t read_or_wait(Port *port, ssize_t len) {
+    ssize_t ret;
+
+    // Keep reading until we get the full requested length
+    while (PqGSSRecvLength < len) {
+        // Attempt to read remaining data
+        ret = secure_raw_read(port, PqGSSRecvBuffer + PqGSSRecvLength,
+                              len - PqGSSRecvLength);
+
+        // Handle permanent errors (not retryable conditions)
+        if (ret < 0 && !(errno == EWOULDBLOCK || errno == EAGAIN || errno == EINTR)) {
+            return -1;
+        }
+
+        // Handle temporary blocking or EOF
+        if (ret <= 0) {
+            // Wait for socket to become readable
+            WaitLatchOrSocket(MyLatch,
+                              WL_SOCKET_READABLE | WL_EXIT_ON_PM_DEATH,
+                              port->sock, 0, WAIT_EVENT_GSS_OPEN_SERVER);
+
+            // Check for EOF by attempting another read
+            if (ret == 0) {
+                ret = secure_raw_read(port, PqGSSRecvBuffer + PqGSSRecvLength,
+                                      len - PqGSSRecvLength);
+                if (ret == 0) {
+                    // Confirmed EOF - client disconnected
+                    return -1;
+                }
+            }
+
+            // If still negative, retry the loop
+            if (ret < 0)
+                continue;
+        }
+
+        // Update buffer length with successful read
+        PqGSSRecvLength += ret;
+    }
+
+    return len;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each phase of the read loop
+- Clarified EOF detection logic with double-check approach
+- Maintained essential non-blocking I/O handling
+- Preserved error handling for retryable vs permanent errors
+- Clear structure showing the accumulative reading approach

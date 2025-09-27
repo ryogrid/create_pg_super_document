@@ -44,3 +44,58 @@ For abstract sockets (indicated by a path starting with '@'), no file system ope
 - The function converts group names to group IDs using getgrnam() if the unix_socket_group is not numeric
 - All permission changes must occur before listen() is called to prevent a security window
 - Errors in setting permissions or group ownership cause the function to return STATUS_ERROR and log appropriate error messages
+
+## Simplified Source
+
+```c
+// Simplified version of Setup_AF_UNIX
+static int Setup_AF_UNIX(const char *sock_path) {
+    // Skip file system operations for abstract sockets
+    if (sock_path[0] == '@') {
+        return STATUS_OK;
+    }
+
+    // Set socket group ownership if configured
+    if (Unix_socket_group[0] != '\0') {
+#ifdef WIN32
+        // Windows doesn't support unix socket groups
+        elog(WARNING, "unix_socket_group not supported on Windows");
+#else
+        gid_t group_id;
+
+        // Convert group name/ID to numeric group ID
+        if (is_numeric(Unix_socket_group)) {
+            group_id = convert_to_gid(Unix_socket_group);
+        } else {
+            group_id = lookup_group_by_name(Unix_socket_group);
+            if (group_id == INVALID_GID) {
+                ereport(LOG, "group does not exist");
+                return STATUS_ERROR;
+            }
+        }
+
+        // Change socket file group ownership
+        if (chown(sock_path, -1, group_id) == -1) {
+            ereport(LOG, "could not set group ownership");
+            return STATUS_ERROR;
+        }
+#endif
+    }
+
+    // Set socket file permissions
+    if (chmod(sock_path, Unix_socket_permissions) == -1) {
+        ereport(LOG, "could not set permissions");
+        return STATUS_ERROR;
+    }
+
+    return STATUS_OK;
+}
+```
+
+Key simplifications made:
+- Abstracted detailed string-to-number conversion logic into helper concept `convert_to_gid()`
+- Simplified group lookup with conceptual `lookup_group_by_name()` function
+- Consolidated error handling patterns into simpler ereport calls
+- Removed detailed error message formatting for clarity
+- Focused on the main execution flow: check abstract socket, set group, set permissions
+- Maintained the essential logic while removing implementation details

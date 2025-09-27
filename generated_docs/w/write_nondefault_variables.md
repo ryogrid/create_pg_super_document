@@ -53,3 +53,50 @@ The function uses the global guc_nondef_list, which maintains a doubly-linked li
 - File operations use PostgreSQL's AllocateFile/FreeFile for consistent error handling
 - The binary format written matches what read_nondefault_variables expects
 - Part of the mechanism that allows PostgreSQL to work on platforms without fork()
+
+## Simplified Source
+
+```c
+// Simplified version of write_nondefault_variables
+void write_nondefault_variables(GucContext context) {
+    int elevel;
+    FILE *fp;
+    dlist_iter iter;
+
+    // Validate context is appropriate for this operation
+    Assert(context == PGC_POSTMASTER || context == PGC_SIGHUP);
+
+    // Set error level based on context
+    elevel = (context == PGC_SIGHUP) ? LOG : ERROR;
+
+    // Open temporary file for writing
+    fp = AllocateFile(CONFIG_EXEC_PARAMS_NEW, "w");
+    if (!fp) {
+        ereport(elevel, (errmsg("could not write to file")));
+        return;
+    }
+
+    // Write all non-default GUC variables to file
+    dlist_foreach(iter, &guc_nondef_list) {
+        struct config_generic *gconf = dlist_container(struct config_generic,
+                                                      nondef_link, iter.cur);
+        write_one_nondefault_variable(fp, gconf);
+    }
+
+    // Close file and check for errors
+    if (FreeFile(fp)) {
+        ereport(elevel, (errmsg("could not write to file")));
+        return;
+    }
+
+    // Atomically replace old file with new one
+    rename(CONFIG_EXEC_PARAMS_NEW, CONFIG_EXEC_PARAMS);
+}
+```
+
+Key simplifications made:
+- Removed detailed error message formatting for clarity
+- Consolidated file operation error handling
+- Abstracted low-level error reporting details
+- Focused on the main execution path
+- Added brief explanatory comments for each major step

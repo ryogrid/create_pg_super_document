@@ -39,3 +39,29 @@ ReadNextFullTransactionId is a simple utility function that returns the current 
 - Provides atomic read of the transaction counter value
 - Essential for monitoring and diagnostic purposes
 - Much lighter weight than GetNewTransactionId since it performs no allocations
+
+## Simplified Source
+
+```c
+// Simplified version of ReadNextFullTransactionId
+FullTransactionId ReadNextFullTransactionId(void) {
+    FullTransactionId fullXid;
+
+    // Acquire shared lock for safe concurrent reading
+    LWLockAcquire(XidGenLock, LW_SHARED);
+
+    // Read the next transaction ID from shared memory
+    fullXid = TransamVariables->nextXid;
+
+    // Release the lock
+    LWLockRelease(XidGenLock);
+
+    return fullXid;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- The function was already quite simple, so minimal changes were needed
+- Preserved the essential lock-acquire-read-release pattern
+- Maintained the atomic read operation integrity

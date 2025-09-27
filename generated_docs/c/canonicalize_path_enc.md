@@ -56,3 +56,165 @@ The state machine manages four states:
 - The algorithm ensures that the output path is never longer than the input, making in-place modification safe
 - Empty paths are preserved, and paths that reduce to nothing are converted to '.'
 - Critical for safe path handling in PostgreSQL's multi-encoding environment, particularly in psql and file operations
+
+## Simplified Source
+
+```c
+// Simplified version of canonicalize_path_enc
+void canonicalize_path_enc(char *path, int encoding) {
+    char *p, *to_p;
+    char *spath;
+    char *parsed;
+    char *unparse;
+    bool was_sep = false;
+    canonicalize_state state;
+    int pathdepth = 0;  // counts directory depth
+
+#ifdef WIN32
+    // Convert backslashes to forward slashes for Windows
+    debackslash_path(path, encoding);
+
+    // Remove trailing quote if present
+    p = path + strlen(path);
+    if (p > path && *(p - 1) == '"')
+        *(p - 1) = '/';
+#endif
+
+    // Remove trailing slashes (except leading slash)
+    trim_trailing_separator(path);
+
+    // Remove duplicate adjacent separators like "///"
+    p = path;
+#ifdef WIN32
+    if (*p) p++;  // Don't remove leading double-slash on Win32
+#endif
+    to_p = p;
+    for (; *p; p++, to_p++) {
+        // Skip multiple consecutive slashes
+        while (*p == '/' && was_sep)
+            p++;
+        if (to_p != p)
+            *to_p = *p;
+        was_sep = (*p == '/');
+    }
+    *to_p = '\0';
+
+    // Process "." and ".." components using state machine
+    spath = skip_drive(path);
+    if (*spath == '\0')
+        return;  // empty path
+
+    // Initialize state and parsing pointers
+    if (*spath == '/') {
+        state = ABSOLUTE_PATH_INIT;
+        parsed = unparse = (spath + 1);  // Skip leading slash
+    } else {
+        state = RELATIVE_PATH_INIT;
+        parsed = unparse = spath;
+    }
+
+    // Main parsing loop - process each path component
+    while (*unparse != '\0') {
+        char *unparse_next;
+        bool is_double_dot;
+
+        // Extract next directory name
+        unparse_next = unparse;
+        while (*unparse_next && *unparse_next != '/')
+            unparse_next++;
+        if (*unparse_next != '\0')
+            *unparse_next++ = '\0';
+
+        // Handle "." components (ignore them)
+        if (strcmp(unparse, ".") == 0) {
+            unparse = unparse_next;
+            continue;
+        }
+
+        // Check if this is ".." component
+        is_double_dot = (strcmp(unparse, "..") == 0);
+
+        // State machine for handling path components
+        switch (state) {
+            case ABSOLUTE_PATH_INIT:
+                if (!is_double_dot) {
+                    // Add first directory after root
+                    parsed = append_subdir_to_path(parsed, unparse);
+                    state = ABSOLUTE_WITH_N_DEPTH;
+                    pathdepth++;
+                }
+                break;
+
+            case ABSOLUTE_WITH_N_DEPTH:
+                if (is_double_dot) {
+                    // Go up one directory
+                    *parsed = '\0';
+                    parsed = trim_directory(path);
+                    if (--pathdepth == 0)
+                        state = ABSOLUTE_PATH_INIT;
+                } else {
+                    // Add normal directory
+                    *parsed++ = '/';
+                    parsed = append_subdir_to_path(parsed, unparse);
+                    pathdepth++;
+                }
+                break;
+
+            case RELATIVE_PATH_INIT:
+                // Add component (either ".." or normal directory)
+                parsed = append_subdir_to_path(parsed, unparse);
+                if (is_double_dot)
+                    state = RELATIVE_WITH_PARENT_REF;
+                else {
+                    state = RELATIVE_WITH_N_DEPTH;
+                    pathdepth++;
+                }
+                break;
+
+            case RELATIVE_WITH_N_DEPTH:
+                if (is_double_dot) {
+                    // Remove last directory
+                    *parsed = '\0';
+                    parsed = trim_directory(path);
+                    if (--pathdepth == 0) {
+                        state = (parsed == spath) ?
+                               RELATIVE_PATH_INIT : RELATIVE_WITH_PARENT_REF;
+                    }
+                } else {
+                    // Add normal directory
+                    *parsed++ = '/';
+                    parsed = append_subdir_to_path(parsed, unparse);
+                    pathdepth++;
+                }
+                break;
+
+            case RELATIVE_WITH_PARENT_REF:
+                // Add component (preserve ".." or start counting depth)
+                *parsed++ = '/';
+                parsed = append_subdir_to_path(parsed, unparse);
+                if (!is_double_dot) {
+                    state = RELATIVE_WITH_N_DEPTH;
+                    pathdepth = 1;
+                }
+                break;
+        }
+
+        unparse = unparse_next;
+    }
+
+    // Handle empty result - insert "." for current directory
+    if (parsed == spath)
+        *parsed++ = '.';
+
+    // Null-terminate the result
+    *parsed = '\0';
+}
+```
+
+Key simplifications made:
+- Consolidated similar state machine cases with clearer logic flow
+- Added explanatory comments for each major section
+- Simplified variable names and removed some intermediate variables
+- Focused on the core path canonicalization algorithm
+- Abstracted complex helper function details with descriptive comments
+- Maintained the essential state machine logic for proper ".." handling

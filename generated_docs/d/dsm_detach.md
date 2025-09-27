@@ -54,3 +54,86 @@ The function handles both main region segments (allocated from PostgreSQL's shar
 - Integrates with PostgreSQL's resource owner system for automatic cleanup
 - Critical for preventing shared memory leaks in the DSM subsystem
 - Reference count of 1 triggers destruction (0 means unused slot)
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_detach
+void dsm_detach(dsm_segment *seg) {
+    // Step 1: Execute all registered detach callbacks safely
+    HOLD_INTERRUPTS();
+    while (!slist_is_empty(&seg->on_detach)) {
+        // Pop callback and execute it
+        slist_node *node = slist_pop_head_node(&seg->on_detach);
+        dsm_segment_detach_callback *cb = slist_container(dsm_segment_detach_callback, node, node);
+
+        // Execute callback and free its memory
+        cb->function(seg, cb->arg);
+        pfree(cb);
+    }
+    RESUME_INTERRUPTS();
+
+    // Step 2: Unmap the segment from our address space
+    if (seg->mapped_address != NULL) {
+        if (!is_main_region_dsm_handle(seg->handle)) {
+            dsm_impl_op(DSM_OP_DETACH, seg->handle, 0, &seg->impl_private,
+                        &seg->mapped_address, &seg->mapped_size, WARNING);
+        }
+        // Reset mapping fields
+        seg->impl_private = NULL;
+        seg->mapped_address = NULL;
+        seg->mapped_size = 0;
+    }
+
+    // Step 3: Decrement reference count and possibly destroy segment
+    if (seg->control_slot != INVALID_CONTROL_SLOT) {
+        uint32 refcnt;
+        uint32 control_slot = seg->control_slot;
+
+        // Atomically decrement reference count
+        LWLockAcquire(DynamicSharedMemoryControlLock, LW_EXCLUSIVE);
+        refcnt = --dsm_control->item[control_slot].refcnt;
+        seg->control_slot = INVALID_CONTROL_SLOT;
+        LWLockRelease(DynamicSharedMemoryControlLock);
+
+        // If this was the last reference, destroy the segment
+        if (refcnt == 1) {
+            bool destroyed = false;
+
+            // Try to destroy the underlying segment
+            if (is_main_region_dsm_handle(seg->handle) ||
+                dsm_impl_op(DSM_OP_DESTROY, seg->handle, 0, &seg->impl_private,
+                           &seg->mapped_address, &seg->mapped_size, WARNING)) {
+                destroyed = true;
+            }
+
+            // If destruction succeeded, clean up control structure
+            if (destroyed) {
+                LWLockAcquire(DynamicSharedMemoryControlLock, LW_EXCLUSIVE);
+                if (is_main_region_dsm_handle(seg->handle)) {
+                    // Return pages to main region allocator
+                    FreePageManagerPut((FreePageManager *) dsm_main_space_begin,
+                                      dsm_control->item[control_slot].first_page,
+                                      dsm_control->item[control_slot].npages);
+                }
+                dsm_control->item[control_slot].refcnt = 0;
+                LWLockRelease(DynamicSharedMemoryControlLock);
+            }
+        }
+    }
+
+    // Step 4: Clean up local data structures
+    if (seg->resowner != NULL) {
+        ResourceOwnerForgetDSM(seg->resowner, seg);
+    }
+    dlist_delete(&seg->node);
+    pfree(seg);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments for the four main phases
+- Consolidated callback execution into a clearer loop
+- Simplified the segment destruction logic
+- Removed extensive internal comments while preserving essential error handling
+- Maintained the robust error recovery design

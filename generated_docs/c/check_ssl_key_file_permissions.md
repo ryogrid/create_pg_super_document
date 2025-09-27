@@ -34,3 +34,60 @@ This function performs comprehensive security checks on SSL private key files to
 - Root ownership allows slightly more permissive access (0640) to support system-wide certificate management
 - Returns false on any security violation, true if all checks pass
 - Error logging level is contextual: FATAL during server startup (preventing startup), LOG during runtime operations
+
+## Simplified Source
+
+```c
+// Simplified version of check_ssl_key_file_permissions
+bool check_ssl_key_file_permissions(const char *ssl_key_file, bool isServerStart) {
+    int loglevel = isServerStart ? FATAL : LOG;
+    struct stat file_stats;
+
+    // Check if key file exists and is accessible
+    if (stat(ssl_key_file, &file_stats) != 0) {
+        ereport(loglevel, "could not access private key file");
+        return false;
+    }
+
+    // Key file must be a regular file (not directory, symlink, etc.)
+    if (!S_ISREG(file_stats.st_mode)) {
+        ereport(loglevel, "private key file is not a regular file");
+        return false;
+    }
+
+#if !defined(WIN32) && !defined(__CYGWIN__)
+    // Security checks for Unix-like systems only
+
+    // File must be owned by database user or root
+    if (file_stats.st_uid != geteuid() && file_stats.st_uid != 0) {
+        ereport(loglevel, "private key file must be owned by database user or root");
+        return false;
+    }
+
+    // Check permissions based on ownership
+    bool has_unsafe_permissions;
+    if (file_stats.st_uid == geteuid()) {
+        // User-owned: no group or world access allowed (max 0600)
+        has_unsafe_permissions = (file_stats.st_mode & (S_IRWXG | S_IRWXO));
+    } else {
+        // Root-owned: no world access, limited group access (max 0640)
+        has_unsafe_permissions = (file_stats.st_mode & (S_IWGRP | S_IXGRP | S_IRWXO));
+    }
+
+    if (has_unsafe_permissions) {
+        ereport(loglevel, "private key file has group or world access");
+        return false;
+    }
+#endif
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Consolidated error reporting into simpler messages
+- Renamed variables for clarity (`buf` → `file_stats`)
+- Added explanatory comments for each validation step
+- Simplified permission checking logic with descriptive variable
+- Removed detailed error messages and platform-specific comments
+- Focused on the main security validation workflow

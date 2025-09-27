@@ -41,3 +41,25 @@ This optimization function provides a fast way to determine if calling ereport()
 - ERROR and higher severity messages always return true since they are always processed regardless of logging settings
 - The function is declared without static/inline keywords, making it available to other compilation units
 - Common usage pattern: check this function before performing expensive string operations, translations, or data gathering for log messages
+
+## Simplified Source
+
+```c
+// Simplified version of message_level_is_interesting
+bool message_level_is_interesting(int elevel) {
+    // Always process ERROR and higher severity levels
+    // Also process if message would be output to server or client
+    if (elevel >= ERROR ||
+        should_output_to_server(elevel) ||
+        should_output_to_client(elevel)) {
+        return true;
+    }
+    return false;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the decision logic
+- Condensed the if-condition logic while preserving all checks
+- Function is already very simple, minimal changes needed
+- Preserved the essential optimization purpose for expensive preparatory work

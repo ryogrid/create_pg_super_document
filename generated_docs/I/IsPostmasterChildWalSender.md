@@ -37,3 +37,25 @@ This function determines whether a specific child process slot is occupied by a 
 - WAL senders are critical components of PostgreSQL's streaming replication
 - Located in src/backend/storage/ipc/pmsignal.c:307-322
 - Returns false for any slot not specifically marked as PM_CHILD_WALSENDER
+
+## Simplified Source
+
+```c
+// Simplified version of IsPostmasterChildWalSender
+bool IsPostmasterChildWalSender(int slot) {
+    // Validate slot number is within valid range
+    Assert(slot > 0 && slot <= num_child_inuse);
+
+    // Convert from 1-based to 0-based indexing
+    int zero_based_slot = slot - 1;
+
+    // Check if this slot contains a WAL sender process
+    return (PMSignalState->PMChildFlags[zero_based_slot] == PM_CHILD_WALSENDER);
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for the converted slot index
+- Combined the conditional check into a single return statement
+- Added explanatory comments for each logical step
+- Maintained the essential logic flow and validation

@@ -30,3 +30,20 @@ This function takes no parameters.
 - The memory allocation is based on the configured or auto-tuned number of subtransaction buffers
 - Used during PostgreSQL startup to determine total shared memory requirements
 - Located in src/backend/access/transam/subtrans.c:214-219
+
+## Simplified Source
+
+```c
+// Simplified version of SUBTRANSShmemSize
+Size SUBTRANSShmemSize(void) {
+    // Calculate shared memory size for SUBTRANS system
+    // Uses Simple LRU buffer management with configured buffer count
+    return SimpleLruShmemSize(SUBTRANSShmemBuffers(), 0);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core purpose
+- The function is already quite simple - it delegates to SimpleLruShmemSize
+- Highlighted that it uses Simple LRU buffer management
+- Noted that the second parameter (0) means no LSN tracking for SUBTRANS

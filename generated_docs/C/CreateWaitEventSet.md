@@ -44,3 +44,63 @@ Platform-specific initialization includes creating file descriptors for epoll/kq
 - The structure supports resource owner tracking for automatic cleanup when transactions end
 - CLOEXEC flags are set on Unix file descriptors to prevent inheritance by child processes
 - Error handling includes proper cleanup of partially-initialized resources
+
+## Simplified Source
+
+```c
+// Simplified version of CreateWaitEventSet
+WaitEventSet *
+CreateWaitEventSet(ResourceOwner resowner, int nevents)
+{
+    WaitEventSet *set;
+    Size total_size = 0;
+
+    // Calculate total memory needed for all structures
+    total_size += MAXALIGN(sizeof(WaitEventSet));
+    total_size += MAXALIGN(sizeof(WaitEvent) * nevents);
+
+    // Add platform-specific structure sizes
+    total_size += platform_specific_size(nevents);
+
+    // Ensure resource owner can track this allocation
+    if (resowner != NULL) {
+        ResourceOwnerEnlarge(resowner);
+    }
+
+    // Allocate contiguous memory block in top context
+    char *data = MemoryContextAllocZero(TopMemoryContext, total_size);
+
+    // Set up main structure and event array
+    set = (WaitEventSet *) data;
+    data += MAXALIGN(sizeof(WaitEventSet));
+    set->events = (WaitEvent *) data;
+    data += MAXALIGN(sizeof(WaitEvent) * nevents);
+
+    // Initialize platform-specific structures
+    setup_platform_structures(set, data, nevents);
+
+    // Initialize basic fields
+    set->latch = NULL;
+    set->nevents_space = nevents;
+    set->exit_on_postmaster_death = false;
+
+    // Register with resource owner for cleanup
+    if (resowner != NULL) {
+        ResourceOwnerRememberWaitEventSet(resowner, set);
+        set->owner = resowner;
+    }
+
+    // Create platform-specific event mechanism
+    initialize_event_mechanism(set);
+
+    return set;
+}
+```
+
+Key simplifications made:
+- Abstracted platform-specific memory calculations into `platform_specific_size()`
+- Consolidated platform-specific structure setup into `setup_platform_structures()`
+- Simplified event mechanism initialization into `initialize_event_mechanism()`
+- Removed detailed error handling for clarity
+- Focused on the main allocation and initialization flow
+- Maintained the essential algorithm: calculate size, allocate memory, set up structures, initialize fields

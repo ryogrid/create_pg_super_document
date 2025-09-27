@@ -39,3 +39,32 @@ The function calculates the required memory size (struct size plus string length
 - The 'regex' field is initialized to NULL and may be populated later if the token is used as a regular expression
 - Memory-efficient design reduces allocation overhead and improves performance
 - Used in PostgreSQL's HBA authentication system for storing parsed configuration tokens
+
+## Simplified Source
+
+```c
+// Simplified version of make_auth_token
+static AuthToken *make_auth_token(const char *token, bool quoted) {
+    // Calculate memory needed for struct + string + null terminator
+    int token_length = strlen(token);
+
+    // Allocate memory for both struct and string in one block
+    AuthToken *auth_token = (AuthToken *) palloc0(sizeof(AuthToken) + token_length + 1);
+
+    // Set string pointer to memory right after the struct
+    auth_token->string = (char *) auth_token + sizeof(AuthToken);
+    auth_token->quoted = quoted;
+    auth_token->regex = NULL;
+
+    // Copy the token string into the allocated space
+    memcpy(auth_token->string, token, token_length + 1);
+
+    return auth_token;
+}
+```
+
+Key simplifications made:
+- Used clearer variable names (token_length instead of toklen)
+- Added explanatory comments for each major step
+- Maintained the memory-efficient single allocation design
+- Preserved all essential functionality and initialization

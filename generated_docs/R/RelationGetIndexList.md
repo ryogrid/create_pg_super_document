@@ -56,3 +56,97 @@ The function carefully manages memory contexts to prevent leaks, building the re
 - Returns a copy of the list to protect against cache invalidation during syscache lookups
 - Updates replica identity index based on relation's relreplident setting and available indexes
 - Memory management prevents leaks by using appropriate memory contexts for building and caching
+
+## Simplified Source
+
+```c
+// Simplified version of RelationGetIndexList
+List *RelationGetIndexList(Relation relation) {
+    // Quick exit if index list already cached
+    if (relation->rd_indexvalid) {
+        return list_copy(relation->rd_indexlist);
+    }
+
+    // Initialize variables for scan and result collection
+    List *result = NIL;
+    Oid pkeyIndex = InvalidOid;
+    Oid candidateIndex = InvalidOid;
+    char replident = relation->rd_rel->relreplident;
+
+    // Set up scan key to find all indexes for this relation
+    ScanKeyData skey;
+    ScanKeyInit(&skey, Anum_pg_index_indrelid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(RelationGetRelid(relation)));
+
+    // Open pg_index catalog and begin scan
+    Relation indrel = table_open(IndexRelationId, AccessShareLock);
+    SysScanDesc indscan = systable_beginscan(indrel, IndexIndrelidIndexId,
+                                             true, NULL, 1, &skey);
+
+    // Process each index entry found
+    HeapTuple htup;
+    while (HeapTupleIsValid(htup = systable_getnext(indscan))) {
+        Form_pg_index index = (Form_pg_index) GETSTRUCT(htup);
+
+        // Skip indexes being dropped (not live)
+        if (!index->indislive) {
+            continue;
+        }
+
+        // Add this index OID to result list
+        result = lappend_oid(result, index->indexrelid);
+
+        // Check for special index types (primary key, replica identity)
+        if (index->indisvalid && index->indisunique &&
+            index->indimmediate &&
+            heap_attisnull(htup, Anum_pg_index_indpred, NULL)) {
+
+            if (index->indisprimary) {
+                pkeyIndex = index->indexrelid;
+            }
+            if (index->indisreplident) {
+                candidateIndex = index->indexrelid;
+            }
+        }
+    }
+
+    // Clean up scan
+    systable_endscan(indscan);
+    table_close(indrel, AccessShareLock);
+
+    // Sort result by OID for consistent ordering (prevents deadlocks)
+    list_sort(result, list_oid_cmp);
+
+    // Cache the results in relation structure
+    MemoryContext oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+    List *oldlist = relation->rd_indexlist;
+    relation->rd_indexlist = list_copy(result);
+    relation->rd_pkindex = pkeyIndex;
+
+    // Set replica identity index based on relation settings
+    if (replident == REPLICA_IDENTITY_DEFAULT && OidIsValid(pkeyIndex)) {
+        relation->rd_replidindex = pkeyIndex;
+    } else if (replident == REPLICA_IDENTITY_INDEX && OidIsValid(candidateIndex)) {
+        relation->rd_replidindex = candidateIndex;
+    } else {
+        relation->rd_replidindex = InvalidOid;
+    }
+
+    relation->rd_indexvalid = true;
+    MemoryContextSwitchTo(oldcxt);
+
+    // Clean up old cached list
+    list_free(oldlist);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations at the top for clarity
+- Simplified the complex conditional logic for special index detection
+- Removed detailed comments about memory leakage and HOT-safety
+- Streamlined the replica identity index assignment logic
+- Focused on the main execution path while preserving all essential functionality
+- Maintained the critical caching behavior and memory management
+- Preserved the important OID sorting for deadlock prevention

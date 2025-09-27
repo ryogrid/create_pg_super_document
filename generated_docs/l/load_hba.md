@@ -52,3 +52,88 @@ The function employs comprehensive error handling, continuing to parse the entir
 - Critical system function called during startup and SIGHUP configuration reload
 - Parse errors are logged but don't prevent continued parsing of remaining lines
 - On failure during reload, the system continues with the previous valid configuration
+
+## Simplified Source
+
+```c
+// Simplified version of load_hba
+bool load_hba(void) {
+    FILE *file;
+    List *hba_lines = NIL;
+    List *new_parsed_lines = NIL;
+    bool ok = true;
+    MemoryContext hbacxt;
+    MemoryContext oldcxt;
+
+    // Step 1: Open and tokenize the HBA configuration file
+    file = open_auth_file(HbaFileName, LOG, 0, NULL);
+    if (file == NULL) {
+        return false;  // File opening failed
+    }
+
+    tokenize_auth_file(HbaFileName, file, &hba_lines, LOG, 0);
+
+    // Step 2: Create dedicated memory context for HBA data
+    hbacxt = AllocSetContextCreate(PostmasterContext,
+                                   "hba parser context",
+                                   ALLOCSET_SMALL_SIZES);
+    oldcxt = MemoryContextSwitchTo(hbacxt);
+
+    // Step 3: Parse each tokenized line into HBA rules
+    foreach(line, hba_lines) {
+        TokenizedAuthLine *tok_line = (TokenizedAuthLine *) lfirst(line);
+        HbaLine *newline;
+
+        // Skip lines that already have tokenization errors
+        if (tok_line->err_msg != NULL) {
+            ok = false;
+            continue;
+        }
+
+        // Parse the line into an HBA rule
+        newline = parse_hba_line(tok_line, LOG);
+        if (newline == NULL) {
+            ok = false;  // Parse error occurred
+            continue;   // Keep parsing to find all errors
+        }
+
+        new_parsed_lines = lappend(new_parsed_lines, newline);
+    }
+
+    // Step 4: Validate that we have at least one valid entry
+    if (ok && new_parsed_lines == NIL) {
+        ereport(LOG, (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                     errmsg("configuration file \"%s\" contains no entries",
+                            HbaFileName)));
+        ok = false;
+    }
+
+    // Step 5: Cleanup tokenizer resources
+    free_auth_file(file, 0);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Step 6: Handle parse results - atomic replacement or cleanup
+    if (!ok) {
+        // Parsing failed - cleanup and keep old configuration
+        MemoryContextDelete(hbacxt);
+        return false;
+    }
+
+    // Step 7: Success - replace the active HBA configuration
+    if (parsed_hba_context != NULL) {
+        MemoryContextDelete(parsed_hba_context);
+    }
+    parsed_hba_context = hbacxt;
+    parsed_hba_lines = new_parsed_lines;
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated error handling logic
+- Added step-by-step comments to clarify the main algorithm flow
+- Simplified variable declarations by grouping related ones
+- Focused on the core atomic replacement pattern
+- Abstracted complex memory context switching details
+- Emphasized the main execution path while preserving error handling structure

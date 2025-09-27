@@ -38,3 +38,32 @@ This function takes no parameters.
 - Ensures that failed WAL record construction doesn't leave the system in an inconsistent state
 - The function resets global state variables that are shared across all WAL record construction operations
 - Part of the WAL insertion cleanup protocol along with XLogInsert completion
+
+## Simplified Source
+
+```c
+// Simplified version of XLogResetInsertion
+void XLogResetInsertion(void) {
+    int i;
+
+    // Mark all registered buffers as not in use
+    for (i = 0; i < max_registered_block_id; i++)
+        registered_buffers[i].in_use = false;
+
+    // Reset counters and pointers
+    num_rdatas = 0;
+    max_registered_block_id = 0;
+    mainrdata_len = 0;
+    mainrdata_last = (XLogRecData *) &mainrdata_head;
+
+    // Clear flags and state
+    curinsert_flags = 0;
+    begininsert_called = false;
+}
+```
+
+Key simplifications made:
+- Focused on the core cleanup operations: reset buffers → reset counters → clear flags
+- Preserved all essential state resets for proper WAL insertion state management
+- Emphasized the systematic cleanup approach for next WAL record construction
+- Maintained the simple but critical function structure

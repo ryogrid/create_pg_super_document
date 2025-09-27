@@ -38,3 +38,33 @@ The pg_file_exists function determines if a file exists at the specified absolut
 - Raises ERROR for unexpected system call failures
 - Part of PostgreSQL's file descriptor management utilities
 - Commonly used in dynamic library loading and file discovery operations
+
+## Simplified Source
+
+```c
+// Simplified version of pg_file_exists
+bool pg_file_exists(const char *name) {
+    struct stat st;
+
+    // Validate input parameter
+    Assert(name != NULL);
+
+    // Check if file exists and get its attributes
+    if (stat(name, &st) == 0) {
+        // Return true only if it's not a directory
+        return !S_ISDIR(st.st_mode);
+    } else if (!(errno == ENOENT || errno == ENOTDIR || errno == EACCES)) {
+        // Report unexpected errors (not file-not-found, path-invalid, or access-denied)
+        ereport(ERROR, (errmsg("could not access file \"%s\": %m", name)));
+    }
+
+    // File doesn't exist or access denied
+    return false;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step of the logic
+- Preserved essential error handling for unexpected failures
+- Maintained the directory vs file distinction using S_ISDIR
+- Kept the graceful handling of common error conditions

@@ -57,3 +57,67 @@ This function takes no parameters.
 - The function resets the signal event after processing all queued signals
 - Blocked signals are ignored and will be dispatched when unblocked via pqsigprocmask()
 - The function handles signal re-entrancy by temporarily leaving the critical section during handler execution
+
+## Simplified Source
+
+```c
+// Simplified version of pgwin32_dispatch_queued_signals
+void pgwin32_dispatch_queued_signals(void) {
+    int exec_mask;
+
+    // Enter critical section for thread safety
+    EnterCriticalSection(&pg_signal_crit_sec);
+
+    // Process all unblocked queued signals
+    while ((exec_mask = UNBLOCKED_SIGNAL_QUEUE()) != 0) {
+        // Check each signal in the queue
+        for (int i = 1; i < PG_SIGNAL_COUNT; i++) {
+            if (exec_mask & sigmask(i)) {
+                // Get signal handler for this signal
+                struct sigaction *act = &pg_signal_array[i];
+                pqsigfunc sig = act->sa_handler;
+
+                // Use default handler if needed
+                if (sig == SIG_DFL)
+                    sig = pg_signal_defaults[i];
+
+                // Remove signal from queue
+                pg_signal_queue &= ~sigmask(i);
+
+                // Execute handler if valid
+                if (sig != SIG_ERR && sig != SIG_IGN && sig != SIG_DFL) {
+                    // Set up signal blocking during handler execution
+                    sigset_t block_mask = act->sa_mask;
+                    if ((act->sa_flags & SA_NODEFER) == 0)
+                        block_mask |= sigmask(i);
+
+                    // Temporarily leave critical section
+                    LeaveCriticalSection(&pg_signal_crit_sec);
+
+                    // Block signals, execute handler, restore signal mask
+                    sigset_t save_mask;
+                    sigprocmask(SIG_BLOCK, &block_mask, &save_mask);
+                    sig(i);
+                    sigprocmask(SIG_SETMASK, &save_mask, NULL);
+
+                    // Re-enter critical section and restart loop
+                    EnterCriticalSection(&pg_signal_crit_sec);
+                    break;
+                }
+            }
+        }
+    }
+
+    // Clean up and exit critical section
+    ResetEvent(pgwin32_signal_event);
+    LeaveCriticalSection(&pg_signal_crit_sec);
+}
+```
+
+Key simplifications made:
+- Added inline variable declarations for better readability
+- Consolidated signal handler resolution logic
+- Added descriptive comments for each major step
+- Simplified the signal blocking explanation
+- Focused on the main execution flow while preserving all essential logic
+- Maintained the critical section handling and signal masking behavior

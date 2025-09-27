@@ -45,3 +45,32 @@ GetRedoRecPtr retrieves the current Redo record pointer from PostgreSQL's shared
 - The Redo pointer represents the earliest WAL record that might need replay
 - Located in src/backend/access/transam/xlog.c:6416-6445
 - Widely used across PostgreSQL subsystems including replication, storage management, and recovery
+
+## Simplified Source
+
+```c
+// Simplified version of GetRedoRecPtr
+XLogRecPtr GetRedoRecPtr(void) {
+    XLogRecPtr shared_redo_ptr;
+
+    // Step 1: Get current Redo pointer from shared memory with spinlock protection
+    SpinLockAcquire(&XLogCtl->info_lck);
+    shared_redo_ptr = XLogCtl->RedoRecPtr;
+    SpinLockRelease(&XLogCtl->info_lck);
+
+    // Step 2: Update local copy if shared value is newer
+    if (RedoRecPtr < shared_redo_ptr) {
+        RedoRecPtr = shared_redo_ptr;
+    }
+
+    // Step 3: Return the current (possibly updated) local copy
+    return RedoRecPtr;
+}
+```
+
+Key simplifications made:
+- Renamed variable for clarity (ptr -> shared_redo_ptr)
+- Added step-by-step comments explaining the logic
+- Removed the detailed comment about WAL insertion locks for brevity
+- Preserved the essential thread-safety and update logic
+- Maintained the side-effect of updating the local RedoRecPtr copy

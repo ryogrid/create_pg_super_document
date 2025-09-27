@@ -40,3 +40,49 @@ This function takes no parameters and operates on the current PostgreSQL data di
 - The function reports errors at LOG level and continues processing rather than failing, prioritizing database availability
 - Helps prevent accumulation of temporary files that could consume disk space after crashes
 - Part of PostgreSQL's crash recovery and cleanup infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of RemovePgTempFiles
+void RemovePgTempFiles(void) {
+    char temp_path[MAXPGPATH + 10 + sizeof(TABLESPACE_VERSION_DIRECTORY) + sizeof(PG_TEMP_FILES_DIR)];
+    DIR *spc_dir;
+    struct dirent *spc_de;
+
+    // Step 1: Clean temporary files in default tablespace (base directory)
+    snprintf(temp_path, sizeof(temp_path), "base/%s", PG_TEMP_FILES_DIR);
+    RemovePgTempFilesInDir(temp_path, true, false);
+    RemovePgTempRelationFiles("base");
+
+    // Step 2: Process all non-default tablespaces
+    spc_dir = AllocateDir("pg_tblspc");
+
+    while ((spc_de = ReadDirExtended(spc_dir, "pg_tblspc", LOG)) != NULL) {
+        // Skip current and parent directory entries
+        if (strcmp(spc_de->d_name, ".") == 0 || strcmp(spc_de->d_name, "..") == 0)
+            continue;
+
+        // Clean temporary files in this tablespace
+        snprintf(temp_path, sizeof(temp_path), "pg_tblspc/%s/%s/%s",
+                 spc_de->d_name, TABLESPACE_VERSION_DIRECTORY, PG_TEMP_FILES_DIR);
+        RemovePgTempFilesInDir(temp_path, true, false);
+
+        // Clean temporary relation files in this tablespace
+        snprintf(temp_path, sizeof(temp_path), "pg_tblspc/%s/%s",
+                 spc_de->d_name, TABLESPACE_VERSION_DIRECTORY);
+        RemovePgTempRelationFiles(temp_path);
+    }
+
+    FreeDir(spc_dir);
+
+    // Note: EXEC_BACKEND pgsql_tmp directory handled separately to avoid race conditions
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about crash recovery behavior and GUC settings
+- Consolidated the two-phase cleanup approach into clear steps
+- Simplified the tablespace iteration logic explanation
+- Focused on the main execution path without edge case details
+- Kept essential error handling references but removed implementation details

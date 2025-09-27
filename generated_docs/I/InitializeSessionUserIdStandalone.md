@@ -39,3 +39,34 @@ This function provides a simplified user identity initialization for special Pos
 - Comments indicate this approach allows startup even if the bootstrap superuser's pg_authid row is corrupted
 - Sets current role to InvalidOid for consistency with manual role setting
 - Critical for system recovery and maintenance operations that must work regardless of catalog state
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeSessionUserIdStandalone
+void InitializeSessionUserIdStandalone(void) {
+    // Verify this is called only in appropriate contexts
+    Assert(!IsUnderPostmaster || AmAutoVacuumWorkerProcess() ||
+           AmLogicalSlotSyncWorkerProcess() || AmBackgroundWorkerProcess());
+
+    // Ensure this is called only once per session
+    Assert(!OidIsValid(AuthenticatedUserId));
+
+    // Set authenticated user to bootstrap superuser
+    AuthenticatedUserId = BOOTSTRAP_SUPERUSERID;
+
+    // Set session authorization using bootstrap superuser
+    // Note: We avoid SetConfigOption to prevent needing role name lookup
+    SetSessionAuthorization(BOOTSTRAP_SUPERUSERID, true);
+
+    // Clear current role for consistency
+    SetCurrentRoleId(InvalidOid, false);
+}
+```
+
+Key simplifications made:
+- Removed detailed comment about GUC handling complexity
+- Consolidated assertions with clear explanatory comments
+- Simplified the reasoning for using SetSessionAuthorization directly
+- Focused on the core identity initialization logic
+- Maintained all critical safety checks and assertions

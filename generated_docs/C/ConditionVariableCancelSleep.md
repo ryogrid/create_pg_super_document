@@ -66,3 +66,39 @@ The function is designed to be safe to call even when no sleep is pending, makin
 - Critical for preventing resource leaks in condition variable wait queues
 - Must be called after completing any condition variable wait operation
 - Thread-safe through spinlock protection of wait list modifications
+
+## Simplified Source
+
+```c
+// Simplified version of ConditionVariableCancelSleep
+bool ConditionVariableCancelSleep(void) {
+    ConditionVariable *cv = cv_sleep_target;
+    bool signaled = false;
+
+    // Nothing to cancel if no sleep is pending
+    if (cv == NULL)
+        return false;
+
+    // Check if we're still in the wait queue (thread-safe)
+    SpinLockAcquire(&cv->mutex);
+    if (proclist_contains(&cv->wakeup, MyProcNumber, cvWaitLink)) {
+        // Still waiting - remove ourselves from queue
+        proclist_delete(&cv->wakeup, MyProcNumber, cvWaitLink);
+    } else {
+        // Not in queue anymore - we were already signaled
+        signaled = true;
+    }
+    SpinLockRelease(&cv->mutex);
+
+    // Clean up sleep state
+    cv_sleep_target = NULL;
+
+    return signaled;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Clarified the signaling detection logic
+- Emphasized the thread-safety aspect with spinlock usage
+- Maintained the essential algorithm flow and return value semantics

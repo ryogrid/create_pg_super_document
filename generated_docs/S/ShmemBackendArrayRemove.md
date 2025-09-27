@@ -35,3 +35,25 @@ This function removes a backend process entry from the ShmemBackendArray by mark
 - Part of the postmaster's process cleanup mechanism when backend processes terminate
 - Uses array indexing (child_slot - 1) to convert from 1-based slot numbering to 0-based array indexing
 - Located in src/backend/postmaster/postmaster.c:4576-4593
+
+## Simplified Source
+
+```c
+// Simplified version of ShmemBackendArrayRemove
+static void ShmemBackendArrayRemove(Backend *bn) {
+    // Convert 1-based child_slot to 0-based array index
+    int i = bn->child_slot - 1;
+
+    // Verify we're removing the correct backend
+    Assert(ShmemBackendArray[i].pid == bn->pid);
+
+    // Mark the slot as empty by clearing the process ID
+    ShmemBackendArray[i].pid = 0;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each step
+- Clarified the purpose of the index calculation
+- Explained the assertion's role in verification
+- Maintained the essential removal logic

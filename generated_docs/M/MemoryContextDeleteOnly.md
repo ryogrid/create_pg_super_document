@@ -40,3 +40,39 @@ The function includes multiple safety assertions to prevent deletion of critical
 - Uses VALGRIND_DESTROY_MEMPOOL for memory debugging support
 - The function prioritizes system stability by preferring memory leaks over crashes when errors occur
 - Calls the context-specific delete_context method through the methods table for proper cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextDeleteOnly
+static void MemoryContextDeleteOnly(MemoryContext context) {
+    // Safety checks: verify context is valid and safe to delete
+    Assert(MemoryContextIsValid(context));
+    Assert(context != TopMemoryContext);
+    Assert(context != CurrentMemoryContext);
+    Assert(context->firstchild == NULL);
+
+    // Step 1: Execute reset callbacks before unlinking
+    // (prevents dangling references if callbacks fail)
+    MemoryContextCallResetCallbacks(context);
+
+    // Step 2: Safely delink from parent context
+    MemoryContextSetParent(context, NULL);
+
+    // Step 3: Clear identity pointer to prevent dangling references
+    context->ident = NULL;
+
+    // Step 4: Call context-specific deletion method
+    context->methods->delete_context(context);
+
+    // Step 5: Clean up memory debugging info
+    VALGRIND_DESTROY_MEMPOOL(context);
+}
+```
+
+Key simplifications made:
+- Consolidated verbose comments into concise step-by-step descriptions
+- Removed detailed explanatory comments while preserving the logic flow
+- Maintained all safety assertions as they are critical for correctness
+- Preserved the careful ordering of operations which is essential for stability
+- Kept all function calls as they represent the core functionality

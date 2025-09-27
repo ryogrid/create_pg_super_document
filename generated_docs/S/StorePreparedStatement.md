@@ -42,3 +42,48 @@ StorePreparedStatement creates a new entry in the prepared statements hash table
 - Assumes the input CachedPlanSource is in "unsaved" state to handle potential errors gracefully
 - Part of PostgreSQL's prepared statement infrastructure enabling statement reuse and performance optimization
 - The from_sql flag may be used for different cleanup or monitoring behaviors between SQL and protocol preparations
+
+## Simplified Source
+
+```c
+// Simplified version of StorePreparedStatement
+void StorePreparedStatement(const char *stmt_name,
+                          CachedPlanSource *plansource,
+                          bool from_sql) {
+    PreparedStatement *entry;
+    TimestampTz cur_ts = GetCurrentStatementStartTimestamp();
+    bool found;
+
+    // Initialize hash table if needed
+    if (!prepared_queries)
+        InitQueryHashTable();
+
+    // Create new entry in hash table
+    entry = (PreparedStatement *) hash_search(prepared_queries,
+                                            stmt_name,
+                                            HASH_ENTER,
+                                            &found);
+
+    // Check for duplicate statement name
+    if (found)
+        ereport(ERROR,
+                (errcode(ERRCODE_DUPLICATE_PSTATEMENT),
+                 errmsg("prepared statement \"%s\" already exists",
+                        stmt_name)));
+
+    // Fill in the hash table entry
+    entry->plansource = plansource;
+    entry->from_sql = from_sql;
+    entry->prepare_time = cur_ts;
+
+    // Move plan source to permanent memory
+    SaveCachedPlan(plansource);
+}
+```
+
+Key simplifications made:
+- Condensed comments to focus on core operations
+- Maintained the exact logic flow and error handling
+- Preserved all essential variable assignments and function calls
+- Kept the critical duplicate check and error reporting
+- Focused on the main execution path without losing functionality

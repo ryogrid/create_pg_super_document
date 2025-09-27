@@ -30,3 +30,18 @@ This function calculates and returns the shared memory space needed for WAL summ
 - The function is declared in src/include/postmaster/walsummarizer.h
 - [WalSummarizerData](WalSummarizerData.md) contains fields for tracking summarization progress, timeline info, LSN positions, and process coordination
 - Location: src/backend/postmaster/walsummarizer.c:171-179
+
+## Simplified Source
+
+```c
+// Simplified version of WalSummarizerShmemSize
+Size WalSummarizerShmemSize(void) {
+    // Return the memory footprint needed for WAL summarizer shared data
+    return sizeof(WalSummarizerData);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - minimal changes needed
+- Added clarifying comment about the purpose
+- The core logic remains unchanged as it's just a single sizeof operation

@@ -40,3 +40,19 @@ This function is designed for typical use cases where the FmgrInfo struct is tem
 - For temporary function calls, this is typically the preferred interface over fmgr_info_cxt_security
 - Does not perform security checking - use fmgr_info_cxt_security directly if security validation is needed
 - Extensively used throughout PostgreSQL for initializing function call information in executors, operators, and built-in functions
+
+## Simplified Source
+
+```c
+// Simplified version of fmgr_info
+void fmgr_info(Oid functionId, FmgrInfo *finfo) {
+    // Initialize FmgrInfo struct using current memory context
+    // and default security settings (no additional security checks)
+    fmgr_info_cxt_security(functionId, finfo, CurrentMemoryContext, false);
+}
+```
+
+Key simplifications made:
+- This function is already quite simple as it's just a wrapper
+- Added comments to clarify the purpose and default parameters
+- Highlighted that it uses CurrentMemoryContext and disables security checks

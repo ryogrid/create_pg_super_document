@@ -35,3 +35,18 @@ This function retrieves the length of the shared data portion of a statistics en
 - Designed as a static inline function for performance optimization
 - Essential for proper memory allocation and serialization of statistics data
 - Part of the PostgreSQL statistics collection infrastructure for managing different types of statistical entries
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_get_entry_len
+static inline size_t pgstat_get_entry_len(PgStat_Kind kind) {
+    // Return the data length for this statistics kind
+    return pgstat_get_kind_info(kind)->shared_data_len;
+}
+```
+
+Key simplifications made:
+- Simple one-line function with minimal complexity
+- Core functionality preserved: retrieves shared data length from kind info
+- Essential size calculation maintained for statistics data management

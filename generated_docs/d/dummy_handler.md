@@ -29,3 +29,27 @@ This approach ensures that signals are not dropped during the critical window be
 - Prevents race conditions between process forking and signal handler reconfiguration
 - References tcop/postgres.c for additional implementation details
 - Used instead of SIG_IGN to maintain proper signal delivery semantics for backend processes
+
+## Simplified Source
+
+```c
+/*
+ * Dummy signal handler
+ *
+ * We use this for signals that we don't actually use in the postmaster,
+ * but we do use in backends. If we were to SIG_IGN such signals in the
+ * postmaster, then a newly started backend might drop a signal that arrives
+ * before it's able to reconfigure its signal processing.
+ */
+static void
+dummy_handler(SIGNAL_ARGS)
+{
+    // Intentionally empty - this handler does nothing
+    // Its presence prevents signal loss during backend startup
+}
+```
+
+Key simplifications made:
+- Added inline comment explaining the intentional emptiness
+- Preserved the original comment explaining the purpose
+- No actual simplification needed as the function is already minimal

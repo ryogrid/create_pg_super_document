@@ -38,3 +38,31 @@ The function performs interrupt checking before reading input and processes clie
 - There is special handling in the die() function to directly process interrupts at this stage for proper SIGTERM handling
 - The function maintains the same return semantics as standard getc(), including EOF on end-of-file or error conditions
 - This function is essential for making PostgreSQL's interactive mode responsive to system signals while maintaining the simplicity of character-by-character input processing
+
+## Simplified Source
+
+```c
+// Simplified version of interactive_getc
+static int interactive_getc(void) {
+    // Check for pending interrupts before reading input
+    // This allows the process to respond to SIGTERM/SIGQUIT signals
+    CHECK_FOR_INTERRUPTS();
+
+    // Read one character from standard input
+    int character = getc(stdin);
+
+    // Process any client read interrupts that may have occurred
+    // Pass false to indicate we're not in a blocked state
+    ProcessClientReadInterrupt(false);
+
+    return character;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Used more descriptive variable name (character vs c)
+- Clarified the purpose of interrupt checking before and after input
+- Preserved essential signal handling for standalone backend processes
+- Maintained compatibility with standard getc() return semantics
+- Emphasized the signal responsiveness aspect of the function

@@ -41,3 +41,24 @@ This information is essential for certificate chain validation, trust verificati
 - Issuer information is crucial for validating certificate chains and trust relationships
 - Used in conjunction with certificate validation and access control mechanisms
 - Located in src/backend/libpq/be-secure-openssl.c:1525-1533
+
+## Simplified Source
+
+```c
+// Simplified version of be_tls_get_peer_issuer_name
+void be_tls_get_peer_issuer_name(Port *port, char *ptr, size_t len) {
+    // Copy issuer name if peer certificate exists
+    if (port->peer) {
+        char *issuer_name = X509_NAME_to_cstring(X509_get_issuer_name(port->peer));
+        strlcpy(ptr, issuer_name, len);
+    } else {
+        // Set empty string if no peer certificate
+        ptr[0] = '\0';
+    }
+}
+```
+
+Key simplifications made:
+- Extracted issuer name conversion to a separate variable for clarity
+- Added explanatory comments for each major step
+- Core logic: Get issuer name from peer certificate or set empty string

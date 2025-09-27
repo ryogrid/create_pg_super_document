@@ -43,3 +43,34 @@ This function takes no parameters.
 - Must account for all process types: regular backends, auxiliary processes, and prepared transactions
 - Uses overflow-safe arithmetic to handle large installations with many connections
 - The calculated size is used by the shared memory allocator to reserve adequate space
+
+## Simplified Source
+
+```c
+// Simplified version of ProcGlobalShmemSize
+Size ProcGlobalShmemSize(void) {
+    Size total_size = 0;
+
+    // Calculate total number of processes
+    Size total_processes = MaxBackends + NUM_AUXILIARY_PROCS + max_prepared_xacts;
+
+    // Core process management structures
+    total_size += sizeof(PROC_HDR);              // Process header
+    total_size += total_processes * sizeof(PGPROC);  // Process array
+    total_size += sizeof(slock_t);               // Process lock
+
+    // Transaction management arrays
+    total_size += total_processes * sizeof(TransactionId);  // Transaction IDs
+    total_size += total_processes * sizeof(int);            // Subtransaction states
+    total_size += total_processes * sizeof(uint8);          // Status flags
+
+    return total_size;
+}
+```
+
+Key simplifications made:
+- Replaced safe arithmetic functions (add_size, mul_size) with standard operators for clarity
+- Used more descriptive variable names (total_size, total_processes)
+- Added inline comments explaining each memory component
+- Consolidated the calculation steps into logical groups
+- Focused on the core memory allocation logic

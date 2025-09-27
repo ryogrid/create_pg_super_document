@@ -39,3 +39,19 @@ This inline function performs the inverse operation of converting a buffer ID to
 - Used extensively throughout buffer management code when returning Buffer handles to callers
 - Part of the buffer identifier abstraction that hides internal indexing details from external users
 - Located in buf_internals.h as a core utility for buffer management operations
+
+## Simplified Source
+
+```c
+// Simplified version of BufferDescriptorGetBuffer
+static inline Buffer BufferDescriptorGetBuffer(const BufferDesc *bdesc) {
+    // Convert 0-based buf_id to 1-based Buffer identifier
+    return (Buffer) (bdesc->buf_id + 1);
+}
+```
+
+Key simplifications made:
+- Added comment explaining the conversion from 0-based to 1-based numbering
+- Maintained the complete function as it's already extremely simple
+- No further simplification possible due to the function's minimal nature
+- Preserved the essential type conversion and offset calculation

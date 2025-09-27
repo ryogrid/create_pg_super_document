@@ -42,3 +42,46 @@ This function takes no parameters.
 - Extension tranches are registered in all processes, not just the postmaster
 - The MainLWLockArray global variable is set to point to the allocated memory region
 - This is a critical initialization function that must be called during PostgreSQL startup
+
+## Simplified Source
+
+```c
+// Simplified version of CreateLWLocks
+void CreateLWLocks(void) {
+    // Phase 1: Shared memory setup (only in postmaster process)
+    if (!IsUnderPostmaster) {
+        // Calculate required space and allocate shared memory
+        Size memory_needed = LWLockShmemSize();
+        char *memory_ptr = (char *) ShmemAlloc(memory_needed);
+
+        // Reserve space for dynamic tranche counter
+        memory_ptr += sizeof(int);
+
+        // Align memory for LWLock array performance
+        memory_ptr = align_to_lwlock_boundary(memory_ptr);
+
+        // Set global pointer to the aligned LWLock array
+        MainLWLockArray = (LWLockPadded *) memory_ptr;
+
+        // Initialize the counter for dynamic tranche allocation
+        int *tranche_counter = get_counter_location(MainLWLockArray);
+        *tranche_counter = LWTRANCHE_FIRST_USER_DEFINED;
+
+        // Initialize all LWLocks in the array
+        InitializeLWLocks();
+    }
+
+    // Phase 2: Register extension tranches (in all processes)
+    for (int i = 0; i < NamedLWLockTrancheRequests; i++) {
+        LWLockRegisterTranche(NamedLWLockTrancheArray[i].trancheId,
+                             NamedLWLockTrancheArray[i].trancheName);
+    }
+}
+```
+
+Key simplifications made:
+- Abstracted pointer arithmetic into conceptual helper functions
+- Replaced complex alignment calculation with descriptive function name
+- Simplified memory layout setup with clearer variable names
+- Added phase comments to show the two main responsibilities
+- Focused on the logical flow rather than low-level implementation details

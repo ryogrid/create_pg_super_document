@@ -43,3 +43,93 @@ This function serves as the core kqueue event management routine in PostgreSQL's
 - Part of the kqueue-specific implementation of PostgreSQL's cross-platform event waiting infrastructure
 - Optimizes for the common case where no changes are needed (early return when old_events == event->events)
 - Essential for efficient I/O multiplexing on BSD-derived systems including macOS and FreeBSD
+
+## Simplified Source
+
+```c
+// Simplified version of WaitEventAdjustKqueue
+static void WaitEventAdjustKqueue(WaitEventSet *set, WaitEvent *event, int old_events) {
+    struct kevent k_ev[2];
+    int count = 0;
+    bool old_filt_read = false, new_filt_read = false;
+    bool old_filt_write = false, new_filt_write = false;
+
+    // Early return if no changes needed
+    if (old_events == event->events) {
+        return;
+    }
+
+    // Handle different event types
+    if (event->events == WL_POSTMASTER_DEATH) {
+        // Monitor postmaster process death using process notification
+        WaitEventAdjustKqueueAddPostmaster(&k_ev[count++], event);
+    }
+    else if (event->events == WL_LATCH_SET) {
+        // Monitor latch wakeup using signal event
+        WaitEventAdjustKqueueAddLatch(&k_ev[count++], event);
+    }
+    else {
+        // Handle socket I/O events - compute changes for read/write filters
+
+        // Determine old filter states
+        if (old_events & (WL_SOCKET_READABLE | WL_SOCKET_CLOSED)) {
+            old_filt_read = true;
+        }
+        if (old_events & WL_SOCKET_WRITEABLE) {
+            old_filt_write = true;
+        }
+
+        // Determine new filter states
+        if (event->events & (WL_SOCKET_READABLE | WL_SOCKET_CLOSED)) {
+            new_filt_read = true;
+        }
+        if (event->events & WL_SOCKET_WRITEABLE) {
+            new_filt_write = true;
+        }
+
+        // Add/remove read filter if changed
+        if (old_filt_read && !new_filt_read) {
+            WaitEventAdjustKqueueAdd(&k_ev[count++], EVFILT_READ, EV_DELETE, event);
+        } else if (!old_filt_read && new_filt_read) {
+            WaitEventAdjustKqueueAdd(&k_ev[count++], EVFILT_READ, EV_ADD, event);
+        }
+
+        // Add/remove write filter if changed
+        if (old_filt_write && !new_filt_write) {
+            WaitEventAdjustKqueueAdd(&k_ev[count++], EVFILT_WRITE, EV_DELETE, event);
+        } else if (!old_filt_write && new_filt_write) {
+            WaitEventAdjustKqueueAdd(&k_ev[count++], EVFILT_WRITE, EV_ADD, event);
+        }
+    }
+
+    // Apply changes to kqueue if any events were prepared
+    if (count > 0) {
+        int rc = kevent(set->kqueue_fd, &k_ev[0], count, NULL, 0, NULL);
+
+        // Handle errors, especially for postmaster death monitoring
+        if (rc < 0) {
+            if (event->events == WL_POSTMASTER_DEATH &&
+                (errno == ESRCH || errno == EACCES)) {
+                set->report_postmaster_not_running = true;
+            } else {
+                ereport(ERROR, (errcode_for_socket_access(),
+                               errmsg("kevent() failed: %m")));
+            }
+        }
+        // Check if postmaster actually died during registration
+        else if (event->events == WL_POSTMASTER_DEATH &&
+                 PostmasterPid != getppid() && !PostmasterIsAlive()) {
+            set->report_postmaster_not_running = true;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions and validation logic
+- Consolidated variable declarations at the top
+- Added descriptive comments for each major section
+- Simplified the filter state computation logic
+- Streamlined the error handling while preserving essential checks
+- Focused on the main execution path for clarity
+- Maintained the core algorithm for managing kqueue events

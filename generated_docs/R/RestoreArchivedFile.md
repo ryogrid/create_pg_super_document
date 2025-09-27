@@ -51,3 +51,107 @@ When the restore operation fails (which is expected when reaching the end of ava
 - The restore command's exit status is carefully analyzed to distinguish between missing archives and actual command failures
 - Falls back to local XLOGDIR files when archive restoration fails, enabling recovery from locally available WAL segments
 - Maintains detailed logging at various levels (DEBUG1, DEBUG2, DEBUG3, LOG, FATAL) for troubleshooting recovery issues
+
+## Simplified Source
+
+```c
+// Simplified version of RestoreArchivedFile
+bool RestoreArchivedFile(char *path, const char *xlogfname,
+                        const char *recovername, off_t expectedSize,
+                        bool cleanupEnabled) {
+    char xlogpath[MAXPGPATH];
+    char *xlogRestoreCmd;
+    char lastRestartPointFname[MAXPGPATH];
+    int rc;
+    struct stat stat_buf;
+
+    // Skip if not in archive recovery mode
+    if (!ArchiveRecoveryRequested) {
+        goto not_available;
+    }
+
+    // Skip if no restore command configured
+    if (recoveryRestoreCommand == NULL || strcmp(recoveryRestoreCommand, "") == 0) {
+        goto not_available;
+    }
+
+    // Build temporary file path in WAL directory
+    snprintf(xlogpath, MAXPGPATH, XLOGDIR "/%s", recovername);
+
+    // Remove any existing temporary file
+    if (stat(xlogpath, &stat_buf) == 0) {
+        if (unlink(xlogpath) != 0) {
+            ereport(FATAL, (errmsg("could not remove file \"%s\": %m", xlogpath)));
+        }
+    }
+
+    // Calculate cleanup cutoff point for archive management
+    if (cleanupEnabled) {
+        XLogRecPtr restartRedoPtr;
+        TimeLineID restartTli;
+        XLogSegNo restartSegNo;
+
+        GetOldestRestartPoint(&restartRedoPtr, &restartTli);
+        XLByteToSeg(restartRedoPtr, restartSegNo, wal_segment_size);
+        XLogFileName(lastRestartPointFname, restartTli, restartSegNo, wal_segment_size);
+    } else {
+        XLogFileName(lastRestartPointFname, 0, 0, wal_segment_size);
+    }
+
+    // Build and execute restore command
+    xlogRestoreCmd = BuildRestoreCommand(recoveryRestoreCommand, xlogpath,
+                                        xlogfname, lastRestartPointFname);
+
+    ereport(DEBUG3, (errmsg_internal("executing restore command \"%s\"", xlogRestoreCmd)));
+
+    // Execute restore command with proper signal handling
+    PreRestoreCommand();
+    rc = system(xlogRestoreCmd);
+    PostRestoreCommand();
+
+    pfree(xlogRestoreCmd);
+
+    // Check if restore succeeded
+    if (rc == 0) {
+        // Verify restored file exists and has correct size
+        if (stat(xlogpath, &stat_buf) == 0) {
+            if (expectedSize > 0 && stat_buf.st_size != expectedSize) {
+                // Handle size mismatch (different behavior for standby vs normal mode)
+                int elevel = (StandbyMode && stat_buf.st_size < expectedSize) ? DEBUG1 : FATAL;
+                ereport(elevel, (errmsg("archive file \"%s\" has wrong size", xlogfname)));
+                return false;
+            } else {
+                // Success: return path to restored file
+                ereport(LOG, (errmsg("restored log file \"%s\" from archive", xlogfname)));
+                strcpy(path, xlogpath);
+                return true;
+            }
+        } else {
+            // Restore command succeeded but file missing
+            ereport(LOG, (errmsg("could not stat file \"%s\"", xlogpath)));
+        }
+    }
+
+    // Handle restore command failure
+    if (wait_result_is_signal(rc, SIGTERM)) {
+        proc_exit(1);
+    }
+
+    ereport(wait_result_is_any_signal(rc, true) ? FATAL : DEBUG2,
+            (errmsg("could not restore file \"%s\" from archive", xlogfname)));
+
+not_available:
+    // Fallback: try local file in XLOGDIR
+    snprintf(path, MAXPGPATH, XLOGDIR "/%s", xlogfname);
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed extensive comments and consolidated into clear code flow
+- Abstracted complex error handling while preserving essential safety checks
+- Simplified signal handling logic but kept SIGTERM handling
+- Maintained core archive recovery logic: check prerequisites, build command, execute, verify
+- Preserved size validation and standby vs normal mode differences
+- Kept the essential fallback mechanism to local files
+- Reduced from ~247 lines to ~65 lines while preserving critical functionality

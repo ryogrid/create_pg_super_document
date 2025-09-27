@@ -39,3 +39,26 @@ The handler includes a safety check to avoid interfering with the process exit s
 - The handler uses a "don't joggle the elbow" approach during process exit to avoid race conditions
 - The SetLatch call ensures that any process waiting on the latch will be awakened to check for the cancellation request
 - [Query](../Q/Query.md) cancellation is implemented as a cooperative mechanism - the actual cancellation occurs when the backend checks the QueryCancelPending flag at safe interruption points
+
+## Simplified Source
+
+```c
+// Simplified version of StatementCancelHandler
+void StatementCancelHandler(SIGNAL_ARGS) {
+    // Safety check: Don't interfere with process exit sequence
+    if (!proc_exit_inprogress) {
+        // Set global flags to request query cancellation
+        InterruptPending = true;
+        QueryCancelPending = true;
+    }
+
+    // Wake up any processes waiting on our latch
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added clear explanatory comments for each logical step
+- Maintained the essential safety check and flag-setting logic
+- Preserved the latch signaling mechanism
+- Focused on the core cooperative cancellation pattern

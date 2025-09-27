@@ -44,3 +44,52 @@ The function is designed to be safe for concurrent access, as only the checkpoin
 - Critical for maintaining system responsiveness during configuration changes
 - Handles both enabling and disabling of synchronous replication
 - The race prevention mechanism ensures no backends get permanently stuck in wait queues
+
+## Simplified Source
+
+```c
+// Simplified version of SyncRepUpdateSyncStandbysDefined
+void SyncRepUpdateSyncStandbysDefined(void) {
+    // Check if sync standbys are currently defined
+    bool sync_standbys_defined = SyncStandbysDefined();
+
+    // Compare current state with shared memory status flag
+    bool status_differs = (sync_standbys_defined !=
+                          ((WalSndCtl->sync_standbys_status & SYNC_STANDBY_DEFINED) != 0));
+
+    if (status_differs) {
+        // Take exclusive lock to update shared status
+        LWLockAcquire(SyncRepLock, LW_EXCLUSIVE);
+
+        // If sync replication was disabled, wake up all waiting backends
+        if (!sync_standbys_defined) {
+            for (int i = 0; i < NUM_SYNC_REP_WAIT_MODE; i++) {
+                SyncRepWakeQueue(true, i);
+            }
+        }
+
+        // Update status flag with initialization and definition bits
+        WalSndCtl->sync_standbys_status = SYNC_STANDBY_INIT |
+            (sync_standbys_defined ? SYNC_STANDBY_DEFINED : 0);
+
+        LWLockRelease(SyncRepLock);
+    }
+    else if (!(WalSndCtl->sync_standbys_status & SYNC_STANDBY_INIT)) {
+        // Handle initialization case when no sync standbys defined
+        LWLockAcquire(SyncRepLock, LW_EXCLUSIVE);
+
+        // Mark as initialized even without sync standbys
+        WalSndCtl->sync_standbys_status |= SYNC_STANDBY_INIT;
+
+        LWLockRelease(SyncRepLock);
+    }
+}
+```
+
+Key simplifications made:
+- Extracted condition checks into clearly named boolean variables
+- Removed detailed comments in favor of step-by-step comments
+- Simplified the nested condition logic for better readability
+- Consolidated variable declarations and improved variable naming
+- Focused on the main execution paths while preserving all essential logic
+- Removed the assert statement for clarity (kept the core logic)

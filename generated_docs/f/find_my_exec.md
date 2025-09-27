@@ -55,3 +55,73 @@ The function uses a multi-step approach:
 - Handles different types of validation failures appropriately
 - Critical for PostgreSQL's ability to find related binaries and shared libraries
 - Used extensively throughout PostgreSQL utilities and the main server process
+
+## Simplified Source
+
+```c
+// Simplified version of find_my_exec
+int find_my_exec(const char *argv0, char *retpath) {
+    // Step 1: Copy argv0 to output buffer
+    strlcpy(retpath, argv0, MAXPGPATH);
+
+    // Step 2: Check if argv0 contains a path separator (direct path)
+    if (first_dir_separator(retpath) != NULL) {
+        if (validate_exec(retpath) == 0)
+            return normalize_exec_path(retpath);
+
+        // Log error for invalid direct path
+        log_error(ERRCODE_WRONG_OBJECT_TYPE, "invalid binary \"%s\"", retpath);
+        return -1;
+    }
+
+#ifdef WIN32
+    // Step 3: On Windows, check current directory first
+    if (validate_exec(retpath) == 0)
+        return normalize_exec_path(retpath);
+#endif
+
+    // Step 4: Search through PATH environment variable
+    char *path = getenv("PATH");
+    if (path && *path) {
+        char *current_dir = path;
+        char *next_separator;
+
+        do {
+            // Find next directory in PATH
+            next_separator = first_path_var_separator(current_dir);
+            if (!next_separator)
+                next_separator = current_dir + strlen(current_dir);
+
+            // Build full path: directory + "/" + argv0
+            strlcpy(retpath, current_dir, Min(next_separator - current_dir + 1, MAXPGPATH));
+            join_path_components(retpath, retpath, argv0);
+            canonicalize_path(retpath);
+
+            // Try to validate this path
+            int validation_result = validate_exec(retpath);
+            if (validation_result == 0) {
+                // Found valid executable
+                return normalize_exec_path(retpath);
+            } else if (validation_result == -2) {
+                // Found file but couldn't read it
+                log_error(ERRCODE_WRONG_OBJECT_TYPE, "could not read binary \"%s\"", retpath);
+            }
+            // If validation_result == -1, keep searching
+
+            current_dir = next_separator + 1;
+        } while (*next_separator);
+    }
+
+    // Step 5: Executable not found anywhere
+    log_error(ERRCODE_UNDEFINED_FILE, "could not find a \"%s\" to execute", argv0);
+    return -1;
+}
+```
+
+Key simplifications made:
+- Removed detailed pointer manipulation in PATH parsing loop
+- Simplified variable names (startp/endp → current_dir/next_separator)
+- Consolidated switch statement into clearer if-else logic
+- Added step-by-step comments for main algorithm phases
+- Focused on the core logic flow: direct path → Windows current dir → PATH search
+- Abstracted complex error handling details while preserving essential error reporting

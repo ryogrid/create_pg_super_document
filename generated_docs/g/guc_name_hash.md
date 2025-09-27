@@ -28,3 +28,35 @@ Notes and Other Information
 - Must produce identical hash values for names that guc_name_compare considers equal
 - Used in GUC hash table implementations for fast parameter lookup
 - Location: src/backend/utils/misc/guc.c:1332-1355
+
+## Simplified Source
+
+```c
+// Simplified version of guc_name_hash
+static uint32 guc_name_hash(const void *key, Size keysize) {
+    uint32 hash_result = 0;
+    const char *parameter_name = *(const char *const *) key;
+
+    // Process each character in the parameter name
+    while (*parameter_name) {
+        char current_char = *parameter_name++;
+
+        // Convert uppercase to lowercase (same as guc_name_compare)
+        if (current_char >= 'A' && current_char <= 'Z') {
+            current_char += 'a' - 'A';
+        }
+
+        // Update hash: rotate left 5 bits and XOR with character
+        hash_result = pg_rotate_left32(hash_result, 5);
+        hash_result ^= (uint32) current_char;
+    }
+
+    return hash_result;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (hash_result, parameter_name, current_char)
+- Added clear comments for each logical step
+- Preserved the essential hash algorithm and case-folding logic
+- Maintained compatibility with guc_name_compare function

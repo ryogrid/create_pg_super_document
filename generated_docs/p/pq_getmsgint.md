@@ -44,3 +44,51 @@ The `pq_getmsgint` function reads a binary integer from a message buffer with au
 - Used extensively in logical replication, function calls, and data type deserialization
 - The function is defined in src/backend/libpq/pqformat.c:415-452
 - Single-byte reads do not require byte order conversion
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getmsgint
+unsigned int pq_getmsgint(StringInfo msg, int byte_size) {
+    unsigned int result;
+
+    // Handle different integer sizes
+    switch (byte_size) {
+        case 1:
+            // Read single byte - no byte order conversion needed
+            unsigned char single_byte;
+            pq_copymsgbytes(msg, (char *) &single_byte, 1);
+            result = single_byte;
+            break;
+
+        case 2:
+            // Read 2-byte integer with network-to-host conversion
+            uint16 two_bytes;
+            pq_copymsgbytes(msg, (char *) &two_bytes, 2);
+            result = pg_ntoh16(two_bytes);  // Convert from network byte order
+            break;
+
+        case 4:
+            // Read 4-byte integer with network-to-host conversion
+            uint32 four_bytes;
+            pq_copymsgbytes(msg, (char *) &four_bytes, 4);
+            result = pg_ntoh32(four_bytes);  // Convert from network byte order
+            break;
+
+        default:
+            // Unsupported size - report error
+            elog(ERROR, "unsupported integer size %d", byte_size);
+            result = 0;  // Keep compiler happy
+            break;
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (byte_size, single_byte, two_bytes, four_bytes)
+- Added clear comments explaining each case
+- Emphasized the network-to-host byte order conversion purpose
+- Made the error handling case more explicit
+- Maintained the exact same logic and functionality as the original

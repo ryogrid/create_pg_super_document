@@ -34,3 +34,24 @@ This function is responsible for reading the PostgreSQL control file during the 
 - The allocated ControlFile memory will later be copied to shared memory by XLOGShmemInit()
 - Includes assertion to verify reset parameter consistency with ControlFile state
 - Located in src/backend/access/transam/xlog.c:4801-4813
+
+## Simplified Source
+
+```c
+// Simplified version of LocalProcessControlFile
+void LocalProcessControlFile(bool reset) {
+    // Verify that either we're resetting or ControlFile is uninitialized
+    Assert(reset || ControlFile == NULL);
+
+    // Allocate local memory for control file data
+    ControlFile = palloc(sizeof(ControlFileData));
+
+    // Read control file contents into allocated memory
+    ReadControlFile();
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity while preserving essential logic
+- Focused on the three core operations: assertion, allocation, and reading
+- Maintained the essential control flow and function purpose

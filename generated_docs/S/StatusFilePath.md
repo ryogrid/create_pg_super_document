@@ -44,3 +44,18 @@ This function is central to PostgreSQL's WAL archiving infrastructure, enabling 
 - Status files are critical for ensuring reliable WAL archiving and preventing data loss
 - The archiver process continuously monitors the archive_status directory for new .ready files
 - Status files are automatically cleaned up after successful archival operations
+
+## Simplified Source
+
+```c
+// Simplified version of StatusFilePath
+static inline void StatusFilePath(char *path, const char *xlog, const char *suffix) {
+    // Build complete path: "pg_wal/archive_status/{filename}{suffix}"
+    snprintf(path, MAXPGPATH, XLOGDIR "/archive_status/%s%s", xlog, suffix);
+}
+```
+
+Key simplifications made:
+- Function is already quite simple, minimal simplification needed
+- Added explanatory comment showing the path pattern being constructed
+- Preserved the core string formatting logic which is the essential functionality

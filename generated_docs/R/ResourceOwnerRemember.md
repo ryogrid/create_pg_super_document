@@ -41,3 +41,39 @@ The function performs several safety checks to ensure the ResourceOwner is in a 
 - The function assumes the caller has properly allocated the resource before registering it
 - Critical for PostgreSQL's automatic resource cleanup during error recovery and transaction abort
 - Each resource type has its own wrapper function that calls this with the appropriate ResourceOwnerDesc
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerRemember
+void ResourceOwnerRemember(ResourceOwner owner, Datum value, const ResourceOwnerDesc *kind) {
+    // Validate the resource descriptor has proper cleanup information
+    Assert(kind->release_phase != 0);
+    Assert(kind->release_priority != 0);
+
+    // Ensure we're not adding resources during cleanup phase
+    Assert(!owner->releasing);
+    Assert(!owner->sorted);
+
+    // Check if array has space (caller should have called ResourceOwnerEnlarge)
+    if (owner->narr >= RESOWNER_ARRAY_SIZE) {
+        elog(ERROR, "ResourceOwnerRemember called but array was full");
+    }
+
+    // Add the resource to the tracking array
+    uint32 idx = owner->narr;
+    owner->arr[idx].item = value;
+    owner->arr[idx].kind = kind;
+
+    // Update the count of tracked resources
+    owner->narr++;
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining each validation step
+- Clarified the relationship with ResourceOwnerEnlarge() function
+- Explained the purpose of release_phase and release_priority checks
+- Simplified the array append logic with clear explanations
+- Maintained all assertions and error handling
+- Highlighted the automatic resource cleanup purpose

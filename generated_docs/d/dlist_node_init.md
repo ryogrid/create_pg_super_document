@@ -34,3 +34,18 @@ The  function initializes a doubly-linked list node by setting both its  and  po
 - Primarily used in PostgreSQL's transaction management and predicate locking systems
 - Essential for safe node lifecycle management where nodes may exist independently of lists
 - Located in src/include/lib/ilist.h:325-335
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_node_init
+static inline void dlist_node_init(dlist_node *node) {
+    // Initialize node to detached state: set both pointers to NULL
+    node->next = node->prev = NULL;
+}
+```
+
+Key simplifications made:
+- Added explanatory comment describing the core purpose
+- The function is already minimal - only the core logic remains
+- Focused on the main operation: setting both pointers to NULL for detached state

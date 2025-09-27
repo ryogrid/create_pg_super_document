@@ -50,3 +50,28 @@ The function is a thin wrapper around set_config_with_handle, passing through al
 - Critical for parallel query operations where GUC state must be synchronized across processes
 - Part of PostgreSQL's role-based security model for configuration management
 - Enables precise audit trails for configuration changes by preserving original setter information
+
+## Simplified Source
+
+```c
+// Simplified version of set_config_option_ext
+int set_config_option_ext(const char *name, const char *value,
+                         GucContext context, GucSource source, Oid srole,
+                         GucAction action, bool changeVal, int elevel,
+                         bool is_reload) {
+    // This is a wrapper function that adds explicit role OID control
+    // to the standard configuration setting mechanism
+
+    // Simply delegates to the core implementation with all parameters
+    return set_config_with_handle(name, NULL, value,
+                                 context, source, srole,
+                                 action, changeVal, elevel,
+                                 is_reload);
+}
+```
+
+Key simplifications made:
+- Preserved the complete function signature as it's essential for understanding
+- Added clear comments explaining the wrapper nature
+- Maintained the single delegation call to show the actual implementation
+- Focused on the core purpose: providing explicit role OID control

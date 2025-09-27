@@ -36,3 +36,53 @@ This function handles the Describe message for portals in PostgreSQL's extended 
 - Special handling for aborted transaction states prevents unsafe catalog access
 - Uses the portal's tuple descriptor and format information for row descriptions
 - Part of PostgreSQL's extended query protocol implementation alongside statement description
+
+## Simplified Source
+
+```c
+// Simplified version of exec_describe_portal_message
+static void exec_describe_portal_message(const char *portal_name) {
+    Portal portal;
+
+    // Step 1: Start transaction and switch to proper memory context
+    start_xact_command();
+    MemoryContextSwitchTo(MessageContext);
+
+    // Step 2: Lookup and validate the portal
+    portal = GetPortalByName(portal_name);
+    if (!PortalIsValid(portal)) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_CURSOR),
+                       errmsg("portal \"%s\" does not exist", portal_name)));
+    }
+
+    // Step 3: Check transaction state for data-returning portals
+    if (IsAbortedTransactionBlockState() && portal->tupDesc) {
+        ereport(ERROR, (errcode(ERRCODE_IN_FAILED_SQL_TRANSACTION),
+                       errmsg("current transaction is aborted, "
+                             "commands ignored until end of transaction block")));
+    }
+
+    // Step 4: Early return if not sending to remote client
+    if (whereToSendOutput != DestRemote)
+        return;
+
+    // Step 5: Send appropriate response based on portal type
+    if (portal->tupDesc) {
+        // Portal returns data - send row description
+        SendRowDescriptionMessage(&row_description_buf,
+                                portal->tupDesc,
+                                FetchPortalTargetList(portal),
+                                portal->formats);
+    } else {
+        // Portal doesn't return data - send NoData message
+        pq_putemptymessage(PqMsg_NoData);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for brevity while preserving essential logic flow
+- Consolidated the main execution steps into clearly labeled sections
+- Simplified error handling descriptions while maintaining the essential checks
+- Focused on the main execution path and core functionality
+- Preserved all critical validation and safety checks

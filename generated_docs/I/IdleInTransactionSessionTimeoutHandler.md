@@ -40,3 +40,25 @@ This function takes no parameters.
 - The timeout condition will be processed when the system can safely handle interrupts
 - Critical for multi-user environments where idle transactions can impact overall performance
 - Works in conjunction with idle_in_transaction_session_timeout configuration parameter
+
+## Simplified Source
+
+```c
+// Simplified version of IdleInTransactionSessionTimeoutHandler
+static void IdleInTransactionSessionTimeoutHandler(void) {
+    // Mark that idle-in-transaction timeout has occurred
+    IdleInTransactionSessionTimeoutPending = true;
+
+    // Set interrupt flag for deferred processing
+    InterruptPending = true;
+
+    // Wake up the process to handle the timeout
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each timeout handling step
+- This function is already extremely simple with only three flag/latch operations
+- Preserved the essential deferred timeout handling pattern
+- Maintained the critical process wake-up mechanism via SetLatch

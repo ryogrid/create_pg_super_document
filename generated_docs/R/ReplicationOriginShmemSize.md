@@ -41,3 +41,33 @@ The design choice to use max_replication_slots is noted as arguably imperfect si
 - The comment acknowledges that max_replication_slots may not be the ideal metric but is sufficient for current needs
 - This is part of the shared memory sizing phase that occurs during PostgreSQL startup before actual memory allocation
 - The calculated size is used later by ReplicationOriginShmemInit to allocate and initialize the shared memory segment
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationOriginShmemSize
+Size ReplicationOriginShmemSize(void) {
+    Size total_size = 0;
+
+    // No memory needed if replication slots are disabled
+    if (max_replication_slots == 0) {
+        return 0;
+    }
+
+    // Calculate size for control structure header
+    total_size = add_size(total_size, offsetof(ReplicationStateCtl, states));
+
+    // Calculate size for array of replication state entries
+    Size states_array_size = mul_size(max_replication_slots, sizeof(ReplicationState));
+    total_size = add_size(total_size, states_array_size);
+
+    return total_size;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (total_size instead of size)
+- Added explicit early return for the zero case with clear comment
+- Broke down the states array size calculation into a separate variable for clarity
+- Added comments explaining each step of the memory calculation
+- Preserved all essential logic and safety checks

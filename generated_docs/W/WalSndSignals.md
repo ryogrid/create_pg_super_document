@@ -38,3 +38,32 @@ This function takes no parameters.
 - SIGCHLD is reset to default behavior since WAL senders don't manage child processes
 - SIGUSR2 specifically triggers the final transmission cycle before shutdown
 - This function is called during WAL sender process initialization to establish proper signal handling
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndSignals
+void WalSndSignals(void) {
+    // Core signal handlers for WAL sender operation
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);   // Configuration reload
+    pqsignal(SIGINT, StatementCancelHandler);         // Query cancellation
+    pqsignal(SIGTERM, die);                           // Shutdown request
+
+    // Initialize timeout handling (sets up SIGALRM)
+    InitializeTimeouts();
+
+    // Inter-process communication signals
+    pqsignal(SIGUSR1, procsignal_sigusr1_handler);    // General IPC
+    pqsignal(SIGUSR2, WalSndLastCycleHandler);        // Final cycle before shutdown
+
+    // Signal handling adjustments
+    pqsignal(SIGPIPE, SIG_IGN);                       // Ignore broken pipes
+    pqsignal(SIGCHLD, SIG_DFL);                       // Reset child signal to default
+}
+```
+
+Key simplifications made:
+- Grouped related signal handlers together logically
+- Added descriptive comments for each signal's purpose
+- Removed redundant comment about SIGQUIT (already documented in notes)
+- Organized the code flow from core handlers to specialized ones to cleanup

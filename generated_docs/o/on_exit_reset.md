@@ -36,3 +36,24 @@ This function takes no parameters.
 - Also handles dynamic shared memory (DSM) cleanup callback reset via `reset_on_dsm_detach`
 - Critical for preventing resource cleanup conflicts between parent and child processes
 - Part of PostgreSQL's fork-safe resource management system
+
+## Simplified Source
+
+```c
+// Simplified version of on_exit_reset
+void on_exit_reset(void) {
+    // Clear all registered exit callback indices
+    before_shmem_exit_index = 0;
+    on_shmem_exit_index = 0;
+    on_proc_exit_index = 0;
+
+    // Reset dynamic shared memory detach callbacks
+    reset_on_dsm_detach();
+}
+```
+
+Key simplifications made:
+- Preserved all functional logic without any changes
+- Added clear comments explaining the purpose of each action
+- Maintained the essential process isolation functionality
+- Focused on the core responsibility: clearing inherited callback registrations

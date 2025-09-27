@@ -38,3 +38,27 @@ The function is designed to be safe to call multiple times or on portals that do
 - Used during portal cleanup operations including normal portal destruction, transaction abort, and when converting portals to hold cursors
 - The function is idempotent - safe to call multiple times on the same portal
 - Part of the broader portal lifecycle management ensuring proper resource cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of PortalReleaseCachedPlan
+static void PortalReleaseCachedPlan(Portal portal) {
+    // Check if portal has a cached plan
+    if (portal->cplan) {
+        // Release the cached plan reference
+        ReleaseCachedPlan(portal->cplan, NULL);
+
+        // Clear portal's cached plan pointer
+        portal->cplan = NULL;
+
+        // Clear statement list to prevent dangling references
+        portal->stmts = NIL;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Maintained the exact logic flow and safety check
+- No significant simplification needed as the function is already clean and focused

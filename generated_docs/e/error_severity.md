@@ -33,3 +33,52 @@ This function serves as a central mapping utility that translates PostgreSQL's i
 
 ## Notes and Other Information
 This function is a fundamental building block of PostgreSQL's error reporting system used across multiple output formats (frontend messages, server logs, CSV logs, JSON logs). The use of gettext_noop() allows the same function to serve both localized client communication and non-localized logging needs. The strings are intentionally not localized within this function, giving callers control over whether to apply localization via the _() macro.
+
+## Simplified Source
+
+```c
+// Simplified version of error_severity
+const char *error_severity(int elevel) {
+    // Map error levels to severity strings
+    switch (elevel) {
+        case DEBUG1:
+        case DEBUG2:
+        case DEBUG3:
+        case DEBUG4:
+        case DEBUG5:
+            return gettext_noop("DEBUG");
+
+        case LOG:
+        case LOG_SERVER_ONLY:
+            return gettext_noop("LOG");
+
+        case INFO:
+            return gettext_noop("INFO");
+
+        case NOTICE:
+            return gettext_noop("NOTICE");
+
+        case WARNING:
+        case WARNING_CLIENT_ONLY:
+            return gettext_noop("WARNING");
+
+        case ERROR:
+            return gettext_noop("ERROR");
+
+        case FATAL:
+            return gettext_noop("FATAL");
+
+        case PANIC:
+            return gettext_noop("PANIC");
+
+        default:
+            return "???";  // Unknown level fallback
+    }
+}
+```
+
+Key simplifications made:
+- Simplified switch cases with direct returns instead of variable assignment
+- Added comments explaining the purpose
+- Grouped related cases logically with comments
+- Core logic: Map error level constants to their string representations

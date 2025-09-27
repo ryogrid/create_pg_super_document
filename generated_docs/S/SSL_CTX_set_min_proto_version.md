@@ -35,3 +35,41 @@ The implementation uses conditional compilation to handle different OpenSSL vers
 - Returns 1 on success, 0 on failure (when required SSL options are not available)
 - Always disables SSLv2 and SSLv3 regardless of the requested minimum version for security reasons
 - Located in src/common/protocol_openssl.c:41-79
+
+## Simplified Source
+
+```c
+// Simplified version of SSL_CTX_set_min_proto_version
+int SSL_CTX_set_min_proto_version(SSL_CTX *ctx, int version) {
+    // Always disable old insecure protocols (SSLv2, SSLv3)
+    int ssl_options = SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3;
+
+    // Disable TLS 1.0 if minimum version is higher
+    if (version > TLS1_VERSION) {
+        ssl_options |= SSL_OP_NO_TLSv1;
+    }
+
+    // Disable TLS 1.1 if minimum version is higher (with compatibility check)
+    if (version > TLS1_1_VERSION) {
+        ssl_options |= SSL_OP_NO_TLSv1_1;  // May fail on some OpenSSL versions
+    }
+
+    // Disable TLS 1.2 if minimum version is higher (with compatibility check)
+    if (version > TLS1_2_VERSION) {
+        ssl_options |= SSL_OP_NO_TLSv1_2;  // May fail on some OpenSSL versions
+    }
+
+    // Apply the SSL options to disable unwanted protocol versions
+    SSL_CTX_set_options(ctx, ssl_options);
+
+    return 1;  // Success
+}
+```
+
+Key simplifications made:
+- Removed complex conditional compilation directives for clarity
+- Consolidated the core logic into clear steps
+- Added explanatory comments for each major operation
+- Abstracted the compatibility checks (actual implementation includes #ifdef blocks)
+- Focused on the main execution path of disabling older protocols
+- Simplified error handling (actual implementation returns 0 on missing SSL options)

@@ -45,3 +45,99 @@ Special handling is provided for certain object types where the error message re
 - Unsupported object types trigger an elog(ERROR) with "unsupported object type" message
 - Error messages are marked with gettext_noop() for internationalization support
 - This is a void function that serves purely as an error reporting utility
+
+## Simplified Source
+
+```c
+// Simplified version of aclcheck_error
+void aclcheck_error(AclResult aclerr, ObjectType objtype, const char *objectname) {
+    switch (aclerr) {
+        case ACLCHECK_OK:
+            // No error, so return to caller
+            break;
+
+        case ACLCHECK_NO_PRIV:
+            {
+                const char *msg = get_permission_denied_message(objtype);
+                ereport(ERROR,
+                        (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                         errmsg(msg, objectname)));
+                break;
+            }
+
+        case ACLCHECK_NOT_OWNER:
+            {
+                const char *msg = get_ownership_required_message(objtype);
+                ereport(ERROR,
+                        (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                         errmsg(msg, objectname)));
+                break;
+            }
+
+        default:
+            elog(ERROR, "unrecognized AclResult: %d", (int) aclerr);
+            break;
+    }
+}
+
+// Helper function for permission denied messages
+static const char *get_permission_denied_message(ObjectType objtype) {
+    switch (objtype) {
+        case OBJECT_TABLE:
+            return gettext_noop("permission denied for table %s");
+        case OBJECT_FUNCTION:
+            return gettext_noop("permission denied for function %s");
+        case OBJECT_SCHEMA:
+            return gettext_noop("permission denied for schema %s");
+        case OBJECT_DATABASE:
+            return gettext_noop("permission denied for database %s");
+        case OBJECT_VIEW:
+            return gettext_noop("permission denied for view %s");
+        case OBJECT_INDEX:
+            return gettext_noop("permission denied for index %s");
+        case OBJECT_SEQUENCE:
+            return gettext_noop("permission denied for sequence %s");
+        // ... (similar cases for other common object types)
+        default:
+            if (is_unsupported_type(objtype)) {
+                elog(ERROR, "unsupported object type: %d", objtype);
+            }
+            return gettext_noop("permission denied for object %s");
+    }
+}
+
+// Helper function for ownership required messages
+static const char *get_ownership_required_message(ObjectType objtype) {
+    switch (objtype) {
+        case OBJECT_TABLE:
+            return gettext_noop("must be owner of table %s");
+        case OBJECT_FUNCTION:
+            return gettext_noop("must be owner of function %s");
+        case OBJECT_SCHEMA:
+            return gettext_noop("must be owner of schema %s");
+        case OBJECT_DATABASE:
+            return gettext_noop("must be owner of database %s");
+        // Special cases that refer to "relation" for ownership
+        case OBJECT_COLUMN:
+        case OBJECT_POLICY:
+        case OBJECT_RULE:
+        case OBJECT_TABCONSTRAINT:
+        case OBJECT_TRIGGER:
+            return gettext_noop("must be owner of relation %s");
+        // ... (similar cases for other common object types)
+        default:
+            if (is_unsupported_type(objtype)) {
+                elog(ERROR, "unsupported object type: %d", objtype);
+            }
+            return gettext_noop("must be owner of object %s");
+    }
+}
+```
+
+Key simplifications made:
+- Extracted repetitive switch cases into helper functions `get_permission_denied_message()` and `get_ownership_required_message()`
+- Consolidated the nearly identical object type mappings into more manageable functions
+- Preserved the core three-way ACL result handling (OK, NO_PRIV, NOT_OWNER)
+- Maintained special handling for relation-based ownership messages
+- Kept error handling for unsupported object types
+- Focused on the main execution path while abstracting the verbose message mapping logic

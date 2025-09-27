@@ -34,3 +34,28 @@ This function takes no parameters.
 - The graceful shutdown mechanism ensures that any pending WAL data is properly transmitted before termination
 - Part of the PostgreSQL process signaling infrastructure for coordinated shutdown
 - The got_STOPPING flag is checked by the main WAL sender loop to initiate graceful shutdown procedures
+
+## Simplified Source
+
+```c
+// Simplified version of HandleWalSndInitStopping
+void HandleWalSndInitStopping(void) {
+    // Verify this is running in a WAL sender process
+    Assert(am_walsender);
+
+    // Choose shutdown strategy based on replication state
+    if (!replication_active) {
+        // No active replication: immediate termination
+        kill(MyProcPid, SIGTERM);
+    } else {
+        // Active replication: signal graceful shutdown
+        got_STOPPING = true;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical section
+- Clarified the two-phase shutdown strategy in comments
+- Preserved the essential branching logic and function calls
+- Maintained the original control flow and variable usage

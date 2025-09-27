@@ -48,3 +48,36 @@ The function includes a notable design consideration regarding context->ident: i
 - This is a lower-level function typically called by higher-level memory management routines
 - Essential for implementing different reset strategies (with or without child deletion)
 - The context remains valid and ready for new allocations after reset
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextResetOnly
+void MemoryContextResetOnly(MemoryContext context) {
+    // Validate input parameter
+    Assert(MemoryContextIsValid(context));
+
+    // Skip reset if already done for performance
+    if (!context->isReset) {
+        // Execute cleanup callbacks before reset
+        MemoryContextCallResetCallbacks(context);
+
+        // Delegate to context-specific reset implementation
+        context->methods->reset(context);
+
+        // Mark context as reset
+        context->isReset = true;
+
+        // Update debugging tools (Valgrind mempool tracking)
+        VALGRIND_DESTROY_MEMPOOL(context);
+        VALGRIND_CREATE_MEMPOOL(context, 0, false);
+    }
+}
+```
+
+Key simplifications made:
+- Focused on the main execution flow
+- Removed detailed comments about ident pointer handling
+- Consolidated Valgrind operations with brief explanation
+- Emphasized the performance optimization check
+- Clarified the callback and delegation pattern

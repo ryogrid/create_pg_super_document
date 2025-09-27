@@ -29,3 +29,24 @@ Notes and Other Information
 - Must return zero for matching keys, non-zero for non-matching keys
 - Part of the hash table infrastructure used for fast GUC parameter lookups
 - Location: src/backend/utils/misc/guc.c:1356-1375
+
+## Simplified Source
+
+```c
+// Simplified version of guc_name_match
+static int guc_name_match(const void *key1, const void *key2, Size keysize) {
+    // Extract GUC parameter name strings from hash table key pointers
+    const char *name1 = *(const char *const *) key1;
+    const char *name2 = *(const char *const *) key2;
+
+    // Delegate to standard GUC name comparison function
+    // Returns 0 if names match (case-insensitive), non-zero if different
+    return guc_name_compare(name1, name2);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the pointer dereferencing logic
+- Clarified the return value semantics
+- Noted that keysize parameter is unused (required by dynahash interface)
+- Emphasized the delegation to guc_name_compare for actual comparison logic

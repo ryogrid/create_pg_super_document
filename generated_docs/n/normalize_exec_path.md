@@ -44,5 +44,41 @@ Swap:        8388608           0     8388608 (memory deallocation)
 - Modifies the input path in-place with the normalized result
 - On Windows, ensures consistent forward slash path separators
 - Critical for PostgreSQL's ability to locate installation-relative files
-- Previously contained complex custom logic, now simplified to use 
-- Handles memory management for the temporary absolute path returned by 
+- Previously contained complex custom logic, now simplified to use pg_realpath()
+- Handles memory management for the temporary absolute path returned by pg_realpath()
+
+## Simplified Source
+
+```c
+// Simplified version of normalize_exec_path
+static int normalize_exec_path(char *path) {
+    // Step 1: Resolve symlinks and convert to absolute path
+    char *absolute_path = pg_realpath(path);
+
+    // Step 2: Handle failure case
+    if (absolute_path == NULL) {
+        log_error(errcode_for_file_access(),
+                  "could not resolve path \"%s\" to absolute form: %m",
+                  path);
+        return -1;
+    }
+
+    // Step 3: Copy the resolved path back to input buffer
+    strlcpy(path, absolute_path, MAXPGPATH);
+    free(absolute_path);
+
+    // Step 4: Platform-specific path normalization
+    #ifdef WIN32
+    canonicalize_path(path);  // Convert '\' to '/' on Windows
+    #endif
+
+    return 0;  // Success
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about historical implementation changes
+- Consolidated the core logic into clear sequential steps
+- Simplified error handling while preserving essential functionality
+- Added descriptive comments for each major operation
+- Maintained the exact same algorithm and return behavior

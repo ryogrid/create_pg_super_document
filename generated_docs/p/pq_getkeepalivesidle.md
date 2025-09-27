@@ -37,3 +37,47 @@ This function returns the TCP keepalive idle time setting for a port connection.
 - Returns port->default_keepalives_idle or retrieves it via getsockopt() on first call
 - Windows version always returns -1 for default values (cannot query defaults)
 - Caches default value in port->default_keepalives_idle to avoid repeated system calls
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getkeepalivesidle
+int pq_getkeepalivesidle(Port *port) {
+#if defined(PG_TCP_KEEPALIVE_IDLE) || defined(SIO_KEEPALIVE_VALS)
+    // Return 0 for NULL port or Unix sockets
+    if (port == NULL || port->laddr.addr.ss_family == AF_UNIX)
+        return 0;
+
+    // Return cached custom value if set
+    if (port->keepalives_idle != 0)
+        return port->keepalives_idle;
+
+    // Get system default if not cached
+    if (port->default_keepalives_idle == 0) {
+#ifndef WIN32
+        socklen_t size = sizeof(port->default_keepalives_idle);
+
+        if (getsockopt(port->sock, IPPROTO_TCP, PG_TCP_KEEPALIVE_IDLE,
+                       &port->default_keepalives_idle, &size) < 0) {
+            // Log error and mark as unknown
+            ereport(LOG, (errmsg("getsockopt(%s) failed: %m", PG_TCP_KEEPALIVE_IDLE_STR)));
+            port->default_keepalives_idle = -1;
+        }
+#else
+        // Windows cannot query defaults
+        port->default_keepalives_idle = -1;
+#endif
+    }
+
+    return port->default_keepalives_idle;
+#else
+    return 0;
+#endif
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logic block
+- Simplified error message formatting
+- Clarified Windows-specific behavior with comments
+- Maintained essential platform-specific and caching logic

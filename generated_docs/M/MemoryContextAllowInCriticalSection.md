@@ -38,3 +38,22 @@ The function simply sets the  flag in the memory context structure after validat
 - The flag affects palloc() assertion behavior for the specific context
 - Should be used sparingly and only for contexts with well-understood allocation patterns
 - Located in src/backend/utils/mmgr/mcxt.c:694-706
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextAllowInCriticalSection
+void MemoryContextAllowInCriticalSection(MemoryContext context, bool allow) {
+    // Core logic step 1: Validate the memory context
+    Assert(MemoryContextIsValid(context));
+
+    // Core logic step 2: Set the critical section allowance flag
+    context->allowInCritSection = allow;
+}
+```
+
+Key simplifications made:
+- Focused on the two essential operations: validate context and set flag
+- Removed explanatory comments about why this function exists
+- Maintained the critical validation step
+- Simplified to show the core state-setting operation

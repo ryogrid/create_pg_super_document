@@ -31,3 +31,25 @@ FetchPortalTargetList retrieves the target list (list of output columns and expr
 
 ## Notes and Other Information
 The function returns NIL (empty list) if the portal doesn't have a determinable target list, which occurs for PORTAL_MULTI_QUERY strategies. The returned list should not be modified by the caller as indicated in the function comments. This function is essential for describing portal results to clients and setting up appropriate output formatting. The target list contains TargetEntry nodes that describe each output column's name, type, and expression.
+
+## Simplified Source
+
+```c
+// Simplified version of FetchPortalTargetList
+List *FetchPortalTargetList(Portal portal) {
+    // Check if portal strategy supports target list extraction
+    // Multi-query portals don't have determinable target lists
+    if (portal->strategy == PORTAL_MULTI_QUERY) {
+        return NIL;
+    }
+
+    // Extract target list from the portal's primary statement
+    return FetchStatementTargetList((Node *) PortalGetPrimaryStmt(portal));
+}
+```
+
+Key simplifications made:
+- Added clear explanatory comments for each logical step
+- Clarified the reason why PORTAL_MULTI_QUERY returns NIL
+- Emphasized the delegation to FetchStatementTargetList for the main work
+- Maintained the original simple and efficient logic flow

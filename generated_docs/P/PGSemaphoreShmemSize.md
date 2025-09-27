@@ -47,3 +47,26 @@ Returns:
 - For unnamed semaphores, PostgreSQL must allocate shared memory for semaphore structures
 - Uses mul_size() to safely handle potential integer overflow in size calculations
 - Called during PostgreSQL startup to determine total shared memory requirements
+
+## Simplified Source
+
+```c
+// Simplified version of PGSemaphoreShmemSize
+Size PGSemaphoreShmemSize(int maxSemas) {
+    // Check semaphore implementation type
+    #ifdef USE_NAMED_POSIX_SEMAPHORES
+        // Named semaphores: OS manages memory, no shared memory needed
+        return 0;
+    #else
+        // Unnamed semaphores: calculate memory for PGSemaphoreData structures
+        // Each semaphore needs one PGSemaphoreData structure
+        return mul_size(maxSemas, sizeof(PGSemaphoreData));
+    #endif
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two implementation paths
+- Clarified the purpose of each branch with inline comments
+- Maintained the exact logic flow and conditional compilation
+- Emphasized the core difference between named and unnamed semaphore memory requirements

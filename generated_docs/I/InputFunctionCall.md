@@ -44,3 +44,53 @@ This function provides a convenient interface for calling PostgreSQL's datatype 
 - Includes validation that NULL inputs produce NULL results and non-NULL inputs produce non-NULL results
 - Part of PostgreSQL's function manager (fmgr) subsystem for type I/O operations
 - Used extensively in procedural languages (PL/Perl, PL/Python, PL/Tcl) for data type conversions
+
+## Simplified Source
+
+```c
+// Simplified version of InputFunctionCall
+Datum InputFunctionCall(FmgrInfo *flinfo, char *str, Oid typioparam, int32 typmod) {
+    LOCAL_FCINFO(fcinfo, 3);
+    Datum result;
+
+    // Handle NULL input for strict functions
+    if (str == NULL && flinfo->fn_strict) {
+        return (Datum) 0;  // Return NULL without calling function
+    }
+
+    // Set up function call with 3 arguments
+    InitFunctionCallInfoData(*fcinfo, flinfo, 3, InvalidOid, NULL, NULL);
+
+    // Prepare arguments: string, type IO param, type modifier
+    fcinfo->args[0].value = CStringGetDatum(str);
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = ObjectIdGetDatum(typioparam);
+    fcinfo->args[1].isnull = false;
+    fcinfo->args[2].value = Int32GetDatum(typmod);
+    fcinfo->args[2].isnull = false;
+
+    // Call the input function
+    result = FunctionCallInvoke(fcinfo);
+
+    // Validate NULL handling consistency
+    if (str == NULL) {
+        // NULL input should produce NULL result
+        if (!fcinfo->isnull) {
+            elog(ERROR, "input function %u returned non-NULL", flinfo->fn_oid);
+        }
+    } else {
+        // Non-NULL input should produce non-NULL result
+        if (fcinfo->isnull) {
+            elog(ERROR, "input function %u returned NULL", flinfo->fn_oid);
+        }
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each phase of the function call
+- Simplified the argument setup with explanatory comments
+- Highlighted the NULL validation logic and its purpose
+- Focused on the main execution path while preserving error checking

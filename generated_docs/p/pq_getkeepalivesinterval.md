@@ -38,3 +38,47 @@ This function returns the TCP keepalive interval setting for a port connection. 
 - Windows version always returns -1 for default values (cannot query defaults)
 - Caches default value in port->default_keepalives_interval to avoid repeated system calls
 - Uses TCP_KEEPINTVL socket option on Unix/Linux systems
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getkeepalivesinterval
+int pq_getkeepalivesinterval(Port *port) {
+#if defined(TCP_KEEPINTVL) || defined(SIO_KEEPALIVE_VALS)
+    // Return 0 for NULL port or Unix sockets
+    if (port == NULL || port->laddr.addr.ss_family == AF_UNIX)
+        return 0;
+
+    // Return cached custom value if set
+    if (port->keepalives_interval != 0)
+        return port->keepalives_interval;
+
+    // Get system default if not cached
+    if (port->default_keepalives_interval == 0) {
+#ifndef WIN32
+        socklen_t size = sizeof(port->default_keepalives_interval);
+
+        if (getsockopt(port->sock, IPPROTO_TCP, TCP_KEEPINTVL,
+                       &port->default_keepalives_interval, &size) < 0) {
+            // Log error and mark as unknown
+            ereport(LOG, (errmsg("getsockopt(TCP_KEEPINTVL) failed: %m")));
+            port->default_keepalives_interval = -1;
+        }
+#else
+        // Windows cannot query defaults
+        port->default_keepalives_interval = -1;
+#endif
+    }
+
+    return port->default_keepalives_interval;
+#else
+    return 0;
+#endif
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logic block
+- Simplified error message formatting
+- Clarified Windows-specific behavior with comments
+- Maintained essential platform-specific and caching logic

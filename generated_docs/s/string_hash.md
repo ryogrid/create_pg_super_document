@@ -37,3 +37,26 @@ As the default hash function, `string_hash` is automatically used when no specif
 - Essential for maintaining hash table integrity when dealing with variable-length string keys
 - Acts as a safe wrapper around hash_bytes for string-specific use cases
 - The keysize parameter includes space for the NUL terminator, so effective string length is keysize-1
+
+## Simplified Source
+
+```c
+// Simplified version of string_hash
+uint32 string_hash(const void *key, Size keysize) {
+    // Step 1: Calculate the actual string length
+    Size string_length = strlen((const char *) key);
+
+    // Step 2: Ensure we don't exceed hash table key capacity
+    // (keysize-1 because keysize includes space for NUL terminator)
+    Size hash_length = Min(string_length, keysize - 1);
+
+    // Step 3: Hash only the portion that would fit in the hash table
+    return hash_bytes((const unsigned char *) key, (int) hash_length);
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names (string_length, hash_length)
+- Broke down the logic into clear sequential steps with comments
+- Emphasized the purpose of each operation
+- Maintained the exact same functionality and algorithm

@@ -56,3 +56,74 @@ SimpleLruTruncate is a maintenance function that performs safe truncation of SLR
 - Clean pages are simply marked as EMPTY, while I/O-busy pages require waiting for completion
 - Final step uses SlruScanDirectory with a callback to physically remove old segment files from disk
 - Typically called during or after checkpoint operations when dirty pages have already been flushed
+
+## Simplified Source
+
+```c
+// Simplified version of SimpleLruTruncate
+void SimpleLruTruncate(SlruCtl ctl, int64 cutoffPage) {
+    SlruShared shared = ctl->shared;
+    int prevbank;
+
+    // Update truncation statistics
+    pgstat_count_slru_truncate(shared->slru_stats_idx);
+
+    // Safety check: prevent wraparound bugs
+    if (ctl->PagePrecedes(pg_atomic_read_u64(&shared->latest_page_number),
+                          cutoffPage)) {
+        ereport(LOG, (errmsg("could not truncate directory \"%s\": apparent wraparound",
+                             ctl->Dir)));
+        return;
+    }
+
+    // Clean up memory buffers for pages before cutoff
+restart:
+    prevbank = SlotGetBankNumber(0);
+    LWLockAcquire(&shared->bank_locks[prevbank].lock, LW_EXCLUSIVE);
+
+    for (int slotno = 0; slotno < shared->num_slots; slotno++) {
+        int curbank = SlotGetBankNumber(slotno);
+
+        // Switch bank locks as needed
+        if (curbank != prevbank) {
+            LWLockRelease(&shared->bank_locks[prevbank].lock);
+            LWLockAcquire(&shared->bank_locks[curbank].lock, LW_EXCLUSIVE);
+            prevbank = curbank;
+        }
+
+        // Skip empty slots or pages we want to keep
+        if (shared->page_status[slotno] == SLRU_PAGE_EMPTY)
+            continue;
+        if (!ctl->PagePrecedes(shared->page_number[slotno], cutoffPage))
+            continue;
+
+        // Handle clean pages - just mark as empty
+        if (shared->page_status[slotno] == SLRU_PAGE_VALID &&
+            !shared->page_dirty[slotno]) {
+            shared->page_status[slotno] = SLRU_PAGE_EMPTY;
+            continue;
+        }
+
+        // Handle I/O-busy pages - write or wait, then restart
+        if (shared->page_status[slotno] == SLRU_PAGE_VALID)
+            SlruInternalWritePage(ctl, slotno, NULL);
+        else
+            SimpleLruWaitIO(ctl, slotno);
+
+        LWLockRelease(&shared->bank_locks[prevbank].lock);
+        goto restart;
+    }
+
+    LWLockRelease(&shared->bank_locks[prevbank].lock);
+
+    // Remove old segment files from disk
+    (void) SlruScanDirectory(ctl, SlruScanDirCbDeleteCutoff, &cutoffPage);
+}
+```
+
+Key simplifications made:
+- Preserved the essential two-phase approach: memory cleanup → disk cleanup
+- Maintained critical safety checks and restart logic for I/O handling
+- Simplified bank locking strategy while preserving correctness
+- Focused on the core algorithm: check safety → clean memory → remove files
+- Removed detailed debug instrumentation while keeping essential error reporting

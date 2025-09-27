@@ -48,3 +48,77 @@ The function is designed to be safe even during error conditions, with careful o
 - The function is designed to be idempotent and safe to call during error recovery
 - Critical for proper resource management in PostgreSQL's file descriptor virtualization system
 - Files marked for deletion have their flag cleared early to prevent infinite loops during error handling
+
+## Simplified Source
+
+```c
+// Simplified version of FileClose
+void FileClose(File file) {
+    Vfd *vfd_entry;
+
+    Assert(FileIsValid(file));
+    DO_DB(elog(LOG, "FileClose: %d (%s)", file, VfdCache[file].fileName));
+
+    vfd_entry = &VfdCache[file];
+
+    // Step 1: Close the underlying OS file descriptor if open
+    if (!FileIsNotOpen(file)) {
+        if (close(vfd_entry->fd) != 0) {
+            // Use different error levels for temp vs permanent files
+            int error_level = (vfd_entry->fdstate & FD_TEMP_FILE_LIMIT) ? LOG : data_sync_elevel(LOG);
+            elog(error_level, "could not close file \"%s\": %m", vfd_entry->fileName);
+        }
+
+        --nfile;
+        vfd_entry->fd = VFD_CLOSED;
+        Delete(file);  // Remove from LRU ring
+    }
+
+    // Step 2: Handle temporary file size accounting
+    if (vfd_entry->fdstate & FD_TEMP_FILE_LIMIT) {
+        temporary_files_size -= vfd_entry->fileSize;
+        vfd_entry->fileSize = 0;
+    }
+
+    // Step 3: Delete temporary files marked for deletion
+    if (vfd_entry->fdstate & FD_DELETE_AT_CLOSE) {
+        struct stat file_stats;
+        int stat_result;
+
+        // Clear flag early to prevent infinite loops during error handling
+        vfd_entry->fdstate &= ~FD_DELETE_AT_CLOSE;
+
+        // Get file stats before deletion for reporting
+        stat_result = stat(vfd_entry->fileName, &file_stats);
+
+        // Delete the file
+        if (unlink(vfd_entry->fileName)) {
+            ereport(LOG, (errcode_for_file_access(),
+                         errmsg("could not delete file \"%s\": %m", vfd_entry->fileName)));
+        }
+
+        // Report temporary file usage statistics
+        if (stat_result == 0) {
+            ReportTemporaryFileUsage(vfd_entry->fileName, file_stats.st_size);
+        } else {
+            ereport(LOG, (errcode_for_file_access(),
+                         errmsg("could not stat file \"%s\": %m", vfd_entry->fileName)));
+        }
+    }
+
+    // Step 4: Clean up resource ownership and return VFD slot to free list
+    if (vfd_entry->resowner) {
+        ResourceOwnerForgetFile(vfd_entry->resowner, file);
+    }
+
+    FreeVfd(file);
+}
+```
+
+Key simplifications made:
+- Renamed vfdP to vfd_entry for clarity
+- Added step-by-step comments organizing the main phases
+- Simplified error handling logic while preserving functionality
+- Consolidated stat error handling
+- Maintained all essential cleanup operations
+- Preserved the careful ordering of operations for error safety

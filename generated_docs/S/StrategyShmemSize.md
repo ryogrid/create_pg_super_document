@@ -35,3 +35,25 @@ The calculation accounts for proper memory alignment using MAXALIGN to ensure ef
 - Uses add_size() for overflow-safe arithmetic when calculating memory requirements
 - The returned size includes proper alignment considerations for shared memory structures
 - This function is typically called during PostgreSQL initialization to determine shared memory requirements
+
+## Simplified Source
+
+```c
+// Simplified version of StrategyShmemSize
+Size StrategyShmemSize(void) {
+    Size size = 0;
+
+    // Add size for buffer lookup hashtable
+    size = add_size(size, BufTableShmemSize(NBuffers + NUM_BUFFER_PARTITIONS));
+
+    // Add size for shared replacement strategy control block
+    size = add_size(size, MAXALIGN(sizeof(BufferStrategyControl)));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the two main memory components being calculated
+- Maintained the essential memory size calculation logic

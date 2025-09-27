@@ -42,3 +42,36 @@ The function manages an internal list (`on_shmem_exit_list`) of registered callb
 - Like `before_shmem_exit`, it has a hard limit of `MAX_ON_EXITS` callbacks and will report a FATAL error if exceeded
 - The `atexit_callback_setup` flag ensures the C library atexit handler is registered only once across all exit callback types
 - Critical for proper cleanup of PGPROC slots, shared memory segments, semaphores, and other low-level PostgreSQL resources
+
+## Simplified Source
+
+```c
+// Simplified version of on_shmem_exit
+void on_shmem_exit(pg_on_exit_callback function, Datum arg) {
+    // Core logic step 1: Check if we have space for another callback
+    if (on_shmem_exit_index >= MAX_ON_EXITS) {
+        ereport(FATAL, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg_internal("out of on_shmem_exit slots")));
+    }
+
+    // Core logic step 2: Store the callback function and its argument
+    on_shmem_exit_list[on_shmem_exit_index].function = function;
+    on_shmem_exit_list[on_shmem_exit_index].arg = arg;
+
+    // Core logic step 3: Increment the callback counter
+    ++on_shmem_exit_index;
+
+    // Core logic step 4: Ensure atexit handler is registered (one-time setup)
+    if (!atexit_callback_setup) {
+        atexit(atexit_callback);
+        atexit_callback_setup = true;
+    }
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic - no removal of core functionality
+- Added descriptive comments for each logical step
+- Maintained the exact error handling as it's critical for system stability
+- Kept the one-time atexit setup logic intact as it's essential for proper cleanup
+- Grouped related operations with clear step descriptions

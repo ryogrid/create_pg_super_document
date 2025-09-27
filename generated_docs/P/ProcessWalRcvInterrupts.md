@@ -42,3 +42,27 @@ The function also calls CHECK_FOR_INTERRUPTS() to ensure proper signal reception
 - Critical for safe shutdown handling in replication scenarios
 - Part of PostgreSQL's streaming replication infrastructure
 - The latch-based approach ensures that long-running operations can be interrupted safely
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessWalRcvInterrupts
+void ProcessWalRcvInterrupts(void) {
+    // Step 1: Handle platform-specific signals and barrier events
+    CHECK_FOR_INTERRUPTS();
+
+    // Step 2: Check if shutdown was requested via SIGTERM
+    if (ShutdownRequestPending) {
+        // Terminate gracefully with appropriate error message
+        ereport(FATAL,
+                (errcode(ERRCODE_ADMIN_SHUTDOWN),
+                 errmsg("terminating walreceiver process due to administrator command")));
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity while preserving essential logic
+- Focused on the two-step interrupt handling process
+- Maintained the core safety mechanism for graceful shutdown
+- Preserved the essential function structure and error reporting

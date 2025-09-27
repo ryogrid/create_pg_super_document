@@ -49,3 +49,126 @@ The function is designed to provide detailed error reporting with file context i
 - Error messages include file name and line number context for easier troubleshooting
 - Returns true on successful parsing, false on error with detailed error message provided
 - Many options are specific to certain authentication methods and will be rejected if used inappropriately
+
+## Simplified Source
+
+```c
+// Simplified version of parse_hba_auth_opt
+static bool
+parse_hba_auth_opt(char *name, char *val, HbaLine *hbaline,
+                   int elevel, char **err_msg)
+{
+    int line_num = hbaline->linenumber;
+    char *file_name = hbaline->sourcefile;
+
+#ifdef USE_LDAP
+    hbaline->ldapscope = LDAP_SCOPE_SUBTREE;
+#endif
+
+    // Core logic: Parse authentication options based on name
+    if (strcmp(name, "map") == 0) {
+        // Validate map option is used with compatible auth methods
+        if (hbaline->auth_method != uaIdent &&
+            hbaline->auth_method != uaPeer &&
+            hbaline->auth_method != uaGSS &&
+            hbaline->auth_method != uaSSPI &&
+            hbaline->auth_method != uaCert)
+            return validation_error("map", "ident, peer, gssapi, sspi, and cert");
+        hbaline->usermap = pstrdup(val);
+    }
+    else if (strcmp(name, "clientcert") == 0) {
+        // Validate SSL connection requirement
+        if (hbaline->conntype != ctHostSSL)
+            return validation_error("clientcert can only be configured for hostssl rows");
+
+        // Parse client certificate verification level
+        if (strcmp(val, "verify-full") == 0) {
+            hbaline->clientcert = clientCertFull;
+        }
+        else if (strcmp(val, "verify-ca") == 0) {
+            // Additional validation for cert auth method
+            if (hbaline->auth_method == uaCert)
+                return validation_error("clientcert only accepts verify-full when using cert authentication");
+            hbaline->clientcert = clientCertCA;
+        }
+        else {
+            return validation_error("invalid value for clientcert");
+        }
+    }
+    else if (strcmp(name, "clientname") == 0) {
+        // Validate SSL connection and parse client name format
+        if (hbaline->conntype != ctHostSSL)
+            return validation_error("clientname can only be configured for hostssl rows");
+
+        if (strcmp(val, "CN") == 0)
+            hbaline->clientcertname = clientCertCN;
+        else if (strcmp(val, "DN") == 0)
+            hbaline->clientcertname = clientCertDN;
+        else
+            return validation_error("invalid value for clientname");
+    }
+
+    // PAM authentication options
+    else if (strcmp(name, "pamservice") == 0) {
+        validate_auth_method(uaPAM, "pamservice", "pam");
+        hbaline->pamservice = pstrdup(val);
+    }
+    else if (strcmp(name, "pam_use_hostname") == 0) {
+        validate_auth_method(uaPAM, "pam_use_hostname", "pam");
+        hbaline->pam_use_hostname = (strcmp(val, "1") == 0);
+    }
+
+    // LDAP authentication options
+    else if (strcmp(name, "ldapurl") == 0) {
+        validate_auth_method(uaLDAP, "ldapurl", "ldap");
+        parse_ldap_url(val, hbaline, elevel, err_msg);
+    }
+    else if (strcmp(name, "ldaptls") == 0) {
+        validate_auth_method(uaLDAP, "ldaptls", "ldap");
+        hbaline->ldaptls = (strcmp(val, "1") == 0);
+    }
+    else if (is_ldap_option(name)) {
+        // Handle other LDAP options: ldapscheme, ldapserver, ldapport, etc.
+        validate_auth_method(uaLDAP, name, "ldap");
+        store_ldap_option(name, val, hbaline);
+    }
+
+    // Kerberos/GSSAPI/SSPI options
+    else if (strcmp(name, "krb_realm") == 0) {
+        validate_auth_method_any(uaGSS, uaSSPI, "krb_realm", "gssapi and sspi");
+        hbaline->krb_realm = pstrdup(val);
+    }
+    else if (strcmp(name, "include_realm") == 0) {
+        validate_auth_method_any(uaGSS, uaSSPI, "include_realm", "gssapi and sspi");
+        hbaline->include_realm = (strcmp(val, "1") == 0);
+    }
+    else if (is_sspi_option(name)) {
+        // Handle SSPI-specific options: compat_realm, upn_username
+        validate_auth_method(uaSSPI, name, "sspi");
+        store_sspi_option(name, val, hbaline);
+    }
+
+    // RADIUS authentication options
+    else if (is_radius_option(name)) {
+        validate_auth_method(uaRADIUS, name, "radius");
+        parse_radius_option(name, val, hbaline, elevel, err_msg);
+    }
+
+    // Unrecognized option
+    else {
+        return validation_error("unrecognized authentication option name");
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Consolidated repetitive option parsing into helper function calls
+- Abstracted detailed LDAP URL parsing into separate function
+- Grouped similar options (LDAP, SSPI, RADIUS) with helper functions
+- Simplified boolean value parsing with direct comparison
+- Reduced detailed error reporting to focus on core validation logic
+- Removed platform-specific conditional compilation details
+- Consolidated validation macros into helper function calls
+- Focused on the main execution path rather than exhaustive error handling

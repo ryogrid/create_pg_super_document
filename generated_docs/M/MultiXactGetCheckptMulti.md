@@ -45,3 +45,37 @@ The captured information includes the next MultiXact ID to be assigned, the next
 - The is_shutdown parameter is accepted but not currently used in the implementation
 - Critical for crash recovery and ensuring MultiXact consistency across database restarts
 - The captured data becomes part of the checkpoint record written to WAL
+
+## Simplified Source
+
+```c
+// Simplified version of MultiXactGetCheckptMulti
+void MultiXactGetCheckptMulti(bool is_shutdown,
+                             MultiXactId *nextMulti,
+                             MultiXactOffset *nextMultiOffset,
+                             MultiXactId *oldestMulti,
+                             Oid *oldestMultiDB) {
+    // Acquire shared lock to safely read MultiXact state
+    LWLockAcquire(MultiXactGenLock, LW_SHARED);
+
+    // Copy current MultiXact state values to output parameters
+    *nextMulti = MultiXactState->nextMXact;
+    *nextMultiOffset = MultiXactState->nextOffset;
+    *oldestMulti = MultiXactState->oldestMultiXactId;
+    *oldestMultiDB = MultiXactState->oldestMultiXactDB;
+
+    // Release the lock
+    LWLockRelease(MultiXactGenLock);
+
+    // Log checkpoint values for debugging
+    debug_elog6(DEBUG2, "MultiXact: checkpoint is nextMulti %u, nextOffset %u, oldestMulti %u in DB %u",
+                *nextMulti, *nextMultiOffset, *oldestMulti, *oldestMultiDB);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Preserved the essential locking mechanism for thread safety
+- Maintained all critical state copying operations
+- Kept debug logging for troubleshooting purposes
+- Removed unnecessary complexity while preserving core functionality

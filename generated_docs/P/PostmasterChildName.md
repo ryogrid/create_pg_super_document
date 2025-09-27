@@ -32,3 +32,20 @@ The function provides a centralized way to get consistent naming for different t
 - The returned string is a constant and should not be modified
 - The child_process_kinds array contains entries for all supported child process types, including some that cannot be launched directly (like B_WAL_SENDER)
 - This function is located in src/backend/postmaster/launch_backend.c:214-217
+
+## Simplified Source
+
+```c
+// Simplified version of PostmasterChildName
+const char *
+PostmasterChildName(BackendType child_type) {
+    // Direct lookup: return the name string for the given child process type
+    return child_process_kinds[child_type].name;
+}
+```
+
+Key simplifications made:
+- Function is already extremely simple - only a single array lookup
+- Added explanatory comment for the core operation
+- No error handling to remove (function relies on caller validation)
+- No complex logic to simplify (single statement function)

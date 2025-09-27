@@ -40,3 +40,22 @@ This function takes no parameters.
 - Includes assertion to prevent underflow of numExternalFDs counter
 - Part of the paired reservation/release mechanism for external FD tracking
 - Used extensively in cleanup and error handling paths throughout PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseExternalFD
+void ReleaseExternalFD(void) {
+    // Verify we have external FDs to release
+    Assert(numExternalFDs > 0);
+
+    // Decrement the external FD counter
+    numExternalFDs--;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the two main actions
+- The function is already very simple, so minimal changes were needed
+- Preserved the essential assertion and counter decrement logic
+- Maintained the errno-safe guarantee (no complex operations that could change errno)

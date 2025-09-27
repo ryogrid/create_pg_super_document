@@ -33,3 +33,19 @@ The `asyncQueuePagePrecedes` function performs a straightforward comparison to d
 - The simplification from wraparound-aware logic to simple comparison suggests improved queue design
 - Used extensively throughout the notification queue management system for ordering and positioning operations
 - The use of int64 provides sufficient range to avoid practical wraparound concerns
+
+## Simplified Source
+
+```c
+// Simplified version of asyncQueuePagePrecedes
+static inline bool asyncQueuePagePrecedes(int64 p, int64 q) {
+    // Core logic: Simple precedence comparison
+    return p < q;
+}
+```
+
+Key simplifications made:
+- Removed comment about previous wraparound handling
+- Focused on the essential comparison operation
+- Maintained the inline nature for performance
+- Simplified to show the core linear ordering logic

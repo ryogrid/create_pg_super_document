@@ -30,3 +30,23 @@ This function creates a lock file for a Unix domain socket by appending ".lock" 
 - Essential for preventing socket binding conflicts in multi-instance scenarios
 - The lock file contains information about the socket directory for reference
 - Used primarily during Unix socket creation and binding operations
+
+## Simplified Source
+
+```c
+// Simplified version of CreateSocketLockFile
+void CreateSocketLockFile(const char *socketfile, bool amPostmaster, const char *socketDir) {
+    char lockfile[MAXPGPATH];
+
+    // Step 1: Create lock file path by appending ".lock" to socket file name
+    snprintf(lockfile, sizeof(lockfile), "%s.lock", socketfile);
+
+    // Step 2: Create the actual lock file with socket information
+    CreateLockFile(lockfile, amPostmaster, socketDir, false, socketfile);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- The function is already quite simple, so minimal changes were needed
+- Preserved the essential two-step process: path construction and lock file creation

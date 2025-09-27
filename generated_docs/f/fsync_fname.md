@@ -35,3 +35,22 @@ fsync_fname(const char *fname, bool isdir)
 
 ## Notes and Other Information
 This function is widely used throughout PostgreSQL for ensuring data durability during critical operations like checkpoints, replication slot management, and database directory operations. It's particularly important for crash recovery guarantees and maintaining ACID properties. The function is part of PostgreSQL's file descriptor management subsystem and provides a consistent interface across different operating systems with varying fsync capabilities.
+
+## Simplified Source
+
+```c
+// Simplified version of fsync_fname
+void fsync_fname(const char *fname, bool isdir) {
+    // Delegate to the extended version with default parameters
+    // - ignore_nonexistent: false (don't ignore if file doesn't exist)
+    // - elevel: ERROR level for error reporting
+    fsync_fname_ext(fname, isdir, false, data_sync_elevel(ERROR));
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the delegation pattern
+- Clarified the default parameter values passed to fsync_fname_ext
+- Preserved the simple wrapper function design
+- Maintained error handling through data_sync_elevel(ERROR)
+- Emphasized that this is a convenience wrapper for common use cases

@@ -29,3 +29,26 @@ This function takes no parameters.
 - Resources created here are backend-local, not shared across the entire PostgreSQL instance
 - The function ensures proper cleanup by registering smgrshutdown as an exit handler
 - Each storage manager in the smgrsw array may have its own initialization routine
+
+## Simplified Source
+
+```c
+// Simplified version of smgrinit
+void smgrinit(void) {
+    // Initialize all storage managers
+    for (int i = 0; i < NSmgr; i++) {
+        if (smgrsw[i].smgr_init) {
+            smgrsw[i].smgr_init();
+        }
+    }
+
+    // Register cleanup function to run at process exit
+    on_proc_exit(smgrshutdown, 0);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declaration within the for loop
+- Added clear comments explaining each major step
+- Maintained the essential logic: iterate through storage managers and initialize them
+- Preserved the cleanup registration mechanism

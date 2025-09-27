@@ -46,3 +46,51 @@ This function takes no parameters.
 - Writing dirty pages to disk is done primarily as a debugging aid, not for correctness
 - The truncation logic handles the complex case where in-progress serializable transactions may cause tailXid to be ahead of headXid
 - Part of PostgreSQL's checkpoint infrastructure for maintaining serializable isolation system resources
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointPredicate
+void CheckPointPredicate(void) {
+    int64 truncateCutoffPage;
+
+    // Step 1: Acquire exclusive lock on serial control
+    LWLockAcquire(SerialControlLock, LW_EXCLUSIVE);
+
+    // Step 2: Early exit if SLRU is not in use
+    if (serialControl->headPage < 0) {
+        LWLockRelease(SerialControlLock);
+        return;
+    }
+
+    // Step 3: Determine truncation cutoff point
+    if (TransactionIdIsValid(serialControl->tailXid)) {
+        int64 tailPage = SerialPage(serialControl->tailXid);
+
+        // Handle case where tail is ahead of head (in-progress transactions)
+        if (SerialPagePrecedesLogically(tailPage, serialControl->headPage)) {
+            truncateCutoffPage = tailPage;  // Safe to truncate up to tail
+        } else {
+            truncateCutoffPage = serialControl->headPage;  // Use head as cutoff
+        }
+    } else {
+        // SLRU no longer needed - truncate to head and mark as unused
+        truncateCutoffPage = serialControl->headPage;
+        serialControl->headPage = -1;
+    }
+
+    LWLockRelease(SerialControlLock);
+
+    // Step 4: Perform SLRU maintenance
+    SimpleLruTruncate(SerialSlruCtl, truncateCutoffPage);  // Remove old pages
+    SimpleLruWriteAll(SerialSlruCtl, true);               // Write remaining pages
+}
+```
+
+Key simplifications made:
+- Removed lengthy comments about XID wraparound edge cases for clarity
+- Organized the logic into clear steps with descriptive comments
+- Preserved essential truncation logic for both active and inactive SLRU states
+- Simplified variable naming and flow while maintaining correctness
+- Focused on the core purpose: SLRU maintenance during checkpoints
+- Kept essential error handling (early exit) and lock management

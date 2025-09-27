@@ -48,3 +48,41 @@ The function operates within PostgreSQL's error handling framework, managing mem
 - Both format strings should have the same format specifiers and argument positions
 - The plural form selection follows locale-specific plural rules (not just n == 1 vs n != 1)
 - Commonly used for reporting counts of database objects, rows affected, etc.
+
+## Simplified Source
+
+```c
+// Simplified version of errmsg_plural
+int errmsg_plural(const char *fmt_singular, const char *fmt_plural,
+                  unsigned long n, ...) {
+    // Get current error data structure
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Track recursion depth for safety
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+
+    // Switch to error-specific memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Store the singular format as message ID for translation
+    edata->message_id = fmt_singular;
+
+    // Evaluate and format the appropriate plural form based on count 'n'
+    // This macro handles locale-specific plural rules and variable arguments
+    EVALUATE_MESSAGE_PLURAL(edata->domain, message, false);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+
+    return 0; // Return value not used
+}
+```
+
+Key simplifications made:
+- Removed detailed memory management complexity
+- Consolidated variable declarations with initialization
+- Added explanatory comments for each major step
+- Focused on the core plural message selection logic
+- Abstracted the EVALUATE_MESSAGE_PLURAL macro functionality

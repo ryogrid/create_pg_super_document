@@ -41,3 +41,22 @@ This function calculates and returns a pointer to the actual data portion of a s
 - Designed as a static inline function for performance optimization in frequent statistics access operations
 - Essential for proper access to type-specific statistics data in shared memory
 - Part of the PostgreSQL statistics collection infrastructure for managing heterogeneous statistics entry types
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_get_entry_data
+static inline void *pgstat_get_entry_data(PgStat_Kind kind, PgStatShared_Common *entry) {
+    // Get the data offset for this statistics kind
+    size_t offset = pgstat_get_kind_info(kind)->shared_data_off;
+
+    // Return pointer to the data portion of the entry
+    return ((char *) entry) + offset;
+}
+```
+
+Key simplifications made:
+- Removed bounds checking assertions for clarity
+- Simplified variable names
+- Focused on the core pointer arithmetic operation
+- Maintained essential offset calculation and pointer manipulation

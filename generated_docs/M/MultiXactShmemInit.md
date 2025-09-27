@@ -41,3 +41,52 @@ MultiXactShmemInit is responsible for setting up all shared memory components ne
 - Uses condition variables for coordination between processes
 - Part of the broader shared memory initialization during PostgreSQL startup
 - Located in src/backend/access/transam/multixact.c:1956-2005
+
+## Simplified Source
+
+```c
+// Simplified version of MultiXactShmemInit
+void MultiXactShmemInit(void) {
+    bool found;
+
+    // Step 1: Set up page precedence functions for SLRU ordering
+    MultiXactOffsetCtl->PagePrecedes = MultiXactOffsetPagePrecedes;
+    MultiXactMemberCtl->PagePrecedes = MultiXactMemberPagePrecedes;
+
+    // Step 2: Initialize offset SLRU (stores multixact-to-offset mappings)
+    SimpleLruInit(MultiXactOffsetCtl,
+                  "multixact_offset", multixact_offset_buffers, 0,
+                  "pg_multixact/offsets", /* other parameters */);
+    SlruPagePrecedesUnitTests(MultiXactOffsetCtl, MULTIXACT_OFFSETS_PER_PAGE);
+
+    // Step 3: Initialize member SLRU (stores multixact member lists)
+    SimpleLruInit(MultiXactMemberCtl,
+                  "multixact_member", multixact_member_buffers, 0,
+                  "pg_multixact/members", /* other parameters */);
+
+    // Step 4: Initialize shared multixact state structure
+    MultiXactState = ShmemInitStruct("Shared MultiXact State",
+                                    SHARED_MULTIXACT_STATE_SIZE,
+                                    &found);
+
+    // Step 5: Initialize state for postmaster, verify for backends
+    if (!IsUnderPostmaster) {
+        // Postmaster: initialize the shared state
+        MemSet(MultiXactState, 0, SHARED_MULTIXACT_STATE_SIZE);
+        ConditionVariableInit(&MultiXactState->nextoff_cv);
+    }
+
+    // Step 6: Set up global per-backend tracking arrays
+    OldestMemberMXactId = MultiXactState->perBackendXactIds;
+    OldestVisibleMXactId = OldestMemberMXactId + MaxOldestSlot;
+}
+```
+
+Key simplifications made:
+- Removed debug logging call for clarity
+- Consolidated SLRU initialization parameters with comments
+- Removed detailed parameter lists for SimpleLruInit calls
+- Simplified the postmaster vs backend logic explanation
+- Removed assertion checks to focus on main functionality
+- Added step-by-step comments for the main initialization phases
+- Focused on the core purpose of each initialization step

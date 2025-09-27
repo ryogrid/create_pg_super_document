@@ -35,3 +35,22 @@ The shared hash table continues to exist after detachment and can be accessed by
 - Debug builds verify that no partition locks are held before detaching
 - Does not require any locks or synchronization with other backends
 - The hash table handle remains valid and can be used by other processes to attach
+
+## Simplified Source
+
+```c
+// Simplified version of dshash_detach
+void dshash_detach(dshash_table *hash_table) {
+    // Core logic: Verify no locks held and free backend-local memory
+    ASSERT_NO_PARTITION_LOCKS_HELD_BY_ME(hash_table);
+
+    // Free the backend-local hash table structure
+    pfree(hash_table);
+}
+```
+
+Key simplifications made:
+- Removed comment about potentially destroyed hash table
+- Focused on the two essential operations: debug assertion and memory cleanup
+- Consolidated the logic into clear, simple steps
+- Maintained critical safety check through assertion

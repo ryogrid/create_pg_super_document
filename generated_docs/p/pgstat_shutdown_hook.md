@@ -54,3 +54,41 @@ The function includes safety assertions to verify it's called in the correct con
 - In debug builds, sets a flag to prevent further statistics operations after shutdown
 - Critical for maintaining statistics accuracy across backend lifecycle
 - The function is located in src/backend/utils/activity/pgstat.c:503-536
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_shutdown_hook
+static void pgstat_shutdown_hook(int code, Datum arg) {
+    // Validate shutdown conditions
+    Assert(!pgstat_is_shutdown);
+    Assert(IsUnderPostmaster || !IsPostmasterEnvironment);
+
+    // Report database disconnect if we have a valid database ID
+    if (OidIsValid(MyDatabaseId)) {
+        pgstat_report_disconnect(MyDatabaseId);
+    }
+
+    // Flush all remaining statistics
+    pgstat_report_stat(true);
+
+    // Verify no pending statistics remain
+    Assert(dlist_is_empty(&pgStatPending));
+    dlist_init(&pgStatPending);
+
+    // Detach from shared memory
+    pgstat_detach_shmem();
+
+    // Mark as shutdown in debug builds
+#ifdef USE_ASSERT_CHECKING
+    pgstat_is_shutdown = true;
+#endif
+}
+```
+
+Key simplifications made:
+- Grouped validation assertions at the top
+- Simplified comment about database disconnect reporting
+- Consolidated statistics cleanup operations
+- Preserved debug-only shutdown state tracking
+- Maintained essential error checking and cleanup sequence

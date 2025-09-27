@@ -49,3 +49,36 @@ Starting from PostgreSQL 8.0, the function modifies the original list structure 
 - Maintains list invariants through `check_list_invariants` in debug builds
 - Widely used throughout PostgreSQL for building lists incrementally from front to back
 - Essential building block for many list construction patterns in the codebase
+
+## Simplified Source
+
+```c
+// Simplified version of lcons
+List *lcons(void *datum, List *list) {
+    // Validate that this is a pointer-based list
+    Assert(IsPointerList(list));
+
+    // Handle empty list case: create new single-element list
+    if (list == NIL) {
+        list = new_list(T_List, 1);
+    } else {
+        // Make room for new head element in existing list
+        new_head_cell(list);
+    }
+
+    // Set the new element as the first item
+    linitial(list) = datum;
+
+    // Verify list integrity in debug builds
+    check_list_invariants(list);
+
+    return list;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Consolidated the core logic flow into clear phases
+- Maintained the essential list manipulation operations
+- Preserved all critical function calls and assertions
+- Focused on the main execution path without removing important details

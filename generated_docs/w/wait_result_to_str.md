@@ -47,3 +47,62 @@ The returned string is allocated using pstrdup() and must be freed by the caller
 - Uses PostgreSQL's internationalization framework with _() macro for translatable strings
 - Special handling for common shell exit codes 126 and 127 provides more user-friendly error messages
 - Memory management follows PostgreSQL conventions with pstrdup() allocation requiring caller to free result
+
+## Simplified Source
+
+```c
+// Simplified version of wait_result_to_str
+char *wait_result_to_str(int exitstatus) {
+    char str[512];
+
+    // Handle system call failure (status -1)
+    if (exitstatus == -1) {
+        snprintf(str, sizeof(str), "%m");  // Use errno via %m
+    }
+    // Handle normal process exit
+    else if (WIFEXITED(exitstatus)) {
+        int exit_code = WEXITSTATUS(exitstatus);
+
+        // Special cases: common shell exit codes
+        switch (exit_code) {
+            case 126:
+                snprintf(str, sizeof(str), _("command not executable"));
+                break;
+            case 127:
+                snprintf(str, sizeof(str), _("command not found"));
+                break;
+            default:
+                snprintf(str, sizeof(str),
+                         _("child process exited with exit code %d"), exit_code);
+        }
+    }
+    // Handle signal termination
+    else if (WIFSIGNALED(exitstatus)) {
+        int signal_num = WTERMSIG(exitstatus);
+
+#if defined(WIN32)
+        snprintf(str, sizeof(str),
+                 _("child process was terminated by exception 0x%X"), signal_num);
+#else
+        snprintf(str, sizeof(str),
+                 _("child process was terminated by signal %d: %s"),
+                 signal_num, pg_strsignal(signal_num));
+#endif
+    }
+    // Handle unrecognized status
+    else {
+        snprintf(str, sizeof(str),
+                 _("child process exited with unrecognized status %d"), exitstatus);
+    }
+
+    return pstrdup(str);
+}
+```
+
+Key simplifications made:
+- Organized into clear conditional blocks with descriptive comments
+- Extracted exit_code variable for cleaner switch statement
+- Consolidated platform-specific signal handling
+- Maintained all essential error message formatting
+- Preserved internationalization support with _() macro
+- Simplified the flow while preserving all termination scenarios

@@ -40,3 +40,39 @@ This function takes no parameters.
 - Works in conjunction with the broader timeout infrastructure
 - Helps enforce query execution time limits for both individual statements and entire transactions
 - Essential for multi-tenant environments and preventing resource monopolization
+
+## Simplified Source
+
+```c
+// Simplified version of enable_statement_timeout
+static void
+enable_statement_timeout(void)
+{
+    // Must be within a transaction
+    Assert(xact_started);
+
+    // Check if statement timeout should be enabled
+    bool should_enable = (StatementTimeout > 0) &&
+                        (StatementTimeout < TransactionTimeout || TransactionTimeout == 0);
+
+    if (should_enable)
+    {
+        // Start statement timeout if not already active
+        if (!get_timeout_active(STATEMENT_TIMEOUT))
+            enable_timeout_after(STATEMENT_TIMEOUT, StatementTimeout);
+    }
+    else
+    {
+        // Disable statement timeout if currently active
+        if (get_timeout_active(STATEMENT_TIMEOUT))
+            disable_timeout(STATEMENT_TIMEOUT, false);
+    }
+}
+```
+
+Key simplifications made:
+- Extracted timeout condition into a boolean variable for clarity
+- Added explanatory comments for each major logic branch
+- Preserved essential logic: validate transaction state, determine if timeout should be active, enable/disable accordingly
+- Maintained the optimization to avoid unnecessary timer restarts
+- Clear separation of condition evaluation and timeout management actions

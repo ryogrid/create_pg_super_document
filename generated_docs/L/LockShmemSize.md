@@ -40,3 +40,33 @@ This function takes no parameters and returns a Size value representing the esti
 - This function is called during PostgreSQL startup to determine total shared memory requirements
 - The estimation helps prevent shared memory exhaustion during high-concurrency scenarios
 - Part of the broader shared memory initialization process coordinated by CalculateShmemSize()
+
+## Simplified Source
+
+```c
+// Simplified version of LockShmemSize
+Size LockShmemSize(void) {
+    Size total_size = 0;
+    long estimated_locks;
+
+    // Step 1: Calculate space for main lock hash table
+    estimated_locks = NLOCKENTS();
+    total_size += hash_estimate_size(estimated_locks, sizeof(LOCK));
+
+    // Step 2: Calculate space for process-lock hash table (2x bigger)
+    estimated_locks *= 2;
+    total_size += hash_estimate_size(estimated_locks, sizeof(PROCLOCK));
+
+    // Step 3: Add 10% safety margin for estimation uncertainty
+    total_size += total_size / 10;
+
+    return total_size;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (total_size, estimated_locks)
+- Replaced add_size() calls with += for clarity (assuming no overflow in simplified version)
+- Added step-by-step comments explaining the three main phases
+- Consolidated the logic flow into clear sequential steps
+- Focused on the core algorithm without low-level safety considerations

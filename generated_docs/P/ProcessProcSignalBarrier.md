@@ -66,3 +66,88 @@ This function takes no parameters and operates on global state.
 - Exception-safe design ensures barrier state consistency even during errors
 - Uses condition variable broadcasting to notify waiters of barrier completion
 - Located in src/backend/storage/ipc/procsignal.c:464-600
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessProcSignalBarrier
+void ProcessProcSignalBarrier(void) {
+    uint64 local_gen;
+    uint64 shared_gen;
+    volatile uint32 flags;
+
+    Assert(MyProcSignalSlot);
+
+    // Early exit: no work to do
+    if (!ProcSignalBarrierPending)
+        return;
+    ProcSignalBarrierPending = false;
+
+    // Check if we need to process barriers
+    local_gen = pg_atomic_read_u64(&MyProcSignalSlot->pss_barrierGeneration);
+    shared_gen = pg_atomic_read_u64(&ProcSignal->psh_barrierGeneration);
+
+    // Already up to date
+    if (local_gen == shared_gen)
+        return;
+
+    // Atomically get and clear barrier flags
+    flags = pg_atomic_exchange_u32(&MyProcSignalSlot->pss_barrierCheckMask, 0);
+
+    // Process each barrier type
+    if (flags != 0) {
+        bool success = true;
+
+        PG_TRY();
+        {
+            // Process each set barrier bit
+            while (flags != 0) {
+                ProcSignalBarrierType type;
+                bool processed = true;
+
+                // Find the rightmost set bit
+                type = (ProcSignalBarrierType) pg_rightmost_one_pos32(flags);
+
+                // Call appropriate barrier handler
+                switch (type) {
+                    case PROCSIGNAL_BARRIER_SMGRRELEASE:
+                        processed = ProcessBarrierSmgrRelease();
+                        break;
+                }
+
+                // Clear processed bit
+                BARRIER_CLEAR_BIT(flags, type);
+
+                // Handle processing failure
+                if (!processed) {
+                    ResetProcSignalBarrierBits(((uint32) 1) << type);
+                    success = false;
+                }
+            }
+        }
+        PG_CATCH();
+        {
+            // Restore unprocessed flags on error
+            ResetProcSignalBarrierBits(flags);
+            PG_RE_THROW();
+        }
+        PG_END_TRY();
+
+        // Exit if some barriers failed
+        if (!success)
+            return;
+    }
+
+    // Update our generation and notify waiters
+    pg_atomic_write_u64(&MyProcSignalSlot->pss_barrierGeneration, shared_gen);
+    ConditionVariableBroadcast(&MyProcSignalSlot->pss_barrierCV);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining race condition prevention
+- Consolidated similar logic branches
+- Simplified variable declarations and initialization
+- Focused on the main execution path
+- Preserved critical atomic operations and error handling structure
+- Maintained essential barrier processing loop and retry logic

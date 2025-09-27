@@ -49,3 +49,72 @@ The function respects timing intervals and only sends feedback when necessary, e
 - The function handles epoch boundaries correctly when comparing transaction IDs
 - When hot standby feedback is disabled, the function sends InvalidTransactionId values to clear any previously communicated xmin values
 - The timing of feedback messages is controlled by wal_receiver_status_interval and the WALRCV_WAKEUP_HSFEEDBACK wakeup reason
+
+## Simplified Source
+
+```c
+// Simplified version of XLogWalRcvSendHSFeedback
+static void XLogWalRcvSendHSFeedback(bool immed) {
+    static bool primary_has_standby_xmin = true;
+    TimestampTz now;
+    TransactionId xmin, catalog_xmin;
+    uint32 xmin_epoch, catalog_xmin_epoch;
+
+    // Exit early if feedback is disabled and no cleanup needed
+    if ((wal_receiver_status_interval <= 0 || !hot_standby_feedback) &&
+        !primary_has_standby_xmin)
+        return;
+
+    // Check timing constraints unless immediate send requested
+    now = GetCurrentTimestamp();
+    if (!immed && now < wakeup[WALRCV_WAKEUP_HSFEEDBACK])
+        return;
+
+    // Schedule next feedback wakeup
+    WalRcvComputeNextWakeup(WALRCV_WAKEUP_HSFEEDBACK, now);
+
+    // Wait until Hot Standby is ready to avoid premature feedback
+    if (!HotStandbyActive())
+        return;
+
+    // Get transaction horizon information
+    if (hot_standby_feedback) {
+        GetReplicationHorizons(&xmin, &catalog_xmin);
+    } else {
+        // Send invalid XIDs to clear primary's standby xmin
+        xmin = InvalidTransactionId;
+        catalog_xmin = InvalidTransactionId;
+    }
+
+    // Calculate epochs, adjusting for epoch boundaries
+    FullTransactionId nextFullXid = ReadNextFullTransactionId();
+    TransactionId nextXid = XidFromFullTransactionId(nextFullXid);
+    xmin_epoch = catalog_xmin_epoch = EpochFromFullTransactionId(nextFullXid);
+
+    if (nextXid < xmin) xmin_epoch--;
+    if (nextXid < catalog_xmin) catalog_xmin_epoch--;
+
+    // Build and send feedback message
+    resetStringInfo(&reply_message);
+    pq_sendbyte(&reply_message, 'h');  // Hot standby feedback message type
+    pq_sendint64(&reply_message, GetCurrentTimestamp());
+    pq_sendint32(&reply_message, xmin);
+    pq_sendint32(&reply_message, xmin_epoch);
+    pq_sendint32(&reply_message, catalog_xmin);
+    pq_sendint32(&reply_message, catalog_xmin_epoch);
+    walrcv_send(wrconn, reply_message.data, reply_message.len);
+
+    // Track whether primary has our xmin info
+    primary_has_standby_xmin = (TransactionIdIsValid(xmin) ||
+                               TransactionIdIsValid(catalog_xmin));
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for better readability
+- Simplified early exit conditions with clearer logic flow
+- Added inline comments explaining the purpose of each major step
+- Removed debug logging for clarity
+- Streamlined epoch calculation logic
+- Combined the final xmin validity check into a single expression
+- Focused on the main execution path while preserving all essential functionality

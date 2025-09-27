@@ -51,3 +51,33 @@ The initialization is crucial for enabling all subsequent statistics operations 
 - The shared memory attachment persists for the entire backend lifetime
 - WAL usage tracking is initialized to enable delta calculations
 - The function is located in src/backend/utils/activity/pgstat.c:537-578
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_initialize
+void pgstat_initialize(void) {
+    // Ensure we haven't already initialized
+    Assert(!pgstat_is_initialized);
+
+    // Step 1: Connect to shared memory statistics area
+    pgstat_attach_shmem();
+
+    // Step 2: Initialize WAL activity tracking
+    pgstat_init_wal();
+
+    // Step 3: Register cleanup function for process exit
+    before_shmem_exit(pgstat_shutdown_hook, 0);
+
+    // Step 4: Mark system as initialized (debug builds only)
+#ifdef USE_ASSERT_CHECKING
+    pgstat_is_initialized = true;
+#endif
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each initialization step
+- Preserved the essential initialization sequence
+- Maintained all function calls and assertions
+- Focused on the core workflow: attach → initialize → register cleanup → mark ready

@@ -58,3 +58,89 @@ The function handles both quoted and unquoted paths:
 - Maximum path length enforcement prevents buffer overflows in downstream path processing
 - Used primarily during server initialization and configuration processing
 - Location: src/backend/utils/adt/varlena.c:3584-3704
+
+## Simplified Source
+
+```c
+// Simplified version of SplitDirectoriesString
+bool SplitDirectoriesString(char *rawstring, char separator, List **namelist) {
+    char *nextp = rawstring;
+    bool done = false;
+
+    *namelist = NIL;
+
+    // Skip leading whitespace
+    while (scanner_isspace(*nextp))
+        nextp++;
+
+    // Allow empty string
+    if (*nextp == '\0')
+        return true;
+
+    // Main parsing loop - process each path component
+    do {
+        char *curname;
+        char *endp;
+
+        if (*nextp == '"') {
+            // Handle quoted paths: find matching quote and collapse quote-quote pairs
+            curname = nextp + 1;
+            while (true) {
+                endp = strchr(nextp + 1, '"');
+                if (endp == NULL)
+                    return false;  // Mismatched quotes
+                if (endp[1] != '"')
+                    break;  // Found end quote
+                // Collapse quote-quote escape sequence
+                memmove(endp, endp + 1, strlen(endp));
+                nextp = endp;
+            }
+            nextp = endp + 1;
+        } else {
+            // Handle unquoted paths: find separator or end, trim trailing whitespace
+            curname = endp = nextp;
+            while (*nextp && *nextp != separator) {
+                if (!scanner_isspace(*nextp))
+                    endp = nextp + 1;  // Track last non-space character
+                nextp++;
+            }
+            if (curname == endp)
+                return false;  // Empty unquoted name not allowed
+        }
+
+        // Skip whitespace and check for separator or end
+        while (scanner_isspace(*nextp))
+            nextp++;
+
+        if (*nextp == separator) {
+            nextp++;
+            while (scanner_isspace(*nextp))
+                nextp++;
+        } else if (*nextp == '\0') {
+            done = true;
+        } else {
+            return false;  // Invalid syntax
+        }
+
+        // Finalize current path component
+        *endp = '\0';
+        if (strlen(curname) >= MAXPGPATH)
+            curname[MAXPGPATH - 1] = '\0';  // Truncate if too long
+
+        // Create separate copy, canonicalize, and add to list
+        curname = pstrdup(curname);
+        canonicalize_path(curname);
+        *namelist = lappend(*namelist, curname);
+
+    } while (!done);
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Consolidated quote handling logic with clearer control flow
+- Simplified whitespace skipping and separator detection
+- Added descriptive comments for each major phase
+- Removed some intermediate variables for clarity
+- Focused on the main execution path while preserving all essential functionality

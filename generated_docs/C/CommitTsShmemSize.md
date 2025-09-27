@@ -35,3 +35,24 @@ This function takes no parameters.
 - The returned `Size` type represents the number of bytes needed
 - The commit timestamp feature must be enabled (track_commit_timestamp = on) for this memory to be actively used
 - The memory calculated here stores both the actual timestamp data pages and the metadata for managing the SLRU cache
+
+## Simplified Source
+
+```c
+// Simplified version of CommitTsShmemSize
+Size CommitTsShmemSize(void) {
+    // Calculate SLRU buffer space needed for commit timestamp pages
+    Size slru_size = SimpleLruShmemSize(CommitTsShmemBuffers(), 0);
+
+    // Add space for the shared control structure
+    Size control_size = sizeof(CommitTimestampShared);
+
+    // Return total memory requirement
+    return slru_size + control_size;
+}
+```
+
+Key simplifications made:
+- Split the calculation into clear steps with descriptive variable names
+- Added explanatory comments for each component
+- Made the two-part calculation explicit (SLRU buffers + control structure)

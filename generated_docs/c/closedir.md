@@ -42,3 +42,29 @@ The function is designed to be called after completing directory traversal opera
 - Returns 0 on success, following POSIX standard behavior
 - Part of PostgreSQL's portability layer for Windows systems
 - Automatically frees both the dirname string and the DIR structure itself
+
+## Simplified Source
+
+```c
+// Simplified version of closedir
+int closedir(DIR *d) {
+    int ret = 0;
+
+    // Close the Windows directory handle if it's valid
+    if (d->handle != INVALID_HANDLE_VALUE)
+        ret = !FindClose(d->handle);
+
+    // Free allocated memory for directory name and structure
+    free(d->dirname);
+    free(d);
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Preserved the essential logic flow without modifications
+- Added clear comments explaining each step
+- Function is already quite simple and straightforward
+- Maintained the Windows-specific handle checking and cleanup
+- Kept the POSIX-compliant return value behavior

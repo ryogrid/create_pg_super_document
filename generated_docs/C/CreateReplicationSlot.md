@@ -57,3 +57,130 @@ This function creates a new replication slot based on the command parameters. Fo
 - For snapshot 'use' operations, the transaction must be REPEATABLE READ, read-only, and called before any other queries
 - Two-phase and failover support are configurable options for logical slots
 - The consistent_point returned is the confirmed_flush LSN formatted as X/X
+
+## Simplified Source
+
+```c
+// Simplified version of CreateReplicationSlot (walsender.c)
+static void
+CreateReplicationSlot(CreateReplicationSlotCmd *cmd) {
+    const char *snapshot_name = NULL;
+    char xloc[MAXFNAMELEN];
+    char *slot_name;
+    bool reserve_wal = false;
+    bool two_phase = false;
+    bool failover = false;
+    CRSSnapshotAction snapshot_action = CRS_EXPORT_SNAPSHOT;
+
+    // Parse command options
+    parseCreateReplSlotOptions(cmd, &reserve_wal, &snapshot_action, &two_phase, &failover);
+
+    if (cmd->kind == REPLICATION_KIND_PHYSICAL) {
+        // Create physical replication slot
+        ReplicationSlotCreate(cmd->slotname, false,
+                             cmd->temporary ? RS_TEMPORARY : RS_PERSISTENT,
+                             false, false, false);
+
+        // Optionally reserve WAL to prevent cleanup
+        if (reserve_wal) {
+            ReplicationSlotReserveWal();
+            ReplicationSlotMarkDirty();
+
+            // Save permanent slots to disk
+            if (!cmd->temporary)
+                ReplicationSlotSave();
+        }
+    } else {
+        // Create logical replication slot
+        LogicalDecodingContext *ctx;
+        bool need_full_snapshot = false;
+
+        // Validate logical decoding requirements
+        CheckLogicalDecodingRequirements();
+
+        // Create slot initially as ephemeral for error handling
+        ReplicationSlotCreate(cmd->slotname, true,
+                             cmd->temporary ? RS_TEMPORARY : RS_EPHEMERAL,
+                             two_phase, failover, false);
+
+        // Validate snapshot action requirements
+        if (snapshot_action == CRS_EXPORT_SNAPSHOT) {
+            // Must be outside transaction
+            if (IsTransactionBlock())
+                ereport(ERROR, "CREATE_REPLICATION_SLOT ... (SNAPSHOT 'export') must not be called inside a transaction");
+            need_full_snapshot = true;
+        } else if (snapshot_action == CRS_USE_SNAPSHOT) {
+            // Must be inside REPEATABLE READ read-only transaction
+            if (!IsTransactionBlock() || XactIsoLevel != XACT_REPEATABLE_READ || !XactReadOnly)
+                ereport(ERROR, "Invalid transaction state for SNAPSHOT 'use'");
+            need_full_snapshot = true;
+        }
+
+        // Initialize logical decoding context
+        ctx = CreateInitDecodingContext(cmd->plugin, NIL, need_full_snapshot,
+                                       InvalidXLogRecPtr, /* WAL routines */,
+                                       WalSndPrepareWrite, WalSndWriteData,
+                                       WalSndUpdateProgress);
+
+        // Disable timeout during slot creation
+        last_reply_timestamp = 0;
+
+        // Build initial snapshot and find start point
+        DecodingContextFindStartpoint(ctx);
+
+        // Handle snapshot export/use
+        if (snapshot_action == CRS_EXPORT_SNAPSHOT) {
+            snapshot_name = SnapBuildExportSnapshot(ctx->snapshot_builder);
+        } else if (snapshot_action == CRS_USE_SNAPSHOT) {
+            Snapshot snap = SnapBuildInitialSnapshot(ctx->snapshot_builder);
+            RestoreTransactionSnapshot(snap, MyProc);
+        }
+
+        // Clean up decoding context
+        FreeDecodingContext(ctx);
+
+        // Make slot persistent if not temporary
+        if (!cmd->temporary)
+            ReplicationSlotPersist();
+    }
+
+    // Format consistent point LSN
+    snprintf(xloc, sizeof(xloc), "%X/%X",
+             LSN_FORMAT_ARGS(MyReplicationSlot->data.confirmed_flush));
+
+    // Prepare result tuple with 4 columns: slot_name, consistent_point, snapshot_name, output_plugin
+    DestReceiver *dest = CreateDestReceiver(DestRemoteSimple);
+    TupleDesc tupdesc = CreateTemplateTupleDesc(4);
+
+    // Initialize tuple descriptor columns
+    TupleDescInitBuiltinEntry(tupdesc, 1, "slot_name", TEXTOID, -1, 0);
+    TupleDescInitBuiltinEntry(tupdesc, 2, "consistent_point", TEXTOID, -1, 0);
+    TupleDescInitBuiltinEntry(tupdesc, 3, "snapshot_name", TEXTOID, -1, 0);
+    TupleDescInitBuiltinEntry(tupdesc, 4, "output_plugin", TEXTOID, -1, 0);
+
+    // Prepare and send result tuple
+    TupOutputState *tstate = begin_tup_output_tupdesc(dest, tupdesc, &TTSOpsVirtual);
+
+    Datum values[4];
+    bool nulls[4] = {0};
+
+    // Fill result values
+    values[0] = CStringGetTextDatum(NameStr(MyReplicationSlot->data.name));
+    values[1] = CStringGetTextDatum(xloc);
+    values[2] = snapshot_name ? CStringGetTextDatum(snapshot_name) : (nulls[2] = true, 0);
+    values[3] = cmd->plugin ? CStringGetTextDatum(cmd->plugin) : (nulls[3] = true, 0);
+
+    // Send result and cleanup
+    do_tup_output(tstate, values, nulls);
+    end_tup_output(tstate);
+    ReplicationSlotRelease();
+}
+```
+
+Key simplifications made:
+- Removed detailed error messages for clarity, kept essential error conditions
+- Consolidated transaction state validation for snapshot 'use' operations
+- Abstracted WAL routine structure initialization details
+- Simplified tuple output preparation and combined variable declarations
+- Focused on the main execution paths for physical vs logical slots
+- Reduced verbose comments while preserving critical logic flow explanations

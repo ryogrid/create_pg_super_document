@@ -45,3 +45,111 @@ The function ensures that validation hooks are called even for boot values, allo
 - Sets up proper metadata for source tracking and role-based access control
 - Critical for establishing a consistent baseline state for all GUC parameters
 - Located in src/backend/utils/misc/guc.c:1646-1762
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeOneGUCOption
+static void InitializeOneGUCOption(struct config_generic *gconf) {
+    // Initialize common metadata fields to defaults
+    gconf->status = 0;
+    gconf->source = PGC_S_DEFAULT;
+    gconf->reset_source = PGC_S_DEFAULT;
+    gconf->scontext = PGC_INTERNAL;
+    gconf->reset_scontext = PGC_INTERNAL;
+    gconf->srole = BOOTSTRAP_SUPERUSERID;
+    gconf->reset_srole = BOOTSTRAP_SUPERUSERID;
+    gconf->stack = NULL;
+    gconf->extra = NULL;
+    gconf->last_reported = NULL;
+    gconf->sourcefile = NULL;
+    gconf->sourceline = 0;
+
+    // Initialize value based on parameter type
+    switch (gconf->vartype) {
+        case PGC_BOOL:
+            initialize_bool_parameter((struct config_bool *) gconf);
+            break;
+        case PGC_INT:
+            initialize_int_parameter((struct config_int *) gconf);
+            break;
+        case PGC_REAL:
+            initialize_real_parameter((struct config_real *) gconf);
+            break;
+        case PGC_STRING:
+            initialize_string_parameter((struct config_string *) gconf);
+            break;
+        case PGC_ENUM:
+            initialize_enum_parameter((struct config_enum *) gconf);
+            break;
+    }
+}
+
+// Helper: Initialize boolean parameter
+static void initialize_bool_parameter(struct config_bool *conf) {
+    bool newval = conf->boot_val;
+    void *extra = NULL;
+
+    // Validate through check hook
+    if (!call_bool_check_hook(conf, &newval, &extra, PGC_S_DEFAULT, LOG))
+        elog(FATAL, "failed to initialize %s to %d", conf->gen.name, (int) newval);
+
+    // Apply assignment hook if present
+    if (conf->assign_hook)
+        conf->assign_hook(newval, extra);
+
+    // Set both current and reset values
+    *conf->variable = conf->reset_val = newval;
+    conf->gen.extra = conf->reset_extra = extra;
+}
+
+// Helper: Initialize integer parameter
+static void initialize_int_parameter(struct config_int *conf) {
+    int newval = conf->boot_val;
+    void *extra = NULL;
+
+    // Boot values should already be validated, but assert for safety
+    Assert(newval >= conf->min && newval <= conf->max);
+
+    // Validate and set value similar to boolean case
+    if (!call_int_check_hook(conf, &newval, &extra, PGC_S_DEFAULT, LOG))
+        elog(FATAL, "failed to initialize %s to %d", conf->gen.name, newval);
+
+    if (conf->assign_hook)
+        conf->assign_hook(newval, extra);
+
+    *conf->variable = conf->reset_val = newval;
+    conf->gen.extra = conf->reset_extra = extra;
+}
+
+// Helper: Initialize string parameter
+static void initialize_string_parameter(struct config_string *conf) {
+    char *newval;
+    void *extra = NULL;
+
+    // Duplicate boot value string if present
+    if (conf->boot_val != NULL)
+        newval = guc_strdup(FATAL, conf->boot_val);
+    else
+        newval = NULL;
+
+    // Validate and set value
+    if (!call_string_check_hook(conf, &newval, &extra, PGC_S_DEFAULT, LOG))
+        elog(FATAL, "failed to initialize %s to \"%s\"",
+             conf->gen.name, newval ? newval : "");
+
+    if (conf->assign_hook)
+        conf->assign_hook(newval, extra);
+
+    *conf->variable = conf->reset_val = newval;
+    conf->gen.extra = conf->reset_extra = extra;
+}
+```
+
+Key simplifications made:
+- Extracted repetitive type-specific initialization into helper functions
+- Consolidated the common pattern of validate-assign-set across all types
+- Added explanatory comments for each major step
+- Removed detailed error message formatting variations
+- Focused on the core logic flow rather than low-level details
+- Maintained the essential validation and assignment hook patterns

@@ -39,3 +39,28 @@ This function is called at the end of every transaction (both commit and abort) 
 - The function provides different behavior for commit vs. abort scenarios to aid in debugging
 - Critical for preventing resource leaks and maintaining system stability across transaction boundaries
 - Works as the cleanup counterpart to the register/deregister/has_seq_scans family of functions
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_HashTables
+void AtEOXact_HashTables(bool isCommit) {
+    // During commit: warn about leaked scans (programming errors)
+    if (isCommit) {
+        for (int i = 0; i < num_seq_scans; i++) {
+            elog(WARNING, "leaked hash_seq_search scan for hash table %p",
+                 seq_scan_tables[i]);
+        }
+    }
+    // During abort: silently clean up (expected behavior)
+
+    // Reset scan counter to clean state
+    num_seq_scans = 0;
+}
+```
+
+Key simplifications made:
+- Consolidated the main logic flow into clear sections
+- Removed detailed comments about memory safety concerns
+- Focused on the core cleanup behavior: warn on commit, reset counter
+- Maintained the essential difference between commit and abort handling

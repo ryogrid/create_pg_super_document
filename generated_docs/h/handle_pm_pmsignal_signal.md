@@ -39,3 +39,22 @@ The function follows PostgreSQL's pattern of minimal signal handlers that defer 
 - The actual signal processing happens later in the main event loop, not in the handler itself
 - Registered as SIGUSR1 handler during PostmasterMain initialization
 - Essential for operations like log rotation and standby promotion triggered by pg_ctl
+
+## Simplified Source
+
+```c
+// Simplified version of handle_pm_pmsignal_signal
+static void handle_pm_pmsignal_signal(SIGNAL_ARGS) {
+    // Step 1: Mark that a pmsignal is pending
+    pending_pm_pmsignal = true;
+
+    // Step 2: Wake up the postmaster's main event loop
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Function is already very simple, preserving original structure
+- Added descriptive comments explaining the two core operations
+- Maintained the async-signal-safe pattern (minimal work in signal handler)
+- Focuses on the essential function: flagging pending work and waking the main loop

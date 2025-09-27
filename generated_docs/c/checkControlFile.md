@@ -47,3 +47,36 @@ This check serves as an early gate to prevent the postmaster from attempting to 
 - Uses MAXPGPATH for path buffer sizing to handle long directory names safely
 - Exit code 2 specifically indicates data directory problems, distinguishing from other startup failures
 - Essential for preventing cryptic failures later in startup when other components expect a valid database cluster
+
+## Simplified Source
+
+```c
+// Simplified version of checkControlFile
+static void checkControlFile(void) {
+    char path[MAXPGPATH];
+    FILE *fp;
+
+    // Build path to pg_control file
+    snprintf(path, sizeof(path), "%s/global/pg_control", DataDir);
+
+    // Try to open the control file
+    fp = AllocateFile(path, PG_BINARY_R);
+    if (fp == NULL) {
+        // Report error and exit if file cannot be opened
+        write_stderr("%s: could not find the database system\n"
+                     "Expected to find it in the directory \"%s\",\n"
+                     "but could not open file \"%s\": %m\n",
+                     progname, DataDir, path);
+        ExitPostmaster(2);
+    }
+
+    // Close file - we only needed to verify it exists and is readable
+    FreeFile(fp);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added inline comments explaining each logical step
+- Maintained original error handling as it's essential for function purpose
+- Preserved the core logic flow: build path -> test access -> handle errors -> cleanup

@@ -39,3 +39,28 @@ Key behaviors:
 - Error handling is non-fatal (LOG level) since this is typically called during cleanup operations
 - Part of PostgreSQL's platform abstraction layer for semaphore management
 - The choice between sem_close and sem_destroy depends on the USE_NAMED_POSIX_SEMAPHORES compile-time setting
+
+## Simplified Source
+
+```c
+// Simplified version of PosixSemaphoreKill
+static void PosixSemaphoreKill(sem_t *sem) {
+#ifdef USE_NAMED_POSIX_SEMAPHORES
+    // Close named semaphore
+    if (sem_close(sem) < 0) {
+        elog(LOG, "sem_close failed: %m");
+    }
+#else
+    // Destroy unnamed semaphore
+    if (sem_destroy(sem) < 0) {
+        elog(LOG, "sem_destroy failed: %m");
+    }
+#endif
+}
+```
+
+Key simplifications made:
+- Added clear comments for each semaphore type
+- Preserved the conditional compilation logic
+- Maintained non-fatal error handling approach
+- Kept the original structure for platform abstraction

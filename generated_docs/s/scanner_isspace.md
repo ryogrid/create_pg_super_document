@@ -38,3 +38,22 @@ The function explicitly checks for six specific whitespace characters: space (' 
 - The comment suggests that similar functions for other character classes (like isalnum) might be needed in the future
 - Essential for maintaining consistency between the main SQL lexer and various string parsing utilities throughout the codebase
 - Returns a simple boolean value with no side effects or error conditions
+
+## Simplified Source
+
+```c
+// Simplified version of scanner_isspace
+bool scanner_isspace(char ch) {
+    // Check if character matches any of the 6 whitespace characters
+    // that the PostgreSQL lexer recognizes: space, tab, newline,
+    // carriage return, vertical tab, and form feed
+    return (ch == ' ' || ch == '\t' || ch == '\n' ||
+            ch == '\r' || ch == '\v' || ch == '\f');
+}
+```
+
+Key simplifications made:
+- Consolidated the multi-line if statement into a single return expression
+- Added descriptive comment explaining the 6 whitespace character types
+- Maintained the exact same logic and functionality as the original
+- Preserved the locale-independent behavior that's critical for SQL parsing

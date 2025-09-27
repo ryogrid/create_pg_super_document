@@ -48,3 +48,57 @@ The function uses static variables to track the last reported positions and avoi
 - Apply position requires spinlock access, so it's only updated periodically for performance
 - Critical for monitoring replication lag and maintaining primary-replica communication
 - Located in src/backend/replication/walreceiver.c:1100-1168
+
+## Simplified Source
+
+```c
+// Simplified version of XLogWalRcvSendReply
+static void XLogWalRcvSendReply(bool force, bool requestReply) {
+    static XLogRecPtr writePtr = 0;
+    static XLogRecPtr flushPtr = 0;
+    XLogRecPtr applyPtr;
+    TimestampTz now;
+
+    // Early exit: Skip if status reporting is disabled and not forced
+    if (!force && wal_receiver_status_interval <= 0)
+        return;
+
+    // Get current time for throttling decisions
+    now = GetCurrentTimestamp();
+
+    // Throttling: Skip if no progress made and not enough time elapsed
+    if (!force &&
+        writePtr == LogstreamResult.Write &&
+        flushPtr == LogstreamResult.Flush &&
+        now < wakeup[WALRCV_WAKEUP_REPLY])
+        return;
+
+    // Schedule next wakeup time for reply sending
+    WalRcvComputeNextWakeup(WALRCV_WAKEUP_REPLY, now);
+
+    // Collect current WAL positions
+    writePtr = LogstreamResult.Write;
+    flushPtr = LogstreamResult.Flush;
+    applyPtr = GetXLogReplayRecPtr(NULL);
+
+    // Build reply message: 'r' + write + flush + apply + timestamp + reply_flag
+    resetStringInfo(&reply_message);
+    pq_sendbyte(&reply_message, 'r');
+    pq_sendint64(&reply_message, writePtr);
+    pq_sendint64(&reply_message, flushPtr);
+    pq_sendint64(&reply_message, applyPtr);
+    pq_sendint64(&reply_message, GetCurrentTimestamp());
+    pq_sendbyte(&reply_message, requestReply ? 1 : 0);
+
+    // Send the reply message to primary server
+    walrcv_send(wrconn, reply_message.data, reply_message.len);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments that explained implementation details
+- Consolidated the throttling logic into clearer conditional checks
+- Abstracted the message construction into high-level steps
+- Removed debug logging for clarity
+- Focused on the main execution path
+- Simplified variable declarations and assignments

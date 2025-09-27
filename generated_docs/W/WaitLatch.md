@@ -43,3 +43,41 @@ WaitLatch is the primary function for waiting on latch events in PostgreSQL. It 
 - The latch can be NULL if WL_LATCH_SET is not specified in wakeEvents
 - Used extensively throughout PostgreSQL for background processes and inter-process coordination
 - Maximum supported timeout is INT_MAX milliseconds despite long parameter type
+
+## Simplified Source
+
+```c
+// Simplified version of WaitLatch
+int WaitLatch(Latch *latch, int wakeEvents, long timeout, uint32 wait_event_info) {
+    WaitEvent event;
+
+    // Ensure postmaster death is handled appropriately
+    Assert(!IsUnderPostmaster ||
+           (wakeEvents & WL_EXIT_ON_PM_DEATH) ||
+           (wakeEvents & WL_POSTMASTER_DEATH));
+
+    // Configure the latch for waiting
+    if (!(wakeEvents & WL_LATCH_SET)) {
+        latch = NULL;  // No latch event needed
+    }
+    ModifyWaitEvent(LatchWaitSet, LatchWaitSetLatchPos, WL_LATCH_SET, latch);
+
+    // Set postmaster death handling behavior
+    LatchWaitSet->exit_on_postmaster_death = ((wakeEvents & WL_EXIT_ON_PM_DEATH) != 0);
+
+    // Wait for events using the configured wait set
+    long actual_timeout = (wakeEvents & WL_TIMEOUT) ? timeout : -1;
+    if (WaitEventSetWait(LatchWaitSet, actual_timeout, &event, 1, wait_event_info) == 0) {
+        return WL_TIMEOUT;  // Timeout occurred
+    } else {
+        return event.events;  // Return which event(s) triggered the wake-up
+    }
+}
+```
+
+Key simplifications made:
+- Removed complex comment blocks for clarity
+- Extracted timeout logic to a clear variable assignment
+- Added inline comments explaining each major step
+- Simplified the conditional logic flow
+- Focused on the main execution path without losing functionality

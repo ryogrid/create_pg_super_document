@@ -42,3 +42,67 @@ This function constructs and sends a RowDescription message (T message) that inf
 - Accounts for character set conversion overhead when estimating column name sizes
 - Sends zero values for table/column origin information when target list is not available
 - Format codes default to 0 (text format) when formats array is NULL
+
+## Simplified Source
+
+```c
+// Simplified version of SendRowDescriptionMessage
+void SendRowDescriptionMessage(StringInfo buf, TupleDesc typeinfo,
+                              List *targetlist, int16 *formats) {
+    int natts = typeinfo->natts;
+    ListCell *tlist_item = list_head(targetlist);
+
+    // Start RowDescription message and send column count
+    pq_beginmessage_reuse(buf, PqMsg_RowDescription);
+    pq_sendint16(buf, natts);
+
+    // Pre-allocate buffer space for performance
+    enlargeStringInfo(buf, estimated_message_size * natts);
+
+    // Process each column attribute
+    for (int i = 0; i < natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(typeinfo, i);
+
+        // Resolve domain types to base types
+        Oid atttypid = att->atttypid;
+        int32 atttypmod = att->atttypmod;
+        atttypid = getBaseTypeAndTypmod(atttypid, &atttypmod);
+
+        // Skip resjunk columns and get origin table info
+        while (tlist_item && ((TargetEntry *) lfirst(tlist_item))->resjunk)
+            tlist_item = lnext(targetlist, tlist_item);
+
+        Oid resorigtbl = 0;
+        AttrNumber resorigcol = 0;
+        if (tlist_item) {
+            TargetEntry *tle = (TargetEntry *) lfirst(tlist_item);
+            resorigtbl = tle->resorigtbl;
+            resorigcol = tle->resorigcol;
+            tlist_item = lnext(targetlist, tlist_item);
+        }
+
+        // Get format code (default to text format if not specified)
+        int16 format = formats ? formats[i] : 0;
+
+        // Write column metadata to buffer
+        pq_writestring(buf, NameStr(att->attname));  // Column name
+        pq_writeint32(buf, resorigtbl);              // Origin table OID
+        pq_writeint16(buf, resorigcol);              // Origin column number
+        pq_writeint32(buf, atttypid);                // Data type OID
+        pq_writeint16(buf, att->attlen);             // Type length
+        pq_writeint32(buf, atttypmod);               // Type modifier
+        pq_writeint16(buf, format);                  // Format code
+    }
+
+    // Finalize the message
+    pq_endmessage_reuse(buf);
+}
+```
+
+Key simplifications made:
+- Removed detailed memory allocation calculation comments for clarity
+- Simplified variable declarations and moved them closer to usage
+- Added inline comments explaining the purpose of each major step
+- Consolidated the origin table/column logic into a clearer flow
+- Abstracted the complex memory size estimation with a descriptive variable name
+- Focused on the main execution path while preserving all essential functionality

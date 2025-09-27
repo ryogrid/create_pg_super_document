@@ -38,3 +38,19 @@ The calculation uses mul_size() for safe multiplication that prevents integer ov
 - Uses safe arithmetic to prevent overflow in memory size calculations
 - Part of the broader shared memory initialization and management system
 - The returned size is used by shared memory allocation routines during startup
+
+## Simplified Source
+
+```c
+// Simplified version of ShmemBackendArraySize
+Size ShmemBackendArraySize(void) {
+    // Calculate total memory needed for Backend array
+    // = (max number of child processes) × (size of one Backend struct)
+    return mul_size(MaxLivePostmasterChildren(), sizeof(Backend));
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the calculation logic
+- Function is already very simple, so main improvement is clarity through comments
+- Preserved the safe multiplication using mul_size() which prevents overflow

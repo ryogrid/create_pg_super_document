@@ -52,3 +52,20 @@ This is the standard interface used throughout PostgreSQL code when pushing snap
 - The actual snapshot management logic is implemented in PushActiveSnapshotWithLevel
 - Used extensively throughout PostgreSQL for establishing snapshot contexts in various subsystems
 - Part of the snapshot stack management system - should be paired with PopActiveSnapshot when done
+
+## Simplified Source
+
+```c
+// Simplified version of PushActiveSnapshot
+void PushActiveSnapshot(Snapshot snapshot) {
+    // Push snapshot at current transaction nesting level
+    // Delegates all the complex logic to PushActiveSnapshotWithLevel
+    PushActiveSnapshotWithLevel(snapshot, GetCurrentTransactionNestLevel());
+}
+```
+
+Key simplifications made:
+- This function is already very simple - it's just a wrapper
+- The core functionality is delegating to PushActiveSnapshotWithLevel with the current transaction level
+- All snapshot copying, reference counting, and stack management is handled by the delegated function
+- Maintains the essential logic flow while abstracting the complexity to the underlying implementation

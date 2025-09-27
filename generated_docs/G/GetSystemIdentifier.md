@@ -35,3 +35,21 @@ This function takes no parameters.
 - This function is commonly used in backup, replication, and WAL-related operations to verify cluster identity
 - The system identifier is critical for preventing data corruption by ensuring components from different clusters are not mixed
 - Located in src/backend/access/transam/xlog.c:4523-4532
+
+## Simplified Source
+
+```c
+// Simplified version of GetSystemIdentifier
+uint64 GetSystemIdentifier(void) {
+    // Verify that the control file has been loaded
+    Assert(ControlFile != NULL);
+
+    // Return the unique 64-bit system identifier from the control file
+    return ControlFile->system_identifier;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, so minimal changes were needed
+- Added clear comments explaining the assertion and return value
+- Maintained the essential logic flow of verification and identifier retrieval

@@ -40,3 +40,30 @@ The function returns true if page1 precedes page2, meaning that both the first t
 - Used as a callback function in the SLRU control structure (XactCtl)
 - The dual TransactionIdPrecedes check ensures the entire page1 range precedes page2 range
 - Critical for maintaining CLOG consistency during truncation operations
+
+## Simplified Source
+
+```c
+// Simplified version of CLOGPagePrecedes
+static bool CLOGPagePrecedes(int64 page1, int64 page2) {
+    TransactionId xid1, xid2;
+
+    // Convert page numbers to representative transaction IDs
+    // Add offset to ensure all XIDs are normal (not permanent)
+    xid1 = ((TransactionId) page1) * CLOG_XACTS_PER_PAGE;
+    xid1 += FirstNormalTransactionId + 1;
+    xid2 = ((TransactionId) page2) * CLOG_XACTS_PER_PAGE;
+    xid2 += FirstNormalTransactionId + 1;
+
+    // Check if entire page1 range precedes entire page2 range
+    // Both first XID of page1 must precede first AND last XID of page2
+    return (TransactionIdPrecedes(xid1, xid2) &&
+            TransactionIdPrecedes(xid1, xid2 + CLOG_XACTS_PER_PAGE - 1));
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the offset calculation purpose
+- Clarified the dual TransactionIdPrecedes check logic
+- Maintained the core wraparound-safe comparison algorithm
+- Focused on the essential logic flow without extensive edge case documentation

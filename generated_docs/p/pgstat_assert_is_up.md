@@ -38,3 +38,20 @@ The assertion will cause the program to abort in debug builds if the statistics 
 - Should be called by functions that require the statistics subsystem to be operational
 - The function name follows the convention of assertion functions with the 'assert' keyword
 - Zero overhead in production builds when assertions are compiled out
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_assert_is_up
+void
+pgstat_assert_is_up(void)
+{
+    // Verify stats system is initialized and not shut down
+    Assert(pgstat_is_initialized && !pgstat_is_shutdown);
+}
+```
+
+Key simplifications made:
+- Added explanatory comment describing the assertion purpose
+- Function is already minimal, just added clarity comment
+- Preserved the essential logic: verify statistics subsystem is operational

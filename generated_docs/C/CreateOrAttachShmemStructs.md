@@ -45,3 +45,86 @@ The initialization order is critical - for example, LWLocks must be initialized 
 - Includes conditional initialization of InitProcGlobal only for postmaster
 - Covers all major PostgreSQL subsystems: WAL, transactions, locks, processes, replication, statistics
 - Essential for proper PostgreSQL inter-process communication and shared state management
+
+## Simplified Source
+
+```c
+// Simplified version of CreateOrAttachShmemStructs
+static void CreateOrAttachShmemStructs(void) {
+    // Phase 1: Core infrastructure setup
+    // Initialize lightweight locks (required by all other subsystems)
+    CreateLWLocks();
+
+    // Set up shared memory index hashtable
+    InitShmemIndex();
+
+    // Initialize dynamic shared memory subsystem
+    dsm_shmem_init();
+    DSMRegistryShmemInit();
+
+    // Phase 2: Transaction logging and buffer management
+    // Initialize WAL (Write-Ahead Logging) subsystems
+    VarsupShmemInit();
+    XLOGShmemInit();
+    XLogPrefetchShmemInit();
+    XLogRecoveryShmemInit();
+
+    // Initialize transaction status tracking
+    CLOGShmemInit();        // Commit log
+    CommitTsShmemInit();    // Commit timestamps
+    SUBTRANSShmemInit();    // Subtransaction tracking
+    MultiXactShmemInit();   // Multi-transaction tracking
+
+    // Initialize buffer pool for page caching
+    InitBufferPool();
+
+    // Phase 3: Lock management
+    InitLocks();            // Regular locks
+    InitPredicateLocks();   // Serializable isolation locks
+
+    // Phase 4: Process management
+    // Initialize process table (only for postmaster)
+    if (!IsUnderPostmaster)
+        InitProcGlobal();
+
+    CreateSharedProcArray();
+    CreateSharedBackendStatus();
+    TwoPhaseShmemInit();
+    BackgroundWorkerShmemInit();
+
+    // Phase 5: Inter-process communication
+    CreateSharedInvalidationState();
+
+    // Initialize signaling mechanisms for various subsystems
+    PMSignalShmemInit();
+    ProcSignalShmemInit();
+    CheckpointerShmemInit();
+    AutoVacuumShmemInit();
+
+    // Initialize replication subsystems
+    ReplicationSlotsShmemInit();
+    ReplicationOriginShmemInit();
+    WalSndShmemInit();
+    WalRcvShmemInit();
+    WalSummarizerShmemInit();
+    PgArchShmemInit();
+    ApplyLauncherShmemInit();
+    SlotSyncShmemInit();
+
+    // Phase 6: Specialized modules
+    BTreeShmemInit();
+    SyncScanShmemInit();
+    AsyncShmemInit();
+    StatsShmemInit();
+    WaitEventCustomShmemInit();
+    InjectionPointShmemInit();
+}
+```
+
+Key simplifications made:
+- Organized initialization calls into logical phases with clear descriptions
+- Added phase comments to show the dependency-driven initialization order
+- Grouped related subsystem initializations together
+- Preserved the critical conditional check for InitProcGlobal
+- Maintained all function calls as they represent the core functionality
+- Added inline comments to clarify the purpose of each major subsystem group

@@ -33,3 +33,56 @@ This function takes no parameters and returns a character representing the trans
 
 ## Notes and Other Information
 The function includes comprehensive error handling with a FATAL error if an invalid transaction block state is encountered, though this should never occur in normal operation. The mapping treats TBLOCK_STARTED as idle ('I') rather than active ('T'), which aligns with the semantic that a started but unused transaction is effectively idle from the client's perspective. This function is critical for the PostgreSQL wire protocol and ensures clients receive accurate transaction state information.
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionBlockStatusCode
+char TransactionBlockStatusCode(void) {
+    TransactionState current_state = CurrentTransactionState;
+
+    // Check current transaction block state and return appropriate status code
+    switch (current_state->blockState) {
+        // Idle states - not in an active transaction
+        case TBLOCK_DEFAULT:
+        case TBLOCK_STARTED:
+            return 'I';  // Idle - not in transaction
+
+        // Active transaction states - transaction in progress
+        case TBLOCK_BEGIN:
+        case TBLOCK_SUBBEGIN:
+        case TBLOCK_INPROGRESS:
+        case TBLOCK_IMPLICIT_INPROGRESS:
+        case TBLOCK_PARALLEL_INPROGRESS:
+        case TBLOCK_SUBINPROGRESS:
+        case TBLOCK_END:
+        case TBLOCK_SUBRELEASE:
+        case TBLOCK_SUBCOMMIT:
+        case TBLOCK_PREPARE:
+            return 'T';  // In transaction
+
+        // Failed transaction states - transaction aborted/failed
+        case TBLOCK_ABORT:
+        case TBLOCK_SUBABORT:
+        case TBLOCK_ABORT_END:
+        case TBLOCK_SUBABORT_END:
+        case TBLOCK_ABORT_PENDING:
+        case TBLOCK_SUBABORT_PENDING:
+        case TBLOCK_SUBRESTART:
+        case TBLOCK_SUBABORT_RESTART:
+            return 'E';  // In failed transaction
+    }
+
+    // Should never reach here - invalid state
+    elog(FATAL, "invalid transaction block state: %s",
+         BlockStateAsString(current_state->blockState));
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name `current_state` for better readability
+- Grouped switch cases logically with comments explaining each category
+- Enhanced comments to clarify the meaning of each return value
+- Maintained the essential error handling for invalid states
+- Preserved the exact logic flow and return values

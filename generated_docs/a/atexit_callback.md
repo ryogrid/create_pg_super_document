@@ -34,3 +34,20 @@ atexit_callback implements a safety mechanism for handling improper process term
 - _exit() protection is handled by "dead man switch" mechanism in pmsignal.c
 - Automatically registered when callback registration functions are first used
 - Ensures cleanup happens even when proper termination protocol is not followed
+
+## Simplified Source
+
+```c
+// Simplified version of atexit_callback
+static void atexit_callback(void) {
+    // Emergency cleanup when process exits through direct exit() calls
+    // Note: Real exit code is unknown, so we use -1 as a placeholder
+    proc_exit_prepare(-1);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the emergency cleanup purpose
+- Highlighted that the -1 exit code is a placeholder for unknown real exit code
+- Focused on the single core responsibility: ensuring cleanup happens
+- Removed detailed header comments for brevity while preserving essential meaning

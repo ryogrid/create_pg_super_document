@@ -39,3 +39,22 @@ The primary use cases involve controlling replication origin inclusion and marki
 - XLOG_INCLUDE_ORIGIN helps with replication origin tracking
 - The function is lightweight and simply modifies a global flag variable
 - Flags affect record processing and replication behavior but not the core record content
+
+## Simplified Source
+
+```c
+// Simplified version of XLogSetRecordFlags
+void XLogSetRecordFlags(uint8 flags) {
+    // Verify that XLogBeginInsert() was called first
+    Assert(begininsert_called);
+
+    // Add the new flags to existing ones using bitwise OR
+    curinsert_flags |= flags;
+}
+```
+
+Key simplifications made:
+- Focused on the core operation: accumulating flags with bitwise OR
+- Preserved the essential assertion for proper calling sequence
+- Emphasized the accumulative nature of flag setting
+- Removed detailed flag documentation from code (available in function header)

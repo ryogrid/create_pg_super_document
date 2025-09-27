@@ -55,3 +55,66 @@ This function takes no parameters.
 - Ensures all child processes receive reload notifications
 - Part of PostgreSQL's hot configuration reload capability
 - Essential for operational flexibility - allows configuration changes without downtime
+
+## Simplified Source
+
+```c
+// Simplified version of process_pm_reload_request
+static void process_pm_reload_request(void) {
+    // Clear the reload request flag
+    pending_pm_reload_request = false;
+
+    // Log the reload request
+    ereport(DEBUG2, (errmsg_internal("postmaster received reload request signal")));
+
+    // Only proceed if not shutting down
+    if (Shutdown <= SmartShutdown) {
+        // Log that we're reloading configuration
+        ereport(LOG, (errmsg("received SIGHUP, reloading configuration files")));
+
+        // Step 1: Reload main configuration file (postgresql.conf)
+        ProcessConfigFile(PGC_SIGHUP);
+
+        // Step 2: Signal all child processes to reload their configs
+        SignalChildren(SIGHUP);
+
+        // Step 3: Signal specific auxiliary processes individually
+        signal_auxiliary_processes();
+
+        // Step 4: Reload authentication configuration files
+        reload_auth_config();
+
+        // Step 5: Handle SSL configuration reload (if enabled)
+        reload_ssl_config();
+
+        // Step 6: Update config for future children (EXEC_BACKEND only)
+        update_exec_backend_config();
+    }
+}
+
+// Helper functions (conceptual - actual implementation inlined above)
+static void signal_auxiliary_processes(void) {
+    // Send SIGHUP to all auxiliary processes if they're running
+    // StartupPID, BgWriterPID, CheckpointerPID, WalWriterPID, etc.
+}
+
+static void reload_auth_config(void) {
+    // Reload pg_hba.conf and pg_ident.conf
+    // Log warnings if reload fails
+}
+
+static void reload_ssl_config(void) {
+    // Reinitialize or destroy SSL configuration based on EnableSSL setting
+}
+
+static void update_exec_backend_config(void) {
+    // Write updated configuration for future child processes (Windows)
+}
+```
+
+Key simplifications made:
+- Consolidated repetitive signal_child() calls into conceptual helper function
+- Abstracted detailed error handling for auth and SSL config reloads
+- Removed platform-specific conditional compilation details
+- Focused on the main execution flow: clear flag → check shutdown → reload configs → signal processes
+- Maintained the essential four-step process: main config, child signaling, auth config, SSL config

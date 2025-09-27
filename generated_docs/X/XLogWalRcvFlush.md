@@ -48,3 +48,58 @@ The function includes safeguards for shutdown scenarios where sending replies mi
 - Critical for ensuring WAL durability in streaming replication
 - Includes process title updates for monitoring and debugging
 - Located in src/backend/replication/walreceiver.c:993-1047
+
+## Simplified Source
+
+```c
+// Simplified version of XLogWalRcvFlush
+static void XLogWalRcvFlush(bool dying, TimeLineID tli) {
+    Assert(tli != 0);
+
+    // Core logic step 1: Check if there's data to flush
+    if (LogstreamResult.Flush < LogstreamResult.Write) {
+        WalRcvData *walrcv = WalRcv;
+
+        // Core logic step 2: Force WAL data to disk
+        issue_xlog_fsync(recvFile, recvSegNo, tli);
+        LogstreamResult.Flush = LogstreamResult.Write;
+
+        // Core logic step 3: Update shared memory with flush position
+        SpinLockAcquire(&walrcv->mutex);
+        if (walrcv->flushedUpto < LogstreamResult.Flush) {
+            walrcv->latestChunkStart = walrcv->flushedUpto;
+            walrcv->flushedUpto = LogstreamResult.Flush;
+            walrcv->receivedTLI = tli;
+        }
+        SpinLockRelease(&walrcv->mutex);
+
+        // Core logic step 4: Notify other processes of new WAL data
+        WakeupRecovery();
+        if (AllowCascadeReplication()) {
+            WalSndWakeup(true, false);
+        }
+
+        // Core logic step 5: Update process status display
+        if (update_process_title) {
+            char activitymsg[50];
+            snprintf(activitymsg, sizeof(activitymsg), "streaming %X/%X",
+                     LSN_FORMAT_ARGS(LogstreamResult.Write));
+            set_ps_display(activitymsg);
+        }
+
+        // Core logic step 6: Send progress updates to primary (if not shutting down)
+        if (!dying) {
+            XLogWalRcvSendReply(false, false);
+            XLogWalRcvSendHSFeedback(false);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the essential flush-only-when-needed check
+- Maintained the core fsync operation for durability
+- Kept shared memory update logic with proper locking
+- Retained process notification and progress reporting
+- Focused on the main execution path without removing critical functionality
+- Added descriptive comments for each major step

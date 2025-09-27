@@ -44,3 +44,90 @@ The created CachedPlanSource is initialized with default values for most fields,
 - The is_complete flag is set to false until CompleteCachedPlan is called
 - Memory context identifier is set to the query string for debugging purposes
 - Critical for PostgreSQL's plan caching infrastructure used in prepared statements, SPI, and protocol-level statement preparation
+
+## Simplified Source
+
+```c
+// Simplified version of CreateCachedPlan
+CachedPlanSource *CreateCachedPlan(RawStmt *raw_parse_tree,
+                                   const char *query_string,
+                                   CommandTag commandTag) {
+    CachedPlanSource *plansource;
+    MemoryContext source_context;
+    MemoryContext oldcxt;
+
+    // Validate required parameter
+    Assert(query_string != NULL);
+
+    // Step 1: Create dedicated memory context for this cached plan
+    source_context = AllocSetContextCreate(CurrentMemoryContext,
+                                           "CachedPlanSource",
+                                           ALLOCSET_START_SMALL_SIZES);
+
+    // Step 2: Switch to new context and allocate the main structure
+    oldcxt = MemoryContextSwitchTo(source_context);
+
+    plansource = (CachedPlanSource *) palloc0(sizeof(CachedPlanSource));
+
+    // Step 3: Initialize core identification fields
+    plansource->magic = CACHEDPLANSOURCE_MAGIC;
+    plansource->raw_parse_tree = copyObject(raw_parse_tree);
+    plansource->query_string = pstrdup(query_string);
+    plansource->commandTag = commandTag;
+    plansource->context = source_context;
+
+    // Set memory context identifier for debugging
+    MemoryContextSetIdentifier(source_context, plansource->query_string);
+
+    // Step 4: Initialize all other fields to default values
+    // Parameter-related fields
+    plansource->param_types = NULL;
+    plansource->num_params = 0;
+    plansource->parserSetup = NULL;
+    plansource->parserSetupArg = NULL;
+
+    // Execution-related fields
+    plansource->cursor_options = 0;
+    plansource->fixed_result = false;
+    plansource->resultDesc = NULL;
+
+    // Plan and dependency tracking fields
+    plansource->query_list = NIL;
+    plansource->relationOids = NIL;
+    plansource->invalItems = NIL;
+    plansource->search_path = NULL;
+    plansource->query_context = NULL;
+    plansource->gplan = NULL;
+
+    // Security and permission fields
+    plansource->rewriteRoleId = InvalidOid;
+    plansource->rewriteRowSecurity = false;
+    plansource->dependsOnRLS = false;
+
+    // State tracking flags
+    plansource->is_oneshot = false;
+    plansource->is_complete = false;
+    plansource->is_saved = false;
+    plansource->is_valid = false;
+
+    // Cost tracking and statistics
+    plansource->generation = 0;
+    plansource->generic_cost = -1;
+    plansource->total_custom_cost = 0;
+    plansource->num_generic_plans = 0;
+    plansource->num_custom_plans = 0;
+
+    // Step 5: Restore original memory context and return
+    MemoryContextSwitchTo(oldcxt);
+
+    return plansource;
+}
+```
+
+Key simplifications made:
+- Grouped field initialization by logical categories with descriptive comments
+- Added step-by-step comments to show the main flow
+- Removed verbose inline comments while preserving essential information
+- Organized the extensive field initialization into logical groups
+- Maintained all original functionality and field assignments
+- Simplified the memory context creation explanation

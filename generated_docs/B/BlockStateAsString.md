@@ -55,3 +55,56 @@ BlockStateAsString is a debugging support function that provides string represen
 - Covers all transaction lifecycle states including normal flow, error handling, sub-transactions, and parallel transactions
 - The returned strings directly correspond to the enumeration constant names without the TBLOCK_ prefix
 - Widely used throughout the transaction management code for error reporting and state logging
+
+## Simplified Source
+
+```c
+// Simplified version of BlockStateAsString
+static const char *BlockStateAsString(TBlockState blockState) {
+    // Convert transaction block state enum to string for debugging
+    switch (blockState) {
+        // Basic transaction states
+        case TBLOCK_DEFAULT:            return "DEFAULT";
+        case TBLOCK_STARTED:            return "STARTED";
+        case TBLOCK_BEGIN:              return "BEGIN";
+        case TBLOCK_INPROGRESS:         return "INPROGRESS";
+        case TBLOCK_END:                return "END";
+
+        // Special transaction modes
+        case TBLOCK_IMPLICIT_INPROGRESS: return "IMPLICIT_INPROGRESS";
+        case TBLOCK_PARALLEL_INPROGRESS: return "PARALLEL_INPROGRESS";
+
+        // Abort/rollback states
+        case TBLOCK_ABORT:              return "ABORT";
+        case TBLOCK_ABORT_END:          return "ABORT_END";
+        case TBLOCK_ABORT_PENDING:      return "ABORT_PENDING";
+
+        // Two-phase commit preparation
+        case TBLOCK_PREPARE:            return "PREPARE";
+
+        // Sub-transaction states
+        case TBLOCK_SUBBEGIN:           return "SUBBEGIN";
+        case TBLOCK_SUBINPROGRESS:      return "SUBINPROGRESS";
+        case TBLOCK_SUBRELEASE:         return "SUBRELEASE";
+        case TBLOCK_SUBCOMMIT:          return "SUBCOMMIT";
+
+        // Sub-transaction abort states
+        case TBLOCK_SUBABORT:           return "SUBABORT";
+        case TBLOCK_SUBABORT_END:       return "SUBABORT_END";
+        case TBLOCK_SUBABORT_PENDING:   return "SUBABORT_PENDING";
+        case TBLOCK_SUBRESTART:         return "SUBRESTART";
+        case TBLOCK_SUBABORT_RESTART:   return "SUBABORT_RESTART";
+    }
+
+    // Fallback for unknown states
+    return "UNRECOGNIZED";
+}
+```
+
+Key simplifications made:
+- Added descriptive comments grouping related states
+- Organized states by functionality (basic, special, abort, sub-transaction)
+- Preserved all enumeration mappings for complete debugging coverage
+- Maintained the fallback case for unknown states
+- Clarified the debugging purpose of the function
+- Aligned return statements for better readability

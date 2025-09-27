@@ -48,3 +48,59 @@ The function uses optimized macros (WALSTAT_ACC and WALSTAT_ACC_INSTR_TIME) to e
 - Clears the PendingWalStats buffer after flushing to prepare for the next cycle
 - Critical for maintaining accurate WAL activity measurements across all PostgreSQL processes
 - The function is designed to be safe to call even when no WAL activity has occurred
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_flush_wal
+bool pgstat_flush_wal(bool nowait) {
+    PgStatShared_Wal *shared_stats = &pgStatLocal.shmem->wal;
+    WalUsage usage_diff = {0};
+
+    // Early exit if no pending WAL statistics
+    if (!pgstat_have_pending_wal()) {
+        return false;
+    }
+
+    // Calculate difference between current and previous WAL usage
+    WalUsageAccumDiff(&usage_diff, &pgWalUsage, &prevWalUsage);
+
+    // Acquire lock (conditional or blocking based on nowait flag)
+    if (nowait) {
+        if (!LWLockConditionalAcquire(&shared_stats->lock, LW_EXCLUSIVE)) {
+            return true;  // Could not acquire lock
+        }
+    } else {
+        LWLockAcquire(&shared_stats->lock, LW_EXCLUSIVE);
+    }
+
+    // Update shared memory statistics with accumulated values
+    shared_stats->stats.wal_records += usage_diff.wal_records;
+    shared_stats->stats.wal_fpi += usage_diff.wal_fpi;
+    shared_stats->stats.wal_bytes += usage_diff.wal_bytes;
+    shared_stats->stats.wal_buffers_full += PendingWalStats.wal_buffers_full;
+    shared_stats->stats.wal_write += PendingWalStats.wal_write;
+    shared_stats->stats.wal_sync += PendingWalStats.wal_sync;
+    shared_stats->stats.wal_write_time += INSTR_TIME_GET_MICROSEC(PendingWalStats.wal_write_time);
+    shared_stats->stats.wal_sync_time += INSTR_TIME_GET_MICROSEC(PendingWalStats.wal_sync_time);
+
+    LWLockRelease(&shared_stats->lock);
+
+    // Save current counters for next calculation cycle
+    prevWalUsage = pgWalUsage;
+
+    // Clear statistics buffer for reuse
+    MemSet(&PendingWalStats, 0, sizeof(PendingWalStats));
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed complex macro definitions for clearer inline operations
+- Simplified variable names for better readability
+- Removed detailed assertions (kept essential logic)
+- Expanded macro calls to show actual operations
+- Added descriptive comments for each major step
+- Consolidated the lock acquisition logic into clearer if-else structure
+- Focused on the main execution path

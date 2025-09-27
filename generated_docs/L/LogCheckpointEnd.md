@@ -41,3 +41,74 @@ This static function generates detailed log messages upon checkpoint completion,
 - Reports current and redo LSN positions
 - Respects log_checkpoints configuration setting for output control
 - Always accumulates statistics in PendingCheckpointerStats regardless of logging
+
+## Simplified Source
+
+```c
+// Simplified version of LogCheckpointEnd
+static void LogCheckpointEnd(bool restartpoint) {
+    // Record checkpoint end time
+    CheckpointStats.ckpt_end_t = GetCurrentTimestamp();
+
+    // Calculate timing metrics in milliseconds
+    long write_time = TimestampDifferenceMilliseconds(CheckpointStats.ckpt_write_t,
+                                                     CheckpointStats.ckpt_sync_t);
+    long sync_time = TimestampDifferenceMilliseconds(CheckpointStats.ckpt_sync_t,
+                                                    CheckpointStats.ckpt_sync_end_t);
+
+    // Accumulate statistics for monitoring
+    PendingCheckpointerStats.write_time += write_time;
+    PendingCheckpointerStats.sync_time += sync_time;
+
+    // Exit early if checkpoint logging is disabled
+    if (!log_checkpoints)
+        return;
+
+    // Calculate additional metrics for logging
+    long total_time = TimestampDifferenceMilliseconds(CheckpointStats.ckpt_start_t,
+                                                     CheckpointStats.ckpt_end_t);
+    long longest_sync = (CheckpointStats.ckpt_longest_sync + 999) / 1000;
+
+    // Calculate average sync time
+    long average_sync = 0;
+    if (CheckpointStats.ckpt_sync_rels > 0) {
+        average_sync = (CheckpointStats.ckpt_agg_sync_time /
+                       CheckpointStats.ckpt_sync_rels + 999) / 1000;
+    }
+
+    // Log comprehensive checkpoint completion message
+    if (restartpoint) {
+        ereport(LOG, (errmsg("restartpoint complete: wrote %d buffers (%.1f%%); "
+                            "write=%ld.%03d s, sync=%ld.%03d s, total=%ld.%03d s; "
+                            "sync files=%d, longest=%ld.%03d s, average=%ld.%03d s",
+                            CheckpointStats.ckpt_bufs_written,
+                            (double) CheckpointStats.ckpt_bufs_written * 100 / NBuffers,
+                            write_time / 1000, (int)(write_time % 1000),
+                            sync_time / 1000, (int)(sync_time % 1000),
+                            total_time / 1000, (int)(total_time % 1000),
+                            CheckpointStats.ckpt_sync_rels,
+                            longest_sync / 1000, (int)(longest_sync % 1000),
+                            average_sync / 1000, (int)(average_sync % 1000))));
+    } else {
+        ereport(LOG, (errmsg("checkpoint complete: wrote %d buffers (%.1f%%); "
+                            "write=%ld.%03d s, sync=%ld.%03d s, total=%ld.%03d s; "
+                            "sync files=%d, longest=%ld.%03d s, average=%ld.%03d s",
+                            CheckpointStats.ckpt_bufs_written,
+                            (double) CheckpointStats.ckpt_bufs_written * 100 / NBuffers,
+                            write_time / 1000, (int)(write_time % 1000),
+                            sync_time / 1000, (int)(sync_time % 1000),
+                            total_time / 1000, (int)(total_time % 1000),
+                            CheckpointStats.ckpt_sync_rels,
+                            longest_sync / 1000, (int)(longest_sync % 1000),
+                            average_sync / 1000, (int)(average_sync % 1000))));
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed WAL file statistics for clarity
+- Simplified variable names (write_msecs → write_time, etc.)
+- Consolidated timing calculations with clearer variable names
+- Abbreviated the extensive log message formatting while preserving core metrics
+- Removed distance and LSN reporting to focus on timing and buffer statistics
+- Maintained the essential logic flow and conditional structure

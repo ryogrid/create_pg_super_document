@@ -38,3 +38,19 @@ This function is frequently used in PostgreSQL's protocol implementation for sen
 - Part of PostgreSQL's client-server communication infrastructure
 - Helps maintain clean and readable code when sending simple control messages
 - The message consists only of the protocol message type byte with no additional payload
+
+## Simplified Source
+
+```c
+// Simplified version of pq_putemptymessage
+void pq_putemptymessage(char msgtype) {
+    // Send a message with only the type header and no data payload
+    pq_putmessage(msgtype, NULL, 0);
+}
+```
+
+Key simplifications made:
+- This function was already very simple, containing only a single function call
+- Added explanatory comment to clarify the purpose
+- The core logic is a direct wrapper around pq_putmessage with empty data
+- No error handling or complex logic to simplify

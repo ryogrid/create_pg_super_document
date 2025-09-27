@@ -36,3 +36,19 @@ The function is essential for PostgreSQL installations to locate shared librarie
 - The function assumes ret_path buffer is sufficiently large (MAXPGPATH)
 - Used during server startup and by utilities that need to locate shared libraries
 - The actual path computation is delegated to make_relative_path which handles the complex logic of path resolution
+
+## Simplified Source
+
+```c
+// Simplified version of get_pkglib_path
+void get_pkglib_path(const char *my_exec_path, char *ret_path) {
+    // Calculate path from executable location to package library directory
+    // Uses compile-time constants PKGLIBDIR and PGBINDIR to determine relative path
+    make_relative_path(ret_path, PKGLIBDIR, PGBINDIR, my_exec_path);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the single function call
+- Clarified the purpose of the compile-time constants
+- Function is already at optimal simplicity as a thin wrapper

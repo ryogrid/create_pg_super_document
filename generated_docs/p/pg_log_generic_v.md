@@ -49,3 +49,139 @@ This is the fundamental logging function that implements PostgreSQL's common log
 - The function preserves errno to avoid interfering with error handling in calling code
 - Internationalization support via the _() macro for translating format strings
 - Location information (filename:line) is displayed when provided via the locus callback
+
+## Simplified Source
+
+```c
+// Simplified version of pg_log_generic_v
+void pg_log_generic_v(enum pg_log_level level, enum pg_log_part part,
+                      const char *pg_restrict fmt, va_list ap) {
+    // Save errno to restore later
+    int save_errno = errno;
+    const char *filename = NULL;
+    uint64 lineno = 0;
+
+    // Validate inputs
+    Assert(progname && level && fmt);
+    Assert(fmt[strlen(fmt) - 1] != '\n');  // No trailing newline
+
+    // Early exit if log level is too low
+    if (level < __pg_log_level) {
+        return;
+    }
+
+    // Flush stdout for proper synchronization
+    fflush(stdout);
+
+    // Execute pre-logging callback if set
+    if (log_pre_callback) {
+        log_pre_callback();
+    }
+
+    // Get location information if callback is set
+    if (log_locus_callback) {
+        log_locus_callback(&filename, &lineno);
+    }
+
+    // Translate format string for internationalization
+    fmt = _(fmt);
+
+    // Output location prefix (program name, file, line)
+    if (!(log_flags & PG_LOG_FLAG_TERSE) || filename) {
+        // Apply locus coloring if available
+        if (sgr_locus) {
+            fprintf(stderr, ANSI_ESCAPE_FMT, sgr_locus);
+        }
+
+        // Print program name unless in terse mode
+        if (!(log_flags & PG_LOG_FLAG_TERSE)) {
+            fprintf(stderr, "%s:", progname);
+        }
+
+        // Print filename and line number
+        if (filename) {
+            fprintf(stderr, "%s:", filename);
+            if (lineno > 0) {
+                fprintf(stderr, UINT64_FORMAT ":", lineno);
+            }
+        }
+
+        fprintf(stderr, " ");
+
+        // Reset color formatting
+        if (sgr_locus) {
+            fprintf(stderr, ANSI_ESCAPE_RESET);
+        }
+    }
+
+    // Output message type prefix (error:, warning:, detail:, hint:)
+    if (!(log_flags & PG_LOG_FLAG_TERSE)) {
+        switch (part) {
+            case PG_LOG_PRIMARY:
+                if (level == PG_LOG_ERROR) {
+                    if (sgr_error) fprintf(stderr, ANSI_ESCAPE_FMT, sgr_error);
+                    fprintf(stderr, _("error: "));
+                    if (sgr_error) fprintf(stderr, ANSI_ESCAPE_RESET);
+                } else if (level == PG_LOG_WARNING) {
+                    if (sgr_warning) fprintf(stderr, ANSI_ESCAPE_FMT, sgr_warning);
+                    fprintf(stderr, _("warning: "));
+                    if (sgr_warning) fprintf(stderr, ANSI_ESCAPE_RESET);
+                }
+                break;
+            case PG_LOG_DETAIL:
+                if (sgr_note) fprintf(stderr, ANSI_ESCAPE_FMT, sgr_note);
+                fprintf(stderr, _("detail: "));
+                if (sgr_note) fprintf(stderr, ANSI_ESCAPE_RESET);
+                break;
+            case PG_LOG_HINT:
+                if (sgr_note) fprintf(stderr, ANSI_ESCAPE_FMT, sgr_note);
+                fprintf(stderr, _("hint: "));
+                if (sgr_note) fprintf(stderr, ANSI_ESCAPE_RESET);
+                break;
+        }
+    }
+
+    // Format and output the actual message
+    errno = save_errno;  // Restore errno before formatting
+
+    // Calculate required buffer size
+    va_list ap2;
+    va_copy(ap2, ap);
+    size_t required_len = vsnprintf(NULL, 0, fmt, ap2) + 1;
+    va_end(ap2);
+
+    // Allocate buffer for formatted message
+    char *buf = pg_malloc_extended(required_len, MCXT_ALLOC_NO_OOM);
+
+    if (!buf) {
+        // Fallback: print directly if memory allocation fails
+        vfprintf(stderr, fmt, ap);
+        return;
+    }
+
+    // Format the message
+    errno = save_errno;  // Restore errno again
+    vsnprintf(buf, required_len, fmt, ap);
+
+    // Strip trailing newline for consistency
+    if (required_len >= 2 && buf[required_len - 2] == '\n') {
+        buf[required_len - 2] = '\0';
+    }
+
+    // Output final message with newline
+    fprintf(stderr, "%s\n", buf);
+
+    // Cleanup
+    free(buf);
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining each major section
+- Consolidated ANSI color handling into clear blocks
+- Simplified the message type prefix handling
+- Made the memory allocation and fallback strategy more explicit
+- Clarified the errno preservation strategy
+- Grouped related operations (location formatting, message type prefixes, etc.)
+- Maintained all original functionality while improving readability
+- Highlighted the multi-step process: filtering, callbacks, formatting, output

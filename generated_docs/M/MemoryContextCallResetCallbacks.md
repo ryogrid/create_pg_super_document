@@ -33,3 +33,28 @@ The function processes callbacks in a LIFO (Last In, First Out) order by iterati
 - Each callback is removed from the list before execution to prevent double-execution in error scenarios
 - The function handles the case where callbacks might trigger errors by ensuring safe cleanup
 - Located in src/backend/utils/mmgr/mcxt.c:585-611
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextCallResetCallbacks
+static void MemoryContextCallResetCallbacks(MemoryContext context) {
+    MemoryContextCallback *cb;
+
+    // Process all callbacks in LIFO order
+    // Remove each callback before calling to prevent double-execution on errors
+    while ((cb = context->reset_cbs) != NULL) {
+        // Remove callback from list
+        context->reset_cbs = cb->next;
+
+        // Execute the callback function
+        cb->func(cb->arg);
+    }
+}
+```
+
+Key simplifications made:
+- Condensed the original comment into clearer inline comments
+- Preserved the critical safety pattern of removing callbacks before execution
+- Maintained the LIFO processing order through the linked list
+- Kept the essential error-safe callback execution logic

@@ -82,3 +82,134 @@ The loop uses DetermineSleepTime() to calculate optimal wait durations, balancin
 - Socket file touching prevents aggressive /tmp cleaners from removing active Unix sockets
 - The loop includes PostgreSQL threading assertions when compiled with appropriate flags
 - SIGKILL enforcement provides a last resort for unresponsive backends during shutdown
+
+## Simplified Source
+
+```c
+// Simplified version of ServerLoop
+static int ServerLoop(void) {
+    time_t last_lockfile_recheck_time, last_touch_time;
+    WaitEvent events[MAXLISTEN];
+    int nevents;
+
+    // Initialize wait set and timing
+    ConfigurePostmasterWaitSet(true);
+    last_lockfile_recheck_time = last_touch_time = time(NULL);
+
+    // Main event loop
+    for (;;) {
+        time_t now;
+
+        // Wait for events (connections, signals, timeouts)
+        nevents = WaitEventSetWait(pm_wait_set, DetermineSleepTime(),
+                                  events, lengthof(events), 0);
+
+        // Process all triggered events
+        for (int i = 0; i < nevents; i++) {
+            // Reset latch if set
+            if (events[i].events & WL_LATCH_SET)
+                ResetLatch(MyLatch);
+
+            // Handle high-priority requests immediately
+            if (pending_pm_shutdown_request)
+                process_pm_shutdown_request();
+            if (pending_pm_reload_request)
+                process_pm_reload_request();
+            if (pending_pm_child_exit)
+                process_pm_child_exit();
+            if (pending_pm_pmsignal)
+                process_pm_pmsignal();
+
+            // Accept new client connections
+            if (events[i].events & WL_SOCKET_ACCEPT) {
+                ClientSocket client_socket;
+                if (AcceptConnection(events[i].fd, &client_socket) == STATUS_OK)
+                    BackendStartup(&client_socket);
+                // Clean up socket
+                if (client_socket.sock != PGINVALID_SOCKET)
+                    closesocket(client_socket.sock);
+            }
+        }
+
+        // Restart essential background processes if needed
+        if (SysLoggerPID == 0 && Logging_collector)
+            SysLoggerPID = SysLogger_Start();
+
+        // Start core processes when in operational states
+        if (pmState == PM_RUN || pmState == PM_RECOVERY ||
+            pmState == PM_HOT_STANDBY || pmState == PM_STARTUP) {
+            if (CheckpointerPID == 0)
+                CheckpointerPID = StartChildProcess(B_CHECKPOINTER);
+            if (BgWriterPID == 0)
+                BgWriterPID = StartChildProcess(B_BG_WRITER);
+        }
+
+        // Start other specialized processes when appropriate
+        if (WalWriterPID == 0 && pmState == PM_RUN)
+            WalWriterPID = StartChildProcess(B_WAL_WRITER);
+
+        if (AutoVacPID == 0 && should_start_autovacuum())
+            AutoVacPID = StartChildProcess(B_AUTOVAC_LAUNCHER);
+
+        if (PgArchPID == 0 && PgArchStartupAllowed())
+            PgArchPID = StartChildProcess(B_ARCHIVER);
+
+        // Handle other process management
+        MaybeStartSlotSyncWorker();
+        MaybeStartWalReceiver();
+        MaybeStartWalSummarizer();
+        maybe_start_bgworkers();
+
+        // Periodic maintenance tasks
+        now = time(NULL);
+
+        // Force shutdown of stuck processes during shutdown
+        if (shutdown_in_progress() && children_need_forced_termination(now)) {
+            TerminateChildren(send_abort_for_kill ? SIGABRT : SIGKILL);
+            AbortStartTime = 0;
+        }
+
+        // Validate lock file periodically (every minute)
+        if (now - last_lockfile_recheck_time >= 60) {
+            if (!RecheckDataDirLockFile()) {
+                // Data directory compromised, emergency shutdown
+                kill(MyProcPid, SIGQUIT);
+            }
+            last_lockfile_recheck_time = now;
+        }
+
+        // Touch socket files to prevent cleanup (every 58 minutes)
+        if (now - last_touch_time >= 58 * 60) {
+            TouchSocketFiles();
+            TouchSocketLockFiles();
+            last_touch_time = now;
+        }
+    }
+}
+
+// Helper function abstractions for clarity
+static bool should_start_autovacuum(void) {
+    return !IsBinaryUpgrade &&
+           (AutoVacuumingActive() || start_autovac_launcher) &&
+           pmState == PM_RUN;
+}
+
+static bool shutdown_in_progress(void) {
+    return (Shutdown >= ImmediateShutdown || FatalError);
+}
+
+static bool children_need_forced_termination(time_t now) {
+    return AbortStartTime != 0 &&
+           (now - AbortStartTime) >= SIGKILL_CHILDREN_AFTER_SECS;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and logging for clarity
+- Abstracted complex conditional logic into helper functions
+- Consolidated similar process startup patterns
+- Simplified socket cleanup logic
+- Focused on the main execution flow rather than edge cases
+- Removed platform-specific code sections
+- Used more descriptive variable names where helpful
+- Added brief comments explaining each major section

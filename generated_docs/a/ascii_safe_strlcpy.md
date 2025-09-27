@@ -38,3 +38,51 @@ The function is specifically designed to not trigger ereport(ERROR) since it may
 - Does not return a value (unlike standard strlcpy)
 - Uses unsigned char internally to avoid compiler warnings
 - Always null-terminates the destination string if destsiz > 0
+
+## Simplified Source
+
+```c
+// Simplified version of ascii_safe_strlcpy
+void ascii_safe_strlcpy(char *dest, const char *src, size_t destsiz) {
+    // Handle corner case: no room for even null terminator
+    if (destsiz == 0) {
+        return;
+    }
+
+    // Copy characters while ensuring ASCII safety
+    while (--destsiz > 0) {
+        unsigned char ch = *src++;
+
+        // Stop at null terminator
+        if (ch == '\0') {
+            break;
+        }
+
+        // Keep printable ASCII characters (32-127)
+        if (32 <= ch && ch <= 127) {
+            *dest = ch;
+        }
+        // Keep common whitespace characters
+        else if (ch == '\n' || ch == '\r' || ch == '\t') {
+            *dest = ch;
+        }
+        // Replace everything else with '?'
+        else {
+            *dest = '?';
+        }
+
+        dest++;
+    }
+
+    // Always null-terminate the result
+    *dest = '\0';
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical section
+- Clarified the purpose of the corner case handling
+- Explained the ASCII character range preservation
+- Simplified the whitespace character handling explanation
+- Maintained the essential safety filtering functionality
+- Preserved the null termination guarantee

@@ -29,3 +29,25 @@ The `smgrshutdown` function serves as a cleanup handler that is registered with 
 - It follows the signature required for `on_proc_exit` callbacks
 - Each storage manager may implement its own cleanup routine that gets called during shutdown
 - The function ensures proper resource cleanup even if the backend process terminates unexpectedly
+
+## Simplified Source
+
+```c
+// Simplified version of smgrshutdown
+static void smgrshutdown(int code, Datum arg) {
+    int i;
+
+    // Call shutdown function for each storage manager
+    for (i = 0; i < NSmgr; i++) {
+        if (smgrsw[i].smgr_shutdown) {
+            smgrsw[i].smgr_shutdown();
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Simplified comment to focus on core purpose
+- Maintained essential loop structure and logic
+- Preserved NULL check for shutdown function pointer
+- Kept all critical cleanup operations

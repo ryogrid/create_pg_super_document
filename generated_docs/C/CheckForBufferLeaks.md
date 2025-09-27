@@ -36,3 +36,52 @@ This static function serves as a debugging cross-check to ensure that no buffer 
 - Essential debugging tool for maintaining the integrity of PostgreSQL's buffer management system
 - Works in conjunction with DebugPrintBufferRefcount to provide detailed leak information
 - Part of the comprehensive buffer leak detection system introduced to ensure proper resource cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of CheckForBufferLeaks
+static void CheckForBufferLeaks(void) {
+#ifdef USE_ASSERT_CHECKING
+    int error_count = 0;
+
+    // Step 1: Check the static reference count array
+    for (int i = 0; i < REFCOUNT_ARRAY_ENTRIES; i++) {
+        PrivateRefCountEntry *entry = &PrivateRefCountArray[i];
+
+        if (entry->buffer != InvalidBuffer) {
+            // Found a leaked buffer - log warning
+            char *debug_info = DebugPrintBufferRefcount(entry->buffer);
+            elog(WARNING, "buffer refcount leak: %s", debug_info);
+            pfree(debug_info);
+            error_count++;
+        }
+    }
+
+    // Step 2: Check the overflow hash table if it exists
+    if (PrivateRefCountOverflowed) {
+        HASH_SEQ_STATUS hash_status;
+        PrivateRefCountEntry *entry;
+
+        hash_seq_init(&hash_status, PrivateRefCountHash);
+        while ((entry = hash_seq_search(&hash_status)) != NULL) {
+            // Found a leaked buffer in hash - log warning
+            char *debug_info = DebugPrintBufferRefcount(entry->buffer);
+            elog(WARNING, "buffer refcount leak: %s", debug_info);
+            pfree(debug_info);
+            error_count++;
+        }
+    }
+
+    // Step 3: Assert no leaks were found (triggers failure in debug builds)
+    Assert(error_count == 0);
+#endif
+}
+```
+
+Key simplifications made:
+- Renamed variables for clarity (RefCountErrors → error_count, res → entry)
+- Added descriptive comments for each major step
+- Consolidated similar leak detection logic with clearer structure
+- Focused on the main execution flow: check array → check hash → assert no leaks
+- Removed some variable declarations for cleaner presentation

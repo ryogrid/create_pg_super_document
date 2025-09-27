@@ -124,3 +124,36 @@ innermost_caseval			      write_location: The DIR pointer to be closed, which sh
 - Should be used as the counterpart to AllocateDir for proper resource management
 - Part of PostgreSQL's comprehensive file descriptor management strategy to prevent resource leaks
 - Used extensively throughout PostgreSQL for directory cleanup in WAL operations, backup processes, extension management, and database maintenance tasks
+
+## Simplified Source
+
+```c
+// Simplified version of FreeDir
+int FreeDir(DIR *dir) {
+    // Handle NULL directory gracefully
+    if (dir == NULL)
+        return 0;
+
+    // Search through allocated descriptors for this directory
+    for (int i = numAllocatedDescs - 1; i >= 0; i--) {
+        AllocateDesc *desc = &allocatedDescs[i];
+
+        // Check if this descriptor matches our directory
+        if (desc->kind == AllocateDescDir && desc->desc.dir == dir) {
+            // Found it - free through descriptor system
+            return FreeDesc(desc);
+        }
+    }
+
+    // Directory not found in allocated list - log warning and close directly
+    elog(WARNING, "dir passed to FreeDir was not obtained from AllocateDir");
+    return closedir(dir);
+}
+```
+
+Key simplifications made:
+- Removed debug logging for clarity
+- Simplified loop variable declaration
+- Added explanatory comments for each major step
+- Focused on the main execution path
+- Maintained all essential error handling and resource management logic

@@ -46,3 +46,34 @@ This function is optimized for OID comparison and should only be used with lists
 - Extensively used throughout PostgreSQL for checking membership of database object identifiers
 - Common use cases include checking if tables/indexes are in processing lists, namespace membership, role membership, and constraint validation
 - Type-safe alternative to generic list membership functions when working with PostgreSQL object identifiers
+
+## Simplified Source
+
+```c
+// Simplified version of list_member_oid
+bool list_member_oid(const List *list, Oid datum) {
+    const ListCell *cell;
+
+    // Validate that this is actually an OID list
+    Assert(IsOidList(list));
+    check_list_invariants(list);
+
+    // Iterate through each cell in the list
+    foreach(cell, list) {
+        // Compare the OID in this cell with our target
+        if (lfirst_oid(cell) == datum)
+            return true;  // Found a match
+    }
+
+    // No match found after checking all cells
+    return false;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step of the membership test
+- Explained the purpose of the assertion and invariant check
+- Clarified the foreach loop iteration and OID comparison
+- Preserved the essential validation and safety checks
+- Maintained the efficient linear search algorithm
+- This function is already quite simple and focused

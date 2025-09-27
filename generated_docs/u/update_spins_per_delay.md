@@ -37,3 +37,21 @@ The algorithm deliberately truncates rather than rounds the result, allowing sma
 - The slow adaptation rate prevents instability from noisy individual measurements
 - Critical for PostgreSQL's adaptive spinlock performance optimization
 - Called during both regular backend and auxiliary process termination
+
+## Simplified Source
+
+```c
+// Simplified version of update_spins_per_delay
+int update_spins_per_delay(int shared_spins_per_delay) {
+    // Apply exponential moving average: 94% old value + 6% new value
+    // Formula: (15 * shared + 1 * local) / 16
+    // This creates a slow adaptation rate to prevent noise from affecting shared state
+    return (shared_spins_per_delay * 15 + spins_per_delay) / 16;
+}
+```
+
+Key simplifications made:
+- Preserved the core exponential moving average calculation
+- Added explanatory comments for the 15:1 ratio weighting
+- Removed detailed implementation comments while keeping essential algorithm logic
+- Focused on the mathematical formula that defines the function's behavior

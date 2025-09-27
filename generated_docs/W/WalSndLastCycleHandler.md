@@ -33,3 +33,24 @@ This function serves as a signal handler for SIGUSR2 that initiates the final ph
 - The WAL sender should already be in WALSNDSTATE_STOPPING state when this handler is called
 - Uses the PostgreSQL latch mechanism to efficiently wake up the main loop
 - The got_SIGUSR2 flag is checked by the main WAL sender loop to initiate final transmission
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndLastCycleHandler
+static void WalSndLastCycleHandler(SIGNAL_ARGS) {
+    // Signal handler for SIGUSR2 - triggers final WAL transmission cycle
+
+    // Step 1: Set flag to indicate last cycle should begin
+    got_SIGUSR2 = true;
+
+    // Step 2: Wake up the main WAL sender loop
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose and flow
+- Preserved the essential two-step logic: flag setting and latch signaling
+- Maintained the simple, direct implementation (no simplification needed for this concise function)
+- Focused on the core functionality: coordinating the final transmission cycle before shutdown

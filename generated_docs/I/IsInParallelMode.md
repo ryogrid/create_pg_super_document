@@ -40,3 +40,22 @@ This function takes no parameters.
 - Used extensively throughout the codebase to prevent unsafe operations during parallel execution
 - The function covers both direct parallel mode (`parallelModeLevel != 0`) and inherited parallel context (`parallelChildXact`)
 - Essential for PostgreSQL's parallel safety mechanisms across multiple subsystems including heap operations, transaction management, and snapshot handling
+
+## Simplified Source
+
+```c
+// Simplified version of IsInParallelMode
+bool IsInParallelMode(void) {
+    // Get current transaction state
+    TransactionState s = CurrentTransactionState;
+
+    // Check if we're in parallel mode or a child transaction of parallel mode
+    return s->parallelModeLevel != 0 || s->parallelChildXact;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the parallel mode check
+- Preserved the essential transaction state examination
+- Maintained the dual condition logic for both direct and inherited parallel mode
+- Function is already concise and well-focused

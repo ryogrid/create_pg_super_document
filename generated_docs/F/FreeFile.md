@@ -41,3 +41,35 @@ This function is part of PostgreSQL's file descriptor management system that tra
 - If a file not obtained from AllocateFile is passed, a WARNING is logged but the function still attempts to close it
 - Returns the result of FreeDesc if the file is found in the allocated descriptors list, or the result of fclose otherwise
 - This is part of PostgreSQL's resource management strategy to prevent file descriptor leaks and exhaustion
+
+## Simplified Source
+
+```c
+// Simplified version of FreeFile
+int FreeFile(FILE *file) {
+    // Debug logging: report number of allocated descriptors
+    DO_DB(elog(LOG, "FreeFile: Allocated %d", numAllocatedDescs));
+
+    // Search through allocated file descriptors to find this file
+    for (int i = numAllocatedDescs - 1; i >= 0; i--) {
+        AllocateDesc *desc = &allocatedDescs[i];
+
+        // Check if this descriptor matches our file
+        if (desc->kind == AllocateDescFile && desc->desc.file == file) {
+            // Found it - properly free the descriptor
+            return FreeDesc(desc);
+        }
+    }
+
+    // File not found in our tracking system - log warning and close anyway
+    elog(WARNING, "file passed to FreeFile was not obtained from AllocateFile");
+    return fclose(file);
+}
+```
+
+Key simplifications made:
+- Consolidated loop variable declaration with initialization
+- Added clear comments explaining each major step
+- Simplified the loop structure for better readability
+- Focused on the main execution paths
+- Preserved all essential error handling and warnings

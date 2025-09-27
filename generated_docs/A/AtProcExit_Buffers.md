@@ -32,3 +32,25 @@ This static function serves as a backend process exit handler that performs crit
 - Works in conjunction with the local buffer cleanup system (localbuf.c)
 - Part of PostgreSQL's robust cleanup mechanism that ensures system stability even during abnormal process termination
 - The function follows the standard callback signature expected by the process exit handling system
+
+## Simplified Source
+
+```c
+// Simplified version of AtProcExit_Buffers
+static void AtProcExit_Buffers(int code, Datum arg) {
+    // Release any remaining shared-buffer locks
+    UnlockBuffers();
+
+    // Check for and report buffer leaks
+    CheckForBufferLeaks();
+
+    // Clean up local buffers
+    AtProcExit_LocalBuffers();
+}
+```
+
+Key simplifications made:
+- Removed detailed comment about local buffers
+- Added clear comments for each cleanup operation
+- Maintained essential cleanup sequence
+- Preserved all critical function calls

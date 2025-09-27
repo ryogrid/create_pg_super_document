@@ -35,3 +35,28 @@ UnregisterSnapshotFromOwner handles snapshot unregistration from a specific reso
 - Ensures proper cleanup of resource owner tracking
 - Counterpart to RegisterSnapshotOnOwner
 - Located in src/backend/utils/time/snapmgr.c:849-858
+
+## Simplified Source
+
+```c
+// Simplified version of UnregisterSnapshotFromOwner
+void
+UnregisterSnapshotFromOwner(Snapshot snapshot, ResourceOwner owner)
+{
+    // Handle NULL snapshots gracefully
+    if (snapshot == NULL)
+        return;
+
+    // Remove snapshot reference from resource owner
+    ResourceOwnerForgetSnapshot(owner, snapshot);
+
+    // Perform core snapshot unregistration
+    UnregisterSnapshotNoOwner(snapshot);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each step
+- Preserved essential logic: validate input, remove from resource owner, unregister snapshot
+- Maintained the NULL safety check and two-phase cleanup approach
+- Clear separation of resource owner cleanup and core snapshot management

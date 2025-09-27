@@ -53,3 +53,97 @@ The function uses PostgreSQL's function call mechanism to invoke encoding-specif
 - For large results (>1MB), optimizes memory usage by shrinking allocated space
 - SQL_ASCII encoding is treated specially as universally compatible
 - Returns original pointer when no conversion is needed for efficiency
+
+## Simplified Source
+
+```c
+// Simplified version of pg_do_encoding_conversion
+unsigned char *pg_do_encoding_conversion(unsigned char *src, int len,
+                                         int src_encoding, int dest_encoding) {
+    // Handle trivial cases first
+    if (len <= 0) {
+        return src;  // Empty string is always valid
+    }
+
+    if (src_encoding == dest_encoding) {
+        return src;  // No conversion needed
+    }
+
+    if (dest_encoding == PG_SQL_ASCII) {
+        return src;  // Any string is valid in SQL_ASCII
+    }
+
+    // Special case: converting from SQL_ASCII
+    if (src_encoding == PG_SQL_ASCII) {
+        // Validate the string in the destination encoding
+        pg_verify_mbstr(dest_encoding, (const char *) src, len, false);
+        return src;  // No actual conversion possible
+    }
+
+    // Ensure we're in a transaction (required for catalog access)
+    if (!IsTransactionState()) {
+        elog(ERROR, "cannot perform encoding conversion outside a transaction");
+    }
+
+    // Find the conversion function for this encoding pair
+    Oid proc = FindDefaultConversionProc(src_encoding, dest_encoding);
+    if (!OidIsValid(proc)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("default conversion function for encoding \"%s\" to \"%s\" does not exist",
+                        pg_encoding_to_char(src_encoding),
+                        pg_encoding_to_char(dest_encoding))));
+    }
+
+    // Check for integer overflow in memory calculation
+    if ((Size) len >= (MaxAllocHugeSize / (Size) MAX_CONVERSION_GROWTH)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("out of memory"),
+                 errdetail("String of %d bytes is too long for encoding conversion.", len)));
+    }
+
+    // Allocate buffer for worst-case conversion expansion
+    unsigned char *result = (unsigned char *)
+        MemoryContextAllocHuge(CurrentMemoryContext,
+                               (Size) len * MAX_CONVERSION_GROWTH + 1);
+
+    // Call the conversion function
+    OidFunctionCall6(proc,
+                     Int32GetDatum(src_encoding),
+                     Int32GetDatum(dest_encoding),
+                     CStringGetDatum((char *) src),
+                     CStringGetDatum((char *) result),
+                     Int32GetDatum(len),
+                     BoolGetDatum(false));
+
+    // For large results, optimize memory usage by shrinking to actual size
+    if (len > 1000000) {
+        Size resultlen = strlen((char *) result);
+
+        // Check final result size
+        if (resultlen >= MaxAllocSize) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                     errmsg("out of memory"),
+                     errdetail("String of %d bytes is too long for encoding conversion.", len)));
+        }
+
+        // Shrink allocation to actual size
+        result = (unsigned char *) repalloc(result, resultlen + 1);
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining each major decision point
+- Grouped the early-exit conditions at the top for clarity
+- Clarified the special handling of SQL_ASCII encoding
+- Explained the transaction requirement and catalog access dependency
+- Made the memory allocation strategy more explicit
+- Simplified the overflow checking logic with clear comments
+- Highlighted the conversion function invocation mechanism
+- Explained the memory optimization for large results
+- Maintained all error handling while improving readability

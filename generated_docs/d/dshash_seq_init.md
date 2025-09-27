@@ -39,3 +39,27 @@ dshash_seq_init prepares a dshash_seq_status structure for sequential scanning t
 - The function initializes all scan state fields to their starting values (bucket 0, no current item, etc.)
 - Primarily used in PostgreSQL statistics system for iterating through shared statistics data
 - The scan state tracks the current bucket, partition, and item position within the hash table
+
+## Simplified Source
+
+```c
+// Simplified version of dshash_seq_init
+void dshash_seq_init(dshash_seq_status *status, dshash_table *hash_table,
+                     bool exclusive) {
+    // Initialize scan status structure for sequential iteration
+    status->hash_table = hash_table;
+    status->curbucket = 0;              // Start from first bucket
+    status->nbuckets = 0;               // No buckets processed yet
+    status->curitem = NULL;             // No current item
+    status->pnextitem = InvalidDsaPointer;  // No next item pointer
+    status->curpartition = -1;          // No current partition
+    status->exclusive = exclusive;      // Store scan mode
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each field initialization
+- Maintained the simple field-by-field initialization structure
+- Documented the starting state values for each scan parameter
+- Preserved the exclusive scan mode setting
+- Focused on the straightforward initialization logic

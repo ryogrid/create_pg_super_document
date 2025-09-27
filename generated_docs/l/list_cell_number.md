@@ -41,3 +41,22 @@ This function includes bounds checking through an assertion that verifies the ce
 - Commonly used in list iteration macros and debugging utilities
 - Returns values in the range [0, list->length-1] for valid cells
 - Part of the supporting infrastructure for PostgreSQL's list manipulation API
+
+## Simplified Source
+
+```c
+// Simplified version of list_cell_number
+static inline int list_cell_number(const List *l, const ListCell *c) {
+    // Verify the cell pointer is within the list's bounds
+    Assert(c >= &l->elements[0] && c < &l->elements[l->length]);
+
+    // Calculate index using pointer arithmetic
+    return c - l->elements;
+}
+```
+
+Key simplifications made:
+- Focused on the core pointer arithmetic calculation
+- Preserved essential bounds checking assertion
+- Emphasized the O(1) constant-time nature of the operation
+- Maintained the inline optimization for performance

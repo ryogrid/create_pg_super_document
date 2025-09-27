@@ -48,3 +48,35 @@ Like MemoryContextAlloc, this function integrates with Valgrind memory debugging
 - The combination of allocation and clearing in one function reduces function call overhead
 - Like MemoryContextAlloc, this function serves as a foundation for higher-level functions like palloc0()
 - Memory clearing happens after allocation, so allocation failures are handled before any clearing occurs
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextAllocZero
+void *MemoryContextAllocZero(MemoryContext context, Size size) {
+    // Validate context and ensure we're not in critical section
+    Assert(MemoryContextIsValid(context));
+    AssertNotInCriticalSection(context);
+
+    // Mark context as having active allocations
+    context->isReset = false;
+
+    // Allocate memory using context's allocation method
+    void *ret = context->methods->alloc(context, size, 0);
+
+    // Register allocation with Valgrind if enabled
+    VALGRIND_MEMPOOL_ALLOC(context, ret, size);
+
+    // Clear allocated memory to zero
+    MemSetAligned(ret, 0, size);
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Combined variable declaration with allocation for clarity
+- Added inline comments explaining each major step
+- Preserved all essential validation and state management
+- Maintained the core allocation-then-clear workflow
+- Kept Valgrind integration for debugging support

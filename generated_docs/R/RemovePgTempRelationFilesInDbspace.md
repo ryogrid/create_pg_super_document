@@ -38,3 +38,42 @@ This function operates at the most granular level of PostgreSQLs temporary file 
 - Part of the PostgreSQL temporary file cleanup hierarchy at the database level
 - Only processes files that match temporary relation naming conventions, ignoring other files in the directory
 - The function assumes all entries that pass the `looks_like_temp_rel_name()` test are files (not directories)
+
+## Simplified Source
+
+```c
+// Simplified version of RemovePgTempRelationFilesInDbspace
+static void RemovePgTempRelationFilesInDbspace(const char *dbspacedirname) {
+    DIR *dbspace_dir;
+    struct dirent *de;
+    char rm_path[MAXPGPATH * 2];
+
+    // Open the database directory
+    dbspace_dir = AllocateDir(dbspacedirname);
+
+    // Scan all entries in the directory
+    while ((de = ReadDirExtended(dbspace_dir, dbspacedirname, LOG)) != NULL) {
+        // Skip files that don't look like temporary relations
+        if (!looks_like_temp_rel_name(de->d_name))
+            continue;
+
+        // Build full path to the temporary file
+        snprintf(rm_path, sizeof(rm_path), "%s/%s", dbspacedirname, de->d_name);
+
+        // Remove the temporary file (log errors but continue)
+        if (unlink(rm_path) < 0)
+            ereport(LOG, (errcode_for_file_access(),
+                         errmsg("could not remove file \"%s\": %m", rm_path)));
+    }
+
+    // Clean up directory handle
+    FreeDir(dbspace_dir);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Preserved the complete logic flow without removing any functionality
+- Maintained error handling as it's essential for robustness
+- Focused on readability while keeping all critical operations
+- The function is already quite clean and focused, so minimal simplification was needed

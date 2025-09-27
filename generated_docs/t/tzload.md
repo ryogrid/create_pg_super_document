@@ -38,3 +38,34 @@ The  function serves as a memory-managed wrapper for loading timezone data. It a
 - Acts as a memory management wrapper around tzloadbody
 - Part of PostgreSQL's timezone handling system
 - The function ensures proper cleanup of allocated memory regardless of success or failure of the underlying tzloadbody operation
+
+## Simplified Source
+
+```c
+// Simplified version of tzload
+int tzload(const char *name, char *canonname, struct state *sp, bool doextend) {
+    // Allocate temporary storage for timezone data processing
+    union local_storage *lsp = malloc(sizeof *lsp);
+
+    // Handle memory allocation failure
+    if (!lsp) {
+        return errno;
+    }
+
+    // Load timezone data using the core function
+    int err = tzloadbody(name, canonname, sp, doextend, lsp);
+
+    // Clean up allocated memory
+    free(lsp);
+
+    // Return result from the actual loading operation
+    return err;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Maintained the essential memory management pattern
+- Preserved the error handling for allocation failure
+- Kept the core delegation to tzloadbody function
+- Focused on the wrapper's primary responsibility: managed memory allocation

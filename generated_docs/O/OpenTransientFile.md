@@ -38,3 +38,19 @@ The function is designed for files that need to be opened with standard PostgreS
 - Part of PostgreSQL's transient file management system, designed for temporary or short-lived file operations
 - Files opened with this function should be closed using the appropriate PostgreSQL file management functions
 - The actual file opening logic and resource management is handled by OpenTransientFilePerm
+
+## Simplified Source
+
+```c
+// Simplified version of OpenTransientFile
+int OpenTransientFile(const char *fileName, int fileFlags) {
+    // Open file with default PostgreSQL file creation permissions
+    return OpenTransientFilePerm(fileName, fileFlags, pg_file_create_mode);
+}
+```
+
+Key simplifications made:
+- Added comment explaining the default permission usage
+- Function is already very simple, minimal changes needed
+- Preserved the essential wrapper functionality
+- Maintained the delegation to OpenTransientFilePerm with default mode

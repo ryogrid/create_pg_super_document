@@ -45,3 +45,25 @@ The function supports both regular and partitioned hash tables. For partitioned 
 - For frozen hash tables, hash_seq_term cleanup is not necessary
 - Widely used throughout PostgreSQL for bulk operations and system maintenance
 - Critical for implementing various cleanup and administrative operations
+
+## Simplified Source
+
+```c
+// Simplified version of hash_seq_init
+void hash_seq_init(HASH_SEQ_STATUS *status, HTAB *hashp) {
+    // Initialize the scan status structure
+    status->hashp = hashp;           // Store reference to the hash table
+    status->curBucket = 0;           // Start scanning from first bucket
+    status->curEntry = NULL;         // No current entry yet
+
+    // Register this scan for cleanup tracking (unless table is frozen)
+    if (!hashp->frozen) {
+        register_seq_scan(hashp);
+    }
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining each initialization step
+- Clarified the purpose of the frozen table check
+- Maintained the original simple and clean structure (function was already well-designed)

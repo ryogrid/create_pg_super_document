@@ -46,3 +46,37 @@ The cleanup is designed to be non-fatal - PosixSemaphoreKill() logs errors rathe
 - Part of PostgreSQL's platform abstraction layer for semaphore management
 - Critical for preventing semaphore leaks that could exhaust system resources
 - The cleanup strategy minimizes dependency on potentially corrupted shared memory contents
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseSemaphores
+static void ReleaseSemaphores(int status, Datum arg) {
+    int i;
+
+    // Release named POSIX semaphores if enabled
+    #ifdef USE_NAMED_POSIX_SEMAPHORES
+        // Destroy all named semaphores
+        for (i = 0; i < numSems; i++) {
+            PosixSemaphoreKill(mySemPointers[i]);
+        }
+        // Free the pointer array
+        free(mySemPointers);
+    #endif
+
+    // Release unnamed POSIX semaphores if enabled
+    #ifdef USE_UNNAMED_POSIX_SEMAPHORES
+        // Destroy all unnamed semaphores
+        for (i = 0; i < numSems; i++) {
+            PosixSemaphoreKill(PG_SEM_REF(sharedSemas + i));
+        }
+    #endif
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major section
+- Preserved the conditional compilation structure
+- Maintained the essential cleanup logic for both semaphore types
+- Kept the simple loop-based iteration pattern
+- Focused on the core resource cleanup functionality

@@ -48,3 +48,34 @@ This is one of the most commonly used path manipulation functions in PostgreSQL,
 - Essential for various PostgreSQL utilities including initdb, pg_basebackup, pg_rewind, and pg_upgrade
 - The function properly handles both absolute and relative paths by skipping drive prefixes first
 - Used in program name extraction, directory validation, and file path manipulation across many PostgreSQL components
+
+## Simplified Source
+
+```c
+// Simplified version of last_dir_separator
+char *last_dir_separator(const char *filename) {
+    const char *p;
+    const char *last_separator = NULL;
+
+    // Skip any drive prefix (e.g., "C:" on Windows)
+    p = skip_drive(filename);
+
+    // Scan through the path looking for directory separators
+    while (*p) {
+        if (IS_DIR_SEP(*p)) {
+            last_separator = p;  // Remember this separator location
+        }
+        p++;
+    }
+
+    // Return pointer to last separator found (or NULL if none)
+    return (char *) last_separator;
+}
+```
+
+Key simplifications made:
+- Removed the unconstify macro for clarity (just used explicit cast)
+- Used more descriptive variable name `last_separator` instead of `ret`
+- Added clear comments explaining each step
+- Simplified the for loop to a while loop for better readability
+- Focused on the core algorithm: scan and remember the last separator

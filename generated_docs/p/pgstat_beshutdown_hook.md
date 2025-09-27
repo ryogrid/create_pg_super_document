@@ -29,3 +29,32 @@ This static function serves as a cleanup hook that is automatically called when 
 
 ## Notes and Other Information
 This function is registered as a shared memory exit hook by pgstat_beinit and is automatically called during process shutdown. The function is declared static as it's only used internally within the backend_status.c module. Setting MyBEEntry to NULL at the end allows other functions to check if the backend status system is properly initialized by testing if MyBEEntry is non-NULL.
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_beshutdown_hook
+static void pgstat_beshutdown_hook(int exit_code, Datum unused_arg) {
+    volatile PgBackendStatus *backend_entry = MyBEEntry;
+
+    // Step 1: Begin atomic write operation to shared backend status
+    PGSTAT_BEGIN_WRITE_ACTIVITY(backend_entry);
+
+    // Step 2: Mark this backend entry as invalid
+    backend_entry->st_procpid = 0;
+
+    // Step 3: Complete atomic write operation
+    PGSTAT_END_WRITE_ACTIVITY(backend_entry);
+
+    // Step 4: Clear local reference to indicate shutdown complete
+    MyBEEntry = NULL;
+}
+```
+
+Key simplifications made:
+- Renamed parameters for clarity (code -> exit_code, arg -> unused_arg)
+- Renamed variable for clarity (beentry -> backend_entry)
+- Added step-by-step comments explaining the atomic write protocol
+- Simplified the comments while preserving the essential volatile pointer usage
+- Maintained the critical atomic update protocol for shared memory safety
+- Preserved the final MyBEEntry nullification for system state checking

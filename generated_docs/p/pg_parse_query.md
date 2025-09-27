@@ -45,3 +45,40 @@ This separation is crucial for PostgreSQL's transaction handling, as it allows t
 - Performance monitoring available through log_parser_stats configuration
 - Part of PostgreSQL's modular query processing architecture that separates parsing from semantic analysis
 - Essential for maintaining system stability during error conditions and transaction failures
+
+## Simplified Source
+
+```c
+// Simplified version of pg_parse_query
+List *
+pg_parse_query(const char *query_string)
+{
+    List *raw_parsetree_list;
+
+    // Start query parse tracing
+    TRACE_POSTGRESQL_QUERY_PARSE_START(query_string);
+
+    // Optional performance statistics logging
+    if (log_parser_stats)
+        ResetUsage();
+
+    // Core functionality: Parse the query string into raw parse trees
+    raw_parsetree_list = raw_parser(query_string, RAW_PARSE_DEFAULT);
+
+    // Optional performance statistics logging
+    if (log_parser_stats)
+        ShowUsage("PARSER STATISTICS");
+
+    // End query parse tracing
+    TRACE_POSTGRESQL_QUERY_PARSE_DONE(query_string);
+
+    return raw_parsetree_list;
+}
+```
+
+Key simplifications made:
+- Removed optional debugging code blocks (COPY_PARSE_PLAN_TREES and WRITE_READ_PARSE_PLAN_TREES)
+- Consolidated the core parsing logic into clear, commented steps
+- Preserved essential functionality: tracing, statistics logging, and the main parsing call
+- Maintained the function signature and return behavior
+- Focused on the main execution path that handles typical query processing

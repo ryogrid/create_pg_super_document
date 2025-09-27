@@ -126,3 +126,184 @@ The process sets up signal handlers for configuration reloads, checkpoint reques
 - Implements checkpoint frequency warnings when checkpoints occur too frequently
 - Coordinates with waiting backends through condition variables in shared memory
 - Performs cleanup of storage manager objects after each checkpoint to handle dropped relations
+
+## Simplified Source
+
+```c
+// Simplified version of CheckpointerMain
+void CheckpointerMain(char *startup_data, size_t startup_data_len) {
+    sigjmp_buf local_sigjmp_buf;
+    MemoryContext checkpointer_context;
+
+    // Step 1: Initialize process type and shared memory
+    MyBackendType = B_CHECKPOINTER;
+    AuxiliaryProcessMainCommon();
+    CheckpointerShmem->checkpointer_pid = MyProcPid;
+
+    // Step 2: Set up signal handlers
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);    // config reload
+    pqsignal(SIGINT, ReqCheckpointHandler);            // checkpoint request
+    pqsignal(SIGTERM, SIG_IGN);                        // ignore shutdown
+    pqsignal(SIGUSR2, SignalHandlerForShutdownRequest); // graceful shutdown
+
+    // Step 3: Initialize timing variables
+    last_checkpoint_time = last_xlog_switch_time = (pg_time_t) time(NULL);
+
+    // Step 4: Create dedicated memory context for error recovery
+    checkpointer_context = AllocSetContextCreate(TopMemoryContext,
+                                                "Checkpointer",
+                                                ALLOCSET_DEFAULT_SIZES);
+    MemoryContextSwitchTo(checkpointer_context);
+
+    // Step 5: Error recovery setup using setjmp
+    if (sigsetjmp(local_sigjmp_buf, 1) != 0) {
+        // Error recovery: clean up resources and reset state
+        error_context_stack = NULL;
+        HOLD_INTERRUPTS();
+        EmitErrorReport();
+
+        // Release locks and clean up resources
+        LWLockReleaseAll();
+        UnlockBuffers();
+        ReleaseAuxProcessResources(false);
+
+        // Notify waiting backends of checkpoint failure
+        if (ckpt_active) {
+            SpinLockAcquire(&CheckpointerShmem->ckpt_lck);
+            CheckpointerShmem->ckpt_failed++;
+            CheckpointerShmem->ckpt_done = CheckpointerShmem->ckpt_started;
+            SpinLockRelease(&CheckpointerShmem->ckpt_lck);
+            ConditionVariableBroadcast(&CheckpointerShmem->done_cv);
+            ckpt_active = false;
+        }
+
+        // Reset memory context and resume operations
+        MemoryContextSwitchTo(checkpointer_context);
+        FlushErrorState();
+        MemoryContextReset(checkpointer_context);
+        RESUME_INTERRUPTS();
+
+        // Wait before retrying to avoid log spam
+        pg_usleep(1000000L);
+    }
+
+    // Step 6: Enable exception handling and unblock signals
+    PG_exception_stack = &local_sigjmp_buf;
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+    UpdateSharedMemoryConfig();
+    ProcGlobal->checkpointerLatch = &MyProc->procLatch;
+
+    // Step 7: Main processing loop
+    for (;;) {
+        bool do_checkpoint = false;
+        int flags = 0;
+        pg_time_t now;
+        int elapsed_secs;
+
+        // Clear pending wakeups and process requests
+        ResetLatch(MyLatch);
+        AbsorbSyncRequests();
+        HandleCheckpointerInterrupts();
+
+        // Check for explicit checkpoint requests
+        if (CheckpointerShmem->ckpt_flags) {
+            do_checkpoint = true;
+        }
+
+        // Check for time-based checkpoint requirement
+        now = (pg_time_t) time(NULL);
+        elapsed_secs = now - last_checkpoint_time;
+        if (elapsed_secs >= CheckPointTimeout) {
+            do_checkpoint = true;
+            flags |= CHECKPOINT_CAUSE_TIME;
+        }
+
+        // Perform checkpoint if needed
+        if (do_checkpoint) {
+            bool checkpoint_performed = false;
+            bool do_restartpoint = RecoveryInProgress();
+
+            // Acquire checkpoint flags atomically
+            SpinLockAcquire(&CheckpointerShmem->ckpt_lck);
+            flags |= CheckpointerShmem->ckpt_flags;
+            CheckpointerShmem->ckpt_flags = 0;
+            CheckpointerShmem->ckpt_started++;
+            SpinLockRelease(&CheckpointerShmem->ckpt_lck);
+
+            // Initialize checkpoint state
+            ckpt_active = true;
+            ckpt_start_time = now;
+
+            // Perform either checkpoint or restartpoint
+            if (!do_restartpoint) {
+                CreateCheckPoint(flags);
+                checkpoint_performed = true;
+            } else {
+                checkpoint_performed = CreateRestartPoint(flags);
+            }
+
+            // Clean up and notify completion
+            smgrdestroyall();  // Free storage manager objects
+
+            SpinLockAcquire(&CheckpointerShmem->ckpt_lck);
+            CheckpointerShmem->ckpt_done = CheckpointerShmem->ckpt_started;
+            SpinLockRelease(&CheckpointerShmem->ckpt_lck);
+            ConditionVariableBroadcast(&CheckpointerShmem->done_cv);
+
+            // Update timing for next checkpoint
+            if (checkpoint_performed) {
+                last_checkpoint_time = now;
+            } else {
+                // Retry failed restartpoint in 15 seconds
+                last_checkpoint_time = now - CheckPointTimeout + 15;
+            }
+
+            ckpt_active = false;
+        }
+
+        // Handle WAL archiving timeout
+        CheckArchiveTimeout();
+
+        // Report statistics
+        pgstat_report_checkpointer();
+        pgstat_report_wal(true);
+
+        // Skip sleep if new checkpoint requests arrived
+        if (CheckpointerShmem->ckpt_flags) {
+            continue;
+        }
+
+        // Calculate sleep time until next checkpoint or archive timeout
+        now = (pg_time_t) time(NULL);
+        elapsed_secs = now - last_checkpoint_time;
+        if (elapsed_secs >= CheckPointTimeout) {
+            continue;  // Time for immediate checkpoint
+        }
+
+        int timeout = CheckPointTimeout - elapsed_secs;
+        if (XLogArchiveTimeout > 0 && !RecoveryInProgress()) {
+            elapsed_secs = now - last_xlog_switch_time;
+            if (elapsed_secs >= XLogArchiveTimeout) {
+                continue;  // Time for WAL switch
+            }
+            timeout = Min(timeout, XLogArchiveTimeout - elapsed_secs);
+        }
+
+        // Sleep until next event
+        WaitLatch(MyLatch,
+                  WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                  timeout * 1000L,
+                  WAIT_EVENT_CHECKPOINTER_MAIN);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for clarity
+- Consolidated signal handler setup into essential handlers only
+- Abstracted complex checkpoint coordination logic
+- Simplified memory context management
+- Removed verbose warning logic for frequent checkpoints
+- Focused on the main execution path (checkpoint vs restartpoint decision)
+- Consolidated statistics tracking and timing calculations
+- Streamlined the sleep/wake cycle logic

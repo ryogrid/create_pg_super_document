@@ -35,3 +35,27 @@ This function performs a logical comparison to determine if transaction ID `id1`
 - The modulo-2^32 comparison ensures correct ordering even when transaction IDs wrap from the maximum value back to 0
 - Widely used throughout the system for transaction visibility determinations, vacuum operations, and snapshot management
 - The function assumes that the two transaction IDs being compared are not more than 2^31 transactions apart, which is enforced by PostgreSQL's transaction ID management policies
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionIdPrecedes
+bool TransactionIdPrecedes(TransactionId id1, TransactionId id2) {
+    // Handle permanent XIDs (special values like BootstrapTransactionId, FrozenTransactionId)
+    if (!TransactionIdIsNormal(id1) || !TransactionIdIsNormal(id2)) {
+        // For permanent XIDs, use simple unsigned comparison
+        return (id1 < id2);
+    }
+
+    // For normal transaction IDs, handle wraparound using modulo-2^32 arithmetic
+    int32 diff = (int32) (id1 - id2);
+    return (diff < 0);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two comparison modes
+- Preserved the essential wraparound handling logic
+- Maintained the correct type casting for modular arithmetic
+- Simplified to show the core algorithm: permanent XID check vs modular comparison
+- Kept the function's critical role in handling PostgreSQL's 32-bit transaction ID space

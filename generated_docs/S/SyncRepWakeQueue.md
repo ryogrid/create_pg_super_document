@@ -49,3 +49,46 @@ The function assumes the queue is ordered by LSN and leverages this for efficien
 - Uses memory barriers to ensure proper ordering of state changes
 - Static function scope limits visibility to the syncrep.c compilation unit
 - Critical for the performance of synchronous replication as it minimizes wait times
+
+## Simplified Source
+
+```c
+// Simplified version of SyncRepWakeQueue
+static int SyncRepWakeQueue(bool all, int mode) {
+    volatile WalSndCtlData *walsndctl = WalSndCtl;
+    int numprocs = 0;
+    dlist_mutable_iter iter;
+
+    // Walk through the wait queue for this mode
+    dlist_foreach_modify(iter, &WalSndCtl->SyncRepQueue[mode]) {
+        PGPROC *proc = dlist_container(PGPROC, syncRepLinks, iter.cur);
+
+        // Check if we should wake this process
+        // Queue is ordered by LSN, so we can stop early if not waking all
+        if (!all && walsndctl->lsn[mode] < proc->waitLSN)
+            return numprocs;
+
+        // Remove process from the wait queue
+        dlist_delete_thoroughly(&proc->syncRepLinks);
+
+        // Ensure queue removal is visible before state change
+        pg_write_barrier();
+
+        // Mark the wait as complete
+        proc->syncRepState = SYNC_REP_WAIT_COMPLETE;
+
+        // Wake up the waiting process
+        SetLatch(&(proc->procLatch));
+
+        numprocs++;
+    }
+
+    return numprocs;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions and validation checks for clarity
+- Consolidated comments to focus on the main algorithm
+- Emphasized the core flow: check condition → remove from queue → update state → wake process
+- Abstracted the memory barrier details while preserving the critical ordering requirement

@@ -41,3 +41,24 @@ The function performs a simple conversion by checking the special timestamp type
 - The function does not perform bounds checking on the output buffer - the caller must ensure sufficient space
 - The EARLY and LATE constants are defined elsewhere in the codebase and represent the string literals for infinity values
 - This function is part of PostgreSQL's timestamp handling infrastructure and is used across multiple modules including JSON encoding and ECPG interfaces
+
+## Simplified Source
+
+```c
+// Simplified version of EncodeSpecialTimestamp
+void EncodeSpecialTimestamp(Timestamp dt, char *str) {
+    // Convert special timestamp values to string representations
+    if (TIMESTAMP_IS_NOBEGIN(dt))
+        strcpy(str, EARLY);     // Negative infinity: "-infinity"
+    else if (TIMESTAMP_IS_NOEND(dt))
+        strcpy(str, LATE);      // Positive infinity: "infinity"
+    else
+        elog(ERROR, "invalid argument for EncodeSpecialTimestamp");
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the purpose of each special timestamp type
+- Maintained the simple three-branch logic structure
+- Preserved error handling for invalid input values
+- Documented the string constants used for infinity representations

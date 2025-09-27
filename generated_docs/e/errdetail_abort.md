@@ -38,3 +38,25 @@ The function is part of PostgreSQL's error reporting system and helps users unde
 - Used across multiple message processing functions in the extended query protocol
 - Essential for hot standby deployments where recovery conflicts are common
 - Part of PostgreSQL's comprehensive error reporting and recovery conflict handling system
+
+## Simplified Source
+
+```c
+// Simplified version of errdetail_abort
+static int errdetail_abort(void) {
+    // Check if current process has a pending recovery conflict
+    if (MyProc->recoveryConflictPending) {
+        // Add error detail explaining the abort reason
+        errdetail("Abort reason: recovery conflict");
+    }
+
+    // Always return 0 (return value unused)
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Preserved the essential logic flow
+- Maintained the simple structure as the original function is already quite straightforward
+- Focused on the main purpose: checking recovery conflicts and adding error details

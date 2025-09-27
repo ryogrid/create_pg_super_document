@@ -47,3 +47,68 @@ The hash table sizes are calculated based on NLOCKENTS() with partitioning acros
 - Uses hash partitioning for improved concurrency across multiple lock partitions
 - Fast-path structures are initialized for optimizing frequently used relation locks
 - The function handles both normal postmaster and EXEC_BACKEND execution models
+
+## Simplified Source
+
+```c
+// Simplified version of InitLocks
+void InitLocks(void) {
+    HASHCTL info;
+    long init_table_size, max_table_size;
+    bool found;
+
+    // Calculate hash table sizes based on expected number of locks
+    max_table_size = NLOCKENTS();
+    init_table_size = max_table_size / 2;
+
+    // Create shared hash table for LOCK structs (per-object lock info)
+    info.keysize = sizeof(LOCKTAG);
+    info.entrysize = sizeof(LOCK);
+    info.num_partitions = NUM_LOCK_PARTITIONS;
+
+    LockMethodLockHash = ShmemInitHash("LOCK hash",
+                                       init_table_size, max_table_size,
+                                       &info,
+                                       HASH_ELEM | HASH_BLOBS | HASH_PARTITION);
+
+    // Assume 2 holders per lock and adjust sizes
+    max_table_size *= 2;
+    init_table_size *= 2;
+
+    // Create shared hash table for PROCLOCK structs (per-lock-per-holder info)
+    info.keysize = sizeof(PROCLOCKTAG);
+    info.entrysize = sizeof(PROCLOCK);
+    info.hash = proclock_hash;
+    info.num_partitions = NUM_LOCK_PARTITIONS;
+
+    LockMethodProcLockHash = ShmemInitHash("PROCLOCK hash",
+                                           init_table_size, max_table_size,
+                                           &info,
+                                           HASH_ELEM | HASH_FUNCTION | HASH_PARTITION);
+
+    // Initialize fast-path lock structures for relation locks
+    FastPathStrongRelationLocks =
+        ShmemInitStruct("Fast Path Strong Relation Lock Data",
+                        sizeof(FastPathStrongRelationLockData), &found);
+    if (!found)
+        SpinLockInit(&FastPathStrongRelationLocks->mutex);
+
+    // Create local (per-backend) hash table for LOCALLOCK structs
+    if (LockMethodLocalHash)
+        hash_destroy(LockMethodLocalHash);
+
+    info.keysize = sizeof(LOCALLOCKTAG);
+    info.entrysize = sizeof(LOCALLOCK);
+
+    LockMethodLocalHash = hash_create("LOCALLOCK hash", 16, &info,
+                                      HASH_ELEM | HASH_BLOBS);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential documentation
+- Consolidated variable declarations at the top
+- Simplified hash table creation parameters formatting for readability
+- Maintained the core logic flow: size calculation → LOCK table → PROCLOCK table → fast-path → local table
+- Preserved all essential initialization steps and error handling
+- Focused on the main execution path without platform-specific details

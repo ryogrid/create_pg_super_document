@@ -32,3 +32,29 @@ This function registers a hash table in the global sequential scan tracking syst
 - Throws an ERROR if MAX_SEQ_SCANS limit is exceeded, preventing system overload
 - The transaction nesting level is recorded to enable proper cleanup during transaction rollbacks
 - Part of PostgreSQL's hash table sequential scan infrastructure that ensures resource management and cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of register_seq_scan
+static void register_seq_scan(HTAB *hashp) {
+    // Check if we've reached the maximum number of concurrent scans
+    if (num_seq_scans >= MAX_SEQ_SCANS) {
+        elog(ERROR, "too many active hash_seq_search scans, cannot start one on \"%s\"",
+             hashp->tabname);
+    }
+
+    // Register the hash table in the tracking arrays
+    seq_scan_tables[num_seq_scans] = hashp;
+    seq_scan_level[num_seq_scans] = GetCurrentTransactionNestLevel();
+
+    // Increment the count of active scans
+    num_seq_scans++;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Grouped the core operations into clear sections
+- Preserved all original functionality and error handling
+- Maintained the exact same logic flow for resource tracking

@@ -53,3 +53,38 @@ This function takes no parameters and returns a Size value representing the tota
 - The memory size calculation is deterministic and depends on the configured number of buffers (shared_buffers GUC)
 - Accurate memory estimation is critical for system stability as shared memory cannot be expanded after initialization
 - The returned size includes all memory needed for the buffer pool but excludes other PostgreSQL subsystems
+
+## Simplified Source
+
+```c
+// Simplified version of BufferShmemSize
+Size BufferShmemSize(void) {
+    Size size = 0;
+
+    // Core logic step 1: Calculate memory for buffer descriptors
+    size = add_size(size, mul_size(NBuffers, sizeof(BufferDescPadded)));
+    size = add_size(size, PG_CACHE_LINE_SIZE);  // alignment padding
+
+    // Core logic step 2: Calculate memory for actual data pages
+    size = add_size(size, PG_IO_ALIGN_SIZE);    // I/O alignment padding
+    size = add_size(size, mul_size(NBuffers, BLCKSZ));  // data pages
+
+    // Core logic step 3: Add memory for buffer replacement strategy
+    size = add_size(size, StrategyShmemSize());
+
+    // Core logic step 4: Calculate memory for I/O synchronization
+    size = add_size(size, mul_size(NBuffers, sizeof(ConditionVariableMinimallyPadded)));
+    size = add_size(size, PG_CACHE_LINE_SIZE);  // alignment padding
+
+    // Core logic step 5: Add memory for checkpoint operations
+    size = add_size(size, mul_size(NBuffers, sizeof(CkptSortItem)));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Consolidated related memory calculations into logical groups
+- Added descriptive comments for each calculation step
+- Preserved the essential algorithm and overflow-safe arithmetic
+- Maintained the exact same calculation logic as the original

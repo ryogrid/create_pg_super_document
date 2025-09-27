@@ -44,3 +44,29 @@ This function takes no parameters.
 - Once initialized, ShmemIndex becomes the central registry for all subsequent shared memory allocations
 - The hash table uses string-based keys to identify shared memory structures by name
 - The function assumes shared memory segment is already established and basic memory management is available
+
+## Simplified Source
+
+```c
+// Simplified version of InitShmemIndex
+void InitShmemIndex(void) {
+    HASHCTL info;
+
+    // Configure hash table parameters
+    info.keysize = SHMEM_INDEX_KEYSIZE;      // Key size for structure names
+    info.entrysize = sizeof(ShmemIndexEnt);  // Entry size for index records
+
+    // Create the shared memory index hash table
+    // Special "ShmemIndex" name resolves bootstrap circularity
+    ShmemIndex = ShmemInitHash("ShmemIndex",
+                               SHMEM_INDEX_SIZE, SHMEM_INDEX_SIZE,
+                               &info,
+                               HASH_ELEM | HASH_STRINGS);
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining each configuration step
+- Clarified the bootstrap circularity resolution with "ShmemIndex" name
+- Focused on the core initialization logic
+- Maintained all essential function parameters and logic flow

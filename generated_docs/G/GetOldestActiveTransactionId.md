@@ -46,3 +46,42 @@ This function takes no parameters and returns:
 - Part of the checkpoint infrastructure for determining transaction visibility
 - Does not update snapshot counters, keeping the implementation simple
 - Assumes top-level XIDs are always smaller than their subtransaction XIDs
+
+## Simplified Source
+
+```c
+// Simplified version of GetOldestActiveTransactionId
+TransactionId GetOldestActiveTransactionId(void) {
+    ProcArrayStruct *arrayP = procArray;
+    TransactionId *other_xids = ProcGlobal->xids;
+    TransactionId oldestRunningXid;
+    int index;
+
+    // Core logic step 1: Get upper bound for active transaction IDs
+    LWLockAcquire(XidGenLock, LW_SHARED);
+    oldestRunningXid = XidFromFullTransactionId(TransamVariables->nextXid);
+    LWLockRelease(XidGenLock);
+
+    // Core logic step 2: Scan all processes to find oldest active XID
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+    for (index = 0; index < arrayP->numProcs; index++) {
+        TransactionId xid = UINT32_ACCESS_ONCE(other_xids[index]);
+
+        // Core logic step 3: Check if XID is valid and older
+        if (TransactionIdIsNormal(xid) && TransactionIdPrecedes(xid, oldestRunningXid)) {
+            oldestRunningXid = xid;
+        }
+    }
+    LWLockRelease(ProcArrayLock);
+
+    // Core logic step 4: Return the oldest active transaction ID found
+    return oldestRunningXid;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about race conditions and implementation details
+- Consolidated the XID validity check and comparison into a single if statement
+- Abstracted the atomic access and locking mechanisms with brief comments
+- Focused on the main execution path: get upper bound, scan processes, find minimum
+- Removed the assertion and recovery check for clarity

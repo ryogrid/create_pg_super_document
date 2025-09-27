@@ -61,3 +61,213 @@ The function handles various database states (DB_SHUTDOWNED, DB_IN_CRASH_RECOVER
 - Handles cleanup of backup label and tablespace map files after successful recovery
 - Updates control file state to DB_IN_PRODUCTION upon completion
 - Located in src/backend/access/transam/xlog.c:5384-6187
+
+## Simplified Source
+
+```c
+// Simplified version of StartupXLOG
+void StartupXLOG(void) {
+    CheckPoint checkPoint;
+    bool wasShutdown, didCrash, haveBackupLabel, haveTblspcMap;
+    XLogRecPtr EndOfLog;
+    TimeLineID EndOfLogTLI, newTLI;
+    bool performedWalRecovery;
+    EndOfWalRecoveryInfo *endOfRecoveryInfo;
+
+    // Set up resource owner for aux process
+    Assert(AuxProcessResourceOwner != NULL);
+    CurrentResourceOwner = AuxProcessResourceOwner;
+
+    // Validate control file checkpoint location
+    if (!XRecOffIsValid(ControlFile->checkPoint)) {
+        ereport(FATAL, "control file contains invalid checkpoint location");
+    }
+
+    // Check database state and report accordingly
+    switch (ControlFile->state) {
+        case DB_SHUTDOWNED:
+            ereport(LOG, "database system was shut down normally");
+            break;
+        case DB_IN_CRASH_RECOVERY:
+            ereport(LOG, "database system was interrupted during recovery");
+            break;
+        // ... other states handled similarly
+        default:
+            ereport(FATAL, "control file contains invalid database state");
+    }
+
+    // Validate WAL directory structure
+    ValidateXLOGDirectoryStructure();
+
+    // Set up startup progress timeout handler
+    if (!IsBootstrapProcessingMode()) {
+        RegisterTimeout(STARTUP_PROGRESS_TIMEOUT, startup_progress_timeout_handler);
+    }
+
+    // Clean up after crash if needed
+    if (ControlFile->state != DB_SHUTDOWNED &&
+        ControlFile->state != DB_SHUTDOWNED_IN_RECOVERY) {
+        RemoveTempXlogFiles();
+        SyncDataDirectory();
+        didCrash = true;
+    } else {
+        didCrash = false;
+    }
+
+    // Initialize WAL recovery
+    InitWalRecovery(ControlFile, &wasShutdown, &haveBackupLabel, &haveTblspcMap);
+    checkPoint = ControlFile->checkPointCopy;
+
+    // Initialize shared memory variables from checkpoint
+    TransamVariables->nextXid = checkPoint.nextXid;
+    TransamVariables->nextOid = checkPoint.nextOid;
+    // ... other transam variables initialized
+
+    // Remove old relcache files
+    RelationCacheInitFileRemove();
+
+    // Initialize various subsystems
+    StartupReplicationSlots();
+    StartupReorderBuffer();
+    StartupCLOG();
+    StartupMultiXact();
+    if (ControlFile->track_commit_timestamp) {
+        StartupCommitTs();
+    }
+    StartupReplicationOrigin();
+
+    // Set up unlogged LSN
+    if (ControlFile->state == DB_SHUTDOWNED) {
+        pg_atomic_write_membarrier_u64(&XLogCtl->unloggedLSN, ControlFile->unloggedLSN);
+    } else {
+        pg_atomic_write_membarrier_u64(&XLogCtl->unloggedLSN, FirstNormalUnloggedLSN);
+    }
+
+    // Restore timeline history files and 2PC data
+    restoreTimeLineHistoryFiles(checkPoint.ThisTimeLineID, recoveryTargetTLI);
+    restoreTwoPhaseData();
+
+    // Reset or restore pgstat data
+    if (didCrash) {
+        pgstat_discard_stats();
+    } else {
+        pgstat_restore_stats();
+    }
+
+    // Set up initial WAL replay state
+    RedoRecPtr = XLogCtl->RedoRecPtr = checkPoint.redo;
+    lastFullPageWrites = checkPoint.fullPageWrites;
+
+    // Perform WAL recovery if needed
+    if (InRecovery) {
+        // Set recovery state in shared memory
+        SpinLockAcquire(&XLogCtl->info_lck);
+        XLogCtl->SharedRecoveryState = InArchiveRecovery ?
+            RECOVERY_STATE_ARCHIVE : RECOVERY_STATE_CRASH;
+        SpinLockRelease(&XLogCtl->info_lck);
+
+        // Update control file
+        UpdateControlFile();
+
+        // Clean up backup label and tablespace map files
+        if (haveBackupLabel) {
+            durable_rename(BACKUP_LABEL_FILE, BACKUP_LABEL_OLD, FATAL);
+        }
+        if (haveTblspcMap) {
+            durable_rename(TABLESPACE_MAP, TABLESPACE_MAP_OLD, FATAL);
+        }
+
+        // Set up Hot Standby if enabled
+        if (ArchiveRecoveryRequested && EnableHotStandby) {
+            InitRecoveryTransactionEnvironment();
+            // ... Hot Standby initialization
+        }
+
+        // Perform actual WAL recovery
+        PerformWalRecovery();
+        performedWalRecovery = true;
+    } else {
+        performedWalRecovery = false;
+    }
+
+    // Finish WAL recovery
+    endOfRecoveryInfo = FinishWalRecovery();
+    EndOfLog = endOfRecoveryInfo->endOfLog;
+    EndOfLogTLI = endOfRecoveryInfo->endOfLogTLI;
+
+    // Validate recovery completed properly
+    if (InRecovery && EndOfLog < LocalMinRecoveryPoint) {
+        ereport(FATAL, "WAL ends before consistent recovery point");
+    }
+
+    // Reset unlogged relations
+    if (InRecovery) {
+        ResetUnloggedRelations(UNLOGGED_RELATION_INIT);
+    }
+
+    // Determine new timeline ID
+    newTLI = endOfRecoveryInfo->lastRecTLI;
+    if (ArchiveRecoveryRequested) {
+        newTLI = findNewestTimeLine(recoveryTargetTLI) + 1;
+        XLogInitNewTimeline(EndOfLogTLI, EndOfLog, newTLI);
+        writeTimeLineHistory(newTLI, recoveryTargetTLI, EndOfLog,
+                            endOfRecoveryInfo->recoveryStopReason);
+    }
+
+    // Save timeline ID in shared memory
+    SpinLockAcquire(&XLogCtl->info_lck);
+    XLogCtl->InsertTimeLineID = newTLI;
+    SpinLockRelease(&XLogCtl->info_lck);
+
+    // Prepare for WAL writing
+    SetInstallXLogFileSegmentActive();
+    // ... initialize WAL buffers and positions
+
+    // Initialize various systems for production
+    SIResetAll();
+    PreallocXlogFiles(EndOfLog, newTLI);
+
+    // Mark system as no longer in recovery
+    InRecovery = false;
+
+    // Start archive timeout timer
+    XLogCtl->lastSegSwitchTime = time(NULL);
+    XLogCtl->lastSegSwitchLSN = EndOfLog;
+
+    // Complete subsystem initialization
+    TrimCLOG();
+    TrimMultiXact();
+    RecoverPreparedTransactions();
+    ShutdownWalRecovery();
+
+    // Enable WAL writes and emit checkpoint/end-of-recovery record
+    LocalSetXLogInsertAllowed();
+    if (performedWalRecovery) {
+        PerformRecoveryXLogAction();
+    }
+
+    // Update control file to production state
+    LWLockAcquire(ControlFileLock, LW_EXCLUSIVE);
+    ControlFile->state = DB_IN_PRODUCTION;
+    SpinLockAcquire(&XLogCtl->info_lck);
+    XLogCtl->SharedRecoveryState = RECOVERY_STATE_DONE;
+    SpinLockRelease(&XLogCtl->info_lck);
+    UpdateControlFile();
+    LWLockRelease(ControlFileLock);
+
+    // Final cleanup
+    if (standbyState != STANDBY_DISABLED) {
+        ShutdownRecoveryTransactionEnvironment();
+    }
+    WalSndWakeup(true, true);
+}
+```
+
+Key simplifications made:
+- Condensed the very detailed error state handling into simpler cases
+- Abstracted complex shared memory initialization into high-level comments
+- Simplified Hot Standby setup logic while preserving the essential flow
+- Removed extensive comments and consolidated similar operations
+- Focused on the main recovery workflow: validate → recover → transition to production
+- Maintained all critical state transitions and synchronization points
+- Reduced from ~800 lines to ~150 lines while preserving essential logic

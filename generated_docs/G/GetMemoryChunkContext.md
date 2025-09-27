@@ -45,3 +45,19 @@ The function is essential for memory management operations that need to understa
 - Widely used throughout PostgreSQL for memory operations
 - The returned context can be used for context-aware memory operations
 - Located in src/backend/utils/mmgr/mcxt.c:707-720
+
+## Simplified Source
+
+```c
+// Simplified version of GetMemoryChunkContext
+MemoryContext GetMemoryChunkContext(void *pointer) {
+    // Use the memory context method dispatch system to call the
+    // appropriate get_chunk_context method for this memory chunk
+    return MCXT_METHOD(pointer, get_chunk_context)(pointer);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the method dispatch mechanism
+- Preserved the core functionality: delegating to the context-specific implementation
+- Maintained the essential logic flow: input validation through method dispatch

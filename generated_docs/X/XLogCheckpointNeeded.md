@@ -34,3 +34,29 @@ XLogCheckpointNeeded is a utility function that evaluates whether a checkpoint s
 - The function uses a simple arithmetic comparison: if the distance between old_segno (derived from RedoRecPtr) and new_segno is greater than or equal to (CheckPointSegments - 1), a checkpoint is needed
 - This mechanism prevents unbounded WAL growth and ensures timely checkpoint triggering for both normal operations and recovery scenarios
 - The function is declared in src/include/access/xlog.h at line 263
+
+## Simplified Source
+
+```c
+// Simplified version of XLogCheckpointNeeded
+bool XLogCheckpointNeeded(XLogSegNo new_segno) {
+    XLogSegNo old_segno;
+
+    // Convert current redo pointer to segment number
+    XLByteToSeg(RedoRecPtr, old_segno, wal_segment_size);
+
+    // Check if distance exceeds checkpoint threshold
+    if (new_segno >= old_segno + (uint64)(CheckPointSegments - 1)) {
+        return true;  // Checkpoint needed
+    }
+
+    return false;  // No checkpoint needed yet
+}
+```
+
+Key simplifications made:
+- Added comments explaining the redo pointer conversion and threshold check
+- Made the return logic more explicit with comments
+- Maintained the complete function as it's already very simple and focused
+- No significant simplification needed due to the function's inherent simplicity
+- Preserved the essential arithmetic comparison that determines checkpoint necessity

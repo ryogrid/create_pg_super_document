@@ -45,3 +45,19 @@ static inline void pq_sendbyte(StringInfo buf, uint8 byt)
 - Common for sending boolean values, flags, and enumeration constants
 - Provides clear intent when sending single bytes vs. 8-bit numeric values
 - Critical component of PostgreSQL's wire protocol implementation
+
+## Simplified Source
+
+```c
+// Simplified version of pq_sendbyte
+static inline void pq_sendbyte(StringInfo buf, uint8 byt) {
+    // Append a single byte to the buffer for network transmission
+    pq_sendint8(buf, byt);
+}
+```
+
+Key simplifications made:
+- Function is already very simple, serving as a semantic wrapper
+- Added explanatory comment to clarify the purpose
+- Maintained the single function call that implements the core functionality
+- Preserved the inline nature for performance optimization

@@ -34,3 +34,28 @@ This function is registered as a before-shutdown callback during auxiliary proce
 - Automatically invoked by the process exit handler mechanism
 - Ensures proper cleanup of condition variable sleep states and statistics reporting
 - Essential for maintaining system stability when auxiliary processes terminate unexpectedly
+
+## Simplified Source
+
+```c
+// Simplified version of ShutdownAuxiliaryProcess
+static void ShutdownAuxiliaryProcess(int code, Datum arg) {
+    // Core cleanup step 1: Release all held lightweight locks
+    // This prevents deadlocks during error exits
+    LWLockReleaseAll();
+
+    // Core cleanup step 2: Cancel any condition variable sleep
+    // Ensures proper wakeup of waiting processes
+    ConditionVariableCancelSleep();
+
+    // Core cleanup step 3: End statistics wait reporting
+    // Maintains clean statistics state
+    pgstat_report_wait_end();
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each cleanup operation
+- Emphasized the critical nature of LWLock release during error exits
+- Highlighted the purpose of each cleanup step
+- Maintained the original simple structure since the function is already concise

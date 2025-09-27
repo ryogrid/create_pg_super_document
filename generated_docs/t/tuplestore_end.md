@@ -42,3 +42,40 @@ This function should be called when the tuplestore is no longer needed to preven
 - After calling this function, the state pointer becomes invalid and should not be used
 - The function handles NULL pointers gracefully (checks before freeing)
 - Used extensively in executor nodes and various PostgreSQL subsystems that utilize tuplestores for temporary storage
+
+## Simplified Source
+
+```c
+// Simplified version of tuplestore_end
+void
+tuplestore_end(Tuplestorestate *state)
+{
+    // Close temporary file if it exists
+    if (state->myfile)
+        BufFileClose(state->myfile);
+
+    // Free all stored tuples and the tuple array
+    if (state->memtuples)
+    {
+        // Free individual tuples from deleted index to current count
+        for (int i = state->memtupdeleted; i < state->memtupcount; i++)
+            pfree(state->memtuples[i]);
+
+        // Free the tuple pointer array
+        pfree(state->memtuples);
+    }
+
+    // Free read pointers array
+    pfree(state->readptrs);
+
+    // Free the main state structure
+    pfree(state);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each cleanup phase
+- Moved variable declaration inline in the for loop
+- Preserved essential logic: close file, free tuples, free arrays, free state
+- Maintained the proper cleanup order and NULL checking
+- Clear separation of different resource types being freed

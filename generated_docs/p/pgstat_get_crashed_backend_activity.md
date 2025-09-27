@@ -43,3 +43,62 @@ Key safety features include bounds checking to ensure the activity pointer falls
 - Returns NULL on any safety concern rather than risking postmaster stability
 - Buffer size is limited to the smaller of caller's buffer or configured activity size
 - Does not attempt multibyte-aware character handling due to crash context constraints
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_get_crashed_backend_activity
+const char *pgstat_get_crashed_backend_activity(int pid, char *buffer, int buflen) {
+    volatile PgBackendStatus *beentry;
+    int i;
+
+    beentry = BackendStatusArray;
+
+    // Safety check: ensure shared memory is initialized
+    if (beentry == NULL || BackendActivityBuffer == NULL) {
+        return NULL;
+    }
+
+    // Search for the backend with matching PID
+    for (i = 1; i <= MaxBackends; i++) {
+        if (beentry->st_procpid == pid) {
+            // Read activity pointer once to prevent TOCTOU issues
+            const char *activity = beentry->st_activity_raw;
+            const char *activity_last;
+
+            // Calculate safe bounds for activity string access
+            activity_last = BackendActivityBuffer + BackendActivityBufferSize
+                - pgstat_track_activity_query_size;
+
+            // Validate that activity pointer is within valid buffer range
+            if (activity < BackendActivityBuffer || activity > activity_last) {
+                return NULL;
+            }
+
+            // Skip empty activity strings
+            if (activity[0] == '\0') {
+                return NULL;
+            }
+
+            // Copy activity string with ASCII-only safety filtering
+            ascii_safe_strlcpy(buffer, activity,
+                              Min(buflen, pgstat_track_activity_query_size));
+
+            return buffer;
+        }
+
+        beentry++;
+    }
+
+    // Backend PID not found
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each safety check
+- Clarified the purpose of bounds validation
+- Explained the TOCTOU (Time-of-Check-Time-of-Use) protection
+- Simplified the memory safety logic explanation
+- Maintained all critical safety features for crash handling
+- Preserved ASCII-only filtering for encoding safety

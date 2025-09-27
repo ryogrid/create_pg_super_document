@@ -32,3 +32,26 @@ The  function provides a mechanism for detecting external requests for log file 
 - Returns immediately after checking file existence - no file content is read
 - The actual removal of the signal file is typically handled by the calling process
 - Essential component of PostgreSQL's external log rotation capability for administrative scripts
+
+## Simplified Source
+
+```c
+// Simplified version of CheckLogrotateSignal
+bool CheckLogrotateSignal(void) {
+    struct stat stat_buf;
+
+    // Check if log rotation signal file exists
+    // Return true if file exists, false otherwise
+    if (stat(LOGROTATE_SIGNAL_FILE, &stat_buf) == 0) {
+        return true;
+    }
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core logic
+- Maintained the original simple structure as it was already quite readable
+- Emphasized the file-based signaling mechanism in comments
+- Preserved the essential stat() system call and return logic

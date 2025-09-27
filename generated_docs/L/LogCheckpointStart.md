@@ -40,3 +40,36 @@ This static function generates log messages to record the start of checkpoint op
 - Provides valuable diagnostic information for checkpoint performance analysis
 - Flag combinations help identify checkpoint triggers and urgency levels
 - Uses translator comments for internationalization support
+
+## Simplified Source
+
+```c
+// Simplified version of LogCheckpointStart
+static void LogCheckpointStart(int flags, bool restartpoint) {
+    // Build flag description string from checkpoint flags
+    char flag_description[256] = "";
+
+    if (flags & CHECKPOINT_IS_SHUTDOWN) strcat(flag_description, " shutdown");
+    if (flags & CHECKPOINT_END_OF_RECOVERY) strcat(flag_description, " end-of-recovery");
+    if (flags & CHECKPOINT_IMMEDIATE) strcat(flag_description, " immediate");
+    if (flags & CHECKPOINT_FORCE) strcat(flag_description, " force");
+    if (flags & CHECKPOINT_WAIT) strcat(flag_description, " wait");
+    if (flags & CHECKPOINT_CAUSE_XLOG) strcat(flag_description, " wal");
+    if (flags & CHECKPOINT_CAUSE_TIME) strcat(flag_description, " time");
+    if (flags & CHECKPOINT_FLUSH_ALL) strcat(flag_description, " flush-all");
+
+    // Log the checkpoint start with appropriate message
+    if (restartpoint) {
+        ereport(LOG, (errmsg("restartpoint starting:%s", flag_description)));
+    } else {
+        ereport(LOG, (errmsg("checkpoint starting:%s", flag_description)));
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated the flag checking logic into a loop-like structure for clarity
+- Removed the complex inline conditional expressions from the ereport calls
+- Abstracted the repetitive flag checking into a more readable format
+- Maintained the core functionality of logging checkpoint start with flags
+- Focused on the main execution path: flag interpretation and logging

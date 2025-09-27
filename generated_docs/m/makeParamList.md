@@ -39,3 +39,39 @@ The makeParamList function creates and initializes a new ParamListInfo structure
 - The allocated structure includes space for both the header (ParamListInfoData) and an array of parameter data (ParamExternData)
 - All hook functions (paramFetch, paramCompile) are initially set to NULL
 - The function is located in src/backend/nodes/params.c at lines 44-77
+
+## Simplified Source
+
+```c
+// Simplified version of makeParamList
+ParamListInfo makeParamList(int numParams) {
+    // Calculate total memory needed: header + array of parameter slots
+    Size size = offsetof(ParamListInfoData, params) +
+                numParams * sizeof(ParamExternData);
+
+    // Allocate and initialize the parameter list structure
+    ParamListInfo paramList = (ParamListInfo) palloc(size);
+
+    // Initialize all hook functions to NULL (no custom behavior)
+    paramList->paramFetch = NULL;
+    paramList->paramFetchArg = NULL;
+    paramList->paramCompile = NULL;
+    paramList->paramCompileArg = NULL;
+
+    // Set up default parser configuration
+    paramList->parserSetup = paramlist_parser_setup;
+    paramList->parserSetupArg = (void *) paramList;
+
+    // Initialize remaining fields
+    paramList->paramValuesStr = NULL;
+    paramList->numParams = numParams;
+
+    return paramList;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Used more descriptive variable name (`paramList` instead of `retval`)
+- Grouped related field initializations together
+- Focused on the main execution path without changing the core logic

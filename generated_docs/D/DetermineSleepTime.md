@@ -46,3 +46,67 @@ The function ensures that background workers are serviced promptly while maintai
 - The maximum sleep time is capped at 60 seconds to ensure periodic maintenance tasks execute
 - During shutdown, the sleep time decreases as the SIGKILL deadline approaches
 - Workers marked as BGW_NEVER_RESTART or flagged for termination are removed from the background worker list
+
+## Simplified Source
+
+```c
+// Simplified version of DetermineSleepTime
+static int DetermineSleepTime(void) {
+    TimestampTz next_wakeup = 0;
+
+    // Normal case: no background workers need attention or we're shutting down
+    if (Shutdown > NoShutdown || (!StartWorkerNeeded && !HaveCrashedWorker)) {
+        // If we're in abort sequence, calculate time left before SIGKILL
+        if (AbortStartTime != 0) {
+            int seconds_left = SIGKILL_CHILDREN_AFTER_SECS - (time(NULL) - AbortStartTime);
+            return Max(seconds_left * 1000, 0);  // Convert to milliseconds, clamp to 0
+        }
+        // Normal operation: sleep for one minute
+        return 60 * 1000;
+    }
+
+    // Background worker needs immediate startup
+    if (StartWorkerNeeded) {
+        return 0;  // No sleep, process immediately
+    }
+
+    // Handle crashed background workers that need restart
+    if (HaveCrashedWorker) {
+        // Find the earliest restart time among all crashed workers
+        for each worker in BackgroundWorkerList {
+            if (worker not crashed)
+                continue;
+
+            if (worker should never restart || worker terminating) {
+                remove worker from list;
+                continue;
+            }
+
+            // Calculate when this worker should be restarted
+            TimestampTz restart_time = worker.crashed_at + (worker.restart_interval * 1000);
+
+            // Track the earliest restart time
+            if (next_wakeup == 0 || restart_time < next_wakeup) {
+                next_wakeup = restart_time;
+            }
+        }
+    }
+
+    // If we have a specific wakeup time, calculate milliseconds until then
+    if (next_wakeup != 0) {
+        int ms_until_wakeup = TimestampDifferenceMilliseconds(GetCurrentTimestamp(), next_wakeup);
+        return Min(60 * 1000, ms_until_wakeup);  // Cap at 60 seconds
+    }
+
+    // Default: sleep for one minute
+    return 60 * 1000;
+}
+```
+
+Key simplifications made:
+- Replaced complex loop with simplified pseudocode for clarity
+- Removed low-level list manipulation details (slist_foreach_modify, slist_container)
+- Consolidated similar conditional branches
+- Added descriptive comments for each major logic section
+- Simplified variable names and calculations where possible
+- Focused on the main decision flow rather than implementation details

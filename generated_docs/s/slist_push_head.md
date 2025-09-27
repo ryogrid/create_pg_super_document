@@ -44,3 +44,25 @@ The function maintains the integrity of the list structure and includes a debug 
 - [List](../L/List.md) integrity is validated through slist_check() in debug builds
 - Part of PostgreSQL's efficient intrusive list implementation that avoids separate memory allocations for list nodes
 - The insertion operation is atomic and does not require any special synchronization for single-threaded use
+
+## Simplified Source
+
+```c
+// Simplified version of slist_push_head
+static inline void slist_push_head(slist_head *head, slist_node *node) {
+    // Step 1: Point new node to current first element
+    node->next = head->head.next;
+
+    // Step 2: Make head point to new node (making it the new first element)
+    head->head.next = node;
+
+    // Step 3: Validate list integrity (debug builds only)
+    slist_check(head);
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the insertion logic
+- Emphasized the two-step pointer manipulation that implements the insertion
+- Maintained the original function structure as it's already quite clean
+- Preserved the debug validation call for completeness

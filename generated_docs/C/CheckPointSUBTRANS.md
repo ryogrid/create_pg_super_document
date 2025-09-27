@@ -35,3 +35,28 @@ The function uses SimpleLruWriteAll to write all dirty pages in the SUBTRANS buf
 - Part of the overall checkpoint process coordinated by CheckPointGuts
 - Uses tracing points for performance monitoring and debugging
 - Forces all dirty SUBTRANS pages to disk regardless of their individual flush requirements
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointSUBTRANS
+void CheckPointSUBTRANS(void) {
+    // Start performance tracing
+    TRACE_POSTGRESQL_SUBTRANS_CHECKPOINT_START(true);
+
+    // Write all dirty SUBTRANS pages to disk
+    // Note: This is a performance optimization, not required for correctness
+    // Subtransaction status can be recovered from WAL if needed
+    SimpleLruWriteAll(SubTransCtl, true);
+
+    // End performance tracing
+    TRACE_POSTGRESQL_SUBTRANS_CHECKPOINT_DONE(true);
+}
+```
+
+Key simplifications made:
+- Preserved the essential write operation for SUBTRANS pages
+- Kept performance tracing calls for monitoring
+- Added comments explaining that this is an optimization, not a correctness requirement
+- Maintained the checkpoint flag parameter (true) to SimpleLruWriteAll
+- Simplified to show the function's core purpose: proactive page writing for performance

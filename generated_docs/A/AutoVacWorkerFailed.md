@@ -37,3 +37,19 @@ After calling this function, the postmaster is expected to send a  signal to the
 - Part of the error handling infrastructure that prevents resource leaks in the autovacuum system
 - The signal flag is cleared by the launcher after it processes the failure notification
 - Helps maintain the integrity of the worker pool when system resources are constrained
+
+## Simplified Source
+
+```c
+// Simplified version of AutoVacWorkerFailed
+void AutoVacWorkerFailed(void) {
+    // Signal the autovacuum launcher that worker creation failed
+    AutoVacuumShmem->av_signal[AutoVacForkFailed] = true;
+}
+```
+
+Key simplifications made:
+- Added explanatory comment describing the function's purpose
+- Maintained the essential signaling mechanism
+- Preserved the shared memory communication with the launcher
+- Kept the simple but critical functionality intact

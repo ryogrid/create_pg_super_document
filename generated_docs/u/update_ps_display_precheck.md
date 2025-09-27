@@ -39,3 +39,31 @@ The function serves as a common validation point used by multiple ps_display fun
 - Returns false if any prerequisite condition is not met, allowing callers to skip costly process title update operations
 - The PS_USE_CLOBBER_ARGV conditional compilation ensures platform-specific checks are only performed when relevant
 - Centralizes the common validation logic used by multiple process status display functions
+
+## Simplified Source
+
+```c
+// Simplified version of update_ps_display_precheck
+static bool update_ps_display_precheck(void) {
+    // Check if process title updates are disabled
+    if (!update_process_title)
+        return false;
+
+    // Check if running as standalone backend (no ps display)
+    if (!IsUnderPostmaster)
+        return false;
+
+#ifdef PS_USE_CLOBBER_ARGV
+    // Check if ps_buffer is properly initialized
+    if (!ps_buffer)
+        return false;
+#endif
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each validation check
+- Maintained essential validation logic for all three conditions
+- Clear structure showing the sequential validation approach

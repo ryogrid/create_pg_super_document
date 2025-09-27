@@ -38,3 +38,32 @@ The function uses PostgreSQL's table access methods to safely scan the system ca
 - Performs minimal scanning - stops after finding the first role rather than counting all roles
 - Properly handles resource cleanup by closing the scan and relation even if no roles are found
 - Critical for detecting improperly initialized database clusters that lack essential bootstrap roles
+
+## Simplified Source
+
+```c
+// Simplified version of ThereIsAtLeastOneRole
+static bool ThereIsAtLeastOneRole(void) {
+    // Open the pg_authid catalog with shared access
+    Relation pg_authid_rel = table_open(AuthIdRelationId, AccessShareLock);
+
+    // Start a catalog scan
+    TableScanDesc scan = table_beginscan_catalog(pg_authid_rel, 0, NULL);
+
+    // Check if there's at least one tuple (role)
+    bool result = (heap_getnext(scan, ForwardScanDirection) != NULL);
+
+    // Clean up resources
+    table_endscan(scan);
+    table_close(pg_authid_rel, AccessShareLock);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations with their usage
+- Added clear comments explaining each step of the catalog scan
+- Highlighted the efficient approach of stopping after finding the first role
+- Maintained proper resource management and locking
+- Focused on the core logic of existence checking rather than counting

@@ -37,3 +37,29 @@ SQL state codes are standardized 5-character identifiers defined by the SQL stan
 - Used extensively throughout PostgreSQL's error handling and logging systems
 - Critical for maintaining SQL standard compliance in error reporting
 - Thread-safety consideration: uses static buffer, so concurrent calls will overwrite each other
+
+## Simplified Source
+
+```c
+// Simplified version of unpack_sql_state
+char *unpack_sql_state(int sql_state) {
+    static char buffer[12];
+
+    // Extract 5 characters from packed integer (6 bits each)
+    for (int i = 0; i < 5; i++) {
+        buffer[i] = PGUNSIXBIT(sql_state);  // Extract 6-bit character
+        sql_state >>= 6;                    // Shift to next 6-bit field
+    }
+
+    // Null terminate the string
+    buffer[5] = '\0';
+
+    return buffer;
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining the bit extraction process
+- Used more descriptive variable name for buffer
+- Clarified the 6-bit extraction and shifting operation
+- Core logic: Extract 5 characters from packed integer using 6-bit fields

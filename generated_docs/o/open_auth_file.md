@@ -49,3 +49,49 @@ The function is designed to work with the include directive functionality in aut
 - Maximum nesting depth is enforced to prevent stack overflow from circular includes
 - Preserves errno for detailed error analysis by calling code
 - Works in conjunction with free_auth_file() for proper resource cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of open_auth_file
+FILE *open_auth_file(const char *filename, int elevel, int depth, char **err_msg) {
+    // Check recursion depth to prevent infinite include loops
+    if (depth > CONF_FILE_MAX_DEPTH) {
+        ereport(elevel, (errcode_for_file_access(),
+                errmsg("could not open file \"%s\": maximum nesting depth exceeded", filename)));
+        if (err_msg)
+            *err_msg = psprintf("could not open file \"%s\": maximum nesting depth exceeded", filename);
+        return NULL;
+    }
+
+    // Attempt to open the file in read mode
+    FILE *file = AllocateFile(filename, "r");
+    if (file == NULL) {
+        // Handle file open failure with detailed error reporting
+        int save_errno = errno;
+        ereport(elevel, (errcode_for_file_access(),
+                errmsg("could not open file \"%s\": %m", filename)));
+        if (err_msg)
+            *err_msg = psprintf("could not open file \"%s\": %s", filename, strerror(save_errno));
+        errno = save_errno;  // Preserve errno for caller
+        return NULL;
+    }
+
+    // Create memory context for tokenization when opening top-level file
+    if (depth == CONF_FILE_START_DEPTH) {
+        tokenize_context = AllocSetContextCreate(CurrentMemoryContext,
+                                                "tokenize_context",
+                                                ALLOCSET_START_SMALL_SIZES);
+    }
+
+    return file;
+}
+```
+
+Key simplifications made:
+- Consolidated error handling logic while preserving essential functionality
+- Simplified variable declarations and moved them closer to usage
+- Maintained all critical safety checks (recursion depth, file access)
+- Preserved error reporting and errno handling for proper debugging
+- Kept memory context creation for tokenization unchanged as it's essential
+- Reduced comments to focus on the main logic flow

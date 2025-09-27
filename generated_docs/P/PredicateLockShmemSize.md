@@ -49,3 +49,56 @@ This function takes no parameters.
 - The sizing assumptions mirror those in InitPredicateLocks(): 2 xacts per target, 10 predicate locking transactions per backend, 5 conflicts per transaction
 - Uses PostgreSQL's overflow-safe arithmetic functions to prevent integer overflow
 - Part of the shared memory size calculation infrastructure used during database cluster startup
+
+## Simplified Source
+
+```c
+// Simplified version of PredicateLockShmemSize
+Size PredicateLockShmemSize(void) {
+    Size total_size = 0;
+    long max_entries;
+
+    // Calculate space for predicate lock target hash table
+    max_entries = NPREDICATELOCKTARGETENTS();
+    total_size = add_size(total_size,
+        hash_estimate_size(max_entries, sizeof(PREDICATELOCKTARGET)));
+
+    // Calculate space for predicate lock hash table (2x targets)
+    max_entries *= 2;
+    total_size = add_size(total_size,
+        hash_estimate_size(max_entries, sizeof(PREDICATELOCK)));
+
+    // Add 10% safety margin for estimation uncertainty
+    total_size = add_size(total_size, total_size / 10);
+
+    // Calculate space for serializable transaction structures
+    max_entries = (MaxBackends + max_prepared_xacts) * 10;
+    total_size = add_size(total_size, PredXactListDataSize);
+    total_size = add_size(total_size,
+        mul_size((Size) max_entries, sizeof(SERIALIZABLEXACT)));
+
+    // Calculate space for transaction XID hash table
+    total_size = add_size(total_size,
+        hash_estimate_size(max_entries, sizeof(SERIALIZABLEXID)));
+
+    // Calculate space for read-write conflict pool (5x transactions)
+    max_entries *= 5;
+    total_size = add_size(total_size, RWConflictPoolHeaderDataSize);
+    total_size = add_size(total_size,
+        mul_size((Size) max_entries, RWConflictDataSize));
+
+    // Add space for finished transaction list and SLRU components
+    total_size = add_size(total_size, sizeof(dlist_head));
+    total_size = add_size(total_size, sizeof(SerialControlData));
+    total_size = add_size(total_size, SimpleLruShmemSize(serializable_buffers, 0));
+
+    return total_size;
+}
+```
+
+Key simplifications made:
+- Renamed variables for clarity (size → total_size, max_table_size → max_entries)
+- Consolidated comments to explain each major calculation step
+- Grouped related calculations together logically
+- Maintained the exact same calculation logic and order
+- Preserved all safety mechanisms and overflow protection

@@ -44,3 +44,78 @@ The function first reads the 4-byte message length in network byte order, valida
 - Implements graceful error recovery by discarding oversized messages to maintain protocol sync
 - Returns 0 on success, EOF on communication errors
 - Sets PqCommReadingMsg to false when message reading is complete
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getmessage
+int pq_getmessage(StringInfo s, int maxlen) {
+    int32 message_length;
+
+    // Ensure we're in message reading state
+    Assert(PqCommReadingMsg);
+
+    // Initialize the string buffer
+    resetStringInfo(s);
+
+    // Read the 4-byte message length header
+    if (pq_getbytes((char *) &message_length, 4) == EOF) {
+        ereport(COMMERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                           errmsg("unexpected EOF within message length word")));
+        return EOF;
+    }
+
+    // Convert from network byte order and validate length
+    message_length = pg_ntoh32(message_length);
+    if (message_length < 4 || message_length > maxlen) {
+        ereport(COMMERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                           errmsg("invalid message length")));
+        return EOF;
+    }
+
+    // Subtract length word itself from message body size
+    message_length -= 4;
+
+    if (message_length > 0) {
+        // Allocate space for message body with error recovery
+        PG_TRY();
+        {
+            enlargeStringInfo(s, message_length);
+        }
+        PG_CATCH();
+        {
+            // Discard message to maintain protocol sync
+            if (pq_discardbytes(message_length) == EOF) {
+                ereport(COMMERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                                   errmsg("incomplete message from client")));
+            }
+            PqCommReadingMsg = false;
+            PG_RE_THROW();
+        }
+        PG_END_TRY();
+
+        // Read the actual message body
+        if (pq_getbytes(s->data, message_length) == EOF) {
+            ereport(COMMERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                               errmsg("incomplete message from client")));
+            return EOF;
+        }
+
+        // Set message length and null-terminate
+        s->len = message_length;
+        s->data[message_length] = '\0';
+    }
+
+    // Mark message reading as complete
+    PqCommReadingMsg = false;
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Used more descriptive variable name (message_length vs len)
+- Organized the code into logical sections (header reading, validation, body reading)
+- Preserved essential error handling and protocol synchronization
+- Maintained exception handling for memory allocation failures
+- Clarified the purpose of length adjustment and null termination

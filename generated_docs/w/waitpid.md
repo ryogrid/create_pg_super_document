@@ -44,3 +44,50 @@ This function provides a Windows-compatible implementation of the POSIX waitpid(
 - Properly cleans up Windows handles and allocated memory structures
 - Falls back to a fixed exit code (255) if the actual exit code cannot be retrieved
 - Located in src/backend/postmaster/postmaster.c:4594-4647
+
+## Simplified Source
+
+```c
+// Simplified version of waitpid
+// Windows-specific implementation of POSIX waitpid() for non-blocking child process checking
+static pid_t waitpid(pid_t pid, int *exitstatus, int options) {
+    win32_deadchild_waitinfo *childinfo;
+    DWORD exitcode;
+    DWORD dwd;
+    ULONG_PTR key;
+    OVERLAPPED *ovl;
+
+    // Try to get a dead child process from the completion queue
+    if (!GetQueuedCompletionStatus(win32ChildQueue, &dwd, &key, &ovl, 0)) {
+        errno = EAGAIN;  // No dead children available
+        return -1;
+    }
+
+    // Extract child process information
+    childinfo = (win32_deadchild_waitinfo *) key;
+    pid = childinfo->procId;
+
+    // Clean up the wait handle
+    UnregisterWaitEx(childinfo->waitHandle, NULL);
+
+    // Get the process exit code
+    if (!GetExitCodeProcess(childinfo->procHandle, &exitcode)) {
+        write_stderr("could not read exit code for process\n");
+        exitcode = 255;  // Fallback exit code
+    }
+    *exitstatus = exitcode;
+
+    // Clean up process handle and allocated memory
+    CloseHandle(childinfo->procHandle);
+    pfree(childinfo);
+
+    return pid;  // Return the PID of the dead child
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about Windows-specific behavior assumptions
+- Consolidated error handling logic
+- Focused on the main execution flow: check queue → extract info → cleanup → return
+- Abstracted the Windows API complexity with brief descriptive comments
+- Maintained the essential algorithm structure and return values

@@ -54,3 +54,45 @@ This function takes no parameters.
 - On Windows, the process handle allows for both polling (with timeout 0) and blocking waits
 - Failure to initialize this mechanism is considered FATAL as it's critical for proper process lifecycle management
 - The non-blocking flag on Unix allows children to test for postmaster death without blocking via `read()` calls that return 0 on EOF
+
+## Simplified Source
+
+```c
+// Simplified version of InitPostmasterDeathWatchHandle
+static void InitPostmasterDeathWatchHandle(void) {
+    // Verify this is called only in the postmaster process
+    Assert(MyProcPid == PostmasterPid);
+
+#ifndef WIN32
+    // Unix/Linux: Create a pipe for death monitoring
+    // Parent keeps write end, children get read end
+    if (pipe(postmaster_alive_fds) < 0) {
+        ereport(FATAL, (errmsg_internal("could not create pipe to monitor postmaster death")));
+    }
+
+    // Reserve file descriptors for the pipe
+    ReserveExternalFD();
+    ReserveExternalFD();
+
+    // Set read end to non-blocking for polling
+    if (fcntl(postmaster_alive_fds[POSTMASTER_FD_WATCH], F_SETFL, O_NONBLOCK) == -1) {
+        ereport(FATAL, (errmsg_internal("could not set pipe to nonblocking mode")));
+    }
+
+#else
+    // Windows: Duplicate process handle for death monitoring
+    if (DuplicateHandle(GetCurrentProcess(), GetCurrentProcess(),
+                       GetCurrentProcess(), &PostmasterHandle,
+                       0, TRUE, DUPLICATE_SAME_ACCESS) == 0) {
+        ereport(FATAL, (errmsg_internal("could not duplicate postmaster handle")));
+    }
+#endif
+}
+```
+
+Key simplifications made:
+- Removed detailed error codes for clarity
+- Simplified error messages while preserving essential information
+- Consolidated comments to focus on core functionality
+- Maintained the critical platform-specific logic paths
+- Preserved all essential error handling and assertions

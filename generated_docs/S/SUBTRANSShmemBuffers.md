@@ -35,3 +35,24 @@ This function takes no parameters and returns an integer representing the number
 - Part of PostgreSQL's shared memory initialization sequence during server startup
 - The buffer count directly affects performance of nested transaction operations
 - Static function used internally within the SUBTRANS subsystem for memory management
+
+## Simplified Source
+
+```c
+// Simplified version of SUBTRANSShmemBuffers
+static int SUBTRANSShmemBuffers(void) {
+    // Auto-tune based on shared buffers if not explicitly configured
+    if (subtransaction_buffers == 0)
+        return SimpleLruAutotuneBuffers(512, 1024);
+
+    // Enforce reasonable bounds for configured values
+    return Min(Max(16, subtransaction_buffers), SLRU_MAX_ALLOWED_BUFFERS);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining auto-tuning vs configured mode
+- Preserved essential bounds checking and auto-tuning logic
+- Maintained the 2MB per 1GB ratio through SimpleLruAutotuneBuffers call
+- Focused on the core responsibility: determining optimal buffer count
+- Kept the minimum 16 buffer requirement for basic functionality

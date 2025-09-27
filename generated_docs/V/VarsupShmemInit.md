@@ -33,3 +33,30 @@ VarsupShmemInit is responsible for initializing the shared memory segment that c
 - [Backend](../B/Backend.md) processes attach to existing shared memory structure
 - Essential for maintaining consistent transaction state across all processes
 - The function includes assertions to verify correct initialization behavior
+
+## Simplified Source
+
+```c
+// Simplified version of VarsupShmemInit
+void VarsupShmemInit(void) {
+    bool found;
+
+    // Initialize shared memory structure for transaction variables
+    TransamVariables = ShmemInitStruct("TransamVariables",
+                                      sizeof(TransamVariablesData),
+                                      &found);
+
+    // If this is the postmaster process (startup)
+    if (!IsUnderPostmaster) {
+        // Create new structure and zero initialize it
+        memset(TransamVariables, 0, sizeof(TransamVariablesData));
+    }
+    // Backend processes just attach to existing structure
+}
+```
+
+Key simplifications made:
+- Removed assertions for clarity (focusing on core logic)
+- Added descriptive comments explaining the two execution paths
+- Maintained the essential initialization logic
+- Focused on the main purpose: shared memory initialization for transaction variables

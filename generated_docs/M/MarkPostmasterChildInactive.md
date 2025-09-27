@@ -41,3 +41,27 @@ This function takes no parameters but operates on:
 - This is part of the postmaster-child communication mechanism used for process lifecycle tracking
 - Must be called from child processes during their cleanup/exit sequence
 - After this call, the process should not access shared memory structures
+
+## Simplified Source
+
+```c
+// Simplified version of MarkPostmasterChildInactive
+void MarkPostmasterChildInactive(void) {
+    // Get our assigned slot number (convert from 1-based to 0-based)
+    int slot = MyPMChildSlot - 1;
+
+    // Verify slot is valid and process is currently active
+    // (either regular active or WAL sender process)
+
+    // Mark this child process as no longer active
+    // Transition back to ASSIGNED state for cleanup
+    PMSignalState->PMChildFlags[slot] = PM_CHILD_ASSIGNED;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertion checks for clarity
+- Combined slot calculation into single step
+- Added explanatory comments for each logical step
+- Focused on the core state transition logic
+- Abstracted validation details while preserving intent

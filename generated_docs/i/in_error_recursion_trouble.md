@@ -38,3 +38,20 @@ This function provides a centralized mechanism to detect when the PostgreSQL err
 - The threshold of 2 levels is conservative but allows for normal error recovery patterns while catching dangerous recursion early
 - Part of PostgreSQL's robust error handling infrastructure designed to handle error-on-error scenarios gracefully
 - When this function returns true, callers typically switch to simplified, non-recursive error handling modes
+
+## Simplified Source
+
+```c
+// Simplified version of in_error_recursion_trouble
+bool in_error_recursion_trouble(void) {
+    // Check if error handling has recursed too deeply
+    // Return true if recursion depth exceeds safe threshold (2 levels)
+    return (recursion_depth > 2);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core logic
+- The function is already quite simple, so minimal changes were needed
+- Preserved the essential threshold check that prevents infinite recursion
+- Focused on the main safety mechanism: depth > 2 indicates trouble

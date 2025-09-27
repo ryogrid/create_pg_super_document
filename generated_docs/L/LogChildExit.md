@@ -44,3 +44,60 @@ LogChildExit is a utility function that generates comprehensive log messages whe
 - Includes translator comments for internationalization support
 - The activity detail helps administrators debug process crashes by showing what SQL or operation was running
 - Critical for PostgreSQL's observability and debugging capabilities during process failures
+
+## Simplified Source
+
+```c
+// Simplified version of LogChildExit
+static void LogChildExit(int log_level, const char *process_name, int pid, int exit_status) {
+    char activity_buffer[1024];
+    const char *activity = NULL;
+
+    // Get crashed backend activity for abnormal exits
+    if (!EXIT_STATUS_0(exit_status)) {
+        activity = pgstat_get_crashed_backend_activity(pid, activity_buffer, sizeof(activity_buffer));
+    }
+
+    // Handle normal exit
+    if (WIFEXITED(exit_status)) {
+        ereport(log_level,
+                (errmsg("%s (PID %d) exited with exit code %d",
+                        process_name, pid, WEXITSTATUS(exit_status)),
+                 activity ? errdetail("Failed process was running: %s", activity) : 0));
+    }
+    // Handle signal termination
+    else if (WIFSIGNALED(exit_status)) {
+        int signal_num = WTERMSIG(exit_status);
+
+#if defined(WIN32)
+        // Windows: report exception code
+        ereport(log_level,
+                (errmsg("%s (PID %d) was terminated by exception 0x%X",
+                        process_name, pid, signal_num),
+                 errhint("See C include file \"ntstatus.h\" for description"),
+                 activity ? errdetail("Failed process was running: %s", activity) : 0));
+#else
+        // Unix: report signal number and name
+        ereport(log_level,
+                (errmsg("%s (PID %d) was terminated by signal %d: %s",
+                        process_name, pid, signal_num, pg_strsignal(signal_num)),
+                 activity ? errdetail("Failed process was running: %s", activity) : 0));
+#endif
+    }
+    // Handle unrecognized exit status
+    else {
+        ereport(log_level,
+                (errmsg("%s (PID %d) exited with unrecognized status %d",
+                        process_name, pid, exit_status),
+                 activity ? errdetail("Failed process was running: %s", activity) : 0));
+    }
+}
+```
+
+Key simplifications made:
+- Renamed parameters to more descriptive names (log_level, process_name)
+- Condensed platform-specific code blocks for better readability
+- Extracted signal_num variable to reduce repetition
+- Simplified conditional activity detail attachment
+- Removed verbose translator comments while preserving functionality
+- Maintained the core three-way branching logic for different exit types

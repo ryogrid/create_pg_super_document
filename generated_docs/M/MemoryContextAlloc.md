@@ -45,3 +45,32 @@ The function is designed with performance optimizations in mind, including poten
 - The function serves as the foundation for higher-level allocation functions like palloc() and palloc0()
 - Actual allocation strategy depends on the specific memory context type (AllocSet, Bump, Generation, etc.)
 - This is one of the most frequently called functions in PostgreSQL, making its performance characteristics crucial
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextAlloc
+void *MemoryContextAlloc(MemoryContext context, Size size) {
+    // Validate context and ensure not in critical section
+    Assert(MemoryContextIsValid(context));
+    AssertNotInCriticalSection(context);
+
+    // Mark context as containing allocated memory
+    context->isReset = false;
+
+    // Delegate to context-specific allocation method
+    void *ret = context->methods->alloc(context, size, 0);
+
+    // Track allocation for debugging tools
+    VALGRIND_MEMPOOL_ALLOC(context, ret, size);
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about implementation decisions and optimizations
+- Consolidated variable declaration with assignment
+- Focused on the core allocation workflow
+- Preserved essential validation and debugging integration
+- Maintained the delegation pattern to context-specific methods

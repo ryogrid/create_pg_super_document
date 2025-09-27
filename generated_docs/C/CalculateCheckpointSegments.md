@@ -37,3 +37,32 @@ This function takes no parameters and operates on global variables:
 - Minimum value is enforced (CheckPointSegments >= 1) to prevent degenerate cases
 - This calculation is critical for WAL management and affects both performance and disk space usage
 - Changes to max_wal_size or checkpoint_completion_target trigger recalculation
+
+## Simplified Source
+
+```c
+// Simplified version of CalculateCheckpointSegments
+static void CalculateCheckpointSegments(void) {
+    // Convert max WAL size from MB to segments
+    double max_wal_segments = ConvertToXSegs(max_wal_size_mb, wal_segment_size);
+
+    // Calculate checkpoint trigger distance accounting for WAL generated during checkpoint
+    // Formula: max_segments / (1 + completion_target)
+    // This ensures we don't exceed max_wal_size even with checkpoint overhead
+    double target = max_wal_segments / (1.0 + CheckPointCompletionTarget);
+
+    // Round down for conservative behavior
+    CheckPointSegments = (int) target;
+
+    // Ensure minimum of 1 segment
+    if (CheckPointSegments < 1) {
+        CheckPointSegments = 1;
+    }
+}
+```
+
+Key simplifications made:
+- Added intermediate variable for clarity (max_wal_segments)
+- Simplified the complex comment into concise inline comments
+- Focused on the core calculation logic
+- Preserved the essential algorithm and boundary conditions

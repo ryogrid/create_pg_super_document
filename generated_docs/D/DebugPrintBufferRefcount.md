@@ -43,3 +43,59 @@ This function serves as a debugging helper that produces comprehensive diagnosti
 - The function includes a note that theoretically the buffer header should be locked, but this is typically called in debugging contexts where strict locking may not be practical
 - Output format: "[buffer_id] (rel=path, blockNum=num, flags=0xX, refcount=shared private)"
 - Used extensively throughout the buffer management system for diagnostic and error reporting purposes
+
+## Simplified Source
+
+```c
+// Simplified version of DebugPrintBufferRefcount
+char *DebugPrintBufferRefcount(Buffer buffer) {
+    BufferDesc *buf_desc;
+    int32 local_refcount;
+    ProcNumber backend_proc;
+    char *file_path;
+    char *debug_info;
+
+    Assert(BufferIsValid(buffer));
+
+    // Step 1: Get buffer descriptor and reference count based on buffer type
+    if (BufferIsLocal(buffer)) {
+        // Handle local buffer (negative buffer ID)
+        buf_desc = GetLocalBufferDescriptor(-buffer - 1);
+        local_refcount = LocalRefCount[-buffer - 1];
+        backend_proc = MyProcNumber;
+    } else {
+        // Handle shared buffer (positive buffer ID)
+        buf_desc = GetBufferDescriptor(buffer - 1);
+        local_refcount = GetPrivateRefCount(buffer);
+        backend_proc = INVALID_PROC_NUMBER;
+    }
+
+    // Step 2: Get file path for the relation
+    file_path = relpathbackend(BufTagGetRelFileLocator(&buf_desc->tag),
+                              backend_proc,
+                              BufTagGetForkNum(&buf_desc->tag));
+
+    // Step 3: Read current buffer state atomically
+    uint32 current_state = pg_atomic_read_u32(&buf_desc->state);
+
+    // Step 4: Format comprehensive debug information
+    debug_info = psprintf("[%03d] (rel=%s, blockNum=%u, flags=0x%x, refcount=%u %d)",
+                         buffer,
+                         file_path,
+                         buf_desc->tag.blockNum,
+                         current_state & BUF_FLAG_MASK,
+                         BUF_STATE_GET_REFCOUNT(current_state),
+                         local_refcount);
+
+    pfree(file_path);
+    return debug_info;
+}
+```
+
+Key simplifications made:
+- Renamed variables for clarity (buf -> buf_desc, loccount -> local_refcount, etc.)
+- Added step-by-step comments explaining the logic flow
+- Grouped related operations together for better readability
+- Maintained the distinction between local and shared buffer handling
+- Preserved all essential diagnostic information
+- Kept the memory management (pfree) for the file path

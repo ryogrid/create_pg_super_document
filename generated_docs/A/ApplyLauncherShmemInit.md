@@ -38,3 +38,42 @@ This function sets up the shared memory infrastructure for the logical replicati
 - The function works with the max_logical_replication_workers configuration parameter
 - Creates properly aligned and initialized shared memory structures for logical replication workers
 - Returns void (no return value)
+
+## Simplified Source
+
+```c
+// Simplified version of ApplyLauncherShmemInit
+void ApplyLauncherShmemInit(void) {
+    bool found;
+
+    // Step 1: Get or create shared memory for logical replication launcher
+    LogicalRepCtx = ShmemInitStruct("Logical Replication Launcher Data",
+                                   ApplyLauncherShmemSize(), &found);
+
+    // Step 2: Initialize shared memory if newly created
+    if (!found) {
+        // Clear all memory
+        memset(LogicalRepCtx, 0, ApplyLauncherShmemSize());
+
+        // Set invalid handles for dynamic shared areas
+        LogicalRepCtx->last_start_dsa = DSA_HANDLE_INVALID;
+        LogicalRepCtx->last_start_dsh = DSHASH_HANDLE_INVALID;
+
+        // Step 3: Initialize each worker slot
+        for (int slot = 0; slot < max_logical_replication_workers; slot++) {
+            LogicalRepWorker *worker = &LogicalRepCtx->workers[slot];
+
+            // Clear worker data and initialize its mutex
+            memset(worker, 0, sizeof(LogicalRepWorker));
+            SpinLockInit(&worker->relmutex);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed variable declarations and placed them inline
+- Added clear step-by-step comments explaining the initialization process
+- Consolidated the worker initialization logic with descriptive comments
+- Focused on the main execution path for new shared memory initialization
+- Made the three-phase process more explicit: get memory, set handles, initialize workers

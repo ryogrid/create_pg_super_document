@@ -36,3 +36,27 @@ This function optionally suppresses the CONTEXT: field from appearing in log ent
 - Commonly used in memory context debugging and JIT compilation contexts
 - Part of PostgreSQL's error reporting system for controlling log verbosity
 - Helps maintain readable logs by suppressing repetitive context information in debugging scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of errhidecontext
+int errhidecontext(bool hide_ctx) {
+    // Get current error data from stack
+    ErrorData *current_error = &errordata[errordata_stack_depth];
+
+    // Verify stack is in valid state
+    CHECK_STACK_DEPTH();
+
+    // Set context hiding flag
+    current_error->hide_ctx = hide_ctx;
+
+    // Return value not used, always 0
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for error data
+- Added clear comments explaining each step
+- Core logic: Get current error data, verify stack, set hide context flag

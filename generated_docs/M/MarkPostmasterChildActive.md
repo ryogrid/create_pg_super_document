@@ -43,3 +43,22 @@ This function takes no parameters but operates on:
 - Slot numbers are 1-based externally but converted to 0-based for array indexing
 - This is part of the postmaster-child communication mechanism used for process lifecycle tracking
 - Must be called from child processes only, not from the postmaster itself
+
+## Simplified Source
+
+```c
+// Simplified version of MarkPostmasterChildActive
+void MarkPostmasterChildActive(void) {
+    // Get this child's slot number (convert from 1-based to 0-based indexing)
+    int slot = MyPMChildSlot - 1;
+
+    // Mark this child as actively using shared memory
+    PMSignalState->PMChildFlags[slot] = PM_CHILD_ACTIVE;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity
+- Combined slot calculation and adjustment into single step
+- Added explanatory comments for the main operations
+- Focused on the core state transition logic

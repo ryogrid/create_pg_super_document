@@ -47,3 +47,80 @@ The function includes platform-specific handling for EXEC_BACKEND builds, allowi
 - Automatically registers cleanup callbacks to ensure proper resource management
 - Fails fatally on unrecoverable errors (except for expected collisions with existing segments)
 - The function is designed to work around various kernel quirks, particularly on BSD-derived systems
+
+## Simplified Source
+
+```c
+// Simplified version of InternalIpcMemoryCreate
+static void *
+InternalIpcMemoryCreate(IpcMemoryKey memKey, Size size)
+{
+    IpcMemoryId shmid;
+    void *requestedAddress = NULL;
+    void *memAddress;
+
+    // Platform-specific address handling for EXEC_BACKEND builds
+#ifdef EXEC_BACKEND
+    char *pg_shmem_addr = getenv("PG_SHMEM_ADDR");
+    if (pg_shmem_addr)
+        requestedAddress = (void *) strtoul(pg_shmem_addr, NULL, 0);
+#if defined(__darwin__) && SIZEOF_VOID_P == 8
+    else
+        requestedAddress = (void *) 0x80000000000;  // macOS ASLR workaround
+#endif
+#endif
+
+    // Create new shared memory segment
+    shmid = shmget(memKey, size, IPC_CREAT | IPC_EXCL | IPCProtection);
+
+    if (shmid < 0) {
+        int shmget_errno = errno;
+
+        // Handle expected collisions with existing segments
+        if (shmget_errno == EEXIST || shmget_errno == EACCES || shmget_errno == EIDRM)
+            return NULL;
+
+        // BSD kernel workaround: retry with size=0 to distinguish EINVAL causes
+        if (shmget_errno == EINVAL) {
+            shmid = shmget(memKey, 0, IPC_CREAT | IPC_EXCL | IPCProtection);
+            if (shmid < 0) {
+                if (errno == EEXIST || errno == EACCES || errno == EIDRM)
+                    return NULL;
+            } else {
+                // Clean up zero-size segment and report original error
+                shmctl(shmid, IPC_RMID, NULL);
+            }
+        }
+
+        // Fatal error for unrecoverable conditions
+        errno = shmget_errno;
+        ereport(FATAL, (errmsg("could not create shared memory segment: %m")));
+    }
+
+    // Register cleanup callbacks
+    on_shmem_exit(IpcMemoryDelete, Int32GetDatum(shmid));
+
+    // Attach segment to current process
+    memAddress = shmat(shmid, requestedAddress, PG_SHMAT_FLAGS);
+    if (memAddress == (void *) -1)
+        elog(FATAL, "shmat failed: %m");
+
+    // Register detach callback
+    on_shmem_exit(IpcMemoryDetach, PointerGetDatum(memAddress));
+
+    // Record segment info in lock file
+    char line[64];
+    sprintf(line, "%9lu %9lu", (unsigned long) memKey, (unsigned long) shmid);
+    AddToDataDirLockFile(LOCK_FILE_LINE_SHMEM_KEY, line);
+
+    return memAddress;
+}
+```
+
+Key simplifications made:
+- Removed verbose error messages and detailed hints for specific error conditions
+- Consolidated BSD kernel workaround logic while preserving core functionality
+- Simplified platform-specific address handling logic
+- Reduced complex nested error handling to essential error paths
+- Maintained all critical operations: segment creation, attachment, and cleanup registration
+- Preserved the core algorithm flow and return behavior

@@ -49,3 +49,48 @@ This function takes no parameters.
 - Critical for establishing a consistent configuration baseline before applying user settings
 - The function ensures all built-in GUC parameters are properly initialized with their default values
 - Located in src/backend/utils/misc/guc.c:1532-1590
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeGUCOptions
+void InitializeGUCOptions(void) {
+    HASH_SEQ_STATUS status;
+    GUCHashEntry *hentry;
+
+    // Step 1: Initialize timezone for early logging support
+    pg_timezone_initialize();
+
+    // Step 2: Create GUC memory context and build hash table
+    build_guc_variables();
+
+    // Step 3: Initialize all GUC variables with default values
+    hash_seq_init(&status, guc_hashtab);
+    while ((hentry = (GUCHashEntry *) hash_seq_search(&status)) != NULL) {
+        // Validate parameter state and initialize with defaults
+        Assert(check_GUC_init(hentry->gucvar));
+        InitializeOneGUCOption(hentry->gucvar);
+    }
+
+    // Step 4: Disable reporting during startup
+    reporting_enabled = false;
+
+    // Step 5: Set transaction modes to safe defaults
+    SetConfigOption("transaction_isolation", "read committed",
+                    PGC_POSTMASTER, PGC_S_OVERRIDE);
+    SetConfigOption("transaction_read_only", "no",
+                    PGC_POSTMASTER, PGC_S_OVERRIDE);
+    SetConfigOption("transaction_deferrable", "no",
+                    PGC_POSTMASTER, PGC_S_OVERRIDE);
+
+    // Step 6: Process environment variable defaults
+    InitializeGUCOptionsFromEnvironment();
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments to clarify the initialization phases
+- Consolidated the transaction mode settings into a single logical group
+- Removed detailed inline comments in favor of high-level step descriptions
+- Maintained the essential algorithm flow and all function calls
+- Focused on the main execution path without losing critical functionality

@@ -46,3 +46,38 @@ This function produces a C-string representation of a TimestampTz value with the
 - Commonly used in WAL-related logging and transaction processing messages
 - Alternative to timestamptz_out when ISO format is specifically required
 - Buffer size is limited to MAXDATELEN + 1 characters
+
+## Simplified Source
+
+```c
+// Simplified version of timestamptz_to_str
+const char *timestamptz_to_str(TimestampTz t) {
+    static char buf[MAXDATELEN + 1];
+    int tz;
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+    const char *tzn;
+
+    // Handle special cases: infinite timestamps
+    if (TIMESTAMP_NOT_FINITE(t)) {
+        EncodeSpecialTimestamp(t, buf);
+    }
+    // Convert timestamp to broken-down time components
+    else if (timestamp2tm(t, &tz, tm, &fsec, &tzn, NULL) == 0) {
+        // Encode the datetime components into ISO format string
+        EncodeDateTime(tm, fsec, true, tz, tzn, USE_ISO_DATES, buf);
+    }
+    // Handle out-of-range timestamps
+    else {
+        strlcpy(buf, "(timestamp out of range)", sizeof(buf));
+    }
+
+    return buf;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Preserved the three-way branching logic for different timestamp states
+- Maintained the essential algorithm: special case handling, conversion, and encoding
+- Focused on the main execution paths without removing critical functionality

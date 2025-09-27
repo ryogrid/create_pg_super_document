@@ -36,3 +36,31 @@ This function sets up kqueue-based monitoring for latch signaling in PostgreSQL'
 - The EVFILT_SIGNAL filter allows kqueue to monitor for specific signal deliveries
 - Essential component of PostgreSQL's event-driven architecture for background processes and inter-process communication
 - Provides an alternative to polling-based approaches for latch waiting on BSD-derived systems
+
+## Simplified Source
+
+```c
+// Simplified version of WaitEventAdjustKqueueAddLatch
+static inline void WaitEventAdjustKqueueAddLatch(struct kevent *k_ev, WaitEvent *event) {
+    // Configure kevent to monitor SIGURG for latch signaling
+    k_ev->ident = SIGURG;
+    k_ev->filter = EVFILT_SIGNAL;
+    k_ev->flags = EV_ADD;  // Add this event to kqueue monitoring
+
+    // Clear additional filter flags and data
+    k_ev->fflags = 0;
+    k_ev->data = 0;
+
+    // Associate the kevent with our WaitEvent structure
+    AccessWaitEvent(k_ev) = event;
+
+    // Note: For now latch can only be added, not removed
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining the latch signaling mechanism
+- Clarified that SIGURG is used specifically for latch communication
+- Maintained the exact same logic as this is already a simple utility function
+- Preserved the comment about add-only functionality
+- Explained the purpose of each kevent field for signal monitoring

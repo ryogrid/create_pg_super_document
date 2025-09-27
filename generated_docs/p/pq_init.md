@@ -55,3 +55,73 @@ Key operations performed:
 - The function sets up non-blocking I/O with wait events for interruptible communication
 - Process exit cleanup is automatically registered to close the socket
 - The returned Port structure becomes the primary interface for all backend-client communication
+
+## Simplified Source
+
+```c
+// Simplified version of pq_init
+Port *
+pq_init(ClientSocket *client_sock)
+{
+    Port *port;
+
+    // Step 1: Allocate and initialize Port structure
+    port = palloc0(sizeof(Port));
+    port->sock = client_sock->sock;
+    memcpy(&port->raddr.addr, &client_sock->raddr.addr, client_sock->raddr.salen);
+    port->raddr.salen = client_sock->raddr.salen;
+
+    // Step 2: Get server (local) address information
+    port->laddr.salen = sizeof(port->laddr.addr);
+    if (getsockname(port->sock, (struct sockaddr *) &port->laddr.addr, &port->laddr.salen) < 0) {
+        ereport(FATAL, (errmsg("getsockname() failed: %m")));
+    }
+
+    // Step 3: Configure TCP socket options (if not Unix socket)
+    if (port->laddr.addr.ss_family != AF_UNIX) {
+        int on = 1;
+
+        // Enable TCP_NODELAY for lower latency
+        setsockopt(port->sock, IPPROTO_TCP, TCP_NODELAY, (char *) &on, sizeof(on));
+
+        // Enable SO_KEEPALIVE for connection monitoring
+        setsockopt(port->sock, SOL_SOCKET, SO_KEEPALIVE, (char *) &on, sizeof(on));
+
+        // Platform-specific optimizations (Windows send buffer, etc.)
+        // ... platform-specific code simplified ...
+
+        // Apply keepalive parameters
+        pq_setkeepalivesidle(tcp_keepalives_idle, port);
+        pq_setkeepalivesinterval(tcp_keepalives_interval, port);
+        pq_setkeepalivescount(tcp_keepalives_count, port);
+        pq_settcpusertimeout(tcp_user_timeout, port);
+    }
+
+    // Step 4: Initialize communication buffers and state
+    PqSendBufferSize = PQ_SEND_BUFFER_SIZE;
+    PqSendBuffer = MemoryContextAlloc(TopMemoryContext, PqSendBufferSize);
+    PqSendPointer = PqSendStart = PqRecvPointer = PqRecvLength = 0;
+    PqCommBusy = false;
+    PqCommReadingMsg = false;
+
+    // Step 5: Set up cleanup and non-blocking I/O
+    on_proc_exit(socket_close, 0);
+    pg_set_noblock(port->sock);  // Unix only
+
+    // Step 6: Create wait event set for asynchronous operations
+    FeBeWaitSet = CreateWaitEventSet(NULL, FeBeWaitSetNEvents);
+    AddWaitEventToSet(FeBeWaitSet, WL_SOCKET_WRITEABLE, port->sock, NULL, NULL);
+    AddWaitEventToSet(FeBeWaitSet, WL_LATCH_SET, PGINVALID_SOCKET, MyLatch, NULL);
+    AddWaitEventToSet(FeBeWaitSet, WL_POSTMASTER_DEATH, PGINVALID_SOCKET, NULL, NULL);
+
+    return port;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for socket operations (kept only critical ones)
+- Consolidated platform-specific code into comments
+- Abstracted Windows-specific buffer optimization details
+- Simplified variable declarations and removed debug-only variables
+- Focused on the main execution path while preserving core functionality
+- Removed detailed comments explaining Windows optimization rationale

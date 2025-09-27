@@ -35,3 +35,43 @@ When the process is dying and the write operation is blocked, the function caref
 - More restrictive than ProcessClientReadInterrupt, only handling specific interrupt conditions
 - Critical for preventing stuck client connections from indefinitely delaying server shutdown
 - Uses whereToSendOutput redirection to prevent problematic client communication during termination
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessClientWriteInterrupt
+void ProcessClientWriteInterrupt(bool blocked) {
+    // Preserve errno value across function execution
+    int saved_errno = errno;
+
+    // Check if process is scheduled to die
+    if (ProcDiePending) {
+        if (blocked) {
+            // Write is blocked - handle termination if safe to do so
+            if (InterruptHoldoffCount == 0 && CritSectionCount == 0) {
+                // Redirect output to prevent protocol sync issues
+                if (whereToSendOutput == DestRemote) {
+                    whereToSendOutput = DestNone;
+                }
+
+                // Process the termination request
+                CHECK_FOR_INTERRUPTS();
+            }
+        } else {
+            // About to write or done writing - ensure latch is set
+            // so we can respond to termination signal promptly
+            SetLatch(MyLatch);
+        }
+    }
+
+    // Restore original errno value
+    errno = saved_errno;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the logic flow
+- Used more descriptive variable name (saved_errno vs save_errno)
+- Clarified the two main execution paths (blocked vs not blocked)
+- Preserved critical safety checks and protocol handling
+- Maintained errno preservation requirement

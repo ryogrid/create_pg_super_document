@@ -42,3 +42,30 @@ Additionally, when include_command_not_found is true, the function treats shell 
 - When false, only exit codes > 128 (signal-based) are considered abnormal
 - Part of PostgreSQL's wait error handling utilities for robust process management
 - Particularly useful in archive and recovery operations where external commands may fail
+
+## Simplified Source
+
+```c
+// Simplified version of wait_result_is_any_signal
+bool wait_result_is_any_signal(int exit_status, bool include_command_not_found) {
+    // Direct signal termination: process was killed by a signal
+    if (WIFSIGNALED(exit_status))
+        return true;
+
+    // Shell-reported signal termination or command execution errors
+    if (WIFEXITED(exit_status)) {
+        int threshold = include_command_not_found ? 125 : 128;
+        if (WEXITSTATUS(exit_status) > threshold)
+            return true;
+    }
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two detection mechanisms
+- Simplified the threshold logic into a single variable
+- Maintained the flexible command execution error handling
+- Preserved the core POSIX signal detection logic (128 + signal number convention)
+- Focused on the essential signal and abnormal termination detection

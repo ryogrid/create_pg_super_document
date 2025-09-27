@@ -38,3 +38,28 @@ This function takes no parameters and returns a boolean value indicating Hot Sta
 - Uses caching optimization to avoid repeated spinlock acquisitions after Hot Standby becomes active
 - The postmaster learns about Hot Standby status via signals, not shared memory
 - Critical for determining when read-only queries can be safely executed on standby servers
+
+## Simplified Source
+
+```c
+// Simplified version of HotStandbyActive
+bool HotStandbyActive(void) {
+    // Step 1: Check local cache first for performance
+    if (LocalHotStandbyActive)
+        return true;
+
+    // Step 2: Read shared state with spinlock protection
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+    LocalHotStandbyActive = XLogRecoveryCtl->SharedHotStandbyActive;
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    // Step 3: Return the current status
+    return LocalHotStandbyActive;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity while preserving essential logic
+- Consolidated the else block structure into a clearer linear flow
+- Focused on the three main steps: cache check, shared state read, and return
+- Maintained the critical spinlock protection for memory consistency

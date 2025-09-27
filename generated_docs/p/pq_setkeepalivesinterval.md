@@ -43,3 +43,64 @@ This function configures the TCP keepalive interval for a port connection. The i
 - Handles default value retrieval and validation logic
 - Short-circuits if requested value matches current setting
 - Error message differs slightly from idle version for better diagnostics
+
+## Simplified Source
+
+```c
+// Simplified version of pq_setkeepalivesinterval
+int pq_setkeepalivesinterval(int interval, Port *port) {
+    // Skip for Unix domain sockets - no TCP keepalive needed
+    if (port == NULL || port->laddr.addr.ss_family == AF_UNIX)
+        return STATUS_OK;
+
+#if defined(TCP_KEEPINTVL) || defined(SIO_KEEPALIVE_VALS)
+    // Skip if already set to requested value
+    if (interval == port->keepalives_interval)
+        return STATUS_OK;
+
+#ifndef WIN32
+    // Unix/Linux implementation
+    // Get system default if needed
+    if (port->default_keepalives_interval <= 0) {
+        if (pq_getkeepalivesinterval(port) < 0) {
+            return (interval == 0) ? STATUS_OK : STATUS_ERROR;
+        }
+    }
+
+    // Use system default if interval is 0
+    if (interval == 0)
+        interval = port->default_keepalives_interval;
+
+    // Set the TCP keepalive interval
+    if (setsockopt(port->sock, IPPROTO_TCP, TCP_KEEPINTVL,
+                   (char *) &interval, sizeof(interval)) < 0) {
+        ereport(LOG, (errmsg("setsockopt(TCP_KEEPINTVL) failed: %m")));
+        return STATUS_ERROR;
+    }
+
+    // Update cached value
+    port->keepalives_interval = interval;
+#else
+    // Windows implementation - delegate to Windows-specific function
+    return pq_setkeepaliveswin32(port, port->keepalives_idle, interval);
+#endif
+
+#else
+    // Platform doesn't support TCP keepalive intervals
+    if (interval != 0) {
+        ereport(LOG, (errmsg("setsockopt(TCP_KEEPINTVL) not supported")));
+        return STATUS_ERROR;
+    }
+#endif
+
+    return STATUS_OK;
+}
+```
+
+Key simplifications made:
+- Removed detailed conditional compilation complexity for clarity
+- Consolidated error handling paths
+- Added descriptive comments for each major logic section
+- Simplified the default value retrieval logic
+- Focused on the main execution paths for Unix/Linux and Windows
+- Preserved the essential TCP keepalive interval configuration logic

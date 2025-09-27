@@ -35,3 +35,22 @@ The function sets both session_timezone and log_timezone to GMT using pg_tzset("
 - Critical for EXEC_BACKEND subprocess environments where PGSHAREDIR is unknown
 - Ensures that timestamp-requiring log operations have valid timezone context
 - Both session and log timezones are set to the same initial value for consistency
+
+## Simplified Source
+
+```c
+// Simplified version of pg_timezone_initialize
+void pg_timezone_initialize(void) {
+    // Initialize both timezone globals to GMT
+    // GMT is used because it doesn't require filesystem access
+    // This is safe to call before PGSHAREDIR is known
+    session_timezone = pg_tzset("GMT");
+    log_timezone = session_timezone;
+}
+```
+
+Key simplifications made:
+- Condensed the detailed comment into concise inline comments
+- Focused on the core initialization logic
+- Highlighted the key reason for using GMT (no filesystem dependency)
+- Maintained the essential two-step assignment pattern

@@ -32,3 +32,19 @@ This function creates the data directory lock file using the standard DIRECTORY_
 - The socket directory path line is initially empty and updated later by postmaster.c
 - Critical for preventing multiple PostgreSQL instances from corrupting shared data
 - Used in bootstrap mode, normal postmaster startup, and single-user mode
+
+## Simplified Source
+
+```c
+// Simplified version of CreateDataDirLockFile
+void CreateDataDirLockFile(bool amPostmaster) {
+    // Create the data directory lock file to prevent multiple PostgreSQL instances
+    // from accessing the same data directory simultaneously
+    CreateLockFile(DIRECTORY_LOCK_FILE, amPostmaster, "", true, DataDir);
+}
+```
+
+Key simplifications made:
+- Added descriptive comment explaining the core purpose
+- The function is already very simple, just a single call to CreateLockFile
+- Focused on the main safety mechanism: preventing concurrent access to data directory

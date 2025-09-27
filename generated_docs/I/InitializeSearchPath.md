@@ -41,3 +41,45 @@ This function is called during InitPostgres to properly initialize the search pa
 - Uses lazy evaluation by marking paths invalid rather than immediately recomputing them
 - Critical for proper namespace resolution throughout the PostgreSQL session
 - The function increments activePathGeneration in bootstrap mode as a pro forma operation
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeSearchPath
+void InitializeSearchPath(void) {
+    if (IsBootstrapProcessingMode()) {
+        // Bootstrap mode: Set fixed pg_catalog search path
+        MemoryContext oldcxt = MemoryContextSwitchTo(TopMemoryContext);
+        baseSearchPath = list_make1_oid(PG_CATALOG_NAMESPACE);
+        MemoryContextSwitchTo(oldcxt);
+
+        // Initialize all base settings
+        baseCreationNamespace = PG_CATALOG_NAMESPACE;
+        baseTempCreationPending = false;
+        baseSearchPathValid = true;
+        namespaceUser = GetUserId();
+
+        // Copy base settings to active settings
+        activeSearchPath = baseSearchPath;
+        activeCreationNamespace = baseCreationNamespace;
+        activeTempCreationPending = baseTempCreationPending;
+        activePathGeneration++;
+    } else {
+        // Normal mode: Register syscache invalidation callbacks
+        CacheRegisterSyscacheCallback(NAMESPACEOID, InvalidationCallback, (Datum) 0);
+        CacheRegisterSyscacheCallback(AUTHOID, InvalidationCallback, (Datum) 0);
+        CacheRegisterSyscacheCallback(AUTHMEMROLEMEM, InvalidationCallback, (Datum) 0);
+        CacheRegisterSyscacheCallback(DATABASEOID, InvalidationCallback, (Datum) 0);
+
+        // Force search path recomputation on next use
+        baseSearchPathValid = false;
+        searchPathCacheValid = false;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining each callback registration
+- Consolidated variable assignments in bootstrap mode
+- Focused on the two main execution paths
+- Maintained the essential logic flow and all critical operations

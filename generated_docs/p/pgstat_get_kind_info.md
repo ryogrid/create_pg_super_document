@@ -38,3 +38,19 @@ The function is a core utility in PostgreSQL's statistics infrastructure, provid
 - Returns a const pointer, indicating that the caller should not modify the returned structure
 - This is a lightweight accessor function with minimal overhead
 - The returned pointer is valid for the lifetime of the process as it points to static data
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_get_kind_info
+const PgStat_KindInfo *pgstat_get_kind_info(PgStat_Kind kind) {
+    // Return pointer to the kind information structure
+    return &pgstat_kind_infos[kind];
+}
+```
+
+Key simplifications made:
+- Removed validation assertion for clarity
+- Simple array access operation
+- Core functionality preserved: retrieves kind-specific metadata
+- Essential lookup function for statistics infrastructure

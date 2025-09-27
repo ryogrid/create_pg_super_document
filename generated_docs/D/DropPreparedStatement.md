@@ -35,3 +35,31 @@ DropPreparedStatement is the core implementation function for removing individua
 - Ensures proper cleanup order: plancache first, then hash table entry
 - Used during both explicit deallocation and automatic session cleanup
 - The function handles the case where FetchPreparedStatement returns NULL gracefully
+
+## Simplified Source
+
+```c
+// Simplified version of DropPreparedStatement
+void DropPreparedStatement(const char *stmt_name, bool showError) {
+    PreparedStatement *entry;
+
+    // Step 1: Look up the prepared statement in the hash table
+    // If showError is true, this will raise an error for missing statements
+    entry = FetchPreparedStatement(stmt_name, showError);
+
+    // Step 2: Clean up resources if statement was found
+    if (entry) {
+        // First, release the cached execution plan
+        DropCachedPlan(entry->plansource);
+
+        // Then, remove the statement from the hash table
+        hash_search(prepared_queries, entry->stmt_name, HASH_REMOVE, NULL);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the two-phase cleanup process
+- Emphasized the conditional logic for handling missing statements
+- Focused on the main execution path with clearer variable naming context
+- Highlighted the proper cleanup order (cached plan first, then hash table entry)

@@ -35,3 +35,53 @@ The function first checks if a .done file already exists and exits early if foun
 - Logs warnings but continues execution if file operations fail
 - Primarily used during WAL recovery and replication processes
 - The function ensures idempotent behavior by checking for existing .done files
+
+## Simplified Source
+
+```c
+// Simplified version of XLogArchiveForceDone
+void XLogArchiveForceDone(const char *xlog) {
+    char archiveReady[MAXPGPATH];
+    char archiveDone[MAXPGPATH];
+    struct stat stat_buf;
+    FILE *fd;
+
+    // Step 1: Check if .done file already exists
+    StatusFilePath(archiveDone, xlog, ".done");
+    if (stat(archiveDone, &stat_buf) == 0) {
+        return; // Already marked as done
+    }
+
+    // Step 2: Try to rename existing .ready file to .done
+    StatusFilePath(archiveReady, xlog, ".ready");
+    if (stat(archiveReady, &stat_buf) == 0) {
+        durable_rename(archiveReady, archiveDone, WARNING);
+        return;
+    }
+
+    // Step 3: Create empty .done file if no .ready exists
+    fd = AllocateFile(archiveDone, "w");
+    if (fd == NULL) {
+        // Log error and continue
+        ereport(LOG, (errcode_for_file_access(),
+                     errmsg("could not create archive status file \"%s\": %m",
+                            archiveDone)));
+        return;
+    }
+
+    if (FreeFile(fd)) {
+        // Log error and continue
+        ereport(LOG, (errcode_for_file_access(),
+                     errmsg("could not write archive status file \"%s\": %m",
+                            archiveDone)));
+        return;
+    }
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments to clarify the three main phases
+- Kept essential error handling but simplified error reporting comments
+- Maintained the core logic flow: check existing → rename ready → create new
+- Preserved all critical functionality while improving readability
+- Consolidated variable declarations for clarity

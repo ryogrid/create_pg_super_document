@@ -37,3 +37,23 @@ This function takes no parameters.
 - More graceful than immediate signal-based approaches, allowing for proper transaction cleanup
 - The timeout condition is processed at the next opportunity when the system can safely handle interrupts
 - Part of PostgreSQL's broader timeout management system for preventing runaway transactions
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionTimeoutHandler
+static void TransactionTimeoutHandler(void) {
+    // Set flags to indicate transaction timeout occurred
+    TransactionTimeoutPending = true;
+    InterruptPending = true;
+
+    // Wake up the main process to handle the timeout
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple, so minimal simplification was needed
+- Added descriptive comments explaining the purpose of each operation
+- Maintained the exact same logic as all three operations are essential
+- The deferred handling approach using flags and latch is the core design and cannot be simplified further

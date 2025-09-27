@@ -44,3 +44,40 @@ None - this is a parameter-less initialization function.
 - The max_vacuums field is set to MaxBackends to handle worst-case concurrent VACUUM scenarios
 - Uses PostgreSQL's standard shared memory segment naming ("BTree Vacuum State")
 - Critical for system startup - failure here would prevent B-tree VACUUM coordination
+
+## Simplified Source
+
+```c
+// Simplified version of BTreeShmemInit
+void BTreeShmemInit(void) {
+    bool found;
+
+    // Allocate/attach to shared memory for BTree vacuum coordination
+    btvacinfo = (BTVacInfo *) ShmemInitStruct("BTree Vacuum State",
+                                              BTreeShmemSize(),
+                                              &found);
+
+    // Initialize shared memory if this is the postmaster process
+    if (!IsUnderPostmaster) {
+        // First time initialization - should not already exist
+        Assert(!found);
+
+        // Initialize cycle counter with current time for randomness
+        btvacinfo->cycle_ctr = (BTCycleId) time(NULL);
+
+        // Set up vacuum tracking structure
+        btvacinfo->num_vacuums = 0;
+        btvacinfo->max_vacuums = MaxBackends;
+    }
+    else {
+        // Child process - shared memory should already exist
+        Assert(found);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for brevity while preserving essential explanations
+- Consolidated the initialization logic into clear sections
+- Focused on the two main execution paths (postmaster vs child process)
+- Maintained the essential assertion logic and initialization sequence

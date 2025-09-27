@@ -44,3 +44,59 @@ This function is a key component of PostgreSQL's HBA configuration file parser. 
 - Error handling allows partial results while setting error messages
 - Part of PostgreSQL's authentication configuration parsing infrastructure
 - Recursive file inclusion is controlled by depth parameter to prevent infinite loops
+
+## Simplified Source
+
+```c
+// Simplified version of next_field_expand
+static List *
+next_field_expand(const char *filename, char **lineptr,
+                  int elevel, int depth, char **err_msg)
+{
+    StringInfoData token_buffer;
+    bool has_trailing_comma;
+    bool token_was_quoted;
+    List *result_tokens = NIL;
+
+    // Initialize buffer for parsing tokens
+    initStringInfo(&token_buffer);
+
+    do {
+        // Parse next token from the input line
+        if (!next_token(lineptr, &token_buffer,
+                       &token_was_quoted, &has_trailing_comma))
+            break;
+
+        // Check if this token references an included file
+        if (!token_was_quoted &&
+            token_buffer.len > 1 &&
+            token_buffer.data[0] == '@') {
+
+            // Recursively process the included file
+            result_tokens = tokenize_expand_file(result_tokens, filename,
+                                               token_buffer.data + 1,
+                                               elevel, depth + 1, err_msg);
+        } else {
+            // Regular token - add to result list
+            MemoryContext old_context = MemoryContextSwitchTo(tokenize_context);
+            result_tokens = lappend(result_tokens,
+                                  make_auth_token(token_buffer.data, token_was_quoted));
+            MemoryContextSwitchTo(old_context);
+        }
+
+    } while (has_trailing_comma && (*err_msg == NULL));
+
+    // Clean up buffer
+    pfree(token_buffer.data);
+
+    return result_tokens;
+}
+```
+
+Key simplifications made:
+- Renamed variables for clarity (buf → token_buffer, initial_quote → token_was_quoted, etc.)
+- Added descriptive comments for each major logic block
+- Simplified the file inclusion check logic for better readability
+- Consolidated memory context switching logic
+- Preserved the essential algorithm: parse tokens, handle file inclusion, build result list
+- Maintained error handling flow and comma-separated list processing

@@ -40,3 +40,28 @@ This operation is commonly used in scenarios where the list is being used as a q
 - This provides LIFO behavior when used with `dlist_push_head` operations
 - The node's next/prev pointers are updated by `dlist_delete` but not nullified (use `dlist_delete_thoroughly` if you need pointer nullification)
 - Commonly used in PostgreSQL's process management and replication systems for managing queues of work items
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_pop_head_node
+static inline dlist_node *dlist_pop_head_node(dlist_head *head) {
+    // Verify list is not empty (debug assertion)
+    Assert(!dlist_is_empty(head));
+
+    // Get the first node from the list
+    dlist_node *first_node = head->head.next;
+
+    // Remove the node from the list (updates links)
+    dlist_delete(first_node);
+
+    // Return the detached node to caller
+    return first_node;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name `first_node` instead of generic `node`
+- Added explanatory comments for each logical step
+- Maintained the essential three-step operation: verify, get, remove, return
+- Preserved the inline function declaration and assertion

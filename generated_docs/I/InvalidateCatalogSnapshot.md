@@ -40,3 +40,28 @@ The function uses a coarse-grained invalidation approach - any catalog change in
 - Called extensively by cache invalidation system
 - Located in src/backend/utils/time/snapmgr.c:422-442
 - Global CatalogSnapshot state management
+
+## Simplified Source
+
+```c
+// Simplified version of InvalidateCatalogSnapshot
+void InvalidateCatalogSnapshot(void) {
+    // Only invalidate if there's an active catalog snapshot
+    if (CatalogSnapshot) {
+        // Remove from registered snapshots tracking
+        pairingheap_remove(&RegisteredSnapshots, &CatalogSnapshot->ph_node);
+
+        // Clear the global catalog snapshot pointer
+        CatalogSnapshot = NULL;
+
+        // Reset transaction visibility calculations
+        SnapshotResetXmin();
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step of the invalidation process
+- Maintained the conditional check for active snapshot
+- Focused on the three essential operations: removal, clearing, and reset
+- Preserved the core catalog snapshot management logic

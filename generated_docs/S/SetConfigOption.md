@@ -42,3 +42,22 @@ This is the recommended interface for external code that needs to set GUC parame
 - Does not support setting source file/line information (not currently needed for external callers)
 - Widely used throughout PostgreSQL for programmatic configuration setting
 - Located in src/backend/utils/misc/guc.c:4335-4357
+
+## Simplified Source
+
+```c
+// Simplified version of SetConfigOption
+void SetConfigOption(const char *name, const char *value,
+                    GucContext context, GucSource source) {
+    // Core logic: Set configuration option using internal function
+    // Uses standard defaults: GUC_ACTION_SET, changeVal=true, elevel=0, is_reload=false
+    set_config_option(name, value, context, source,
+                     GUC_ACTION_SET, true, 0, false);
+}
+```
+
+Key simplifications made:
+- Focused on the core purpose: wrapper around set_config_option
+- Highlighted the default parameter values used internally
+- Emphasized this is a public API wrapper function
+- Removed cast to void since return value is discarded

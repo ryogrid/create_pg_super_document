@@ -61,3 +61,85 @@ This function takes no parameters.
 - Ensures proper cleanup of inherited resources in child processes
 - Uses self-pipe trick on systems without native event notification (signalfd/kqueue)
 - Sets up signal handling infrastructure for SIGURG-based latch signaling
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeLatchSupport
+void InitializeLatchSupport(void) {
+#if defined(WAIT_USE_SELF_PIPE)
+    int pipefd[2];
+
+    // Clean up inherited pipes from postmaster in child processes
+    if (IsUnderPostmaster && selfpipe_owner_pid != 0) {
+        // Close inherited pipe descriptors
+        close(selfpipe_readfd);
+        close(selfpipe_writefd);
+        selfpipe_readfd = selfpipe_writefd = -1;
+        selfpipe_owner_pid = 0;
+        // Update fd accounting
+        ReleaseExternalFD();
+        ReleaseExternalFD();
+    }
+
+    // Create self-pipe for signal-safe communication
+    if (pipe(pipefd) < 0)
+        elog(FATAL, "pipe() failed: %m");
+
+    // Set both ends non-blocking to prevent deadlocks
+    fcntl(pipefd[0], F_SETFL, O_NONBLOCK);
+    fcntl(pipefd[1], F_SETFL, O_NONBLOCK);
+
+    // Set close-on-exec to prevent inheritance
+    fcntl(pipefd[0], F_SETFD, FD_CLOEXEC);
+    fcntl(pipefd[1], F_SETFD, FD_CLOEXEC);
+
+    // Store pipe descriptors and owner
+    selfpipe_readfd = pipefd[0];
+    selfpipe_writefd = pipefd[1];
+    selfpipe_owner_pid = MyProcPid;
+
+    // Register file descriptors with fd.c
+    ReserveExternalFD();
+    ReserveExternalFD();
+
+    // Set up SIGURG signal handler
+    pqsignal(SIGURG, latch_sigurg_handler);
+#endif
+
+#ifdef WAIT_USE_SIGNALFD
+    sigset_t signalfd_mask;
+
+    // Clean up inherited signalfd in child processes
+    if (IsUnderPostmaster && signal_fd != -1) {
+        close(signal_fd);
+        signal_fd = -1;
+        ReleaseExternalFD();
+    }
+
+    // Block SIGURG and set up signalfd to receive it
+    sigaddset(&UnBlockSig, SIGURG);
+    sigemptyset(&signalfd_mask);
+    sigaddset(&signalfd_mask, SIGURG);
+
+    // Create signalfd with non-blocking and close-on-exec flags
+    signal_fd = signalfd(-1, &signalfd_mask, SFD_NONBLOCK | SFD_CLOEXEC);
+    if (signal_fd < 0)
+        elog(FATAL, "signalfd() failed");
+    ReserveExternalFD();
+#endif
+
+#ifdef WAIT_USE_KQUEUE
+    // Ignore SIGURG since kqueue handles events
+    pqsignal(SIGURG, SIG_IGN);
+#endif
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for fcntl calls (focusing on core logic)
+- Consolidated complex inheritance cleanup into clear steps
+- Added high-level comments explaining the purpose of each section
+- Abstracted platform-specific details with descriptive comments
+- Focused on the main execution paths for each wait mechanism
+- Simplified assertions and safety checks while preserving critical error handling

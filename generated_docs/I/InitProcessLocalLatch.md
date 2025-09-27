@@ -38,3 +38,21 @@ This function takes no parameters.
 - The local latch may later be replaced by a shared latch for processes that participate in shared memory
 - Essential for enabling basic signaling mechanisms during process startup
 - Simple but critical function that enables the latch-based synchronization infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of InitProcessLocalLatch
+void InitProcessLocalLatch(void) {
+    // Step 1: Point MyLatch to the local latch data structure
+    MyLatch = &LocalLatchData;
+
+    // Step 2: Initialize the latch for use
+    InitLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each step
+- Function is already very simple, so minimal changes were needed
+- Focused on the two core operations: assignment and initialization

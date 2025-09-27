@@ -43,3 +43,48 @@ This function is commonly used throughout PostgreSQL for opening files where the
 - Returns a file descriptor on success, or -1 on error
 - The actual file opening logic and error handling is implemented in BasicOpenFilePerm
 - Helps maintain consistent file permissions across PostgreSQL-managed files
+
+## Simplified Source
+
+```c
+// Simplified version of BasicOpenFile
+int BasicOpenFile(const char *fileName, int fileFlags) {
+    // Use default PostgreSQL file permissions (pg_file_create_mode)
+    return BasicOpenFilePerm(fileName, fileFlags, pg_file_create_mode);
+}
+
+// Simplified version of the underlying BasicOpenFilePerm function
+int BasicOpenFilePerm(const char *fileName, int fileFlags, mode_t fileMode) {
+    int fd;
+
+tryAgain:
+    // Attempt to open the file with specified flags and mode
+    fd = open(fileName, fileFlags, fileMode);
+
+    if (fd >= 0) {
+        // Success - return the file descriptor
+        return fd;
+    }
+
+    // Handle "out of file descriptors" error
+    if (errno == EMFILE || errno == ENFILE) {
+        // Log the issue and try to free up file descriptors
+        ereport(LOG, (errmsg("out of file descriptors: %m; release and retry")));
+
+        // Try to release an unused file descriptor
+        if (ReleaseLruFile()) {
+            goto tryAgain;  // Retry the open operation
+        }
+    }
+
+    // Failure - return error code
+    return -1;
+}
+```
+
+Key simplifications made:
+- Removed platform-specific O_DIRECT handling code for clarity
+- Removed detailed static assertions and flag collision checks
+- Simplified error handling to focus on the main retry logic
+- Abstracted the file descriptor release mechanism
+- Focused on the main execution path: open file, handle descriptor shortage, retry if possible

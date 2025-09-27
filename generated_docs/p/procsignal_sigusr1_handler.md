@@ -49,3 +49,60 @@ The handler processes signals in a specific order and ensures that each signal t
 - The SetLatch call at the end ensures that any process waiting on MyLatch will be awakened
 - Signal handlers must be async-signal-safe, so this function only calls other async-signal-safe functions
 - The systematic checking approach ensures no signals are missed even if multiple signal reasons are pending simultaneously
+
+## Simplified Source
+
+```c
+// Simplified version of procsignal_sigusr1_handler
+void procsignal_sigusr1_handler(SIGNAL_ARGS) {
+    // Handle replication and notification signals
+    if (CheckProcSignal(PROCSIG_CATCHUP_INTERRUPT))
+        HandleCatchupInterrupt();
+
+    if (CheckProcSignal(PROCSIG_NOTIFY_INTERRUPT))
+        HandleNotifyInterrupt();
+
+    // Handle parallel processing signals
+    if (CheckProcSignal(PROCSIG_PARALLEL_MESSAGE))
+        HandleParallelMessageInterrupt();
+
+    if (CheckProcSignal(PROCSIG_PARALLEL_APPLY_MESSAGE))
+        HandleParallelApplyMessageInterrupt();
+
+    // Handle system control signals
+    if (CheckProcSignal(PROCSIG_WALSND_INIT_STOPPING))
+        HandleWalSndInitStopping();
+
+    if (CheckProcSignal(PROCSIG_BARRIER))
+        HandleProcSignalBarrierInterrupt();
+
+    if (CheckProcSignal(PROCSIG_LOG_MEMORY_CONTEXT))
+        HandleLogMemoryContextInterrupt();
+
+    // Handle recovery conflict signals (grouped for clarity)
+    int recovery_conflicts[] = {
+        PROCSIG_RECOVERY_CONFLICT_DATABASE,
+        PROCSIG_RECOVERY_CONFLICT_TABLESPACE,
+        PROCSIG_RECOVERY_CONFLICT_LOCK,
+        PROCSIG_RECOVERY_CONFLICT_SNAPSHOT,
+        PROCSIG_RECOVERY_CONFLICT_LOGICALSLOT,
+        PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK,
+        PROCSIG_RECOVERY_CONFLICT_BUFFERPIN
+    };
+
+    for (int i = 0; i < 7; i++) {
+        if (CheckProcSignal(recovery_conflicts[i]))
+            HandleRecoveryConflictInterrupt(recovery_conflicts[i]);
+    }
+
+    // Wake up any waiting processes
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Grouped related signal types with explanatory comments
+- Consolidated recovery conflict handling into a loop structure
+- Added descriptive comments for each signal category
+- Maintained the original logic flow and all functionality
+- Preserved the essential async-signal-safe characteristic

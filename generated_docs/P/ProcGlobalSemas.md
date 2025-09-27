@@ -32,3 +32,20 @@ This function takes no parameters.
 - The count includes all types of backend processes: regular connections, autovacuum workers, and auxiliary processes
 - Auxiliary processes include: checkpointer, background writer, WAL writer, WAL receiver, archiver, stats collector, etc.
 - Failure to allocate sufficient semaphores will prevent PostgreSQL from starting properly
+
+## Simplified Source
+
+```c
+// Simplified version of ProcGlobalSemas
+int ProcGlobalSemas(void) {
+    // Calculate total semaphores needed:
+    // - One semaphore per backend process (including autovacuum)
+    // - One semaphore per auxiliary process (checkpointer, WAL writer, etc.)
+    return MaxBackends + NUM_AUXILIARY_PROCS;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for clarity
+- Maintained the original simple logic (no simplification needed as function is already minimal)
+- Focused on the core purpose: counting required semaphores for process synchronization

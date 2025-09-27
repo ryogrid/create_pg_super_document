@@ -39,3 +39,27 @@ All SUBTRANS pages before the cutoff page are removed using SimpleLruTruncate, f
 - Works in coordination with transaction visibility and cleanup mechanisms
 - Uses SimpleLruTruncate for efficient bulk removal of old pages
 - Helps maintain system performance by keeping SUBTRANS size manageable
+
+## Simplified Source
+
+```c
+// Simplified version of TruncateSUBTRANS
+void TruncateSUBTRANS(TransactionId oldestXact) {
+    int64 cutoffPage;
+
+    // Step back one transaction to avoid edge cases with wraparound detection
+    TransactionIdRetreat(oldestXact);
+
+    // Calculate which page contains the adjusted oldest transaction
+    cutoffPage = TransactionIdToPage(oldestXact);
+
+    // Remove all SUBTRANS pages before the cutoff page
+    SimpleLruTruncate(SubTransCtl, cutoffPage);
+}
+```
+
+Key simplifications made:
+- Condensed the detailed comment into a brief explanation of the retreat step
+- Removed verbose comments while preserving the essential algorithm
+- Focused on the main execution path: retreat, calculate page, truncate
+- Maintained the core logic flow and all function calls

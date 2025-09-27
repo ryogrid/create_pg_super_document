@@ -39,3 +39,23 @@ This function takes no parameters and returns a boolean value indicating checksu
 - When checksums are enabled, PostgreSQL will verify page integrity when reading pages and compute checksums when writing pages
 - The checksum version allows for future evolution of the checksum algorithm while maintaining backward compatibility
 - Located in src/backend/access/transam/xlog.c:4543-4558
+
+## Simplified Source
+
+```c
+// Simplified version of DataChecksumsEnabled
+bool DataChecksumsEnabled(void) {
+    // Verify control file is available
+    Assert(ControlFile != NULL);
+
+    // Check if checksums are enabled by examining version field
+    // Version > 0 means checksums are active
+    return (ControlFile->data_checksum_version > 0);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Clarified the meaning of the version check
+- Preserved the essential assertion and logic flow
+- Maintained the simple structure since the original is already concise

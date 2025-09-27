@@ -39,3 +39,31 @@ The function handles edge cases gracefully: if the start_time is greater than or
 - Uses USECS_PER_SEC constant for conversion between timestamp internal format and seconds/microseconds
 - Widely used throughout PostgreSQL for timeout calculations in various subsystems including vacuum, autovacuum, process sleeping, and statistics reporting
 - Input timestamps should be finite values (not infinity or -infinity)
+
+## Simplified Source
+
+```c
+// Simplified version of TimestampDifference
+void TimestampDifference(TimestampTz start_time, TimestampTz stop_time,
+                        long *secs, int *microsecs) {
+    // Calculate the time difference in microseconds
+    TimestampTz diff = stop_time - start_time;
+
+    // Handle case where we've already passed the target time
+    if (diff <= 0) {
+        *secs = 0;
+        *microsecs = 0;
+    } else {
+        // Split the difference into seconds and remaining microseconds
+        *secs = (long) (diff / USECS_PER_SEC);
+        *microsecs = (int) (diff % USECS_PER_SEC);
+    }
+}
+```
+
+Key simplifications made:
+- Function is already very clean and simple - minimal changes needed
+- Added descriptive comments for each logical step
+- Maintained the exact same logic flow as the original
+- Preserved all essential functionality including edge case handling
+- Function demonstrates good design: clear inputs/outputs and single responsibility

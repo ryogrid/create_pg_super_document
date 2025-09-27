@@ -50,3 +50,39 @@ This approach ensures that if an error occurs during deletion, the system mainta
 - Handles both array-based and hash table-based resource storage cleanup
 - Critical for proper transaction cleanup and memory management in PostgreSQL
 - Used extensively in transaction processing, portal management, and cleanup operations
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerDelete
+void
+ResourceOwnerDelete(ResourceOwner owner)
+{
+    // Validate preconditions
+    Assert(owner != CurrentResourceOwner);
+    Assert(owner->narr == 0);
+    Assert(owner->nhash == 0);
+    Assert(owner->nlocks == 0 || owner->nlocks == MAX_RESOWNER_LOCKS + 1);
+
+    // Recursively delete all children first
+    while (owner->firstchild != NULL)
+        ResourceOwnerDelete(owner->firstchild);
+
+    // Unlink from parent before deletion to maintain consistency
+    ResourceOwnerNewParent(owner, NULL);
+
+    // Free hash table if allocated
+    if (owner->hash)
+        pfree(owner->hash);
+
+    // Free the resource owner structure
+    pfree(owner);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major phase
+- Grouped related assertions together
+- Preserved essential logic: validate state, delete children, unlink, free memory
+- Maintained the critical "unlink before delete" safety pattern
+- Clear separation of validation, recursive deletion, unlinking, and cleanup phases

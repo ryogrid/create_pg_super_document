@@ -35,3 +35,19 @@ This function determines if a database is in an invalid state by checking the da
 - This is part of PostgreSQL's safety mechanism to ensure data consistency during database operations
 - Returns true only when datconnlimit equals DATCONNLIMIT_INVALID_DB
 - Essential for proper database lifecycle management in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of database_is_invalid_form
+bool database_is_invalid_form(Form_pg_database datform) {
+    // Check if database is marked invalid during drop operation
+    return datform->datconnlimit == DATCONNLIMIT_INVALID_DB;
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple, so minimal simplification was needed
+- Added a descriptive comment explaining the purpose of the check
+- Maintained the exact same logic as it's just a single comparison operation
+- The function cannot be simplified further without losing its core functionality

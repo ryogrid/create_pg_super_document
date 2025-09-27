@@ -39,3 +39,18 @@ This function takes no parameters.
 - Enables asynchronous notification between walreceiver, startup, and other processes
 - The startup process waits on this latch and responds to wakeup signals
 - Located at src/backend/access/transam/xlogrecovery.c:4479-4487
+
+## Simplified Source
+
+```c
+// Simplified version of WakeupRecovery
+void WakeupRecovery(void) {
+    // Signal the startup process to wake up for WAL replay or failover
+    SetLatch(&XLogRecoveryCtl->recoveryWakeupLatch);
+}
+```
+
+Key simplifications made:
+- Function is already very simple with only one operation
+- Added explanatory comment describing the core purpose
+- No error handling or complex logic to simplify

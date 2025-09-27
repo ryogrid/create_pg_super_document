@@ -43,3 +43,42 @@ The function performs bounds checking to ensure the output doesn't exceed the bu
 - The function preserves the original errno value when successful
 - Uses PostgreSQL's internal _fmt function for the actual formatting work
 - Commonly used throughout PostgreSQL for log formatting, backup operations, and timestamp display
+
+## Simplified Source
+
+```c
+// Simplified version of pg_strftime
+size_t pg_strftime(char *s, size_t maxsize, const char *format, const struct pg_tm *t) {
+    // Save current errno to restore later if no errors occur
+    int saved_errno = errno;
+
+    // Core logic: Format the timestamp using internal _fmt function
+    char *result_end = _fmt(format, t, s, s + maxsize, &warn);
+
+    // Error handling: Check if formatting failed
+    if (!result_end) {
+        errno = EOVERFLOW;
+        return 0;
+    }
+
+    // Error handling: Check if buffer was exactly filled (no room for null terminator)
+    if (result_end == s + maxsize) {
+        errno = ERANGE;
+        return 0;
+    }
+
+    // Success: Null-terminate the string and restore errno
+    *result_end = '\0';
+    errno = saved_errno;
+
+    // Return number of characters written (excluding null terminator)
+    return result_end - s;
+}
+```
+
+Key simplifications made:
+- Removed detailed variable declarations for clarity
+- Added descriptive comments for each logical step
+- Consolidated error handling into clear conditional blocks
+- Focused on the main execution path: format, check errors, return result
+- Abstracted the warning enum usage as it's not central to the main logic

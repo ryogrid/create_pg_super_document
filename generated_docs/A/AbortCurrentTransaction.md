@@ -41,3 +41,22 @@ This wrapper is essential for PostgreSQL's robust error handling and recovery me
 - The iterative design mirrors CommitTransactionCommand's approach for consistency
 - Essential for maintaining database consistency when transactions fail at any level
 - Called from both user-facing operations and internal system processes
+
+## Simplified Source
+
+```c
+// Simplified version of AbortCurrentTransaction
+void AbortCurrentTransaction(void) {
+    // Iteratively abort transaction and all subtransactions
+    // Loop prevents dangerous recursion in complex transaction hierarchies
+    while (!AbortCurrentTransactionInternal()) {
+        // Continue until all abort work is complete
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core purpose
+- Emphasized the anti-recursion design pattern
+- Highlighted the iterative approach for handling nested subtransactions
+- Focused on the main execution logic (the function is already quite simple)

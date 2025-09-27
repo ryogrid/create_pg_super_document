@@ -48,3 +48,29 @@ This adaptive approach allows PostgreSQL to automatically optimize for different
 - Critical for performance optimization across different hardware architectures
 - Part of PostgreSQL's self-tuning spinlock infrastructure
 - Observations are intended to be averaged across multiple backends for better convergence
+
+## Simplified Source
+
+```c
+// Simplified version of finish_spin_delay
+void finish_spin_delay(SpinDelayStatus *status) {
+    if (status->cur_delay == 0) {
+        // No delays occurred - likely multiprocessor, increase spins
+        if (spins_per_delay < MAX_SPINS_PER_DELAY) {
+            spins_per_delay = Min(spins_per_delay + 100, MAX_SPINS_PER_DELAY);
+        }
+    } else {
+        // Delays occurred - likely uniprocessor, decrease spins
+        if (spins_per_delay > MIN_SPINS_PER_DELAY) {
+            spins_per_delay = Max(spins_per_delay - 1, MIN_SPINS_PER_DELAY);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added comments explaining the multiprocessor vs uniprocessor logic
+- Maintained the exact adaptive tuning algorithm
+- Simplified the conditional structure for clearer reading
+- Preserved the asymmetric adjustment rates (fast increase, slow decrease)
+- No significant logic simplification needed as the function is already focused

@@ -35,3 +35,50 @@ This function provides comprehensive process termination capability by signaling
 - Part of PostgreSQL's graceful and emergency shutdown procedures
 - Each auxiliary process is checked individually to avoid signaling non-existent processes
 - Used during normal shutdown, crash recovery, and emergency termination scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of TerminateChildren
+static void TerminateChildren(int signal) {
+    // Step 1: Signal all regular backend processes
+    SignalChildren(signal);
+
+    // Step 2: Signal startup process with special status handling
+    if (StartupPID != 0) {
+        signal_child(StartupPID, signal);
+        // Mark startup as signaled for certain critical signals
+        if (signal == SIGQUIT || signal == SIGKILL || signal == SIGABRT) {
+            StartupStatus = STARTUP_SIGNALED;
+        }
+    }
+
+    // Step 3: Signal all auxiliary processes if they are running
+    struct {
+        pid_t *pid;
+        const char *name;
+    } auxiliary_processes[] = {
+        {&BgWriterPID, "Background Writer"},
+        {&CheckpointerPID, "Checkpointer"},
+        {&WalWriterPID, "WAL Writer"},
+        {&WalReceiverPID, "WAL Receiver"},
+        {&WalSummarizerPID, "WAL Summarizer"},
+        {&AutoVacPID, "Autovacuum Launcher"},
+        {&PgArchPID, "Archiver"},
+        {&SlotSyncWorkerPID, "Slot Sync Worker"}
+    };
+
+    for (int i = 0; i < sizeof(auxiliary_processes) / sizeof(auxiliary_processes[0]); i++) {
+        if (*auxiliary_processes[i].pid != 0) {
+            signal_child(*auxiliary_processes[i].pid, signal);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated repetitive signal_child calls into a structured loop
+- Added descriptive comments for each major step
+- Grouped auxiliary processes for cleaner organization
+- Preserved the special startup process status handling logic
+- Maintained the original function's complete behavior while improving readability

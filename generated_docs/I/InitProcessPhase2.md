@@ -46,3 +46,24 @@ This function takes no parameters.
 - Automatically registers RemoveProcFromArray as an exit handler to ensure proper cleanup
 - Essential for proper multi-version concurrency control (MVCC) and transaction isolation
 - The process will appear in system views like pg_stat_activity after this initialization
+
+## Simplified Source
+
+```c
+// Simplified version of InitProcessPhase2
+void InitProcessPhase2(void) {
+    Assert(MyProc != NULL);
+
+    // Add our process to the shared ProcArray
+    ProcArrayAdd(MyProc);
+
+    // Register cleanup function for backend exit
+    on_shmem_exit(RemoveProcFromArray, 0);
+}
+```
+
+Key simplifications made:
+- Added clear comments for each main operation
+- This function is already very simple with just two main operations
+- Preserved the essential assertion check and both critical function calls
+- Maintained the process registration and cleanup setup logic

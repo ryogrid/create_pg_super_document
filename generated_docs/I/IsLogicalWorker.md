@@ -33,3 +33,18 @@ This function takes no parameters and returns a boolean value indicating worker 
 - Returns true for both apply workers and table synchronization workers
 - Used by other functions to conditionally execute logic specific to logical replication contexts
 - Part of the public API as declared in logicalworker.h
+
+## Simplified Source
+
+```c
+// Simplified version of IsLogicalWorker
+bool IsLogicalWorker(void) {
+    // Check if current process is a logical replication worker
+    return MyLogicalRepWorker != NULL;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, minimal changes needed
+- Added descriptive comment explaining the purpose
+- Maintained the essential NULL check logic for worker identification

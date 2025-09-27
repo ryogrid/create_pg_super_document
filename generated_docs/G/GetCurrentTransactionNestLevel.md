@@ -44,3 +44,22 @@ This function takes no parameters.
 - Critical for implementing proper savepoint semantics and nested transaction handling
 - Many PostgreSQL subsystems use this to maintain per-transaction-level state and perform appropriate cleanup during commit/abort operations
 - The function provides a simple integer interface to what is internally a complex nested transaction state machine
+
+## Simplified Source
+
+```c
+// Simplified version of GetCurrentTransactionNestLevel
+int GetCurrentTransactionNestLevel(void) {
+    // Get the current transaction state from global context
+    TransactionState s = CurrentTransactionState;
+
+    // Return the nesting level directly
+    // 0 = no transaction, 1 = top-level, 2+ = nested subtransactions
+    return s->nestingLevel;
+}
+```
+
+Key simplifications made:
+- Added clarifying comments explaining the nesting level values
+- Maintained the original simple logic (function was already quite straightforward)
+- Emphasized the direct access pattern to global transaction state

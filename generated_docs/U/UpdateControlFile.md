@@ -40,3 +40,18 @@ This function takes no parameters.
 - Called during checkpoint creation, recovery operations, and parameter updates
 - Ensures atomicity of control file updates by using the underlying update_controlfile implementation
 - The function assumes ControlFile buffer has been properly updated before calling
+
+## Simplified Source
+
+```c
+// Simplified version of UpdateControlFile
+static void UpdateControlFile(void) {
+    // Update the control file on disk with current in-memory data and flush immediately
+    update_controlfile(DataDir, ControlFile, true);
+}
+```
+
+Key simplifications made:
+- Function is already very simple as a thin wrapper
+- Added explanatory comment describing the core purpose
+- The function delegates all work to update_controlfile with hardcoded flush=true

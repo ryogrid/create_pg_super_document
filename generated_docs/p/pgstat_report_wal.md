@@ -34,3 +34,27 @@ The function performs two main operations: flushing WAL statistics and flushing 
 - Primarily used by background processes that generate significant WAL activity but operate outside the normal transaction processing flow
 - Essential for maintaining accurate WAL usage statistics in PostgreSQL's statistics collection system
 - The function coordinates both WAL and IO statistics reporting to provide a comprehensive view of write activity
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_report_wal
+void pgstat_report_wal(bool force) {
+    // Determine lock acquisition strategy based on force parameter
+    // force = true: wait for locks, ensure statistics are flushed
+    // force = false: don't wait for locks, may skip flushing if busy
+    bool nowait = !force;
+
+    // Step 1: Flush WAL usage statistics to shared memory
+    pgstat_flush_wal(nowait);
+
+    // Step 2: Flush IO statistics to shared memory
+    pgstat_flush_io(nowait);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the force parameter logic
+- Documented the two-step process of flushing WAL and IO statistics
+- Maintained the essential algorithm while making the flow more explicit
+- Focused on the main execution path without removing any functionality

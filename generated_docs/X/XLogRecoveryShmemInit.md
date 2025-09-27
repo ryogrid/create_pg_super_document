@@ -35,3 +35,34 @@ XLogRecoveryShmemInit performs the initialization of shared memory structures us
 - Uses memset to zero-initialize the control structure when first created
 - Critical for proper WAL recovery functionality in multi-process environments
 - Located in src/backend/access/transam/xlogrecovery.c:458-477
+
+## Simplified Source
+
+```c
+// Simplified version of XLogRecoveryShmemInit
+void XLogRecoveryShmemInit(void) {
+    bool found;
+
+    // Initialize shared memory structure for recovery control
+    XLogRecoveryCtl = (XLogRecoveryCtlData *)
+        ShmemInitStruct("XLOG Recovery Ctl", XLogRecoveryShmemSize(), &found);
+
+    // If structure already exists, nothing more to do
+    if (found)
+        return;
+
+    // Zero-initialize the control structure
+    memset(XLogRecoveryCtl, 0, sizeof(XLogRecoveryCtlData));
+
+    // Initialize synchronization primitives for recovery coordination
+    SpinLockInit(&XLogRecoveryCtl->info_lck);                    // For info protection
+    InitSharedLatch(&XLogRecoveryCtl->recoveryWakeupLatch);     // For recovery wakeup
+    ConditionVariableInit(&XLogRecoveryCtl->recoveryNotPausedCV); // For pause control
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Maintained the complete function logic as it's already quite concise
+- Clarified the purpose of each synchronization primitive
+- Made the early return condition more explicit with comment

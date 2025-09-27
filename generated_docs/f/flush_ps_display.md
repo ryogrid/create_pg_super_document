@@ -49,3 +49,45 @@ This function takes no parameters and operates on global state variables:
 - Platform-specific conditional compilation ensures only the relevant code is compiled for each target system
 - On argv-clobbering systems, the function carefully manages memory padding to prevent display artifacts
 - Windows implementation uses a creative workaround with named events since direct process title modification is not supported
+
+## Simplified Source
+
+```c
+// Simplified version of flush_ps_display
+static void flush_ps_display(void) {
+#ifdef PS_USE_SETPROCTITLE
+    // Use standard setproctitle system call
+    setproctitle("%s", ps_buffer);
+#elif defined(PS_USE_SETPROCTITLE_FAST)
+    // Use optimized setproctitle_fast system call
+    setproctitle_fast("%s", ps_buffer);
+#endif
+
+#ifdef PS_USE_CLOBBER_ARGV
+    // Pad unused memory to prevent display artifacts
+    if (last_status_len > ps_buffer_cur_len) {
+        MemSet(ps_buffer + ps_buffer_cur_len, PS_PADDING,
+               last_status_len - ps_buffer_cur_len);
+    }
+    last_status_len = ps_buffer_cur_len;
+#endif
+
+#ifdef PS_USE_WIN32
+    // Windows workaround: create named event for process monitoring tools
+    static HANDLE ident_handle = INVALID_HANDLE_VALUE;
+    char name[PS_BUFFER_SIZE + 32];
+
+    if (ident_handle != INVALID_HANDLE_VALUE)
+        CloseHandle(ident_handle);
+
+    sprintf(name, "pgident(%d): %s", MyProcPid, ps_buffer);
+    ident_handle = CreateEvent(NULL, TRUE, FALSE, name);
+#endif
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each platform-specific section
+- Simplified conditional compilation structure
+- Maintained essential platform-specific implementations
+- Clarified Windows workaround approach

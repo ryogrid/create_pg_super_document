@@ -36,3 +36,38 @@ The function uses ProcStructLock to ensure thread-safe access to the free proces
 - The function stops counting early once the requested number is reached for efficiency
 - This is typically used during backend initialization to ensure sufficient resources are available
 - The function includes assertions to validate that n > 0 and nfree is not NULL
+
+## Simplified Source
+
+```c
+// Simplified version of HaveNFreeProcs
+bool HaveNFreeProcs(int n, int *nfree) {
+    dlist_iter iter;
+
+    Assert(n > 0);
+    Assert(nfree);
+
+    // Lock the process structure for thread-safe access
+    SpinLockAcquire(ProcStructLock);
+
+    // Count free processes up to the requested number
+    *nfree = 0;
+    dlist_foreach(iter, &ProcGlobal->freeProcs) {
+        (*nfree)++;
+        if (*nfree == n)
+            break;      // Found enough, stop counting
+    }
+
+    // Release the lock
+    SpinLockRelease(ProcStructLock);
+
+    // Return whether we found at least n free processes
+    return (*nfree == n);
+}
+```
+
+Key simplifications made:
+- Added clear comments for each main operation
+- Explained the early termination optimization logic
+- Preserved all essential functionality including assertions and locking
+- Maintained the efficient counting strategy that stops at the requested number

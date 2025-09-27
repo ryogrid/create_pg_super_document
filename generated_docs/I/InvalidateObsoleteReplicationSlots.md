@@ -50,3 +50,64 @@ The function is designed to be safe for use during checkpoints and avoids raisin
 
 ## Notes and Other Information
 This function is called during critical PostgreSQL operations like checkpoints and standby conflict resolution. It ensures that replication slots don't indefinitely prevent WAL cleanup or block database maintenance operations. The restart mechanism handles the inherent race conditions in slot invalidation, while the final resource limit recalculation ensures the system maintains accurate tracking of retention requirements. Returns true if any slots were invalidated, allowing callers to take appropriate follow-up actions.
+
+## Simplified Source
+
+```c
+// Simplified version of InvalidateObsoleteReplicationSlots
+bool InvalidateObsoleteReplicationSlots(ReplicationSlotInvalidationCause cause,
+                                      XLogSegNo oldestSegno, Oid dboid,
+                                      TransactionId snapshotConflictHorizon) {
+    XLogRecPtr oldestLSN;
+    bool invalidated = false;
+
+    // Quick exit if no replication slots configured
+    if (max_replication_slots == 0)
+        return false;
+
+    // Convert WAL segment number to LSN for comparison
+    XLogSegNoOffsetToRecPtr(oldestSegno, 0, wal_segment_size, oldestLSN);
+
+restart:
+    // Lock the replication slot control structure
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+    // Iterate through all replication slots
+    for (int i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *slot = &ReplicationSlotCtl->replication_slots[i];
+
+        // Skip unused slots
+        if (!slot->in_use)
+            continue;
+
+        // Skip logical slots during binary upgrade
+        if (SlotIsLogical(slot) && IsBinaryUpgrade)
+            continue;
+
+        // Check if this slot should be invalidated
+        if (InvalidatePossiblyObsoleteSlot(cause, slot, oldestLSN, dboid,
+                                         snapshotConflictHorizon, &invalidated)) {
+            // Lock was released during invalidation, restart iteration
+            goto restart;
+        }
+    }
+
+    LWLockRelease(ReplicationSlotControlLock);
+
+    // Update system resource limits if any slots were invalidated
+    if (invalidated) {
+        ReplicationSlotsComputeRequiredXmin(false);
+        ReplicationSlotsComputeRequiredLSN();
+    }
+
+    return invalidated;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity
+- Consolidated variable declarations
+- Added descriptive comments for each major step
+- Simplified the slot iteration logic presentation
+- Focused on the main execution path
+- Abstracted the complex invalidation logic to the helper function call

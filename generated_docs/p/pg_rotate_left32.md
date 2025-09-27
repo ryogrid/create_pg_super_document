@@ -41,3 +41,22 @@ pg_rotate_left32 implements a circular left bit shift operation on a 32-bit unsi
 - Extensively used throughout PostgreSQL's hash infrastructure for improving hash distribution
 - The rotation operation is reversible using pg_rotate_right32 with the same count
 - Critical component in PostgreSQL's hash functions for data types, catalog caching, and executor operations
+
+## Simplified Source
+
+```c
+// Simplified version of pg_rotate_left32
+static inline uint32 pg_rotate_left32(uint32 word, int n) {
+    // Perform 32-bit left rotation by combining shifts
+    // Left part: shift bits left by n positions
+    // Right part: capture overflow bits and place them at the right end
+    return (word << n) | (word >> (32 - n));
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the rotation mechanism
+- Explained how the left and right shift operations combine
+- This function is already very simple and optimized
+- Preserved the essential bit manipulation logic
+- Maintained the inline declaration for performance optimization

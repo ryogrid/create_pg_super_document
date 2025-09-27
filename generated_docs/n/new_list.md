@@ -46,3 +46,45 @@ This function creates a fresh List with optimized memory allocation. It allocate
 - The allocated list has its length set to min_size, making those cells immediately valid for use
 - Designed to minimize memory fragmentation and allocation overhead for typical short lists
 - Contains extensive comments explaining allocation strategy trade-offs
+
+## Simplified Source
+
+```c
+// Simplified version of new_list
+static List *new_list(NodeTag type, int min_size) {
+    List *newlist;
+    int max_size;
+
+    Assert(min_size > 0);
+
+    // Calculate allocation size with optimization strategy
+#ifndef DEBUG_LIST_MEMORY_USAGE
+    // Normal build: allocate extra space using power-of-2 sizing
+    // Minimum 8 ListCell units for efficiency
+    max_size = pg_nextpower2_32(Max(8, min_size + LIST_HEADER_OVERHEAD));
+    max_size -= LIST_HEADER_OVERHEAD;
+#else
+    // Debug build: allocate exact size to test enlarge_list() code paths
+    max_size = min_size;
+#endif
+
+    // Allocate List header and initial elements in single allocation
+    newlist = (List *) palloc(offsetof(List, initial_elements) +
+                              max_size * sizeof(ListCell));
+
+    // Initialize list structure
+    newlist->type = type;
+    newlist->length = min_size;
+    newlist->max_length = max_size;
+    newlist->elements = newlist->initial_elements;
+
+    return newlist;
+}
+```
+
+Key simplifications made:
+- Consolidated allocation strategy explanation into clear comments
+- Removed detailed memory optimization comments while preserving core logic
+- Maintained dual allocation strategy for normal vs debug builds
+- Preserved essential memory layout optimizations
+- Focused on the core functionality: efficient list allocation with growth headroom

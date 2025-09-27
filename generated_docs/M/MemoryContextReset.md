@@ -45,3 +45,30 @@ The function includes performance optimizations by checking conditions before ma
 - Commonly used in query execution to reset contexts between processing cycles
 - The context->isReset flag optimization prevents redundant reset operations
 - Safe to call multiple times on the same context without side effects
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextReset
+void MemoryContextReset(MemoryContext context) {
+    // Validate input parameter
+    Assert(MemoryContextIsValid(context));
+
+    // Step 1: Delete all child contexts if any exist
+    if (context->firstchild != NULL) {
+        MemoryContextDeleteChildren(context);
+    }
+
+    // Step 2: Reset memory allocations if context has been used
+    if (!context->isReset) {
+        MemoryContextResetOnly(context);
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the essential two-step logic: delete children, then reset memory
+- Kept the performance optimizations with condition checks
+- Added descriptive comments for each logical step
+- Maintained the Assert for parameter validation
+- Focused on the core functionality without implementation details

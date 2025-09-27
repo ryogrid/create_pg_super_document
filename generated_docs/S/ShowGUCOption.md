@@ -53,3 +53,122 @@ The function processes each variable type differently:
 - The returned string is allocated using palloc and must be freed by the caller
 - For unknown variable types, returns "???" as a fallback
 - Part of PostgreSQL's Grand Unified Configuration (GUC) system located in src/backend/utils/misc/guc.c
+
+## Simplified Source
+
+```c
+// Simplified version of ShowGUCOption
+char *ShowGUCOption(struct config_generic *record, bool use_units) {
+    char buffer[256];
+    const char *val;
+
+    // Handle each GUC variable type differently
+    switch (record->vartype) {
+        case PGC_BOOL:
+            {
+                struct config_bool *conf = (struct config_bool *) record;
+
+                // Use custom hook if available, otherwise "on"/"off"
+                if (conf->show_hook) {
+                    val = conf->show_hook();
+                } else {
+                    val = *conf->variable ? "on" : "off";
+                }
+            }
+            break;
+
+        case PGC_INT:
+            {
+                struct config_int *conf = (struct config_int *) record;
+
+                if (conf->show_hook) {
+                    val = conf->show_hook();
+                } else {
+                    // Format integer with optional unit conversion
+                    int64 result = *conf->variable;
+                    const char *unit;
+
+                    if (use_units && result > 0 && (record->flags & GUC_UNIT)) {
+                        convert_int_from_base_unit(result, record->flags & GUC_UNIT,
+                                                 &result, &unit);
+                    } else {
+                        unit = "";
+                    }
+
+                    snprintf(buffer, sizeof(buffer), INT64_FORMAT "%s", result, unit);
+                    val = buffer;
+                }
+            }
+            break;
+
+        case PGC_REAL:
+            {
+                struct config_real *conf = (struct config_real *) record;
+
+                if (conf->show_hook) {
+                    val = conf->show_hook();
+                } else {
+                    // Format real number with optional unit conversion
+                    double result = *conf->variable;
+                    const char *unit;
+
+                    if (use_units && result > 0 && (record->flags & GUC_UNIT)) {
+                        convert_real_from_base_unit(result, record->flags & GUC_UNIT,
+                                                  &result, &unit);
+                    } else {
+                        unit = "";
+                    }
+
+                    snprintf(buffer, sizeof(buffer), "%g%s", result, unit);
+                    val = buffer;
+                }
+            }
+            break;
+
+        case PGC_STRING:
+            {
+                struct config_string *conf = (struct config_string *) record;
+
+                // Use custom hook, actual value, or empty string
+                if (conf->show_hook) {
+                    val = conf->show_hook();
+                } else if (*conf->variable && **conf->variable) {
+                    val = *conf->variable;
+                } else {
+                    val = "";
+                }
+            }
+            break;
+
+        case PGC_ENUM:
+            {
+                struct config_enum *conf = (struct config_enum *) record;
+
+                // Use custom hook or lookup enum value name
+                if (conf->show_hook) {
+                    val = conf->show_hook();
+                } else {
+                    val = config_enum_lookup_by_value(conf, *conf->variable);
+                }
+            }
+            break;
+
+        default:
+            // Fallback for unknown types
+            val = "???";
+            break;
+    }
+
+    // Return a palloc'd copy of the result string
+    return pstrdup(val);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each variable type
+- Clarified the purpose of custom show_hook functions
+- Organized unit conversion logic with clear comments
+- Preserved all essential formatting and conversion functionality
+- Emphasized the fallback mechanisms for each type
+- Maintained proper memory management with pstrdup()
+- Highlighted the comprehensive type support in PostgreSQL's GUC system

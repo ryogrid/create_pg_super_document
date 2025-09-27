@@ -38,3 +38,31 @@ This function takes no parameters.
 - Used primarily for transaction logging and statistics collection
 - The return type TimestampTz includes timezone information
 - Critical for maintaining consistent timing information across transaction completion processing
+
+## Simplified Source
+
+```c
+// Simplified version of GetCurrentTransactionStopTimestamp
+TimestampTz
+GetCurrentTransactionStopTimestamp(void)
+{
+    // Verify transaction is in final state (commit/abort/prepare)
+    TransactionState s = CurrentTransactionState;
+    Assert(s->state == TRANS_DEFAULT ||
+           s->state == TRANS_COMMIT ||
+           s->state == TRANS_ABORT ||
+           s->state == TRANS_PREPARE);
+
+    // Lazy initialization: set timestamp if not already set
+    if (xactStopTimestamp == 0)
+        xactStopTimestamp = GetCurrentTimestamp();
+
+    return xactStopTimestamp;
+}
+```
+
+Key simplifications made:
+- Removed PG_USED_FOR_ASSERTS_ONLY macro for clarity
+- Added explanatory comments for the assertion and lazy initialization
+- Preserved the essential logic: validate state and return cached or new timestamp
+- Maintained the lazy initialization pattern which is core to the function's purpose

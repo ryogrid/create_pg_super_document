@@ -40,3 +40,34 @@ on_proc_exit implements the callback registration system for PostgreSQL process 
 - Used throughout PostgreSQL for cleanup of various subsystems and resources
 - Callbacks receive the exit code and their registered argument when executed
 - Part of PostgreSQL's comprehensive resource management and cleanup system
+
+## Simplified Source
+
+```c
+// Simplified version of on_proc_exit
+void on_proc_exit(pg_on_exit_callback function, Datum arg) {
+    // Safety check: Ensure we don't exceed the callback limit
+    if (on_proc_exit_index >= MAX_ON_EXITS) {
+        ereport(FATAL, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg_internal("out of on_proc_exit slots")));
+    }
+
+    // Register the callback function and its argument
+    on_proc_exit_list[on_proc_exit_index].function = function;
+    on_proc_exit_list[on_proc_exit_index].arg = arg;
+    on_proc_exit_index++;
+
+    // One-time setup: Register our atexit handler with the system
+    if (!atexit_callback_setup) {
+        atexit(atexit_callback);
+        atexit_callback_setup = true;
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Preserved the essential safety check and error handling
+- Maintained the core registration logic
+- Kept the one-time atexit setup mechanism
+- Focused on the main execution path without losing functionality

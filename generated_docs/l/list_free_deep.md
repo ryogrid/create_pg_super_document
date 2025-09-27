@@ -42,3 +42,38 @@ This is the appropriate function to use when the list owns all the objects it po
 - Counterpart to `list_free()` which performs only shallow freeing
 - Essential for preventing memory leaks when lists contain dynamically allocated objects
 - Part of PostgreSQL's comprehensive memory management system
+
+## Simplified Source
+
+```c
+// Simplified version of list_free_deep
+void list_free_deep(List *list) {
+    // Verify this is a pointer list (only makes sense for deep free)
+    Assert(IsPointerList(list));
+
+    // Perform deep free: free both list structure and pointed-to objects
+    if (list == NIL) {
+        return; // Nothing to do for empty list
+    }
+
+    // Free each object pointed to by list elements
+    for (int i = 0; i < list->length; i++) {
+        pfree(lfirst(&list->elements[i]));
+    }
+
+    // Free the list's element array if it was dynamically allocated
+    if (list->elements != list->initial_elements) {
+        pfree(list->elements);
+    }
+
+    // Free the list structure itself
+    pfree(list);
+}
+```
+
+Key simplifications made:
+- Inlined the `list_free_private` logic to show the complete operation
+- Removed `check_list_invariants` call for clarity
+- Added descriptive comments for each step
+- Focused on the main execution path
+- Maintained the essential algorithm and safety checks

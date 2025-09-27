@@ -36,3 +36,27 @@ The function provides flexibility in error handling through the missing_ok param
 - Commonly used flags include properties like GUC_SUPERUSER_ONLY, GUC_POSTMASTER, GUC_SIGHUP, etc.
 - This function is useful for introspection and determining how a particular configuration parameter behaves
 - Unlike GetConfigOptionResetString, this function doesn't perform permission checks on parameter visibility
+
+## Simplified Source
+
+```c
+// Simplified version of GetConfigOptionFlags
+int GetConfigOptionFlags(const char *name, bool missing_ok) {
+    // Step 1: Look up the configuration parameter by name
+    struct config_generic *record = find_option(name, false, missing_ok, ERROR);
+
+    // Step 2: Handle case where parameter doesn't exist
+    if (record == NULL) {
+        return 0;  // Return 0 if missing_ok is true, otherwise find_option already threw error
+    }
+
+    // Step 3: Return the flags that describe parameter properties
+    return record->flags;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the logic flow
+- Clarified the purpose of each operation
+- Made the error handling logic more explicit in comments
+- Focused on the three main steps: lookup, null check, return flags

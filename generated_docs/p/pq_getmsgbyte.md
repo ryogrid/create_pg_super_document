@@ -39,3 +39,28 @@ The  function is a fundamental message parsing utility in PostgreSQL's libpq com
 - Used extensively in logical replication, parallel processing, and data type deserialization
 - Throws ERRCODE_PROTOCOL_VIOLATION if attempting to read beyond message boundaries
 - The function is defined in src/backend/libpq/pqformat.c:399-414
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getmsgbyte
+int pq_getmsgbyte(StringInfo msg) {
+    // Check if we have data left to read
+    if (msg->cursor >= msg->len) {
+        // Report protocol violation error if no data left
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("no data left in message")));
+    }
+
+    // Read byte at current position and advance cursor
+    return (unsigned char) msg->data[msg->cursor++];
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step
+- Maintained the essential bounds checking logic
+- Preserved the cursor increment behavior
+- Kept the critical error handling for protocol violations
+- Formatted for improved readability

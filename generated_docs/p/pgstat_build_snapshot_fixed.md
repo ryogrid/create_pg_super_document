@@ -41,3 +41,34 @@ The actual snapshot building is delegated to the kind-specific callback function
 - The snapshot callback is responsible for the actual data collection and snapshot creation
 - Maintains consistency by clearing and setting validity flags appropriately
 - Used both for individual snapshot building and as part of comprehensive snapshot operations
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_build_snapshot_fixed
+static void pgstat_build_snapshot_fixed(PgStat_Kind kind) {
+    const PgStat_KindInfo *kind_info = pgstat_get_kind_info(kind);
+
+    // Handle different fetch consistency modes
+    if (pgstat_fetch_consistency == PGSTAT_FETCH_CONSISTENCY_NONE) {
+        // Always rebuild in NONE mode
+        pgStatLocal.snapshot.fixed_valid[kind] = false;
+    } else if (pgStatLocal.snapshot.fixed_valid[kind]) {
+        // Already valid in CACHE mode, skip rebuild
+        return;
+    }
+
+    // Build the snapshot using the kind-specific callback
+    kind_info->snapshot_cb();
+
+    // Mark snapshot as valid
+    pgStatLocal.snapshot.fixed_valid[kind] = true;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity
+- Consolidated the validity checking logic
+- Simplified the comment structure
+- Focused on the core snapshot building flow
+- Maintained essential caching and consistency logic

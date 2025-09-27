@@ -42,3 +42,24 @@ This function takes no parameters.
 - Avoids accessing 64-bit atomics due to potential spinlock emulation in signal context
 - Part of the two-phase barrier interrupt handling design for safety
 - Located in src/backend/storage/ipc/procsignal.c:448-463
+
+## Simplified Source
+
+```c
+// Simplified version of HandleProcSignalBarrierInterrupt
+static void HandleProcSignalBarrierInterrupt(void) {
+    // Set global interrupt flag to indicate processing needed
+    InterruptPending = true;
+
+    // Set barrier-specific flag for deferred processing
+    ProcSignalBarrierPending = true;
+
+    // Note: latch will be set by procsignal_sigusr1_handler
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each flag setting
+- Removed the detailed function comment (preserved in overview)
+- Focused on the core signal handler logic
+- Maintained the essential safety-first design pattern

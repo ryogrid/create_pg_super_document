@@ -34,3 +34,44 @@ proc_exit_prepare implements the critical phase of process termination where all
 - Executes callbacks in reverse registration order using decremental index
 - Designed to be safe for multiple invocations (second call will have nothing to do)
 - Includes protection against infinite loops by decrementing callback index before execution
+
+## Simplified Source
+
+```c
+// Simplified version of proc_exit_prepare
+static void proc_exit_prepare(int code) {
+    // Step 1: Set exit flag to prevent recursive exit attempts
+    proc_exit_inprogress = true;
+
+    // Step 2: Clear all pending interrupts and reset counters
+    InterruptPending = false;
+    ProcDiePending = false;
+    QueryCancelPending = false;
+    InterruptHoldoffCount = 1;
+    CritSectionCount = 0;
+
+    // Step 3: Clear error handling contexts to prevent callback failures
+    error_context_stack = NULL;
+    debug_query_string = NULL;
+
+    // Step 4: Perform shared memory cleanup first
+    shmem_exit(code);
+
+    // Step 5: Execute all registered callbacks in reverse order
+    elog(DEBUG3, "proc_exit(%d): %d callbacks to make", code, on_proc_exit_index);
+
+    while (--on_proc_exit_index >= 0) {
+        on_proc_exit_list[on_proc_exit_index].function(code,
+                                                      on_proc_exit_list[on_proc_exit_index].arg);
+    }
+
+    on_proc_exit_index = 0;
+}
+```
+
+Key simplifications made:
+- Condensed verbose comments into concise step descriptions
+- Grouped related variable assignments together
+- Maintained the essential algorithm and safety mechanisms
+- Preserved the critical callback execution logic
+- Focused on the main execution flow while keeping all important operations

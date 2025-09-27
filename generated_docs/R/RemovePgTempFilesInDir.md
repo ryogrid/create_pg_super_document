@@ -45,3 +45,60 @@ At the top level, this is typically called with `unlink_all = false` to selectiv
 - The dual-flag design (missing_ok and unlink_all) provides flexibility for different cleanup scenarios
 - Files that do not match the temporary prefix but are found in the directory generate unexpected file warnings
 - Directory traversal skips "." and ".." entries as expected
+
+## Simplified Source
+
+```c
+// Simplified version of RemovePgTempFilesInDir
+void RemovePgTempFilesInDir(const char *tmpdirname, bool missing_ok, bool unlink_all) {
+    DIR *temp_dir;
+    struct dirent *temp_de;
+    char rm_path[MAXPGPATH * 2];
+
+    // Open the directory to process
+    temp_dir = AllocateDir(tmpdirname);
+
+    // Handle missing directory case
+    if (temp_dir == NULL && errno == ENOENT && missing_ok)
+        return;
+
+    // Process each entry in the directory
+    while ((temp_de = ReadDirExtended(temp_dir, tmpdirname, LOG)) != NULL) {
+        // Skip current and parent directory entries
+        if (strcmp(temp_de->d_name, ".") == 0 || strcmp(temp_de->d_name, "..") == 0)
+            continue;
+
+        // Build full path for the entry
+        snprintf(rm_path, sizeof(rm_path), "%s/%s", tmpdirname, temp_de->d_name);
+
+        // Check if we should remove this entry (either unlink_all or temp file prefix match)
+        if (unlink_all || strncmp(temp_de->d_name, PG_TEMP_FILE_PREFIX, strlen(PG_TEMP_FILE_PREFIX)) == 0) {
+
+            // Determine if entry is file or directory
+            PGFileType type = get_dirent_type(rm_path, temp_de, false, LOG);
+
+            if (type == PGFILETYPE_DIR) {
+                // Recursively remove directory contents, then the directory itself
+                RemovePgTempFilesInDir(rm_path, false, true);
+                rmdir(rm_path); // Remove empty directory
+            } else if (type != PGFILETYPE_ERROR) {
+                // Remove regular file
+                unlink(rm_path);
+            }
+        } else {
+            // Log unexpected files that don't match temp prefix
+            // (simplified - original has detailed error reporting)
+        }
+    }
+
+    // Clean up directory handle
+    FreeDir(temp_dir);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and logging for clarity
+- Consolidated error checking logic
+- Abstracted complex error reporting into simple comments
+- Focused on the main execution path (directory traversal and file/directory removal)
+- Preserved the core recursive algorithm and dual-mode operation

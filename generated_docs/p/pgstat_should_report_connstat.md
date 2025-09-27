@@ -29,3 +29,21 @@ This function serves as a filter to determine which types of backend processes s
 - This filtering mechanism helps maintain the accuracy and relevance of session statistics by excluding process types that would introduce statistical noise
 - The decision to exclude walsender processes is based on their always-active nature, which would skew session activity metrics
 - This function is part of PostgreSQL's statistics collection system that ensures meaningful and accurate session timing data
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_should_report_connstat
+static bool
+pgstat_should_report_connstat(void)
+{
+    // Only report connection stats for normal backend processes
+    // Excludes parallel workers and walsender processes
+    return MyBackendType == B_BACKEND;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for clarity
+- Function is already simple, just added context comments
+- Preserved the essential logic: only normal backends report connection stats

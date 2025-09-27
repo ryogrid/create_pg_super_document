@@ -45,3 +45,50 @@ This function takes no parameters.
 - Environment variables processed: PGPORT, PGDATESTYLE, PGCLIENTENCODING
 - Stack depth calculation includes safety margins and reasonable upper bounds
 - Located in src/backend/utils/misc/guc.c:1591-1645
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeGUCOptionsFromEnvironment
+static void InitializeGUCOptionsFromEnvironment(void) {
+    char *env;
+    long stack_rlimit;
+
+    // Core logic step 1: Apply standard environment variables
+    env = getenv("PGPORT");
+    if (env != NULL)
+        SetConfigOption("port", env, PGC_POSTMASTER, PGC_S_ENV_VAR);
+
+    env = getenv("PGDATESTYLE");
+    if (env != NULL)
+        SetConfigOption("datestyle", env, PGC_POSTMASTER, PGC_S_ENV_VAR);
+
+    env = getenv("PGCLIENTENCODING");
+    if (env != NULL)
+        SetConfigOption("client_encoding", env, PGC_POSTMASTER, PGC_S_ENV_VAR);
+
+    // Core logic step 2: Calculate optimal stack depth from system limits
+    stack_rlimit = get_stack_depth_rlimit();
+    if (stack_rlimit > 0) {
+        long safe_limit = (stack_rlimit - STACK_DEPTH_SLOP) / 1024L;
+
+        if (safe_limit > 100) {
+            // Cap at 2MB and determine appropriate source designation
+            GucSource source = (safe_limit < 2048) ? PGC_S_ENV_VAR : PGC_S_DYNAMIC_DEFAULT;
+            if (safe_limit >= 2048)
+                safe_limit = 2048;
+
+            char limit_str[16];
+            snprintf(limit_str, sizeof(limit_str), "%ld", safe_limit);
+            SetConfigOption("max_stack_depth", limit_str, PGC_POSTMASTER, source);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated the stack depth calculation logic into clearer steps
+- Simplified the nested conditional structure for readability
+- Added descriptive comments for each major operation
+- Maintained the essential algorithm and all original functionality
+- Grouped related operations together for better flow

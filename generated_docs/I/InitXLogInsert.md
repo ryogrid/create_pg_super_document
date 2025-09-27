@@ -48,3 +48,49 @@ This function takes no parameters.
 - The rdatas array is sized to XLR_NORMAL_RDATAS for normal WAL record data storage
 - Header scratch buffer (hdr_scratch) is allocated with zero-filled memory for WAL record header construction
 - Essential prerequisite for any WAL record construction operations in the backend
+
+## Simplified Source
+
+```c
+// Simplified version of InitXLogInsert
+void InitXLogInsert(void) {
+    // Debug validation: Check that records can be decoded properly
+    #ifdef USE_ASSERT_CHECKING
+    size_t max_required = DecodeXLogRecordRequiredSpace(XLogRecordMaxSize + XLOG_BLCKSZ);
+    Assert(AllocSizeIsValid(max_required));
+    #endif
+
+    // Create dedicated memory context for WAL record construction
+    if (xloginsert_cxt == NULL) {
+        xloginsert_cxt = AllocSetContextCreate(TopMemoryContext,
+                                             "WAL record construction",
+                                             ALLOCSET_DEFAULT_SIZES);
+    }
+
+    // Allocate array for tracking registered buffers
+    if (registered_buffers == NULL) {
+        registered_buffers = MemoryContextAllocZero(xloginsert_cxt,
+                                                  sizeof(registered_buffer) * (XLR_NORMAL_MAX_BLOCK_ID + 1));
+        max_registered_buffers = XLR_NORMAL_MAX_BLOCK_ID + 1;
+    }
+
+    // Allocate array for WAL record data components
+    if (rdatas == NULL) {
+        rdatas = MemoryContextAlloc(xloginsert_cxt,
+                                   sizeof(XLogRecData) * XLR_NORMAL_RDATAS);
+        max_rdatas = XLR_NORMAL_RDATAS;
+    }
+
+    // Allocate scratch buffer for WAL record headers
+    if (hdr_scratch == NULL) {
+        hdr_scratch = MemoryContextAllocZero(xloginsert_cxt, HEADER_SCRATCH_SIZE);
+    }
+}
+```
+
+Key simplifications made:
+- Condensed verbose comments into brief descriptive comments
+- Maintained the lazy initialization pattern with null checks
+- Preserved all essential memory allocations and context creation
+- Kept debug assertions for validation
+- Focused on the core initialization workflow without losing functionality

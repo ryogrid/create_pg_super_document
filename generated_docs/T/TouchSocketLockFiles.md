@@ -31,3 +31,30 @@ This function iterates through all registered lock files and updates their times
 - Skips the data directory lock file as it doesn't need timestamp refreshing
 - Essential for preventing socket lock file removal in /tmp directories
 - Part of the server's maintenance routine in the main event loop
+
+## Simplified Source
+
+```c
+// Simplified version of TouchSocketLockFiles
+void TouchSocketLockFiles(void) {
+    // Iterate through all registered lock files
+    foreach(l, lock_files) {
+        char *socketLockFile = (char *) lfirst(l);
+
+        // Skip data directory lock file - doesn't need refreshing
+        if (strcmp(socketLockFile, DIRECTORY_LOCK_FILE) == 0)
+            continue;
+
+        // Update file timestamp to prevent cleanup daemon removal
+        // Ignore any errors - don't disrupt normal operations
+        (void) utime(socketLockFile, NULL);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Consolidated the core logic flow with clear explanations
+- Preserved the essential algorithm and error handling approach
+- Maintained the skip condition for data directory lock files
+- Kept the intentional error ignoring behavior

@@ -32,3 +32,25 @@ The handler is designed to be signal-safe and performs only the minimal necessar
 - Does not perform any actual checkpoint work - only wakes up the main loop
 - Part of the inter-process communication mechanism for checkpoint coordination
 - Registered to handle SIGINT signals in the checkpointer process
+
+## Simplified Source
+
+```c
+// Simplified version of ReqCheckpointHandler
+static void ReqCheckpointHandler(SIGNAL_ARGS) {
+    /*
+     * Signal handler for checkpoint requests (SIGINT)
+     *
+     * The requesting process has already set checkpoint flags,
+     * so we just need to wake up the main checkpointer loop
+     * to process the request.
+     */
+    SetLatch(MyLatch);  // Wake up main checkpointer loop
+}
+```
+
+Key simplifications made:
+- Enhanced comments to clearly explain the handler's purpose
+- Added inline comment explaining the core action
+- Maintained the original logic flow (no changes needed due to simplicity)
+- Emphasized the signal-safe nature and minimal responsibility

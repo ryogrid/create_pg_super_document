@@ -29,3 +29,22 @@ SetDatabasePath is a critical initialization function that establishes the file 
 
 ## Notes and Other Information
 This function is part of PostgreSQL's database initialization sequence and is crucial for establishing the backend's file system context. The use of TopMemoryContext ensures that the database path remains valid for the entire lifetime of the backend process. The single-assignment restriction (enforced by the Assert) is a safety measure that prevents programming errors that could result in the backend operating on the wrong database directory.
+
+## Simplified Source
+
+```c
+// Simplified version of SetDatabasePath
+void SetDatabasePath(const char *path) {
+    // Ensure this is only set once per process
+    Assert(!DatabasePath);
+
+    // Store a persistent copy of the database path
+    DatabasePath = MemoryContextStrdup(TopMemoryContext, path);
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple, so minimal simplification was needed
+- Added descriptive comments explaining the key safety check and memory allocation
+- Maintained the exact same logic as the original since it's just two essential operations
+- The Assert and memory allocation are both critical and cannot be simplified further

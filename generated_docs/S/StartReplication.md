@@ -70,3 +70,147 @@ The function handles both current and historic timeline requests, performing ext
 - Integrates with synchronous replication infrastructure via SyncRepInitConfig
 - Handles graceful shutdown when got_STOPPING is received
 - Performs WAL flush position validation to prevent streaming future WAL positions
+
+## Simplified Source
+
+```c
+// Simplified version of StartReplication
+static void StartReplication(StartReplicationCmd *cmd) {
+    StringInfoData buf;
+    XLogRecPtr FlushPtr;
+    TimeLineID FlushTLI;
+
+    // Phase 1: Set up WAL reader for physical replication
+    xlogreader = XLogReaderAllocate(wal_segment_size, NULL,
+                                   XL_ROUTINE(.segment_open = WalSndSegmentOpen,
+                                             .segment_close = wal_segment_close),
+                                   NULL);
+    if (!xlogreader) {
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of memory")));
+    }
+
+    // Phase 2: Handle replication slot if specified
+    if (cmd->slotname) {
+        ReplicationSlotAcquire(cmd->slotname, true);
+        if (SlotIsLogical(MyReplicationSlot)) {
+            ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                           errmsg("cannot use logical slot for physical replication")));
+        }
+    }
+
+    // Phase 3: Determine timeline and flush position
+    am_cascading_walsender = RecoveryInProgress();
+    if (am_cascading_walsender) {
+        FlushPtr = GetStandbyFlushRecPtr(&FlushTLI);
+    } else {
+        FlushPtr = GetFlushRecPtr(&FlushTLI);
+    }
+
+    // Phase 4: Timeline selection and validation
+    if (cmd->timeline != 0) {
+        sendTimeLine = cmd->timeline;
+        if (sendTimeLine == FlushTLI) {
+            // Current timeline - no validation needed
+            sendTimeLineIsHistoric = false;
+            sendTimeLineValidUpto = InvalidXLogRecPtr;
+        } else {
+            // Historic timeline - validate against timeline history
+            sendTimeLineIsHistoric = true;
+            List *timeLineHistory = readTimeLineHistory(FlushTLI);
+            XLogRecPtr switchpoint = tliSwitchPoint(cmd->timeline, timeLineHistory,
+                                                   &sendTimeLineNextTLI);
+            list_free_deep(timeLineHistory);
+
+            // Ensure requested startpoint is valid on this timeline
+            if (!XLogRecPtrIsInvalid(switchpoint) && switchpoint < cmd->startpoint) {
+                ereport(ERROR, (errmsg("requested starting point is not in server history")));
+            }
+            sendTimeLineValidUpto = switchpoint;
+        }
+    } else {
+        // Use current timeline
+        sendTimeLine = FlushTLI;
+        sendTimeLineValidUpto = InvalidXLogRecPtr;
+        sendTimeLineIsHistoric = false;
+    }
+
+    // Phase 5: Start streaming if we have data to send
+    streamingDoneSending = streamingDoneReceiving = false;
+
+    if (!sendTimeLineIsHistoric || cmd->startpoint < sendTimeLineValidUpto) {
+        // Set initial catchup state
+        WalSndSetState(WALSNDSTATE_CATCHUP);
+
+        // Send CopyBothResponse to initiate streaming protocol
+        pq_beginmessage(&buf, PqMsg_CopyBothResponse);
+        pq_sendbyte(&buf, 0);
+        pq_sendint16(&buf, 0);
+        pq_endmessage(&buf);
+        pq_flush();
+
+        // Validate start position is not beyond flush position
+        if (FlushPtr < cmd->startpoint) {
+            ereport(ERROR, (errmsg("requested starting point is ahead of WAL flush position")));
+        }
+
+        // Initialize streaming position
+        sentPtr = cmd->startpoint;
+        SpinLockAcquire(&MyWalSnd->mutex);
+        MyWalSnd->sentPtr = sentPtr;
+        SpinLockRelease(&MyWalSnd->mutex);
+
+        // Initialize synchronous replication and enter main loop
+        SyncRepInitConfig();
+        replication_active = true;
+        WalSndLoop(XLogSendPhysical);  // Main streaming loop - never returns normally
+
+        // Cleanup after streaming ends
+        replication_active = false;
+        if (got_STOPPING) {
+            proc_exit(0);
+        }
+        WalSndSetState(WALSNDSTATE_STARTUP);
+    }
+
+    // Phase 6: Release replication slot if used
+    if (cmd->slotname) {
+        ReplicationSlotRelease();
+    }
+
+    // Phase 7: Send result for historic timelines
+    if (sendTimeLineIsHistoric) {
+        // Send single-row result with next timeline info
+        char startpos_str[18];
+        snprintf(startpos_str, sizeof(startpos_str), "%X/%X",
+                LSN_FORMAT_ARGS(sendTimeLineValidUpto));
+
+        // Create and send tuple with next timeline ID and start position
+        DestReceiver *dest = CreateDestReceiver(DestRemoteSimple);
+        TupleDesc tupdesc = CreateTemplateTupleDesc(2);
+        TupleDescInitBuiltinEntry(tupdesc, 1, "next_tli", INT8OID, -1, 0);
+        TupleDescInitBuiltinEntry(tupdesc, 2, "next_tli_startpos", TEXTOID, -1, 0);
+
+        TupOutputState *tstate = begin_tup_output_tupdesc(dest, tupdesc, &TTSOpsVirtual);
+        Datum values[2] = {
+            Int64GetDatum((int64) sendTimeLineNextTLI),
+            CStringGetTextDatum(startpos_str)
+        };
+        bool nulls[2] = {false, false};
+
+        do_tup_output(tstate, values, nulls);
+        end_tup_output(tstate);
+    }
+
+    // Send completion message
+    EndReplicationCommand("START_STREAMING");
+}
+```
+
+Key simplifications made:
+- Removed verbose comments and kept essential phase descriptions
+- Consolidated error handling with simplified messages
+- Abstracted complex tuple output operations while preserving logic
+- Focused on main execution path with clear phase separation
+- Maintained all critical validations and state management
+- Simplified variable declarations and reduced redundant code

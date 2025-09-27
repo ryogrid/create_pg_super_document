@@ -46,3 +46,48 @@ This function takes no parameters but operates on several global data structures
 - The function implements a clock-sweep algorithm for victim selection when the array is full
 - Part of PostgreSQL's buffer management system that tracks how many times each buffer is pinned by the current backend
 - The design balances memory usage with access performance by using a hybrid array/hash approach
+
+## Simplified Source
+
+```c
+// Simplified version of ReservePrivateRefCountEntry
+static void ReservePrivateRefCountEntry(void) {
+    // Already have a reserved entry, nothing to do
+    if (ReservedRefCountEntry != NULL) {
+        return;
+    }
+
+    // First, try to find a free slot in the array
+    for (int i = 0; i < REFCOUNT_ARRAY_ENTRIES; i++) {
+        PrivateRefCountEntry *entry = &PrivateRefCountArray[i];
+
+        if (entry->buffer == InvalidBuffer) {
+            ReservedRefCountEntry = entry;  // Found free slot
+            return;
+        }
+    }
+
+    // Array is full, need to move an entry to hash table
+    // Select victim using clock algorithm
+    ReservedRefCountEntry = &PrivateRefCountArray[PrivateRefCountClock++ % REFCOUNT_ARRAY_ENTRIES];
+
+    // Move victim entry to hash table
+    PrivateRefCountEntry *hashent = hash_search(PrivateRefCountHash,
+                                               &(ReservedRefCountEntry->buffer),
+                                               HASH_ENTER, NULL);
+    hashent->refcount = ReservedRefCountEntry->refcount;
+
+    // Clear the array slot for reuse
+    ReservedRefCountEntry->buffer = InvalidBuffer;
+    ReservedRefCountEntry->refcount = 0;
+
+    PrivateRefCountOverflowed++;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and assertions for clarity
+- Consolidated the victim selection and hash table insertion logic
+- Simplified variable declarations and flow
+- Focused on the core two-phase algorithm: array search, then hash table overflow
+- Maintained essential clock-based victim selection and hash table management

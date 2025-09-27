@@ -35,3 +35,18 @@ The function explicitly provides no memory barrier semantics, meaning it does no
 - The function is part of PostgreSQL's atomic operations abstraction layer that provides portable atomic operations across different architectures
 - No barrier semantics means this function should be used with care in multi-threaded contexts where memory ordering matters
 - The underlying implementation may use either spinlocks or semaphores depending on platform capabilities
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_init_flag
+static inline void pg_atomic_init_flag(volatile pg_atomic_flag *ptr) {
+    // Initialize atomic flag structure for thread-safe operations
+    pg_atomic_init_flag_impl(ptr);
+}
+```
+
+Key simplifications made:
+- Simple wrapper function with minimal complexity
+- Core functionality: delegates to platform-specific implementation
+- No error handling or complex logic to simplify

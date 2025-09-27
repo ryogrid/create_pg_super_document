@@ -42,3 +42,47 @@ This function ensures WAL files are not prematurely deleted before successful ar
 - [Archive](../A/Archive.md) mode settings (off/on/always) directly influence deletion eligibility
 - Critical for preventing data loss by ensuring WAL files are archived before deletion
 - The function's logic adapts behavior based on whether the server is a primary or standby
+
+## Simplified Source
+
+```c
+// Simplified version of XLogArchiveCheckDone
+bool XLogArchiveCheckDone(const char *xlog) {
+    char archiveStatusPath[MAXPGPATH];
+    struct stat stat_buf;
+
+    // Quick exit if archiving is disabled
+    if (!XLogArchivingActive())
+        return true;
+
+    // During archive recovery, allow deletion unless archive_mode is "always"
+    if (!XLogArchivingAlways() &&
+        GetRecoveryState() == RECOVERY_STATE_ARCHIVE)
+        return true;
+
+    // Check if archiver has completed this file (.done exists)
+    StatusFilePath(archiveStatusPath, xlog, ".done");
+    if (stat(archiveStatusPath, &stat_buf) == 0)
+        return true;
+
+    // Check if archiver is still working on this file (.ready exists)
+    StatusFilePath(archiveStatusPath, xlog, ".ready");
+    if (stat(archiveStatusPath, &stat_buf) == 0)
+        return false;
+
+    // Handle race condition: recheck for .done file
+    StatusFilePath(archiveStatusPath, xlog, ".done");
+    if (stat(archiveStatusPath, &stat_buf) == 0)
+        return true;
+
+    // No status file exists, create .ready file to notify archiver
+    XLogArchiveNotify(xlog);
+    return false;
+}
+```
+
+Key simplifications made:
+- Emphasized the decision tree: quick exits → check .done → check .ready → handle race condition
+- Preserved essential archive mode logic and recovery state handling
+- Focused on the core file status checking and notification mechanism
+- Maintained race condition protection while simplifying the flow

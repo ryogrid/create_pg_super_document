@@ -39,3 +39,28 @@ This function takes no parameters and operates on the global MyReplicationSlot v
 - Used internally by higher-level slot management functions
 - Provides the core dropping functionality for both ephemeral slot cleanup and explicit slot deletion
 - Does not include the validation checks present in ReplicationSlotDrop (such as synced slot protection)
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotDropAcquired
+void ReplicationSlotDropAcquired(void) {
+    // Step 1: Get reference to currently acquired slot
+    ReplicationSlot *slot = MyReplicationSlot;
+
+    // Step 2: Verify we have an acquired slot
+    Assert(MyReplicationSlot != NULL);
+
+    // Step 3: Clear the global slot reference (slot no longer acquired)
+    MyReplicationSlot = NULL;
+
+    // Step 4: Delegate actual drop operation to lower-level function
+    ReplicationSlotDropPtr(slot);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Preserved the essential logic flow: validate → clear reference → delegate drop
+- Maintained the critical assertion for safety
+- Kept the function structure intact as it was already quite simple

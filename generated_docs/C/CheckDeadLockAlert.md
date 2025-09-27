@@ -28,3 +28,28 @@ This function takes no parameters.
 - Preserves errno value to avoid interfering with interrupted code
 - The redundant latch setting is intentional to handle race conditions
 - May be called within procsignal_sigusr1_handler() context where the handler also sets the latch
+
+## Simplified Source
+
+```c
+// Simplified version of CheckDeadLockAlert
+void CheckDeadLockAlert(void) {
+    int save_errno = errno;
+
+    // Set flag to indicate deadlock timeout occurred
+    got_deadlock_timeout = true;
+
+    // Wake up any waiting processes (redundant setting is intentional)
+    SetLatch(MyLatch);
+
+    // Restore errno for signal safety
+    errno = save_errno;
+}
+```
+
+Key simplifications made:
+- This function is already very simple, so minimal simplification was needed
+- Added descriptive comments explaining each operation's purpose
+- Maintained the exact same logic including errno preservation for signal safety
+- Kept the redundant latch setting as it's intentional for race condition handling
+- The signal-safe design cannot be simplified without compromising correctness

@@ -49,3 +49,83 @@ This function takes no parameters.
 - The startup process is a special case that uses locks and participates in sinval messaging
 - Under EXEC_BACKEND, shared memory structures are attached after LWLock initialization
 - The function sets up cleanup via on_shmem_exit to call AuxiliaryProcKill on process termination
+
+## Simplified Source
+
+```c
+// Simplified version of InitAuxiliaryProcess
+void InitAuxiliaryProcess(void) {
+    PGPROC *auxproc;
+    int proctype;
+
+    // Validate that process globals are initialized
+    if (ProcGlobal == NULL || AuxiliaryProcs == NULL)
+        elog(PANIC, "proc header uninitialized");
+
+    if (MyProc != NULL)
+        elog(ERROR, "you already exist");
+
+    // Acquire lock to protect auxiliary process assignment
+    SpinLockAcquire(ProcStructLock);
+    set_spins_per_delay(ProcGlobal->spins_per_delay);
+
+    // Find and allocate a free auxiliary process slot
+    for (proctype = 0; proctype < NUM_AUXILIARY_PROCS; proctype++) {
+        auxproc = &AuxiliaryProcs[proctype];
+        if (auxproc->pid == 0)
+            break;
+    }
+
+    if (proctype >= NUM_AUXILIARY_PROCS) {
+        SpinLockRelease(ProcStructLock);
+        elog(FATAL, "all AuxiliaryProcs are in use");
+    }
+
+    // Mark process slot as in use
+    ((volatile PGPROC *) auxproc)->pid = MyProcPid;
+    SpinLockRelease(ProcStructLock);
+
+    // Set global process variables
+    MyProc = auxproc;
+    MyProcNumber = GetNumberFromPGProc(MyProc);
+
+    // Initialize PGPROC fields to default values
+    dlist_node_init(&MyProc->links);
+    MyProc->waitStatus = PROC_WAIT_STATUS_OK;
+    MyProc->fpVXIDLock = false;
+    MyProc->xid = InvalidTransactionId;
+    MyProc->xmin = InvalidTransactionId;
+    MyProc->databaseId = InvalidOid;
+    MyProc->roleId = InvalidOid;
+    MyProc->isBackgroundWorker = true;
+    MyProc->lwWaiting = LW_WS_NOT_WAITING;
+    MyProc->waitLock = NULL;
+    // ... other field initializations
+
+    // Set up process latch for synchronization
+    OwnLatch(&MyProc->procLatch);
+    SwitchToSharedLatch();
+
+    // Configure wait event reporting and cleanup
+    pgstat_set_wait_event_storage(&MyProc->wait_event_info);
+    PGSemaphoreReset(MyProc->sem);
+    on_shmem_exit(AuxiliaryProcKill, Int32GetDatum(proctype));
+
+    // Initialize lightweight lock access
+    InitLWLockAccess();
+
+#ifdef EXEC_BACKEND
+    // Attach shared memory structures if running under postmaster
+    if (IsUnderPostmaster)
+        AttachSharedMemoryStructs();
+#endif
+}
+```
+
+Key simplifications made:
+- Removed verbose comments and consolidated initialization code
+- Abstracted detailed field initialization (shown as "... other field initializations")
+- Removed debug assertions and detailed volatile pointer explanations
+- Focused on the main execution flow: validate → allocate → initialize → setup
+- Kept essential error handling and critical lock operations
+- Simplified platform-specific code handling

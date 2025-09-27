@@ -52,3 +52,47 @@ Performance statistics can be logged if log_parser_stats is enabled, and the fun
 - Part of PostgreSQL's sophisticated query transformation pipeline
 - Supports performance monitoring and tracing for development and debugging
 - Critical for maintaining query semantics and applying PostgreSQL's rule system correctly
+
+## Simplified Source
+
+```c
+// Simplified version of pg_analyze_and_rewrite_fixedparams
+List *pg_analyze_and_rewrite_fixedparams(RawStmt *parsetree,
+                                        const char *query_string,
+                                        const Oid *paramTypes,
+                                        int numParams,
+                                        QueryEnvironment *queryEnv) {
+    Query *query;
+    List *querytree_list;
+
+    // Start query rewrite tracing
+    TRACE_POSTGRESQL_QUERY_REWRITE_START(query_string);
+
+    // Phase 1: Parse analysis - transform raw parse tree to Query node
+    // Optionally collect parser statistics
+    if (log_parser_stats)
+        ResetUsage();
+
+    query = parse_analyze_fixedparams(parsetree, query_string, paramTypes,
+                                     numParams, queryEnv);
+
+    if (log_parser_stats)
+        ShowUsage("PARSE ANALYSIS STATISTICS");
+
+    // Phase 2: Rule rewriting - apply rules to transform query
+    // May expand single query into multiple queries
+    querytree_list = pg_rewrite_query(query);
+
+    // End query rewrite tracing
+    TRACE_POSTGRESQL_QUERY_REWRITE_DONE(query_string);
+
+    return querytree_list;
+}
+```
+
+Key simplifications made:
+- Preserved the essential two-phase processing structure
+- Maintained all parameter handling and return logic
+- Kept performance monitoring hooks for debugging
+- Added descriptive comments for each major phase
+- Focused on the core workflow: parse analysis followed by rule rewriting

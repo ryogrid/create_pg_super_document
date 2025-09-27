@@ -52,3 +52,46 @@ Returns:
 - Only returns virtual transaction IDs that are valid
 - The type parameter must be non-zero (assertion enforced)
 - Critical for checkpoint coordination and ensuring database consistency during checkpoint operations
+
+## Simplified Source
+
+```c
+// Simplified version of GetVirtualXIDsDelayingChkpt
+VirtualTransactionId *
+GetVirtualXIDsDelayingChkpt(int *nvxids, int type) {
+    // Allocate result array with maximum possible size
+    VirtualTransactionId *vxids = palloc(sizeof(VirtualTransactionId) * procArray->maxProcs);
+    int count = 0;
+
+    // Lock the process array for reading
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Scan all active processes
+    for (int index = 0; index < procArray->numProcs; index++) {
+        PGPROC *proc = &allProcs[procArray->pgprocnos[index]];
+
+        // Check if process has the specified delay checkpoint flags set
+        if ((proc->delayChkptFlags & type) != 0) {
+            VirtualTransactionId vxid;
+            GET_VXID_FROM_PGPROC(vxid, *proc);
+
+            // Add valid VXIDs to result array
+            if (VirtualTransactionIdIsValid(vxid)) {
+                vxids[count++] = vxid;
+            }
+        }
+    }
+
+    // Release lock and return results
+    LWLockRelease(ProcArrayLock);
+    *nvxids = count;
+    return vxids;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments from original code for clarity
+- Simplified variable declarations and loop structure
+- Focused on the main execution path: allocate → scan → filter → return
+- Preserved essential checkpoint coordination logic
+- Maintained all critical operations: locking, flag checking, VXID validation

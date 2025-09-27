@@ -32,3 +32,34 @@ If the process is found to be in a synchronous replication queue, the function p
 
 ## Notes and Other Information
 The function implements an important optimization for process exit performance by avoiding lock acquisition in the common case where the process is not waiting for synchronous replication. The double-check pattern is essential to handle race conditions with WAL sender processes that may concurrently remove processes from wait queues. This cleanup is crucial for maintaining queue integrity and preventing memory leaks or dangling references in shared memory structures.
+
+## Simplified Source
+
+```c
+// Simplified version of SyncRepCleanupAtProcExit
+void SyncRepCleanupAtProcExit(void) {
+    // Core logic step 1: Quick check without lock for performance
+    // Most processes won't be in sync rep queue, so avoid expensive lock
+    if (!dlist_node_is_detached(&MyProc->syncRepLinks)) {
+
+        // Core logic step 2: Acquire exclusive lock for safe removal
+        LWLockAcquire(SyncRepLock, LW_EXCLUSIVE);
+
+        // Core logic step 3: Double-check to handle race conditions
+        // WAL sender might have removed us while we acquired the lock
+        if (!dlist_node_is_detached(&MyProc->syncRepLinks)) {
+            dlist_delete_thoroughly(&MyProc->syncRepLinks);
+        }
+
+        // Core logic step 4: Release the lock
+        LWLockRelease(SyncRepLock);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the optimization strategy
+- Clarified the double-check pattern and its purpose
+- Explained the race condition scenario with WAL sender
+- Focused on the main execution path logic
+- Maintained the essential algorithm structure

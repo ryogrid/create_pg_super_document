@@ -34,3 +34,23 @@ The function includes an assertion to ensure that only 32-bit values are passed 
 - Leverages the specialized `hash_bytes_uint32` function for optimal performance
 - Commonly used for OID-based hash tables and other integer key scenarios in PostgreSQL
 - The comment in the source explicitly notes that while `tag_hash` can handle this case, `uint32_hash` is faster
+
+## Simplified Source
+
+```c
+// Simplified version of uint32_hash
+uint32 uint32_hash(const void *key, Size keysize) {
+    // Ensure we're working with a 32-bit integer
+    Assert(keysize == sizeof(uint32));
+
+    // Extract the uint32 value and hash it efficiently
+    uint32 value = *((const uint32 *) key);
+    return hash_bytes_uint32(value);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core operations
+- Extracted the dereferencing operation to a separate line for clarity
+- Maintained the essential assertion for type safety
+- Preserved the optimized hash function call

@@ -39,3 +39,83 @@ This function orchestrates the creation of a new backend process to serve a clie
 - Comment suggests considering StartAutovacuumWorker when modifying this code due to similar patterns
 - EXEC_BACKEND conditional compilation affects shared memory handling
 - Part of PostgreSQL's connection handling and process management infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of BackendStartup
+static int BackendStartup(ClientSocket *client_sock) {
+    Backend *backend;
+    pid_t child_pid;
+    BackendStartupData startup_data;
+
+    // Step 1: Allocate backend structure
+    backend = palloc_extended(sizeof(Backend), MCXT_ALLOC_NO_OOM);
+    if (!backend) {
+        ereport(LOG, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+        return STATUS_ERROR;
+    }
+
+    // Step 2: Generate unique cancel key for this connection
+    if (!RandomCancelKey(&MyCancelKey)) {
+        pfree(backend);
+        ereport(LOG, (errcode(ERRCODE_INTERNAL_ERROR),
+                     errmsg("could not generate random cancel key")));
+        return STATUS_ERROR;
+    }
+
+    // Step 3: Configure backend based on connection acceptance state
+    startup_data.canAcceptConnections = canAcceptConnections(BACKEND_TYPE_NORMAL);
+    backend->dead_end = (startup_data.canAcceptConnections != CAC_OK);
+    backend->cancel_key = MyCancelKey;
+
+    // Step 4: Assign child slot for resource tracking (if not dead_end)
+    if (!backend->dead_end) {
+        backend->child_slot = AssignPostmasterChildSlot();
+    } else {
+        backend->child_slot = 0;
+    }
+
+    // Step 5: Initialize other backend fields
+    backend->bgworker_notify = false;
+
+    // Step 6: Fork the new backend process
+    child_pid = postmaster_child_launch(B_BACKEND,
+                                       (char *) &startup_data, sizeof(startup_data),
+                                       client_sock);
+    if (child_pid < 0) {
+        // Fork failed - cleanup and report error
+        if (!backend->dead_end) {
+            ReleasePostmasterChildSlot(backend->child_slot);
+        }
+        pfree(backend);
+        ereport(LOG, (errmsg("could not fork new process for connection: %m")));
+        report_fork_failure_to_client(client_sock, errno);
+        return STATUS_ERROR;
+    }
+
+    // Step 7: Fork succeeded - register the new backend
+    ereport(DEBUG2, (errmsg_internal("forked new backend, pid=%d socket=%d",
+                                    (int) child_pid, (int) client_sock->sock)));
+
+    backend->pid = child_pid;
+    backend->bkend_type = BACKEND_TYPE_NORMAL;
+    dlist_push_head(&BackendList, &backend->elem);
+
+#ifdef EXEC_BACKEND
+    if (!backend->dead_end) {
+        ShmemBackendArrayAdd(backend);
+    }
+#endif
+
+    return STATUS_OK;
+}
+```
+
+Key simplifications made:
+- Renamed variables for clarity (bn → backend, pid → child_pid)
+- Added step-by-step comments explaining the main logic flow
+- Consolidated error handling patterns for readability
+- Removed detailed errno handling in favor of clearer error flow
+- Abstracted platform-specific details with conditional compilation note
+- Focused on the main execution path and key decision points

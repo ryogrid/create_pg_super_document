@@ -38,3 +38,35 @@ This function determines if a given role has replication privileges in PostgreSQ
 - Part of PostgreSQL's role-based access control for replication operations
 - Essential for logical replication slot management and streaming replication security
 - Used during database initialization and role management operations
+
+## Simplified Source
+
+```c
+// Simplified version of has_rolreplication
+bool has_rolreplication(Oid roleid) {
+    bool result = false;
+    HeapTuple utup;
+
+    // Superusers have all privileges including replication
+    if (superuser_arg(roleid)) {
+        return true;
+    }
+
+    // Look up the role in pg_authid catalog
+    utup = SearchSysCache1(AUTHOID, ObjectIdGetDatum(roleid));
+    if (HeapTupleIsValid(utup)) {
+        // Check the rolreplication attribute
+        result = ((Form_pg_authid) GETSTRUCT(utup))->rolreplication;
+        ReleaseSysCache(utup);
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- This function is already quite simple, so minimal simplification was needed
+- Added descriptive comments explaining the superuser bypass and catalog lookup logic
+- Maintained the exact same logic structure including proper cache management
+- The function follows a standard PostgreSQL privilege checking pattern that cannot be simplified further
+- Preserved the essential security check flow: superuser bypass → catalog lookup → attribute check

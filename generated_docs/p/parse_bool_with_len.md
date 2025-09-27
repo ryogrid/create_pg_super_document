@@ -36,3 +36,85 @@ The `parse_bool_with_len` function is the core implementation for boolean string
 - The function is designed to work with both null-terminated and non-null-terminated strings
 - Performance optimized by checking most common cases ('t', 'f', 'y', 'n') first
 - Used as the foundation for all boolean parsing operations in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of parse_bool_with_len
+bool parse_bool_with_len(const char *value, size_t len, bool *result) {
+    // Check most common cases first for performance
+    switch (*value) {
+        case 't':
+        case 'T':
+            if (pg_strncasecmp(value, "true", len) == 0) {
+                if (result) *result = true;
+                return true;
+            }
+            break;
+
+        case 'f':
+        case 'F':
+            if (pg_strncasecmp(value, "false", len) == 0) {
+                if (result) *result = false;
+                return true;
+            }
+            break;
+
+        case 'y':
+        case 'Y':
+            if (pg_strncasecmp(value, "yes", len) == 0) {
+                if (result) *result = true;
+                return true;
+            }
+            break;
+
+        case 'n':
+        case 'N':
+            if (pg_strncasecmp(value, "no", len) == 0) {
+                if (result) *result = false;
+                return true;
+            }
+            break;
+
+        case 'o':
+        case 'O':
+            // Special handling: 'o' alone is ambiguous between "on" and "off"
+            if (pg_strncasecmp(value, "on", (len > 2 ? len : 2)) == 0) {
+                if (result) *result = true;
+                return true;
+            } else if (pg_strncasecmp(value, "off", (len > 2 ? len : 2)) == 0) {
+                if (result) *result = false;
+                return true;
+            }
+            break;
+
+        case '1':
+            // Numeric 1 must be exactly one character
+            if (len == 1) {
+                if (result) *result = true;
+                return true;
+            }
+            break;
+
+        case '0':
+            // Numeric 0 must be exactly one character
+            if (len == 1) {
+                if (result) *result = false;
+                return true;
+            }
+            break;
+    }
+
+    // No valid boolean representation found
+    if (result)
+        *result = false; // Suppress compiler warning
+    return false;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each case and special handling
+- Clarified the ambiguity handling for 'o' prefix
+- Maintained essential case-insensitive comparison logic
+- Preserved performance optimization by checking common cases first
+- Clear structure showing all supported boolean representations

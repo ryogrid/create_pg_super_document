@@ -34,3 +34,58 @@ checkDataDir performs comprehensive validation of the PostgreSQL data directory 
 
 ## Notes and Other Information
 This function implements several important security measures: (1) Ownership verification prevents unauthorized users from starting PostgreSQL on someone else's data, (2) Permission validation ensures data directory has secure modes (0700 or 0750), (3) PG_VERSION validation prevents version mismatches that could corrupt data. The function is part of the postmaster interlock mechanism that prevents multiple PostgreSQL instances from operating on the same data directory simultaneously. Platform-specific conditional compilation accounts for Windows' different security model.
+
+## Simplified Source
+
+```c
+// Simplified version of checkDataDir
+void checkDataDir(void) {
+    struct stat stat_buf;
+
+    // Step 1: Verify data directory exists and is accessible
+    if (stat(DataDir, &stat_buf) != 0) {
+        if (errno == ENOENT) {
+            ereport(FATAL, "data directory does not exist");
+        } else {
+            ereport(FATAL, "could not read directory permissions");
+        }
+    }
+
+    // Step 2: Ensure it's actually a directory
+    if (!S_ISDIR(stat_buf.st_mode)) {
+        ereport(FATAL, "specified path is not a directory");
+    }
+
+    // Step 3: Verify ownership (Unix/Linux only)
+    #if !defined(WIN32) && !defined(__CYGWIN__)
+    if (stat_buf.st_uid != geteuid()) {
+        ereport(FATAL, "data directory has wrong ownership");
+    }
+    #endif
+
+    // Step 4: Check directory permissions (Unix/Linux only)
+    #if !defined(WIN32) && !defined(__CYGWIN__)
+    if (stat_buf.st_mode & PG_MODE_MASK_GROUP) {
+        ereport(FATAL, "data directory has invalid permissions");
+    }
+    #endif
+
+    // Step 5: Set file creation permissions based on directory mode
+    #if !defined(WIN32) && !defined(__CYGWIN__)
+    SetDataDirectoryCreatePerm(stat_buf.st_mode);
+    umask(pg_mode_mask);
+    data_directory_mode = pg_dir_create_mode;
+    #endif
+
+    // Step 6: Validate PostgreSQL version compatibility
+    ValidatePgVersion(DataDir);
+}
+```
+
+Key simplifications made:
+- Removed detailed error message formatting for clarity
+- Consolidated platform-specific checks into clear sections
+- Abstracted complex permission validation logic
+- Simplified error handling to focus on main cases
+- Added step-by-step comments for the validation flow
+- Focused on the main execution path without detailed error context

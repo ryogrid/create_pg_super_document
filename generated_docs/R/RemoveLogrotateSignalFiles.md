@@ -33,3 +33,20 @@ This function takes no parameters.
 - This function is typically called during postmaster shutdown or after processing log rotation signals
 - The function uses unlink() which will silently succeed even if the file doesn't exist
 - Part of PostgreSQL's syslogger infrastructure for managing log file rotation
+
+## Simplified Source
+
+```c
+// Simplified version of RemoveLogrotateSignalFiles
+void RemoveLogrotateSignalFiles(void) {
+    // Remove the log rotation signal file from the data directory
+    // The signal file indicates a log rotation request was made
+    unlink(LOGROTATE_SIGNAL_FILE);  // Silently succeeds even if file doesn't exist
+}
+```
+
+Key simplifications made:
+- Function is already very simple, containing only one operation
+- Added explanatory comments to clarify the purpose
+- Noted that unlink() succeeds silently if the file doesn't exist
+- Maintained the core functionality of removing the signal file

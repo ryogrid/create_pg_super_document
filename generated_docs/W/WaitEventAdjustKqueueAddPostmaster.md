@@ -37,3 +37,29 @@ This function sets up kqueue-based monitoring for postmaster process death detec
 - Part of PostgreSQL's child process management and cleanup infrastructure
 - The PostmasterPid is used as the identifier to monitor the specific postmaster process
 - Essential for ensuring child processes can detect and respond to postmaster termination
+
+## Simplified Source
+
+```c
+// Simplified version of WaitEventAdjustKqueueAddPostmaster
+static inline void WaitEventAdjustKqueueAddPostmaster(struct kevent *k_ev, WaitEvent *event) {
+    // Configure kevent to monitor postmaster process termination
+    k_ev->ident = PostmasterPid;        // Process ID to monitor
+    k_ev->filter = EVFILT_PROC;         // Monitor process events
+    k_ev->flags = EV_ADD;               // Add this event to kqueue monitoring
+    k_ev->fflags = NOTE_EXIT;           // Specifically watch for process exit
+    k_ev->data = 0;                     // No additional data needed
+
+    // Associate the kevent with our WaitEvent structure
+    AccessWaitEvent(k_ev) = event;
+
+    // Note: For now postmaster death can only be added, not removed
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining each field's purpose in process monitoring
+- Clarified that this specifically monitors for postmaster process termination
+- Maintained the exact same logic as this is already a simple utility function
+- Preserved the comment about add-only functionality
+- Explained the kqueue-specific constants used for process monitoring

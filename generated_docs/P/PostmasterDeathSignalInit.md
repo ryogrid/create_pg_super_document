@@ -52,3 +52,36 @@ This function takes no parameters but operates on:
 - Provides significant performance benefit by avoiding frequent system calls to check postmaster status
 - Falls back gracefully on platforms without parent death signaling support
 - Critical for proper cleanup and error handling in child processes when postmaster terminates
+
+## Simplified Source
+
+```c
+// Simplified version of PostmasterDeathSignalInit
+void PostmasterDeathSignalInit(void) {
+#ifdef USE_POSTMASTER_DEATH_SIGNAL
+    int signum = POSTMASTER_DEATH_SIGNAL;
+
+    // Register signal handler for postmaster death detection
+    pqsignal(signum, postmaster_death_handler);
+
+    // Request OS to send signal when parent process dies
+#if defined(PR_SET_PDEATHSIG)
+    if (prctl(PR_SET_PDEATHSIG, signum) < 0)
+        elog(ERROR, "could not request parent death signal: %m");
+#elif defined(PROC_PDEATHSIG_CTL)
+    if (procctl(P_PID, 0, PROC_PDEATHSIG_CTL, &signum) < 0)
+        elog(ERROR, "could not request parent death signal: %m");
+#endif
+
+    // Force initial check in case postmaster already died
+    postmaster_possibly_dead = true;
+#endif
+}
+```
+
+Key simplifications made:
+- Consolidated platform-specific code sections with clear comments
+- Removed error directive for unsupported platforms (would be caught at compile time)
+- Added descriptive comments for each major operation
+- Preserved essential error handling and safety mechanisms
+- Focused on the core functionality: setting up fast postmaster death detection

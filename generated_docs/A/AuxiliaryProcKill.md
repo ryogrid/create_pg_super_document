@@ -56,3 +56,57 @@ Key differences from ProcKill:
 - Updates global spin delay statistics as part of cleanup process
 - The PGPROC structure remains allocated for potential reuse by the same auxiliary process type
 - No complex lock group or postmaster interaction logic since auxiliary processes operate differently from regular backends
+
+## Simplified Source
+
+```c
+// Simplified version of AuxiliaryProcKill
+static void AuxiliaryProcKill(int exit_code, Datum process_type_arg) {
+    int aux_process_type = DatumGetInt32(process_type_arg);
+    PGPROC *current_proc;
+
+    Assert(aux_process_type >= 0 && aux_process_type < NUM_AUXILIARY_PROCS);
+
+    // Step 1: Safety check - ensure not called in child process
+    if (MyProc->pid != (int) getpid()) {
+        elog(PANIC, "AuxiliaryProcKill() called in child process");
+    }
+
+    Assert(MyProc == &AuxiliaryProcs[aux_process_type]);
+
+    // Step 2: Release any held locks and cancel condition variable waits
+    LWLockReleaseAll();
+    ConditionVariableCancelSleep();
+
+    // Step 3: Reset latch ownership and wait event storage
+    SwitchBackToLocalLatch();
+    pgstat_reset_wait_event_storage();
+
+    // Step 4: Clear global process references
+    current_proc = MyProc;
+    MyProc = NULL;
+    MyProcNumber = INVALID_PROC_NUMBER;
+    DisownLatch(&current_proc->procLatch);
+
+    // Step 5: Mark auxiliary process as not-in-use (but keep allocated)
+    SpinLockAcquire(ProcStructLock);
+
+    current_proc->pid = 0;  // Mark as unused
+    current_proc->vxid.procNumber = INVALID_PROC_NUMBER;
+    current_proc->vxid.lxid = InvalidTransactionId;
+
+    // Update global spin delay statistics
+    ProcGlobal->spins_per_delay = update_spins_per_delay(ProcGlobal->spins_per_delay);
+
+    SpinLockRelease(ProcStructLock);
+}
+```
+
+Key simplifications made:
+- Renamed parameters for clarity (code -> exit_code, arg -> process_type_arg)
+- Renamed variables for clarity (proctype -> aux_process_type, proc -> current_proc)
+- Added step-by-step comments organizing the cleanup phases
+- Removed debug-only variable (auxproc PG_USED_FOR_ASSERTS_ONLY)
+- Grouped related operations together logically
+- Maintained all essential safety checks and cleanup operations
+- Preserved the auxiliary process-specific behavior (no deallocation)

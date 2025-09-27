@@ -34,3 +34,25 @@ LocalSetXLogInsertAllowed is a static function that provides a mechanism to over
 - Used by recovery and checkpoint processes that have special WAL writing privileges
 - Located in src/backend/access/transam/xlog.c:6401-6415
 - Provides fine-grained control over WAL insertion permissions at the process level
+
+## Simplified Source
+
+```c
+// Simplified version of LocalSetXLogInsertAllowed
+static int LocalSetXLogInsertAllowed(void) {
+    // Save the current state for potential restoration
+    int previous_state = LocalXLogInsertAllowed;
+
+    // Enable WAL insertion for this process
+    LocalXLogInsertAllowed = 1;
+
+    // Return previous state so caller can restore it later
+    return previous_state;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Used more descriptive variable name (previous_state vs oldXLogAllowed)
+- Focused on the core functionality: saving state, enabling WAL insertion, returning previous state
+- The function is already quite simple, so minimal changes were needed while preserving the exact logic

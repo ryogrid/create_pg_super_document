@@ -31,3 +31,24 @@ This function takes no parameters.
 - The allocated array is used by the postmaster to track and manage backend processes
 - All slots are zeroed out initially to indicate they are available for new backend processes
 - Located in src/backend/postmaster/postmaster.c:4556-4565
+
+## Simplified Source
+
+```c
+// Simplified version of ShmemBackendArrayAllocation
+void ShmemBackendArrayAllocation(void) {
+    // Step 1: Calculate required memory size for backend array
+    Size array_size = ShmemBackendArraySize();
+
+    // Step 2: Allocate shared memory for the backend array
+    ShmemBackendArray = (Backend *) ShmemAlloc(array_size);
+
+    // Step 3: Initialize all slots as empty (zero out the array)
+    memset(ShmemBackendArray, 0, array_size);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Used more descriptive variable name (array_size instead of size)
+- Maintained the essential three-step process: calculate size, allocate memory, initialize slots

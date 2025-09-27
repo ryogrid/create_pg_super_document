@@ -48,3 +48,41 @@ The function includes assertions to verify that the WAL receiver is in a valid s
 - Part of PostgreSQL's streaming replication infrastructure cleanup mechanisms
 - The forced WAL flush prevents potential data loss during abnormal terminations
 - Condition variable broadcast allows waiting processes to detect termination promptly
+
+## Simplified Source
+
+```c
+// Simplified version of WalRcvDie
+static void WalRcvDie(int code, Datum arg) {
+    WalRcvData *walrcv = WalRcv;
+    TimeLineID *timeline_id = (TimeLineID *) DatumGetPointer(arg);
+
+    // Step 1: Ensure all received WAL data is persisted to disk
+    XLogWalRcvFlush(true, *timeline_id);
+
+    // Step 2: Update shared memory state to mark WAL receiver as stopped
+    SpinLockAcquire(&walrcv->mutex);
+    walrcv->walRcvState = WALRCV_STOPPED;
+    walrcv->pid = 0;
+    walrcv->ready_to_display = false;
+    walrcv->latch = NULL;
+    SpinLockRelease(&walrcv->mutex);
+
+    // Step 3: Notify other processes that WAL receiver has stopped
+    ConditionVariableBroadcast(&walrcv->walRcvStoppedCV);
+
+    // Step 4: Clean up network connection
+    if (wrconn != NULL)
+        walrcv_disconnect(wrconn);
+
+    // Step 5: Wake up startup process to handle our termination
+    WakeupRecovery();
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity (kept essential logic flow)
+- Simplified variable name from startpointTLI_p to timeline_id for readability
+- Added step-by-step comments explaining the cleanup sequence
+- Focused on the main execution path without error checking details
+- Preserved all critical operations: WAL flush, state update, notifications, and cleanup

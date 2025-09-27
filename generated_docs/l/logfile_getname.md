@@ -43,3 +43,46 @@ The  function generates log file names by combining the configured log directory
 - Uses  as the maximum path length limit
 - The function handles timezone conversion using the configured 
 - Essential for creating consistent, time-based log file naming across all PostgreSQL log destinations
+
+## Simplified Source
+
+```c
+// Simplified version of logfile_getname
+static char *logfile_getname(pg_time_t timestamp, const char *suffix) {
+    char *filename;
+    int len;
+
+    // Allocate memory for the full path
+    filename = palloc(MAXPGPATH);
+
+    // Start with the log directory path
+    snprintf(filename, MAXPGPATH, "%s/", Log_directory);
+    len = strlen(filename);
+
+    // Format timestamp using the configured pattern
+    pg_strftime(filename + len, MAXPGPATH - len, Log_filename,
+                pg_localtime(&timestamp, log_timezone));
+
+    // Handle optional suffix replacement
+    if (suffix != NULL) {
+        len = strlen(filename);
+
+        // Remove .log extension if present
+        if (len > 4 && strcmp(filename + (len - 4), ".log") == 0) {
+            len -= 4;
+        }
+
+        // Append the new suffix
+        strlcpy(filename + len, suffix, MAXPGPATH - len);
+    }
+
+    return filename;
+}
+```
+
+Key simplifications made:
+- Preserved the essential path construction logic
+- Maintained the timestamp formatting functionality
+- Kept the suffix replacement mechanism intact
+- Added clarifying comments for each major step
+- Removed no unnecessary complexity (the original was already quite clean)

@@ -50,3 +50,87 @@ The function includes sophisticated error handling and maintains consistency thr
 - The function is thread-safe through proper use of ShmemIndexLock
 - Callers should not attempt to free memory returned by this function
 - The function validates that returned addresses fall within the shared memory segment boundaries
+
+## Simplified Source
+
+```c
+// Simplified version of ShmemInitStruct
+void *ShmemInitStruct(const char *name, Size size, bool *foundPtr) {
+    ShmemIndexEnt *result;
+    void *structPtr;
+
+    LWLockAcquire(ShmemIndexLock, LW_EXCLUSIVE);
+
+    // Special case: initializing ShmemIndex itself
+    if (!ShmemIndex) {
+        PGShmemHeader *shmemseghdr = ShmemSegHdr;
+        Assert(strcmp(name, "ShmemIndex") == 0);
+
+        if (IsUnderPostmaster) {
+            // Backend attaching to existing index
+            Assert(shmemseghdr->index != NULL);
+            structPtr = shmemseghdr->index;
+            *foundPtr = true;
+        } else {
+            // Postmaster creating the index
+            Assert(shmemseghdr->index == NULL);
+            structPtr = ShmemAlloc(size);
+            shmemseghdr->index = structPtr;
+            *foundPtr = false;
+        }
+        LWLockRelease(ShmemIndexLock);
+        return structPtr;
+    }
+
+    // Look up structure in shared memory index
+    result = (ShmemIndexEnt *) hash_search(ShmemIndex, name, HASH_ENTER_NULL, foundPtr);
+
+    if (!result) {
+        LWLockRelease(ShmemIndexLock);
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("could not create ShmemIndex entry for data structure \"%s\"", name)));
+    }
+
+    if (*foundPtr) {
+        // Structure already exists - verify size matches
+        if (result->size != size) {
+            LWLockRelease(ShmemIndexLock);
+            ereport(ERROR, (errmsg("ShmemIndex entry size is wrong for data structure"
+                                  " \"%s\": expected %zu, actual %zu",
+                                  name, size, result->size)));
+        }
+        structPtr = result->location;
+    } else {
+        // Allocate new structure
+        Size allocated_size;
+        structPtr = ShmemAllocRaw(size, &allocated_size);
+
+        if (structPtr == NULL) {
+            // Cleanup failed entry and report error
+            hash_search(ShmemIndex, name, HASH_REMOVE, NULL);
+            LWLockRelease(ShmemIndexLock);
+            ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                           errmsg("not enough shared memory for data structure"
+                                 " \"%s\" (%zu bytes requested)", name, size)));
+        }
+
+        result->size = size;
+        result->allocated_size = allocated_size;
+        result->location = structPtr;
+    }
+
+    LWLockRelease(ShmemIndexLock);
+
+    Assert(ShmemAddrIsValid(structPtr));
+    Assert(structPtr == (void *) CACHELINEALIGN(structPtr));
+
+    return structPtr;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Consolidated error handling paths
+- Focused on the main logic flow: bootstrap handling, index lookup, validation, and allocation
+- Maintained essential error reporting and validation logic
+- Preserved the critical locking and assertion checks

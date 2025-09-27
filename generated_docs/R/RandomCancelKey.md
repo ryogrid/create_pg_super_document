@@ -31,3 +31,19 @@ The function uses pg_strong_random() to ensure the generated keys are cryptograp
 - Uses cryptographically strong randomness rather than weaker pseudo-random generators
 - Cancel keys are used in conjunction with backend process IDs for query cancellation protocol
 - Part of PostgreSQL query cancellation and connection management security infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of RandomCancelKey
+static bool RandomCancelKey(int32 *cancel_key) {
+    // Generate cryptographically secure 32-bit random number
+    // This serves as an authentication token for query cancellation
+    return pg_strong_random(cancel_key, sizeof(int32));
+}
+```
+
+Key simplifications made:
+- Added explanatory comments about the security purpose
+- The function is already quite simple, being a direct wrapper around pg_strong_random()
+- Emphasized the cryptographic security aspect and authentication token usage

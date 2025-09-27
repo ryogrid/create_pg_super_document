@@ -44,3 +44,34 @@ The function first checks if a check hook exists for the parameter. If no hook i
 - Part of PostgreSQL's extensible configuration validation framework that allows custom validation logic for GUC parameters
 - The function ensures consistent error reporting format across all integer GUC parameter validations
 - Returns true for successful validation, false for validation failure
+
+## Simplified Source
+
+```c
+// Simplified version of call_int_check_hook
+static bool call_int_check_hook(struct config_int *conf, int *newval, void **extra,
+                                GucSource source, int elevel) {
+    // Quick success if no validation hook is configured
+    if (!conf->check_hook)
+        return true;
+
+    // Reset error message variables for clean state
+    reset_guc_error_variables();
+
+    // Call the validation hook
+    if (!conf->check_hook(newval, extra, source)) {
+        // Hook failed - report validation error with appropriate detail
+        report_validation_error(conf, *newval, elevel);
+        return false;
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Abstracted error variable reset into conceptual function `reset_guc_error_variables()`
+- Simplified complex ereport() call into `report_validation_error()` function
+- Removed detailed error message construction logic for clarity
+- Focused on the main validation flow: check hook existence, reset state, call hook, handle failure
+- Preserved the core logic of hook-based validation with proper error handling

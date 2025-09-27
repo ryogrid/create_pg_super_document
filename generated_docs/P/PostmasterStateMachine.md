@@ -44,3 +44,130 @@ This function takes no parameters and operates on global postmaster state variab
 - The syslogger process is treated specially and continues running throughout most shutdown phases
 - Includes safety assertions to verify expected process states during transitions
 - Supports immediate shutdown mode for emergency situations while still maintaining some coordination
+
+## Simplified Source
+
+```c
+// Simplified version of PostmasterStateMachine
+static void PostmasterStateMachine(void) {
+    // Phase 1: Smart shutdown - wait for normal clients to disconnect
+    if ((pmState == PM_RUN || pmState == PM_HOT_STANDBY) && !connsAllowed) {
+        if (CountChildren(BACKEND_TYPE_NORMAL) == 0) {
+            pmState = PM_STOP_BACKENDS;
+        }
+    }
+
+    // Phase 2: Signal backends to shut down
+    if (pmState == PM_STOP_BACKENDS) {
+        // Forget pending background workers
+        ForgetUnstartedBackgroundWorkers();
+
+        // Signal all backend children except walsenders
+        SignalSomeChildren(SIGTERM, BACKEND_TYPE_ALL - BACKEND_TYPE_WALSND);
+
+        // Signal auxiliary processes
+        signal_child(AutoVacPID, SIGTERM);
+        signal_child(BgWriterPID, SIGTERM);
+        signal_child(WalWriterPID, SIGTERM);
+        signal_child(StartupPID, SIGTERM);
+        signal_child(WalReceiverPID, SIGTERM);
+        signal_child(WalSummarizerPID, SIGTERM);
+        signal_child(SlotSyncWorkerPID, SIGTERM);
+
+        pmState = PM_WAIT_BACKENDS;
+    }
+
+    // Phase 3: Wait for backends to exit
+    if (pmState == PM_WAIT_BACKENDS) {
+        bool all_backends_gone = (CountChildren(BACKEND_TYPE_ALL - BACKEND_TYPE_WALSND) == 0 &&
+                                  StartupPID == 0 && WalReceiverPID == 0 &&
+                                  WalSummarizerPID == 0 && BgWriterPID == 0 &&
+                                  WalWriterPID == 0 && AutoVacPID == 0 &&
+                                  SlotSyncWorkerPID == 0);
+
+        if (all_backends_gone) {
+            if (Shutdown >= ImmediateShutdown || FatalError) {
+                // Skip checkpoint for immediate shutdown or crash
+                pmState = PM_WAIT_DEAD_END;
+            } else {
+                // Normal shutdown: start checkpoint
+                if (CheckpointerPID == 0) {
+                    CheckpointerPID = StartChildProcess(B_CHECKPOINTER);
+                }
+                if (CheckpointerPID != 0) {
+                    signal_child(CheckpointerPID, SIGUSR2);
+                    pmState = PM_SHUTDOWN;
+                } else {
+                    // Checkpointer failed to start
+                    FatalError = true;
+                    pmState = PM_WAIT_DEAD_END;
+                    SignalChildren(SIGQUIT);
+                }
+            }
+        }
+    }
+
+    // Phase 4: Wait for walsenders and archiver
+    if (pmState == PM_SHUTDOWN_2) {
+        if (PgArchPID == 0 && CountChildren(BACKEND_TYPE_ALL) == 0) {
+            pmState = PM_WAIT_DEAD_END;
+        }
+    }
+
+    // Phase 5: Wait for dead-end processes
+    if (pmState == PM_WAIT_DEAD_END) {
+        ConfigurePostmasterWaitSet(false);
+
+        if (dlist_is_empty(&BackendList) && PgArchPID == 0) {
+            pmState = PM_NO_CHILDREN;
+        }
+    }
+
+    // Phase 6: Final shutdown or restart decision
+    if (pmState == PM_NO_CHILDREN) {
+        if (Shutdown > NoShutdown) {
+            // Shutdown requested - exit
+            if (FatalError) {
+                ereport(LOG, (errmsg("abnormal database system shutdown")));
+                ExitPostmaster(1);
+            } else {
+                ExitPostmaster(0);
+            }
+        } else if (StartupStatus == STARTUP_CRASHED || !restart_after_crash) {
+            // Don't restart after crash
+            ExitPostmaster(1);
+        }
+    }
+
+    // Phase 7: Crash recovery and restart
+    if (FatalError && pmState == PM_NO_CHILDREN) {
+        // Clean up after crash
+        if (remove_temp_files_after_crash) {
+            RemovePgTempFiles();
+        }
+        ResetBackgroundWorkerCrashTimes();
+
+        // Reinitialize shared memory
+        shmem_exit(1);
+        LocalProcessControlFile(true);
+        CreateSharedMemoryAndSemaphores();
+
+        // Restart startup process
+        StartupPID = StartChildProcess(B_STARTUP);
+        StartupStatus = STARTUP_RUNNING;
+        pmState = PM_STARTUP;
+        AbortStartTime = 0;
+
+        ConfigurePostmasterWaitSet(true);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated similar process termination calls into logical groups
+- Removed detailed error handling comments for clarity
+- Simplified complex conditional logic into clearer boolean expressions
+- Grouped related operations into distinct phases with descriptive comments
+- Abstracted low-level PID checking into high-level state descriptions
+- Focused on the main execution flow rather than edge cases
+- Reduced repetitive assertions and detailed state validation

@@ -33,3 +33,28 @@ This function serves as a transaction cleanup routine for buffer management in P
 - The function is called by various transaction and background processes to ensure proper buffer cleanup
 - Contains an assertion that verifies PrivateRefCountOverflowed is reset to 0, helping detect reference counting issues
 - Part of the buffer management subsystem located in src/backend/storage/buffer/bufmgr.c
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_Buffers
+void AtEOXact_Buffers(bool isCommit) {
+    // Step 1: Debug check - verify no shared buffer pins remain
+    // This catches any buffer leaks that ResourceOwner missed
+    CheckForBufferLeaks();
+
+    // Step 2: Clean up local buffers for this transaction
+    // Handles temporary table buffers and other local resources
+    AtEOXact_LocalBuffers(isCommit);
+
+    // Step 3: Verify reference count overflow tracking is clean
+    // Assert that private ref count overflow counter is reset
+    Assert(PrivateRefCountOverflowed == 0);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step's purpose
+- Clarified the debugging nature of CheckForBufferLeaks
+- Explained the distinction between shared and local buffer cleanup
+- Made the assertion's purpose explicit

@@ -42,3 +42,38 @@ The function returns the result of the underlying fsync operation, which is 0 on
 - This is the primary entry point for all PostgreSQL file synchronization operations
 - Performance-critical as it's called frequently during WAL writing and checkpointing operations
 - The choice between writethrough and non-writethrough modes affects both performance and durability guarantees
+
+## Simplified Source
+
+```c
+// Simplified version of pg_fsync
+int pg_fsync(int fd) {
+    // Debug builds: Validate file descriptor access modes
+    // Files must be opened with write permissions, directories with read-only
+    #if !defined(WIN32) && defined(USE_ASSERT_CHECKING)
+    struct stat st;
+    if (fstat(fd, &st) == 0) {
+        int desc_flags = fcntl(fd, F_GETFL) & O_ACCMODE;
+        if (S_ISDIR(st.st_mode))
+            Assert(desc_flags == O_RDONLY);  // Directories: read-only
+        else
+            Assert(desc_flags != O_RDONLY);  // Files: writable
+    }
+    #endif
+
+    // Choose fsync method based on configuration
+    #if defined(HAVE_FSYNC_WRITETHROUGH)
+    if (wal_sync_method == WAL_SYNC_METHOD_FSYNC_WRITETHROUGH)
+        return pg_fsync_writethrough(fd);
+    else
+    #endif
+        return pg_fsync_no_writethrough(fd);
+}
+```
+
+Key simplifications made:
+- Condensed debug validation logic while preserving essential checks
+- Simplified comments to explain the purpose of each section
+- Removed detailed portability comments for clarity
+- Maintained the core dispatch logic between writethrough and non-writethrough modes
+- Kept the conditional compilation structure intact

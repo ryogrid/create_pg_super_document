@@ -45,3 +45,19 @@ The function returns an int64 value, though the actual maximum value is currentl
 - Used extensively throughout both CLOG and SUBTRANS subsystems for page-based transaction status management
 - The function is crucial for PostgreSQL's MVCC (Multi-Version Concurrency Control) implementation
 - The division operation effectively groups consecutive transaction IDs into the same page, enabling batch operations on related transactions
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionIdToPage
+static inline int64 TransactionIdToPage(TransactionId xid) {
+    // Calculate which page contains this transaction ID
+    return xid / (int64) CLOG_XACTS_PER_PAGE;
+}
+```
+
+Key simplifications made:
+- Focused on the core calculation: integer division to map transaction ID to page
+- Preserved the essential int64 cast for proper arithmetic
+- Emphasized the grouping concept: consecutive transactions → same page
+- Maintained inline optimization for frequent usage in MVCC operations

@@ -41,3 +41,28 @@ The function registers callbacks for both relation cache invalidations (PlanCach
   - FOREIGNDATAWRAPPEROID (foreign data wrappers)
 - Critical for maintaining cache consistency and preventing execution of plans against modified or dropped objects
 - Part of PostgreSQL's cache invalidation infrastructure that ensures ACID properties are maintained
+
+## Simplified Source
+
+```c
+// Simplified version of InitPlanCache
+void InitPlanCache(void) {
+    // Register relation cache invalidation callback
+    CacheRegisterRelcacheCallback(PlanCacheRelCallback, (Datum) 0);
+
+    // Register system cache invalidation callbacks for various catalog types
+    CacheRegisterSyscacheCallback(PROCOID, PlanCacheObjectCallback, (Datum) 0);
+    CacheRegisterSyscacheCallback(TYPEOID, PlanCacheObjectCallback, (Datum) 0);
+    CacheRegisterSyscacheCallback(NAMESPACEOID, PlanCacheSysCallback, (Datum) 0);
+    CacheRegisterSyscacheCallback(OPEROID, PlanCacheSysCallback, (Datum) 0);
+    CacheRegisterSyscacheCallback(AMOPOPID, PlanCacheSysCallback, (Datum) 0);
+    CacheRegisterSyscacheCallback(FOREIGNSERVEROID, PlanCacheSysCallback, (Datum) 0);
+    CacheRegisterSyscacheCallback(FOREIGNDATAWRAPPEROID, PlanCacheSysCallback, (Datum) 0);
+}
+```
+
+Key simplifications made:
+- Added clear comments distinguishing relation cache vs system cache callbacks
+- Grouped similar callback registrations together
+- This function is already quite simple - just a series of callback registrations
+- Preserved all essential callback registrations for plan cache invalidation

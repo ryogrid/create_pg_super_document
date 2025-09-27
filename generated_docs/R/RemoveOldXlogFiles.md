@@ -60,3 +60,62 @@ The algorithm preserves segments from parent timelines to avoid premature remova
 - The function updates shared memory tracking (via UpdateLastRemovedPtr) before actual file removal
 - Alphanumeric sorting of filenames is used to determine segment chronological order
 - File path: src/backend/access/transam/xlog.c:3842-3916
+
+## Simplified Source
+
+```c
+// Simplified version of RemoveOldXlogFiles
+static void
+RemoveOldXlogFiles(XLogSegNo segno, XLogRecPtr lastredoptr, XLogRecPtr endptr,
+                   TimeLineID insertTLI)
+{
+    DIR *xldir;
+    struct dirent *xlde;
+    char lastoff[MAXFNAMELEN];
+    XLogSegNo endlogSegNo;
+    XLogSegNo recycleSegNo;
+
+    // Calculate recycling boundaries
+    XLByteToSeg(endptr, endlogSegNo, wal_segment_size);
+    recycleSegNo = XLOGfileslop(lastredoptr);
+
+    // Create filename of last segment to keep (timeline ignored)
+    XLogFileName(lastoff, 0, segno, wal_segment_size);
+
+    // Open WAL directory for scanning
+    xldir = AllocateDir(XLOGDIR);
+
+    // Scan directory for WAL files to remove
+    while ((xlde = ReadDir(xldir, XLOGDIR)) != NULL)
+    {
+        // Skip non-WAL files
+        if (!IsXLogFileName(xlde->d_name) && !IsPartialXLogFileName(xlde->d_name))
+            continue;
+
+        // Check if file is older than threshold (using alphanumeric comparison)
+        if (strcmp(xlde->d_name + 8, lastoff + 8) <= 0)
+        {
+            // Only remove if archiving is complete
+            if (XLogArchiveCheckDone(xlde->d_name))
+            {
+                // Update shared memory tracking
+                UpdateLastRemovedPtr(xlde->d_name);
+
+                // Remove or recycle the file
+                RemoveXlogFile(xlde, recycleSegNo, &endlogSegNo, insertTLI);
+            }
+        }
+    }
+
+    // Clean up directory handle
+    FreeDir(xldir);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining timeline handling strategy
+- Consolidated debug logging (removed elog call)
+- Simplified variable declarations and initialization
+- Focused on the main execution path: scan → filter → archive check → remove
+- Abstracted the complex recycling logic into the RemoveXlogFile call
+- Maintained the essential algorithm while reducing cognitive overhead

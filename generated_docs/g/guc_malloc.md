@@ -44,3 +44,28 @@ The function uses  with the  flag, which means it will return NULL instead of th
 - Control only returns to caller if error level is less than ERROR
 - Allocates memory specifically in the GUCMemoryContext for configuration-related data
 - Used extensively throughout the GUC system for allocating strings and other configuration data
+
+## Simplified Source
+
+```c
+// Simplified version of guc_malloc
+void *guc_malloc(int elevel, size_t size) {
+    // Allocate memory in GUC context with no-throw flag
+    void *data = MemoryContextAllocExtended(GUCMemoryContext, size, MCXT_ALLOC_NO_OOM);
+
+    // Report error at specified level if allocation failed
+    if (unlikely(data == NULL)) {
+        ereport(elevel,
+                (errcode(ERRCODE_OUT_OF_MEMORY),
+                 errmsg("out of memory")));
+    }
+
+    return data;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declaration and assignment
+- Added clear comments explaining each step
+- Preserved the essential memory allocation and error handling logic
+- Maintained the exact same functionality while improving readability

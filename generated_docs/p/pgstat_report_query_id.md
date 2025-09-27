@@ -43,3 +43,32 @@ Query identifiers are automatically reset when a backend transitions to STATE_RU
 - The stored query_id is reset to 0 when pgstat_report_activity(STATE_RUNNING) is called
 - [Query](../Q/Query.md) identifiers enable correlation between pg_stat_statements and pg_stat_activity views
 - Part of PostgreSQL's query monitoring infrastructure for performance analysis and debugging
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_report_query_id
+void pgstat_report_query_id(uint64 query_id, bool force) {
+    volatile PgBackendStatus *beentry = MyBEEntry;
+
+    // Skip if activity tracking is disabled
+    if (!beentry || !pgstat_track_activities)
+        return;
+
+    // Only update top-level query IDs (unless forced)
+    // If query_id is already set and force=false, ignore this call
+    if (beentry->st_query_id != 0 && !force)
+        return;
+
+    // Atomically update the query ID in shared memory
+    PGSTAT_BEGIN_WRITE_ACTIVITY(beentry);
+    beentry->st_query_id = query_id;
+    PGSTAT_END_WRITE_ACTIVITY(beentry);
+}
+```
+
+Key simplifications made:
+- Condensed comments to focus on core logic
+- Removed detailed protocol explanations while preserving the atomic update pattern
+- Simplified the top-level policy explanation
+- Maintained the essential three-step logic: check tracking, check policy, update atomically

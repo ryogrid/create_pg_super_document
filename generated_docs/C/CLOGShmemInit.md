@@ -52,3 +52,46 @@ This function takes no parameters.
 - The function includes robust error handling for configuration override scenarios
 - CLOG is critical for transaction visibility and MVCC, making proper initialization essential for database correctness
 - The unit tests help ensure the page ordering logic works correctly across different platforms and configurations
+
+## Simplified Source
+
+```c
+// Simplified version of CLOGShmemInit
+void CLOGShmemInit(void) {
+    // Auto-tune transaction buffers if not explicitly set
+    if (transaction_buffers == 0) {
+        char buf[32];
+
+        // Calculate optimal buffer size and set configuration
+        snprintf(buf, sizeof(buf), "%d", CLOGShmemBuffers());
+        SetConfigOption("transaction_buffers", buf, PGC_POSTMASTER, PGC_S_DYNAMIC_DEFAULT);
+
+        // Force override if DBA explicitly set to 0 in config
+        if (transaction_buffers == 0) {
+            SetConfigOption("transaction_buffers", buf, PGC_POSTMASTER, PGC_S_OVERRIDE);
+        }
+    }
+
+    // Verify buffers are properly configured
+    Assert(transaction_buffers != 0);
+
+    // Set up page ordering function for CLOG
+    XactCtl->PagePrecedes = CLOGPagePrecedes;
+
+    // Initialize Simple LRU control structure for CLOG management
+    SimpleLruInit(XactCtl, "transaction", CLOGShmemBuffers(), CLOG_LSNS_PER_PAGE,
+                  "pg_xact", LWTRANCHE_XACT_BUFFER, LWTRANCHE_XACT_SLRU,
+                  SYNC_HANDLER_CLOG, false);
+
+    // Run unit tests for page precedence logic
+    SlruPagePrecedesUnitTests(XactCtl, CLOG_XACTS_PER_PAGE);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Preserved the essential auto-tuning logic for transaction buffers
+- Maintained the configuration override mechanism
+- Kept the critical SLRU initialization with all parameters
+- Retained unit testing call for correctness verification
+- Focused on the main execution flow without losing important functionality

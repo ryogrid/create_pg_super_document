@@ -46,3 +46,78 @@ The function manages resource cleanup including releasing postmaster child slots
 - Supports notification cancellation for workers that started other workers
 - Integrates with EXEC_BACKEND mode for shared memory management
 - Different log levels used based on exit status (DEBUG1 for normal, LOG for abnormal)
+
+## Simplified Source
+
+```c
+// Simplified version of CleanupBackgroundWorker
+static bool CleanupBackgroundWorker(int pid, int exitstatus) {
+    // Search through all registered background workers
+    slist_foreach_modify(iter, &BackgroundWorkerList) {
+        RegisteredBgWorker *worker = slist_container(RegisteredBgWorker, rw_lnode, iter.cur);
+
+        // Skip if this worker doesn't match the PID
+        if (worker->rw_pid != pid)
+            continue;
+
+        // Windows-specific: normalize exit status
+        #ifdef WIN32
+        if (exitstatus == ERROR_WAIT_NO_CHILDREN)
+            exitstatus = 0;
+        #endif
+
+        // Handle different exit scenarios
+        if (EXIT_STATUS_0(exitstatus)) {
+            // Normal exit - mark for termination, don't restart
+            worker->rw_crashed_at = 0;
+            worker->rw_terminate = true;
+        } else {
+            // Abnormal exit - record crash time for restart logic
+            worker->rw_crashed_at = GetCurrentTimestamp();
+        }
+
+        // Check for system crash conditions (exit codes other than 0 or 1)
+        if (!EXIT_STATUS_0(exitstatus) && !EXIT_STATUS_1(exitstatus)) {
+            HandleChildCrash(pid, exitstatus, worker_name);
+            return true;
+        }
+
+        // Release the postmaster child slot
+        if (!ReleasePostmasterChildSlot(worker->rw_child_slot)) {
+            // Failed to release slot - trigger crash recovery
+            HandleChildCrash(pid, exitstatus, worker_name);
+            return true;
+        }
+
+        // Clean up worker resources
+        dlist_delete(&worker->rw_backend->elem);
+
+        // Cancel any notifications this worker was waiting for
+        if (worker->rw_backend->bgworker_notify)
+            BackgroundWorkerStopNotifications(worker->rw_pid);
+
+        // Free memory and reset worker state
+        pfree(worker->rw_backend);
+        worker->rw_backend = NULL;
+        worker->rw_pid = 0;
+        worker->rw_child_slot = 0;
+
+        // Report the worker exit and log it
+        ReportBackgroundWorkerExit(&iter);
+        LogChildExit(log_level, worker_name, pid, exitstatus);
+
+        return true; // Found and processed the worker
+    }
+
+    return false; // PID was not a background worker
+}
+```
+
+Key simplifications made:
+- Removed detailed name buffer construction for clarity
+- Consolidated exit status handling logic
+- Abstracted platform-specific details with comments
+- Simplified the main cleanup sequence
+- Focused on the core algorithm: find worker, handle exit status, clean up resources
+- Removed EXEC_BACKEND specific code for clarity
+- Used descriptive variable names and added flow comments

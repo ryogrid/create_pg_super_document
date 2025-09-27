@@ -54,3 +54,18 @@ The returned string is statically allocated and should not be freed by the calle
 - The function includes no bounds checking, relying on callers to provide valid UserAuth values
 - A compile-time assertion ensures the UserAuthName array stays synchronized with the UserAuth enum
 - This function is primarily used for logging, error messages, and administrative interfaces where authentication method names need to be displayed in a human-readable format
+
+## Simplified Source
+
+```c
+// Simplified version of hba_authname
+const char *hba_authname(UserAuth auth_method) {
+    // Simple array lookup to get authentication method name
+    return UserAuthName[auth_method];
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple with no error handling or complex logic
+- No simplification needed - the function is a direct array lookup
+- Preserved the core functionality of mapping enum values to string names

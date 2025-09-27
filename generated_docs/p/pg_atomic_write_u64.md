@@ -40,3 +40,23 @@ The function is implemented as an inline wrapper around the platform-specific im
 - Widely used throughout PostgreSQL for updating atomic counters, state variables, and synchronization primitives
 - The volatile qualifier on the pointer parameter prevents compiler optimizations that might eliminate or cache the memory access
 - This function is part of PostgreSQL's portable atomic operations interface, providing consistent behavior across different platforms and architectures
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_write_u64
+static inline void pg_atomic_write_u64(volatile pg_atomic_uint64 *ptr, uint64 val) {
+    // Ensure proper alignment for efficient atomic operations
+    // (only checked in debug builds when not using simulation)
+    AssertPointerAlignment(ptr, 8);
+
+    // Delegate to platform-specific atomic write implementation
+    pg_atomic_write_u64_impl(ptr, val);
+}
+```
+
+Key simplifications made:
+- Removed conditional compilation directives for clarity
+- Added explanatory comments for the alignment check and implementation call
+- Focused on the main execution path (non-simulation case)
+- Abstracted platform-specific implementation details

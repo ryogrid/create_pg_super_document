@@ -37,3 +37,23 @@ This function takes no parameters.
 - The warning message helps administrators identify a common misconfiguration where autovacuum is enabled but statistics collection is disabled
 - The function's comment humorously states its purpose as "annoy the user if he got it wrong", emphasizing its role as a configuration validator
 - Located in src/backend/postmaster/autovacuum.c:3287-3299
+
+## Simplified Source
+
+```c
+// Simplified version of autovac_init
+void autovac_init(void) {
+    // Check for configuration mismatch: autovacuum enabled but stats tracking disabled
+    if (autovacuum_start_daemon && !pgstat_track_counts) {
+        // Warn user about the misconfiguration
+        ereport(WARNING,
+                (errmsg("autovacuum not started because of misconfiguration"),
+                 errhint("Enable the \"track_counts\" option.")));
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the configuration check
+- Maintained the original logic flow exactly as it's already quite simple
+- Emphasized the core purpose: validating autovacuum configuration at startup

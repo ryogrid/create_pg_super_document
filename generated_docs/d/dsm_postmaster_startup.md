@@ -37,3 +37,61 @@ This function is responsible for the one-time initialization of PostgreSQL's dyn
 - Sets up automatic cleanup via on_shmem_exit() to ensure proper shutdown
 - The control segment stores magic number, item count, and maximum items for validation
 - For mmap implementations, performs cleanup of leftover segments from previous runs
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_postmaster_startup
+void dsm_postmaster_startup(PGShmemHeader *shim) {
+    void *dsm_control_address = NULL;
+    uint32 maxitems;
+    Size segsize;
+
+    // Ensure this runs only in postmaster process
+    Assert(!IsUnderPostmaster);
+
+    // Step 1: Clean up any leftover mmap segments from previous runs
+    if (dynamic_shared_memory_type == DSM_IMPL_MMAP) {
+        dsm_cleanup_for_mmap();
+    }
+
+    // Step 2: Calculate control segment size based on max backends
+    maxitems = PG_DYNSHMEM_FIXED_SLOTS + PG_DYNSHMEM_SLOTS_PER_BACKEND * MaxBackends;
+    segsize = dsm_control_bytes_needed(maxitems);
+
+    // Step 3: Find unused handle and create control segment
+    for (;;) {
+        // Generate random even-numbered handle
+        dsm_control_handle = pg_prng_uint32(&pg_global_prng_state) << 1;
+        if (dsm_control_handle == DSM_HANDLE_INVALID) {
+            continue;  // Skip invalid handle
+        }
+
+        // Try to create segment with this handle
+        if (dsm_impl_op(DSM_OP_CREATE, dsm_control_handle, segsize,
+                       &dsm_control_impl_private, &dsm_control_address,
+                       &dsm_control_mapped_size, ERROR)) {
+            break;  // Success - handle is unique
+        }
+    }
+
+    // Step 4: Initialize control segment and set up cleanup
+    dsm_control = dsm_control_address;
+    on_shmem_exit(dsm_postmaster_shutdown, PointerGetDatum(shim));
+    shim->dsm_control = dsm_control_handle;
+
+    // Step 5: Initialize control segment metadata
+    dsm_control->magic = PG_DYNSHMEM_CONTROL_MAGIC;
+    dsm_control->nitems = 0;
+    dsm_control->maxitems = maxitems;
+}
+```
+
+Key simplifications made:
+- Removed debug logging statements for clarity
+- Consolidated variable declarations at the top
+- Added step-by-step comments explaining the main phases
+- Simplified the loop logic explanation
+- Focused on the core algorithm flow
+- Abstracted low-level implementation details
+- Preserved all essential initialization steps

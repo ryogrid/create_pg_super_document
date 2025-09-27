@@ -34,3 +34,29 @@ The function includes a platform-specific check for multithreading on systems th
 - Includes debugging comments from original developers (vadim 05-10-1999) about backend termination semantics
 - The multithreading check is primarily defensive, as postmasters should not become multithreaded during normal operation
 - Platform-specific behavior on systems with pthread_is_threaded_np() support
+
+## Simplified Source
+
+```c
+// Simplified version of ExitPostmaster
+static void ExitPostmaster(int status) {
+    // Check for unexpected multithreading (platform-specific)
+    #ifdef HAVE_PTHREAD_IS_THREADED_NP
+    if (pthread_is_threaded_np() != 0) {
+        ereport(LOG,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("postmaster became multithreaded"),
+                 errhint("Set the LC_ALL environment variable to a valid locale.")));
+    }
+    #endif
+
+    // Perform actual cleanup and exit
+    proc_exit(status);
+}
+```
+
+Key simplifications made:
+- Removed verbose comments about cleanup semantics and historical notes
+- Consolidated multithreading check into a single clear block
+- Focused on the two core operations: safety check and exit delegation
+- Preserved essential error reporting for the multithreading condition

@@ -34,3 +34,30 @@ This function calculates and returns the shared memory size required for the inj
 - Returns 0 when injection points are disabled at compile time
 - Part of the shared memory sizing infrastructure used during PostgreSQL startup
 - The size calculation is straightforward since it's just a single structure with fixed-size array
+
+## Simplified Source
+
+```c
+// Simplified version of InjectionPointShmemSize
+Size InjectionPointShmemSize(void) {
+#ifdef USE_INJECTION_POINTS
+    // Calculate size needed for injection points control structure
+    Size memory_size = 0;
+
+    // Add size of the main control structure (contains counter + entries array)
+    memory_size = add_size(memory_size, sizeof(InjectionPointsCtl));
+
+    return memory_size;
+#else
+    // No injection points support compiled in - no memory needed
+    return 0;
+#endif
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Used more descriptive variable name (`memory_size` instead of `sz`)
+- Separated the logic flow with clear comments
+- Maintained the essential conditional compilation logic
+- Kept the safe size arithmetic using `add_size()`

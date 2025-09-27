@@ -42,3 +42,38 @@ static void log_disconnections(int code, Datum arg)
 - Includes detailed client connection metadata for security and debugging
 - Works for both normal and abnormal process termination
 - Part of PostgreSQL's comprehensive logging and monitoring infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of log_disconnections
+static void log_disconnections(int code, Datum arg) {
+    Port *port = MyProcPort;
+    long secs;
+    int usecs;
+
+    // Calculate session duration from start to now
+    TimestampDifference(MyStartTimestamp, GetCurrentTimestamp(), &secs, &usecs);
+
+    // Convert to human-readable time format (hours:minutes:seconds.milliseconds)
+    int hours = secs / SECS_PER_HOUR;
+    int minutes = (secs % SECS_PER_HOUR) / SECS_PER_MINUTE;
+    int seconds = secs % SECS_PER_MINUTE;
+    int msecs = usecs / 1000;
+
+    // Log disconnection with session time and connection details
+    ereport(LOG,
+        (errmsg("disconnection: session time: %d:%02d:%02d.%03d "
+                "user=%s database=%s host=%s%s%s",
+                hours, minutes, seconds, msecs,
+                port->user_name, port->database_name, port->remote_host,
+                port->remote_port[0] ? " port=" : "", port->remote_port)));
+}
+```
+
+Key simplifications made:
+- Consolidated time calculation variables into logical groups
+- Combined modulo operations for cleaner time conversion
+- Added explanatory comments for each major step
+- Preserved the exact logging format and all essential functionality
+- Maintained the same algorithm flow with clearer variable organization

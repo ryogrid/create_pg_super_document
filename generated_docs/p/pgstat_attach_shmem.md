@@ -34,3 +34,35 @@ This function connects a backend process to the statistics shared memory structu
 - Pins the DSA mapping to prevent it from being automatically cleaned up
 - Part of the backend initialization sequence for statistics collection
 - The DSA and hash table were previously created by StatsShmemInit in the postmaster
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_attach_shmem
+void pgstat_attach_shmem(void) {
+    MemoryContext oldcontext;
+
+    // Ensure we haven't already attached
+    Assert(pgStatLocal.dsa == NULL);
+
+    // Switch to long-term memory context
+    oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+
+    // Attach to existing DSA in shared memory
+    pgStatLocal.dsa = dsa_attach_in_place(pgStatLocal.shmem->raw_dsa_area, NULL);
+    dsa_pin_mapping(pgStatLocal.dsa);
+
+    // Attach to shared hash table
+    pgStatLocal.shared_hash = dshash_attach(pgStatLocal.dsa, &dsh_params,
+                                          pgStatLocal.shmem->hash_handle, 0);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```
+
+Key simplifications made:
+- Simplified comments to focus on essential operations
+- Grouped DSA operations together
+- Clarified memory context switching purpose
+- Maintained all essential assertions and function calls

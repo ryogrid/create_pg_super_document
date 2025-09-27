@@ -36,3 +36,28 @@ The function includes an optimization that avoids unnecessary copying when the p
 - Specifically designed for in-place path manipulation during canonicalization
 - Essential component of the path canonicalization process in PostgreSQL
 - The returned pointer is typically used for further path construction operations
+
+## Simplified Source
+
+```c
+// Simplified version of append_subdir_to_path
+static char *append_subdir_to_path(char *path, char *subdir) {
+    // Get the length of the subdirectory name
+    size_t len = strlen(subdir);
+
+    // Only copy if source and destination are different
+    if (path != subdir) {
+        // Use memmove for safe overlapping memory copy
+        memmove(path, subdir, len);
+    }
+
+    // Return pointer to new end of path (for continued construction)
+    return path + len;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the memory copy logic
+- Preserved the essential overlap safety with memmove
+- Maintained the optimization for identical pointers
+- Kept the important return value for path construction

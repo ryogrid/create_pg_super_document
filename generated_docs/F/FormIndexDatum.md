@@ -49,3 +49,58 @@ FormIndexDatum is a core function responsible for extracting and preparing data 
 - The function validates that the number of expressions matches expectations and will error on mismatch
 - Used extensively throughout the system for index maintenance, constraint checking, and analysis operations
 - Does not actually create the index tuple - only prepares the data arrays for the access method
+
+## Simplified Source
+
+```c
+// Simplified version of FormIndexDatum
+void FormIndexDatum(IndexInfo *indexInfo,
+                   TupleTableSlot *slot,
+                   EState *estate,
+                   Datum *values,
+                   bool *isnull) {
+    ListCell *expression_iterator;
+    int i;
+
+    // Initialize expression evaluation state on first use
+    if (indexInfo->ii_Expressions != NIL && indexInfo->ii_ExpressionsState == NIL) {
+        indexInfo->ii_ExpressionsState = ExecPrepareExprList(indexInfo->ii_Expressions, estate);
+    }
+    expression_iterator = list_head(indexInfo->ii_ExpressionsState);
+
+    // Process each index column
+    for (i = 0; i < indexInfo->ii_NumIndexAttrs; i++) {
+        int column_number = indexInfo->ii_IndexAttrNumbers[i];
+        Datum column_value;
+        bool is_null;
+
+        if (column_number < 0) {
+            // System attribute (ctid, oid, etc.)
+            column_value = slot_getsysattr(slot, column_number, &is_null);
+        }
+        else if (column_number != 0) {
+            // Regular table column - extract directly from heap tuple
+            column_value = slot_getattr(slot, column_number, &is_null);
+        }
+        else {
+            // Index expression - evaluate it
+            column_value = ExecEvalExprSwitchContext((ExprState *) lfirst(expression_iterator),
+                                                   GetPerTupleExprContext(estate),
+                                                   &is_null);
+            expression_iterator = lnext(indexInfo->ii_ExpressionsState, expression_iterator);
+        }
+
+        // Store the result in output arrays
+        values[i] = column_value;
+        isnull[i] = is_null;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error checking for expression count mismatches
+- Used more descriptive variable names (column_number, column_value, is_null, expression_iterator)
+- Consolidated the core logic into clearer sections with comments
+- Removed Assert statements and detailed error handling
+- Focused on the three main cases: system attributes, regular columns, and expressions
+- Simplified the expression evaluation flow while preserving the essential logic

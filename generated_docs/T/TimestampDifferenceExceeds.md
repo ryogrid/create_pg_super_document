@@ -41,3 +41,26 @@ This function performs a simple comparison to determine if the time difference b
 - Commonly used for timeout checks and performance monitoring throughout the PostgreSQL codebase
 - The function performs a simple arithmetic comparison and is very efficient
 - Returns true if the time difference meets or exceeds the threshold, false otherwise
+
+## Simplified Source
+
+```c
+// Simplified version of TimestampDifferenceExceeds
+bool TimestampDifferenceExceeds(TimestampTz start_time, TimestampTz stop_time, int msec) {
+    // Calculate the time difference in microseconds
+    TimestampTz time_diff = stop_time - start_time;
+
+    // Convert threshold from milliseconds to microseconds and compare
+    // PostgreSQL stores timestamps with microsecond precision
+    TimestampTz threshold_microseconds = msec * 1000;
+
+    // Return true if difference meets or exceeds the threshold
+    return (time_diff >= threshold_microseconds);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each step
+- Introduced intermediate variable names for clarity
+- Explained the microsecond conversion logic
+- Maintained the original algorithm's efficiency

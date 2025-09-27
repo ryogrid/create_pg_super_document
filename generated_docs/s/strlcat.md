@@ -41,3 +41,49 @@ The return value indicates whether truncation occurred: if the return value is g
 - The function returns the total length that would have been created if there was unlimited space, allowing detection of truncation
 - Originally developed by Todd C. Miller and Theo de Raadt for OpenBSD
 - The implementation handles edge cases carefully, including when the destination buffer is already full or when no space is available for concatenation
+
+## Simplified Source
+
+```c
+// Simplified version of strlcat
+size_t strlcat(char *dst, const char *src, size_t siz) {
+    char *d = dst;
+    const char *s = src;
+    size_t n = siz;
+    size_t dlen;
+
+    // Find the end of destination string
+    while (n-- != 0 && *d != '\0') {
+        d++;
+    }
+    dlen = d - dst;
+    n = siz - dlen;
+
+    // If no space left, just return total length needed
+    if (n == 0) {
+        return (dlen + strlen(s));
+    }
+
+    // Copy source characters while space available
+    while (*s != '\0') {
+        if (n != 1) {  // Leave space for null terminator
+            *d++ = *s;
+            n--;
+        }
+        s++;
+    }
+
+    // Always null terminate
+    *d = '\0';
+
+    // Return total length (without null terminator)
+    return (dlen + (s - src));
+}
+```
+
+Key simplifications made:
+- Preserved the essential algorithm for safe string concatenation
+- Maintained the core logic: find destination end, copy source safely, null terminate
+- Kept the important return value calculation for truncation detection
+- Simplified comments to focus on the main steps
+- Preserved all safety checks and buffer bounds handling

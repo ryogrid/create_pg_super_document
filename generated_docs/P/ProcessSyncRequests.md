@@ -43,3 +43,111 @@ This function takes no parameters.
 - Respects the enableFsync setting and skips actual syncing when fsync is disabled
 - Updates CheckpointStats with performance metrics for monitoring and reporting
 - Critical for maintaining ACID properties by ensuring all database changes are durably stored before checkpoint completion
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessSyncRequests
+void ProcessSyncRequests(void) {
+    static bool sync_in_progress = false;
+    HASH_SEQ_STATUS hstat;
+    PendingFsyncEntry *entry;
+    int absorb_counter;
+
+    // Performance tracking variables
+    int processed = 0;
+    instr_time sync_start, sync_end, sync_diff;
+    uint64 elapsed, longest = 0, total_elapsed = 0;
+
+    // Validate state
+    if (!pendingOps)
+        elog(ERROR, "cannot sync without a pendingOps table");
+
+    // Step 1: Absorb any new sync requests from other processes
+    AbsorbSyncRequests();
+
+    // Step 2: Handle previous incomplete sync cycles
+    if (sync_in_progress) {
+        // Previous sync failed - reset stale cycle counters
+        reset_stale_cycle_counters();
+    }
+
+    // Step 3: Advance cycle counter to distinguish old vs new requests
+    sync_cycle_ctr++;
+    sync_in_progress = true;
+
+    // Step 4: Process all requests from previous cycle
+    absorb_counter = FSYNCS_PER_ABSORB;
+    hash_seq_init(&hstat, pendingOps);
+
+    while ((entry = (PendingFsyncEntry *) hash_seq_search(&hstat)) != NULL) {
+        // Skip new requests (defer to next checkpoint)
+        if (entry->cycle_ctr == sync_cycle_ctr)
+            continue;
+
+        Assert((CycleCtr) (entry->cycle_ctr + 1) == sync_cycle_ctr);
+
+        // Step 5: Perform sync operation if fsync is enabled
+        if (enableFsync) {
+            // Periodically absorb new requests to prevent overflow
+            if (--absorb_counter <= 0) {
+                AbsorbSyncRequests();
+                absorb_counter = FSYNCS_PER_ABSORB;
+            }
+
+            // Sync file with retry logic for deleted files
+            if (sync_file_with_retry(entry, &sync_start, &sync_end)) {
+                // Update performance statistics
+                update_sync_statistics(&sync_start, &sync_end, &longest,
+                                     &total_elapsed, &processed);
+            }
+        }
+
+        // Step 6: Remove processed entry from hash table
+        remove_processed_entry(entry);
+    }
+
+    // Step 7: Record performance metrics and mark completion
+    CheckpointStats.ckpt_sync_rels = processed;
+    CheckpointStats.ckpt_longest_sync = longest;
+    CheckpointStats.ckpt_agg_sync_time = total_elapsed;
+
+    sync_in_progress = false;
+}
+
+// Helper function (conceptual)
+static bool sync_file_with_retry(PendingFsyncEntry *entry,
+                                instr_time *start, instr_time *end) {
+    int failures = 0;
+    char path[MAXPGPATH];
+
+    while (!entry->canceled) {
+        INSTR_TIME_SET_CURRENT(*start);
+
+        if (syncsw[entry->tag.handler].sync_syncfiletag(&entry->tag, path) == 0) {
+            INSTR_TIME_SET_CURRENT(*end);
+            return true;  // Success
+        }
+
+        // Handle retry logic for deleted files
+        if (!FILE_POSSIBLY_DELETED(errno) || failures > 0) {
+            report_sync_error(path);
+            return false;
+        }
+
+        // Absorb requests and check for cancellation
+        AbsorbSyncRequests();
+        failures++;
+    }
+    return false;  // Entry was canceled
+}
+```
+
+Key simplifications made:
+- Organized into clear sequential steps with descriptive comments
+- Abstracted complex retry logic into a conceptual helper function
+- Simplified performance tracking while preserving essential metrics
+- Maintained the critical cycle counter mechanism for request handling
+- Preserved the error handling patterns for deleted files
+- Focused on the core algorithm: absorb requests, process old ones, track performance
+- Abstracted repetitive operations into conceptual helpers for clarity

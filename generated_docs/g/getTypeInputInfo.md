@@ -61,3 +61,44 @@ This function is fundamental to PostgreSQL's type system and is used extensively
 - The `typIOParam` is determined by `getTypeIOParam()` which handles various type-specific parameter logic
 - Essential for all operations that need to convert string representations to internal type values
 - Part of the core type system infrastructure in PostgreSQL's lsyscache module
+
+## Simplified Source
+
+```c
+// Simplified version of getTypeInputInfo
+void getTypeInputInfo(Oid type, Oid *typInput, Oid *typIOParam) {
+    HeapTuple typeTuple;
+    Form_pg_type typeForm;
+
+    // Look up the type in the system catalog
+    typeTuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(type));
+    if (!HeapTupleIsValid(typeTuple)) {
+        elog(ERROR, "cache lookup failed for type %u", type);
+    }
+
+    // Get the type structure from the tuple
+    typeForm = (Form_pg_type) GETSTRUCT(typeTuple);
+
+    // Validate that the type is fully defined and has an input function
+    if (!typeForm->typisdefined) {
+        ereport(ERROR, "type is only a shell");
+    }
+    if (!OidIsValid(typeForm->typinput)) {
+        ereport(ERROR, "no input function available for type");
+    }
+
+    // Return the input function OID and I/O parameter
+    *typInput = typeForm->typinput;
+    *typIOParam = getTypeIOParam(typeTuple);
+
+    // Clean up the cache reference
+    ReleaseSysCache(typeTuple);
+}
+```
+
+Key simplifications made:
+- Simplified error messages for clarity (removed detailed error codes and formatting)
+- Used more descriptive variable name (`typeForm` instead of `pt`)
+- Condensed the validation logic while preserving all essential checks
+- Focused on the main execution path: lookup → validate → extract → cleanup
+- Maintained the core algorithm structure and all critical functionality

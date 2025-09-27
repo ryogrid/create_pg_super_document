@@ -35,3 +35,28 @@ XLogInsertAllowed is a critical function that controls access to WAL insertion o
 - Essential for WAL write permission control across the PostgreSQL system
 - Located in src/backend/access/transam/xlog.c:6368-6400
 - Performance-critical function called frequently during normal database operations
+
+## Simplified Source
+
+```c
+// Simplified version of XLogInsertAllowed
+bool XLogInsertAllowed(void) {
+    // Fast path: check cached result
+    if (LocalXLogInsertAllowed >= 0)
+        return (bool) LocalXLogInsertAllowed;
+
+    // Slow path: check if we're still in recovery
+    if (RecoveryInProgress())
+        return false;
+
+    // Recovery is done, cache result for future calls
+    LocalXLogInsertAllowed = 1;
+    return true;
+}
+```
+
+Key simplifications made:
+- Emphasized the performance optimization: cached fast path vs recovery check
+- Focused on the three-state logic: cached true, cached false, or check recovery
+- Preserved the caching mechanism that eliminates repeated expensive checks
+- Maintained the core WAL insertion permission control

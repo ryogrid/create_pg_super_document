@@ -41,3 +41,25 @@ This function takes no parameters.
 - Critical for preventing memory leaks in ErrorContext
 - Used extensively throughout PostgreSQL in both backend processes and procedural language implementations
 - The reset to stack depth -1 indicates an empty stack (0-based indexing with -1 as empty state)
+
+## Simplified Source
+
+```c
+// Simplified version of FlushErrorState
+void FlushErrorState(void) {
+    // Reset error stack to empty state
+    errordata_stack_depth = -1;
+
+    // Reset recursion tracking
+    recursion_depth = 0;
+
+    // Clear all error context memory
+    MemoryContextReset(ErrorContext);
+}
+```
+
+Key simplifications made:
+- Removed detailed explanatory comments for clarity
+- Condensed the core functionality into three clear steps
+- Focused on the essential operations: stack reset, recursion reset, and memory cleanup
+- Maintained the exact same functionality with clearer structure

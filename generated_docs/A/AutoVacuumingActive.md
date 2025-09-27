@@ -41,3 +41,24 @@ None - this function takes no parameters.
 - Used by both the autovacuum launcher and worker processes to ensure proper configuration
 - Also used by the postmaster process to determine whether autovacuum processes should be started
 - Returns  immediately if either prerequisite is not met, using short-circuit evaluation
+
+## Simplified Source
+
+```c
+// Simplified version of AutoVacuumingActive
+bool AutoVacuumingActive(void) {
+    // Check if autovacuum daemon is enabled AND statistics tracking is enabled
+    if (!autovacuum_start_daemon || !pgstat_track_counts) {
+        return false;  // Autovacuum cannot run without both prerequisites
+    }
+
+    // Both conditions met - autovacuum can be active
+    return true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core logic
+- Emphasized the dual prerequisite check
+- Made the conditional logic more explicit with explanatory comments
+- Highlighted that both conditions must be true for autovacuum to be active

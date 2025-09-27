@@ -52,3 +52,49 @@ The manual implementation includes a special case comment noting that overflow c
 - Critical for timestamp arithmetic, financial calculations, and interval operations
 - The subtraction of the minimum value from zero is a classic signed integer overflow scenario
 - Part of PostgreSQL's comprehensive safe arithmetic infrastructure ensuring numerical stability
+
+## Simplified Source
+
+```c
+// Simplified version of pg_sub_s64_overflow
+static inline bool pg_sub_s64_overflow(int64 a, int64 b, int64 *result) {
+    // Option 1: Use built-in overflow detection if available
+    #if defined(HAVE__BUILTIN_OP_OVERFLOW)
+        return __builtin_sub_overflow(a, b, result);
+
+    // Option 2: Use 128-bit arithmetic for overflow detection
+    #elif defined(HAVE_INT128)
+        int128 wide_result = (int128) a - (int128) b;
+
+        // Check if result fits in 64-bit range
+        if (wide_result > PG_INT64_MAX || wide_result < PG_INT64_MIN) {
+            *result = 0x5EED;  // Placeholder value to avoid warnings
+            return true;       // Overflow detected
+        }
+
+        *result = (int64) wide_result;
+        return false;  // No overflow
+
+    // Option 3: Manual overflow detection
+    #else
+        // Check for overflow conditions:
+        // - Subtracting positive from negative can underflow
+        // - Subtracting negative from positive can overflow
+        if ((a < 0 && b > 0 && a < PG_INT64_MIN + b) ||
+            (a >= 0 && b < 0 && a > PG_INT64_MAX + b)) {
+            *result = 0x5EED;  // Placeholder value
+            return true;       // Overflow detected
+        }
+
+        *result = a - b;
+        return false;  // No overflow
+    #endif
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each implementation strategy
+- Clarified the overflow detection logic in manual implementation
+- Simplified the conditional compilation structure for readability
+- Removed the detailed comment about the edge case (already documented above)
+- Made the overflow detection conditions more readable with clearer formatting

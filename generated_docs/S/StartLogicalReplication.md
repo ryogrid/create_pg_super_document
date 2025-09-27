@@ -58,3 +58,80 @@ The function updates replication state tracking in both local and shared memory,
 - The main replication work happens in WalSndLoop with the XLogSendLogical callback
 - Proper cleanup ensures resources are freed even when replication is interrupted
 - Critical for PostgreSQL's logical replication feature used in logical standby servers and change data capture scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of StartLogicalReplication
+static void StartLogicalReplication(StartReplicationCmd *cmd) {
+    StringInfoData buf;
+    QueryCompletion qc;
+
+    // Step 1: Validate requirements and acquire replication slot
+    CheckLogicalDecodingRequirements();
+    Assert(!MyReplicationSlot);
+    ReplicationSlotAcquire(cmd->slotname, true);
+
+    // Step 2: Handle cascading walsender promotion case
+    if (am_cascading_walsender && !RecoveryInProgress()) {
+        ereport(LOG, (errmsg("terminating walsender process after promotion")));
+        got_STOPPING = true;
+    }
+
+    // Step 3: Create logical decoding context starting from acknowledged position
+    logical_decoding_ctx = CreateDecodingContext(
+        cmd->startpoint,
+        cmd->options,
+        false,
+        callback_functions,  // XL_ROUTINE with read/write/progress callbacks
+        WalSndPrepareWrite,
+        WalSndWriteData,
+        WalSndUpdateProgress
+    );
+    xlogreader = logical_decoding_ctx->reader;
+
+    // Step 4: Update state and send protocol response to client
+    WalSndSetState(WALSNDSTATE_CATCHUP);
+
+    // Send CopyBothResponse message to start streaming protocol
+    pq_beginmessage(&buf, PqMsg_CopyBothResponse);
+    pq_sendbyte(&buf, 0);
+    pq_sendint16(&buf, 0);
+    pq_endmessage(&buf);
+    pq_flush();
+
+    // Step 5: Initialize WAL reading and position tracking
+    XLogBeginRead(logical_decoding_ctx->reader, MyReplicationSlot->data.restart_lsn);
+    sentPtr = MyReplicationSlot->data.confirmed_flush;
+
+    // Update shared memory state
+    SpinLockAcquire(&MyWalSnd->mutex);
+    MyWalSnd->sentPtr = MyReplicationSlot->data.restart_lsn;
+    SpinLockRelease(&MyWalSnd->mutex);
+
+    // Step 6: Start replication and enter main loop
+    replication_active = true;
+    SyncRepInitConfig();
+    WalSndLoop(XLogSendLogical);  // Main streaming loop
+
+    // Step 7: Cleanup when loop exits
+    FreeDecodingContext(logical_decoding_ctx);
+    ReplicationSlotRelease();
+    replication_active = false;
+
+    if (got_STOPPING)
+        proc_exit(0);
+
+    WalSndSetState(WALSNDSTATE_STARTUP);
+    SetQueryCompletion(&qc, CMDTAG_COPY, 0);
+    EndCommand(&qc, DestRemote, false);
+}
+```
+
+Key simplifications made:
+- Consolidated callback function setup into a single comment block
+- Abstracted the complex XL_ROUTINE macro into "callback_functions" with explanation
+- Grouped related operations into logical steps with descriptive comments
+- Simplified the protocol message construction while maintaining the essential flow
+- Focused on the main execution path and key state transitions
+- Preserved all critical operations: slot acquisition, context creation, loop execution, and cleanup

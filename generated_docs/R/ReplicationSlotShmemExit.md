@@ -33,3 +33,24 @@ The function is designed to handle both normal and abnormal process termination 
 - Handles both persistent and temporary replication slot cleanup
 - The ReplicationSlotCleanup call with false parameter indicates it should clean up temporary slots but not persistent ones owned by other processes
 - Critical for preventing replication slot leaks that could exhaust system resources
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotShmemExit
+static void ReplicationSlotShmemExit(int code, Datum arg) {
+    // Release active replication slot if held
+    if (MyReplicationSlot != NULL) {
+        ReplicationSlotRelease();
+    }
+
+    // Clean up all temporary slots
+    ReplicationSlotCleanup(false);
+}
+```
+
+Key simplifications made:
+- Removed redundant comment text
+- Maintained essential logic flow
+- Kept critical NULL check for active slot
+- Preserved cleanup call with correct parameter

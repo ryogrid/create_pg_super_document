@@ -40,3 +40,21 @@ This approach allows the system to defer setting the "real" default value until 
 - This pattern is used to resolve circular dependencies in the initialization sequence where the real default value depends on runtime information not available during early initialization
 - The "Default" value refers to the default timezone abbreviation set, which is typically loaded from system timezone data
 - Can also be called from ProcessConfigFile when a postgresql.conf entry for timezone_abbreviations is removed, restoring the dynamic default
+
+## Simplified Source
+
+```c
+// Simplified version of pg_timezone_abbrev_initialize
+static void pg_timezone_abbrev_initialize(void) {
+    // Set default timezone abbreviations to "Default" if no value is already configured
+    // This uses PGC_S_DYNAMIC_DEFAULT priority, which only applies if no higher-priority
+    // value (from postgresql.conf, command line, etc.) is already set
+    SetConfigOption("timezone_abbreviations", "Default",
+                    PGC_POSTMASTER, PGC_S_DYNAMIC_DEFAULT);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments to clarify the purpose and behavior
+- Explained the significance of PGC_S_DYNAMIC_DEFAULT priority level
+- Maintained the exact original logic since the function is already quite simple

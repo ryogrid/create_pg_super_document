@@ -29,3 +29,18 @@ This function is part of PostgreSQL's dynamic shared memory (DSM) registry subsy
 - This function is typically called during PostgreSQL startup to determine shared memory requirements
 - The use of MAXALIGN ensures that the allocated memory meets platform-specific alignment requirements
 - Part of the broader DSM (Dynamic Shared Memory) infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of DSMRegistryShmemSize
+Size DSMRegistryShmemSize(void) {
+    // Return properly aligned size for DSM registry control structure
+    return MAXALIGN(sizeof(DSMRegistryCtxStruct));
+}
+```
+
+Key simplifications made:
+- Function is already very simple with single return statement
+- Added comment explaining the purpose of memory alignment
+- No simplification needed as the function contains only essential logic

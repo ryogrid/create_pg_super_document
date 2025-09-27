@@ -37,3 +37,21 @@ This function serves as a convenient public API for access control checking in P
 - Extensively used across the system for DDL operations, function calls, and privilege verification
 - The function is declared in src/include/utils/acl.h and used throughout the backend
 - Returns AclResult (typically ACLCHECK_OK or ACLCHECK_NO_PRIV)
+
+## Simplified Source
+
+```c
+// Simplified version of object_aclcheck
+// Public wrapper for checking user access privileges to database objects
+AclResult object_aclcheck(Oid classid, Oid objectid, Oid roleid, AclMode mode) {
+    // Delegate to extended version with no missing object handling
+    // This means the function will throw errors for missing objects
+    return object_aclcheck_ext(classid, objectid, roleid, mode, NULL);
+}
+```
+
+Key simplifications made:
+- Preserved the single function call delegation pattern
+- Added comments explaining the purpose and behavior
+- Maintained all original parameters and return type
+- Clarified that NULL parameter means error-throwing behavior for missing objects

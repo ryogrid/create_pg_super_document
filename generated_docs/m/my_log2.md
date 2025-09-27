@@ -40,3 +40,32 @@ The implementation is platform-aware, using different PostgreSQL utility functio
 - Commonly used in hash table sizing calculations and memory allocation
 - Essential for determining appropriate power-of-2 sizes for data structures
 - The ceiling operation ensures the result is always sufficient to represent the full range [0, num-1]
+
+## Simplified Source
+
+```c
+// Simplified version of my_log2
+// Calculates ceiling of log base 2 of a number
+int my_log2(long num) {
+    // Guard against overflow: cap input at safe maximum
+    if (num > LONG_MAX / 2) {
+        num = LONG_MAX / 2;
+    }
+
+    // Use platform-appropriate calculation function
+    if (sizeof(long) < 8) {
+        // 32-bit platform: use 32-bit optimized version
+        return pg_ceil_log2_32(num);
+    } else {
+        // 64-bit platform: use 64-bit optimized version
+        return pg_ceil_log2_64(num);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step
+- Replaced compile-time macro SIZEOF_LONG with sizeof() for clarity
+- Made the platform selection logic more explicit
+- Focused on the main execution path with clearer variable handling
+- Preserved the essential overflow protection and platform-specific optimization

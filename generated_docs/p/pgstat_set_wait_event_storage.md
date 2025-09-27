@@ -33,3 +33,19 @@ This function establishes the storage location for wait event reporting by setti
 - Must be paired with pgstat_reset_wait_event_storage() to properly clean up
 - This is part of PostgreSQL's statistics and monitoring infrastructure
 - Located at src/backend/utils/activity/wait_event.c:350-361
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_set_wait_event_storage
+void pgstat_set_wait_event_storage(uint32 *wait_event_info) {
+    // Configure global wait event storage pointer to point to provided location
+    // This connects the wait event reporting system to shared memory
+    my_wait_event_info = wait_event_info;
+}
+```
+
+Key simplifications made:
+- Function is already very simple with just one assignment
+- Added explanatory comments to clarify the purpose
+- Focused on the core functionality: configuring wait event storage location

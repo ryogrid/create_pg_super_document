@@ -44,3 +44,24 @@ The `pq_getmsgint64` function reads a fixed 8-byte (64-bit) integer from a messa
 - Essential for WAL receiver/sender message processing
 - The function is defined in src/backend/libpq/pqformat.c:453-468
 - Part of PostgreSQL's binary message format parsing infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getmsgint64
+int64 pq_getmsgint64(StringInfo msg) {
+    uint64 n64;
+
+    // Step 1: Copy 8 bytes from message buffer into local variable
+    pq_copymsgbytes(msg, (char *) &n64, sizeof(n64));
+
+    // Step 2: Convert from network byte order to host byte order
+    return pg_ntoh64(n64);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the two main operations
+- Maintained the exact same logic flow as the original
+- Function is already quite simple, so minimal changes were needed
+- Preserved the essential 64-bit integer extraction and byte order conversion

@@ -42,3 +42,32 @@ This function performs sanity checks on a List structure to ensure it maintains 
   4. List type is one of the four supported types
 - Used extensively throughout list operations as a defensive programming measure
 - Compiled only in debug builds where assertions are enabled
+
+## Simplified Source
+
+```c
+// Simplified version of check_list_invariants
+static void check_list_invariants(const List *list) {
+    // Skip validation for NULL lists
+    if (list == NIL)
+        return;
+
+    // Core validation checks
+    Assert(list->length > 0);                    // Non-empty list must have positive length
+    Assert(list->length <= list->max_length);    // Length cannot exceed capacity
+    Assert(list->elements != NULL);              // Elements array must be allocated
+
+    // Validate list type is supported
+    Assert(list->type == T_List ||               // Generic pointer list
+           list->type == T_IntList ||            // Integer list
+           list->type == T_OidList ||            // Object ID list
+           list->type == T_XidList);             // Transaction ID list
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each validation check
+- Grouped related assertions logically
+- Clarified the purpose of each list type variant
+- Preserved all original validation logic
+- Maintained the early return for NIL lists

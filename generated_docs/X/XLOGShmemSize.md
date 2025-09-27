@@ -45,3 +45,43 @@ This function computes the total shared memory size needed for PostgreSQL's Writ
 - Can be called multiple times to compute both estimated and actual allocation sizes
 - Must wait until NBuffers receives its final value before executing
 - Located in src/backend/access/transam/xlog.c:4823-4872
+
+## Simplified Source
+
+```c
+// Simplified version of XLOGShmemSize
+Size XLOGShmemSize(void) {
+    Size size;
+
+    // Auto-tune wal_buffers if set to -1
+    if (XLOGbuffers == -1) {
+        char buf[32];
+        snprintf(buf, sizeof(buf), "%d", XLOGChooseNumBuffers());
+
+        // Try dynamic default first, then override if needed
+        SetConfigOption("wal_buffers", buf, PGC_POSTMASTER, PGC_S_DYNAMIC_DEFAULT);
+        if (XLOGbuffers == -1) {
+            SetConfigOption("wal_buffers", buf, PGC_POSTMASTER, PGC_S_OVERRIDE);
+        }
+    }
+
+    Assert(XLOGbuffers > 0);
+
+    // Calculate total shared memory size needed
+    size = sizeof(XLogCtlData);                                          // Main control structure
+    size = add_size(size, mul_size(sizeof(WALInsertLockPadded),         // WAL insertion locks
+                                   NUM_XLOGINSERT_LOCKS + 1));
+    size = add_size(size, mul_size(sizeof(pg_atomic_uint64),            // xlblocks array
+                                   XLOGbuffers));
+    size = add_size(size, Max(XLOG_BLCKSZ, PG_IO_ALIGN_SIZE));         // Alignment padding
+    size = add_size(size, mul_size(XLOG_BLCKSZ, XLOGbuffers));         // Actual WAL buffers
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Condensed configuration logic while preserving the two-step override mechanism
+- Added inline comments explaining each memory component calculation
+- Maintained the essential auto-tuning and memory calculation logic
+- Removed detailed comments about implementation rationale to focus on core functionality

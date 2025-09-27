@@ -35,3 +35,32 @@ This function performs the initialization of spinlock emulation infrastructure d
 - Creates a global SpinlockSemaArray that contains all semaphores used for spinlock emulation
 - Part of the bootstrap process for systems requiring spinlock emulation
 - Each semaphore in the array will be used to provide mutual exclusion equivalent to hardware spinlocks
+
+## Simplified Source
+
+```c
+// Simplified version of SpinlockSemaInit
+void SpinlockSemaInit(void) {
+    // Step 1: Determine how many semaphores we need
+    int nsemas = SpinlockSemas();
+
+    // Step 2: Allocate shared memory for the semaphore array
+    // Note: Uses unlocked allocation since spinlocks aren't ready yet
+    PGSemaphore *spinsemas = (PGSemaphore *) ShmemAllocUnlocked(SpinlockSemaSize());
+
+    // Step 3: Create each individual semaphore
+    for (int i = 0; i < nsemas; i++) {
+        spinsemas[i] = PGSemaphoreCreate();
+    }
+
+    // Step 4: Store the array globally for use by spinlock operations
+    SpinlockSemaArray = spinsemas;
+}
+```
+
+Key simplifications made:
+- Combined variable declarations with their usage for clarity
+- Added step-by-step comments explaining the logical flow
+- Simplified the loop variable declaration to modern C style
+- Removed detailed implementation comments in favor of high-level explanations
+- Focused on the core algorithm: calculate size, allocate memory, create semaphores, store globally

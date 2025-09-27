@@ -34,3 +34,26 @@ The function checks if both state components (`s0` and `s1`) are zero, and if so
 - The `unlikely` macro is used to optimize the branch prediction for the rare case of all-zero state
 - This validation is essential for cryptographic and statistical quality of the PRNG output
 - Located in `src/common/pg_prng.c` at lines 114-133
+
+## Simplified Source
+
+```c
+// Simplified version of pg_prng_seed_check
+bool pg_prng_seed_check(pg_prng_state *state) {
+    // Check if both state values are zero (degenerate case)
+    if (state->s0 == 0 && state->s1 == 0) {
+        // Replace with Knuth's LCG parameters to ensure non-zero state
+        state->s0 = 0x5851F42D4C957F2D;
+        state->s1 = 0x14057B7EF767814F;
+    }
+
+    // Always return true for convenience with pg_prng_strong_seed macro
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed unlikely() macro for clarity (performance optimization)
+- Removed UINT64CONST macro wrapper (using direct hex constants)
+- Added clear comments explaining each logical step
+- Focused on the core validation logic without low-level optimizations

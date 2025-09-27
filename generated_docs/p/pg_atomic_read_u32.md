@@ -37,3 +37,22 @@ The function includes pointer alignment verification to ensure the atomic variab
 - Proper pointer alignment (4 bytes) is verified through AssertPointerAlignment
 - Widely used throughout PostgreSQL for reading atomic counters, flags, and status values
 - Part of PostgreSQL's portable atomic operations abstraction layer
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_read_u32
+static inline uint32 pg_atomic_read_u32(volatile pg_atomic_uint32 *ptr) {
+    // Verify pointer is properly aligned for 32-bit operations
+    AssertPointerAlignment(ptr, 4);
+
+    // Perform platform-specific atomic read operation
+    return pg_atomic_read_u32_impl(ptr);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each step
+- Preserved the essential atomic read logic
+- Maintained the alignment check as it's critical for correctness
+- Focused on the two-step process: validate alignment, then read atomically

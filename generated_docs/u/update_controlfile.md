@@ -54,3 +54,85 @@ The function uses different file handling strategies: BasicOpenFile in the backe
 - Wait event reporting in backend allows monitoring of control file write performance
 - The do_sync parameter allows callers to control whether writes are immediately flushed to storage
 - Critical for maintaining cluster state consistency across restarts and recovery operations
+
+## Simplified Source
+
+```c
+// Simplified version of update_controlfile
+void update_controlfile(const char *DataDir,
+                       ControlFileData *ControlFile, bool do_sync) {
+    int fd;
+    char buffer[PG_CONTROL_FILE_SIZE];
+    char ControlFilePath[MAXPGPATH];
+
+    // Update timestamp and recalculate CRC
+    ControlFile->time = (pg_time_t) time(NULL);
+    INIT_CRC32C(ControlFile->crc);
+    COMP_CRC32C(ControlFile->crc, (char *) ControlFile,
+                offsetof(ControlFileData, crc));
+    FIN_CRC32C(ControlFile->crc);
+
+    // Prepare zero-padded buffer
+    memset(buffer, 0, PG_CONTROL_FILE_SIZE);
+    memcpy(buffer, ControlFile, sizeof(ControlFileData));
+
+    // Build control file path
+    snprintf(ControlFilePath, sizeof(ControlFilePath), "%s/%s",
+             DataDir, XLOG_CONTROL_FILE);
+
+    // Open the control file
+#ifndef FRONTEND
+    if ((fd = BasicOpenFile(ControlFilePath, O_RDWR | PG_BINARY)) < 0)
+        ereport(PANIC, (errcode_for_file_access(),
+                        errmsg("could not open file \"%s\": %m",
+                               ControlFilePath)));
+#else
+    if ((fd = open(ControlFilePath, O_WRONLY | PG_BINARY,
+                   pg_file_create_mode)) == -1)
+        pg_fatal("could not open file \"%s\": %m", ControlFilePath);
+#endif
+
+    // Write the control file data
+    if (write(fd, buffer, PG_CONTROL_FILE_SIZE) != PG_CONTROL_FILE_SIZE) {
+        if (errno == 0)
+            errno = ENOSPC;
+#ifndef FRONTEND
+        ereport(PANIC, (errcode_for_file_access(),
+                        errmsg("could not write file \"%s\": %m",
+                               ControlFilePath)));
+#else
+        pg_fatal("could not write file \"%s\": %m", ControlFilePath);
+#endif
+    }
+
+    // Optionally sync to disk
+    if (do_sync) {
+#ifndef FRONTEND
+        if (pg_fsync(fd) != 0)
+            ereport(PANIC, (errcode_for_file_access(),
+                            errmsg("could not fsync file \"%s\": %m",
+                                   ControlFilePath)));
+#else
+        if (fsync(fd) != 0)
+            pg_fatal("could not fsync file \"%s\": %m", ControlFilePath);
+#endif
+    }
+
+    // Close the file
+    if (close(fd) != 0) {
+#ifndef FRONTEND
+        ereport(PANIC, (errcode_for_file_access(),
+                        errmsg("could not close file \"%s\": %m",
+                               ControlFilePath)));
+#else
+        pg_fatal("could not close file \"%s\": %m", ControlFilePath);
+#endif
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the essential five-step process: update timestamp/CRC → prepare buffer → open file → write → optionally sync
+- Maintained both frontend and backend error handling strategies
+- Removed detailed wait event reporting for clarity
+- Focused on the core file update mechanism while preserving critical error checking

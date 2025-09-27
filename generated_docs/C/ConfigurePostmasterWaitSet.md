@@ -48,3 +48,37 @@ The function always destroys and recreates the entire WaitEventSet rather than m
 - The WaitEventSet is dynamically sized: 1 event when not accepting connections, 1 + NumListenSockets when accepting
 - This design allows for graceful shutdown by stopping new connections while preserving internal communication capabilities
 - Child processes automatically clean up the wait set through ClosePostmasterPorts(), preventing resource leaks
+
+## Simplified Source
+
+```c
+// Simplified version of ConfigurePostmasterWaitSet
+static void ConfigurePostmasterWaitSet(bool accept_connections) {
+    // Step 1: Clean up existing wait set
+    if (pm_wait_set) {
+        FreeWaitEventSet(pm_wait_set);
+        pm_wait_set = NULL;
+    }
+
+    // Step 2: Create new wait set with appropriate size
+    // Size = 1 (for latch) + NumListenSockets (if accepting connections)
+    int wait_set_size = accept_connections ? (1 + NumListenSockets) : 1;
+    pm_wait_set = CreateWaitEventSet(NULL, wait_set_size);
+
+    // Step 3: Always add postmaster latch for internal signaling
+    AddWaitEventToSet(pm_wait_set, WL_LATCH_SET, PGINVALID_SOCKET, MyLatch, NULL);
+
+    // Step 4: Optionally add listening sockets for new connections
+    if (accept_connections) {
+        for (int i = 0; i < NumListenSockets; i++) {
+            AddWaitEventToSet(pm_wait_set, WL_SOCKET_ACCEPT, ListenSockets[i], NULL, NULL);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the logical flow
+- Extracted wait_set_size calculation for clarity
+- Emphasized the conditional nature of socket monitoring
+- Focused on the core rebuild-and-configure pattern

@@ -56,3 +56,39 @@ For Valgrind-enabled builds, the function provides debugging support by notifyin
 - For Valgrind builds, includes special handling for aligned allocations using redirection headers
 - Returns a potentially different pointer - callers must use the returned value
 - Located in src/backend/utils/mmgr/mcxt.c at lines 1540-1580
+
+## Simplified Source
+
+```c
+// Simplified version of repalloc
+void *repalloc(void *pointer, Size size) {
+    // Get memory context for debug builds
+    MemoryContext context = GetMemoryChunkContext(pointer);
+
+    // Ensure we're not in a critical section
+    AssertNotInCriticalSection(context);
+
+    // Ensure context is not reset
+    Assert(!context->isReset);
+
+    // Delegate to memory context's realloc method
+    // This handles allocation failures and enables compiler optimizations
+    void *ret = MCXT_METHOD(pointer, realloc)(pointer, size, 0);
+
+    // Notify Valgrind about memory pool change (debug builds only)
+    #ifdef USE_VALGRIND
+    if (method != MCTX_ALIGNED_REDIRECT_ID)
+        VALGRIND_MEMPOOL_CHANGE(context, pointer, ret, size);
+    #endif
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Removed conditional compilation blocks for cleaner reading
+- Consolidated variable declarations
+- Added explanatory comments for each major step
+- Simplified Valgrind handling while preserving the logic
+- Focused on the main execution path
+- Kept essential assertions and error checking

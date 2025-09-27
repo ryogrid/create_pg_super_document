@@ -37,3 +37,32 @@ This function iterates through all registered background workers and clears the 
 - Prevents stale notification PIDs that could cause signal delivery errors
 - Uses slist_foreach to safely iterate through the BackgroundWorkerList
 - Essential for maintaining consistency in the background worker notification system during process lifecycle management
+
+## Simplified Source
+
+```c
+// Simplified version of BackgroundWorkerStopNotifications
+void BackgroundWorkerStopNotifications(pid_t pid) {
+    slist_iter siter;
+
+    // Iterate through all registered background workers
+    slist_foreach(siter, &BackgroundWorkerList) {
+        RegisteredBgWorker *rw;
+
+        // Get the worker from the list node
+        rw = slist_container(RegisteredBgWorker, rw_lnode, siter.cur);
+
+        // Clear notification PID if it matches the exiting process
+        if (rw->rw_worker.bgw_notify_pid == pid) {
+            rw->rw_worker.bgw_notify_pid = 0;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each operation
+- Clarified the purpose of the iteration and PID clearing
+- Maintained the essential cleanup logic
+- Explained the role of the slist_container macro
+- Preserved the notification system integrity

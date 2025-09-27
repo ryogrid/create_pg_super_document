@@ -48,3 +48,40 @@ The function is designed to fail fast with informative error messages if the Pos
 - Common failure scenarios include hardlinking or copying postgres executable to a different location without the supporting directory structure
 - Critical for proper operation of shared_preload_libraries and dynamic module loading
 - The pkglib_path discovery supports both standard installations and custom/relocatable installations
+
+## Simplified Source
+
+```c
+// Simplified version of getInstallationPaths
+static void getInstallationPaths(const char *argv0) {
+    // Step 1: Find the path to our own executable
+    if (find_my_exec(argv0, my_exec_path) < 0) {
+        ereport(FATAL, (errmsg("could not locate executable path")));
+    }
+
+#ifdef EXEC_BACKEND
+    // Step 2: On Windows, also locate the backend executable
+    if (find_other_exec(argv0, "postgres", PG_BACKEND_VERSIONSTR, postgres_exec_path) < 0) {
+        ereport(FATAL, (errmsg("could not locate matching postgres executable")));
+    }
+#endif
+
+    // Step 3: Calculate the package library directory path
+    get_pkglib_path(my_exec_path, pkglib_path);
+
+    // Step 4: Verify the installation is complete by checking pkglib directory
+    DIR *pdir = AllocateDir(pkglib_path);
+    if (pdir == NULL) {
+        ereport(ERROR, (errmsg("could not open pkglib directory"),
+                       errhint("PostgreSQL installation may be incomplete")));
+    }
+    FreeDir(pdir);
+}
+```
+
+Key simplifications made:
+- Consolidated error messages for clarity
+- Removed detailed error context and hints for brevity
+- Simplified comments to focus on main steps
+- Abstracted platform-specific details with clearer conditional compilation
+- Focused on the core validation logic flow

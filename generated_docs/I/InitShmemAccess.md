@@ -35,3 +35,27 @@ The function performs a simple but essential role in establishing the memory bou
 - The void* parameter type is used as a design choice to minimize header dependencies between shmem.h and ipc.h
 - The function sets up the fundamental memory boundaries that are used by subsequent shared memory allocation functions like ShmemAlloc
 - Located in src/backend/storage/ipc/shmem.c:100-114
+
+## Simplified Source
+
+```c
+// Simplified version of InitShmemAccess
+void InitShmemAccess(void *seghdr) {
+    // Cast the generic pointer to the proper shared memory header type
+    PGShmemHeader *shmhdr = (PGShmemHeader *) seghdr;
+
+    // Set up global pointer to the shared memory segment header
+    ShmemSegHdr = shmhdr;
+
+    // Set up global pointer to the start of shared memory
+    ShmemBase = (void *) shmhdr;
+
+    // Calculate and set up global pointer to the end of shared memory
+    ShmemEnd = (char *) ShmemBase + shmhdr->totalsize;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step of the initialization
+- The function is already quite simple, so main improvements are explanatory comments
+- Focused on the core purpose: setting up three global pointers for shared memory management

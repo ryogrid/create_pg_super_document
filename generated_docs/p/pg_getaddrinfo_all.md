@@ -39,3 +39,31 @@ The function ensures consistent behavior across different platforms by initializ
 - Ensures result pointer is always initialized to prevent undefined behavior
 - Empty or NULL hostname is passed as NULL to getaddrinfo() for special binding behavior
 - Located in src/common/ip.c:53-81, making it available to both frontend and backend code
+
+## Simplified Source
+
+```c
+// Simplified version of pg_getaddrinfo_all
+int pg_getaddrinfo_all(const char *hostname, const char *servname,
+                      const struct addrinfo *hintp, struct addrinfo **result) {
+    // Initialize result to NULL for consistent behavior across platforms
+    *result = NULL;
+
+    // Route Unix domain socket requests to specialized handler
+    if (hintp->ai_family == AF_UNIX) {
+        return getaddrinfo_unix(servname, hintp, result);
+    }
+
+    // Handle network sockets (IPv4/IPv6) using standard getaddrinfo
+    // Convert empty hostname to NULL for special getaddrinfo behavior
+    const char *resolved_hostname = (!hostname || hostname[0] == '\0') ? NULL : hostname;
+
+    return getaddrinfo(resolved_hostname, servname, hintp, result);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Extracted hostname resolution logic into a clearer variable
+- Emphasized the dual-path routing (Unix vs network sockets)
+- Maintained the essential algorithm and error handling patterns

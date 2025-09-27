@@ -39,3 +39,30 @@ This function takes no parameters and returns a boolean value.
 - The restart interval is defined by SLOTSYNC_RESTART_INTERVAL_SEC constant
 - Helps prevent log flooding from repeated worker failure messages
 - Integrated into the postmaster's main loop for worker lifecycle management
+
+## Simplified Source
+
+```c
+// Simplified version of SlotSyncWorkerCanRestart
+bool SlotSyncWorkerCanRestart(void) {
+    // Get current system time
+    time_t current_time = time(NULL);
+
+    // Check if enough time has passed since last restart
+    time_t time_since_last_start = current_time - SlotSyncCtx->last_start_time;
+    if (time_since_last_start < SLOTSYNC_RESTART_INTERVAL_SEC) {
+        return false;  // Too soon to restart
+    }
+
+    // Update the last start time and allow restart
+    SlotSyncCtx->last_start_time = current_time;
+    return true;
+}
+```
+
+Key simplifications made:
+- Used descriptive variable names (current_time, time_since_last_start)
+- Removed unsigned integer casting for clarity
+- Added clear comments explaining each step
+- Simplified the time comparison logic
+- Focused on the core throttling mechanism

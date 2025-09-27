@@ -37,3 +37,36 @@ The function uses a simple switch statement on the first character of the argume
 - Part of PostgreSQL's command-line argument processing infrastructure
 - Used during server startup to enable specific statistics logging based on command-line flags
 - The returned string corresponds to actual GUC parameter names that can be set in postgresql.conf
+
+## Simplified Source
+
+```c
+// Simplified version of get_stats_option_name
+const char *
+get_stats_option_name(const char *arg) {
+    // Check first character to determine stats type
+    switch (arg[0]) {
+        case 'p':
+            // Distinguish between parser and planner stats
+            if (arg[1] == 'a')    // "parser"
+                return "log_parser_stats";
+            else if (arg[1] == 'l')  // "planner"
+                return "log_planner_stats";
+            break;
+
+        case 'e':    // "executor"
+            return "log_executor_stats";
+            break;
+    }
+
+    // Return NULL for unrecognized options
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the logic flow
+- Simplified the switch case structure for better readability
+- Made the two-character checking logic more explicit
+- Added descriptive comments for each case
+- Focused on the main mapping functionality

@@ -45,3 +45,25 @@ This approach provides better safety and debugging capabilities compared to the 
 - Used primarily in synchronous replication and serializable transaction isolation systems where precise cleanup is critical
 - Provides better debugging capabilities as NULL pointers are easier to detect than stale pointers
 - The additional pointer clearing operations have minimal performance overhead while providing significant safety benefits
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_delete_thoroughly
+static inline void dlist_delete_thoroughly(dlist_node *node) {
+    // Unlink the node from the list by updating adjacent nodes
+    node->prev->next = node->next;  // Previous node now points to next node
+    node->next->prev = node->prev;  // Next node now points to previous node
+
+    // Clear the deleted node's pointers for safety
+    node->next = NULL;  // Mark as not having a next node
+    node->prev = NULL;  // Mark as not having a previous node
+}
+```
+
+Key simplifications made:
+- Added detailed comments explaining each operation
+- Organized the operations into logical groups (unlinking vs clearing)
+- Preserved the essential safety mechanism of setting pointers to NULL
+- Maintained the inline performance optimization
+- Clarified the dual purpose: removal from list and safety marking

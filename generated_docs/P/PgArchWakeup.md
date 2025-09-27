@@ -34,3 +34,25 @@ This function provides a mechanism to wake up the sleeping archiver process when
 - Part of PostgreSQL's WAL archiving notification system
 - The archiver will be automatically relaunched if communication fails
 - Provides non-blocking wake-up mechanism for archiver process
+
+## Simplified Source
+
+```c
+// Simplified version of PgArchWakeup
+void PgArchWakeup(void) {
+    // Get the archiver's process number from shared memory
+    int arch_pgprocno = PgArch->pgprocno;
+
+    // Wake up the archiver if it has a valid process number
+    // Note: No lock needed - if we set wrong latch, archiver will be relaunched
+    if (arch_pgprocno != INVALID_PROC_NUMBER) {
+        SetLatch(&ProcGlobal->allProcs[arch_pgprocno].procLatch);
+    }
+}
+```
+
+Key simplifications made:
+- Condensed the detailed comment about ProcArrayLock into a brief note
+- Added descriptive comments for each logical step
+- Maintained the essential algorithm and safety guarantees
+- Preserved the core logic while improving readability

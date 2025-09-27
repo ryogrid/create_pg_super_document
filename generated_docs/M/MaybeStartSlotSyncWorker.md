@@ -44,3 +44,30 @@ The restart timing mechanism prevents rapid restart loops and allows for control
 - Controlled by sync_replication_slots GUC parameter for enabling/disabling functionality
 - Worker processes handle the complex protocol for synchronizing slot states with primary servers
 - Essential for high availability setups where standby promotion requires accurate replication slot state
+
+## Simplified Source
+
+```c
+// Simplified version of MaybeStartSlotSyncWorker
+static void MaybeStartSlotSyncWorker(void) {
+    // Check all required conditions before starting slot sync worker
+    bool no_worker_running = (SlotSyncWorkerPID == 0);
+    bool is_hot_standby = (pmState == PM_HOT_STANDBY);
+    bool no_shutdown_in_progress = (Shutdown <= SmartShutdown);
+    bool sync_enabled = sync_replication_slots;
+    bool params_valid = ValidateSlotSyncParams(LOG);
+    bool can_restart = SlotSyncWorkerCanRestart();
+
+    // Start worker only if all conditions are met
+    if (no_worker_running && is_hot_standby && no_shutdown_in_progress &&
+        sync_enabled && params_valid && can_restart) {
+        SlotSyncWorkerPID = StartChildProcess(B_SLOTSYNC_WORKER);
+    }
+}
+```
+
+Key simplifications made:
+- Broke down complex compound condition into individual boolean variables for clarity
+- Added descriptive variable names that explain each condition
+- Maintained the exact same logic flow and functionality
+- Added comments to explain the core purpose of each step

@@ -37,3 +37,34 @@ This function checks if a parse tree node represents one of the transaction exit
 - Allows clients to issue cleanup commands even when transactions have failed
 - Part of a family of functions for checking statement types in aborted transaction contexts
 - Uses PostgreSQL's node type checking macros (IsA) for type safety
+
+## Simplified Source
+
+```c
+// Simplified version of IsTransactionExitStmt
+static bool IsTransactionExitStmt(Node *parsetree) {
+    // Check if the node is a transaction statement
+    if (parsetree && IsA(parsetree, TransactionStmt)) {
+        TransactionStmt *stmt = (TransactionStmt *) parsetree;
+
+        // Check if it's one of the allowed transaction exit statements
+        if (stmt->kind == TRANS_STMT_COMMIT ||
+            stmt->kind == TRANS_STMT_PREPARE ||
+            stmt->kind == TRANS_STMT_ROLLBACK ||
+            stmt->kind == TRANS_STMT_ROLLBACK_TO) {
+            return true;
+        }
+    }
+
+    // Not a transaction exit statement
+    return false;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Maintained the exact same logic flow as the original
+- Preserved all essential functionality
+- Made the function's purpose more evident through comments
+- No actual simplification was needed as the function is already quite clean and straightforward
+```

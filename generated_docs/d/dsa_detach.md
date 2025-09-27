@@ -38,3 +38,26 @@ Importantly, this function only handles "detaching" (disconnecting from DSM segm
 - The separation between detaching and releasing reference counts is a deliberate design choice to handle error scenarios gracefully
 - After detaching from all segments, the function frees the area object itself using 
 - This function is commonly used in parallel query cleanup and various shared memory management scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_detach
+void dsa_detach(dsa_area *area) {
+    // Core logic step 1: Detach from all segments in the area
+    for (int i = 0; i <= area->high_segment_index; ++i) {
+        if (area->segment_maps[i].segment != NULL) {
+            dsm_detach(area->segment_maps[i].segment);
+        }
+    }
+
+    // Core logic step 2: Free the backend-local area object
+    pfree(area);
+}
+```
+
+Key simplifications made:
+- Removed detailed explanatory comments about detach vs release semantics
+- Focused on the core two-step process: detach segments, then free area
+- Simplified loop variable declaration
+- Maintained essential null-check logic for segments

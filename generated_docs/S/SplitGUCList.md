@@ -51,3 +51,90 @@ The function modifies the input string in-place to contain the separated identif
 - The API is intentionally identical to SplitIdentifierString for consistency
 - The function is part of the varlena.c module which handles variable-length data types
 - Located at src/backend/utils/adt/varlena.c:3705-3793
+
+## Simplified Source
+
+```c
+// Simplified version of SplitGUCList
+bool SplitGUCList(char *rawstring, char separator, List **namelist) {
+    char *nextp = rawstring;
+    bool done = false;
+
+    *namelist = NIL;
+
+    // Skip leading whitespace
+    while (scanner_isspace(*nextp))
+        nextp++;
+
+    // Allow empty string
+    if (*nextp == '\0')
+        return true;
+
+    // Main parsing loop - process each identifier
+    do {
+        char *curname;
+        char *endp;
+
+        if (*nextp == '"') {
+            // Handle quoted identifier: "name" or "name""with""quotes"
+            curname = nextp + 1;
+
+            // Find end quote, handling doubled quotes
+            for (;;) {
+                endp = strchr(nextp + 1, '"');
+                if (endp == NULL)
+                    return false;  // Missing closing quote
+
+                if (endp[1] != '"')
+                    break;  // Found actual end
+
+                // Collapse doubled quotes: "" becomes "
+                memmove(endp, endp + 1, strlen(endp));
+                nextp = endp;
+            }
+            nextp = endp + 1;
+        } else {
+            // Handle unquoted identifier: extends to separator or whitespace
+            curname = nextp;
+            while (*nextp && *nextp != separator && !scanner_isspace(*nextp))
+                nextp++;
+            endp = nextp;
+
+            if (curname == nextp)
+                return false;  // Empty identifier not allowed
+        }
+
+        // Skip whitespace after identifier
+        while (scanner_isspace(*nextp))
+            nextp++;
+
+        // Check what comes next
+        if (*nextp == separator) {
+            nextp++;
+            while (scanner_isspace(*nextp))
+                nextp++;  // Skip whitespace after separator
+            // More identifiers expected
+        } else if (*nextp == '\0') {
+            done = true;  // End of string
+        } else {
+            return false;  // Invalid character
+        }
+
+        // Terminate current identifier and add to list
+        *endp = '\0';
+        *namelist = lappend(*namelist, curname);
+
+    } while (!done);
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Consolidated whitespace skipping into clear sections
+- Added descriptive comments for the main logic blocks
+- Simplified the quote handling explanation
+- Streamlined the identifier parsing flow
+- Made the loop termination conditions more explicit
+- Removed some intermediate variable assignments for clarity
+- Focused on the core parsing algorithm rather than low-level details

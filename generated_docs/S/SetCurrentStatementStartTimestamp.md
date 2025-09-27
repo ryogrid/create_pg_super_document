@@ -37,3 +37,25 @@ This function takes no parameters.
 - Critical for maintaining consistent time references in logging, monitoring, and time-sensitive operations
 - Called from various entry points including the main postgres loop, initialization routines, and worker processes
 - The assertion in parallel workers helps catch timing bugs in parallel processing setup
+
+## Simplified Source
+
+```c
+// Simplified version of SetCurrentStatementStartTimestamp
+void SetCurrentStatementStartTimestamp(void) {
+    // Main execution path: Set timestamp for regular backend processes
+    if (!IsParallelWorker()) {
+        stmtStartTimestamp = GetCurrentTimestamp();
+    }
+    // Parallel worker path: Verify timestamp was already set
+    else {
+        Assert(stmtStartTimestamp != 0);
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each execution path
+- Clarified the dual-purpose nature of the function
+- Emphasized the timestamp validation in parallel workers
+- Maintained the essential logic flow and error checking

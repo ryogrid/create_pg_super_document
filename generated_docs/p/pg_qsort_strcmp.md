@@ -37,3 +37,19 @@ The function is located in src/port/qsort.c and is part of PostgreSQL's portabil
 - Returns negative value if first string is lexicographically less than second, zero if equal, positive if greater
 - The function is declared in src/include/port.h:475 as part of PostgreSQL's public port interface
 - Used in text search functionality for sorting stop word lists and in configuration file processing for sorting filenames
+
+## Simplified Source
+
+```c
+// Simplified version of pg_qsort_strcmp
+int pg_qsort_strcmp(const void *a, const void *b) {
+    // Cast void pointers to string pointers, dereference, and compare
+    return strcmp(*(const char *const *) a, *(const char *const *) b);
+}
+```
+
+Key simplifications made:
+- Added comment explaining the pointer casting and dereferencing logic
+- Maintained the exact function signature required by qsort
+- Preserved the essential strcmp comparison functionality
+- Function is already minimal - no further simplification needed

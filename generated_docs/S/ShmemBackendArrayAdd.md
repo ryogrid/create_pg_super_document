@@ -33,3 +33,25 @@ This function adds a backend process entry to the ShmemBackendArray at a specifi
 - Uses array indexing (child_slot - 1) to convert from 1-based slot numbering to 0-based array indexing
 - Part of the postmaster's process tracking mechanism for managing backend processes
 - Located in src/backend/postmaster/postmaster.c:4566-4575
+
+## Simplified Source
+
+```c
+// Simplified version of ShmemBackendArrayAdd
+static void ShmemBackendArrayAdd(Backend *bn) {
+    // Convert 1-based child slot to 0-based array index
+    int array_index = bn->child_slot - 1;
+
+    // Verify the target slot is empty (debugging check)
+    Assert(ShmemBackendArray[array_index].pid == 0);
+
+    // Copy the backend structure to the shared memory array
+    ShmemBackendArray[array_index] = *bn;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name `array_index` instead of `i`
+- Added clear comments explaining each step
+- Preserved the essential logic: slot conversion, assertion check, and structure copy
+- Maintained the original function's simplicity as it was already quite streamlined

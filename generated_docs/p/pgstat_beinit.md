@@ -32,3 +32,29 @@ This function takes no parameters.
 
 ## Notes and Other Information
 The function includes important assertions to ensure MyProcNumber is valid and within the expected range. It's crucial that MyDatabaseId may not be set yet when this function is called, which is why the shutdown hook must be careful about database-specific cleanup. This function is called from both regular backend initialization (InitPostgres) and auxiliary process initialization.
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_beinit
+void pgstat_beinit(void) {
+    // Step 1: Validate that the process number has been assigned
+    // MyProcNumber must be set to a valid index before calling this function
+    Assert(MyProcNumber != INVALID_PROC_NUMBER);
+    Assert(MyProcNumber >= 0 && MyProcNumber < NumBackendStatSlots);
+
+    // Step 2: Connect this process to its statistics entry in shared memory
+    // Each backend gets a dedicated slot in the shared BackendStatusArray
+    MyBEEntry = &BackendStatusArray[MyProcNumber];
+
+    // Step 3: Register cleanup function to run when process exits
+    // This ensures statistics are properly cleaned up on process termination
+    on_shmem_exit(pgstat_beshutdown_hook, 0);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Clarified the purpose of assertions and variable assignments
+- Explained the relationship between MyProcNumber and BackendStatusArray
+- Made the exit hook registration purpose more explicit

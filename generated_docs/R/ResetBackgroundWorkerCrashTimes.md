@@ -41,3 +41,41 @@ This function handles the cleanup and reset of background worker states followin
 - Resetting rw_crashed_at to 0 allows immediate restart instead of waiting for bgw_restart_time
 - Essential for maintaining system consistency in background worker management after crashes
 - Part of PostgreSQL's crash recovery process for background worker subsystem
+
+## Simplified Source
+
+```c
+// Simplified version of ResetBackgroundWorkerCrashTimes
+void ResetBackgroundWorkerCrashTimes(void) {
+    slist_mutable_iter iter;
+
+    // Iterate through all registered background workers
+    slist_foreach_modify(iter, &BackgroundWorkerList) {
+        RegisteredBgWorker *rw;
+
+        rw = slist_container(RegisteredBgWorker, rw_lnode, iter.cur);
+
+        if (rw->rw_worker.bgw_restart_time == BGW_NEVER_RESTART) {
+            // Remove workers that should never restart after crashes
+            ForgetBackgroundWorker(&iter);
+        } else {
+            // Ensure parallel workers are never configured as restartable
+            Assert((rw->rw_worker.bgw_flags & BGWORKER_CLASS_PARALLEL) == 0);
+
+            // Reset crash timestamp to allow immediate restart
+            rw->rw_crashed_at = 0;
+
+            // Clear notification PID since waiting processes are invalid after crash
+            rw->rw_worker.bgw_notify_pid = 0;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Clarified the two different handling paths for workers
+- Explained the purpose of the parallel worker assertion
+- Simplified the logic for crash timestamp and notification PID clearing
+- Maintained the essential crash recovery functionality
+- Preserved the safety checks for parallel worker accounting

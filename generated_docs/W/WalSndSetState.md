@@ -39,3 +39,28 @@ WalSndSetState is a function used within the WAL sender process to update its cu
 - Uses spinlock synchronization to ensure thread-safe state updates
 - Includes an early return optimization when the state is already set to the requested value
 - The function is located in src/backend/replication/walsender.c at lines 3851-3869
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndSetState
+void WalSndSetState(WalSndState state) {
+    WalSnd *walsnd = MyWalSnd;
+
+    // Early return if state is already set
+    if (walsnd->state == state) {
+        return;
+    }
+
+    // Atomically update the state with spinlock protection
+    SpinLockAcquire(&walsnd->mutex);
+    walsnd->state = state;
+    SpinLockRelease(&walsnd->mutex);
+}
+```
+
+Key simplifications made:
+- Removed assertion check for brevity (am_walsender check)
+- Added explanatory comments for main logic blocks
+- Preserved the essential state update logic with synchronization
+- Maintained the optimization for unchanged state

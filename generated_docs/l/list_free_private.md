@@ -38,3 +38,37 @@ This function provides a unified memory management approach for PostgreSQL's lis
 - Serves as the common implementation for both shallow (`list_free`) and deep (`list_free_deep`) freeing operations
 - Uses PostgreSQL's `pfree()` function for memory deallocation rather than standard `free()`
 - Part of PostgreSQL's memory management system for list data structures
+
+## Simplified Source
+
+```c
+// Simplified version of list_free_private
+static void list_free_private(List *list, bool deep) {
+    // Early exit for null lists
+    if (list == NIL)
+        return;
+
+    // Validate list structure
+    check_list_invariants(list);
+
+    // Free individual elements if deep freeing is requested
+    if (deep) {
+        for (int i = 0; i < list->length; i++)
+            pfree(lfirst(&list->elements[i]));
+    }
+
+    // Free dynamically allocated elements array if it exists
+    if (list->elements != list->initial_elements)
+        pfree(list->elements);
+
+    // Free the list structure itself
+    pfree(list);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Maintained the original control flow and logic
+- Preserved all essential functionality including error checking
+- Focused on the main execution path without removing any operations
+- Kept the function concise while maintaining readability

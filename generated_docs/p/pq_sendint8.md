@@ -37,3 +37,21 @@ static inline void pq_sendint8(StringInfo buf, uint8 i)
 - Used extensively in logical replication and data type serialization
 - Automatically handles buffer expansion to accommodate the new data
 - The function is located in the header file for inline expansion at compile time
+
+## Simplified Source
+
+```c
+// Simplified version of pq_sendint8
+static inline void pq_sendint8(StringInfo buf, uint8 i) {
+    // Ensure buffer has space for 8-bit integer
+    enlargeStringInfo(buf, sizeof(uint8));
+
+    // Write the integer to buffer
+    pq_writeint8(buf, i);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining buffer expansion and writing
+- Function is already very simple, minimal changes needed
+- Preserved the essential enlarge-then-write pattern

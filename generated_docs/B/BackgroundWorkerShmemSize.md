@@ -37,3 +37,32 @@ This function computes the total shared memory size required to allocate the bac
 - Memory size depends on the  GUC parameter
 - Part of the shared memory initialization process during PostgreSQL startup
 - The calculated size includes the base BackgroundWorkerArray structure plus space for  BackgroundWorkerSlot entries
+
+## Simplified Source
+
+```c
+// Simplified version of BackgroundWorkerShmemSize
+Size BackgroundWorkerShmemSize(void) {
+    Size total_size;
+
+    // Start with the base size of BackgroundWorkerArray structure
+    // (everything except the variable-length slot array)
+    total_size = offsetof(BackgroundWorkerArray, slot);
+
+    // Add space for the worker slots array
+    // Number of slots = max_worker_processes (GUC parameter)
+    // Size per slot = sizeof(BackgroundWorkerSlot)
+    total_size = add_size(total_size,
+                         mul_size(max_worker_processes,
+                                 sizeof(BackgroundWorkerSlot)));
+
+    return total_size;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each calculation step
+- Used more descriptive variable name (total_size vs size)
+- Clarified the two-part calculation: base structure + variable array
+- Explained the role of max_worker_processes GUC parameter
+- Maintained the safe arithmetic functions (add_size, mul_size) for overflow protection

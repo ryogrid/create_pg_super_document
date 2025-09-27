@@ -49,3 +49,52 @@ This function takes no parameters but works with:
 - The XLOG_FPW_CHANGE record contains a boolean value indicating the new state of full_page_writes
 - This mechanism allows standby servers to track full_page_writes changes during archive recovery
 - The shared memory update is protected by WALInsertLock to ensure atomicity with concurrent WAL insertions
+
+## Simplified Source
+
+```c
+// Simplified version of UpdateFullPageWrites
+void UpdateFullPageWrites(void) {
+    XLogCtlInsert *Insert = &XLogCtl->Insert;
+    bool recoveryInProgress;
+
+    // Early exit if no change needed
+    if (fullPageWrites == Insert->fullPageWrites)
+        return;
+
+    // Check recovery status outside critical section
+    recoveryInProgress = RecoveryInProgress();
+
+    START_CRIT_SECTION();
+
+    // When enabling full page writes: set flag first, then log
+    if (fullPageWrites) {
+        WALInsertLockAcquireExclusive();
+        Insert->fullPageWrites = true;
+        WALInsertLockRelease();
+    }
+
+    // Write WAL record for standby consistency
+    if (XLogStandbyInfoActive() && !recoveryInProgress) {
+        XLogBeginInsert();
+        XLogRegisterData((char *) (&fullPageWrites), sizeof(bool));
+        XLogInsert(RM_XLOG_ID, XLOG_FPW_CHANGE);
+    }
+
+    // When disabling full page writes: log first, then set flag
+    if (!fullPageWrites) {
+        WALInsertLockAcquireExclusive();
+        Insert->fullPageWrites = false;
+        WALInsertLockRelease();
+    }
+
+    END_CRIT_SECTION();
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic flow
+- Consolidated variable declarations
+- Emphasized the critical ordering: flag-first when enabling, log-first when disabling
+- Focused on the main execution path and safety guarantees
+- Maintained the essential synchronization and WAL logging logic

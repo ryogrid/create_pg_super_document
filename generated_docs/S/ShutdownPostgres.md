@@ -40,3 +40,22 @@ This callback is designed to execute reliably even if user-level cleanup operati
 - Part of PostgreSQL's layered shutdown architecture that ensures proper cleanup ordering
 - Executes regardless of whether user-level cleanup succeeds or fails
 - Essential for maintaining system integrity during both normal and abnormal backend termination
+
+## Simplified Source
+
+```c
+// Simplified version of ShutdownPostgres
+static void ShutdownPostgres(int code, Datum arg) {
+    // Forcibly abort any active transaction
+    AbortOutOfAnyTransaction();
+
+    // Release all user locks (not automatically freed by transaction end)
+    LockReleaseAll(USER_LOCKMETHOD, true);
+}
+```
+
+Key simplifications made:
+- This function is already very simple, so minimal simplification was needed
+- Added concise comments explaining the two essential cleanup operations
+- Maintained the exact same logic as both operations are critical for proper shutdown
+- The parameters are unused but must remain for callback interface compatibility

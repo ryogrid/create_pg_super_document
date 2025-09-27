@@ -39,3 +39,41 @@ This function serves as the fundamental memory allocation routine in PostgreSQL'
 - Supports zero-initialization when MCXT_ALLOC_ZERO flag is set
 - Validates allocation size limits differently for huge vs normal allocations
 - Integrates with Valgrind memory debugging tools for leak detection
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextAllocExtended
+void *MemoryContextAllocExtended(MemoryContext context, Size size, int flags) {
+    void *ret;
+
+    // Validate inputs: context and allocation size
+    Assert(MemoryContextIsValid(context));
+    if (!AllocSizeIsValid(size)) {
+        elog(ERROR, "invalid memory alloc request size %zu", size);
+    }
+
+    // Mark context as having active allocations
+    context->isReset = false;
+
+    // Delegate to context-specific allocation method
+    ret = context->methods->alloc(context, size, flags);
+    if (ret == NULL) {
+        return NULL;
+    }
+
+    // Zero-initialize memory if requested
+    if (flags & MCXT_ALLOC_ZERO) {
+        MemSetAligned(ret, 0, size);
+    }
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Removed AssertNotInCriticalSection check for clarity
+- Simplified size validation by removing huge allocation special case
+- Removed Valgrind integration calls
+- Consolidated flag checking logic
+- Focused on the main allocation workflow

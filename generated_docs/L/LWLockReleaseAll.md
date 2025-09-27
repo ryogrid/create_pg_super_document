@@ -44,3 +44,26 @@ This function takes no parameters.
 - Used extensively in PostgreSQL's background processes for error cleanup
 - Critical for maintaining system stability during abnormal process termination
 - Located in src/backend/storage/lmgr/lwlock.c:1878-1894
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockReleaseAll
+void LWLockReleaseAll(void) {
+    // Release all held locks in reverse order (LIFO)
+    while (num_held_lwlocks > 0) {
+        // Prevent interrupts during lock release to maintain consistency
+        HOLD_INTERRUPTS();
+
+        // Release the most recently acquired lock
+        LWLockRelease(held_lwlocks[num_held_lwlocks - 1].lock);
+        // Note: LWLockRelease automatically decrements num_held_lwlocks
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the LIFO order
+- Clarified the purpose of HOLD_INTERRUPTS() call
+- Added note about automatic decrementing of num_held_lwlocks
+- Focused on the main execution path

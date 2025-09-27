@@ -40,3 +40,33 @@ The function assumes that both ShmemLock (for synchronization) and ShmemSegHdr (
 - The allocated memory is not initialized - callers should zero it if needed
 - Part of PostgreSQL's shared memory management subsystem
 - Located in src/backend/storage/ipc/shmem.c:152-171
+
+## Simplified Source
+
+```c
+// Simplified version of ShmemAlloc
+void *ShmemAlloc(Size size) {
+    void *newSpace;
+    Size allocated_size;
+
+    // Core logic step 1: Attempt raw allocation from shared memory
+    newSpace = ShmemAllocRaw(size, &allocated_size);
+
+    // Core logic step 2: Handle allocation failure
+    if (!newSpace) {
+        // Throw error with memory details
+        ereport(ERROR,
+                (errcode(ERRCODE_OUT_OF_MEMORY),
+                 errmsg("out of shared memory (%zu bytes requested)", size)));
+    }
+
+    // Core logic step 3: Return successfully allocated memory
+    return newSpace;
+}
+```
+
+Key simplifications made:
+- Preserved the essential three-step flow: allocate, check, return
+- Kept critical error handling since it's the main purpose of this wrapper
+- Added clear comments explaining each logical step
+- Maintained the exact same functionality as the original

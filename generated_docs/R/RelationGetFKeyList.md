@@ -52,3 +52,89 @@ The function carefully manages memory contexts to avoid leaks: it builds the res
 - Memory management prevents leaks by building lists in appropriate contexts
 - [List](../L/List.md) items are returned in no particular order
 - Callers should use copyObject() if they need to retain the list across potential cache flushes
+
+## Simplified Source
+
+```c
+// Simplified version of RelationGetFKeyList
+List *RelationGetFKeyList(Relation relation) {
+    List *result;
+    Relation constraint_relation;
+    SysScanDesc scan;
+    ScanKeyData scan_key;
+    HeapTuple tuple;
+
+    // Quick exit: return cached list if already computed
+    if (relation->rd_fkeyvalid) {
+        return relation->rd_fkeylist;
+    }
+
+    // Fast path: tables without triggers can't have foreign keys
+    if (!relation->rd_rel->relhastriggers &&
+        relation->rd_rel->relkind != RELKIND_PARTITIONED_TABLE) {
+        return NIL;
+    }
+
+    // Initialize result list
+    result = NIL;
+
+    // Set up scan key to find constraints for this relation
+    ScanKeyInit(&scan_key, Anum_pg_constraint_conrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(relation)));
+
+    // Open pg_constraint table and start scan
+    constraint_relation = table_open(ConstraintRelationId, AccessShareLock);
+    scan = systable_beginscan(constraint_relation, ConstraintRelidTypidNameIndexId,
+                              true, NULL, 1, &scan_key);
+
+    // Scan through all constraint tuples for this relation
+    while (HeapTupleIsValid(tuple = systable_getnext(scan))) {
+        Form_pg_constraint constraint = (Form_pg_constraint) GETSTRUCT(tuple);
+
+        // Only process foreign key constraints
+        if (constraint->contype != CONSTRAINT_FOREIGN) {
+            continue;
+        }
+
+        // Create foreign key info structure
+        ForeignKeyCacheInfo *fk_info = makeNode(ForeignKeyCacheInfo);
+        fk_info->conoid = constraint->oid;
+        fk_info->conrelid = constraint->conrelid;
+        fk_info->confrelid = constraint->confrelid;
+
+        // Extract detailed constraint information
+        DeconstructFkConstraintRow(tuple, &fk_info->nkeys,
+                                   fk_info->conkey, fk_info->confkey,
+                                   fk_info->conpfeqop,
+                                   NULL, NULL, NULL, NULL);
+
+        // Add to result list
+        result = lappend(result, fk_info);
+    }
+
+    // Clean up scan
+    systable_endscan(scan);
+    table_close(constraint_relation, AccessShareLock);
+
+    // Cache the result in the relation structure
+    MemoryContext old_context = MemoryContextSwitchTo(CacheMemoryContext);
+    List *old_list = relation->rd_fkeylist;
+    relation->rd_fkeylist = copyObject(result);
+    relation->rd_fkeyvalid = true;
+    MemoryContextSwitchTo(old_context);
+
+    // Clean up old cached list
+    list_free_deep(old_list);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (constraint_relation, scan, fk_info)
+- Added clearer comments explaining each major step
+- Consolidated variable declarations with their usage where appropriate
+- Simplified the memory context switching logic while preserving functionality
+- Maintained the essential caching mechanism and scan logic
+- Preserved all critical operations: caching check, fast path, constraint scanning, and result building

@@ -41,3 +41,30 @@ The function uses strnlen() to determine the actual length to copy (which may be
 - Widely used throughout PostgreSQL for handling string data from various sources including JSON processing, text search, formatting functions, and replication
 - Located in src/backend/utils/mmgr/mcxt.c at lines 1706-1722
 - Essential for safe string handling when dealing with potentially unterminated character arrays
+
+## Simplified Source
+
+```c
+// Simplified version of pnstrdup
+char *pnstrdup(const char *in, Size len) {
+    // Step 1: Find actual length (stops at null terminator or max length)
+    len = strnlen(in, len);
+
+    // Step 2: Allocate memory for string plus null terminator
+    char *out = palloc(len + 1);
+
+    // Step 3: Copy the actual string data
+    memcpy(out, in, len);
+
+    // Step 4: Ensure null termination
+    out[len] = '\0';
+
+    return out;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the core logic
+- Clarified that strnlen finds the effective length to copy
+- Emphasized the null termination guarantee
+- Focused on the main execution path without error handling details

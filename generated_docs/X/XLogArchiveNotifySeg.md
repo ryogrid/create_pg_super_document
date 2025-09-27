@@ -36,3 +36,28 @@ This design pattern allows callers to work with the logical WAL addressing schem
 - Part of the larger WAL archiving infrastructure that enables continuous archiving and point-in-time recovery
 - The timeline ID parameter ensures that segments from different timelines are properly identified and archived
 - Maintains the same archiving behavior as XLogArchiveNotify but with a more convenient parameter interface
+
+## Simplified Source
+
+```c
+// Simplified version of XLogArchiveNotifySeg
+void XLogArchiveNotifySeg(XLogSegNo segno, TimeLineID tli) {
+    char xlog_filename[MAXFNAMELEN];
+
+    // Ensure timeline ID is valid
+    Assert(tli != 0);
+
+    // Construct WAL filename from segment number and timeline
+    XLogFileName(xlog_filename, tli, segno, wal_segment_size);
+
+    // Create archive notification for the file
+    XLogArchiveNotify(xlog_filename);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Renamed variable for clarity (xlog -> xlog_filename)
+- Maintained the complete function as it's already very simple and focused
+- No significant simplification needed due to the function's inherent simplicity
+- Preserved all essential validation and filename construction logic

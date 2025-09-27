@@ -44,3 +44,35 @@ The function is designed primarily for auxiliary processes that need to clean up
 - Used by all major auxiliary processes including background writer, checkpointer, WAL writer, and archiver
 - Essential for preventing resource leaks in long-running auxiliary processes
 - Part of PostgreSQL's robust resource management system ensuring system stability
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseAuxProcessResources
+void ReleaseAuxProcessResources(bool isCommit) {
+    // Phase 1: Release resources that should be cleaned up before locks
+    ResourceOwnerRelease(AuxProcessResourceOwner,
+                        RESOURCE_RELEASE_BEFORE_LOCKS,
+                        isCommit, true);
+
+    // Phase 2: Release lock resources
+    ResourceOwnerRelease(AuxProcessResourceOwner,
+                        RESOURCE_RELEASE_LOCKS,
+                        isCommit, true);
+
+    // Phase 3: Release resources that should be cleaned up after locks
+    ResourceOwnerRelease(AuxProcessResourceOwner,
+                        RESOURCE_RELEASE_AFTER_LOCKS,
+                        isCommit, true);
+
+    // Reset resource owner state for reuse
+    AuxProcessResourceOwner->releasing = false;
+    AuxProcessResourceOwner->sorted = false;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each phase of the three-phase release protocol
+- Consolidated the resource owner state reset into a single conceptual step
+- Preserved the essential algorithm structure while making the phases more explicit
+- Focused on the main execution path without losing important functionality

@@ -30,3 +30,28 @@ ChangeToDataDir performs a critical initialization step by changing the process'
 
 ## Notes and Other Information
 This function is intentionally separated from SetDataDir to provide flexibility during PostgreSQL's initialization sequence. The working directory change is deferred until after all path configuration is complete, allowing setup code to work with absolute paths before committing to the data directory as the working directory. Once called, most PostgreSQL file operations can use relative paths, which simplifies the codebase and reduces the likelihood of path-related errors. The fatal error handling reflects the critical nature of this operation for PostgreSQL's proper functioning.
+
+## Simplified Source
+
+```c
+// Simplified version of ChangeToDataDir
+void ChangeToDataDir(void) {
+    // Ensure DataDir is set before attempting to change
+    Assert(DataDir);
+
+    // Change to the data directory - this is critical for PostgreSQL operation
+    if (chdir(DataDir) < 0) {
+        // Fatal error if we can't change to data directory
+        ereport(FATAL,
+                (errcode_for_file_access(),
+                 errmsg("could not change directory to \"%s\": %m", DataDir)));
+    }
+}
+```
+
+Key simplifications made:
+- Added clarifying comments for each logical step
+- Maintained the essential error handling (cannot be simplified as it's critical)
+- Preserved the assertion check as it's important for debugging
+- The function is already quite simple, so minimal changes were needed
+- Focused on explaining the purpose of each operation rather than structural changes

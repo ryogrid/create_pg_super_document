@@ -35,3 +35,23 @@ DynaHashAlloc is a specialized memory allocation function that allocates memory 
 - Returns NULL on allocation failure rather than throwing an error
 - Essential for the internal memory management of PostgreSQL's dynamic hash table implementation
 - Located at src/backend/utils/hash/dynahash.c:291-306
+
+## Simplified Source
+
+```c
+// Simplified version of DynaHashAlloc
+static void *DynaHashAlloc(Size size) {
+    // Verify that the hash table memory context is valid
+    Assert(MemoryContextIsValid(CurrentDynaHashCxt));
+
+    // Allocate memory from the hash table context
+    // Uses NO_OOM flag to return NULL on failure instead of throwing error
+    return MemoryContextAllocExtended(CurrentDynaHashCxt, size, MCXT_ALLOC_NO_OOM);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each operation
+- Clarified the purpose of the MCXT_ALLOC_NO_OOM flag
+- Made the function's role in hash table memory management more explicit
+- The function is already quite simple, so minimal changes were needed

@@ -39,3 +39,51 @@ The function includes comprehensive error handling, noting that XLogFileInitInte
 - The current conservative approach (creating only one future segment) is acknowledged as suboptimal for high-volume systems
 - Error conditions from XLogFileInitInternal() indicate serious system issues and are allowed to propagate
 - The function operates on WAL segments of size wal_segment_size
+
+## Simplified Source
+
+```c
+// Simplified version of PreallocXlogFiles
+static void PreallocXlogFiles(XLogRecPtr endptr, TimeLineID tli) {
+    XLogSegNo segment_number;
+    int file_descriptor;
+    bool segment_added;
+    char segment_path[MAXPGPATH];
+    uint64 current_offset;
+
+    // Early exit if preallocation is disabled
+    if (!XLogCtl->InstallXLogFileSegmentActive) {
+        return;
+    }
+
+    // Calculate which segment contains the end position
+    XLByteToPrevSeg(endptr, segment_number, wal_segment_size);
+
+    // Check how far we are within the current segment
+    current_offset = XLogSegmentOffset(endptr - 1, wal_segment_size);
+
+    // Only preallocate if current segment is 75% full
+    if (current_offset >= (0.75 * wal_segment_size)) {
+        // Create the next segment
+        segment_number++;
+        file_descriptor = XLogFileInitInternal(segment_number, tli, &segment_added, segment_path);
+
+        // Clean up file descriptor
+        if (file_descriptor >= 0) {
+            close(file_descriptor);
+        }
+
+        // Update statistics if a new segment was created
+        if (segment_added) {
+            CheckpointStats.ckpt_segs_added++;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and replaced with concise inline comments
+- Used more descriptive variable names (segment_number, file_descriptor, current_offset)
+- Simplified the 75% threshold calculation for clarity
+- Focused on the main execution path
+- Consolidated the core logic into clear steps: check if enabled, calculate position, preallocate if needed

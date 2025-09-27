@@ -46,3 +46,29 @@ The function validates the signal number against defined bounds and ignores inva
 - The sigmask() macro is used to convert signal numbers to bit positions
 - SetEvent() notifies the main thread that signals are pending for processing
 - Part of PostgreSQL's Windows signal emulation architecture
+
+## Simplified Source
+
+```c
+// Simplified version of pg_queue_signal
+void pg_queue_signal(int signum) {
+    // Validate signal number is within acceptable range
+    if (signum >= PG_SIGNAL_COUNT || signum <= 0) {
+        return;  // Ignore invalid signal numbers
+    }
+
+    // Thread-safe signal queuing
+    EnterCriticalSection(&pg_signal_crit_sec);
+    pg_signal_queue |= sigmask(signum);  // Set the signal bit
+    LeaveCriticalSection(&pg_signal_crit_sec);
+
+    // Notify main thread that a signal is pending
+    SetEvent(pgwin32_signal_event);
+}
+```
+
+Key simplifications made:
+- Removed Assert for clarity (assumes function preconditions are met)
+- Added descriptive comments for each main operation
+- Focused on the core signal queuing logic
+- Maintained the essential thread synchronization and validation

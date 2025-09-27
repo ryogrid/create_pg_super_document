@@ -35,3 +35,20 @@ The estimation is used during PostgreSQL startup to properly size the main share
 - Dynamic shared memory segments are typically allocated outside the main shared memory segment
 - Simple linear calculation provides predictable memory reservation
 - Part of PostgreSQL's shared memory sizing infrastructure during startup
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_estimate_size
+size_t dsm_estimate_size(void) {
+    // Convert configured MB value to bytes for DSM metadata reservation
+    // min_dynamic_shared_memory is in MB, multiply by 1024*1024 for bytes
+    return 1024 * 1024 * (size_t) min_dynamic_shared_memory;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the conversion calculation
+- Highlighted the units conversion (MB to bytes)
+- Emphasized this is for metadata reservation, not the dynamic segments themselves
+- Function is already simple, so minimal changes were needed

@@ -67,3 +67,120 @@ The function uses comprehensive error reporting with context-specific messages a
 - Default values are set for certain authentication methods (e.g., include_realm for GSS/SSPI)
 - The function supports both CIDR notation and separate IP/netmask specifications for network ranges
 - Regular expression compilation is performed at parse time for database and role pattern matching
+
+## Simplified Source
+
+```c
+// Simplified version of parse_hba_line
+HbaLine *parse_hba_line(TokenizedAuthLine *tok_line, int elevel) {
+    HbaLine *parsedline;
+    AuthToken *token;
+    List *tokens;
+    ListCell *field;
+    char *str, *cidr_slash;
+
+    // Initialize parsed line structure
+    parsedline = palloc0(sizeof(HbaLine));
+    parsedline->sourcefile = pstrdup(tok_line->file_name);
+    parsedline->linenumber = tok_line->line_num;
+    parsedline->rawline = pstrdup(tok_line->raw_line);
+
+    // Parse connection type (local, host, hostssl, etc.)
+    field = list_head(tok_line->fields);
+    tokens = lfirst(field);
+    if (tokens->length > 1) {
+        report_error("multiple values specified for connection type");
+        return NULL;
+    }
+
+    token = linitial(tokens);
+    if (strcmp(token->string, "local") == 0) {
+        parsedline->conntype = ctLocal;
+    } else if (starts_with_host(token->string)) {
+        // Parse host variants (host, hostssl, hostnossl, hostgssenc, hostnogssenc)
+        parsedline->conntype = determine_host_connection_type(token->string);
+        validate_ssl_gss_support(parsedline->conntype, elevel);
+    } else {
+        report_error("invalid connection type");
+        return NULL;
+    }
+
+    // Parse database list
+    field = lnext(tok_line->fields, field);
+    if (!field) {
+        report_error("missing database specification");
+        return NULL;
+    }
+    parsedline->databases = parse_token_list(lfirst(field));
+
+    // Parse role list
+    field = lnext(tok_line->fields, field);
+    if (!field) {
+        report_error("missing role specification");
+        return NULL;
+    }
+    parsedline->roles = parse_token_list(lfirst(field));
+
+    // Parse IP address/hostname (for non-local connections)
+    if (parsedline->conntype != ctLocal) {
+        field = lnext(tok_line->fields, field);
+        if (!field) {
+            report_error("missing IP address specification");
+            return NULL;
+        }
+
+        tokens = lfirst(field);
+        token = linitial(tokens);
+
+        if (token_is_keyword(token, "all")) {
+            parsedline->ip_cmp_method = ipCmpAll;
+        } else if (token_is_keyword(token, "samehost")) {
+            parsedline->ip_cmp_method = ipCmpSameHost;
+        } else if (token_is_keyword(token, "samenet")) {
+            parsedline->ip_cmp_method = ipCmpSameNet;
+        } else {
+            // Parse IP address with optional CIDR or separate netmask
+            parse_ip_address_and_mask(token, field, parsedline);
+        }
+    }
+
+    // Parse authentication method
+    field = lnext(tok_line->fields, field);
+    if (!field) {
+        report_error("missing authentication method");
+        return NULL;
+    }
+
+    tokens = lfirst(field);
+    token = linitial(tokens);
+    parsedline->auth_method = parse_auth_method(token->string);
+
+    // Validate authentication method compatibility
+    validate_auth_method_compatibility(parsedline);
+
+    // Parse authentication options (name=value pairs)
+    while ((field = lnext(tok_line->fields, field)) != NULL) {
+        parse_auth_options(lfirst(field), parsedline);
+    }
+
+    // Validate mandatory arguments for specific auth methods
+    validate_mandatory_auth_args(parsedline);
+
+    // Set default values for certain auth methods
+    set_auth_method_defaults(parsedline);
+
+    return parsedline;
+}
+```
+
+Key simplifications made:
+- Consolidated error handling into helper functions like `report_error()`
+- Abstracted complex IP address parsing into `parse_ip_address_and_mask()`
+- Simplified connection type parsing with helper function `determine_host_connection_type()`
+- Created helper functions for validation: `validate_ssl_gss_support()`, `validate_auth_method_compatibility()`, `validate_mandatory_auth_args()`
+- Abstracted authentication method parsing into `parse_auth_method()`
+- Removed detailed platform-specific conditional compilation blocks
+- Consolidated token list processing into `parse_token_list()`
+- Focused on the main execution flow while abstracting complex validation logic
+- Simplified the authentication options parsing with `parse_auth_options()`
+- Added `set_auth_method_defaults()` to handle default value assignment

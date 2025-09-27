@@ -42,3 +42,46 @@ This function takes no parameters.
 - Clears the GUC_NEEDS_REPORT status flag after reporting each variable
 - Essential for PostgreSQL protocol compliance and client session management
 - Optimizes network traffic by batching parameter updates and avoiding duplicate reports
+
+## Simplified Source
+
+```c
+// Simplified version of ReportChangedGUCOptions
+void ReportChangedGUCOptions(void) {
+    // Quick exit if reporting not enabled
+    if (!reporting_enabled)
+        return;
+
+    // Special case: Handle in_hot_standby parameter transition
+    // This parameter can only go from true to false, never false to true
+    if (in_hot_standby_guc && !RecoveryInProgress()) {
+        SetConfigOption("in_hot_standby", "false",
+                       PGC_INTERNAL, PGC_S_OVERRIDE);
+    }
+
+    // Process all variables that need reporting
+    slist_mutable_iter iter;
+    slist_foreach_modify(iter, &guc_report_list) {
+        // Get the configuration variable from the list
+        struct config_generic *conf = slist_container(struct config_generic,
+                                                     report_link, iter.cur);
+
+        // Report the variable to the client
+        ReportGUCOption(conf);
+
+        // Clear the "needs report" flag
+        conf->status &= ~GUC_NEEDS_REPORT;
+
+        // Remove from the report list
+        slist_delete_current(&iter);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining the rationale (kept essential ones)
+- Consolidated variable declarations closer to usage
+- Simplified the loop structure explanation
+- Removed Assert statement for clarity
+- Focused on the main execution flow
+- Added brief inline comments for each major step

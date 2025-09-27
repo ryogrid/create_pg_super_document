@@ -52,3 +52,25 @@ The function includes both an Assert and a runtime check for encoding validity t
   - JOHAB: 3 bytes maximum
 - Critical for preventing buffer overflows in character processing operations
 - Used in both server-side and client-side code for consistent character handling
+
+## Simplified Source
+
+```c
+// Simplified version of pg_encoding_max_length
+int pg_encoding_max_length(int encoding) {
+    // Validate the encoding parameter
+    Assert(PG_VALID_ENCODING(encoding));
+
+    // Return max character length for the encoding, with fallback to ASCII
+    return PG_VALID_ENCODING(encoding) ?
+        pg_wchar_table[encoding].maxmblen :
+        pg_wchar_table[PG_SQL_ASCII].maxmblen;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the validation and lookup
+- Preserved the dual validation approach (Assert + runtime check)
+- Maintained the fallback to ASCII encoding for safety
+- Kept the essential logic for maximum character length lookup
+- This function is already quite simple and efficient

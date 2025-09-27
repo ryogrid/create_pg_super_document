@@ -43,3 +43,49 @@ This function takes no parameters.
 - Resource owner cleanup is conditional - it only occurs if there's no active transaction or transaction block
 - The function always resets the WAL sender state back to WALSNDSTATE_STARTUP regardless of the error condition
 - This function is typically called from error handling paths in the PostgreSQL main loop for WAL sender processes
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndErrorCleanup
+void WalSndErrorCleanup(void) {
+    // Release all held locks and cancel waiting operations
+    LWLockReleaseAll();
+    ConditionVariableCancelSleep();
+    pgstat_report_wait_end();
+
+    // Close any open WAL segment file
+    if (xlogreader != NULL && xlogreader->seg.ws_file >= 0) {
+        wal_segment_close(xlogreader);
+    }
+
+    // Release and cleanup replication slots
+    if (MyReplicationSlot != NULL) {
+        ReplicationSlotRelease();
+    }
+    ReplicationSlotCleanup(false);
+
+    // Mark replication as inactive
+    replication_active = false;
+
+    // Clean up resource owner if no transaction is active
+    if (!IsTransactionOrTransactionBlock()) {
+        WalSndResourceCleanup(false);
+    }
+
+    // Exit process if shutdown signals received
+    if (got_STOPPING || got_SIGUSR2) {
+        proc_exit(0);
+    }
+
+    // Reset to startup state
+    WalSndSetState(WALSNDSTATE_STARTUP);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each cleanup phase
+- Grouped related operations together logically
+- Emphasized the sequential nature of the cleanup process
+- Preserved all essential error handling and resource cleanup logic
+- Maintained the function's critical role in WAL sender error recovery

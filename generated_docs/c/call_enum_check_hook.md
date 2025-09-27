@@ -48,3 +48,51 @@ The validation workflow mirrors other check hook callers: check for hook existen
 - Follows the same global error variable coordination pattern as other check hook callers
 - Essential for GUC parameters that have a limited set of valid named options (like log levels, synchronous commit modes, etc.)
 - Returns true for successful validation, false for validation failure
+
+## Simplified Source
+
+```c
+// Simplified version of call_enum_check_hook
+static bool call_enum_check_hook(struct config_enum *conf, int *newval, void **extra,
+                                 GucSource source, int elevel) {
+    // Quick exit if no validation hook is configured
+    if (!conf->check_hook)
+        return true;
+
+    // Reset global error message variables
+    GUC_check_errcode_value = ERRCODE_INVALID_PARAMETER_VALUE;
+    GUC_check_errmsg_string = NULL;
+    GUC_check_errdetail_string = NULL;
+    GUC_check_errhint_string = NULL;
+
+    // Call the validation hook
+    if (!conf->check_hook(newval, extra, source)) {
+        // Report validation failure with enum-specific error message
+        ereport(elevel,
+                (errcode(GUC_check_errcode_value),
+                 GUC_check_errmsg_string ?
+                 errmsg_internal("%s", GUC_check_errmsg_string) :
+                 errmsg("invalid value for parameter \"%s\": \"%s\"",
+                        conf->gen.name,
+                        config_enum_lookup_by_value(conf, *newval)),
+                 // Add optional error detail and hint if available
+                 GUC_check_errdetail_string ?
+                 errdetail_internal("%s", GUC_check_errdetail_string) : 0,
+                 GUC_check_errhint_string ?
+                 errhint("%s", GUC_check_errhint_string) : 0));
+
+        // Clean up error context
+        FlushErrorState();
+        return false;
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Consolidated the error reporting structure for clarity
+- Added descriptive comments for each major step
+- Preserved the enum-specific value lookup logic
+- Maintained the global error variable coordination pattern
+- Focused on the main validation workflow

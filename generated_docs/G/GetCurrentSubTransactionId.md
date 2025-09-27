@@ -37,3 +37,22 @@ GetCurrentSubTransactionId is a simple accessor function that returns the subtra
 - The returned SubTransactionId is used to track nested transaction contexts
 - Located in src/backend/access/transam/xact.c:788-801
 - Simple getter function with no side effects or error conditions
+
+## Simplified Source
+
+```c
+// Simplified version of GetCurrentSubTransactionId
+SubTransactionId GetCurrentSubTransactionId(void) {
+    // Get the current transaction state from global variable
+    TransactionState current_txn = CurrentTransactionState;
+
+    // Return the subtransaction ID from the current state
+    return current_txn->subTransactionId;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for clarity
+- Added explanatory comments for each step
+- Preserved the simple getter functionality
+- No actual simplification needed as the function is already minimal

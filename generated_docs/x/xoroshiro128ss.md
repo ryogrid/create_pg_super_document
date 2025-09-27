@@ -48,3 +48,34 @@ This implementation is specifically the "starstar" variant, which uses multiplic
 - The "**" scrambler (multiplication by 5, rotation by 7, multiplication by 9) significantly improves output quality
 - This generator passes all known statistical tests including BigCrush from TestU01
 - The algorithm is designed to be efficiently implemented on modern 64-bit processors
+
+## Simplified Source
+
+```c
+// Simplified version of xoroshiro128ss
+static uint64 xoroshiro128ss(pg_prng_state *state) {
+    // Step 1: Extract current state values
+    uint64 s0 = state->s0;
+    uint64 sx = state->s1 ^ s0;  // XOR s1 with s0
+
+    // Step 2: Generate output using "**" scrambler
+    // Multiply s0 by 5, rotate left by 7 bits, then multiply by 9
+    uint64 output_value = rotl(s0 * 5, 7) * 9;
+
+    // Step 3: Update state for next iteration
+    // Update s0: rotate s0 left by 24, XOR with sx and (sx shifted left 16)
+    state->s0 = rotl(s0, 24) ^ sx ^ (sx << 16);
+
+    // Update s1: rotate sx left by 37 bits
+    state->s1 = rotl(sx, 37);
+
+    return output_value;
+}
+```
+
+Key simplifications made:
+- Extracted intermediate variables for clarity (s0, sx, output_value)
+- Added step-by-step comments explaining each phase of the algorithm
+- Separated the output generation from state update for better readability
+- Made the "**" scrambler operation more explicit with detailed comments
+- Preserved the exact mathematical operations while making the flow clearer

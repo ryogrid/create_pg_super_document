@@ -43,3 +43,57 @@ The function performs privilege checking when restrict_privileged is true, ensur
 - Uses a static buffer for numeric conversions (256 bytes)
 - Security-conscious design with privilege checking for sensitive parameters
 - Located in src/backend/utils/misc/guc.c:4358-4407
+
+## Simplified Source
+
+```c
+// Simplified version of GetConfigOption
+const char *
+GetConfigOption(const char *name, bool missing_ok, bool restrict_privileged) {
+    struct config_generic *record;
+    static char buffer[256];
+
+    // Step 1: Find the configuration option by name
+    record = find_option(name, false, missing_ok, ERROR);
+    if (record == NULL)
+        return NULL;
+
+    // Step 2: Check privilege restrictions for sensitive parameters
+    if (restrict_privileged && !ConfigOptionIsVisible(record)) {
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied to examine \"%s\"", name)));
+    }
+
+    // Step 3: Convert the value to string based on parameter type
+    switch (record->vartype) {
+        case PGC_BOOL:
+            return *((struct config_bool *) record)->variable ? "on" : "off";
+
+        case PGC_INT:
+            snprintf(buffer, sizeof(buffer), "%d",
+                    *((struct config_int *) record)->variable);
+            return buffer;
+
+        case PGC_REAL:
+            snprintf(buffer, sizeof(buffer), "%g",
+                    *((struct config_real *) record)->variable);
+            return buffer;
+
+        case PGC_STRING:
+            return *((struct config_string *) record)->variable ?
+                   *((struct config_string *) record)->variable : "";
+
+        case PGC_ENUM:
+            return config_enum_lookup_by_value((struct config_enum *) record,
+                                             *((struct config_enum *) record)->variable);
+    }
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Preserved all core logic and error handling as they are essential
+- Added step-by-step comments for clarity
+- Maintained the original structure since it's already well-organized
+- Kept privilege checking intact as it's a critical security feature
+- Preserved type-specific conversion logic for all GUC parameter types

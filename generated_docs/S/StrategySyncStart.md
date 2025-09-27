@@ -42,3 +42,40 @@ The function also provides two important statistics if the caller requests them:
 - Buffer allocation statistics are automatically reset to zero after being read, providing a "delta" measurement
 - The returned buffer index provides an optimal starting point for background synchronization to work ahead of the clock sweep
 - Coordinates closely with ClockSweepTick() to maintain consistency between buffer replacement and background writing
+
+## Simplified Source
+
+```c
+// Simplified version of StrategySyncStart
+int StrategySyncStart(uint32 *complete_passes, uint32 *num_buf_alloc) {
+    // Step 1: Acquire lock and read current victim buffer position
+    SpinLockAcquire(&StrategyControl->buffer_strategy_lock);
+    uint32 nextVictimBuffer = pg_atomic_read_u32(&StrategyControl->nextVictimBuffer);
+
+    // Step 2: Calculate starting buffer index (circular position)
+    int result = nextVictimBuffer % NBuffers;
+
+    // Step 3: Optionally return complete passes count
+    if (complete_passes) {
+        *complete_passes = StrategyControl->completePasses;
+        // Add any wraparounds not yet reflected in completePasses
+        *complete_passes += nextVictimBuffer / NBuffers;
+    }
+
+    // Step 4: Optionally return and reset buffer allocation count
+    if (num_buf_alloc) {
+        *num_buf_alloc = pg_atomic_exchange_u32(&StrategyControl->numBufferAllocs, 0);
+    }
+
+    // Step 5: Release lock and return starting position
+    SpinLockRelease(&StrategyControl->buffer_strategy_lock);
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Added step-by-step flow comments
+- Consolidated variable declarations
+- Focused on the main execution path
+- Preserved all essential logic and atomic operations

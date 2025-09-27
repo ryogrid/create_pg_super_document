@@ -54,3 +54,42 @@ Key behavioral characteristics:
 - Error handling converts Windows error codes to appropriate POSIX errno values using `_dosmaperr()`
 - The function returns the number of bytes actually written, or -1 on error
 - This is a critical component of PostgreSQL's I/O subsystem on Windows, used extensively for WAL writing, SLRU operations, and other low-level file operations
+
+## Simplified Source
+
+```c
+// Simplified version of pg_pwrite
+ssize_t pg_pwrite(int fd, const void *buf, size_t size, off_t offset) {
+    OVERLAPPED overlapped = {0};
+    HANDLE handle;
+    DWORD bytes_written;
+
+    // Convert file descriptor to Windows handle
+    handle = (HANDLE) _get_osfhandle(fd);
+    if (handle == INVALID_HANDLE_VALUE) {
+        errno = EBADF;
+        return -1;
+    }
+
+    // Limit size to prevent DWORD overflow (max 1GB)
+    size = Min(size, 1024 * 1024 * 1024);
+
+    // Set the file offset for positioned write
+    overlapped.Offset = offset;
+
+    // Perform the write operation
+    if (!WriteFile(handle, buf, size, &bytes_written, &overlapped)) {
+        _dosmaperr(GetLastError());
+        return -1;
+    }
+
+    return bytes_written;
+}
+```
+
+Key simplifications made:
+- Renamed `result` variable to `bytes_written` for clarity
+- Added descriptive comments for each major step
+- Simplified error handling flow
+- Focused on the main execution path
+- Preserved all essential logic and error checking

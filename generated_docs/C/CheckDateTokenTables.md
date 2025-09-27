@@ -44,3 +44,35 @@ This function serves as the primary entry point for validating PostgreSQL's date
 - Part of PostgreSQL's defensive startup sequence that catches configuration or build problems early
 - The epoch validations ensure that fundamental date calculations will work correctly throughout the system
 - Critical for preventing subtle date/time bugs that could affect data integrity
+
+## Simplified Source
+
+```c
+// Simplified version of CheckDateTokenTables
+bool CheckDateTokenTables(void) {
+    bool validation_passed = true;
+
+    // Step 1: Validate critical epoch date constants
+    // Ensure Unix epoch (1970-01-01) converts to expected Julian date
+    Assert(UNIX_EPOCH_JDATE == date2j(1970, 1, 1));
+
+    // Ensure PostgreSQL epoch (2000-01-01) converts to expected Julian date
+    Assert(POSTGRES_EPOCH_JDATE == date2j(2000, 1, 1));
+
+    // Step 2: Validate main date/time token lookup table
+    validation_passed &= CheckDateTokenTable("datetktbl", datetktbl, szdatetktbl);
+
+    // Step 3: Validate interval/delta token lookup table
+    validation_passed &= CheckDateTokenTable("deltatktbl", deltatktbl, szdeltatktbl);
+
+    // Return true only if all validations passed
+    return validation_passed;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name `validation_passed` instead of cryptic `ok`
+- Added step-by-step comments explaining each validation phase
+- Clarified the purpose of each Assert statement with specific dates
+- Made the boolean accumulation logic more explicit
+- Focused on the main validation workflow without changing the core logic

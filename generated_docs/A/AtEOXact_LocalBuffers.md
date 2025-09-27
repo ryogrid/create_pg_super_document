@@ -34,3 +34,19 @@ The function is intentionally simple, focusing solely on leak detection rather t
 - Unlike shared buffers, local buffers don't require complex locking mechanisms since they're not shared between processes
 - This function complements the shared buffer cleanup performed by AtEOXact_Buffers
 - Buffer leaks detected by this function indicate programming errors where buffer pins weren't properly released before transaction end
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_LocalBuffers
+void AtEOXact_LocalBuffers(bool isCommit) {
+    // Core logic: Check for any remaining local buffer pins that should have been released
+    CheckForLocalBufferLeaks();
+}
+```
+
+Key simplifications made:
+- Preserved the essential function structure as it's already minimal
+- Added explanatory comment to clarify the core purpose
+- Maintained the single function call that performs the actual work
+- The isCommit parameter is preserved but noted as currently unused

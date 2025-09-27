@@ -44,3 +44,51 @@ The function initializes the TwoPhaseState global variable, which serves as the 
 - Part of PostgreSQL's shared memory initialization sequence during startup
 - The 'found' parameter from ShmemInitStruct indicates whether the structure already existed
 - Uses assertions to verify correct initialization state in debug builds
+
+## Simplified Source
+
+```c
+// Simplified version of TwoPhaseShmemInit
+void TwoPhaseShmemInit(void) {
+    bool found;
+
+    // Step 1: Initialize or attach to shared memory segment
+    TwoPhaseState = ShmemInitStruct("Prepared Transaction Table",
+                                   TwoPhaseShmemSize(),
+                                   &found);
+
+    // Step 2: Full initialization only in postmaster process
+    if (!IsUnderPostmaster) {
+        // This is the main postmaster - do full setup
+        GlobalTransaction gxacts;
+        int i;
+
+        // Initialize state variables
+        TwoPhaseState->freeGXacts = NULL;
+        TwoPhaseState->numPrepXacts = 0;
+
+        // Step 3: Set up array of GlobalTransaction structures
+        gxacts = (GlobalTransaction)((char *) TwoPhaseState +
+                 MAXALIGN(offsetof(TwoPhaseStateData, prepXacts) +
+                         sizeof(GlobalTransaction) * max_prepared_xacts));
+
+        // Step 4: Build linked list of free transaction slots
+        for (i = 0; i < max_prepared_xacts; i++) {
+            // Link into free list
+            gxacts[i].next = TwoPhaseState->freeGXacts;
+            TwoPhaseState->freeGXacts = &gxacts[i];
+
+            // Associate with prepared transaction PGPROC
+            gxacts[i].pgprocno = GetNumberFromPGProc(&PreparedXactProcs[i]);
+        }
+    }
+    // Child processes just attach to existing shared memory
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the initialization flow
+- Simplified complex pointer arithmetic with descriptive comments
+- Consolidated the main logic into clearly labeled phases
+- Removed assertion checks for clarity while preserving core functionality
+- Focused on the main execution path for both postmaster and child processes

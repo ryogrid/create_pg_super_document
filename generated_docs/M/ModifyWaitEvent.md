@@ -50,3 +50,55 @@ The function is designed for high-performance scenarios where socket events freq
 - On Windows, old latch handles are left in place when disabled, tolerating spurious wakeups
 - Validates that new latches are owned by the current process
 - Position parameter must be valid (less than set->nevents)
+
+## Simplified Source
+
+```c
+// Simplified version of ModifyWaitEvent
+void ModifyWaitEvent(WaitEventSet *set, int pos, uint32 events, Latch *latch) {
+    WaitEvent *event = &set->events[pos];
+
+    // Early return optimization: if nothing actually changes
+    if (events == event->events &&
+        (!(event->events & WL_LATCH_SET) || set->latch == latch)) {
+        return;
+    }
+
+    // Validate that certain event types cannot be modified
+    if (event->events & WL_LATCH_SET && events != event->events) {
+        elog(ERROR, "cannot modify latch event");
+    }
+    if (event->events & WL_POSTMASTER_DEATH) {
+        elog(ERROR, "cannot modify postmaster death event");
+    }
+
+    // Update the event mask
+    event->events = events;
+
+    // Handle latch-specific modifications
+    if (events == WL_LATCH_SET) {
+        if (latch && latch->owner_pid != MyProcPid) {
+            elog(ERROR, "cannot wait on a latch owned by another process");
+        }
+        set->latch = latch;
+
+        // On Unix, no kernel update needed; on Windows, handle array needs update
+        #ifdef WAIT_USE_WIN32
+        if (!latch) return;
+        #else
+        return;
+        #endif
+    }
+
+    // Update the underlying wait mechanism (platform-specific)
+    platform_specific_wait_event_adjustment(set, event);
+}
+```
+
+Key simplifications made:
+- Removed platform-specific conditional compilation details for clarity
+- Consolidated platform-specific wait event adjustment calls into a single conceptual call
+- Simplified variable declarations and removed temporary variables where not essential
+- Focused on the main logic flow: validation, optimization, update, and platform adjustment
+- Preserved all critical error checking and validation logic
+- Maintained the essential algorithm structure while reducing implementation complexity

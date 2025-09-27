@@ -42,3 +42,22 @@ This function is one of the core list access utilities in PostgreSQL, providing 
 - Extensively used throughout PostgreSQL's query processing pipeline
 - Part of the fundamental list manipulation API that abstracts PostgreSQL's array-based list implementation
 - Calling with an invalid index will result in undefined behavior or assertion failure
+
+## Simplified Source
+
+```c
+// Simplified version of list_nth
+static inline void *list_nth(const List *list, int n) {
+    // Verify this is actually a List structure
+    Assert(IsA(list, List));
+
+    // Get the cell at position n and extract its pointer value
+    return lfirst(list_nth_cell(list, n));
+}
+```
+
+Key simplifications made:
+- Focused on the core two-step operation: get cell → extract pointer
+- Preserved essential type checking assertion
+- Emphasized the delegation to list_nth_cell for the actual indexing
+- Maintained the inline optimization for O(1) performance

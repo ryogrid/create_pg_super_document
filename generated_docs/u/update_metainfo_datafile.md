@@ -51,3 +51,59 @@ The  function creates and maintains a metadata file () that contains information
 - Handles platform-specific line endings (CRLF on Windows via )
 - Critical for external monitoring tools that need to track current log files during rotation
 - All file operations include comprehensive error reporting and cleanup on failure
+
+## Simplified Source
+
+```c
+// Simplified version of update_metainfo_datafile
+static void update_metainfo_datafile(void) {
+    FILE *fh;
+    mode_t old_umask;
+
+    // If no file-based logging is enabled, remove the metadata file and exit
+    if (!(Log_destination & LOG_DESTINATION_STDERR) &&
+        !(Log_destination & LOG_DESTINATION_CSVLOG) &&
+        !(Log_destination & LOG_DESTINATION_JSONLOG)) {
+        unlink(LOG_METAINFO_DATAFILE);  // Remove existing metadata file
+        return;
+    }
+
+    // Create temporary metadata file with proper permissions
+    old_umask = umask(pg_mode_mask);
+    fh = fopen(LOG_METAINFO_DATAFILE_TMP, "w");
+    umask(old_umask);
+
+    if (!fh) {
+        // Report error and exit if file creation fails
+        return;
+    }
+
+    // Set line buffering for immediate output
+    setvbuf(fh, NULL, PG_IOLBF, 0);
+
+    // Write active log destinations to metadata file
+    if (last_sys_file_name && (Log_destination & LOG_DESTINATION_STDERR)) {
+        fprintf(fh, "stderr %s\n", last_sys_file_name);
+    }
+
+    if (last_csv_file_name && (Log_destination & LOG_DESTINATION_CSVLOG)) {
+        fprintf(fh, "csvlog %s\n", last_csv_file_name);
+    }
+
+    if (last_json_file_name && (Log_destination & LOG_DESTINATION_JSONLOG)) {
+        fprintf(fh, "jsonlog %s\n", last_json_file_name);
+    }
+
+    fclose(fh);
+
+    // Atomically replace old metadata file with new one
+    rename(LOG_METAINFO_DATAFILE_TMP, LOG_METAINFO_DATAFILE);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and reporting for clarity
+- Abstracted platform-specific Windows line ending code
+- Consolidated error checking into simple conditional returns
+- Focused on the main execution path: check destinations → create temp file → write entries → atomic rename
+- Preserved the atomic file operation pattern which is the core functionality

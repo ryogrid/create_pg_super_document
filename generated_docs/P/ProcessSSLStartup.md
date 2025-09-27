@@ -36,3 +36,74 @@ ProcessSSLStartup examines the first byte of incoming client data to determine i
 - Does not support SSL if built without USE_SSL or if SSL library not loaded
 - Uses Trace_connection_negotiation for debugging SSL connection attempts
 - Located in src/backend/tcop/backend_startup.c:362-452
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessSSLStartup
+static int ProcessSSLStartup(Port *port) {
+    int firstbyte;
+
+    Assert(!port->ssl_in_use);
+
+    // Core logic step 1: Peek at the first byte without consuming it
+    pq_startmsgread();
+    firstbyte = pq_peekbyte();
+    pq_endmsgread();
+
+    // Core logic step 2: Handle connection errors
+    if (firstbyte == EOF) {
+        return STATUS_ERROR;  // No data received
+    }
+
+    // Core logic step 3: Check if this is an SSL handshake
+    if (firstbyte != 0x16) {
+        return STATUS_OK;  // Not SSL, continue with normal startup
+    }
+
+    // Core logic step 4: Process SSL connection request
+#ifdef USE_SSL
+    // Validate SSL is available and supported
+    if (!LoadedSSL || port->laddr.addr.ss_family == AF_UNIX) {
+        goto reject;  // SSL not supported
+    }
+
+    // Establish SSL connection
+    if (secure_open_server(port) == -1) {
+        goto reject;  // SSL setup failed
+    }
+
+    Assert(port->ssl_in_use);
+
+    // Validate ALPN protocol negotiation was used
+    if (!port->alpn_used) {
+        ereport(COMMERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("received direct SSL connection request without ALPN protocol negotiation extension")));
+        goto reject;
+    }
+
+    // Core logic step 5: SSL connection successful
+    if (Trace_connection_negotiation) {
+        ereport(LOG, (errmsg("direct SSL connection accepted")));
+    }
+    return STATUS_OK;
+
+#else
+    goto reject;  // SSL not compiled in
+#endif
+
+reject:
+    if (Trace_connection_negotiation) {
+        ereport(LOG, (errmsg("direct SSL connection rejected")));
+    }
+    return STATUS_ERROR;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about startup packet length validation
+- Consolidated error handling paths using goto reject pattern
+- Focused on the main execution flow: peek byte → check if SSL → establish SSL → validate ALPN
+- Abstracted SSL-specific details while preserving critical validation steps
+- Maintained the essential algorithm: non-destructive peek, SSL detection, secure connection establishment

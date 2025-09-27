@@ -38,3 +38,27 @@ This function must be called once per process before any calls to pg_strong_rand
 - Designed for early startup usage without backend infrastructure dependencies
 - For OpenSSL builds, ensures proper random state isolation between processes
 - Safe to call multiple times (no-op in most implementations)
+
+## Simplified Source
+
+```c
+// Simplified version of pg_strong_random_init
+void pg_strong_random_init(void) {
+#ifdef USE_OPENSSL
+    // Initialize OpenSSL random state for this process
+    RAND_poll();
+#elif defined(WIN32)
+    // Windows: no initialization needed for CryptGenRandom
+    // (Function body empty)
+#else
+    // Unix/Linux: no initialization needed for /dev/urandom
+    // (Function body empty)
+#endif
+}
+```
+
+Key simplifications made:
+- Added clear comments for each platform-specific implementation
+- Preserved the essential conditional compilation structure
+- Maintained the important OpenSSL initialization call
+- Kept the no-op behavior for platforms that don't need initialization

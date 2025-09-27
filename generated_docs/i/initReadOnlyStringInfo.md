@@ -59,3 +59,26 @@ The initialized StringInfo is marked as read-only by setting maxlen to 0, which 
 - The caller must ensure the referenced buffer remains valid throughout the StringInfo's lifetime
 - Performance optimization is the primary use case, particularly in replication and binary data processing contexts
 - maxlen is set to 0 to indicate read-only status
+
+## Simplified Source
+
+```c
+// Simplified version of initReadOnlyStringInfo
+static inline void initReadOnlyStringInfo(StringInfo str, char *data, int len) {
+    // Set up StringInfo to point to existing buffer
+    str->data = data;
+    str->len = len;
+
+    // Mark as read-only (prevents modifications)
+    str->maxlen = 0;
+
+    // Initialize cursor position
+    str->cursor = 0;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Preserved the essential initialization logic
+- Maintained the read-only semantics through maxlen = 0
+- Focused on the core purpose: lightweight StringInfo setup without buffer copying

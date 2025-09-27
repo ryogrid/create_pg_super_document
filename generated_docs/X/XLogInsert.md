@@ -45,3 +45,61 @@ After successful insertion, the function cleans up all registration state via XL
 - Handles full-page write decisions dynamically based on current WAL state
 - Central function that coordinates the final WAL record insertion process
 - Automatically retries insertion if conditions change during assembly
+
+## Simplified Source
+
+```c
+// Simplified version of XLogInsert
+XLogRecPtr XLogInsert(RmgrId rmid, uint8 info) {
+    XLogRecPtr EndPos;
+
+    // Step 1: Validate that XLogBeginInsert() was called
+    if (!begininsert_called)
+        elog(ERROR, "XLogBeginInsert was not called");
+
+    // Step 2: Validate info byte contains only allowed flags
+    if ((info & ~(XLR_RMGR_INFO_MASK | XLR_SPECIAL_REL_UPDATE | XLR_CHECK_CONSISTENCY)) != 0)
+        elog(PANIC, "invalid xlog info mask %02X", info);
+
+    // Step 3: Handle bootstrap mode - return dummy LSN for non-XLOG records
+    if (IsBootstrapProcessingMode() && rmid != RM_XLOG_ID) {
+        XLogResetInsertion();
+        return SizeOfXLogLongPHD; // start of 1st checkpoint record
+    }
+
+    // Step 4: Main insertion loop - retry until successful
+    do {
+        XLogRecPtr RedoRecPtr;
+        bool doPageWrites;
+        bool topxid_included = false;
+        XLogRecPtr fpw_lsn;
+        XLogRecData *record_data;
+        int num_full_page_images = 0;
+
+        // Get current full-page write requirements
+        GetFullPageWriteInfo(&RedoRecPtr, &doPageWrites);
+
+        // Assemble the complete WAL record from registered data
+        record_data = XLogRecordAssemble(rmid, info, RedoRecPtr, doPageWrites,
+                                       &fpw_lsn, &num_full_page_images, &topxid_included);
+
+        // Insert the assembled record into WAL
+        EndPos = XLogInsertRecord(record_data, fpw_lsn, curinsert_flags,
+                                num_full_page_images, topxid_included);
+
+    } while (EndPos == InvalidXLogRecPtr); // Retry if insertion failed
+
+    // Step 5: Clean up insertion state for next record
+    XLogResetInsertion();
+
+    return EndPos; // Return LSN of inserted record
+}
+```
+
+Key simplifications made:
+- Removed TRACE_POSTGRESQL_WAL_INSERT tracing call for clarity
+- Simplified variable names for better readability (e.g., `num_fpi` → `num_full_page_images`)
+- Added step-by-step comments explaining the main logic flow
+- Consolidated complex validation logic with descriptive comments
+- Focused on the main execution path while preserving all essential functionality
+- Maintained the retry loop structure which is critical for correctness

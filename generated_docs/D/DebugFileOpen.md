@@ -47,3 +47,44 @@ This function takes no parameters and relies on the global OutputFileName variab
 - File operations that fail result in FATAL errors, terminating the process
 - The function is typically called during PostgreSQL process initialization
 - Designed to work with both interactive (TTY) and batch (non-TTY) scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of DebugFileOpen
+void DebugFileOpen(void) {
+    int fd, istty;
+
+    // Check if a debug output filename was specified
+    if (OutputFileName[0]) {
+        // Test file accessibility - can we create/write to it?
+        fd = open(OutputFileName, O_CREAT | O_APPEND | O_WRONLY, 0666);
+        if (fd < 0) {
+            ereport(FATAL, "could not open debug file");
+        }
+
+        // Check if it's a terminal
+        istty = isatty(fd);
+        close(fd);
+
+        // Redirect stderr to the debug file
+        if (!freopen(OutputFileName, "a", stderr)) {
+            ereport(FATAL, "could not redirect stderr to debug file");
+        }
+
+        // If it's a TTY and we're under postmaster, redirect stdout too
+        if (istty && IsUnderPostmaster) {
+            if (!freopen(OutputFileName, "a", stdout)) {
+                ereport(FATAL, "could not redirect stdout to debug file");
+            }
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error reporting arguments for clarity
+- Simplified error messages while preserving essential meaning
+- Consolidated the logic flow into clear sequential steps
+- Added explanatory comments for each major operation
+- Focused on the main execution path without platform-specific details

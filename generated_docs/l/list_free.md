@@ -37,3 +37,31 @@ The function is implemented as a simple wrapper around `list_free_private(list, 
 - Counterpart to `list_free_deep()` which also frees the pointed-to elements
 - Part of PostgreSQL's standard memory management practices for list data structures
 - Used extensively in index operations, relation caching, and configuration processing
+
+## Simplified Source
+
+```c
+// Simplified version of list_free
+void list_free(List *list) {
+    // Handle null list case
+    if (list == NULL) {
+        return;  // Nothing to do
+    }
+
+    // Free dynamically allocated elements array if it exists
+    if (list->elements != list->initial_elements) {
+        free(list->elements);
+    }
+
+    // Free the list structure itself
+    free(list);
+}
+```
+
+Key simplifications made:
+- Removed call to `list_free_private` wrapper and inlined the core logic
+- Removed debug invariant checking for clarity
+- Simplified null check (NIL → NULL for readability)
+- Abstracted pfree() calls to standard free() for conceptual clarity
+- Focused on the main execution path for shallow freeing
+- Removed deep freeing logic since this function only does shallow freeing

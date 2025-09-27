@@ -33,3 +33,20 @@ The function is commonly used in hash table creation where fixed-size keys need 
 - It leverages the optimized `hash_bytes` implementation for the actual hash computation
 - The function is designed to work with any fixed-size data structure, making it highly reusable
 - Commonly used in hash table operations where structured keys need deterministic hash values
+
+## Simplified Source
+
+```c
+// Simplified version of tag_hash
+uint32 tag_hash(const void *key, Size keysize) {
+    // Convert the fixed-size data structure to a hash value
+    // Uses the optimized hash_bytes function to compute hash
+    return hash_bytes((const unsigned char *) key, (int) keysize);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core operation
+- The function is already very simple - it's a thin wrapper around hash_bytes
+- Preserved the essential functionality: converting arbitrary fixed-size data to hash values
+- Main purpose: provide a standardized interface for hashing structured data in PostgreSQL

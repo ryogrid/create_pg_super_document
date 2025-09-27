@@ -44,3 +44,39 @@ This function takes no parameters.
 - Uses atomic initialization functions to ensure proper memory ordering
 - The shared memory segment name "XLogPrefetchStats" is used for identification
 - Located in src/backend/access/transam/xlogprefetcher.c:315-339
+
+## Simplified Source
+
+```c
+// Simplified version of XLogPrefetchShmemInit
+void XLogPrefetchShmemInit(void) {
+    bool found;
+
+    // Step 1: Get or create shared memory segment for prefetch stats
+    SharedStats = (XLogPrefetchStats *)
+        ShmemInitStruct("XLogPrefetchStats",
+                        sizeof(XLogPrefetchStats),
+                        &found);
+
+    // Step 2: Initialize counters only if this is a new segment
+    if (!found) {
+        // Initialize reset timestamp to current time
+        pg_atomic_init_u64(&SharedStats->reset_time, GetCurrentTimestamp());
+
+        // Initialize all statistical counters to zero
+        pg_atomic_init_u64(&SharedStats->prefetch, 0);
+        pg_atomic_init_u64(&SharedStats->hit, 0);
+        pg_atomic_init_u64(&SharedStats->skip_init, 0);
+        pg_atomic_init_u64(&SharedStats->skip_new, 0);
+        pg_atomic_init_u64(&SharedStats->skip_fpw, 0);
+        pg_atomic_init_u64(&SharedStats->skip_rep, 0);
+    }
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the core logic
+- Preserved the essential shared memory initialization pattern
+- Maintained all atomic counter initializations as they represent the core functionality
+- Simplified variable declarations for clarity
+- Focused on the main execution path (new segment initialization)

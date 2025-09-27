@@ -39,3 +39,34 @@ The function uses platform-specific system calls:
 - On Windows,  returns 0 on success (unlike  which returns -1 on failure)
 - This is a critical function for PostgreSQL's asynchronous I/O operations and connection management
 - Should be used in conjunction with proper error handling for socket operations
+
+## Simplified Source
+
+```c
+// Simplified version of pg_set_noblock
+bool pg_set_noblock(pgsocket sock) {
+    // On Unix/Linux systems: Use fcntl to set O_NONBLOCK flag
+#if !defined(WIN32)
+    int flags = fcntl(sock, F_GETFL);
+    if (flags < 0) {
+        return false;  // Failed to get current flags
+    }
+
+    // Set non-blocking flag and return success/failure
+    return (fcntl(sock, F_SETFL, flags | O_NONBLOCK) != -1);
+
+    // On Windows: Use ioctlsocket with FIONBIO
+#else
+    unsigned long nonblock_mode = 1;
+    // ioctlsocket returns 0 on success (opposite of fcntl)
+    return (ioctlsocket(sock, FIONBIO, &nonblock_mode) == 0);
+#endif
+}
+```
+
+Key simplifications made:
+- Combined the flag setting operation into a single return statement for Unix
+- Used more descriptive variable name (`nonblock_mode` instead of `ioctlsocket_ret`)
+- Added clear comments explaining the platform-specific behavior
+- Simplified the control flow while preserving all error checking
+- Maintained the essential cross-platform logic with clearer structure

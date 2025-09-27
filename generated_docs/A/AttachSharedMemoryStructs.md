@@ -38,3 +38,28 @@ In non-EXEC_BACKEND builds, this functionality is not needed since shared memory
 - Provides extension hook mechanism for modules to initialize shared memory access
 - In fork-based systems, shared memory access is inherited and this function is not needed
 - Critical for proper child process initialization in exec-based architectures
+
+## Simplified Source
+
+```c
+// Simplified version of AttachSharedMemoryStructs
+void AttachSharedMemoryStructs(void) {
+    // Validation: Ensure process is properly initialized
+    Assert(MyProc != NULL);
+    Assert(IsUnderPostmaster);
+
+    // Core logic: Attach to all shared memory structures
+    CreateOrAttachShmemStructs();
+
+    // Extension hook: Allow modules to initialize their shared memory
+    if (shmem_startup_hook) {
+        shmem_startup_hook();
+    }
+}
+```
+
+Key simplifications made:
+- Preserved essential validation assertions
+- Maintained the core logic flow with descriptive comments
+- Kept the extension hook mechanism intact
+- Removed detailed comments for brevity while preserving functionality

@@ -35,3 +35,25 @@ The function uses guc_name_compare() for name comparison, which implements a cus
 - The comparison logic ensures that SHOW ALL works regardless of case variations
 - The function delegates all actual work to specialized display functions, maintaining a clean separation of concerns
 - Located in src/backend/utils/misc/guc_funcs.c:382-393
+
+## Simplified Source
+
+```c
+// Simplified version of GetPGVariable
+void GetPGVariable(const char *name, DestReceiver *dest) {
+    // Check if user wants to see all configuration variables
+    if (guc_name_compare(name, "all") == 0) {
+        // Show all GUC configuration variables
+        ShowAllGUCConfig(dest);
+    } else {
+        // Show the specific requested configuration variable
+        ShowGUCConfigOption(name, dest);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two main execution paths
+- Preserved the essential conditional logic that determines whether to show all variables or a specific one
+- Maintained the exact function signature and core functionality
+- Focused on the main decision point: "all" vs specific variable name

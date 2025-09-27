@@ -49,3 +49,38 @@ This implementation is part of PostgreSQL's portability layer (`src/port/`), ens
 - Used extensively throughout PostgreSQL's network-related authentication and connection handling code
 - The function handles all standard getaddrinfo error codes defined by RFC 3493
 - For portability, this ensures consistent error message formatting across platforms
+
+## Simplified Source
+
+```c
+// Simplified version of gai_strerror
+const char *gai_strerror(int errcode) {
+    // Map getaddrinfo error codes to human-readable messages
+    switch (errcode) {
+        case EAI_AGAIN:
+            return "Temporary failure in name resolution";
+        case EAI_BADFLAGS:
+            return "Bad value for ai_flags";
+        case EAI_FAIL:
+            return "Non-recoverable failure in name resolution";
+        case EAI_FAMILY:
+            return "ai_family not supported";
+        case EAI_MEMORY:
+            return "Memory allocation failure";
+        case EAI_NONAME:
+            return "Name or service not known";
+        case EAI_SERVICE:
+            return "Servname not supported for ai_socktype";
+        case EAI_SOCKTYPE:
+            return "ai_socktype not supported";
+        default:
+            return "Unknown server error";
+    }
+}
+```
+
+Key simplifications made:
+- Function is already quite simple, so minimal changes were needed
+- Added descriptive comment explaining the core purpose
+- Maintained all original logic as error code mapping is the essential functionality
+- Preserved thread-safe design by returning static string literals

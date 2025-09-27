@@ -36,3 +36,43 @@ The algorithm calculates segment boundaries for both minimum and maximum limits,
 - Critical for WAL space management and avoiding both WAL bloat and frequent file creation overhead
 - The calculation considers both min_wal_size_mb and max_wal_size_mb configuration parameters
 - Part of PostgreSQL's automatic WAL file lifecycle management during checkpoint processing
+
+## Simplified Source
+
+```c
+// Simplified version of XLOGfileslop
+static XLogSegNo XLOGfileslop(XLogRecPtr lastredoptr) {
+    XLogSegNo minSegNo;
+    XLogSegNo maxSegNo;
+    double distance;
+    XLogSegNo recycleSegNo;
+
+    // Calculate minimum and maximum segment boundaries
+    minSegNo = lastredoptr / wal_segment_size +
+        ConvertToXSegs(min_wal_size_mb, wal_segment_size) - 1;
+    maxSegNo = lastredoptr / wal_segment_size +
+        ConvertToXSegs(max_wal_size_mb, wal_segment_size) - 1;
+
+    // Estimate WAL needed until next checkpoint completion
+    distance = (1.0 + CheckPointCompletionTarget) * CheckPointDistanceEstimate;
+    distance *= 1.10;  // Add 10% safety margin
+
+    // Calculate optimal recycle point
+    recycleSegNo = (XLogSegNo) ceil(((double) lastredoptr + distance) /
+                                   wal_segment_size);
+
+    // Ensure result falls within configured limits
+    if (recycleSegNo < minSegNo)
+        recycleSegNo = minSegNo;
+    if (recycleSegNo > maxSegNo)
+        recycleSegNo = maxSegNo;
+
+    return recycleSegNo;
+}
+```
+
+Key simplifications made:
+- Focused on the three-step algorithm: calculate limits → estimate needs → apply bounds
+- Preserved the essential calculation logic and safety margin
+- Emphasized the balance between min/max WAL size constraints and performance optimization
+- Simplified comments to highlight the core checkpoint estimation strategy

@@ -34,3 +34,32 @@ The function implements an atomic test-and-clear operation on signal flags, ensu
 - The careful flag clearing logic ("don't clear flag if we haven't seen it set") prevents race conditions
 - If MyProcSignalSlot is NULL, the function safely returns false without error
 - This function is central to PostgreSQL's signal dispatching mechanism and is called repeatedly by procsignal_sigusr1_handler to handle different types of inter-process notifications
+
+## Simplified Source
+
+```c
+// Simplified version of CheckProcSignal
+static bool CheckProcSignal(ProcSignalReason reason) {
+    // Get reference to this process's signal slot in shared memory
+    volatile ProcSignalSlot *slot = MyProcSignalSlot;
+
+    // Check if we have a valid signal slot
+    if (slot != NULL) {
+        // Check if the specific signal reason flag is set
+        if (slot->pss_signalFlags[reason]) {
+            // Clear the flag atomically (test-and-clear operation)
+            slot->pss_signalFlags[reason] = false;
+            return true;  // Signal was present and cleared
+        }
+    }
+
+    // No signal slot or flag not set
+    return false;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Clarified the atomic test-and-clear operation concept
+- Emphasized the shared memory aspect of the signal slot
+- Made the return logic more explicit with comments

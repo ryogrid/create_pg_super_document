@@ -41,3 +41,75 @@ For qualifying transactions, it reads the transaction data from WAL, recreates t
 - Logs the number of serialized transactions when log_checkpoints is enabled
 - Returns early if max_prepared_xacts <= 0 (two-phase commit disabled)
 - Uses DTrace tracing points for performance monitoring
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointTwoPhase
+void CheckPointTwoPhase(XLogRecPtr redo_horizon) {
+    int i;
+    int serialized_xacts = 0;
+
+    // Early exit if two-phase commit is disabled
+    if (max_prepared_xacts <= 0)
+        return;
+
+    TRACE_POSTGRESQL_TWOPHASE_CHECKPOINT_START();
+
+    // Step 1: Process all prepared transactions under lock
+    LWLockAcquire(TwoPhaseStateLock, LW_SHARED);
+
+    for (i = 0; i < TwoPhaseState->numPrepXacts; i++) {
+        GlobalTransaction gxact = TwoPhaseState->prepXacts[i];
+
+        // Step 2: Identify transactions that need serialization
+        if (should_serialize_gxact(gxact, redo_horizon)) {
+            char *buf;
+            int len;
+
+            // Step 3: Read transaction data from WAL and write to disk
+            XlogReadTwoPhaseData(gxact->prepare_start_lsn, &buf, &len);
+            RecreateTwoPhaseFile(gxact->xid, buf, len);
+
+            // Step 4: Mark transaction as persisted and cleanup
+            mark_gxact_on_disk(gxact);
+            pfree(buf);
+            serialized_xacts++;
+        }
+    }
+
+    LWLockRelease(TwoPhaseStateLock);
+
+    // Step 5: Ensure directory changes are durable
+    fsync_fname(TWOPHASE_DIR, true);
+
+    TRACE_POSTGRESQL_TWOPHASE_CHECKPOINT_DONE();
+
+    // Step 6: Log checkpoint activity if enabled
+    if (log_checkpoints && serialized_xacts > 0)
+        log_serialized_transactions(serialized_xacts);
+}
+
+// Helper function (conceptual)
+static bool should_serialize_gxact(GlobalTransaction gxact, XLogRecPtr redo_horizon) {
+    return (gxact->valid || gxact->inredo) &&
+           !gxact->ondisk &&
+           gxact->prepare_end_lsn <= redo_horizon;
+}
+
+// Helper function (conceptual)
+static void mark_gxact_on_disk(GlobalTransaction gxact) {
+    gxact->ondisk = true;
+    gxact->prepare_start_lsn = InvalidXLogRecPtr;
+    gxact->prepare_end_lsn = InvalidXLogRecPtr;
+}
+```
+
+Key simplifications made:
+- Organized into clear sequential steps with descriptive comments
+- Extracted complex conditions into a conceptual helper function for readability
+- Abstracted transaction state updates into a helper function
+- Simplified error handling and logging while preserving essential functionality
+- Maintained the critical WAL reading and file recreation logic
+- Preserved the locking strategy and directory synchronization
+- Focused on the core algorithm: find qualifying transactions, serialize them, ensure durability

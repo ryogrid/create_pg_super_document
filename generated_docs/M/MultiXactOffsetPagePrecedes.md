@@ -36,3 +36,27 @@ The offset calculation adds FirstMultiXactId + 1 to account for the base MultiXa
 - Converts page numbers to MultiXact ID ranges for comparison
 - Ensures entire page ranges are considered, not just starting IDs
 - Part of the SLRU control structure function pointer interface
+
+## Simplified Source
+
+```c
+// Simplified version of MultiXactOffsetPagePrecedes
+static bool MultiXactOffsetPagePrecedes(int64 page1, int64 page2) {
+    // Convert page numbers to MultiXact ID ranges
+    MultiXactId multi1 = ((MultiXactId) page1) * MULTIXACT_OFFSETS_PER_PAGE;
+    multi1 += FirstMultiXactId + 1;
+
+    MultiXactId multi2 = ((MultiXactId) page2) * MULTIXACT_OFFSETS_PER_PAGE;
+    multi2 += FirstMultiXactId + 1;
+
+    // Check if page1's entire range precedes page2's range
+    return (MultiXactIdPrecedes(multi1, multi2) &&
+            MultiXactIdPrecedes(multi1, multi2 + MULTIXACT_OFFSETS_PER_PAGE - 1));
+}
+```
+
+Key simplifications made:
+- Added comments explaining the page-to-ID conversion
+- Clarified the range-based precedence logic
+- Preserved the offset calculations and dual precedence checks
+- Maintained the original structure for wrap-around semantics

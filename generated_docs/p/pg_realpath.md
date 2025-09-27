@@ -47,3 +47,43 @@ Swap:        8388608           0     8388608 (memory deallocation on error paths
 - Cross-platform abstraction allows consistent behavior across PostgreSQL supported platforms
 - Critical for resolving symbolic links to find true executable locations
 - Error handling preserves errno values for proper error reporting
+
+## Simplified Source
+
+```c
+// Simplified version of pg_realpath
+static char *pg_realpath(const char *fname) {
+#ifndef WIN32
+    // Try modern POSIX realpath first
+    char *path = realpath(fname, NULL);
+
+    // Handle old POSIX systems that need user-provided buffer
+    if (path == NULL && errno == EINVAL) {
+        char *buf = malloc(MAXPGPATH);
+        if (buf == NULL) {
+            return NULL;
+        }
+
+        path = realpath(fname, buf);
+        if (path == NULL) {
+            // Clean up on error
+            int save_errno = errno;
+            free(buf);
+            errno = save_errno;
+        }
+    }
+#else
+    // Windows: use _fullpath instead of realpath
+    errno = 0;
+    char *path = _fullpath(NULL, fname, 0);
+#endif
+
+    return path;
+}
+```
+
+Key simplifications made:
+- Added clear platform-specific comments
+- Streamlined the conditional compilation structure
+- Preserved error handling and memory management
+- Maintained cross-platform compatibility logic

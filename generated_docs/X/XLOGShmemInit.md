@@ -51,3 +51,100 @@ This function performs comprehensive initialization of the XLOG shared memory st
 - Moves locally-read control file data into shared memory during startup
 - Sets initial recovery state to RECOVERY_STATE_CRASH
 - Located in src/backend/access/transam/xlog.c:4873-4987
+
+## Simplified Source
+
+```c
+// Simplified version of XLOGShmemInit
+void XLOGShmemInit(void) {
+    bool foundCFile, foundXLog;
+    char *allocptr;
+    int i;
+    ControlFileData *localControlFile;
+
+#ifdef WAL_DEBUG
+    // Create debug context that allows allocations in critical sections
+    if (walDebugCxt == NULL) {
+        walDebugCxt = AllocSetContextCreate(TopMemoryContext, "WAL Debug",
+                                          ALLOCSET_DEFAULT_SIZES);
+        MemoryContextAllowInCriticalSection(walDebugCxt, true);
+    }
+#endif
+
+    // Initialize or attach to main XLOG control structure in shared memory
+    XLogCtl = (XLogCtlData *) ShmemInitStruct("XLOG Ctl", XLOGShmemSize(), &foundXLog);
+
+    // Initialize or attach to control file data in shared memory
+    localControlFile = ControlFile;
+    ControlFile = (ControlFileData *) ShmemInitStruct("Control File",
+                                                     sizeof(ControlFileData), &foundCFile);
+
+    // If structures already exist, just initialize local references and return
+    if (foundCFile || foundXLog) {
+        Assert(foundCFile && foundXLog);  // Both must exist or neither
+        WALInsertLocks = XLogCtl->Insert.WALInsertLocks;
+        if (localControlFile)
+            pfree(localControlFile);
+        return;
+    }
+
+    // First-time initialization: zero out the main control structure
+    memset(XLogCtl, 0, sizeof(XLogCtlData));
+
+    // Copy local control file data to shared memory
+    if (localControlFile) {
+        memcpy(ControlFile, localControlFile, sizeof(ControlFileData));
+        pfree(localControlFile);
+    }
+
+    // Set up xlblocks array for tracking buffer states
+    allocptr = ((char *) XLogCtl) + sizeof(XLogCtlData);
+    XLogCtl->xlblocks = (pg_atomic_uint64 *) allocptr;
+    allocptr += sizeof(pg_atomic_uint64) * XLOGbuffers;
+
+    // Initialize xlblocks array
+    for (i = 0; i < XLOGbuffers; i++) {
+        pg_atomic_init_u64(&XLogCtl->xlblocks[i], InvalidXLogRecPtr);
+    }
+
+    // Set up WAL insertion locks with proper alignment
+    allocptr += sizeof(WALInsertLockPadded) -
+                ((uintptr_t) allocptr) % sizeof(WALInsertLockPadded);
+    WALInsertLocks = XLogCtl->Insert.WALInsertLocks = (WALInsertLockPadded *) allocptr;
+    allocptr += sizeof(WALInsertLockPadded) * NUM_XLOGINSERT_LOCKS;
+
+    // Initialize WAL insertion locks
+    for (i = 0; i < NUM_XLOGINSERT_LOCKS; i++) {
+        LWLockInitialize(&WALInsertLocks[i].l.lock, LWTRANCHE_WAL_INSERT);
+        pg_atomic_init_u64(&WALInsertLocks[i].l.insertingAt, InvalidXLogRecPtr);
+        WALInsertLocks[i].l.lastImportantAt = InvalidXLogRecPtr;
+    }
+
+    // Set up page buffers aligned to XLOG block boundaries
+    allocptr = (char *) TYPEALIGN(XLOG_BLCKSZ, allocptr);
+    XLogCtl->pages = allocptr;
+    memset(XLogCtl->pages, 0, (Size) XLOG_BLCKSZ * XLOGbuffers);
+
+    // Initialize basic XLogCtl fields
+    XLogCtl->XLogCacheBlck = XLOGbuffers - 1;
+    XLogCtl->SharedRecoveryState = RECOVERY_STATE_CRASH;
+    XLogCtl->InstallXLogFileSegmentActive = false;
+    XLogCtl->WalWriterSleeping = false;
+
+    // Initialize locks and atomic variables
+    SpinLockInit(&XLogCtl->Insert.insertpos_lck);
+    SpinLockInit(&XLogCtl->info_lck);
+    pg_atomic_init_u64(&XLogCtl->logInsertResult, InvalidXLogRecPtr);
+    pg_atomic_init_u64(&XLogCtl->logWriteResult, InvalidXLogRecPtr);
+    pg_atomic_init_u64(&XLogCtl->logFlushResult, InvalidXLogRecPtr);
+    pg_atomic_init_u64(&XLogCtl->unloggedLSN, InvalidXLogRecPtr);
+}
+```
+
+Key simplifications made:
+- Consolidated memory allocation logic into clear sequential steps
+- Added descriptive comments for each major initialization phase
+- Preserved all essential initialization operations
+- Maintained the critical distinction between first-time init and reattachment
+- Kept the complex memory alignment requirements with explanatory comments
+- Focused on the main execution path while preserving error handling assertions

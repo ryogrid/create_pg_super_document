@@ -40,3 +40,29 @@ This validation is essential for file processing operations that need to disting
 - The validation helps ensure only properly formatted timeline history files are processed
 - Used primarily in archival and backup operations where distinguishing file types is essential
 - The function provides a reliable way to identify timeline history files without filesystem operations
+
+## Simplified Source
+
+```c
+// Simplified version of IsTLHistoryFileName
+static inline bool IsTLHistoryFileName(const char *fname) {
+    // Check if filename has correct total length (8 hex chars + ".history")
+    if (strlen(fname) != 8 + strlen(".history")) {
+        return false;
+    }
+
+    // Check if first 8 characters are all hexadecimal digits
+    if (strspn(fname, "0123456789ABCDEF") != 8) {
+        return false;
+    }
+
+    // Check if the extension is exactly ".history"
+    return strcmp(fname + 8, ".history") == 0;
+}
+```
+
+Key simplifications made:
+- Broke down the single complex boolean expression into three clear validation steps
+- Added descriptive comments for each validation check
+- Used early returns for better readability and flow
+- Maintained the exact same logic and functionality as the original

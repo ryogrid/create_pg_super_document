@@ -51,3 +51,44 @@ This function takes no parameters and operates on the global CurrentTransactionS
 - Unlike CommitSubTransaction and AbortSubTransaction, this function performs minimal operations and focuses primarily on resource owner cleanup and state management
 - The function is part of the standard subtransaction abort sequence: AbortSubTransaction() followed by CleanupSubTransaction()
 - Located in src/backend/access/transam/xact.c:5321-5353
+
+## Simplified Source
+
+```c
+// Simplified version of CleanupSubTransaction
+static void CleanupSubTransaction(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Validate transaction state
+    if (s->state != TRANS_ABORT) {
+        elog(WARNING, "CleanupSubTransaction while in %s state",
+             TransStateAsString(s->state));
+    }
+
+    // Clean up portals
+    AtSubCleanup_Portals(s->subTransactionId);
+
+    // Restore parent's resource owner
+    CurrentResourceOwner = s->parent->curTransactionOwner;
+    CurTransactionResourceOwner = s->parent->curTransactionOwner;
+
+    // Delete subtransaction's resource owner
+    if (s->curTransactionOwner) {
+        ResourceOwnerDelete(s->curTransactionOwner);
+    }
+    s->curTransactionOwner = NULL;
+
+    // Clean up memory contexts
+    AtSubCleanup_Memory();
+
+    // Reset state and remove from stack
+    s->state = TRANS_DEFAULT;
+    PopTransaction();
+}
+```
+
+Key simplifications made:
+- Removed ShowTransactionState debug call for clarity
+- Grouped resource owner operations together
+- Simplified control flow while maintaining all essential operations
+- Added clear comments for each logical phase

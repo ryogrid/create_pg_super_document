@@ -48,3 +48,60 @@ The function supports both literal username matching and regular expression patt
 - Compiled regular expressions are stored in the IdentLine structure for efficient matching during authentication
 - Error messages are stored in tok_line->err_msg for detailed reporting
 - Part of PostgreSQL's identity mapping system used with ident, peer, GSSAPI, SSPI, and cert authentication methods
+
+## Simplified Source
+
+```c
+// Simplified version of parse_ident_line
+IdentLine *
+parse_ident_line(TokenizedAuthLine *tok_line, int elevel)
+{
+    ListCell   *field;
+    List       *tokens;
+    AuthToken  *token;
+    IdentLine  *parsedline;
+
+    // Initialize result structure
+    field = list_head(tok_line->fields);
+    parsedline = palloc0(sizeof(IdentLine));
+    parsedline->linenumber = tok_line->line_num;
+
+    // Extract map name (first field)
+    tokens = lfirst(field);
+    token = linitial(tokens);
+    parsedline->usermap = pstrdup(token->string);
+
+    // Extract system user pattern (second field)
+    field = lnext(tok_line->fields, field);
+    tokens = lfirst(field);
+    token = linitial(tokens);
+    parsedline->system_user = copy_auth_token(token);
+
+    // Extract PostgreSQL user pattern (third field)
+    field = lnext(tok_line->fields, field);
+    tokens = lfirst(field);
+    token = linitial(tokens);
+    parsedline->pg_user = copy_auth_token(token);
+
+    // Compile regular expressions if patterns start with '/'
+    if (regcomp_auth_token(parsedline->system_user, tok_line->file_name,
+                          tok_line->line_num, &tok_line->err_msg, elevel)) {
+        return NULL;
+    }
+
+    if (regcomp_auth_token(parsedline->pg_user, tok_line->file_name,
+                          tok_line->line_num, &tok_line->err_msg, elevel)) {
+        return NULL;
+    }
+
+    return parsedline;
+}
+```
+
+Key simplifications made:
+- Removed field validation macros (IDENT_MULTI_VALUE, IDENT_FIELD_ABSENT) for clarity
+- Consolidated variable declarations
+- Simplified error handling by removing intermediate variables
+- Added descriptive comments for each processing step
+- Focused on the main logic flow of extracting three fields and compiling regex patterns
+- Maintained the essential algorithm while removing validation details

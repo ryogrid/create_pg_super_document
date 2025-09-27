@@ -32,3 +32,19 @@ This function takes no parameters.
 - Must be called before `SlotSyncShmemInit` to ensure proper memory allocation
 - The returned size corresponds to the `SlotSyncCtxStruct` which includes pid, flags, timing information, and synchronization primitives
 - Located in src/backend/replication/logical/slotsync.c:1655-1662
+
+## Simplified Source
+
+```c
+// Simplified version of SlotSyncShmemSize
+Size SlotSyncShmemSize(void) {
+    // Return the memory size needed for slot synchronization control structure
+    // This includes space for process coordination, timing info, and sync state
+    return sizeof(SlotSyncCtxStruct);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments describing the purpose
+- Clarified what the SlotSyncCtxStruct contains conceptually
+- Maintained the essential functionality while improving readability

@@ -40,3 +40,38 @@ After creating the FILE stream, the function configures line buffering (PG_IOLBF
 - Handles the sentinel values returned by syslogger_fdget (-1 on Unix, 0 on Windows) to detect NULL file pointers
 - Part of the file descriptor passing mechanism that allows PostgreSQL to work without fork() inheritance
 - The function gracefully handles invalid file descriptors by returning NULL, allowing the caller to detect and handle missing log files
+
+## Simplified Source
+
+```c
+// Simplified version of syslogger_fdopen
+static FILE *
+syslogger_fdopen(int fd) {
+    FILE *file = NULL;
+
+    // Check if file descriptor is valid (platform-specific sentinel values)
+    if (is_valid_fd(fd)) {
+        // Convert OS handle to file descriptor on Windows
+        if (is_windows()) {
+            fd = convert_os_handle_to_fd(fd);
+        }
+
+        // Convert file descriptor to FILE stream
+        if (fd_is_usable(fd)) {
+            file = fdopen(fd, "a");  // Open in append mode
+
+            // Configure line buffering for immediate log visibility
+            setvbuf(file, NULL, PG_IOLBF, 0);
+        }
+    }
+
+    return file;
+}
+```
+
+Key simplifications made:
+- Abstracted platform-specific conditions into conceptual checks
+- Removed detailed Windows API calls (_open_osfhandle with flags)
+- Consolidated the logic flow into clear sequential steps
+- Added descriptive comments explaining the purpose of each operation
+- Simplified the nested conditional structure for better readability

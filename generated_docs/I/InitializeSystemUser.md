@@ -38,3 +38,31 @@ This function creates and stores the system user identifier by formatting the au
 - Part of PostgreSQL's enhanced authentication tracking and auditing system
 - Used to maintain authentication context beyond basic role-based identity
 - SystemUser global variable holds the result for later access
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeSystemUser
+void InitializeSystemUser(const char *authn_id, const char *auth_method) {
+    // Ensure this is called only once per session
+    Assert(SystemUser == NULL);
+
+    // Authentication ID must be provided
+    Assert(authn_id != NULL);
+
+    // Create formatted system user string: "auth_method:authn_id"
+    char *system_user = psprintf("%s:%s", auth_method, authn_id);
+
+    // Store in permanent memory context for session lifetime
+    SystemUser = MemoryContextStrdup(TopMemoryContext, system_user);
+
+    // Free temporary formatted string
+    pfree(system_user);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the purpose of each step
+- Consolidated the logic flow with descriptive comments
+- Maintained all essential assertions and memory management
+- Focused on the core functionality of creating and storing the system user identifier

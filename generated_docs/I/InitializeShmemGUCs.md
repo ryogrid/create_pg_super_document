@@ -51,3 +51,38 @@ This function takes no parameters.
 - Both GUC parameters are read-only internal parameters that cannot be modified by users
 - The shared memory size is rounded up to the nearest megabyte for the GUC display, but the actual allocation uses the precise byte count
 - Located in src/backend/storage/ipc/ipci.c:369-398
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeShmemGUCs
+void InitializeShmemGUCs(void) {
+    char buf[64];
+    Size total_shared_memory_bytes;
+    Size shared_memory_mb;
+    Size huge_page_size;
+
+    // Step 1: Calculate total shared memory size and convert to MB
+    total_shared_memory_bytes = CalculateShmemSize(NULL);
+    shared_memory_mb = (total_shared_memory_bytes + (1024 * 1024) - 1) / (1024 * 1024);
+
+    // Step 2: Set the shared_memory_size GUC parameter
+    sprintf(buf, "%zu", shared_memory_mb);
+    SetConfigOption("shared_memory_size", buf, PGC_INTERNAL, PGC_S_DYNAMIC_DEFAULT);
+
+    // Step 3: Calculate and set huge pages requirement (if huge pages available)
+    GetHugePageSize(&huge_page_size, NULL);
+    if (huge_page_size != 0) {
+        Size huge_pages_needed = (total_shared_memory_bytes / huge_page_size) + 1;
+        sprintf(buf, "%zu", huge_pages_needed);
+        SetConfigOption("shared_memory_size_in_huge_pages", buf, PGC_INTERNAL, PGC_S_DYNAMIC_DEFAULT);
+    }
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (total_shared_memory_bytes, shared_memory_mb, huge_pages_needed)
+- Replaced add_size() with direct arithmetic for clarity (assuming no overflow in this context)
+- Added step-by-step comments explaining the main logic flow
+- Consolidated the huge page calculation into a single expression
+- Removed detailed comments that were already covered in the documentation above

@@ -52,3 +52,52 @@ The function maintains proper memory context management and includes provisions 
 - More efficient than calling list_delete_first() in a loop for multiple deletions
 - Commonly used in optimization and parsing contexts where bulk removal is needed
 - The debug mode includes special handling for initial_elements vs dynamically allocated elements
+
+## Simplified Source
+
+```c
+// Simplified version of list_delete_first_n
+List *list_delete_first_n(List *list, int n) {
+    // Handle edge cases
+    if (n <= 0)
+        return list;  // No-op request
+
+    if (n >= list_length(list)) {
+        list_free(list);
+        return NIL;  // Delete entire list
+    }
+
+    // Normal case: remove first n elements
+#ifndef DEBUG_LIST_MEMORY_USAGE
+    // Efficient approach: shift remaining elements to beginning
+    memmove(&list->elements[0], &list->elements[n],
+            (list->length - n) * sizeof(ListCell));
+    list->length -= n;
+#else
+    // Debug approach: allocate new memory for remaining elements
+    ListCell *newelems;
+    int newmaxlen = list->length - n;
+
+    newelems = (ListCell *) MemoryContextAlloc(GetMemoryChunkContext(list),
+                                               newmaxlen * sizeof(ListCell));
+    memcpy(newelems, &list->elements[n], newmaxlen * sizeof(ListCell));
+
+    // Handle old memory cleanup
+    if (list->elements != list->initial_elements)
+        pfree(list->elements);
+
+    list->elements = newelems;
+    list->max_length = newmaxlen;
+    list->length = newmaxlen;
+#endif
+
+    return list;
+}
+```
+
+Key simplifications made:
+- Streamlined the edge case handling logic
+- Preserved both normal and debug memory management strategies
+- Removed detailed memory debugging instrumentation for clarity
+- Focused on the core algorithm: handle special cases → shift/copy remaining elements
+- Maintained proper memory context management

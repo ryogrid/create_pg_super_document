@@ -43,3 +43,58 @@ The function is specifically designed for short-lived file operations, such as r
 - The function implements retry logic when encountering EMFILE/ENFILE errors
 - Maximum allocated descriptors is controlled by maxAllocatedDescs parameter
 - Each opened file is tracked in the allocatedDescs array with metadata including the creating subtransaction ID
+
+## Simplified Source
+
+```c
+// Simplified version of AllocateFile
+FILE *AllocateFile(const char *name, const char *mode) {
+    FILE *file;
+
+    // Debug logging
+    DO_DB(elog(LOG, "AllocateFile: Allocated %d (%s)", numAllocatedDescs, name));
+
+    // Check if we can allocate another file descriptor
+    if (!reserveAllocatedDesc()) {
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_RESOURCES),
+                       errmsg("exceeded maxAllocatedDescs (%d) while trying to open file \"%s\"",
+                              maxAllocatedDescs, name)));
+    }
+
+    // Close excess kernel file descriptors
+    ReleaseLruFiles();
+
+TryAgain:
+    // Attempt to open the file
+    if ((file = fopen(name, mode)) != NULL) {
+        // Success: Track the opened file in our descriptor array
+        AllocateDesc *desc = &allocatedDescs[numAllocatedDescs];
+        desc->kind = AllocateDescFile;
+        desc->desc.file = file;
+        desc->create_subid = GetCurrentSubTransactionId();
+        numAllocatedDescs++;
+        return file;
+    }
+
+    // Handle file descriptor exhaustion
+    if (errno == EMFILE || errno == ENFILE) {
+        int save_errno = errno;
+        ereport(LOG, (errcode(ERRCODE_INSUFFICIENT_RESOURCES),
+                     errmsg("out of file descriptors: %m; release and retry")));
+        errno = 0;
+        if (ReleaseLruFile()) {
+            goto TryAgain;  // Retry after freeing a file descriptor
+        }
+        errno = save_errno;
+    }
+
+    return NULL;  // Failed to open file
+}
+```
+
+Key simplifications made:
+- Preserved the core logic flow: validate → free resources → open → track or retry
+- Kept essential error handling for resource exhaustion
+- Maintained the retry mechanism for FD limits
+- Simplified comments to explain each major step
+- Focused on the main execution path while preserving correctness

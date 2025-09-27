@@ -41,3 +41,22 @@ Unlike SignalHandlerForCrashExit, this handler is designed for clean, graceful s
 - The SetLatch call ensures that processes waiting on their latch will wake up to process the pending shutdown request
 - Enables graceful shutdown where processes can complete their current work and clean up properly before exiting
 - Used extensively across PostgreSQL's background processes for coordinated system shutdown
+
+## Simplified Source
+
+```c
+// Simplified version of SignalHandlerForShutdownRequest
+void SignalHandlerForShutdownRequest(SIGNAL_ARGS) {
+    // Step 1: Mark that shutdown has been requested
+    ShutdownRequestPending = true;
+
+    // Step 2: Wake up the main process loop to handle the shutdown
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the two core actions
+- Preserved the essential signal handling logic
+- Maintained the minimal, signal-safe implementation
+- Focused on the main execution path (no error handling needed as this is a simple flag-setting operation)

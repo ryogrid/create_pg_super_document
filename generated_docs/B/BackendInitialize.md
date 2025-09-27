@@ -53,3 +53,128 @@ BackendInitialize performs comprehensive initialization for a new backend proces
 - Handles various database states (startup, shutdown, recovery, too many connections) with appropriate error messages
 - Sets process title for ps display after collecting user and database information
 - Located in src/backend/tcop/backend_startup.c:122-361
+
+## Simplified Source
+
+```c
+// Simplified version of BackendInitialize
+static void BackendInitialize(ClientSocket *client_sock, CAC_state cac) {
+    Port *port;
+    char remote_host[NI_MAXHOST];
+    char remote_port[NI_MAXSERV];
+    StringInfoData ps_data;
+    MemoryContext oldcontext;
+    int status;
+
+    // Reserve file descriptor for client socket
+    ReserveExternalFD();
+
+    // Optional pre-authentication delay for debugging
+    if (PreAuthDelay > 0)
+        pg_usleep(PreAuthDelay * 1000000L);
+
+    // Mark authentication as in progress
+    ClientAuthInProgress = true;
+
+    // Initialize libpq communication in TopMemoryContext
+    oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+    port = MyProcPort = pq_init(client_sock);
+    MemoryContextSwitchTo(oldcontext);
+
+    // Enable error reporting to client
+    whereToSendOutput = DestRemote;
+
+    // Set up signal handlers for startup packet timeout
+    pqsignal(SIGTERM, process_startup_packet_die);
+    InitializeTimeouts();
+    sigprocmask(SIG_SETMASK, &StartupBlockSig, NULL);
+
+    // Get client hostname and port for logging
+    remote_host[0] = '\0';
+    remote_port[0] = '\0';
+    pg_getnameinfo_all(&port->raddr.addr, port->raddr.salen,
+                       remote_host, sizeof(remote_host),
+                       remote_port, sizeof(remote_port),
+                       (log_hostname ? 0 : NI_NUMERICHOST) | NI_NUMERICSERV);
+
+    // Save connection info and log if enabled
+    oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+    port->remote_host = pstrdup(remote_host);
+    port->remote_port = pstrdup(remote_port);
+
+    if (Log_connections) {
+        ereport(LOG, (errmsg("connection received: host=%s port=%s",
+                             remote_host, remote_port)));
+    }
+
+    // Save hostname if reverse DNS lookup was successful
+    if (log_hostname && remote_host_is_hostname(remote_host)) {
+        port->remote_hostname = pstrdup(remote_host);
+    }
+    MemoryContextSwitchTo(oldcontext);
+
+    // Set timeout for startup packet collection
+    RegisterTimeout(STARTUP_PACKET_TIMEOUT, StartupPacketTimeoutHandler);
+    enable_timeout_after(STARTUP_PACKET_TIMEOUT, AuthenticationTimeout * 1000);
+
+    // Handle SSL handshake and startup packet
+    status = ProcessSSLStartup(port);
+    if (status == STATUS_OK)
+        status = ProcessStartupPacket(port, false, false);
+
+    // Check database availability state and reject if necessary
+    if (status == STATUS_OK) {
+        switch (cac) {
+            case CAC_STARTUP:
+                ereport(FATAL, (errmsg("the database system is starting up")));
+                break;
+            case CAC_SHUTDOWN:
+                ereport(FATAL, (errmsg("the database system is shutting down")));
+                break;
+            case CAC_RECOVERY:
+                ereport(FATAL, (errmsg("the database system is in recovery mode")));
+                break;
+            case CAC_TOOMANY:
+                ereport(FATAL, (errmsg("sorry, too many clients already")));
+                break;
+            case CAC_OK:
+                break;
+        }
+    }
+
+    // Disable timeout and restore signal mask
+    disable_timeout(STARTUP_PACKET_TIMEOUT, false);
+    sigprocmask(SIG_SETMASK, &BlockSig, NULL);
+
+    // Safety check - ensure no shared memory modifications yet
+    check_on_shmem_exit_lists_are_empty();
+
+    // Exit if startup packet processing failed
+    if (status != STATUS_OK)
+        proc_exit(0);
+
+    // Set process title for ps display
+    initStringInfo(&ps_data);
+    if (am_walsender)
+        appendStringInfo(&ps_data, "%s ", GetBackendTypeDesc(B_WAL_SENDER));
+    appendStringInfo(&ps_data, "%s ", port->user_name);
+    if (port->database_name[0] != '\0')
+        appendStringInfo(&ps_data, "%s ", port->database_name);
+    appendStringInfoString(&ps_data, port->remote_host);
+    if (port->remote_port[0] != '\0')
+        appendStringInfo(&ps_data, "(%s)", port->remote_port);
+
+    init_ps_display(ps_data.data);
+    pfree(ps_data.data);
+    set_ps_display("initializing");
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for network operations
+- Consolidated remote hostname validation logic into conceptual helper
+- Simplified CAC_NOTCONSISTENT case handling
+- Abstracted complex reverse DNS validation checks
+- Removed verbose comments while preserving essential logic flow
+- Focused on the main execution path through startup packet processing
+- Maintained all critical timeout and signal handling mechanisms

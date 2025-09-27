@@ -38,3 +38,19 @@ The function simply returns the encoding field from the global MessageEncoding v
 - Critical for proper character encoding in error messages and system notifications
 - Function signature location: src/backend/utils/mb/mbutils.c:1308-1324
 - The function includes detailed comments explaining when message encoding differs from database encoding
+
+## Simplified Source
+
+```c
+// Simplified version of GetMessageEncoding
+int GetMessageEncoding(void) {
+    // Return the current message encoding ID from global MessageEncoding variable
+    return MessageEncoding->encoding;
+}
+```
+
+Key simplifications made:
+- This function is already very simple - it's just a getter function
+- The original comments were preserved as they explain the important context
+- No error handling to remove as this is a simple accessor function
+- Focused on the single core operation: returning the encoding field

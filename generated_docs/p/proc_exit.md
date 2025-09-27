@@ -38,3 +38,36 @@ proc_exit serves as the central exit point for PostgreSQL processes, implementin
 - Autovacuum workers get special profiling directory treatment to prevent disk bloat
 - An atexit callback is also registered as backup for cases where exit() is called directly
 - Used across all PostgreSQL process types including backends, background workers, and utility processes
+
+## Simplified Source
+
+```c
+// Simplified version of proc_exit
+void proc_exit(int code) {
+    // Safety check: Ensure we're not in a child process
+    if (MyProcPid != (int) getpid()) {
+        elog(PANIC, "proc_exit() called in child process");
+    }
+
+    // Phase 1: Clean up all resources via registered callbacks
+    proc_exit_prepare(code);
+
+    // Phase 2: Handle profiling setup (debug builds only)
+    #ifdef PROFILE_PID_DIR
+    // Create separate profiling directories for each backend
+    // Special handling for autovacuum workers to prevent disk bloat
+    setup_profiling_directory();
+    #endif
+
+    // Phase 3: Log exit and terminate process
+    elog(DEBUG3, "exit(%d)", code);
+    exit(code);
+}
+```
+
+Key simplifications made:
+- Removed detailed profiling code implementation for clarity
+- Abstracted profiling logic into conceptual setup_profiling_directory() call
+- Preserved the essential three-phase structure: safety check, cleanup, exit
+- Kept critical safety validation and error handling
+- Focused on the main execution flow while noting conditional compilation

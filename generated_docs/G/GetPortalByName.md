@@ -39,3 +39,29 @@ The function uses the PortalHashTableLookup macro to perform an efficient hash-b
 - Widely used across PostgreSQL's query processing, cursor management, and SPI subsystems
 - The PortalHashTableLookup macro handles the actual hash table interaction
 - Critical for portal lifecycle management and avoiding duplicate portal names
+
+## Simplified Source
+
+```c
+// Simplified version of GetPortalByName
+Portal GetPortalByName(const char *portal_name) {
+    Portal found_portal;
+
+    // Validate input: check if portal name is valid
+    if (PointerIsValid(portal_name)) {
+        // Look up portal in the global hash table
+        PortalHashTableLookup(portal_name, found_portal);
+    } else {
+        // Return NULL for invalid input
+        found_portal = NULL;
+    }
+
+    return found_portal;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (portal_name, found_portal)
+- Added clear comments explaining each logical step
+- Maintained the essential lookup logic and safety checks
+- Preserved the exact same functionality and error handling

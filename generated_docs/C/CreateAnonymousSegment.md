@@ -48,3 +48,62 @@ The function modifies the input size parameter to reflect the actual allocated s
 - Returns MAP_FAILED on allocation failure with detailed error reporting
 - Preserves errno from mmap() calls for accurate error reporting
 - Provides helpful hints about reducing shared_buffers or max_connections on ENOMEM errors
+
+## Simplified Source
+
+```c
+// Simplified version of CreateAnonymousSegment
+static void *
+CreateAnonymousSegment(Size *size)
+{
+    Size allocsize = *size;
+    void *ptr = MAP_FAILED;
+
+    // Step 1: Try huge pages if enabled
+    if (huge_pages_enabled()) {
+        // Round up size to huge page boundary
+        Size hugepagesize = get_huge_page_size();
+        allocsize = round_up_to_boundary(allocsize, hugepagesize);
+
+        // Attempt huge page allocation
+        ptr = mmap(NULL, allocsize, PROT_READ | PROT_WRITE,
+                   PG_MMAP_FLAGS | MAP_HUGETLB, -1, 0);
+
+        // Log failure if in try mode
+        if (ptr == MAP_FAILED && huge_pages == HUGE_PAGES_TRY) {
+            log_debug("huge pages allocation failed, falling back");
+        }
+    }
+
+    // Step 2: Update configuration status
+    SetConfigOption("huge_pages_status",
+                    (ptr == MAP_FAILED) ? "off" : "on",
+                    PGC_INTERNAL, PGC_S_DYNAMIC_DEFAULT);
+
+    // Step 3: Fallback to regular pages if needed
+    if (ptr == MAP_FAILED && huge_pages != HUGE_PAGES_ON) {
+        allocsize = *size;  // Use original size for fallback
+        ptr = mmap(NULL, allocsize, PROT_READ | PROT_WRITE,
+                   PG_MMAP_FLAGS, -1, 0);
+    }
+
+    // Step 4: Handle allocation failure
+    if (ptr == MAP_FAILED) {
+        ereport(FATAL,
+                (errmsg("could not map anonymous shared memory"),
+                 errhint("Reduce shared_buffers or max_connections")));
+    }
+
+    // Step 5: Return actual allocated size
+    *size = allocsize;
+    return ptr;
+}
+```
+
+Key simplifications made:
+- Abstracted platform-specific MAP_HUGETLB checks into conceptual functions
+- Simplified huge page size calculation and rounding logic
+- Consolidated error handling while preserving essential failure reporting
+- Removed detailed errno preservation logic for clarity
+- Focused on the main execution flow: try huge pages → fallback → error handling
+- Maintained the core algorithm of size adjustment and memory allocation strategy

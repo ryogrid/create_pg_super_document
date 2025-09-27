@@ -31,3 +31,31 @@ This function removes a hash table from the global sequential scan tracking arra
 - Raises an ERROR if the hash table is not found, indicating a programming error or corruption
 - Works in conjunction with `register_seq_scan` to maintain consistent tracking of active sequential scans
 - The removal algorithm maintains array compactness by avoiding gaps in the tracking arrays
+
+## Simplified Source
+
+```c
+// Simplified version of deregister_seq_scan
+static void deregister_seq_scan(HTAB *hashp) {
+    // Search backwards through active scan list (LIFO optimization)
+    for (int i = num_seq_scans - 1; i >= 0; i--) {
+        if (seq_scan_tables[i] == hashp) {
+            // Remove by swapping with last element
+            seq_scan_tables[i] = seq_scan_tables[num_seq_scans - 1];
+            seq_scan_level[i] = seq_scan_level[num_seq_scans - 1];
+            num_seq_scans--;
+            return;
+        }
+    }
+
+    // Error if hash table not found in tracking system
+    elog(ERROR, "hash table not found in active scan list");
+}
+```
+
+Key simplifications made:
+- Consolidated variable declaration with loop initialization
+- Added descriptive comments for main operations
+- Simplified error message for readability
+- Focused on the core removal algorithm
+- Maintained the essential LIFO search optimization

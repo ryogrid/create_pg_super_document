@@ -44,3 +44,50 @@ None - the function takes no parameters and processes global state variables.
 - The checkpointer is assigned additional responsibilities beyond checkpointing due to being the last process to shut down
 - Configuration changes are propagated to shared memory to ensure all backends see consistent values
 - Handles both requested shutdowns and emergency shutdown scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of HandleCheckpointerInterrupts
+static void HandleCheckpointerInterrupts(void) {
+    // Handle process signal barriers for coordination
+    if (ProcSignalBarrierPending)
+        ProcessProcSignalBarrier();
+
+    // Handle configuration reload requests (SIGHUP)
+    if (ConfigReloadPending) {
+        ConfigReloadPending = false;
+        ProcessConfigFile(PGC_SIGHUP);
+
+        // Update shared memory with new config values
+        // so all backends see consistent settings
+        UpdateSharedMemoryConfig();
+    }
+
+    // Handle shutdown requests
+    if (ShutdownRequestPending) {
+        // Ensure any errors cause immediate exit
+        ExitOnAnyError = true;
+
+        // Perform final checkpoint and update stats
+        PendingCheckpointerStats.num_requested++;
+        ShutdownXLOG(0, 0);
+        pgstat_report_checkpointer();
+        pgstat_report_wal(true);
+
+        // Normal exit point for checkpointer
+        proc_exit(0);
+    }
+
+    // Handle memory context logging requests
+    if (LogMemoryContextPending)
+        ProcessLogMemoryContextInterrupt();
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining design rationale
+- Focused on the main execution flow through four interrupt types
+- Condensed multi-line comment blocks into concise explanations
+- Maintained the essential logic structure and all function calls
+- Emphasized the sequential processing of different interrupt types

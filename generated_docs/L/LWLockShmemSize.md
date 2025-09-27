@@ -53,3 +53,39 @@ The calculation uses safe arithmetic functions (mul_size, add_size) to prevent i
   - [String](../S/String.md) storage for all tranche names
 - Called during shared memory initialization to determine total memory pool requirements
 - Critical function for proper shared memory segment sizing during PostgreSQL startup
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockShmemSize
+Size LWLockShmemSize(void) {
+    Size size;
+    int numLocks = NUM_FIXED_LWLOCKS;
+
+    // Calculate total locks needed: fixed locks + named tranche locks
+    numLocks += NumLWLocksForNamedTranches();
+
+    // Space for the main LWLock array
+    size = mul_size(numLocks, sizeof(LWLockPadded));
+
+    // Space for dynamic allocation counter with alignment padding
+    size = add_size(size, sizeof(int) + LWLOCK_PADDED_SIZE);
+
+    // Space for named tranche metadata structures
+    size = add_size(size, mul_size(NamedLWLockTrancheRequests, sizeof(NamedLWLockTranche)));
+
+    // Space for tranche name strings
+    for (int i = 0; i < NamedLWLockTrancheRequests; i++) {
+        size = add_size(size, strlen(NamedLWLockTrancheRequestArray[i].tranche_name) + 1);
+    }
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added descriptive comments for each calculation step
+- Moved loop variable declaration inline (C99 style)
+- Preserved all essential logic and arithmetic operations
+- Maintained overflow-safe arithmetic functions

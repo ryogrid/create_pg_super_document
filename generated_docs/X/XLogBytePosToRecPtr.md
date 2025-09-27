@@ -36,3 +36,49 @@ The function handles the complex WAL segment and page structure by calculating h
 - Critical for WAL space management and position calculations
 - The UsableBytesInSegment and UsableBytesInPage constants define how much actual data can fit in each WAL structure
 - Works in conjunction with XLogRecPtrToBytePos for bidirectional conversion between logical and physical WAL positions
+
+## Simplified Source
+
+```c
+// Simplified version of XLogBytePosToRecPtr
+static XLogRecPtr XLogBytePosToRecPtr(uint64 bytepos) {
+    uint64 fullsegs;
+    uint64 fullpages;
+    uint64 bytesleft;
+    uint32 seg_offset;
+    XLogRecPtr result;
+
+    // Step 1: Calculate how many complete segments this position spans
+    fullsegs = bytepos / UsableBytesInSegment;
+    bytesleft = bytepos % UsableBytesInSegment;
+
+    // Step 2: Determine offset within the target segment
+    if (bytesleft < XLOG_BLCKSZ - SizeOfXLogLongPHD) {
+        // Position fits on first page of segment (which has long header)
+        seg_offset = bytesleft + SizeOfXLogLongPHD;
+    } else {
+        // Position spans beyond first page
+        seg_offset = XLOG_BLCKSZ;  // Start after first page
+        bytesleft -= XLOG_BLCKSZ - SizeOfXLogLongPHD;  // Subtract first page usable bytes
+
+        // Calculate position within subsequent pages (with short headers)
+        fullpages = bytesleft / UsableBytesInPage;
+        bytesleft = bytesleft % UsableBytesInPage;
+
+        // Final offset = first page + full pages + remaining bytes + short header
+        seg_offset += fullpages * XLOG_BLCKSZ + bytesleft + SizeOfXLogShortPHD;
+    }
+
+    // Step 3: Convert segment number and offset to XLogRecPtr
+    XLogSegNoOffsetToRecPtr(fullsegs, seg_offset, wal_segment_size, result);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the conversion process
+- Clarified the two-case logic for first page vs. subsequent pages
+- Made variable purposes more explicit through comments
+- Preserved all essential calculations and logic flow
+- Focused on the core algorithm: segment calculation → page calculation → offset calculation

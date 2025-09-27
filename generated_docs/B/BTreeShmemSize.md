@@ -40,3 +40,27 @@ None - this is a parameter-less function that returns a size calculation.
 - The calculation includes both fixed structure overhead and variable-length array space
 - Essential for proper shared memory allocation during PostgreSQL startup
 - The size calculation must match the actual allocation performed in BTreeShmemInit
+
+## Simplified Source
+
+```c
+// Simplified version of BTreeShmemSize
+Size BTreeShmemSize(void) {
+    Size total_size;
+
+    // Calculate base size of BTVacInfo structure (without flexible array)
+    total_size = offsetof(BTVacInfo, vacuums);
+
+    // Add space for MaxBackends number of BTOneVacInfo entries
+    // Each backend gets one vacuum info slot for coordination
+    total_size = add_size(total_size, mul_size(MaxBackends, sizeof(BTOneVacInfo)));
+
+    return total_size;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each calculation step
+- Used more descriptive variable name (`total_size` instead of `size`)
+- Clearly separated the two main components of the size calculation
+- Maintained the safe arithmetic functions for overflow protection

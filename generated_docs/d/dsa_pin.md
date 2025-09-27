@@ -45,3 +45,32 @@ Once pinned, the area will remain accessible through its handle even after all c
 - Commonly used for system-wide shared data structures that need to persist across backend lifecycles
 - The pinning state is stored in the area's control structure for persistence across processes
 - Essential for implementing persistent shared memory regions in PostgreSQL's architecture
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_pin
+void dsa_pin(dsa_area *area) {
+    // Core logic step 1: Acquire exclusive lock for thread safety
+    LWLockAcquire(DSA_AREA_LOCK(area), LW_EXCLUSIVE);
+
+    // Core logic step 2: Check if already pinned (prevent double-pinning)
+    if (area->control->pinned) {
+        LWLockRelease(DSA_AREA_LOCK(area));
+        elog(ERROR, "dsa_area already pinned");
+    }
+
+    // Core logic step 3: Set pinned state and increment reference count
+    area->control->pinned = true;
+    ++area->control->refcnt;
+
+    // Core logic step 4: Release lock
+    LWLockRelease(DSA_AREA_LOCK(area));
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments for each logical operation
+- Maintained the essential error checking logic
+- Focused on the core pin mechanism: lock, validate, set state, increment refcount, unlock
+- Preserved thread safety through proper lock usage

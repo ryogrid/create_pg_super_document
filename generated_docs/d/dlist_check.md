@@ -43,3 +43,47 @@ If any inconsistency is detected, the function raises an ERROR using elog, which
 - **Empty List Handling**: Correctly handles the case where both head.next and head.prev are NULL (representing an empty, zero-initialized list)
 - **Debug Usage**: Primarily used in debug builds and during development to catch list corruption early
 - **Thread Safety**: Read-only operation that should be safe for concurrent access, though external synchronization may be needed depending on usage context
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_check
+void dlist_check(const dlist_head *head) {
+    dlist_node *cur;
+
+    // Basic validation: ensure head is not NULL
+    if (head == NULL) {
+        elog(ERROR, "doubly linked list head address is NULL");
+    }
+
+    // Handle empty list case
+    if (head->head.next == NULL && head->head.prev == NULL) {
+        return; // Empty list is valid
+    }
+
+    // Forward traversal: check each node's integrity
+    for (cur = head->head.next; cur != &head->head; cur = cur->next) {
+        // Validate node pointers and bidirectional linking
+        if (cur == NULL || cur->next == NULL || cur->prev == NULL ||
+            cur->prev->next != cur || cur->next->prev != cur) {
+            elog(ERROR, "doubly linked list is corrupted");
+        }
+    }
+
+    // Backward traversal: verify consistency in reverse direction
+    for (cur = head->head.prev; cur != &head->head; cur = cur->prev) {
+        // Same integrity checks in reverse direction
+        if (cur == NULL || cur->next == NULL || cur->prev == NULL ||
+            cur->prev->next != cur || cur->next->prev != cur) {
+            elog(ERROR, "doubly linked list is corrupted");
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated error conditions into clearer logical groups
+- Added explanatory comments for each major validation phase
+- Maintained the essential two-pass validation (forward and backward)
+- Preserved all critical error detection logic
+- Simplified variable naming and spacing for better readability

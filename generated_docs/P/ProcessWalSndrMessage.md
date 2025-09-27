@@ -45,3 +45,49 @@ This function is essential for monitoring replication performance and providing 
 - Apply delay may not be available in all circumstances (returned as -1)
 - [String](../S/String.md) duplication is necessary because timestamptz_to_str returns a static buffer
 - This function is called for each message received from the primary during active replication
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessWalSndrMessage
+static void ProcessWalSndrMessage(XLogRecPtr walEnd, TimestampTz sendTime) {
+    WalRcvData *walrcv = WalRcv;
+    TimestampTz currentTime = GetCurrentTimestamp();
+
+    // Core logic step 1: Update shared memory state atomically
+    SpinLockAcquire(&walrcv->mutex);
+    if (walrcv->latestWalEnd < walEnd) {
+        walrcv->latestWalEndTime = sendTime;
+    }
+    walrcv->latestWalEnd = walEnd;
+    walrcv->lastMsgSendTime = sendTime;
+    walrcv->lastMsgReceiptTime = currentTime;
+    SpinLockRelease(&walrcv->mutex);
+
+    // Core logic step 2: Optional debug logging with timing metrics
+    if (message_level_is_interesting(DEBUG2)) {
+        char *sendtime = pstrdup(timestamptz_to_str(sendTime));
+        char *receipttime = pstrdup(timestamptz_to_str(currentTime));
+        int applyDelay = GetReplicationApplyDelay();
+
+        // Log timing information based on delay availability
+        if (applyDelay == -1) {
+            elog(DEBUG2, "sendtime %s receipttime %s replication apply delay (N/A) transfer latency %d ms",
+                 sendtime, receipttime, GetReplicationTransferLatency());
+        } else {
+            elog(DEBUG2, "sendtime %s receipttime %s replication apply delay %d ms transfer latency %d ms",
+                 sendtime, receipttime, applyDelay, GetReplicationTransferLatency());
+        }
+
+        pfree(sendtime);
+        pfree(receipttime);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for better readability
+- Added clear comments describing the two main functional blocks
+- Simplified conditional logic flow while preserving all functionality
+- Maintained the essential spinlock protection and debug logging
+- Focused on the core algorithm: atomic state update followed by optional logging

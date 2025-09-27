@@ -43,3 +43,27 @@ Note that this testing framework does not apply to all SLRU types - specifically
 - The three test positions (first, middle, last) provide comprehensive coverage of intra-page scenarios
 - Part of PostgreSQL's built-in testing infrastructure for transaction management systems
 - Does not apply to all SLRU types due to varying data layout assumptions
+
+## Simplified Source
+
+```c
+// Simplified version of SlruPagePrecedesUnitTests
+void SlruPagePrecedesUnitTests(SlruCtl ctl, int per_page) {
+    // Core logic: Test PagePrecedes function at three key positions
+
+    // Test first entry of a page
+    SlruPagePrecedesTestOffset(ctl, per_page, 0);
+
+    // Test middle entry of a page
+    SlruPagePrecedesTestOffset(ctl, per_page, per_page / 2);
+
+    // Test last entry of a page
+    SlruPagePrecedesTestOffset(ctl, per_page, per_page - 1);
+}
+```
+
+Key simplifications made:
+- Focused on the core testing logic
+- Added clear comments explaining each test position
+- Removed detailed assumptions from code comments for clarity
+- Maintained the essential three-point testing strategy

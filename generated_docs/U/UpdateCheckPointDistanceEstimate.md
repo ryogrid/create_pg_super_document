@@ -33,3 +33,28 @@ This static function updates the estimate of WAL distance between checkpoints us
 - Should converge to CheckpointSegments * wal_segment_size for max_wal_size triggered checkpoints
 - Essential for WAL segment preallocation optimization in XLOGfileslop()
 - Updates both PrevCheckPointDistance (exact) and CheckPointDistanceEstimate (smoothed)
+
+## Simplified Source
+
+```c
+// Simplified version of UpdateCheckPointDistanceEstimate
+static void UpdateCheckPointDistanceEstimate(uint64 nbytes) {
+    // Always update the exact distance for the previous checkpoint
+    PrevCheckPointDistance = nbytes;
+
+    // Use asymmetric moving average for the estimate
+    if (CheckPointDistanceEstimate < nbytes) {
+        // Immediately bump up estimate if current usage exceeds it (handle peak loads)
+        CheckPointDistanceEstimate = nbytes;
+    } else {
+        // Slowly decline estimate: 90% old + 10% new (smooth out quiet periods)
+        CheckPointDistanceEstimate = (0.90 * CheckPointDistanceEstimate + 0.10 * nbytes);
+    }
+}
+```
+
+Key simplifications made:
+- Removed extensive comments explaining the algorithm rationale
+- Focused on the core two-step logic: update exact distance, then apply asymmetric average
+- Preserved the essential algorithm behavior and variable updates
+- Added concise inline comments explaining the immediate vs gradual adjustment strategy

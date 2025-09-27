@@ -30,31 +30,17 @@ This function handles file expansion within HBA configuration fields when a toke
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - : Resolves relative file paths to absolute paths
-  - : Opens authentication configuration files with error handling
-  - : Processes the included file into TokenizedAuthLine structures
-  - : Closes file and cleans up resources
-  - : Adds tokens to the result list
-  - : Manages memory allocation context
-  - : Duplicates error message strings
-  - : Frees allocated memory
+  - AbsoluteConfigLocation: Resolves relative file paths to absolute paths
+  - open_auth_file: Opens authentication configuration files with error handling
+  - tokenize_auth_file: Processes the included file into TokenizedAuthLine structures
+  - free_auth_file: Closes file and cleans up resources
+  - lappend: Adds tokens to the result list
+  - MemoryContextSwitchTo: Manages memory allocation context
+  - pstrdup: Duplicates error message strings
+  - pfree: Frees allocated memory
 - Called from (representative examples):
-  - : When processing '@' file references within fields
-  - : During token matching with file expansion
-
-## Dependencies
-- Functions called/Symbols referenced:
-  - : Resolves relative file paths to absolute paths
-  - : Opens authentication configuration files with error handling
-  - : Processes the included file into TokenizedAuthLine structures
-  - : Closes file and cleans up resources
-  - : Adds tokens to the result list
-  - : Manages memory allocation context
-  - : Duplicates error message strings
-  - : Frees allocated memory
-- Called from (representative examples):
-  - : When processing '@' file references within fields
-  - : During token matching with file expansion
+  - next_token: When processing '@' file references within fields
+  - match_auth_token: During token matching with file expansion
 
 ## Notes and Other Information
 - Returns the modified tokens list with new tokens appended
@@ -65,3 +51,64 @@ This function handles file expansion within HBA configuration fields when a toke
 - Enables flexible configuration patterns like comma-separated lists spanning multiple files
 - Part of PostgreSQL's authentication configuration expansion system
 - Handles complex nested structures by iterating through lines, fields, and tokens
+
+## Simplified Source
+
+```c
+// Simplified version of tokenize_expand_file
+static List *tokenize_expand_file(List *tokens,
+                                  const char *outer_filename,
+                                  const char *inc_filename,
+                                  int elevel,
+                                  int depth,
+                                  char **err_msg) {
+    // Resolve file path and open the included file
+    char *inc_fullname = AbsoluteConfigLocation(inc_filename, outer_filename);
+    FILE *inc_file = open_auth_file(inc_fullname, elevel, depth, err_msg);
+
+    if (inc_file == NULL) {
+        pfree(inc_fullname);
+        return tokens;
+    }
+
+    // Tokenize the entire included file
+    List *inc_lines = NIL;
+    tokenize_auth_file(inc_fullname, inc_file, &inc_lines, elevel, depth);
+    pfree(inc_fullname);
+
+    // Extract all tokens from all lines and fields
+    foreach(inc_line, inc_lines) {
+        TokenizedAuthLine *tok_line = (TokenizedAuthLine *) lfirst(inc_line);
+
+        // Stop on first error encountered
+        if (tok_line->err_msg) {
+            *err_msg = pstrdup(tok_line->err_msg);
+            break;
+        }
+
+        // Process each field in the line
+        foreach(inc_field, tok_line->fields) {
+            List *inc_tokens = lfirst(inc_field);
+
+            // Add each token to the result list
+            foreach(inc_token, inc_tokens) {
+                AuthToken *token = lfirst(inc_token);
+
+                // Switch to proper memory context for lappend
+                MemoryContext oldcxt = MemoryContextSwitchTo(tokenize_context);
+                tokens = lappend(tokens, token);
+                MemoryContextSwitchTo(oldcxt);
+            }
+        }
+    }
+
+    free_auth_file(inc_file, depth);
+    return tokens;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major processing step
+- Streamlined the nested loop structure with descriptive comments
+- Preserved the memory context management and error handling
+- Maintained the file expansion and token flattening logic

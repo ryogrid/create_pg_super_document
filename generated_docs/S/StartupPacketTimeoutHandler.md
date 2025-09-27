@@ -34,3 +34,19 @@ The timeout mechanism protects the server from clients that send incomplete star
 - The function is static and only used within the backend_startup.c module
 - Works in conjunction with alarm/timer mechanisms to enforce startup packet processing timeouts
 - Helps prevent resource exhaustion from clients that don't complete the connection handshake in a timely manner
+
+## Simplified Source
+
+```c
+// Simplified version of StartupPacketTimeoutHandler
+static void StartupPacketTimeoutHandler(void) {
+    // Immediate process termination when startup packet times out
+    // Uses _exit(1) to avoid cleanup that might be unsafe in signal handler context
+    _exit(1);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments to clarify the purpose
+- Function is already at minimal complexity - no further simplification possible
+- Preserved the critical safety aspect of using _exit() instead of exit()

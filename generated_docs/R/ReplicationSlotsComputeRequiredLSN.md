@@ -43,3 +43,59 @@ This function takes no parameters.
 - Invalidated slots are deliberately excluded from the computation as they no longer need WAL retention
 - The function uses proper locking hierarchy: first acquiring the control lock, then individual slot mutexes
 - This is a critical function for WAL retention management in PostgreSQL replication
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotsComputeRequiredLSN
+void ReplicationSlotsComputeRequiredLSN(void) {
+    int i;
+    XLogRecPtr min_required = InvalidXLogRecPtr;
+
+    Assert(ReplicationSlotCtl != NULL);
+
+    // Step 1: Acquire shared lock to safely read all slot data
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+    // Step 2: Iterate through all possible replication slots
+    for (i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *s = &ReplicationSlotCtl->replication_slots[i];
+        XLogRecPtr restart_lsn;
+        bool invalidated;
+
+        // Skip unused slots
+        if (!s->in_use)
+            continue;
+
+        // Step 3: Safely read slot data under its mutex
+        SpinLockAcquire(&s->mutex);
+        restart_lsn = s->data.restart_lsn;
+        invalidated = s->data.invalidated != RS_INVAL_NONE;
+        SpinLockRelease(&s->mutex);
+
+        // Skip invalidated slots - they don't need WAL retention
+        if (invalidated)
+            continue;
+
+        // Step 4: Track the minimum (oldest) restart LSN across all valid slots
+        if (restart_lsn != InvalidXLogRecPtr &&
+            (min_required == InvalidXLogRecPtr || restart_lsn < min_required)) {
+            min_required = restart_lsn;
+        }
+    }
+
+    LWLockRelease(ReplicationSlotControlLock);
+
+    // Step 5: Inform WAL module of the minimum LSN that must be retained
+    XLogSetReplicationSlotMinimumLSN(min_required);
+}
+```
+
+Key simplifications made:
+- Organized into clear sequential steps with descriptive comments
+- Preserved the essential locking hierarchy for safe concurrent access
+- Maintained the logic for skipping unused and invalidated slots
+- Simplified the minimum LSN tracking algorithm while preserving correctness
+- Kept the critical communication with the WAL module
+- Focused on the core purpose: find minimum restart LSN and inform WAL system
+- Explained why invalidated slots are excluded from consideration

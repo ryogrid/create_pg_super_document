@@ -50,3 +50,136 @@ The function runs in an infinite loop, streaming WAL data until instructed to re
 - Supports both permanent and temporary replication slot management
 - Uses latch-based signaling for efficient process communication and interrupt handling
 - Coordinates with the startup process for recovery management and restart scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of WalReceiverMain
+void WalReceiverMain(char *startup_data, size_t startup_data_len) {
+    char conninfo[MAXCONNINFO];
+    char slotname[NAMEDATALEN];
+    bool is_temp_slot;
+    XLogRecPtr startpoint;
+    TimeLineID startpointTLI, primaryTLI;
+    WalRcvData *walrcv;
+    bool first_stream = true;
+
+    // Initialize process type and auxiliary process setup
+    MyBackendType = B_WAL_RECEIVER;
+    AuxiliaryProcessMainCommon();
+
+    // Get shared memory state and mark process as running
+    walrcv = WalRcv;
+    SpinLockAcquire(&walrcv->mutex);
+
+    // Check initial state - exit if already stopping/stopped
+    if (walrcv->walRcvState == WALRCV_STOPPING || walrcv->walRcvState == WALRCV_STOPPED) {
+        walrcv->walRcvState = WALRCV_STOPPED;
+        SpinLockRelease(&walrcv->mutex);
+        ConditionVariableBroadcast(&walrcv->walRcvStoppedCV);
+        proc_exit(1);
+    }
+
+    // Set up process identification and state
+    walrcv->pid = MyProcPid;
+    walrcv->walRcvState = WALRCV_STREAMING;
+
+    // Extract connection parameters from shared memory
+    strlcpy(conninfo, (char *) walrcv->conninfo, MAXCONNINFO);
+    strlcpy(slotname, (char *) walrcv->slotname, NAMEDATALEN);
+    is_temp_slot = walrcv->is_temp_slot;
+    startpoint = walrcv->receiveStart;
+    startpointTLI = walrcv->receiveStartTLI;
+
+    SpinLockRelease(&walrcv->mutex);
+
+    // Set up signal handlers for process management
+    setup_signal_handlers();
+
+    // Load libpq functions for WAL streaming
+    load_file("libpqwalreceiver", false);
+
+    // Establish connection to primary server
+    wrconn = walrcv_connect(conninfo, true, false, false,
+                           cluster_name[0] ? cluster_name : "walreceiver", &err);
+    if (!wrconn) {
+        ereport(ERROR, (errmsg("could not connect to primary server: %s", err)));
+    }
+
+    // Save connection info and sender details in shared memory
+    update_connection_info(wrconn, walrcv);
+
+    // Main streaming loop - runs until process termination
+    for (;;) {
+        // Verify system compatibility with primary
+        primary_sysid = walrcv_identify_system(wrconn, &primaryTLI);
+        validate_system_identifier(primary_sysid);
+        validate_timeline_compatibility(primaryTLI, startpointTLI);
+
+        // Fetch any missing timeline history files
+        WalRcvFetchTimeLineHistoryFiles(startpointTLI, primaryTLI);
+
+        // Create temporary replication slot if needed
+        if (is_temp_slot) {
+            create_temporary_slot(wrconn, slotname, walrcv);
+        }
+
+        // Start WAL streaming from primary
+        WalRcvStreamOptions options = setup_streaming_options(startpoint, startpointTLI, slotname);
+
+        if (walrcv_startstreaming(wrconn, &options)) {
+            log_streaming_start(startpoint, startpointTLI, first_stream);
+            first_stream = false;
+
+            // Initialize streaming state and buffers
+            initialize_streaming_state();
+
+            // Inner streaming loop - processes WAL messages
+            for (;;) {
+                // Check if recovery is still in progress
+                if (!RecoveryInProgress()) {
+                    ereport(FATAL, (errmsg("recovery has already ended")));
+                }
+
+                // Handle any pending interrupts or config reloads
+                ProcessWalRcvInterrupts();
+                handle_config_reload();
+
+                // Try to receive data from primary
+                len = walrcv_receive(wrconn, &buf, &wait_fd);
+
+                if (len > 0) {
+                    // Process received WAL data
+                    process_wal_messages(buf, len, startpointTLI);
+                    XLogWalRcvSendReply(false, false);
+                    XLogWalRcvFlush(false, startpointTLI);
+                } else if (len < 0) {
+                    // End of WAL stream reached
+                    endofwal = true;
+                    break;
+                } else {
+                    // No data available, wait for activity or timeout
+                    handle_wait_and_timeouts(wait_fd, walrcv);
+                }
+            }
+
+            // End streaming session
+            walrcv_endstreaming(wrconn, &primaryTLI);
+            WalRcvFetchTimeLineHistoryFiles(startpointTLI, primaryTLI);
+        }
+
+        // Close current WAL file and wait for new instructions
+        close_current_wal_file(startpointTLI);
+        WalRcvWaitForStartPosition(&startpoint, &startpointTLI);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and edge case management for clarity
+- Consolidated signal handler setup into single function call
+- Abstracted complex state management into helper function calls
+- Simplified the nested message processing loop structure
+- Combined similar timeout and wait logic into unified handlers
+- Focused on the main execution flow rather than low-level implementation details
+- Removed platform-specific code paths and detailed memory management

@@ -40,3 +40,72 @@ This function serves as OpenSSL's certificate verification callback, allowing Po
 - Sets global cert_errdetail variable with formatted error information
 - Mirrors functionality from be_tls_get_peer_serial() for serial number extraction
 - Critical for SSL/TLS debugging and security audit trails in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of verify_cb
+static int verify_cb(int ok, X509_STORE_CTX *ctx) {
+    // If verification succeeded, nothing to do
+    if (ok) {
+        return ok;
+    }
+
+    // Extract verification failure details
+    int depth = X509_STORE_CTX_get_error_depth(ctx);
+    int errcode = X509_STORE_CTX_get_error(ctx);
+    const char *errstring = X509_verify_cert_error_string(errcode);
+
+    // Build error message with basic failure info
+    StringInfoData error_msg;
+    initStringInfo(&error_msg);
+    appendStringInfo(&error_msg,
+        "Client certificate verification failed at depth %d: %s.",
+        depth, errstring);
+
+    // Get current certificate for additional details
+    X509 *cert = X509_STORE_CTX_get_current_cert(ctx);
+    if (cert) {
+        // Extract and sanitize certificate subject/issuer names
+        char *subject = X509_NAME_to_cstring(X509_get_subject_name(cert));
+        char *sanitized_subject = prepare_cert_name(subject);
+        pfree(subject);
+
+        char *issuer = X509_NAME_to_cstring(X509_get_issuer_name(cert));
+        char *sanitized_issuer = prepare_cert_name(issuer);
+        pfree(issuer);
+
+        // Extract certificate serial number
+        ASN1_INTEGER *serial_asn1 = X509_get_serialNumber(cert);
+        BIGNUM *serial_bn = ASN1_INTEGER_to_BN(serial_asn1, NULL);
+        char *serial_string = BN_bn2dec(serial_bn);
+
+        // Append detailed certificate information
+        appendStringInfo(&error_msg,
+            "\nFailed certificate data: subject \"%s\", serial %s, issuer \"%s\".",
+            sanitized_subject,
+            serial_string ? serial_string : "unknown",
+            sanitized_issuer);
+
+        // Cleanup OpenSSL structures
+        BN_free(serial_bn);
+        OPENSSL_free(serial_string);
+        pfree(sanitized_issuer);
+        pfree(sanitized_subject);
+    }
+
+    // Store error details for later logging
+    cert_errdetail = error_msg.data;
+
+    // Return original verification result (no override)
+    return ok;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about certificate flooding prevention
+- Consolidated variable declarations closer to their usage
+- Simplified the certificate information extraction flow
+- Removed explicit translation markers for clarity
+- Focused on the main execution path while preserving all essential logic
+- Maintained proper memory management and cleanup operations

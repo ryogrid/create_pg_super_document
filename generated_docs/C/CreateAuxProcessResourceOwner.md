@@ -39,3 +39,29 @@ The function includes safety assertions to ensure it's only called when no resou
 - Auxiliary processes include background processes like checkpointer, background writer, and WAL writer
 - This ensures proper cleanup of resources like file descriptors, memory contexts, and locks when auxiliary processes terminate
 - Part of PostgreSQL's comprehensive resource management system that prevents resource leaks
+
+## Simplified Source
+
+```c
+// Simplified version of CreateAuxProcessResourceOwner
+void CreateAuxProcessResourceOwner(void) {
+    // Safety checks: ensure no resource owners are already active
+    Assert(AuxProcessResourceOwner == NULL);
+    Assert(CurrentResourceOwner == NULL);
+
+    // Create new resource owner for auxiliary process
+    AuxProcessResourceOwner = ResourceOwnerCreate(NULL, "AuxiliaryProcess");
+
+    // Set it as the current active resource owner
+    CurrentResourceOwner = AuxProcessResourceOwner;
+
+    // Register cleanup callback for process exit
+    on_shmem_exit(ReleaseAuxProcessResourcesCallback, 0);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Grouped related operations with explanatory comments
+- Maintained all original functionality while improving readability
+- The function was already quite simple, so simplification focused on clarity through better commenting

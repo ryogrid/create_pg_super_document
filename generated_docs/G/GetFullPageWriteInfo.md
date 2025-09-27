@@ -37,3 +37,20 @@ GetFullPageWriteInfo provides cached backend-private copies of two critical piec
 - Located in src/backend/access/transam/xlog.c:6446-6460
 - Part of the optimization strategy for WAL insertion performance
 - Essential for crash recovery correctness through full-page image management
+
+## Simplified Source
+
+```c
+// Simplified version of GetFullPageWriteInfo
+void GetFullPageWriteInfo(XLogRecPtr *RedoRecPtr_p, bool *doPageWrites_p) {
+    // Return cached backend-private values
+    *RedoRecPtr_p = RedoRecPtr;
+    *doPageWrites_p = doPageWrites;
+}
+```
+
+Key simplifications made:
+- Focused on the core function: return cached values for full-page write decisions
+- Emphasized the performance optimization of using cached backend-private copies
+- Preserved the essential contract: values may be stale but will be re-verified
+- Maintained the simple getter interface for WAL insertion optimization

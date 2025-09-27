@@ -34,3 +34,45 @@ The function handles three scenarios: when individual format codes are specified
 - Validates format count matches column count when individual formats are specified
 - Defaults to text format (0) when no formats are provided
 - Located in src/backend/tcop/pquery.c:623-685
+
+## Simplified Source
+
+```c
+// Simplified version of PortalSetResultFormat
+void PortalSetResultFormat(Portal portal, int nFormats, int16 *formats) {
+    // Skip if portal doesn't return tuples
+    if (portal->tupDesc == NULL)
+        return;
+
+    int natts = portal->tupDesc->natts;
+
+    // Allocate memory for format array in portal context
+    portal->formats = (int16 *) MemoryContextAlloc(portal->portalContext,
+                                                   natts * sizeof(int16));
+
+    if (nFormats > 1) {
+        // Individual format for each column: validate count matches
+        if (nFormats != natts)
+            ereport(ERROR, "format count mismatch");
+        memcpy(portal->formats, formats, natts * sizeof(int16));
+    }
+    else if (nFormats > 0) {
+        // Single format for all columns
+        int16 single_format = formats[0];
+        for (int i = 0; i < natts; i++)
+            portal->formats[i] = single_format;
+    }
+    else {
+        // Default text format (0) for all columns
+        for (int i = 0; i < natts; i++)
+            portal->formats[i] = 0;
+    }
+}
+```
+
+Key simplifications made:
+- Simplified variable declarations and combined where logical
+- Abstracted detailed error message to focus on core logic
+- Added clear comments explaining the three main scenarios
+- Removed platform-specific details while preserving essential algorithm
+- Maintained the core branching logic for different format specification cases

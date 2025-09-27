@@ -42,3 +42,65 @@ This function sets up the shared memory infrastructure for background workers du
 - Marks unused slots as not in use to prevent stale data
 - Critical for enabling communication between postmaster and background worker processes
 - Part of the shared memory setup phase during PostgreSQL startup
+
+## Simplified Source
+
+```c
+// Simplified version of BackgroundWorkerShmemInit
+void BackgroundWorkerShmemInit(void) {
+    bool found;
+
+    // Step 1: Initialize or attach to shared memory segment
+    BackgroundWorkerData = ShmemInitStruct("Background Worker Data",
+                                          BackgroundWorkerShmemSize(),
+                                          &found);
+
+    // Step 2: Initialize data if we're the main postmaster
+    if (!IsUnderPostmaster) {
+        int slotno = 0;
+
+        // Initialize shared memory structure counters
+        BackgroundWorkerData->total_slots = max_worker_processes;
+        BackgroundWorkerData->parallel_register_count = 0;
+        BackgroundWorkerData->parallel_terminate_count = 0;
+
+        // Step 3: Copy registered workers from private list to shared memory
+        slist_foreach(siter, &BackgroundWorkerList) {
+            BackgroundWorkerSlot *slot = &BackgroundWorkerData->slot[slotno];
+            RegisteredBgWorker *rw = slist_container(RegisteredBgWorker, rw_lnode, siter.cur);
+
+            // Initialize slot with worker data
+            slot->in_use = true;
+            slot->terminate = false;
+            slot->pid = InvalidPid;
+            slot->generation = 0;
+
+            // Link private worker to shared memory slot
+            rw->rw_shmem_slot = slotno;
+            rw->rw_worker.bgw_notify_pid = 0;  // Reset after potential crash
+
+            // Copy worker configuration to shared memory
+            memcpy(&slot->worker, &rw->rw_worker, sizeof(BackgroundWorker));
+            slotno++;
+        }
+
+        // Step 4: Mark remaining slots as unused
+        while (slotno < max_worker_processes) {
+            BackgroundWorkerData->slot[slotno].in_use = false;
+            slotno++;
+        }
+    }
+    // If we're a child process, shared memory should already exist
+    else {
+        Assert(found);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and focused on main workflow steps
+- Consolidated variable declarations within their usage blocks
+- Simplified the slot initialization logic for clarity
+- Added step-by-step comments explaining the main phases
+- Abstracted away Assert() calls except for the critical child process check
+- Focused on the essential data flow from private list to shared memory

@@ -38,3 +38,27 @@ The function uses a memory barrier after clearing the latch state to ensure prop
 - This function is typically called in a loop pattern where the process resets the latch, checks conditions, and then waits if necessary
 - The memory barrier ensures that any flag variable examinations after the reset will see the most recent values
 - Used extensively in PostgreSQL's main loops for background processes and worker coordination
+
+## Simplified Source
+
+```c
+// Simplified version of ResetLatch
+void ResetLatch(Latch *latch) {
+    // Safety check: Only the owner can reset the latch
+    Assert(latch->owner_pid == MyProcPid);
+    Assert(latch->maybe_sleeping == false);
+
+    // Clear the latch state
+    latch->is_set = false;
+
+    // Memory barrier: Ensure write is flushed before examining other flags
+    // This prevents race conditions with concurrent SetLatch operations
+    pg_memory_barrier();
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic and safety checks
+- Added concise comments explaining the purpose of each step
+- Maintained the critical memory barrier and its explanation
+- Kept ownership verification assertions for safety

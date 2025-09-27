@@ -33,3 +33,37 @@ GetBackendTypeDesc is a utility function that maps PostgreSQL backend process ty
 
 ## Notes and Other Information
 This function is essential for PostgreSQL's process identification and monitoring infrastructure. Each backend type corresponds to a specific role in the PostgreSQL system architecture, from client-serving backends to various maintenance and replication processes. The function is widely used across the codebase for generating informative log messages and status reports.
+
+## Simplified Source
+
+```c
+// Simplified version of GetBackendTypeDesc
+const char *GetBackendTypeDesc(BackendType backendType) {
+    // Map backend type enum to human-readable description
+    switch (backendType) {
+        case B_INVALID:          return "not initialized";
+        case B_ARCHIVER:         return "archiver";
+        case B_AUTOVAC_LAUNCHER: return "autovacuum launcher";
+        case B_AUTOVAC_WORKER:   return "autovacuum worker";
+        case B_BACKEND:          return "client backend";
+        case B_BG_WORKER:        return "background worker";
+        case B_BG_WRITER:        return "background writer";
+        case B_CHECKPOINTER:     return "checkpointer";
+        case B_LOGGER:           return "logger";
+        case B_SLOTSYNC_WORKER:  return "slotsync worker";
+        case B_STANDALONE_BACKEND: return "standalone backend";
+        case B_STARTUP:          return "startup";
+        case B_WAL_RECEIVER:     return "walreceiver";
+        case B_WAL_SENDER:       return "walsender";
+        case B_WAL_SUMMARIZER:   return "walsummarizer";
+        case B_WAL_WRITER:       return "walwriter";
+        default:                 return "unknown process type";
+    }
+}
+```
+
+Key simplifications made:
+- Replaced variable assignment with direct return statements
+- Converted switch-case structure to more compact format
+- Consolidated the default case handling
+- Maintained all backend type mappings for completeness

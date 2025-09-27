@@ -40,5 +40,38 @@ The function maintains an internal list of registered callbacks () and ensures t
 - The function has a hard limit of  callbacks that can be registered
 - If the limit is exceeded, a FATAL error is reported with error code 
 - The  flag ensures the C library atexit handler is registered only once
-- This is part of PostgreSQL's hierarchical shutdown mechanism, providing cleanup at a higher level than 
+- This is part of PostgreSQL's hierarchical shutdown mechanism, providing cleanup at a higher level than
 - Callbacks registered here typically handle transaction-level or session-level cleanup before lower-level resource cleanup begins
+
+## Simplified Source
+
+```c
+// Simplified version of before_shmem_exit
+void before_shmem_exit(pg_on_exit_callback function, Datum arg) {
+    // Core logic step 1: Check if we have room for another callback
+    if (before_shmem_exit_index >= MAX_ON_EXITS) {
+        ereport(FATAL,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg_internal("out of before_shmem_exit slots")));
+    }
+
+    // Core logic step 2: Store the callback function and its argument
+    before_shmem_exit_list[before_shmem_exit_index].function = function;
+    before_shmem_exit_list[before_shmem_exit_index].arg = arg;
+
+    // Core logic step 3: Increment the index for next callback
+    ++before_shmem_exit_index;
+
+    // Core logic step 4: Ensure atexit handler is registered (one-time setup)
+    if (!atexit_callback_setup) {
+        atexit(atexit_callback);
+        atexit_callback_setup = true;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each core logic step
+- Maintained the essential error checking and callback registration logic
+- Preserved the one-time atexit setup mechanism
+- Focused on the main execution path without removing critical functionality

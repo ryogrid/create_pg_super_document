@@ -46,3 +46,67 @@ The function operates by "retreating" the segment number to ensure all retention
 - If slots require more retention than max_slot_wal_keep_size allows, those slots should be invalidated
 - The function includes underflow protection when calculating segment numbers
 - Critical for coordinating WAL cleanup across different PostgreSQL subsystems
+
+## Simplified Source
+
+```c
+// Simplified version of KeepLogSeg
+static void KeepLogSeg(XLogRecPtr recptr, XLogRecPtr slotsMinReqLSN, XLogSegNo *logSegNo) {
+    XLogSegNo currSegNo;
+    XLogSegNo segno;
+    XLogRecPtr keep;
+
+    // Step 1: Get current segment number from recptr
+    XLByteToSeg(recptr, currSegNo, wal_segment_size);
+    segno = currSegNo;
+
+    // Step 2: Check replication slot requirements
+    keep = slotsMinReqLSN;
+    if (keep != InvalidXLogRecPtr && keep < recptr) {
+        XLByteToSeg(keep, segno, wal_segment_size);
+
+        // Apply max_slot_wal_keep_size limit (except during binary upgrade)
+        if (max_slot_wal_keep_size_mb >= 0 && !IsBinaryUpgrade) {
+            uint64 slot_keep_segs = ConvertToXSegs(max_slot_wal_keep_size_mb, wal_segment_size);
+
+            if (currSegNo - segno > slot_keep_segs) {
+                segno = currSegNo - slot_keep_segs;
+            }
+        }
+    }
+
+    // Step 3: Check WAL summarization requirements
+    keep = GetOldestUnsummarizedLSN(NULL, NULL);
+    if (keep != InvalidXLogRecPtr) {
+        XLogSegNo unsummarized_segno;
+        XLByteToSeg(keep, unsummarized_segno, wal_segment_size);
+
+        if (unsummarized_segno < segno) {
+            segno = unsummarized_segno;
+        }
+    }
+
+    // Step 4: Apply wal_keep_size minimum retention
+    if (wal_keep_size_mb > 0) {
+        uint64 keep_segs = ConvertToXSegs(wal_keep_size_mb, wal_segment_size);
+
+        if (currSegNo - segno < keep_segs) {
+            // Avoid underflow - don't go below segment 1
+            segno = (currSegNo <= keep_segs) ? 1 : currSegNo - keep_segs;
+        }
+    }
+
+    // Step 5: Update result only if we need to retreat further
+    if (segno < *logSegNo) {
+        *logSegNo = segno;
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations and removed intermediate variables where possible
+- Added step-by-step comments explaining the main logic flow
+- Simplified the underflow protection logic with a ternary operator
+- Removed detailed comments about binary upgrade and slot invalidation details
+- Focused on the core algorithm: start with current segment, apply each constraint to retreat the segment number
+- Preserved all essential logic and constraints while making the flow clearer

@@ -27,3 +27,30 @@ pq_peekbyte provides a non-destructive way to examine the next byte in the recei
 - Does not advance the buffer pointer, allowing repeated peeks at the same byte
 - Essential for protocol decision points where the next byte determines parsing strategy
 - Commonly used in SSL/TLS handshake processing and protocol negotiation
+
+## Simplified Source
+
+```c
+// Simplified version of pq_peekbyte
+int pq_peekbyte(void) {
+    // Ensure we're in a valid message reading state
+    Assert(PqCommReadingMsg);
+
+    // Check if we need more data in the buffer
+    while (PqRecvPointer >= PqRecvLength) {
+        // Try to receive more data from the connection
+        if (pq_recvbuf()) {
+            return EOF;  // Failed to get more data
+        }
+    }
+
+    // Return the current byte without advancing the pointer
+    return (unsigned char) PqRecvBuffer[PqRecvPointer];
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Clarified the purpose of the buffer refill loop
+- Emphasized the non-advancing nature of the peek operation
+- Simplified the control flow explanation while preserving the exact logic

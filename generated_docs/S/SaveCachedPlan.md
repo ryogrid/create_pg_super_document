@@ -42,3 +42,41 @@ The function is designed to be error-free (except for caller errors) since it's 
 - Memory context reparenting ensures the plan survives transaction boundaries
 - The function is guaranteed not to throw errors except for caller misuse
 - Once saved, the CachedPlanSource is marked with is_saved = true flag
+
+## Simplified Source
+
+```c
+// Simplified version of SaveCachedPlan
+void SaveCachedPlan(CachedPlanSource *plansource) {
+    // Validate the plan source is ready to be saved
+    Assert(plansource->magic == CACHEDPLANSOURCE_MAGIC);
+    Assert(plansource->is_complete);
+    Assert(!plansource->is_saved);
+
+    // Error check: Cannot save one-shot plans
+    if (plansource->is_oneshot) {
+        elog(ERROR, "cannot save one-shot cached plan");
+    }
+
+    // Safety measure: Release any existing generic plan
+    // This prevents issues with references in long-lived contexts
+    ReleaseGenericPlan(plansource);
+
+    // Move plan to permanent memory context
+    // This makes the plan live for the entire backend lifetime
+    MemoryContextSetParent(plansource->context, CacheMemoryContext);
+
+    // Add to global list for invalidation monitoring
+    dlist_push_tail(&saved_plan_list, &plansource->node);
+
+    // Mark as permanently saved
+    plansource->is_saved = true;
+}
+```
+
+Key simplifications made:
+- Consolidated assertion checks with clear purpose comments
+- Simplified the error handling explanation
+- Abstracted the memory context reparenting concept
+- Focused on the main execution path of validation, cleanup, reparenting, and registration
+- Removed detailed implementation comments while preserving the essential logic flow

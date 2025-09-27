@@ -34,3 +34,25 @@ This function takes no parameters.
 - Critical for shared memory allocation during PostgreSQL startup
 - The calculation includes space for NumProcSignalSlots signal slots plus the header overhead
 - Located in src/backend/storage/ipc/procsignal.c:111-124
+
+## Simplified Source
+
+```c
+// Simplified version of ProcSignalShmemSize
+Size ProcSignalShmemSize(void) {
+    Size size;
+
+    // Calculate space for all process signal slots
+    size = mul_size(NumProcSignalSlots, sizeof(ProcSignalSlot));
+
+    // Add space for the header structure
+    size = add_size(size, offsetof(ProcSignalHeader, psh_slot));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each calculation step
+- Preserved the safe arithmetic operations (mul_size, add_size) as they're essential for overflow prevention
+- Maintained the exact logic flow as the function is already quite simple and focused

@@ -52,3 +52,93 @@ The function handles edge cases including negative timestamps, out-of-range date
 - Handles timestamps outside pg_time_t range by treating them as GMT
 - Uses microsecond precision for fractional seconds
 - The function is central to PostgreSQL's timestamp handling and is used extensively throughout date/time operations
+
+## Simplified Source
+
+```c
+// Simplified version of timestamp2tm
+int timestamp2tm(Timestamp dt, int *tzp, struct pg_tm *tm, fsec_t *fsec,
+                 const char **tzn, pg_tz *attimezone) {
+    Timestamp date;
+    Timestamp time;
+    pg_time_t utime;
+
+    // Use session timezone if none specified
+    if (attimezone == NULL)
+        attimezone = session_timezone;
+
+    // Step 1: Split timestamp into date and time components
+    time = dt;
+    TMODULO(time, date, USECS_PER_DAY);
+
+    // Handle negative time components
+    if (time < INT64CONST(0)) {
+        time += USECS_PER_DAY;
+        date -= 1;
+    }
+
+    // Step 2: Convert to Julian date system
+    date += POSTGRES_EPOCH_JDATE;
+
+    // Validate date range
+    if (date < 0 || date > (Timestamp) INT_MAX)
+        return -1;
+
+    // Step 3: Extract date and time components
+    j2date((int) date, &tm->tm_year, &tm->tm_mon, &tm->tm_mday);
+    dt2time(time, &tm->tm_hour, &tm->tm_min, &tm->tm_sec, fsec);
+
+    // Step 4: Handle timezone conversion if requested
+    if (tzp == NULL) {
+        // No timezone conversion wanted
+        tm->tm_isdst = -1;
+        tm->tm_gmtoff = 0;
+        tm->tm_zone = NULL;
+        if (tzn != NULL)
+            *tzn = NULL;
+        return 0;
+    }
+
+    // Convert to Unix epoch for timezone processing
+    dt = (dt - *fsec) / USECS_PER_SEC +
+         (POSTGRES_EPOCH_JDATE - UNIX_EPOCH_JDATE) * SECS_PER_DAY;
+    utime = (pg_time_t) dt;
+
+    // Apply timezone conversion if timestamp fits in pg_time_t
+    if ((Timestamp) utime == dt) {
+        struct pg_tm *tx = pg_localtime(&utime, attimezone);
+
+        // Copy timezone-adjusted values
+        tm->tm_year = tx->tm_year + 1900;
+        tm->tm_mon = tx->tm_mon + 1;
+        tm->tm_mday = tx->tm_mday;
+        tm->tm_hour = tx->tm_hour;
+        tm->tm_min = tx->tm_min;
+        tm->tm_sec = tx->tm_sec;
+        tm->tm_isdst = tx->tm_isdst;
+        tm->tm_gmtoff = tx->tm_gmtoff;
+        tm->tm_zone = tx->tm_zone;
+        *tzp = -tm->tm_gmtoff;
+        if (tzn != NULL)
+            *tzn = tm->tm_zone;
+    } else {
+        // Out of pg_time_t range: treat as GMT
+        *tzp = 0;
+        tm->tm_isdst = -1;
+        tm->tm_gmtoff = 0;
+        tm->tm_zone = NULL;
+        if (tzn != NULL)
+            *tzn = NULL;
+    }
+
+    return 0;
+}
+```
+
+Key simplifications made:
+- Organized into clear sequential steps with descriptive comments
+- Simplified variable declarations and flow
+- Clarified the dual-phase approach (basic conversion vs timezone conversion)
+- Consolidated timezone handling logic
+- Preserved all essential date/time arithmetic and edge case handling
+- Maintained the distinction between PostgreSQL and standard C time conventions

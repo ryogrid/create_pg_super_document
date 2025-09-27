@@ -35,3 +35,34 @@ This function takes no parameters and returns void.
 - It relies on global flags (ProcSignalBarrierPending, ConfigReloadPending, ShutdownRequestPending, LogMemoryContextPending) that are set by signal handlers
 - When a shutdown is requested, the function immediately calls proc_exit(0) to terminate the process gracefully
 - The configuration reload uses PGC_SIGHUP context, indicating it processes SIGHUP signal-triggered configuration changes
+
+## Simplified Source
+
+```c
+// Simplified version of HandleMainLoopInterrupts
+void HandleMainLoopInterrupts(void) {
+    // Step 1: Handle process signal barriers (highest priority)
+    if (ProcSignalBarrierPending)
+        ProcessProcSignalBarrier();
+
+    // Step 2: Handle configuration reload requests
+    if (ConfigReloadPending) {
+        ConfigReloadPending = false;
+        ProcessConfigFile(PGC_SIGHUP);
+    }
+
+    // Step 3: Handle shutdown requests (immediate exit)
+    if (ShutdownRequestPending)
+        proc_exit(0);
+
+    // Step 4: Handle memory context logging requests
+    if (LogMemoryContextPending)
+        ProcessLogMemoryContextInterrupt();
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each interrupt handling step
+- Clarified the priority order of interrupt processing
+- Emphasized the immediate exit behavior for shutdown requests
+- Focused on the sequential checking pattern used by the function

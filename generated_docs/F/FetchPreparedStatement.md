@@ -35,3 +35,37 @@ FetchPreparedStatement is a utility function that looks up a prepared statement 
 - Does not force validation of the plancache entry, allowing callers to decide when validation is necessary
 - Uses ERRCODE_UNDEFINED_PSTATEMENT error code for missing prepared statements
 - Part of PostgreSQL's prepared statement management system in src/backend/commands/prepare.c
+
+## Simplified Source
+
+```c
+// Simplified version of FetchPreparedStatement
+PreparedStatement *FetchPreparedStatement(const char *stmt_name, bool throwError) {
+    PreparedStatement *entry;
+
+    // Step 1: Check if hash table exists and search for statement
+    if (prepared_queries) {
+        entry = hash_search(prepared_queries, stmt_name, HASH_FIND, NULL);
+    } else {
+        entry = NULL;  // Hash table not initialized
+    }
+
+    // Step 2: Handle missing statement based on error preference
+    if (!entry && throwError) {
+        // Throw error for missing prepared statement
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_PSTATEMENT),
+                 errmsg("prepared statement \"%s\" does not exist", stmt_name)));
+    }
+
+    // Step 3: Return the found entry (or NULL if not found and no error requested)
+    return entry;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments to clarify the logical flow
+- Simplified the hash_search call formatting for readability
+- Consolidated the error handling logic with clearer comments
+- Preserved the essential three-step process: check hash table, search, handle errors
+- Maintained all core functionality while improving code clarity

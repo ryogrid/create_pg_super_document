@@ -52,3 +52,58 @@ This function takes no parameters but operates on:
 - Resets both the main transaction fields and parallel transaction tracking variables
 - After this function completes, the backend is ready to start a new transaction
 - Part of the three-phase abort sequence: AbortTransaction() → CleanupTransaction() → ready for new transaction
+
+## Simplified Source
+
+```c
+// Simplified version of CleanupTransaction
+static void CleanupTransaction(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Validate expected state
+    if (s->state != TRANS_ABORT) {
+        elog(FATAL, "CleanupTransaction: unexpected state %s",
+             TransStateAsString(s->state));
+    }
+
+    // Clean up portals and snapshots
+    AtCleanup_Portals();
+    AtEOXact_Snapshot(false, true);
+
+    // Delete and clear resource owners
+    CurrentResourceOwner = NULL;
+    if (TopTransactionResourceOwner) {
+        ResourceOwnerDelete(TopTransactionResourceOwner);
+    }
+    s->curTransactionOwner = NULL;
+    CurTransactionResourceOwner = NULL;
+    TopTransactionResourceOwner = NULL;
+
+    // Clean up transaction memory
+    AtCleanup_Memory();
+
+    // Reset all transaction state fields
+    s->fullTransactionId = InvalidFullTransactionId;
+    s->subTransactionId = InvalidSubTransactionId;
+    s->nestingLevel = 0;
+    s->gucNestLevel = 0;
+    s->childXids = NULL;
+    s->nChildXids = 0;
+    s->maxChildXids = 0;
+    s->parallelModeLevel = 0;
+    s->parallelChildXact = false;
+
+    // Reset global transaction variables
+    XactTopFullTransactionId = InvalidFullTransactionId;
+    nParallelCurrentXids = 0;
+
+    // Transition to default state
+    s->state = TRANS_DEFAULT;
+}
+```
+
+Key simplifications made:
+- Grouped related operations (resource cleanup, state reset)
+- Removed detailed comments while preserving structure
+- Organized state field resets for clarity
+- Maintained strict error checking for invalid state

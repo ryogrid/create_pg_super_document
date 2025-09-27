@@ -36,3 +36,20 @@ The function is typically called at the beginning of each test case within the e
 - The function has the same name 'reset' as many other functions throughout the PostgreSQL codebase, but this particular instance is specific to ECPG testing
 - Located in src/interfaces/ecpg/test/expected/sql-declare.c:600-606
 - Simple but essential for maintaining test isolation and preventing false positives/negatives in test results
+
+## Simplified Source
+
+```c
+// Simplified version of reset
+void reset() {
+    // Clear all test output variables to ensure clean state
+    memset(f1, 0, sizeof(f1));  // Clear first output array
+    memset(f2, 0, sizeof(f2));  // Clear second output array
+    memset(f3, 0, sizeof(f3));  // Clear third output array
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each memset operation
+- Focused on the core functionality: clearing test variables
+- Maintained original simple structure as no complex logic was present

@@ -43,3 +43,63 @@ The function operates only on non-fixed hash tables and uses the hash table's cu
 - For partitioned hash tables, acquires spinlock on the specific free list to ensure thread safety
 - Elements are linked in reverse order (last allocated becomes first in free list)
 - Memory layout: each element consists of a HASHELEMENT header followed by user data, both properly aligned
+
+## Simplified Source
+
+```c
+// Simplified version of element_alloc
+static bool element_alloc(HTAB *hashp, int nelem, int freelist_idx) {
+    HASHHDR *hctl = hashp->hctl;
+    Size elementSize;
+    HASHELEMENT *firstElement;
+    HASHELEMENT *currentElement;
+    HASHELEMENT *prevElement;
+    int i;
+
+    // Core logic step 1: Check if hash table allows expansion
+    if (hashp->isfixed) {
+        return false;
+    }
+
+    // Core logic step 2: Calculate memory needed per element
+    elementSize = MAXALIGN(sizeof(HASHELEMENT)) + MAXALIGN(hctl->entrysize);
+
+    // Core logic step 3: Allocate memory for all elements at once
+    CurrentDynaHashCxt = hashp->hcxt;
+    firstElement = (HASHELEMENT *) hashp->alloc(nelem * elementSize);
+
+    if (!firstElement) {
+        return false;
+    }
+
+    // Core logic step 4: Link all new elements into a chain (reverse order)
+    prevElement = NULL;
+    currentElement = firstElement;
+    for (i = 0; i < nelem; i++) {
+        currentElement->link = prevElement;
+        prevElement = currentElement;
+        currentElement = (HASHELEMENT *) (((char *) currentElement) + elementSize);
+    }
+
+    // Core logic step 5: Thread-safely add the chain to the free list
+    if (IS_PARTITIONED(hctl)) {
+        SpinLockAcquire(&hctl->freeList[freelist_idx].mutex);
+    }
+
+    firstElement->link = hctl->freeList[freelist_idx].freeList;
+    hctl->freeList[freelist_idx].freeList = prevElement;
+
+    if (IS_PARTITIONED(hctl)) {
+        SpinLockRelease(&hctl->freeList[freelist_idx].mutex);
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Renamed `tmpElement` to `currentElement` for clarity
+- Added step-by-step comments explaining the core algorithm
+- Maintained all essential functionality including thread safety
+- Preserved the reverse-order linking logic which is important for performance
+- Kept the fixed-size check and memory allocation failure handling

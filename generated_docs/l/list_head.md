@@ -37,3 +37,19 @@ The function operates on PostgreSQL's internal List data structure, which stores
 - Safely handles NULL input lists without crashing
 - Used extensively throughout the PostgreSQL codebase for list traversal and element access
 - The function assumes that if the list is not NULL, it contains at least the elements array structure
+
+## Simplified Source
+
+```c
+// Simplified version of list_head
+static inline ListCell *list_head(const List *l) {
+    // Return first element if list exists, otherwise NULL
+    return l ? &l->elements[0] : NULL;
+}
+```
+
+Key simplifications made:
+- Function is already very simple - minimal changes needed
+- Added descriptive comment explaining the core logic
+- Maintained the essential conditional check and array access
+- Preserved the inline optimization and safety check

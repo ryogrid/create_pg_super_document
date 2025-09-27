@@ -34,3 +34,29 @@ This function measures the network latency by calculating the time difference be
 - Essential metric for diagnosing replication bottlenecks
 - May show negative values if clocks are significantly out of sync
 - Located in src/backend/replication/walreceiverfuncs.c:394-407
+
+## Simplified Source
+
+```c
+// Simplified version of GetReplicationTransferLatency
+int GetReplicationTransferLatency(void) {
+    WalRcvData *walrcv = WalRcv;
+    TimestampTz lastMsgSendTime;
+    TimestampTz lastMsgReceiptTime;
+
+    // Get message timestamps with spinlock protection
+    SpinLockAcquire(&walrcv->mutex);
+    lastMsgSendTime = walrcv->lastMsgSendTime;
+    lastMsgReceiptTime = walrcv->lastMsgReceiptTime;
+    SpinLockRelease(&walrcv->mutex);
+
+    // Calculate network transfer latency in milliseconds
+    return TimestampDifferenceMilliseconds(lastMsgSendTime, lastMsgReceiptTime);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the latency calculation
+- Preserved essential spinlock protection for shared memory access
+- Function is already simple, minimal changes needed
+- Maintained the core timestamp difference calculation

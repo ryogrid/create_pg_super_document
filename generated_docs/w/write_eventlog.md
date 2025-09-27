@@ -54,3 +54,63 @@ The function ensures that PostgreSQL log messages are properly formatted and enc
 - Includes sophisticated encoding detection and conversion logic to handle international character sets properly
 - Part of PostgreSQL's Windows-specific logging infrastructure in src/backend/utils/error/elog.c
 - Falls back gracefully when memory allocation or encoding conversion fails
+
+## Simplified Source
+
+```c
+// Simplified version of write_eventlog
+static void write_eventlog(int log_level, const char *message, int message_len) {
+    static HANDLE event_handle = INVALID_HANDLE_VALUE;
+    int windows_event_type = EVENTLOG_ERROR_TYPE;
+
+    // Step 1: Initialize Windows Event Log handle on first use
+    if (event_handle == INVALID_HANDLE_VALUE) {
+        event_handle = RegisterEventSource(NULL, event_source ? event_source : DEFAULT_EVENT_SOURCE);
+        if (event_handle == NULL) {
+            event_handle = INVALID_HANDLE_VALUE;
+            return;  // Failed to register, cannot log
+        }
+    }
+
+    // Step 2: Map PostgreSQL log levels to Windows event types
+    if (log_level <= NOTICE) {
+        windows_event_type = EVENTLOG_INFORMATION_TYPE;  // DEBUG*, LOG, INFO, NOTICE
+    } else if (log_level <= WARNING_CLIENT_ONLY) {
+        windows_event_type = EVENTLOG_WARNING_TYPE;      // WARNING*
+    } else {
+        windows_event_type = EVENTLOG_ERROR_TYPE;        // ERROR, FATAL, PANIC
+    }
+
+    // Step 3: Handle character encoding and write to event log
+    if (encoding_conversion_safe() && message_needs_utf16_conversion()) {
+        // Try UTF-16 conversion for international characters
+        WCHAR *utf16_message = pgwin32_message_to_UTF16(message, message_len, NULL);
+        if (utf16_message) {
+            ReportEventW(event_handle, windows_event_type, 0, 0, NULL, 1, 0,
+                        (LPCWSTR *) &utf16_message, NULL);
+            pfree(utf16_message);
+            return;
+        }
+    }
+
+    // Step 4: Fallback to ASCII reporting
+    ReportEventA(event_handle, windows_event_type, 0, 0, NULL, 1, 0, &message, NULL);
+}
+
+// Helper function for readability
+static bool encoding_conversion_safe() {
+    return !in_error_recursion_trouble() && CurrentMemoryContext != NULL;
+}
+
+static bool message_needs_utf16_conversion() {
+    return GetMessageEncoding() != GetACPEncoding();
+}
+```
+
+Key simplifications made:
+- Consolidated the complex switch statement into a simpler if-else chain
+- Extracted encoding safety checks into helper functions for clarity
+- Removed detailed comments about Windows API specifics
+- Simplified variable names for better readability
+- Abstracted the complex encoding detection logic
+- Focused on the main execution path: register handle, map levels, handle encoding, write event

@@ -37,3 +37,56 @@ This function iterates through the BackendList and sends a signal to child proce
 - Optimized for BACKEND_TYPE_ALL case to avoid unnecessary shared memory access
 - Dynamically updates WAL Sender process types during iteration
 - Part of PostgreSQL's process management and shutdown coordination system
+
+## Simplified Source
+
+```c
+// Simplified version of SignalSomeChildren
+static bool SignalSomeChildren(int signal, int target) {
+    dlist_iter iter;
+    bool signaled = false;
+
+    // Iterate through all backend processes
+    dlist_foreach(iter, &BackendList) {
+        Backend *bp = dlist_container(Backend, elem, iter.cur);
+
+        // Skip dead_end children (they're in cleanup state)
+        if (bp->dead_end) {
+            continue;
+        }
+
+        // Handle target filtering (optimization for BACKEND_TYPE_ALL)
+        if (target != BACKEND_TYPE_ALL) {
+            // Update WAL Sender type if recently announced
+            if (bp->bkend_type == BACKEND_TYPE_NORMAL &&
+                IsPostmasterChildWalSender(bp->child_slot)) {
+                bp->bkend_type = BACKEND_TYPE_WALSND;
+            }
+
+            // Skip if backend type doesn't match target filter
+            if (!(target & bp->bkend_type)) {
+                continue;
+            }
+        }
+
+        // Log the signal action for debugging
+        ereport(DEBUG4,
+                (errmsg_internal("sending signal %d to process %d",
+                                signal, (int) bp->pid)));
+
+        // Send the signal to the child process
+        signal_child(bp->pid, signal);
+        signaled = true;
+    }
+
+    return signaled;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Clarified the purpose of dead_end children exclusion
+- Explained the optimization for BACKEND_TYPE_ALL case
+- Simplified the WAL Sender type assignment logic
+- Maintained the essential signal delivery and logging functionality
+- Preserved the return value indicating success

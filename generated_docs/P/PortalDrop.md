@@ -50,3 +50,71 @@ The isTopCommit parameter influences resource cleanup behavior, particularly for
 - Handles cross-transaction tuple stores by explicitly deleting their temporary files
 - Early removal from hash table prevents infinite error-recovery loops during subsequent cleanup failures
 - Located in src/backend/utils/mmgr/portalmem.c:468-606
+
+## Simplified Source
+
+```c
+// Simplified version of PortalDrop
+void PortalDrop(Portal portal, bool isTopCommit) {
+    // Validate portal state - cannot drop pinned or active portals
+    Assert(PortalIsValid(portal));
+    if (portal->portalPinned || portal->status == PORTAL_ACTIVE) {
+        ereport(ERROR, /* appropriate error message */);
+    }
+
+    // Execute cleanup hooks if present (e.g., shutdown executor)
+    if (PointerIsValid(portal->cleanup)) {
+        portal->cleanup(portal);
+        portal->cleanup = NULL;
+    }
+
+    // Remove portal from hash table to prevent re-entry during error recovery
+    PortalHashTableDelete(portal);
+
+    // Release cached execution plan
+    PortalReleaseCachedPlan(portal);
+
+    // Clean up snapshot if present
+    if (portal->holdSnapshot) {
+        if (portal->resowner) {
+            UnregisterSnapshotFromOwner(portal->holdSnapshot, portal->resowner);
+        }
+        portal->holdSnapshot = NULL;
+    }
+
+    // Release resources based on transaction context
+    if (portal->resowner && (!isTopCommit || portal->status == PORTAL_FAILED)) {
+        bool isCommit = (portal->status != PORTAL_FAILED);
+
+        // Release resources in three phases: before locks, locks, after locks
+        ResourceOwnerRelease(portal->resowner, RESOURCE_RELEASE_BEFORE_LOCKS, isCommit, false);
+        ResourceOwnerRelease(portal->resowner, RESOURCE_RELEASE_LOCKS, isCommit, false);
+        ResourceOwnerRelease(portal->resowner, RESOURCE_RELEASE_AFTER_LOCKS, isCommit, false);
+        ResourceOwnerDelete(portal->resowner);
+    }
+    portal->resowner = NULL;
+
+    // Clean up tuple store for cross-transaction storage
+    if (portal->holdStore) {
+        MemoryContext oldcontext = MemoryContextSwitchTo(portal->holdContext);
+        tuplestore_end(portal->holdStore);
+        MemoryContextSwitchTo(oldcontext);
+        portal->holdStore = NULL;
+    }
+
+    // Delete memory contexts and free portal structure
+    if (portal->holdContext) {
+        MemoryContextDelete(portal->holdContext);
+    }
+    MemoryContextDelete(portal->portalContext);
+    pfree(portal);
+}
+```
+
+Key simplifications made:
+- Removed detailed error message construction for clarity
+- Consolidated validation checks into simpler conditions
+- Abstracted complex comment blocks about transaction scenarios
+- Simplified resource release logic while preserving the three-phase pattern
+- Focused on the main cleanup sequence: validation → cleanup hooks → hash removal → cached plans → snapshots → resources → tuple stores → memory contexts
+- Maintained the essential ordering and logic flow of the original function

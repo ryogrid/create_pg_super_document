@@ -42,3 +42,27 @@ This function takes no parameters.
 - Critical for the protocol-level message processing in postgres.c to handle client requests appropriately
 - When this function returns true, most SQL commands will be rejected until the transaction is rolled back
 - Supports both main transaction aborts and subtransaction (savepoint) aborts for nested transaction error handling
+
+## Simplified Source
+
+```c
+// Simplified version of IsAbortedTransactionBlockState
+bool IsAbortedTransactionBlockState(void) {
+    // Get current transaction state
+    TransactionState current_state = CurrentTransactionState;
+
+    // Check if transaction is in any aborted state
+    if (current_state->blockState == TBLOCK_ABORT ||      // Main transaction aborted
+        current_state->blockState == TBLOCK_SUBABORT) {   // Subtransaction aborted
+        return true;
+    }
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name (current_state instead of s)
+- Added inline comments explaining the abort state types
+- Maintained the original logic flow for clarity
+- Preserved all essential functionality

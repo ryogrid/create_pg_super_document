@@ -34,3 +34,42 @@ The function implements a caching mechanism to avoid repeated system calls - it 
 - Uses a caching mechanism to store the default system value to avoid repeated getsockopt calls
 - If getsockopt fails, it logs an error and sets the default to -1 to indicate unknown status
 - The keep-alive count works in conjunction with keep-alive idle time and interval settings to manage connection health
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getkeepalivescount
+int pq_getkeepalivescount(Port *port) {
+#ifdef TCP_KEEPCNT
+    // Return 0 for NULL port or Unix sockets
+    if (port == NULL || port->laddr.addr.ss_family == AF_UNIX)
+        return 0;
+
+    // Return cached custom value if set
+    if (port->keepalives_count != 0)
+        return port->keepalives_count;
+
+    // Get system default if not cached
+    if (port->default_keepalives_count == 0) {
+        socklen_t size = sizeof(port->default_keepalives_count);
+
+        if (getsockopt(port->sock, IPPROTO_TCP, TCP_KEEPCNT,
+                       &port->default_keepalives_count, &size) < 0) {
+            // Log error and mark as unknown
+            ereport(LOG, (errmsg("getsockopt(TCP_KEEPCNT) failed: %m")));
+            port->default_keepalives_count = -1;
+        }
+    }
+
+    return port->default_keepalives_count;
+#else
+    return 0;
+#endif
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logic block
+- Simplified error message formatting
+- Focused on the main execution path
+- Maintained essential caching and error handling logic

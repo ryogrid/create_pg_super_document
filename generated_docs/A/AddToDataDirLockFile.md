@@ -43,3 +43,81 @@ This function performs an atomic update of a specific line in the data directory
 - Uses wait events for monitoring I/O operations
 - Handles out-of-order line additions by filling gaps with newlines
 - Critical for maintaining lock file consistency during server state changes
+
+## Simplified Source
+
+```c
+// Simplified version of AddToDataDirLockFile
+void AddToDataDirLockFile(int target_line, const char *str) {
+    int fd;
+    int len;
+    int lineno;
+    char srcbuffer[BLCKSZ];
+    char destbuffer[BLCKSZ];
+    char *srcptr;
+    char *destptr;
+
+    // Step 1: Open the lock file for read/write
+    fd = open(DIRECTORY_LOCK_FILE, O_RDWR | PG_BINARY, 0);
+    if (fd < 0) {
+        ereport(LOG, (errmsg("could not open lock file")));
+        return;
+    }
+
+    // Step 2: Read entire file content into buffer
+    len = read(fd, srcbuffer, sizeof(srcbuffer) - 1);
+    if (len < 0) {
+        ereport(LOG, (errmsg("could not read lock file")));
+        close(fd);
+        return;
+    }
+    srcbuffer[len] = '\0';
+
+    // Step 3: Copy lines before target line to destination buffer
+    srcptr = srcbuffer;
+    for (lineno = 1; lineno < target_line; lineno++) {
+        char *eol = strchr(srcptr, '\n');
+        if (eol == NULL)
+            break;  // Not enough lines in file yet
+        srcptr = eol + 1;
+    }
+    memcpy(destbuffer, srcbuffer, srcptr - srcbuffer);
+    destptr = destbuffer + (srcptr - srcbuffer);
+
+    // Step 4: Fill in any missing lines with newlines
+    for (; lineno < target_line; lineno++) {
+        if (destptr < destbuffer + sizeof(destbuffer))
+            *destptr++ = '\n';
+    }
+
+    // Step 5: Write the target line content
+    snprintf(destptr, destbuffer + sizeof(destbuffer) - destptr, "%s\n", str);
+    destptr += strlen(destptr);
+
+    // Step 6: Append any remaining lines from original file
+    if ((srcptr = strchr(srcptr, '\n')) != NULL) {
+        srcptr++;
+        snprintf(destptr, destbuffer + sizeof(destbuffer) - destptr, "%s", srcptr);
+    }
+
+    // Step 7: Write entire content back atomically
+    len = strlen(destbuffer);
+    if (pg_pwrite(fd, destbuffer, len, 0) != len) {
+        ereport(LOG, (errmsg("could not write to lock file")));
+        close(fd);
+        return;
+    }
+
+    // Step 8: Sync to disk and close file
+    pg_fsync(fd);
+    close(fd);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for each system call (kept essential error reporting)
+- Consolidated wait event reporting calls
+- Simplified error messages to focus on main actions
+- Abstracted errno handling details
+- Focused on the main execution path while preserving the atomic update logic
+- Maintained the core algorithm: read → modify → write atomically

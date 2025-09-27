@@ -39,3 +39,31 @@ This function takes no parameters.
 - The separate initialization allows for proper ordering with other shutdown procedures
 - Uses USE_ASSERT_CHECKING to track whether temporary files are allowed to be created
 - Essential for maintaining system cleanliness and preventing disk space issues from accumulated temporary files
+
+## Simplified Source
+
+```c
+// Simplified version of InitTemporaryFileAccess
+void InitTemporaryFileAccess(void) {
+    // Verify prerequisites: file access must be initialized first
+    Assert(SizeVfdCache != 0);
+
+    // Ensure this function is called only once per backend
+    Assert(!temporary_files_allowed);
+
+    // Register cleanup hook to remove temp files during shutdown
+    // This runs before shared memory exit to allow stats reporting
+    before_shmem_exit(BeforeShmemExit_Files, 0);
+
+    // Mark temporary file operations as allowed (debug builds only)
+    #ifdef USE_ASSERT_CHECKING
+    temporary_files_allowed = true;
+    #endif
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step's purpose
+- Clarified the relationship between file access initialization and temp file handling
+- Emphasized the timing importance of the cleanup hook registration
+- Preserved all essential logic while making the flow more obvious

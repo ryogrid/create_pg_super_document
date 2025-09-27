@@ -45,3 +45,41 @@ The function is primarily used by the interrupt processing system to detect lost
 - The function is typically called during CHECK_FOR_INTERRUPTS() processing
 - Does not wake up idle sessions and is specifically designed for active query processing contexts
 - Critical for detecting client disconnections during long-running operations to prevent resource waste
+
+## Simplified Source
+
+```c
+// Simplified version of pq_check_connection
+bool pq_check_connection(void) {
+    WaitEvent events[FeBeWaitSetNEvents];
+    int rc;
+
+    // Configure wait set to monitor for socket closure
+    ModifyWaitEvent(FeBeWaitSet, FeBeWaitSetSocketPos, WL_SOCKET_CLOSED, NULL);
+
+retry:
+    // Poll for events with zero timeout (non-blocking)
+    rc = WaitEventSetWait(FeBeWaitSet, 0, events, lengthof(events), 0);
+
+    // Check all returned events
+    for (int i = 0; i < rc; ++i) {
+        if (events[i].events & WL_SOCKET_CLOSED) {
+            return false;  // Connection is closed
+        }
+        if (events[i].events & WL_LATCH_SET) {
+            // Reset latch and retry to unmask other events
+            ResetLatch(MyLatch);
+            goto retry;
+        }
+    }
+
+    return true;  // Connection is still active
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving core logic
+- Simplified variable declarations
+- Maintained the retry mechanism for latch handling
+- Focused on the essential connection checking workflow
+- Preserved all critical functionality for connection monitoring

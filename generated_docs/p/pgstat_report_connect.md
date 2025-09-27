@@ -37,3 +37,28 @@ The function first checks if connection statistics should be reported using pgst
 - Part of PostgreSQL's database-level session monitoring system
 - The dboid parameter is provided but the function uses MyDatabaseId for consistency
 - [Session](../S/Session.md) statistics help administrators monitor database connection patterns and usage
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_report_connect
+void pgstat_report_connect(Oid dboid) {
+    // Check if we should report connection stats (only for regular backends)
+    if (!pgstat_should_report_connstat()) {
+        return;
+    }
+
+    // Record when this session started
+    pgLastSessionReportTime = MyStartTimestamp;
+
+    // Get database statistics entry and increment session counter
+    PgStat_StatDBEntry *dbentry = pgstat_prep_database_pending(MyDatabaseId);
+    dbentry->sessions++;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step
+- Consolidated variable declaration with assignment
+- Focused on the main execution path
+- Removed unnecessary blank lines for better readability

@@ -40,3 +40,31 @@ This function serves as a process exit callback that is automatically registered
 - The shutdown message helps administrators confirm clean database shutdown
 - Only postmaster and standalone backend processes use this callback - child processes exit without calling it
 - Part of PostgreSQL's interlock-file support system for preventing multiple server instances
+
+## Simplified Source
+
+```c
+// Simplified version of UnlinkLockFiles
+static void UnlinkLockFiles(int status, Datum arg) {
+    // Step 1: Remove all lockfiles from the global list
+    foreach(l, lock_files) {
+        char *lockfile_path = (char *) lfirst(l);
+        unlink(lockfile_path);  // Remove file from filesystem
+    }
+
+    // Step 2: Clear the lockfiles list (no cleanup needed since exiting)
+    lock_files = NIL;
+
+    // Step 3: Log shutdown completion message
+    // Use LOG level for postmaster, NOTICE for standalone backend
+    ereport(IsPostmasterEnvironment ? LOG : NOTICE,
+            (errmsg("database system is shut down")));
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about error handling philosophy
+- Simplified variable declarations and loop structure
+- Consolidated the main logic into three clear steps
+- Kept essential functionality: file removal, list cleanup, and shutdown logging
+- Preserved the important distinction between postmaster and standalone backend logging levels

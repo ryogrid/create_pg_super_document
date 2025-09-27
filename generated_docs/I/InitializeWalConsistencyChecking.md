@@ -35,3 +35,39 @@ The function uses the GUC system to re-set the wal_consistency_checking paramete
 - Re-triggers the full GUC validation and assignment process
 - Ensures that all resource manager names are validated after modules are loaded
 - Contains assertions to verify proper state transitions
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeWalConsistencyChecking
+void InitializeWalConsistencyChecking(void) {
+    // Verify we're called after shared libraries are loaded
+    Assert(process_shared_preload_libraries_done);
+
+    // Check if deferred validation is needed
+    if (check_wal_consistency_checking_deferred) {
+        // Find the wal_consistency_checking GUC option
+        struct config_generic *guc = find_option("wal_consistency_checking", false, false, ERROR);
+
+        // Clear the deferred flag before re-processing
+        check_wal_consistency_checking_deferred = false;
+
+        // Re-process the wal_consistency_checking parameter with full validation
+        // This will now recognize any custom resource managers that were loaded
+        set_config_option_ext("wal_consistency_checking",
+                              wal_consistency_checking_string,
+                              guc->scontext, guc->source, guc->srole,
+                              GUC_ACTION_SET, true, ERROR, false);
+
+        // Verify deferred flag remains clear after processing
+        Assert(!check_wal_consistency_checking_deferred);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Maintained the essential assertion checks for safety
+- Preserved the exact control flow and function calls
+- Made the deferred validation logic more explicit with comments
+- Kept the original parameter passing structure for set_config_option_ext

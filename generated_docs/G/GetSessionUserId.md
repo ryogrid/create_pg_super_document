@@ -39,3 +39,21 @@ This function takes no parameters and returns:
 - The session user ID is used as the base identity for determining which roles can be assumed via SET ROLE
 - Related to SessionUserIsSuperuser which tracks superuser status of the session user
 - Critical for session-level security and auditing purposes
+
+## Simplified Source
+
+```c
+// Simplified version of GetSessionUserId
+Oid GetSessionUserId(void) {
+    // Ensure session user ID is valid
+    Assert(OidIsValid(SessionUserId));
+
+    // Return the session user ID
+    return SessionUserId;
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple with only an assertion and return
+- No simplification needed - the function is a direct accessor with validation
+- Preserved the essential assertion check and return of SessionUserId

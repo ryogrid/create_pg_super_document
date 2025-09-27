@@ -51,3 +51,29 @@ This function is designed for one-time timeouts (not recurring) and is commonly 
 - Thread-safe within PostgreSQL single-threaded process model
 - Requires the timeout to be previously registered with RegisterTimeout()
 - Will overwrite any existing timeout for the same TimeoutId
+
+## Simplified Source
+
+```c
+// Simplified version of enable_timeout_after
+void enable_timeout_after(TimeoutId id, int delay_ms) {
+    // Step 1: Disable interrupts for atomic operation
+    disable_alarm();
+
+    // Step 2: Calculate when timeout should fire
+    TimestampTz current_time = GetCurrentTimestamp();
+    TimestampTz finish_time = TimestampTzPlusMilliseconds(current_time, delay_ms);
+
+    // Step 3: Activate the timeout (0 = one-time, not recurring)
+    enable_timeout(id, current_time, finish_time, 0);
+
+    // Step 4: Schedule the alarm interrupt
+    schedule_alarm(current_time);
+}
+```
+
+Key simplifications made:
+- Combined variable declarations with assignments for clarity
+- Added inline comments explaining each major step
+- Used more descriptive variable names (current_time vs now, finish_time vs fin_time)
+- Focused on the core logic flow without losing essential functionality

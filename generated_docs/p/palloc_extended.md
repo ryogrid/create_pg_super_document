@@ -45,3 +45,41 @@ The function integrates with Valgrind memory debugging tools and handles allocat
 - Returns NULL on allocation failure instead of throwing an error when appropriate flags are set
 - The zero-initialization using `MemSetAligned` is performed after allocation to ensure optimal performance
 - Located in src/backend/utils/mmgr/mcxt.c at lines 1367-1407
+
+## Simplified Source
+
+```c
+// Simplified version of palloc_extended
+void *palloc_extended(Size size, int flags) {
+    // Step 1: Get current memory context and validate it
+    MemoryContext context = CurrentMemoryContext;
+    Assert(MemoryContextIsValid(context));
+
+    // Step 2: Mark context as active (not reset)
+    context->isReset = false;
+
+    // Step 3: Delegate allocation to context's allocation method
+    void *ret = context->methods->alloc(context, size, flags);
+    if (ret == NULL) {
+        return NULL;  // Allocation failed
+    }
+
+    // Step 4: Integrate with memory debugging tools
+    VALGRIND_MEMPOOL_ALLOC(context, ret, size);
+
+    // Step 5: Zero-initialize memory if requested
+    if (flags & MCXT_ALLOC_ZERO) {
+        MemSetAligned(ret, 0, size);
+    }
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling assertions for clarity
+- Consolidated variable declarations with initialization
+- Added step-by-step comments explaining the core logic
+- Simplified the unlikely() macro usage for readability
+- Focused on the main execution path
+- Preserved essential functionality: validation, allocation, debugging integration, and zero-initialization

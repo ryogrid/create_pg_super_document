@@ -47,3 +47,30 @@ This is typically called during system startup or when dynamically creating new 
 - This is a low-level initialization function - higher-level code should typically use tranche-specific initialization routines
 - Must be called exactly once per lock instance, typically during shared memory setup
 - The initialized lock is immediately ready for LWLockAcquire/LWLockRelease operations
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockInitialize
+void LWLockInitialize(LWLock *lock, int tranche_id) {
+    // Initialize atomic state to unlocked with release flag
+    pg_atomic_init_u32(&lock->state, LW_FLAG_RELEASE_OK);
+
+#ifdef LOCK_DEBUG
+    // Initialize debug waiter counter
+    pg_atomic_init_u32(&lock->nwaiters, 0);
+#endif
+
+    // Set the tranche ID for categorization
+    lock->tranche = tranche_id;
+
+    // Initialize empty process waiting list
+    proclist_init(&lock->waiters);
+}
+```
+
+Key simplifications made:
+- Function is already simple, maintained all essential initialization steps
+- Added brief comments for clarity
+- Preserved the conditional debug code compilation
+- Focused on the four main initialization tasks: state, debug counters, tranche, and waiters list

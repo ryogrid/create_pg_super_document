@@ -33,3 +33,32 @@ The function works by first computing the hash code of the associated LOCK objec
 - The PGPROC address is left-shifted by LOG2_NUM_LOCK_PARTITIONS to avoid affecting partition assignment
 - Uses intermediate Datum variable to suppress compiler warnings about pointer-to-int casts
 - Critical for the proper functioning of PostgreSQL's lock partitioning scheme
+
+## Simplified Source
+
+```c
+// Simplified version of proclock_hash
+static uint32 proclock_hash(const void *key, Size keysize) {
+    const PROCLOCKTAG *proclocktag = (const PROCLOCKTAG *) key;
+    uint32 lockhash;
+    Datum procptr;
+
+    Assert(keysize == sizeof(PROCLOCKTAG));
+
+    // Get hash code from the associated LOCK object
+    lockhash = LockTagHashCode(&proclocktag->myLock->tag);
+
+    // XOR in the PGPROC address, shifted to preserve partition bits
+    // This makes the hash depend on both the lock and the process
+    procptr = PointerGetDatum(proclocktag->myProc);
+    lockhash ^= ((uint32) procptr) << LOG2_NUM_LOCK_PARTITIONS;
+
+    return lockhash;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the partition alignment requirement
+- Clarified that the shift preserves low-order partition bits
+- Simplified the explanation of why PGPROC address is included
+- Maintained the essential hash computation algorithm

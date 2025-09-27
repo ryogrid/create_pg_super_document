@@ -34,3 +34,36 @@ This function creates or attaches to the shared memory structure for WAL summari
 - Initializes condition variable for inter-process coordination
 - Part of PostgreSQL's shared memory subsystem initialization
 - Location: src/backend/postmaster/walsummarizer.c:180-210
+
+## Simplified Source
+
+```c
+// Simplified version of WalSummarizerShmemInit
+void WalSummarizerShmemInit(void) {
+    bool found;
+
+    // Create or attach to shared memory for WAL summarizer
+    WalSummarizerCtl = (WalSummarizerData *)
+        ShmemInitStruct("Wal Summarizer Ctl", WalSummarizerShmemSize(), &found);
+
+    // If this is the first process, initialize with default values
+    if (!found) {
+        // Initialize control structure with placeholder values
+        WalSummarizerCtl->initialized = false;
+        WalSummarizerCtl->summarized_tli = 0;
+        WalSummarizerCtl->summarized_lsn = InvalidXLogRecPtr;
+        WalSummarizerCtl->lsn_is_exact = false;
+        WalSummarizerCtl->summarizer_pgprocno = INVALID_PROC_NUMBER;
+        WalSummarizerCtl->pending_lsn = InvalidXLogRecPtr;
+
+        // Initialize condition variable for process coordination
+        ConditionVariableInit(&WalSummarizerCtl->summary_file_cv);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated the shared memory initialization logic flow
+- Added clear comments explaining the two main phases: attach/create and initialize
+- Preserved all essential initialization steps
+- Maintained the original structure while improving readability

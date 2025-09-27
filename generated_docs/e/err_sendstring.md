@@ -29,3 +29,24 @@ This function serves as a wrapper around PostgreSQL's string sending functionali
 
 ## Notes and Other Information
 This function is part of PostgreSQL's robust error handling system that prevents error cascades. The error recursion detection mechanism ensures that even if encoding conversion fails during error reporting, the system can still communicate error information to clients using safe ASCII-only transmission. Code that calls this function during error recursion scenarios must ensure the input strings are plain 7-bit ASCII characters to avoid encoding issues.
+
+## Simplified Source
+
+```c
+// Simplified version of err_sendstring
+static void err_sendstring(StringInfo buf, const char *str) {
+    // Check if we're in error recursion trouble
+    if (in_error_recursion_trouble()) {
+        // Use ASCII-only transmission to avoid encoding issues
+        pq_send_ascii_string(buf, str);
+    } else {
+        // Use normal string transmission with encoding conversion
+        pq_sendstring(buf, str);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two code paths
+- Clarified the purpose of error recursion detection
+- Core logic: Use ASCII transmission during error recursion, normal transmission otherwise

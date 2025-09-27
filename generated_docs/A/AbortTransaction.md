@@ -60,3 +60,123 @@ This function takes no parameters but operates on:
 - Resource cleanup follows the same ordering principles as CommitTransaction for consistency
 - Can skip resource cleanup if the transaction failed before creating a resource owner
 - Handles both normal transaction aborts and aborts during two-phase commit preparation
+
+## Simplified Source
+
+```c
+// Simplified version of AbortTransaction
+static void AbortTransaction(void) {
+    TransactionState s = CurrentTransactionState;
+    TransactionId latestXid;
+    bool is_parallel_worker;
+
+    // Prevent interrupts during cleanup
+    HOLD_INTERRUPTS();
+
+    // Disable transaction timeout
+    if (TransactionTimeout > 0) {
+        disable_timeout(TRANSACTION_TIMEOUT, false);
+    }
+
+    // Setup memory context and resource owner
+    AtAbort_Memory();
+    AtAbort_ResourceOwner();
+
+    // Emergency cleanup - release locks and reset state
+    LWLockReleaseAll();
+    pgstat_report_wait_end();
+    pgstat_progress_end_command();
+    UnlockBuffers();
+    XLogResetInsertion();
+    ConditionVariableCancelSleep();
+    LockErrorCleanup();
+    reschedule_timeouts();
+
+    // Re-enable signals for timeout infrastructure
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+
+    // Validate transaction state
+    is_parallel_worker = (s->blockState == TBLOCK_PARALLEL_INPROGRESS);
+    if (s->state != TRANS_INPROGRESS && s->state != TRANS_PREPARE) {
+        elog(WARNING, "AbortTransaction while in %s state",
+             TransStateAsString(s->state));
+    }
+    s->state = TRANS_ABORT;
+
+    // Restore user context and reset subsystem state
+    SetUserIdAndSecContext(s->prevUser, s->prevSecContext);
+    ResetReindexState(s->nestingLevel);
+    ResetLogicalStreamingState();
+    SnapBuildResetExportedSnapshotState();
+
+    // Clean up parallel operations
+    AtEOXact_Parallel(false);
+    s->parallelModeLevel = 0;
+    s->parallelChildXact = false;
+
+    // Core abort processing
+    AfterTriggerEndXact(false);
+    AtAbort_Portals();
+    smgrDoPendingSyncs(false, is_parallel_worker);
+    AtEOXact_LargeObject(false);
+    AtAbort_Notify();
+    AtEOXact_RelationMap(false, is_parallel_worker);
+    AtAbort_Twophase();
+
+    // Record transaction abort (except for parallel workers)
+    if (!is_parallel_worker) {
+        latestXid = RecordTransactionAbort(false);
+    } else {
+        latestXid = InvalidTransactionId;
+        XLogSetAsyncXactLSN(XactLastRecEnd);
+    }
+
+    // Update process array
+    ProcArrayEndTransaction(MyProc, latestXid);
+
+    // Post-abort cleanup - only if resource owner exists
+    if (TopTransactionResourceOwner != NULL) {
+        // Call appropriate callbacks
+        if (is_parallel_worker) {
+            CallXactCallbacks(XACT_EVENT_PARALLEL_ABORT);
+        } else {
+            CallXactCallbacks(XACT_EVENT_ABORT);
+        }
+
+        // Release resources in phases
+        ResourceOwnerRelease(TopTransactionResourceOwner, RESOURCE_RELEASE_BEFORE_LOCKS, false, true);
+        AtEOXact_Buffers(false);
+        AtEOXact_RelationCache(false);
+        AtEOXact_Inval(false);
+        AtEOXact_MultiXact();
+        ResourceOwnerRelease(TopTransactionResourceOwner, RESOURCE_RELEASE_LOCKS, false, true);
+        ResourceOwnerRelease(TopTransactionResourceOwner, RESOURCE_RELEASE_AFTER_LOCKS, false, true);
+        smgrDoPendingDeletes(false);
+
+        // Clean up various subsystems
+        AtEOXact_GUC(false, 1);
+        AtEOXact_SPI(false);
+        AtEOXact_Enum();
+        AtEOXact_on_commit_actions(false);
+        AtEOXact_Namespace(false, is_parallel_worker);
+        AtEOXact_SMgr();
+        AtEOXact_Files(false);
+        AtEOXact_ComboCid();
+        AtEOXact_HashTables(false);
+        AtEOXact_PgStat(false, is_parallel_worker);
+        AtEOXact_ApplyLauncher(false);
+        AtEOXact_LogicalRepWorkers(false);
+        pgstat_report_xact_timestamp(0);
+    }
+
+    // State remains TRANS_ABORT until CleanupTransaction()
+    RESUME_INTERRUPTS();
+}
+```
+
+Key simplifications made:
+- Grouped emergency cleanup operations together
+- Simplified parallel worker detection and handling
+- Consolidated resource release phases
+- Removed detailed comments while preserving logical flow
+- Organized subsystem cleanup calls by functional groups

@@ -51,3 +51,48 @@ The function performs several operations:
 - It is the caller's responsibility to protect this function from signal handler interruption
 - Part of the internal helper functions for PostgreSQL's timeout management system
 - Used by various public timeout scheduling functions
+
+## Simplified Source
+
+```c
+// Simplified version of enable_timeout
+static void enable_timeout(TimeoutId id, TimestampTz now, TimestampTz fin_time, int interval_in_ms) {
+    // Validate timeout system and handler are ready
+    Assert(all_timeouts_initialized);
+    Assert(all_timeouts[id].timeout_handler != NULL);
+
+    // If timeout already active, remove it (reschedule behavior)
+    if (all_timeouts[id].active) {
+        remove_timeout_index(find_active_timeout(id));
+    }
+
+    // Find insertion position to maintain sorted order (by finish time, then by ID)
+    int insert_pos = 0;
+    for (int i = 0; i < num_active_timeouts; i++) {
+        timeout_params *existing = active_timeouts[i];
+
+        if (fin_time < existing->fin_time ||
+            (fin_time == existing->fin_time && id < existing->index)) {
+            insert_pos = i;
+            break;
+        }
+        insert_pos = i + 1;
+    }
+
+    // Configure timeout parameters
+    all_timeouts[id].indicator = false;
+    all_timeouts[id].start_time = now;
+    all_timeouts[id].fin_time = fin_time;
+    all_timeouts[id].interval_in_ms = interval_in_ms;
+
+    // Insert timeout into active list at correct position
+    insert_timeout(id, insert_pos);
+}
+```
+
+Key simplifications made:
+- Consolidated loop logic for finding insertion position
+- Combined loop exit conditions for better readability
+- Added clearer variable names (insert_pos, existing)
+- Preserved essential algorithm: validation, reschedule handling, sorted insertion
+- Maintained all critical functionality while improving code clarity

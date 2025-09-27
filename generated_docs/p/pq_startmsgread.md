@@ -44,3 +44,26 @@ If a read operation is already active when this function is called, it indicates
 - Failure to call this function before using  functions can lead to undefined behavior
 - The protocol violation check helps detect and prevent communication desynchronization issues
 - Used extensively throughout PostgreSQL's authentication, replication, and general communication systems
+
+## Simplified Source
+
+```c
+// Simplified version of pq_startmsgread
+void pq_startmsgread(void) {
+    // Protocol violation check: ensure no read is already active
+    if (PqCommReadingMsg) {
+        ereport(FATAL, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                       errmsg("terminating connection because protocol synchronization was lost")));
+    }
+
+    // Set the global flag to indicate message reading has started
+    PqCommReadingMsg = true;
+}
+```
+
+Key simplifications made:
+- Preserved the essential protocol violation check
+- Maintained the critical state setting operation
+- Kept the FATAL error handling as it's essential for protocol safety
+- Added clear comments explaining the two main operations
+- Focused on the core logic flow without removing any functionality

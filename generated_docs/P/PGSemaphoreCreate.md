@@ -37,3 +37,46 @@ This function takes no parameters.
 - On systems with USE_NAMED_POSIX_SEMAPHORES, the semaphore pointer is stored in mySemPointers array for cleanup
 - The global variable numSems is incremented to track the total number of allocated semaphores
 - This is part of PostgreSQL's platform-independent semaphore API defined in pg_sema.h
+
+## Simplified Source
+
+```c
+// Simplified version of PGSemaphoreCreate
+PGSemaphore PGSemaphoreCreate(void) {
+    PGSemaphore sema;
+    sem_t *newsem;
+
+    // Core logic step 1: Verify this is called from postmaster process only
+    Assert(!IsUnderPostmaster);
+
+    // Core logic step 2: Check semaphore limit to prevent resource exhaustion
+    if (numSems >= maxSems) {
+        elog(PANIC, "too many semaphores created");
+    }
+
+    // Core logic step 3: Create platform-specific semaphore
+#ifdef USE_NAMED_POSIX_SEMAPHORES
+    // Named semaphores: create new semaphore and store pointer for cleanup
+    newsem = PosixSemaphoreCreate();
+    mySemPointers[numSems] = newsem;
+    sema = (PGSemaphore) newsem;
+#else
+    // Unnamed semaphores: use shared memory location
+    sema = &sharedSemas[numSems];
+    newsem = PG_SEM_REF(sema);
+    PosixSemaphoreCreate(newsem);
+#endif
+
+    // Core logic step 4: Track the new semaphore
+    numSems++;
+
+    return sema;
+}
+```
+
+Key simplifications made:
+- Preserved the essential algorithm flow: validation, limit checking, platform-specific creation, tracking
+- Kept critical error handling (panic on semaphore limit exceeded)
+- Maintained the conditional compilation logic for different semaphore types
+- Added explanatory comments for each major step
+- Focused on the main execution path while preserving all functional logic

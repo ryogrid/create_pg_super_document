@@ -38,3 +38,34 @@ The function maintains the contiguous structure of the active timeouts array by 
 - It is the caller's responsibility to protect this function from signal handler interruption
 - Part of the internal helper functions for PostgreSQL's timeout management system
 - Called from various timeout management operations including signal handling
+
+## Simplified Source
+
+```c
+// Simplified version of remove_timeout_index
+static void remove_timeout_index(int index) {
+    // Validate index bounds
+    if (index < 0 || index >= num_active_timeouts) {
+        elog(FATAL, "timeout index %d out of range 0..%d", index,
+             num_active_timeouts - 1);
+    }
+
+    // Mark timeout as inactive
+    Assert(active_timeouts[index]->active);
+    active_timeouts[index]->active = false;
+
+    // Shift remaining timeouts left to fill the gap
+    for (int i = index + 1; i < num_active_timeouts; i++) {
+        active_timeouts[i - 1] = active_timeouts[i];
+    }
+
+    // Update active timeout count
+    num_active_timeouts--;
+}
+```
+
+Key simplifications made:
+- Moved variable declaration inline in the for loop for clarity
+- Added descriptive comments for each main operation
+- Preserved all essential logic including bounds checking and error handling
+- Maintained the core array manipulation algorithm

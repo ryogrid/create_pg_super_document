@@ -47,3 +47,67 @@ This function takes no parameters.
 - The function maintains two sorted OID arrays (SysCacheRelationOid and SysCacheSupportingRelOid) for efficient cache invalidation
 - All cache configurations must have valid relation and index OIDs, which is enforced through assertions
 - The sorting and deduplication of OID arrays enables binary search for cache invalidation operations
+
+## Simplified Source
+
+```c
+// Simplified version of InitCatalogCache
+void InitCatalogCache(void) {
+    int cacheId;
+
+    Assert(!CacheInitialized);
+
+    // Initialize OID array sizes
+    SysCacheRelationOidSize = SysCacheSupportingRelOidSize = 0;
+
+    // Initialize each system catalog cache
+    for (cacheId = 0; cacheId < SysCacheSize; cacheId++) {
+        // Validate cache configuration
+        Assert(OidIsValid(cacheinfo[cacheId].reloid));
+        Assert(OidIsValid(cacheinfo[cacheId].indoid));
+
+        // Create the catalog cache
+        SysCache[cacheId] = InitCatCache(cacheId,
+                                         cacheinfo[cacheId].reloid,
+                                         cacheinfo[cacheId].indoid,
+                                         cacheinfo[cacheId].nkeys,
+                                         cacheinfo[cacheId].key,
+                                         cacheinfo[cacheId].nbuckets);
+
+        // Check for initialization failure
+        if (!PointerIsValid(SysCache[cacheId]))
+            elog(ERROR, "could not initialize cache %u (%d)",
+                 cacheinfo[cacheId].reloid, cacheId);
+
+        // Build OID arrays for cache invalidation
+        SysCacheRelationOid[SysCacheRelationOidSize++] = cacheinfo[cacheId].reloid;
+        SysCacheSupportingRelOid[SysCacheSupportingRelOidSize++] = cacheinfo[cacheId].reloid;
+        SysCacheSupportingRelOid[SysCacheSupportingRelOidSize++] = cacheinfo[cacheId].indoid;
+
+        Assert(!RelationInvalidatesSnapshotsOnly(cacheinfo[cacheId].reloid));
+    }
+
+    // Validate array bounds
+    Assert(SysCacheRelationOidSize <= lengthof(SysCacheRelationOid));
+    Assert(SysCacheSupportingRelOidSize <= lengthof(SysCacheSupportingRelOid));
+
+    // Sort and deduplicate OID arrays for binary search
+    qsort(SysCacheRelationOid, SysCacheRelationOidSize, sizeof(Oid), oid_compare);
+    SysCacheRelationOidSize = qunique(SysCacheRelationOid, SysCacheRelationOidSize,
+                                      sizeof(Oid), oid_compare);
+
+    qsort(SysCacheSupportingRelOid, SysCacheSupportingRelOidSize, sizeof(Oid), oid_compare);
+    SysCacheSupportingRelOidSize = qunique(SysCacheSupportingRelOid, SysCacheSupportingRelOidSize,
+                                           sizeof(Oid), oid_compare);
+
+    // Mark cache system as initialized
+    CacheInitialized = true;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major operation section
+- Removed detailed intermediate comments while preserving essential logic
+- Grouped related operations together with explanatory comments
+- Maintained all critical assertions and error handling
+- Preserved the complete initialization flow including OID array management

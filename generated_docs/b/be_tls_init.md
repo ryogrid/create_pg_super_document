@@ -58,3 +58,131 @@ The function uses either FATAL or LOG level error reporting depending on whether
 - The function supports loading Certificate Revocation Lists (CRL) for enhanced security
 - Protocol version compatibility is checked when both min and max versions are specified
 - The SSL context ownership model ensures proper memory management and cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of be_tls_init
+int be_tls_init(bool isServerStart) {
+    SSL_CTX *context;
+    int ssl_ver_min = -1;
+    int ssl_ver_max = -1;
+
+    // Initialize OpenSSL library (one-time setup)
+    if (!SSL_initialized) {
+        OPENSSL_init_ssl(OPENSSL_INIT_LOAD_CONFIG, NULL);
+        SSL_initialized = true;
+    }
+
+    // Create new SSL context for configuration
+    context = SSL_CTX_new(SSLv23_method());
+    if (!context) {
+        report_ssl_error("could not create SSL context", isServerStart);
+        goto error;
+    }
+
+    // Configure SSL context mode and call initialization hook
+    SSL_CTX_set_mode(context, SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER);
+    (*openssl_tls_init_hook)(context, isServerStart);
+    ssl_is_server_start = isServerStart;
+
+    // Load server certificate and private key
+    if (SSL_CTX_use_certificate_chain_file(context, ssl_cert_file) != 1) {
+        report_ssl_error("could not load server certificate", isServerStart);
+        goto error;
+    }
+
+    if (!check_ssl_key_file_permissions(ssl_key_file, isServerStart))
+        goto error;
+
+    if (SSL_CTX_use_PrivateKey_file(context, ssl_key_file, SSL_FILETYPE_PEM) != 1) {
+        report_ssl_error("could not load private key", isServerStart);
+        goto error;
+    }
+
+    if (SSL_CTX_check_private_key(context) != 1) {
+        report_ssl_error("private key validation failed", isServerStart);
+        goto error;
+    }
+
+    // Configure SSL/TLS protocol versions
+    if (ssl_min_protocol_version) {
+        ssl_ver_min = ssl_protocol_version_to_openssl(ssl_min_protocol_version);
+        if (ssl_ver_min == -1 || !SSL_CTX_set_min_proto_version(context, ssl_ver_min)) {
+            report_ssl_error("could not set minimum protocol version", isServerStart);
+            goto error;
+        }
+    }
+
+    if (ssl_max_protocol_version) {
+        ssl_ver_max = ssl_protocol_version_to_openssl(ssl_max_protocol_version);
+        if (ssl_ver_max == -1 || !SSL_CTX_set_max_proto_version(context, ssl_ver_max)) {
+            report_ssl_error("could not set maximum protocol version", isServerStart);
+            goto error;
+        }
+    }
+
+    // Validate protocol version compatibility
+    if (ssl_min_protocol_version && ssl_max_protocol_version && ssl_ver_min > ssl_ver_max) {
+        report_ssl_error("min protocol version cannot be higher than max", isServerStart);
+        goto error;
+    }
+
+    // Configure security options (disable insecure features)
+    SSL_CTX_set_options(context, SSL_OP_NO_TICKET | SSL_OP_NO_COMPRESSION);
+    SSL_CTX_set_session_cache_mode(context, SSL_SESS_CACHE_OFF);
+
+    // Disable renegotiation for security
+#ifdef SSL_OP_NO_RENEGOTIATION
+    SSL_CTX_set_options(context, SSL_OP_NO_RENEGOTIATION);
+#endif
+
+    // Set up cryptographic key exchange
+    if (!initialize_dh(context, isServerStart) || !initialize_ecdh(context, isServerStart))
+        goto error;
+
+    // Configure cipher suites
+    if (SSL_CTX_set_cipher_list(context, SSLCipherSuites) != 1) {
+        report_ssl_error("could not set cipher list", isServerStart);
+        goto error;
+    }
+
+    if (SSLPreferServerCiphers)
+        SSL_CTX_set_options(context, SSL_OP_CIPHER_SERVER_PREFERENCE);
+
+    // Load Certificate Authority for client verification
+    if (ssl_ca_file[0]) {
+        if (!load_ca_certificates(context, isServerStart))
+            goto error;
+    }
+
+    // Load Certificate Revocation List if configured
+    if (ssl_crl_file[0] || ssl_crl_dir[0]) {
+        if (!load_certificate_revocation_list(context, isServerStart))
+            goto error;
+    }
+
+    // Success: Replace existing SSL context
+    if (SSL_context)
+        SSL_CTX_free(SSL_context);
+
+    SSL_context = context;
+    ssl_loaded_verify_locations = (ssl_ca_file[0] != 0);
+
+    return 0;
+
+error:
+    if (context)
+        SSL_CTX_free(context);
+    return -1;
+}
+```
+
+Key simplifications made:
+- Consolidated repetitive error handling into helper function calls
+- Abstracted detailed OpenSSL version checks and conditional compilation
+- Simplified complex CRL loading logic into helper function
+- Removed verbose error message formatting for clarity
+- Focused on the main execution path and core functionality
+- Consolidated similar security option settings
+- Abstracted CA certificate loading complexity

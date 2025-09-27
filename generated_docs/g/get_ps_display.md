@@ -41,3 +41,35 @@ The function also provides the effective length through an output parameter, whi
 - On platforms without process status support, always returns an empty string with length 0
 - The function is primarily used by logging and monitoring subsystems to include current activity information in log entries
 - The caller should not assume the returned string is null-terminated; use the returned length instead
+
+## Simplified Source
+
+```c
+// Simplified version of get_ps_display
+const char *get_ps_display(int *displen) {
+    // Check if process status display is supported
+    if (!process_status_supported()) {
+        *displen = 0;
+        return "";
+    }
+
+    // Verify buffer is available (platform-specific check)
+    if (!ps_buffer) {
+        *displen = 0;
+        return "";
+    }
+
+    // Calculate activity portion length (excluding fixed prefix)
+    *displen = ps_buffer_cur_len - ps_buffer_fixed_size;
+
+    // Return pointer to activity portion of the buffer
+    return ps_buffer + ps_buffer_fixed_size;
+}
+```
+
+Key simplifications made:
+- Abstracted conditional compilation checks into conceptual `process_status_supported()` function
+- Consolidated platform-specific buffer validation
+- Added clear comments explaining each logical step
+- Focused on the main execution path while preserving essential error handling
+- Simplified the logic flow while maintaining the same functional behavior

@@ -42,3 +42,47 @@ ExecPartitionCheck is a core function in PostgreSQL's partition constraint valid
 - NULL constraint evaluation results are treated as success, consistent with cataloged constraint handling
 - The function is critical for maintaining partition constraint integrity during INSERT and UPDATE operations
 - Error handling is delegated to ExecPartitionCheckEmitError when constraint violations occur and error emission is requested
+
+## Simplified Source
+
+```c
+// Simplified version of ExecPartitionCheck
+bool ExecPartitionCheck(ResultRelInfo *resultRelInfo, TupleTableSlot *slot,
+                       EState *estate, bool emitError) {
+    ExprContext *econtext;
+    bool success;
+
+    // First-time initialization: build partition check expression
+    if (resultRelInfo->ri_PartitionCheckExpr == NULL) {
+        // Switch to query-lifespan memory context for persistence
+        MemoryContext oldcxt = MemoryContextSwitchTo(estate->es_query_cxt);
+
+        // Get partition constraint and prepare expression
+        List *qual = RelationGetPartitionQual(resultRelInfo->ri_RelationDesc);
+        resultRelInfo->ri_PartitionCheckExpr = ExecPrepareCheck(qual, estate);
+
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Set up expression evaluation context
+    econtext = GetPerTupleExprContext(estate);
+    econtext->ecxt_scantuple = slot;
+
+    // Evaluate partition constraint (NULL treated as success)
+    success = ExecCheck(resultRelInfo->ri_PartitionCheckExpr, econtext);
+
+    // Handle constraint violation
+    if (!success && emitError) {
+        ExecPartitionCheckEmitError(resultRelInfo, slot, estate);
+    }
+
+    return success;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining corner cases
+- Simplified memory context switching explanation
+- Consolidated the core logic flow into clear steps
+- Preserved essential algorithm and error handling
+- Maintained all critical function calls and variable usage

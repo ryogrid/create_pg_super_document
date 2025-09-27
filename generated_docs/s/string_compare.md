@@ -33,3 +33,21 @@ string_compare serves as a HashCompareFunc for string keys in PostgreSQL's hash 
 - Returns standard comparison result: <0, 0, or >0 for less than, equal, or greater than
 - Essential for string-keyed hash tables in PostgreSQL
 - Located at src/backend/utils/hash/dynahash.c:307-351
+
+## Simplified Source
+
+```c
+// Simplified version of string_compare
+static int string_compare(const char *key1, const char *key2, Size keysize) {
+    // Compare only keysize-1 bytes because strlcpy() truncates at keysize-1
+    // This ensures we don't compare garbage data beyond the truncation point
+    return strncmp(key1, key2, keysize - 1);
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the keysize-1 limitation
+- Explained the relationship to strlcpy() truncation behavior
+- This function is already very simple, being essentially a wrapper
+- Preserved the essential bounded string comparison logic
+- Maintained the static declaration and hash function interface

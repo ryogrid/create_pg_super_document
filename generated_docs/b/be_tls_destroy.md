@@ -40,3 +40,25 @@ This function takes no parameters.
 - The function resets the ssl_loaded_verify_locations flag, which tracks whether CA certificates were loaded
 - This function should be called during server shutdown or before reinitializing SSL with be_tls_init
 - No error checking is performed as SSL_CTX_free handles NULL contexts gracefully
+
+## Simplified Source
+
+```c
+// Simplified version of be_tls_destroy
+void be_tls_destroy(void) {
+    // Clean up SSL context if it exists
+    if (SSL_context) {
+        SSL_CTX_free(SSL_context);
+    }
+
+    // Reset SSL state variables
+    SSL_context = NULL;
+    ssl_loaded_verify_locations = false;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the cleanup process
+- Preserved the essential NULL check before freeing
+- Maintained the state reset logic
+- Function is already simple and straightforward

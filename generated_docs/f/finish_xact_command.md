@@ -36,3 +36,32 @@ This function completes a transaction command by disabling the active statement 
 - Memory context checking helps detect memory leaks and corruption
 - Memory statistics can be used for performance analysis and leak tracking
 - Part of PostgreSQL's transaction management system paired with start_xact_command()
+
+## Simplified Source
+
+```c
+// Simplified version of finish_xact_command
+static void finish_xact_command(void) {
+    // Step 1: Always disable statement timeout after command execution
+    disable_statement_timeout();
+
+    // Step 2: Commit transaction if one was started
+    if (xact_started) {
+        CommitTransactionCommand();
+
+        // Step 3: Optional memory debugging (in debug builds)
+        // MemoryContextCheck(TopMemoryContext);
+        // MemoryContextStats(TopMemoryContext);
+
+        // Step 4: Mark transaction as finished
+        xact_started = false;
+    }
+}
+```
+
+Key simplifications made:
+- Removed conditional compilation directives (#ifdef blocks) for clarity
+- Commented out debug-only memory checking and statistics calls
+- Added descriptive comments for each logical step
+- Focused on the main execution path without platform-specific details
+- Preserved the essential transaction lifecycle management logic

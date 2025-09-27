@@ -46,3 +46,43 @@ This function performs the final cleanup steps when a background worker is no lo
 - Performs safety assertions to validate worker state before cleanup
 - Critical for preventing memory leaks and maintaining accurate worker accounting
 - Part of the worker lifecycle management infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of ForgetBackgroundWorker
+void ForgetBackgroundWorker(slist_mutable_iter *cur) {
+    RegisteredBgWorker *worker;
+    BackgroundWorkerSlot *slot;
+
+    // Step 1: Get the worker from the list iterator
+    worker = slist_container(RegisteredBgWorker, rw_lnode, cur->cur);
+
+    // Step 2: Find the corresponding shared memory slot
+    slot = &BackgroundWorkerData->slot[worker->rw_shmem_slot];
+
+    // Step 3: Update parallel worker accounting if needed
+    if (worker->rw_worker.bgw_flags & BGWORKER_CLASS_PARALLEL) {
+        BackgroundWorkerData->parallel_terminate_count++;
+    }
+
+    // Step 4: Use memory barrier for safe shared memory update
+    pg_memory_barrier();
+    slot->in_use = false;
+
+    // Step 5: Log the unregistration
+    ereport(DEBUG1, (errmsg_internal("unregistering background worker \"%s\"",
+                                     worker->rw_worker.bgw_name)));
+
+    // Step 6: Remove from list and free memory
+    slist_delete_current(cur);
+    pfree(worker);
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity (kept essential logic)
+- Added step-by-step comments to show the cleanup process
+- Simplified variable names for better readability
+- Focused on the main execution path
+- Preserved critical memory barrier and accounting logic

@@ -37,3 +37,32 @@ The function is designed to normalize path strings by removing superfluous trail
 - Input string must be mutable (cannot be a string literal)
 - Removes all trailing directory separators, not just one
 - Essential component of the path manipulation toolkit in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of trim_trailing_separator
+static void trim_trailing_separator(char *path) {
+    char *p;
+
+    // Skip drive prefix (Windows compatibility)
+    path = skip_drive(path);
+
+    // Start from the end of the string
+    p = path + strlen(path);
+
+    // Remove trailing separators, but preserve leading slash
+    if (p > path) {
+        // Move backward and null-terminate trailing separators
+        for (p--; p > path && IS_DIR_SEP(*p); p--) {
+            *p = '\0';
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the trimming process
+- Preserved the essential backward scanning algorithm
+- Maintained Windows compatibility with skip_drive
+- Kept the important logic to preserve leading slashes

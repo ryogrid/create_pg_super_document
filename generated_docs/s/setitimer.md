@@ -43,3 +43,60 @@ The `setitimer` function provides POSIX setitimer() compatibility on Windows by 
 - Fatal errors reported if Windows API calls fail during initialization
 - Converts POSIX timer semantics to Windows event-driven model
 - Limited to real-time timers only (no virtual or profiling timers)
+
+## Simplified Source
+
+```c
+// Simplified version of setitimer (Windows implementation)
+int setitimer(int which, const struct itimerval *value, struct itimerval *ovalue) {
+    // Validate parameters
+    Assert(value != NULL);
+    Assert(value->it_interval.tv_sec == 0 && value->it_interval.tv_usec == 0);
+    Assert(which == ITIMER_REAL);
+
+    // Initialize timer thread on first call
+    if (timerThreadHandle == INVALID_HANDLE_VALUE) {
+        // Create Windows event for thread communication
+        timerCommArea.event = CreateEvent(NULL, TRUE, FALSE, NULL);
+        if (timerCommArea.event == NULL) {
+            ereport(FATAL, (errmsg_internal("could not create timer event: error code %lu",
+                                           GetLastError())));
+        }
+
+        // Initialize timer communication area
+        MemSet(&timerCommArea.value, 0, sizeof(struct itimerval));
+        InitializeCriticalSection(&timerCommArea.crit_sec);
+
+        // Create timer management thread
+        timerThreadHandle = CreateThread(NULL, 0, pg_timer_thread, NULL, 0, NULL);
+        if (timerThreadHandle == INVALID_HANDLE_VALUE) {
+            ereport(FATAL, (errmsg_internal("could not create timer thread: error code %lu",
+                                           GetLastError())));
+        }
+    }
+
+    // Update timer settings thread-safely
+    EnterCriticalSection(&timerCommArea.crit_sec);
+
+    // Return old value if requested
+    if (ovalue) {
+        *ovalue = timerCommArea.value;
+    }
+
+    // Set new timer value
+    timerCommArea.value = *value;
+
+    LeaveCriticalSection(&timerCommArea.crit_sec);
+
+    // Signal timer thread to update settings
+    SetEvent(timerCommArea.event);
+
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added clear comments for the initialization and update phases
+- Preserved the essential Windows API calls and error handling
+- Maintained the thread-safe communication mechanism
+- Kept the important parameter validation logic

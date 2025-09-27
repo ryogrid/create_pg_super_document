@@ -46,3 +46,54 @@ This function takes no parameters but relies on global variables:
 - Automatically registers CleanupProcSignalState to run on process exit
 - Sets MyProcSignalSlot global variable for use by CheckProcSignal
 - Located in src/backend/storage/ipc/procsignal.c:158-210
+
+## Simplified Source
+
+```c
+// Simplified version of ProcSignalInit
+void ProcSignalInit(void) {
+    ProcSignalSlot *slot;
+    uint64 barrier_generation;
+
+    // Validate process number is set and within bounds
+    if (MyProcNumber < 0)
+        elog(ERROR, "MyProcNumber not set");
+    if (MyProcNumber >= NumProcSignalSlots)
+        elog(ERROR, "unexpected MyProcNumber %d in ProcSignalInit (max %d)",
+             MyProcNumber, NumProcSignalSlots);
+
+    // Get pointer to our slot in the shared array
+    slot = &ProcSignal->psh_slot[MyProcNumber];
+
+    // Warn if slot appears to be already in use
+    if (slot->pss_pid != 0)
+        elog(LOG, "process %d taking over ProcSignal slot %d, but it's not empty",
+             MyProcPid, MyProcNumber);
+
+    // Clear any leftover signal flags from previous use
+    MemSet(slot->pss_signalFlags, 0, NUM_PROCSIGNALS * sizeof(sig_atomic_t));
+
+    // Initialize barrier synchronization state
+    // Clear check mask and sync with current barrier generation
+    pg_atomic_write_u32(&slot->pss_barrierCheckMask, 0);
+    barrier_generation = pg_atomic_read_u64(&ProcSignal->psh_barrierGeneration);
+    pg_atomic_write_u64(&slot->pss_barrierGeneration, barrier_generation);
+    pg_memory_barrier();
+
+    // Mark slot as owned by this process
+    slot->pss_pid = MyProcPid;
+
+    // Set global pointer for use by other functions
+    MyProcSignalSlot = slot;
+
+    // Register cleanup function to release slot on exit
+    on_shmem_exit(CleanupProcSignalState, (Datum) 0);
+}
+```
+
+Key simplifications made:
+- Preserved all essential validation and error handling
+- Kept critical atomic operations and memory barriers intact
+- Added clear comments for each major step
+- Maintained the exact logic flow and memory safety guarantees
+- Focused on the core functionality: claim slot, initialize state, register cleanup

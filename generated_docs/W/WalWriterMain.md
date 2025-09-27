@@ -120,3 +120,115 @@ The process uses a hibernation mechanism to reduce CPU usage when there's little
 - Sleeps for at least 1 second after any error to prevent rapid error log filling
 - Uses WalWriterDelay configuration parameter to control sleep intervals
 - The process can be signaled via SIGHUP (config reload), SIGTERM/SIGINT (shutdown), and SIGUSR1 (inter-process signaling)
+
+## Simplified Source
+
+```c
+// Simplified version of WalWriterMain
+void WalWriterMain(char *startup_data, size_t startup_data_len) {
+    sigjmp_buf local_sigjmp_buf;
+    MemoryContext walwriter_context;
+    int left_till_hibernate;
+    bool hibernating;
+
+    // Initialize process type and common auxiliary process setup
+    MyBackendType = B_WAL_WRITER;
+    AuxiliaryProcessMainCommon();
+
+    // Set up signal handlers for process management
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);
+    pqsignal(SIGINT, SignalHandlerForShutdownRequest);
+    pqsignal(SIGTERM, SignalHandlerForShutdownRequest);
+    pqsignal(SIGUSR1, procsignal_sigusr1_handler);
+    // ... other signal handlers
+
+    // Create dedicated memory context for error recovery
+    walwriter_context = AllocSetContextCreate(TopMemoryContext,
+                                              "Wal Writer",
+                                              ALLOCSET_DEFAULT_SIZES);
+    MemoryContextSwitchTo(walwriter_context);
+
+    // Error recovery mechanism using sigsetjmp
+    if (sigsetjmp(local_sigjmp_buf, 1) != 0) {
+        // Error occurred - clean up resources
+        error_context_stack = NULL;
+        HOLD_INTERRUPTS();
+
+        // Report error and clean up locks/buffers
+        EmitErrorReport();
+        LWLockReleaseAll();
+        UnlockBuffers();
+        ReleaseAuxProcessResources(false);
+
+        // Reset memory context and resume normal operation
+        MemoryContextSwitchTo(walwriter_context);
+        FlushErrorState();
+        MemoryContextReset(walwriter_context);
+        RESUME_INTERRUPTS();
+
+        // Sleep to prevent rapid error repetition
+        pg_usleep(1000000L);
+    }
+
+    // Enable exception handling and unblock signals
+    PG_exception_stack = &local_sigjmp_buf;
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+
+    // Initialize hibernation state
+    left_till_hibernate = LOOPS_UNTIL_HIBERNATE;
+    hibernating = false;
+    SetWalWriterSleeping(false);
+
+    // Advertise our latch for other processes to wake us
+    ProcGlobal->walwriterLatch = &MyProc->procLatch;
+
+    // Main processing loop
+    for (;;) {
+        long cur_timeout;
+
+        // Update hibernation flag based on activity level
+        if (hibernating != (left_till_hibernate <= 1)) {
+            hibernating = (left_till_hibernate <= 1);
+            SetWalWriterSleeping(hibernating);
+        }
+
+        // Clear pending wakeups and handle signals
+        ResetLatch(MyLatch);
+        HandleMainLoopInterrupts();
+
+        // Core WAL flushing work
+        if (XLogBackgroundFlush()) {
+            // Found work to do - reset hibernation counter
+            left_till_hibernate = LOOPS_UNTIL_HIBERNATE;
+        } else if (left_till_hibernate > 0) {
+            left_till_hibernate--;
+        }
+
+        // Report WAL statistics
+        pgstat_report_wal(false);
+
+        // Calculate sleep timeout based on hibernation state
+        if (left_till_hibernate > 0) {
+            cur_timeout = WalWriterDelay;
+        } else {
+            cur_timeout = WalWriterDelay * HIBERNATE_FACTOR;
+        }
+
+        // Sleep until signaled or timeout expires
+        WaitLatch(MyLatch,
+                  WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                  cur_timeout,
+                  WAIT_EVENT_WAL_WRITER_MAIN);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and explanations for brevity
+- Consolidated similar signal handler setup calls
+- Abstracted detailed error cleanup into high-level steps
+- Simplified the hibernation logic explanation
+- Focused on the main execution flow rather than edge cases
+- Removed platform-specific signal handling details
+- Consolidated memory context operations
+- Emphasized the core WAL flushing and hibernation mechanism

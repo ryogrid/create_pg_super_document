@@ -45,3 +45,22 @@ static inline void pq_sendint32(StringInfo buf, uint32 i)
 - Essential for PostgreSQL's wire protocol compatibility
 - The 32-bit size accommodates most PostgreSQL internal identifiers and counters
 - Used in both client-server and replication protocols
+
+## Simplified Source
+
+```c
+// Simplified version of pq_sendint32
+static inline void pq_sendint32(StringInfo buf, uint32 i) {
+    // Step 1: Ensure buffer has space for 4 bytes
+    enlargeStringInfo(buf, sizeof(uint32));
+
+    // Step 2: Write the 32-bit integer in network byte order
+    pq_writeint32(buf, i);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each step
+- Emphasized the two-step process: space allocation then data writing
+- Maintained the essential logic flow without changes
+- The function is already quite simple, so minimal simplification was needed

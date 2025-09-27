@@ -41,3 +41,24 @@ This function takes no parameters.
 - Best practice is to call this before actually opening the FD to reduce EMFILE failure risk
 - The function ensures nfile + numAllocatedDescs + numExternalFDs <= max_safe_fds
 - Part of PostgreSQL's broader file descriptor management strategy to prevent resource exhaustion
+
+## Simplified Source
+
+```c
+// Simplified version of ReserveExternalFD
+void ReserveExternalFD(void) {
+    // Step 1: Free up VFDs if needed to maintain safety margins
+    // This ensures we stay within max_safe_fds limit before adding external FD
+    ReleaseLruFiles();
+
+    // Step 2: Track this external FD reservation
+    // Increment counter to reflect one more externally-held file descriptor
+    numExternalFDs++;
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the two-phase operation
+- Emphasized the safety mechanism (release before increment)
+- Clarified the purpose of each operation in plain language
+- Maintained the essential logic flow while making intent more explicit

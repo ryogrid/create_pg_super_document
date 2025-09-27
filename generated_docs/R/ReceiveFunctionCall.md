@@ -41,3 +41,54 @@ This function provides the binary counterpart to InputFunctionCall, handling con
 - Similar error handling to InputFunctionCall with validation of NULL behavior
 - Essential for protocol-level binary data exchange and internal serialization
 - Used extensively in composite types (arrays, ranges, records, domains) for binary format processing
+
+## Simplified Source
+
+```c
+// Simplified version of ReceiveFunctionCall
+Datum ReceiveFunctionCall(FmgrInfo *flinfo, StringInfo buf, Oid typioparam, int32 typmod) {
+    LOCAL_FCINFO(fcinfo, 3);
+    Datum result;
+
+    // Handle NULL input for strict functions
+    if (buf == NULL && flinfo->fn_strict) {
+        return (Datum) 0;  // Return NULL without calling function
+    }
+
+    // Set up function call with 3 arguments
+    InitFunctionCallInfoData(*fcinfo, flinfo, 3, InvalidOid, NULL, NULL);
+
+    // Prepare arguments: binary buffer, type IO param, type modifier
+    fcinfo->args[0].value = PointerGetDatum(buf);
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = ObjectIdGetDatum(typioparam);
+    fcinfo->args[1].isnull = false;
+    fcinfo->args[2].value = Int32GetDatum(typmod);
+    fcinfo->args[2].isnull = false;
+
+    // Call the binary receive function
+    result = FunctionCallInvoke(fcinfo);
+
+    // Validate NULL handling consistency
+    if (buf == NULL) {
+        // NULL buffer should produce NULL result
+        if (!fcinfo->isnull) {
+            elog(ERROR, "receive function %u returned non-NULL", flinfo->fn_oid);
+        }
+    } else {
+        // Non-NULL buffer should produce non-NULL result
+        if (fcinfo->isnull) {
+            elog(ERROR, "receive function %u returned NULL", flinfo->fn_oid);
+        }
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining binary data handling
+- Highlighted the difference from InputFunctionCall (binary vs text)
+- Simplified argument setup with explanatory comments
+- Preserved NULL validation logic with clear explanations
+- Focused on the main execution path for binary data conversion

@@ -42,3 +42,31 @@ The  function retrieves raw binary data from a PostgreSQL message buffer () by r
 - Advances the message cursor automatically to maintain proper position tracking
 - Throws a protocol violation error if insufficient data is available
 - Used extensively in type receive functions and protocol message parsing
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getmsgbytes
+const char *
+pq_getmsgbytes(StringInfo msg, int datalen)
+{
+    // Validate that we have enough data available
+    if (datalen < 0 || datalen > (msg->len - msg->cursor)) {
+        ereport(ERROR, "insufficient data left in message");
+    }
+
+    // Get pointer to current position in buffer
+    const char *result = &msg->data[msg->cursor];
+
+    // Advance cursor past the extracted bytes
+    msg->cursor += datalen;
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Simplified error reporting call for clarity
+- Added descriptive comments for each main step
+- Focused on the core logic: validate, extract pointer, advance cursor
+- Maintained the zero-copy efficiency of the original design

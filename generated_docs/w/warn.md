@@ -36,3 +36,19 @@ This function is part of the ECPG compatibility layer for Oracle, specifically u
 - The warning message is hardcoded and always reports the same truncation warning
 - This function is part of PostgreSQL's embedded SQL testing infrastructure, specifically for Oracle compatibility features
 - The function is called multiple times throughout various test main functions, indicating its role in comprehensive testing of truncation scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of warn
+static void warn(void) {
+    // Print a standardized warning message about column truncation
+    fprintf(stderr, "Warning: At least one column was truncated\n");
+}
+```
+
+Key simplifications made:
+- Added inline comment explaining the function's single purpose
+- This function is already extremely simple and requires no structural changes
+- Maintained the exact same functionality for ECPG test compatibility
+- Preserved the static linkage for test module encapsulation

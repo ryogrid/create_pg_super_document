@@ -31,3 +31,23 @@ This function implements the platform-specific atomic write operation for 64-bit
 - The 8-byte alignment assertion is critical for correctness and will cause debug builds to fail if violated
 - This is part of PostgreSQL's cross-platform atomic operations abstraction layer
 - On platforms without native 64-bit atomic write support, a different implementation would be selected
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_write_u64_impl
+static inline void
+pg_atomic_write_u64_impl(volatile pg_atomic_uint64 *ptr, uint64 val) {
+    // Verify proper 8-byte alignment for atomic guarantee
+    AssertPointerAlignment(ptr, 8);
+
+    // Perform atomic write via direct assignment
+    ptr->value = val;
+}
+```
+
+Key simplifications made:
+- Condensed the detailed platform-specific comment into a brief explanation
+- Added inline comments for the two main operations
+- Preserved the essential logic: alignment check and atomic assignment
+- Maintained the function's critical correctness requirements

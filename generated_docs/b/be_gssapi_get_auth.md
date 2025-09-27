@@ -36,3 +36,24 @@ This function is typically used by other parts of PostgreSQL to determine the au
 - This function is separate from encryption status - a connection can have GSSAPI authentication without GSSAPI encryption
 - Used primarily for auditing and monitoring purposes to track authentication methods
 - The  flag is set during the GSSAPI authentication process in other functions
+
+## Simplified Source
+
+```c
+// Simplified version of be_gssapi_get_auth
+bool be_gssapi_get_auth(Port *port) {
+    // Step 1: Validate port and GSSAPI state exist
+    if (!port || !port->gss) {
+        return false;
+    }
+
+    // Step 2: Return the GSSAPI authentication status
+    return port->gss->auth;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the validation and access logic
+- Maintained the essential null safety checks
+- Preserved the simple authentication status query functionality
+- Kept the straightforward boolean return logic

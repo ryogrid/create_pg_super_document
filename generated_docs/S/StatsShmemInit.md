@@ -43,3 +43,72 @@ This function initializes the shared memory statistics system during PostgreSQL 
 - Uses LWTRANCHE_PGSTATS_DSA for DSA locks and LWTRANCHE_PGSTATS_DATA for statistics data locks
 - Postmaster detaches from DSA/hash table references after creation since it won't access them again
 - Initializes garbage collection request counter to 1
+
+## Simplified Source
+
+```c
+// Simplified version of StatsShmemInit
+void StatsShmemInit(void) {
+    bool found;
+    Size sz;
+
+    // Calculate shared memory size and create/attach to shared memory structure
+    sz = StatsShmemSize();
+    pgStatLocal.shmem = (PgStat_ShmemControl *)
+        ShmemInitStruct("Shared Memory Stats", sz, &found);
+
+    if (!IsUnderPostmaster) {
+        // Postmaster process: create all statistics structures
+        PgStat_ShmemControl *ctl = pgStatLocal.shmem;
+        char *p = (char *) ctl;
+
+        // Skip past the main control structure
+        p += MAXALIGN(sizeof(PgStat_ShmemControl));
+
+        // Create DSA (Dynamic Shared Area) in plain shared memory
+        ctl->raw_dsa_area = p;
+        p += MAXALIGN(pgstat_dsa_init_size());
+
+        dsa_area *dsa = dsa_create_in_place(ctl->raw_dsa_area,
+                                          pgstat_dsa_init_size(),
+                                          LWTRANCHE_PGSTATS_DSA, 0);
+        dsa_pin(dsa);
+
+        // Create hash table with size limit to ensure plain shared memory placement
+        dsa_set_size_limit(dsa, pgstat_dsa_init_size());
+        dshash_table *dsh = dshash_create(dsa, &dsh_params, NULL);
+        ctl->hash_handle = dshash_get_hash_table_handle(dsh);
+        dsa_set_size_limit(dsa, -1); // Remove size limit
+
+        // Cleanup local references - postmaster won't use these again
+        dshash_detach(dsh);
+        dsa_detach(dsa);
+
+        // Initialize garbage collection counter
+        pg_atomic_init_u64(&ctl->gc_request_count, 1);
+
+        // Initialize locks for all statistics components
+        LWLockInitialize(&ctl->archiver.lock, LWTRANCHE_PGSTATS_DATA);
+        LWLockInitialize(&ctl->bgwriter.lock, LWTRANCHE_PGSTATS_DATA);
+        LWLockInitialize(&ctl->checkpointer.lock, LWTRANCHE_PGSTATS_DATA);
+        LWLockInitialize(&ctl->slru.lock, LWTRANCHE_PGSTATS_DATA);
+        LWLockInitialize(&ctl->wal.lock, LWTRANCHE_PGSTATS_DATA);
+
+        // Initialize I/O statistics locks for all backend types
+        for (int i = 0; i < BACKEND_NUM_TYPES; i++) {
+            LWLockInitialize(&ctl->io.locks[i], LWTRANCHE_PGSTATS_DATA);
+        }
+    } else {
+        // Backend process: just verify shared memory was found
+        Assert(found);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and combined related operations
+- Simplified variable declarations and initialization
+- Consolidated memory pointer arithmetic explanations
+- Abstracted DSA and hash table creation details
+- Streamlined lock initialization into logical groups
+- Preserved the essential two-phase logic (postmaster vs backend)

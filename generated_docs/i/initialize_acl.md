@@ -34,3 +34,34 @@ The `initialize_acl` function is called during PostgreSQL initialization (specif
 - The cached_db_hash variable stores the hash value of MyDatabaseId for performance optimization
 - Critical for maintaining consistency of role-based access control throughout a PostgreSQL session
 - Part of PostgreSQL's system initialization sequence ensuring ACL subsystem is properly configured
+
+## Simplified Source
+
+```c
+// Simplified version of initialize_acl
+void initialize_acl(void) {
+    // Skip initialization during bootstrap mode
+    if (!IsBootstrapProcessingMode()) {
+        // Cache database hash for efficient access control checks
+        cached_db_hash = GetSysCacheHashValue1(DATABASEOID,
+                                               ObjectIdGetDatum(MyDatabaseId));
+
+        // Register cache invalidation callbacks for role membership
+        CacheRegisterSyscacheCallback(AUTHMEMROLEMEM,
+                                      RoleMembershipCacheCallback,
+                                      (Datum) 0);
+        CacheRegisterSyscacheCallback(AUTHOID,
+                                      RoleMembershipCacheCallback,
+                                      (Datum) 0);
+        CacheRegisterSyscacheCallback(DATABASEOID,
+                                      RoleMembershipCacheCallback,
+                                      (Datum) 0);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated similar callback registrations
+- Added explanatory comments for each main operation
+- Preserved the bootstrap mode check and all three cache callback registrations
+- Maintained the essential logic flow for ACL subsystem initialization

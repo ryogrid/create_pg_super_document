@@ -31,3 +31,34 @@ The pg_fdatasync function provides a controlled interface to synchronize data fo
 - Automatically retries on EINTR interruption
 - Part of PostgreSQL's file descriptor management system in fd.c
 - More efficient than pg_fsync when only data synchronization is needed
+
+## Simplified Source
+
+```c
+// Simplified version of pg_fdatasync
+int pg_fdatasync(int fd) {
+    int rc;
+
+    // Skip fsync if disabled globally (e.g., for testing)
+    if (!enableFsync) {
+        return 0;
+    }
+
+retry:
+    // Perform data synchronization (not metadata)
+    rc = fdatasync(fd);
+
+    // Retry if interrupted by signal
+    if (rc == -1 && errno == EINTR) {
+        goto retry;
+    }
+
+    return rc;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining fsync control and retry logic
+- Preserved the essential enableFsync check for testing scenarios
+- Maintained the EINTR retry mechanism for robustness
+- Function is already quite simple, minimal changes needed

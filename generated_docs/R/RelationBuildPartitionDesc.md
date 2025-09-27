@@ -61,3 +61,158 @@ RelationBuildPartitionDesc is the core function responsible for constructing par
 - Stores different descriptor types (with/without detached partitions) in separate relcache fields
 - Uses MVCC-aware logic when dealing with detached partitions and transaction snapshots
 - The retry logic is limited to one attempt to avoid infinite loops in case of catalog corruption
+
+## Simplified Source
+
+```c
+// Simplified version of RelationBuildPartitionDesc
+static PartitionDesc
+RelationBuildPartitionDesc(Relation rel, bool omit_detached)
+{
+    PartitionDesc partdesc;
+    PartitionBoundInfo boundinfo = NULL;
+    List *inhoids;
+    PartitionBoundSpec **boundspecs = NULL;
+    Oid *oids = NULL;
+    bool *is_leaf = NULL;
+    bool detached_exist;
+    bool retried = false;
+    TransactionId detached_xmin;
+    PartitionKey key = RelationGetPartitionKey(rel);
+    MemoryContext new_pdcxt, oldcxt;
+    ListCell *cell;
+    int i, nparts;
+    int *mapping;
+
+retry:
+    // Step 1: Get list of partition OIDs from pg_inherits
+    detached_exist = false;
+    inhoids = find_inheritance_children_extended(RelationGetRelid(rel),
+                                               omit_detached, NoLock,
+                                               &detached_exist,
+                                               &detached_xmin);
+    nparts = list_length(inhoids);
+
+    // Step 2: Allocate working arrays for partition data
+    if (nparts > 0) {
+        oids = palloc(nparts * sizeof(Oid));
+        is_leaf = palloc(nparts * sizeof(bool));
+        boundspecs = palloc(nparts * sizeof(PartitionBoundSpec *));
+    }
+
+    // Step 3: Collect partition boundary specifications for each partition
+    i = 0;
+    foreach(cell, inhoids) {
+        Oid inhrelid = lfirst_oid(cell);
+        PartitionBoundSpec *boundspec = NULL;
+
+        // Try to get boundary spec from system cache first
+        HeapTuple tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(inhrelid));
+        if (HeapTupleIsValid(tuple)) {
+            bool isnull;
+            Datum datum = SysCacheGetAttr(RELOID, tuple,
+                                        Anum_pg_class_relpartbound, &isnull);
+            if (!isnull)
+                boundspec = stringToNode(TextDatumGetCString(datum));
+            ReleaseSysCache(tuple);
+        }
+
+        // If cache miss, read directly from pg_class table
+        if (boundspec == NULL) {
+            // Direct table scan for partition boundary info
+            // (Implementation details abstracted for clarity)
+            boundspec = read_partition_bound_from_catalog(inhrelid);
+
+            // Handle race conditions with concurrent DETACH operations
+            if (!boundspec && !retried) {
+                AcceptInvalidationMessages();
+                retried = true;
+                goto retry;
+            }
+        }
+
+        // Validate boundary specification
+        if (!boundspec)
+            elog(ERROR, "missing relpartbound for relation %u", inhrelid);
+
+        // Validate default partition consistency
+        if (boundspec->is_default) {
+            Oid partdefid = get_default_partition_oid(RelationGetRelid(rel));
+            if (partdefid != inhrelid)
+                elog(ERROR, "expected partdefid %u, but got %u", inhrelid, partdefid);
+        }
+
+        // Store partition information
+        oids[i] = inhrelid;
+        is_leaf[i] = (get_rel_relkind(inhrelid) != RELKIND_PARTITIONED_TABLE);
+        boundspecs[i] = boundspec;
+        ++i;
+    }
+
+    // Step 4: Create partition boundary info and mapping
+    if (nparts > 0)
+        boundinfo = partition_bounds_create(boundspecs, nparts, key, &mapping);
+
+    // Step 5: Create memory context for partition descriptor
+    new_pdcxt = AllocSetContextCreate(CurTransactionContext,
+                                    "partition descriptor",
+                                    ALLOCSET_SMALL_SIZES);
+
+    // Step 6: Build the partition descriptor structure
+    partdesc = MemoryContextAllocZero(new_pdcxt, sizeof(PartitionDescData));
+    partdesc->nparts = nparts;
+    partdesc->detached_exist = detached_exist;
+
+    if (nparts > 0) {
+        // Copy boundary info and initialize caching fields
+        oldcxt = MemoryContextSwitchTo(new_pdcxt);
+        partdesc->boundinfo = partition_bounds_copy(boundinfo, key);
+        partdesc->last_found_datum_index = -1;
+        partdesc->last_found_part_index = -1;
+        partdesc->last_found_count = 0;
+
+        // Allocate and populate OID and leaf arrays using mapping
+        partdesc->oids = palloc(nparts * sizeof(Oid));
+        partdesc->is_leaf = palloc(nparts * sizeof(bool));
+
+        for (i = 0; i < nparts; i++) {
+            int index = mapping[i];
+            partdesc->oids[index] = oids[i];
+            partdesc->is_leaf[index] = is_leaf[i];
+        }
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Step 7: Finalize memory context and store in relcache
+    MemoryContextSetParent(new_pdcxt, CacheMemoryContext);
+
+    // Store in appropriate relcache field based on detached partition handling
+    bool is_omit = omit_detached && detached_exist &&
+                   ActiveSnapshotSet() && TransactionIdIsValid(detached_xmin);
+
+    if (is_omit) {
+        // Store descriptor that omits detached partitions
+        if (rel->rd_pddcxt != NULL)
+            MemoryContextSetParent(rel->rd_pddcxt, new_pdcxt);
+        rel->rd_pddcxt = new_pdcxt;
+        rel->rd_partdesc_nodetached = partdesc;
+        rel->rd_partdesc_nodetached_xmin = detached_xmin;
+    } else {
+        // Store regular descriptor including all partitions
+        if (rel->rd_pdcxt != NULL)
+            MemoryContextSetParent(rel->rd_pdcxt, new_pdcxt);
+        rel->rd_pdcxt = new_pdcxt;
+        rel->rd_partdesc = partdesc;
+    }
+
+    return partdesc;
+}
+```
+
+Key simplifications made:
+- Abstracted complex catalog scanning logic into conceptual `read_partition_bound_from_catalog()`
+- Simplified memory context switching details while preserving the essential flow
+- Consolidated error handling patterns for better readability
+- Removed detailed comments about race conditions but kept the retry logic
+- Focused on the main execution path while preserving all critical validation steps
+- Maintained the core algorithm structure and key variable usage

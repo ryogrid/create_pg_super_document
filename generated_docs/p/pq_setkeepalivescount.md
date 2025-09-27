@@ -39,3 +39,58 @@ The function performs several validation checks: it verifies the port is valid a
 - Uses a special case where count=0 means "use system default"
 - If the system default is unknown (negative value), setting to 0 succeeds but non-zero values fail
 - Logs errors when setsockopt fails or when TCP_KEEPCNT is not supported on the platform
+
+## Simplified Source
+
+```c
+// Simplified version of pq_setkeepalivescount
+int pq_setkeepalivescount(int count, Port *port) {
+    // Skip if not a TCP connection
+    if (port == NULL || port->laddr.addr.ss_family == AF_UNIX)
+        return STATUS_OK;
+
+#ifdef TCP_KEEPCNT
+    // Skip if value hasn't changed
+    if (count == port->keepalives_count)
+        return STATUS_OK;
+
+    // Get default value if not already known
+    if (port->default_keepalives_count <= 0) {
+        if (pq_getkeepalivescount(port) < 0) {
+            // Handle unknown defaults
+            return (count == 0) ? STATUS_OK : STATUS_ERROR;
+        }
+    }
+
+    // Use default value if count is 0
+    if (count == 0)
+        count = port->default_keepalives_count;
+
+    // Apply the new keep-alive count setting
+    if (setsockopt(port->sock, IPPROTO_TCP, TCP_KEEPCNT,
+                   (char *) &count, sizeof(count)) < 0) {
+        ereport(LOG, (errmsg("setsockopt(TCP_KEEPCNT) failed: %m")));
+        return STATUS_ERROR;
+    }
+
+    // Update port state
+    port->keepalives_count = count;
+#else
+    // TCP_KEEPCNT not supported on this platform
+    if (count != 0) {
+        ereport(LOG, (errmsg("setsockopt(TCP_KEEPCNT) not supported")));
+        return STATUS_ERROR;
+    }
+#endif
+
+    return STATUS_OK;
+}
+```
+
+Key simplifications made:
+- Consolidated error handling logic for clarity
+- Added descriptive comments for each major logic block
+- Simplified conditional expressions
+- Focused on the main execution path
+- Abstracted low-level socket operation details
+- Maintained all essential functionality and error cases

@@ -45,3 +45,48 @@ The function manages memory context switching and recursion depth tracking to en
 - Central point for all error message output in PostgreSQL
 - Used across many background processes and main server loop
 - The hook has access to both translated and original English error text for message identification
+
+## Simplified Source
+
+```c
+// Simplified version of EmitErrorReport
+void EmitErrorReport(void) {
+    // Get the current error data from the stack
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Setup recursion tracking and memory context
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+    MemoryContext oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Reset timestamp fields for fresh formatting
+    saved_timeval_set = false;
+    formatted_log_time[0] = '\0';
+
+    // Call custom log hook if enabled (allows filtering/custom transmission)
+    if (edata->output_to_server && emit_log_hook) {
+        (*emit_log_hook)(edata);
+    }
+
+    // Send to server log if enabled
+    if (edata->output_to_server) {
+        send_message_to_server_log(edata);
+    }
+
+    // Send to client if enabled
+    if (edata->output_to_client) {
+        send_message_to_frontend(edata);
+    }
+
+    // Cleanup: restore context and decrement recursion
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining hook behavior and design rationale
+- Consolidated variable declarations with their usage
+- Focused on the main execution flow: setup → reset timestamps → call hook → send to destinations → cleanup
+- Abstracted the complex hook explanation into a brief comment
+- Preserved the essential algorithm and all functional operations

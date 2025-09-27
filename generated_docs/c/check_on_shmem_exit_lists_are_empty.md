@@ -36,3 +36,28 @@ This function takes no parameters.
 - Helps maintain the integrity of PostgreSQL's exit callback system by preventing premature registration
 - Part of PostgreSQL's defensive programming practices to catch initialization order issues early
 - The FATAL error level ensures the process terminates immediately if premature registration is detected
+
+## Simplified Source
+
+```c
+// Simplified version of check_on_shmem_exit_lists_are_empty
+void check_on_shmem_exit_lists_are_empty(void) {
+    // Check if before_shmem_exit callbacks were registered prematurely
+    if (before_shmem_exit_index) {
+        elog(FATAL, "before_shmem_exit has been called prematurely");
+    }
+
+    // Check if on_shmem_exit callbacks were registered prematurely
+    if (on_shmem_exit_index) {
+        elog(FATAL, "on_shmem_exit has been called prematurely");
+    }
+
+    // Note: DSM detach state checking is not needed given above checks
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each validation check
+- Maintained the original logic flow and error handling
+- Preserved the essential debugging functionality
+- Clarified the purpose of each index check

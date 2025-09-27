@@ -61,3 +61,57 @@ This function takes no parameters.
 - The shared memory region name is "AutoVacuum Data" for identification purposes
 - The function ensures proper memory alignment for the worker array placement
 - Located in src/backend/postmaster/autovacuum.c:3319-3363
+
+## Simplified Source
+
+```c
+// Simplified version of AutoVacuumShmemInit
+void AutoVacuumShmemInit(void) {
+    bool found;
+
+    // Allocate shared memory for autovacuum data structures
+    AutoVacuumShmem = (AutoVacuumShmemStruct *)
+        ShmemInitStruct("AutoVacuum Data", AutoVacuumShmemSize(), &found);
+
+    if (!IsUnderPostmaster) {
+        // Postmaster process: Initialize everything from scratch
+        Assert(!found);
+
+        // Initialize main control structure
+        AutoVacuumShmem->av_launcherpid = 0;
+        AutoVacuumShmem->av_startingWorker = NULL;
+
+        // Initialize worker management lists
+        dlist_init(&AutoVacuumShmem->av_freeWorkers);
+        dlist_init(&AutoVacuumShmem->av_runningWorkers);
+
+        // Clear work items array
+        memset(AutoVacuumShmem->av_workItems, 0,
+               sizeof(AutoVacuumWorkItem) * NUM_WORKITEMS);
+
+        // Set up worker info pool after main structure
+        WorkerInfo worker = (WorkerInfo)((char *)AutoVacuumShmem +
+                                        MAXALIGN(sizeof(AutoVacuumShmemStruct)));
+
+        // Initialize all workers and add to free list
+        for (int i = 0; i < autovacuum_max_workers; i++) {
+            dlist_push_head(&AutoVacuumShmem->av_freeWorkers, &worker[i].wi_links);
+            pg_atomic_init_flag(&worker[i].wi_dobalance);
+        }
+
+        // Initialize load balancing counter
+        pg_atomic_init_u32(&AutoVacuumShmem->av_nworkersForBalance, 0);
+    } else {
+        // Child process: Just attach to existing shared memory
+        Assert(found);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added descriptive comments explaining each major step
+- Simplified the conditional logic flow
+- Grouped related initialization operations together
+- Made the postmaster vs child process distinction clearer
+- Preserved all essential functionality and error checking

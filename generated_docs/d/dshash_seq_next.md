@@ -45,3 +45,58 @@ dshash_seq_next implements the core iteration logic for sequential scanning thro
 - The function stores the next item pointer to support safe deletion of the current item via dshash_delete_current()
 - Returns NULL when all elements have been processed, indicating the end of the scan
 - Primarily used in PostgreSQL's statistics system for iterating through shared statistics data
+
+## Simplified Source
+
+```c
+// Simplified version of dshash_seq_next
+void *dshash_seq_next(dshash_seq_status *status) {
+    dsa_pointer next_item_pointer;
+
+    // Initialize scan: lock first partition and setup bucket pointers
+    if (status->curpartition == -1) {
+        status->curpartition = 0;
+        LWLockAcquire(PARTITION_LOCK(status->hash_table, 0),
+                     status->exclusive ? LW_EXCLUSIVE : LW_SHARED);
+        ensure_valid_bucket_pointers(status->hash_table);
+        status->nbuckets = NUM_BUCKETS(status->hash_table->control->size_log2);
+        next_item_pointer = status->hash_table->buckets[status->curbucket];
+    } else {
+        next_item_pointer = status->pnextitem;
+    }
+
+    // Skip empty buckets and handle partition transitions
+    while (!DsaPointerIsValid(next_item_pointer)) {
+        if (++status->curbucket >= status->nbuckets) {
+            return NULL;  // Scan complete
+        }
+
+        // Check if we need to move to next partition
+        int next_partition = PARTITION_FOR_BUCKET_INDEX(status->curbucket,
+                                                       status->hash_table->size_log2);
+
+        if (status->curpartition != next_partition) {
+            // Lock next partition first, then release current (avoid deadlock)
+            LWLockAcquire(PARTITION_LOCK(status->hash_table, next_partition),
+                         status->exclusive ? LW_EXCLUSIVE : LW_SHARED);
+            LWLockRelease(PARTITION_LOCK(status->hash_table, status->curpartition));
+            status->curpartition = next_partition;
+        }
+
+        next_item_pointer = status->hash_table->buckets[status->curbucket];
+    }
+
+    // Get current item and prepare for next iteration
+    status->curitem = dsa_get_address(status->hash_table->area, next_item_pointer);
+    status->pnextitem = status->curitem->next;  // Store next for safe deletion
+
+    return ENTRY_FROM_ITEM(status->curitem);
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions and complex comments
+- Consolidated partition transition logic
+- Focused on the main iteration flow
+- Simplified bucket traversal logic
+- Maintained essential locking order for deadlock avoidance

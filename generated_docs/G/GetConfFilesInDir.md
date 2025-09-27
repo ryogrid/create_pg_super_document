@@ -53,3 +53,85 @@ The function validates the input directory name to prevent empty or blank-only n
 - Part of PostgreSQL's configuration file inclusion system, particularly for processing include_dir directives
 - Implements robust error handling with both ereport() logging and caller-visible error messages
 - The 6-character minimum length requirement effectively enforces the ".conf" extension while allowing for at least one character in the base filename
+
+## Simplified Source
+
+```c
+// Simplified version of GetConfFilesInDir
+char **GetConfFilesInDir(const char *includedir, const char *calling_file,
+                        int elevel, int *num_filenames, char **err_msg) {
+    char *directory;
+    DIR *d;
+    struct dirent *de;
+    char **filenames = NULL;
+    int size_filenames;
+
+    // Validate directory name - reject empty or blank-only names
+    if (strspn(includedir, " \t\r\n") == strlen(includedir)) {
+        *err_msg = "empty configuration directory name";
+        return NULL;
+    }
+
+    // Convert to absolute path and open directory
+    directory = AbsoluteConfigLocation(includedir, calling_file);
+    d = AllocateDir(directory);
+    if (d == NULL) {
+        *err_msg = psprintf("could not open directory \"%s\"", directory);
+        goto cleanup;
+    }
+
+    // Initialize dynamic array for filenames
+    size_filenames = 32;
+    filenames = (char **) palloc(size_filenames * sizeof(char *));
+    *num_filenames = 0;
+
+    // Scan directory for .conf files
+    while ((de = ReadDir(d, directory)) != NULL) {
+        char filename[MAXPGPATH];
+
+        // Filter: must be .conf files, not hidden, minimum 6 chars
+        if (strlen(de->d_name) < 6 ||
+            de->d_name[0] == '.' ||
+            strcmp(de->d_name + strlen(de->d_name) - 5, ".conf") != 0) {
+            continue;
+        }
+
+        // Build full path and check if it's a regular file
+        join_path_components(filename, directory, de->d_name);
+        canonicalize_path(filename);
+
+        if (get_dirent_type(filename, de, true, elevel) == PGFILETYPE_ERROR) {
+            *err_msg = psprintf("could not stat file \"%s\"", filename);
+            pfree(filenames);
+            filenames = NULL;
+            goto cleanup;
+        }
+
+        // Add to array, expanding if necessary
+        if (*num_filenames >= size_filenames) {
+            size_filenames += 32;
+            filenames = (char **) repalloc(filenames, size_filenames * sizeof(char *));
+        }
+        filenames[*num_filenames] = pstrdup(filename);
+        (*num_filenames)++;
+    }
+
+    // Sort filenames alphabetically
+    if (*num_filenames > 0) {
+        qsort(filenames, *num_filenames, sizeof(char *), pg_qsort_strcmp);
+    }
+
+cleanup:
+    if (d) FreeDir(d);
+    pfree(directory);
+    return filenames;
+}
+```
+
+Key simplifications made:
+- Consolidated error handling logic while preserving essential checks
+- Simplified the file filtering logic into a single if statement
+- Removed detailed ereport calls, keeping only the essential error message setting
+- Combined directory entry type checking with the main filtering logic
+- Maintained the core algorithm: validate input, scan directory, filter files, sort results
+- Preserved memory management and cleanup patterns

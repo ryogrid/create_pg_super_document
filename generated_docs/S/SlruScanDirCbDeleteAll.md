@@ -34,3 +34,21 @@ SlruScanDirCbDeleteAll is a straightforward callback function that provides unco
 - Used in scenarios requiring complete cleanup of SLRU data
 - Part of subsystem deactivation procedures, particularly for commit timestamp tracking
 - Also used in test modules for cleanup operations
+
+## Simplified Source
+
+```c
+// Simplified version of SlruScanDirCbDeleteAll
+bool SlruScanDirCbDeleteAll(SlruCtl ctl, char *filename, int64 segpage, void *data) {
+    // Core logic: Delete the segment and continue scanning
+    SlruInternalDeleteSegment(ctl, segpage / SLRU_PAGES_PER_SEGMENT);
+
+    return false; // Continue scanning all segments
+}
+```
+
+Key simplifications made:
+- Focused on the single core operation: delete segment
+- Removed unused parameter comments
+- Emphasized the "continue scanning" return value behavior
+- Consolidated the logic into its essential function: unconditional deletion

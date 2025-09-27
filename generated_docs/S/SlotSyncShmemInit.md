@@ -38,3 +38,34 @@ This function takes no parameters.
 - Initializes the mutex/spinlock for thread-safe access to shared state
 - Part of PostgreSQL's startup sequence for shared memory initialization
 - Located in src/backend/replication/logical/slotsync.c:1664-1682
+
+## Simplified Source
+
+```c
+// Simplified version of SlotSyncShmemInit
+void SlotSyncShmemInit(void) {
+    // Step 1: Calculate required memory size
+    Size size = SlotSyncShmemSize();
+    bool found;
+
+    // Step 2: Allocate or attach to shared memory segment
+    SlotSyncCtx = (SlotSyncCtxStruct *)
+        ShmemInitStruct("Slot Sync Data", size, &found);
+
+    // Step 3: Initialize shared memory if newly created
+    if (!found) {
+        // Clear all memory to zero
+        memset(SlotSyncCtx, 0, size);
+
+        // Set safe initial values
+        SlotSyncCtx->pid = InvalidPid;      // No active worker
+        SpinLockInit(&SlotSyncCtx->mutex);  // Initialize mutex
+    }
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the main phases
+- Clarified the purpose of each initialization operation
+- Focused on the essential shared memory setup logic
+- Highlighted the conditional initialization for new memory segments

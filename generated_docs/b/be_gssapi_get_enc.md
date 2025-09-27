@@ -39,3 +39,24 @@ The encryption flag is typically set to true after  successfully completes the G
 - Used for security auditing and monitoring to ensure connections meet encryption requirements
 - The  flag is set to true at the end of successful  execution
 - Essential for determining when to use / vs plain socket operations
+
+## Simplified Source
+
+```c
+// Simplified version of be_gssapi_get_enc
+bool be_gssapi_get_enc(Port *port) {
+    // Step 1: Validate port and GSSAPI state exist
+    if (!port || !port->gss) {
+        return false;
+    }
+
+    // Step 2: Return the GSSAPI encryption status
+    return port->gss->enc;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the validation and access logic
+- Maintained the essential null safety checks for port and GSSAPI structure
+- Preserved the straightforward encryption status query functionality
+- Kept the simple boolean return pattern consistent with other GSSAPI getter functions

@@ -42,3 +42,21 @@ The function includes a pointer alignment assertion to ensure the atomic variabl
 - Part of PostgreSQL's portable atomic operations abstraction layer
 - Widely used throughout PostgreSQL for initializing shared memory counters, statistics, and coordination variables
 - The function is implemented as a static inline wrapper for performance optimization
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_init_u32
+static inline void pg_atomic_init_u32(volatile pg_atomic_uint32 *ptr, uint32 val) {
+    // Ensure pointer is properly aligned on 4-byte boundary
+    AssertPointerAlignment(ptr, 4);
+
+    // Initialize atomic 32-bit variable with specified value
+    pg_atomic_init_u32_impl(ptr, val);
+}
+```
+
+Key simplifications made:
+- Simple wrapper function with pointer alignment check
+- Core functionality: validates alignment and delegates to platform-specific implementation
+- Minimal complexity - just validation and delegation

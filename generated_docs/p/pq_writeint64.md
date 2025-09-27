@@ -35,3 +35,28 @@ This function is used for serializing large numeric values, timestamps, large ob
 - Essential for handling large numeric values, timestamps, and other 64-bit data types in PostgreSQL's binary protocol
 - Completes the family of pq_writeint functions that provide consistent endianness handling across all integer sizes (8, 16, 32, and 64 bits)
 - Critical for cross-platform compatibility as it ensures consistent data representation regardless of the host machine's native byte order
+
+## Simplified Source
+
+```c
+// Simplified version of pq_writeint64
+static inline void pq_writeint64(StringInfoData *pg_restrict buf, uint64 i) {
+    // Convert to network byte order (big-endian)
+    uint64 ni = pg_hton64(i);
+
+    // Verify buffer has sufficient pre-allocated space
+    Assert(buf->len + (int) sizeof(uint64) <= buf->maxlen);
+
+    // Copy 64-bit value to buffer
+    memcpy((char *pg_restrict) (buf->data + buf->len), &ni, sizeof(uint64));
+
+    // Update buffer length
+    buf->len += sizeof(uint64);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining byte order conversion and buffer operations
+- Preserved the essential endianness handling for network protocol
+- Maintained the buffer bounds checking assertion
+- Function is already quite efficient, minimal changes needed

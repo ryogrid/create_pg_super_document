@@ -42,3 +42,32 @@ This function takes no parameters.
 - Essential for proper process isolation in PostgreSQL's multi-process architecture
 - Handles both regular segments and the special control segment
 - Prevents child processes from accidentally accessing parent's DSM state
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_detach_all
+void dsm_detach_all(void) {
+    // Save control segment address before detaching segments
+    void *control_address = dsm_control;
+
+    // Detach all regular DSM segments
+    while (!dlist_is_empty(&dsm_segment_list)) {
+        dsm_segment *seg = dlist_head_element(dsm_segment, node, &dsm_segment_list);
+        dsm_detach(seg);  // Removes segment from list and unmaps
+    }
+
+    // Detach the control segment if it exists
+    if (control_address != NULL) {
+        dsm_impl_op(DSM_OP_DETACH, dsm_control_handle, 0,
+                    &dsm_control_impl_private, &control_address,
+                    &dsm_control_mapped_size, ERROR);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Clarified the two-phase operation (regular segments, then control segment)
+- Emphasized the purpose of saving control_address before segment detachment
+- Focused on the main execution path without low-level implementation details

@@ -44,3 +44,23 @@ This function takes no parameters.
 - Though simple, this design is sufficient because relation mapping updates are infrequent and the checkpoint process can afford the brief synchronization delay
 - The function is called during the checkpoint process alongside other critical system state persistence operations
 - This mechanism ensures that any relation mapping changes that are visible at checkpoint time will survive a crash and won't require replay from WAL
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointRelationMap
+void CheckPointRelationMap(void) {
+    // Acquire and immediately release shared lock to ensure synchronization
+    // This waits for any in-progress relation map updates to complete
+    // and ensures their fsync operations have finished
+    LWLockAcquire(RelationMappingLock, LW_SHARED);
+    LWLockRelease(RelationMappingLock);
+}
+```
+
+Key simplifications made:
+- Preserved the essential synchronization mechanism with clear explanation
+- Added comments explaining why this simple lock pattern is effective
+- Maintained the function's core purpose: ensuring map updates are durably written
+- Simplified to show how a shared lock acquisition provides the necessary guarantee
+- The function is intentionally simple - this reflects the original design's elegance

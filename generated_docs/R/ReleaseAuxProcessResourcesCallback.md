@@ -35,3 +35,24 @@ The function is automatically registered during auxiliary process initialization
 - Ensures resource cleanup even during unexpected process termination
 - The Datum arg parameter follows PostgreSQL's callback convention but is unused
 - Critical safety net for preventing resource leaks in auxiliary processes like background writer, checkpointer, and WAL writer
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseAuxProcessResourcesCallback
+static void ReleaseAuxProcessResourcesCallback(int exit_code, Datum unused_arg) {
+    // Step 1: Determine if this is a normal termination
+    bool is_normal_exit = (exit_code == 0);
+
+    // Step 2: Release auxiliary process resources with appropriate leak warning behavior
+    ReleaseAuxProcessResources(is_normal_exit);
+}
+```
+
+Key simplifications made:
+- Renamed parameters for clarity (code -> exit_code, arg -> unused_arg)
+- Renamed variable for clarity (isCommit -> is_normal_exit)
+- Added step-by-step comments explaining the logic
+- Simplified the boolean logic for readability
+- Maintained the essential exit code checking and resource release functionality
+- Preserved the callback signature required by the shared memory exit mechanism

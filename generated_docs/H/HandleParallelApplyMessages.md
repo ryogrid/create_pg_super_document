@@ -43,3 +43,73 @@ HandleParallelApplyMessages serves as the main message dispatcher for parallel a
 - Uses non-blocking message reception (shm_mq_receive with nowait=true) to avoid hanging
 - Handles connection loss as a fatal error condition
 - Memory management is careful to switch contexts and clean up properly
+
+## Simplified Source
+
+```c
+// Simplified version of HandleParallelApplyMessages
+void HandleParallelApplyMessages(void) {
+    ListCell *lc;
+    MemoryContext oldcontext;
+    static MemoryContext hpam_context = NULL;
+
+    // Block interrupts to prevent recursive calls
+    HOLD_INTERRUPTS();
+
+    // Create or reset private memory context
+    if (!hpam_context) {
+        hpam_context = AllocSetContextCreate(TopMemoryContext,
+                                           "HandleParallelApplyMessages",
+                                           ALLOCSET_DEFAULT_SIZES);
+    } else {
+        MemoryContextReset(hpam_context);
+    }
+
+    oldcontext = MemoryContextSwitchTo(hpam_context);
+    ParallelApplyMessagePending = false;
+
+    // Process messages from each parallel worker
+    foreach(lc, ParallelApplyWorkerPool) {
+        shm_mq_result res;
+        Size nbytes;
+        void *data;
+        ParallelApplyWorkerInfo *winfo = (ParallelApplyWorkerInfo *) lfirst(lc);
+
+        // Skip detached workers
+        if (!winfo->error_mq_handle) {
+            continue;
+        }
+
+        // Try to receive message non-blockingly
+        res = shm_mq_receive(winfo->error_mq_handle, &nbytes, &data, true);
+
+        if (res == SHM_MQ_WOULD_BLOCK) {
+            continue;
+        } else if (res == SHM_MQ_SUCCESS) {
+            // Process received message
+            StringInfoData msg;
+            initStringInfo(&msg);
+            appendBinaryStringInfo(&msg, data, nbytes);
+            HandleParallelApplyMessage(&msg);
+            pfree(msg.data);
+        } else {
+            // Connection lost
+            ereport(ERROR,
+                   (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                    errmsg("lost connection to the logical replication parallel apply worker")));
+        }
+    }
+
+    // Clean up and restore context
+    MemoryContextSwitchTo(oldcontext);
+    MemoryContextReset(hpam_context);
+    RESUME_INTERRUPTS();
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about recursive calls and memory safety
+- Grouped memory context operations together
+- Simplified worker processing loop comments
+- Maintained essential interrupt protection and error handling
+- Preserved all critical functionality and cleanup operations

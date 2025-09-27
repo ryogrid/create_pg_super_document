@@ -44,3 +44,65 @@ The function supports waiting for latch signals, socket readiness (readable/writ
 - For performance-critical code that waits frequently, consider using CreateWaitEventSet/WaitEventSetWait/FreeWaitEventSet directly
 - Socket events include EOF and error conditions, which are reported as ready states to allow proper error handling
 - Return value is a bitmask indicating which events actually occurred
+
+## Simplified Source
+
+```c
+// Simplified version of WaitLatchOrSocket
+int WaitLatchOrSocket(Latch *latch, int wakeEvents, pgsocket sock,
+                      long timeout, uint32 wait_event_info) {
+    int ret = 0;
+    int rc;
+    WaitEvent event;
+
+    // Create a temporary event set to hold our events
+    WaitEventSet *set = CreateWaitEventSet(CurrentResourceOwner, 3);
+
+    // Set timeout: use provided value if WL_TIMEOUT specified, otherwise infinite wait
+    if (wakeEvents & WL_TIMEOUT)
+        timeout = timeout;  // Use provided timeout
+    else
+        timeout = -1;       // Infinite wait
+
+    // Add latch event if requested
+    if (wakeEvents & WL_LATCH_SET)
+        AddWaitEventToSet(set, WL_LATCH_SET, PGINVALID_SOCKET, latch, NULL);
+
+    // Add postmaster death monitoring if requested
+    if ((wakeEvents & WL_POSTMASTER_DEATH) && IsUnderPostmaster)
+        AddWaitEventToSet(set, WL_POSTMASTER_DEATH, PGINVALID_SOCKET, NULL, NULL);
+
+    if ((wakeEvents & WL_EXIT_ON_PM_DEATH) && IsUnderPostmaster)
+        AddWaitEventToSet(set, WL_EXIT_ON_PM_DEATH, PGINVALID_SOCKET, NULL, NULL);
+
+    // Add socket events if requested
+    if (wakeEvents & WL_SOCKET_MASK) {
+        int socket_events = wakeEvents & WL_SOCKET_MASK;
+        AddWaitEventToSet(set, socket_events, sock, NULL, NULL);
+    }
+
+    // Wait for one of the events to occur
+    rc = WaitEventSetWait(set, timeout, &event, 1, wait_event_info);
+
+    // Process the result
+    if (rc == 0) {
+        ret |= WL_TIMEOUT;  // Timeout occurred
+    } else {
+        // Return which events actually fired
+        ret |= event.events & (WL_LATCH_SET | WL_POSTMASTER_DEATH | WL_SOCKET_MASK);
+    }
+
+    // Clean up the temporary event set
+    FreeWaitEventSet(set);
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity (kept the core logic)
+- Added explanatory comments for each major step
+- Simplified the timeout handling logic presentation
+- Consolidated the event processing flow
+- Focused on the main execution path: create event set → add events → wait → process result → cleanup
+- Abstracted the low-level event masking details with descriptive comments

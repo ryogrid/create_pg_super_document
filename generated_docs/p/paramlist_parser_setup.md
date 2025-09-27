@@ -31,3 +31,23 @@ The paramlist_parser_setup function is a parser setup callback that configures t
 - The arg parameter is typically a ParamListInfo structure that will be used by paramlist_param_ref to resolve parameter values
 - This function is automatically set as the default parserSetup in makeParamList
 - The function is located in src/backend/nodes/params.c at lines 120-130
+
+## Simplified Source
+
+```c
+// Simplified version of paramlist_parser_setup
+static void paramlist_parser_setup(ParseState *pstate, void *arg) {
+    // Set up parameter reference hook to handle $1, $2, etc.
+    pstate->p_paramref_hook = paramlist_param_ref;
+
+    // Store the ParamListInfo for use by the hook
+    pstate->p_ref_hook_state = arg;
+
+    // Note: No parameter coercion hook needed for this case
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the purpose of each assignment
+- Preserved the essential logic of setting up parser hooks
+- Maintained the comment about not needing p_coerce_param_hook

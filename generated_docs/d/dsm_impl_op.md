@@ -53,3 +53,49 @@ This design allows PostgreSQL to support multiple shared memory implementations 
 - Contains compile-time conditionals for different platform implementations
 - Includes assertions to validate parameter consistency based on operation type
 - The function acts as the single point of abstraction between the DSM API and platform-specific implementations
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_impl_op
+bool dsm_impl_op(dsm_op op, dsm_handle handle, Size request_size,
+                 void **impl_private, void **mapped_address, Size *mapped_size,
+                 int elevel) {
+    // Validate operation parameters
+    Assert(op == DSM_OP_CREATE || request_size == 0);
+    Assert((op != DSM_OP_CREATE && op != DSM_OP_ATTACH) ||
+           (*mapped_address == NULL && *mapped_size == 0));
+
+    // Route to platform-specific implementation based on configured type
+    switch (dynamic_shared_memory_type) {
+        case DSM_IMPL_POSIX:
+            return dsm_impl_posix(op, handle, request_size, impl_private,
+                                  mapped_address, mapped_size, elevel);
+
+        case DSM_IMPL_SYSV:
+            return dsm_impl_sysv(op, handle, request_size, impl_private,
+                                 mapped_address, mapped_size, elevel);
+
+        case DSM_IMPL_WINDOWS:
+            return dsm_impl_windows(op, handle, request_size, impl_private,
+                                    mapped_address, mapped_size, elevel);
+
+        case DSM_IMPL_MMAP:
+            return dsm_impl_mmap(op, handle, request_size, impl_private,
+                                 mapped_address, mapped_size, elevel);
+
+        default:
+            // Unknown implementation type - error out
+            elog(ERROR, "unexpected dynamic shared memory type: %d",
+                 dynamic_shared_memory_type);
+            return false;
+    }
+}
+```
+
+Key simplifications made:
+- Removed platform-specific compile-time conditionals for clarity
+- Consolidated the switch cases to show the core routing logic
+- Added inline comments explaining the main steps
+- Preserved essential parameter validation and error handling
+- Focused on the dispatcher pattern that routes operations to implementations

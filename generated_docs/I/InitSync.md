@@ -38,3 +38,43 @@ This function takes no parameters.
 - The hash table is created with 100 initial slots and uses HASH_ELEM, HASH_BLOBS, and HASH_CONTEXT flags
 - The pendingUnlinks list is also initialized to NIL for tracking files to be unlinked
 - Only processes that actually need to track sync operations (standalone processes and checkpointer) create these data structures
+
+## Simplified Source
+
+```c
+// Simplified version of InitSync
+void InitSync(void) {
+    // Only initialize sync structures for standalone processes or checkpointer
+    if (!IsUnderPostmaster || AmCheckpointerProcess()) {
+        HASHCTL hash_ctl;
+
+        // Create memory context for pending operations
+        // Allow allocation in critical sections for checkpointer
+        pendingOpsCxt = AllocSetContextCreate(TopMemoryContext,
+                                              "Pending ops context",
+                                              ALLOCSET_DEFAULT_SIZES);
+        MemoryContextAllowInCriticalSection(pendingOpsCxt, true);
+
+        // Set up hash table configuration
+        hash_ctl.keysize = sizeof(FileTag);
+        hash_ctl.entrysize = sizeof(PendingFsyncEntry);
+        hash_ctl.hcxt = pendingOpsCxt;
+
+        // Create hash table for tracking pending fsync operations
+        pendingOps = hash_create("Pending Ops Table",
+                                 100L,
+                                 &hash_ctl,
+                                 HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+        // Initialize list for pending unlinks
+        pendingUnlinks = NIL;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comment about memory allocation risks in critical sections
+- Condensed variable declarations and assignments
+- Added concise comments explaining each major step
+- Focused on the main execution path
+- Preserved all essential functionality and logic flow

@@ -44,3 +44,79 @@ Special attention is paid to interrupt handling - interrupts are held during the
 - The function is specifically designed for WAL insertion coordination scenarios
 - Memory barrier considerations depend on caller providing appropriate barriers
 - Handles spurious wakeups gracefully by re-evaluating conditions in a loop
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockWaitForVar
+bool LWLockWaitForVar(LWLock *lock, pg_atomic_uint64 *valptr, uint64 oldval, uint64 *newval) {
+    PGPROC *proc = MyProc;
+    int extra_wakeups = 0;
+    bool result = false;
+
+    // Prevent interrupts during waiting to avoid queue corruption
+    HOLD_INTERRUPTS();
+
+    // Main waiting loop
+    for (;;) {
+        bool must_wait;
+
+        // Check if we need to wait (lock conflicts or variable unchanged)
+        must_wait = LWLockConflictsWithVar(lock, valptr, oldval, newval, &result);
+
+        if (!must_wait) {
+            break;  // Lock is free or variable changed
+        }
+
+        // Add ourselves to the wait queue
+        LWLockQueueSelf(lock, LW_WAIT_UNTIL_FREE);
+
+        // Set flag to ensure we get woken up when lock is released
+        pg_atomic_fetch_or_u32(&lock->state, LW_FLAG_RELEASE_OK);
+
+        // Recheck conditions after queuing (race condition protection)
+        must_wait = LWLockConflictsWithVar(lock, valptr, oldval, newval, &result);
+
+        if (!must_wait) {
+            // Condition satisfied after queuing - remove from queue
+            LWLockDequeueSelf(lock);
+            break;
+        }
+
+        // Wait until awakened by lock release or variable update
+        LWLockReportWaitStart(lock);
+
+        // Handle spurious wakeups by checking lwWaiting status
+        for (;;) {
+            PGSemaphoreLock(proc->sem);
+            if (proc->lwWaiting == LW_WS_NOT_WAITING) {
+                break;  // Actually woken up for our condition
+            }
+            extra_wakeups++;  // Spurious wakeup, count it
+        }
+
+        LWLockReportWaitEnd();
+
+        // Continue outer loop to recheck conditions
+    }
+
+    // Fix semaphore count for any spurious wakeups
+    while (extra_wakeups-- > 0) {
+        PGSemaphoreUnlock(proc->sem);
+    }
+
+    // Re-enable interrupts
+    RESUME_INTERRUPTS();
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed debug logging, statistics tracking, and tracing code
+- Simplified variable names for clarity (extraWaits -> extra_wakeups)
+- Consolidated comments to explain the core waiting logic
+- Removed lock debug assertions and conditional compilation blocks
+- Focused on the essential dual-condition waiting mechanism
+- Maintained all critical synchronization and race condition handling
+- Preserved interrupt management and semaphore correction logic

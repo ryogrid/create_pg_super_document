@@ -33,3 +33,36 @@ The callback distinguishes between named and unnamed portals, providing appropri
 - Safe to call with NULL or incomplete data structures
 - Part of PostgreSQL's error reporting infrastructure for better parameter debugging
 - Typically set up as an error context callback before operations that might fail with parameter-related errors
+
+## Simplified Source
+
+```c
+// Simplified version of ParamsErrorCallback
+void ParamsErrorCallback(void *arg) {
+    ParamsErrorCbData *data = (ParamsErrorCbData *) arg;
+
+    // Early return if data is invalid or parameter string not available
+    if (data == NULL ||
+        data->params == NULL ||
+        data->params->paramValuesStr == NULL) {
+        return;
+    }
+
+    // Add error context with parameter information
+    if (data->portalName && data->portalName[0] != '\0') {
+        // Named portal
+        errcontext("portal \"%s\" with parameters: %s",
+                   data->portalName, data->params->paramValuesStr);
+    } else {
+        // Unnamed portal
+        errcontext("unnamed portal with parameters: %s",
+                   data->params->paramValuesStr);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated NULL checks into a single condition for clarity
+- Added descriptive comments for the main logic branches
+- Preserved the essential error context reporting functionality
+- Maintained the distinction between named and unnamed portals

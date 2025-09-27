@@ -54,3 +54,74 @@ The retry mechanism is essential because other processes might be updating the s
 - Only works on relations marked as suitable for in-place updates or non-system relations
 - The snapshot parameter must be NULL as the function manages snapshot advancement internally
 - Creates a copy of the original tuple that the caller is responsible for freeing
+
+## Simplified Source
+
+```c
+// Simplified version of systable_inplace_update_begin
+void systable_inplace_update_begin(Relation relation,
+                                   Oid indexId,
+                                   bool indexOK,
+                                   Snapshot snapshot,
+                                   int nkeys, const ScanKeyData *key,
+                                   HeapTuple *oldtupcopy,
+                                   void **state)
+{
+    ScanKey mutable_key = palloc(sizeof(ScanKeyData) * nkeys);
+    int retries = 0;
+    SysScanDesc scan;
+    HeapTuple oldtup;
+    BufferHeapTupleTableSlot *bslot;
+
+    // Safety check: prevent parallel mode conflicts
+    if (IsInParallelMode())
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TRANSACTION_STATE),
+                       errmsg("cannot update tuples during a parallel operation")));
+
+    // Verify this relation supports in-place updates
+    Assert(IsInplaceUpdateRelation(relation) || !IsSystemRelation(relation));
+
+    // Retry loop to handle concurrent updates
+    do {
+        TupleTableSlot *slot;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Prevent infinite loops from hostile processes
+        if (retries++ > 10000)
+            elog(ERROR, "giving up after too many tries to overwrite row");
+
+        // Setup scan with mutable copy of keys
+        memcpy(mutable_key, key, sizeof(ScanKeyData) * nkeys);
+        scan = systable_beginscan(relation, indexId, indexOK, snapshot,
+                                 nkeys, mutable_key);
+
+        // Find the target tuple
+        oldtup = systable_getnext(scan);
+        if (!HeapTupleIsValid(oldtup)) {
+            systable_endscan(scan);
+            *oldtupcopy = NULL;
+            return;
+        }
+
+        // Get buffer slot for locking
+        slot = scan->slot;
+        bslot = (BufferHeapTupleTableSlot *) slot;
+
+    } while (!heap_inplace_lock(scan->heap_rel,
+                               bslot->base.tuple, bslot->buffer,
+                               (void (*) (void *)) systable_endscan, scan));
+
+    // Success: make copy of original tuple and return scan state
+    *oldtupcopy = heap_copytuple(oldtup);
+    *state = scan;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about MVCC violations and usage patterns
+- Simplified error message construction
+- Consolidated the tuple validation and slot extraction logic
+- Focused on the core retry-and-lock algorithm
+- Abstracted the low-level buffer management details
+- Maintained the essential control flow and error handling

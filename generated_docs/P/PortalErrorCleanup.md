@@ -39,3 +39,36 @@ This function takes no parameters.
 - Ensures auto-held portals don't accumulate and consume resources during repeated error conditions
 - Part of PostgreSQL's error recovery mechanism to maintain system stability
 - Much simpler than other portal cleanup functions due to its specific focus on auto-held portals only
+
+## Simplified Source
+
+```c
+// Simplified version of PortalErrorCleanup
+void PortalErrorCleanup(void) {
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hash_entry;
+
+    // Initialize iteration over all portals in the hash table
+    hash_seq_init(&status, PortalHashTable);
+
+    // Iterate through each portal in the system
+    while ((hash_entry = hash_seq_search(&status)) != NULL) {
+        Portal portal = hash_entry->portal;
+
+        // Clean up only auto-held portals during error recovery
+        if (portal->autoHeld) {
+            // Unpin the portal before dropping it
+            portal->portalPinned = false;
+
+            // Drop the portal and free its resources
+            PortalDrop(portal, false);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Used more descriptive variable name (hash_entry instead of hentry)
+- Clarified the purpose of each operation with inline comments
+- Maintained the original logic flow while improving readability

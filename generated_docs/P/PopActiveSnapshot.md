@@ -41,3 +41,41 @@ PopActiveSnapshot removes the topmost snapshot from the active snapshot stack an
 - Essential counterpart to PushActiveSnapshot and PushCopiedSnapshot
 - Widely used across PostgreSQL for snapshot lifecycle management in various contexts
 - Critical for preventing snapshot leaks and maintaining proper transaction isolation
+
+## Simplified Source
+
+```c
+// Simplified version of PopActiveSnapshot
+void PopActiveSnapshot(void) {
+    // Step 1: Get the next snapshot in the stack
+    ActiveSnapshotElt *next_snapshot = ActiveSnapshot->as_next;
+
+    // Step 2: Decrement reference count for current snapshot
+    ActiveSnapshot->as_snap->active_count--;
+
+    // Step 3: Free snapshot if no longer referenced anywhere
+    if (ActiveSnapshot->as_snap->active_count == 0 &&
+        ActiveSnapshot->as_snap->regd_count == 0) {
+        FreeSnapshot(ActiveSnapshot->as_snap);
+    }
+
+    // Step 4: Remove current snapshot from stack and update pointers
+    pfree(ActiveSnapshot);
+    ActiveSnapshot = next_snapshot;
+
+    // Step 5: Handle empty stack case
+    if (ActiveSnapshot == NULL) {
+        OldestActiveSnapshot = NULL;
+    }
+
+    // Step 6: Recalculate minimum transaction ID across remaining snapshots
+    SnapshotResetXmin();
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Used more descriptive variable name (`next_snapshot` instead of `newstack`)
+- Preserved the essential algorithm and all critical operations
+- Maintained the exact same logic flow and functionality
+- Focused on the core snapshot stack management operations

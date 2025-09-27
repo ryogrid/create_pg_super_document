@@ -37,3 +37,37 @@ SendNegotiateProtocolVersion constructs and sends a NegotiateProtocolVersion mes
 - Supports both newer protocol version requests and unknown protocol option handling
 - Part of the PostgreSQL protocol extension mechanism for backward/forward compatibility
 - Located in src/backend/tcop/backend_startup.c:855-884
+
+## Simplified Source
+
+```c
+// Simplified version of SendNegotiateProtocolVersion
+static void SendNegotiateProtocolVersion(List *unrecognized_protocol_options) {
+    StringInfoData buf;
+    ListCell *lc;
+
+    // Start building protocol negotiation message
+    pq_beginmessage(&buf, PqMsg_NegotiateProtocolVersion);
+
+    // Send the latest protocol version we support
+    pq_sendint32(&buf, PG_PROTOCOL_LATEST);
+
+    // Send count of unrecognized options
+    pq_sendint32(&buf, list_length(unrecognized_protocol_options));
+
+    // Send each unrecognized option name
+    foreach(lc, unrecognized_protocol_options) {
+        pq_sendstring(&buf, lfirst(lc));
+    }
+
+    // Complete the message (buffer will be flushed later)
+    pq_endmessage(&buf);
+}
+```
+
+Key simplifications made:
+- Preserved the core protocol negotiation logic
+- Maintained all essential message construction steps
+- Kept the straightforward control flow intact
+- Added inline comments to clarify each step
+- Focused on the main execution path without error handling complexity

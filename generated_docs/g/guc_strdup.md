@@ -48,3 +48,29 @@ The function leverages the existing  infrastructure for memory allocation, which
 - Commonly used throughout the GUC system for duplicating configuration strings
 - Inherits error handling behavior from guc_malloc, including configurable error levels
 - Uses branch prediction optimization with likely() for the success path
+
+## Simplified Source
+
+```c
+// Simplified version of guc_strdup
+char *guc_strdup(int elevel, const char *src) {
+    // Calculate required memory size (string length + null terminator)
+    size_t len = strlen(src) + 1;
+
+    // Allocate memory using GUC memory allocator
+    char *data = guc_malloc(elevel, len);
+
+    // Copy source string if allocation succeeded
+    if (data != NULL) {
+        memcpy(data, src, len);
+    }
+
+    return data;  // Returns NULL if allocation failed
+}
+```
+
+Key simplifications made:
+- Removed likely() branch prediction hint for clarity
+- Added descriptive comments for each step
+- Focused on the core string duplication logic
+- Maintained the essential error handling pattern

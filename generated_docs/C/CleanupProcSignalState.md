@@ -39,3 +39,35 @@ CleanupProcSignalState is a cleanup function registered via on_shmem_exit() that
 - Clears MyProcSignalSlot early to prevent SIGUSR1 handlers from accessing invalid memory
 - Part of PostgreSQL's graceful shutdown and cleanup mechanism
 - Located in src/backend/storage/ipc/procsignal.c:211-256
+
+## Simplified Source
+
+```c
+// Simplified version of CleanupProcSignalState
+static void CleanupProcSignalState(int status, Datum arg) {
+    ProcSignalSlot *slot = MyProcSignalSlot;
+
+    // Clear global slot pointer to prevent race conditions
+    Assert(MyProcSignalSlot != NULL);
+    MyProcSignalSlot = NULL;
+
+    // Verify we own this slot before cleanup
+    if (slot->pss_pid != MyProcPid) {
+        elog(LOG, "process %d releasing ProcSignal slot %d, but it contains %d",
+             MyProcPid, (int) (slot - ProcSignal->psh_slot), (int) slot->pss_pid);
+        return;
+    }
+
+    // Signal all barriers as complete to unblock waiters
+    pg_atomic_write_u64(&slot->pss_barrierGeneration, PG_UINT64_MAX);
+    ConditionVariableBroadcast(&slot->pss_barrierCV);
+
+    // Mark slot as available
+    slot->pss_pid = 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Clarified the barrier handling logic
+- Core logic: Clear global pointer, verify ownership, signal barrier completion, free slot

@@ -41,3 +41,42 @@ The function is crucial for the adaptive planning system's cost-based decisions 
 - Future improvements to cost estimation should be implemented in src/backend/optimizer/
 - The total_cost field from PlannedStmt->planTree provides the base execution cost estimate
 - This function is central to the cost-based decision making in choose_custom_plan
+
+## Simplified Source
+
+```c
+// Simplified version of cached_plan_cost
+static double cached_plan_cost(CachedPlan *plan, bool include_planner) {
+    double result = 0;
+    ListCell *lc;
+
+    // Sum execution costs for all statements in the plan
+    foreach(lc, plan->stmt_list) {
+        PlannedStmt *plannedstmt = lfirst_node(PlannedStmt, lc);
+
+        // Skip utility statements (they don't have meaningful execution costs)
+        if (plannedstmt->commandType == CMD_UTILITY) {
+            continue;
+        }
+
+        // Add the execution cost from the plan tree
+        result += plannedstmt->planTree->total_cost;
+
+        // Optionally add planning cost estimate for custom plans
+        if (include_planner) {
+            // Estimate planning cost based on number of relations
+            // Uses crude heuristic: 1000 * cpu_operator_cost per relation
+            int nrelations = list_length(plannedstmt->rtable);
+            result += 1000.0 * cpu_operator_cost * (nrelations + 1);
+        }
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about the limitations of the planning cost estimation
+- Consolidated the planning cost calculation into a clearer block
+- Added concise comments explaining each major step
+- Preserved the essential logic while improving readability

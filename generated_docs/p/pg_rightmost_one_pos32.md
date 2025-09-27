@@ -40,3 +40,43 @@ The implementation uses platform-specific optimizations:
 - Used less frequently than its leftmost counterpart but essential for specific data structure operations
 - The fallback implementation efficiently skips zero bytes by checking 8 bits at a time
 - Particularly important for radix tree operations where bit patterns determine navigation paths
+
+## Simplified Source
+
+```c
+// Simplified version of pg_rightmost_one_pos32
+static inline int pg_rightmost_one_pos32(uint32 word) {
+    Assert(word != 0);
+
+#ifdef HAVE__BUILTIN_CTZ
+    // Use GCC/Clang builtin for hardware acceleration
+    return __builtin_ctz(word);
+
+#elif defined(_MSC_VER)
+    // Use Microsoft Visual C++ intrinsic
+    unsigned long result;
+    _BitScanForward(&result, word);
+    return (int) result;
+
+#else
+    // Fallback implementation using byte-wise scanning
+    int position = 0;
+
+    // Skip zero bytes (8 bits at a time)
+    while ((word & 255) == 0) {
+        word >>= 8;
+        position += 8;
+    }
+
+    // Use lookup table for remaining bits in the byte
+    position += pg_rightmost_one_pos[word & 255];
+    return position;
+#endif
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each implementation path
+- Clarified the purpose of each compiler-specific optimization
+- Explained the fallback algorithm's byte-skipping optimization
+- Core logic: Use platform-specific bit counting or fallback to byte-wise scanning with lookup table

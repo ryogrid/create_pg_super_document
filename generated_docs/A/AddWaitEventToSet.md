@@ -54,3 +54,85 @@ The function performs validation checks, assigns the event to the next available
 - Socket events require a valid file descriptor
 - The WL_EXIT_ON_PM_DEATH flag is internally converted to WL_POSTMASTER_DEATH with an additional exit flag set
 - On Windows, includes additional reset field initialization
+
+## Simplified Source
+
+```c
+// Simplified version of AddWaitEventToSet
+int AddWaitEventToSet(WaitEventSet *set, uint32 events, pgsocket fd, Latch *latch, void *user_data) {
+    WaitEvent *event;
+
+    // Ensure we have space for another event
+    Assert(set->nevents < set->nevents_space);
+
+    // Handle special exit-on-postmaster-death case
+    if (events == WL_EXIT_ON_PM_DEATH) {
+        events = WL_POSTMASTER_DEATH;
+        set->exit_on_postmaster_death = true;
+    }
+
+    // Validate latch usage
+    if (latch) {
+        // Must own the latch and only one latch per set allowed
+        if (latch->owner_pid != MyProcPid)
+            elog(ERROR, "cannot wait on a latch owned by another process");
+        if (set->latch)
+            elog(ERROR, "cannot wait on more than one latch");
+        if ((events & WL_LATCH_SET) != WL_LATCH_SET)
+            elog(ERROR, "latch events only support being set");
+    } else if (events & WL_LATCH_SET) {
+        elog(ERROR, "cannot wait on latch without a specified latch");
+    }
+
+    // Validate socket usage
+    if (fd == PGINVALID_SOCKET && (events & WL_SOCKET_MASK))
+        elog(ERROR, "cannot wait on socket event without a socket");
+
+    // Initialize the new event
+    event = &set->events[set->nevents];
+    event->pos = set->nevents++;
+    event->fd = fd;
+    event->events = events;
+    event->user_data = user_data;
+
+    // Handle special event types
+    if (events == WL_LATCH_SET) {
+        set->latch = latch;
+        set->latch_pos = event->pos;
+        // Set platform-specific file descriptor for latch monitoring
+        #if defined(WAIT_USE_SELF_PIPE)
+            event->fd = selfpipe_readfd;
+        #elif defined(WAIT_USE_SIGNALFD)
+            event->fd = signal_fd;
+        #else
+            event->fd = PGINVALID_SOCKET;
+        #endif
+    } else if (events == WL_POSTMASTER_DEATH) {
+        // Set file descriptor for postmaster monitoring (Unix only)
+        #ifndef WIN32
+            event->fd = postmaster_alive_fds[POSTMASTER_FD_WATCH];
+        #endif
+    }
+
+    // Register event with platform-specific wait mechanism
+    #if defined(WAIT_USE_EPOLL)
+        WaitEventAdjustEpoll(set, event, EPOLL_CTL_ADD);
+    #elif defined(WAIT_USE_KQUEUE)
+        WaitEventAdjustKqueue(set, event, 0);
+    #elif defined(WAIT_USE_POLL)
+        WaitEventAdjustPoll(set, event);
+    #elif defined(WAIT_USE_WIN32)
+        WaitEventAdjustWin32(set, event);
+    #endif
+
+    return event->pos;
+}
+```
+
+Key simplifications made:
+- Condensed validation logic with clearer comments explaining each check
+- Grouped related validation checks together (latch validation, socket validation)
+- Simplified the conditional compilation blocks with clear comments about their purpose
+- Removed Windows-specific reset field initialization detail from main flow
+- Preserved all essential error checking and platform-specific behavior
+- Maintained the core algorithm while making the flow more readable

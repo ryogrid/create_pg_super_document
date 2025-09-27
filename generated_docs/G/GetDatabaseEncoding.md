@@ -37,3 +37,19 @@ None - this is a parameter-less function.
 - The database encoding is established at database creation time and cannot be changed afterward
 - Used throughout the system for character set conversions, collation operations, and text processing
 - Critical for ensuring data consistency across different client encodings
+
+## Simplified Source
+
+```c
+// Simplified version of GetDatabaseEncoding
+int GetDatabaseEncoding(void) {
+    // Return the encoding identifier from the global database encoding structure
+    return DatabaseEncoding->encoding;
+}
+```
+
+Key simplifications made:
+- Added explanatory comment for the single operation
+- This function is already very simple, so minimal changes were needed
+- Preserved the direct access to the global DatabaseEncoding structure
+- Maintained the integer return type for encoding identifier

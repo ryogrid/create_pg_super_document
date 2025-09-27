@@ -36,3 +36,66 @@ When the attribute is not found, the function raises an ERROR rather than return
 
 ## Notes and Other Information
 This function is relatively slow due to the type cache lookup and linear search through attributes on each call. For performance-critical code accessing the same tuple type repeatedly, caching the tuple descriptor and using GetAttributeByNum may be more efficient. The function is designed primarily for user-defined functions where convenience is more important than performance.
+
+## Simplified Source
+
+```c
+// Simplified version of GetAttributeByName
+Datum GetAttributeByName(HeapTupleHeader tuple, const char *attname, bool *isNull) {
+    AttrNumber attrno;
+    Datum result;
+    TupleDesc tupDesc;
+    HeapTupleData tmptup;
+    int i;
+
+    // Input validation: check for NULL parameters
+    if (attname == NULL)
+        elog(ERROR, "invalid attribute name");
+    if (isNull == NULL)
+        elog(ERROR, "a NULL isNull pointer was passed");
+    if (tuple == NULL) {
+        *isNull = true;
+        return (Datum) 0;
+    }
+
+    // Get tuple descriptor from tuple type information
+    Oid tupType = HeapTupleHeaderGetTypeId(tuple);
+    int32 tupTypmod = HeapTupleHeaderGetTypMod(tuple);
+    tupDesc = lookup_rowtype_tupdesc(tupType, tupTypmod);
+
+    // Search for attribute by name (linear search through all attributes)
+    attrno = InvalidAttrNumber;
+    for (i = 0; i < tupDesc->natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupDesc, i);
+        if (namestrcmp(&(att->attname), attname) == 0) {
+            attrno = att->attnum;
+            break;
+        }
+    }
+
+    // Error if attribute not found
+    if (attrno == InvalidAttrNumber)
+        elog(ERROR, "attribute \"%s\" does not exist", attname);
+
+    // Create temporary HeapTuple structure for heap_getattr
+    tmptup.t_len = HeapTupleHeaderGetDatumLength(tuple);
+    ItemPointerSetInvalid(&(tmptup.t_self));
+    tmptup.t_tableOid = InvalidOid;
+    tmptup.t_data = tuple;
+
+    // Extract the attribute value
+    result = heap_getattr(&tmptup, attrno, tupDesc, isNull);
+
+    // Clean up tuple descriptor
+    ReleaseTupleDesc(tupDesc);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added inline comments explaining each major step
+- Simplified the tuple type extraction by declaring variables inline
+- Focused on the main execution path while preserving all essential logic
+- Maintained all error handling as it's critical for function correctness

@@ -30,3 +30,24 @@ This function serves as a signal handler for memory context logging requests. It
 - Sets LogMemoryContextPending to true to specify the type of interrupt
 - The latch is set by procsignal_sigusr1_handler to wake up waiting processes
 - Part of PostgreSQL's interrupt handling mechanism for debugging and monitoring
+
+## Simplified Source
+
+```c
+// Simplified version of HandleLogMemoryContextInterrupt
+void HandleLogMemoryContextInterrupt(void) {
+    // Signal that an interrupt is pending
+    InterruptPending = true;
+
+    // Signal that memory context logging is requested
+    LogMemoryContextPending = true;
+
+    // Note: latch will be set by procsignal_sigusr1_handler
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each flag setting
+- Removed the detailed comment block for brevity
+- Focused on the two core actions: setting interrupt flags
+- Maintained the essential signal-safe design pattern

@@ -40,3 +40,21 @@ This function takes no parameters.
 - Used extensively throughout the codebase for performance tracking
 - Critical for query performance analysis and debugging
 - The captured baseline includes CPU time, memory usage, and other system resource metrics
+
+## Simplified Source
+
+```c
+// Simplified version of ResetUsage
+void ResetUsage(void) {
+    // Capture current process resource usage (CPU time, memory, etc.) as baseline
+    getrusage(RUSAGE_SELF, &Save_r);
+
+    // Capture current wall-clock time as baseline
+    gettimeofday(&Save_t, NULL);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each system call
+- Maintained the exact original logic since the function is already minimal
+- Focused on clarifying the purpose of each baseline capture

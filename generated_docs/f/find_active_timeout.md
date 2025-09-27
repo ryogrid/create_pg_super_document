@@ -18,7 +18,7 @@ This internal helper function searches through the  array to locate a timeout en
 The function is designed to be called from within the timeout management subsystem when the caller needs to locate a specific timeout entry for operations like enabling, disabling, or modifying timeout properties.
 
 ## Parameters / Member Variables
-- uid=1000(ryo) gid=1000(ryo) groups=1000(ryo),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),117(netdev),998(ollama),999(docker): The TimeoutId to search for in the active timeouts array
+- **id**: The TimeoutId to search for in the active timeouts array
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -35,3 +35,27 @@ The function is designed to be called from within the timeout management subsyst
 - Typically called after disable_alarm() and before schedule_alarm() in timeout management operations
 - Returns -1 when the timeout ID is not found in the active array
 - Part of the internal helper functions for PostgreSQL's timeout management system
+
+## Simplified Source
+
+```c
+// Simplified version of find_active_timeout
+static int find_active_timeout(TimeoutId id) {
+    // Search through all active timeouts
+    for (int i = 0; i < num_active_timeouts; i++) {
+        // Check if this timeout matches the requested ID
+        if (active_timeouts[i]->index == id) {
+            return i;  // Found it, return the array index
+        }
+    }
+
+    // Timeout not found in active array
+    return -1;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Clarified the purpose of the return values
+- Maintained the original algorithm and logic flow
+- Used more descriptive variable declaration style

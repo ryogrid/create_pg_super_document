@@ -42,3 +42,67 @@ The function cannot operate when parameter fetch hooks are active or during abor
 - Supports both automatic type conversion and pre-computed text values
 - Handles NULL and invalid type OID parameters gracefully
 - Used to generate the paramValuesStr field in ParamListInfo structures
+
+## Simplified Source
+
+```c
+// Simplified version of BuildParamLogString
+char *BuildParamLogString(ParamListInfo params, char **knownTextValues, int maxlen) {
+    StringInfoData buf;
+
+    // Early exit conditions: can't process in certain states
+    if (params->paramFetch != NULL || IsAbortedTransactionBlockState()) {
+        return NULL;
+    }
+
+    // Initialize output buffer
+    initStringInfo(&buf);
+
+    // Create temporary memory context for safe type output function calls
+    MemoryContext tmpCxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                "BuildParamLogString",
+                                                ALLOCSET_DEFAULT_SIZES);
+    MemoryContext oldCxt = MemoryContextSwitchTo(tmpCxt);
+
+    // Process each parameter: format as "$1 = value, $2 = value, ..."
+    for (int paramno = 0; paramno < params->numParams; paramno++) {
+        ParamExternData *param = &params->params[paramno];
+
+        // Add parameter number prefix
+        appendStringInfo(&buf, "%s$%d = ",
+                        paramno > 0 ? ", " : "",
+                        paramno + 1);
+
+        // Handle NULL or invalid type parameters
+        if (param->isnull || !OidIsValid(param->ptype)) {
+            appendStringInfoString(&buf, "NULL");
+        } else {
+            // Use known text value if available, otherwise convert from type
+            if (knownTextValues != NULL && knownTextValues[paramno] != NULL) {
+                appendStringInfoStringQuoted(&buf, knownTextValues[paramno], maxlen);
+            } else {
+                // Convert parameter value to string using type's output function
+                Oid typoutput;
+                bool typisvarlena;
+                getTypeOutputInfo(param->ptype, &typoutput, &typisvarlena);
+                char *pstring = OidOutputFunctionCall(typoutput, param->value);
+                appendStringInfoStringQuoted(&buf, pstring, maxlen);
+            }
+        }
+    }
+
+    // Cleanup temporary memory context
+    MemoryContextSwitchTo(oldCxt);
+    MemoryContextDelete(tmpCxt);
+
+    return buf.data;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while keeping essential logic comments
+- Consolidated variable declarations closer to usage
+- Simplified the branching logic structure for parameter processing
+- Focused on the main execution path: initialize buffer, process each parameter, cleanup
+- Preserved critical error handling (transaction state, fetch hooks)
+- Maintained proper memory context management for safety

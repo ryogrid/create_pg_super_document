@@ -50,3 +50,59 @@ The function deliberately avoids normal cleanup procedures (proc_exit, atexit ca
 - The function name "quickdie" reflects its immediate, no-cleanup termination behavior
 - Exit code 2 triggers postmaster system reset cycle for manual SIGQUIT scenarios
 - Critical for PostgreSQL's crash recovery and immediate shutdown mechanisms
+
+## Simplified Source
+
+```c
+// Simplified version of quickdie
+void quickdie(SIGNAL_ARGS) {
+    // Prevent nested signal handler calls
+    sigaddset(&BlockSig, SIGQUIT);
+    sigprocmask(SIG_SETMASK, &BlockSig, NULL);
+
+    // Prevent interrupts from downgrading quickdie to query cancel
+    HOLD_INTERRUPTS();
+
+    // Don't send output to client during authentication
+    if (ClientAuthInProgress && whereToSendOutput == DestRemote) {
+        whereToSendOutput = DestNone;
+    }
+
+    // Clear error context for safer signal handling
+    error_context_stack = NULL;
+
+    // Notify client about termination reason
+    switch (GetQuitSignalReason()) {
+        case PMQUIT_NOT_SENT:
+            // Unexpected SIGQUIT signal
+            ereport(WARNING, (errcode(ERRCODE_ADMIN_SHUTDOWN),
+                    errmsg("terminating connection because of unexpected SIGQUIT signal")));
+            break;
+
+        case PMQUIT_FOR_CRASH:
+            // Another process crashed - need recovery
+            ereport(WARNING_CLIENT_ONLY, (errcode(ERRCODE_CRASH_SHUTDOWN),
+                    errmsg("terminating connection because of crash of another server process"),
+                    errdetail("Rolling back transaction due to potential shared memory corruption")));
+            break;
+
+        case PMQUIT_FOR_STOP:
+            // Immediate shutdown requested
+            ereport(WARNING_CLIENT_ONLY, (errcode(ERRCODE_ADMIN_SHUTDOWN),
+                    errmsg("terminating connection due to immediate shutdown command")));
+            break;
+    }
+
+    // Emergency exit without cleanup (shared memory may be corrupted)
+    // Use exit code 2 to signal abnormal termination to postmaster
+    _exit(2);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic flow
+- Consolidated error messages to focus on core information
+- Abstracted complex signal handling details into clear comments
+- Maintained the three-way switch logic for different quit scenarios
+- Preserved critical safety measures (signal blocking, interrupt prevention)
+- Kept emergency exit behavior that's essential to the function's purpose

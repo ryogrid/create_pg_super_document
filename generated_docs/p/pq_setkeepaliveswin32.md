@@ -36,3 +36,48 @@ This function implements TCP keepalive configuration specifically for Windows pl
 - Only available on Windows platforms (#ifdef WIN32)
 - Updates port->keepalives_idle and port->keepalives_interval on success
 - Returns STATUS_ERROR on WSAIoctl failure, STATUS_OK on success
+
+## Simplified Source
+
+```c
+// Simplified version of pq_setkeepaliveswin32
+static int pq_setkeepaliveswin32(Port *port, int idle, int interval) {
+    struct tcp_keepalive ka;
+    DWORD retsize;
+
+    // Apply default values if invalid parameters
+    if (idle <= 0)
+        idle = 2 * 60 * 60;    // default = 2 hours
+    if (interval <= 0)
+        interval = 1;          // default = 1 second
+
+    // Configure keepalive structure
+    ka.onoff = 1;
+    ka.keepalivetime = idle * 1000;        // convert to milliseconds
+    ka.keepaliveinterval = interval * 1000; // convert to milliseconds
+
+    // Set keepalive parameters using Windows API
+    if (WSAIoctl(port->sock, SIO_KEEPALIVE_VALS, &ka, sizeof(ka),
+                 NULL, 0, &retsize, NULL, NULL) != 0) {
+        // Log error and return failure
+        ereport(LOG, (errmsg("WSAIoctl(SIO_KEEPALIVE_VALS) failed: error code %d",
+                             WSAGetLastError())));
+        return STATUS_ERROR;
+    }
+
+    // Update port settings on success
+    if (port->keepalives_idle != idle)
+        port->keepalives_idle = idle;
+    if (port->keepalives_interval != interval)
+        port->keepalives_interval = interval;
+
+    return STATUS_OK;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logic block
+- Simplified WSAIoctl parameter formatting
+- Consolidated error message formatting
+- Clarified unit conversions (seconds to milliseconds)
+- Maintained essential Windows API and error handling logic

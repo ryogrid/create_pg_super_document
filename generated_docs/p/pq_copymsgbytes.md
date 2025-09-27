@@ -45,3 +45,31 @@ The  function extracts raw binary data from a PostgreSQL message buffer () and c
 - Throws a protocol violation error if insufficient data is available
 - More memory-safe than direct pointer access for cases where data needs to persist beyond the message buffer's lifetime
 - Commonly used for extracting fixed-size data types from protocol messages
+
+## Simplified Source
+
+```c
+// Simplified version of pq_copymsgbytes
+void
+pq_copymsgbytes(StringInfo msg, char *buf, int datalen)
+{
+    // Validate data availability
+    if (datalen < 0 || datalen > (msg->len - msg->cursor))
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("insufficient data left in message")));
+
+    // Copy data from message buffer to caller's buffer
+    memcpy(buf, &msg->data[msg->cursor], datalen);
+
+    // Advance message cursor
+    msg->cursor += datalen;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major step
+- Preserved essential logic: validate data availability, copy data, advance cursor
+- Maintained the error handling for protocol violations
+- Kept the memory safety checks and cursor management
+- Clear separation of validation, copying, and cursor advancement phases

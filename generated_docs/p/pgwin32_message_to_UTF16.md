@@ -47,3 +47,74 @@ Returns NULL if the message encoding is SQL_ASCII (no conversion possible) or if
 - The function gracefully handles cases where no transaction is active by assuming UTF-8 input
 - Conversion failures result in NULL return value, allowing calling code to handle errors appropriately
 - The UTF-16 output is null-terminated for compatibility with Windows string APIs
+
+## Simplified Source
+
+```c
+// Simplified version of pgwin32_message_to_UTF16
+WCHAR *pgwin32_message_to_UTF16(const char *str, int len, int *utf16len) {
+    int message_encoding = GetMessageEncoding();
+    WCHAR *utf16_result;
+    int result_length;
+
+    // ASCII encoding cannot be converted to UTF-16
+    if (message_encoding == PG_SQL_ASCII) {
+        return NULL;
+    }
+
+    UINT codepage = pg_enc2name_tbl[message_encoding].codepage;
+
+    // Path 1: Direct conversion if codepage mapping exists
+    if (codepage != 0) {
+        utf16_result = (WCHAR *) palloc(sizeof(WCHAR) * (len + 1));
+        result_length = MultiByteToWideChar(codepage, 0, str, len, utf16_result, len);
+        utf16_result[result_length] = 0;  // null terminate
+    }
+    // Path 2: Double conversion via UTF-8
+    else {
+        char *utf8_string;
+
+        // Convert to UTF-8 first (requires transaction context)
+        if (IsTransactionState()) {
+            utf8_string = (char *) pg_do_encoding_conversion((unsigned char *) str,
+                                                           len, message_encoding, PG_UTF8);
+            if (utf8_string != str) {
+                len = strlen(utf8_string);  // update length for converted string
+            }
+        } else {
+            utf8_string = (char *) str;  // assume already UTF-8
+        }
+
+        // Convert UTF-8 to UTF-16
+        utf16_result = (WCHAR *) palloc(sizeof(WCHAR) * (len + 1));
+        result_length = MultiByteToWideChar(CP_UTF8, 0, utf8_string, len, utf16_result, len);
+        utf16_result[result_length] = 0;  // null terminate
+
+        // Clean up temporary UTF-8 string if allocated
+        if (utf8_string != str) {
+            pfree(utf8_string);
+        }
+    }
+
+    // Handle conversion failure
+    if (result_length == 0 && len > 0) {
+        pfree(utf16_result);
+        return NULL;
+    }
+
+    // Return length if requested
+    if (utf16len) {
+        *utf16len = result_length;
+    }
+
+    return utf16_result;
+}
+```
+
+Key simplifications made:
+- Used clearer variable names (message_encoding, utf16_result, result_length)
+- Added inline comments explaining the two conversion paths
+- Simplified complex conditional logic with clearer structure
+- Consolidated null termination logic with simple assignment
+- Added comments for memory management and error handling
+- Focused on the main algorithm flow while preserving all essential functionality

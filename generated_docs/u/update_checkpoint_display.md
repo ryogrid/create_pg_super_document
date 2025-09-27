@@ -36,3 +36,38 @@ The function constructs descriptive messages that indicate the type of operation
 - Designed to be allocation-free for safe use in critical sections
 - Provides human-readable status information when pg_stat_activity may not be accessible
 - The activity message format follows the pattern: "performing [end-of-recovery ][shutdown ][checkpoint|restartpoint]"
+
+## Simplified Source
+
+```c
+// Simplified version of update_checkpoint_display
+static void update_checkpoint_display(int flags, bool restartpoint, bool reset) {
+    // Only show status for critical operations (end-of-recovery or shutdown)
+    if ((flags & (CHECKPOINT_END_OF_RECOVERY | CHECKPOINT_IS_SHUTDOWN)) == 0) {
+        return;
+    }
+
+    if (reset) {
+        // Clear the process status display
+        set_ps_display("");
+    } else {
+        // Build descriptive message showing operation type
+        char activitymsg[128];
+
+        snprintf(activitymsg, sizeof(activitymsg), "performing %s%s%s",
+                 (flags & CHECKPOINT_END_OF_RECOVERY) ? "end-of-recovery " : "",
+                 (flags & CHECKPOINT_IS_SHUTDOWN) ? "shutdown " : "",
+                 restartpoint ? "restartpoint" : "checkpoint");
+
+        // Update process status with the activity message
+        set_ps_display(activitymsg);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Preserved the exact logic flow and conditions
+- Maintained the allocation-free design requirement
+- Kept the original message formatting logic intact
+- Focused on the core functionality: filtering operations and updating display

@@ -37,3 +37,25 @@ The function accesses global arrays that store the tranche registration informat
 - The named tranche system enables clean separation between core PostgreSQL locks and extension-specific locks
 - This count is added to the base LWLock requirements to determine the total LWLock array size
 - Function is typically called during system startup before the main LWLock array is allocated
+
+## Simplified Source
+
+```c
+// Simplified version of NumLWLocksForNamedTranches
+static int NumLWLocksForNamedTranches(void) {
+    int numLocks = 0;
+    int i;
+
+    // Sum up lock requirements from all named tranches
+    for (i = 0; i < NamedLWLockTrancheRequests; i++) {
+        numLocks += NamedLWLockTrancheRequestArray[i].num_lwlocks;
+    }
+
+    return numLocks;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Function is already simple, maintained the essential summation logic
+- Focused on the core iteration and accumulation of lock counts

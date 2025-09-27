@@ -50,3 +50,52 @@ Key validation checks include:
 - Parallel workers have special restrictions and cannot be configured for automatic restart
 - If bgw_type is empty, it defaults to the value of bgw_name
 - Returns true if validation passes, false otherwise (unless elevel >= ERROR, in which case it may not return on failure)
+
+## Simplified Source
+
+```c
+// Simplified version of SanityCheckBackgroundWorker
+static bool SanityCheckBackgroundWorker(BackgroundWorker *worker, int elevel) {
+    // Check 1: Shared memory access is mandatory
+    if (!(worker->bgw_flags & BGWORKER_SHMEM_ACCESS)) {
+        ereport(elevel, "background workers without shared memory access are not supported");
+        return false;
+    }
+
+    // Check 2: Database connection workers cannot start at postmaster start
+    if (worker->bgw_flags & BGWORKER_BACKEND_DATABASE_CONNECTION) {
+        if (worker->bgw_start_time == BgWorkerStart_PostmasterStart) {
+            ereport(elevel, "cannot request database access if starting at postmaster start");
+            return false;
+        }
+    }
+
+    // Check 3: Validate restart interval bounds
+    if ((worker->bgw_restart_time < 0 && worker->bgw_restart_time != BGW_NEVER_RESTART) ||
+        (worker->bgw_restart_time > USECS_PER_DAY / 1000)) {
+        ereport(elevel, "invalid restart interval");
+        return false;
+    }
+
+    // Check 4: Parallel workers cannot be configured for restart
+    if (worker->bgw_restart_time != BGW_NEVER_RESTART &&
+        (worker->bgw_flags & BGWORKER_CLASS_PARALLEL) != 0) {
+        ereport(elevel, "parallel workers may not be configured for restart");
+        return false;
+    }
+
+    // Check 5: Set default bgw_type if not specified
+    if (strcmp(worker->bgw_type, "") == 0) {
+        strcpy(worker->bgw_type, worker->bgw_name);
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Simplified error reporting calls to focus on the core message
+- Added numbered comments for each validation check
+- Condensed the logic flow while preserving all essential validations
+- Removed detailed error code specifications for clarity
+- Maintained the exact same validation logic and return behavior

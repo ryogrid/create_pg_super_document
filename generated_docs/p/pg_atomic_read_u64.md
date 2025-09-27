@@ -48,3 +48,25 @@ Similar to the initialization function, it includes conditional pointer alignmen
 - Unlike simple memory reads, this function guarantees that the returned value represents a consistent snapshot at a specific point in time
 - Commonly used for reading WAL positions, buffer states, and inter-process communication variables
 - Essential for implementing lock-free algorithms and wait-free data structures in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_read_u64
+static inline uint64 pg_atomic_read_u64(volatile pg_atomic_uint64 *ptr) {
+    // Step 1: Ensure proper alignment for hardware atomic operations (when available)
+#ifndef PG_HAVE_ATOMIC_U64_SIMULATION
+    AssertPointerAlignment(ptr, 8);
+#endif
+
+    // Step 2: Delegate to platform-specific atomic read implementation
+    return pg_atomic_read_u64_impl(ptr);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the logic flow
+- Maintained the conditional alignment check for hardware atomics
+- Preserved the delegation to platform-specific implementation
+- Kept the inline nature for performance
+- Simplified the conditional compilation explanation in comments

@@ -39,3 +39,18 @@ This function takes no parameters.
 - It is used to gate access to privileged operations like creating/dropping roles, creating tablespaces, and modifying system catalogs
 - The actual superuser determination logic is implemented in `superuser_arg`, which includes caching for performance
 - Located in `src/backend/utils/misc/superuser.c:46-55`
+
+## Simplified Source
+
+```c
+// Simplified version of superuser
+bool superuser(void) {
+    // Check if current user has superuser privileges
+    return superuser_arg(GetUserId());
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple, so minimal simplification was needed
+- Added a descriptive comment explaining the purpose
+- The core logic remains identical as it's just a single function call

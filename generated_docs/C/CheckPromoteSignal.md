@@ -34,3 +34,25 @@ This function takes no parameters and returns a boolean value indicating whether
 - Part of the two-tier promotion signal detection mechanism
 - Does not perform any file cleanup - that's handled by RemovePromoteSignalFiles()
 - Located at src/backend/access/transam/xlogrecovery.c:4464-4478
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPromoteSignal
+bool CheckPromoteSignal(void) {
+    struct stat stat_buf;
+
+    // Check if promote signal file exists
+    if (stat(PROMOTE_SIGNAL_FILE, &stat_buf) == 0) {
+        return true;  // File exists - promotion requested
+    }
+
+    return false;  // File doesn't exist - no promotion request
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the main logic flow
+- Clarified the meaning of return values
+- The function is already quite simple, so minimal changes were needed
+- Preserved the exact logic while making the intent clearer

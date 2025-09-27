@@ -51,3 +51,101 @@ The function includes comprehensive error handling and cleanup for all failure s
 - For CREATE operations, uses O_CREAT | O_EXCL flags to prevent race conditions
 - Comprehensive error handling with proper cleanup on all failure paths
 - File descriptors are closed immediately after mapping to minimize resource usage
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_impl_posix
+static bool dsm_impl_posix(dsm_op op, dsm_handle handle, Size request_size,
+                          void **impl_private, void **mapped_address, Size *mapped_size,
+                          int elevel) {
+    char name[64];
+    int flags;
+    int fd;
+    char *address;
+
+    // Generate POSIX shared memory name
+    snprintf(name, 64, "/PostgreSQL.%u", handle);
+
+    // Handle teardown cases (detach/destroy)
+    if (op == DSM_OP_DETACH || op == DSM_OP_DESTROY) {
+        if (*mapped_address != NULL && munmap(*mapped_address, *mapped_size) != 0) {
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not unmap shared memory segment \"%s\": %m", name)));
+            return false;
+        }
+        *mapped_address = NULL;
+        *mapped_size = 0;
+
+        if (op == DSM_OP_DESTROY && shm_unlink(name) != 0) {
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not remove shared memory segment \"%s\": %m", name)));
+            return false;
+        }
+        return true;
+    }
+
+    // Reserve file descriptor to prevent EMFILE
+    ReserveExternalFD();
+
+    // Open shared memory segment
+    flags = O_RDWR | (op == DSM_OP_CREATE ? O_CREAT | O_EXCL : 0);
+    if ((fd = shm_open(name, flags, PG_FILE_MODE_OWNER)) == -1) {
+        ReleaseExternalFD();
+        if (op == DSM_OP_ATTACH || errno != EEXIST) {
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not open shared memory segment \"%s\": %m", name)));
+        }
+        return false;
+    }
+
+    // Determine size (attach) or set size (create)
+    if (op == DSM_OP_ATTACH) {
+        struct stat st;
+        if (fstat(fd, &st) != 0) {
+            close(fd);
+            ReleaseExternalFD();
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not stat shared memory segment \"%s\": %m", name)));
+            return false;
+        }
+        request_size = st.st_size;
+    } else if (dsm_impl_posix_resize(fd, request_size) != 0) {
+        close(fd);
+        ReleaseExternalFD();
+        shm_unlink(name);
+        ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                       errmsg("could not resize shared memory segment \"%s\" to %zu bytes: %m",
+                             name, request_size)));
+        return false;
+    }
+
+    // Map the segment into memory
+    address = mmap(NULL, request_size, PROT_READ | PROT_WRITE,
+                   MAP_SHARED | MAP_HASSEMAPHORE | MAP_NOSYNC, fd, 0);
+    if (address == MAP_FAILED) {
+        close(fd);
+        ReleaseExternalFD();
+        if (op == DSM_OP_CREATE) {
+            shm_unlink(name);
+        }
+        ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                       errmsg("could not map shared memory segment \"%s\": %m", name)));
+        return false;
+    }
+
+    *mapped_address = address;
+    *mapped_size = request_size;
+    close(fd);
+    ReleaseExternalFD();
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Consolidated error handling paths
+- Removed some errno saving/restoration
+- Focused on the main logic flow: teardown, POSIX shm operations, and memory mapping
+- Maintained essential error reporting and resource cleanup

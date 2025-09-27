@@ -44,3 +44,32 @@ This function takes no parameters.
 - Resetting insertingAt variables to 0 is crucial for proper lock waiting behavior
 - Used in both normal WAL insertion workflows and exclusive access scenarios
 - Failure to call this function after lock acquisition would result in permanent lock holding
+
+## Simplified Source
+
+```c
+// Simplified version of WALInsertLockRelease
+static void WALInsertLockRelease(void) {
+    // Check if we're holding all locks exclusively
+    if (holdingAllLocks) {
+        // Release all WAL insertion locks
+        for (int i = 0; i < NUM_XLOGINSERT_LOCKS; i++) {
+            LWLockReleaseClearVar(&WALInsertLocks[i].l.lock,
+                                  &WALInsertLocks[i].l.insertingAt,
+                                  0);
+        }
+        holdingAllLocks = false;
+    } else {
+        // Release only our specific lock
+        LWLockReleaseClearVar(&WALInsertLocks[MyLockNo].l.lock,
+                              &WALInsertLocks[MyLockNo].l.insertingAt,
+                              0);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two execution paths
+- Clarified the purpose of each branch (exclusive vs. single lock release)
+- Maintained the exact logic flow as the function is already quite clean
+- Emphasized the importance of clearing the insertingAt variable to 0

@@ -49,3 +49,68 @@ The function handles edge cases like bogus LSN requests and provides detailed lo
 - Handles race conditions gracefully through careful memory ordering
 - Critical for WAL writer process coordination and checkpointing
 - The function can return a value smaller than `upto` in corner cases involving bogus LSNs
+
+## Simplified Source
+
+```c
+// Simplified version of WaitXLogInsertionsToFinish
+static XLogRecPtr WaitXLogInsertionsToFinish(XLogRecPtr upto) {
+    XLogRecPtr inserted;
+    XLogRecPtr reservedUpto;
+    XLogRecPtr finishedUpto;
+    XLogCtlInsert *Insert = &XLogCtl->Insert;
+    int i;
+
+    // Core logic step 1: Check if work is already done
+    inserted = pg_atomic_read_membarrier_u64(&XLogCtl->logInsertResult);
+    if (upto <= inserted) {
+        return inserted;
+    }
+
+    // Core logic step 2: Get current insert position
+    SpinLockAcquire(&Insert->insertpos_lck);
+    uint64 bytepos = Insert->CurrBytePos;
+    SpinLockRelease(&Insert->insertpos_lck);
+    reservedUpto = XLogBytePosToEndRecPtr(bytepos);
+
+    // Core logic step 3: Validate request doesn't exceed reserved space
+    if (upto > reservedUpto) {
+        // Log warning and adjust request
+        upto = reservedUpto;
+    }
+
+    // Core logic step 4: Wait for all in-progress insertions to finish
+    finishedUpto = reservedUpto;
+    for (i = 0; i < NUM_XLOGINSERT_LOCKS; i++) {
+        XLogRecPtr insertingat = InvalidXLogRecPtr;
+
+        // Wait for this insertion lock to be free or progress past upto
+        do {
+            if (LWLockWaitForVar(&WALInsertLocks[i].l.lock,
+                               &WALInsertLocks[i].l.insertingAt,
+                               insertingat, &insertingat)) {
+                // Lock is free - no insertion in progress
+                insertingat = InvalidXLogRecPtr;
+                break;
+            }
+        } while (insertingat < upto);
+
+        // Track the earliest still-in-progress insertion
+        if (insertingat != InvalidXLogRecPtr && insertingat < finishedUpto) {
+            finishedUpto = insertingat;
+        }
+    }
+
+    // Core logic step 5: Update global progress and return result
+    finishedUpto = pg_atomic_monotonic_advance_u64(&XLogCtl->logInsertResult,
+                                                   finishedUpto);
+    return finishedUpto;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for PGPROC check
+- Consolidated error logging for invalid WAL position requests
+- Abstracted the complex lock waiting logic into simplified comments
+- Focused on the main execution path of checking and waiting for insertions
+- Maintained the essential algorithm structure while removing verbose comments

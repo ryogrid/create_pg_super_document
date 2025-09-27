@@ -48,3 +48,47 @@ This function takes no parameters.
 - Establishes a resource owner for managing buffer pins outside transactions
 - Registers ShutdownAuxiliaryProcess as a before-shutdown callback for proper cleanup
 - Transitions from BootstrapProcessing to NormalProcessing mode during initialization
+
+## Simplified Source
+
+```c
+// Simplified version of AuxiliaryProcessMainCommon
+void AuxiliaryProcessMainCommon(void) {
+    // Step 1: Verify we're running under postmaster
+    Assert(IsUnderPostmaster);
+
+    // Step 2: Clean up inherited memory context
+    if (PostmasterContext) {
+        MemoryContextDelete(PostmasterContext);
+        PostmasterContext = NULL;
+    }
+
+    // Step 3: Set up process display and bootstrap mode
+    init_ps_display(NULL);
+    SetProcessingMode(BootstrapProcessing);
+    IgnoreSystemIndexes = true;
+
+    // Step 4: Initialize core process infrastructure
+    InitAuxiliaryProcess();  // Create PGPROC for LWLocks and shared memory
+    BaseInit();              // Basic backend initialization
+    ProcSignalInit();        // Signal handling setup
+
+    // Step 5: Set up resource management
+    CreateAuxProcessResourceOwner();  // For buffer pins outside transactions
+
+    // Step 6: Initialize statistics collection
+    pgstat_beinit();
+    pgstat_bestart();
+
+    // Step 7: Register cleanup callback and switch to normal mode
+    before_shmem_exit(ShutdownAuxiliaryProcess, 0);
+    SetProcessingMode(NormalProcessing);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the initialization sequence
+- Grouped related operations logically
+- Removed detailed explanatory comments for brevity
+- Preserved the essential flow and all function calls
+- Maintained the correct order of operations

@@ -37,3 +37,22 @@ The function includes pointer alignment verification to ensure the atomic variab
 - Widely used throughout PostgreSQL for updating atomic counters, flags, and status values
 - Part of PostgreSQL's portable atomic operations abstraction layer
 - Safer than pg_atomic_unlocked_write_u32 for concurrent access scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_write_u32
+static inline void pg_atomic_write_u32(volatile pg_atomic_uint32 *ptr, uint32 val) {
+    // Verify proper alignment for atomic operations
+    AssertPointerAlignment(ptr, 4);
+
+    // Perform platform-specific atomic write
+    pg_atomic_write_u32_impl(ptr, val);
+}
+```
+
+Key simplifications made:
+- Added brief comments explaining the two main operations
+- Maintained the complete function as it's already very simple and focused
+- No significant simplification needed due to the function's inherent simplicity
+- Preserved all essential safety checks and atomic operation semantics

@@ -31,3 +31,19 @@ This function calculates and returns the size of shared memory required to alloc
 - This function is only relevant when HAVE_SPINLOCKS is not defined or when spinlock emulation is required
 - The returned size is used during shared memory initialization to allocate sufficient space for spinlock emulation semaphores
 - Part of PostgreSQL's spinlock subsystem that provides cross-platform spinlock functionality
+
+## Simplified Source
+
+```c
+// Simplified version of SpinlockSemaSize
+Size SpinlockSemaSize(void) {
+    // Calculate memory needed for spinlock emulation semaphores
+    // Returns: number of semaphores × size of each semaphore
+    return NUM_EMULATION_SEMAPHORES * sizeof(PGSemaphore);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core calculation
+- Function is already very simple - main logic preserved as-is
+- Focused on the essential purpose: calculating shared memory requirements for spinlock emulation

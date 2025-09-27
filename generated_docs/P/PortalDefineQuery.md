@@ -57,3 +57,40 @@ Key design considerations:
 - [Command](../C/Command.md) tag must be a pointer to a constant string as it is not copied
 - Caller is responsible for ensuring adequate lifetime of prepStmtName and sourceText parameters
 - Used in both simple query execution and prepared statement execution paths
+
+## Simplified Source
+
+```c
+// Simplified version of PortalDefineQuery
+void PortalDefineQuery(Portal portal,
+                      const char *prepStmtName,
+                      const char *sourceText,
+                      CommandTag commandTag,
+                      List *stmts,
+                      CachedPlan *cplan) {
+    // Validate portal is in correct initial state
+    Assert(PortalIsValid(portal));
+    Assert(portal->status == PORTAL_NEW);
+    Assert(sourceText != NULL);
+    Assert(commandTag != CMDTAG_UNKNOWN || stmts == NIL);
+
+    // Store query definition in portal
+    portal->prepStmtName = prepStmtName;
+    portal->sourceText = sourceText;
+    portal->qc.commandTag = commandTag;
+    portal->qc.nprocessed = 0;
+    portal->commandTag = commandTag;
+    portal->stmts = stmts;
+    portal->cplan = cplan;
+
+    // Mark portal as fully defined
+    portal->status = PORTAL_DEFINED;
+}
+```
+
+Key simplifications made:
+- Removed extensive header comments for clarity
+- Focused on the core logic flow: validate inputs, store values, update status
+- Preserved essential assertions for correctness
+- Maintained the simple assignment-based implementation
+- Kept all original assignments as they represent the core functionality

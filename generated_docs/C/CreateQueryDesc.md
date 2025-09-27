@@ -49,3 +49,54 @@ CreateQueryDesc allocates and populates a QueryDesc structure with all the essen
 
 ## Notes and Other Information
 The function performs snapshot registration to ensure proper memory management and transaction isolation. The QueryDesc structure returned by this function must later be freed using FreeQueryDesc to prevent memory leaks. The already_executed flag is initialized to false and will be set during query execution to prevent double execution.
+
+## Simplified Source
+
+```c
+// Simplified version of CreateQueryDesc
+QueryDesc *CreateQueryDesc(PlannedStmt *plannedstmt,
+                          const char *sourceText,
+                          Snapshot snapshot,
+                          Snapshot crosscheck_snapshot,
+                          DestReceiver *dest,
+                          ParamListInfo params,
+                          QueryEnvironment *queryEnv,
+                          int instrument_options) {
+    // Allocate the QueryDesc structure
+    QueryDesc *qd = (QueryDesc *) palloc(sizeof(QueryDesc));
+
+    // Set up basic query information
+    qd->operation = plannedstmt->commandType;
+    qd->plannedstmt = plannedstmt;
+    qd->sourceText = sourceText;
+
+    // Register snapshots for transaction isolation
+    qd->snapshot = RegisterSnapshot(snapshot);
+    qd->crosscheck_snapshot = RegisterSnapshot(crosscheck_snapshot);
+
+    // Set up execution context
+    qd->dest = dest;
+    qd->params = params;
+    qd->queryEnv = queryEnv;
+    qd->instrument_options = instrument_options;
+
+    // Initialize fields that will be set later by ExecutorStart
+    qd->tupDesc = NULL;
+    qd->estate = NULL;
+    qd->planstate = NULL;
+    qd->totaltime = NULL;
+
+    // Mark as not yet executed
+    qd->already_executed = false;
+
+    return qd;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each initialization phase
+- Grouped related field assignments together logically
+- Highlighted the snapshot registration for transaction isolation
+- Emphasized that some fields are deliberately left NULL until ExecutorStart
+- Focused on the constructor pattern and memory allocation
+- Preserved all essential initialization logic

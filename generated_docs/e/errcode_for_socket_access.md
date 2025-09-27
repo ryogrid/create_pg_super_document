@@ -38,3 +38,39 @@ This function automatically sets the SQLSTATE error code for the current error b
 - Does not increment recursion depth counter
 - Widely used throughout PostgreSQL's networking code, particularly in libpq and postmaster components
 - Located in src/backend/utils/error/elog.c:953-988
+
+## Simplified Source
+
+```c
+// Simplified version of errcode_for_socket_access
+int errcode_for_socket_access(void) {
+    // Get current error data from error stack
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Validate error stack depth
+    CHECK_STACK_DEPTH();
+
+    // Map socket errno to appropriate SQL error code
+    switch (edata->saved_errno) {
+        // Connection failure errors (network issues)
+        case ALL_CONNECTION_FAILURE_ERRNOS:
+            edata->sqlerrcode = ERRCODE_CONNECTION_FAILURE;
+            break;
+
+        // All other socket errors are internal errors
+        default:
+            edata->sqlerrcode = ERRCODE_INTERNAL_ERROR;
+            break;
+    }
+
+    // Return value is meaningless - function works by side effect
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Clarified that the function works by modifying error data structure
+- Explained the two-category error mapping approach
+- Made the side-effect nature of the function explicit
+- Simplified the switch statement structure for clarity

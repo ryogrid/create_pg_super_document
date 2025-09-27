@@ -40,3 +40,32 @@ The function supports optional cancellation via SIGINT signal handling through t
 - The allocated buffer is typically larger than strictly necessary; for memory-conscious applications collecting many long-lived strings, consider using `pg_get_line_buf()` or `pg_get_line_append()` in a loop with `pstrdup()`
 - The caller is responsible for pfree'ing the returned string
 - Located in src/common/pg_get_line.c:59-94
+
+## Simplified Source
+
+```c
+// Simplified version of pg_get_line
+char *pg_get_line(FILE *stream, PromptInterruptContext *prompt_ctx) {
+    // Initialize a dynamic string buffer
+    StringInfoData buf;
+    initStringInfo(&buf);
+
+    // Try to read a line into the buffer
+    if (!pg_get_line_append(stream, &buf, prompt_ctx)) {
+        // Handle error: preserve errno and clean up memory
+        int save_errno = errno;
+        pfree(buf.data);
+        errno = save_errno;
+        return NULL;
+    }
+
+    // Return the dynamically allocated line
+    return buf.data;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Maintained the dynamic buffer allocation logic
+- Preserved error handling and memory cleanup
+- Kept the essential function structure and return semantics

@@ -38,3 +38,25 @@ Recovery conflicts can occur in hot standby scenarios when replay of WAL records
 - The actual conflict resolution occurs during CHECK_FOR_INTERRUPTS() calls in the main execution flow
 - Different types of recovery conflicts (deadlock detection, tablespace conflicts, database conflicts, etc.) are tracked separately using the reason parameter
 - This mechanism allows hot standby systems to gracefully handle conflicts between WAL replay and active queries
+
+## Simplified Source
+
+```c
+// Simplified version of HandleRecoveryConflictInterrupt
+void HandleRecoveryConflictInterrupt(ProcSignalReason reason) {
+    // Mark the specific type of recovery conflict as pending
+    RecoveryConflictPendingReasons[reason] = true;
+
+    // Set general flags to trigger interrupt processing
+    RecoveryConflictPending = true;
+    InterruptPending = true;
+
+    // Note: latch will be set by procsignal_sigusr1_handler
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Maintained the exact same logic flow as the original
+- No actual simplification needed as the function is already very concise and clear
+- Function serves as a simple flag-setting mechanism in signal handler context

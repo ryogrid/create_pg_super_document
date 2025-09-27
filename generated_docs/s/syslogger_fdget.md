@@ -38,3 +38,34 @@ This abstraction allows the same code to work across different operating systems
 - Returns different sentinel values on different platforms (-1 on Unix, 0 on Windows) when file is NULL
 - Part of the infrastructure that allows PostgreSQL to work on Windows where fork() is not available
 - The file descriptors obtained are used to populate the SysloggerStartupData structure passed to the child logger process
+
+## Simplified Source
+
+```c
+// Simplified version of syslogger_fdget
+static int syslogger_fdget(FILE *file) {
+    // Handle null file pointer - return platform-specific sentinel value
+    if (file == NULL) {
+#ifndef WIN32
+        return -1;    // Unix: -1 indicates invalid descriptor
+#else
+        return 0;     // Windows: 0 indicates invalid handle
+#endif
+    }
+
+    // Get file descriptor/handle from FILE pointer
+#ifndef WIN32
+    // Unix/Linux: Use standard fileno() function
+    return fileno(file);
+#else
+    // Windows: Convert FILE* to OS handle via _fileno() and _get_osfhandle()
+    return (int) _get_osfhandle(_fileno(file));
+#endif
+}
+```
+
+Key simplifications made:
+- Restructured conditional logic for clearer flow
+- Added explanatory comments for each platform-specific section
+- Clarified the purpose of different return values
+- Made the null pointer handling more explicit

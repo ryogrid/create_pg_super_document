@@ -37,3 +37,30 @@ This function converts PostgreSQL's internal TimestampTz format to Unix timestam
 - Primary use cases include interfacing with system calls and external libraries
 - The conversion formula adds back the epoch difference that was subtracted in the reverse conversion
 - Essential for operations that need to export PostgreSQL timestamps to external systems
+
+## Simplified Source
+
+```c
+// Simplified version of timestamptz_to_time_t
+pg_time_t timestamptz_to_time_t(TimestampTz t) {
+    pg_time_t result;
+
+    // Convert PostgreSQL timestamp to Unix timestamp
+    // Step 1: Convert microseconds to seconds
+    pg_time_t seconds_since_pg_epoch = t / USECS_PER_SEC;
+
+    // Step 2: Adjust for epoch difference (PostgreSQL epoch is 30 years after Unix epoch)
+    pg_time_t epoch_difference_seconds = (POSTGRES_EPOCH_JDATE - UNIX_EPOCH_JDATE) * SECS_PER_DAY;
+
+    // Step 3: Add epoch difference to get Unix timestamp
+    result = seconds_since_pg_epoch + epoch_difference_seconds;
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Broke down the single complex expression into clear, step-by-step operations
+- Added descriptive variable names for intermediate calculations
+- Added comments explaining each step of the conversion process
+- Made the epoch adjustment logic more explicit and understandable

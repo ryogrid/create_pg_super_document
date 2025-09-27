@@ -52,3 +52,47 @@ This flexibility makes the function essential for PostgreSQL's extended query pr
 - Supports performance monitoring and tracing capabilities
 - Critical for maintaining type safety while providing maximum flexibility in parameter usage
 - More complex than the fixed-parameter variant due to type inference requirements
+
+## Simplified Source
+
+```c
+// Simplified version of pg_analyze_and_rewrite_varparams
+List *
+pg_analyze_and_rewrite_varparams(RawStmt *parsetree,
+                                const char *query_string,
+                                Oid **paramTypes,
+                                int *numParams,
+                                QueryEnvironment *queryEnv)
+{
+    Query *query;
+    List *querytree_list;
+
+    // Step 1: Parse analysis with parameter type inference
+    query = parse_analyze_varparams(parsetree, query_string,
+                                   paramTypes, numParams, queryEnv);
+
+    // Step 2: Validate all parameter types were determined
+    for (int i = 0; i < *numParams; i++) {
+        Oid ptype = (*paramTypes)[i];
+
+        if (ptype == InvalidOid || ptype == UNKNOWNOID) {
+            ereport(ERROR,
+                   (errcode(ERRCODE_INDETERMINATE_DATATYPE),
+                    errmsg("could not determine data type of parameter $%d",
+                           i + 1)));
+        }
+    }
+
+    // Step 3: Apply rewrite rules to transform the query
+    querytree_list = pg_rewrite_query(query);
+
+    return querytree_list;
+}
+```
+
+Key simplifications made:
+- Removed performance tracing and logging code for clarity
+- Consolidated error handling to focus on the essential validation
+- Maintained the core two-phase process: parse analysis then rewriting
+- Preserved parameter type validation which is critical for correctness
+- Kept the essential error reporting for indeterminate parameter types

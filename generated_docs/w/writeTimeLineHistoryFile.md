@@ -47,3 +47,56 @@ This function creates a timeline history file for a specified timeline ID using 
 - Part of PostgreSQL's timeline management system for handling database timeline succession
 - No locking required as typically called from single-threaded walreceiver context
 - Replaces any existing timeline history file with the same name atomically
+
+## Simplified Source
+
+```c
+// Simplified version of writeTimeLineHistoryFile
+void writeTimeLineHistoryFile(TimeLineID tli, char *content, int size) {
+    char tmppath[MAXPGPATH];
+    char final_path[MAXPGPATH];
+    int fd;
+
+    // Step 1: Create temporary file path with process ID to avoid conflicts
+    snprintf(tmppath, MAXPGPATH, XLOGDIR "/xlogtemp.%d", (int) getpid());
+    unlink(tmppath);  // Remove any existing temp file
+
+    // Step 2: Open temporary file for writing
+    fd = OpenTransientFile(tmppath, O_RDWR | O_CREAT | O_EXCL);
+    if (fd < 0) {
+        ereport(ERROR, "could not create temp file");
+    }
+
+    // Step 3: Write content to temporary file
+    pgstat_report_wait_start(WAIT_EVENT_TIMELINE_HISTORY_FILE_WRITE);
+    if (write(fd, content, size) != size) {
+        unlink(tmppath);  // Clean up on failure
+        ereport(ERROR, "could not write to temp file");
+    }
+    pgstat_report_wait_end();
+
+    // Step 4: Ensure data is written to disk
+    pgstat_report_wait_start(WAIT_EVENT_TIMELINE_HISTORY_FILE_SYNC);
+    if (pg_fsync(fd) != 0) {
+        ereport(ERROR, "could not fsync temp file");
+    }
+    pgstat_report_wait_end();
+
+    // Step 5: Close temporary file
+    if (CloseTransientFile(fd) != 0) {
+        ereport(ERROR, "could not close temp file");
+    }
+
+    // Step 6: Atomically move temp file to final location
+    TLHistoryFilePath(final_path, tli);
+    durable_rename(tmppath, final_path, ERROR);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling logic (save_errno, specific error messages)
+- Simplified ereport calls to focus on essential error reporting
+- Abstracted low-level file operations details
+- Consolidated error handling patterns
+- Added step-by-step comments for clarity
+- Focused on the main execution path: temp file creation → write → sync → rename

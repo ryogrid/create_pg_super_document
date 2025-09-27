@@ -36,3 +36,25 @@ This function takes no parameters.
 - The DEBUG2 logging provides visibility into when configuration updates occur
 - Critical for maintaining synchronization between configuration files and runtime shared memory state
 - The function is designed to be safe to call multiple times, as the underlying update functions check for actual changes before taking action
+
+## Simplified Source
+
+```c
+// Simplified version of UpdateSharedMemoryConfig
+static void UpdateSharedMemoryConfig(void) {
+    // Step 1: Update synchronous replication standby configuration
+    SyncRepUpdateSyncStandbysDefined();
+
+    // Step 2: Update full page writes setting if changed via SIGHUP
+    UpdateFullPageWrites();
+
+    // Step 3: Log the configuration update for debugging
+    elog(DEBUG2, "checkpointer updated shared memory configuration values");
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Maintained the exact function structure since it's already quite simple
+- Preserved all essential functionality
+- Focused on the main execution path

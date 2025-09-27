@@ -53,3 +53,69 @@ Key behaviors:
 - Maintains coordination with catalog snapshots to prevent inconsistencies
 - Critical for PostgreSQLs MVCC implementation and transaction isolation
 - The function is performance-sensitive as its called frequently during query execution
+
+## Simplified Source
+
+```c
+// Simplified version of GetTransactionSnapshot
+Snapshot GetTransactionSnapshot(void) {
+    // Special case: Return historic snapshot for logical decoding
+    if (HistoricSnapshotActive()) {
+        return HistoricSnapshot;
+    }
+
+    // First snapshot in this transaction?
+    if (!FirstSnapshotSet) {
+        // Initialize: Clear catalog snapshot and validate state
+        InvalidateCatalogSnapshot();
+
+        // Safety check: No snapshots during parallel operations
+        if (IsInParallelMode()) {
+            elog(ERROR, "cannot take query snapshot during a parallel operation");
+        }
+
+        // Handle transaction-snapshot isolation mode
+        if (IsolationUsesXactSnapshot()) {
+            // Create snapshot with appropriate isolation level
+            if (IsolationIsSerializable()) {
+                CurrentSnapshot = GetSerializableTransactionSnapshot(&CurrentSnapshotData);
+            } else {
+                CurrentSnapshot = GetSnapshotData(&CurrentSnapshotData);
+            }
+
+            // Make persistent copy for transaction duration
+            CurrentSnapshot = CopySnapshot(CurrentSnapshot);
+            FirstXactSnapshot = CurrentSnapshot;
+
+            // Register the snapshot for proper lifecycle management
+            FirstXactSnapshot->regd_count++;
+            pairingheap_add(&RegisteredSnapshots, &FirstXactSnapshot->ph_node);
+        } else {
+            // Standard snapshot for non-transaction-snapshot isolation
+            CurrentSnapshot = GetSnapshotData(&CurrentSnapshotData);
+        }
+
+        FirstSnapshotSet = true;
+        return CurrentSnapshot;
+    }
+
+    // Subsequent calls: Return existing snapshot for transaction-snapshot mode
+    if (IsolationUsesXactSnapshot()) {
+        return CurrentSnapshot;
+    }
+
+    // Standard mode: Get fresh snapshot for each query
+    InvalidateCatalogSnapshot();
+    CurrentSnapshot = GetSnapshotData(&CurrentSnapshotData);
+
+    return CurrentSnapshot;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions and debug checks for clarity
+- Consolidated error handling into essential safety checks
+- Added explanatory comments for each major logic branch
+- Simplified the transaction-snapshot initialization flow
+- Focused on the main execution paths and core functionality
+- Abstracted low-level heap management details with descriptive comments

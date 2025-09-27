@@ -43,3 +43,24 @@ This function is designed to be the standard way to complete message transmissio
 - Error handling for transmission failures is delegated to pqcomm.c - this function doesn't report transmission errors
 - Critical for proper resource management in PostgreSQL's message-passing architecture
 - The buffer becomes unusable after this call due to data pointer being set to NULL
+
+## Simplified Source
+
+```c
+// Simplified version of pq_endmessage
+void pq_endmessage(StringInfo buf) {
+    // Step 1: Send the completed message to frontend
+    // Message type was previously stored in buf->cursor field
+    pq_putmessage(buf->cursor, buf->data, buf->len);
+
+    // Step 2: Clean up the buffer data to prevent reuse
+    pfree(buf->data);
+    buf->data = NULL;
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the function's logic
+- Removed the detailed comment block (kept essential information in inline comments)
+- Removed the cast to void since the return value is already ignored
+- Focused on the two core operations: send message and cleanup memory

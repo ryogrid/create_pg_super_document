@@ -34,3 +34,42 @@ The function is designed as a utility for the ifaddrs testing tool, providing a 
 - Uses the  flag to ensure numeric output without DNS resolution, making it faster and more reliable for testing purposes
 - If address conversion fails, it prints a descriptive error message showing the unknown address family number
 - This is a static function, meaning it's only accessible within the same source file (test_ifaddrs.c)
+
+## Simplified Source
+
+```c
+// Simplified version of print_addr
+static void print_addr(struct sockaddr *addr) {
+    char buffer[256];
+    int len;
+
+    // Determine the appropriate length based on address family
+    switch (addr->sa_family) {
+        case AF_INET:
+            len = sizeof(struct sockaddr_in);
+            break;
+        case AF_INET6:
+            len = sizeof(struct sockaddr_in6);
+            break;
+        default:
+            len = sizeof(struct sockaddr_storage);
+            break;
+    }
+
+    // Convert address to string format
+    int ret = getnameinfo(addr, len, buffer, sizeof(buffer), NULL, 0, NI_NUMERICHOST);
+
+    // Print result or error message
+    if (ret != 0) {
+        printf("[unknown: family %d]", addr->sa_family);
+    } else {
+        printf("%s", buffer);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments for each logical section
+- Maintained the switch statement for address family handling
+- Preserved the getnameinfo call with NI_NUMERICHOST flag
+- Kept the error handling for failed address conversion

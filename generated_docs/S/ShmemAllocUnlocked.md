@@ -44,3 +44,40 @@ If insufficient shared memory is available, the function raises an ERROR with an
 - Direct manipulation of ShmemSegHdr without locking makes this function unsafe for general use
 - The function assumes ShmemSegHdr is already initialized and not NULL
 - Memory allocated is permanent and cannot be freed back to the shared memory pool
+
+## Simplified Source
+
+```c
+// Simplified version of ShmemAllocUnlocked
+void *ShmemAllocUnlocked(Size size) {
+    // Step 1: Align the requested size to maximum alignment
+    size = MAXALIGN(size);
+
+    // Step 2: Calculate new memory boundaries
+    Size currentOffset = ShmemSegHdr->freeoffset;
+    Size newOffset = currentOffset + size;
+
+    // Step 3: Check if we have enough shared memory space
+    if (newOffset > ShmemSegHdr->totalsize) {
+        ereport(ERROR,
+                (errcode(ERRCODE_OUT_OF_MEMORY),
+                 errmsg("out of shared memory (%zu bytes requested)", size)));
+    }
+
+    // Step 4: Update the free offset to reserve the space
+    ShmemSegHdr->freeoffset = newOffset;
+
+    // Step 5: Calculate and return pointer to allocated memory
+    void *allocatedSpace = (void *)((char *)ShmemBase + currentOffset);
+
+    return allocatedSpace;
+}
+```
+
+Key simplifications made:
+- Removed detailed variable declarations for clarity
+- Consolidated memory boundary calculations into clearer steps
+- Removed assertions as they're not part of core logic
+- Added descriptive comments for each major step
+- Simplified variable names for better readability
+- Focused on the main allocation algorithm without low-level details

@@ -39,3 +39,28 @@ This generator is particularly well-suited for seeding other generators because 
 - The generator modifies the state parameter directly (it's passed by pointer), making successive calls produce different values
 - SplitMix64 is known for good performance and statistical properties, making it ideal for seeding purposes
 - The algorithm ensures that even consecutive or similar seed values will produce well-distributed initial states for the main generator
+
+## Simplified Source
+
+```c
+// Simplified version of splitmix64
+static uint64 splitmix64(uint64 *state) {
+    // Step 1: Update state by adding golden ratio constant
+    uint64 val = (*state += 0x9E3779B97f4A7C15);
+
+    // Step 2: First mixing operation - XOR-shift right 30 bits and multiply
+    val = (val ^ (val >> 30)) * 0xBF58476D1CE4E5B9;
+
+    // Step 3: Second mixing operation - XOR-shift right 27 bits and multiply
+    val = (val ^ (val >> 27)) * 0x94D049BB133111EB;
+
+    // Step 4: Final mixing - XOR-shift right 31 bits for output
+    return val ^ (val >> 31);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining each phase of the algorithm
+- Removed the original comments and reorganized for clarity
+- Preserved the exact mathematical operations and constants
+- Focused on the core three-step mixing process after state update

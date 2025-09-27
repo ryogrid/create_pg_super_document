@@ -34,3 +34,29 @@ This function fetches the timestamp of the most recently processed commit or abo
 - Complementary function to SetLatestXTime - this retrieves what SetLatestXTime stores
 - Used by various components including checkpointing, SQL functions, and recovery coordination
 - The timestamp comes from the recoveryLastXTime field in XLogRecoveryCtl
+
+## Simplified Source
+
+```c
+// Simplified version of GetLatestXTime
+TimestampTz GetLatestXTime(void) {
+    TimestampTz latest_transaction_time;
+
+    // Thread-safe read: acquire lock to access shared recovery state
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+
+    // Get the timestamp of the most recently processed commit/abort record
+    latest_transaction_time = XLogRecoveryCtl->recoveryLastXTime;
+
+    // Release lock to allow other processes to access the shared state
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    return latest_transaction_time;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable name (latest_transaction_time instead of xtime)
+- Added explanatory comments for each logical step
+- Emphasized the thread-safety aspect with spinlock operations
+- Clarified the purpose of accessing the shared recovery control structure

@@ -34,3 +34,18 @@ This function sets the shutdown reason in shared memory before the postmaster se
 - The reason field is automatically cleared during crash recovery when shared memory is rebuilt
 - Located in src/backend/storage/ipc/pmsignal.c:218-228
 - Part of the postmaster signaling mechanism for coordinated shutdown procedures
+
+## Simplified Source
+
+```c
+// Simplified version of SetQuitSignalReason
+void SetQuitSignalReason(QuitSignalReason reason) {
+    // Store the shutdown reason in shared memory for all processes to see
+    PMSignalState->sigquit_reason = reason;
+}
+```
+
+Key simplifications made:
+- Added descriptive comment explaining the core purpose
+- The function is already very simple with just one line of core logic
+- Preserved the essential functionality of setting the quit reason in shared memory

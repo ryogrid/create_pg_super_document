@@ -42,3 +42,20 @@ The function is a thin wrapper around the standard `mkdir()` system call but ens
 - The umask is also set based on file_perm.c for additional permission control
 - Improper permissions could cause backup and other processes to fail
 - For non-default permissions, direct mkdir() usage should be carefully considered
+
+## Simplified Source
+
+```c
+// Simplified version of MakePGDirectory
+int MakePGDirectory(const char *directoryName) {
+    // Create directory with PostgreSQL's standard permissions
+    // Uses pg_dir_create_mode to ensure consistent directory permissions
+    return mkdir(directoryName, pg_dir_create_mode);
+}
+```
+
+Key simplifications made:
+- Preserved the core functionality (single mkdir call with pg_dir_create_mode)
+- Removed extensive comments while keeping essential purpose clear
+- Function is already minimal - main simplification is in documentation clarity
+- Focused on the primary purpose: creating directories with consistent PostgreSQL permissions

@@ -48,3 +48,32 @@ This is distinct from member_can_set_role(), which checks SET ROLE capability ra
 - Used extensively in permission checking throughout PostgreSQL's access control system
 - Complements member_can_set_role() which handles SET ROLE permissions separately
 - Returns boolean result making it suitable for direct use in conditional statements
+
+## Simplified Source
+
+```c
+// Simplified version of has_privs_of_role
+bool has_privs_of_role(Oid member, Oid role) {
+    // Fast path 1: Same role always has its own privileges
+    if (member == role) {
+        return true;
+    }
+
+    // Fast path 2: Superusers have privileges of all roles
+    if (superuser_arg(member)) {
+        return true;
+    }
+
+    // Main logic: Check if target role is in member's inherited role list
+    List *inherited_roles = roles_is_member_of(member, ROLERECURSE_PRIVS,
+                                               InvalidOid, NULL);
+    return list_member_oid(inherited_roles, role);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Clarified the purpose of each fast path optimization
+- Simplified the complex function call by breaking it into separate steps
+- Focused on the core privilege inheritance checking logic
+- Removed implementation details while preserving the algorithm

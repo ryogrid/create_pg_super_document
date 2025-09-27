@@ -53,3 +53,81 @@ This function takes no parameters and returns a boolean indicating success or fa
 - Error reporting is done at LOG level rather than FATAL level to allow the server to continue operating
 - The function supports regular expressions in ident mapping rules through the `parse_ident_line()` helper
 - Memory management is carefully handled - if parsing fails, the entire memory context is deleted to prevent leaks
+
+## Simplified Source
+
+```c
+// Simplified version of load_ident
+bool load_ident(void) {
+    FILE *file;
+    List *ident_lines = NIL;
+    List *new_parsed_lines = NIL;
+    bool success = true;
+    MemoryContext ident_context;
+    MemoryContext oldcxt;
+
+    // Step 1: Open the ident configuration file
+    file = open_auth_file(IdentFileName, LOG, 0, NULL);
+    if (file == NULL) {
+        return false;  // File couldn't be opened
+    }
+
+    // Step 2: Break file into tokens
+    tokenize_auth_file(IdentFileName, file, &ident_lines, LOG, 0);
+
+    // Step 3: Create memory context for parsing
+    ident_context = AllocSetContextCreate(PostmasterContext,
+                                          "ident parser context",
+                                          ALLOCSET_SMALL_SIZES);
+    oldcxt = MemoryContextSwitchTo(ident_context);
+
+    // Step 4: Parse each line and build mapping rules
+    foreach(line_cell, ident_lines) {
+        TokenizedAuthLine *tok_line = (TokenizedAuthLine *) lfirst(line_cell);
+
+        // Skip lines that already have errors
+        if (tok_line->err_msg != NULL) {
+            success = false;
+            continue;
+        }
+
+        // Parse this line into an IdentLine structure
+        IdentLine *newline = parse_ident_line(tok_line, LOG);
+        if (newline == NULL) {
+            success = false;  // Parse error occurred
+            continue;         // Keep processing other lines
+        }
+
+        new_parsed_lines = lappend(new_parsed_lines, newline);
+    }
+
+    // Step 5: Clean up file resources
+    free_auth_file(file, 0);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Step 6: Handle parsing results
+    if (!success) {
+        // Parsing failed - clean up and return false
+        MemoryContextDelete(ident_context);
+        return false;
+    }
+
+    // Step 7: Replace global configuration with new parsed data
+    if (parsed_ident_context != NULL) {
+        MemoryContextDelete(parsed_ident_context);
+    }
+    parsed_ident_context = ident_context;
+    parsed_ident_lines = new_parsed_lines;
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for clarity
+- Simplified variable declarations and initialization
+- Added step-by-step comments explaining the main logic flow
+- Abstracted the foreach loop details while preserving the essential parsing logic
+- Focused on the main execution path (successful file loading and parsing)
+- Consolidated the memory management operations
+- Renamed `ok` variable to `success` for clarity

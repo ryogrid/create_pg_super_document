@@ -51,3 +51,97 @@ The function operates only during normal operation (not recovery) and returns wh
 - Coordinates with XLogSetAsyncXactLSN() which uses similar logic to decide when to wake the WAL writer
 - Closes unused log file handles to enable proper file cleanup and deletion
 - Always returns true if there was potential work, helping prevent premature hibernation of the background process
+
+## Simplified Source
+
+```c
+// Simplified version of XLogBackgroundFlush
+bool XLogBackgroundFlush(void) {
+    XLogwrtRqst WriteRqst;
+    bool flexible = true;
+    static TimestampTz lastflush;
+    TimestampTz now;
+    int flushblocks;
+    TimeLineID insertTLI;
+
+    // Skip during recovery - no WAL flushing needed
+    if (RecoveryInProgress())
+        return false;
+
+    // Get current timeline and write request position
+    insertTLI = XLogCtl->InsertTimeLineID;
+    SpinLockAcquire(&XLogCtl->info_lck);
+    WriteRqst = XLogCtl->LogwrtRqst;
+    SpinLockRelease(&XLogCtl->info_lck);
+
+    // Align to page boundary for completed blocks
+    WriteRqst.Write -= WriteRqst.Write % XLOG_BLCKSZ;
+
+    // Check if we need to handle async commits instead
+    RefreshXLogWriteResult(LogwrtResult);
+    if (WriteRqst.Write <= LogwrtResult.Flush) {
+        // Use async commit position if no complete blocks
+        SpinLockAcquire(&XLogCtl->info_lck);
+        WriteRqst.Write = XLogCtl->asyncXactLSN;
+        SpinLockRelease(&XLogCtl->info_lck);
+        flexible = false;  // Write everything for async commits
+    }
+
+    // Already flushed - just cleanup file handles if needed
+    if (WriteRqst.Write <= LogwrtResult.Flush) {
+        if (openLogFile >= 0 &&
+            !XLByteInPrevSeg(LogwrtResult.Write, openLogSegNo, wal_segment_size)) {
+            XLogFileClose();
+        }
+        return false;
+    }
+
+    // Determine flush strategy based on timing and block limits
+    now = GetCurrentTimestamp();
+    flushblocks = WriteRqst.Write / XLOG_BLCKSZ - LogwrtResult.Flush / XLOG_BLCKSZ;
+
+    if (WalWriterFlushAfter == 0 || lastflush == 0) {
+        // First call or no block limits - flush everything
+        WriteRqst.Flush = WriteRqst.Write;
+        lastflush = now;
+    } else if (TimestampDifferenceExceeds(lastflush, now, WalWriterDelay)) {
+        // Time-based flush - respect wal_writer_delay
+        WriteRqst.Flush = WriteRqst.Write;
+        lastflush = now;
+    } else if (flushblocks >= WalWriterFlushAfter) {
+        // Block-based flush - respect wal_writer_flush_after
+        WriteRqst.Flush = WriteRqst.Write;
+        lastflush = now;
+    } else {
+        // No flushing this time
+        WriteRqst.Flush = 0;
+    }
+
+    // Perform the actual write/flush operation
+    START_CRIT_SECTION();
+    WaitXLogInsertionsToFinish(WriteRqst.Write);
+    LWLockAcquire(WALWriteLock, LW_EXCLUSIVE);
+    RefreshXLogWriteResult(LogwrtResult);
+
+    if (WriteRqst.Write > LogwrtResult.Write || WriteRqst.Flush > LogwrtResult.Flush) {
+        XLogWrite(WriteRqst, insertTLI, flexible);
+    }
+
+    LWLockRelease(WALWriteLock);
+    END_CRIT_SECTION();
+
+    // Notify replication processes and prepare buffers for future use
+    WalSndWakeupProcessRequests(true, !RecoveryInProgress());
+    AdvanceXLInsertBuffer(InvalidXLogRecPtr, insertTLI, true);
+
+    return true;  // Had work to do
+}
+```
+
+Key simplifications made:
+- Removed detailed WAL_DEBUG logging code for clarity
+- Consolidated similar conditional branches in flush decision logic
+- Added clear comments explaining each major phase
+- Abstracted the complex LSN position calculations with descriptive names
+- Focused on the main execution path while preserving all essential logic
+- Simplified variable names and reduced intermediate calculations where possible

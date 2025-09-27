@@ -47,3 +47,37 @@ The function is part of the function cache utilities in lsyscache.c and provides
 - The function accesses the proname field from the pg_proc catalog which stores the function's name as a Name type (fixed-length string)
 - Used extensively throughout the executor, parser, and command processing modules
 - Essential for generating meaningful error messages and diagnostic output that reference function names
+
+## Simplified Source
+
+```c
+// Simplified version of get_func_name
+char *get_func_name(Oid funcid) {
+    // Look up the function in the system catalog by OID
+    HeapTuple function_tuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+
+    // Check if function exists
+    if (HeapTupleIsValid(function_tuple)) {
+        // Extract the pg_proc structure from the tuple
+        Form_pg_proc proc_info = (Form_pg_proc) GETSTRUCT(function_tuple);
+
+        // Create a copy of the function name string
+        char *function_name = pstrdup(NameStr(proc_info->proname));
+
+        // Clean up the cache reference
+        ReleaseSysCache(function_tuple);
+
+        return function_name;
+    }
+
+    // Function not found
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Used more descriptive variable names (function_tuple, proc_info, function_name)
+- Simplified the control flow with clearer structure
+- Maintained all essential functionality and error handling
+- Preserved the exact same logic and return behavior

@@ -51,3 +51,66 @@ The function calculates execution duration from statement start to current time 
 - Formats duration as milliseconds with microsecond precision (e.g., "1234.567")
 - Prevents duplicate query detail logging when was_logged parameter is true
 - Critical component of PostgreSQL's performance monitoring and auditing infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of check_log_duration
+int check_log_duration(char *msec_str, bool was_logged) {
+    // Skip if no duration logging is configured
+    if (!log_duration && log_min_duration_sample < 0 &&
+        log_min_duration_statement < 0 && !xact_is_sampled) {
+        return 0;
+    }
+
+    // Calculate statement execution duration
+    long secs;
+    int usecs;
+    TimestampDifference(GetCurrentStatementStartTimestamp(),
+                       GetCurrentTimestamp(),
+                       &secs, &usecs);
+    int msecs = usecs / 1000;
+    int total_duration_ms = secs * 1000 + msecs;
+
+    // Check if duration exceeds configured thresholds
+    bool exceeds_min_duration = (log_min_duration_statement >= 0 &&
+                                total_duration_ms >= log_min_duration_statement);
+
+    bool exceeds_sample_duration = (log_min_duration_sample >= 0 &&
+                                   total_duration_ms >= log_min_duration_sample);
+
+    // Apply probabilistic sampling for sample duration
+    bool should_sample = false;
+    if (exceeds_sample_duration && log_statement_sample_rate > 0) {
+        should_sample = (log_statement_sample_rate == 1 ||
+                        pg_prng_double(&pg_global_prng_state) <= log_statement_sample_rate);
+    }
+
+    // Determine if logging is needed
+    bool needs_logging = (log_duration || exceeds_min_duration ||
+                         should_sample || xact_is_sampled);
+
+    if (needs_logging) {
+        // Format duration string: "milliseconds.microseconds"
+        snprintf(msec_str, 32, "%ld.%03d",
+                secs * 1000 + msecs, usecs % 1000);
+
+        // Return 2 for full logging (duration + query), 1 for duration only
+        if ((exceeds_min_duration || should_sample || xact_is_sampled) && !was_logged) {
+            return 2;  // Log duration and query details
+        } else {
+            return 1;  // Log duration only
+        }
+    }
+
+    return 0;  // No logging needed
+}
+```
+
+Key simplifications made:
+- Removed complex overflow-prevention arithmetic for clarity
+- Consolidated multiple duration threshold checks
+- Simplified the sampling logic flow
+- Added descriptive variable names and inline comments
+- Focused on the main execution path
+- Preserved the essential three-way return value logic

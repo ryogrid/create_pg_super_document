@@ -45,3 +45,41 @@ This function takes no parameters.
 - Sets up the SubTransPagePrecedes function for determining page ordering during truncation
 - Includes unit tests via SlruPagePrecedesUnitTests to verify page precedence logic
 - Located in src/backend/access/transam/subtrans.c:220-253
+
+## Simplified Source
+
+```c
+// Simplified version of SUBTRANSShmemInit
+void SUBTRANSShmemInit(void) {
+    // Auto-tune subtransaction_buffers if set to 0
+    if (subtransaction_buffers == 0) {
+        char buf[32];
+
+        // Calculate optimal buffer count and update config
+        snprintf(buf, sizeof(buf), "%d", SUBTRANSShmemBuffers());
+        SetConfigOption("subtransaction_buffers", buf, PGC_POSTMASTER, PGC_S_DYNAMIC_DEFAULT);
+
+        // Force override if dynamic default failed
+        if (subtransaction_buffers == 0) {
+            SetConfigOption("subtransaction_buffers", buf, PGC_POSTMASTER, PGC_S_OVERRIDE);
+        }
+    }
+
+    Assert(subtransaction_buffers != 0);
+
+    // Initialize SUBTRANS SimpleLru control structure
+    SubTransCtl->PagePrecedes = SubTransPagePrecedes;
+    SimpleLruInit(SubTransCtl, "subtransaction", SUBTRANSShmemBuffers(), 0,
+                  "pg_subtrans", LWTRANCHE_SUBTRANS_BUFFER,
+                  LWTRANCHE_SUBTRANS_SLRU, SYNC_HANDLER_NONE, false);
+
+    // Run unit tests on page precedence logic
+    SlruPagePrecedesUnitTests(SubTransCtl, SUBTRANS_XACTS_PER_PAGE);
+}
+```
+
+Key simplifications made:
+- Consolidated the auto-tuning logic into clearer steps
+- Removed detailed comments about config override mechanics
+- Focused on the main execution flow: auto-tune → initialize → test
+- Preserved all essential functionality and parameters

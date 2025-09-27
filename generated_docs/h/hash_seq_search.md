@@ -48,3 +48,76 @@ The function is designed to handle sparse hash tables efficiently by quickly ski
 - Handles the segmented directory structure transparently
 - Used extensively throughout PostgreSQL for bulk operations and cleanup routines
 - Critical component for implementing transaction cleanup, cache management, and administrative functions
+
+## Simplified Source
+
+```c
+// Simplified version of hash_seq_search
+void *hash_seq_search(HASH_SEQ_STATUS *status) {
+    HTAB *hashp;
+    HASHHDR *hctl;
+    uint32 max_bucket;
+    long ssize;
+    long segment_num;
+    long segment_ndx;
+    HASHSEGMENT segp;
+    uint32 curBucket;
+    HASHELEMENT *curElem;
+
+    // Continue scan within current bucket's collision chain
+    if ((curElem = status->curEntry) != NULL) {
+        status->curEntry = curElem->link;
+        if (status->curEntry == NULL)  // End of bucket chain
+            ++status->curBucket;
+        return (void *) ELEMENTKEY(curElem);
+    }
+
+    // Search for next non-empty bucket
+    curBucket = status->curBucket;
+    hashp = status->hashp;
+    hctl = hashp->hctl;
+    ssize = hashp->ssize;
+    max_bucket = hctl->max_bucket;
+
+    // Check if scan is complete
+    if (curBucket > max_bucket) {
+        hash_seq_term(status);
+        return NULL;
+    }
+
+    // Find the correct segment in the directory
+    segment_num = curBucket >> hashp->sshift;
+    segment_ndx = MOD(curBucket, ssize);
+    segp = hashp->dir[segment_num];
+
+    // Skip empty buckets efficiently
+    while ((curElem = segp[segment_ndx]) == NULL) {
+        if (++curBucket > max_bucket) {
+            status->curBucket = curBucket;
+            hash_seq_term(status);
+            return NULL;
+        }
+        if (++segment_ndx >= ssize) {
+            segment_num++;
+            segment_ndx = 0;
+            segp = hashp->dir[segment_num];
+        }
+    }
+
+    // Begin scan of new bucket
+    status->curEntry = curElem->link;
+    if (status->curEntry == NULL)  // Single element bucket
+        ++curBucket;
+    status->curBucket = curBucket;
+
+    return (void *) ELEMENTKEY(curElem);
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic flow and algorithm structure
+- Added explanatory comments for each major section
+- Maintained the optimization for skipping empty buckets
+- Kept the segmented directory navigation logic intact
+- Preserved the collision chain traversal mechanism
+- Maintained proper cleanup calls to hash_seq_term()

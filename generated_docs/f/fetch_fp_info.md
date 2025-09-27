@@ -40,3 +40,56 @@ fetch_fp_info is responsible for safely retrieving and validating function metad
 - The funcid field serves as a validity indicator - it's only set to the correct value when the structure is fully populated
 - Functions that return sets or are not regular functions (procedures, aggregates) are rejected
 - The function handles memory management by releasing the system cache tuple after extracting needed information
+
+## Simplified Source
+
+```c
+// Simplified version of fetch_fp_info
+static void fetch_fp_info(Oid func_id, struct fp_info *fip) {
+    HeapTuple func_htp;
+    Form_pg_proc pp;
+
+    // Initialize structure safely - clear all fields and mark as invalid
+    MemSet(fip, 0, sizeof(struct fp_info));
+    fip->funcid = InvalidOid;
+
+    // Look up function in system catalog
+    func_htp = SearchSysCache1(PROCOID, ObjectIdGetDatum(func_id));
+    if (!HeapTupleIsValid(func_htp)) {
+        ereport(ERROR, "function with OID %u does not exist", func_id);
+    }
+    pp = (Form_pg_proc) GETSTRUCT(func_htp);
+
+    // Validate function is safe for fastpath interface
+    if (pp->prokind != PROKIND_FUNCTION || pp->proretset) {
+        ereport(ERROR, "cannot call function via fastpath interface");
+    }
+
+    // Check argument count limit
+    if (pp->pronargs > FUNC_MAX_ARGS) {
+        elog(ERROR, "function has too many arguments");
+    }
+
+    // Extract function metadata
+    fip->namespace = pp->pronamespace;
+    fip->rettype = pp->prorettype;
+    memcpy(fip->argtypes, pp->proargtypes.values, pp->pronargs * sizeof(Oid));
+    strlcpy(fip->fname, NameStr(pp->proname), NAMEDATALEN);
+
+    // Clean up catalog access
+    ReleaseSysCache(func_htp);
+
+    // Initialize function manager info for efficient calls
+    fmgr_info(func_id, &fip->flinfo);
+
+    // Mark structure as valid (this must be last!)
+    fip->funcid = func_id;
+}
+```
+
+Key simplifications made:
+- Removed detailed error message formatting for clarity
+- Simplified error condition descriptions while preserving validation logic
+- Abstracted complex catalog lookup details with descriptive comments
+- Focused on the main execution path: validate → extract → initialize
+- Preserved the critical safety pattern of setting funcid last

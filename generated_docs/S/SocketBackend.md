@@ -47,3 +47,78 @@ The function includes robust error handling for client disconnections and protoc
 - The function includes special error reporting behavior when clients disconnect unexpectedly during transactions
 - Message type validation prevents protocol desynchronization by rejecting unknown message types
 - Interrupt handling is carefully managed around message reading operations to ensure proper cleanup on cancellation
+
+## Simplified Source
+
+```c
+// Simplified version of SocketBackend
+static int SocketBackend(StringInfo inBuf) {
+    int message_type;
+    int max_message_length;
+
+    // Step 1: Disable interrupts and read message type from client
+    HOLD_CANCEL_INTERRUPTS();
+    pq_startmsgread();
+    message_type = pq_getbyte();
+
+    // Step 2: Handle client disconnection
+    if (message_type == EOF) {
+        if (IsTransactionState()) {
+            ereport(COMMERROR, "unexpected EOF with open transaction");
+        } else {
+            whereToSendOutput = DestNone;
+            ereport(DEBUG1, "unexpected EOF on client connection");
+        }
+        return message_type;
+    }
+
+    // Step 3: Validate message type and set size limits
+    switch (message_type) {
+        // Large messages: queries, function calls, data operations
+        case PqMsg_Query:
+        case PqMsg_FunctionCall:
+        case PqMsg_Bind:
+        case PqMsg_Parse:
+        case PqMsg_CopyData:
+            max_message_length = PQ_LARGE_MESSAGE_LIMIT;
+            break;
+
+        // Small messages: control operations
+        case PqMsg_Terminate:
+        case PqMsg_Close:
+        case PqMsg_Describe:
+        case PqMsg_Execute:
+        case PqMsg_Flush:
+        case PqMsg_Sync:
+        case PqMsg_CopyDone:
+        case PqMsg_CopyFail:
+            max_message_length = PQ_SMALL_MESSAGE_LIMIT;
+            break;
+
+        // Invalid message type - protocol violation
+        default:
+            ereport(FATAL, "invalid frontend message type %d", message_type);
+            break;
+    }
+
+    // Step 4: Update protocol state flags based on message type
+    update_protocol_state_flags(message_type);
+
+    // Step 5: Read the actual message content
+    if (pq_getmessage(inBuf, max_message_length)) {
+        return EOF; // Error already logged by pq_getmessage
+    }
+
+    // Step 6: Re-enable interrupts and return message type
+    RESUME_CANCEL_INTERRUPTS();
+    return message_type;
+}
+```
+
+Key simplifications made:
+- Consolidated similar switch cases for large and small message types
+- Abstracted detailed protocol state flag management into a conceptual helper function
+- Simplified error reporting calls to focus on essential information
+- Used more descriptive variable names (message_type instead of qtype)
+- Removed detailed comments about specific protocol behavior
+- Focused on the main execution flow: read type → validate → set limits → read content

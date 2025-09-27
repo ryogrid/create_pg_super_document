@@ -32,3 +32,23 @@ DisownLatch removes the current process's ownership of a shared latch by setting
 - Typically called during process cleanup or shutdown procedures
 - After disowning, another process can take ownership with OwnLatch
 - Essential for proper cleanup to prevent resource leaks in shared memory
+
+## Simplified Source
+
+```c
+// Simplified version of DisownLatch
+void DisownLatch(Latch *latch) {
+    // Verify this is a shared latch owned by current process
+    Assert(latch->is_shared);
+    Assert(latch->owner_pid == MyProcPid);
+
+    // Release ownership by clearing the owner PID
+    latch->owner_pid = 0;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the assertion checks
+- Clarified the purpose of setting owner_pid to 0
+- Preserved the essential ownership transfer logic
+- Function is already quite simple, so minimal changes were needed

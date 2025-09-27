@@ -32,7 +32,28 @@ The function includes a prominent comment warning that it's called by a signal h
 ## Notes and Other Information
 - This function must be signal-safe since it runs in signal handler context
 - The function replaced an older design that called ProcessCatchupEvent directly when idle
-- The deferred processing approach is safer and more reliable than immediate processing in signal context  
+- The deferred processing approach is safer and more reliable than immediate processing in signal context
 - The catchup mechanism helps ensure that no backend falls too far behind in processing shared invalidation messages
 - PROCSIG_CATCHUP_INTERRUPT is part of PostgreSQL's inter-process signaling system
 - The actual catchup processing is handled later by ProcessCatchupInterrupt when it's safe to do so
+
+## Simplified Source
+
+```c
+// Simplified version of HandleCatchupInterrupt
+void HandleCatchupInterrupt(void) {
+    // Step 1: Mark that catchup processing is needed
+    // This flag will be checked later in the main process loop
+    catchupInterruptPending = true;
+
+    // Step 2: Wake up the main process to handle the pending work
+    // SetLatch ensures the process will check for pending interrupts
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Focused on the two core operations: setting flag and waking process
+- Added explanatory comments for each step
+- Removed signal handler safety warnings (kept in original for reference)
+- Emphasized the deferred processing pattern used throughout PostgreSQL

@@ -38,3 +38,21 @@ ClearBufferTag is an inline utility function that initializes a BufferTag struct
 - Sets blockNum to InvalidBlockNumber
 - Essential for proper buffer management lifecycle and ensuring clean buffer states
 - Used extensively during buffer pool initialization and buffer invalidation operations
+
+## Simplified Source
+
+```c
+// Simplified version of ClearBufferTag
+static inline void ClearBufferTag(BufferTag *tag) {
+    // Clear all buffer tag fields to invalid values
+    tag->spcOid = InvalidOid;
+    tag->dbOid = InvalidOid;
+    BufTagSetRelForkDetails(tag, InvalidRelFileNumber, InvalidForkNumber);
+    tag->blockNum = InvalidBlockNumber;
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the purpose
+- Simple inline function that sets all fields to invalid values
+- No complex logic to simplify - straightforward field initialization

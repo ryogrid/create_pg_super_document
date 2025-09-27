@@ -51,3 +51,63 @@ The implementation handles edge cases carefully:
 - May produce spurious wakeups in some edge cases, which is harmless but slightly inefficient
 - Automatically cancels any existing CV sleep state to avoid conflicts with the sentinel mechanism
 - Widely used throughout PostgreSQL for synchronization in parallel operations, checkpointing, replication, and buffer management
+
+## Simplified Source
+
+```c
+// Simplified version of ConditionVariableBroadcast
+void ConditionVariableBroadcast(ConditionVariable *cv) {
+    int pgprocno = MyProcNumber;
+    PGPROC *proc = NULL;
+    bool have_sentinel = false;
+
+    // Step 1: Cancel any existing CV sleep to avoid conflicts
+    if (cv_sleep_target != NULL)
+        ConditionVariableCancelSleep();
+
+    // Step 2: Check the wakeup queue and handle based on its state
+    SpinLockAcquire(&cv->mutex);
+
+    if (!proclist_is_empty(&cv->wakeup)) {
+        // Remove the first waiter from the queue
+        proc = proclist_pop_head_node(&cv->wakeup, cvWaitLink);
+
+        // If more waiters exist, add ourselves as sentinel to track progress
+        if (!proclist_is_empty(&cv->wakeup)) {
+            proclist_push_tail(&cv->wakeup, pgprocno, cvWaitLink);
+            have_sentinel = true;
+        }
+    }
+
+    SpinLockRelease(&cv->mutex);
+
+    // Step 3: Wake up the first waiter
+    if (proc != NULL)
+        SetLatch(&proc->procLatch);
+
+    // Step 4: Continue waking waiters until our sentinel is removed
+    while (have_sentinel) {
+        proc = NULL;
+
+        // Get next waiter from the queue
+        SpinLockAcquire(&cv->mutex);
+        if (!proclist_is_empty(&cv->wakeup))
+            proc = proclist_pop_head_node(&cv->wakeup, cvWaitLink);
+
+        // Check if our sentinel is still in the queue
+        have_sentinel = proclist_contains(&cv->wakeup, pgprocno, cvWaitLink);
+        SpinLockRelease(&cv->mutex);
+
+        // Wake up the process (but not ourselves)
+        if (proc != NULL && proc != MyProc)
+            SetLatch(&proc->procLatch);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining edge cases and algorithm rationale
+- Consolidated the main logic into clear sequential steps
+- Abstracted the sentinel mechanism explanation into brief comments
+- Focused on the core execution flow rather than implementation details
+- Preserved the essential algorithm structure and correctness

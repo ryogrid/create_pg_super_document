@@ -43,3 +43,42 @@ The function includes comprehensive error handling with PANIC-level reporting fo
 - Calls ReleaseExternalFD() for proper resource accounting
 - Assert checks that openLogFile >= 0 before attempting to close
 - Located in src/backend/access/transam/xlog.c:3616-3666
+
+## Simplified Source
+
+```c
+// Simplified version of XLogFileClose
+static void XLogFileClose(void) {
+    Assert(openLogFile >= 0);
+
+    // Cache management: Advise OS to release cached pages for performance
+    // Skip this if WAL archiving/streaming is active (archiver/walsender may need cache)
+#if defined(USE_POSIX_FADVISE) && defined(POSIX_FADV_DONTNEED)
+    if (!XLogIsNeeded() && (io_direct_flags & IO_DIRECT_WAL) == 0) {
+        posix_fadvise(openLogFile, 0, 0, POSIX_FADV_DONTNEED);
+    }
+#endif
+
+    // Close the file with error handling
+    if (close(openLogFile) != 0) {
+        char xlogfname[MAXFNAMELEN];
+        int save_errno = errno;
+
+        XLogFileName(xlogfname, openLogTLI, openLogSegNo, wal_segment_size);
+        errno = save_errno;
+        ereport(PANIC, (errcode_for_file_access(),
+                       errmsg("could not close file \"%s\": %m", xlogfname)));
+    }
+
+    // Clean up: reset file descriptor and release external FD resource
+    openLogFile = -1;
+    ReleaseExternalFD();
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the cache management logic
+- Simplified conditional compilation directives with inline comments
+- Streamlined error handling while preserving the essential PANIC reporting
+- Consolidated cleanup operations with explanatory comments
+- Maintained the essential algorithm flow and all critical functionality

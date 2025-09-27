@@ -48,3 +48,30 @@ This design provides O(1) allocation and deallocation performance while maintain
 - The comment indicates this could be replaced with a generalized shared memory list implementation in the future
 - Critical for managing the fixed-size pool of serializable transaction slots in shared memory
 - Allocation failure (NULL return) can limit the number of concurrent serializable transactions
+
+## Simplified Source
+
+```c
+// Simplified version of CreatePredXact
+static SERIALIZABLEXACT *CreatePredXact(void) {
+    // Check if any transaction structures are available
+    if (dlist_is_empty(&PredXact->availableList)) {
+        return NULL;
+    }
+
+    // Get a structure from the available pool
+    SERIALIZABLEXACT *sxact = dlist_container(SERIALIZABLEXACT, xactLink,
+                                             dlist_pop_head_node(&PredXact->availableList));
+
+    // Move it to the active list
+    dlist_push_tail(&PredXact->activeList, &sxact->xactLink);
+
+    return sxact;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Maintained the original structure and logic
+- Kept the essential null check and list operations
+- No significant complexity to remove - function is already quite simple

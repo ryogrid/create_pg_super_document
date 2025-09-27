@@ -39,3 +39,19 @@ Timeline history files contain critical metadata about timeline relationships an
 - Timeline history files must be accessible from the same directory as WAL segment files
 - This function provides a centralized way to generate consistent paths for timeline history operations
 - The path format ensures timeline history files are co-located with their associated WAL segments
+
+## Simplified Source
+
+```c
+// Simplified version of TLHistoryFilePath
+static inline void TLHistoryFilePath(char *path, TimeLineID tli) {
+    // Generate path: pg_wal/TTTTTTTT.history (where T is hex timeline ID)
+    snprintf(path, MAXPGPATH, XLOGDIR "/%08X.history", tli);
+}
+```
+
+Key simplifications made:
+- Added explanatory comment describing the path format
+- Function is already very simple, minimal changes needed
+- Preserved the essential snprintf operation for safe path construction
+- Maintained the timeline ID to hex conversion

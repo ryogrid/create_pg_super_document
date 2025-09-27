@@ -46,3 +46,100 @@ This function takes no parameters but operates on several global state variables
 - For immediate shutdown, sets a timer to track how long child processes take to exit
 - The actual termination of child processes and cleanup is handled by the PostmasterStateMachine function
 - Each shutdown mode follows a different strategy for process termination and cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of process_pm_shutdown_request
+static void process_pm_shutdown_request(void) {
+    int mode;
+
+    // Log shutdown request received
+    ereport(DEBUG2, (errmsg_internal("postmaster received shutdown request signal")));
+    pending_pm_shutdown_request = false;
+
+    // Determine shutdown mode - immediate takes highest priority
+    if (pending_pm_immediate_shutdown_request) {
+        pending_pm_immediate_shutdown_request = false;
+        pending_pm_fast_shutdown_request = false;
+        mode = ImmediateShutdown;
+    } else if (pending_pm_fast_shutdown_request) {
+        pending_pm_fast_shutdown_request = false;
+        mode = FastShutdown;
+    } else {
+        mode = SmartShutdown;
+    }
+
+    switch (mode) {
+        case SmartShutdown:
+            // Wait for children to finish their work naturally
+            if (Shutdown >= SmartShutdown) break;
+
+            Shutdown = SmartShutdown;
+            ereport(LOG, (errmsg("received smart shutdown request")));
+
+            // Update status in lock file and notify systemd
+            AddToDataDirLockFile(LOCK_FILE_LINE_PM_STATUS, PM_STATUS_STOPPING);
+
+            // Set state based on current postmaster state
+            if (pmState == PM_RUN || pmState == PM_HOT_STANDBY) {
+                connsAllowed = false;  // Stop accepting new connections
+            } else if (pmState == PM_STARTUP || pmState == PM_RECOVERY) {
+                pmState = PM_STOP_BACKENDS;  // Move to backend stopping
+            }
+
+            PostmasterStateMachine();  // Advance state machine
+            break;
+
+        case FastShutdown:
+            // Abort active transactions and force client disconnections
+            if (Shutdown >= FastShutdown) break;
+
+            Shutdown = FastShutdown;
+            ereport(LOG, (errmsg("received fast shutdown request")));
+
+            // Update status in lock file and notify systemd
+            AddToDataDirLockFile(LOCK_FILE_LINE_PM_STATUS, PM_STATUS_STOPPING);
+
+            // Transition state based on current mode
+            if (pmState == PM_STARTUP || pmState == PM_RECOVERY) {
+                pmState = PM_STOP_BACKENDS;
+            } else if (pmState == PM_RUN || pmState == PM_HOT_STANDBY) {
+                ereport(LOG, (errmsg("aborting any active transactions")));
+                pmState = PM_STOP_BACKENDS;
+            }
+
+            PostmasterStateMachine();  // Let state machine handle termination
+            break;
+
+        case ImmediateShutdown:
+            // Kill all processes immediately without cleanup
+            if (Shutdown >= ImmediateShutdown) break;
+
+            Shutdown = ImmediateShutdown;
+            ereport(LOG, (errmsg("received immediate shutdown request")));
+
+            // Update status in lock file and notify systemd
+            AddToDataDirLockFile(LOCK_FILE_LINE_PM_STATUS, PM_STATUS_STOPPING);
+
+            // Send SIGQUIT to all children immediately
+            SetQuitSignalReason(PMQUIT_FOR_STOP);
+            TerminateChildren(SIGQUIT);
+            pmState = PM_WAIT_BACKENDS;
+
+            // Start timer for forced termination
+            AbortStartTime = time(NULL);
+
+            PostmasterStateMachine();  // Wait for processes to exit
+            break;
+    }
+}
+```
+
+Key simplifications made:
+- Removed platform-specific systemd notification code blocks for clarity
+- Consolidated similar state transition logic between FastShutdown and SmartShutdown
+- Simplified conditional checks while preserving essential logic flow
+- Added brief explanatory comments for each shutdown mode's strategy
+- Removed detailed internal comments that don't affect the core algorithm
+- Focused on the main execution path and decision logic

@@ -34,3 +34,28 @@ This function is designed to terminate child processes in response to crashes in
 - Used extensively in HandleChildCrash function to terminate various types of child processes (backends, autovacuum workers, background writers, etc.)
 - The higher logging level (DEBUG2) helps with debugging child process termination issues
 - Most comments in the postmaster code assume SIGQUIT is used, but SIGABRT support exists for development debugging
+
+## Simplified Source
+
+```c
+// Simplified version of sigquit_child
+static void sigquit_child(pid_t pid) {
+    // Choose signal based on configuration: SIGABRT for core dumps, SIGQUIT for normal termination
+    int signal_to_send = send_abort_for_crash ? SIGABRT : SIGQUIT;
+    const char *signal_name = send_abort_for_crash ? "SIGABRT" : "SIGQUIT";
+
+    // Log the termination action at debug level
+    ereport(DEBUG2,
+            (errmsg_internal("sending %s to process %d", signal_name, (int) pid)));
+
+    // Send the appropriate termination signal to the child process
+    signal_child(pid, signal_to_send);
+}
+```
+
+Key simplifications made:
+- Extracted signal selection logic into clear variables
+- Added explanatory comments for signal choice rationale
+- Simplified the conditional logic for better readability
+- Maintained the essential logging and signal sending functionality
+- Clarified the purpose of the send_abort_for_crash flag

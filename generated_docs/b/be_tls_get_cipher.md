@@ -35,3 +35,22 @@ The cipher suite name provides detailed information about the cryptographic algo
 - Used for security monitoring, compliance checking, and debugging
 - The cipher suite determines the cryptographic strength and performance characteristics of the connection
 - Located in src/backend/libpq/be-secure-openssl.c:1507-1515
+
+## Simplified Source
+
+```c
+// Simplified version of be_tls_get_cipher
+const char *be_tls_get_cipher(Port *port) {
+    // Return cipher name if TLS connection exists
+    if (port->ssl) {
+        return SSL_get_cipher(port->ssl);
+    }
+
+    // Return NULL if no TLS connection
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Function is already very simple - only added explanatory comments
+- Core logic: Check if SSL connection exists, return cipher name or NULL

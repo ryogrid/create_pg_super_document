@@ -40,3 +40,63 @@ The function uses a restart mechanism to handle the case where slots are dropped
 - Properly manages locking to avoid deadlocks during slot cleanup
 - Broadcasts condition variables to wake up processes waiting on cleaned-up slots
 - Primarily used for session cleanup and error recovery scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotCleanup
+void ReplicationSlotCleanup(bool synced_only) {
+    int i;
+
+    // Ensure we're not currently using any replication slot
+    Assert(MyReplicationSlot == NULL);
+
+restart:
+    // Acquire shared lock on replication slot control structure
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+    // Iterate through all replication slots
+    for (i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *slot = &ReplicationSlotCtl->replication_slots[i];
+
+        // Skip unused slots
+        if (!slot->in_use)
+            continue;
+
+        // Check if this slot belongs to current process and matches cleanup criteria
+        SpinLockAcquire(&slot->mutex);
+        if (slot->active_pid == MyProcPid &&
+            (!synced_only || slot->data.synced)) {
+
+            // Ensure it's a temporary slot (should always be true)
+            Assert(slot->data.persistency == RS_TEMPORARY);
+
+            // Release locks to avoid deadlock during slot drop
+            SpinLockRelease(&slot->mutex);
+            LWLockRelease(ReplicationSlotControlLock);
+
+            // Drop the slot
+            ReplicationSlotDropPtr(slot);
+
+            // Wake up any processes waiting on this slot
+            ConditionVariableBroadcast(&slot->active_cv);
+
+            // Restart iteration since slot array may have changed
+            goto restart;
+        } else {
+            SpinLockRelease(&slot->mutex);
+        }
+    }
+
+    // Release the control lock
+    LWLockRelease(ReplicationSlotControlLock);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Simplified variable names (s → slot) for better readability
+- Consolidated the main logic flow with descriptive comments
+- Explained the restart mechanism and why locks are released
+- Focused on the core algorithm: iterate, check ownership, drop if matches criteria
+- Preserved the essential locking protocol and error handling structure

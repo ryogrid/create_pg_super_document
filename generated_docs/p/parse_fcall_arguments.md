@@ -44,3 +44,90 @@ parse_fcall_arguments is responsible for extracting and processing function argu
 - Returns the result format code (0 for text, 1 for binary) requested by the client
 - Memory management includes proper cleanup of encoding conversion results
 - Uses StringInfo buffer for efficient handling of variable-length argument data
+
+## Simplified Source
+
+```c
+// Simplified version of parse_fcall_arguments
+static int16 parse_fcall_arguments(StringInfo msgBuf, struct fp_info *fip, FunctionCallInfo fcinfo) {
+    int numAFormats, nargs, i;
+    int16 *aformats = NULL;
+    StringInfoData abuf;
+
+    // Read argument format codes from message
+    numAFormats = pq_getmsgint(msgBuf, 2);
+    if (numAFormats > 0) {
+        aformats = palloc(numAFormats * sizeof(int16));
+        for (i = 0; i < numAFormats; i++) {
+            aformats[i] = pq_getmsgint(msgBuf, 2);
+        }
+    }
+
+    // Read number of arguments and validate
+    nargs = pq_getmsgint(msgBuf, 2);
+    if (fip->flinfo.fn_nargs != nargs || nargs > FUNC_MAX_ARGS) {
+        ereport(ERROR, "function argument count mismatch");
+    }
+
+    // Validate format count matches argument count
+    if (numAFormats > 1 && numAFormats != nargs) {
+        ereport(ERROR, "format count mismatch");
+    }
+
+    fcinfo->nargs = nargs;
+    initStringInfo(&abuf);
+
+    // Process each argument
+    for (i = 0; i < nargs; i++) {
+        int argsize = pq_getmsgint(msgBuf, 4);
+        int16 aformat;
+
+        // Handle NULL arguments
+        if (argsize == -1) {
+            fcinfo->args[i].isnull = true;
+            continue;
+        }
+
+        // Validate argument size and read argument data
+        fcinfo->args[i].isnull = false;
+        resetStringInfo(&abuf);
+        appendBinaryStringInfo(&abuf, pq_getmsgbytes(msgBuf, argsize), argsize);
+
+        // Determine format for this argument
+        if (numAFormats > 1) {
+            aformat = aformats[i];
+        } else if (numAFormats > 0) {
+            aformat = aformats[0];
+        } else {
+            aformat = 0;  // default = text
+        }
+
+        // Convert argument based on format
+        if (aformat == 0) {
+            // Text format: use input function with encoding conversion
+            Oid typinput, typioparam;
+            getTypeInputInfo(fip->argtypes[i], &typinput, &typioparam);
+            char *pstring = pg_client_to_server(abuf.data, argsize);
+            fcinfo->args[i].value = OidInputFunctionCall(typinput, pstring, typioparam, -1);
+        } else if (aformat == 1) {
+            // Binary format: use receive function directly
+            Oid typreceive, typioparam;
+            getTypeBinaryInputInfo(fip->argtypes[i], &typreceive, &typioparam);
+            fcinfo->args[i].value = OidReceiveFunctionCall(typreceive, &abuf, typioparam, -1);
+        } else {
+            ereport(ERROR, "unsupported format code");
+        }
+    }
+
+    // Return result format code
+    return (int16) pq_getmsgint(msgBuf, 2);
+}
+```
+
+Key simplifications made:
+- Consolidated error handling into simplified messages
+- Removed detailed error codes and messages for brevity
+- Simplified the argument format determination logic
+- Abstracted encoding conversion cleanup details
+- Focused on the main parsing and conversion flow
+- Removed detailed binary format validation for clarity

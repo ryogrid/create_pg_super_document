@@ -39,3 +39,29 @@ The function increments the cell pointer and validates that the result is still 
 - Part of PostgreSQL's fundamental list manipulation API
 - Returns NULL when reaching the end of the list, making it suitable for while-loop based iteration
 - The function assumes that the input cell pointer is valid and within the list bounds
+
+## Simplified Source
+
+```c
+// Simplified version of lnext
+static inline ListCell *
+lnext(const List *l, const ListCell *c) {
+    // Verify current cell is within valid list bounds
+    Assert(c >= &l->elements[0] && c < &l->elements[l->length]);
+
+    // Move to next cell position
+    c++;
+
+    // Return next cell if within bounds, otherwise NULL (end of list)
+    if (c < &l->elements[l->length])
+        return (ListCell *) c;
+    else
+        return NULL;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Preserved the essential bounds checking and pointer arithmetic
+- Maintained the inline function signature for performance
+- Kept the core logic flow intact while making it more readable

@@ -41,3 +41,124 @@ This function takes no parameters.
 - Memory context switching ensures all cache data is allocated in EventTriggerCacheContext
 - Registers InvalidateEventCacheCallback for automatic cache invalidation on system catalog changes
 - Robust against invalidation events occurring during cache reconstruction
+
+## Simplified Source
+
+```c
+// Simplified version of BuildEventTriggerCache
+static void BuildEventTriggerCache(void) {
+    HASHCTL ctl;
+    HTAB *cache;
+    MemoryContext oldcontext;
+    Relation rel, irel;
+    SysScanDesc scan;
+
+    // Step 1: Initialize or reset memory context
+    if (EventTriggerCacheContext != NULL) {
+        // Reset existing context to clean up memory
+        MemoryContextReset(EventTriggerCacheContext);
+    } else {
+        // First time: create context and register invalidation callback
+        if (CacheMemoryContext == NULL)
+            CreateCacheMemoryContext();
+        EventTriggerCacheContext = AllocSetContextCreate(CacheMemoryContext,
+                                                        "EventTriggerCache",
+                                                        ALLOCSET_DEFAULT_SIZES);
+        CacheRegisterSyscacheCallback(EVENTTRIGGEROID,
+                                    InvalidateEventCacheCallback,
+                                    (Datum) 0);
+    }
+
+    // Step 2: Switch to cache memory context and mark rebuild in progress
+    oldcontext = MemoryContextSwitchTo(EventTriggerCacheContext);
+    EventTriggerCacheState = ETCS_REBUILD_STARTED;
+
+    // Step 3: Create new hash table for event triggers
+    ctl.keysize = sizeof(EventTriggerEvent);
+    ctl.entrysize = sizeof(EventTriggerCacheEntry);
+    ctl.hcxt = EventTriggerCacheContext;
+    cache = hash_create("EventTriggerCacheHash", 32, &ctl,
+                       HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    // Step 4: Open pg_event_trigger table and its name index for ordered scan
+    rel = relation_open(EventTriggerRelationId, AccessShareLock);
+    irel = index_open(EventTriggerNameIndexId, AccessShareLock);
+    scan = systable_beginscan_ordered(rel, irel, NULL, 0, NULL);
+
+    // Step 5: Process each event trigger tuple
+    for (;;) {
+        HeapTuple tup;
+        Form_pg_event_trigger form;
+        char *evtevent;
+        EventTriggerEvent event;
+        EventTriggerCacheItem *item;
+        EventTriggerCacheEntry *entry;
+        bool found;
+
+        // Get next tuple from ordered scan
+        tup = systable_getnext_ordered(scan, ForwardScanDirection);
+        if (!HeapTupleIsValid(tup))
+            break;
+
+        // Skip disabled triggers
+        form = (Form_pg_event_trigger) GETSTRUCT(tup);
+        if (form->evtenabled == TRIGGER_DISABLED)
+            continue;
+
+        // Map event name string to event enum
+        evtevent = NameStr(form->evtevent);
+        if (strcmp(evtevent, "ddl_command_start") == 0)
+            event = EVT_DDLCommandStart;
+        else if (strcmp(evtevent, "ddl_command_end") == 0)
+            event = EVT_DDLCommandEnd;
+        else if (strcmp(evtevent, "sql_drop") == 0)
+            event = EVT_SQLDrop;
+        else if (strcmp(evtevent, "table_rewrite") == 0)
+            event = EVT_TableRewrite;
+        else if (strcmp(evtevent, "login") == 0)
+            event = EVT_Login;
+        else
+            continue; // Unknown event type
+
+        // Create cache item for this trigger
+        item = palloc0(sizeof(EventTriggerCacheItem));
+        item->fnoid = form->evtfoid;
+        item->enabled = form->evtenabled;
+
+        // Process tag array if present
+        Datum evttags = heap_getattr(tup, Anum_pg_event_trigger_evttags,
+                                   RelationGetDescr(rel), &evttags_isnull);
+        if (!evttags_isnull)
+            item->tagset = DecodeTextArrayToBitmapset(evttags);
+
+        // Add item to appropriate cache entry
+        entry = hash_search(cache, &event, HASH_ENTER, &found);
+        if (found)
+            entry->triggerlist = lappend(entry->triggerlist, item);
+        else
+            entry->triggerlist = list_make1(item);
+    }
+
+    // Step 6: Clean up scan resources
+    systable_endscan_ordered(scan);
+    index_close(irel, AccessShareLock);
+    relation_close(rel, AccessShareLock);
+
+    // Step 7: Install new cache and update state
+    MemoryContextSwitchTo(oldcontext);
+    EventTriggerCache = cache;
+
+    // Mark cache as valid (unless invalidated during rebuild)
+    if (EventTriggerCacheState == ETCS_REBUILD_STARTED)
+        EventTriggerCacheState = ETCS_VALID;
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the main phases
+- Simplified variable declarations for better readability
+- Consolidated related operations into logical groups
+- Removed detailed comments about edge cases and focused on main flow
+- Made the event type mapping more readable with consistent formatting
+- Clarified the memory context management pattern
+- Emphasized the ordered scan approach and its purpose

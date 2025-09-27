@@ -47,3 +47,46 @@ This is a lower-level function used by higher-level process status functions and
 - Resets suffix tracking (ps_buffer_nosuffix_len = 0) since this represents a complete title change
 - Uses ps_buffer_fixed_size to determine where the activity portion begins in the buffer
 - Commonly used in query processing paths where process titles change frequently and performance matters
+
+## Simplified Source
+
+```c
+// Simplified version of set_ps_display_with_len
+void set_ps_display_with_len(const char *activity, size_t len) {
+    // Validate input length matches actual string length
+    Assert(strlen(activity) == len);
+
+#ifndef PS_USE_NONE
+    // Check if process title updates are enabled/needed
+    if (!update_ps_display_precheck()) {
+        return;
+    }
+
+    // Clear any existing suffix state for complete title change
+    ps_buffer_nosuffix_len = 0;
+
+    // Copy activity string after the fixed prefix in ps_buffer
+    if (ps_buffer_fixed_size + len >= ps_buffer_size) {
+        // Buffer overflow: truncate activity to fit available space
+        memcpy(ps_buffer + ps_buffer_fixed_size, activity,
+               ps_buffer_size - ps_buffer_fixed_size - 1);
+        ps_buffer[ps_buffer_size - 1] = '\0';
+        ps_buffer_cur_len = ps_buffer_size - 1;
+    } else {
+        // Normal case: copy complete activity string
+        memcpy(ps_buffer + ps_buffer_fixed_size, activity, len + 1);
+        ps_buffer_cur_len = ps_buffer_fixed_size + len;
+    }
+
+    // Update the actual process title in the system
+    flush_ps_display();
+#endif
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Condensed buffer overflow handling logic with clear explanations
+- Focused on the main execution path while preserving all essential logic
+- Maintained the conditional compilation structure
+- Preserved all critical assertions and buffer management

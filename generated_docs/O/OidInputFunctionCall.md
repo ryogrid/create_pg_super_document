@@ -43,3 +43,24 @@ The function is part of PostgreSQL's type input/output system, converting string
 - For performance-critical code, use InputFunctionCall with pre-cached FmgrInfo instead
 - The function is located in src/backend/utils/fmgr/fmgr.c at lines 1754-1762
 - It's commonly used in bootstrap operations, command processing, and replication scenarios where convenience outweighs performance
+
+## Simplified Source
+
+```c
+// Simplified version of OidInputFunctionCall
+Datum OidInputFunctionCall(Oid functionId, char *str, Oid typioparam, int32 typmod) {
+    FmgrInfo function_info;
+
+    // Step 1: Look up the input function by its OID
+    fmgr_info(functionId, &function_info);
+
+    // Step 2: Call the actual input function with the prepared info
+    return InputFunctionCall(&function_info, str, typioparam, typmod);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two-step process
+- Renamed `flinfo` to `function_info` for clarity
+- Focused on the main execution path (lookup then call)
+- Preserved the essential wrapper function logic

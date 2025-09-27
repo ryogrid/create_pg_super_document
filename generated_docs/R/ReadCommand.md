@@ -39,3 +39,25 @@ This abstraction allows the rest of the PostgreSQL backend to process commands u
 - The choice between socket and interactive backends is made at runtime based on how the PostgreSQL backend process was started
 - This design pattern allows PostgreSQL to support both production client-server scenarios and development/debugging scenarios with the same core message processing logic
 - The function is a simple dispatcher with no complex logic of its own, delegating all actual work to the appropriate specialized backend function
+
+## Simplified Source
+
+```c
+// Simplified version of ReadCommand
+static int ReadCommand(StringInfo inBuf) {
+    // Route to appropriate input handler based on connection type
+    if (whereToSendOutput == DestRemote) {
+        // Handle network client connection via PostgreSQL wire protocol
+        return SocketBackend(inBuf);
+    } else {
+        // Handle interactive terminal input for debugging/standalone mode
+        return InteractiveBackend(inBuf);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the routing logic
+- Clarified the purpose of each branch (network vs interactive)
+- Maintained the essential dispatch pattern
+- Focused on the core responsibility: routing input reading to appropriate handlers

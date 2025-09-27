@@ -48,3 +48,69 @@ FlushBuffer is the core function responsible for writing dirty buffers to persis
 - Only passes data to kernel; actual disk write depends on kernel scheduling
 - Critical for checkpoint operations and victim buffer replacement
 - Includes error context callback for better error reporting
+
+## Simplified Source
+
+```c
+// Simplified version of FlushBuffer
+static void FlushBuffer(BufferDesc *buf, SMgrRelation reln, IOObject io_object, IOContext io_context) {
+    XLogRecPtr recptr;
+    uint32 buf_state;
+    Block bufBlock;
+    char *bufToWrite;
+
+    // Try to start I/O operation - return if someone else flushed it first
+    if (!StartBufferIO(buf, false, false)) {
+        return;
+    }
+
+    // Setup error callback for better error reporting
+    ErrorContextCallback errcallback;
+    errcallback.callback = shared_buffer_write_error_callback;
+    errcallback.arg = (void *) buf;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Open relation if not provided
+    if (reln == NULL) {
+        reln = smgropen(BufTagGetRelFileLocator(&buf->tag), INVALID_PROC_NUMBER);
+    }
+
+    // Get buffer LSN and clear just-dirtied flag
+    buf_state = LockBufHdr(buf);
+    recptr = BufferGetLSN(buf);
+    buf_state &= ~BM_JUST_DIRTIED;
+    UnlockBufHdr(buf, buf_state);
+
+    // Enforce WAL-before-data rule for permanent relations
+    if (buf_state & BM_PERMANENT) {
+        XLogFlush(recptr);
+    }
+
+    // Get buffer data and compute checksum if needed
+    bufBlock = BufHdrGetBlock(buf);
+    bufToWrite = PageSetChecksumCopy((Page) bufBlock, buf->tag.blockNum);
+
+    // Write buffer to disk
+    instr_time io_start = pgstat_prepare_io_time(track_io_timing);
+    smgrwrite(reln, BufTagGetForkNum(&buf->tag), buf->tag.blockNum, bufToWrite, false);
+
+    // Update I/O statistics
+    pgstat_count_io_op_time(IOOBJECT_RELATION, io_context, IOOP_WRITE, io_start, 1);
+    pgBufferUsage.shared_blks_written++;
+
+    // Mark buffer as clean and end I/O operation
+    TerminateBufferIO(buf, true, 0, true);
+
+    // Restore error context stack
+    error_context_stack = errcallback.previous;
+}
+```
+
+Key simplifications made:
+- Removed detailed tracing and extensive comments
+- Simplified error context setup
+- Consolidated buffer state management
+- Focused on core WAL-before-data logic
+- Maintained essential I/O state management and statistics tracking
+- Preserved checksum handling and buffer cleanup operations

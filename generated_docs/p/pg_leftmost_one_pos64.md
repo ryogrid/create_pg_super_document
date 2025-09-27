@@ -43,3 +43,51 @@ The implementation adapts to different 64-bit integer representations:
 - Critical for 64-bit memory management, large hash table operations, and high-precision numeric computations
 - The MSVC implementation is specifically optimized for 64-bit architectures (x64 and ARM64)
 - Used extensively in PostgreSQL's advanced data structures like radix trees and large-scale parallel operations
+
+## Simplified Source
+
+```c
+// Simplified version of pg_leftmost_one_pos64
+// Finds the position of the leftmost (most significant) set bit in a 64-bit word
+static inline int pg_leftmost_one_pos64(uint64 word) {
+    // Input validation: word must not be zero
+    Assert(word != 0);
+
+    // Method 1: Use GCC/Clang compiler builtin for count leading zeros
+    #ifdef HAVE__BUILTIN_CLZ
+        #if defined(HAVE_LONG_INT_64)
+            // For systems where long is 64-bit, use __builtin_clzl
+            return 63 - __builtin_clzl(word);
+        #elif defined(HAVE_LONG_LONG_INT_64)
+            // For systems where long long is 64-bit, use __builtin_clzll
+            return 63 - __builtin_clzll(word);
+        #endif
+
+    // Method 2: Use Microsoft Visual C++ intrinsic on 64-bit platforms
+    #elif defined(_MSC_VER) && (defined(_M_AMD64) || defined(_M_ARM64))
+        unsigned long result;
+        // Use MSVC's bit scan reverse intrinsic
+        _BitScanReverse64(&result, word);
+        return (int) result;
+
+    // Method 3: Fallback implementation using byte-wise scanning
+    #else
+        int shift = 64 - 8;  // Start from the most significant byte
+
+        // Find the highest byte that contains a set bit
+        while ((word >> shift) == 0) {
+            shift -= 8;  // Move to next lower byte
+        }
+
+        // Use lookup table for the final byte position
+        return shift + pg_leftmost_one_pos[(word >> shift) & 255];
+    #endif
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each implementation method
+- Simplified conditional compilation logic with descriptive comments
+- Removed error directive for clearer focus on main logic paths
+- Consolidated variable declarations and made the algorithm flow more obvious
+- Emphasized the three distinct implementation strategies based on platform capabilities

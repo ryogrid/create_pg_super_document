@@ -42,3 +42,43 @@ The implementation uses a power-of-2 allocation strategy to minimize memory real
 - The function saves only a pointer to the tranche name, requiring the caller to ensure the name string remains valid for the process lifetime
 - Only processes user-defined tranches; system-defined tranches are handled differently
 - Thread-safe within a single process context but requires coordination for shared memory scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockRegisterTranche
+void LWLockRegisterTranche(int tranche_id, const char *tranche_name) {
+    // Only process user-defined tranches
+    if (tranche_id < LWTRANCHE_FIRST_USER_DEFINED)
+        return;
+
+    // Convert to array index
+    tranche_id -= LWTRANCHE_FIRST_USER_DEFINED;
+
+    // Expand array if necessary
+    if (tranche_id >= LWLockTrancheNamesAllocated) {
+        int newalloc;
+
+        newalloc = pg_nextpower2_32(Max(8, tranche_id + 1));
+
+        if (LWLockTrancheNames == NULL)
+            LWLockTrancheNames = (const char **)
+                MemoryContextAllocZero(TopMemoryContext,
+                                     newalloc * sizeof(char *));
+        else
+            LWLockTrancheNames =
+                repalloc0_array(LWLockTrancheNames, const char *,
+                              LWLockTrancheNamesAllocated, newalloc);
+        LWLockTrancheNamesAllocated = newalloc;
+    }
+
+    // Store the tranche name pointer
+    LWLockTrancheNames[tranche_id] = tranche_name;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Simplified variable declarations and logic flow
+- Maintained dynamic allocation strategy for efficiency
+- Preserved all validation and memory management functionality

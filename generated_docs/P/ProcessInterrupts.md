@@ -60,3 +60,149 @@ This function takes no parameters and operates on global interrupt state variabl
 - Lock and statement timeouts are handled with precedence logic to report the earlier-occurring timeout
 - The function includes injection points for testing timeout scenarios
 - Statistics updates are only performed when the backend is truly idle (DoingCommandRead and not in a transaction)
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessInterrupts
+void ProcessInterrupts(void) {
+    // Safety check: Can we process interrupts now?
+    if (InterruptHoldoffCount != 0 || CritSectionCount != 0)
+        return;
+
+    InterruptPending = false;
+
+    // 1. Handle process termination requests (highest priority)
+    if (ProcDiePending) {
+        ProcDiePending = false;
+        QueryCancelPending = false; // Die trumps cancel
+        LockErrorCleanup();
+
+        // Send appropriate termination message based on process type
+        if (ClientAuthInProgress) {
+            // Handle authentication timeout
+            ereport(FATAL, "canceling authentication due to timeout");
+        } else if (AmAutoVacuumWorkerProcess()) {
+            ereport(FATAL, "terminating autovacuum process");
+        } else if (IsLogicalWorker()) {
+            ereport(FATAL, "terminating logical replication worker");
+        } else if (IsLogicalLauncher()) {
+            proc_exit(1); // Special case: restart launcher
+        } else {
+            ereport(FATAL, "terminating connection due to administrator command");
+        }
+    }
+
+    // 2. Check client connection health
+    if (CheckClientConnectionPending) {
+        CheckClientConnectionPending = false;
+        if (!DoingCommandRead && client_connection_check_interval > 0) {
+            if (!pq_check_connection()) {
+                ClientConnectionLost = true;
+            } else {
+                // Re-arm connection check timeout
+                enable_timeout_after(CLIENT_CONNECTION_CHECK_TIMEOUT,
+                                   client_connection_check_interval);
+            }
+        }
+    }
+
+    // 3. Handle lost client connections
+    if (ClientConnectionLost) {
+        QueryCancelPending = false; // Connection loss trumps cancel
+        LockErrorCleanup();
+        ereport(FATAL, "connection to client lost");
+    }
+
+    // 4. Process query cancellation requests
+    if (QueryCancelPending) {
+        // Defer cancel if reading from client (to maintain protocol sync)
+        if (QueryCancelHoldoffCount != 0) {
+            InterruptPending = true; // Re-arm for later processing
+        } else {
+            QueryCancelPending = false;
+
+            // Check for timeout conditions
+            bool lock_timeout = get_timeout_indicator(LOCK_TIMEOUT, true);
+            bool stmt_timeout = get_timeout_indicator(STATEMENT_TIMEOUT, true);
+
+            // Report earlier timeout if both occurred
+            if (lock_timeout && stmt_timeout &&
+                get_timeout_finish_time(STATEMENT_TIMEOUT) < get_timeout_finish_time(LOCK_TIMEOUT)) {
+                lock_timeout = false; // Report statement timeout instead
+            }
+
+            // Handle specific timeout types
+            if (lock_timeout) {
+                LockErrorCleanup();
+                ereport(ERROR, "canceling statement due to lock timeout");
+            } else if (stmt_timeout) {
+                LockErrorCleanup();
+                ereport(ERROR, "canceling statement due to statement timeout");
+            } else if (AmAutoVacuumWorkerProcess()) {
+                LockErrorCleanup();
+                ereport(ERROR, "canceling autovacuum task");
+            } else if (!DoingCommandRead) {
+                // Regular user-requested cancellation
+                LockErrorCleanup();
+                ereport(ERROR, "canceling statement due to user request");
+            }
+        }
+    }
+
+    // 5. Handle recovery conflicts (standby servers)
+    if (RecoveryConflictPending)
+        ProcessRecoveryConflictInterrupts();
+
+    // 6. Process session timeout conditions
+    if (IdleInTransactionSessionTimeoutPending) {
+        IdleInTransactionSessionTimeoutPending = false;
+        if (IdleInTransactionSessionTimeout > 0) {
+            ereport(FATAL, "terminating connection due to idle-in-transaction timeout");
+        }
+    }
+
+    if (TransactionTimeoutPending) {
+        TransactionTimeoutPending = false;
+        if (TransactionTimeout > 0) {
+            ereport(FATAL, "terminating connection due to transaction timeout");
+        }
+    }
+
+    if (IdleSessionTimeoutPending) {
+        IdleSessionTimeoutPending = false;
+        if (IdleSessionTimeout > 0) {
+            ereport(FATAL, "terminating connection due to idle-session timeout");
+        }
+    }
+
+    // 7. Handle statistics updates when truly idle
+    if (IdleStatsUpdateTimeoutPending &&
+        DoingCommandRead && !IsTransactionOrTransactionBlock()) {
+        IdleStatsUpdateTimeoutPending = false;
+        pgstat_report_stat(true);
+    }
+
+    // 8. Process other pending signals and messages
+    if (ProcSignalBarrierPending)
+        ProcessProcSignalBarrier();
+
+    if (ParallelMessagePending)
+        HandleParallelMessages();
+
+    if (LogMemoryContextPending)
+        ProcessLogMemoryContextInterrupt();
+
+    if (ParallelApplyMessagePending)
+        HandleParallelApplyMessages();
+}
+```
+
+Key simplifications made:
+- Removed detailed error code handling and message formatting for clarity
+- Consolidated similar timeout handling patterns
+- Abstracted client authentication state management details
+- Simplified conditional logic while preserving priority order
+- Focused on the main execution flow and decision points
+- Removed platform-specific details and injection points
+- Used simplified error reporting calls instead of full ereport() syntax

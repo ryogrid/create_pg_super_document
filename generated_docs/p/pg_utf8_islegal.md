@@ -41,3 +41,78 @@ The validation process includes checking continuation byte ranges (0x80-0xBF) an
   - 0xF0: Second byte must be 0x90-0xBF (prevents overlong 4-byte sequences)
   - 0xF4: Second byte must be 0x80-0x8F (prevents code points > U+10FFFF)
 - Returns false for any byte in range 0x80-0xC1 as first byte (invalid or overlong)
+
+## Simplified Source
+
+```c
+// Simplified version of pg_utf8_islegal
+bool pg_utf8_islegal(const unsigned char *source, int length) {
+    unsigned char byte;
+
+    switch (length) {
+        default:
+            // Reject 5 and 6 byte sequences (not supported)
+            return false;
+
+        case 4:
+            // Check 4th byte: must be continuation byte (0x80-0xBF)
+            byte = source[3];
+            if (byte < 0x80 || byte > 0xBF)
+                return false;
+            /* FALL THRU */
+
+        case 3:
+            // Check 3rd byte: must be continuation byte (0x80-0xBF)
+            byte = source[2];
+            if (byte < 0x80 || byte > 0xBF)
+                return false;
+            /* FALL THRU */
+
+        case 2:
+            // Check 2nd byte with special rules based on first byte
+            byte = source[1];
+            switch (*source) {
+                case 0xE0:  // 3-byte sequence starting with 0xE0
+                    if (byte < 0xA0 || byte > 0xBF)  // Prevent overlong encoding
+                        return false;
+                    break;
+                case 0xED:  // 3-byte sequence starting with 0xED
+                    if (byte < 0x80 || byte > 0x9F)  // Prevent surrogate encoding
+                        return false;
+                    break;
+                case 0xF0:  // 4-byte sequence starting with 0xF0
+                    if (byte < 0x90 || byte > 0xBF)  // Prevent overlong encoding
+                        return false;
+                    break;
+                case 0xF4:  // 4-byte sequence starting with 0xF4
+                    if (byte < 0x80 || byte > 0x8F)  // Prevent code points > U+10FFFF
+                        return false;
+                    break;
+                default:    // Other multi-byte sequences
+                    if (byte < 0x80 || byte > 0xBF)  // Must be continuation byte
+                        return false;
+                    break;
+            }
+            /* FALL THRU */
+
+        case 1:
+            // Check first byte
+            byte = *source;
+            if (byte >= 0x80 && byte < 0xC2)  // Invalid range (overlong or continuation)
+                return false;
+            if (byte > 0xF4)  // Beyond valid UTF-8 range
+                return false;
+            break;
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Added comprehensive comments explaining each validation step
+- Clarified the purpose of special byte range checks
+- Explained overlong encoding prevention and security implications
+- Maintained the efficient fall-through switch structure
+- Preserved all RFC 3629 compliance checks
+- Used more descriptive variable name (byte instead of a)

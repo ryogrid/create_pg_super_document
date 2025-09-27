@@ -33,3 +33,24 @@ The effective key length represents the actual cryptographic strength of the cip
 - This function is part of PostgreSQL's TLS abstraction layer for OpenSSL
 - Used primarily for monitoring, logging, and security assessment purposes
 - Located in src/backend/libpq/be-secure-openssl.c:1484-1497
+
+## Simplified Source
+
+```c
+// Simplified version of be_tls_get_cipher_bits
+int be_tls_get_cipher_bits(Port *port) {
+    // Return cipher bits if TLS connection exists
+    if (port->ssl) {
+        int bits;
+        SSL_get_cipher_bits(port->ssl, &bits);
+        return bits;
+    }
+
+    // Return 0 if no TLS connection
+    return 0;
+}
+```
+
+Key simplifications made:
+- Function is already quite simple - only added explanatory comments
+- Core logic: Check if SSL connection exists, get cipher bits or return 0

@@ -29,3 +29,19 @@ This function returns the constant value NUM_EMULATION_SEMAPHORES, which defines
 - This function works in conjunction with SpinlockSemaSize() to determine both the count and total memory requirements for spinlock emulation
 - The returned value is used during system initialization to allocate the correct number of semaphores
 - Only relevant when hardware spinlocks are not available and semaphore-based emulation is needed
+
+## Simplified Source
+
+```c
+// Simplified version of SpinlockSemas
+int SpinlockSemas(void) {
+    // Return the predefined constant for number of emulation semaphores needed
+    return NUM_EMULATION_SEMAPHORES;
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple - it's a single-line return statement
+- Added explanatory comment describing the purpose
+- No error handling or complex logic to simplify
+- The function serves as a configuration accessor for semaphore count

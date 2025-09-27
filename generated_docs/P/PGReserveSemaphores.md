@@ -52,3 +52,45 @@ For unnamed semaphores:
 - Automatically registers ReleaseSemaphores as an exit callback for proper cleanup
 - Part of PostgreSQL's platform abstraction layer that allows the same interface across different semaphore implementations
 - Sets global variables: numSems, maxSems, nextSemKey, mySemPointers/sharedSemas
+
+## Simplified Source
+
+```c
+// Simplified version of PGReserveSemaphores
+void PGReserveSemaphores(int maxSemas) {
+    struct stat statbuf;
+
+    // Step 1: Get data directory stats to generate unique semaphore keys
+    if (stat(DataDir, &statbuf) < 0) {
+        ereport(FATAL, (errcode_for_file_access(),
+                errmsg("could not stat data directory \"%s\": %m", DataDir)));
+    }
+
+    // Step 2: Allocate memory for semaphore management
+#ifdef USE_NAMED_POSIX_SEMAPHORES
+    // For named semaphores: allocate pointer array in postmaster memory
+    mySemPointers = (sem_t **) malloc(maxSemas * sizeof(sem_t *));
+    if (mySemPointers == NULL) {
+        elog(PANIC, "out of memory");
+    }
+#else
+    // For unnamed semaphores: allocate structures in shared memory
+    sharedSemas = (PGSemaphore) ShmemAllocUnlocked(PGSemaphoreShmemSize(maxSemas));
+#endif
+
+    // Step 3: Initialize global tracking variables
+    numSems = 0;
+    maxSems = maxSemas;
+    nextSemKey = statbuf.st_ino;  // Use inode as key seed
+
+    // Step 4: Register cleanup function for shutdown
+    on_shmem_exit(ReleaseSemaphores, 0);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining design rationale
+- Consolidated conditional compilation blocks with clear step labels
+- Simplified error handling to show only the essential checks
+- Added high-level step comments to explain the main phases
+- Focused on the core initialization logic flow

@@ -38,3 +38,34 @@ The function operates by iterating through all NUM_XLOGINSERT_LOCKS WAL insertio
 - Returns InvalidXLogRecPtr if no important records have been inserted
 - Performance scales with NUM_XLOGINSERT_LOCKS but is typically called infrequently
 - Located in src/backend/access/transam/xlog.c:6535-6563
+
+## Simplified Source
+
+```c
+// Simplified version of GetLastImportantRecPtr
+XLogRecPtr GetLastImportantRecPtr(void) {
+    XLogRecPtr max_lsn = InvalidXLogRecPtr;
+
+    // Iterate through all WAL insertion locks
+    for (int i = 0; i < NUM_XLOGINSERT_LOCKS; i++) {
+        // Lock to prevent torn reads of LSN value
+        LWLockAcquire(&WALInsertLocks[i].l.lock, LW_EXCLUSIVE);
+        XLogRecPtr current_lsn = WALInsertLocks[i].l.lastImportantAt;
+        LWLockRelease(&WALInsertLocks[i].l.lock);
+
+        // Keep track of the maximum LSN found
+        if (max_lsn < current_lsn) {
+            max_lsn = current_lsn;
+        }
+    }
+
+    return max_lsn;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (max_lsn, current_lsn)
+- Added inline comments explaining each major step
+- Condensed the lock acquisition and release pattern
+- Simplified the comparison logic while preserving functionality
+- Focused on the core algorithm: iterate through locks, find maximum LSN

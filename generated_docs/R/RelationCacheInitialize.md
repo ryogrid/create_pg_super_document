@@ -50,3 +50,40 @@ None - this function takes no parameters.
 - All memory allocations use CacheMemoryContext to ensure persistence across transactions
 - The initial cache size (INITRELCACHESIZE) is optimized for typical workloads but will expand dynamically
 - This is part of the broader cache initialization sequence during backend startup
+
+## Simplified Source
+
+```c
+// Simplified version of RelationCacheInitialize
+void RelationCacheInitialize(void) {
+    HASHCTL ctl;
+    int allocsize;
+
+    // Ensure cache memory context exists
+    if (!CacheMemoryContext) {
+        CreateCacheMemoryContext();
+    }
+
+    // Create hash table for relation cache indexed by OID
+    ctl.keysize = sizeof(Oid);
+    ctl.entrysize = sizeof(RelIdCacheEnt);
+    RelationIdCache = hash_create("Relcache by OID", INITRELCACHESIZE,
+                                  &ctl, HASH_ELEM | HASH_BLOBS);
+
+    // Allocate in-progress list to prevent recursion during cache loading
+    allocsize = 4;
+    in_progress_list = MemoryContextAlloc(CacheMemoryContext,
+                                          allocsize * sizeof(*in_progress_list));
+    in_progress_list_maxlen = allocsize;
+
+    // Initialize relation mapping system
+    RelationMapInitialize();
+}
+```
+
+Key simplifications made:
+- Consolidated comments to explain the purpose of each major section
+- Maintained the exact same logic flow as it's already quite straightforward
+- Removed detailed comments from the original while preserving essential structure
+- Kept all the critical initialization steps in their original order
+- Simplified variable declarations formatting for better readability

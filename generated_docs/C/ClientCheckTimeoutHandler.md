@@ -31,3 +31,23 @@ Like other timeout handlers, this function is designed to be lightweight and sig
 - Uses the latch mechanism for efficient inter-process signaling
 - The actual client connection checking logic is executed elsewhere when the interrupt is processed
 - Helps detect and handle client disconnections in a timely manner without blocking normal database operations
+
+## Simplified Source
+
+```c
+// Simplified version of ClientCheckTimeoutHandler
+static void ClientCheckTimeoutHandler(void) {
+    // Set flags to indicate client connection check is needed
+    CheckClientConnectionPending = true;
+    InterruptPending = true;
+
+    // Wake up the main process to handle the check
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple, so minimal simplification was needed
+- Added descriptive comments explaining the purpose of each operation
+- Maintained the exact same logic as all three operations are essential
+- The deferred handling approach using flags and latch follows PostgreSQL's standard timeout handler pattern

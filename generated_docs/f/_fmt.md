@@ -48,3 +48,120 @@ Error handling includes bounds checking to prevent buffer overflows and warning 
 - Contains optional KITCHEN_SINK feature for %K specifier (humorous Easter egg)
 - Warning system tracks potentially problematic conversions like 2-digit years
 - Buffer overflow protection through ptlim boundary checking
+
+## Simplified Source
+
+```c
+// Simplified version of _fmt
+static char *_fmt(const char *format, const struct pg_tm *t, char *pt, const char *ptlim, enum warn *warnp) {
+    // Main formatting loop: process each character in format string
+    for (; *format; ++format) {
+        if (*format == '%') {
+            // Handle format specifiers
+            switch (*++format) {
+                case '\0':
+                    --format;  // Handle trailing %
+                    break;
+
+                // Basic date/time components
+                case 'Y':  // 4-digit year
+                    pt = _yconv(t->tm_year, TM_YEAR_BASE, true, true, pt, ptlim);
+                    continue;
+                case 'm':  // Month (01-12)
+                    pt = _conv(t->tm_mon + 1, "%02d", pt, ptlim);
+                    continue;
+                case 'd':  // Day of month (01-31)
+                    pt = _conv(t->tm_mday, "%02d", pt, ptlim);
+                    continue;
+                case 'H':  // Hour 24-hour format (00-23)
+                    pt = _conv(t->tm_hour, "%02d", pt, ptlim);
+                    continue;
+                case 'M':  // Minutes (00-59)
+                    pt = _conv(t->tm_min, "%02d", pt, ptlim);
+                    continue;
+                case 'S':  // Seconds (00-59)
+                    pt = _conv(t->tm_sec, "%02d", pt, ptlim);
+                    continue;
+
+                // Day/month names (locale-aware)
+                case 'A':  // Full weekday name
+                    pt = _add((t->tm_wday < 0 || t->tm_wday >= DAYSPERWEEK) ?
+                             "?" : Locale->weekday[t->tm_wday], pt, ptlim);
+                    continue;
+                case 'B':  // Full month name
+                    pt = _add((t->tm_mon < 0 || t->tm_mon >= MONSPERYEAR) ?
+                             "?" : Locale->month[t->tm_mon], pt, ptlim);
+                    continue;
+
+                // Composite formats (recursive)
+                case 'F':  // ISO date format (YYYY-MM-DD)
+                    pt = _fmt("%Y-%m-%d", t, pt, ptlim, warnp);
+                    continue;
+                case 'T':  // ISO time format (HH:MM:SS)
+                    pt = _fmt("%H:%M:%S", t, pt, ptlim, warnp);
+                    continue;
+                case 'c':  // Complete date/time representation
+                    pt = _fmt(Locale->c_fmt, t, pt, ptlim, warnp);
+                    continue;
+
+                // Timezone handling
+                case 'Z':  // Timezone abbreviation
+                    if (t->tm_zone != NULL) {
+                        pt = _add(t->tm_zone, pt, ptlim);
+                    }
+                    continue;
+                case 'z':  // Timezone offset (+HHMM)
+                    // Calculate and format GMT offset
+                    if (t->tm_isdst >= 0) {
+                        long diff = t->tm_gmtoff;
+                        bool negative = diff < 0;
+                        if (negative) diff = -diff;
+
+                        pt = _add(negative ? "-" : "+", pt, ptlim);
+                        diff /= SECSPERMIN;
+                        diff = (diff / MINSPERHOUR) * 100 + (diff % MINSPERHOUR);
+                        pt = _conv(diff, "%04d", pt, ptlim);
+                    }
+                    continue;
+
+                // ISO 8601 week date (complex calculation)
+                case 'V':  // Week number
+                case 'G':  // ISO year (4 digits)
+                case 'g':  // ISO year (2 digits)
+                    // Simplified: delegate to ISO week calculation logic
+                    pt = calculate_iso_week_format(*format, t, pt, ptlim, warnp);
+                    continue;
+
+                // Special characters
+                case 'n':  // Newline
+                    pt = _add("\n", pt, ptlim);
+                    continue;
+                case 't':  // Tab
+                    pt = _add("\t", pt, ptlim);
+                    continue;
+                case '%':  // Literal %
+                default:   // Unknown specifier - print as-is
+                    break;
+            }
+        }
+
+        // Check buffer bounds
+        if (pt == ptlim) break;
+
+        // Copy literal character
+        *pt++ = *format;
+    }
+
+    return pt;
+}
+```
+
+Key simplifications made:
+- Condensed the massive switch statement to show core format specifiers
+- Grouped related functionality (dates, times, names, etc.)
+- Abstracted complex ISO 8601 week logic into a helper function concept
+- Maintained the essential structure: format parsing, specifier handling, literal copying
+- Preserved buffer overflow protection and recursive formatting calls
+- Simplified timezone handling while showing the basic approach
+- Removed extensive comments and historical notes for clarity
+- Focused on the most commonly used format specifiers

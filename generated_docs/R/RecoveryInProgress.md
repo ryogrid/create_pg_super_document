@@ -47,3 +47,27 @@ The function is widely used throughout PostgreSQL to conditionally enable/disabl
 - No explicit memory barrier needed when returning true since recovery could end immediately after
 - Process-local caching means the function may return true briefly after recovery ends, but this is acceptable
 - Located in src/backend/access/transam/xlog.c:6313-6348
+
+## Simplified Source
+
+```c
+// Simplified version of RecoveryInProgress
+bool RecoveryInProgress(void) {
+    // Quick return if we've already confirmed recovery is complete
+    // (optimization: once recovery ends, it never restarts)
+    if (!LocalRecoveryInProgress)
+        return false;
+
+    // Check shared memory state to get current recovery status
+    volatile XLogCtlData *xlogctl = XLogCtl;
+    LocalRecoveryInProgress = (xlogctl->SharedRecoveryState != RECOVERY_STATE_DONE);
+
+    return LocalRecoveryInProgress;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about volatile pointer usage and memory barriers
+- Consolidated the if-else structure into clearer flow
+- Focused on the core logic: local caching + shared state checking
+- Preserved the essential optimization pattern and thread-safety

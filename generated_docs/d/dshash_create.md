@@ -44,3 +44,60 @@ The function ensures proper memory management by using the dynamic shared area a
 - The function reports an ERROR with ERRCODE_OUT_OF_MEMORY if bucket allocation fails
 - The control structure is marked with DSHASH_MAGIC for validation purposes
 - Memory allocation uses DSA_ALLOC_NO_OOM and DSA_ALLOC_ZERO flags for the bucket array
+
+## Simplified Source
+
+```c
+// Simplified version of dshash_create
+dshash_table *dshash_create(dsa_area *area, const dshash_parameters *params, void *arg) {
+    dshash_table *hash_table;
+    dsa_pointer control;
+
+    // Core logic step 1: Allocate backend-local hash table object
+    hash_table = palloc(sizeof(dshash_table));
+
+    // Core logic step 2: Allocate shared control structure
+    control = dsa_allocate(area, sizeof(dshash_table_control));
+
+    // Core logic step 3: Set up local and shared hash table structures
+    hash_table->area = area;
+    hash_table->params = *params;
+    hash_table->arg = arg;
+    hash_table->control = dsa_get_address(area, control);
+    hash_table->control->handle = control;
+    hash_table->control->magic = DSHASH_MAGIC;
+    hash_table->control->lwlock_tranche_id = params->tranche_id;
+
+    // Core logic step 4: Initialize lock partitions
+    dshash_partition *partitions = hash_table->control->partitions;
+    for (int i = 0; i < DSHASH_NUM_PARTITIONS; ++i) {
+        LWLockInitialize(&partitions[i].lock, params->tranche_id);
+        partitions[i].count = 0;
+    }
+
+    // Core logic step 5: Set up initial bucket array
+    hash_table->control->size_log2 = DSHASH_NUM_PARTITIONS_LOG2;
+    hash_table->control->buckets = dsa_allocate_extended(area,
+                                                         sizeof(dsa_pointer) * DSHASH_NUM_PARTITIONS,
+                                                         DSA_ALLOC_NO_OOM | DSA_ALLOC_ZERO);
+
+    // Handle allocation failure
+    if (!DsaPointerIsValid(hash_table->control->buckets)) {
+        dsa_free(area, control);
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+    }
+
+    // Core logic step 6: Set up local bucket access
+    hash_table->buckets = dsa_get_address(area, hash_table->control->buckets);
+    hash_table->size_log2 = hash_table->control->size_log2;
+
+    return hash_table;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations where possible
+- Removed detailed error message about DSA request size
+- Simplified partition initialization loop
+- Focused on the six main steps: allocate local, allocate shared, link structures, init partitions, create buckets, finalize
+- Maintained essential error handling logic

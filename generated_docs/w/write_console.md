@@ -51,3 +51,37 @@ The function is designed to be resilient, ignoring write errors since there's no
 - Future enhancement noted for non-Windows encoding conversion using no-throw version of pg_do_encoding_conversion()
 - Located in src/backend/utils/error/elog.c alongside other logging functions
 - Provides robust fallback mechanisms to ensure log messages are always written, even if optimal formatting fails
+
+## Simplified Source
+
+```c
+// Simplified version of write_console
+static void write_console(const char *line, int len) {
+#ifdef WIN32
+    // Windows: Try UTF-16 conversion and WriteConsoleW() first
+    if (can_use_utf16_conversion()) {
+        WCHAR *utf16_message = convert_to_utf16(line, len);
+        if (utf16_message != NULL) {
+            HANDLE console_handle = GetStdHandle(STD_ERROR_HANDLE);
+            if (WriteConsoleW(console_handle, utf16_message, utf16_len, &written, NULL)) {
+                pfree(utf16_message);
+                return; // Success with UTF-16
+            }
+            pfree(utf16_message); // Cleanup on failure
+        }
+    }
+#endif
+
+    // Fallback: Write directly to stderr (all platforms)
+    write(fileno(stderr), line, len);
+    // Ignore any write errors - nothing useful we can do about them
+}
+```
+
+Key simplifications made:
+- Abstracted complex Windows condition checks into `can_use_utf16_conversion()`
+- Simplified UTF-16 conversion logic with cleaner variable names
+- Removed detailed error handling comments for clarity
+- Consolidated the main execution flow into two clear paths: UTF-16 attempt and fallback
+- Focused on the core algorithm: try Windows-specific UTF-16 output, fallback to standard write
+- Removed platform-specific implementation details while preserving the essential logic

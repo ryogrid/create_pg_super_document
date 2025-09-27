@@ -47,3 +47,65 @@ SyncOneBuffer is the core function for processing individual buffers during sync
 - Integrates with writeback context for efficient I/O batching
 - Returns detailed status information to help callers make decisions about buffer management
 - Ensures proper resource management through pin/unpin operations and resource owner tracking
+
+## Simplified Source
+
+```c
+// Simplified version of SyncOneBuffer
+static int SyncOneBuffer(int buf_id, bool skip_recently_used, WritebackContext *wb_context) {
+    BufferDesc *buffer = GetBufferDescriptor(buf_id);
+    int result = 0;
+    uint32 buffer_state;
+
+    // Prepare for buffer operations
+    ReservePrivateRefCountEntry();
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+
+    // Lock buffer header and check state
+    buffer_state = LockBufHdr(buffer);
+
+    // Check if buffer is reusable (no pins, no recent usage)
+    if (BUF_STATE_GET_REFCOUNT(buffer_state) == 0 &&
+        BUF_STATE_GET_USAGECOUNT(buffer_state) == 0) {
+        result |= BUF_REUSABLE;
+    }
+    else if (skip_recently_used) {
+        // Skip recently used buffers if requested
+        UnlockBufHdr(buffer, buffer_state);
+        return result;
+    }
+
+    // Check if buffer needs writing (must be valid and dirty)
+    if (!(buffer_state & BM_VALID) || !(buffer_state & BM_DIRTY)) {
+        // Buffer is clean, nothing to do
+        UnlockBufHdr(buffer, buffer_state);
+        return result;
+    }
+
+    // Pin buffer and acquire shared content lock for writing
+    PinBuffer_Locked(buffer);
+    LWLockAcquire(BufferDescriptorGetContentLock(buffer), LW_SHARED);
+
+    // Write the buffer to disk
+    FlushBuffer(buffer, NULL, IOOBJECT_RELATION, IOCONTEXT_NORMAL);
+
+    // Release lock and unpin buffer
+    LWLockRelease(BufferDescriptorGetContentLock(buffer));
+    BufferTag tag = buffer->tag;
+    UnpinBuffer(buffer);
+
+    // Schedule for writeback batching
+    ScheduleBufferTagForWriteback(wb_context, IOCONTEXT_NORMAL, &tag);
+
+    return result | BUF_WRITTEN;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated them into clear step descriptions
+- Used more descriptive variable name (`buffer` instead of `bufHdr`)
+- Simplified the buffer state checking logic flow
+- Consolidated lock acquisition and release operations
+- Focused on the main execution path without losing essential functionality
+- Maintained the critical WAL-before-data safety logic
+- Preserved all return value semantics and error handling paths

@@ -47,3 +47,27 @@ This function takes no parameters and returns a Size value representing the requ
 - Uses overflow-safe arithmetic functions to prevent integer overflow in size calculations
 - The memory layout consists of the fixed control structure followed by the variable-sized worker array
 - Located in src/backend/postmaster/autovacuum.c:3300-3318
+
+## Simplified Source
+
+```c
+// Simplified version of AutoVacuumShmemSize
+Size AutoVacuumShmemSize(void) {
+    Size size;
+
+    // Calculate space for main autovacuum control structure
+    size = sizeof(AutoVacuumShmemStruct);
+    size = MAXALIGN(size);
+
+    // Add space for worker information array
+    size = add_size(size, mul_size(autovacuum_max_workers, sizeof(WorkerInfoData)));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while keeping essential logic clear
+- Maintained the core calculation steps: base structure + worker array
+- Preserved the overflow-safe arithmetic functions (add_size, mul_size)
+- Kept the memory alignment operation (MAXALIGN) as it's essential

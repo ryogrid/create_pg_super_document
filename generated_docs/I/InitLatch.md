@@ -32,3 +32,37 @@ InitLatch initializes a process-local latch by setting up its basic state and pl
 - On Windows, it creates a manual-reset event object that starts in non-signaled state
 - The latch is marked as process-local (not shared between processes) and owned by the current process
 - Platform-specific assertions ensure proper initialization of underlying synchronization mechanisms
+
+## Simplified Source
+
+```c
+// Simplified version of InitLatch
+void InitLatch(Latch *latch) {
+    // Initialize basic latch state
+    latch->is_set = false;
+    latch->maybe_sleeping = false;
+    latch->owner_pid = MyProcPid;
+    latch->is_shared = false;
+
+    // Platform-specific initialization
+#if defined(WAIT_USE_SELF_PIPE)
+    // Verify self-pipe mechanism is ready
+    Assert(selfpipe_readfd >= 0 && selfpipe_owner_pid == MyProcPid);
+#elif defined(WAIT_USE_SIGNALFD)
+    // Verify signalfd mechanism is ready
+    Assert(signal_fd >= 0);
+#elif defined(WAIT_USE_WIN32)
+    // Create Windows event object for signaling
+    latch->event = CreateEvent(NULL, TRUE, FALSE, NULL);
+    if (latch->event == NULL)
+        elog(ERROR, "CreateEvent failed: error code %lu", GetLastError());
+#endif
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each initialization step
+- Grouped platform-specific code with clear section comment
+- Simplified conditional compilation comments to explain purpose
+- Maintained all essential logic and error handling
+- Preserved the core algorithm without losing functionality

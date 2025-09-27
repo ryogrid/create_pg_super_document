@@ -47,3 +47,51 @@ The function returns NULL if insufficient space is available, allowing callers t
 - Returns NULL on allocation failure without throwing errors
 - Assumes ShmemSegHdr, ShmemBase, and ShmemLock are properly initialized
 - Located in src/backend/storage/ipc/shmem.c:186-237
+
+## Simplified Source
+
+```c
+// Simplified version of ShmemAllocRaw
+static void *ShmemAllocRaw(Size size, Size *allocated_size) {
+    Size newStart;
+    Size newFree;
+    void *newSpace;
+
+    // Align size to cache line boundary for optimal performance
+    size = CACHELINEALIGN(size);
+    *allocated_size = size;
+
+    Assert(ShmemSegHdr != NULL);
+
+    // Thread-safe allocation using spinlock
+    SpinLockAcquire(ShmemLock);
+
+    // Calculate new allocation start position
+    newStart = ShmemSegHdr->freeoffset;
+    newFree = newStart + size;
+
+    // Check if allocation fits within shared memory bounds
+    if (newFree <= ShmemSegHdr->totalsize) {
+        // Calculate actual memory address and update free offset
+        newSpace = (void *) ((char *) ShmemBase + newStart);
+        ShmemSegHdr->freeoffset = newFree;
+    } else {
+        // Insufficient space available
+        newSpace = NULL;
+    }
+
+    SpinLockRelease(ShmemLock);
+
+    // Verify proper cache line alignment was achieved
+    Assert(newSpace == (void *) CACHELINEALIGN(newSpace));
+
+    return newSpace;
+}
+```
+
+Key simplifications made:
+- Removed extensive alignment explanation comments while preserving the logic
+- Added clear comments explaining each major operation
+- Preserved essential thread safety and bounds checking
+- Maintained cache line alignment for performance optimization
+- Focused on the core allocation algorithm and error handling

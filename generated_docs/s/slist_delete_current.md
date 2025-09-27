@@ -36,3 +36,24 @@ This function removes the current element from a singly-linked list during itera
 - Handles deletion of the first element correctly by using the list header's "head" field as the previous pointer
 - Part of PostgreSQL's intrusive linked list implementation in src/include/lib/ilist.h
 - Used throughout PostgreSQL for cleanup operations during transaction end and resource management
+
+## Simplified Source
+
+```c
+// Simplified version of slist_delete_current
+static inline void slist_delete_current(slist_mutable_iter *iter) {
+    // Step 1: Remove current element by updating previous element's forward link
+    // This skips over the current element, effectively deleting it from the list
+    iter->prev->next = iter->next;
+
+    // Step 2: Reset iterator position to maintain proper iteration state
+    // Move current pointer back to previous element so iteration can continue safely
+    iter->cur = iter->prev;
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the deletion logic
+- Emphasized the two main operations: link update and iterator reset
+- Removed detailed inline comments for cleaner readability
+- Focused on the core algorithm: bypass current element and reset iterator position

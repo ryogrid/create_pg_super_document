@@ -39,3 +39,27 @@ This function is designed to be passed as a callback parameter to functions that
 - The `unused` parameter suggests this callback signature is standardized for compatibility with various callback systems
 - Despite being a simple test utility function, the `callback` symbol name appears extensively throughout the PostgreSQL codebase, indicating this is a common naming pattern for callback functions
 - The function is designed for testing network interface address enumeration functionality
+
+## Simplified Source
+
+```c
+// Simplified version of callback
+static void callback(struct sockaddr *addr, struct sockaddr *mask, void *unused) {
+    // Display the network interface address
+    printf("addr: ");
+    print_addr(addr);
+
+    // Display the corresponding netmask
+    printf("  mask: ");
+    print_addr(mask);
+
+    // End the output line
+    printf("\n");
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Grouped related operations with clear explanations
+- Emphasized the core purpose: displaying address and mask information
+- Maintained the original simple structure as it's already quite readable

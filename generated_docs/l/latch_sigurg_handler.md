@@ -38,3 +38,21 @@ The self-pipe technique is a classic Unix pattern for making signal handlers int
 - Signal-safe implementation that only calls async-signal-safe functions
 - Works in conjunction with SetLatch() which sends the SIGURG signal to target processes
 - The self-pipe write ensures that blocking I/O operations (epoll_wait, etc.) are interrupted when a latch is set
+
+## Simplified Source
+
+```c
+// Simplified version of latch_sigurg_handler
+static void latch_sigurg_handler(SIGNAL_ARGS) {
+    // Wake up waiting process: If currently waiting, signal via self-pipe
+    if (waiting) {
+        sendSelfPipeByte();
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comment for the core logic
+- Maintained the essential signal handling pattern
+- Preserved the optimization check (waiting flag)
+- Kept the minimal, signal-safe implementation intact

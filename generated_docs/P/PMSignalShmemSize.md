@@ -37,3 +37,28 @@ The function uses PostgreSQL's safe arithmetic functions (add_size, mul_size) to
 - Uses safe arithmetic to prevent overflow vulnerabilities
 - Part of PostgreSQL's shared memory subsystem initialization
 - The PMChildFlags array size depends on the maximum number of backend processes configured
+
+## Simplified Source
+
+```c
+// Simplified version of PMSignalShmemSize
+Size PMSignalShmemSize(void) {
+    Size size;
+
+    // Base size: PMSignalData structure without the flexible array
+    size = offsetof(PMSignalData, PMChildFlags);
+
+    // Add size for the PMChildFlags array
+    // Array size = MaxLivePostmasterChildren() * sizeof(sig_atomic_t)
+    size = add_size(size, mul_size(MaxLivePostmasterChildren(),
+                                   sizeof(sig_atomic_t)));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each calculation step
+- Clarified that PMChildFlags is a flexible array member
+- Emphasized the two-part calculation: base structure + dynamic array
+- Maintained the safe arithmetic functions for overflow protection

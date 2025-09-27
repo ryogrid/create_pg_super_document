@@ -33,3 +33,26 @@ The function uses lazy initialization with caching - it only queries the system 
 - Part of PostgreSQL's Windows-specific logging infrastructure
 - Essential for proper character encoding when writing to Windows Event Log
 - Located in src/backend/utils/error/elog.c alongside other logging functions
+
+## Simplified Source
+
+```c
+// Simplified version of GetACPEncoding
+static int GetACPEncoding(void) {
+    // Cache the encoding value to avoid repeated system calls
+    static int cached_encoding = -2;  // -2 means "not yet initialized"
+
+    // One-time initialization: convert Windows ACP to PostgreSQL encoding
+    if (cached_encoding == -2) {
+        cached_encoding = pg_codepage_to_encoding(GetACP());
+    }
+
+    return cached_encoding;
+}
+```
+
+Key simplifications made:
+- Renamed variable from 'encoding' to 'cached_encoding' for clarity
+- Added explanatory comments for the lazy initialization pattern
+- Clarified that -2 represents uninitialized state
+- Emphasized the caching behavior and one-time system call

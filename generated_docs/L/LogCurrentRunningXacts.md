@@ -42,3 +42,58 @@ The function ensures the WAL record is eventually synced to disk by using XLogSe
 - Debug logging provides detailed information about the snapshot including transaction counts and overflow status
 - The function handles subtransaction overflow cases where not all subtransaction IDs can be included in the array
 - Located in src/backend/storage/ipc/standby.c:1345-1404
+
+## Simplified Source
+
+```c
+// Simplified version of LogCurrentRunningXacts
+static XLogRecPtr LogCurrentRunningXacts(RunningTransactions CurrRunningXacts) {
+    xl_running_xacts xlrec;
+    XLogRecPtr recptr;
+
+    // Copy transaction snapshot data to WAL record structure
+    xlrec.xcnt = CurrRunningXacts->xcnt;
+    xlrec.subxcnt = CurrRunningXacts->subxcnt;
+    xlrec.subxid_overflow = (CurrRunningXacts->subxid_status != SUBXIDS_IN_ARRAY);
+    xlrec.nextXid = CurrRunningXacts->nextXid;
+    xlrec.oldestRunningXid = CurrRunningXacts->oldestRunningXid;
+    xlrec.latestCompletedXid = CurrRunningXacts->latestCompletedXid;
+
+    // Prepare WAL record - mark as unimportant for durability
+    XLogBeginInsert();
+    XLogSetRecordFlags(XLOG_MARK_UNIMPORTANT);
+
+    // Register header data
+    XLogRegisterData((char *) (&xlrec), MinSizeOfXactRunningXacts);
+
+    // Register transaction ID array if present
+    if (xlrec.xcnt > 0) {
+        XLogRegisterData((char *) CurrRunningXacts->xids,
+                        (xlrec.xcnt + xlrec.subxcnt) * sizeof(TransactionId));
+    }
+
+    // Insert WAL record
+    recptr = XLogInsert(RM_STANDBY_ID, XLOG_RUNNING_XACTS);
+
+    // Log debug information about the snapshot
+    if (xlrec.subxid_overflow) {
+        elog(DEBUG2, "snapshot of %d running transactions overflowed",
+             CurrRunningXacts->xcnt);
+    } else {
+        elog(DEBUG2, "snapshot of %d+%d running transaction ids",
+             CurrRunningXacts->xcnt, CurrRunningXacts->subxcnt);
+    }
+
+    // Schedule asynchronous WAL sync
+    XLogSetAsyncXactLSN(recptr);
+
+    return recptr;
+}
+```
+
+Key simplifications made:
+- Removed detailed debug message formatting for clarity
+- Condensed the debug logging logic while preserving the overflow vs normal case distinction
+- Maintained the essential WAL logging workflow
+- Preserved all critical transaction snapshot data copying
+- Kept the important XLOG_MARK_UNIMPORTANT flag and async sync behavior

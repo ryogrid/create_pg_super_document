@@ -47,3 +47,40 @@ The initialization process:
 - The contiguous_pages_dirty flag is set to true to ensure proper recalculation on first access
 - Debug builds include additional free_pages tracking via FPM_EXTRA_ASSERTS
 - This is typically the first function called when setting up free page management for a memory segment
+
+## Simplified Source
+
+```c
+// Simplified version of FreePageManagerInitialize
+void FreePageManagerInitialize(FreePageManager *fpm, char *base) {
+    Size f;
+
+    // Set up self-reference and initialize core structures to NULL
+    relptr_store(base, fpm->self, fpm);
+    relptr_store(base, fpm->btree_root, (FreePageBtree *) NULL);
+    relptr_store(base, fpm->btree_recycle, (FreePageSpanLeader *) NULL);
+
+    // Initialize counters and tracking variables
+    fpm->btree_depth = 0;
+    fpm->btree_recycle_count = 0;
+    fpm->singleton_first_page = 0;
+    fpm->singleton_npages = 0;
+    fpm->contiguous_pages = 0;
+    fpm->contiguous_pages_dirty = true;
+
+#ifdef FPM_EXTRA_ASSERTS
+    // Debug tracking of total free pages
+    fpm->free_pages = 0;
+#endif
+
+    // Initialize all freelists to empty
+    for (f = 0; f < FPM_NUM_FREELISTS; f++)
+        relptr_store(base, fpm->freelist[f], (FreePageSpanLeader *) NULL);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each initialization phase
+- Grouped related initializations together logically
+- Maintained all original functionality with improved readability
+- Preserved conditional compilation for debug assertions

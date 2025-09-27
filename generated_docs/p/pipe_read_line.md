@@ -36,3 +36,47 @@ This function provides a convenient way to execute shell commands and capture th
 - Memory management follows PostgreSQL conventions (palloc/malloc depending on context)
 - Used primarily for utility functions that need to capture command output for further processing
 - The function only reads the first line; subsequent output lines are ignored
+
+## Simplified Source
+
+```c
+// Simplified version of pipe_read_line
+char *pipe_read_line(char *cmd) {
+    FILE *pipe_cmd;
+    char *line;
+
+    // Flush output streams to ensure clean pipe operation
+    fflush(NULL);
+
+    // Open pipe to execute command
+    pipe_cmd = popen(cmd, "r");
+    if (pipe_cmd == NULL) {
+        log_error("could not execute command");
+        return NULL;
+    }
+
+    // Read first line from pipe output
+    line = pg_get_line(pipe_cmd, NULL);
+
+    // Handle read errors and empty output
+    if (line == NULL) {
+        if (ferror(pipe_cmd)) {
+            log_error("could not read from command");
+        } else {
+            log_error("no data returned by command");
+        }
+    }
+
+    // Clean up pipe resources
+    pclose_check(pipe_cmd);
+
+    return line;
+}
+```
+
+Key simplifications made:
+- Removed detailed errno handling for clarity
+- Simplified error messages to focus on core error types
+- Consolidated error handling logic
+- Abstracted specific error code details
+- Focused on the main execution path: open pipe → read line → close pipe

@@ -36,3 +36,23 @@ IsXLogFileName checks if a filename conforms to the PostgreSQL WAL segment namin
 - Used extensively in WAL file management, cleanup operations, and backup procedures
 - Critical for preventing processing of non-WAL files that might exist in the pg_wal directory
 - The validation ensures the filename matches the TTTTTTTTFFFFFFFFSSSSSSSS format expected for WAL segments
+
+## Simplified Source
+
+```c
+// Simplified version of IsXLogFileName
+static inline bool IsXLogFileName(const char *fname) {
+    // Check if filename is exactly 24 characters long
+    if (strlen(fname) != XLOG_FNAME_LEN)
+        return false;
+
+    // Check if all characters are valid hexadecimal digits
+    return strspn(fname, "0123456789ABCDEF") == XLOG_FNAME_LEN;
+}
+```
+
+Key simplifications made:
+- Separated the two validation conditions for better readability
+- Added early return for length check
+- Emphasized the two-step validation: correct length and valid hex digits
+- Maintained the exact same functionality while improving clarity

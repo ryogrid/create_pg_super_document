@@ -38,3 +38,18 @@ This inline function provides efficient access to buffer descriptors by converti
 - Part of the shared buffer pool infrastructure that manages pages cached in memory
 - Returns a direct pointer to the buffer descriptor, allowing callers to access and modify buffer metadata
 - Located in buf_internals.h as a core utility function for internal buffer operations
+
+## Simplified Source
+
+```c
+// Simplified version of GetBufferDescriptor
+static inline BufferDesc *GetBufferDescriptor(uint32 id) {
+    // Return pointer to the buffer descriptor for the given ID
+    return &(BufferDescriptors[id]).bufferdesc;
+}
+```
+
+Key simplifications made:
+- Simple inline accessor function with minimal complexity
+- Core functionality preserved: array indexing to get buffer descriptor
+- Essential buffer pool access operation maintained

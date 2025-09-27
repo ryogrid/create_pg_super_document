@@ -48,3 +48,38 @@ The get_namespace_name function retrieves the name of a namespace (schema) from 
 - Part of the PG_NAMESPACE CACHE section in lsyscache.c
 - Extensively used throughout PostgreSQL for error reporting, object description generation, and DDL operations
 - The returned string is a copy of the nspname field from the pg_namespace system catalog
+
+## Simplified Source
+
+```c
+// Simplified version of get_namespace_name
+char *get_namespace_name(Oid namespace_id) {
+    HeapTuple tuple;
+
+    // Look up the namespace record in the system cache
+    tuple = SearchSysCache1(NAMESPACEOID, ObjectIdGetDatum(namespace_id));
+
+    if (HeapTupleIsValid(tuple)) {
+        // Extract the namespace structure from the tuple
+        Form_pg_namespace namespace_record = (Form_pg_namespace) GETSTRUCT(tuple);
+
+        // Make a copy of the namespace name
+        char *namespace_name = pstrdup(NameStr(namespace_record->nspname));
+
+        // Clean up the cache reference
+        ReleaseSysCache(tuple);
+
+        return namespace_name;
+    } else {
+        // Namespace not found
+        return NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (namespace_id, tuple, namespace_record, namespace_name)
+- Added clear comments explaining each major step
+- Structured the code with consistent indentation for better readability
+- Made the control flow more explicit with clear if-else structure
+- Preserved all essential functionality while improving code clarity

@@ -41,3 +41,37 @@ None - this function takes no parameters.
 - Critical for preventing deadlocks during error recovery
 - Used by background processes and during transaction abort scenarios
 - Handles race conditions gracefully (flag might be cleared by another process)
+
+## Simplified Source
+
+```c
+// Simplified version of UnlockBuffers
+void UnlockBuffers(void) {
+    BufferDesc *waiting_buffer = PinCountWaitBuf;
+
+    // Only process if we were actually waiting for a pin count
+    if (waiting_buffer) {
+        // Lock the buffer header to safely modify state
+        uint32 buffer_state = LockBufHdr(waiting_buffer);
+
+        // Clear our pin count waiter flag if we're the waiting process
+        if ((buffer_state & BM_PIN_COUNT_WAITER) != 0 &&
+            waiting_buffer->wait_backend_pgprocno == MyProcNumber) {
+            buffer_state &= ~BM_PIN_COUNT_WAITER;
+        }
+
+        // Release the buffer header lock with updated state
+        UnlockBufHdr(waiting_buffer, buffer_state);
+
+        // Clear the global waiting buffer pointer
+        PinCountWaitBuf = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name `waiting_buffer` instead of `buf`
+- Added clear step-by-step comments explaining the logic flow
+- Removed the detailed comment about error handling to focus on core functionality
+- Preserved the essential safety checks and race condition handling
+- Maintained the exact same logic structure for correctness

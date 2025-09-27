@@ -46,3 +46,32 @@ Return value:
 - Essential for WAL receiver processes to track and communicate recovery progress
 - The timeline ID parameter allows callers to get both position and timeline atomically
 - Widely used throughout PostgreSQL's replication and recovery infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of GetXLogReplayRecPtr
+XLogRecPtr GetXLogReplayRecPtr(TimeLineID *replayTLI) {
+    XLogRecPtr replay_position;
+    TimeLineID timeline_id;
+
+    // Safely read shared recovery state with spinlock protection
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+    replay_position = XLogRecoveryCtl->lastReplayedEndRecPtr;
+    timeline_id = XLogRecoveryCtl->lastReplayedTLI;
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    // Return timeline ID if caller requested it
+    if (replayTLI) {
+        *replayTLI = timeline_id;
+    }
+
+    return replay_position;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (replay_position, timeline_id)
+- Added explanatory comments for the main operations
+- Preserved the essential thread-safety mechanism
+- Maintained the core functionality of atomic read with optional timeline output

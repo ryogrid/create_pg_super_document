@@ -13,11 +13,11 @@ Size
 mul_size(Size s1, Size s2)
 ```
 ## Detailed Description
-The  function performs safe multiplication of two Size values (typically size_t) with overflow detection. It is specifically designed for shared memory size calculations in PostgreSQL, where exceeding the maximum addressable memory size would cause undefined behavior. The function implements a division-based overflow check: after multiplication, it verifies that . If this condition fails, it indicates that overflow occurred during multiplication, and the function reports an ERROR with the specific error code . This safety mechanism is crucial in PostgreSQL's shared memory management subsystem, where accurate size calculations are essential for proper memory allocation and system stability.
+The mul_size function performs safe multiplication of two Size values (typically size_t) with overflow detection. It is specifically designed for shared memory size calculations in PostgreSQL, where exceeding the maximum addressable memory size would cause undefined behavior. The function implements a division-based overflow check: after multiplication, it verifies that result / s2 == s1. If this condition fails, it indicates that overflow occurred during multiplication, and the function reports an ERROR with the specific error code ERRCODE_PROGRAM_LIMIT_EXCEEDED. This safety mechanism is crucial in PostgreSQL's shared memory management subsystem, where accurate size calculations are essential for proper memory allocation and system stability.
 
 ## Parameters / Member Variables
-- : First Size value to multiply (assumed to be unsigned)
-- : Second Size value to multiply (assumed to be unsigned)
+- `s1`: First Size value to multiply (assumed to be unsigned)
+- `s2`: Second Size value to multiply (assumed to be unsigned)
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -43,3 +43,34 @@ The  function performs safe multiplication of two Size values (typically size_t)
 - The overflow check using division is mathematically sound for unsigned integer types
 - Essential for preventing memory allocation failures and system crashes due to integer overflow in size calculations
 - Located in src/backend/storage/ipc/shmem.c:510-526
+
+## Simplified Source
+
+```c
+// Simplified version of mul_size
+Size mul_size(Size s1, Size s2) {
+    Size result;
+
+    // Handle zero cases immediately
+    if (s1 == 0 || s2 == 0)
+        return 0;
+
+    // Perform multiplication
+    result = s1 * s2;
+
+    // Check for overflow using division test
+    if (result / s2 != s1)
+        ereport(ERROR,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("requested shared memory size overflows size_t")));
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the overflow detection logic
+- Preserved essential safety mechanism and error handling
+- Maintained the mathematical division-based overflow check
+- Focused on the core responsibility: safe multiplication with overflow protection
+- Kept the optimization for zero input values

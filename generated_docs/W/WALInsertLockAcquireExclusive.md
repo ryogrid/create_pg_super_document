@@ -41,3 +41,35 @@ This function takes no parameters.
 - The insertingAt variable for the last lock is reset to 0 upon release
 - Used primarily during backup operations, checkpoints, and other system-wide WAL coordination tasks
 - The function blocks until all WAL insertion locks can be acquired exclusively
+
+## Simplified Source
+
+```c
+// Simplified version of WALInsertLockAcquireExclusive
+static void WALInsertLockAcquireExclusive(void) {
+    int i;
+
+    // Acquire all but the last WAL insertion lock
+    for (i = 0; i < NUM_XLOGINSERT_LOCKS - 1; i++) {
+        // Get exclusive lock on this WAL insertion slot
+        LWLockAcquire(&WALInsertLocks[i].l.lock, LW_EXCLUSIVE);
+
+        // Set insertingAt to maximum value to prevent blocking
+        LWLockUpdateVar(&WALInsertLocks[i].l.lock,
+                       &WALInsertLocks[i].l.insertingAt,
+                       PG_UINT64_MAX);
+    }
+
+    // Acquire the final lock (insertingAt will be reset to 0 on release)
+    LWLockAcquire(&WALInsertLocks[i].l.lock, LW_EXCLUSIVE);
+
+    // Mark that we're holding all locks
+    holdingAllLocks = true;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Preserved the essential locking logic and optimization
+- Maintained the distinction between handling all-but-last vs last lock
+- Focused on the main execution path without losing critical functionality

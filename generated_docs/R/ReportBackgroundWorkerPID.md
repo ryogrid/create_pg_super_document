@@ -35,3 +35,32 @@ This function updates the shared memory slot with the process ID of a background
 - Includes an assertion to ensure the shared memory slot index is within valid bounds (< max_worker_processes)
 - The notification mechanism (SIGUSR1) allows processes to be immediately informed when their requested background worker has started
 - Part of PostgreSQL's background worker management system that coordinates worker lifecycle between postmaster and requesting processes
+
+## Simplified Source
+
+```c
+// Simplified version of ReportBackgroundWorkerPID
+void ReportBackgroundWorkerPID(RegisteredBgWorker *rw) {
+    BackgroundWorkerSlot *slot;
+
+    // Validate shared memory slot index is within bounds
+    Assert(rw->rw_shmem_slot < max_worker_processes);
+
+    // Update shared memory slot with the worker's PID
+    slot = &BackgroundWorkerData->slot[rw->rw_shmem_slot];
+    slot->pid = rw->rw_pid;
+
+    // Notify the requesting process if one was specified
+    if (rw->rw_worker.bgw_notify_pid != 0) {
+        kill(rw->rw_worker.bgw_notify_pid, SIGUSR1);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Clarified the purpose of the bounds check assertion
+- Explained the shared memory update process
+- Simplified the notification logic explanation
+- Maintained the essential worker PID reporting functionality
+- Preserved the safety validation and notification mechanism

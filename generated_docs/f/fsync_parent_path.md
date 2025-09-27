@@ -31,3 +31,35 @@ fsync_parent_path(const char *fname)
 
 ## Notes and Other Information
 This is a static function in the backend storage subsystem, indicating it's an internal implementation detail for file durability operations. There's also a public version in src/common/file_utils.c with a simpler interface (without elevel parameter) that's used by client-side utilities like pg_basebackup. The function is essential for ensuring that filesystem metadata operations survive system crashes, particularly important for database consistency during file operations like creating new database files or renaming existing ones.
+
+## Simplified Source
+
+```c
+// Simplified version of fsync_parent_path
+static int fsync_parent_path(const char *fname, int elevel) {
+    char parentpath[MAXPGPATH];
+
+    // Extract parent directory from the file path
+    strlcpy(parentpath, fname, MAXPGPATH);
+    get_parent_directory(parentpath);
+
+    // Handle case where input is just a filename (no directory component)
+    if (strlen(parentpath) == 0) {
+        strlcpy(parentpath, ".", MAXPGPATH);  // Use current directory
+    }
+
+    // Fsync the parent directory to ensure metadata persistence
+    if (fsync_fname_ext(parentpath, true, false, elevel) != 0) {
+        return -1;
+    }
+
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step
+- Preserved the essential parent directory extraction logic
+- Maintained the special case handling for filenames without paths
+- Kept the critical fsync operation for directory metadata persistence
+- Function is already quite simple, minimal changes needed

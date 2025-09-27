@@ -39,3 +39,41 @@ SSLerrmessage is a utility function that converts OpenSSL error codes into human
 - Uses a static buffer for fallback error code formatting
 - Includes internationalization support with _() macro for error messages
 - Critical for consistent SSL error reporting throughout PostgreSQL's SSL infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of SSLerrmessage
+static const char *SSLerrmessage(unsigned long ecode) {
+    static char errbuf[36];
+    const char *errreason;
+
+    // Handle no error case
+    if (ecode == 0) {
+        return "no SSL error reported";
+    }
+
+    // Try to get standard OpenSSL error message
+    errreason = ERR_reason_error_string(ecode);
+    if (errreason != NULL) {
+        return errreason;
+    }
+
+    // Handle system errno values in OpenSSL 3.0+
+    if (ERR_SYSTEM_ERROR(ecode)) {
+        return strerror(ERR_GET_REASON(ecode));
+    }
+
+    // Fallback: format raw error code
+    snprintf(errbuf, sizeof(errbuf), "SSL error code %lu", ecode);
+    return errbuf;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for brevity while keeping essential logic clear
+- Simplified conditional flow for better readability
+- Removed internationalization macros for clarity
+- Consolidated the main logic flow into clear sequential steps
+- Preserved all essential error handling paths
+- Maintained the static buffer approach for thread safety

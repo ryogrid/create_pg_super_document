@@ -30,3 +30,19 @@ The function is called during PostgreSQL's statistics system initialization to e
 - Part of the broader PostgreSQL statistics initialization sequence
 - Simple but critical function that prevents incorrect initial statistics values
 - The function establishes the reference point for all subsequent WAL usage difference calculations
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_init_wal
+void pgstat_init_wal(void) {
+    // Initialize baseline for WAL usage calculations
+    prevWalUsage = pgWalUsage;
+}
+```
+
+Key simplifications made:
+- Removed detailed comment explaining the calculation logic
+- Simplified to focus on the essential purpose
+- Maintained the single critical assignment operation
+- Added clear comment about baseline initialization

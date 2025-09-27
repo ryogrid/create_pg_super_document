@@ -41,3 +41,30 @@ The function includes a note that the entire approach is somewhat limited for mu
 - Uses locale-aware functions for extended character sets
 - Limited effectiveness with multibyte character encodings
 - Part of PostgreSQL's character manipulation utilities for consistent text processing
+
+## Simplified Source
+
+```c
+// Simplified version of pg_toupper
+unsigned char pg_toupper(unsigned char ch) {
+    // Step 1: Handle standard ASCII lowercase letters (a-z)
+    if (ch >= 'a' && ch <= 'z') {
+        // Convert using arithmetic: 'a' becomes 'A', 'b' becomes 'B', etc.
+        ch += 'A' - 'a';
+    }
+    // Step 2: Handle extended characters with high bit set
+    else if (IS_HIGHBIT_SET(ch) && islower(ch)) {
+        // Use standard library for locale-aware conversion
+        ch = toupper(ch);
+    }
+
+    // Step 3: Return the converted character (or original if no conversion needed)
+    return ch;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Clarified the two-phase approach: ASCII vs extended characters
+- Emphasized that non-lowercase characters are returned unchanged
+- Maintained the original efficient logic structure

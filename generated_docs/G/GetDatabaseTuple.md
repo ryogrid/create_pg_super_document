@@ -40,3 +40,48 @@ The function opens the pg_database relation, performs a scan to find the tuple m
 - The scan strategy depends on criticalSharedRelcachesBuilt global variable
 - Returns NULL (invalid HeapTuple) if the specified database is not found
 - Critical for database startup process before full catalog access is available
+
+## Simplified Source
+
+```c
+// Simplified version of GetDatabaseTuple
+static HeapTuple GetDatabaseTuple(const char *dbname) {
+    HeapTuple tuple;
+    Relation relation;
+    SysScanDesc scan;
+    ScanKeyData key[1];
+
+    // Set up scan key to search by database name
+    ScanKeyInit(&key[0],
+                Anum_pg_database_datname,
+                BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(dbname));
+
+    // Open pg_database relation for reading
+    relation = table_open(DatabaseRelationId, AccessShareLock);
+
+    // Start scan (uses index if available, otherwise sequential scan)
+    scan = systable_beginscan(relation, DatabaseNameIndexId,
+                              criticalSharedRelcachesBuilt,
+                              NULL, 1, key);
+
+    // Get the matching tuple
+    tuple = systable_getnext(scan);
+
+    // Copy tuple to ensure it survives after buffer release
+    if (HeapTupleIsValid(tuple))
+        tuple = heap_copytuple(tuple);
+
+    // Clean up scan and close relation
+    systable_endscan(scan);
+    table_close(relation, AccessShareLock);
+
+    return tuple;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each main operation
+- Removed detailed comments about scan modes and kept essential logic
+- Preserved the critical tuple copying logic and proper resource cleanup
+- Maintained the adaptive scan strategy based on criticalSharedRelcachesBuilt

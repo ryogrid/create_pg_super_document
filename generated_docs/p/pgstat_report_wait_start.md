@@ -44,3 +44,22 @@ Since the field is always read and written as a 4-byte value, updates are atomic
 - The wait event information can be viewed through system views like 
 - Historically this reporting was conditional on , but that check was removed for performance reasons
 - The function safely handles early calls before backend initialization is complete
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_report_wait_start
+static inline void
+pgstat_report_wait_start(uint32 wait_event_info)
+{
+    // Store wait event info atomically in global tracking variable
+    // Format: [1 byte class][3 bytes event_id]
+    *(volatile uint32 *) my_wait_event_info = wait_event_info;
+}
+```
+
+Key simplifications made:
+- Focused on the single core operation: atomic assignment to global variable
+- Added concise comment explaining the data format
+- Preserved the volatile qualifier which is essential for correctness
+- Removed detailed multi-line comment in favor of brief inline explanation

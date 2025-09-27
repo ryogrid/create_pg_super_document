@@ -54,3 +54,73 @@ None - this function takes no parameters and operates on global state.
 - Handles the case where no replication slots exist (cutoff becomes InvalidXLogRecPtr)
 - Considers the redo pointer to ensure new replication slots won't need snapshots before that point
 - Performs directory-level operations safely with proper resource management (FreeDir cleanup)
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointSnapBuild
+void CheckPointSnapBuild(void) {
+    XLogRecPtr cutoff;
+    XLogRecPtr redo;
+    DIR *snap_dir;
+    struct dirent *snap_de;
+    char path[MAXPGPATH + 21];
+
+    // Step 1: Determine safe cutoff LSN for cleanup
+    redo = GetRedoRecPtr();
+    cutoff = ReplicationSlotsComputeLogicalRestartLSN();
+
+    // Use the more conservative (earlier) LSN as cutoff
+    if (redo < cutoff)
+        cutoff = redo;
+
+    // Step 2: Scan snapshot directory for cleanup candidates
+    snap_dir = AllocateDir("pg_logical/snapshots");
+    while ((snap_de = ReadDir(snap_dir, "pg_logical/snapshots")) != NULL) {
+        uint32 hi, lo;
+        XLogRecPtr lsn;
+        PGFileType de_type;
+
+        // Skip directory entries
+        if (skip_directory_entries(snap_de))
+            continue;
+
+        snprintf(path, sizeof(path), "pg_logical/snapshots/%s", snap_de->d_name);
+        de_type = get_dirent_type(path, snap_de, false, DEBUG1);
+
+        // Only process regular files
+        if (de_type != PGFILETYPE_REG)
+            continue;
+
+        // Step 3: Parse snapshot filename to extract LSN
+        if (sscanf(snap_de->d_name, "%X-%X.snap", &hi, &lo) != 2) {
+            // Log parsing failures but continue processing
+            report_parsing_error(path);
+            continue;
+        }
+
+        lsn = ((uint64) hi) << 32 | lo;
+
+        // Step 4: Remove snapshots older than cutoff
+        if (lsn < cutoff || cutoff == InvalidXLogRecPtr) {
+            elog(DEBUG1, "removing snapbuild snapshot %s", path);
+
+            // Attempt removal with non-fatal error handling
+            if (unlink(path) < 0) {
+                report_removal_warning(path);
+                // Continue processing - don't let cleanup failures stop checkpoints
+            }
+        }
+    }
+    FreeDir(snap_dir);
+}
+```
+
+Key simplifications made:
+- Organized into clear steps: cutoff calculation, directory scan, file processing, cleanup
+- Abstracted error handling into conceptual helper functions
+- Preserved the essential LSN parsing and comparison logic
+- Maintained the conservative cleanup approach (keep files when in doubt)
+- Simplified directory traversal while preserving safety checks
+- Focused on the core algorithm: determine what's safe to remove, then remove it
+- Kept the non-blocking error handling that allows checkpoints to complete

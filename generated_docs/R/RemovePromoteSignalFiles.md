@@ -34,3 +34,18 @@ This function takes no parameters.
 - Can be called from multiple contexts including postmaster and recovery processes  
 - Located at src/backend/access/transam/xlogrecovery.c:4455-4463
 - Declared in src/include/access/xlogrecovery.h for external access
+
+## Simplified Source
+
+```c
+// Simplified version of RemovePromoteSignalFiles
+void RemovePromoteSignalFiles(void) {
+    // Core logic: Remove the promotion signal file from filesystem
+    unlink(PROMOTE_SIGNAL_FILE);
+}
+```
+
+Key simplifications made:
+- Function is already minimal - only one system call
+- Preserved the essential cleanup operation
+- Maintained the core purpose of removing promotion signal files

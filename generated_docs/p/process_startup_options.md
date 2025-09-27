@@ -44,3 +44,53 @@ For command-line options, the function parses the cmdline_options string using p
 - GUC options are processed as name-value pairs from a linked list structure
 - All settings are applied with PGC_S_CLIENT source priority to indicate they came from the client
 - This function is critical for allowing clients to customize their session configuration during connection establishment
+
+## Simplified Source
+
+```c
+// Simplified version of process_startup_options
+static void process_startup_options(Port *port, bool am_superuser) {
+    // Set GUC context based on user privileges
+    GucContext gucctx = am_superuser ? PGC_SU_BACKEND : PGC_BACKEND;
+
+    // Process command-line switches from startup packet
+    if (port->cmdline_options != NULL) {
+        // Calculate maximum possible arguments
+        int maxac = 2 + (strlen(port->cmdline_options) + 1) / 2;
+        char **av = (char **) palloc(maxac * sizeof(char *));
+        int ac = 0;
+
+        // Set up argument vector
+        av[ac++] = "postgres";
+        pg_split_opts(av, &ac, port->cmdline_options);
+        av[ac] = NULL;
+
+        Assert(ac < maxac);
+
+        // Process the command-line switches
+        (void) process_postgres_switches(ac, av, gucctx, NULL);
+    }
+
+    // Process additional GUC variable settings from startup packet
+    ListCell *gucopts = list_head(port->guc_options);
+    while (gucopts) {
+        // Extract name-value pairs from the list
+        char *name = lfirst(gucopts);
+        gucopts = lnext(port->guc_options, gucopts);
+
+        char *value = lfirst(gucopts);
+        gucopts = lnext(port->guc_options, gucopts);
+
+        // Apply the configuration setting
+        SetConfigOption(name, value, gucctx, PGC_S_CLIENT);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two-phase processing
+- Consolidated variable declarations where appropriate
+- Explained the security context determination
+- Highlighted the name-value pair extraction logic
+- Maintained proper memory management and error checking
+- Focused on the core configuration processing workflow

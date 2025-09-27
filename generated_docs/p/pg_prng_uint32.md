@@ -35,3 +35,21 @@ This function selects a random uint32 uniformly from the full range [0, PG_UINT3
 - Core building block for many PostgreSQL subsystems requiring randomness
 - Extensively used in sampling, caching, and data structure operations
 - Part of PostgreSQL's unified PRNG interface for consistent random number generation
+
+## Simplified Source
+
+```c
+// Simplified version of pg_prng_uint32
+uint32 pg_prng_uint32(pg_prng_state *state) {
+    // Generate 64-bit random value using xoroshiro128** algorithm
+    uint64 random_value = xoroshiro128ss(state);
+
+    // Return upper 32 bits for better quality randomness
+    return (uint32) (random_value >> 32);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Used more descriptive variable name (random_value instead of v)
+- Preserved the core logic: generate 64-bit value and extract upper 32 bits

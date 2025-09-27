@@ -41,3 +41,21 @@ This function is automatically called by , but must be explicitly called when us
 - Failure to call this function after reading a message can leave the communication system in an inconsistent state
 - Essential for maintaining proper protocol synchronization between client and server
 - Used less frequently than  because  handles this automatically for most use cases
+
+## Simplified Source
+
+```c
+// Simplified version of pq_endmsgread
+void pq_endmsgread(void) {
+    // Verify that we're currently reading a message
+    Assert(PqCommReadingMsg);
+
+    // Mark message reading as complete
+    PqCommReadingMsg = false;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Maintained the essential logic: assertion check and state reset
+- This function is already quite simple, so minimal simplification was needed

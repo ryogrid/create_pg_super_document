@@ -39,3 +39,43 @@ The comparison continues character by character until a difference is found or o
 - The case-insensitive behavior on Windows matches the filesystem's native behavior
 - Used internally by path manipulation functions to ensure consistent path comparison behavior
 - Handles the common scenario where paths might use mixed separator styles (particularly on Windows)
+
+## Simplified Source
+
+```c
+// Simplified version of dir_strcmp
+static int dir_strcmp(const char *s1, const char *s2) {
+    // Compare characters until difference found or string ends
+    while (*s1 && *s2) {
+        bool chars_different;
+
+#ifndef WIN32
+        // Unix: case-sensitive comparison
+        chars_different = (*s1 != *s2);
+#else
+        // Windows: case-insensitive comparison
+        chars_different = (pg_tolower((unsigned char) *s1) !=
+                          pg_tolower((unsigned char) *s2));
+#endif
+
+        // Allow any directory separators to match each other
+        if (chars_different && !(IS_DIR_SEP(*s1) && IS_DIR_SEP(*s2))) {
+            return (int) *s1 - (int) *s2;
+        }
+
+        s1++;
+        s2++;
+    }
+
+    // Handle different string lengths
+    if (*s1) return 1;   // s1 longer
+    if (*s2) return -1;  // s2 longer
+    return 0;            // equal length
+}
+```
+
+Key simplifications made:
+- Added comments explaining platform-specific behavior
+- Extracted the character difference logic for clarity
+- Clearly separated the directory separator handling
+- Maintained the original comparison semantics

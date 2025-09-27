@@ -36,3 +36,20 @@ dshash_seq_term provides cleanup functionality for sequential scans of dynamic s
 - Should be called both when a scan completes normally and when it's terminated early due to errors
 - Primarily used in PostgreSQL's statistics system as part of the cleanup process for statistics data iteration
 - The function is idempotent - calling it multiple times on the same status structure is safe
+
+## Simplified Source
+
+```c
+// Simplified version of dshash_seq_term
+void dshash_seq_term(dshash_seq_status *status) {
+    // Release partition lock if we're holding one
+    if (status->curpartition >= 0) {
+        LWLockRelease(PARTITION_LOCK(status->hash_table, status->curpartition));
+    }
+}
+```
+
+Key simplifications made:
+- Simple and straightforward function with minimal complexity
+- Core logic preserved: conditional lock release based on partition status
+- Essential cleanup functionality maintained

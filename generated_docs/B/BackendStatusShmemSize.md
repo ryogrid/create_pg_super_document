@@ -33,3 +33,43 @@ This function takes no parameters.
 
 ## Notes and Other Information
 The function uses PostgreSQL's safe arithmetic functions (mul_size, add_size) to prevent integer overflow when calculating memory requirements. It conditionally includes memory for SSL and GSS status buffers based on compile-time configuration. This function is called during postmaster startup to determine how much shared memory to allocate for the backend status system.
+
+## Simplified Source
+
+```c
+// Simplified version of BackendStatusShmemSize
+Size BackendStatusShmemSize(void) {
+    Size total_size;
+
+    // Core component 1: Backend status array
+    total_size = sizeof(PgBackendStatus) * NumBackendStatSlots;
+
+    // Core component 2: Application name buffer
+    total_size += NAMEDATALEN * NumBackendStatSlots;
+
+    // Core component 3: Client hostname buffer
+    total_size += NAMEDATALEN * NumBackendStatSlots;
+
+    // Core component 4: Activity query buffer
+    total_size += pgstat_track_activity_query_size * NumBackendStatSlots;
+
+    // Optional component 5: SSL status buffer (if SSL enabled)
+    if (SSL_ENABLED) {
+        total_size += sizeof(PgBackendSSLStatus) * NumBackendStatSlots;
+    }
+
+    // Optional component 6: GSS status buffer (if GSS enabled)
+    if (GSS_ENABLED) {
+        total_size += sizeof(PgBackendGSSStatus) * NumBackendStatSlots;
+    }
+
+    return total_size;
+}
+```
+
+Key simplifications made:
+- Replaced safe arithmetic functions (mul_size, add_size) with direct arithmetic for clarity
+- Converted preprocessor conditionals to pseudo-code if statements
+- Used more descriptive variable names and comments
+- Simplified the incremental size calculation pattern
+- Focused on the core memory allocation logic

@@ -44,3 +44,45 @@ This function takes no parameters.
 - Three condition variables are initialized for coordinating WAL flush, replay, and confirmation events
 - The synchronous replication queues are organized by wait mode (NUM_SYNC_REP_WAIT_MODE different modes)
 - Memory layout is critical for multi-process access in PostgreSQL's shared memory architecture
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndShmemInit
+void WalSndShmemInit(void) {
+    bool found;
+    int i;
+
+    // Allocate shared memory for WAL sender control structure
+    WalSndCtl = (WalSndCtlData *)
+        ShmemInitStruct("Wal Sender Ctl", WalSndShmemSize(), &found);
+
+    // Initialize only if this is the first time (not found in existing shared memory)
+    if (!found) {
+        // Zero out the entire control structure
+        MemSet(WalSndCtl, 0, WalSndShmemSize());
+
+        // Initialize synchronous replication queues for each wait mode
+        for (i = 0; i < NUM_SYNC_REP_WAIT_MODE; i++) {
+            dlist_init(&(WalSndCtl->SyncRepQueue[i]));
+        }
+
+        // Initialize each WAL sender slot with its own mutex
+        for (i = 0; i < max_wal_senders; i++) {
+            WalSnd *walsnd = &WalSndCtl->walsnds[i];
+            SpinLockInit(&walsnd->mutex);
+        }
+
+        // Initialize condition variables for coordination
+        ConditionVariableInit(&WalSndCtl->wal_flush_cv);    // WAL flush events
+        ConditionVariableInit(&WalSndCtl->wal_replay_cv);   // WAL replay events
+        ConditionVariableInit(&WalSndCtl->wal_confirm_rcv_cv); // Confirmation events
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each initialization step
+- Clarified the purpose of each condition variable
+- Maintained the essential two-phase structure (allocate, then initialize if new)
+- Preserved all critical initialization logic while making intent clearer

@@ -44,3 +44,51 @@ This function takes no parameters.
 - The commit timestamp feature tracks when transactions commit and can be queried for forensic analysis
 - Error handling ensures configuration overrides work even when explicitly set to 0 in postgresql.conf
 - The SLRU directory "pg_commit_ts" stores the actual timestamp data files on disk
+
+## Simplified Source
+
+```c
+// Simplified version of CommitTsShmemInit
+void CommitTsShmemInit(void) {
+    bool found;
+
+    // Auto-tune buffer count if needed
+    if (commit_timestamp_buffers == 0) {
+        char buf[32];
+        snprintf(buf, sizeof(buf), "%d", CommitTsShmemBuffers());
+
+        // Try to set config option with dynamic default
+        SetConfigOption("commit_timestamp_buffers", buf, PGC_POSTMASTER, PGC_S_DYNAMIC_DEFAULT);
+
+        // Force override if dynamic default failed
+        if (commit_timestamp_buffers == 0) {
+            SetConfigOption("commit_timestamp_buffers", buf, PGC_POSTMASTER, PGC_S_OVERRIDE);
+        }
+    }
+
+    // Initialize SLRU control structure
+    CommitTsCtl->PagePrecedes = CommitTsPagePrecedes;
+    SimpleLruInit(CommitTsCtl, "commit_timestamp", CommitTsShmemBuffers(), 0,
+                  "pg_commit_ts", LWTRANCHE_COMMITTS_BUFFER,
+                  LWTRANCHE_COMMITTS_SLRU, SYNC_HANDLER_COMMIT_TS, false);
+
+    // Initialize shared memory structure
+    commitTsShared = ShmemInitStruct("CommitTs shared",
+                                     sizeof(CommitTimestampShared), &found);
+
+    // Initialize state for new postmaster process
+    if (!IsUnderPostmaster) {
+        commitTsShared->xidLastCommit = InvalidTransactionId;
+        TIMESTAMP_NOBEGIN(commitTsShared->dataLastCommit.time);
+        commitTsShared->dataLastCommit.nodeid = InvalidRepOriginId;
+        commitTsShared->commitTsActive = false;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for brevity while keeping essential logic comments
+- Consolidated the buffer auto-tuning logic into a clearer flow
+- Removed assertion checks and unit test calls for clarity
+- Focused on the main initialization steps: buffer tuning, SLRU setup, and shared memory initialization
+- Preserved the essential conditional logic for postmaster vs child process handling

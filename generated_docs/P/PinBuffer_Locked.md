@@ -55,3 +55,37 @@ Unlike the general PinBuffer() function, this variant does not modify the buffer
 - The function is static (internal to bufmgr.c) and not directly callable by external code
 - Integrates with Valgrind for memory debugging support
 - Designed for high-performance scenarios where lock is already held
+
+## Simplified Source
+
+```c
+// Simplified version of PinBuffer_Locked
+static void PinBuffer_Locked(BufferDesc *buf) {
+    Buffer buffer;
+    PrivateRefCountEntry *ref;
+    uint32 buf_state;
+
+    // Mark buffer page as defined for Valgrind debugging
+    VALGRIND_MAKE_MEM_DEFINED(BufHdrGetBlock(buf), BLCKSZ);
+
+    // Atomically increment reference count and release spinlock
+    buf_state = pg_atomic_read_u32(&buf->state);
+    buf_state += BUF_REFCOUNT_ONE;
+    UnlockBufHdr(buf, buf_state);
+
+    // Get buffer identifier and create private reference count entry
+    buffer = BufferDescriptorGetBuffer(buf);
+    ref = NewPrivateRefCountEntry(buffer);
+    ref->refcount++;
+
+    // Track buffer ownership for resource cleanup
+    ResourceOwnerRememberBuffer(CurrentResourceOwner, buffer);
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions and extensive comments
+- Simplified the atomic buffer state update logic
+- Focused on the core pinning operation
+- Maintained essential reference counting and resource tracking
+- Preserved Valgrind integration and atomic operations

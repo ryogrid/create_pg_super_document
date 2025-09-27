@@ -39,3 +39,25 @@ This calculation is essential for determining the appropriate size when creating
 - Used for both segment creation sizing and validation
 - Critical for memory layout calculations in DSM control segments
 - Located in src/backend/storage/ipc/dsm.c:1255-1261
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_control_bytes_needed
+static uint64 dsm_control_bytes_needed(uint32 nitems) {
+    // Calculate header size (up to the 'item' field)
+    uint64 header_size = offsetof(dsm_control_header, item);
+
+    // Calculate total size needed for all items
+    uint64 items_size = sizeof(dsm_control_item) * (uint64) nitems;
+
+    // Return total bytes needed: header + items
+    return header_size + items_size;
+}
+```
+
+Key simplifications made:
+- Split the calculation into clear steps with intermediate variables
+- Added descriptive comments for each calculation step
+- Made the two-part calculation (header + items) more explicit
+- Preserved the essential uint64 cast to prevent overflow

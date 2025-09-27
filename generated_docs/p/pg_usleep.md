@@ -52,3 +52,38 @@ When a signal is received during sleep, the function:
 - The conversion from microseconds to milliseconds ensures compatibility with Windows API timing requirements
 - This function is critical for PostgreSQL's ability to respond to signals on Windows while maintaining timing-sensitive operations
 - Used extensively throughout PostgreSQL for implementing delays that need to be interruptible by signals
+
+## Simplified Source
+
+```c
+// Simplified version of pg_usleep
+void pg_usleep(long microsec) {
+    // Convert microseconds to milliseconds with proper rounding
+    long millisec = (microsec < 500) ? 1 : (microsec + 500) / 1000;
+
+    // Check if signal system is initialized
+    if (signal_event_not_ready) {
+        // Early startup: use basic non-interruptible sleep
+        SleepEx(millisec, FALSE);
+        return;
+    }
+
+    // Signal-aware sleep: wait for either timeout or signal
+    if (WaitForSingleObject(signal_event, millisec) == SIGNAL_RECEIVED) {
+        // Signal interrupted the sleep
+        process_pending_signals();
+        errno = EINTR;  // Indicate interrupted sleep
+        return;
+    }
+
+    // Sleep completed normally without interruption
+}
+```
+
+Key simplifications made:
+- Abstracted Windows-specific signal event handling details
+- Simplified the microsecond-to-millisecond conversion logic explanation
+- Consolidated the two main execution paths (early startup vs signal-aware)
+- Added descriptive comments for each major step
+- Replaced specific Windows API calls with descriptive placeholders
+- Focused on the core logic flow rather than implementation details

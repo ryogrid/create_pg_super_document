@@ -49,3 +49,24 @@ Unpacked 4817 files and folders to /home/ryo/.cursor-server/bin/2f2737de9aa37693
 - The function is widely used throughout the codebase, appearing in authentication, query processing, parallel operations, and data type handling
 - Protocol violations caught by this function help prevent potential security vulnerabilities and data corruption issues
 - The function is defined in  and is part of the message formatting utilities
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getmsgend
+void pq_getmsgend(StringInfo msg) {
+    // Verify message fully consumed: cursor position must equal message length
+    if (msg->cursor != msg->len) {
+        // Report protocol violation error if any data remains unprocessed
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("invalid message format")));
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core validation logic
+- Preserved the essential error handling as it's critical for protocol integrity
+- Maintained the exact same logic flow since the function is already quite simple
+- The function is already minimal and focused on its single responsibility

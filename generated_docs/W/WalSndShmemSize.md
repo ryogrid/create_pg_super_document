@@ -36,3 +36,27 @@ This function takes no parameters and returns a Size value representing the requ
 - Called during server startup to determine total shared memory requirements
 - The calculated size includes both the control structure and space for all possible WAL sender processes
 - Essential for proper shared memory segment sizing in multi-process PostgreSQL architecture
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndShmemSize
+Size WalSndShmemSize(void) {
+    Size size = 0;
+
+    // Calculate base control structure size (up to walsnds array)
+    size = offsetof(WalSndCtlData, walsnds);
+
+    // Add space for all configured WAL sender slots
+    // Uses safe arithmetic to prevent overflow
+    size = add_size(size, mul_size(max_wal_senders, sizeof(WalSnd)));
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each calculation step
+- Made the two-phase calculation more explicit with descriptive comments
+- Preserved the essential overflow-safe arithmetic operations
+- Maintained the exact logic flow of the original function

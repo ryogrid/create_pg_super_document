@@ -38,3 +38,33 @@ This restriction ensures that replication connections maintain their intended pu
 - Uses different error messages for function calls vs. extended query protocol to provide clear feedback to clients
 - The am_walsender global flag is set during WAL sender initialization and determines if these restrictions apply
 - Essential for preventing accidental data modification or unauthorized operations through replication connections
+
+## Simplified Source
+
+```c
+// Simplified version of forbidden_in_wal_sender
+static void forbidden_in_wal_sender(char firstchar) {
+    // Only enforce restrictions if we're running as a WAL sender process
+    if (am_walsender) {
+        // Generate specific error message based on message type
+        if (firstchar == PqMsg_FunctionCall) {
+            // Function calls are explicitly forbidden
+            ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("fastpath function calls not supported in a replication connection")));
+        } else {
+            // All other extended protocol messages are forbidden
+            ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("extended query protocol not supported in a replication connection")));
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical section
+- Preserved the core conditional logic and error reporting
+- Maintained the distinction between function call and extended protocol errors
+- Kept the essential security validation intact
+- Simplified formatting while preserving all functionality

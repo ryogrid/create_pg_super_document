@@ -52,3 +52,52 @@ The function is designed to be efficient for repeated calls with the same role I
 - Invalid role IDs are treated as non-superusers (return false)
 - The callback registration happens only once per backend process
 - Located in `src/backend/utils/misc/superuser.c:56-102`
+
+## Simplified Source
+
+```c
+// Simplified version of superuser_arg
+bool superuser_arg(Oid roleid) {
+    bool result;
+    HeapTuple rtup;
+
+    // Quick cache check - return cached result if available
+    if (OidIsValid(last_roleid) && last_roleid == roleid)
+        return last_roleid_is_super;
+
+    // Special case: bootstrap superuser when not under postmaster
+    if (!IsUnderPostmaster && roleid == BOOTSTRAP_SUPERUSERID)
+        return true;
+
+    // Look up the role in pg_authid system catalog
+    rtup = SearchSysCache1(AUTHOID, ObjectIdGetDatum(roleid));
+    if (HeapTupleIsValid(rtup)) {
+        // Extract the rolsuper field from the tuple
+        result = ((Form_pg_authid) GETSTRUCT(rtup))->rolsuper;
+        ReleaseSysCache(rtup);
+    } else {
+        // Invalid role ID - treat as non-superuser
+        result = false;
+    }
+
+    // Set up cache invalidation callback on first use
+    if (!roleid_callback_registered) {
+        CacheRegisterSyscacheCallback(AUTHOID, RoleidCallback, (Datum) 0);
+        roleid_callback_registered = true;
+    }
+
+    // Cache the result for future queries
+    last_roleid = roleid;
+    last_roleid_is_super = result;
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Grouped related logic sections together (cache check, bootstrap case, catalog lookup, etc.)
+- Explained the purpose of cache invalidation callback registration
+- Clarified the bootstrap superuser special case
+- Maintained all performance optimizations and safety checks
+- Preserved the efficient caching mechanism

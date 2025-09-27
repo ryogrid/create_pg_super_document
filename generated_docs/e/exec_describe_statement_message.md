@@ -41,3 +41,63 @@ The function sends parameter type information for all statement parameters and e
 - Uses reusable message buffers for efficient wire protocol communication
 - Prepared statements are expected to have fixed result descriptors
 - Part of PostgreSQL's extended query protocol implementation
+
+## Simplified Source
+
+```c
+// Simplified version of exec_describe_statement_message
+static void exec_describe_statement_message(const char *stmt_name) {
+    CachedPlanSource *psrc;
+
+    // Core logic step 1: Start transaction and switch to message context
+    start_xact_command();
+    MemoryContextSwitchTo(MessageContext);
+
+    // Core logic step 2: Find the prepared statement (named or unnamed)
+    if (stmt_name[0] != '\0') {
+        PreparedStatement *pstmt = FetchPreparedStatement(stmt_name, true);
+        psrc = pstmt->plansource;
+    } else {
+        psrc = unnamed_stmt_psrc;
+        if (!psrc) {
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_PSTATEMENT),
+                           errmsg("unnamed prepared statement does not exist")));
+        }
+    }
+
+    // Core logic step 3: Safety check for aborted transactions
+    if (IsAbortedTransactionBlockState() && psrc->resultDesc) {
+        ereport(ERROR, (errcode(ERRCODE_IN_FAILED_SQL_TRANSACTION),
+                       errmsg("current transaction is aborted, commands ignored until end of transaction block")));
+    }
+
+    if (whereToSendOutput != DestRemote)
+        return;  // Nothing to send
+
+    // Core logic step 4: Send parameter descriptions
+    pq_beginmessage_reuse(&row_description_buf, PqMsg_ParameterDescription);
+    pq_sendint16(&row_description_buf, psrc->num_params);
+
+    for (int i = 0; i < psrc->num_params; i++) {
+        Oid ptype = psrc->param_types[i];
+        pq_sendint32(&row_description_buf, (int) ptype);
+    }
+    pq_endmessage_reuse(&row_description_buf);
+
+    // Core logic step 5: Send result descriptions or NoData
+    if (psrc->resultDesc) {
+        List *tlist = CachedPlanGetTargetList(psrc, NULL);
+        SendRowDescriptionMessage(&row_description_buf, psrc->resultDesc, tlist, NULL);
+    } else {
+        pq_putemptymessage(PqMsg_NoData);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining PostgreSQL internals for clarity
+- Consolidated variable declarations where possible
+- Simplified error handling while keeping critical checks
+- Focused on the main execution flow: transaction setup, statement lookup, safety checks, and protocol message sending
+- Abstracted low-level protocol details with high-level descriptions
+- Maintained the essential algorithm structure

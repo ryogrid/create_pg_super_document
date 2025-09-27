@@ -36,3 +36,21 @@ The function checks the `ssl_in_use` flag in the Port structure to determine if 
 - Part of PostgreSQL's connection lifecycle management
 - Called during normal connection termination and error cleanup scenarios
 - The function is designed to be safe and non-destructive for non-SSL connections
+
+## Simplified Source
+
+```c
+// Simplified version of secure_close
+void secure_close(Port *port) {
+#ifdef USE_SSL
+    // Close SSL connection if SSL is in use
+    if (port->ssl_in_use)
+        be_tls_close(port);
+#endif
+}
+```
+
+Key simplifications made:
+- Added explanatory comment for the core logic
+- Maintained essential SSL check and cleanup functionality
+- Simple and clear structure showing conditional SSL handling

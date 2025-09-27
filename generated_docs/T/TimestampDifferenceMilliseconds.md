@@ -39,5 +39,40 @@ The function handles several important edge cases: it returns zero for negative 
 - Designed specifically for WaitLatch() and related PostgreSQL wait functions
 - Includes overflow protection using pg_sub_s64_overflow()
 - Returns zero if start_time >= stop_time (past the target time)
-- Maximum return value is INT_MAX milliseconds to match WaitLatch() constraints  
+- Maximum return value is INT_MAX milliseconds to match WaitLatch() constraints
 - Widely used throughout PostgreSQL for timeout calculations in WAL processing, replication, checkpoints, and various background processes
+
+## Simplified Source
+
+```c
+// Simplified version of TimestampDifferenceMilliseconds
+long TimestampDifferenceMilliseconds(TimestampTz start_time, TimestampTz stop_time) {
+    TimestampTz time_diff;
+
+    // Return zero if already past stop time
+    if (start_time >= stop_time) {
+        return 0;
+    }
+
+    // Calculate difference with overflow protection
+    if (pg_sub_s64_overflow(stop_time, start_time, &time_diff)) {
+        return (long) INT_MAX;  // Overflow occurred
+    }
+
+    // Check if result would exceed INT_MAX milliseconds
+    if (time_diff >= (INT_MAX * 1000 - 999)) {
+        return (long) INT_MAX;  // Clamp to maximum
+    }
+
+    // Convert microseconds to milliseconds, rounding up
+    return (long) ((time_diff + 999) / 1000);
+}
+```
+
+Key simplifications made:
+- Renamed variable `diff` to `time_diff` for clarity
+- Added descriptive comments for each logical step
+- Simplified overflow check comment to be more direct
+- Made the rounding-up behavior more explicit in comments
+- Focused on the core algorithm: validate inputs, handle overflow, convert units
+- Preserved all essential logic including edge case handling

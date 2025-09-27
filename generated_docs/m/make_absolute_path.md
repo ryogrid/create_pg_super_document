@@ -55,3 +55,55 @@ The function includes robust error handling for both memory allocation failures 
 - Uses dynamic buffer allocation for  to handle very long directory paths
 - The canonicalization step ensures consistent path format across platforms
 - Essential for configuration file processing and data directory management in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of make_absolute_path
+char *make_absolute_path(const char *path) {
+    char *new;
+
+    // Handle null input gracefully
+    if (path == NULL)
+        return NULL;
+
+    // Check if path is already absolute
+    if (!is_absolute_path(path)) {
+        // Get current working directory with dynamic buffer allocation
+        char *current_dir = get_current_working_directory();
+        if (!current_dir) {
+            handle_getcwd_error();
+            return NULL;
+        }
+
+        // Combine current directory with relative path
+        new = allocate_and_combine_paths(current_dir, path);
+        free(current_dir);
+
+        if (!new) {
+            handle_memory_allocation_error();
+            return NULL;
+        }
+    } else {
+        // Path is already absolute, just duplicate it
+        new = strdup(path);
+        if (!new) {
+            handle_memory_allocation_error();
+            return NULL;
+        }
+    }
+
+    // Normalize the path (remove redundant separators, resolve . and ..)
+    canonicalize_path(new);
+
+    return new;
+}
+```
+
+Key simplifications made:
+- Abstracted the complex getcwd() retry logic with dynamic buffer allocation into `get_current_working_directory()`
+- Consolidated the path combination logic into `allocate_and_combine_paths()`
+- Simplified error handling by abstracting platform-specific differences (backend vs frontend)
+- Focused on the main execution flow: null check → absolute check → combine/duplicate → canonicalize
+- Removed detailed memory allocation and error reporting code for clarity
+- Maintained the core algorithm structure while making the logic more readable

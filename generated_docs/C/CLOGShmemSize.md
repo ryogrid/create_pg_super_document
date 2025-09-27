@@ -36,3 +36,23 @@ None - uses configuration determined by other CLOG functions
 - The calculated size includes buffers, control structures, and LSN tracking overhead
 - CLOG_LSNS_PER_PAGE determines how many LSN tracking entries are needed per CLOG page
 - Works in conjunction with CLOGShmemInit() which actually allocates and initializes the memory
+
+## Simplified Source
+
+```c
+// Simplified version of CLOGShmemSize
+Size CLOGShmemSize(void) {
+    // Calculate shared memory size for CLOG subsystem
+    // Uses the generic SLRU memory calculator with CLOG-specific parameters
+    int buffer_count = CLOGShmemBuffers();
+    int lsns_per_page = CLOG_LSNS_PER_PAGE;
+
+    return SimpleLruShmemSize(buffer_count, lsns_per_page);
+}
+```
+
+Key simplifications made:
+- Extracted inline function calls into descriptive variables
+- Added explanatory comments for the core logic
+- Made the delegation to SimpleLruShmemSize more explicit
+- Focused on the main purpose: calculating CLOG shared memory requirements

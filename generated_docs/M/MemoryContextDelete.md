@@ -40,3 +40,45 @@ The implementation avoids using MemoryContextTraverseNext() because it modifies 
 - This is a destructive operation - once called, the context and all its descendants are permanently removed
 - Widely used throughout PostgreSQL for cleanup operations in executors, SPI, transaction management, and various subsystems
 - The bottom-up approach ensures that parent contexts are only deleted after all their children have been properly cleaned up
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextDelete
+void MemoryContextDelete(MemoryContext context) {
+    MemoryContext curr;
+
+    // Validate input context
+    Assert(MemoryContextIsValid(context));
+
+    // Delete all contexts from bottom up (children first, then parents)
+    curr = context;
+    while (true) {
+        MemoryContext parent;
+
+        // Step 1: Find a leaf context (one with no children)
+        while (curr->firstchild != NULL) {
+            curr = curr->firstchild;
+        }
+
+        // Step 2: Delete the leaf context and move to its parent
+        parent = curr->parent;
+        MemoryContextDeleteOnly(curr);
+
+        // Step 3: Stop if we just deleted the original context
+        if (curr == context) {
+            break;
+        }
+
+        // Step 4: Move up to parent and repeat
+        curr = parent;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about recursion avoidance (kept the concept in main comment)
+- Simplified the loop structure explanation with numbered steps
+- Consolidated the algorithm description into clearer logical steps
+- Maintained the essential iterative bottom-up deletion strategy
+- Preserved all critical functionality and safety checks

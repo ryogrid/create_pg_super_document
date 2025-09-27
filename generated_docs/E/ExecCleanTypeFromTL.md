@@ -36,3 +36,21 @@ Like ExecTypeFromTL, it delegates the actual work to ExecTypeFromTLInternal, but
 - Uses ExecTypeFromTLInternal with skipjunk=true to filter out intermediate columns
 - Essential for proper result set formatting in portals and cached plan result descriptions
 - The resulting TupleDesc represents only the columns that should be visible in the final query output
+
+## Simplified Source
+
+```c
+// Simplified version of ExecCleanTypeFromTL
+TupleDesc ExecCleanTypeFromTL(List *targetList) {
+    // Create tuple descriptor excluding resjunk columns
+    // skipjunk=true filters out intermediate/temporary columns
+    return ExecTypeFromTLInternal(targetList, true);
+}
+```
+
+Key simplifications made:
+- This function is already very simple as it's just a wrapper
+- Added clear comments explaining the purpose (excluding resjunk columns)
+- Highlighted the key parameter (skipjunk=true) that differentiates it from ExecTypeFromTL
+- Emphasized the "clean" aspect - filtering out internal columns
+- Focused on the main use case: creating final result descriptors

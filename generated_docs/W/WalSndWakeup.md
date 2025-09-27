@@ -41,3 +41,26 @@ The function uses condition variable broadcasting to wake up waiting processes e
 - WAL senders must have previously called WalSndWait() to be added to the condition variable wait lists
 - Uses the shared memory condition variables wal_flush_cv and wal_replay_cv initialized by WalSndShmemInit
 - Enables efficient coordination between WAL generation/application and replication streaming
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndWakeup
+void WalSndWakeup(bool physical, bool logical) {
+    // Wake up physical WAL senders waiting for WAL flush
+    if (physical) {
+        ConditionVariableBroadcast(&WalSndCtl->wal_flush_cv);
+    }
+
+    // Wake up logical WAL senders waiting for WAL replay
+    if (logical) {
+        ConditionVariableBroadcast(&WalSndCtl->wal_replay_cv);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity while preserving core logic comments
+- Focused on the main execution path
+- Maintained the essential conditional broadcasting logic
+- Preserved the critical distinction between physical and logical replication types

@@ -54,3 +54,68 @@ The function is optimized for the specific case of AccessExclusiveLocks, which c
 - Memory allocation is deliberately oversized for simplicity and performance, allocating space for all possible locks
 - The function guarantees that AccessExclusiveLocks are never duplicated in the result since they can only have one holder
 - Critical for maintaining consistency in streaming replication by ensuring standby servers are aware of exclusive locks that could affect recovery
+
+## Simplified Source
+
+```c
+// Simplified version of GetRunningTransactionLocks
+xl_standby_lock *
+GetRunningTransactionLocks(int *nlocks) {
+    xl_standby_lock *accessExclusiveLocks;
+    PROCLOCK *proclock;
+    HASH_SEQ_STATUS seqstat;
+    int index = 0;
+    int total_entries;
+
+    // Step 1: Lock all partitions to ensure consistent view
+    for (int i = 0; i < NUM_LOCK_PARTITIONS; i++) {
+        LWLockAcquire(LockHashPartitionLockByIndex(i), LW_SHARED);
+    }
+
+    // Step 2: Count entries and allocate result array
+    total_entries = hash_get_num_entries(LockMethodProcLockHash);
+    accessExclusiveLocks = palloc(total_entries * sizeof(xl_standby_lock));
+
+    // Step 3: Scan lock table for AccessExclusiveLocks on relations
+    hash_seq_init(&seqstat, LockMethodProcLockHash);
+    while ((proclock = (PROCLOCK *) hash_seq_search(&seqstat))) {
+
+        // Check if this is an AccessExclusiveLock on a relation
+        if ((proclock->holdMask & LOCKBIT_ON(AccessExclusiveLock)) &&
+            proclock->tag.myLock->tag.locktag_type == LOCKTAG_RELATION) {
+
+            PGPROC *proc = proclock->tag.myProc;
+            LOCK *lock = proclock->tag.myLock;
+            TransactionId xid = proc->xid;
+
+            // Skip locks from already-committed transactions
+            if (!TransactionIdIsValid(xid)) {
+                continue;
+            }
+
+            // Record the lock information
+            accessExclusiveLocks[index].xid = xid;
+            accessExclusiveLocks[index].dbOid = lock->tag.locktag_field1;
+            accessExclusiveLocks[index].relOid = lock->tag.locktag_field2;
+            index++;
+        }
+    }
+
+    // Step 4: Release all partition locks in reverse order
+    for (int i = NUM_LOCK_PARTITIONS; --i >= 0;) {
+        LWLockRelease(LockHashPartitionLockByIndex(i));
+    }
+
+    *nlocks = index;
+    return accessExclusiveLocks;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations and initialization
+- Added step-by-step comments for main algorithm phases
+- Simplified loop variable declarations (using C99 style)
+- Removed detailed comments about implementation details and alternatives
+- Focused on the core logic: lock acquisition, scanning, filtering, and cleanup
+- Preserved all essential functionality and error handling
+- Maintained the critical ordering requirements for deadlock avoidance

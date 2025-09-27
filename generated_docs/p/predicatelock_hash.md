@@ -42,3 +42,28 @@ This design allows PostgreSQL to use a single set of partition locks for both ha
 - The specialized hashing is necessary for the performance optimization of using shared partition locks
 - Part of PostgreSQL's Serializable Snapshot Isolation (SSI) implementation
 - Located in src/backend/storage/lmgr/predicate.c:1409-1434
+
+## Simplified Source
+
+```c
+// Simplified version of predicatelock_hash
+static uint32 predicatelock_hash(const void *key, Size keysize) {
+    // Cast the key to the expected structure type
+    const PREDICATELOCKTAG *predicatelocktag = (const PREDICATELOCKTAG *) key;
+
+    // Verify the key size matches expected structure size
+    Assert(keysize == sizeof(PREDICATELOCKTAG));
+
+    // Get hash code from the associated target object
+    uint32 targethash = PredicateLockTargetTagHashCode(&predicatelocktag->myTarget->tag);
+
+    // Generate final hash code that maintains partition consistency
+    return PredicateLockHashCodeFromTargetHashCode(predicatelocktag, targethash);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step
+- Maintained the original logic flow and assertions
+- Preserved the critical hash code computation
+- No complexity removed as function is already streamlined

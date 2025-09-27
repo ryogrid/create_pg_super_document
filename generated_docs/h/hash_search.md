@@ -49,3 +49,97 @@ This is the primary interface for hash table operations in PostgreSQL. It provid
 - The foundPtr parameter is particularly useful for HASH_ENTER operations to distinguish between new and existing entries
 - This function is heavily used throughout PostgreSQL for various caching and lookup operations
 - Automatically computes the hash value using the table's hash function before delegating to the core implementation
+
+## Simplified Source
+
+```c
+// Simplified version of hash_search
+void *hash_search(HTAB *hashp, const void *keyPtr, HASHACTION action, bool *foundPtr) {
+    // Compute hash value and delegate to core implementation
+    uint32 hashvalue = hashp->hash(keyPtr, hashp->keysize);
+    return hash_search_with_hash_value(hashp, keyPtr, hashvalue, action, foundPtr);
+}
+
+// Simplified version of hash_search_with_hash_value (core implementation)
+void *hash_search_with_hash_value(HTAB *hashp, const void *keyPtr, uint32 hashvalue,
+                                  HASHACTION action, bool *foundPtr) {
+    HASHBUCKET currBucket;
+    HASHBUCKET *prevBucketPtr;
+
+    // Step 1: Check if table expansion is needed for insertions
+    if (action == HASH_ENTER || action == HASH_ENTER_NULL) {
+        if (should_expand_table(hashp)) {
+            expand_table(hashp);
+        }
+    }
+
+    // Step 2: Find the initial bucket location
+    hash_initial_lookup(hashp, hashvalue, &prevBucketPtr);
+    currBucket = *prevBucketPtr;
+
+    // Step 3: Search the collision chain for matching key
+    while (currBucket != NULL) {
+        if (currBucket->hashvalue == hashvalue &&
+            keys_match(currBucket, keyPtr, hashp->keysize)) {
+            break;  // Found matching entry
+        }
+        prevBucketPtr = &(currBucket->link);
+        currBucket = *prevBucketPtr;
+    }
+
+    // Step 4: Set found flag if requested
+    if (foundPtr) {
+        *foundPtr = (currBucket != NULL);
+    }
+
+    // Step 5: Perform the requested action
+    switch (action) {
+        case HASH_FIND:
+            // Return found entry or NULL
+            return currBucket ? get_entry_data(currBucket) : NULL;
+
+        case HASH_REMOVE:
+            if (currBucket) {
+                // Remove from chain and add to free list
+                remove_from_chain(prevBucketPtr, currBucket);
+                add_to_freelist(hashp, currBucket);
+                return get_entry_data(currBucket);  // Dangling pointer warning!
+            }
+            return NULL;
+
+        case HASH_ENTER:
+        case HASH_ENTER_NULL:
+            if (currBucket) {
+                // Return existing entry
+                return get_entry_data(currBucket);
+            }
+
+            // Create new entry
+            currBucket = allocate_new_entry(hashp);
+            if (!currBucket) {
+                // Handle out of memory
+                if (action == HASH_ENTER_NULL) return NULL;
+                report_out_of_memory_error(hashp);
+            }
+
+            // Initialize and link new entry
+            setup_new_entry(currBucket, hashvalue, keyPtr, hashp);
+            link_to_chain(prevBucketPtr, currBucket);
+
+            return get_entry_data(currBucket);
+    }
+
+    // Should never reach here
+    elog(ERROR, "unrecognized hash action code: %d", action);
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Abstracted low-level memory management and locking details
+- Simplified the collision chain traversal logic
+- Consolidated similar error handling patterns
+- Removed statistics tracking code for clarity
+- Focused on the main execution paths for each action type
+- Used descriptive helper function names to represent complex operations
+- Maintained the essential algorithm flow and all four operation types

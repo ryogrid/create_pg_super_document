@@ -30,3 +30,25 @@ The function is lightweight and signal-safe, performing minimal work within the 
 - Uses PostgreSQL's latch mechanism for inter-process communication
 - Part of the idle statistics update infrastructure that helps maintain accurate statistics without blocking normal operations
 - The actual statistics update processing occurs elsewhere when the interrupt is handled
+
+## Simplified Source
+
+```c
+// Simplified version of IdleStatsUpdateTimeoutHandler
+static void IdleStatsUpdateTimeoutHandler(void) {
+    // Mark that idle statistics update timeout has occurred
+    IdleStatsUpdateTimeoutPending = true;
+
+    // Set interrupt flag for deferred processing
+    InterruptPending = true;
+
+    // Wake up the process to handle the timeout
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each timeout handling step
+- This function is already extremely simple with only three flag/latch operations
+- Preserved the essential deferred timeout handling pattern
+- Maintained the critical process wake-up mechanism via SetLatch

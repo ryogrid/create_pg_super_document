@@ -34,3 +34,32 @@ This function serves as a helper routine for the kqueue-based event waiting mech
 - The function zeroes out fflags and data fields, indicating these are not used in PostgreSQL's kqueue implementation
 - Part of the kqueue-based event waiting infrastructure, which is used on BSD-derived systems
 - The AccessWaitEvent macro provides a way to retrieve the WaitEvent pointer from a kevent structure, enabling bidirectional association
+
+## Simplified Source
+
+```c
+// Simplified version of WaitEventAdjustKqueueAdd
+static inline void WaitEventAdjustKqueueAdd(struct kevent *k_ev, int filter, int action, WaitEvent *event) {
+    // Set the file descriptor to monitor
+    k_ev->ident = event->fd;
+
+    // Set the event filter (read/write/etc)
+    k_ev->filter = filter;
+
+    // Set the action flags (add/delete/etc)
+    k_ev->flags = action;
+
+    // Clear additional filter flags and data
+    k_ev->fflags = 0;
+    k_ev->data = 0;
+
+    // Associate the kevent with our WaitEvent structure
+    AccessWaitEvent(k_ev) = event;
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining each field assignment
+- Maintained the exact same logic as this is already a simple utility function
+- Clarified the purpose of each kevent field being set
+- Preserved the AccessWaitEvent macro usage for bidirectional association

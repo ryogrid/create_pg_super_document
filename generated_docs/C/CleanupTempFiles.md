@@ -47,3 +47,60 @@ The function also cleans up "allocated" stdio files, directories, and file descr
 - Provides debugging warnings to help identify resource leaks
 - Works in conjunction with ResourceOwner system for comprehensive resource management
 - The VfdCache array iteration skips index 0 as it's not used for actual files
+
+## Simplified Source
+
+```c
+// Simplified version of CleanupTempFiles
+static void CleanupTempFiles(bool isCommit, bool isProcExit) {
+    Index i;
+
+    // Core logic step 1: Clean up temporary files if needed
+    if (isProcExit || have_xact_temporary_files) {
+        // Verify VFD cache integrity
+        Assert(FileIsNotOpen(0));
+
+        // Core logic step 2: Iterate through all file descriptors
+        for (i = 1; i < SizeVfdCache; i++) {
+            unsigned short fdstate = VfdCache[i].fdstate;
+
+            // Check if file needs cleanup (temporary or transaction-local)
+            if (((fdstate & FD_DELETE_AT_CLOSE) || (fdstate & FD_CLOSE_AT_EOXACT)) &&
+                VfdCache[i].fileName != NULL) {
+
+                // Core logic step 3: Close files based on context
+                if (isProcExit) {
+                    // Process exit: close all temporary files
+                    FileClose(i);
+                } else if (fdstate & FD_CLOSE_AT_EOXACT) {
+                    // Transaction end: warn and close transaction-local files
+                    elog(WARNING, "temporary file %s not closed at end-of-transaction",
+                         VfdCache[i].fileName);
+                    FileClose(i);
+                }
+            }
+        }
+
+        // Reset transaction temp file flag
+        have_xact_temporary_files = false;
+    }
+
+    // Core logic step 4: Warn about unclosed allocated descriptors at commit
+    if (isCommit && numAllocatedDescs > 0) {
+        elog(WARNING, "%d temporary files and directories not closed at end-of-transaction",
+             numAllocatedDescs);
+    }
+
+    // Core logic step 5: Clean up all allocated descriptors
+    while (numAllocatedDescs > 0) {
+        FreeDesc(&allocatedDescs[0]);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments for each major phase
+- Preserved the essential logic flow and all conditional branches
+- Kept important error checking and warnings
+- Maintained the dual-mode behavior (process exit vs transaction cleanup)
+- Focused on the main execution paths while preserving correctness

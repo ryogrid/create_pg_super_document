@@ -48,3 +48,40 @@ This function is fork-safe and should be called after process forking but before
 - Sets up the global signal handler for SIGALRM which is shared across all timeout instances
 - Critical for proper timeout functionality in all PostgreSQL processes including backends, background workers, and utility processes
 - The function ensures clean state by clearing all timeout slots regardless of previous state
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeTimeouts
+void InitializeTimeouts(void) {
+    // Step 1: Disable any existing alarm to ensure clean state
+    disable_alarm();
+
+    // Step 2: Reset active timeout counter
+    num_active_timeouts = 0;
+
+    // Step 3: Initialize all timeout slots to inactive state
+    for (int i = 0; i < MAX_TIMEOUTS; i++) {
+        all_timeouts[i].index = i;
+        all_timeouts[i].active = false;
+        all_timeouts[i].indicator = false;
+        all_timeouts[i].timeout_handler = NULL;
+        all_timeouts[i].start_time = 0;
+        all_timeouts[i].fin_time = 0;
+        all_timeouts[i].interval_in_ms = 0;
+    }
+
+    // Step 4: Mark module as initialized
+    all_timeouts_initialized = true;
+
+    // Step 5: Register signal handler for timeout processing
+    pqsignal(SIGALRM, handle_sig_alarm);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations inline with usage
+- Added step-by-step comments explaining the logical flow
+- Maintained all essential initialization logic
+- Preserved the exact sequence of operations for correctness
+- Focused on the core algorithm without low-level implementation details

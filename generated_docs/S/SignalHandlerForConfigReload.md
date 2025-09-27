@@ -41,3 +41,22 @@ This design pattern allows PostgreSQL processes to handle configuration reload s
 - The ConfigReloadPending flag it sets is typically checked by HandleMainLoopInterrupts or similar interrupt handling functions
 - The SetLatch call ensures that processes waiting on their latch will wake up to process the pending configuration reload
 - Used extensively throughout PostgreSQL's background processes, demonstrating its importance for runtime configuration management
+
+## Simplified Source
+
+```c
+// Simplified version of SignalHandlerForConfigReload
+void SignalHandlerForConfigReload(SIGNAL_ARGS) {
+    // Step 1: Mark that a configuration reload is needed
+    ConfigReloadPending = true;
+
+    // Step 2: Wake up the main process to handle the reload
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining the two core actions
+- The function is already minimal and safe for signal handling
+- Preserved the essential two-step pattern: flag setting + process wakeup
+- No complex logic to simplify - this is an exemplar of good signal handler design

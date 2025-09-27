@@ -40,3 +40,48 @@ This function takes no parameters.
 - Uses atomic operations for thread-safe initialization of barrier-related fields
 - Critical component of PostgreSQL's startup sequence for shared memory setup
 - Located in src/backend/storage/ipc/procsignal.c:125-157
+
+## Simplified Source
+
+```c
+// Simplified version of ProcSignalShmemInit
+void ProcSignalShmemInit(void) {
+    // Step 1: Calculate required shared memory size
+    Size memory_size = ProcSignalShmemSize();
+    bool is_already_initialized;
+
+    // Step 2: Allocate or attach to shared memory segment
+    ProcSignal = (ProcSignalHeader *)
+        ShmemInitStruct("ProcSignal", memory_size, &is_already_initialized);
+
+    // Step 3: Initialize data structures if we're the first process
+    if (!is_already_initialized) {
+        // Initialize global barrier generation counter
+        pg_atomic_init_u64(&ProcSignal->psh_barrierGeneration, 0);
+
+        // Initialize each process signal slot
+        for (int i = 0; i < NumProcSignalSlots; i++) {
+            ProcSignalSlot *slot = &ProcSignal->psh_slot[i];
+
+            // Mark slot as unused
+            slot->pss_pid = 0;
+
+            // Clear all signal flags
+            MemSet(slot->pss_signalFlags, 0, sizeof(slot->pss_signalFlags));
+
+            // Initialize barrier synchronization fields
+            pg_atomic_init_u64(&slot->pss_barrierGeneration, PG_UINT64_MAX);
+            pg_atomic_init_u32(&slot->pss_barrierCheckMask, 0);
+            ConditionVariableInit(&slot->pss_barrierCV);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Used more descriptive variable name `is_already_initialized` instead of `found`
+- Used more descriptive variable name `memory_size` instead of `size`
+- Consolidated the slot initialization logic with clear comments
+- Removed unnecessary variable declarations and moved them inline
+- Added comments explaining the purpose of each initialization step

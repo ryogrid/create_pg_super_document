@@ -39,3 +39,35 @@ This is particularly useful in scenarios where the decision to update a tuple de
 - The state parameter becomes invalid after this call and should not be reused
 - Part of the three-function in-place update API: begin, finish, and cancel
 - Preferred over performing a no-op update as it avoids unnecessary write operations and WAL logging
+
+## Simplified Source
+
+```c
+// Simplified version of systable_inplace_update_cancel
+void systable_inplace_update_cancel(void *state) {
+    // Extract scan descriptor from opaque state pointer
+    SysScanDesc scan = (SysScanDesc) state;
+
+    // Get relation and tuple slot from scan
+    Relation relation = scan->heap_rel;
+    TupleTableSlot *slot = scan->slot;
+    BufferHeapTupleTableSlot *buffer_slot = (BufferHeapTupleTableSlot *) slot;
+
+    // Extract the tuple and buffer for unlocking
+    HeapTuple old_tuple = buffer_slot->base.tuple;
+    Buffer buffer = buffer_slot->buffer;
+
+    // Release the exclusive lock on the tuple
+    heap_inplace_unlock(relation, old_tuple, buffer);
+
+    // Clean up and end the scan
+    systable_endscan(scan);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Used more readable variable names (old_tuple instead of oldtup, buffer_slot instead of bslot)
+- Grouped related operations with explanatory comments
+- Maintained the essential two-step cleanup: unlock then end scan
+- Preserved the critical type casting and data extraction logic

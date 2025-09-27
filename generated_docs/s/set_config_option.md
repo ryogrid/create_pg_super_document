@@ -57,3 +57,35 @@ Return values indicate the outcome: +1 for successful application, 0 for validat
 - Integrates with the transaction system through the action parameter
 - Part of PostgreSQL's Grand Unified Configuration (GUC) system
 - The is_reload parameter handles special cases during process startup and configuration reloading
+
+## Simplified Source
+
+```c
+// Simplified version of set_config_option
+int set_config_option(const char *name, const char *value,
+                      GucContext context, GucSource source,
+                      GucAction action, bool changeVal, int elevel,
+                      bool is_reload) {
+    Oid srole;
+
+    // Privilege determination: Interactive sources use current user privileges,
+    // non-interactive sources get superuser privileges (except PGC_S_CLIENT)
+    if (source >= PGC_S_INTERACTIVE || source == PGC_S_CLIENT) {
+        srole = GetUserId();
+    } else {
+        srole = BOOTSTRAP_SUPERUSERID;
+    }
+
+    // Delegate to the main implementation function
+    return set_config_with_handle(name, NULL, value,
+                                  context, source, srole,
+                                  action, changeVal, elevel,
+                                  is_reload);
+}
+```
+
+Key simplifications made:
+- Removed detailed comment block for brevity
+- Focused on the two core operations: privilege determination and delegation
+- Preserved the essential security logic that distinguishes interactive vs non-interactive sources
+- Maintained the function's primary purpose as a privilege-checking wrapper

@@ -43,3 +43,61 @@ get_dirent_type(const char *path,
 
 ## Notes and Other Information
 This function is part of PostgreSQL's common utilities and works in both frontend tools and backend code. It abstracts away platform differences in directory entry type detection, providing a consistent interface across different operating systems. The function returns PGFileType enum values: PGFILETYPE_REG (regular file), PGFILETYPE_DIR (directory), PGFILETYPE_LNK (symbolic link), PGFILETYPE_UNKNOWN (unknown type), or PGFILETYPE_ERROR (stat failed). This is essential for directory traversal operations in PostgreSQL utilities and server-side file management.
+
+## Simplified Source
+
+```c
+// Simplified version of get_dirent_type
+PGFileType get_dirent_type(const char *path,
+                          const struct dirent *de,
+                          bool look_through_symlinks,
+                          int elevel) {
+    PGFileType result;
+
+    // Step 1: Try to get type from dirent structure (fast path on BSD/Linux)
+    if (de->d_type == DT_REG)
+        result = PGFILETYPE_REG;
+    else if (de->d_type == DT_DIR)
+        result = PGFILETYPE_DIR;
+    else if (de->d_type == DT_LNK && !look_through_symlinks)
+        result = PGFILETYPE_LNK;
+    else
+        result = PGFILETYPE_UNKNOWN;
+
+    // Step 2: If type unknown, use stat() as fallback
+    if (result == PGFILETYPE_UNKNOWN) {
+        struct stat file_stat;
+        int stat_result;
+
+        // Choose stat vs lstat based on symlink handling preference
+        if (look_through_symlinks)
+            stat_result = stat(path, &file_stat);
+        else
+            stat_result = lstat(path, &file_stat);
+
+        // Step 3: Handle stat results
+        if (stat_result < 0) {
+            result = PGFILETYPE_ERROR;
+            // Log error (implementation varies by frontend/backend)
+        } else {
+            // Determine file type from stat mode
+            if (S_ISREG(file_stat.st_mode))
+                result = PGFILETYPE_REG;
+            else if (S_ISDIR(file_stat.st_mode))
+                result = PGFILETYPE_DIR;
+            else if (S_ISLNK(file_stat.st_mode))
+                result = PGFILETYPE_LNK;
+        }
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed platform-specific conditional compilation directives
+- Consolidated error logging into a single comment (actual implementation varies)
+- Used more descriptive variable names (file_stat instead of fst)
+- Added step-by-step comments explaining the logic flow
+- Focused on the main algorithm: try dirent first, fallback to stat
+- Abstracted the frontend/backend logging differences

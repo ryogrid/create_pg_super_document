@@ -47,3 +47,132 @@ The function uses exception handling to ensure proper cleanup if errors occur du
 - The snapshot parameter is currently only used for PORTAL_ONE_SELECT portals
 - After successful completion, portal status changes to PORTAL_READY and result tuple descriptor is available
 - Located in src/backend/tcop/pquery.c:433-622
+
+## Simplified Source
+
+```c
+// Simplified version of PortalStart
+void PortalStart(Portal portal, ParamListInfo params, int eflags, Snapshot snapshot) {
+    // Validate portal is in correct state
+    Assert(PortalIsValid(portal));
+    Assert(portal->status == PORTAL_DEFINED);
+
+    // Save current global state for restoration later
+    Portal saveActivePortal = ActivePortal;
+    ResourceOwner saveResourceOwner = CurrentResourceOwner;
+    MemoryContext savePortalContext = PortalContext;
+
+    PG_TRY();
+    {
+        // Set up execution context
+        ActivePortal = portal;
+        if (portal->resowner)
+            CurrentResourceOwner = portal->resowner;
+        PortalContext = portal->portalContext;
+
+        // Switch to portal's memory context
+        oldContext = MemoryContextSwitchTo(PortalContext);
+
+        // Store parameters and determine execution strategy
+        portal->portalParams = params;
+        portal->strategy = ChoosePortalStrategy(portal->stmts);
+
+        // Initialize based on portal strategy
+        switch (portal->strategy) {
+            case PORTAL_ONE_SELECT:
+                // Set up snapshot for SELECT queries
+                if (snapshot)
+                    PushActiveSnapshot(snapshot);
+                else
+                    PushActiveSnapshot(GetTransactionSnapshot());
+
+                // Create query descriptor
+                queryDesc = CreateQueryDesc(
+                    linitial_node(PlannedStmt, portal->stmts),
+                    portal->sourceText,
+                    GetActiveSnapshot(),
+                    InvalidSnapshot,
+                    None_Receiver,
+                    params,
+                    portal->queryEnv,
+                    0);
+
+                // Set execution flags for scrollable cursors
+                if (portal->cursorOptions & CURSOR_OPT_SCROLL)
+                    myeflags = eflags | EXEC_FLAG_REWIND | EXEC_FLAG_BACKWARD;
+                else
+                    myeflags = eflags;
+
+                // Start the executor
+                ExecutorStart(queryDesc, myeflags);
+
+                // Store query descriptor and tuple descriptor
+                portal->queryDesc = queryDesc;
+                portal->tupDesc = queryDesc->tupDesc;
+
+                // Reset cursor position
+                portal->atStart = true;
+                portal->atEnd = false;
+                portal->portalPos = 0;
+
+                PopActiveSnapshot();
+                break;
+
+            case PORTAL_ONE_RETURNING:
+            case PORTAL_ONE_MOD_WITH:
+                // Set up tuple descriptor for RETURNING clauses
+                PlannedStmt *pstmt = PortalGetPrimaryStmt(portal);
+                portal->tupDesc = ExecCleanTypeFromTL(pstmt->planTree->targetlist);
+
+                // Reset cursor position
+                portal->atStart = true;
+                portal->atEnd = false;
+                portal->portalPos = 0;
+                break;
+
+            case PORTAL_UTIL_SELECT:
+                // Set up tuple descriptor for utility statements
+                PlannedStmt *pstmt = PortalGetPrimaryStmt(portal);
+                portal->tupDesc = UtilityTupleDescriptor(pstmt->utilityStmt);
+
+                // Reset cursor position
+                portal->atStart = true;
+                portal->atEnd = false;
+                portal->portalPos = 0;
+                break;
+
+            case PORTAL_MULTI_QUERY:
+                // No special setup needed for multi-query portals
+                portal->tupDesc = NULL;
+                break;
+        }
+    }
+    PG_CATCH();
+    {
+        // Handle errors: mark portal as failed and restore state
+        MarkPortalFailed(portal);
+        ActivePortal = saveActivePortal;
+        CurrentResourceOwner = saveResourceOwner;
+        PortalContext = savePortalContext;
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    // Restore previous context and global state
+    MemoryContextSwitchTo(oldContext);
+    ActivePortal = saveActivePortal;
+    CurrentResourceOwner = saveResourceOwner;
+    PortalContext = savePortalContext;
+
+    // Mark portal as ready for execution
+    portal->status = PORTAL_READY;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic flow comments
+- Consolidated similar cursor position reset code across cases
+- Simplified variable declarations by moving them closer to usage
+- Abstracted complex memory context operations with high-level descriptions
+- Focused on the main execution path for each portal strategy
+- Maintained the essential error handling pattern with PG_TRY/PG_CATCH

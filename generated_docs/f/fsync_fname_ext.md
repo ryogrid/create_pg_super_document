@@ -46,3 +46,62 @@ The function handles several OS-specific behaviors:
 - Uses transient file descriptors to avoid file descriptor leaks
 - Provides flexible error reporting through configurable error levels
 - Critical for ensuring data durability in PostgreSQL's storage operations
+
+## Simplified Source
+
+```c
+// Simplified version of fsync_fname_ext
+int fsync_fname_ext(const char *fname, bool isdir, bool ignore_perm, int elevel) {
+    int fd;
+    int flags;
+    int returncode;
+
+    // Set appropriate open flags based on file vs directory
+    flags = PG_BINARY;
+    if (!isdir) {
+        flags |= O_RDWR;    // Files need write access for fsync
+    } else {
+        flags |= O_RDONLY;  // Directories opened read-only
+    }
+
+    // Open the file/directory
+    fd = OpenTransientFile(fname, flags);
+
+    // Handle platform-specific directory and permission errors
+    if (fd < 0 && isdir && (errno == EISDIR || errno == EACCES)) {
+        return 0;  // Some OSes don't allow opening directories
+    } else if (fd < 0 && ignore_perm && errno == EACCES) {
+        return 0;  // Ignore permission errors if requested
+    } else if (fd < 0) {
+        ereport(elevel, (errmsg("could not open file \"%s\": %m", fname)));
+        return -1;
+    }
+
+    // Perform the fsync operation
+    returncode = pg_fsync(fd);
+
+    // Handle platform-specific fsync errors for directories
+    if (returncode != 0 && !(isdir && (errno == EBADF || errno == EINVAL))) {
+        int save_errno = errno;
+        (void) CloseTransientFile(fd);
+        errno = save_errno;
+        ereport(elevel, (errmsg("could not fsync file \"%s\": %m", fname)));
+        return -1;
+    }
+
+    // Close the file descriptor
+    if (CloseTransientFile(fd) != 0) {
+        ereport(elevel, (errmsg("could not close file \"%s\": %m", fname)));
+        return -1;
+    }
+
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining OS-specific behavior handling
+- Condensed complex error handling while preserving essential safety checks
+- Maintained the platform-specific workarounds for directory operations
+- Preserved the flexible error reporting mechanism
+- Kept the essential open-fsync-close workflow with proper error handling

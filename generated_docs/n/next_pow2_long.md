@@ -36,3 +36,18 @@ The function uses the mathematical relationship that the smallest power of 2 gre
 - The 'L' suffix ensures long integer arithmetic is used throughout the calculation
 - Static function, indicating it's only used within the dynahash.c module
 - Commonly used in hash table initialization and resizing operations
+
+## Simplified Source
+
+```c
+// Simplified version of next_pow2_long
+static long next_pow2_long(long num) {
+    // Calculate first power of 2 >= num using bit shifting
+    return 1L << my_log2(num);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Function is already very simple, maintained the essential power-of-2 calculation
+- Preserved the efficient bit-shifting implementation

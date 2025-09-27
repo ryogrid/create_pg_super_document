@@ -32,3 +32,29 @@ This function calculates the initial size allocation for the dynamic shared memo
 - Users can configure min_dynamic_shared_memory to further avoid DSM usage
 - The allocation is MAXALIGN'd to ensure proper memory alignment
 - Contains assertion to verify the size meets dsa_minimum_size() requirements
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_dsa_init_size
+static Size pgstat_dsa_init_size(void) {
+    Size sz;
+
+    // Fixed allocation of 256KB for shared stats hash table
+    // Large enough for dshash header and initial buckets without requiring DSM
+    sz = 256 * 1024;
+
+    // Verify this meets minimum DSA requirements
+    Assert(dsa_minimum_size() <= sz);
+
+    // Return with proper memory alignment
+    return MAXALIGN(sz);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the 256KB allocation rationale
+- Preserved essential validation through dsa_minimum_size() assertion
+- Maintained proper memory alignment
+- Focused on the core purpose: providing optimal initial DSA size
+- Kept the balance between avoiding DSM segments and reasonable memory usage

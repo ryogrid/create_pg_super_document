@@ -47,3 +47,114 @@ For CREATE operations, the function performs explicit zero-filling by writing ze
 - Zero-filling is done in  chunks to ensure proper allocation
 - Proper cleanup is performed on all error paths to avoid resource leaks
 - The implementation is somewhat misleadingly called 'shared memory' since it uses regular files
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_impl_mmap
+static bool dsm_impl_mmap(dsm_op op, dsm_handle handle, Size request_size,
+                         void **impl_private, void **mapped_address, Size *mapped_size,
+                         int elevel) {
+    char name[64];
+    int flags;
+    int fd;
+    char *address;
+
+    // Generate filename for the shared memory segment
+    snprintf(name, 64, PG_DYNSHMEM_DIR "/" PG_DYNSHMEM_MMAP_FILE_PREFIX "%u", handle);
+
+    // Handle teardown cases (detach/destroy)
+    if (op == DSM_OP_DETACH || op == DSM_OP_DESTROY) {
+        if (*mapped_address != NULL && munmap(*mapped_address, *mapped_size) != 0) {
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not unmap shared memory segment \"%s\": %m", name)));
+            return false;
+        }
+        *mapped_address = NULL;
+        *mapped_size = 0;
+
+        if (op == DSM_OP_DESTROY && unlink(name) != 0) {
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not remove shared memory segment \"%s\": %m", name)));
+            return false;
+        }
+        return true;
+    }
+
+    // Open file for create or attach
+    flags = O_RDWR | (op == DSM_OP_CREATE ? O_CREAT | O_EXCL : 0);
+    if ((fd = OpenTransientFile(name, flags)) == -1) {
+        if (op == DSM_OP_ATTACH || errno != EEXIST) {
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not open shared memory segment \"%s\": %m", name)));
+        }
+        return false;
+    }
+
+    // Determine size (attach) or allocate space (create)
+    if (op == DSM_OP_ATTACH) {
+        struct stat st;
+        if (fstat(fd, &st) != 0) {
+            CloseTransientFile(fd);
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not stat shared memory segment \"%s\": %m", name)));
+            return false;
+        }
+        request_size = st.st_size;
+    } else {
+        // Zero-fill the file for CREATE operation
+        char *zbuffer = (char *) palloc0(ZBUFFER_SIZE);
+        Size remaining = request_size;
+        bool success = true;
+
+        while (success && remaining > 0) {
+            Size goal = (remaining > ZBUFFER_SIZE) ? ZBUFFER_SIZE : remaining;
+            if (write(fd, zbuffer, goal) == goal) {
+                remaining -= goal;
+            } else {
+                success = false;
+            }
+        }
+
+        if (!success) {
+            CloseTransientFile(fd);
+            unlink(name);
+            ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                           errmsg("could not resize shared memory segment \"%s\" to %zu bytes: %m",
+                                 name, request_size)));
+            return false;
+        }
+    }
+
+    // Map the file into memory
+    address = mmap(NULL, request_size, PROT_READ | PROT_WRITE,
+                   MAP_SHARED | MAP_HASSEMAPHORE | MAP_NOSYNC, fd, 0);
+    if (address == MAP_FAILED) {
+        CloseTransientFile(fd);
+        if (op == DSM_OP_CREATE) {
+            unlink(name);
+        }
+        ereport(elevel, (errcode_for_dynamic_shared_memory(),
+                       errmsg("could not map shared memory segment \"%s\": %m", name)));
+        return false;
+    }
+
+    *mapped_address = address;
+    *mapped_size = request_size;
+
+    if (CloseTransientFile(fd) != 0) {
+        ereport(elevel, (errcode_for_file_access(),
+                       errmsg("could not close shared memory segment \"%s\": %m", name)));
+        return false;
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Consolidated error handling paths
+- Removed some intermediate variables and errno saving
+- Focused on the main logic flow: teardown, file operations, and memory mapping
+- Maintained essential error reporting and cleanup logic

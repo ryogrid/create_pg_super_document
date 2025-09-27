@@ -43,3 +43,61 @@ The function performs several validation steps: first checking if the path exist
 - Automatically appends backslash and wildcard (*) to directory path for Windows file search operations
 - Sets handle to INVALID_HANDLE_VALUE initially, which gets used by subsequent readdir() calls
 - Part of PostgreSQL's portability layer for Windows systems
+
+## Simplified Source
+
+```c
+// Simplified version of opendir
+DIR *opendir(const char *dirname) {
+    DWORD attr;
+    DIR *d;
+
+    // Validate directory exists and is actually a directory
+    attr = GetFileAttributes(dirname);
+    if (attr == INVALID_FILE_ATTRIBUTES) {
+        errno = ENOENT;
+        return NULL;
+    }
+    if ((attr & FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY) {
+        errno = ENOTDIR;
+        return NULL;
+    }
+
+    // Allocate and initialize DIR structure
+    d = malloc(sizeof(DIR));
+    if (!d) {
+        errno = ENOMEM;
+        return NULL;
+    }
+
+    // Prepare directory path with wildcard for Windows file search
+    d->dirname = malloc(strlen(dirname) + 4);
+    if (!d->dirname) {
+        errno = ENOMEM;
+        free(d);
+        return NULL;
+    }
+
+    strcpy(d->dirname, dirname);
+    // Ensure path ends with backslash
+    if (d->dirname[strlen(d->dirname) - 1] != '/' &&
+        d->dirname[strlen(d->dirname) - 1] != '\\')
+        strcat(d->dirname, "\\");
+    strcat(d->dirname, "*");  // Add wildcard for file search
+
+    // Initialize DIR structure fields
+    d->handle = INVALID_HANDLE_VALUE;
+    d->ret.d_ino = 0;           // no inodes on Windows
+    d->ret.d_reclen = 0;        // not used on Windows
+    d->ret.d_type = DT_UNKNOWN;
+
+    return d;
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic and error handling
+- Maintained Windows-specific validation and setup
+- Kept critical memory allocation patterns
+- Preserved directory path preparation logic
+- Added comments to clarify the main execution steps

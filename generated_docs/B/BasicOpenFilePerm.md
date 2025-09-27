@@ -54,3 +54,62 @@ This function is designed to be the primary (ideally only) direct interface to o
 - Most PostgreSQL code should use VFD layer instead of calling this directly
 - Critical for PostgreSQL's file descriptor resource management strategy
 - Logs informational messages when attempting FD recovery
+
+## Simplified Source
+
+```c
+// Simplified version of BasicOpenFilePerm
+int BasicOpenFilePerm(const char *fileName, int fileFlags, mode_t fileMode) {
+    int fd;
+
+tryAgain:
+    // Platform-specific handling for direct I/O
+    #ifdef PG_O_DIRECT_USE_F_NOCACHE
+        // On systems without native O_DIRECT, remove the flag for open()
+        fd = open(fileName, fileFlags & ~PG_O_DIRECT, fileMode);
+    #else
+        // Standard open() call with all flags
+        fd = open(fileName, fileFlags, fileMode);
+    #endif
+
+    // Success case - handle direct I/O setup if needed
+    if (fd >= 0) {
+        #ifdef PG_O_DIRECT_USE_F_NOCACHE
+            // Simulate O_DIRECT using F_NOCACHE on macOS-like systems
+            if (fileFlags & PG_O_DIRECT) {
+                if (fcntl(fd, F_NOCACHE, 1) < 0) {
+                    int save_errno = errno;
+                    close(fd);
+                    errno = save_errno;
+                    return -1;
+                }
+            }
+        #endif
+        return fd;  // Success!
+    }
+
+    // Handle "too many open files" errors with retry logic
+    if (errno == EMFILE || errno == ENFILE) {
+        int save_errno = errno;
+
+        // Log the issue and attempt to free file descriptors
+        ereport(LOG, (errcode(ERRCODE_INSUFFICIENT_RESOURCES),
+                     errmsg("out of file descriptors: %m; release and retry")));
+
+        errno = 0;
+        if (ReleaseLruFile()) {
+            goto tryAgain;  // Try opening the file again
+        }
+        errno = save_errno;
+    }
+
+    return -1;  // Failure
+}
+```
+
+Key simplifications made:
+- Removed compile-time assertion checks for clarity
+- Consolidated platform-specific conditional compilation logic
+- Simplified error handling flow while preserving retry mechanism
+- Added clear comments explaining the main execution paths
+- Maintained the core algorithm: open → handle direct I/O → retry on resource exhaustion

@@ -48,3 +48,49 @@ The function handles both first-time initialization (when structures don't exist
 - Uses two different hash table configurations: HASH_BLOBS for binary keys (event info) and HASH_STRINGS for string keys (event names)
 - The spinlock protects concurrent access to the ID counter from multiple processes
 - Must be called after WaitEventCustomShmemSize() has been used to allocate the required shared memory space
+
+## Simplified Source
+
+```c
+// Simplified version of WaitEventCustomShmemInit
+void WaitEventCustomShmemInit(void) {
+    bool found;
+    HASHCTL info;
+
+    // Initialize or attach to the shared counter structure
+    WaitEventCustomCounter = (WaitEventCustomCounterData *)
+        ShmemInitStruct("WaitEventCustomCounterData",
+                        sizeof(WaitEventCustomCounterData), &found);
+
+    // If first time initialization, set up initial values
+    if (!found) {
+        WaitEventCustomCounter->nextId = WAIT_EVENT_CUSTOM_INITIAL_ID;
+        SpinLockInit(&WaitEventCustomCounter->mutex);
+    }
+
+    // Create hash table for lookups by event information (uint32 keys)
+    info.keysize = sizeof(uint32);
+    info.entrysize = sizeof(WaitEventCustomEntryByInfo);
+    WaitEventCustomHashByInfo =
+        ShmemInitHash("WaitEventCustom hash by wait event information",
+                      WAIT_EVENT_CUSTOM_HASH_INIT_SIZE,
+                      WAIT_EVENT_CUSTOM_HASH_MAX_SIZE,
+                      &info, HASH_ELEM | HASH_BLOBS);
+
+    // Create hash table for lookups by event name (string keys)
+    info.keysize = sizeof(char[NAMEDATALEN]);
+    info.entrysize = sizeof(WaitEventCustomEntryByName);
+    WaitEventCustomHashByName =
+        ShmemInitHash("WaitEventCustom hash by name",
+                      WAIT_EVENT_CUSTOM_HASH_INIT_SIZE,
+                      WAIT_EVENT_CUSTOM_HASH_MAX_SIZE,
+                      &info, HASH_ELEM | HASH_STRINGS);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major step
+- Preserved the essential initialization logic
+- Maintained the conditional initialization for first-time setup
+- Kept the hash table creation with appropriate configurations
+- Simplified variable declarations while preserving functionality

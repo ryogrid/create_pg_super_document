@@ -37,3 +37,18 @@ This function takes no parameters.
 - In parallel workers, the timestamp is provided by the parallel infrastructure via `SetParallelStartTimestamps()`
 - This timestamp remains constant throughout the entire statement execution, ensuring consistency for all time-sensitive operations within the statement
 - The return type `TimestampTz` includes timezone information
+
+## Simplified Source
+
+```c
+// Simplified version of GetCurrentStatementStartTimestamp
+TimestampTz GetCurrentStatementStartTimestamp(void) {
+    // Return the global statement start timestamp
+    return stmtStartTimestamp;
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the function's purpose
+- This function is already at its simplest form - just returns a global variable
+- Maintained the essential timestamp accessor functionality

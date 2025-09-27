@@ -32,3 +32,24 @@ This function takes no parameters.
 - Lock timeouts help prevent deadlocks and ensure system responsiveness by limiting how long processes wait for locks
 - The handler is typically registered during backend initialization and triggered by the timeout management system
 - Unlike statement timeouts, lock timeouts are specifically designed to be non-fatal, allowing the transaction to continue with appropriate error handling
+
+## Simplified Source
+
+```c
+// Simplified version of LockTimeoutHandler
+static void LockTimeoutHandler(void) {
+#ifdef HAVE_SETSID
+    // Try to signal the entire process group first
+    kill(-MyProcPid, SIGINT);
+#endif
+
+    // Signal the individual process
+    kill(MyProcPid, SIGINT);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two-step signaling approach
+- Maintained the conditional process group signaling for compatibility
+- Focused on the core timeout handling logic
+- Preserved the essential SIGINT signal delivery mechanism

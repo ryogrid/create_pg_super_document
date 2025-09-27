@@ -40,3 +40,39 @@ The function includes error handling for fork failures - if forking fails for a 
 - Fork failure for B_STARTUP type processes causes immediate postmaster termination as it's considered fatal during database startup
 - All child processes created by this function initially execute AuxiliaryProcessMain for common setup
 - This is a static function internal to postmaster.c, serving as a consistent interface for auxiliary process creation
+
+## Simplified Source
+
+```c
+// Simplified version of StartChildProcess
+static pid_t StartChildProcess(BackendType type) {
+    pid_t child_pid;
+
+    // Step 1: Launch the child process using the common launcher
+    child_pid = postmaster_child_launch(type, NULL, 0, NULL);
+
+    // Step 2: Handle fork failure
+    if (child_pid < 0) {
+        // Log the error with process type name
+        ereport(LOG, (errmsg("could not fork \"%s\" process: %m",
+                             PostmasterChildName(type))));
+
+        // Step 3: Critical failure handling for startup process
+        if (type == B_STARTUP) {
+            ExitPostmaster(1);  // Fatal - terminate postmaster
+        }
+
+        return 0;  // Non-fatal failure - return error indicator
+    }
+
+    // Step 4: Return successful child PID
+    return child_pid;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable name (child_pid instead of pid)
+- Added step-by-step comments to clarify the logic flow
+- Consolidated error handling logic with clear explanations
+- Emphasized the critical vs non-critical failure distinction
+- Focused on the main execution path while preserving all essential logic

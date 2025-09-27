@@ -64,3 +64,123 @@ The function operates recursively when processing include directives, maintainin
 - Error messages are captured and stored in TokenizedAuthLine.err_msg field rather than immediately terminating processing
 - The tokenize_context global memory context must be established before calling this function
 - Recursive include processing maintains proper error context and line numbering across all included files
+
+## Simplified Source
+
+```c
+// Simplified version of tokenize_auth_file
+void tokenize_auth_file(const char *filename, FILE *file, List **tok_lines,
+                       int elevel, int depth) {
+    int line_number = 1;
+    StringInfoData buf;
+    MemoryContext line_context;
+    ErrorContextCallback error_callback;
+
+    // Setup error context for better error reporting
+    setup_error_context(&error_callback, filename, line_number);
+
+    // Create local memory context for cleanup
+    line_context = AllocSetContextCreate(CurrentMemoryContext,
+                                        "tokenize_auth_file",
+                                        ALLOCSET_SMALL_SIZES);
+    MemoryContextSwitchTo(line_context);
+
+    // Initialize output list for top-level calls
+    if (depth == CONF_FILE_START_DEPTH)
+        *tok_lines = NIL;
+
+    initStringInfo(&buf);
+
+    // Main processing loop - read file line by line
+    while (!feof(file) && !ferror(file)) {
+        TokenizedAuthLine *parsed_line;
+        List *current_line = NIL;
+        char *error_message = NULL;
+        int continuations = 0;
+
+        // Read complete line handling backslash continuations
+        resetStringInfo(&buf);
+        while (read_line_with_continuations(file, &buf, &continuations)) {
+            // Continue reading if line ends with backslash
+        }
+
+        // Handle file I/O errors
+        if (ferror(file)) {
+            error_message = create_io_error_message(filename);
+            break;
+        }
+
+        // Parse line into fields (tokens)
+        char *line_ptr = buf.data;
+        while (*line_ptr && error_message == NULL) {
+            List *field = next_field_expand(filename, &line_ptr,
+                                          elevel, depth, &error_message);
+            if (field != NIL) {
+                current_line = lappend(current_line, field);
+            }
+        }
+
+        // Skip empty lines and comment-only lines
+        if (current_line == NIL && error_message == NULL)
+            goto next_iteration;
+
+        // Handle special include directives
+        if (error_message == NULL && list_length(current_line) == 2) {
+            AuthToken *first_token = get_first_token(current_line);
+            AuthToken *second_token = get_second_token(current_line);
+
+            if (strcmp(first_token->string, "include") == 0) {
+                // Process single include file
+                tokenize_include_file(filename, second_token->string, tok_lines,
+                                    elevel, depth + 1, false, &error_message);
+                if (!error_message)
+                    goto next_iteration;
+            }
+            else if (strcmp(first_token->string, "include_dir") == 0) {
+                // Process all files in directory
+                process_include_directory(filename, second_token->string, tok_lines,
+                                        elevel, depth, &error_message);
+                if (!error_message)
+                    goto next_iteration;
+            }
+            else if (strcmp(first_token->string, "include_if_exists") == 0) {
+                // Process optional include file
+                tokenize_include_file(filename, second_token->string, tok_lines,
+                                    elevel, depth + 1, true, &error_message);
+                if (!error_message)
+                    goto next_iteration;
+            }
+        }
+
+        // Create TokenizedAuthLine entry for this line
+        MemoryContextSwitchTo(tokenize_context);
+        parsed_line = palloc0(sizeof(TokenizedAuthLine));
+        parsed_line->fields = current_line;
+        parsed_line->file_name = pstrdup(filename);
+        parsed_line->line_num = line_number;
+        parsed_line->raw_line = pstrdup(buf.data);
+        parsed_line->err_msg = error_message ? pstrdup(error_message) : NULL;
+        *tok_lines = lappend(*tok_lines, parsed_line);
+        MemoryContextSwitchTo(line_context);
+
+next_iteration:
+        line_number += continuations + 1;
+        update_error_context_line_number(&error_callback, line_number);
+    }
+
+    // Cleanup memory context and restore error context
+    MemoryContextSwitchTo(CurrentMemoryContext);
+    MemoryContextDelete(line_context);
+    restore_error_context(&error_callback);
+}
+```
+
+Key simplifications made:
+- Abstracted backslash continuation logic into `read_line_with_continuations()`
+- Simplified error handling by grouping similar I/O error cases
+- Created helper functions for token extraction (`get_first_token`, `get_second_token`)
+- Consolidated include directory processing into `process_include_directory()`
+- Abstracted error context management into setup/restore functions
+- Removed detailed memory context switching details in favor of high-level comments
+- Focused on the main execution flow rather than low-level implementation details
+- Simplified variable names for better readability

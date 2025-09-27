@@ -34,3 +34,23 @@ The function is commonly used in PostgreSQL's WAL (Write-Ahead Logging) subsyste
 - This function is part of PostgreSQL's lightweight locking mechanism for high-performance concurrent access control
 - The atomic variable update and lock release are treated as a single atomic operation from the perspective of other processes
 - Located in src/backend/storage/lmgr/lwlock.c:1856-1877
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockReleaseClearVar
+void LWLockReleaseClearVar(LWLock *lock, pg_atomic_uint64 *valptr, uint64 val) {
+    // Atomically update the variable before releasing the lock
+    // pg_atomic_exchange_u64 provides full memory barrier
+    pg_atomic_exchange_u64(valptr, val);
+
+    // Release the lock
+    LWLockRelease(lock);
+}
+```
+
+Key simplifications made:
+- Focused on the core two-step atomic operation: update variable → release lock
+- Preserved the essential memory barrier semantics
+- Emphasized the ordering guarantee: variable update happens before lock release
+- Maintained the simple but critical function structure

@@ -29,3 +29,20 @@ CheckPointBuffers serves as the main entry point for flushing dirty buffers duri
 - This function is a critical component of PostgreSQL's checkpoint mechanism
 - The actual work is delegated to BufferSync, making this function a clean abstraction layer
 - Called during both regular scheduled checkpoints and shutdown checkpoints
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointBuffers
+void CheckPointBuffers(int flags) {
+    // Flush all dirty blocks in buffer pool to disk
+    // Note: temporary relations do not participate in checkpoints
+    BufferSync(flags);
+}
+```
+
+Key simplifications made:
+- Focused on the core operation: delegate to BufferSync for actual buffer flushing
+- Preserved the essential checkpoint buffer management role
+- Emphasized the abstraction layer design
+- Maintained the key exclusion of temporary relations from checkpoint process

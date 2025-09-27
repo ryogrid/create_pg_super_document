@@ -39,3 +39,33 @@ The function uses a shared lock on WALSummarizerLock to safely read the summariz
 - Uses shared locking to minimize contention when reading the summarizer's process number
 - The latch mechanism is used for inter-process communication to wake up the sleeping summarizer process
 - No error handling is provided since the operation is best-effort and failures are expected in normal operation
+
+## Simplified Source
+
+```c
+// Simplified version of SetWalSummarizerLatch
+void SetWalSummarizerLatch(void) {
+    ProcNumber process_number;
+
+    // Early exit if WAL summarizer is not initialized
+    if (WalSummarizerCtl == NULL) {
+        return;
+    }
+
+    // Safely get the summarizer's process number
+    LWLockAcquire(WALSummarizerLock, LW_SHARED);
+    process_number = WalSummarizerCtl->summarizer_pgprocno;
+    LWLockRelease(WALSummarizerLock);
+
+    // Set the latch if we have a valid process
+    if (process_number != INVALID_PROC_NUMBER) {
+        SetLatch(&ProcGlobal->allProcs[process_number].procLatch);
+    }
+}
+```
+
+Key simplifications made:
+- Renamed variable `pgprocno` to more descriptive `process_number`
+- Added clear comments explaining each logical step
+- Maintained the essential safety checks and locking pattern
+- Preserved the core algorithm while improving readability

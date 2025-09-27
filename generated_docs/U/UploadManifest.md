@@ -51,3 +51,60 @@ This function takes no parameters.
 - Manages global variables uploaded_manifest and uploaded_manifest_mcxt to store the processed manifest
 - Part of PostgreSQL's incremental backup infrastructure introduced for efficient backup operations
 - The manifest data received contains file metadata that helps determine which files need to be included in incremental backups
+
+## Simplified Source
+
+```c
+// Simplified version of UploadManifest
+static void
+UploadManifest(void)
+{
+    MemoryContext manifest_context;
+    IncrementalBackupInfo *backup_info;
+    off_t data_offset = 0;
+    StringInfoData message_buffer;
+
+    // Step 1: Set up resource owner for cryptohash operations
+    Assert(CurrentResourceOwner == NULL);
+    CurrentResourceOwner = ResourceOwnerCreate(NULL, "base backup");
+
+    // Step 2: Create memory context and backup info structure
+    manifest_context = AllocSetContextCreate(CurrentMemoryContext,
+                                           "incremental backup information",
+                                           ALLOCSET_DEFAULT_SIZES);
+    backup_info = CreateIncrementalBackupInfo(manifest_context);
+
+    // Step 3: Send CopyInResponse to initiate COPY protocol
+    pq_beginmessage(&message_buffer, PqMsg_CopyInResponse);
+    pq_sendbyte(&message_buffer, 0);      // Binary format
+    pq_sendint16(&message_buffer, 0);     // No column format codes
+    pq_endmessage_reuse(&message_buffer);
+    pq_flush();
+
+    // Step 4: Receive and process manifest data packets from client
+    while (HandleUploadManifestPacket(&message_buffer, &data_offset, backup_info)) {
+        // Continue receiving packets until done
+    }
+
+    // Step 5: Complete manifest processing
+    FinalizeIncrementalManifest(backup_info);
+
+    // Step 6: Replace old manifest with new one
+    if (uploaded_manifest_mcxt != NULL) {
+        MemoryContextDelete(uploaded_manifest_mcxt);  // Clean up old manifest
+    }
+    MemoryContextSetParent(manifest_context, CacheMemoryContext);  // Make persistent
+    uploaded_manifest = backup_info;
+    uploaded_manifest_mcxt = manifest_context;
+
+    // Step 7: Clean up resources
+    WalSndResourceCleanup(true);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (manifest_context, backup_info, message_buffer)
+- Added step-by-step comments explaining the main phases
+- Simplified the COPY protocol setup explanation
+- Consolidated the manifest replacement logic with clearer comments
+- Focused on the main execution path while preserving all essential operations

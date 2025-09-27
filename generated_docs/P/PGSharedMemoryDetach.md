@@ -49,3 +49,33 @@ This function takes no parameters but operates on global variables:
 - Errors during detachment are logged but not fatal
 - Sets global pointers to NULL after successful detachment to prevent double-free issues
 - Critical for proper cleanup in multi-process PostgreSQL architectures
+
+## Simplified Source
+
+```c
+// Simplified version of PGSharedMemoryDetach
+void PGSharedMemoryDetach(void) {
+    // Detach from System V shared memory segment if attached
+    if (UsedShmemSegAddr != NULL) {
+        if (shmdt(UsedShmemSegAddr) < 0) {
+            elog(LOG, "shmdt(%p) failed: %m", UsedShmemSegAddr);
+        }
+        UsedShmemSegAddr = NULL;
+    }
+
+    // Unmap anonymous shared memory if present
+    if (AnonymousShmem != NULL) {
+        if (munmap(AnonymousShmem, AnonymousShmemSize) < 0) {
+            elog(LOG, "munmap(%p, %zu) failed: %m",
+                 AnonymousShmem, AnonymousShmemSize);
+        }
+        AnonymousShmem = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Removed Cygwin-specific workaround for clarity
+- Focused on the two main detachment operations
+- Preserved error logging and cleanup logic
+- Maintained the core safety pattern of checking pointers before detachment

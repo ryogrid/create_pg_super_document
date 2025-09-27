@@ -38,3 +38,23 @@ None - operates on global configuration variables
 - Minimum of 16 buffers ensures adequate performance even with small configurations
 - Used during PostgreSQL startup to determine CLOG shared memory requirements
 - The buffer count directly affects CLOG cache hit rates and overall transaction processing performance
+
+## Simplified Source
+
+```c
+// Simplified version of CLOGShmemBuffers
+static int CLOGShmemBuffers(void) {
+    // Auto-tune based on shared buffers if not configured
+    if (transaction_buffers == 0) {
+        return SimpleLruAutotuneBuffers(512, 1024);
+    }
+
+    // Use configured value within reasonable bounds
+    return Min(Max(16, transaction_buffers), CLOG_MAX_ALLOWED_BUFFERS);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the two main logic paths: auto-tune vs manual configuration
+- Maintained the essential buffer calculation logic

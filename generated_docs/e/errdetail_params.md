@@ -36,3 +36,29 @@ The function only adds parameter information if parameters exist, contain data, 
 - Safely handles NULL or empty parameter lists
 - Parameter values are truncated based on the configured maximum length
 - Part of PostgreSQL's extended query protocol error reporting system
+
+## Simplified Source
+
+```c
+// Simplified version of errdetail_params
+static int errdetail_params(ParamListInfo params) {
+    // Check if we have parameters and logging is enabled
+    if (params && params->numParams > 0 && log_parameter_max_length != 0) {
+        // Build parameter string for logging
+        char *param_string = BuildParamLogString(params, NULL, log_parameter_max_length);
+
+        // Add parameter details to error message if we have content
+        if (param_string && param_string[0] != '\0') {
+            errdetail("Parameters: %s", param_string);
+        }
+    }
+
+    return 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Used more descriptive variable name (param_string instead of str)
+- Preserved the essential parameter validation and logging logic
+- Maintained the core functionality while improving readability

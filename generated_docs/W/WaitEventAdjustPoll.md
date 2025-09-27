@@ -45,3 +45,43 @@ The function always clears the revents field and sets the file descriptor, ensur
 - Validates that all events have valid file descriptors
 - Simpler than epoll/kqueue variants since poll() doesn't require separate registration calls
 - Part of PostgreSQL's portable wait event system supporting multiple polling mechanisms
+
+## Simplified Source
+
+```c
+// Simplified version of WaitEventAdjustPoll
+static void WaitEventAdjustPoll(WaitEventSet *set, WaitEvent *event) {
+    struct pollfd *pollfd = &set->pollfds[event->pos];
+
+    // Clear previous results and set file descriptor
+    pollfd->revents = 0;
+    pollfd->fd = event->fd;
+
+    // Map PostgreSQL event types to poll flags
+    if (event->events == WL_LATCH_SET) {
+        // Wait for latch signal
+        pollfd->events = POLLIN;
+    }
+    else if (event->events == WL_POSTMASTER_DEATH) {
+        // Wait for postmaster termination
+        pollfd->events = POLLIN;
+    }
+    else {
+        // Handle socket events
+        pollfd->events = 0;
+        if (event->events & WL_SOCKET_READABLE)
+            pollfd->events |= POLLIN;
+        if (event->events & WL_SOCKET_WRITEABLE)
+            pollfd->events |= POLLOUT;
+        if (event->events & WL_SOCKET_CLOSED)
+            pollfd->events |= POLLRDHUP;  // Platform-dependent
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity (kept essential logic validation)
+- Simplified conditional compilation directive explanations
+- Consolidated socket event handling logic
+- Added clear comments explaining the purpose of each major section
+- Focused on the core event type to poll flag mapping functionality

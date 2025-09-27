@@ -9,38 +9,9 @@ GetCachedPlan is the main interface for retrieving executable plans from the pla
 ## Definition
 
 ```c
-structures, such as the parent CachedPlanSource or a
- * Portal.  Transient references should be protected by a resource owner.
- */
-void
-ReleaseCachedPlan(CachedPlan *plan, ResourceOwner owner)
-{
-	Assert(plan->magic == CACHEDPLAN_MAGIC);
-	if (owner)
-	{
-		Assert(plan->is_saved);
-		ResourceOwnerForgetPlanCacheRef(owner, plan);
-	}
-	Assert(plan->refcount > 0);
-	plan->refcount--;
-	if (plan->refcount == 0)
-	{
-		/* Mark it no longer valid */
-		plan->magic = 0;
-
-		/* One-shot plans do not own their context, so we can't free them */
-		if (!plan->is_oneshot)
-			MemoryContextDelete(plan->context);
-	}
-}
-
-/*
- * CachedPlanAllowsSimpleValidityCheck: can we use CachedPlanIsSimplyValid?
- *
- * This function, together with CachedPlanIsSimplyValid, provides a fast path
- * for revalidating "simple" generic plans.  The core requirement to be simple
- * is that the plan must not require taking any locks, which translates to
- * not touching any tables;
+CachedPlan *
+GetCachedPlan(CachedPlanSource *plansource, ParamListInfo boundParams,
+              ResourceOwner owner, QueryEnvironment *queryEnv);
 ```
 ## Detailed Description
 GetCachedPlan serves as the primary entry point for PostgreSQL's plan cache system, encapsulating the complex decision-making process between generic and custom plans. The function orchestrates multiple subsystems: query revalidation, plan selection heuristics, plan construction, memory management, and resource tracking. It ensures that returned plans are valid, properly locked for execution, and correctly reference-counted for memory safety.
@@ -82,3 +53,94 @@ The function implements a sophisticated adaptive strategy that can dynamically s
 - Accumulates cost statistics to improve future planning decisions
 - Custom plans for saved plan sources are automatically moved to CacheMemoryContext
 - The function hides the complexity of plan selection from callers who simply receive an optimal plan
+
+## Simplified Source
+
+```c
+// Simplified version of GetCachedPlan
+CachedPlan *
+GetCachedPlan(CachedPlanSource *plansource, ParamListInfo boundParams,
+              ResourceOwner owner, QueryEnvironment *queryEnv)
+{
+    CachedPlan *plan = NULL;
+    List       *qlist;
+    bool        customplan;
+
+    // Validate input parameters
+    Assert(plansource->magic == CACHEDPLANSOURCE_MAGIC);
+    Assert(plansource->is_complete);
+    if (owner && !plansource->is_saved)
+        elog(ERROR, "cannot apply ResourceOwner to non-saved cached plan");
+
+    // Step 1: Revalidate the cached query and ensure we have parse-time locks
+    qlist = RevalidateCachedQuery(plansource, queryEnv);
+
+    // Step 2: Decide whether to use a custom plan or generic plan
+    customplan = choose_custom_plan(plansource, boundParams);
+
+    // Step 3a: Handle generic plan path
+    if (!customplan) {
+        if (CheckCachedPlan(plansource)) {
+            // Use existing valid generic plan
+            plan = plansource->gplan;
+        } else {
+            // Build new generic plan
+            plan = BuildCachedPlan(plansource, qlist, NULL, queryEnv);
+
+            // Clean up old generic plan and link new one
+            ReleaseGenericPlan(plansource);
+            plansource->gplan = plan;
+            plan->refcount++;
+
+            // Set up memory context based on plan type
+            if (plansource->is_saved) {
+                MemoryContextSetParent(plan->context, CacheMemoryContext);
+                plan->is_saved = true;
+            } else {
+                MemoryContextSetParent(plan->context,
+                                     MemoryContextGetParent(plansource->context));
+            }
+
+            // Update cost tracking
+            plansource->generic_cost = cached_plan_cost(plan, false);
+
+            // Reconsider plan choice based on actual generic cost
+            customplan = choose_custom_plan(plansource, boundParams);
+            if (customplan)
+                qlist = NIL; // Force query list re-copy for custom plan
+        }
+    }
+
+    // Step 3b: Handle custom plan path
+    if (customplan) {
+        plan = BuildCachedPlan(plansource, qlist, boundParams, queryEnv);
+        plansource->total_custom_cost += cached_plan_cost(plan, true);
+        plansource->num_custom_plans++;
+    } else {
+        plansource->num_generic_plans++;
+    }
+
+    // Step 4: Set up plan reference counting and resource ownership
+    if (owner)
+        ResourceOwnerEnlarge(owner);
+    plan->refcount++;
+    if (owner)
+        ResourceOwnerRememberPlanCacheRef(owner, plan);
+
+    // Step 5: Handle memory context for saved custom plans
+    if (customplan && plansource->is_saved) {
+        MemoryContextSetParent(plan->context, CacheMemoryContext);
+        plan->is_saved = true;
+    }
+
+    return plan;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and condensed logic flow into clear steps
+- Abstracted complex memory management details into high-level operations
+- Consolidated error handling to essential checks only
+- Simplified the adaptive plan switching logic while preserving the core algorithm
+- Added step-by-step comments to show the main execution phases
+- Focused on the primary decision points: generic vs custom plan selection

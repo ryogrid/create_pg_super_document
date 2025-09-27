@@ -36,3 +36,26 @@ The function copies the redo pointer and timeline ID from the control file's che
 - The returned information reflects the state at the time of the last checkpoint/restartpoint
 - Location: src/backend/access/transam/xlog.c:9479-9488
 - Essential for WAL archival and recovery operations to determine the oldest required WAL segment
+
+## Simplified Source
+
+```c
+// Simplified version of GetOldestRestartPoint
+void GetOldestRestartPoint(XLogRecPtr *oldrecptr, TimeLineID *oldtli) {
+    // Thread-safe access to control file checkpoint information
+    LWLockAcquire(ControlFileLock, LW_SHARED);
+
+    // Read the redo pointer and timeline from last checkpoint
+    *oldrecptr = ControlFile->checkPointCopy.redo;
+    *oldtli = ControlFile->checkPointCopy.ThisTimeLineID;
+
+    LWLockRelease(ControlFileLock);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the thread safety mechanism
+- Simplified the structure access patterns
+- Maintained the essential lock-protected read operation
+- Preserved the atomic retrieval of both redo pointer and timeline ID
+- Focused on the core functionality of retrieving checkpoint information

@@ -60,3 +60,160 @@ The function handles BC dates (years ≤ 0), microsecond precision, timezone abb
 - All timezone abbreviations in the IANA database are plain ASCII, making the %.*s formatting safe
 - The function modifies the output buffer in-place and null-terminates the result
 - DateOrder global setting affects SQL and PostgreSQL style date component ordering
+
+## Simplified Source
+
+```c
+// Simplified version of EncodeDateTime
+void EncodeDateTime(struct pg_tm *tm, fsec_t fsec, bool print_tz, int tz,
+                    const char *tzn, int style, char *str) {
+    int day;
+
+    Assert(tm->tm_mon >= 1 && tm->tm_mon <= MONTHS_PER_YEAR);
+
+    // Disable timezone printing if no valid timezone translation
+    if (tm->tm_isdst < 0)
+        print_tz = false;
+
+    // Format according to specified style
+    switch (style) {
+        case USE_ISO_DATES:
+        case USE_XSD_DATES:
+            // ISO 8601 format: YYYY-MM-DD HH:MM:SS±TZ (or with 'T' for XSD)
+            str = pg_ultostr_zeropad(str,
+                (tm->tm_year > 0) ? tm->tm_year : -(tm->tm_year - 1), 4);
+            *str++ = '-';
+            str = pg_ultostr_zeropad(str, tm->tm_mon, 2);
+            *str++ = '-';
+            str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+            *str++ = (style == USE_ISO_DATES) ? ' ' : 'T';
+            str = pg_ultostr_zeropad(str, tm->tm_hour, 2);
+            *str++ = ':';
+            str = pg_ultostr_zeropad(str, tm->tm_min, 2);
+            *str++ = ':';
+            str = AppendTimestampSeconds(str, tm, fsec);
+            if (print_tz)
+                str = EncodeTimezone(str, tz, style);
+            break;
+
+        case USE_SQL_DATES:
+            // Oracle/Ingres format: MM/DD/YYYY or DD/MM/YYYY HH:MM:SS.SS TZ
+            if (DateOrder == DATEORDER_DMY) {
+                str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+                *str++ = '/';
+                str = pg_ultostr_zeropad(str, tm->tm_mon, 2);
+            } else {
+                str = pg_ultostr_zeropad(str, tm->tm_mon, 2);
+                *str++ = '/';
+                str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+            }
+            *str++ = '/';
+            str = pg_ultostr_zeropad(str,
+                (tm->tm_year > 0) ? tm->tm_year : -(tm->tm_year - 1), 4);
+            *str++ = ' ';
+            str = pg_ultostr_zeropad(str, tm->tm_hour, 2);
+            *str++ = ':';
+            str = pg_ultostr_zeropad(str, tm->tm_min, 2);
+            *str++ = ':';
+            str = AppendTimestampSeconds(str, tm, fsec);
+
+            // Add timezone: prefer name over numeric offset
+            if (print_tz) {
+                if (tzn) {
+                    sprintf(str, " %.*s", MAXTZLEN, tzn);
+                    str += strlen(str);
+                } else {
+                    str = EncodeTimezone(str, tz, style);
+                }
+            }
+            break;
+
+        case USE_GERMAN_DATES:
+            // German format: DD.MM.YYYY HH:MM:SS TZ
+            str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+            *str++ = '.';
+            str = pg_ultostr_zeropad(str, tm->tm_mon, 2);
+            *str++ = '.';
+            str = pg_ultostr_zeropad(str,
+                (tm->tm_year > 0) ? tm->tm_year : -(tm->tm_year - 1), 4);
+            *str++ = ' ';
+            str = pg_ultostr_zeropad(str, tm->tm_hour, 2);
+            *str++ = ':';
+            str = pg_ultostr_zeropad(str, tm->tm_min, 2);
+            *str++ = ':';
+            str = AppendTimestampSeconds(str, tm, fsec);
+
+            if (print_tz) {
+                if (tzn) {
+                    sprintf(str, " %.*s", MAXTZLEN, tzn);
+                    str += strlen(str);
+                } else {
+                    str = EncodeTimezone(str, tz, style);
+                }
+            }
+            break;
+
+        case USE_POSTGRES_DATES:
+        default:
+            // Traditional PostgreSQL format: Dow Mon DD HH:MM:SS.SS YYYY TZ
+            day = date2j(tm->tm_year, tm->tm_mon, tm->tm_mday);
+            tm->tm_wday = j2day(day);
+
+            // Add day of week abbreviation
+            memcpy(str, days[tm->tm_wday], 3);
+            str += 3;
+            *str++ = ' ';
+
+            // Add month and day based on DateOrder
+            if (DateOrder == DATEORDER_DMY) {
+                str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+                *str++ = ' ';
+                memcpy(str, months[tm->tm_mon - 1], 3);
+                str += 3;
+            } else {
+                memcpy(str, months[tm->tm_mon - 1], 3);
+                str += 3;
+                *str++ = ' ';
+                str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+            }
+
+            // Add time and year
+            *str++ = ' ';
+            str = pg_ultostr_zeropad(str, tm->tm_hour, 2);
+            *str++ = ':';
+            str = pg_ultostr_zeropad(str, tm->tm_min, 2);
+            *str++ = ':';
+            str = AppendTimestampSeconds(str, tm, fsec);
+            *str++ = ' ';
+            str = pg_ultostr_zeropad(str,
+                (tm->tm_year > 0) ? tm->tm_year : -(tm->tm_year - 1), 4);
+
+            if (print_tz) {
+                if (tzn) {
+                    sprintf(str, " %.*s", MAXTZLEN, tzn);
+                    str += strlen(str);
+                } else {
+                    *str++ = ' ';
+                    str = EncodeTimezone(str, tz, style);
+                }
+            }
+            break;
+    }
+
+    // Add BC suffix for historical dates
+    if (tm->tm_year <= 0) {
+        memcpy(str, " BC", 3);
+        str += 3;
+    }
+
+    *str = '\0';
+}
+```
+
+Key simplifications made:
+- Organized switch cases with clear comments for each date format style
+- Simplified BC year handling with clearer conditional logic
+- Consolidated timezone handling patterns across different styles
+- Streamlined day-of-week calculation for PostgreSQL format
+- Maintained all essential formatting logic while improving readability
+- Preserved support for all date formats and timezone options

@@ -37,3 +37,39 @@ The function sets boolean flags that are later processed by the main postmaster 
 - The function uses a switch statement to handle different signal types and sets multiple boolean flags that are checked by the main postmaster loop
 - The pg_ctl utility uses these three signals to request different shutdown modes
 - The function follows PostgreSQL's signal handling pattern of doing minimal work in the signal handler and deferring actual processing to the main event loop
+
+## Simplified Source
+
+```c
+// Simplified version of handle_pm_shutdown_request_signal
+static void handle_pm_shutdown_request_signal(SIGNAL_ARGS) {
+    // Check which shutdown signal was received and set appropriate flags
+    switch (postgres_signal_arg) {
+        case SIGTERM:
+            // Smart shutdown: wait for existing connections to finish
+            pending_pm_shutdown_request = true;
+            break;
+
+        case SIGINT:
+            // Fast shutdown: terminate existing connections quickly
+            pending_pm_fast_shutdown_request = true;
+            pending_pm_shutdown_request = true;
+            break;
+
+        case SIGQUIT:
+            // Immediate shutdown: terminate without cleanup
+            pending_pm_immediate_shutdown_request = true;
+            pending_pm_shutdown_request = true;
+            break;
+    }
+
+    // Wake up the main postmaster loop to process the shutdown request
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each shutdown type's behavior
+- Clarified the purpose of flag setting and latch notification
+- Maintained the original switch-case structure for clarity
+- Focused on the main execution path without removing essential logic

@@ -49,3 +49,41 @@ The inline nature ensures there's no function call overhead while maintaining a 
 - The underlying `set_ps_display_with_len` function performs the actual work of updating the process status buffer and flushing it to the system
 - Process status updates are used extensively throughout PostgreSQL for monitoring different phases of operations like startup, checkpointing, WAL processing, replication, and client request handling
 - The function is widely used across the PostgreSQL codebase, with calls in critical subsystems including transaction log processing, replication, autovacuum, archiving, and client connection handling
+
+## Simplified Source
+
+```c
+// Simplified version of set_ps_display
+// This inline wrapper optimizes string length calculation for compile-time constants
+static inline void set_ps_display(const char *activity) {
+    // Core logic: Delegate to the main implementation with calculated length
+    set_ps_display_with_len(activity, strlen(activity));
+}
+
+// Core functionality happens in set_ps_display_with_len:
+void set_ps_display_with_len(const char *activity, size_t len) {
+    // Skip if process title updates are disabled
+    if (!update_ps_display_precheck())
+        return;
+
+    // Clear any existing suffix
+    ps_buffer_nosuffix_len = 0;
+
+    // Copy activity string to process buffer
+    if (activity_fits_in_buffer) {
+        copy_full_activity_string();
+    } else {
+        copy_truncated_activity_string();
+    }
+
+    // Update the system process title
+    flush_ps_display();
+}
+```
+
+Key simplifications made:
+- Combined both functions to show the complete flow
+- Removed platform-specific preprocessor directives
+- Abstracted buffer management details into high-level operations
+- Simplified error handling and buffer size checks
+- Focused on the main execution path of updating process status

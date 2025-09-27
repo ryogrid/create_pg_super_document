@@ -49,3 +49,56 @@ wtmp begins Sun Aug 20 19:22:10 2023: The ending timeline ID in the range to che
 - Handles both archive_mode settings appropriately for fetched files
 - Part of PostgreSQL's timeline management and point-in-time recovery infrastructure
 - Fetched files are immediately available for use by the recovery process
+
+## Simplified Source
+
+```c
+// Simplified version of WalRcvFetchTimeLineHistoryFiles
+static void WalRcvFetchTimeLineHistoryFiles(TimeLineID first, TimeLineID last) {
+    TimeLineID tli;
+
+    // Iterate through timeline range
+    for (tli = first; tli <= last; tli++) {
+        // Skip timeline 1 (no history file) and existing files
+        if (tli != 1 && !existsTimeLineHistory(tli)) {
+            char *filename;
+            char *content;
+            int length;
+            char expected_filename[MAXFNAMELEN];
+
+            // Log the fetch operation
+            ereport(LOG, (errmsg("fetching timeline history file for timeline %u from primary server", tli)));
+
+            // Fetch file from primary server
+            walrcv_readtimelinehistoryfile(wrconn, tli, &filename, &content, &length);
+
+            // Validate filename matches expectation
+            TLHistoryFileName(expected_filename, tli);
+            if (strcmp(filename, expected_filename) != 0) {
+                ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                    errmsg_internal("primary reported unexpected file name for timeline history file of timeline %u", tli)));
+            }
+
+            // Write file to local pg_wal directory
+            writeTimeLineHistoryFile(tli, content, length);
+
+            // Handle archiving based on archive mode
+            if (XLogArchiveMode != ARCHIVE_MODE_ALWAYS)
+                XLogArchiveForceDone(filename);
+            else
+                XLogArchiveNotify(filename);
+
+            // Clean up allocated memory
+            pfree(filename);
+            pfree(content);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Renamed variables for clarity (fname→filename, len→length)
+- Added descriptive comments for each major step
+- Preserved all essential logic including error handling and archiving
+- Maintained the core algorithm structure
+- Kept critical safety checks for protocol compliance

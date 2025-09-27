@@ -38,3 +38,18 @@ The function performs a simple cast operation to return the address of the conte
 - The function is widely used throughout the buffer management subsystem (bufmgr.c) for acquiring content locks
 - The content lock is distinct from the buffer header lock and protects the actual page data rather than the buffer metadata
 - This function is essential for the buffer locking protocol in PostgreSQL's shared buffer pool management
+
+## Simplified Source
+
+```c
+// Simplified version of BufferDescriptorGetContentLock
+static inline LWLock *BufferDescriptorGetContentLock(const BufferDesc *bdesc) {
+    // Return pointer to the content lock within the buffer descriptor
+    return (LWLock *) (&bdesc->content_lock);
+}
+```
+
+Key simplifications made:
+- Simple inline accessor function with minimal complexity
+- Core functionality preserved: returns pointer to embedded content lock
+- Essential type casting and address operation maintained

@@ -50,3 +50,49 @@ This function handles the inclusion of authentication configuration files within
 - Provides comprehensive error reporting with file context information
 - Used by include, include_if_exists, and include_dir authentication configuration directives
 - Maintains proper file handle management with cleanup on all exit paths
+
+## Simplified Source
+
+```c
+// Simplified version of tokenize_include_file
+static void tokenize_include_file(const char *outer_filename,
+                                const char *inc_filename,
+                                List **tok_lines,
+                                int elevel,
+                                int depth,
+                                bool missing_ok,
+                                char **err_msg) {
+    // Step 1: Resolve the include file path relative to outer file
+    char *inc_fullname = AbsoluteConfigLocation(inc_filename, outer_filename);
+
+    // Step 2: Open the authentication file
+    FILE *inc_file = open_auth_file(inc_fullname, elevel, depth, err_msg);
+
+    // Step 3: Handle file opening failures
+    if (!inc_file) {
+        if (errno == ENOENT && missing_ok) {
+            // Optional include - skip missing file
+            ereport(elevel, (errmsg("skipping missing authentication file \"%s\"",
+                                  inc_fullname)));
+            *err_msg = NULL;
+        }
+        // Required include - error already set in err_msg
+        pfree(inc_fullname);
+        return;
+    }
+
+    // Step 4: Process the included file contents
+    tokenize_auth_file(inc_fullname, inc_file, tok_lines, elevel, depth);
+
+    // Step 5: Clean up resources
+    free_auth_file(inc_file, depth);
+    pfree(inc_fullname);
+}
+```
+
+Key simplifications made:
+- Consolidated error handling logic for clarity
+- Added descriptive comments for each main step
+- Removed detailed assertion checks for readability
+- Focused on the main execution flow
+- Preserved essential error handling for missing files

@@ -38,3 +38,34 @@ This is part of PostgreSQL's background worker notification system that allows r
 - Part of the broader background worker notification and lifecycle management system
 - Critical for enabling backends to respond to worker crashes, exits, and state changes
 - The marking persists until the backend exits or explicitly unregisters for notifications
+
+## Simplified Source
+
+```c
+// Simplified version of PostmasterMarkPIDForWorkerNotify
+bool PostmasterMarkPIDForWorkerNotify(int pid) {
+    // Search through all backend processes
+    dlist_iter iter;
+    Backend *bp;
+
+    dlist_foreach(iter, &BackendList) {
+        bp = dlist_container(Backend, elem, iter.cur);
+
+        // Found the target backend process
+        if (bp->pid == pid) {
+            // Mark it for worker notifications
+            bp->bgworker_notify = true;
+            return true;
+        }
+    }
+
+    // Backend with this PID not found
+    return false;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major step
+- Preserved the core linear search algorithm
+- Maintained the essential flag-setting logic
+- Kept the straightforward return values

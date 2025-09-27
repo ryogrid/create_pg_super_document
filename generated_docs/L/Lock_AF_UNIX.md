@@ -43,3 +43,33 @@ The function uses a two-stage approach: first acquiring an exclusive lock file, 
 - Socket paths are tracked in a global list (sock_paths) for cleanup during shutdown
 - Prevents the common "address already in use" error when restarting PostgreSQL
 - Race-condition free design ensures safe socket file management in multi-process environments
+
+## Simplified Source
+
+```c
+// Simplified version of Lock_AF_UNIX
+static int Lock_AF_UNIX(const char *unixSocketDir, const char *unixSocketPath) {
+    // Skip locking for abstract sockets (Linux-specific feature)
+    if (unixSocketPath[0] == '@') {
+        return STATUS_OK;
+    }
+
+    // Create lock file to prevent other processes from using this socket path
+    CreateSocketLockFile(unixSocketPath, true, unixSocketDir);
+
+    // Remove any existing socket file to avoid bind() conflicts
+    unlink(unixSocketPath);
+
+    // Track socket path for cleanup during shutdown
+    sock_paths = lappend(sock_paths, pstrdup(unixSocketPath));
+
+    return STATUS_OK;
+}
+```
+
+Key simplifications made:
+- Removed detailed multi-line comments for clarity
+- Consolidated the core logic into clear steps with brief descriptions
+- Focused on the main execution path
+- Preserved all essential functionality and error handling
+- Maintained the original algorithm and logic flow

@@ -53,3 +53,82 @@ The function maintains static variables to track timing state across calls and c
 - Implements partial flush detection - if any category of stats cannot be flushed due to lock contention, returns timeout for retry
 - The function is critical for PostgreSQL's statistics collection system, balancing real-time visibility with system performance
 - Static variables (pending_since, last_flush) maintain state across function calls within the same backend process
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_report_stat
+long pgstat_report_stat(bool force) {
+    static TimestampTz pending_since = 0;
+    static TimestampTz last_flush = 0;
+    bool partial_flush;
+    TimestampTz now;
+
+    // Basic validation
+    pgstat_assert_is_up();
+    Assert(!IsTransactionOrTransactionBlock());
+
+    // Handle forced flush flag
+    if (pgStatForceNextFlush) {
+        force = true;
+        pgStatForceNextFlush = false;
+    }
+
+    // Early exit if nothing to report
+    if (no_pending_stats()) {
+        return 0;
+    }
+
+    // Determine current time based on force flag
+    if (force) {
+        now = GetCurrentTimestamp();
+    } else {
+        now = GetCurrentTransactionStopTimestamp();
+
+        // Check if we've been pending too long - force flush
+        if (pending_too_long(pending_since, now)) {
+            force = true;
+        }
+        // Check if we're flushing too frequently - defer
+        else if (flushing_too_frequently(last_flush, now)) {
+            if (pending_since == 0)
+                pending_since = now;
+            return PGSTAT_IDLE_INTERVAL;
+        }
+    }
+
+    // Update database-level stats
+    pgstat_update_dbstats(now);
+
+    // Flush all types of pending statistics
+    // Use non-blocking locks unless forced
+    bool nowait = !force;
+    partial_flush = false;
+
+    partial_flush |= pgstat_flush_pending_entries(nowait);
+    partial_flush |= pgstat_flush_io(nowait);
+    partial_flush |= pgstat_flush_wal(nowait);
+    partial_flush |= pgstat_slru_flush(nowait);
+
+    last_flush = now;
+
+    // Handle partial flush (some stats couldn't be flushed due to lock contention)
+    if (partial_flush) {
+        if (pending_since == 0)
+            pending_since = now;
+        return PGSTAT_IDLE_INTERVAL;  // Suggest retry timeout
+    }
+
+    // All stats successfully flushed
+    pending_since = 0;
+    return 0;  // No timeout needed
+}
+```
+
+Key simplifications made:
+- Abstracted complex timing checks into helper function concepts (`pending_too_long`, `flushing_too_frequently`, `no_pending_stats`)
+- Consolidated the detailed condition checks for readability
+- Simplified the timestamp logic flow
+- Removed detailed comments about implementation specifics
+- Focused on the main execution path and core algorithm
+- Preserved the essential timing control mechanism and flush coordination logic

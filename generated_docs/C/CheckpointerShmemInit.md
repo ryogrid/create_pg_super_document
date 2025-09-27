@@ -46,3 +46,41 @@ The function uses PostgreSQL's shared memory infrastructure and handles both the
 - Ensures the entire requests array is zeroed, which is important for CompactCheckpointerRequestQueue operation
 - The max_requests field is set to the minimum of NBuffers and MAX_CHECKPOINT_REQUESTS
 - Part of the shared memory subsystem initialization during PostgreSQL startup
+
+## Simplified Source
+
+```c
+// Simplified version of CheckpointerShmemInit
+void CheckpointerShmemInit(void) {
+    // Step 1: Calculate required shared memory size
+    Size memory_size = CheckpointerShmemSize();
+    bool is_first_time;
+
+    // Step 2: Allocate or attach to shared memory segment
+    CheckpointerShmem = (CheckpointerShmemStruct *)
+        ShmemInitStruct("Checkpointer Data", memory_size, &is_first_time);
+
+    // Step 3: Initialize shared memory on first creation
+    if (is_first_time) {
+        // Clear all memory to ensure clean state
+        MemSet(CheckpointerShmem, 0, memory_size);
+
+        // Initialize synchronization primitives
+        SpinLockInit(&CheckpointerShmem->ckpt_lck);
+
+        // Set request queue capacity (limited by buffer count)
+        CheckpointerShmem->max_requests = Min(NBuffers, MAX_CHECKPOINT_REQUESTS);
+
+        // Initialize coordination condition variables
+        ConditionVariableInit(&CheckpointerShmem->start_cv);
+        ConditionVariableInit(&CheckpointerShmem->done_cv);
+    }
+}
+```
+
+Key simplifications made:
+- Renamed `found` variable to `is_first_time` for clarity
+- Added descriptive comments for each major step
+- Simplified conditional logic with clearer variable naming
+- Focused on the main initialization flow
+- Removed detailed implementation comments while preserving essential logic

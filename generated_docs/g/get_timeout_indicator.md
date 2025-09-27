@@ -34,3 +34,26 @@ The function includes race condition protection by only resetting the indicator 
 - Returns true if the timeout indicator was set, false otherwise
 - The reset_indicator parameter allows callers to control whether they want a one-shot check or a persistent indicator
 - No validation is performed on the TimeoutId parameter
+
+## Simplified Source
+
+```c
+// Simplified version of get_timeout_indicator
+bool get_timeout_indicator(TimeoutId id, bool reset_indicator) {
+    // Check if timeout has fired
+    if (all_timeouts[id].indicator) {
+        // Reset indicator if requested
+        if (reset_indicator) {
+            all_timeouts[id].indicator = false;
+        }
+        return true;
+    }
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about race conditions
+- Added clear comments for the main logic branches
+- Maintained essential race condition protection
+- Preserved all functionality and parameter behavior

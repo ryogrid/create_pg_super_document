@@ -60,3 +60,104 @@ The function implements a sophisticated waiting mechanism when CHECKPOINT_WAIT i
 - Implements modulo arithmetic for checkpoint completion detection
 - The function can handle checkpointer process restarts during signaling
 - Checkpoint failure is detected through the ckpt_failed counter comparison
+
+## Simplified Source
+
+```c
+// Simplified version of RequestCheckpoint
+void RequestCheckpoint(int flags) {
+    int ntries;
+    int old_failed, old_started;
+
+    // Handle standalone mode - do checkpoint ourselves
+    if (!IsPostmasterEnvironment) {
+        CreateCheckPoint(flags | CHECKPOINT_IMMEDIATE);
+        smgrdestroyall();
+        return;
+    }
+
+    // Set checkpoint flags atomically and capture current state
+    SpinLockAcquire(&CheckpointerShmem->ckpt_lck);
+    old_failed = CheckpointerShmem->ckpt_failed;
+    old_started = CheckpointerShmem->ckpt_started;
+    CheckpointerShmem->ckpt_flags |= (flags | CHECKPOINT_REQUESTED);
+    SpinLockRelease(&CheckpointerShmem->ckpt_lck);
+
+    // Signal checkpointer process with retry logic
+    for (ntries = 0;; ntries++) {
+        if (CheckpointerShmem->checkpointer_pid == 0) {
+            // Checkpointer not running
+            if (ntries >= MAX_SIGNAL_TRIES || !(flags & CHECKPOINT_WAIT)) {
+                elog((flags & CHECKPOINT_WAIT) ? ERROR : LOG,
+                     "could not signal for checkpoint: checkpointer is not running");
+                break;
+            }
+        } else if (kill(CheckpointerShmem->checkpointer_pid, SIGINT) != 0) {
+            // Signal failed
+            if (ntries >= MAX_SIGNAL_TRIES || !(flags & CHECKPOINT_WAIT)) {
+                elog((flags & CHECKPOINT_WAIT) ? ERROR : LOG,
+                     "could not signal for checkpoint: %m");
+                break;
+            }
+        } else {
+            break;  // Signal sent successfully
+        }
+
+        CHECK_FOR_INTERRUPTS();
+        pg_usleep(100000L);  // Wait 0.1 sec before retry
+    }
+
+    // Wait for completion if requested
+    if (flags & CHECKPOINT_WAIT) {
+        int new_started, new_failed;
+
+        // Wait for checkpoint to start
+        ConditionVariablePrepareToSleep(&CheckpointerShmem->start_cv);
+        for (;;) {
+            SpinLockAcquire(&CheckpointerShmem->ckpt_lck);
+            new_started = CheckpointerShmem->ckpt_started;
+            SpinLockRelease(&CheckpointerShmem->ckpt_lck);
+
+            if (new_started != old_started)
+                break;
+
+            ConditionVariableSleep(&CheckpointerShmem->start_cv,
+                                   WAIT_EVENT_CHECKPOINT_START);
+        }
+        ConditionVariableCancelSleep();
+
+        // Wait for checkpoint to complete
+        ConditionVariablePrepareToSleep(&CheckpointerShmem->done_cv);
+        for (;;) {
+            int new_done;
+
+            SpinLockAcquire(&CheckpointerShmem->ckpt_lck);
+            new_done = CheckpointerShmem->ckpt_done;
+            new_failed = CheckpointerShmem->ckpt_failed;
+            SpinLockRelease(&CheckpointerShmem->ckpt_lck);
+
+            if (new_done - new_started >= 0)
+                break;
+
+            ConditionVariableSleep(&CheckpointerShmem->done_cv,
+                                   WAIT_EVENT_CHECKPOINT_DONE);
+        }
+        ConditionVariableCancelSleep();
+
+        // Check for checkpoint failure
+        if (new_failed != old_failed) {
+            ereport(ERROR,
+                    (errmsg("checkpoint request failed"),
+                     errhint("Consult recent messages in the server log for details.")));
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two execution paths (standalone vs normal)
+- Simplified the signal retry loop with clearer error handling logic
+- Consolidated the waiting mechanism into two clear phases (start and completion)
+- Removed detailed implementation comments to focus on the core algorithm
+- Maintained all essential synchronization and error handling logic
+- Preserved the modulo arithmetic for checkpoint completion detection

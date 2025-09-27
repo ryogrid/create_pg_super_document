@@ -62,3 +62,39 @@ The function sends SIGINT to the target backend, which triggers PostgreSQL's sta
 - The function provides no feedback to clients, maintaining protocol simplicity
 - [Backend](../B/Backend.md) processes handle the SIGINT signal through PostgreSQL's standard signal handling infrastructure
 - This mechanism enables responsive query cancellation without requiring complex protocol extensions
+
+## Simplified Source
+
+```c
+// Simplified version of processCancelRequest
+void processCancelRequest(int backendPID, int32 cancelAuthCode) {
+    Backend *bp;
+
+    // Search through all active backend processes
+    // (Implementation differs between EXEC_BACKEND and non-EXEC_BACKEND builds)
+    for_each_backend_process(bp) {
+        if (bp->pid == backendPID) {
+            // Found matching process ID
+            if (bp->cancel_key == cancelAuthCode) {
+                // Authentication successful - send cancellation signal
+                ereport(DEBUG2, (errmsg_internal("sending SIGINT to process %d", backendPID)));
+                signal_child(bp->pid, SIGINT);
+            } else {
+                // Security violation - wrong cancel key
+                ereport(LOG, (errmsg("wrong key in cancel request for process %d", backendPID)));
+            }
+            return;
+        }
+    }
+
+    // No matching backend process found
+    ereport(LOG, (errmsg("PID %d in cancel request did not match any process", backendPID)));
+}
+```
+
+Key simplifications made:
+- Abstracted the platform-specific iteration logic into `for_each_backend_process()`
+- Removed conditional compilation directives for clarity
+- Focused on the core authentication and signaling logic
+- Preserved essential security checks and error reporting
+- Maintained the main execution flow and return points

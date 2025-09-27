@@ -36,3 +36,26 @@ This macro takes no parameters and is typically used as a suffix to variable or 
 - Part of PostgreSQL's compiler compatibility layer
 - Often used in conjunction with debug-only variables or conditional compilation blocks
 - The macro is defined in src/include/c.h as part of the core PostgreSQL header infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of pg_attribute_unused macro
+#ifdef __GNUC__
+    // For GCC compiler: use the unused attribute to suppress warnings
+    #define pg_attribute_unused() __attribute__((unused))
+#else
+    // For other compilers: expand to nothing
+    #define pg_attribute_unused()
+#endif
+
+// Example usage:
+static int debug_variable pg_attribute_unused() = 42;  // Won't warn if unused
+static void helper_function(void) pg_attribute_unused();  // Won't warn if unused
+```
+
+Key simplifications made:
+- Added example usage to demonstrate how the macro is applied
+- Clarified the conditional compilation logic
+- Showed practical examples of marking variables and functions as unused
+- Maintained the essential compiler compatibility functionality

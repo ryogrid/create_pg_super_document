@@ -37,3 +37,47 @@ Dead-end children (processes that failed during startup) are always excluded fro
 - Uses bitmask-based filtering to support counting multiple backend types simultaneously
 - Returns integer count of matching active child processes
 - Critical for postmaster decision-making about process limits and shutdown sequences
+
+## Simplified Source
+
+```c
+// Simplified version of CountChildren
+static int CountChildren(int target) {
+    int count = 0;
+
+    // Iterate through all backend processes in the list
+    dlist_foreach(iter, &BackendList) {
+        Backend *backend = dlist_container(Backend, elem, iter.cur);
+
+        // Skip dead-end processes (failed during startup)
+        if (backend->dead_end)
+            continue;
+
+        // Fast path: count all backends if target is BACKEND_TYPE_ALL
+        if (target == BACKEND_TYPE_ALL) {
+            count++;
+            continue;
+        }
+
+        // Update WAL sender classification if needed
+        if (backend->bkend_type == BACKEND_TYPE_NORMAL &&
+            IsPostmasterChildWalSender(backend->child_slot)) {
+            backend->bkend_type = BACKEND_TYPE_WALSND;
+        }
+
+        // Check if this backend matches the target type(s)
+        if (target & backend->bkend_type) {
+            count++;
+        }
+    }
+
+    return count;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated similar logic paths
+- Clarified the fast path optimization for BACKEND_TYPE_ALL
+- Made the WAL sender type update logic more explicit
+- Used more descriptive variable names (backend instead of bp)
+- Focused on the core counting algorithm while preserving all functionality

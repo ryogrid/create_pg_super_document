@@ -37,3 +37,18 @@ None - this function takes no parameters and returns a boolean value.
 - Critical for maintaining security boundaries in privilege-escalated contexts
 - Prevents potentially unsafe operations like creating new tables, modifying system settings, or performing certain administrative tasks within security-definer functions
 - Part of PostgreSQL's defense-in-depth security architecture
+
+## Simplified Source
+
+```c
+// Simplified version of InSecurityRestrictedOperation
+bool InSecurityRestrictedOperation(void) {
+    // Check if we're currently in a security-restricted operation context
+    return (SecurityRestrictionContext & SECURITY_RESTRICTED_OPERATION) != 0;
+}
+```
+
+Key simplifications made:
+- Added explanatory comment about the security check
+- Preserved the essential bit-flag checking logic
+- Function is already very simple and focused

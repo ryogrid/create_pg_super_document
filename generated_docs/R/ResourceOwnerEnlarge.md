@@ -41,3 +41,58 @@ The function implements a critical safety mechanism by requiring space allocatio
 - The function is designed to be allocation-failure safe after the initial memory allocation
 - Critical for preventing resource leaks during error conditions
 - Callers must ensure no unrelated ResourceOwnerRemember() calls occur between ResourceOwnerEnlarge() and the intended ResourceOwnerRemember() call
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerEnlarge
+void ResourceOwnerEnlarge(ResourceOwner owner) {
+    // Safety check: cannot enlarge after release started
+    if (owner->releasing)
+        elog(ERROR, "ResourceOwnerEnlarge called after release started");
+
+    // Quick return if array still has space
+    if (owner->narr < RESOWNER_ARRAY_SIZE)
+        return;
+
+    // Check if hash table needs expansion
+    if (owner->narr + owner->nhash >= owner->grow_at) {
+        // Calculate new capacity (double the size, power of 2)
+        uint32 oldcap = owner->capacity;
+        uint32 newcap = (oldcap > 0) ? oldcap * 2 : RESOWNER_HASH_INIT_SIZE;
+
+        // Allocate new hash table
+        ResourceElem *oldhash = owner->hash;
+        ResourceElem *newhash = MemoryContextAllocZero(TopMemoryContext,
+                                                       newcap * sizeof(ResourceElem));
+
+        // Update owner with new hash table properties
+        owner->hash = newhash;
+        owner->capacity = newcap;
+        owner->grow_at = RESOWNER_HASH_MAX_ITEMS(newcap);
+        owner->nhash = 0;
+
+        // Transfer existing entries from old hash to new hash
+        if (oldhash != NULL) {
+            for (uint32 i = 0; i < oldcap; i++) {
+                if (oldhash[i].kind != NULL)
+                    ResourceOwnerAddToHash(owner, oldhash[i].item, oldhash[i].kind);
+            }
+            pfree(oldhash);
+        }
+    }
+
+    // Move all array items to hash table to free up array space
+    for (int i = 0; i < owner->narr; i++) {
+        ResourceOwnerAddToHash(owner, owner->arr[i].item, owner->arr[i].kind);
+    }
+    owner->narr = 0;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential ones
+- Simplified variable declarations and initialization
+- Consolidated the hash expansion logic flow
+- Focused on the main algorithm: array to hash migration and hash expansion
+- Maintained all critical safety checks and logic paths

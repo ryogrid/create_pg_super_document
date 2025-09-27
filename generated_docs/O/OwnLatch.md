@@ -34,3 +34,35 @@ OwnLatch takes ownership of a shared latch by setting the latch's owner_pid to t
 - No locking is performed, so callers must provide interlocks if concurrent ownership attempts are possible
 - Requires InitializeLatchSupport to have been called in the current process on Unix systems
 - Once owned, the process can use WaitLatch and related functions on this latch
+
+## Simplified Source
+
+```c
+// Simplified version of OwnLatch
+void OwnLatch(Latch *latch) {
+    int owner_pid;
+
+    // Verify this is a shared latch
+    Assert(latch->is_shared);
+
+    // Platform-specific checks for latch support initialization
+    // (Self-pipe or signalfd mechanisms must be ready)
+    platform_specific_latch_checks();
+
+    // Check if latch is already owned
+    owner_pid = latch->owner_pid;
+    if (owner_pid != 0) {
+        elog(PANIC, "latch already owned by PID %d", owner_pid);
+    }
+
+    // Take ownership by setting our process ID
+    latch->owner_pid = MyProcPid;
+}
+```
+
+Key simplifications made:
+- Consolidated platform-specific conditional compilation checks into a single conceptual step
+- Removed detailed macro definitions (WAIT_USE_SELF_PIPE, WAIT_USE_SIGNALFD) for clarity
+- Abstracted low-level file descriptor checks while preserving the essential validation logic
+- Focused on the main execution path: validate → check ownership → claim ownership
+- Maintained the critical error handling for already-owned latches

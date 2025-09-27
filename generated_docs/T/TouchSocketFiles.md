@@ -37,3 +37,27 @@ The function operates on a global list (sock_paths) that contains paths to all s
 - Errors from utime() calls are deliberately ignored since timestamp updates are not critical
 - The function prevents overly aggressive system cleanup processes from removing active socket files
 - Should be called periodically during server operation to maintain socket file visibility to the system
+
+## Simplified Source
+
+```c
+// Simplified version of TouchSocketFiles
+void TouchSocketFiles(void) {
+    ListCell *l;
+
+    // Iterate through all socket file paths
+    foreach(l, sock_paths) {
+        char *sock_path = (char *) lfirst(l);
+
+        // Update modification time to prevent cleanup
+        // Ignore errors - timestamp updates are not critical
+        (void) utime(sock_path, NULL);
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major step
+- Maintained the original logic structure (already quite simple)
+- Preserved the error handling approach (ignoring errors)
+- Focused on the core purpose: preventing socket file cleanup

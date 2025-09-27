@@ -58,3 +58,67 @@ The function first preserves any unencrypted data that was already read from the
 - When SSL is not compiled in, the function becomes a no-op that always returns 0
 - Critical for maintaining protocol integrity during SSL handshake
 - The function includes assertions and error checking to detect protocol violations
+
+## Simplified Source
+
+```c
+// Simplified version of secure_open_server
+int secure_open_server(Port *port) {
+#ifdef USE_SSL
+    int result = 0;
+    ssize_t buffered_data_len;
+
+    // Step 1: Handle any unencrypted data that was already buffered
+    buffered_data_len = pq_buffer_remaining_data();
+    if (buffered_data_len > 0) {
+        // Save the buffered data to process it through SSL later
+        char *saved_buffer = palloc(buffered_data_len);
+
+        pq_startmsgread();
+        if (pq_getbytes(saved_buffer, buffered_data_len) == EOF)
+            return STATUS_ERROR;
+        pq_endmsgread();
+
+        // Store the saved data in the port structure
+        port->raw_buf = saved_buffer;
+        port->raw_buf_remaining = buffered_data_len;
+        port->raw_buf_consumed = 0;
+    }
+
+    // Step 2: Perform the actual SSL handshake
+    result = be_tls_open_server(port);
+
+    // Step 3: Verify protocol integrity after SSL negotiation
+    if (port->raw_buf_remaining > 0) {
+        // This indicates a protocol violation - client sent encrypted data too early
+        elog(LOG, "buffered unencrypted data remains after negotiating SSL connection");
+        return STATUS_ERROR;
+    }
+
+    // Step 4: Clean up temporary buffer
+    if (port->raw_buf != NULL) {
+        pfree(port->raw_buf);
+        port->raw_buf = NULL;
+    }
+
+    // Step 5: Log successful SSL connection details
+    ereport(DEBUG2, (errmsg_internal("SSL connection from DN:\"%s\" CN:\"%s\"",
+                                     port->peer_dn ? port->peer_dn : "(anonymous)",
+                                     port->peer_cn ? port->peer_cn : "(anonymous)")));
+
+    return result;
+#else
+    // When SSL is not compiled in, this is a no-op
+    return 0;
+#endif
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for clarity
+- Consolidated variable declarations at the top
+- Added step-by-step comments explaining the main logic flow
+- Simplified variable names (r → result, len → buffered_data_len)
+- Removed assertion checks to focus on main logic
+- Made the SSL vs non-SSL compilation difference more explicit
+- Focused on the core SSL negotiation workflow

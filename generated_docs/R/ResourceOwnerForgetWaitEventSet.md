@@ -33,3 +33,20 @@ This function serves as a convenience wrapper around ResourceOwnerForget, specif
 - Works in conjunction with ResourceOwnerRememberWaitEventSet for complete lifecycle management
 - Must be called before manually freeing a WaitEventSet to prevent the ResourceOwner from attempting cleanup
 - The function uses the same predefined resource descriptor (wait_event_set_resowner_desc) as its counterpart Remember function
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerForgetWaitEventSet
+static inline void ResourceOwnerForgetWaitEventSet(ResourceOwner owner, WaitEventSet *set) {
+    // Unregister WaitEventSet from ResourceOwner tracking
+    // Convert pointer to Datum and use specific descriptor for WaitEventSet resources
+    ResourceOwnerForget(owner, PointerGetDatum(set), &wait_event_set_resowner_desc);
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the core purpose
+- Explained the pointer-to-Datum conversion
+- Function is already very simple, only formatting and commenting changes
+- Preserved the essential resource untracking operation

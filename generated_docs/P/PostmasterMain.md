@@ -58,3 +58,133 @@ The function concludes by entering ServerLoop() to handle ongoing postmaster ope
 - All child processes inherit signal handler configuration, requiring careful coordination with postmaster/bgwriter.c, postmaster/checkpointer.c, etc.
 - Supports Bonjour service registration on platforms with DNS-SD support
 - The postmaster.pid lock file prevents multiple postmaster instances from running in the same data directory
+
+## Simplified Source
+
+```c
+// Simplified version of PostmasterMain
+void PostmasterMain(int argc, char *argv[]) {
+    // Core initialization step 1: Setup process environment
+    InitProcessGlobals();
+    PostmasterPid = MyProcPid;
+    IsPostmasterEnvironment = true;
+
+    // Core initialization step 2: Setup memory context
+    PostmasterContext = AllocSetContextCreate(TopMemoryContext, "Postmaster", ALLOCSET_DEFAULT_SIZES);
+    MemoryContextSwitchTo(PostmasterContext);
+
+    // Core initialization step 3: Setup signal handlers
+    pqinitmask();
+    sigprocmask(SIG_SETMASK, &BlockSig, NULL);
+    pqsignal(SIGHUP, handle_pm_reload_request_signal);
+    pqsignal(SIGINT, handle_pm_shutdown_request_signal);
+    pqsignal(SIGQUIT, handle_pm_shutdown_request_signal);
+    pqsignal(SIGTERM, handle_pm_shutdown_request_signal);
+    pqsignal(SIGUSR1, handle_pm_pmsignal_signal);
+    pqsignal(SIGCHLD, handle_pm_child_exit_signal);
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+
+    // Core initialization step 4: Initialize configuration system
+    getInstallationPaths(argv[0]);
+    InitializeGUCOptions();
+
+    // Core logic step 5: Parse command line options
+    int opt;
+    while ((opt = getopt(argc, argv, "B:bC:c:D:d:EeFf:h:ijk:lN:OPp:r:S:sTt:W:-:")) != -1) {
+        switch (opt) {
+            case 'B': SetConfigOption("shared_buffers", optarg, PGC_POSTMASTER, PGC_S_ARGV); break;
+            case 'D': userDoption = strdup(optarg); break;
+            case 'p': SetConfigOption("port", optarg, PGC_POSTMASTER, PGC_S_ARGV); break;
+            case 'h': SetConfigOption("listen_addresses", optarg, PGC_POSTMASTER, PGC_S_ARGV); break;
+            // ... other options handled similarly
+        }
+    }
+
+    // Core logic step 6: Load and validate configuration
+    if (!SelectConfigFiles(userDoption, progname))
+        ExitPostmaster(2);
+
+    checkDataDir();
+    checkControlFile();
+    ChangeToDataDir();
+
+    // Core logic step 7: Validate configuration settings
+    if (SuperuserReservedConnections + ReservedConnections >= MaxConnections)
+        ExitPostmaster(1);
+    if (XLogArchiveMode > ARCHIVE_MODE_OFF && wal_level == WAL_LEVEL_MINIMAL)
+        ereport(ERROR, (errmsg("WAL archival requires wal_level > minimal")));
+
+    // Core logic step 8: Create data directory lock file
+    CreateDataDirLockFile(true);
+
+    // Core logic step 9: Initialize shared resources
+    LocalProcessControlFile(false);
+    ApplyLauncherRegister();
+    process_shared_preload_libraries();
+    InitializeMaxBackends();
+    process_shmem_requests();
+    CreateSharedMemoryAndSemaphores();
+
+    // Core logic step 10: Setup network sockets
+    ListenSockets = palloc(MAXLISTEN * sizeof(pgsocket));
+    on_proc_exit(CloseServerPorts, 0);
+
+    // Setup TCP/IP sockets
+    if (ListenAddresses) {
+        List *elemlist;
+        SplitGUCList(pstrdup(ListenAddresses), ',', &elemlist);
+        foreach(l, elemlist) {
+            char *curhost = (char *) lfirst(l);
+            ListenServerPort(AF_UNSPEC, curhost, PostPortNumber, NULL,
+                           ListenSockets, &NumListenSockets, MAXLISTEN);
+        }
+    }
+
+    // Setup Unix domain sockets
+    if (Unix_socket_directories) {
+        List *elemlist;
+        SplitDirectoriesString(pstrdup(Unix_socket_directories), ',', &elemlist);
+        foreach(l, elemlist) {
+            char *socketdir = (char *) lfirst(l);
+            ListenServerPort(AF_UNIX, NULL, PostPortNumber, socketdir,
+                           ListenSockets, &NumListenSockets, MAXLISTEN);
+        }
+    }
+
+    // Core logic step 11: Final preparations
+    RemovePgTempFiles();
+    autovac_init();
+    load_hba();
+    load_ident();
+
+    // Core logic step 12: Start essential background processes
+    PgStartTime = GetCurrentTimestamp();
+    AddToDataDirLockFile(LOCK_FILE_LINE_PM_STATUS, PM_STATUS_STARTING);
+
+    if (CheckpointerPID == 0)
+        CheckpointerPID = StartChildProcess(B_CHECKPOINTER);
+    if (BgWriterPID == 0)
+        BgWriterPID = StartChildProcess(B_BG_WRITER);
+
+    // Core logic step 13: Start startup process and enter main loop
+    StartupPID = StartChildProcess(B_STARTUP);
+    StartupStatus = STARTUP_RUNNING;
+    pmState = PM_STARTUP;
+
+    maybe_start_bgworkers();
+
+    // Enter main server loop (never returns)
+    status = ServerLoop();
+    ExitPostmaster(status != STATUS_OK);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and platform-specific code (WIN32, Unix differences)
+- Consolidated command-line option parsing to show main pattern
+- Abstracted complex socket setup logic while preserving the essential flow
+- Removed debugging code, environment dumping, and verbose logging
+- Simplified configuration validation to key checks only
+- Focused on the main execution path without edge cases
+- Removed Bonjour registration and other optional features
+- Maintained the essential startup sequence and background process creation

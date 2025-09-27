@@ -42,3 +42,36 @@ This function takes no parameters.
 - Critical for ensuring clean shutdown of streaming replication connections
 - The stopping state prevents new WAL generation while allowing current operations to complete
 - Works in conjunction with the overall PostgreSQL shutdown sequence to ensure data consistency
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndInitStopping
+void WalSndInitStopping(void) {
+    // Signal all active WAL senders to enter stopping state
+    for (int i = 0; i < max_wal_senders; i++) {
+        WalSnd *walsnd = &WalSndCtl->walsnds[i];
+        pid_t pid;
+
+        // Thread-safe access to WAL sender PID
+        SpinLockAcquire(&walsnd->mutex);
+        pid = walsnd->pid;
+        SpinLockRelease(&walsnd->mutex);
+
+        // Skip inactive WAL sender slots
+        if (pid == 0)
+            continue;
+
+        // Send stopping signal to active WAL sender
+        SendProcSignal(pid, PROCSIG_WALSND_INIT_STOPPING, INVALID_PROC_NUMBER);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated loop variable declaration
+- Added clear comments explaining each phase of the operation
+- Simplified the conditional logic flow
+- Maintained thread-safe PID access pattern
+- Preserved the core functionality of signaling all active WAL senders
+- Focused on the essential shutdown coordination mechanism

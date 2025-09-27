@@ -58,3 +58,131 @@ This function takes no parameters.
 - Critical for lock management, transaction processing, and inter-process communication
 - The process becomes visible to other backends and can participate in deadlock detection after this call
 - Registers automatic cleanup to prevent resource leaks if the process exits unexpectedly
+
+## Simplified Source
+
+```c
+// Simplified version of InitProcess
+void InitProcess(void) {
+    // Step 1: Basic validation - ensure system is properly initialized
+    if (ProcGlobal == NULL)
+        elog(PANIC, "proc header uninitialized");
+    if (MyProc != NULL)
+        elog(ERROR, "you already exist");
+
+    // Step 2: Determine which process type we are and select appropriate free list
+    dlist_head *procgloballist;
+    if (AmAutoVacuumWorkerProcess() || AmSpecialWorkerProcess())
+        procgloballist = &ProcGlobal->autovacFreeProcs;
+    else if (AmBackgroundWorkerProcess())
+        procgloballist = &ProcGlobal->bgworkerFreeProcs;
+    else if (AmWalSenderProcess())
+        procgloballist = &ProcGlobal->walsenderFreeProcs;
+    else
+        procgloballist = &ProcGlobal->freeProcs;
+
+    // Step 3: Get a free PGPROC structure from the appropriate list
+    SpinLockAcquire(ProcStructLock);
+    set_spins_per_delay(ProcGlobal->spins_per_delay);
+
+    if (!dlist_is_empty(procgloballist)) {
+        MyProc = (PGPROC *) dlist_pop_head_node(procgloballist);
+        SpinLockRelease(ProcStructLock);
+    } else {
+        // No free processes available - report "too many connections"
+        SpinLockRelease(ProcStructLock);
+        if (AmWalSenderProcess())
+            ereport(FATAL, "max_wal_senders exceeded");
+        ereport(FATAL, "too many clients already");
+    }
+
+    MyProcNumber = GetNumberFromPGProc(MyProc);
+
+    // Step 4: Register with postmaster for proper cleanup tracking
+    if (IsUnderPostmaster && !AmAutoVacuumLauncherProcess() &&
+        !AmLogicalSlotSyncWorkerProcess())
+        MarkPostmasterChildActive();
+
+    // Step 5: Initialize all PGPROC fields to clean state
+    initialize_proc_fields();  // Consolidated initialization
+
+    // Step 6: Set up process-specific state
+    MyProc->pid = MyProcPid;
+    MyProc->vxid.procNumber = MyProcNumber;
+    MyProc->isBackgroundWorker = !AmRegularBackendProcess();
+
+    if (AmAutoVacuumWorkerProcess())
+        MyProc->statusFlags |= PROC_IS_AUTOVACUUM;
+
+    // Step 7: Set up inter-process communication via latch
+    OwnLatch(&MyProc->procLatch);
+    SwitchToSharedLatch();
+    pgstat_set_wait_event_storage(&MyProc->wait_event_info);
+
+    // Step 8: Initialize semaphore for clean state
+    PGSemaphoreReset(MyProc->sem);
+
+    // Step 9: Register cleanup function for process exit
+    on_shmem_exit(ProcKill, 0);
+
+    // Step 10: Initialize subsystems needed for locking and deadlock detection
+    InitLWLockAccess();
+    InitDeadLockChecking();
+
+    // Platform-specific shared memory attachment (if needed)
+    #ifdef EXEC_BACKEND
+    if (IsUnderPostmaster)
+        AttachSharedMemoryStructs();
+    #endif
+}
+
+// Helper function to consolidate field initialization
+static void initialize_proc_fields(void) {
+    // Initialize list links and wait state
+    dlist_node_init(&MyProc->links);
+    MyProc->waitStatus = PROC_WAIT_STATUS_OK;
+
+    // Initialize transaction-related fields
+    MyProc->xid = InvalidTransactionId;
+    MyProc->xmin = InvalidTransactionId;
+    MyProc->vxid.lxid = InvalidLocalTransactionId;
+    MyProc->fpVXIDLock = false;
+    MyProc->fpLocalTransactionId = InvalidLocalTransactionId;
+
+    // Initialize database/role fields (filled later)
+    MyProc->databaseId = InvalidOid;
+    MyProc->roleId = InvalidOid;
+    MyProc->tempNamespaceId = InvalidOid;
+
+    // Initialize locking and wait state
+    MyProc->lwWaiting = LW_WS_NOT_WAITING;
+    MyProc->lwWaitMode = 0;
+    MyProc->waitLock = NULL;
+    MyProc->waitProcLock = NULL;
+    pg_atomic_write_u64(&MyProc->waitStart, 0);
+
+    // Initialize synchronization rep fields
+    MyProc->waitLSN = 0;
+    MyProc->syncRepState = SYNC_REP_NOT_WAITING;
+    dlist_node_init(&MyProc->syncRepLinks);
+
+    // Initialize group processing fields
+    MyProc->procArrayGroupMember = false;
+    MyProc->clogGroupMember = false;
+
+    // Initialize flags and status
+    MyProc->delayChkptFlags = 0;
+    MyProc->statusFlags = 0;
+    MyProc->recoveryConflictPending = false;
+    MyProc->wait_event_info = 0;
+}
+```
+
+Key simplifications made:
+- Consolidated repetitive field initialization into a helper function
+- Removed detailed error handling code and complex conditionals for clarity
+- Abstracted platform-specific details (#ifdef blocks)
+- Simplified complex assertion checking and debug code
+- Focused on the main execution path and core functionality
+- Combined similar initialization steps into logical groups
+- Removed verbose comments while preserving essential logic flow

@@ -41,3 +41,40 @@ The algorithm uses a sophisticated calculation that accounts for leap years and 
 - The function is numerically stable and avoids overflow issues that plagued earlier implementations
 - Essential for date arithmetic, comparisons, and conversions throughout the PostgreSQL date/time system
 - Works correctly with the Gregorian calendar and accounts for the transition from Julian calendar
+
+## Simplified Source
+
+```c
+// Simplified version of date2j
+int date2j(int year, int month, int day) {
+    int julian;
+    int century;
+
+    // Adjust month and year for Julian algorithm
+    // This handles the different starting points for the year calculation
+    if (month > 2) {
+        // March to December: add 1 to month, add 4800 to year
+        month += 1;
+        year += 4800;
+    } else {
+        // January and February: treat as months 13-14 of previous year
+        month += 13;
+        year += 4799;
+    }
+
+    // Calculate Julian day using the standard algorithm
+    century = year / 100;
+    julian = year * 365 - 32167;                    // Base days from years
+    julian += year / 4 - century + century / 4;    // Leap year adjustments
+    julian += 7834 * month / 256 + day;            // Month and day contribution
+
+    return julian;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the month/year adjustment logic
+- Clarified the purpose of the different paths for months > 2 vs <= 2
+- Explained each step of the Julian day calculation
+- Maintained the exact algorithm while making the logic more understandable
+- Preserved all original constants and mathematical operations

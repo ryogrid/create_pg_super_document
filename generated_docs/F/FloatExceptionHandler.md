@@ -42,3 +42,24 @@ Since this handler calls ereport(ERROR), it will cause the current transaction t
 - The handler converts low-level system signals into PostgreSQL's structured error handling mechanism
 - Once this handler is triggered, the current transaction will be aborted due to the ERROR level report
 - This provides a clean way to handle arithmetic errors that would otherwise crash the backend process
+
+## Simplified Source
+
+```c
+// Simplified version of FloatExceptionHandler
+void FloatExceptionHandler(SIGNAL_ARGS) {
+    // Convert floating-point exception signal to PostgreSQL ERROR
+    ereport(ERROR,
+            (errcode(ERRCODE_FLOATING_POINT_EXCEPTION),
+             errmsg("floating-point exception"),
+             errdetail("An invalid floating-point operation was signaled. "
+                       "This probably means an out-of-range result or an "
+                       "invalid operation, such as division by zero.")));
+}
+```
+
+Key simplifications made:
+- Removed errno handling comment (non-essential detail)
+- Preserved the core functionality: signal handling and error reporting
+- Maintained the complete error message structure for user clarity
+- Focused on the main execution path: signal → error report

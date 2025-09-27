@@ -28,3 +28,19 @@ VarsupShmemSize is a simple utility function that returns the memory size needed
 - Located in src/backend/access/transam/varsup.c:41-46
 - Returns a Size type representing the memory requirement in bytes
 - Essential for proper shared memory allocation during PostgreSQL initialization
+
+## Simplified Source
+
+```c
+// Simplified version of VarsupShmemSize
+Size VarsupShmemSize(void) {
+    // Return the size needed for transaction variables in shared memory
+    // TransamVariablesData contains global transaction state (next XID, etc.)
+    return sizeof(TransamVariablesData);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments about the purpose
+- Clarified what TransamVariablesData contains
+- Function is already minimal, so no logic simplification needed

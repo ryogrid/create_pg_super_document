@@ -43,3 +43,30 @@ The function is designed to be safe to call multiple times and handles errors gr
 - The ordering of operations (close sockets → remove socket files → remove lock files) is essential for race condition prevention
 - Graceful error handling: socket closure failures are logged but don't prevent continuation of cleanup process
 - NumListenSockets is reset to 0 after closing all sockets to prevent double-closure attempts
+
+## Simplified Source
+
+```c
+// Simplified version of CloseServerPorts
+static void CloseServerPorts(int status, Datum arg) {
+    // Step 1: Close all listening sockets to prevent port reuse conflicts
+    for (int i = 0; i < NumListenSockets; i++) {
+        if (closesocket(ListenSockets[i]) != 0) {
+            elog(LOG, "could not close listen socket: %m");
+        }
+    }
+    NumListenSockets = 0;
+
+    // Step 2: Remove Unix socket files from filesystem
+    RemoveSocketFiles();
+
+    // Note: Socket lock files are handled by later cleanup callbacks
+}
+```
+
+Key simplifications made:
+- Consolidated variable declaration with loop initialization
+- Added descriptive comments for each major step
+- Preserved essential error handling for socket closure
+- Maintained the critical ordering sequence
+- Focused on the core cleanup logic without platform-specific details

@@ -50,3 +50,60 @@ void ShowUsage(const char *title)
 - Critical for PostgreSQL performance analysis, debugging, and optimization
 - Used extensively throughout the codebase for monitoring expensive operations
 - Log level is LOG, making it visible in server logs when appropriate logging levels are set
+
+## Simplified Source
+
+```c
+// Simplified version of ShowUsage
+void ShowUsage(const char *title) {
+    StringInfoData output_buffer;
+    struct rusage current_usage;
+    struct timeval current_time;
+
+    // Get current resource usage and time
+    getrusage(RUSAGE_SELF, &current_usage);
+    gettimeofday(&current_time, NULL);
+
+    // Handle microsecond overflow in time calculations
+    normalize_time_values(&current_time, &current_usage);
+
+    // Build the usage report string
+    initStringInfo(&output_buffer);
+
+    // Add system usage header
+    appendStringInfoString(&output_buffer, "! system usage stats:\n");
+
+    // Calculate and report CPU time differences (user, system, elapsed)
+    report_cpu_times(&output_buffer, &current_usage, &current_time);
+
+    // Report total accumulated times
+    report_total_times(&output_buffer, &current_usage);
+
+#ifndef WIN32
+    // On Unix systems: report detailed system metrics
+    report_memory_usage(&output_buffer, &current_usage);
+    report_io_statistics(&output_buffer, &current_usage);
+    report_page_faults(&output_buffer, &current_usage);
+    report_signals_messages(&output_buffer, &current_usage);
+    report_context_switches(&output_buffer, &current_usage);
+#endif
+
+    // Clean up trailing newline and log the report
+    remove_trailing_newline(&output_buffer);
+
+    ereport(LOG,
+            (errmsg_internal("%s", title),
+             errdetail_internal("%s", output_buffer.data)));
+
+    pfree(output_buffer.data);
+}
+```
+
+Key simplifications made:
+- Abstracted complex microsecond arithmetic into `normalize_time_values()`
+- Consolidated multiple `appendStringInfo()` calls into helper functions
+- Removed detailed inline time/resource calculations for clarity
+- Grouped related reporting logic into logical functions
+- Maintained the essential flow: get usage → calculate differences → format output → log
+- Preserved platform-specific behavior with `#ifndef WIN32`
+- Focused on the main execution path while abstracting low-level details

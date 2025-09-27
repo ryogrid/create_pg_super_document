@@ -51,3 +51,57 @@ The function is designed to not fail under normal circumstances and avoids elog(
 - Common pattern: create under transient context, then reparent to long-lived context
 - Fast path optimization when context already has the correct parent
 - Located in src/backend/utils/mmgr/mcxt.c:637-693
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextSetParent
+void MemoryContextSetParent(MemoryContext context, MemoryContext new_parent) {
+    // Validate inputs: context must be valid and different from new parent
+    Assert(MemoryContextIsValid(context));
+    Assert(context != new_parent);
+
+    // Fast path: if already has correct parent, nothing to do
+    if (new_parent == context->parent)
+        return;
+
+    // Step 1: Remove context from current parent's child list
+    if (context->parent) {
+        MemoryContext old_parent = context->parent;
+
+        // Update previous sibling to point to next sibling
+        if (context->prevchild != NULL)
+            context->prevchild->nextchild = context->nextchild;
+        else
+            old_parent->firstchild = context->nextchild;  // context was first child
+
+        // Update next sibling to point to previous sibling
+        if (context->nextchild != NULL)
+            context->nextchild->prevchild = context->prevchild;
+    }
+
+    // Step 2: Add context to new parent's child list
+    if (new_parent) {
+        // Insert as first child of new parent
+        context->parent = new_parent;
+        context->prevchild = NULL;
+        context->nextchild = new_parent->firstchild;
+
+        if (new_parent->firstchild != NULL)
+            new_parent->firstchild->prevchild = context;
+        new_parent->firstchild = context;
+    } else {
+        // No parent - make it a top-level context
+        context->parent = NULL;
+        context->prevchild = NULL;
+        context->nextchild = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the doubly-linked list operations
+- Grouped related operations together logically
+- Simplified variable names where helpful (old_parent vs parent)
+- Emphasized the two main phases: removal from old parent, addition to new parent
+- Preserved all essential validation and edge case handling

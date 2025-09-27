@@ -42,3 +42,34 @@ This implementation ensures that callers always receive a valid string pointer, 
 - Project style recommends printing both the numeric signal value and the string representation for complete information
 - Previously included code to use  as a fallback, but this was removed as all platforms with  now have  as well
 - Located in the portability layer () as it addresses cross-platform compatibility issues
+
+## Simplified Source
+
+```c
+// Simplified version of pg_strsignal
+const char *pg_strsignal(int signum) {
+    const char *result;
+
+#ifdef HAVE_STRSIGNAL
+    // Use system strsignal() if available
+    result = strsignal(signum);
+
+    // Ensure we never return NULL (some platforms do)
+    if (result == NULL) {
+        result = "unrecognized signal";
+    }
+#else
+    // Fallback for platforms without strsignal()
+    result = "(signal names not available on this platform)";
+#endif
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each code path
+- Simplified the conditional compilation logic explanation
+- Clarified the NULL check rationale
+- Maintained the essential portability and reliability features
+- Preserved the guaranteed non-NULL return behavior

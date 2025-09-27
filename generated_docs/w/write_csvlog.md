@@ -47,3 +47,96 @@ This function constructs a detailed CSV log entry based on the provided ErrorDat
 - Supports both direct file writing (syslogger) and pipe-based logging (other processes)
 - Output format is documented in PostgreSQL's configuration documentation
 - Located in src/backend/utils/error/csvlog.c:63-262
+
+## Simplified Source
+
+```c
+// Simplified version of write_csvlog
+void write_csvlog(ErrorData *edata) {
+    StringInfoData csv_buffer;
+    static long log_line_number = 0;
+    static int log_my_pid = 0;
+
+    // Reset line counter when process changes (e.g., after fork)
+    if (log_my_pid != MyProcPid) {
+        log_line_number = 0;
+        log_my_pid = MyProcPid;
+        reset_formatted_start_time();
+    }
+    log_line_number++;
+
+    initStringInfo(&csv_buffer);
+
+    // Build CSV record with essential fields
+    // Timestamp
+    appendStringInfoString(&csv_buffer, get_formatted_log_time());
+    appendStringInfoChar(&csv_buffer, ',');
+
+    // User and database info
+    if (MyProcPort) {
+        appendCSVLiteral(&csv_buffer, MyProcPort->user_name);
+        appendStringInfoChar(&csv_buffer, ',');
+        appendCSVLiteral(&csv_buffer, MyProcPort->database_name);
+    } else {
+        appendStringInfoString(&csv_buffer, ",,");
+    }
+    appendStringInfoChar(&csv_buffer, ',');
+
+    // Process identification
+    appendStringInfo(&csv_buffer, "%d,", MyProcPid);
+
+    // Remote host:port
+    if (MyProcPort && MyProcPort->remote_host) {
+        appendStringInfo(&csv_buffer, "\"%s", MyProcPort->remote_host);
+        if (MyProcPort->remote_port && MyProcPort->remote_port[0] != '\0') {
+            appendStringInfo(&csv_buffer, ":%s", MyProcPort->remote_port);
+        }
+        appendStringInfoChar(&csv_buffer, '"');
+    }
+    appendStringInfoChar(&csv_buffer, ',');
+
+    // Session and transaction info
+    appendStringInfo(&csv_buffer, "%" INT64_MODIFIER "x.%x,%ld,",
+                     MyStartTime, MyProcPid, log_line_number);
+
+    // Error information
+    appendStringInfoString(&csv_buffer, _(error_severity(edata->elevel)));
+    appendStringInfoChar(&csv_buffer, ',');
+    appendStringInfoString(&csv_buffer, unpack_sql_state(edata->sqlerrcode));
+    appendStringInfoChar(&csv_buffer, ',');
+
+    // Message and details
+    appendCSVLiteral(&csv_buffer, edata->message);
+    appendStringInfoChar(&csv_buffer, ',');
+    appendCSVLiteral(&csv_buffer, edata->detail_log ? edata->detail_log : edata->detail);
+    appendStringInfoChar(&csv_buffer, ',');
+    appendCSVLiteral(&csv_buffer, edata->hint);
+    appendStringInfoChar(&csv_buffer, ',');
+
+    // Query information (if logging enabled)
+    if (check_log_of_query(edata)) {
+        appendCSVLiteral(&csv_buffer, debug_query_string);
+    }
+    appendStringInfoChar(&csv_buffer, ',');
+
+    // Query ID
+    appendStringInfo(&csv_buffer, "%lld\n", (long long) pgstat_get_my_query_id());
+
+    // Write to appropriate destination
+    if (MyBackendType == B_LOGGER) {
+        write_syslogger_file(csv_buffer.data, csv_buffer.len, LOG_DESTINATION_CSVLOG);
+    } else {
+        write_pipe_chunks(csv_buffer.data, csv_buffer.len, LOG_DESTINATION_CSVLOG);
+    }
+
+    pfree(csv_buffer.data);
+}
+```
+
+Key simplifications made:
+- Consolidated similar append operations where possible
+- Removed some optional fields while keeping essential ones (timestamp, user, database, process, error info, message)
+- Simplified host:port formatting logic
+- Focused on the core CSV construction and output flow
+- Preserved the essential structure: setup, field construction, and output
+- Maintained proper memory cleanup and destination handling

@@ -47,3 +47,46 @@ This implementation is part of PostgreSQL's portability layer (src/port/), provi
 - **Usage Pattern**: Commonly used throughout PostgreSQL for safe string copying in configuration parsing, path handling, error message formatting, and data structure initialization.
 - **Historical Context**: Based on the OpenBSD strlcpy function, created to address security issues with strcpy and usability issues with strncpy.
 - **Error Handling**: The function itself cannot fail, but callers can detect truncation by checking if the return value >= siz.
+
+## Simplified Source
+
+```c
+// Simplified version of strlcpy
+size_t strlcpy(char *dst, const char *src, size_t siz) {
+    char *d = dst;
+    const char *s = src;
+    size_t n = siz;
+
+    // Phase 1: Copy characters while there's space
+    if (n != 0) {
+        while (--n != 0) {
+            if ((*d++ = *s++) == '\0') {
+                // Found end of source string, we're done
+                break;
+            }
+        }
+    }
+
+    // Phase 2: Handle buffer full case
+    if (n == 0) {
+        // No more space in destination
+        if (siz != 0) {
+            *d = '\0';  // Ensure null termination
+        }
+        // Count remaining characters in source
+        while (*s++) {
+            // Just advance to count total source length
+        }
+    }
+
+    // Return total source length (excluding null terminator)
+    return (s - src - 1);
+}
+```
+
+Key simplifications made:
+- Added clear phase comments to show the two-stage algorithm
+- Clarified the purpose of each loop with inline comments
+- Preserved the exact logic flow and pointer arithmetic
+- Made the null termination and length counting steps more explicit
+- Maintained the efficient single-pass approach

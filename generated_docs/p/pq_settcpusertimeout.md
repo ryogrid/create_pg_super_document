@@ -41,3 +41,57 @@ The function performs several validation checks: it verifies the port is valid a
 - Logs errors when setsockopt fails or when TCP_USER_TIMEOUT is not supported on the platform
 - TCP user timeout provides more aggressive connection failure detection than keep-alive alone, especially for connections with active data transmission
 - The timeout value is specified in milliseconds and applies to the total time for unacknowledged data
+
+## Simplified Source
+
+```c
+// Simplified version of pq_settcpusertimeout
+int pq_settcpusertimeout(int timeout, Port *port) {
+    // Skip Unix domain sockets - TCP timeout doesn't apply
+    if (port == NULL || port->laddr.addr.ss_family == AF_UNIX)
+        return STATUS_OK;
+
+#ifdef TCP_USER_TIMEOUT
+    // Avoid redundant calls if timeout unchanged
+    if (timeout == port->tcp_user_timeout)
+        return STATUS_OK;
+
+    // Get default timeout if not already known
+    if (port->default_tcp_user_timeout <= 0) {
+        if (pq_gettcpusertimeout(port) < 0) {
+            // If default unknown, allow setting to 0 but reject non-zero values
+            return (timeout == 0) ? STATUS_OK : STATUS_ERROR;
+        }
+    }
+
+    // Use default value when timeout is 0
+    if (timeout == 0)
+        timeout = port->default_tcp_user_timeout;
+
+    // Apply the TCP user timeout setting
+    if (setsockopt(port->sock, IPPROTO_TCP, TCP_USER_TIMEOUT,
+                   &timeout, sizeof(timeout)) < 0) {
+        ereport(LOG, (errmsg("setsockopt(TCP_USER_TIMEOUT) failed: %m")));
+        return STATUS_ERROR;
+    }
+
+    // Update cached value
+    port->tcp_user_timeout = timeout;
+#else
+    // Feature not supported on this platform
+    if (timeout != 0) {
+        ereport(LOG, (errmsg("setsockopt(TCP_USER_TIMEOUT) not supported")));
+        return STATUS_ERROR;
+    }
+#endif
+
+    return STATUS_OK;
+}
+```
+
+Key simplifications made:
+- Consolidated error message formatting for clarity
+- Added inline comments explaining each major logic block
+- Simplified conditional structure while preserving all logic paths
+- Clarified the special case handling for timeout=0
+- Maintained all essential error handling and platform compatibility checks

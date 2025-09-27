@@ -44,3 +44,75 @@ This checkpoint process ensures that after a crash recovery, logical decoding ca
 - Part of the logical decoding infrastructure that supports logical replication and logical backup tools
 - Only one checkpoint can run at a time, preventing concurrency issues with file operations
 - Files are removed only when they're safely older than any active logical decoding session
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPointLogicalRewriteHeap
+void CheckPointLogicalRewriteHeap(void) {
+    XLogRecPtr cutoff;
+    XLogRecPtr redo;
+    DIR *mappings_dir;
+    struct dirent *mapping_de;
+    char path[MAXPGPATH + 20];
+
+    // Step 1: Determine safe LSN cutoff point
+    redo = GetRedoRecPtr();
+    cutoff = ReplicationSlotsComputeLogicalRestartLSN();
+
+    // Use the more conservative (earlier) LSN as cutoff
+    if (cutoff != InvalidXLogRecPtr && redo < cutoff)
+        cutoff = redo;
+
+    // Step 2: Scan logical mappings directory
+    mappings_dir = AllocateDir("pg_logical/mappings");
+    while ((mapping_de = ReadDir(mappings_dir, "pg_logical/mappings")) != NULL) {
+        Oid dboid, relid;
+        XLogRecPtr lsn;
+        TransactionId rewrite_xid, create_xid;
+        uint32 hi, lo;
+
+        // Skip directory entries and non-mapping files
+        if (skip_non_mapping_files(mapping_de))
+            continue;
+
+        // Parse mapping filename to extract metadata
+        snprintf(path, sizeof(path), "pg_logical/mappings/%s", mapping_de->d_name);
+        if (sscanf(mapping_de->d_name, LOGICAL_REWRITE_FORMAT,
+                   &dboid, &relid, &hi, &lo, &rewrite_xid, &create_xid) != 6)
+            elog(ERROR, "could not parse filename");
+
+        lsn = ((uint64) hi) << 32 | lo;
+
+        // Step 3: Remove obsolete files or sync current ones
+        if (lsn < cutoff || cutoff == InvalidXLogRecPtr) {
+            // Remove files older than cutoff LSN
+            if (unlink(path) < 0)
+                report_file_error("could not remove file", path);
+        } else {
+            // Sync remaining files to disk for durability
+            int fd = OpenTransientFile(path, O_RDWR | PG_BINARY);
+            if (fd < 0)
+                report_file_error("could not open file", path);
+
+            if (pg_fsync(fd) != 0)
+                report_sync_error("could not fsync file", path);
+
+            if (CloseTransientFile(fd) != 0)
+                report_file_error("could not close file", path);
+        }
+    }
+    FreeDir(mappings_dir);
+
+    // Step 4: Ensure directory changes are persisted
+    fsync_fname("pg_logical/mappings", true);
+}
+```
+
+Key simplifications made:
+- Abstracted file type checking and filename validation into conceptual helper functions
+- Simplified error handling while preserving essential error reporting
+- Combined related variables in logical groups
+- Added clear step-by-step comments for the main algorithm
+- Removed detailed error message formatting but kept error handling logic
+- Focused on the core checkpoint logic: determine cutoff, scan files, remove/sync, persist directory

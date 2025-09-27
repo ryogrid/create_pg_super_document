@@ -44,3 +44,55 @@ Since DH parameter generation is computationally expensive, the parameters are p
 - The DH structure is freed after setting parameters because OpenSSL makes an internal copy
 - This functionality is critical for supporting DH-based cipher suites in PostgreSQL's SSL implementation
 - Built-in parameters use 2048-bit DH group for strong security while maintaining reasonable performance
+
+## Simplified Source
+
+```c
+// Simplified version of initialize_dh
+static bool
+initialize_dh(SSL_CTX *context, bool isServerStart) {
+    DH *dh_params = NULL;
+
+    // Configure SSL context to use single-use DH keys for perfect forward secrecy
+    SSL_CTX_set_options(context, SSL_OP_SINGLE_DH_USE);
+
+    // Step 1: Try to load custom DH parameters from configured file
+    if (ssl_dh_params_file[0]) {
+        dh_params = load_dh_file(ssl_dh_params_file, isServerStart);
+    }
+
+    // Step 2: Fall back to built-in OpenSSL DH parameters if custom file unavailable
+    if (!dh_params) {
+        dh_params = load_dh_buffer(FILE_DH2048, sizeof(FILE_DH2048));
+    }
+
+    // Step 3: Fail if no DH parameters could be loaded
+    if (!dh_params) {
+        ereport(isServerStart ? FATAL : LOG,
+                (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                 errmsg("DH: could not load DH parameters")));
+        return false;
+    }
+
+    // Step 4: Apply DH parameters to SSL context
+    if (SSL_CTX_set_tmp_dh(context, dh_params) != 1) {
+        ereport(isServerStart ? FATAL : LOG,
+                (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                 errmsg("DH: could not set DH parameters: %s",
+                        SSLerrmessage(ERR_get_error()))));
+        DH_free(dh_params);
+        return false;
+    }
+
+    // Step 5: Clean up - OpenSSL keeps internal copy
+    DH_free(dh_params);
+    return true;
+}
+```
+
+Key simplifications made:
+- Added descriptive step-by-step comments for main logic flow
+- Renamed `dh` variable to `dh_params` for clarity
+- Consolidated the multi-step DH parameter loading strategy into clear numbered steps
+- Preserved all essential error handling and resource cleanup
+- Maintained the exact same logic flow while improving readability

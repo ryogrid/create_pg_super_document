@@ -36,3 +36,36 @@ This function provides a thread-safe way to query the current flush position of 
 - The flush position represents data durably stored, not just received in memory
 - Used extensively by checkpointing, recovery, and replication lag monitoring
 - Located in src/backend/replication/walreceiverfuncs.c:331-351
+
+## Simplified Source
+
+```c
+// Simplified version of GetWalRcvFlushRecPtr
+XLogRecPtr GetWalRcvFlushRecPtr(XLogRecPtr *latestChunkStart, TimeLineID *receiveTLI) {
+    WalRcvData *walrcv = WalRcv;
+    XLogRecPtr recptr;
+
+    // Lock shared memory to safely read WAL receiver data
+    SpinLockAcquire(&walrcv->mutex);
+
+    // Get the main flush position
+    recptr = walrcv->flushedUpto;
+
+    // Optionally return additional chunk information
+    if (latestChunkStart)
+        *latestChunkStart = walrcv->latestChunkStart;
+    if (receiveTLI)
+        *receiveTLI = walrcv->receivedTLI;
+
+    // Release lock and return flush position
+    SpinLockRelease(&walrcv->mutex);
+    return recptr;
+}
+```
+
+Key simplifications made:
+- Added clarifying comments for each logical step
+- No simplification of logic needed - function is already concise
+- Preserved the essential thread-safety mechanism (spinlock)
+- Maintained all optional parameter handling
+- Focused on the core purpose: safely retrieving WAL receiver flush data

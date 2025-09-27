@@ -39,3 +39,32 @@ This function takes no parameters.
 - Critical for enabling shared memory-based inter-process communication
 - Part of the process initialization sequence for processes that participate in shared memory
 - The switch is one-way; processes typically don't switch back to local latches once they've moved to shared latches
+
+## Simplified Source
+
+```c
+// Simplified version of SwitchToSharedLatch
+void SwitchToSharedLatch(void) {
+    // Verify we're currently using the local latch and have a process slot
+    Assert(MyLatch == &LocalLatchData);
+    Assert(MyProc != NULL);
+
+    // Switch to the shared latch in our process structure
+    MyLatch = &MyProc->procLatch;
+
+    // Update any existing wait event set to monitor the new latch
+    if (FeBeWaitSet) {
+        ModifyWaitEvent(FeBeWaitSet, FeBeWaitSetLatchPos, WL_LATCH_SET, MyLatch);
+    }
+
+    // Set the shared latch to preserve any pending signals
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Preserved all essential assertions and logic flow
+- Added descriptive comments for each major step
+- Maintained the conditional check for FeBeWaitSet
+- Kept the SetLatch call which ensures signal preservation
+- Focused on the core functionality: switching from local to shared latch

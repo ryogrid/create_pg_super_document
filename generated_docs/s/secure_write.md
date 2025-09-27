@@ -45,3 +45,72 @@ Like its read counterpart, the function implements intelligent blocking behavior
 - Error handling preserves errno values from underlying write operations
 - Integration with PostgreSQL's interrupt handling system ensures query cancellation and other signals are processed during write operations
 - Unlike reads, writes typically have more predictable blocking behavior since they depend on socket buffer space rather than incoming data availability
+
+## Simplified Source
+
+```c
+// Simplified version of secure_write
+ssize_t secure_write(Port *port, void *ptr, size_t len) {
+    ssize_t n;
+    int waitfor;
+
+    // Handle any pending interrupts before starting
+    ProcessClientWriteInterrupt(false);
+
+retry:
+    waitfor = 0;
+
+    // Choose appropriate write method based on connection security
+    if (port->ssl_in_use) {
+        // SSL/TLS encrypted connection
+        n = be_tls_write(port, ptr, len, &waitfor);
+    } else if (port->gss && port->gss->enc) {
+        // GSS-API encrypted connection
+        n = be_gssapi_write(port, ptr, len);
+        waitfor = WL_SOCKET_WRITEABLE;
+    } else {
+        // Plain socket connection
+        n = secure_raw_write(port, ptr, len);
+        waitfor = WL_SOCKET_WRITEABLE;
+    }
+
+    // Handle blocking scenario - wait for socket to become writable
+    if (n < 0 && !port->noblock && (errno == EWOULDBLOCK || errno == EAGAIN)) {
+        WaitEvent event;
+
+        // Configure wait event for socket writability
+        ModifyWaitEvent(FeBeWaitSet, FeBeWaitSetSocketPos, waitfor, NULL);
+
+        // Wait for socket to become ready or other events
+        WaitEventSetWait(FeBeWaitSet, -1, &event, 1, WAIT_EVENT_CLIENT_WRITE);
+
+        // Handle postmaster death - terminate immediately
+        if (event.events & WL_POSTMASTER_DEATH) {
+            ereport(FATAL, (errcode(ERRCODE_ADMIN_SHUTDOWN),
+                           errmsg("terminating connection due to unexpected postmaster exit")));
+        }
+
+        // Handle interrupt signals
+        if (event.events & WL_LATCH_SET) {
+            ResetLatch(MyLatch);
+            ProcessClientWriteInterrupt(true);
+        }
+
+        // Retry the write operation
+        goto retry;
+    }
+
+    // Process any interrupts that occurred during successful write
+    ProcessClientWriteInterrupt(false);
+
+    return n;
+}
+```
+
+Key simplifications made:
+- Removed conditional compilation guards (#ifdef USE_SSL, #ifdef ENABLE_GSS) for clarity
+- Consolidated error handling logic into clear flow
+- Added descriptive comments for each major code section
+- Simplified the retry logic explanation
+- Focused on the main execution paths
+- Maintained all essential security and interrupt handling logic

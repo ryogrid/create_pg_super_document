@@ -59,3 +59,82 @@ Key functionality includes:
 - I/O timing collection supports performance monitoring and tuning of WAL synchronization operations
 - The function maintains WAL sync statistics in PendingWalStats for monitoring and administrative purposes
 - Timeline ID assertion ensures valid timeline context for error reporting
+
+## Simplified Source
+
+```c
+// Simplified version of issue_xlog_fsync
+void issue_xlog_fsync(int fd, XLogSegNo segno, TimeLineID tli) {
+    char *error_msg = NULL;
+    instr_time timing_start;
+
+    // Early exit: Skip fsync if disabled or using synchronous write methods
+    if (!enableFsync ||
+        wal_sync_method == WAL_SYNC_METHOD_OPEN ||
+        wal_sync_method == WAL_SYNC_METHOD_OPEN_DSYNC) {
+        return;
+    }
+
+    // Start timing measurement if enabled
+    if (track_wal_io_timing) {
+        INSTR_TIME_SET_CURRENT(timing_start);
+    }
+
+    // Begin wait event reporting for monitoring
+    pgstat_report_wait_start(WAIT_EVENT_WAL_SYNC);
+
+    // Execute appropriate fsync method based on configuration
+    switch (wal_sync_method) {
+        case WAL_SYNC_METHOD_FSYNC:
+            if (pg_fsync_no_writethrough(fd) != 0) {
+                error_msg = _("could not fsync file \"%s\": %m");
+            }
+            break;
+
+        case WAL_SYNC_METHOD_FSYNC_WRITETHROUGH:
+            if (pg_fsync_writethrough(fd) != 0) {
+                error_msg = _("could not fsync write-through file \"%s\": %m");
+            }
+            break;
+
+        case WAL_SYNC_METHOD_FDATASYNC:
+            if (pg_fdatasync(fd) != 0) {
+                error_msg = _("could not fdatasync file \"%s\": %m");
+            }
+            break;
+
+        default:
+            // Invalid sync method - this is a configuration error
+            ereport(PANIC, ...);
+            break;
+    }
+
+    // Handle fsync failure with PANIC (unrecoverable error)
+    if (error_msg) {
+        char filename[MAXFNAMELEN];
+        XLogFileName(filename, tli, segno, wal_segment_size);
+        ereport(PANIC, (errmsg(error_msg, filename)));
+    }
+
+    // End wait event reporting
+    pgstat_report_wait_end();
+
+    // Record timing statistics if enabled
+    if (track_wal_io_timing) {
+        instr_time timing_end;
+        INSTR_TIME_SET_CURRENT(timing_end);
+        INSTR_TIME_ACCUM_DIFF(PendingWalStats.wal_sync_time, timing_end, timing_start);
+    }
+
+    // Increment sync operation counter
+    PendingWalStats.wal_sync++;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling code for clarity while preserving error semantics
+- Consolidated platform-specific conditional compilation into single case
+- Abstracted complex timing macros with descriptive comments
+- Simplified variable names (start → timing_start, msg → error_msg)
+- Focused on the main execution flow: check config → time operation → sync → handle errors → record stats
+- Removed unreachable case assertions and detailed error construction code

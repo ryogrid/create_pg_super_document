@@ -33,3 +33,43 @@ Notes and Other Information
 - Returns standard strcmp-style comparison results (-1, 0, 1)
 - Used throughout the GUC system for parameter name lookups and comparisons
 - Location: src/backend/utils/misc/guc.c:1302-1331
+
+## Simplified Source
+
+```c
+// Simplified version of guc_name_compare
+int guc_name_compare(const char *namea, const char *nameb) {
+    // Compare names character by character with ASCII case conversion
+    // Note: Can't use strcasecmp() due to locale stability requirements
+    while (*namea && *nameb) {
+        char cha = *namea++;
+        char chb = *nameb++;
+
+        // Convert uppercase ASCII to lowercase for comparison
+        if (cha >= 'A' && cha <= 'Z')
+            cha += 'a' - 'A';
+        if (chb >= 'A' && chb <= 'Z')
+            chb += 'a' - 'A';
+
+        // Return difference if characters don't match
+        if (cha != chb)
+            return cha - chb;
+    }
+
+    // Handle different string lengths
+    if (*namea)
+        return 1;   // namea is longer
+    if (*nameb)
+        return -1;  // nameb is longer
+
+    return 0;  // strings are equal
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the locale stability requirement
+- Explained the ASCII-only case conversion logic
+- Clarified the length comparison handling
+- Preserved the essential character-by-character comparison algorithm
+- Maintained the standard comparison return semantics
+- Documented why strcasecmp() cannot be used

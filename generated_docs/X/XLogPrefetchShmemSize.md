@@ -29,3 +29,19 @@ This function takes no parameters.
 - It's called during server startup to determine total shared memory requirements
 - The returned size is used by the shared memory allocator to reserve space for prefetch statistics
 - Located in src/backend/access/transam/xlogprefetcher.c:294-302
+
+## Simplified Source
+
+```c
+// Simplified version of XLogPrefetchShmemSize
+size_t XLogPrefetchShmemSize(void) {
+    // Returns the size needed for XLog prefetch statistics in shared memory
+    // This is used during PostgreSQL startup to allocate the correct amount
+    // of shared memory for tracking prefetch performance metrics
+    return sizeof(XLogPrefetchStats);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for clarity
+- No other simplifications needed as the function is already minimal

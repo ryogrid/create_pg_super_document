@@ -45,3 +45,41 @@ The function sets the  option to ensure that ECDH keys are never reused across c
 - The curve name is validated through OpenSSL's object identifier system before use
 - This functionality enables support for ECDH-based cipher suites in PostgreSQL's SSL implementation
 - Modern PostgreSQL installations typically use ECDH instead of traditional DH for better performance
+
+## Simplified Source
+
+```c
+// Simplified version of initialize_ecdh
+static bool initialize_ecdh(SSL_CTX *context, bool isServerStart) {
+    // Convert curve name to OpenSSL numeric identifier
+    int curve_id = OBJ_sn2nid(SSLECDHCurve);
+    if (!curve_id) {
+        ereport(isServerStart ? FATAL : LOG,
+                (errmsg("ECDH: unrecognized curve name: %s", SSLECDHCurve)));
+        return false;
+    }
+
+    // Create elliptic curve key for the specified curve
+    EC_KEY *ecdh_key = EC_KEY_new_by_curve_name(curve_id);
+    if (!ecdh_key) {
+        ereport(isServerStart ? FATAL : LOG,
+                (errmsg("ECDH: could not create key")));
+        return false;
+    }
+
+    // Configure SSL context with ECDH parameters
+    SSL_CTX_set_options(context, SSL_OP_SINGLE_ECDH_USE);  // Prevent key reuse
+    SSL_CTX_set_tmp_ecdh(context, ecdh_key);               // Set temporary ECDH key
+    EC_KEY_free(ecdh_key);                                 // Clean up (OpenSSL makes internal copy)
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed conditional compilation directives for clarity
+- Simplified variable names (nid → curve_id, ecdh → ecdh_key)
+- Consolidated error handling structure while preserving logic
+- Added inline comments explaining each major step
+- Reduced error reporting calls to essential information
+- Focused on the main execution path without platform-specific details

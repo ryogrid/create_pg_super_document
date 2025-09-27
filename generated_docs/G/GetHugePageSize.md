@@ -37,3 +37,83 @@ On Linux systems, it reads  to determine the default huge page size. If an expli
 - Falls back to 2MB assumption if system detection fails
 - Handles explicit page size specification via MAP_HUGE_MASK and MAP_HUGE_SHIFT on recent Linux versions
 - The extra memory from rounding up to huge page boundaries is made available for additional locktable entries and other shared memory uses
+
+## Simplified Source
+
+```c
+// Simplified version of GetHugePageSize
+void GetHugePageSize(Size *hugepagesize, int *mmap_flags) {
+#ifdef MAP_HUGETLB
+    Size default_hugepagesize = 0;
+    Size hugepagesize_local = 0;
+    int mmap_flags_local = 0;
+
+    // Step 1: Try to detect system default huge page size on Linux
+#ifdef __linux__
+    FILE *fp = AllocateFile("/proc/meminfo", "r");
+    if (fp) {
+        char buf[128];
+        unsigned int sz;
+        char ch;
+
+        // Parse /proc/meminfo for "Hugepagesize: nnnn kB" line
+        while (fgets(buf, sizeof(buf), fp)) {
+            if (sscanf(buf, "Hugepagesize: %u %c", &sz, &ch) == 2) {
+                if (ch == 'k') {
+                    default_hugepagesize = sz * 1024;
+                    break;
+                }
+            }
+        }
+        FreeFile(fp);
+    }
+#endif
+
+    // Step 2: Determine which huge page size to use
+    if (huge_page_size != 0) {
+        // Use explicitly configured size
+        hugepagesize_local = (Size) huge_page_size * 1024;
+    }
+    else if (default_hugepagesize != 0) {
+        // Use system default if detected
+        hugepagesize_local = default_hugepagesize;
+    }
+    else {
+        // Fallback to 2MB assumption
+        hugepagesize_local = 2 * 1024 * 1024;
+    }
+
+    // Step 3: Set up mmap flags for huge pages
+    mmap_flags_local = MAP_HUGETLB;
+
+    // Step 4: Add explicit page size flag if needed on recent Linux
+#if defined(MAP_HUGE_MASK) && defined(MAP_HUGE_SHIFT)
+    if (hugepagesize_local != default_hugepagesize) {
+        int shift = pg_ceil_log2_64(hugepagesize_local);
+        mmap_flags_local |= (shift & MAP_HUGE_MASK) << MAP_HUGE_SHIFT;
+    }
+#endif
+
+    // Step 5: Return results to caller
+    if (mmap_flags)
+        *mmap_flags = mmap_flags_local;
+    if (hugepagesize)
+        *hugepagesize = hugepagesize_local;
+
+#else
+    // Platform doesn't support huge pages
+    if (hugepagesize)
+        *hugepagesize = 0;
+    if (mmap_flags)
+        *mmap_flags = 0;
+#endif
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated similar logic blocks
+- Streamlined the Linux-specific /proc/meminfo parsing
+- Clarified the decision logic for choosing huge page size
+- Simplified the mmap flag construction
+- Focused on the main execution path while preserving all essential functionality
+- Added step-by-step comments to explain the core algorithm flow

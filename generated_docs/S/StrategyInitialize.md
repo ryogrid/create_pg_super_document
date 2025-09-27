@@ -38,3 +38,52 @@ The function assumes that all buffers have already been built into a linked list
 - Sets up the complete free buffer chain from 0 to NBuffers-1
 - Clears all statistics and sets bgwprocno to -1 (no pending background writer notification)
 - Uses Assert() to ensure proper initialization ordering between postmaster and other processes
+
+## Simplified Source
+
+```c
+// Simplified version of StrategyInitialize
+void StrategyInitialize(bool init) {
+    bool found;
+
+    // Initialize the shared buffer lookup hashtable
+    // Size it to handle concurrent insertions across all partitions
+    InitBufTable(NBuffers + NUM_BUFFER_PARTITIONS);
+
+    // Get or create the shared strategy control block
+    StrategyControl = (BufferStrategyControl *)
+        ShmemInitStruct("Buffer Strategy Status",
+                        sizeof(BufferStrategyControl),
+                        &found);
+
+    if (!found) {
+        // Only done once, usually in postmaster
+        Assert(init);
+
+        // Initialize thread-safe access
+        SpinLockInit(&StrategyControl->buffer_strategy_lock);
+
+        // Set up the free buffer list (assumes InitBufferPool() already called)
+        StrategyControl->firstFreeBuffer = 0;
+        StrategyControl->lastFreeBuffer = NBuffers - 1;
+
+        // Initialize the clock sweep pointer for replacement algorithm
+        pg_atomic_init_u32(&StrategyControl->nextVictimBuffer, 0);
+
+        // Clear statistics
+        StrategyControl->completePasses = 0;
+        pg_atomic_init_u32(&StrategyControl->numBufferAllocs, 0);
+
+        // No pending background writer notification
+        StrategyControl->bgwprocno = -1;
+    }
+    else
+        Assert(!init);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the purpose of each initialization step
+- Grouped related operations together logically
+- Simplified the conditional structure while preserving all functionality
+- Emphasized the relationship with InitBufferPool() and clock-sweep algorithm

@@ -35,3 +35,55 @@ The  function is responsible for coordinating log file rotation across all activ
 - Rotation is atomic - if any destination rotation fails, the entire process is aborted without updating metadata or scheduling next rotation
 - Handles three log destinations: stderr (standard logs), CSV logs, and JSON logs
 - The function maintains separate filename tracking variables for each log type (, , )
+
+## Simplified Source
+
+```c
+// Simplified version of logfile_rotate
+static void logfile_rotate(bool time_based_rotation, int size_rotation_for) {
+    pg_time_t fntime;
+
+    // Clear the rotation request flag
+    rotation_requested = false;
+
+    // Determine timestamp for new log files
+    if (time_based_rotation) {
+        // Use planned rotation time to avoid filename drift
+        fntime = next_rotation_time;
+    } else {
+        // Use current time for size-based rotations
+        fntime = time(NULL);
+    }
+
+    // Rotate stderr log files
+    if (!logfile_rotate_dest(time_based_rotation, size_rotation_for, fntime,
+                            LOG_DESTINATION_STDERR, &last_sys_file_name, &syslogFile)) {
+        return;  // Abort on failure
+    }
+
+    // Rotate CSV log files
+    if (!logfile_rotate_dest(time_based_rotation, size_rotation_for, fntime,
+                            LOG_DESTINATION_CSVLOG, &last_csv_file_name, &csvlogFile)) {
+        return;  // Abort on failure
+    }
+
+    // Rotate JSON log files
+    if (!logfile_rotate_dest(time_based_rotation, size_rotation_for, fntime,
+                            LOG_DESTINATION_JSONLOG, &last_json_file_name, &jsonlogFile)) {
+        return;  // Abort on failure
+    }
+
+    // Update metadata file with new log file information
+    update_metainfo_datafile();
+
+    // Schedule next time-based rotation
+    set_next_rotation_time();
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major step
+- Clarified the atomic nature of the operation (early returns on failure)
+- Emphasized the dual rotation modes (time-based vs size-based)
+- Highlighted the consistent timestamp usage across all destinations
+- Simplified variable declarations and flow description

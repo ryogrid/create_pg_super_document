@@ -44,3 +44,46 @@ The function includes debug assertions to verify data structure consistency when
 
 ## Notes and Other Information
 This is a public API function (non-static) used by dynamic shared memory (DSM) and dynamic shared arrays (DSA) subsystems. The function handles memory coalescing optimization and maintains internal consistency. Debug builds include additional assertions to verify the correctness of free page accounting and contiguous page calculations.
+
+## Simplified Source
+
+```c
+// Simplified version of FreePageManagerPut
+void FreePageManagerPut(FreePageManager *fpm, Size first_page, Size npages) {
+    Size contiguous_pages;
+
+    Assert(npages > 0);
+
+    // Add the new pages to internal data structures
+    contiguous_pages = FreePageManagerPutInternal(fpm, first_page, npages, false);
+
+    // If pages merged with existing ranges, try cleanup optimizations
+    if (contiguous_pages > npages) {
+        Size cleanup_contiguous_pages;
+
+        cleanup_contiguous_pages = FreePageBtreeCleanup(fpm);
+        if (cleanup_contiguous_pages > contiguous_pages)
+            contiguous_pages = cleanup_contiguous_pages;
+    }
+
+    // Update largest chunk tracking if we have a bigger chunk now
+    if (fpm->contiguous_pages < contiguous_pages)
+        fpm->contiguous_pages = contiguous_pages;
+
+    // Ensure largest chunk cache is current (may have been marked dirty)
+    FreePageManagerUpdateLargest(fpm);
+
+#ifdef FPM_EXTRA_ASSERTS
+    // Debug: verify accounting consistency
+    fpm->free_pages += npages;
+    Assert(fpm->free_pages == sum_free_pages(fpm));
+    Assert(fpm->contiguous_pages == FreePageManagerLargestContiguous(fpm));
+#endif
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major operation phase
+- Simplified conditional logic explanation with inline comments
+- Maintained all original functionality including debug assertions
+- Focused on the high-level flow: insert, optimize, update tracking

@@ -40,3 +40,52 @@ The function specifically configures the credential storage to use a memory cach
 - Error handling uses PostgreSQL's standard GSS-API error reporting mechanism
 - This functionality is essential for credential delegation in PostgreSQL's GSS-API authentication system
 - Only available in the backend - there's no equivalent frontend version of this function
+
+## Simplified Source
+
+```c
+// Simplified version of pg_store_delegated_credential
+void pg_store_delegated_credential(gss_cred_id_t cred) {
+    OM_uint32 major, minor;
+    gss_OID_set mech;
+    gss_cred_usage_t usage;
+
+    // Configure credential cache to use memory storage
+    gss_key_value_element_desc cc;
+    gss_key_value_set_desc ccset;
+    cc.key = "ccache";
+    cc.value = GSS_MEMORY_CACHE;
+    ccset.count = 1;
+    ccset.elements = &cc;
+
+    // Store delegated credential in memory cache
+    major = gss_store_cred_into(&minor,
+                                cred,
+                                GSS_C_INITIATE,      // for starting libpq connections
+                                GSS_C_NULL_OID,      // store all mechanisms
+                                true,                // overwrite existing
+                                true,                // make default
+                                &ccset,
+                                &mech,
+                                &usage);
+
+    if (major != GSS_S_COMPLETE) {
+        pg_GSS_error("gss_store_cred", major, minor);
+    }
+
+    // Release original credential handle since it's now stored
+    major = gss_release_cred(&minor, &cred);
+    if (major != GSS_S_COMPLETE) {
+        pg_GSS_error("gss_release_cred", major, minor);
+    }
+
+    // Set environment variable for later credential lookup
+    setenv("KRB5CCNAME", GSS_MEMORY_CACHE, 1);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for credential cache configuration
+- Clarified purpose of each GSS-API parameter
+- Maintained essential credential storage and cleanup logic
+- Preserved error handling for both storage and release operations

@@ -44,3 +44,77 @@ The function operates within the checkpointer's memory context and includes logi
 - SYNC_FORGET_REQUEST cancels specific individual requests, typically used when operations are rolled back
 - Critical for coordinating between backend processes (that generate sync requests) and the checkpointer (that processes them)
 - The cycle counter mechanism ensures requests are processed in the correct checkpoint cycle even if the hash table is modified during processing
+
+## Simplified Source
+
+```c
+// Simplified version of RememberSyncRequest
+void RememberSyncRequest(const FileTag *ftag, SyncRequestType type) {
+    // Validate that sync subsystem is initialized
+    Assert(pendingOps);
+
+    if (type == SYNC_FORGET_REQUEST) {
+        // Cancel a specific previously entered fsync request
+        PendingFsyncEntry *entry = hash_search(pendingOps, ftag, HASH_FIND, NULL);
+        if (entry != NULL)
+            entry->canceled = true;
+    }
+    else if (type == SYNC_FILTER_REQUEST) {
+        // Cancel all fsync requests matching the file pattern
+        HASH_SEQ_STATUS scan_status;
+        PendingFsyncEntry *fsync_entry;
+
+        hash_seq_init(&scan_status, pendingOps);
+        while ((fsync_entry = hash_seq_search(&scan_status)) != NULL) {
+            if (files_match(ftag, &fsync_entry->tag))
+                fsync_entry->canceled = true;
+        }
+
+        // Cancel matching unlink requests too
+        ListCell *cell;
+        foreach(cell, pendingUnlinks) {
+            PendingUnlinkEntry *unlink_entry = lfirst(cell);
+            if (files_match(ftag, &unlink_entry->tag))
+                unlink_entry->canceled = true;
+        }
+    }
+    else if (type == SYNC_UNLINK_REQUEST) {
+        // Add file deletion request to unlink list
+        MemoryContext old_context = MemoryContextSwitchTo(pendingOpsCxt);
+
+        PendingUnlinkEntry *entry = palloc(sizeof(PendingUnlinkEntry));
+        entry->tag = *ftag;
+        entry->cycle_ctr = checkpoint_cycle_ctr;
+        entry->canceled = false;
+
+        pendingUnlinks = lappend(pendingUnlinks, entry);
+        MemoryContextSwitchTo(old_context);
+    }
+    else {
+        // Normal case: add fsync request to hash table
+        Assert(type == SYNC_REQUEST);
+
+        MemoryContext old_context = MemoryContextSwitchTo(pendingOpsCxt);
+        bool found;
+
+        PendingFsyncEntry *entry = hash_search(pendingOps, ftag, HASH_ENTER, &found);
+
+        // Initialize new entries or reactivate canceled ones
+        if (!found || entry->canceled) {
+            entry->cycle_ctr = sync_cycle_ctr;
+            entry->canceled = false;
+        }
+        // Note: Keep existing cycle_ctr for already-active entries
+
+        MemoryContextSwitchTo(old_context);
+    }
+}
+```
+
+Key simplifications made:
+- Abstracted file matching logic into conceptual `files_match()` function
+- Removed low-level hash table operation details
+- Simplified memory context switching pattern
+- Added clear comments for each request type's purpose
+- Consolidated similar variable declarations
+- Focused on the main logic flow rather than implementation details

@@ -36,3 +36,24 @@ The delegation status is stored in the port's GSSAPI structure (port->gss->deleg
 - This function is part of PostgreSQL's GSSAPI authentication infrastructure
 - Used for authentication verification, logging, and determining available authentication capabilities
 - The delegation status is set during the GSSAPI authentication handshake and remains constant for the connection lifetime
+
+## Simplified Source
+
+```c
+// Simplified version of be_gssapi_get_delegation
+bool be_gssapi_get_delegation(Port *port) {
+    // Step 1: Validate port and GSSAPI state exist
+    if (!port || !port->gss) {
+        return false;
+    }
+
+    // Step 2: Return the GSSAPI delegation credential status
+    return port->gss->delegated_creds;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the validation and access logic
+- Maintained the essential null safety checks for port and GSSAPI structure
+- Preserved the straightforward delegation status query functionality
+- Kept the simple boolean return pattern consistent with other GSSAPI getter functions

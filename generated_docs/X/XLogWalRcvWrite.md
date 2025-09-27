@@ -47,3 +47,69 @@ Key operations include:
 - Updates shared memory atomically to track write progress
 - Critical for data consistency during streaming replication
 - Located in src/backend/replication/walreceiver.c:910-992
+
+## Simplified Source
+
+```c
+// Simplified version of XLogWalRcvWrite
+static void XLogWalRcvWrite(char *buf, Size nbytes, XLogRecPtr recptr, TimeLineID tli) {
+    int startoff;
+    int byteswritten;
+
+    // Process all bytes in the buffer
+    while (nbytes > 0) {
+        int segbytes;
+
+        // Close current segment if we've moved to a new one
+        if (recvFile >= 0 && !XLByteInSeg(recptr, recvSegNo, wal_segment_size)) {
+            XLogWalRcvClose(recptr, tli);
+        }
+
+        // Open new segment file if needed
+        if (recvFile < 0) {
+            XLByteToSeg(recptr, recvSegNo, wal_segment_size);
+            recvFile = XLogFileInit(recvSegNo, tli);
+            recvFileTLI = tli;
+        }
+
+        // Calculate write position and size within current segment
+        startoff = XLogSegmentOffset(recptr, wal_segment_size);
+
+        if (startoff + nbytes > wal_segment_size) {
+            segbytes = wal_segment_size - startoff;  // Write only to end of segment
+        } else {
+            segbytes = nbytes;  // Write all remaining bytes
+        }
+
+        // Write data to WAL segment file
+        byteswritten = pg_pwrite(recvFile, buf, segbytes, startoff);
+        if (byteswritten <= 0) {
+            // Handle write failure with panic
+            ereport(PANIC, "could not write to WAL segment");
+        }
+
+        // Update position and remaining data
+        recptr += byteswritten;
+        nbytes -= byteswritten;
+        buf += byteswritten;
+
+        LogstreamResult.Write = recptr;
+    }
+
+    // Update shared memory with final write position
+    pg_atomic_write_u64(&WalRcv->writtenUpto, LogstreamResult.Write);
+
+    // Close segment if we've completed it
+    if (recvFile >= 0 && !XLByteInSeg(recptr, recvSegNo, wal_segment_size)) {
+        XLogWalRcvClose(recptr, tli);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and errno management for clarity
+- Simplified error message in write failure case
+- Removed variable declarations within conditional blocks
+- Added clear comments explaining each major step
+- Focused on the main execution path
+- Maintained the core loop structure and segment boundary logic

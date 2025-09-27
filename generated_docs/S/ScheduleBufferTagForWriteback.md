@@ -47,3 +47,33 @@ This batching approach reduces the overhead of individual I/O operations by grou
 - Critical for I/O performance optimization in high-throughput database operations  
 - The batching mechanism reduces system call overhead and improves disk utilization
 - Part of PostgreSQL's sophisticated buffer management system for optimal storage performance
+
+## Simplified Source
+
+```c
+// Simplified version of ScheduleBufferTagForWriteback
+void ScheduleBufferTagForWriteback(WritebackContext *wb_context, IOContext io_context, BufferTag *tag) {
+    // Skip writeback scheduling if using direct I/O
+    if (io_direct_flags & IO_DIRECT_DATA) {
+        return;
+    }
+
+    // Add buffer to pending writeback queue if enabled
+    if (*wb_context->max_pending > 0) {
+        PendingWriteback *pending = &wb_context->pending_writebacks[wb_context->nr_pending++];
+        pending->tag = *tag;
+    }
+
+    // Trigger batch flush if limit reached
+    if (wb_context->nr_pending >= *wb_context->max_pending) {
+        IssuePendingWritebacks(wb_context, io_context);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions and bounds checking
+- Consolidated the queue management logic
+- Simplified the batch trigger logic
+- Focused on the core batching and scheduling algorithm
+- Maintained essential direct I/O check and writeback queueing functionality

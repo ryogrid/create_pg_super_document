@@ -45,3 +45,21 @@ The initialization is straightforward but crucial - it ensures thread-safe acces
 - Typically called during shared memory initialization phases
 - The ConditionVariable structure contains a spinlock mutex and a proclist_head for managing waiting processes
 - Used extensively in PostgreSQL's parallel processing, replication, and buffer management subsystems
+
+## Simplified Source
+
+```c
+// Simplified version of ConditionVariableInit
+void ConditionVariableInit(ConditionVariable *cv) {
+    // Initialize the mutex spinlock
+    SpinLockInit(&cv->mutex);
+
+    // Initialize the process wait list
+    proclist_init(&cv->wakeup);
+}
+```
+
+Key simplifications made:
+- Function is already very simple, maintained the essential initialization steps
+- Added brief comments for clarity
+- Preserved both critical initialization operations: spinlock and process list

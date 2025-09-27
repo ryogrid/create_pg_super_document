@@ -45,3 +45,60 @@ The function ensures that the result is always freshly allocated memory using .
 - DLSUFFIX is a platform-specific macro that represents the standard dynamic library extension (.so on Linux, .dll on Windows, etc.)
 - The function gracefully handles failure by returning the original name, allowing higher-level functions to generate appropriate error messages
 - Part of PostgreSQL's dynamic function manager (dfmgr) subsystem responsible for loading external C functions and libraries
+
+## Simplified Source
+
+```c
+// Simplified version of expand_dynamic_library_name
+static char *expand_dynamic_library_name(const char *name) {
+    bool has_directory_path = (first_dir_separator(name) != NULL);
+    char *library_path;
+
+    // Step 1: Try to find library with original name
+    if (has_directory_path) {
+        // Name has path - substitute macros and check if file exists
+        library_path = substitute_libpath_macro(name);
+        if (pg_file_exists(library_path)) {
+            return library_path;
+        }
+        pfree(library_path);
+    } else {
+        // Simple name - search in dynamic library path
+        library_path = find_in_dynamic_libpath(name);
+        if (library_path) {
+            return library_path;
+        }
+    }
+
+    // Step 2: Try again with platform-specific extension (.so/.dll)
+    char *name_with_suffix = psprintf("%s%s", name, DLSUFFIX);
+
+    if (has_directory_path) {
+        // Try with suffix and macro substitution
+        library_path = substitute_libpath_macro(name_with_suffix);
+        pfree(name_with_suffix);
+        if (pg_file_exists(library_path)) {
+            return library_path;
+        }
+        pfree(library_path);
+    } else {
+        // Try with suffix in search path
+        library_path = find_in_dynamic_libpath(name_with_suffix);
+        pfree(name_with_suffix);
+        if (library_path) {
+            return library_path;
+        }
+    }
+
+    // Step 3: Return original name if all searches failed
+    return pstrdup(name);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (has_directory_path vs have_slash)
+- Added clear step-by-step comments for the search strategy
+- Consolidated the logic flow to reduce code duplication
+- Focused on the main algorithm: try original name, then try with suffix, then fallback
+- Removed redundant intermediate variables where possible
+- Maintained the essential two-phase search strategy (with/without DLSUFFIX)

@@ -38,3 +38,90 @@ For flag combinations, it enforces specific rules about parameter visibility fla
 - Critical for maintaining data integrity during PostgreSQL startup
 - Validates both built-in and custom GUC parameters
 - Located in src/backend/utils/misc/guc.c:1438-1531
+
+## Simplified Source
+
+```c
+// Simplified version of check_GUC_init
+static bool check_GUC_init(struct config_generic *gconf) {
+    // Check that C variables match their boot values for each parameter type
+    switch (gconf->vartype) {
+        case PGC_BOOL: {
+            struct config_bool *conf = (struct config_bool *) gconf;
+
+            // Ensure boolean variable matches boot value
+            if (*conf->variable && !conf->boot_val) {
+                elog(LOG, "GUC (PGC_BOOL) %s mismatch: boot_val=%d, C-var=%d",
+                     conf->gen.name, conf->boot_val, *conf->variable);
+                return false;
+            }
+            break;
+        }
+        case PGC_INT: {
+            struct config_int *conf = (struct config_int *) gconf;
+
+            // Check integer variable consistency (non-zero values must match boot value)
+            if (*conf->variable != 0 && *conf->variable != conf->boot_val) {
+                elog(LOG, "GUC (PGC_INT) %s mismatch: boot_val=%d, C-var=%d",
+                     conf->gen.name, conf->boot_val, *conf->variable);
+                return false;
+            }
+            break;
+        }
+        case PGC_REAL: {
+            struct config_real *conf = (struct config_real *) gconf;
+
+            // Check real variable consistency (non-zero values must match boot value)
+            if (*conf->variable != 0.0 && *conf->variable != conf->boot_val) {
+                elog(LOG, "GUC (PGC_REAL) %s mismatch: boot_val=%g, C-var=%g",
+                     conf->gen.name, conf->boot_val, *conf->variable);
+                return false;
+            }
+            break;
+        }
+        case PGC_STRING: {
+            struct config_string *conf = (struct config_string *) gconf;
+
+            // Check string variable consistency (non-null values must match boot value)
+            if (*conf->variable != NULL &&
+                (conf->boot_val == NULL || strcmp(*conf->variable, conf->boot_val) != 0)) {
+                elog(LOG, "GUC (PGC_STRING) %s mismatch: boot_val=%s, C-var=%s",
+                     conf->gen.name,
+                     conf->boot_val ? conf->boot_val : "<null>",
+                     *conf->variable);
+                return false;
+            }
+            break;
+        }
+        case PGC_ENUM: {
+            struct config_enum *conf = (struct config_enum *) gconf;
+
+            // Check enum variable matches boot value exactly
+            if (*conf->variable != conf->boot_val) {
+                elog(LOG, "GUC (PGC_ENUM) %s mismatch: boot_val=%d, C-var=%d",
+                     conf->gen.name, conf->boot_val, *conf->variable);
+                return false;
+            }
+            break;
+        }
+    }
+
+    // Validate flag combinations for parameter visibility
+    // GUC_NO_SHOW_ALL requires GUC_NOT_IN_SAMPLE for consistency
+    if ((gconf->flags & GUC_NO_SHOW_ALL) &&
+        !(gconf->flags & GUC_NOT_IN_SAMPLE)) {
+        elog(LOG, "GUC %s invalid flags: NO_SHOW_ALL requires NOT_IN_SAMPLE",
+             gconf->name);
+        return false;
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each validation step
+- Consolidated repetitive error logging patterns
+- Clarified the logic for each parameter type check
+- Enhanced readability of flag validation logic
+- Maintained all essential validation logic and error reporting

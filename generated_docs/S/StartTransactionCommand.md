@@ -52,3 +52,50 @@ This function takes no parameters but operates on:
 - The function includes extensive validation of transaction block states to catch programming errors
 - Complements CommitTransactionCommand() to bracket command execution within the transaction system
 - Critical for maintaining transaction semantics across different execution contexts (normal commands, background workers, parallel workers)
+
+## Simplified Source
+
+```c
+// Simplified version of StartTransactionCommand
+void StartTransactionCommand(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Handle different transaction block states
+    switch (s->blockState) {
+        // Not in transaction - start new one
+        case TBLOCK_DEFAULT:
+            StartTransaction();
+            s->blockState = TBLOCK_STARTED;
+            break;
+
+        // Already in active transaction - ready for commands
+        case TBLOCK_INPROGRESS:
+        case TBLOCK_IMPLICIT_INPROGRESS:
+        case TBLOCK_SUBINPROGRESS:
+            // No action needed - transaction already active
+            break;
+
+        // In failed transaction - stay in abort state
+        case TBLOCK_ABORT:
+        case TBLOCK_SUBABORT:
+            // Wait for ROLLBACK command
+            break;
+
+        // Invalid intermediate states
+        default:
+            elog(ERROR, "StartTransactionCommand: unexpected state %s",
+                 BlockStateAsString(s->blockState));
+            break;
+    }
+
+    // Ensure we're in the correct memory context
+    MemoryContextSwitchTo(CurTransactionContext);
+}
+```
+
+Key simplifications made:
+- Consolidated multiple similar cases into groups with clear comments
+- Replaced detailed case-by-case comments with concise inline explanations
+- Simplified the switch structure by using default case for invalid states
+- Focused on the three main behavioral paths: start new transaction, continue existing, or wait in abort state
+- Preserved essential error handling and memory context management

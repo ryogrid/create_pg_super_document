@@ -45,3 +45,28 @@ This function should be used when the total number of external FDs needed is unp
 - Used by wait event systems and connection management code
 - Critical for preventing external FD usage from starving PostgreSQL's own operations
 - The 1/3 limit ensures PostgreSQL retains 2/3 of available FDs for database operations
+
+## Simplified Source
+
+```c
+// Simplified version of AcquireExternalFD
+bool AcquireExternalFD(void) {
+    // Check if we're within the safe limit (max 1/3 of available FDs for external use)
+    if (numExternalFDs < max_safe_fds / 3) {
+        // Reserve the FD and update global counters
+        ReserveExternalFD();
+        return true;
+    }
+
+    // Limit exceeded - set error and fail
+    errno = EMFILE;
+    return false;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the one-third rule logic
+- Simplified the conditional check with explanatory comment
+- Abstracted the ReserveExternalFD() call details
+- Focused on the main decision logic: check limit, reserve or fail
+- Preserved the essential error handling with EMFILE errno

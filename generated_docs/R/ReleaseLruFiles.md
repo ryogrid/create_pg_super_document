@@ -51,3 +51,27 @@ This proactive approach prevents file descriptor exhaustion and ensures that sub
 - The loop will terminate either when under the safe limit or when no more files can be released
 - Works in conjunction with PostgreSQL's virtual file descriptor system to manage resource constraints
 - The safe limit accounts for descriptors used by different subsystems (VFDs, allocated descriptors, external FDs)
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseLruFiles
+static void ReleaseLruFiles(void) {
+    // Keep releasing LRU files until we're under the safe limit
+    while (total_file_descriptors >= max_safe_fds) {
+        // Try to release one least-recently-used file
+        if (!ReleaseLruFile()) {
+            // No more files available to release, stop trying
+            break;
+        }
+    }
+
+    // Note: total_file_descriptors = nfile + numAllocatedDescs + numExternalFDs
+}
+```
+
+Key simplifications made:
+- Replaced complex condition with descriptive variable name comment
+- Added explanatory comments for each step
+- Clarified the break condition with a comment
+- Made the purpose of the loop more explicit

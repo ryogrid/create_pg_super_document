@@ -36,3 +36,19 @@ The returned string remains constant throughout the session and is stored in lon
 - This function provides access to authentication details that are distinct from the current effective user ID or session user ID
 - Used primarily for auditing and logging purposes to track the original authentication context
 - The function is declared in miscadmin.h and available throughout the PostgreSQL backend
+
+## Simplified Source
+
+```c
+// Simplified version of GetSystemUser
+const char *GetSystemUser(void) {
+    // Return the global system user string (auth_method:authn_id)
+    return SystemUser;
+}
+```
+
+Key simplifications made:
+- Added explanatory comment describing what the function returns
+- This function is already very simple, being just a direct accessor
+- Preserved the const char* return type for the static string
+- Maintained the direct access to the global SystemUser variable

@@ -40,3 +40,27 @@ The function is called in two main scenarios:
 - Works in conjunction with HandleNotifyInterrupt() to provide signal-safe interrupt handling
 - Part of PostgreSQL's asynchronous notification system for LISTEN/NOTIFY functionality
 - Located in src/backend/commands/async.c:1834-1850
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessNotifyInterrupt
+void ProcessNotifyInterrupt(bool flush) {
+    // Safety check: Only process notifications when truly idle
+    if (IsTransactionOrTransactionBlock()) {
+        return;  // Skip processing if inside transaction
+    }
+
+    // Process all pending notifications in a loop
+    // Loop handles case where new signals arrive during processing
+    while (notifyInterruptPending) {
+        ProcessIncomingNotify(flush);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core logic
+- Preserved the essential transaction safety check
+- Maintained the notification processing loop structure
+- Focused on the main execution path without losing functionality

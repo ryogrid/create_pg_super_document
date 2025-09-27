@@ -34,3 +34,21 @@ The function logs any errors that occur during detachment but does not treat the
 - Uses LOG level for error reporting rather than FATAL, allowing graceful shutdown even if detachment fails
 - The function converts the Datum parameter back to a pointer using DatumGetPointer()
 - Automatically registered by InternalIpcMemoryCreate to ensure cleanup occurs during process exit
+
+## Simplified Source
+
+```c
+// Simplified version of IpcMemoryDetach
+static void IpcMemoryDetach(int status, Datum shmaddr) {
+    // Detach the shared memory segment from current process
+    if (shmdt((void *) DatumGetPointer(shmaddr)) < 0) {
+        elog(LOG, "shmdt(%p) failed: %m", DatumGetPointer(shmaddr));
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the detachment operation
+- Preserved the callback function signature for on_shmem_exit
+- Maintained error logging for diagnostic purposes
+- Kept the original structure as function is already minimal

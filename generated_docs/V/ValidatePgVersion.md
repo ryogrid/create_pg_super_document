@@ -49,3 +49,56 @@ The function performs several validation steps:
 - Provides detailed error messages to help administrators diagnose version mismatch issues
 - The PG_VERSION file is a simple text file containing the PostgreSQL version string
 - Used during both normal startup and various administrative operations that require data directory access
+
+## Simplified Source
+
+```c
+// Simplified version of ValidatePgVersion
+void ValidatePgVersion(const char *path) {
+    char full_path[MAXPGPATH];
+    FILE *file;
+    long file_major, my_major;
+    char file_version_string[64];
+    const char *my_version_string = PG_VERSION;
+
+    // Extract major version from current server version
+    my_major = strtol(my_version_string, NULL, 10);
+
+    // Build path to PG_VERSION file
+    snprintf(full_path, sizeof(full_path), "%s/PG_VERSION", path);
+
+    // Open and read the version file
+    file = AllocateFile(full_path, "r");
+    if (!file) {
+        // Report appropriate error based on failure type
+        if (errno == ENOENT)
+            ereport(FATAL, "Data directory invalid - PG_VERSION missing");
+        else
+            ereport(FATAL, "Could not open PG_VERSION file");
+    }
+
+    // Read version string from file
+    if (fscanf(file, "%63s", file_version_string) != 1) {
+        FreeFile(file);
+        ereport(FATAL, "PG_VERSION file contains invalid data");
+    }
+
+    FreeFile(file);
+
+    // Extract major version from file
+    file_major = strtol(file_version_string, NULL, 10);
+
+    // Compare major versions for compatibility
+    if (my_major != file_major) {
+        ereport(FATAL, "Database version incompatible with server version");
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error message formatting for clarity
+- Consolidated error handling paths
+- Simplified variable declarations and initialization
+- Focused on the main logic flow: read version, parse major version, compare
+- Removed complex error reporting details while preserving the essential validation logic
+- Abstracted the specific error codes and detailed messages

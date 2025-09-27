@@ -31,3 +31,20 @@ This function takes no parameters and returns a Size value representing the requ
 - The function is part of PostgreSQL's shared memory subsystem initialization
 - Used during server startup to determine total shared memory requirements
 - The actual memory layout includes the ss_scan_locations_t structure plus space for SYNC_SCAN_NELEM ss_lru_item_t entries
+
+## Simplified Source
+
+```c
+// Simplified version of SyncScanShmemSize
+Size SyncScanShmemSize(void) {
+    // Calculate memory needed for synchronized scan tracking
+    // Returns size for LRU cache of scan positions (20 elements max)
+    return SizeOfScanLocations(SYNC_SCAN_NELEM);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core purpose
+- Clarified that it calculates memory for LRU cache of scan positions
+- Noted the maximum element limit (SYNC_SCAN_NELEM = 20)
+- Function is already quite simple, so main improvement is documentation clarity

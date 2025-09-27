@@ -31,3 +31,18 @@ This function provides a simple way to check if the currently executing process 
 - The launcher_pid field is set to MyProcPid when the launcher starts in ApplyLauncherMain
 - Used primarily for conditional logic in interrupt processing and other shared code paths
 - The function assumes that LogicalRepCtx has been properly initialized
+
+## Simplified Source
+
+```c
+// Simplified version of IsLogicalLauncher
+bool IsLogicalLauncher(void) {
+    // Check if current process is the logical replication launcher
+    return LogicalRepCtx->launcher_pid == MyProcPid;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, minimal changes needed
+- Added descriptive comment explaining the purpose
+- Maintained the essential PID comparison logic

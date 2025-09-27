@@ -30,3 +30,26 @@ This utility function computes the smallest power of 2 that is greater than or e
 - The function ensures thread safety by using only local variables and calling safe utility functions
 - Powers of 2 are particularly important in hash table implementations for efficient modulo operations using bitwise AND
 - The INT_MAX/2 bound prevents overflow when the result is computed using bit shifting (1 << result)
+
+## Simplified Source
+
+```c
+// Simplified version of next_pow2_int
+static int next_pow2_int(long input_number) {
+    // Step 1: Prevent integer overflow by capping the input
+    if (input_number > INT_MAX / 2) {
+        input_number = INT_MAX / 2;
+    }
+
+    // Step 2: Calculate next power of 2 using bit shifting
+    // my_log2() finds the position of the highest bit
+    // Then 1 << position gives us the next power of 2
+    return 1 << my_log2(input_number);
+}
+```
+
+Key simplifications made:
+- Renamed parameter from `num` to `input_number` for clarity
+- Added explanatory comments for each logical step
+- Explained the relationship between my_log2() and bit shifting
+- Maintained the essential bounds checking and power-of-2 calculation logic

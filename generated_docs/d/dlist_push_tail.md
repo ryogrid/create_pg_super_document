@@ -44,3 +44,35 @@ The  function adds a new node to the back of a doubly-linked list by updating th
 - The node being inserted should not already be part of another list to avoid corruption
 - Complements  for queue-like FIFO operations when used together
 - Located in src/include/lib/ilist.h:364-380
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_push_tail
+static inline void
+dlist_push_tail(dlist_head *head, dlist_node *node)
+{
+    // Step 1: Initialize list if it's empty (NULL header)
+    if (head->head.next == NULL) {
+        dlist_init(head);
+    }
+
+    // Step 2: Set new node's pointers
+    node->next = &head->head;        // Point to head (circular)
+    node->prev = head->head.prev;    // Point to current tail
+
+    // Step 3: Update existing tail and head pointers
+    node->prev->next = node;         // Old tail now points to new node
+    head->head.prev = node;          // Head's prev points to new tail
+
+    // Step 4: Validate list integrity (debug builds only)
+    dlist_check(head);
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the insertion process
+- Preserved all essential pointer manipulation logic
+- Kept the automatic list initialization for uninitialized lists
+- Maintained the integrity check call
+- Focused on the core algorithm: setting up circular doubly-linked list pointers

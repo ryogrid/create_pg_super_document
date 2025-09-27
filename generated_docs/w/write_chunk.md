@@ -37,3 +37,25 @@ The function is marked as , indicating it's only used within the same source fil
 - This pattern allows for bulk writing operations where errors are checked once at the end
 - The function is part of the statistics file I/O infrastructure
 - Used in both statistics persistence and shared tuple store functionality
+
+## Simplified Source
+
+```c
+// Simplified version of write_chunk
+static void write_chunk(FILE *fpout, void *ptr, size_t len) {
+    int rc;
+
+    // Write data chunk to file stream
+    rc = fwrite(ptr, len, 1, fpout);
+
+    // Error checking deferred to caller (ferror check later)
+    (void) rc;
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the purpose of the function
+- Maintained the deferred error checking pattern
+- Preserved the intentional casting of return value to void
+- Focused on the simple file writing operation
+- Documented the error handling strategy

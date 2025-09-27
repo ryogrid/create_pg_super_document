@@ -35,3 +35,20 @@ The function is specifically designed for use by the replication subsystem and b
 - Used extensively throughout the replication subsystem (walsender.c)
 - Part of the PostgreSQL replication protocol infrastructure
 - Always sends messages to remote clients (no local destination handling needed)
+
+## Simplified Source
+
+```c
+// Simplified version of EndReplicationCommand
+void EndReplicationCommand(const char *commandTag) {
+    // Send completion message to replication client
+    // Uses PostgreSQL protocol message format with CommandComplete type
+    pq_putmessage(PqMsg_CommandComplete, commandTag, strlen(commandTag) + 1);
+}
+```
+
+Key simplifications made:
+- Function is already minimal - no simplification needed for core logic
+- Added explanatory comments for clarity
+- The function is intentionally simple as a stripped-down version of EndCommand
+- Focuses solely on sending protocol completion messages for replication commands

@@ -37,3 +37,27 @@ IsPartialXLogFileName checks if a filename represents a partial WAL segment file
 - Critical during WAL streaming replication and archive recovery processes
 - Ensures proper handling of partial WAL files that shouldn't be treated as complete segments
 - The validation pattern is TTTTTTTTFFFFFFFFSSSSSSSS.partial where the first 24 chars are hexadecimal
+
+## Simplified Source
+
+```c
+// Simplified version of IsPartialXLogFileName
+static inline bool IsPartialXLogFileName(const char *fname) {
+    // Check if filename has correct total length (24 chars + ".partial")
+    if (strlen(fname) != XLOG_FNAME_LEN + strlen(".partial"))
+        return false;
+
+    // Check if first 24 characters are valid hexadecimal
+    if (strspn(fname, "0123456789ABCDEF") != XLOG_FNAME_LEN)
+        return false;
+
+    // Check if filename ends with ".partial" suffix
+    return strcmp(fname + XLOG_FNAME_LEN, ".partial") == 0;
+}
+```
+
+Key simplifications made:
+- Broke down the compound condition into clear, sequential checks
+- Added early returns for better readability
+- Emphasized the three validation criteria: length, hex digits, suffix
+- Maintained the exact same logic while improving code clarity

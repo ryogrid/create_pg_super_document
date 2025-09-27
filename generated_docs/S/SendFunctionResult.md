@@ -44,3 +44,62 @@ SendFunctionResult is responsible for formatting and transmitting function call 
 - Memory allocated for output strings/bytes is properly freed using pfree()
 - For NULL values, sends -1 as the length indicator
 - Binary format handling involves extracting the actual data from the bytea structure using VARDATA and VARSIZE macros
+
+## Simplified Source
+
+```c
+// Simplified version of SendFunctionResult
+static void SendFunctionResult(Datum retval, bool isnull, Oid rettype, int16 format) {
+    StringInfoData buf;
+
+    // Start building the function call response message
+    pq_beginmessage(&buf, PqMsg_FunctionCallResponse);
+
+    if (isnull) {
+        // Send NULL indicator (-1 length)
+        pq_sendint32(&buf, -1);
+    }
+    else {
+        if (format == 0) {
+            // Text format: convert value to string representation
+            Oid typoutput;
+            bool typisvarlena;
+            char *outputstr;
+
+            getTypeOutputInfo(rettype, &typoutput, &typisvarlena);
+            outputstr = OidOutputFunctionCall(typoutput, retval);
+            pq_sendcountedtext(&buf, outputstr, strlen(outputstr));
+            pfree(outputstr);
+        }
+        else if (format == 1) {
+            // Binary format: convert value to binary representation
+            Oid typsend;
+            bool typisvarlena;
+            bytea *outputbytes;
+
+            getTypeBinaryOutputInfo(rettype, &typsend, &typisvarlena);
+            outputbytes = OidSendFunctionCall(typsend, retval);
+
+            // Send binary data length and content
+            pq_sendint32(&buf, VARSIZE(outputbytes) - VARHDRSZ);
+            pq_sendbytes(&buf, VARDATA(outputbytes), VARSIZE(outputbytes) - VARHDRSZ);
+            pfree(outputbytes);
+        }
+        else {
+            // Invalid format code
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("unsupported format code: %d", format)));
+        }
+    }
+
+    // Complete and send the message
+    pq_endmessage(&buf);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major logic block
+- Preserved the essential three-way branching logic (NULL, text format, binary format)
+- Maintained all critical function calls and memory management
+- Kept the complete error handling for invalid format codes
+- Focused on the main execution paths without removing functionality

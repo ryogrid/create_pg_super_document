@@ -40,3 +40,33 @@ This function generates the appropriate filesystem path for a database directory
 - Default tablespace path format: 'base/{dbOid}'
 - Custom tablespace path format: 'pg_tblspc/{spcOid}/{version}/{dbOid}'
 - Used extensively in database creation, movement, and WAL replay operations
+
+## Simplified Source
+
+```c
+// Simplified version of GetDatabasePath
+char *GetDatabasePath(Oid dbOid, Oid spcOid) {
+    // Global tablespace: shared system relations in "global" directory
+    if (spcOid == GLOBALTABLESPACE_OID) {
+        Assert(dbOid == 0);
+        return pstrdup("global");
+    }
+
+    // Default tablespace: regular databases under "base" directory
+    else if (spcOid == DEFAULTTABLESPACE_OID) {
+        return psprintf("base/%u", dbOid);
+    }
+
+    // Custom tablespaces: accessed via symbolic links
+    else {
+        return psprintf("pg_tblspc/%u/%s/%u",
+                        spcOid, TABLESPACE_VERSION_DIRECTORY, dbOid);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each path construction case
+- Maintained the three-way conditional logic for different tablespace types
+- Preserved all essential functionality including assertions and error checking
+- Focused on the core path construction algorithm

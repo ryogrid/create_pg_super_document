@@ -46,3 +46,51 @@ All events automatically include EPOLLERR and EPOLLHUP for error detection. The 
 - Includes workaround for historical epoll bugs by always passing epoll_ev structure
 - Validates that socket events have valid file descriptors and appropriate event flags
 - Reports detailed error messages on epoll_ctl failures using PostgreSQL's error reporting system
+
+## Simplified Source
+
+```c
+// Simplified version of WaitEventAdjustEpoll
+static void WaitEventAdjustEpoll(WaitEventSet *set, WaitEvent *event, int action) {
+    struct epoll_event epoll_ev;
+
+    // Core logic step 1: Set up event data pointer for epoll callback
+    epoll_ev.data.ptr = event;
+
+    // Core logic step 2: Always monitor for errors
+    epoll_ev.events = EPOLLERR | EPOLLHUP;
+
+    // Core logic step 3: Configure event type-specific monitoring
+    if (event->events == WL_LATCH_SET) {
+        // Monitor latch signals
+        epoll_ev.events |= EPOLLIN;
+    } else if (event->events == WL_POSTMASTER_DEATH) {
+        // Monitor postmaster death
+        epoll_ev.events |= EPOLLIN;
+    } else {
+        // Monitor socket events
+        if (event->events & WL_SOCKET_READABLE)
+            epoll_ev.events |= EPOLLIN;
+        if (event->events & WL_SOCKET_WRITEABLE)
+            epoll_ev.events |= EPOLLOUT;
+        if (event->events & WL_SOCKET_CLOSED)
+            epoll_ev.events |= EPOLLRDHUP;
+    }
+
+    // Core logic step 4: Execute epoll operation
+    int rc = epoll_ctl(set->epoll_fd, action, event->fd, &epoll_ev);
+
+    // Core logic step 5: Handle errors
+    if (rc < 0) {
+        ereport(ERROR, (errcode_for_socket_access(),
+                       errmsg("epoll_ctl() failed: %m")));
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity while preserving essential validation
+- Consolidated error handling into a single check
+- Added descriptive comments for each major logic step
+- Simplified variable declarations by combining them where appropriate
+- Focused on the main execution path without platform-specific workarounds

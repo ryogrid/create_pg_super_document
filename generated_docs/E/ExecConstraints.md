@@ -48,3 +48,100 @@ ExecConstraints is the primary function for enforcing traditional table constrai
 - Generates comprehensive error messages including tuple value descriptions limited to 64 characters
 - Uses appropriate error codes: ERRCODE_NOT_NULL_VIOLATION for NOT NULL violations and ERRCODE_CHECK_VIOLATION for check constraint failures
 - Handles both root tables and partitioned table scenarios with appropriate attribute mapping
+
+## Simplified Source
+
+```c
+// Simplified version of ExecConstraints
+void ExecConstraints(ResultRelInfo *resultRelInfo,
+                    TupleTableSlot *slot, EState *estate) {
+    Relation rel = resultRelInfo->ri_RelationDesc;
+    TupleDesc tupdesc = RelationGetDescr(rel);
+    TupleConstr *constr = tupdesc->constr;
+    Bitmapset *modifiedCols;
+
+    Assert(constr);  // Should only be called when constraints exist
+
+    // Phase 1: Check NOT NULL constraints
+    if (constr->has_not_null) {
+        int natts = tupdesc->natts;
+
+        for (int attrChk = 1; attrChk <= natts; attrChk++) {
+            Form_pg_attribute att = TupleDescAttr(tupdesc, attrChk - 1);
+
+            // Check if attribute has NOT NULL constraint and value is null
+            if (att->attnotnull && slot_attisnull(slot, attrChk)) {
+                Relation orig_rel = rel;
+
+                // Handle tuple format conversion for partitioned tables
+                if (resultRelInfo->ri_RootResultRelInfo) {
+                    // Convert partition tuple back to root table format for error reporting
+                    ResultRelInfo *rootrel = resultRelInfo->ri_RootResultRelInfo;
+                    AttrMap *map = build_attribute_mapping(tupdesc, rootrel);
+
+                    if (map != NULL) {
+                        slot = convert_slot_format(map, slot, rootrel);
+                    }
+
+                    modifiedCols = get_modified_columns(rootrel, estate);
+                    rel = rootrel->ri_RelationDesc;
+                } else {
+                    modifiedCols = get_modified_columns(resultRelInfo, estate);
+                }
+
+                // Build error description and report NOT NULL violation
+                char *val_desc = ExecBuildSlotValueDescription(rel, slot, tupdesc,
+                                                             modifiedCols, 64);
+
+                ereport(ERROR,
+                       (errcode(ERRCODE_NOT_NULL_VIOLATION),
+                        errmsg("null value in column \"%s\" violates not-null constraint",
+                               NameStr(att->attname)),
+                        val_desc ? errdetail("Failing row contains %s.", val_desc) : 0));
+            }
+        }
+    }
+
+    // Phase 2: Check user-defined check constraints
+    if (rel->rd_rel->relchecks > 0) {
+        const char *failed_constraint = ExecRelCheck(resultRelInfo, slot, estate);
+
+        if (failed_constraint != NULL) {
+            Relation orig_rel = rel;
+
+            // Handle tuple format conversion for partitioned tables (same as above)
+            if (resultRelInfo->ri_RootResultRelInfo) {
+                ResultRelInfo *rootrel = resultRelInfo->ri_RootResultRelInfo;
+                AttrMap *map = build_attribute_mapping(tupdesc, rootrel);
+
+                if (map != NULL) {
+                    slot = convert_slot_format(map, slot, rootrel);
+                }
+
+                modifiedCols = get_modified_columns(rootrel, estate);
+                rel = rootrel->ri_RelationDesc;
+            } else {
+                modifiedCols = get_modified_columns(resultRelInfo, estate);
+            }
+
+            // Build error description and report check constraint violation
+            char *val_desc = ExecBuildSlotValueDescription(rel, slot, tupdesc,
+                                                         modifiedCols, 64);
+
+            ereport(ERROR,
+                   (errcode(ERRCODE_CHECK_VIOLATION),
+                    errmsg("new row violates check constraint \"%s\"", failed_constraint),
+                    val_desc ? errdetail("Failing row contains %s.", val_desc) : 0));
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated duplicate tuple format conversion code into conceptual helper functions
+- Removed detailed low-level attribute mapping operations for clarity
+- Simplified variable declarations and combined related operations
+- Abstracted complex tuple format conversion with descriptive function names
+- Maintained the two-phase validation structure (NOT NULL, then check constraints)
+- Preserved essential error reporting with appropriate error codes
+- Focused on the main execution path while noting partition handling complexity

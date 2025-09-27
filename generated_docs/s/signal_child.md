@@ -39,3 +39,34 @@ signal_child is a robust utility function for sending signals to PostgreSQL chil
 - Critical for ensuring reliable shutdown of archive scripts, background workers, and user scripts
 - Provides debug logging for signal delivery failures to aid in system troubleshooting
 - Assumes that duplicate signal delivery is safe and handled properly by receiving processes
+
+## Simplified Source
+
+```c
+// Simplified version of signal_child
+static void signal_child(pid_t pid, int signal) {
+    // Step 1: Send signal directly to the child process
+    if (kill(pid, signal) < 0) {
+        elog(DEBUG3, "kill(%ld,%d) failed: %m", (long) pid, signal);
+    }
+
+    // Step 2: For critical signals, also signal the process group
+    // This ensures subprocesses (scripts, system() calls) also receive the signal
+    if (signal == SIGINT || signal == SIGTERM || signal == SIGQUIT ||
+        signal == SIGKILL || signal == SIGABRT) {
+
+        // Send to process group (negative PID)
+        if (kill(-pid, signal) < 0) {
+            elog(DEBUG3, "kill(%ld,%d) failed: %m", (long) (-pid), signal);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed HAVE_SETSID conditional compilation for clarity
+- Consolidated switch statement into simple if condition
+- Added clear comments explaining the two-step signaling approach
+- Focused on the main logic: direct child signaling + process group signaling
+- Preserved error handling and debug logging
+- Maintained the essential dual-signaling strategy for handling race conditions

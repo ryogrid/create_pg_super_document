@@ -37,3 +37,37 @@ This function provides a last-ditch effort to inform a client when the postmaste
 - Part of PostgreSQL's graceful connection handling even during failure scenarios
 - Buffer size of 1000 characters should be sufficient for typical error messages
 - The +1 in strlen() includes the null terminator in the transmission
+
+## Simplified Source
+
+```c
+// Simplified version of report_fork_failure_to_client
+static void report_fork_failure_to_client(ClientSocket *client_sock, int errnum) {
+    char buffer[1000];
+    int send_result;
+
+    // Step 1: Format error message using V2 protocol
+    snprintf(buffer, sizeof(buffer), "E%s%s\n",
+             "could not fork new process for connection: ",
+             strerror(errnum));
+
+    // Step 2: Set socket to non-blocking mode (safety check)
+    if (!pg_set_noblock(client_sock->sock)) {
+        return; // Abort if we can't make it non-blocking
+    }
+
+    // Step 3: Attempt to send error message (retry only on interrupts)
+    do {
+        send_result = send(client_sock->sock, buffer, strlen(buffer) + 1, 0);
+    } while (send_result < 0 && errno == EINTR);
+
+    // Note: Function exits regardless of send success/failure
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Used more readable variable name (send_result vs rc)
+- Clarified the retry logic with explicit comment
+- Simplified the error message formatting explanation
+- Emphasized the non-blocking safety approach

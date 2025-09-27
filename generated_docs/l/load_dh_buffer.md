@@ -36,3 +36,38 @@ This function serves as a fallback mechanism for loading DH parameters when the 
 - Serves as a reliability mechanism to ensure SSL/TLS connections can be established even without custom DH parameter files
 - The unconstify() call is necessary due to OpenSSL API requirements for non-const char* parameters
 - Part of PostgreSQL's SSL/TLS fallback strategy for robust secure connection handling
+
+## Simplified Source
+
+```c
+// Simplified version of load_dh_buffer
+static DH *load_dh_buffer(const char *buffer, size_t len) {
+    BIO *bio;
+    DH *dh = NULL;
+
+    // Step 1: Create memory BIO from buffer
+    bio = BIO_new_mem_buf(unconstify(char *, buffer), len);
+    if (bio == NULL)
+        return NULL;
+
+    // Step 2: Read DH parameters from the BIO
+    dh = PEM_read_bio_DHparams(bio, NULL, NULL, NULL);
+    if (dh == NULL) {
+        // Log error at DEBUG2 level (non-critical)
+        ereport(DEBUG2, (errmsg_internal("DH load buffer: %s",
+                                        SSLerrmessage(ERR_get_error()))));
+    }
+
+    // Step 3: Clean up BIO resource
+    BIO_free(bio);
+
+    return dh;
+}
+```
+
+Key simplifications made:
+- Preserved the essential three-step process: create BIO, read DH params, cleanup
+- Maintained all critical error handling and logging
+- Kept the OpenSSL-specific unconstify() call for API compatibility
+- Retained DEBUG2 logging level to show this is a fallback mechanism
+- Focused on the main execution path while preserving error conditions

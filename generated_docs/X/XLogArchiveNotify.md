@@ -43,3 +43,48 @@ The function includes special handling for timeline history files, which receive
 - Critical for the continuous archiving feature that enables point-in-time recovery
 - The .ready/.done mechanism provides a reliable way to track archival status and prevent duplicate archival attempts
 - Errors in creating notification files are logged but not fatal, allowing the system to continue operation
+
+## Simplified Source
+
+```c
+// Simplified version of XLogArchiveNotify
+void XLogArchiveNotify(const char *xlog) {
+    char archiveStatusPath[MAXPGPATH];
+    FILE *fd;
+
+    // Step 1: Create the .ready file path
+    StatusFilePath(archiveStatusPath, xlog, ".ready");
+
+    // Step 2: Create an empty .ready file to notify archiver
+    fd = AllocateFile(archiveStatusPath, "w");
+    if (fd == NULL) {
+        // Log error but continue - non-fatal
+        ereport(LOG, (errmsg("could not create archive status file")));
+        return;
+    }
+
+    // Step 3: Close the file (content doesn't matter, just existence)
+    if (FreeFile(fd)) {
+        // Log error but continue - non-fatal
+        ereport(LOG, (errmsg("could not write archive status file")));
+        return;
+    }
+
+    // Step 4: Special handling for timeline history files - force immediate scan
+    if (IsTLHistoryFileName(xlog)) {
+        PgArchForceDirScan();
+    }
+
+    // Step 5: Wake up the archiver process if we're under postmaster
+    if (IsUnderPostmaster) {
+        PgArchWakeup();
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error message formatting for clarity
+- Consolidated error handling logic
+- Added step-by-step comments explaining the workflow
+- Focused on the main execution path
+- Preserved all essential functionality and logic flow

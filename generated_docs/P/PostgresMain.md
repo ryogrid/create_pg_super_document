@@ -140,6 +140,328 @@ struct.  The reason is that this is the bottom of the
 	/* We can now handle ereport(ERROR) */
 	PG_exception_stack = &local_sigjmp_buf;
 ```
+
+## Simplified Source
+
+```c
+// Simplified version of PostgresMain
+void PostgresMain(const char *dbname, const char *username) {
+    sigjmp_buf local_sigjmp_buf;
+    volatile bool send_ready_for_query = true;
+    volatile bool idle_in_transaction_timeout_enabled = false;
+    volatile bool idle_session_timeout_enabled = false;
+
+    // Core initialization: Set up signal handlers
+    SetProcessingMode(InitProcessing);
+    if (am_walsender) {
+        WalSndSignals();
+    } else {
+        // Set up standard signal handlers for regular backends
+        pqsignal(SIGHUP, SignalHandlerForConfigReload);
+        pqsignal(SIGINT, StatementCancelHandler);
+        pqsignal(SIGTERM, die);
+        pqsignal(SIGQUIT, IsUnderPostmaster ? quickdie : die);
+        InitializeTimeouts();
+        pqsignal(SIGPIPE, SIG_IGN);
+        pqsignal(SIGUSR1, procsignal_sigusr1_handler);
+        // ... other signal handlers
+    }
+
+    // Core initialization: Basic setup and database connection
+    BaseInit();
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+    InitPostgres(dbname, InvalidOid, username, InvalidOid,
+                 (!am_walsender) ? INIT_PG_LOAD_SESSION_LIBS : 0, NULL);
+
+    // Clean up postmaster context and finalize initialization
+    if (PostmasterContext) {
+        MemoryContextDelete(PostmasterContext);
+        PostmasterContext = NULL;
+    }
+    SetProcessingMode(NormalProcessing);
+    BeginReportingGUCOptions();
+
+    // Set up memory contexts for message processing
+    MessageContext = AllocSetContextCreate(TopMemoryContext, "MessageContext",
+                                         ALLOCSET_DEFAULT_SIZES);
+    row_description_context = AllocSetContextCreate(TopMemoryContext,
+                                                  "RowDescriptionContext",
+                                                  ALLOCSET_DEFAULT_SIZES);
+
+    // Send backend key data to client for cancellation support
+    if (whereToSendOutput == DestRemote) {
+        StringInfoData buf;
+        pq_beginmessage(&buf, PqMsg_BackendKeyData);
+        pq_sendint32(&buf, (int32) MyProcPid);
+        pq_sendint32(&buf, (int32) MyCancelKey);
+        pq_endmessage(&buf);
+    }
+
+    // Fire login event triggers
+    EventTriggerOnLogin();
+
+    // Main exception handling setup - if error occurs, jump here for recovery
+    if (sigsetjmp(local_sigjmp_buf, 1) != 0) {
+        // Error recovery: Clean up state and abort current transaction
+        error_context_stack = NULL;
+        HOLD_INTERRUPTS();
+
+        // Reset timeouts and cancel pending operations
+        disable_all_timeouts(false);
+        QueryCancelPending = false;
+        idle_in_transaction_timeout_enabled = false;
+        idle_session_timeout_enabled = false;
+        DoingCommandRead = false;
+
+        // Clean up communication and report error
+        pq_comm_reset();
+        EmitErrorReport();
+        debug_query_string = NULL;
+
+        // Abort current transaction and clean up resources
+        AbortCurrentTransaction();
+        if (am_walsender) WalSndErrorCleanup();
+        PortalErrorCleanup();
+        if (MyReplicationSlot != NULL) ReplicationSlotRelease();
+        ReplicationSlotCleanup(false);
+        jit_reset_after_error();
+
+        // Return to normal context and reset error state
+        MemoryContextSwitchTo(TopMemoryContext);
+        FlushErrorState();
+
+        // Handle protocol state recovery
+        if (doing_extended_query_message) ignore_till_sync = true;
+        xact_started = false;
+
+        // Check for unrecoverable protocol errors
+        if (pq_is_reading_msg()) {
+            ereport(FATAL, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                          errmsg("terminating connection because protocol synchronization was lost")));
+        }
+
+        RESUME_INTERRUPTS();
+    }
+
+    // Enable error handling for main loop
+    PG_exception_stack = &local_sigjmp_buf;
+    if (!ignore_till_sync) send_ready_for_query = true;
+
+    // Main command processing loop
+    for (;;) {
+        int firstchar;
+        StringInfoData input_message;
+
+        doing_extended_query_message = false;
+
+        // Prepare for next command: reset memory context and create input buffer
+        MemoryContextSwitchTo(MessageContext);
+        MemoryContextReset(MessageContext);
+        initStringInfo(&input_message);
+        InvalidateCatalogSnapshotConditionally();
+
+        // Send ReadyForQuery if needed and handle idle state
+        if (send_ready_for_query) {
+            if (IsAbortedTransactionBlockState()) {
+                set_ps_display("idle in transaction (aborted)");
+                pgstat_report_activity(STATE_IDLEINTRANSACTION_ABORTED, NULL);
+                // Enable idle-in-transaction timeout if configured
+                if (IdleInTransactionSessionTimeout > 0) {
+                    idle_in_transaction_timeout_enabled = true;
+                    enable_timeout_after(IDLE_IN_TRANSACTION_SESSION_TIMEOUT,
+                                       IdleInTransactionSessionTimeout);
+                }
+            } else if (IsTransactionOrTransactionBlock()) {
+                set_ps_display("idle in transaction");
+                pgstat_report_activity(STATE_IDLEINTRANSACTION, NULL);
+                // Enable idle-in-transaction timeout if configured
+                if (IdleInTransactionSessionTimeout > 0) {
+                    idle_in_transaction_timeout_enabled = true;
+                    enable_timeout_after(IDLE_IN_TRANSACTION_SESSION_TIMEOUT,
+                                       IdleInTransactionSessionTimeout);
+                }
+            } else {
+                // Handle notifications and statistics reporting
+                if (notifyInterruptPending) ProcessNotifyInterrupt(false);
+
+                // Report statistics if needed
+                long stats_timeout = pgstat_report_stat(false);
+                if (stats_timeout > 0) {
+                    if (!get_timeout_active(IDLE_STATS_UPDATE_TIMEOUT)) {
+                        enable_timeout_after(IDLE_STATS_UPDATE_TIMEOUT, stats_timeout);
+                    }
+                } else {
+                    if (get_timeout_active(IDLE_STATS_UPDATE_TIMEOUT)) {
+                        disable_timeout(IDLE_STATS_UPDATE_TIMEOUT, false);
+                    }
+                }
+
+                set_ps_display("idle");
+                pgstat_report_activity(STATE_IDLE, NULL);
+
+                // Enable idle session timeout if configured
+                if (IdleSessionTimeout > 0) {
+                    idle_session_timeout_enabled = true;
+                    enable_timeout_after(IDLE_SESSION_TIMEOUT, IdleSessionTimeout);
+                }
+            }
+
+            ReportChangedGUCOptions();
+            ReadyForQuery(whereToSendOutput);
+            send_ready_for_query = false;
+        }
+
+        // Read command from client
+        DoingCommandRead = true;
+        firstchar = ReadCommand(&input_message);
+
+        // Disable timeouts after receiving command
+        if (idle_in_transaction_timeout_enabled) {
+            disable_timeout(IDLE_IN_TRANSACTION_SESSION_TIMEOUT, false);
+            idle_in_transaction_timeout_enabled = false;
+        }
+        if (idle_session_timeout_enabled) {
+            disable_timeout(IDLE_SESSION_TIMEOUT, false);
+            idle_session_timeout_enabled = false;
+        }
+
+        CHECK_FOR_INTERRUPTS();
+        DoingCommandRead = false;
+
+        // Handle configuration reload if pending
+        if (ConfigReloadPending) {
+            ConfigReloadPending = false;
+            ProcessConfigFile(PGC_SIGHUP);
+        }
+
+        // Skip processing if ignoring until Sync message
+        if (ignore_till_sync && firstchar != EOF) continue;
+
+        // Process the command based on message type
+        switch (firstchar) {
+            case PqMsg_Query: {
+                // Simple query protocol
+                const char *query_string;
+                SetCurrentStatementStartTimestamp();
+                query_string = pq_getmsgstring(&input_message);
+                pq_getmsgend(&input_message);
+
+                if (am_walsender) {
+                    if (!exec_replication_command(query_string)) {
+                        exec_simple_query(query_string);
+                    }
+                } else {
+                    exec_simple_query(query_string);
+                }
+
+                send_ready_for_query = true;
+                break;
+            }
+
+            case PqMsg_Parse: {
+                // Extended query protocol: Parse
+                forbidden_in_wal_sender(firstchar);
+                SetCurrentStatementStartTimestamp();
+                // Extract statement name, query string, and parameters
+                // Execute parse operation
+                break;
+            }
+
+            case PqMsg_Bind:
+                // Extended query protocol: Bind parameters
+                forbidden_in_wal_sender(firstchar);
+                SetCurrentStatementStartTimestamp();
+                exec_bind_message(&input_message);
+                break;
+
+            case PqMsg_Execute: {
+                // Extended query protocol: Execute
+                forbidden_in_wal_sender(firstchar);
+                SetCurrentStatementStartTimestamp();
+                const char *portal_name = pq_getmsgstring(&input_message);
+                int max_rows = pq_getmsgint(&input_message, 4);
+                pq_getmsgend(&input_message);
+                exec_execute_message(portal_name, max_rows);
+                break;
+            }
+
+            case PqMsg_FunctionCall:
+                // Fast-path function call
+                forbidden_in_wal_sender(firstchar);
+                SetCurrentStatementStartTimestamp();
+                pgstat_report_activity(STATE_FASTPATH, NULL);
+                set_ps_display("<FASTPATH>");
+                start_xact_command();
+                MemoryContextSwitchTo(MessageContext);
+                HandleFunctionRequest(&input_message);
+                finish_xact_command();
+                send_ready_for_query = true;
+                break;
+
+            case PqMsg_Close:
+                // Close prepared statement or portal
+                forbidden_in_wal_sender(firstchar);
+                // Handle close request
+                break;
+
+            case PqMsg_Describe:
+                // Describe prepared statement or portal
+                forbidden_in_wal_sender(firstchar);
+                SetCurrentStatementStartTimestamp();
+                // Handle describe request
+                break;
+
+            case PqMsg_Flush:
+                // Flush output buffer
+                pq_getmsgend(&input_message);
+                if (whereToSendOutput == DestRemote) pq_flush();
+                break;
+
+            case PqMsg_Sync:
+                // Synchronize extended query protocol
+                pq_getmsgend(&input_message);
+                finish_xact_command();
+                send_ready_for_query = true;
+                break;
+
+            case EOF:
+                // Client disconnected
+                pgStatSessionEndCause = DISCONNECT_CLIENT_EOF;
+                // Fall through to terminate
+
+            case PqMsg_Terminate:
+                // Client requested termination
+                if (whereToSendOutput == DestRemote) {
+                    whereToSendOutput = DestNone;
+                }
+                proc_exit(0);
+
+            case PqMsg_CopyData:
+            case PqMsg_CopyDone:
+            case PqMsg_CopyFail:
+                // Ignore copy messages during error recovery
+                break;
+
+            default:
+                // Invalid message type
+                ereport(FATAL, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                              errmsg("invalid frontend message type %d", firstchar)));
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for clarity while preserving essential error recovery logic
+- Consolidated similar timeout handling branches
+- Abstracted low-level protocol message parsing details
+- Focused on the main execution flow and core functionality
+- Simplified signal handler setup while maintaining the essential handlers
+- Streamlined memory context management
+- Condensed extended query protocol cases while showing the essential structure
+- Preserved the critical setjmp/longjmp error recovery mechanism
+- Maintained the infinite command processing loop structure
+
 ## Detailed Description
 PostgresMain is the heart of PostgreSQL's backend processing system. It serves as the main loop for all backend processes, whether they are regular client-serving backends or WAL sender processes. The function is responsible for the complete lifecycle of backend operations including initialization, signal handling, command processing, error recovery, and cleanup.
 

@@ -37,3 +37,39 @@ This function performs critical validation of PostgreSQL's internal date/time to
 - The ordering validation is critical because date/time token lookup uses binary search for performance
 - Validates both token length constraints and lexicographic ordering in a single pass
 - Used during postmaster startup to ensure system integrity before accepting connections
+
+## Simplified Source
+
+```c
+// Simplified version of CheckDateTokenTable
+static bool CheckDateTokenTable(const char *tablename, const datetkn *base, int nel) {
+    bool ok = true;
+
+    // Iterate through all tokens in the table
+    for (int i = 0; i < nel; i++) {
+        // Check 1: Verify token length doesn't exceed maximum
+        if (strlen(base[i].token) > TOKMAXLEN) {
+            elog(LOG, "token too long in %s table: \"%.*s\"",
+                 tablename, TOKMAXLEN + 1, base[i].token);
+            ok = false;
+            break;  // Stop checking to avoid strcmp on invalid data
+        }
+
+        // Check 2: Verify tokens are in sorted order
+        if (i > 0 && strcmp(base[i - 1].token, base[i].token) >= 0) {
+            elog(LOG, "ordering error in %s table: \"%s\" >= \"%s\"",
+                 tablename, base[i - 1].token, base[i].token);
+            ok = false;
+        }
+    }
+
+    return ok;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations with initialization
+- Added inline comments explaining the two main validation checks
+- Simplified the loop structure while preserving all logic
+- Maintained all error handling and early termination behavior
+- Preserved the critical safety check that prevents strcmp on invalid tokens

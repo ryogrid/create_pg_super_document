@@ -43,3 +43,33 @@ The function uses proper memory alignment (MAXALIGN) and safe size addition (add
 - The calculated size includes space for both hash tables that will store custom wait event definitions
 - Uses safe arithmetic functions to prevent integer overflow in size calculations
 - The memory layout includes proper alignment considerations for optimal performance
+
+## Simplified Source
+
+```c
+// Simplified version of WaitEventCustomShmemSize
+Size WaitEventCustomShmemSize(void) {
+    Size total_size;
+
+    // Step 1: Start with aligned size of counter data structure
+    total_size = MAXALIGN(sizeof(WaitEventCustomCounterData));
+
+    // Step 2: Add space for hash table storing entries by event info
+    total_size = add_size(total_size,
+                         hash_estimate_size(WAIT_EVENT_CUSTOM_HASH_MAX_SIZE,
+                                           sizeof(WaitEventCustomEntryByInfo)));
+
+    // Step 3: Add space for hash table storing entries by event name
+    total_size = add_size(total_size,
+                         hash_estimate_size(WAIT_EVENT_CUSTOM_HASH_MAX_SIZE,
+                                           sizeof(WaitEventCustomEntryByName)));
+
+    return total_size;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name (total_size instead of sz)
+- Added step-by-step comments explaining each memory calculation
+- Reformatted for better readability while preserving exact logic
+- Maintained all safety features (MAXALIGN, add_size) from original
