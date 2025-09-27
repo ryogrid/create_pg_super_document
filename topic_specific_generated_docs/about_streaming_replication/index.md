@@ -8,11 +8,11 @@ This documentation provides detailed implementation analysis of PostgreSQL's str
 
 > **Foundation Documentation**: This detailed implementation guide builds upon the conceptual foundation provided in the existing WAL documentation:
 >
-> - **Architectural Overview**: [WAL Complete Documentation](../topic_specific_generated_docs/about_wal/wal_complete_documentation.md)
+> - **Architectural Overview**: [WAL Complete Documentation](../about_wal/wal_complete_documentation.md)
 > - **Component Overviews**:
->   - [Replication Sender Component](../topic_specific_generated_docs/about_wal/component_replication_sender.md)
->   - [Replication Receiver Component](../topic_specific_generated_docs/about_wal/component_replication_receiver.md)
->   - [Recovery Component](../topic_specific_generated_docs/about_wal/component_recovery.md)
+>   - [Replication Sender Component](../about_wal/component_replication_sender.md)
+>   - [Replication Receiver Component](../about_wal/component_replication_receiver.md)
+>   - [Recovery Component](../about_wal/component_recovery.md)
 
 ## Scope and Focus
 
