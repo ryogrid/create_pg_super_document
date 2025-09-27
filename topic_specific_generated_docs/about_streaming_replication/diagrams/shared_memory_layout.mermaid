@@ -12,7 +12,7 @@ graph LR
         end
 
         subgraph "Individual WalSnd"
-            WS_PID[Process Info<br/>- pid<br/>- state (STARTUP/CATCHUP/STREAMING)]
+            WS_PID[Process Info<br/>- pid<br/>- state "(STARTUP/CATCHUP/STREAMING)"]
             WS_POSITIONS[WAL Positions<br/>- sentPtr<br/>- write, flush, apply<br/>- sync_standby_priority]
             WS_SYNC[Synchronization<br/>- mutex (spinlock)<br/>- latch<br/>- replyTime]
         end
@@ -78,4 +78,4 @@ graph LR
     class XLC_INSERT,XLC_WRITE highContention
     class WS_POSITIONS,WRC_POSITIONS mediumContention
     class WS_PID,WRC_PROC,XRC_TIME lowContention
-    class WS_SYNC,WRC_LOCK,XRC_LOCK,CP_SYNC,SCP_COORD coordinationStruct
+    class WS_SYNC,WRC_LOCK,XRC_LOCK,CP_SYNC,SCP_COORD coordinationStruct```
