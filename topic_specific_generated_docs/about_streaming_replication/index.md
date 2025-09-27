@@ -66,22 +66,8 @@ This documentation adds **implementation-specific value** not covered in the fou
    - Shared memory layout analysis
    - **Extends**: Existing data structure coverage with memory layout specifics
 
-2. **[Shared Memory Layout](implementation_details/shared_memory_layout.md)**
-   - Detailed memory organization
-
-3. **[Network Protocol Details](implementation_details/network_protocol_details.md)**
-   - Message format implementation
-
-4. **[Performance Constraints](implementation_details/performance_constraints.md)**
-   - Quantified performance characteristics
-
 ### Diagrams
 - [Process Flow Diagrams](diagrams/) - All mermaid diagrams with detailed state machines
-
-### Reference Materials
-1. **[Symbol Reference](appendices/symbol_reference.md)** - Critical function analysis
-2. **[Configuration Parameters](appendices/configuration_parameters.md)** - Implementation-specific tuning
-3. **[Debugging Guide](appendices/debugging_guide.md)** - Implementation-level troubleshooting
 
 ## Integration Notes
 
@@ -114,13 +100,3 @@ This documentation adds **implementation-specific value** not covered in the fou
 - [XLogInsert to WalSender Wakeup](primary_side_processing/wal_generation_to_walsender.md#performance-constraints)
 - [Network Transmission Batching](primary_side_processing/walsender_transmission.md#network-efficiency)
 - [Standby Write and Flush](standby_side_processing/walreceiver_operations.md#write-performance)
-
-### Common Troubleshooting
-- [Lag Analysis](appendices/debugging_guide.md#lag-analysis)
-- [Connection Issues](appendices/debugging_guide.md#connection-troubleshooting)
-- [Performance Bottlenecks](implementation_details/performance_constraints.md#bottleneck-identification)
-
-### Configuration Tuning
-- [Buffer Size Optimization](appendices/configuration_parameters.md#buffer-management)
-- [Network Tuning](appendices/configuration_parameters.md#network-optimization)
-- [Timeout Configuration](appendices/configuration_parameters.md#timeout-management)
