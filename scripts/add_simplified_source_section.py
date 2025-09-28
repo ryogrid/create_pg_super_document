@@ -109,9 +109,9 @@ class FunctionSimplificationOrchestrator:
         """
         Build the combined prompt for Claude that includes both main task and subagent logic.
         """
-        doc_path = f'{doc_path}.md'
-        
-        prompt = f"""# Function Source Code Simplification Task
+        doc_path = f'generated_docs/{get_first_alnum_char(function_name)}/{function_name}.md'
+    
+        prompt = f"""# Function Soource Code Simplification Task
 
 You are processing the PostgreSQL function: **{function_name}**
 
