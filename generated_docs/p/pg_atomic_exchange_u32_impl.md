@@ -42,3 +42,22 @@ The generic fallback reads the current value and repeatedly attempts compare-and
 - Generic fallback uses compare-and-swap retry loop, allowing for potential performance differences
 - Part of PostgreSQL's portable atomic operations abstraction layer
 - Returns the previous value that was stored at the location
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_exchange_u32_impl
+static inline uint32
+pg_atomic_exchange_u32_impl(volatile pg_atomic_uint32 *ptr, uint32 newval)
+{
+    // Atomically exchange: store newval at ptr->value, return old value
+    // Uses hardware-level atomic exchange with sequential consistency
+    return __atomic_exchange_n(&ptr->value, newval, __ATOMIC_SEQ_CST);
+}
+```
+
+Key simplifications made:
+- This function is already highly optimized and minimal
+- Added explanatory comment about the atomic exchange operation
+- Preserved the essential GCC builtin call that provides thread-safe value exchange
+- Function relies on compiler intrinsic for platform-specific atomic implementation

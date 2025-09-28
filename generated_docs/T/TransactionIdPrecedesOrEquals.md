@@ -35,3 +35,26 @@ This function performs a logical comparison to determine if transaction ID `id1`
 - Used extensively in snapshot management, vacuum operations, and replication slot management
 - The `<= 0` comparison in the modulo arithmetic correctly handles both preceding and equal transaction IDs
 - Like `TransactionIdPrecedes`, assumes transaction IDs being compared are not more than 2^31 transactions apart
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionIdPrecedesOrEquals
+bool TransactionIdPrecedesOrEquals(TransactionId id1, TransactionId id2) {
+    // Handle special transaction IDs (InvalidTransactionId, BootstrapTransactionId, FrozenTransactionId)
+    if (!TransactionIdIsNormal(id1) || !TransactionIdIsNormal(id2)) {
+        return (id1 <= id2);  // Simple comparison for permanent XIDs
+    }
+
+    // Use modular arithmetic for normal transaction IDs to handle wraparound
+    int32 diff = (int32)(id1 - id2);
+    return (diff <= 0);  // True if id1 precedes or equals id2
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Clarified the purpose of checking TransactionIdIsNormal()
+- Explained the modular arithmetic approach for handling transaction ID wraparound
+- Made the <= 0 comparison logic more explicit in comments
+- Preserved the essential algorithm while making it more readable

@@ -42,3 +42,32 @@ Usually, this function is only used for attributes that could be NULL or variabl
 - For pass-by-reference types, returns a pointer into the tuple data area that must not be modified or freed by the caller
 - Part of PostgreSQL's system catalog caching infrastructure, widely used throughout the system for accessing catalog metadata
 - The tuple descriptor is obtained from the cache entry's cc_tupdesc field
+
+## Simplified Source
+
+```c
+// Simplified version of SysCacheGetAttr
+Datum SysCacheGetAttr(int cacheId, HeapTuple tup,
+                      AttrNumber attributeNumber, bool *isNull)
+{
+    // Validate cache ID is within valid range
+    if (cacheId < 0 || cacheId >= SysCacheSize || !PointerIsValid(SysCache[cacheId]))
+        elog(ERROR, "invalid cache ID: %d", cacheId);
+
+    // Ensure tuple descriptor is initialized for this cache
+    if (!PointerIsValid(SysCache[cacheId]->cc_tupdesc)) {
+        InitCatCachePhase2(SysCache[cacheId], false);
+    }
+
+    // Extract the attribute using standard heap tuple access
+    return heap_getattr(tup, attributeNumber,
+                       SysCache[cacheId]->cc_tupdesc, isNull);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic flow
+- Consolidated error checking into clear validation steps
+- Simplified conditional logic structure
+- Maintained all core functionality: validation, initialization, and attribute extraction
+- Preserved the essential three-step process: validate cache, ensure descriptor, extract attribute

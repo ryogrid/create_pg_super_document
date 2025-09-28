@@ -35,3 +35,30 @@ This function serves as a gate-keeper for query logging in PostgreSQL's error an
 - Critical for maintaining security by respecting statement hiding preferences
 - Part of PostgreSQL's comprehensive error reporting and logging infrastructure
 - The log_min_error_statement configuration controls the minimum severity level for query logging
+
+## Simplified Source
+
+```c
+// Simplified version of check_log_of_query
+bool check_log_of_query(ErrorData *edata) {
+    // Check if error level meets minimum threshold for statement logging
+    if (!is_log_level_output(edata->elevel, log_min_error_statement))
+        return false;
+
+    // Skip logging if statement is marked as hidden
+    if (edata->hide_stmt)
+        return false;
+
+    // Ensure query string is available for logging
+    if (debug_query_string == NULL)
+        return false;
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each condition check
+- Maintained the original three-gate logic structure
+- Preserved all essential functionality without modifications
+- Enhanced readability with clearer inline documentation

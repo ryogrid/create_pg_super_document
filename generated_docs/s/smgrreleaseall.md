@@ -38,3 +38,33 @@ The  function performs a comprehensive release of resources for all SMgrRelation
 - Does not modify the hash table structure, only releases resources associated with each relation
 - Essential for managing file descriptor limits in systems with many relations
 - Complements smgrdestroyall by providing a less destructive cleanup option
+
+## Simplified Source
+
+```c
+// Simplified version of smgrreleaseall
+void smgrreleaseall(void) {
+    HASH_SEQ_STATUS status;
+    SMgrRelation reln;
+
+    // Early exit if hash table not initialized
+    if (SMgrRelationHash == NULL)
+        return;
+
+    // Initialize sequential scan of hash table
+    hash_seq_init(&status, SMgrRelationHash);
+
+    // Iterate through all relations and release their resources
+    while ((reln = hash_seq_search(&status)) != NULL) {
+        smgrrelease(reln);  // Release resources for this relation
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the essential algorithm: check for null hash table, iterate, and release
+- Maintained the core logic flow with clear comments
+- Kept the important null check for safety
+- Simplified comments to explain the purpose of each step
+- No complex error handling to remove since the original is already simple
+- Preserved the complete functionality as this is a straightforward resource cleanup function

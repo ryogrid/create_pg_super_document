@@ -35,3 +35,20 @@ The function retrieves the message type from the buffer's cursor field (where it
 - The message type is cleverly stored in the cursor field to avoid requiring an additional parameter
 - Particularly useful in scenarios like result set transmission where many similar messages are sent sequentially
 - The buffer remains allocated and ready for immediate reuse after this function completes
+
+## Simplified Source
+
+```c
+// Simplified version of pq_endmessage_reuse
+void pq_endmessage_reuse(StringInfo buf) {
+    // Send the completed message using stored message type
+    // The message type was previously saved in the cursor field
+    pq_putmessage(buf->cursor, buf->data, buf->len);
+}
+```
+
+Key simplifications made:
+- Function is already quite simple, minimal changes needed
+- Added clarifying comment about cursor field usage
+- Removed cast operator as it's not essential for understanding
+- Maintained the core logic: send message with type from cursor field

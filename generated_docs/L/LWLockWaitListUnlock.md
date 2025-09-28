@@ -44,3 +44,22 @@ LWLockWaitListUnlock is the counterpart to LWLockWaitListLock, responsible for r
 - **Critical section end**: Marks the end of the critical section where wait list data structures are being modified
 - **Performance consideration**: The comment suggests that this function might be optimized away in some code paths where lock release can be combined with other atomic operations
 - **Error prevention**: The assertion helps ensure proper lock discipline and can catch bugs where the unlock function is called without a corresponding lock operation
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockWaitListUnlock
+static void LWLockWaitListUnlock(LWLock *lock) {
+    // Atomically clear the wait list lock flag
+    uint32 old_state = pg_atomic_fetch_and_u32(&lock->state, ~LW_FLAG_LOCKED);
+
+    // Verify the lock was actually held (debug builds only)
+    Assert(old_state & LW_FLAG_LOCKED);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declaration and usage into single line for clarity
+- Added descriptive comments explaining the atomic operation and assertion
+- Removed PG_USED_FOR_ASSERTS_ONLY macro annotation for readability
+- Maintained the essential logic: atomic unlock operation and validation

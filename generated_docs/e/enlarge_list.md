@@ -50,3 +50,44 @@ This function increases the storage capacity of an existing List when more space
 - Includes extensive debugging support with memory access controls and wiping
 - The function cannot reclaim initial_elements space due to header immobility constraints
 - Optimizes for both memory efficiency and debugging capabilities
+
+## Simplified Source
+
+```c
+// Simplified version of enlarge_list
+static void enlarge_list(List *list, int min_size) {
+    int new_max_len;
+
+    // Calculate new capacity - use power of 2 for efficiency, minimum 16
+    new_max_len = pg_nextpower2_32(Max(16, min_size));
+
+    if (list->elements == list->initial_elements) {
+        // First expansion: transition from inline storage to separate allocation
+        // Allocate new block in same memory context as list header
+        list->elements = (ListCell *)
+            MemoryContextAlloc(GetMemoryChunkContext(list),
+                             new_max_len * sizeof(ListCell));
+
+        // Copy existing data from inline storage
+        memcpy(list->elements, list->initial_elements,
+               list->length * sizeof(ListCell));
+
+        // Mark old inline storage as inaccessible (debug builds)
+    } else {
+        // Subsequent expansion: resize existing separate allocation
+        list->elements = (ListCell *) repalloc(list->elements,
+                                             new_max_len * sizeof(ListCell));
+    }
+
+    // Update capacity (caller manages length separately)
+    list->max_length = new_max_len;
+}
+```
+
+Key simplifications made:
+- Removed debug-specific conditional compilation blocks for clarity
+- Simplified memory debugging code to high-level comments
+- Consolidated the two allocation paths with clear explanations
+- Removed detailed error handling and memory wiping code
+- Focused on the essential algorithm: calculate new size, handle inline vs separate storage, allocate/copy/update
+- Preserved the core logic of power-of-2 sizing and memory context consistency

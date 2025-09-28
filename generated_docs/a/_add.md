@@ -41,3 +41,25 @@ Unlike standard string functions like strcpy or strcat, _add incorporates explic
 - Essential for secure string handling in formatted output generation
 - Simple but critical function used extensively throughout the strftime formatting process
 - The function design allows for efficient chaining of multiple string append operations
+
+## Simplified Source
+
+```c
+// Simplified version of _add
+static char *
+_add(const char *str, char *pt, const char *ptlim)
+{
+    // Copy characters from source string to buffer until null terminator or buffer limit
+    while (pt < ptlim && (*pt = *str++) != '\0')
+        ++pt;
+
+    return pt;  // Return updated buffer position
+}
+```
+
+Key simplifications made:
+- Function is already very simple and concise - minimal simplification needed
+- Added explanatory comment for the main loop logic
+- Added comment explaining the return value purpose
+- No error handling to remove as function uses simple pointer operations
+- Core algorithm preserved: bounds-checked character-by-character string copying

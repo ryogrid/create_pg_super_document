@@ -40,3 +40,47 @@ This function provides the most control over memory allocation behavior, allowin
 - Without MCXT_ALLOC_NO_OOM flag, behavior is identical to pg_malloc() or pg_malloc0() depending on MCXT_ALLOC_ZERO flag
 - Provides the foundation for other allocation functions: pg_malloc() calls this with flags=0, pg_malloc0() calls this with flags=MCXT_ALLOC_ZERO
 - Located in src/common/fe_memutils.c:59-64
+
+## Simplified Source
+
+```c
+// Simplified version of pg_malloc_extended
+void *pg_malloc_extended(size_t size, int flags) {
+    // Direct wrapper - delegate to internal allocation function
+    return pg_malloc_internal(size, flags);
+}
+
+// The actual allocation logic (from pg_malloc_internal):
+static inline void *pg_malloc_internal(size_t size, int flags) {
+    // Ensure non-zero allocation size for portability
+    if (size == 0) size = 1;
+
+    // Attempt memory allocation
+    void *memory = malloc(size);
+
+    // Handle allocation failure based on flags
+    if (memory == NULL) {
+        if (!(flags & MCXT_ALLOC_NO_OOM)) {
+            // Exit program on failure (default behavior)
+            fprintf(stderr, "out of memory\n");
+            exit(EXIT_FAILURE);
+        }
+        return NULL;  // Return NULL if NO_OOM flag set
+    }
+
+    // Zero-initialize if requested
+    if (flags & MCXT_ALLOC_ZERO) {
+        memset(memory, 0, size);
+    }
+
+    return memory;
+}
+```
+
+Key simplifications made:
+- Combined the wrapper function with its internal implementation for clarity
+- Replaced `MemSet` macro with standard `memset` for readability
+- Simplified flag checking logic with clearer condition expressions
+- Added descriptive comments explaining each major step
+- Removed `tmp` variable in favor of direct `memory` variable name
+- Consolidated error handling flow into clearer conditional structure

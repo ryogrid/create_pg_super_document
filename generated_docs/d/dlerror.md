@@ -31,3 +31,23 @@ This function takes no parameters and returns:
 - Returns NULL when no error has occurred or when a previous dynamic loading operation succeeded
 - The error buffer is cleared (set to empty string) when `dlopen`, `dlsym`, or `dlclose` operations succeed
 - Error messages are formatted in English and come from Windows system error messages or fallback formatting
+
+## Simplified Source
+
+```c
+// Simplified version of dlerror
+char *dlerror(void) {
+    // Check if there's a stored error message
+    if (last_dyn_error[0]) {
+        return last_dyn_error;  // Return the error message
+    } else {
+        return NULL;            // No error occurred
+    }
+}
+```
+
+Key simplifications made:
+- Function is already very simple, minimal changes needed
+- Added comments to clarify the logic flow
+- The function simply checks if the first character of the error buffer is non-zero (indicating an error message exists)
+- Returns either the error message string or NULL based on whether an error is stored

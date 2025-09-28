@@ -40,3 +40,32 @@ The operation runs in O(1) constant time and includes safety checks to ensure th
 - Part of PostgreSQL's efficient intrusive list implementation
 - The function will cause assertion failure in debug builds if called on an empty list
 - Primarily used in dynamic shared memory (DSM) management for cleanup operations
+
+## Simplified Source
+
+```c
+// Simplified version of slist_pop_head_node
+static inline slist_node *
+slist_pop_head_node(slist_head *head)
+{
+    slist_node *node;
+
+    // Safety check: ensure list is not empty
+    Assert(!slist_is_empty(head));
+
+    // Get the first node and update head to point to second node
+    node = head->head.next;
+    head->head.next = node->next;
+
+    // Validate list integrity in debug builds
+    slist_check(head);
+
+    return node;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Preserved all original functionality as the function was already quite simple
+- Maintained the essential Assert safety check and integrity validation
+- No significant logic changes needed due to the function's straightforward implementation

@@ -52,3 +52,63 @@ The function ensures that only meaningful and valid I/O operation combinations a
 - Currently no cases exist where an operation is invalid for a backend type only within certain contexts/objects
 - Part of a hierarchical validation system: bktype → object/context → operation
 - Located in src/backend/utils/activity/pgstat_io.c:424-478
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_tracks_io_op
+bool
+pgstat_tracks_io_op(BackendType bktype, IOObject io_object,
+                    IOContext io_context, IOOp io_op)
+{
+    // Step 1: Check if this object/context combination tracks stats at all
+    if (!pgstat_tracks_io_object(bktype, io_object, io_context))
+        return false;
+
+    // Step 2: Backend-specific operation restrictions
+    // Background writer and checkpointer don't do reads, evicts, or hits
+    if ((bktype == B_BG_WRITER || bktype == B_CHECKPOINTER) &&
+        (io_op == IOOP_READ || io_op == IOOP_EVICT || io_op == IOOP_HIT))
+        return false;
+
+    // These backend types don't extend files
+    if ((bktype == B_AUTOVAC_LAUNCHER || bktype == B_BG_WRITER ||
+         bktype == B_CHECKPOINTER) && io_op == IOOP_EXTEND)
+        return false;
+
+    // Step 3: Object-specific operation rules
+    // Temporary tables don't need fsync or writeback (not logged)
+    if (io_object == IOOBJECT_TEMP_RELATION &&
+        (io_op == IOOP_FSYNC || io_op == IOOP_WRITEBACK))
+        return false;
+
+    // Step 4: Context-specific operation rules
+    // Can't extend files during bulk reads
+    if (io_context == IOCONTEXT_BULKREAD && io_op == IOOP_EXTEND)
+        return false;
+
+    // Check if we're in a strategy context (bulk operations)
+    bool strategy_context = (io_context == IOCONTEXT_BULKREAD ||
+                           io_context == IOCONTEXT_BULKWRITE ||
+                           io_context == IOCONTEXT_VACUUM);
+
+    // REUSE operations only happen with buffer access strategies
+    if (!strategy_context && io_op == IOOP_REUSE)
+        return false;
+
+    // FSYNC in strategy contexts gets counted in NORMAL context instead
+    if (strategy_context && io_op == IOOP_FSYNC)
+        return false;
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Added descriptive step-by-step comments explaining the validation layers
+- Clarified the purpose of each conditional check with inline comments
+- Grouped related validation rules together logically
+- Renamed `strategy_io_context` to `strategy_context` for clarity
+- Added explanatory comments for business logic (e.g., "not logged" for temp tables)
+- Preserved all essential validation logic while making the flow more readable
+- Maintained the exact same conditional logic and return behavior

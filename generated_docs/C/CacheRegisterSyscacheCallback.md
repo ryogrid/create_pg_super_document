@@ -50,3 +50,47 @@ The function maintains a global callback list and uses a link array to organize 
 - Most callback implementations handle cache resets by flushing all cached state regardless of the hash value
 - Essential for maintaining consistency of derived caches that depend on system catalog data
 - Used extensively throughout PostgreSQL for coordinating cache invalidation across subsystems
+
+## Simplified Source
+
+```c
+// Simplified version of CacheRegisterSyscacheCallback
+void CacheRegisterSyscacheCallback(int cacheid, SyscacheCallbackFunction func, Datum arg) {
+    // Validate cache ID is within valid range
+    if (cacheid < 0 || cacheid >= SysCacheSize)
+        elog(FATAL, "invalid cache ID: %d", cacheid);
+
+    // Check if we have room for another callback
+    if (syscache_callback_count >= MAX_SYSCACHE_CALLBACKS)
+        elog(FATAL, "out of syscache_callback_list slots");
+
+    // Check if this is the first callback for this cache
+    if (syscache_callback_links[cacheid] == 0) {
+        // Create new chain for this cache
+        syscache_callback_links[cacheid] = syscache_callback_count + 1;
+    } else {
+        // Find end of existing chain and append new callback
+        int chain_index = syscache_callback_links[cacheid] - 1;
+        while (syscache_callback_list[chain_index].link > 0) {
+            chain_index = syscache_callback_list[chain_index].link - 1;
+        }
+        syscache_callback_list[chain_index].link = syscache_callback_count + 1;
+    }
+
+    // Store the new callback information
+    syscache_callback_list[syscache_callback_count].id = cacheid;
+    syscache_callback_list[syscache_callback_count].link = 0;  // End of chain
+    syscache_callback_list[syscache_callback_count].function = func;
+    syscache_callback_list[syscache_callback_count].arg = arg;
+
+    // Increment global callback counter
+    ++syscache_callback_count;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Clarified the chain traversal logic with better variable naming
+- Preserved all essential validation and linking logic
+- Maintained the callback storage and registration mechanism
+- Kept critical error handling for invalid inputs

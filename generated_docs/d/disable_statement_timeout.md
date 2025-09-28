@@ -37,3 +37,24 @@ This function takes no parameters and returns void.
 - It's typically called during critical phases of query execution where statement timeouts should not interrupt processing
 - The second parameter  passed to  indicates that no special cleanup is required when disabling the timeout
 - Located in src/backend/tcop/postgres.c at lines 5254-5258, this function is part of the core query processing infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of disable_statement_timeout
+static void
+disable_statement_timeout(void)
+{
+    // Check if statement timeout is currently active
+    if (get_timeout_active(STATEMENT_TIMEOUT)) {
+        // Disable the statement timeout without special cleanup
+        disable_timeout(STATEMENT_TIMEOUT, false);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments to explain each step
+- Function is already very simple, so minimal simplification was needed
+- Preserved the essential conditional check and timeout disabling logic
+- The original function is already quite readable and concise

@@ -38,3 +38,26 @@ The implementation includes an important design note: even unlocked writes must 
 - Part of the fallback atomic operations implementation
 - Critical for maintaining data consistency in multi-threaded environments
 - Used by higher-level atomic flag operations for initialization and clearing
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_write_u32_impl
+void pg_atomic_write_u32_impl(volatile pg_atomic_uint32 *ptr, uint32 val) {
+    // Acquire spinlock to ensure atomicity
+    // Even simple writes need locking to prevent race conditions
+    SpinLockAcquire((slock_t *) &ptr->sema);
+
+    // Write the new value atomically
+    ptr->value = val;
+
+    // Release the spinlock
+    SpinLockRelease((slock_t *) &ptr->sema);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major operation
+- Removed the detailed technical comment about unlocked writes
+- Simplified to show the three core steps: acquire lock, write value, release lock
+- Preserved the essential algorithm: spinlock-protected atomic write operation

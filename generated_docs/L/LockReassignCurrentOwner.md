@@ -36,3 +36,43 @@ This function transfers ownership of locks from the current resource owner to it
 - Commonly used during subtransaction abort/commit to transfer locks to the parent transaction context
 - The optimization of accepting a pre-computed lock array is particularly beneficial for operations like pg_dump that may hold many locks
 - [Hash](../H/Hash.md) table scanning mode provides complete coverage but is more expensive when many locks are present
+
+## Simplified Source
+
+```c
+// Simplified version of LockReassignCurrentOwner
+void LockReassignCurrentOwner(LOCALLOCK **locallocks, int nlocks) {
+    // Get the parent resource owner for lock reassignment
+    ResourceOwner parent = ResourceOwnerGetParent(CurrentResourceOwner);
+
+    // Ensure we have a valid parent to transfer locks to
+    Assert(parent != NULL);
+
+    if (locallocks == NULL) {
+        // No array provided - scan all locks in hash table
+        HASH_SEQ_STATUS status;
+        LOCALLOCK *locallock;
+
+        // Initialize hash table scan
+        hash_seq_init(&status, LockMethodLocalHash);
+
+        // Process each lock found in the hash table
+        while ((locallock = hash_seq_search(&status)) != NULL) {
+            LockReassignOwner(locallock, parent);
+        }
+    } else {
+        // Array provided - process locks in reverse order
+        for (int i = nlocks - 1; i >= 0; i--) {
+            LockReassignOwner(locallocks[i], parent);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Simplified variable declarations and combined them where appropriate
+- Added clear comments explaining the two execution paths
+- Maintained the essential logic flow: get parent, validate, then either scan hash table or iterate array
+- Preserved the reverse iteration order for the array case
+- Removed detailed type casting for clarity while maintaining correctness
+- Consolidated the core algorithm into clearly commented sections

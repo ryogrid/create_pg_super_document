@@ -50,3 +50,44 @@ This function takes no parameters.
 - [Command](Command.md) counter overflow protection ensures transaction stability
 - Extensive usage throughout the codebase indicates its fundamental importance to transaction processing
 - The parallel mode restrictions ensure consistency in parallel query execution environments
+
+## Simplified Source
+
+```c
+// Simplified version of CommandCounterIncrement
+void CommandCounterIncrement(void) {
+    // Only increment if the current command ID has been used to mark tuples
+    // This optimization avoids unnecessary increments for read-only commands
+    if (currentCommandIdUsed) {
+        // Prevent command counter increments during parallel operations
+        if (IsInParallelMode() || IsParallelWorker()) {
+            ereport(ERROR, "cannot start commands during a parallel operation");
+        }
+
+        // Increment the command counter
+        currentCommandId += 1;
+
+        // Check for overflow (prevent exceeding 2^32-2 commands)
+        if (currentCommandId == InvalidCommandId) {
+            currentCommandId -= 1;
+            ereport(ERROR, "cannot have more than 2^32-2 commands in a transaction");
+        }
+
+        // Reset the usage flag for the new command ID
+        currentCommandIdUsed = false;
+
+        // Propagate new command ID to static snapshots
+        SnapshotSetCommandId(currentCommandId);
+
+        // Make catalog changes from completed command visible in local cache
+        AtCCI_LocalCache();
+    }
+}
+```
+
+Key simplifications made:
+- Simplified error reporting calls to focus on the error messages
+- Condensed comments to highlight core functionality
+- Removed detailed comment explanations while preserving essential logic
+- Maintained all critical safety checks and operations
+- Streamlined the control flow presentation

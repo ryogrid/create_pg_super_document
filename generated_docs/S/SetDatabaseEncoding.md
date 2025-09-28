@@ -35,3 +35,27 @@ The function includes an assertion to ensure consistency between the provided en
 - The global DatabaseEncoding pointer is used throughout PostgreSQL for encoding-related operations
 - The function assumes the pg_enc2name_tbl array is properly initialized
 - Only valid backend encodings are accepted; client-only encodings are rejected
+
+## Simplified Source
+
+```c
+// Simplified version of SetDatabaseEncoding
+void SetDatabaseEncoding(int encoding) {
+    // Validate encoding is supported by the backend
+    if (!PG_VALID_BE_ENCODING(encoding)) {
+        elog(ERROR, "invalid database encoding: %d", encoding);
+    }
+
+    // Set global database encoding pointer to the encoding table entry
+    DatabaseEncoding = &pg_enc2name_tbl[encoding];
+
+    // Verify consistency (debug builds only)
+    Assert(DatabaseEncoding->encoding == encoding);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Maintained original logic flow and error handling
+- Preserved all essential functionality in a more readable format
+- Function is already quite simple, so minimal changes were needed

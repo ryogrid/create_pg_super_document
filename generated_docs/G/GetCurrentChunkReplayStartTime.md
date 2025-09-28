@@ -33,3 +33,24 @@ This function fetches the timestamp that marks the start time of the current chu
 - Used in replication monitoring and recovery coordination
 - The function comment appears to be incorrect or copied from another function - it retrieves currentChunkStartTime, not the latest commit/abort timestamp
 - Accessible to all backend processes, enabling system-wide visibility of current recovery chunk status
+
+## Simplified Source
+
+```c
+// Simplified version of GetCurrentChunkReplayStartTime
+TimestampTz GetCurrentChunkReplayStartTime(void) {
+    TimestampTz xtime;
+
+    // Thread-safe read of current chunk start time
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+    xtime = XLogRecoveryCtl->currentChunkStartTime;
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    return xtime;
+}
+```
+
+Key simplifications made:
+- Retained original structure as function is already very simple and well-designed
+- Added descriptive comment explaining the thread-safe access pattern
+- No major simplifications needed - this is already a clean, focused function

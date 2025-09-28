@@ -30,3 +30,25 @@ The `oid_compare` function is a comparator function specifically designed for us
 - The function uses PostgreSQL's pg_cmp_u32 utility function to perform the actual unsigned 32-bit integer comparison
 - As a qsort comparator, this function enables efficient sorting of OID arrays, which is crucial for system cache performance
 - The function is referenced multiple times in InitCatalogCache, indicating its importance in setting up various system caches during PostgreSQL initialization
+
+## Simplified Source
+
+```c
+// Simplified version of oid_compare
+static int
+oid_compare(const void *a, const void *b)
+{
+    // Extract OID values from void pointers
+    Oid oa = *((const Oid *) a);
+    Oid ob = *((const Oid *) b);
+
+    // Compare the two OIDs using PostgreSQL's unsigned 32-bit comparison
+    return pg_cmp_u32(oa, ob);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- The function is already quite simple - it's a straightforward qsort comparator
+- No significant simplification needed as the original is already minimal and clear
+- Preserved the exact logic flow: extract OIDs from void pointers and compare them

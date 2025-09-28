@@ -55,3 +55,84 @@ LC_ALL=: The locale string to set, or NULL to query current setting
 - Environment variables are set to preserve locale settings across process boundaries
 - Uses LOCALE_NAME_BUFLEN sized buffer for saving LC_CTYPE results
 - Critical for PostgreSQL's internationalization and localization support
+
+## Simplified Source
+
+```c
+// Simplified version of pg_perm_setlocale
+char *
+pg_perm_setlocale(int category, const char *locale)
+{
+    char *result;
+    const char *envvar;
+
+    // Step 1: Call system setlocale (with Windows special handling)
+#ifndef WIN32
+    result = setlocale(category, locale);
+#else
+    // On Windows, LC_MESSAGES needs special handling
+    if (category == LC_MESSAGES) {
+        result = (char *) locale;
+        if (locale == NULL || locale[0] == '\0')
+            return result;
+    } else {
+        result = setlocale(category, locale);
+    }
+#endif
+
+    // Step 2: Return immediately if setlocale failed
+    if (result == NULL)
+        return NULL;
+
+    // Step 3: Update message encoding when LC_CTYPE changes
+    if (category == LC_CTYPE) {
+        static char saved_ctype[LOCALE_NAME_BUFLEN];
+
+        // Save the result since it might be overwritten
+        strlcpy(saved_ctype, result, sizeof(saved_ctype));
+        result = saved_ctype;
+
+        // Update message encoding for proper internationalization
+#ifdef ENABLE_NLS
+        SetMessageEncoding(pg_bind_textdomain_codeset(textdomain(NULL)));
+#else
+        SetMessageEncoding(GetDatabaseEncoding());
+#endif
+    }
+
+    // Step 4: Map category to environment variable name
+    switch (category) {
+        case LC_COLLATE:   envvar = "LC_COLLATE"; break;
+        case LC_CTYPE:     envvar = "LC_CTYPE"; break;
+        case LC_MESSAGES:
+            envvar = "LC_MESSAGES";
+#ifdef WIN32
+            // Convert to ISO locale name on Windows
+            result = IsoLocaleName(locale);
+            if (result == NULL)
+                result = (char *) locale;
+#endif
+            break;
+        case LC_MONETARY:  envvar = "LC_MONETARY"; break;
+        case LC_NUMERIC:   envvar = "LC_NUMERIC"; break;
+        case LC_TIME:      envvar = "LC_TIME"; break;
+        default:
+            elog(FATAL, "unrecognized LC category: %d", category);
+            return NULL;
+    }
+
+    // Step 5: Set environment variable to preserve locale setting
+    if (setenv(envvar, result, 1) != 0)
+        return NULL;
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Consolidated platform-specific conditional compilation into clearer sections
+- Simplified comments to focus on the main algorithm steps
+- Preserved the essential locale setting, message encoding update, and environment variable management logic
+- Maintained all critical error handling and return paths
+- Removed detailed implementation comments while keeping functional descriptions
+- Kept the complete switch statement logic as it's core to the function's purpose

@@ -34,3 +34,21 @@ This is a critical component of PostgreSQL's logical decoding infrastructure, as
 - Works in conjunction with IsSubxactTopXidLogPending() to manage logging state
 - Essential for maintaining proper transaction hierarchy information in WAL
 - Located in src/backend/access/transam/xact.c:588-603
+
+## Simplified Source
+
+```c
+// Simplified version of MarkSubxactTopXidLogged
+void MarkSubxactTopXidLogged(void) {
+    // Verify that top XID logging is actually pending for current subtransaction
+    Assert(IsSubxactTopXidLogPending());
+
+    // Mark the top-level transaction ID as now logged to WAL
+    CurrentTransactionState->topXidLogged = true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each operation
+- Preserved the essential assertion check and state update logic
+- Function is already quite simple with minimal complexity to reduce

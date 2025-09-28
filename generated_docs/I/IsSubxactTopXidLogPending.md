@@ -42,3 +42,40 @@ Only when all these conditions are satisfied does the function return true, indi
 - Only relevant when wal_level is set to 'logical' or 'replica'
 - Ensures proper transaction hierarchy reconstruction for logical decoding
 - Part of PostgreSQL's subtransaction management in src/backend/access/transam/xact.c:556-587
+
+## Simplified Source
+
+```c
+// Simplified version of IsSubxactTopXidLogPending
+bool IsSubxactTopXidLogPending(void) {
+    // Check if top-level XID already logged to WAL
+    if (CurrentTransactionState->topXidLogged)
+        return false;
+
+    // Require logical WAL level for logical decoding
+    if (!XLogLogicalInfoActive())
+        return false;
+
+    // Must be in active transaction state
+    if (!IsTransactionState())
+        return false;
+
+    // Must be operating in a subtransaction (not main transaction)
+    if (!IsSubTransaction())
+        return false;
+
+    // Subtransaction must have valid XID assigned
+    if (!TransactionIdIsValid(GetCurrentTransactionIdIfAny()))
+        return false;
+
+    // All conditions met - top XID logging is pending
+    return true;
+}
+```
+
+Key simplifications made:
+- Enhanced comments to clearly explain each condition check
+- Simplified condition flow with early returns for readability
+- Added descriptive comments explaining the purpose of each validation
+- Maintained all original logic and return conditions
+- Preserved the essential algorithm for logical decoding requirements

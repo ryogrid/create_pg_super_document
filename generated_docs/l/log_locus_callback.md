@@ -35,3 +35,27 @@ The function checks if psql is currently processing an input file (pset.inputfil
 - The callback enables precise error location reporting when executing SQL scripts
 - The function modifies its parameters through pointers to return multiple values
 - Line numbers start from 1 when processing files, 0 indicates no file context
+
+## Simplified Source
+
+```c
+// Simplified version of log_locus_callback
+static void log_locus_callback(const char **filename, uint64 *lineno) {
+    // Check if psql is processing an input file
+    if (pset.inputfile) {
+        // Return current file location
+        *filename = pset.inputfile;
+        *lineno = pset.lineno;
+    } else {
+        // Interactive mode - no file context
+        *filename = NULL;
+        *lineno = 0;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the logic flow
+- Clarified the two execution paths (file processing vs interactive mode)
+- No actual code reduction needed - function is already concise and clear
+- Enhanced readability through strategic commenting

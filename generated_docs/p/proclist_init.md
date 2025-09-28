@@ -35,3 +35,21 @@ The function is defined as static inline for performance reasons, allowing the c
 - The function is used in various locking and synchronization contexts throughout PostgreSQL
 - After initialization, the proclist is ready to have processes added via other proclist operations
 - The initialization ensures both head and tail pointers are in a consistent empty state
+
+## Simplified Source
+
+```c
+// Simplified version of proclist_init
+static inline void
+proclist_init(proclist_head *list)
+{
+    // Initialize empty list by setting head and tail to invalid process number
+    list->head = INVALID_PROC_NUMBER;
+    list->tail = INVALID_PROC_NUMBER;
+}
+```
+
+Key simplifications made:
+- Added descriptive comment explaining the purpose of the initialization
+- Separated the compound assignment into two clear statements for readability
+- The original was already quite simple, so minimal simplification was needed

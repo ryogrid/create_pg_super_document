@@ -52,3 +52,84 @@ The function includes robust error handling throughout, cleaning up temporary fi
 - Timeline history files are immediately eligible for archival upon creation
 - The new timeline ID must be greater than the parent timeline ID (enforced by assertion)
 - Located in src/backend/access/transam/timeline.c:304-462
+
+## Simplified Source
+
+```c
+// Simplified version of writeTimeLineHistory
+void writeTimeLineHistory(TimeLineID newTLI, TimeLineID parentTLI,
+                         XLogRecPtr switchpoint, char *reason)
+{
+    char temp_path[MAXPGPATH];
+    char final_path[MAXPGPATH];
+    char history_filename[MAXFNAMELEN];
+    char buffer[BLCKSZ];
+    int temp_fd, source_fd, nbytes;
+
+    Assert(newTLI > parentTLI);
+
+    // Create temporary file for safe writing
+    snprintf(temp_path, MAXPGPATH, XLOGDIR "/xlogtemp.%d", (int) getpid());
+    unlink(temp_path);
+    temp_fd = OpenTransientFile(temp_path, O_RDWR | O_CREAT | O_EXCL);
+    if (temp_fd < 0)
+        ereport(ERROR, "could not create temp file");
+
+    // Copy parent timeline history if it exists
+    if (ArchiveRecoveryRequested) {
+        TLHistoryFileName(history_filename, parentTLI);
+        RestoreArchivedFile(final_path, history_filename, "RECOVERYHISTORY", 0, false);
+    } else {
+        TLHistoryFilePath(final_path, parentTLI);
+    }
+
+    source_fd = OpenTransientFile(final_path, O_RDONLY);
+    if (source_fd >= 0) {
+        // Copy parent history content in chunks
+        for (;;) {
+            nbytes = read(source_fd, buffer, sizeof(buffer));
+            if (nbytes <= 0) break;
+
+            if (write(temp_fd, buffer, nbytes) != nbytes) {
+                unlink(temp_path);
+                ereport(ERROR, "could not write to temp file");
+            }
+        }
+        CloseTransientFile(source_fd);
+    }
+
+    // Append new timeline entry
+    snprintf(buffer, sizeof(buffer), "%s%u\t%X/%X\t%s\n",
+             (source_fd < 0) ? "" : "\n",
+             parentTLI, LSN_FORMAT_ARGS(switchpoint), reason);
+
+    nbytes = strlen(buffer);
+    if (write(temp_fd, buffer, nbytes) != nbytes) {
+        unlink(temp_path);
+        ereport(ERROR, "could not write timeline entry");
+    }
+
+    // Ensure data is on disk
+    pg_fsync(temp_fd);
+    CloseTransientFile(temp_fd);
+
+    // Atomically move to final location
+    TLHistoryFilePath(final_path, newTLI);
+    durable_rename(temp_path, final_path, ERROR);
+
+    // Notify archiver if archiving is active
+    if (XLogArchivingActive()) {
+        TLHistoryFileName(history_filename, newTLI);
+        XLogArchiveNotify(history_filename);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling patterns for clarity (kept essential error checks)
+- Consolidated repetitive write error handling into single pattern
+- Simplified variable declarations and removed some intermediate variables
+- Abstracted wait event reporting calls (pgstat_report_wait_start/end)
+- Streamlined the file copy loop by removing errno manipulation
+- Maintained core algorithm: temp file → copy parent → append new entry → atomic rename
+- Preserved essential functionality: file creation, copying, appending, syncing, and archiving

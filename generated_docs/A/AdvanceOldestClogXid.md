@@ -37,3 +37,29 @@ The function only advances the `oldestClogXid` forward - it will never move it b
 - The `XactTruncationLock` must be held exclusively to ensure safe coordination between CLOG truncation and transaction lookup operations
 - The function only moves `oldestClogXid` forward, never backward, maintaining the monotonic property required for safe CLOG management
 - Called during recovery and normal CLOG maintenance operations to keep the oldest CLOG boundary up to date
+
+## Simplified Source
+
+```c
+// Simplified version of AdvanceOldestClogXid
+void AdvanceOldestClogXid(TransactionId oldest_datfrozenxid)
+{
+    // Acquire exclusive lock to coordinate CLOG truncation safely
+    LWLockAcquire(XactTruncationLock, LW_EXCLUSIVE);
+
+    // Only advance if the new value is actually newer (forward progress only)
+    if (TransactionIdPrecedes(TransamVariables->oldestClogXid, oldest_datfrozenxid)) {
+        TransamVariables->oldestClogXid = oldest_datfrozenxid;
+    }
+
+    // Release the coordination lock
+    LWLockRelease(XactTruncationLock);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each step
+- Preserved the complete original logic as it's already quite simple
+- Clarified the lock coordination purpose
+- Emphasized the forward-only advancement behavior
+- Maintained all essential functionality without any reduction

@@ -39,3 +39,22 @@ While this approach may seem inefficient, it ensures correctness and simplifies 
 - Much simpler than the targeted invalidation in PlanCacheRelCallback and PlanCacheObjectCallback
 - Ensures plan cache consistency even for obscure system catalog changes that might affect query planning
 - Trade-off between performance (invalidates more than necessary) and correctness/simplicity
+
+## Simplified Source
+
+```c
+// Simplified version of PlanCacheSysCallback
+static void
+PlanCacheSysCallback(Datum arg, int cacheid, uint32 hashvalue)
+{
+    // Conservative approach: invalidate entire plan cache
+    // when any system catalog change occurs
+    ResetPlanCache();
+}
+```
+
+Key simplifications made:
+- Preserved the core logic: simple invalidation of all cached plans
+- Function is already minimal - main logic is just calling ResetPlanCache()
+- Parameters are accepted but unused (as intended by design)
+- Conservative invalidation strategy ensures correctness over performance

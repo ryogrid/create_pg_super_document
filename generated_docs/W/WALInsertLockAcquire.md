@@ -37,3 +37,36 @@ WALInsertLockAcquire implements a smart lock acquisition strategy for WAL insert
 - Acquires locks in LW_EXCLUSIVE mode to ensure exclusive access during insertion
 - The strategy optimizes for both low-contention scenarios (cache affinity) and high-contention scenarios (load distribution)
 - Works with a fixed number of insertion locks (NUM_XLOGINSERT_LOCKS) that is typically much smaller than the number of potential concurrent inserters
+
+## Simplified Source
+
+```c
+// Simplified version of WALInsertLockAcquire
+static void WALInsertLockAcquire(void) {
+    static int lockToTry = -1;
+    bool immed;
+
+    // Initialize lock selection for first-time backends
+    // Use process number to distribute locks evenly across backends
+    if (lockToTry == -1) {
+        lockToTry = MyProcNumber % NUM_XLOGINSERT_LOCKS;
+    }
+
+    // Try to acquire the preferred lock (cache affinity optimization)
+    MyLockNo = lockToTry;
+    immed = LWLockAcquire(&WALInsertLocks[MyLockNo].l.lock, LW_EXCLUSIVE);
+
+    // Adaptive behavior: if lock wasn't immediately available,
+    // try next lock in sequence for future attempts
+    if (!immed) {
+        lockToTry = (lockToTry + 1) % NUM_XLOGINSERT_LOCKS;
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Simplified comments to focus on core logic flow
+- Removed detailed commentary while preserving essential algorithm
+- Maintained the two key optimizations: cache affinity and adaptive load distribution
+- Preserved the static variable behavior and modular arithmetic for lock cycling

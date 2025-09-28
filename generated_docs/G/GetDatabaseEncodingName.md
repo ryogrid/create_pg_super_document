@@ -37,3 +37,21 @@ None - this is a parameter-less function.
 - Essential for interfacing with external libraries that require encoding names as strings
 - Used in replication connections to ensure encoding compatibility between primary and standby servers
 - The encoding name remains constant throughout the database session
+
+## Simplified Source
+
+```c
+// Simplified version of GetDatabaseEncodingName
+const char *
+GetDatabaseEncodingName(void)
+{
+    // Return the name of the current database encoding
+    // DatabaseEncoding is a global structure containing encoding info
+    return DatabaseEncoding->name;
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already minimal
+- Added explanatory comments for clarity
+- Function simply returns the name field from global DatabaseEncoding structure

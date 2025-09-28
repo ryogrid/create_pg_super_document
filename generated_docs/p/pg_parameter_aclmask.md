@@ -52,3 +52,74 @@ This is part of PostgreSQL's security framework that allows administrators to co
 - Part of PostgreSQL's enhanced security model introduced for fine-grained parameter access control
 - Default ACL uses BOOTSTRAP_SUPERUSERID as the owner when creating default permissions
 - Proper memory management includes cleanup of both the converted parameter name and text objects
+
+## Simplified Source
+
+```c
+// Simplified version of pg_parameter_aclmask
+static AclMode
+pg_parameter_aclmask(const char *name, Oid roleid, AclMode mask, AclMaskHow how)
+{
+    AclMode result;
+    char *parname;
+    text *partext;
+    HeapTuple tuple;
+
+    // Superusers bypass all permission checking
+    if (superuser_arg(roleid))
+        return mask;
+
+    // Convert GUC name to standardized form for pg_parameter_acl lookup
+    parname = convert_GUC_name_for_parameter_acl(name);
+    partext = cstring_to_text(parname);
+
+    // Look up parameter ACL in system catalog
+    tuple = SearchSysCache1(PARAMETERACLNAME, PointerGetDatum(partext));
+
+    if (!HeapTupleIsValid(tuple))
+    {
+        // No entry found - non-superusers have no rights by default
+        result = ACL_NO_RIGHTS;
+    }
+    else
+    {
+        // Extract ACL from catalog entry
+        Datum aclDatum = SysCacheGetAttr(PARAMETERACLNAME, tuple,
+                                       Anum_pg_parameter_acl_paracl, &isNull);
+        Acl *acl;
+
+        if (isNull)
+        {
+            // No explicit ACL - use default permissions
+            acl = acldefault(OBJECT_PARAMETER_ACL, BOOTSTRAP_SUPERUSERID);
+        }
+        else
+        {
+            // Use stored ACL (handle detoasting if needed)
+            acl = DatumGetAclP(aclDatum);
+        }
+
+        // Evaluate permissions against the ACL
+        result = aclmask(acl, roleid, BOOTSTRAP_SUPERUSERID, mask, how);
+
+        // Clean up resources
+        if (acl && (Pointer) acl != DatumGetPointer(aclDatum))
+            pfree(acl);
+        ReleaseSysCache(tuple);
+    }
+
+    // Clean up converted parameter name and text
+    pfree(parname);
+    pfree(partext);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added descriptive comments explaining each major step
+- Simplified ACL extraction logic while preserving the null-check branching
+- Maintained essential error handling and memory management
+- Preserved the core algorithm: superuser check → name conversion → catalog lookup → ACL evaluation
+- Combined cleanup operations with clearer organization

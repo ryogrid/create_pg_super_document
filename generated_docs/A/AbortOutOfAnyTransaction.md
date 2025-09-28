@@ -72,3 +72,90 @@ This function is essential for process shutdown, error recovery, and situations 
 - The function ensures memory context safety throughout the entire abort process
 - Guarantees that the system will be in TBLOCK_DEFAULT state with no active subtransactions upon completion
 - Safe to call from any transaction state, making it ideal for emergency cleanup situations
+
+## Simplified Source
+
+```c
+// Simplified version of AbortOutOfAnyTransaction
+void AbortOutOfAnyTransaction(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Ensure we're in a safe memory context
+    AtAbort_Memory();
+
+    // Abort all transactions from innermost to outermost
+    do {
+        switch (s->blockState) {
+            case TBLOCK_DEFAULT:
+                // Handle default state - either idle or incomplete transaction start
+                if (s->state != TRANS_DEFAULT) {
+                    // Clean up incomplete transaction
+                    if (s->state == TRANS_START)
+                        s->state = TRANS_INPROGRESS;  // Suppress warnings
+                    AbortTransaction();
+                    CleanupTransaction();
+                }
+                break;
+
+            case TBLOCK_STARTED:
+            case TBLOCK_BEGIN:
+            case TBLOCK_INPROGRESS:
+            case TBLOCK_IMPLICIT_INPROGRESS:
+            case TBLOCK_PARALLEL_INPROGRESS:
+            case TBLOCK_END:
+            case TBLOCK_ABORT_PENDING:
+            case TBLOCK_PREPARE:
+                // Active transaction - abort and clean up
+                AbortTransaction();
+                CleanupTransaction();
+                s->blockState = TBLOCK_DEFAULT;
+                break;
+
+            case TBLOCK_ABORT:
+            case TBLOCK_ABORT_END:
+                // Already aborted - just clean up portals and transaction
+                AtAbort_Portals();
+                CleanupTransaction();
+                s->blockState = TBLOCK_DEFAULT;
+                break;
+
+            case TBLOCK_SUBBEGIN:
+            case TBLOCK_SUBINPROGRESS:
+            case TBLOCK_SUBRELEASE:
+            case TBLOCK_SUBCOMMIT:
+            case TBLOCK_SUBABORT_PENDING:
+            case TBLOCK_SUBRESTART:
+                // Active subtransaction - abort and pop to parent
+                AbortSubTransaction();
+                CleanupSubTransaction();
+                s = CurrentTransactionState;  // Move to parent transaction
+                break;
+
+            case TBLOCK_SUBABORT:
+            case TBLOCK_SUBABORT_END:
+            case TBLOCK_SUBABORT_RESTART:
+                // Already aborted subtransaction - clean up portals if needed
+                if (s->curTransactionOwner) {
+                    AtSubAbort_Portals(s->subTransactionId,
+                                     s->parent->subTransactionId,
+                                     s->curTransactionOwner,
+                                     s->parent->curTransactionOwner);
+                }
+                CleanupSubTransaction();
+                s = CurrentTransactionState;  // Move to parent transaction
+                break;
+        }
+    } while (s->blockState != TBLOCK_DEFAULT);
+
+    // Final memory context cleanup
+    AtCleanup_Memory();
+}
+```
+
+Key simplifications made:
+- Consolidated similar case statements with clear grouping comments
+- Removed detailed inline comments explaining edge cases
+- Simplified the subtransaction portal cleanup logic structure
+- Added high-level comments explaining the main phases of operation
+- Preserved all essential logic paths and function calls
+- Maintained the core state machine structure while improving readability

@@ -45,3 +45,47 @@ The function includes safety checks for lossy index conditions, which are not cu
 - Includes error handling for lossy index operators, which are explicitly not supported for system catalog scans
 - Comments suggest that a slot-based interface might be beneficial for future optimization
 - This function is critical for PostgreSQL's catalog access infrastructure and is used extensively throughout the system for metadata operations
+
+## Simplified Source
+
+```c
+// Simplified version of systable_getnext
+HeapTuple systable_getnext(SysScanDesc sysscan) {
+    HeapTuple htup = NULL;
+
+    // Check if we're using an index scan
+    if (sysscan->irel) {
+        // Index-based scan: get next tuple from index
+        if (index_getnext_slot(sysscan->iscan, ForwardScanDirection, sysscan->slot)) {
+            // Convert slot to HeapTuple
+            bool shouldFree;
+            htup = ExecFetchSlotHeapTuple(sysscan->slot, false, &shouldFree);
+
+            // Verify we don't need lossy index operations (not supported)
+            if (sysscan->iscan->xs_recheck) {
+                elog(ERROR, "system catalog scans with lossy index conditions are not implemented");
+            }
+        }
+    } else {
+        // Heap scan: sequential scan through table
+        if (table_scan_getnextslot(sysscan->scan, ForwardScanDirection, sysscan->slot)) {
+            // Convert slot to HeapTuple
+            bool shouldFree;
+            htup = ExecFetchSlotHeapTuple(sysscan->slot, false, &shouldFree);
+        }
+    }
+
+    // Handle any concurrent transaction aborts
+    HandleConcurrentAbort();
+
+    return htup; // NULL if no more tuples
+}
+```
+
+Key simplifications made:
+- Removed verbose comments while keeping essential logic explanations
+- Consolidated duplicate tuple extraction logic with inline comments
+- Simplified variable declarations and assertions
+- Maintained the core branching logic between index and heap scans
+- Preserved critical error handling for lossy index conditions
+- Kept essential concurrent abort handling

@@ -42,3 +42,24 @@ This centralized error mapping approach ensures that applications and error hand
 - Falls back to file access error codes for other system errors
 - Critical for providing meaningful error messages to applications using DSM
 - Helps distinguish between memory exhaustion and other types of failures
+
+## Simplified Source
+
+```c
+// Simplified version of errcode_for_dynamic_shared_memory
+static int errcode_for_dynamic_shared_memory(void) {
+    // Check for memory-related errors first
+    if (errno == EFBIG || errno == ENOMEM) {
+        return errcode(ERRCODE_OUT_OF_MEMORY);
+    }
+
+    // For all other errors, use generic file access error handling
+    return errcode_for_file_access();
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two main logic paths
+- No actual simplification needed - this function is already very clean and minimal
+- Preserved the exact logic flow: memory errors → OUT_OF_MEMORY, others → file access errors
+- Function serves as a simple error code translator with clear conditional logic

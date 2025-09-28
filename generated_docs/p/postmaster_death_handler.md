@@ -32,3 +32,22 @@ The handler is designed to be minimalistic and signal-safe, performing only the 
 - The handler is deliberately simple to ensure signal safety
 - The actual checking of postmaster_possibly_dead is done elsewhere in the codebase
 - This is part of PostgreSQL's inter-process communication and process management system
+
+## Simplified Source
+
+```c
+// Simplified version of postmaster_death_handler
+static void
+postmaster_death_handler(SIGNAL_ARGS)
+{
+    // Core logic: Mark that postmaster may have died
+    // This flag will be checked by other parts of the system
+    postmaster_possibly_dead = true;
+}
+```
+
+Key simplifications made:
+- Function is already extremely simple - only sets a boolean flag
+- Added explanatory comment about the flag's purpose
+- No significant simplification needed due to minimal complexity
+- Original function is signal-safe and contains only essential logic

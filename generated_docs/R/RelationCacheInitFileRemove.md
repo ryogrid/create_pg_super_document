@@ -43,3 +43,42 @@ This approach ensures that the first backend to connect to each database will re
 - Uses LOG level error reporting, so failures to remove files are logged but don't cause fatal errors
 - This operation occurs during postmaster startup before any backends are launched
 - The first backend connecting to each database will rebuild the missing init files automatically
+
+## Simplified Source
+
+```c
+// Simplified version of RelationCacheInitFileRemove
+void RelationCacheInitFileRemove(void) {
+    char path[MAXPGPATH + 10 + sizeof(TABLESPACE_VERSION_DIRECTORY)];
+
+    // Remove global init file
+    snprintf(path, sizeof(path), "global/%s", RELCACHE_INIT_FILENAME);
+    unlink_initfile(path, LOG);
+
+    // Remove init files from default tablespace (base directory)
+    RelationCacheInitFileRemoveInDir("base");
+
+    // Scan and remove init files from all non-default tablespaces
+    DIR *dir = AllocateDir("pg_tblspc");
+    struct dirent *de;
+
+    while ((de = ReadDirExtended(dir, "pg_tblspc", LOG)) != NULL) {
+        // Check if directory name is all digits (valid tablespace OID)
+        if (strspn(de->d_name, "0123456789") == strlen(de->d_name)) {
+            // Build path to tablespace version directory
+            snprintf(path, sizeof(path), "pg_tblspc/%s/%s",
+                     de->d_name, TABLESPACE_VERSION_DIRECTORY);
+            RelationCacheInitFileRemoveInDir(path);
+        }
+    }
+
+    FreeDir(dir);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added descriptive comments for each major operation
+- Simplified the tablespace scanning logic explanation
+- Removed some intermediate variable assignments
+- Maintained the essential three-phase cleanup process: global, default tablespace, and non-default tablespaces

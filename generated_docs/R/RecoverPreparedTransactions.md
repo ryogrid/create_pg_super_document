@@ -50,3 +50,78 @@ This function takes no parameters and operates on the global TwoPhaseState.
 - Logs each recovered prepared transaction for monitoring purposes
 - Essential for maintaining prepared transaction semantics across restart cycles
 - Calls PostPrepare_Twophase to clean up MyLockedGxact like normal operation
+
+## Simplified Source
+
+```c
+// Simplified version of RecoverPreparedTransactions
+void RecoverPreparedTransactions(void) {
+    int i;
+
+    // Lock the two-phase state for exclusive access
+    LWLockAcquire(TwoPhaseStateLock, LW_EXCLUSIVE);
+
+    // Process each prepared transaction
+    for (i = 0; i < TwoPhaseState->numPrepXacts; i++) {
+        TransactionId xid;
+        char *buf;
+        GlobalTransaction gxact = TwoPhaseState->prepXacts[i];
+        TwoPhaseFileHeader *hdr;
+        TransactionId *subxids;
+        const char *gid;
+
+        xid = gxact->xid;
+
+        // Load transaction buffer data from shared memory
+        buf = ProcessTwoPhaseBuffer(xid, gxact->prepare_start_lsn,
+                                   gxact->ondisk, true, false);
+        if (buf == NULL)
+            continue;
+
+        ereport(LOG, (errmsg("recovering prepared transaction %u from shared memory", xid)));
+
+        // Parse the transaction data buffer
+        hdr = (TwoPhaseFileHeader *) buf;
+        char *bufptr = buf + MAXALIGN(sizeof(TwoPhaseFileHeader));
+        gid = (const char *) bufptr;
+        bufptr += MAXALIGN(hdr->gidlen);
+        subxids = (TransactionId *) bufptr;
+        // Skip to end of buffer data...
+
+        // Recreate the global transaction state
+        MarkAsPreparingGuts(gxact, xid, gid, hdr->prepared_at,
+                           hdr->owner, hdr->database);
+        gxact->inredo = false;
+
+        // Load subtransaction data and mark as prepared
+        GXactLoadSubxactData(gxact, hdr->nsubxacts, subxids);
+        MarkAsPrepared(gxact, true);
+
+        LWLockRelease(TwoPhaseStateLock);
+
+        // Recover locks and other resource manager state
+        ProcessRecords(bufptr, xid, twophase_recover_callbacks);
+
+        // Release standby locks if in hot standby mode
+        if (InHotStandby)
+            StandbyReleaseLockTree(xid, hdr->nsubxacts, subxids);
+
+        // Clean up transaction state
+        PostPrepare_Twophase();
+        pfree(buf);
+
+        // Reacquire lock for next iteration
+        LWLockAcquire(TwoPhaseStateLock, LW_EXCLUSIVE);
+    }
+
+    LWLockRelease(TwoPhaseStateLock);
+}
+```
+
+Key simplifications made:
+- Removed complex buffer pointer arithmetic and consolidated buffer parsing
+- Simplified comments to focus on main algorithm steps
+- Abstracted detailed memory layout calculations
+- Consolidated variable declarations for clarity
+- Removed detailed assertions and error handling paths
+- Focused on the core recovery workflow: load → recreate → recover → cleanup

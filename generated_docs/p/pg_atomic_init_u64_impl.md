@@ -38,3 +38,33 @@ The function includes compile-time assertions to ensure proper size alignment be
 - Includes safety checks for nested atomic usage when spinlocks are held
 - The implementation ensures thread-safe initialization of the atomic variable
 - Located in src/backend/port/atomics.c as part of the portability layer
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_init_u64_impl
+void pg_atomic_init_u64_impl(volatile pg_atomic_uint64 *ptr, uint64 val_) {
+    // Ensure atomic structure size matches spinlock size
+    StaticAssertDecl(sizeof(ptr->sema) >= sizeof(slock_t),
+                     "size mismatch of atomic_uint64 vs slock_t");
+
+    // Initialize the synchronization mechanism
+    #ifndef HAVE_SPINLOCKS
+        // Use semaphore-based locking when spinlocks unavailable
+        s_init_lock_sema((slock_t *) &ptr->sema, true);
+    #else
+        // Use spinlock when available
+        SpinLockInit((slock_t *) &ptr->sema);
+    #endif
+
+    // Set the initial value
+    ptr->value = val_;
+}
+```
+
+Key simplifications made:
+- Preserved the compile-time assertion for size safety
+- Maintained the conditional compilation logic for spinlock vs semaphore
+- Added clear comments explaining the two-step initialization process
+- Kept the essential synchronization mechanism setup
+- Preserved the straightforward value assignment

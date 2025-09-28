@@ -38,3 +38,19 @@ The executor makes important assumptions about these relations: they are not par
 - Extensions may perform in-place updates on other tables but risk conflicts with SQL UPDATEs
 - Critical for maintaining data consistency in system catalogs that require in-place modification
 - The function is located in src/backend/catalog/catalog.c:152-161
+
+## Simplified Source
+
+```c
+// Simplified version of IsInplaceUpdateRelation
+bool IsInplaceUpdateRelation(Relation relation) {
+    // Delegate to OID-based check using relation's OID
+    return IsInplaceUpdateOid(RelationGetRelid(relation));
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple - it's just a wrapper around IsInplaceUpdateOid
+- The core logic is a single delegation call to check if the relation's OID indicates in-place update capability
+- No error handling needed as RelationGetRelid is a simple macro extraction
+- The function serves as a convenient interface for callers who have a Relation rather than an OID

@@ -46,3 +46,101 @@ The function operates in two main phases:
 - Skips utility statements when checking planned statement dependencies
 - More fine-grained than relation-based invalidation, using hash values for specific object identification
 - Essential for maintaining plan correctness when functions or types are redefined
+
+## Simplified Source
+
+```c
+// Simplified version of PlanCacheObjectCallback
+static void
+PlanCacheObjectCallback(Datum arg, int cacheid, uint32 hashvalue)
+{
+    dlist_iter iter;
+
+    // Phase 1: Invalidate cached plan sources
+    dlist_foreach(iter, &saved_plan_list)
+    {
+        CachedPlanSource *plansource = dlist_container(CachedPlanSource, node, iter.cur);
+        ListCell *lc;
+
+        // Skip if already invalid or doesn't need revalidation
+        if (!plansource->is_valid || !StmtPlanRequiresRevalidation(plansource))
+            continue;
+
+        // Check querytree-level dependencies
+        foreach(lc, plansource->invalItems)
+        {
+            PlanInvalItem *item = (PlanInvalItem *) lfirst(lc);
+
+            if (item->cacheId == cacheid &&
+                (hashvalue == 0 || item->hashValue == hashvalue))
+            {
+                // Invalidate both querytree and generic plan
+                plansource->is_valid = false;
+                if (plansource->gplan)
+                    plansource->gplan->is_valid = false;
+                break;
+            }
+        }
+
+        // Check generic plan dependencies if still valid
+        if (plansource->gplan && plansource->gplan->is_valid)
+        {
+            foreach(lc, plansource->gplan->stmt_list)
+            {
+                PlannedStmt *plannedstmt = lfirst_node(PlannedStmt, lc);
+                ListCell *lc3;
+
+                if (plannedstmt->commandType == CMD_UTILITY)
+                    continue; // Skip utility statements
+
+                foreach(lc3, plannedstmt->invalItems)
+                {
+                    PlanInvalItem *item = (PlanInvalItem *) lfirst(lc3);
+
+                    if (item->cacheId == cacheid &&
+                        (hashvalue == 0 || item->hashValue == hashvalue))
+                    {
+                        // Invalidate generic plan only
+                        plansource->gplan->is_valid = false;
+                        break;
+                    }
+                }
+                if (!plansource->gplan->is_valid)
+                    break;
+            }
+        }
+    }
+
+    // Phase 2: Invalidate cached expressions
+    dlist_foreach(iter, &cached_expression_list)
+    {
+        CachedExpression *cexpr = dlist_container(CachedExpression, node, iter.cur);
+        ListCell *lc;
+
+        // Skip if already invalid
+        if (!cexpr->is_valid)
+            continue;
+
+        foreach(lc, cexpr->invalItems)
+        {
+            PlanInvalItem *item = (PlanInvalItem *) lfirst(lc);
+
+            if (item->cacheId == cacheid &&
+                (hashvalue == 0 || item->hashValue == hashvalue))
+            {
+                cexpr->is_valid = false;
+                break;
+            }
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments within loops for clarity
+- Consolidated condition checks into single if statements
+- Removed magic number assertions (kept essential logic only)
+- Simplified variable declarations
+- Added high-level phase comments for better understanding
+- Maintained the essential two-phase algorithm: plan source invalidation followed by expression invalidation
+- Preserved all critical logic paths and conditions

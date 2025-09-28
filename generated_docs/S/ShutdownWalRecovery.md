@@ -46,3 +46,46 @@ This function takes no parameters and returns void.
 - Essential for preventing resource leaks and ensuring clean recovery completion
 - Maintains global readFile descriptor state by setting it to -1 after closing
 - Part of the final cleanup sequence that transitions from recovery to normal operation
+
+## Simplified Source
+
+```c
+// Simplified version of ShutdownWalRecovery
+void ShutdownWalRecovery(void) {
+    char recoveryPath[MAXPGPATH];
+
+    // Step 1: Finalize recovery statistics
+    XLogPrefetcherComputeStats(xlogprefetcher);
+
+    // Step 2: Clean up WAL reader resources
+    if (readFile >= 0) {
+        close(readFile);
+        readFile = -1;
+    }
+    XLogReaderFree(xlogreader);
+    XLogPrefetcherFree(xlogprefetcher);
+
+    // Step 3: Remove temporary recovery files (if archive recovery was used)
+    if (ArchiveRecoveryRequested) {
+        // Remove partial WAL segment file
+        snprintf(recoveryPath, MAXPGPATH, XLOGDIR "/RECOVERYXLOG");
+        unlink(recoveryPath);  // ignore errors
+
+        // Remove timeline history file
+        snprintf(recoveryPath, MAXPGPATH, XLOGDIR "/RECOVERYHISTORY");
+        unlink(recoveryPath);  // ignore errors
+    }
+
+    // Step 4: Release recovery wakeup latch
+    if (ArchiveRecoveryRequested) {
+        DisownLatch(&XLogRecoveryCtl->recoveryWakeupLatch);
+    }
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments to clarify the cleanup sequence
+- Grouped operations by logical purpose (statistics, resources, files, latch)
+- Preserved all essential logic and error handling approach
+- Maintained the conditional cleanup for archive recovery scenarios
+- Kept the defensive programming approach of ignoring unlink errors

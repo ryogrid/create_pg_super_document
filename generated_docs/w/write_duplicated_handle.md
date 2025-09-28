@@ -37,3 +37,31 @@ This Windows-specific function creates a duplicate of a handle that can be inher
 - The duplicated handle is marked as inheritable (TRUE parameter)
 - Returns false on failure and logs the specific Windows error code for debugging
 - Part of the backend launch mechanism in PostgreSQL on Windows
+
+## Simplified Source
+
+```c
+// Simplified version of write_duplicated_handle
+static bool write_duplicated_handle(HANDLE *dest, HANDLE src, HANDLE childProcess) {
+    HANDLE duplicated_handle = INVALID_HANDLE_VALUE;
+
+    // Duplicate the handle for the child process with inheritance and same access
+    if (!DuplicateHandle(GetCurrentProcess(), src, childProcess, &duplicated_handle,
+                        0, TRUE, DUPLICATE_CLOSE_SOURCE | DUPLICATE_SAME_ACCESS)) {
+        // Log error with Windows error code
+        ereport(LOG, (errmsg_internal("could not duplicate handle: error code %lu", GetLastError())));
+        return false;
+    }
+
+    // Store the duplicated handle and return success
+    *dest = duplicated_handle;
+    return true;
+}
+```
+
+Key simplifications made:
+- Condensed the DuplicateHandle call into fewer lines for readability
+- Added inline comments explaining the core logic steps
+- Simplified variable naming (hChild → duplicated_handle)
+- Shortened the error message while preserving essential information
+- Maintained all essential logic and error handling

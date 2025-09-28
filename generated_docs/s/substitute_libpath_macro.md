@@ -48,3 +48,42 @@ The result is always a freshly allocated string using PostgreSQL's memory manage
 - Uses PostgreSQL's memory management (palloc/pfree) for consistent memory handling
 - Part of PostgreSQL's dynamic library loading system, enabling portable library path specifications
 - The macro substitution allows library paths to be installation-independent
+
+## Simplified Source
+
+```c
+// Simplified version of substitute_libpath_macro
+static char *
+substitute_libpath_macro(const char *name)
+{
+    const char *sep_ptr;
+
+    // If no macro indicator, return copy of original name
+    if (name[0] != '$')
+        return pstrdup(name);
+
+    // Find directory separator or end of string
+    sep_ptr = first_dir_separator(name);
+    if (sep_ptr == NULL)
+        sep_ptr = name + strlen(name);
+
+    // Validate that macro is exactly "$libdir"
+    if (strlen("$libdir") != sep_ptr - name ||
+        strncmp(name, "$libdir", strlen("$libdir")) != 0)
+    {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_NAME),
+                 errmsg("invalid macro name in dynamic library path: %s", name)));
+    }
+
+    // Replace $libdir with actual path and append remaining components
+    return psprintf("%s%s", pkglib_path, sep_ptr);
+}
+```
+
+Key simplifications made:
+- Removed Assert() call for brevity while keeping essential validation
+- Preserved core logic flow: check for macro → validate → substitute
+- Maintained error handling as it's critical for security
+- Kept the exact string comparison logic as it's the core functionality
+- Simplified comments to focus on high-level operations

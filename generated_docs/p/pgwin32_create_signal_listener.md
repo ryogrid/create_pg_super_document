@@ -38,3 +38,37 @@ The named pipe is created with duplex access, message-type communication, and su
 - Buffer sizes are set to 16 bytes for both input and output
 - On failure, reports an ERROR with the specific Windows error code
 - This is part of PostgreSQL's Windows signal emulation system
+
+## Simplified Source
+
+```c
+// Simplified version of pgwin32_create_signal_listener
+HANDLE pgwin32_create_signal_listener(pid_t pid) {
+    char pipename[128];
+    HANDLE pipe;
+
+    // Create unique pipe name based on process ID
+    snprintf(pipename, sizeof(pipename), "\\\\.\\pipe\\pgsignal_%u", (int) pid);
+
+    // Create named pipe for signal communication
+    pipe = CreateNamedPipe(pipename,
+                          PIPE_ACCESS_DUPLEX,
+                          PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT,
+                          PIPE_UNLIMITED_INSTANCES, 16, 16, 1000, NULL);
+
+    // Handle creation failure
+    if (pipe == INVALID_HANDLE_VALUE) {
+        ereport(ERROR, (errmsg("could not create signal listener pipe for PID %d: error code %lu",
+                              (int) pid, GetLastError())));
+    }
+
+    return pipe;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Maintained original structure as the function is already quite simple
+- Preserved all essential logic including error handling
+- Kept Windows API calls intact as they are core to the functionality
+- Enhanced readability with better spacing and comments

@@ -37,3 +37,18 @@ The function is marked as `static inline` to encourage compiler optimization thr
 - Provides full memory barrier semantics as per GCC sync builtin behavior
 - Requires underlying hardware support for atomic bitwise operations on 32-bit values
 - Essential for lock-free programming patterns that use bit manipulation for state management
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_fetch_or_u32_impl
+static inline uint32 pg_atomic_fetch_or_u32_impl(volatile pg_atomic_uint32 *ptr, uint32 or_) {
+    // Atomically OR the value and return the original value
+    return __sync_fetch_and_or(&ptr->value, or_);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - it's a thin wrapper around GCC's atomic builtin
+- Added explanatory comment to clarify the atomic operation behavior
+- No complex logic to simplify - the function directly delegates to hardware-accelerated atomic operation

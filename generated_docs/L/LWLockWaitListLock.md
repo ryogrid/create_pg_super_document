@@ -52,3 +52,40 @@ LWLockWaitListLock is a specialized synchronization function that protects the w
 - **Design philosophy**: Separates wait list management from actual lock acquisition/release, allowing for more granular control and better concurrency
 - **Memory ordering**: Atomic operations provide necessary memory barriers to ensure proper synchronization across processes
 - **No return value**: Function always succeeds in acquiring the wait list lock, blocking until successful
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockWaitListLock
+static void LWLockWaitListLock(LWLock *lock) {
+    uint32 old_state;
+
+    while (true) {
+        // Try to acquire the wait list lock atomically
+        old_state = pg_atomic_fetch_or_u32(&lock->state, LW_FLAG_LOCKED);
+        if (!(old_state & LW_FLAG_LOCKED)) {
+            break;  // Successfully acquired lock
+        }
+
+        // Spin-wait until lock becomes available
+        SpinDelayStatus delayStatus;
+        init_local_spin_delay(&delayStatus);
+
+        while (old_state & LW_FLAG_LOCKED) {
+            perform_spin_delay(&delayStatus);  // Adaptive delay
+            old_state = pg_atomic_read_u32(&lock->state);
+        }
+
+        finish_spin_delay(&delayStatus);
+
+        // Retry acquisition (lock might be re-acquired by another process)
+    }
+}
+```
+
+Key simplifications made:
+- Removed LWLOCK_STATS conditional compilation and statistics tracking
+- Simplified spin delay logic while preserving the adaptive delay mechanism
+- Removed detailed comments about timing and performance considerations
+- Consolidated the core algorithm into clear, readable steps
+- Maintained the essential two-phase acquisition strategy (direct attempt + spin-wait)

@@ -46,3 +46,64 @@ The reverse iteration approach is efficient because resources are pre-sorted by 
 - The function is designed to be called multiple times for different phases, progressively cleaning up all resources
 - Memory allocated for debug strings is properly freed using  to prevent memory leaks during error reporting
 - Critical for transaction rollback, connection cleanup, and error recovery scenarios where resources must be released in proper dependency order
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerReleaseAll
+static void
+ResourceOwnerReleaseAll(ResourceOwner owner, ResourceReleasePhase phase,
+                        bool printLeakWarnings)
+{
+    ResourceElem *items;
+    uint32 nitems;
+
+    // Determine resource storage location (array or hash)
+    if (owner->nhash == 0) {
+        items = owner->arr;
+        nitems = owner->narr;
+    } else {
+        items = owner->hash;
+        nitems = owner->nhash;
+    }
+
+    // Release resources in reverse order (highest priority first)
+    while (nitems > 0) {
+        uint32 idx = nitems - 1;
+        Datum value = items[idx].item;
+        const ResourceOwnerDesc *kind = items[idx].kind;
+
+        // Stop if we've moved past current phase
+        if (kind->release_phase > phase)
+            break;
+
+        // Optional leak warning for debugging
+        if (printLeakWarnings) {
+            char *res_str = kind->DebugPrint ?
+                kind->DebugPrint(value) :
+                psprintf("%s %p", kind->name, DatumGetPointer(value));
+            elog(WARNING, "resource was not closed: %s", res_str);
+            pfree(res_str);
+        }
+
+        // Actually release the resource
+        kind->ReleaseResource(value);
+        nitems--;
+    }
+
+    // Update the appropriate counter
+    if (owner->nhash == 0)
+        owner->narr = nitems;
+    else
+        owner->nhash = nitems;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity (keeping core algorithm)
+- Simplified comments to focus on main logic flow
+- Consolidated resource storage determination into clear if-else
+- Emphasized the reverse iteration pattern with descriptive comments
+- Maintained all essential functionality including leak detection
+- Preserved the phase-based filtering logic
+- Kept proper resource cleanup and counter management

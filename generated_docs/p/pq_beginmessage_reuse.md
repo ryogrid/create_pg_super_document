@@ -36,3 +36,23 @@ Like , it stores the message type character in the buffer's cursor field for lat
 - The buffer must have been previously initialized (e.g., with ) before first use
 - Commonly used in performance-critical paths where the same buffer is used to send multiple messages in sequence
 - The message type storage mechanism is identical to  - stored in the cursor field rather than as message content
+
+## Simplified Source
+
+```c
+// Simplified version of pq_beginmessage_reuse
+void pq_beginmessage_reuse(StringInfo buf, char msgtype) {
+    // Reset the buffer to empty state while preserving allocated memory
+    resetStringInfo(buf);
+
+    // Store message type in cursor field for later use by pq_sendXXX routines
+    // This avoids making it part of the actual message content
+    buf->cursor = msgtype;
+}
+```
+
+Key simplifications made:
+- Preserved the core two-step logic: reset buffer and store message type
+- Added clear comments explaining the purpose of each step
+- Maintained the essential algorithm without any changes to functionality
+- The function is already quite simple, so minimal simplification was needed

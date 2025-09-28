@@ -47,3 +47,20 @@ This function takes no parameters.
 - Unlike GetTopTransactionId, this function will not consume a new XID from the system
 - Commonly used in error logging and monitoring where transaction context is helpful but not required
 - Essential for logical replication and WAL processing where transaction identity matters but should not be artificially created
+
+## Simplified Source
+
+```c
+// Simplified version of GetTopTransactionIdIfAny
+TransactionId GetTopTransactionIdIfAny(void) {
+    // Extract XID from the global full transaction ID
+    // Returns InvalidTransactionId if no XID assigned
+    return XidFromFullTransactionId(XactTopFullTransactionId);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - only one line of core logic
+- Added explanatory comment about the core operation
+- Added comment about return behavior when no XID is assigned
+- No complex error handling or conditions to simplify

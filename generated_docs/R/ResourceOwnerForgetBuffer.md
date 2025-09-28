@@ -40,3 +40,20 @@ This is the counterpart to ResourceOwnerRememberBuffer and is essential for main
 - Failure to call this function when unpinning buffers can result in resource management inconsistencies
 - Essential for proper cleanup coordination between normal operation and error recovery paths
 - Prevents the resource owner from attempting to unpin already-unpinned buffers during transaction cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerForgetBuffer
+static inline void ResourceOwnerForgetBuffer(ResourceOwner owner, Buffer buffer) {
+    // Remove buffer pin from resource owner's tracking list
+    // Convert buffer ID to generic Datum format and call generic forget function
+    ResourceOwnerForget(owner, Int32GetDatum(buffer), &buffer_pin_resowner_desc);
+}
+```
+
+Key simplifications made:
+- Function is already very simple as an inline wrapper
+- Added comments explaining the core purpose: removing buffer pin tracking
+- Clarified that it converts the buffer to a generic format for the underlying system
+- No complex logic to simplify - this is a straightforward delegation to ResourceOwnerForget

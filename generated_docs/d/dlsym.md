@@ -39,3 +39,30 @@ The `dlsym` function is PostgreSQL's Windows implementation of the standard POSI
 - Commonly used to load PostgreSQL extension functions dynamically at runtime
 - The handle parameter must be a valid `HMODULE` obtained from a successful `dlopen()` call
 - This function is critical for PostgreSQL's pluggable architecture, enabling loading of user-defined functions and extensions
+
+## Simplified Source
+
+```c
+// Simplified version of dlsym
+void *dlsym(void *handle, const char *symbol) {
+    // Get symbol address from Windows library
+    void *ptr = GetProcAddress((HMODULE) handle, symbol);
+
+    // Handle lookup failure
+    if (!ptr) {
+        set_dl_error();
+        return NULL;
+    }
+
+    // Clear previous errors on success
+    last_dyn_error[0] = 0;
+    return ptr;
+}
+```
+
+Key simplifications made:
+- Preserved core Windows API call to GetProcAddress()
+- Maintained essential error handling logic flow
+- Kept error state management (setting and clearing errors)
+- Simplified variable declarations for clarity
+- Added descriptive comments for each logical step

@@ -33,3 +33,22 @@ The function always returns true, indicating successful completion of the barrie
 - Enables coordinated resource cleanup across all PostgreSQL processes
 - Essential for operations that require all processes to release file handles simultaneously
 - The barrier mechanism ensures all processes complete this operation before the requesting process continues
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessBarrierSmgrRelease
+bool ProcessBarrierSmgrRelease(void) {
+    // Release all open storage manager files in response to barrier signal
+    smgrreleaseall();
+
+    // Always return true to indicate successful barrier completion
+    return true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core purpose
+- Highlighted the barrier coordination aspect
+- Emphasized the always-true return value for barrier protocol
+- Removed detailed comment from original (preserved essence in inline comments)

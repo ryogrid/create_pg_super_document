@@ -42,3 +42,53 @@ The function employs unsigned integer arithmetic to handle the complex calculati
 - Works as the exact inverse of date2j() - applying both functions in sequence returns the original values
 - Essential for displaying dates to users and converting internal Julian representations back to human-readable format
 - The complex arithmetic handles leap year cycles, century adjustments, and month/day calculations in a mathematically efficient manner
+
+## Simplified Source
+
+```c
+// Simplified version of j2date
+void j2date(int jd, int *year, int *month, int *day)
+{
+    unsigned int julian;
+    unsigned int quad;
+    unsigned int extra;
+    int y;
+
+    // Step 1: Adjust Julian day and compute century cycles
+    julian = jd + 32044;  // Adjust for epoch
+    quad = julian / 146097;  // 400-year cycles
+    extra = (julian - quad * 146097) * 4 + 3;
+
+    // Step 2: Further adjust for leap year calculations
+    julian += 60 + quad * 3 + extra / 146097;
+
+    // Step 3: Compute 4-year cycles and extract year
+    quad = julian / 1461;  // 4-year cycles
+    julian -= quad * 1461;
+    y = julian * 4 / 1461;
+
+    // Step 4: Calculate day within year, accounting for leap years
+    if (y != 0) {
+        julian = (julian + 305) % 365;
+    } else {
+        julian = (julian + 306) % 366;  // Leap year adjustment
+    }
+    julian += 123;
+
+    // Step 5: Combine cycles to get final year
+    y += quad * 4;
+    *year = y - 4800;  // Adjust from astronomical year to calendar year
+
+    // Step 6: Extract month and day from day-of-year
+    quad = julian * 2141 / 65536;  // Month calculation
+    *day = julian - 7834 * quad / 256;  // Day calculation
+    *month = (quad + 10) % MONTHS_PER_YEAR + 1;  // Convert to 1-12 range
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major calculation step
+- Preserved all original mathematical operations as they're essential for correctness
+- Clarified the purpose of magic numbers through comments
+- Organized the algorithm into logical steps for better readability
+- Maintained the exact algorithmic structure since this is a precision mathematical function

@@ -33,3 +33,33 @@ The function takes the reserved entry (stored in ReservedRefCountEntry), clears 
 - Initializes the refcount to 0, expecting the caller to increment it as needed
 - Part of PostgreSQL's buffer pinning mechanism that prevents buffers from being evicted while in use
 - The returned entry can be used to track and modify the reference count for the specified buffer
+
+## Simplified Source
+
+```c
+// Simplified version of NewPrivateRefCountEntry
+static PrivateRefCountEntry *
+NewPrivateRefCountEntry(Buffer buffer)
+{
+    PrivateRefCountEntry *res;
+
+    // Verify a reservation was made (assertion ensures correctness)
+    Assert(ReservedRefCountEntry != NULL);
+
+    // Use the reserved entry and clear the reservation
+    res = ReservedRefCountEntry;
+    ReservedRefCountEntry = NULL;
+
+    // Initialize the entry for the new buffer
+    res->buffer = buffer;
+    res->refcount = 0;
+
+    return res;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Preserved the essential assertion for correctness verification
+- Maintained the core logic flow: claim reserved entry, clear reservation, initialize entry
+- No significant code reduction needed as the original is already quite concise and clear

@@ -44,3 +44,90 @@ The function first checks for version mismatches, which indicate the module was 
 - Critical for preventing crashes and data corruption that could result from loading incompatible modules
 - The error checking must be updated whenever new fields are added to the Pg_magic_struct
 - Helps developers quickly identify what compilation parameters need to be adjusted when building extensions
+
+## Simplified Source
+
+```c
+// Simplified version of incompatible_module_error
+static void incompatible_module_error(const char *libname,
+                                     const Pg_magic_struct *module_magic_data)
+{
+    // Check version mismatch first (most critical check)
+    if (magic_data.version != module_magic_data->version) {
+        char library_version[32];
+
+        // Format version number based on version scheme
+        if (module_magic_data->version >= 1000)
+            snprintf(library_version, sizeof(library_version), "%d",
+                    module_magic_data->version / 100);
+        else
+            snprintf(library_version, sizeof(library_version), "%d.%d",
+                    module_magic_data->version / 100,
+                    module_magic_data->version % 100);
+
+        ereport(ERROR,
+                (errmsg("incompatible library \"%s\": version mismatch", libname),
+                 errdetail("Server is version %d, library is version %s.",
+                          magic_data.version / 100, library_version)));
+    }
+
+    // Check ABI compatibility (product mismatch)
+    if (strcmp(module_magic_data->abi_extra, magic_data.abi_extra) != 0) {
+        ereport(ERROR,
+                (errmsg("incompatible library \"%s\": ABI mismatch", libname),
+                 errdetail("Server has ABI \"%s\", library has \"%s\".",
+                          magic_data.abi_extra, module_magic_data->abi_extra)));
+    }
+
+    // Build detailed error message for configuration mismatches
+    StringInfoData details;
+    initStringInfo(&details);
+
+    // Check each configuration parameter and build error details
+    if (module_magic_data->funcmaxargs != magic_data.funcmaxargs) {
+        appendStringInfo(&details,
+                        "Server has FUNC_MAX_ARGS = %d, library has %d.",
+                        magic_data.funcmaxargs, module_magic_data->funcmaxargs);
+    }
+
+    if (module_magic_data->indexmaxkeys != magic_data.indexmaxkeys) {
+        if (details.len) appendStringInfoChar(&details, '\n');
+        appendStringInfo(&details,
+                        "Server has INDEX_MAX_KEYS = %d, library has %d.",
+                        magic_data.indexmaxkeys, module_magic_data->indexmaxkeys);
+    }
+
+    if (module_magic_data->namedatalen != magic_data.namedatalen) {
+        if (details.len) appendStringInfoChar(&details, '\n');
+        appendStringInfo(&details,
+                        "Server has NAMEDATALEN = %d, library has %d.",
+                        magic_data.namedatalen, module_magic_data->namedatalen);
+    }
+
+    if (module_magic_data->float8byval != magic_data.float8byval) {
+        if (details.len) appendStringInfoChar(&details, '\n');
+        appendStringInfo(&details,
+                        "Server has FLOAT8PASSBYVAL = %s, library has %s.",
+                        magic_data.float8byval ? "true" : "false",
+                        module_magic_data->float8byval ? "true" : "false");
+    }
+
+    // Default message if no specific mismatch found
+    if (details.len == 0)
+        appendStringInfoString(&details,
+                              "Magic block has unexpected length or padding difference.");
+
+    // Report the final error with all details
+    ereport(ERROR,
+            (errmsg("incompatible library \"%s\": magic block mismatch", libname),
+             errdetail_internal("%s", details.data)));
+}
+```
+
+Key simplifications made:
+- Removed redundant newline handling logic in configuration checks
+- Consolidated similar parameter checking patterns
+- Simplified conditional formatting in version handling
+- Removed excessive comments while preserving essential logic flow
+- Made the three-tier error checking structure more apparent
+- Maintained all critical functionality while improving readability

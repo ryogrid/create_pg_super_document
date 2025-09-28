@@ -32,3 +32,26 @@ This function searches through the predefined  array to find an exact match for 
 - The "other" entry must always be the last element in the  array
 - This design allows external projects to track SLRU statistics even if their specific SLRU type is not predefined in PostgreSQL core
 - Returns values in range [0, SLRU_NUM_ELEMENTS-1]
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_get_slru_index
+int pgstat_get_slru_index(const char *name) {
+    // Search through all known SLRU types for exact name match
+    for (int i = 0; i < SLRU_NUM_ELEMENTS; i++) {
+        if (strcmp(slru_names[i], name) == 0) {
+            return i;  // Found exact match
+        }
+    }
+
+    // No match found, return "other" entry index (always last element)
+    return (SLRU_NUM_ELEMENTS - 1);
+}
+```
+
+Key simplifications made:
+- Moved variable declaration inline in the for loop for clarity
+- Added descriptive comments explaining the core logic steps
+- Preserved the essential algorithm: linear search with fallback to "other" entry
+- Maintained the exact same functionality and return behavior

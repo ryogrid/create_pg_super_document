@@ -57,3 +57,57 @@ This design allows the function to detect when the work has already been done an
 - Critical for preventing duplicate I/O operations in high-concurrency scenarios
 - Part of PostgreSQL's buffer I/O coordination infrastructure
 - Only applies to shared buffers, not local buffers
+
+## Simplified Source
+
+```c
+// Simplified version of StartBufferIO
+static bool StartBufferIO(BufferDesc *buf, bool forInput, bool nowait) {
+    uint32 buf_state;
+
+    // Prepare resource tracking for this I/O operation
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+
+    // Loop until no other I/O is in progress on this buffer
+    for (;;) {
+        buf_state = LockBufHdr(buf);
+
+        if (!(buf_state & BM_IO_IN_PROGRESS))
+            break;  // No I/O in progress, we can proceed
+
+        UnlockBufHdr(buf, buf_state);
+
+        if (nowait)
+            return false;  // Don't wait, just return failure
+
+        WaitIO(buf);  // Wait for current I/O to complete
+    }
+
+    // Check if the work we wanted to do is already done
+    bool work_already_done = forInput ? (buf_state & BM_VALID)
+                                      : !(buf_state & BM_DIRTY);
+
+    if (work_already_done) {
+        UnlockBufHdr(buf, buf_state);
+        return false;  // Someone else already completed the I/O
+    }
+
+    // Mark buffer as having I/O in progress
+    buf_state |= BM_IO_IN_PROGRESS;
+    UnlockBufHdr(buf, buf_state);
+
+    // Register this I/O operation with resource owner for cleanup
+    ResourceOwnerRememberBufferIO(CurrentResourceOwner,
+                                  BufferDescriptorGetBuffer(buf));
+
+    return true;  // Successfully started I/O
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and replaced with high-level explanations
+- Simplified the conditional check for work completion into a clearer boolean variable
+- Added descriptive comments explaining the main logic flow
+- Consolidated the complex ternary condition into a more readable format
+- Maintained all essential logic including race condition handling, work avoidance, and resource tracking
+- Preserved the critical synchronization mechanism using buffer state flags

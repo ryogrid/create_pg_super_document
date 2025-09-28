@@ -28,3 +28,30 @@ This function takes no parameters.
 - Initializes both shared_map and local_map structures along with their associated update tracking structures
 - Must be called before any database access occurs during process startup
 - Part of the relation mapping system that handles OID-to-filenode mappings for critical system relations
+
+## Simplified Source
+
+```c
+// Simplified version of RelationMapInitialize
+void RelationMapInitialize(void) {
+    // Clear shared relation map
+    shared_map.magic = 0;                    // mark not loaded
+    shared_map.num_mappings = 0;
+
+    // Clear local relation map
+    local_map.magic = 0;
+    local_map.num_mappings = 0;
+
+    // Clear all update tracking structures
+    active_shared_updates.num_mappings = 0;
+    active_local_updates.num_mappings = 0;
+    pending_shared_updates.num_mappings = 0;
+    pending_local_updates.num_mappings = 0;
+}
+```
+
+Key simplifications made:
+- Removed redundant comment about static variable initialization
+- Grouped related initializations with descriptive comments
+- Maintained all essential initialization logic
+- Preserved the function's core purpose of clearing mapping structures

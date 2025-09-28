@@ -38,3 +38,26 @@ The function ensures that the returned bytea result is not toasted, making it su
 - For performance-critical code, cache the FmgrInfo and use SendFunctionCall directly
 - Guarantees a non-toasted result, which is important for reliable data transmission
 - The binary output is more compact and efficient than string representation for network protocols
+
+## Simplified Source
+
+```c
+// Simplified version of OidSendFunctionCall
+bytea *
+OidSendFunctionCall(Oid functionId, Datum val)
+{
+    FmgrInfo flinfo;
+
+    // Setup function manager info for the given function OID
+    fmgr_info(functionId, &flinfo);
+
+    // Call the actual send function to convert Datum to binary
+    return SendFunctionCall(&flinfo, val);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - minimal simplification needed
+- Added descriptive comments explaining the two main steps
+- Preserved the essential logic flow: setup FmgrInfo, then call SendFunctionCall
+- No error handling or complex logic to simplify in this straightforward wrapper function

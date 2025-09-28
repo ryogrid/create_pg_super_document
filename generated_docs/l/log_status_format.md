@@ -43,3 +43,127 @@ The function maintains static variables to track line numbers and process identi
 - Includes padding support for alignment (e.g., %10u for right-aligned username in 10 characters)
 - Maintains per-process line numbering with automatic reset on process change
 - Critical for PostgreSQL's flexible logging system configuration
+
+## Simplified Source
+
+```c
+// Simplified version of log_status_format
+void log_status_format(StringInfo buf, const char *format, ErrorData *edata) {
+    // Static counters for line numbers and process tracking
+    static long log_line_number = 0;
+    static int log_my_pid = 0;
+    int padding;
+    const char *p;
+
+    // Reset line counter when process changes
+    if (log_my_pid != MyProcPid) {
+        log_line_number = 0;
+        log_my_pid = MyProcPid;
+        reset_formatted_start_time();
+    }
+    log_line_number++;
+
+    if (format == NULL)
+        return;
+
+    // Parse format string character by character
+    for (p = format; *p != '\0'; p++) {
+        if (*p != '%') {
+            // Copy literal characters directly
+            appendStringInfoChar(buf, *p);
+            continue;
+        }
+
+        // Handle escape sequences starting with '%'
+        p++;
+        if (*p == '\0')
+            break;
+        if (*p == '%') {
+            appendStringInfoChar(buf, '%');
+            continue;
+        }
+
+        // Extract padding information if present
+        if (*p > '9')
+            padding = 0;
+        else if ((p = process_log_prefix_padding(p, &padding)) == NULL)
+            break;
+
+        // Process format specifiers
+        switch (*p) {
+            case 'a': // Application name
+                append_application_name(buf, padding);
+                break;
+            case 'b': // Backend type
+                append_backend_type(buf, padding);
+                break;
+            case 'u': // Username
+                append_username(buf, padding);
+                break;
+            case 'd': // Database name
+                append_database_name(buf, padding);
+                break;
+            case 'c': // Session ID (timestamp.pid)
+                append_session_id(buf, padding);
+                break;
+            case 'p': // Process ID
+                append_process_id(buf, padding);
+                break;
+            case 'P': // Parallel leader PID
+                append_parallel_leader_pid(buf, padding);
+                break;
+            case 'l': // Line number
+                append_line_number(buf, padding, log_line_number);
+                break;
+            case 'm': // Timestamp with milliseconds
+                append_formatted_timestamp(buf, padding);
+                break;
+            case 't': // Standard timestamp
+                append_standard_timestamp(buf, padding);
+                break;
+            case 'n': // Timestamp since epoch
+                append_epoch_timestamp(buf, padding);
+                break;
+            case 's': // Process start time
+                append_start_time(buf, padding);
+                break;
+            case 'i': // Command tag
+                append_command_tag(buf, padding);
+                break;
+            case 'r': // Remote host with port
+                append_remote_host_with_port(buf, padding);
+                break;
+            case 'h': // Remote host only
+                append_remote_host(buf, padding);
+                break;
+            case 'q': // Stop processing in postmaster
+                if (MyProcPort == NULL)
+                    return;
+                break;
+            case 'v': // Virtual transaction ID
+                append_virtual_xid(buf, padding);
+                break;
+            case 'x': // Transaction ID
+                append_transaction_id(buf, padding);
+                break;
+            case 'e': // SQL error state
+                append_sql_state(buf, padding, edata);
+                break;
+            case 'Q': // Query ID
+                append_query_id(buf, padding);
+                break;
+            default:
+                // Unknown format specifier - ignore
+                break;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Abstracted repetitive padding and string appending logic into helper function calls
+- Removed inline implementations of format specifiers for clarity
+- Consolidated similar cases that handle padding and string formatting
+- Simplified complex conditional logic while preserving core functionality
+- Maintained the essential format parsing and dispatch mechanism
+- Preserved critical static variable handling for line numbering and process tracking

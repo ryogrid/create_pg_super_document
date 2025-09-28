@@ -34,3 +34,18 @@ The restoration process includes reading various types of statistics such as arc
 - The actual statistics file reading and parsing is delegated to 
 - If the statistics file doesn't exist or is corrupted, the system will start with empty statistics counters
 - The function is located in src/backend/utils/activity/pgstat.c:407-418
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_restore_stats
+void pgstat_restore_stats(void) {
+    // Read statistics from persistent file into memory
+    pgstat_read_statsfile();
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already minimal
+- Acts as a simple wrapper around pgstat_read_statsfile()
+- Single responsibility: restore stats from disk at startup

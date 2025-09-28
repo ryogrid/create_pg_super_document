@@ -37,3 +37,53 @@ Since PostgreSQL doesn't expect pg_subtrans to be valid across crashes, this ini
 - Uses bank locking to efficiently handle page initialization across multiple pages
 - Handles wraparound cases where page numbers exceed MaxTransactionId
 - Critical for ensuring subtransaction status consistency after server restarts
+
+## Simplified Source
+
+```c
+// Simplified version of StartupSUBTRANS
+void StartupSUBTRANS(TransactionId oldestActiveXID) {
+    FullTransactionId nextXid;
+    int64 startPage, endPage;
+    LWLock *prevlock = NULL;
+    LWLock *lock;
+
+    // Calculate the range of SUBTRANS pages that need initialization
+    startPage = TransactionIdToPage(oldestActiveXID);
+    nextXid = TransamVariables->nextXid;
+    endPage = TransactionIdToPage(XidFromFullTransactionId(nextXid));
+
+    // Zero out all pages from startPage to endPage
+    for (;;) {
+        // Acquire appropriate bank lock for this page
+        lock = SimpleLruGetBankLock(SubTransCtl, startPage);
+        if (prevlock != lock) {
+            if (prevlock)
+                LWLockRelease(prevlock);
+            LWLockAcquire(lock, LW_EXCLUSIVE);
+            prevlock = lock;
+        }
+
+        // Zero the current page
+        ZeroSUBTRANSPage(startPage);
+
+        // Check if we've processed all pages
+        if (startPage == endPage)
+            break;
+
+        // Move to next page, handling wraparound
+        startPage++;
+        if (startPage > TransactionIdToPage(MaxTransactionId))
+            startPage = 0;
+    }
+
+    LWLockRelease(lock);
+}
+```
+
+Key simplifications made:
+- Preserved the core page initialization loop and locking logic
+- Maintained wraparound handling for transaction ID page numbers
+- Kept essential bank locking optimization for performance
+- Simplified comments to focus on high-level operations
+- Preserved all critical function calls and control flow

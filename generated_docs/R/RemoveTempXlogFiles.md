@@ -46,3 +46,41 @@ This function takes no parameters.
 - Temporary WAL files use the naming convention "xlogtemp.*"
 - The cleanup is logged at DEBUG2 level for diagnostic purposes
 - File path: src/backend/access/transam/xlog.c:3809-3841
+
+## Simplified Source
+
+```c
+// Simplified version of RemoveTempXlogFiles
+static void RemoveTempXlogFiles(void)
+{
+    DIR *xldir;
+    struct dirent *xlde;
+
+    // Open the WAL directory for cleanup
+    xldir = AllocateDir(XLOGDIR);
+
+    // Scan directory for temporary WAL files
+    while ((xlde = ReadDir(xldir, XLOGDIR)) != NULL)
+    {
+        char path[MAXPGPATH];
+
+        // Skip files that aren't temporary WAL segments
+        if (strncmp(xlde->d_name, "xlogtemp.", 9) != 0)
+            continue;
+
+        // Build full path and remove the temporary file
+        snprintf(path, MAXPGPATH, XLOGDIR "/%s", xlde->d_name);
+        unlink(path);
+    }
+
+    // Clean up directory handle
+    FreeDir(xldir);
+}
+```
+
+Key simplifications made:
+- Removed DEBUG2 logging statements for clarity
+- Added descriptive comments explaining each major step
+- Preserved the essential file scanning and removal logic
+- Maintained the core algorithm of identifying and deleting temporary WAL files
+- Kept the directory iteration pattern intact

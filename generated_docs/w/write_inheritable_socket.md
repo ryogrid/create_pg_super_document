@@ -38,3 +38,33 @@ This Windows-specific function addresses a common problem with socket inheritanc
 - Uses WSADuplicateSocket() to create protocol-specific information that can be used to recreate the socket in the child process
 - Returns false on failure and logs the specific WSA error code for debugging
 - Part of the backend parameter passing mechanism on Windows platforms
+
+## Simplified Source
+
+```c
+// Simplified version of write_inheritable_socket
+static bool write_inheritable_socket(InheritableSocket *dest, SOCKET src, pid_t childpid) {
+    // Store the original socket reference
+    dest->origsocket = src;
+
+    // Only duplicate valid sockets (skip null/invalid sockets)
+    if (src != 0 && src != PGINVALID_SOCKET) {
+        // Use Windows API to duplicate socket for child process
+        if (WSADuplicateSocket(src, childpid, &dest->wsainfo) != 0) {
+            // Log error with socket details and return failure
+            ereport(LOG, (errmsg("could not duplicate socket %d for use in backend: error code %d",
+                                 (int) src, WSAGetLastError())));
+            return false;
+        }
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Preserved essential Windows socket duplication logic
+- Maintained critical error handling and logging
+- Added descriptive comments for each logical step
+- Kept the WSA API calls as they are core to the function's purpose
+- Simplified conditional structure while preserving all original logic paths

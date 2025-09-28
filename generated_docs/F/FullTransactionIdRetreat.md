@@ -39,3 +39,32 @@ The function handles two types of special transaction IDs:
 - Handles the complexity of 32-bit vs 64-bit transaction ID special values
 - Used primarily during WAL replay and transaction cleanup operations
 - The function ensures that retreated transaction IDs remain valid and usable in the PostgreSQL transaction system
+
+## Simplified Source
+
+```c
+// Simplified version of FullTransactionIdRetreat
+static inline void
+FullTransactionIdRetreat(FullTransactionId *dest)
+{
+    // Step 1: Decrement the transaction ID by one
+    dest->value--;
+
+    // Step 2: Check if we've gone below the minimum valid 64-bit transaction ID
+    // If so, we're done (these are truly special XIDs that can't be reached in wraparound)
+    if (FullTransactionIdPrecedes(*dest, FirstNormalFullTransactionId))
+        return;
+
+    // Step 3: Skip over XIDs that would be special when viewed as 32-bit XIDs
+    // Keep decrementing until we get a safe 32-bit XID value
+    while (XidFromFullTransactionId(*dest) < FirstNormalTransactionId)
+        dest->value--;
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the logic flow
+- Simplified the complex comment explanations into concise operational descriptions
+- Preserved the essential algorithm: decrement, check bounds, skip special 32-bit XIDs
+- Maintained the inline function signature and parameter modification behavior
+- Removed verbose technical explanations while keeping the core functionality intact

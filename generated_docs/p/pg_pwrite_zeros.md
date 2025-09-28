@@ -54,3 +54,52 @@ Key behaviors:
 - Each iovec entry can write up to BLCKSZ bytes, with smaller amounts for the final partial block
 - This function is commonly used for initializing log files, extending files, and creating sparse file regions
 - Part of PostgreSQL's cross-platform file I/O abstraction layer that handles platform-specific I/O requirements
+
+## Simplified Source
+
+```c
+// Simplified version of pg_pwrite_zeros
+ssize_t pg_pwrite_zeros(int fd, size_t size, off_t offset) {
+    static const PGIOAlignedBlock zbuffer = {{0}};  // Static zero-filled buffer
+    void *zerobuf_addr = unconstify(PGIOAlignedBlock *, &zbuffer)->data;
+    struct iovec iov[PG_IOV_MAX];
+    size_t remaining_size = size;
+    ssize_t total_written = 0;
+
+    // Loop until all bytes are written
+    while (remaining_size > 0) {
+        int iovcnt = 0;
+
+        // Fill iovec array with references to zero buffer
+        for (; iovcnt < PG_IOV_MAX && remaining_size > 0; iovcnt++) {
+            iov[iovcnt].iov_base = zerobuf_addr;
+
+            // Use full block size or remaining bytes for last chunk
+            size_t chunk_size = (remaining_size < BLCKSZ) ? remaining_size : BLCKSZ;
+            iov[iovcnt].iov_len = chunk_size;
+            remaining_size -= chunk_size;
+        }
+
+        // Perform vectored write with retry logic
+        ssize_t written = pg_pwritev_with_retry(fd, iov, iovcnt, offset);
+
+        if (written < 0)
+            return written;  // Return error
+
+        // Update position tracking
+        offset += written;
+        total_written += written;
+    }
+
+    return total_written;
+}
+```
+
+Key simplifications made:
+- Simplified variable declarations and initialization
+- Added descriptive comments for main logic blocks
+- Consolidated size calculation logic into a single line
+- Removed detailed assertion checking for clarity
+- Streamlined the vectored I/O setup process
+- Maintained essential error handling and return logic
+- Preserved the core algorithm of reusing a static zero buffer across multiple iovec entries

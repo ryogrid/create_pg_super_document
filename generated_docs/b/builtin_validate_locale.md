@@ -49,3 +49,38 @@ This validation is crucial for maintaining data integrity and proper collation b
 - Used during database creation, collation definition, and locale initialization
 - Part of PostgreSQL's builtin collation provider infrastructure
 - Essential for ensuring locale/encoding consistency across the system
+
+## Simplified Source
+
+```c
+// Simplified version of builtin_validate_locale
+const char *
+builtin_validate_locale(int encoding, const char *locale)
+{
+    const char *canonical_name = NULL;
+
+    // Step 1: Validate and canonicalize locale name
+    if (strcmp(locale, "C") == 0)
+        canonical_name = "C";
+    else if (strcmp(locale, "C.UTF-8") == 0 || strcmp(locale, "C.UTF8") == 0)
+        canonical_name = "C.UTF-8";
+
+    // Step 2: Reject unsupported locales
+    if (!canonical_name)
+        ereport(ERROR, "invalid locale name for builtin provider");
+
+    // Step 3: Validate encoding compatibility
+    int required_encoding = builtin_locale_encoding(canonical_name);
+    if (required_encoding >= 0 && encoding != required_encoding)
+        ereport(ERROR, "encoding does not match locale");
+
+    return canonical_name;
+}
+```
+
+Key simplifications made:
+- Simplified error reporting by removing detailed error codes and message formatting
+- Combined related conditions into clear logical steps
+- Removed verbose parameter passing in ereport calls
+- Consolidated locale validation logic into clear branches
+- Maintained essential validation flow while improving readability

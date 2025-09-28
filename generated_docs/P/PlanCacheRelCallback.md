@@ -43,3 +43,82 @@ For each plan source, it performs validation checks to avoid unnecessary work, s
 - Handles both querytree-level and generic plan-level dependencies
 - Skips utility statements when checking planned statement dependencies
 - Part of PostgreSQL's cache invalidation infrastructure that ensures plan consistency when database schema changes
+
+## Simplified Source
+
+```c
+// Simplified version of PlanCacheRelCallback
+static void
+PlanCacheRelCallback(Datum arg, Oid relid)
+{
+    dlist_iter iter;
+
+    // Phase 1: Invalidate cached plan sources
+    dlist_foreach(iter, &saved_plan_list)
+    {
+        CachedPlanSource *plansource = dlist_container(CachedPlanSource, node, iter.cur);
+
+        // Skip if already invalid or doesn't need revalidation
+        if (!plansource->is_valid || !StmtPlanRequiresRevalidation(plansource))
+            continue;
+
+        // Check if plan depends on the invalidated relation
+        bool depends_on_rel = (relid == InvalidOid) ?
+            (plansource->relationOids != NIL) :
+            list_member_oid(plansource->relationOids, relid);
+
+        if (depends_on_rel)
+        {
+            // Invalidate both querytree and generic plan
+            plansource->is_valid = false;
+            if (plansource->gplan)
+                plansource->gplan->is_valid = false;
+        }
+
+        // Check generic plan dependencies separately (may have additional deps)
+        if (plansource->gplan && plansource->gplan->is_valid)
+        {
+            foreach(lc, plansource->gplan->stmt_list)
+            {
+                PlannedStmt *plannedstmt = lfirst_node(PlannedStmt, lc);
+
+                // Skip utility statements
+                if (plannedstmt->commandType == CMD_UTILITY)
+                    continue;
+
+                // Check if planned statement depends on relation
+                if ((relid == InvalidOid) ? (plannedstmt->relationOids != NIL) :
+                    list_member_oid(plannedstmt->relationOids, relid))
+                {
+                    plansource->gplan->is_valid = false;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Phase 2: Invalidate cached expressions
+    dlist_foreach(iter, &cached_expression_list)
+    {
+        CachedExpression *cexpr = dlist_container(CachedExpression, node, iter.cur);
+
+        // Skip if already invalid
+        if (!cexpr->is_valid)
+            continue;
+
+        // Check if expression depends on the invalidated relation
+        if ((relid == InvalidOid) ? (cexpr->relationOids != NIL) :
+            list_member_oid(cexpr->relationOids, relid))
+        {
+            cexpr->is_valid = false;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed magic number assertions for clarity
+- Consolidated relation dependency checks into clearer boolean variables
+- Added descriptive comments for the two main phases
+- Simplified the nested conditional logic while preserving the core algorithm
+- Made the overall flow more readable while maintaining all essential functionality

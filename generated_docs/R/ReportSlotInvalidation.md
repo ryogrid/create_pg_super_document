@@ -46,3 +46,70 @@ The function supports two reporting modes: terminating processes that own invali
 
 ## Notes and Other Information
 This function is crucial for PostgreSQL administrators to understand why replication slots are being invalidated. The detailed error messages help in diagnosing replication issues and adjusting configuration parameters like max_slot_wal_keep_size or wal_level appropriately.
+
+## Simplified Source
+
+```c
+// Simplified version of ReportSlotInvalidation
+static void ReportSlotInvalidation(ReplicationSlotInvalidationCause cause,
+                                 bool terminating,
+                                 int pid,
+                                 NameData slotname,
+                                 XLogRecPtr restart_lsn,
+                                 XLogRecPtr oldestLSN,
+                                 TransactionId snapshotConflictHorizon)
+{
+    StringInfoData err_detail;
+    bool hint = false;
+
+    initStringInfo(&err_detail);
+
+    // Build error message based on invalidation cause
+    switch (cause) {
+        case RS_INVAL_WAL_REMOVED:
+            // Calculate how much the restart_lsn exceeds the limit
+            hint = true;
+            appendStringInfo(&err_detail,
+                "The slot's restart_lsn %X/%X exceeds the limit by %llu bytes.",
+                LSN_FORMAT_ARGS(restart_lsn),
+                oldestLSN - restart_lsn);
+            break;
+
+        case RS_INVAL_HORIZON:
+            appendStringInfo(&err_detail,
+                "The slot conflicted with xid horizon %u.",
+                snapshotConflictHorizon);
+            break;
+
+        case RS_INVAL_WAL_LEVEL:
+            appendStringInfoString(&err_detail,
+                "Logical decoding on standby requires \"wal_level\" >= \"logical\" on the primary server.");
+            break;
+
+        case RS_INVAL_NONE:
+            // Should never happen
+            break;
+    }
+
+    // Log the appropriate message
+    ereport(LOG,
+        terminating ?
+            errmsg("terminating process %d to release replication slot \"%s\"",
+                   pid, NameStr(slotname)) :
+            errmsg("invalidating obsolete replication slot \"%s\"",
+                   NameStr(slotname)),
+        errdetail_internal("%s", err_detail.data),
+        hint ? errhint("You might need to increase \"max_slot_wal_keep_size\".") : 0);
+
+    // Clean up allocated memory
+    pfree(err_detail.data);
+}
+```
+
+Key simplifications made:
+- Removed ngettext pluralization complexity for byte count message
+- Simplified conditional expressions in ereport call
+- Added descriptive comments for major logic blocks
+- Replaced pg_unreachable() with simple break for clarity
+- Consolidated similar message formatting patterns
+- Made variable calculations more explicit and readable

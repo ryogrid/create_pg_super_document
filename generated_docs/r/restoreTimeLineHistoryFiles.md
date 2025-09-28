@@ -35,3 +35,33 @@ The function skips timeline ID 1 since the master timeline does not have a histo
 - The function is primarily used during crash recovery and standby promotion scenarios
 - History files are critical for understanding timeline branching and ensuring consistent recovery
 - Located in src/backend/access/transam/timeline.c:50-75
+
+## Simplified Source
+
+```c
+// Simplified version of restoreTimeLineHistoryFiles
+void restoreTimeLineHistoryFiles(TimeLineID begin, TimeLineID end) {
+    char path[MAXPGPATH];
+    char histfname[MAXFNAMELEN];
+
+    // Iterate through timeline range and restore history files
+    for (TimeLineID tli = begin; tli < end; tli++) {
+        // Skip timeline 1 - master timeline has no history file
+        if (tli == 1)
+            continue;
+
+        // Build history filename for this timeline
+        TLHistoryFileName(histfname, tli);
+
+        // Try to restore from archive, keep if successful
+        if (RestoreArchivedFile(path, histfname, "RECOVERYHISTORY", 0, false))
+            KeepFileRestoredFromArchive(path, histfname);
+    }
+}
+```
+
+Key simplifications made:
+- Combined variable declarations for clarity
+- Added descriptive comments for each logical step
+- Maintained the core algorithm: iterate, skip timeline 1, restore and keep files
+- Preserved the essential function logic without modification

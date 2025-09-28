@@ -48,3 +48,61 @@ The function uses mathematical relationships between transaction IDs and page nu
 - Validates that segments containing active transaction data are never deleted
 - The function is designed to catch regressions in SLRU page ordering logic
 - Part of PostgreSQL's internal testing infrastructure for transaction management
+
+## Simplified Source
+
+```c
+// Simplified version of SlruPagePrecedesTestOffset
+static void SlruPagePrecedesTestOffset(SlruCtl ctl, int per_page, uint32 offset)
+{
+    TransactionId lhs, rhs;
+    int64 newestPage, oldestPage;
+    TransactionId newestXact, oldestXact;
+
+    // Test XID precedence at wrap-around boundary
+    // Create pair at "opposite ends" of XID space where each precedes the other
+    lhs = per_page + offset;        // skip first page for normal XIDs
+    rhs = lhs + (1U << 31);        // exactly half the XID space away
+
+    // Validate XID precedence behavior at wrap boundary
+    Assert(TransactionIdPrecedes(lhs, rhs));
+    Assert(TransactionIdPrecedes(rhs, lhs));    // both precede each other
+    Assert(!TransactionIdPrecedes(lhs - 1, rhs));
+    Assert(!TransactionIdFollowsOrEquals(lhs, rhs));
+
+    // Test page precedence logic with various page relationships
+    Assert(!ctl->PagePrecedes(lhs / per_page, rhs / per_page));
+    Assert(ctl->PagePrecedes(rhs / per_page, (lhs - 3 * per_page) / per_page));
+    Assert(ctl->PagePrecedes((lhs + 3 * per_page) / per_page, rhs / per_page));
+
+    // Test scenario 1: Newest XID in LAST page of second segment
+    newestPage = 2 * SLRU_PAGES_PER_SEGMENT - 1;
+    newestXact = newestPage * per_page + offset;
+    oldestXact = newestXact + 1 - (1U << 31);   // wrap around
+    oldestPage = oldestXact / per_page;
+
+    // Ensure segment containing newest XID is not deleted
+    Assert(!SlruMayDeleteSegment(ctl,
+                                newestPage - (newestPage % SLRU_PAGES_PER_SEGMENT),
+                                oldestPage));
+
+    // Test scenario 2: Newest XID in FIRST page of second segment
+    newestPage = SLRU_PAGES_PER_SEGMENT;
+    newestXact = newestPage * per_page + offset;
+    oldestXact = newestXact + 1 - (1U << 31);   // wrap around
+    oldestPage = oldestXact / per_page;
+
+    // Ensure segment containing newest XID is not deleted
+    Assert(!SlruMayDeleteSegment(ctl,
+                                newestPage - (newestPage % SLRU_PAGES_PER_SEGMENT),
+                                oldestPage));
+}
+```
+
+Key simplifications made:
+- Consolidated multiple similar Assert statements into representative examples
+- Added comments explaining the wrap-around XID logic
+- Simplified variable calculations by combining operations
+- Removed redundant edge case assertions while preserving core logic
+- Clarified the two main test scenarios with descriptive comments
+- Maintained the essential algorithm for testing page precedence and segment safety

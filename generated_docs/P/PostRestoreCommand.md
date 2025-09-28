@@ -34,3 +34,18 @@ This function takes no parameters.
 - Part of PostgreSQL's archive recovery mechanism for proper state management
 - Simple but critical for maintaining correct startup process signal handling semantics
 - Must be called after every successful or failed restore command execution to maintain proper state
+
+## Simplified Source
+
+```c
+// Simplified version of PostRestoreCommand
+void PostRestoreCommand(void) {
+    // Reset the restore command flag to indicate completion
+    in_restore_command = false;
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already minimal
+- Added descriptive comment explaining the purpose
+- Function contains only essential logic: resetting the global flag

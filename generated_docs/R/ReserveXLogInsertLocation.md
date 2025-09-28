@@ -39,3 +39,46 @@ ReserveXLogInsertLocation is the performance-critical serialization point for WA
 - Critical section (spinlock) is kept as short as possible to minimize contention on busy systems
 - Includes consistency assertions to verify the byte position to XLogRecPtr conversions work correctly
 - All non-xlog-switch records must contain data (size > SizeOfXLogRecord assertion)
+
+## Simplified Source
+
+```c
+// Simplified version of ReserveXLogInsertLocation
+static pg_attribute_always_inline void
+ReserveXLogInsertLocation(int size, XLogRecPtr *StartPos, XLogRecPtr *EndPos, XLogRecPtr *PrevPtr)
+{
+    XLogCtlInsert *Insert = &XLogCtl->Insert;
+    uint64 startbytepos, endbytepos, prevbytepos;
+
+    // Align record size to proper boundary
+    size = MAXALIGN(size);
+
+    // Performance-critical section: minimize time holding spinlock
+    SpinLockAcquire(&Insert->insertpos_lck);
+    {
+        // Reserve space by updating current position
+        startbytepos = Insert->CurrBytePos;
+        endbytepos = startbytepos + size;
+        prevbytepos = Insert->PrevBytePos;
+
+        // Update insertion positions atomically
+        Insert->CurrBytePos = endbytepos;
+        Insert->PrevBytePos = startbytepos;
+    }
+    SpinLockRelease(&Insert->insertpos_lck);
+
+    // Convert usable byte positions to XLogRecPtrs outside critical section
+    *StartPos = XLogBytePosToRecPtr(startbytepos);
+    *EndPos = XLogBytePosToEndRecPtr(endbytepos);
+    *PrevPtr = XLogBytePosToRecPtr(prevbytepos);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining WAL internals for clarity
+- Consolidated variable declarations
+- Used block scope to highlight the critical section
+- Removed consistency assertion checks
+- Removed detailed explanation comments about byte position mapping
+- Simplified the spinlock section description
+- Maintained essential algorithm: reserve space atomically, convert positions

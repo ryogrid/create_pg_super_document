@@ -35,3 +35,30 @@ The `RoleMembershipCacheCallback` function is a static callback function registe
 - Critical for maintaining cache consistency in multi-user environments where role memberships change
 - Part of PostgreSQL's cache invalidation infrastructure ensuring ACL decisions reflect current system state
 - Registered during initialize_acl() for three different system catalog types
+
+## Simplified Source
+
+```c
+// Simplified version of RoleMembershipCacheCallback
+static void
+RoleMembershipCacheCallback(Datum arg, int cacheid, uint32 hashvalue)
+{
+    // Skip invalidation for database changes in other databases
+    if (cacheid == DATABASEOID &&
+        hashvalue != cached_db_hash &&
+        hashvalue != 0) {
+        return;  // Ignore changes for other databases
+    }
+
+    // Invalidate all role membership caches to force recomputation
+    cached_role[ROLERECURSE_MEMBERS] = InvalidOid;   // Direct membership cache
+    cached_role[ROLERECURSE_PRIVS] = InvalidOid;     // Privilege inheritance cache
+    cached_role[ROLERECURSE_SETROLE] = InvalidOid;   // SET ROLE capability cache
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the database filter logic
+- Clarified the purpose of each cached_role array invalidation
+- Preserved the essential callback structure and logic flow
+- Maintained the selective database invalidation optimization

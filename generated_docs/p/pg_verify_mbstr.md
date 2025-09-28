@@ -43,3 +43,35 @@ The function operates by calling the encoding-specific mbverifystr function poin
 - Returns true if the entire string is valid, false only when noError is true and invalid encoding is detected
 - When noError is false, the function will not return false but will instead call report_invalid_encoding and potentially terminate execution
 - The verification is performed by encoding-specific functions that understand the byte sequence rules for each supported encoding
+
+## Simplified Source
+
+```c
+// Simplified version of pg_verify_mbstr
+bool pg_verify_mbstr(int encoding, const char *mbstr, int len, bool noError) {
+    // Verify the encoding parameter is valid
+    Assert(PG_VALID_ENCODING(encoding));
+
+    // Use encoding-specific verification function to check the string
+    int valid_length = pg_wchar_table[encoding].mbverifystr((const unsigned char *) mbstr, len);
+
+    // Check if entire string is valid
+    if (valid_length != len) {
+        // Handle invalid encoding based on error mode
+        if (noError) {
+            return false;  // Silent failure mode
+        }
+        // Report the error with details about invalid portion
+        report_invalid_encoding(encoding, mbstr + valid_length, len - valid_length);
+    }
+
+    return true;  // String is valid
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Simplified variable name from `oklen` to `valid_length` for clarity
+- Made the conditional logic flow more explicit with clear comments
+- Preserved all essential functionality while improving readability
+- Maintained the core algorithm: validate encoding, check length, handle errors appropriately

@@ -52,3 +52,69 @@ LWLockAttemptLock is a critical low-level function that implements the core atom
 - **Performance optimization**: Always performs the atomic swap operation (even when lock appears busy) to provide memory barrier semantics, based on benchmark results
 - **Thread safety**: Designed to be safe for concurrent access from multiple processes/threads
 - **Lock-free design**: Uses atomic operations instead of higher-level synchronization primitives to avoid deadlocks and improve performance
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockAttemptLock
+static bool
+LWLockAttemptLock(LWLock *lock, LWLockMode mode)
+{
+    uint32 old_state;
+
+    // Validate input parameters
+    Assert(mode == LW_EXCLUSIVE || mode == LW_SHARED);
+
+    // Read current lock state
+    old_state = pg_atomic_read_u32(&lock->state);
+
+    // Retry loop until we determine if we can acquire the lock
+    while (true)
+    {
+        uint32 desired_state = old_state;
+        bool lock_free;
+
+        // Check if lock is available based on requested mode
+        if (mode == LW_EXCLUSIVE)
+        {
+            // For exclusive lock: no other locks should be held
+            lock_free = (old_state & LW_LOCK_MASK) == 0;
+            if (lock_free)
+                desired_state += LW_VAL_EXCLUSIVE;
+        }
+        else
+        {
+            // For shared lock: no exclusive lock should be held
+            lock_free = (old_state & LW_VAL_EXCLUSIVE) == 0;
+            if (lock_free)
+                desired_state += LW_VAL_SHARED;
+        }
+
+        // Atomic compare-and-swap operation (also serves as memory barrier)
+        if (pg_atomic_compare_exchange_u32(&lock->state, &old_state, desired_state))
+        {
+            if (lock_free)
+            {
+                // Successfully acquired the lock
+                return false;
+            }
+            else
+            {
+                // Lock is held by someone else
+                return true;
+            }
+        }
+        // If compare-exchange failed, old_state is updated with current value
+        // Continue retry loop
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about memory barrier rationale to focus on core logic
+- Simplified variable declarations and initialization
+- Removed debug-specific code (LOCK_DEBUG owner assignment)
+- Consolidated the return logic for clearer flow
+- Removed unreachable code marker as it's not part of main logic
+- Added concise comments explaining the key steps
+- Maintained essential atomic operations and retry logic

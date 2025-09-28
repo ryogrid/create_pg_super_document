@@ -41,3 +41,18 @@ Key characteristics:
 - Used internally by lightweight lock implementation - not intended for direct external use
 - Paired usage with LWLockReportWaitStart() allows PostgreSQL to track both wait frequency and duration
 - Failure to call this function after LWLockReportWaitStart() would leave wait events improperly tracked
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockReportWaitEnd
+static inline void LWLockReportWaitEnd(void) {
+    // Report completion of current wait event to statistics system
+    pgstat_report_wait_end();
+}
+```
+
+Key simplifications made:
+- Function is already at minimal complexity - it's a simple one-line wrapper
+- Added clarifying comment explaining the purpose
+- No further simplification needed as the function just delegates to pgstat_report_wait_end()

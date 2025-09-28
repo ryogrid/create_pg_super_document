@@ -36,3 +36,42 @@ The function ensures protocol compliance by providing a definitive response that
 - Works alongside PostgreSQL's query processing infrastructure to handle edge cases
 - Part of the command completion framework but specifically handles the 'no command' case
 - Ensures that every query submission receives some form of response from the server
+
+## Simplified Source
+
+```c
+// Simplified version of NullCommand
+void NullCommand(CommandDest dest) {
+    // Handle different destination types for query output
+    switch (dest) {
+        // Remote destinations: send empty query response to client
+        case DestRemote:
+        case DestRemoteExecute:
+        case DestRemoteSimple:
+            // Notify frontend that empty query was processed
+            pq_putemptymessage(PqMsg_EmptyQueryResponse);
+            break;
+
+        // Local destinations: no response needed
+        case DestNone:
+        case DestDebug:
+        case DestSPI:
+        case DestTuplestore:
+        case DestIntoRel:
+        case DestCopyOut:
+        case DestSQLFunction:
+        case DestTransientRel:
+        case DestTupleQueue:
+        case DestExplainSerialize:
+            // No action required for local destinations
+            break;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each code section
+- Grouped related destination cases with explanatory comments
+- Clarified that remote destinations require protocol response while local ones don't
+- Preserved the essential switch-case logic structure
+- Maintained all original functionality while improving readability

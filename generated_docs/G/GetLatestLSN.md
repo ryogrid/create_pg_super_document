@@ -39,3 +39,45 @@ During normal operation, it returns the flush position. During recovery, the log
 - Handles the edge case where recovery has effectively ended but RecoveryInProgress() still returns true
 - Critical for ensuring WAL summarization doesn't process unstable or unflushed WAL data
 - The function logic ensures that summarization only proceeds on WAL that is guaranteed to be persistent
+
+## Simplified Source
+
+```c
+// Simplified version of GetLatestLSN
+static XLogRecPtr
+GetLatestLSN(TimeLineID *tli)
+{
+    // Normal operation: return flushed WAL position
+    if (!RecoveryInProgress()) {
+        return GetFlushRecPtr(tli);
+    }
+
+    // Recovery mode: handle multiple scenarios
+    TimeLineID insert_tli;
+
+    // Special case: recovery ending, prepare for normal operation
+    if ((insert_tli = GetWALInsertionTimeLineIfSet()) != 0) {
+        *tli = insert_tli;
+        return GetXLogReplayRecPtr(NULL);
+    }
+
+    // Choose the furthest ahead position between flush and replay
+    XLogRecPtr flush_lsn = GetWalRcvFlushRecPtr(NULL, &flush_tli);
+    XLogRecPtr replay_lsn = GetXLogReplayRecPtr(&replay_tli);
+
+    if (flush_lsn > replay_lsn) {
+        *tli = flush_tli;
+        return flush_lsn;
+    } else {
+        *tli = replay_tli;
+        return replay_lsn;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated variable declarations
+- Simplified the recovery logic flow into clear conditional blocks
+- Combined the flush/replay comparison into a straightforward if-else
+- Abstracted the complex recovery state reasoning into high-level comments
+- Maintained the essential three-path logic: normal operation, recovery ending, and active recovery

@@ -48,3 +48,28 @@ This function takes no parameters and operates on global stack depth state.
 - For code that wants to handle the stack depth condition rather than immediately erroring, stack_is_too_deep() can be used instead
 - Critical for preventing stack overflow in complex queries, deep object hierarchies, and recursive operations
 - The error includes helpful guidance about adjusting the max_stack_depth configuration parameter
+
+## Simplified Source
+
+```c
+// Simplified version of check_stack_depth
+void check_stack_depth(void) {
+    // Check if current stack usage exceeds safe limits
+    if (stack_is_too_deep()) {
+        // Throw error with helpful configuration guidance
+        ereport(ERROR,
+                (errcode(ERRCODE_STATEMENT_TOO_COMPLEX),
+                 errmsg("stack depth limit exceeded"),
+                 errhint("Increase the configuration parameter \"max_stack_depth\" (currently %dkB), "
+                         "after ensuring the platform's stack depth limit is adequate.",
+                         max_stack_depth)));
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two main steps: checking depth and reporting error
+- Preserved the essential logic flow: check condition, then error if needed
+- Maintained the complete error reporting structure as it's critical for user guidance
+- Simplified function comment to focus on core purpose
+- No significant code reduction needed as the original function is already quite concise and focused

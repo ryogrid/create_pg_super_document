@@ -36,3 +36,24 @@ This function is the core implementation for PostgreSQL object access control ch
 - The is_missing parameter allows callers to distinguish between "access denied" and "object does not exist"
 - Extensively used by SQL privilege checking functions like has_*_privilege_* family of functions
 - Serves as the foundation for both simple privilege checks (when is_missing is NULL) and conditional checks (when is_missing is provided)
+
+## Simplified Source
+
+```c
+// Simplified version of object_aclcheck_ext
+AclResult
+object_aclcheck_ext(Oid classid, Oid objectid, Oid roleid, AclMode mode, bool *is_missing)
+{
+    // Check if user has any of the requested privileges on the object
+    if (object_aclmask_ext(classid, objectid, roleid, mode, ACLMASK_ANY, is_missing) != 0)
+        return ACLCHECK_OK;        // User has required privileges
+    else
+        return ACLCHECK_NO_PRIV;   // User lacks required privileges
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the core logic flow
+- Maintained the essential binary decision logic (has privileges vs. doesn't have privileges)
+- Preserved the delegation to object_aclmask_ext which handles the complex privilege checking
+- Kept the is_missing parameter handling intact as it's the key differentiator of this function

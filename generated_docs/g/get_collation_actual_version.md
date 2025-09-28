@@ -44,3 +44,90 @@ This function obtains the actual version string for a collation from the underly
 - May return NULL if version information is not available (especially on Windows with invalid locale names)
 - Critical for collation version mismatch detection and database maintenance operations
 - Skips version checking for C-like locales (C, C.*, POSIX) in libc provider as they are considered stable
+
+## Simplified Source
+
+```c
+// Simplified version of get_collation_actual_version
+char *
+get_collation_actual_version(char collprovider, const char *collcollate)
+{
+    char *collversion = NULL;
+
+    // Handle builtin collations (C and C.UTF-8)
+    if (collprovider == COLLPROVIDER_BUILTIN) {
+        if (strcmp(collcollate, "C") == 0 || strcmp(collcollate, "C.UTF-8") == 0) {
+            return "1";  // Static version for memcmp-based collations
+        } else {
+            ereport(ERROR, (errmsg("invalid locale name \"%s\" for builtin provider", collcollate)));
+        }
+    }
+
+#ifdef USE_ICU
+    // Handle ICU collations
+    if (collprovider == COLLPROVIDER_ICU) {
+        UCollator *collator = pg_ucol_open(collcollate);
+        UVersionInfo versioninfo;
+        char buf[U_MAX_VERSION_STRING_LENGTH];
+
+        ucol_getVersion(collator, versioninfo);
+        ucol_close(collator);
+
+        u_versionToString(versioninfo, buf);
+        collversion = pstrdup(buf);
+    }
+    else
+#endif
+    // Handle libc collations (skip C-like locales)
+    if (collprovider == COLLPROVIDER_LIBC &&
+        pg_strcasecmp("C", collcollate) != 0 &&
+        pg_strncasecmp("C.", collcollate, 2) != 0 &&
+        pg_strcasecmp("POSIX", collcollate) != 0) {
+
+        // Platform-specific version retrieval
+#if defined(__GLIBC__)
+        collversion = pstrdup(gnu_get_libc_version());
+
+#elif defined(LC_VERSION_MASK)
+        // FreeBSD implementation
+        locale_t loc = newlocale(LC_COLLATE_MASK, collcollate, NULL);
+        if (loc) {
+            collversion = pstrdup(querylocale(LC_COLLATE_MASK | LC_VERSION_MASK, loc));
+            freelocale(loc);
+        } else {
+            ereport(ERROR, (errmsg("could not load locale \"%s\"", collcollate)));
+        }
+
+#elif defined(WIN32)
+        // Windows implementation
+        NLSVERSIONINFOEX version = {sizeof(NLSVERSIONINFOEX)};
+        WCHAR wide_collcollate[LOCALE_NAME_MAX_LENGTH];
+
+        MultiByteToWideChar(CP_ACP, 0, collcollate, -1, wide_collcollate, LOCALE_NAME_MAX_LENGTH);
+
+        if (!GetNLSVersionEx(COMPARE_STRING, wide_collcollate, &version)) {
+            if (GetLastError() == ERROR_INVALID_PARAMETER) {
+                return NULL;  // Tolerate invalid parameter errors
+            }
+            ereport(ERROR, (errmsg("could not get collation version for locale \"%s\"", collcollate)));
+        }
+
+        collversion = psprintf("%lu.%lu,%lu.%lu",
+                              (version.dwNLSVersion >> 8) & 0xFFFF,
+                              version.dwNLSVersion & 0xFF,
+                              (version.dwDefinedVersion >> 8) & 0xFFFF,
+                              version.dwDefinedVersion & 0xFF);
+#endif
+    }
+
+    return collversion;
+}
+```
+
+Key simplifications made:
+- Consolidated similar string comparisons for builtin collations
+- Removed detailed comments within platform-specific sections
+- Simplified variable declarations and initialization
+- Maintained essential error handling while removing verbose error messages
+- Preserved all platform-specific logic paths (#ifdef blocks)
+- Kept the core algorithm structure intact for all three providers (builtin, ICU, libc)

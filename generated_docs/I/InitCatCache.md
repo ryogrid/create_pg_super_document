@@ -50,3 +50,62 @@ The cache is initially created without list search buckets (cc_lbucket), which a
 - Supports optional statistics collection when CATCACHE_STATS is enabled
 - [List](../L/List.md) search buckets (cc_lbucket) are allocated lazily only when needed
 - All dlist headers are initialized correctly through zero-initialization
+
+## Simplified Source
+
+```c
+// Simplified version of InitCatCache
+CatCache *InitCatCache(int id, Oid reloid, Oid indexoid, int nkeys,
+                       const int *key, int nbuckets) {
+    CatCache *cp;
+    MemoryContext oldcxt;
+    int i;
+
+    // Validate nbuckets is power of two
+    Assert(nbuckets > 0 && (nbuckets & -nbuckets) == nbuckets);
+
+    // Switch to cache memory context for persistent allocation
+    if (!CacheMemoryContext)
+        CreateCacheMemoryContext();
+    oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+
+    // Initialize global cache header if first cache
+    if (CacheHdr == NULL) {
+        CacheHdr = (CatCacheHeader *) palloc(sizeof(CatCacheHeader));
+        slist_init(&CacheHdr->ch_caches);
+        CacheHdr->ch_ntup = 0;
+    }
+
+    // Allocate cache-line aligned cache structure
+    cp = (CatCache *) palloc_aligned(sizeof(CatCache), PG_CACHE_LINE_SIZE,
+                                     MCXT_ALLOC_ZERO);
+    cp->cc_bucket = palloc0(nbuckets * sizeof(dlist_head));
+
+    // Initialize cache configuration
+    cp->id = id;
+    cp->cc_reloid = reloid;
+    cp->cc_indexoid = indexoid;
+    cp->cc_nbuckets = nbuckets;
+    cp->cc_nkeys = nkeys;
+
+    // Copy key attribute numbers
+    for (i = 0; i < nkeys; ++i) {
+        cp->cc_keyno[i] = key[i];
+    }
+
+    // Add cache to global list and restore context
+    slist_push_head(&CacheHdr->ch_caches, &cp->cc_next);
+    MemoryContextSwitchTo(oldcxt);
+
+    return cp;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining power-of-two validation
+- Simplified memory context switching logic
+- Removed CATCACHE_STATS conditional compilation code
+- Consolidated cache field initialization
+- Removed temporary field assignments and debugging macros
+- Focused on core allocation and initialization flow
+- Removed cc_lbucket initialization detail (lazy allocation concept preserved)

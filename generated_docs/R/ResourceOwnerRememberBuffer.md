@@ -41,3 +41,19 @@ This mechanism is crucial for preventing buffer leaks in PostgreSQL's shared buf
 - Complementary to ResourceOwnerForgetBuffer which removes the tracking when buffers are unpinned
 - The resource owner will automatically unpin tracked buffers during transaction cleanup or error recovery
 - Essential for maintaining buffer pool integrity in multi-transaction environments
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerRememberBuffer
+static inline void ResourceOwnerRememberBuffer(ResourceOwner owner, Buffer buffer) {
+    // Register buffer pin with resource owner for automatic cleanup
+    ResourceOwnerRemember(owner, Int32GetDatum(buffer), &buffer_pin_resowner_desc);
+}
+```
+
+Key simplifications made:
+- Function is already very simple as a convenience wrapper
+- Added explanatory comment for the core operation
+- No significant simplification needed due to the function's concise nature
+- Preserved the essential buffer pin registration logic

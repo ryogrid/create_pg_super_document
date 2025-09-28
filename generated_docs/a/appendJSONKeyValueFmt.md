@@ -54,3 +54,54 @@ The function preserves the original errno value throughout the formatting proces
 - The  attribute enables compile-time format string checking
 - Memory management is handled carefully with proper cleanup of the temporary value buffer
 - The errno preservation ensures that formatting operations don't interfere with error reporting contexts
+
+## Simplified Source
+
+```c
+// Simplified version of appendJSONKeyValueFmt
+static void
+appendJSONKeyValueFmt(StringInfo buf, const char *key,
+                      bool escape_key, const char *fmt, ...)
+{
+    int save_errno = errno;
+    size_t len = 128;  // Start with reasonable buffer size
+    char *value;
+
+    // Retry loop for dynamic buffer allocation
+    for (;;) {
+        va_list args;
+        size_t newlen;
+
+        // Allocate buffer for formatted string
+        value = (char *) palloc(len);
+
+        // Format the string with variable arguments
+        errno = save_errno;  // Preserve errno
+        va_start(args, fmt);
+        newlen = pvsnprintf(value, len, fmt, args);
+        va_end(args);
+
+        // Check if formatting succeeded (string fit in buffer)
+        if (newlen < len)
+            break;  // Success - exit loop
+
+        // Buffer too small - free and retry with larger size
+        pfree(value);
+        len = newlen;
+    }
+
+    // Append the formatted value as JSON key-value pair
+    appendJSONKeyValue(buf, key, value, escape_key);
+
+    // Clean up allocated buffer
+    pfree(value);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Simplified variable declarations with inline explanations
+- Preserved the essential retry logic for dynamic buffer sizing
+- Maintained the errno preservation pattern
+- Kept all core functionality including memory management
+- Used more descriptive comments for the loop logic

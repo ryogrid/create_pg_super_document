@@ -40,3 +40,66 @@ This function serves as the central factory for creating destination receiver ob
 - Ends with pg_unreachable() indicating all cases should be handled
 - Critical component in query output routing and management
 - Static receivers are reused for efficiency while dynamic receivers are created per-use
+
+## Simplified Source
+
+```c
+// Simplified version of CreateDestReceiver
+DestReceiver *
+CreateDestReceiver(CommandDest dest)
+{
+    // Factory function that returns appropriate receiver based on destination type
+    switch (dest)
+    {
+        // Client output destinations
+        case DestRemote:
+        case DestRemoteExecute:
+            return printtup_create_DR(dest);
+
+        case DestRemoteSimple:
+            return &printsimpleDR;
+
+        // Special destinations
+        case DestNone:
+            return &donothingDR;  // Discard output
+
+        case DestDebug:
+            return &debugtupDR;   // Debug output
+
+        case DestSPI:
+            return &spi_printtupDR;  // SPI interface
+
+        // Dynamic receiver creators
+        case DestTuplestore:
+            return CreateTuplestoreDestReceiver();
+
+        case DestIntoRel:
+            return CreateIntoRelDestReceiver(NULL);
+
+        case DestCopyOut:
+            return CreateCopyDestReceiver();
+
+        case DestSQLFunction:
+            return CreateSQLFunctionDestReceiver();
+
+        case DestTransientRel:
+            return CreateTransientRelDestReceiver(InvalidOid);
+
+        case DestTupleQueue:
+            return CreateTupleQueueDestReceiver(NULL);
+
+        case DestExplainSerialize:
+            return CreateExplainSerializeDestReceiver(NULL);
+    }
+
+    // All cases should be handled above
+    pg_unreachable();
+}
+```
+
+Key simplifications made:
+- Removed const-casting comment and unconstify() calls for clarity
+- Added descriptive comments for each destination category
+- Grouped related cases together (client output, special destinations, dynamic creators)
+- Simplified the comment structure while preserving the core logic
+- Maintained all the essential switch cases and function calls

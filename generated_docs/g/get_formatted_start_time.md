@@ -38,3 +38,31 @@ This function provides a formatted timestamp string representing when the curren
 - Assumes log_timezone is properly initialized before use (typically handled by guc.c)
 - Used across multiple logging formats (CSV, JSON, and standard log format) for consistent timestamping
 - Part of PostgreSQL's logging infrastructure to provide process start time information in log entries
+
+## Simplified Source
+
+```c
+// Simplified version of get_formatted_start_time
+char *
+get_formatted_start_time(void) {
+    pg_time_t stamp_time = (pg_time_t) MyStartTime;
+
+    // Return cached result if already computed
+    if (formatted_start_time[0] != '\0')
+        return formatted_start_time;
+
+    // Format the start timestamp using log timezone
+    pg_strftime(formatted_start_time, FORMATTED_TS_LEN,
+                "%Y-%m-%d %H:%M:%S %Z",
+                pg_localtime(&stamp_time, log_timezone));
+
+    return formatted_start_time;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about timezone initialization assumptions
+- Condensed the caching check logic for clarity
+- Simplified variable declarations
+- Maintained the core lazy initialization and formatting logic
+- Preserved the essential caching mechanism and return behavior

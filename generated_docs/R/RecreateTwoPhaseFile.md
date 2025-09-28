@@ -36,3 +36,56 @@ This static function is responsible for recreating two-phase commit state files 
 - Includes comprehensive error reporting for all file operations (open, write, fsync, close)
 - Integrates with PostgreSQL's wait event reporting system for monitoring I/O operations
 - CRC is computed using the CRC32C algorithm and written as a separate trailing section after the main content
+
+## Simplified Source
+
+```c
+// Simplified version of RecreateTwoPhaseFile
+static void RecreateTwoPhaseFile(TransactionId xid, void *content, int len)
+{
+    char path[MAXPGPATH];
+    pg_crc32c statefile_crc;
+    int fd;
+
+    // Step 1: Compute CRC checksum for data integrity
+    INIT_CRC32C(statefile_crc);
+    COMP_CRC32C(statefile_crc, content, len);
+    FIN_CRC32C(statefile_crc);
+
+    // Step 2: Generate file path and open for writing
+    TwoPhaseFilePath(path, xid);
+    fd = OpenTransientFile(path, O_CREAT | O_TRUNC | O_WRONLY | PG_BINARY);
+    if (fd < 0)
+        ereport(ERROR, "could not recreate file");
+
+    // Step 3: Write content data to file
+    pgstat_report_wait_start(WAIT_EVENT_TWOPHASE_FILE_WRITE);
+    if (write(fd, content, len) != len) {
+        ereport(ERROR, "could not write content to file");
+    }
+
+    // Step 4: Write CRC checksum to file
+    if (write(fd, &statefile_crc, sizeof(pg_crc32c)) != sizeof(pg_crc32c)) {
+        ereport(ERROR, "could not write CRC to file");
+    }
+    pgstat_report_wait_end();
+
+    // Step 5: Force sync to disk for durability
+    pgstat_report_wait_start(WAIT_EVENT_TWOPHASE_FILE_SYNC);
+    if (pg_fsync(fd) != 0)
+        ereport(ERROR, "could not fsync file");
+    pgstat_report_wait_end();
+
+    // Step 6: Close the file
+    if (CloseTransientFile(fd) != 0)
+        ereport(ERROR, "could not close file");
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling code (errno checks, specific error messages)
+- Simplified error reporting to show essential error cases only
+- Consolidated duplicate error handling patterns
+- Added step-by-step comments to clarify the algorithm flow
+- Abstracted low-level file operation details while preserving core logic
+- Maintained all essential operations: CRC computation, file creation, content writing, sync, and cleanup

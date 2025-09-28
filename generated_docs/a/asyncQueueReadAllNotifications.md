@@ -49,3 +49,80 @@ This function takes no parameters and operates on global state variables and the
 - **Memory Management**: Uses aligned union for page buffer to meet SLRU alignment requirements
 - **Static Function**: Internal to async.c, not exposed in public API
 - Located in src/backend/commands/async.c:1851-2015
+
+## Simplified Source
+
+```c
+// Simplified version of asyncQueueReadAllNotifications
+static void asyncQueueReadAllNotifications(void) {
+    QueuePosition current_pos;
+    QueuePosition queue_head;
+    Snapshot snapshot;
+    char page_buffer[QUEUE_PAGESIZE];
+
+    // Step 1: Get current state from shared queue
+    LWLockAcquire(NotifyQueueLock, LW_SHARED);
+    current_pos = QUEUE_BACKEND_POS(MyProcNumber);
+    queue_head = QUEUE_HEAD;
+    LWLockRelease(NotifyQueueLock);
+
+    // Early exit if no new notifications
+    if (QUEUE_POS_EQUAL(current_pos, queue_head)) {
+        return; // Already read everything
+    }
+
+    // Step 2: Take snapshot to determine which transactions are committed
+    // This ensures we only process notifications from committed transactions
+    snapshot = RegisterSnapshot(GetLatestSnapshot());
+
+    // Step 3: Process notifications with error-safe position tracking
+    PG_TRY(); {
+        bool reached_end = false;
+
+        // Read and process pages until we reach the head or uncommitted entry
+        while (!reached_end) {
+            int64 page_num = QUEUE_POS_PAGE(current_pos);
+            int page_offset = QUEUE_POS_OFFSET(current_pos);
+
+            // Read page from SLRU into local buffer
+            int slot = SimpleLruReadPage_ReadOnly(NotifyCtl, page_num, InvalidTransactionId);
+
+            // Determine how much of the page to copy
+            int copy_size;
+            if (page_num == QUEUE_POS_PAGE(queue_head)) {
+                copy_size = QUEUE_POS_OFFSET(queue_head) - page_offset;
+            } else {
+                copy_size = QUEUE_PAGESIZE - page_offset;
+            }
+
+            // Copy page data to local buffer and release SLRU lock
+            memcpy(page_buffer + page_offset,
+                   NotifyCtl->shared->page_buffer[slot] + page_offset,
+                   copy_size);
+            LWLockRelease(SimpleLruGetBankLock(NotifyCtl, page_num));
+
+            // Process all entries in this page section
+            reached_end = asyncQueueProcessPageEntries(&current_pos, queue_head,
+                                                       page_buffer, snapshot);
+        }
+    }
+    PG_FINALLY(); {
+        // Always update our position in shared state, even if errors occurred
+        LWLockAcquire(NotifyQueueLock, LW_SHARED);
+        QUEUE_BACKEND_POS(MyProcNumber) = current_pos;
+        LWLockRelease(NotifyQueueLock);
+    }
+    PG_END_TRY();
+
+    // Cleanup snapshot
+    UnregisterSnapshot(snapshot);
+}
+```
+
+Key simplifications made:
+- Removed extensive comments about race conditions and transaction timing
+- Simplified variable declarations and eliminated the alignment union
+- Consolidated error handling logic while preserving the PG_TRY/PG_FINALLY pattern
+- Reduced complex queue position calculations to essential logic
+- Abstracted low-level memory operations with clearer variable names
+- Preserved the core algorithm: fetch state → take snapshot → process pages → update position

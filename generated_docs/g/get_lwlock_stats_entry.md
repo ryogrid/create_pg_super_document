@@ -49,3 +49,47 @@ When creating new entries, the function initializes all counters to zero. The ha
 - All new statistics entries are initialized with zero counters
 - The function is thread-safe as hash_search handles concurrent access appropriately
 - Only compiled and functional when LWLOCK_STATS debugging is enabled
+
+## Simplified Source
+
+```c
+// Simplified version of get_lwlock_stats_entry
+static lwlock_stats *
+get_lwlock_stats_entry(LWLock *lock)
+{
+    lwlock_stats_key key;
+    lwlock_stats *lwstats;
+    bool found;
+
+    // Handle bootstrap case - no hash table yet
+    if (lwlock_stats_htab == NULL)
+        return &lwlock_stats_dummy;
+
+    // Create hash key from lock tranche and instance
+    memset(&key, 0, sizeof(key));
+    key.tranche = lock->tranche;
+    key.instance = lock;
+
+    // Find or create statistics entry in hash table
+    lwstats = hash_search(lwlock_stats_htab, &key, HASH_ENTER, &found);
+
+    // Initialize new entry with zero counters
+    if (!found) {
+        lwstats->sh_acquire_count = 0;
+        lwstats->ex_acquire_count = 0;
+        lwstats->block_count = 0;
+        lwstats->dequeue_self_count = 0;
+        lwstats->spin_delay_count = 0;
+    }
+
+    return lwstats;
+}
+```
+
+Key simplifications made:
+- Replaced MemSet macro with standard memset for clarity
+- Added descriptive comments for each logical section
+- Simplified variable declarations by grouping logically related ones
+- Made the bootstrap check more prominent at the start
+- Consolidated counter initialization into a clear block
+- Preserved all essential logic and error handling

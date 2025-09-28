@@ -40,3 +40,34 @@ This function is typically called during process cleanup scenarios where callbac
 - Sets control_slot to INVALID_CONTROL_SLOT to prevent reference count decrementation
 - Used during process termination or error recovery scenarios
 - Located in src/backend/storage/ipc/dsm.c:1170-1200
+
+## Simplified Source
+
+```c
+// Simplified version of reset_on_dsm_detach
+void reset_on_dsm_detach(void) {
+    dlist_iter iter;
+
+    // Iterate through all active DSM segments
+    dlist_foreach(iter, &dsm_segment_list) {
+        dsm_segment *seg = dlist_container(dsm_segment, node, iter.cur);
+
+        // Remove all registered on-detach callbacks
+        while (!slist_is_empty(&seg->on_detach)) {
+            slist_node *node = slist_pop_head_node(&seg->on_detach);
+            dsm_segment_detach_callback *cb = slist_container(dsm_segment_detach_callback, node, node);
+            pfree(cb);  // Free callback memory
+        }
+
+        // Prevent implicit reference count decrementation
+        seg->control_slot = INVALID_CONTROL_SLOT;
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the essential two-phase cleanup logic: callback removal and control slot invalidation
+- Maintained the nested loop structure for clarity of the algorithm
+- Kept all critical function calls and data structure operations
+- Added descriptive comments to explain each major step
+- Removed only the original detailed comments while preserving the core functionality

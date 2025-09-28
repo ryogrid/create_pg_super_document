@@ -37,3 +37,29 @@ This function provides a memory context-aware version of the standard C library 
 - More efficient than manual allocation + strcpy combinations
 - Widely used across PostgreSQL subsystems including authentication, caching, replication, and language extensions
 - Located in src/backend/utils/mmgr/mcxt.c:1682-1694
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextStrdup
+char *
+MemoryContextStrdup(MemoryContext context, const char *string)
+{
+    // Calculate string length including null terminator
+    Size len = strlen(string) + 1;
+
+    // Allocate memory in the specified context
+    char *new_string = (char *) MemoryContextAlloc(context, len);
+
+    // Copy the entire string including null terminator
+    memcpy(new_string, string, len);
+
+    return new_string;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (`new_string` instead of `nstr`)
+- Added explanatory comments for each core step
+- Maintained the exact same logic flow and functionality
+- Preserved all essential operations: length calculation, allocation, and copying

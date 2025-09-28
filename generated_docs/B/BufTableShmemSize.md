@@ -27,3 +27,19 @@ BufTableShmemSize calculates the amount of shared memory required to allocate a 
 
 ## Notes and Other Information
 This function is part of the buffer management subsystem initialization process. The estimated size is used to allocate the appropriate amount of shared memory for the buffer lookup hashtable before the actual hashtable structure is initialized. The size parameter may be larger than NBuffers to provide room for hash collisions and maintain good performance characteristics.
+
+## Simplified Source
+
+```c
+// Simplified version of BufTableShmemSize
+Size BufTableShmemSize(int size) {
+    // Calculate memory needed for hash table with BufferLookupEnt entries
+    return hash_estimate_size(size, sizeof(BufferLookupEnt));
+}
+```
+
+Key simplifications made:
+- Preserved the core functionality: delegating to hash_estimate_size
+- Added descriptive comment explaining the purpose
+- No actual simplification needed as the function is already very concise
+- The function is essentially a thin wrapper around hash_estimate_size

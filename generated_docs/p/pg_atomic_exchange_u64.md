@@ -42,3 +42,26 @@ The function is implemented as an inline wrapper around the platform-specific im
 - The pointer alignment requirement (8-byte boundary) is enforced through assertions in debug builds
 - This function is part of PostgreSQL's portable atomic operations interface, providing consistent behavior across different platforms and architectures
 - The volatile qualifier on the pointer parameter prevents compiler optimizations that might eliminate or cache the memory access
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_exchange_u64
+static inline uint64
+pg_atomic_exchange_u64(volatile pg_atomic_uint64 *ptr, uint64 newval)
+{
+    // Ensure proper 8-byte alignment for atomic operations
+    // (only when not using simulation fallback)
+    assert_pointer_alignment(ptr, 8);
+
+    // Atomically exchange the value and return the previous value
+    return platform_specific_atomic_exchange(ptr, newval);
+}
+```
+
+Key simplifications made:
+- Replaced conditional compilation directive with descriptive comment
+- Abstracted `AssertPointerAlignment` macro as `assert_pointer_alignment`
+- Abstracted `pg_atomic_exchange_u64_impl` as `platform_specific_atomic_exchange`
+- Added clear comments explaining the purpose of each operation
+- Removed preprocessor conditionals for better readability while preserving the essential logic flow

@@ -35,3 +35,21 @@ The function checks if there is an active query output stream (pset.queryFout) a
 - It's registered as a pre-logging callback during psql initialization
 - The function helps maintain clean output formatting by preventing log messages from appearing in the middle of query results
 - Only flushes non-stdout output streams to avoid unnecessary flushing of the primary output
+
+## Simplified Source
+
+```c
+// Simplified version of log_pre_callback
+static void log_pre_callback(void) {
+    // Flush query output stream if it's not stdout
+    // This ensures clean separation between query results and log messages
+    if (pset.queryFout && pset.queryFout != stdout) {
+        fflush(pset.queryFout);
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments to clarify the purpose
+- Maintained the original logic as it's already quite simple and essential
+- Enhanced readability with clear comment explaining the condition

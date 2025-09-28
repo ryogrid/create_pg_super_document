@@ -33,3 +33,26 @@ This function is used to set up parameters for DestReceiver objects that are con
 - This is a simple parameter-setting function that establishes the connection between a result receiver and its execution context
 - The portal parameter provides access to the query plan, parameter values, and other execution state needed for result formatting
 - Must be called after printtup_create_DR but before query execution begins
+
+## Simplified Source
+
+```c
+// Simplified version of SetRemoteDestReceiverParams
+void SetRemoteDestReceiverParams(DestReceiver *self, Portal portal) {
+    // Cast the generic receiver to the specific printtup receiver type
+    DR_printtup *myState = (DR_printtup *) self;
+
+    // Verify this is a remote destination receiver
+    Assert(myState->pub.mydest == DestRemote ||
+           myState->pub.mydest == DestRemoteExecute);
+
+    // Associate the portal with this receiver for result processing
+    myState->portal = portal;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Maintained the essential type casting and portal assignment
+- Preserved the critical assertion for destination type validation
+- Clarified the purpose of each operation with inline comments

@@ -34,3 +34,21 @@ This function is the counterpart to ResourceOwnerRememberDSM(), providing a simp
 - Part of PostgreSQL's resource management system for proper cleanup coordination
 - Used when explicitly managing DSM segment lifecycle rather than relying on automatic cleanup
 - The function pairs with ResourceOwnerRememberDSM to provide complete resource tracking control
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerForgetDSM
+static inline void ResourceOwnerForgetDSM(ResourceOwner owner, dsm_segment *seg) {
+    // Remove DSM segment from resource owner's tracking list
+    // This converts the DSM segment pointer to a Datum and passes it to the generic
+    // resource forget function along with the DSM-specific resource descriptor
+    ResourceOwnerForget(owner, PointerGetDatum(seg), &dsm_resowner_desc);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core purpose
+- Explained the PointerGetDatum conversion step
+- Clarified the role of dsm_resowner_desc parameter
+- This function is already quite simple - it's essentially a type-safe wrapper around ResourceOwnerForget

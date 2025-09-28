@@ -60,3 +60,47 @@ This function is particularly useful in deadlock avoidance scenarios, optimistic
 - The function enforces the same maximum simultaneous lock limit as the blocking version
 - DTrace/SystemTap tracing distinguishes between successful and failed conditional acquisitions
 - Often used in conjunction with retry logic or alternative code paths when locks are unavailable
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockConditionalAcquire
+bool LWLockConditionalAcquire(LWLock *lock, LWLockMode mode) {
+    bool lock_acquired;
+
+    // Validate input parameters
+    Assert(mode == LW_SHARED || mode == LW_EXCLUSIVE);
+
+    // Check we have room for another lock in our tracking array
+    if (num_held_lwlocks >= MAX_SIMUL_LWLOCKS)
+        elog(ERROR, "too many LWLocks taken");
+
+    // Protect shared memory operations from interrupts
+    HOLD_INTERRUPTS();
+
+    // Try to acquire the lock without waiting
+    lock_acquired = !LWLockAttemptLock(lock, mode);
+
+    if (lock_acquired) {
+        // Success: Add lock to our tracking list
+        held_lwlocks[num_held_lwlocks].lock = lock;
+        held_lwlocks[num_held_lwlocks].mode = mode;
+        num_held_lwlocks++;
+
+        // Note: Interrupts remain held until lock release
+    } else {
+        // Failure: Restore interrupt handling immediately
+        RESUME_INTERRUPTS();
+    }
+
+    return lock_acquired;
+}
+```
+
+Key simplifications made:
+- Removed debug logging and tracing code for clarity
+- Consolidated the mustwait variable logic into direct boolean handling
+- Simplified the success/failure flow into clear if/else branches
+- Abstracted the complex interrupt handling rationale into comments
+- Removed platform-specific tracing macros
+- Made the return logic more explicit and readable

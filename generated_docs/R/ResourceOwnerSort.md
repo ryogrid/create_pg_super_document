@@ -45,3 +45,62 @@ The result is always a single, contiguous, sorted array containing all resources
 - The compaction step is necessary because hash tables typically have empty slots due to their open addressing scheme
 - Critical for ensuring deterministic resource cleanup order, which is essential for maintaining data consistency during transaction rollback and error recovery
 - The sorting operation prepares resources for release in the correct dependency order, preventing resource leaks and maintaining system stability
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerSort
+static void
+ResourceOwnerSort(ResourceOwner owner)
+{
+    ResourceElem *items;
+    uint32 nitems;
+
+    if (owner->nhash == 0)
+    {
+        // Simple case: only fixed-size array is used
+        items = owner->arr;
+        nitems = owner->narr;
+    }
+    else
+    {
+        // Complex case: need to consolidate hash table and array
+
+        // Step 1: Compact hash table by removing empty slots
+        uint32 dst = 0;
+        for (int idx = 0; idx < owner->capacity; idx++)
+        {
+            if (owner->hash[idx].kind != NULL)
+            {
+                if (dst != idx)
+                    owner->hash[dst] = owner->hash[idx];
+                dst++;
+            }
+        }
+
+        // Step 2: Move all array elements to hash table
+        for (int idx = 0; idx < owner->narr; idx++)
+        {
+            owner->hash[dst] = owner->arr[idx];
+            dst++;
+        }
+
+        // Step 3: Update counts - all items now in hash table
+        owner->narr = 0;
+        owner->nhash = dst;
+
+        items = owner->hash;
+        nitems = owner->nhash;
+    }
+
+    // Sort all resources by release priority
+    qsort(items, nitems, sizeof(ResourceElem), resource_priority_cmp);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments within the code blocks for cleaner flow
+- Simplified variable declarations and removed intermediate assertions
+- Added high-level step comments to clarify the consolidation process
+- Preserved the essential two-path logic (array-only vs hash+array)
+- Maintained the core algorithm: compact, consolidate, sort

@@ -45,3 +45,63 @@ UnpinBufferNoOwner is the core buffer unpinning function that performs the actua
 - Integrates with Valgrind for memory debugging by marking unpinned buffers non-accessible
 - Ensures no content locks are held when unpinning buffers
 - [Complex](../C/Complex.md) synchronization logic to handle concurrent buffer access safely
+
+## Simplified Source
+
+```c
+// Simplified version of UnpinBufferNoOwner
+static void UnpinBufferNoOwner(BufferDesc *buf) {
+    PrivateRefCountEntry *ref;
+    Buffer b = BufferDescriptorGetBuffer(buf);
+
+    // Get and decrement private reference count
+    ref = GetPrivateRefCountEntry(b, false);
+    ref->refcount--;
+
+    // If private refcount reaches zero, handle shared buffer unpinning
+    if (ref->refcount == 0) {
+        uint32 buf_state, old_buf_state;
+
+        // Mark buffer inaccessible for debugging
+        VALGRIND_MAKE_MEM_NOACCESS(BufHdrGetBlock(buf), BLCKSZ);
+
+        // Decrement shared reference count using atomic operations
+        old_buf_state = pg_atomic_read_u32(&buf->state);
+        do {
+            // Wait if buffer is locked
+            if (old_buf_state & BM_LOCKED)
+                old_buf_state = WaitBufHdrUnlocked(buf);
+
+            // Prepare new state with decremented refcount
+            buf_state = old_buf_state - BUF_REFCOUNT_ONE;
+
+        } while (!pg_atomic_compare_exchange_u32(&buf->state, &old_buf_state, buf_state));
+
+        // Handle cleanup waiters - notify if we're the last pin holder
+        if (buf_state & BM_PIN_COUNT_WAITER) {
+            buf_state = LockBufHdr(buf);
+
+            if ((buf_state & BM_PIN_COUNT_WAITER) &&
+                BUF_STATE_GET_REFCOUNT(buf_state) == 1) {
+                // Last pin holder - wake up waiter
+                int wait_backend = buf->wait_backend_pgprocno;
+                buf_state &= ~BM_PIN_COUNT_WAITER;
+                UnlockBufHdr(buf, buf_state);
+                ProcSendSignal(wait_backend);
+            } else {
+                UnlockBufHdr(buf, buf_state);
+            }
+        }
+
+        // Remove private reference entry
+        ForgetPrivateRefCountEntry(ref);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and assertions for clarity
+- Simplified the atomic compare-and-swap loop structure
+- Consolidated waiter notification logic into clearer conditional blocks
+- Abstracted low-level state management details
+- Maintained essential algorithm flow and correctness

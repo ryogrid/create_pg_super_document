@@ -64,3 +64,63 @@ Critical constraints:
 - Must be preceded by successful heap_inplace_lock call
 - The memcpy operation directly overwrites existing tuple data without intermediate storage
 - Designed specifically for system catalog updates where tuple size remains constant
+
+## Simplified Source
+
+```c
+// Simplified version of heap_inplace_update_and_unlock
+void heap_inplace_update_and_unlock(Relation relation,
+                                    HeapTuple oldtup, HeapTuple tuple,
+                                    Buffer buffer) {
+    HeapTupleHeader htup = oldtup->t_data;
+    uint32 oldlen, newlen;
+
+    // Validate tuple sizes are identical (required for inplace update)
+    oldlen = oldtup->t_len - htup->t_hoff;
+    newlen = tuple->t_len - tuple->t_data->t_hoff;
+    if (oldlen != newlen || htup->t_hoff != tuple->t_data->t_hoff)
+        elog(ERROR, "wrong tuple length");
+
+    // Critical section: No errors allowed during data modification
+    START_CRIT_SECTION();
+
+    // Copy new data directly over old tuple's data area
+    memcpy((char *) htup + htup->t_hoff,
+           (char *) tuple->t_data + tuple->t_data->t_hoff,
+           newlen);
+
+    // Mark buffer as dirty for write-back
+    MarkBufferDirty(buffer);
+
+    // Write-ahead logging for crash recovery
+    if (RelationNeedsWAL(relation)) {
+        xl_heap_inplace xlrec;
+        xlrec.offnum = ItemPointerGetOffsetNumber(&tuple->t_self);
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfHeapInplace);
+        XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+        XLogRegisterBufData(0, (char *) htup + htup->t_hoff, newlen);
+
+        XLogRecPtr recptr = XLogInsert(RM_HEAP_ID, XLOG_HEAP_INPLACE);
+        PageSetLSN(BufferGetPage(buffer), recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    // Release tuple lock
+    heap_inplace_unlock(relation, oldtup, buffer);
+
+    // Invalidate cache entries for updated tuple
+    if (!IsBootstrapProcessingMode())
+        CacheInvalidateHeapTuple(relation, tuple, NULL);
+}
+```
+
+Key simplifications made:
+- Removed detailed crash scenario comment for clarity
+- Simplified variable declarations to single line where possible
+- Consolidated WAL logging into a more readable block structure
+- Added clear comments explaining each major phase
+- Preserved all essential logic and error handling
+- Maintained the critical section boundaries and all safety checks

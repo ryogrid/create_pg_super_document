@@ -37,3 +37,29 @@ This function is essential for proper traversal of Shift-JIS encoded strings wit
 - The function assumes the input points to a valid Shift-JIS character sequence
 - Half-width katakana characters (0xa1-0xdf) are treated as single-byte despite having the high bit set
 - This function is part of PostgreSQL's character encoding support infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of pg_sjis_mblen
+static int pg_sjis_mblen(const unsigned char *s) {
+    // Check for single-byte katakana characters (half-width katakana)
+    if (*s >= 0xa1 && *s <= 0xdf) {
+        return 1;
+    }
+
+    // Check for double-byte characters (kanji, full-width characters)
+    if (IS_HIGHBIT_SET(*s)) {
+        return 2;
+    }
+
+    // Default case: ASCII characters
+    return 1;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each character type check
+- Clarified the logic flow with explicit return statements
+- Explained the purpose of each byte range check
+- The original code was already quite simple, so minimal changes were needed

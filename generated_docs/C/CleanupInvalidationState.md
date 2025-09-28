@@ -56,3 +56,53 @@ The function ensures that the shared invalidation system maintains an accurate l
 - The PANIC condition should never occur in normal operation and indicates a serious system corruption
 - Preserving nextLXID allows the process slot to be reused without local transaction ID conflicts
 - The function must handle the case where the process might not be found in the pgprocnos array, which would indicate a serious bug
+
+## Simplified Source
+
+```c
+// Simplified version of CleanupInvalidationState
+static void CleanupInvalidationState(int status, Datum arg) {
+    SISeg *segP = (SISeg *) DatumGetPointer(arg);
+    ProcState *stateP;
+    int i;
+
+    // Acquire exclusive lock to prevent concurrent access
+    LWLockAcquire(SInvalWriteLock, LW_EXCLUSIVE);
+
+    stateP = &segP->procState[MyProcNumber];
+
+    // Preserve next local transaction ID for process slot reuse
+    stateP->nextLXID = nextLocalTransactionId;
+
+    // Mark process slot as inactive
+    stateP->procPid = 0;
+    stateP->nextMsgNum = 0;
+    stateP->resetState = false;
+    stateP->signaled = false;
+
+    // Remove process from active processes array
+    for (i = segP->numProcs - 1; i >= 0; i--) {
+        if (segP->pgprocnos[i] == MyProcNumber) {
+            // Move last element to fill gap (array compaction)
+            if (i != segP->numProcs - 1)
+                segP->pgprocnos[i] = segP->pgprocnos[segP->numProcs - 1];
+            break;
+        }
+    }
+
+    // Verify process was found in array
+    if (i < 0)
+        elog(PANIC, "could not find entry in sinval array");
+
+    segP->numProcs--;
+
+    LWLockRelease(SInvalWriteLock);
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic and error handling
+- Added descriptive comments explaining each major step
+- Maintained the original structure and flow
+- Clarified the array compaction logic with inline comments
+- Kept critical assertions and error conditions intact

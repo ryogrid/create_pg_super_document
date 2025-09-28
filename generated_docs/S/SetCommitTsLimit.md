@@ -48,3 +48,36 @@ This conservative approach ensures that the valid range can only shrink, never e
 - The function is typically called during startup and recovery operations to establish proper bounds
 - Proper limit setting is essential for preventing access to truncated or invalid commit timestamp data
 - The function is exported via commit_ts.h for use during bootstrap and recovery processes
+
+## Simplified Source
+
+```c
+// Simplified version of SetCommitTsLimit
+void SetCommitTsLimit(TransactionId oldestXact, TransactionId newestXact) {
+    // Acquire exclusive lock to ensure atomic updates
+    LWLockAcquire(CommitTsLock, LW_EXCLUSIVE);
+
+    // Check if limits are already established
+    if (TransamVariables->oldestCommitTsXid != InvalidTransactionId) {
+        // Update limits conservatively - only make range more restrictive
+        if (TransactionIdPrecedes(TransamVariables->oldestCommitTsXid, oldestXact))
+            TransamVariables->oldestCommitTsXid = oldestXact;  // Move oldest forward
+        if (TransactionIdPrecedes(newestXact, TransamVariables->newestCommitTsXid))
+            TransamVariables->newestCommitTsXid = newestXact;  // Move newest backward
+    } else {
+        // No limits set yet - establish initial limits
+        TransamVariables->oldestCommitTsXid = oldestXact;
+        TransamVariables->newestCommitTsXid = newestXact;
+    }
+
+    // Release lock
+    LWLockRelease(CommitTsLock);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about "future" values and disabled committs for clarity
+- Added descriptive inline comments explaining the conservative update logic
+- Simplified the conditional logic flow with clearer explanations
+- Removed the Assert statement as it's not core to the algorithm
+- Made the two-phase logic (existing vs new limits) more explicit with better comments

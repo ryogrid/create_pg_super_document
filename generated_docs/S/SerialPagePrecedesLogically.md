@@ -41,4 +41,32 @@ The function works by:
 - This function is crucial for SLRU page management in the serializable isolation subsystem
 - The logic ensures that entire transaction ID ranges represented by pages are compared properly
 - Used as a callback function pointer in the SLRU control structure ()
-- The function handles PostgreSQL's circular transaction ID space correctly through 
+- The function handles PostgreSQL's circular transaction ID space correctly through
+
+## Simplified Source
+
+```c
+// Simplified version of SerialPagePrecedesLogically
+static bool
+SerialPagePrecedesLogically(int64 page1, int64 page2)
+{
+    TransactionId xid1, xid2;
+
+    // Convert page numbers to transaction IDs
+    // Each page represents SERIAL_ENTRIESPERPAGE transactions
+    xid1 = ((TransactionId) page1) * SERIAL_ENTRIESPERPAGE;
+    xid1 += FirstNormalTransactionId + 1;
+    xid2 = ((TransactionId) page2) * SERIAL_ENTRIESPERPAGE;
+    xid2 += FirstNormalTransactionId + 1;
+
+    // Check if page1's entire transaction range precedes page2's range
+    return (TransactionIdPrecedes(xid1, xid2) &&
+            TransactionIdPrecedes(xid1, xid2 + SERIAL_ENTRIESPERPAGE - 1));
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the page-to-transaction-ID conversion
+- Clarified the purpose of each step in the comparison logic
+- Preserved the essential algorithm without any functional changes
+- Made the range comparison logic more explicit with comments

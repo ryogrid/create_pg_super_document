@@ -55,3 +55,130 @@ If authentication succeeds, it sends an AUTH_REQ_OK message to the client. If it
 - Uses HOSTNAME_LOOKUP_DETAIL macro to provide detailed hostname resolution information in error messages
 - Special handling for implicit vs explicit reject entries in pg_hba.conf with different error messages
 - Authentication method constants (uaTrust, uaReject, etc.) determine the specific authentication logic path
+
+## Simplified Source
+
+```c
+// Simplified version of ClientAuthentication
+void ClientAuthentication(Port *port) {
+    int status = STATUS_ERROR;
+    const char *logdetail = NULL;
+
+    // Step 1: Get authentication method from pg_hba.conf
+    hba_getauthmethod(port);
+    CHECK_FOR_INTERRUPTS();
+
+    // Step 2: Pre-authentication client certificate checks
+    if (port->hba->clientcert != clientCertOff) {
+        if (!secure_loaded_verify_locations())
+            ereport(FATAL, "client certificates require root certificate store");
+
+        if (!port->peer_cert_valid)
+            ereport(FATAL, "connection requires valid client certificate");
+    }
+
+    // Step 3: Execute authentication method based on HBA configuration
+    switch (port->hba->auth_method) {
+        case uaReject:
+            // Explicit reject in pg_hba.conf - report detailed error and terminate
+            ereport(FATAL, "pg_hba.conf explicitly rejects connection");
+            break;
+
+        case uaImplicitReject:
+            // No matching pg_hba.conf entry - report detailed error and terminate
+            ereport(FATAL, "no pg_hba.conf entry for connection");
+            break;
+
+        case uaGSS:
+            // GSS/Kerberos authentication
+            setup_gss_context(port);
+            status = perform_gss_authentication(port);
+            break;
+
+        case uaSSPI:
+            // Windows SSPI authentication
+            setup_gss_context(port);
+            status = pg_SSPI_recvauth(port);
+            break;
+
+        case uaPeer:
+            // Peer authentication (Unix socket credentials)
+            status = auth_peer(port);
+            break;
+
+        case uaIdent:
+            // Ident authentication (TCP ident protocol)
+            status = ident_inet(port);
+            break;
+
+        case uaMD5:
+        case uaSCRAM:
+            // Challenge-response password authentication
+            status = CheckPWChallengeAuth(port, &logdetail);
+            break;
+
+        case uaPassword:
+            // Plain password authentication
+            status = CheckPasswordAuth(port, &logdetail);
+            break;
+
+        case uaPAM:
+            // PAM authentication
+            status = CheckPAMAuth(port, port->user_name, "");
+            break;
+
+        case uaBSD:
+            // BSD authentication
+            status = CheckBSDAuth(port, port->user_name);
+            break;
+
+        case uaLDAP:
+            // LDAP authentication
+            status = CheckLDAPAuth(port);
+            break;
+
+        case uaRADIUS:
+            // RADIUS authentication
+            status = CheckRADIUSAuth(port);
+            break;
+
+        case uaCert:
+        case uaTrust:
+            // Certificate or trust authentication - accept connection
+            status = STATUS_OK;
+            break;
+    }
+
+    // Step 4: Post-authentication certificate verification if required
+    if ((status == STATUS_OK && port->hba->clientcert == clientCertFull) ||
+        port->hba->auth_method == uaCert) {
+        status = CheckCertAuth(port);
+    }
+
+    // Step 5: Log successful connections if enabled
+    if (Log_connections && status == STATUS_OK && !MyClientConnectionInfo.authn_id) {
+        ereport(LOG, "connection authenticated: user=\"%s\" method=%s",
+                port->user_name, hba_authname(port->hba->auth_method));
+    }
+
+    // Step 6: Execute authentication hook if configured
+    if (ClientAuthentication_hook)
+        (*ClientAuthentication_hook)(port, status);
+
+    // Step 7: Send final response to client
+    if (status == STATUS_OK)
+        sendAuthRequest(port, AUTH_REQ_OK, NULL, 0);
+    else
+        auth_failed(port, status, logdetail);  // Terminates process on failure
+}
+```
+
+Key simplifications made:
+- Removed detailed error message construction and hostname resolution logic
+- Abstracted platform-specific conditional compilation blocks
+- Simplified memory context allocation for GSS structures
+- Consolidated similar authentication method patterns
+- Reduced complex macro expansions to simple function calls
+- Streamlined error reporting to essential error cases
+- Removed detailed encryption state detection logic
+- Abstracted complex ereport calls to simplified versions

@@ -42,3 +42,57 @@ This function takes no parameters and returns:
 - Early return with InvalidXLogRecPtr if max_replication_slots <= 0 (logical decoding disabled)
 - Properly handles the case where restart_lsn might be InvalidXLogRecPtr for individual slots
 - Uses the same locking strategy as ReplicationSlotsComputeRequiredLSN but with additional logical slot filtering
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotsComputeLogicalRestartLSN
+XLogRecPtr ReplicationSlotsComputeLogicalRestartLSN(void) {
+    XLogRecPtr oldest_lsn = InvalidXLogRecPtr;
+
+    // Early return if logical decoding is disabled
+    if (max_replication_slots <= 0)
+        return InvalidXLogRecPtr;
+
+    // Lock the replication slot control structure
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+    // Iterate through all replication slots
+    for (int i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *slot = &ReplicationSlotCtl->replication_slots[i];
+
+        // Skip unused slots
+        if (!slot->in_use)
+            continue;
+
+        // Skip physical slots - we only want logical slots
+        if (!SlotIsLogical(slot))
+            continue;
+
+        // Read slot data atomically
+        SpinLockAcquire(&slot->mutex);
+        XLogRecPtr restart_lsn = slot->data.restart_lsn;
+        bool is_invalidated = (slot->data.invalidated != RS_INVAL_NONE);
+        SpinLockRelease(&slot->mutex);
+
+        // Skip invalidated slots and slots with no valid LSN
+        if (is_invalidated || restart_lsn == InvalidXLogRecPtr)
+            continue;
+
+        // Keep track of the oldest (smallest) LSN
+        if (oldest_lsn == InvalidXLogRecPtr || restart_lsn < oldest_lsn)
+            oldest_lsn = restart_lsn;
+    }
+
+    LWLockRelease(ReplicationSlotControlLock);
+    return oldest_lsn;
+}
+```
+
+Key simplifications made:
+- Renamed variables for clarity (result → oldest_lsn, s → slot, etc.)
+- Added descriptive comments for each major step
+- Simplified the conditional logic flow for better readability
+- Combined variable declarations with assignments where appropriate
+- Made the purpose of each filtering step more explicit
+- Preserved all essential logic including locking, filtering, and LSN comparison

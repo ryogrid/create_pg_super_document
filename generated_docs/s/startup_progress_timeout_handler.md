@@ -36,3 +36,19 @@ This function takes no parameters.
 - Used during long-running operations like WAL recovery to provide regular status updates
 - The function is designed to be safe for use as a timeout/signal handler
 - Located in startup.c:303-308 with accompanying comment explaining its purpose
+
+## Simplified Source
+
+```c
+// Simplified version of startup_progress_timeout_handler
+void startup_progress_timeout_handler(void) {
+    // Signal that it's time to log a progress report
+    startup_progress_timer_expired = true;
+}
+```
+
+Key simplifications made:
+- Retained complete original logic (function is already very simple)
+- Added explanatory comment for the core action
+- Preserved the essential functionality: setting the timer expiration flag
+- No complex logic to simplify - this is a straightforward timeout handler

@@ -41,3 +41,27 @@ The function iterates through the held_lwlocks array, which maintains a record o
 - The function provides no information about the lock mode, only ownership
 - Essential for debugging lock-related issues and ensuring proper lock management
 - Located in src/backend/storage/lmgr/lwlock.c:1895-1912
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockHeldByMe
+bool LWLockHeldByMe(LWLock *lock) {
+    // Search through all locks currently held by this process
+    for (int i = 0; i < num_held_lwlocks; i++) {
+        // Check if this held lock matches the target lock
+        if (held_lwlocks[i].lock == lock) {
+            return true;  // Found it - we hold this lock
+        }
+    }
+
+    // Lock not found in our held locks array
+    return false;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Used clearer variable declaration (int i in the for loop)
+- Added inline comments explaining the logic flow
+- Made the purpose of each code section more explicit

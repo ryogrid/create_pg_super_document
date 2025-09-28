@@ -44,3 +44,34 @@ The function intelligently handles character set conversion by checking if actua
 - Memory management is handled automatically - converted strings are freed after use
 - Uses appendBinaryStringInfoNT to avoid adding a trailing null byte to the protocol data
 - Critical for sending text data that needs to be properly encoded for the client's character set
+
+## Simplified Source
+
+```c
+// Simplified version of pq_sendcountedtext
+void pq_sendcountedtext(StringInfo buf, const char *str, int slen) {
+    char *converted_str;
+
+    // Convert string from server encoding to client encoding
+    converted_str = pg_server_to_client(str, slen);
+
+    if (converted_str != str) {
+        // Conversion occurred - use converted string
+        slen = strlen(converted_str);
+        pq_sendint32(buf, slen);                    // Send length prefix
+        appendBinaryStringInfoNT(buf, converted_str, slen);  // Send data
+        pfree(converted_str);                       // Free converted string
+    } else {
+        // No conversion needed - use original string
+        pq_sendint32(buf, slen);                    // Send length prefix
+        appendBinaryStringInfoNT(buf, str, slen);   // Send original data
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated the character set conversion logic into clearer conditional flow
+- Added descriptive comments for each major step
+- Used more descriptive variable name `converted_str` instead of `p`
+- Simplified the conditional structure to show the two main paths clearly
+- Maintained all essential functionality: conversion check, length calculation, data sending, and memory cleanup

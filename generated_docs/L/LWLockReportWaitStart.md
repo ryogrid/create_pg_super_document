@@ -42,3 +42,20 @@ Key characteristics:
 - Must be paired with LWLockReportWaitEnd() to properly bracket wait periods
 - Used internally by lightweight lock implementation - not intended for direct external use
 - Tranche-based reporting allows categorization of waits by lock purpose (buffer, WAL, etc.)
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockReportWaitStart
+static inline void LWLockReportWaitStart(LWLock *lock) {
+    // Report wait start event to statistics system
+    // Combines base LWLOCK wait type with specific lock tranche for identification
+    pgstat_report_wait_start(PG_WAIT_LWLOCK | lock->tranche);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core purpose
+- Clarified the bitwise OR operation combining wait type and tranche
+- Preserved the essential one-line implementation as it's already minimal
+- No complex logic to simplify - function is a straightforward wrapper

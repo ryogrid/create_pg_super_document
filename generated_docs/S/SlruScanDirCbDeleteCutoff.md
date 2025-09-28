@@ -33,3 +33,29 @@ SlruScanDirCbDeleteCutoff is a static callback function that implements the actu
 - Uses SLRU_PAGES_PER_SEGMENT to convert page numbers to segment numbers for deletion
 - Part of the SLRU truncation mechanism used to clean up old transaction log data
 - Static function, only accessible within the slru.c compilation unit
+
+## Simplified Source
+
+```c
+// Simplified version of SlruScanDirCbDeleteCutoff
+static bool SlruScanDirCbDeleteCutoff(SlruCtl ctl, char *filename, int64 segpage, void *data) {
+    // Extract the cutoff page number from the data parameter
+    int64 cutoffPage = *(int64 *) data;
+
+    // Check if this segment can be safely deleted
+    if (SlruMayDeleteSegment(ctl, segpage, cutoffPage)) {
+        // Delete the entire segment containing this page
+        SlruInternalDeleteSegment(ctl, segpage / SLRU_PAGES_PER_SEGMENT);
+    }
+
+    // Continue processing more segments
+    return false;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Clarified the purpose of the cutoffPage extraction
+- Explained the segment deletion logic flow
+- Made the return value purpose explicit
+- Preserved all original functionality while improving readability

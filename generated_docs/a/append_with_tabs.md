@@ -26,3 +26,29 @@ This function provides formatted string appending specifically designed for Post
 
 ## Notes and Other Information
 This function is specifically designed for server-side logging and is extensively used by send_message_to_server_log to ensure consistent formatting of multi-line error message components. The automatic tab insertion after newlines creates a visually hierarchical structure in log files, making it easier to distinguish between different parts of error messages and to parse log entries manually or programmatically.
+
+## Simplified Source
+
+```c
+// Simplified version of append_with_tabs
+static void append_with_tabs(StringInfo buf, const char *str) {
+    char ch;
+
+    // Process each character in the input string
+    while ((ch = *str++) != '\0') {
+        // Append current character to buffer
+        appendStringInfoCharMacro(buf, ch);
+
+        // Add tab after newlines for indentation
+        if (ch == '\n') {
+            appendStringInfoCharMacro(buf, '\t');
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Maintained original logic - this function is already quite simple
+- Added descriptive comments to clarify the two main operations
+- Preserved the efficient character-by-character processing approach
+- Kept the core tab-insertion functionality intact

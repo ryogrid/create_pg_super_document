@@ -41,3 +41,42 @@ The function uses a switch statement to handle different CommandDest values, wit
 - Only remote destinations require active completion message handling
 - Works in conjunction with BuildQueryCompletionString to format completion information
 - Essential for proper client-server protocol communication in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of EndCommand
+void EndCommand(const QueryCompletion *qc, CommandDest dest, bool force_undecorated_output) {
+    char completionTag[COMPLETION_TAG_BUFSIZE];
+    Size len;
+
+    switch (dest) {
+        case DestRemote:
+        case DestRemoteExecute:
+        case DestRemoteSimple:
+            // Build completion message and send to client
+            len = BuildQueryCompletionString(completionTag, qc, force_undecorated_output);
+            pq_putmessage(PqMsg_CommandComplete, completionTag, len + 1);
+
+        case DestNone:
+        case DestDebug:
+        case DestSPI:
+        case DestTuplestore:
+        case DestIntoRel:
+        case DestCopyOut:
+        case DestSQLFunction:
+        case DestTransientRel:
+        case DestTupleQueue:
+        case DestExplainSerialize:
+            // No completion processing needed for local destinations
+            break;
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the core switch logic and all destination cases
+- Added explanatory comments for the two main code paths
+- Maintained the original control flow structure
+- Kept all essential function calls and variable declarations
+- Added comment explaining that local destinations need no special processing

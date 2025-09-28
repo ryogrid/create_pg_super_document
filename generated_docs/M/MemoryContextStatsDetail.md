@@ -39,3 +39,48 @@ This function serves as the primary entry point for detailed memory context stat
 - Displays grand totals including total space, number of blocks, free space, free chunks, and used space
 - The max_level and max_children parameters help control output volume for large context hierarchies
 - Commonly used in debugging scenarios and automated monitoring systems
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextStatsDetail
+void MemoryContextStatsDetail(MemoryContext context,
+                              int max_level, int max_children,
+                              bool print_to_stderr)
+{
+    // Initialize counters to accumulate statistics
+    MemoryContextCounters grand_totals;
+    memset(&grand_totals, 0, sizeof(grand_totals));
+
+    // Recursively gather statistics from context hierarchy
+    MemoryContextStatsInternal(context, 0, max_level, max_children,
+                               &grand_totals, print_to_stderr);
+
+    // Output grand totals in appropriate format
+    if (print_to_stderr) {
+        // Direct stderr output for debugging
+        fprintf(stderr,
+                "Grand total: %zu bytes in %zu blocks; %zu free (%zu chunks); %zu used\n",
+                grand_totals.totalspace, grand_totals.nblocks,
+                grand_totals.freespace, grand_totals.freechunks,
+                grand_totals.totalspace - grand_totals.freespace);
+    } else {
+        // Use logging system with server-only level
+        ereport(LOG_SERVER_ONLY,
+                (errhidestmt(true),
+                 errhidecontext(true),
+                 errmsg_internal("Grand total: %zu bytes in %zu blocks; %zu free (%zu chunks); %zu used",
+                                 grand_totals.totalspace, grand_totals.nblocks,
+                                 grand_totals.freespace, grand_totals.freechunks,
+                                 grand_totals.totalspace - grand_totals.freespace)));
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about OOM prevention reasoning (kept essential logic)
+- Consolidated the output formatting logic while preserving both paths
+- Added brief inline comments to explain each major step
+- Maintained the essential algorithm: initialize counters, gather stats, output totals
+- Preserved the dual output mechanism (stderr vs logging system)
+- Kept the LOG_SERVER_ONLY security consideration

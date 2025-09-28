@@ -38,3 +38,48 @@ This function completes the statistics tracking for a function call that was pre
 - Works in conjunction with pgstat_init_function_usage to provide complete function performance tracking
 - Located in src/backend/utils/activity/pgstat_function.c:146-192
 - Essential for accurate function performance analysis and PostgreSQL's query optimization
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_end_function_usage
+void pgstat_end_function_usage(PgStat_FunctionCallUsage *fcu, bool finalize) {
+    PgStat_FunctionCounts *fs = fcu->fs;
+    instr_time total, others, self;
+
+    // Exit if stats collection is disabled
+    if (fs == NULL)
+        return;
+
+    // Calculate total elapsed time since function start
+    INSTR_TIME_SET_CURRENT(total);
+    INSTR_TIME_SUBTRACT(total, fcu->start);
+
+    // Calculate self time: total time minus time spent in nested calls
+    others = total_func_time;
+    INSTR_TIME_SUBTRACT(others, fcu->save_total);
+    self = total;
+    INSTR_TIME_SUBTRACT(self, others);
+
+    // Update backend-wide function time accumulator
+    INSTR_TIME_ADD(total_func_time, self);
+
+    // Adjust total time to include pre-call accumulated time
+    // (prevents double-counting in recursive calls)
+    INSTR_TIME_ADD(total, fcu->save_f_total_time);
+
+    // Update function statistics
+    if (finalize)
+        fs->numcalls++;           // Increment call count only on final call
+    fs->total_time = total;       // Update total execution time
+    INSTR_TIME_ADD(fs->self_time, self);  // Accumulate self time
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic explanation
+- Consolidated variable declarations for clarity
+- Simplified timing calculation flow with clear step-by-step comments
+- Maintained all critical functionality including recursion handling
+- Preserved the finalize flag logic for set-returning functions
+- Kept essential error checking (NULL stats check)

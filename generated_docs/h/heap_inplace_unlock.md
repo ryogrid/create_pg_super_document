@@ -44,3 +44,22 @@ This function is designed to be called in three scenarios:
 - Simple but critical function for maintaining proper lock discipline
 - Used both in success paths (after update completion) and error paths (operation cancellation)
 - The function assumes the caller previously acquired the locks via heap_inplace_lock
+
+## Simplified Source
+
+```c
+// Simplified version of heap_inplace_unlock
+void heap_inplace_unlock(Relation relation, HeapTuple oldtup, Buffer buffer) {
+    // Release the buffer lock that protects the page
+    LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+
+    // Release the tuple-level inplace update lock
+    UnlockTuple(relation, &oldtup->t_self, InplaceUpdateTupleLock);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the two unlock operations
+- Preserved the exact function signature and logic
+- No complex logic to simplify - function is already minimal and clear
+- Maintained the proper unlock order (buffer first, then tuple)

@@ -49,3 +49,59 @@ XlogReadTwoPhaseData provides the capability to retrieve two-phase commit state 
 - Critical for recovery scenarios where prepare state hasn't been written to disk yet
 - Uses XL_ROUTINE macro for setting up WAL reading callbacks
 - Part of the WAL-based two-phase commit state management system
+
+## Simplified Source
+
+```c
+// Simplified version of XlogReadTwoPhaseData
+static void
+XlogReadTwoPhaseData(XLogRecPtr lsn, char **buf, int *len)
+{
+    XLogRecord *record;
+    XLogReaderState *xlogreader;
+    char *errormsg;
+
+    // Step 1: Allocate WAL reader with necessary callbacks
+    xlogreader = XLogReaderAllocate(wal_segment_size, NULL,
+                                   XL_ROUTINE(.page_read = &read_local_xlog_page,
+                                             .segment_open = &wal_segment_open,
+                                             .segment_close = &wal_segment_close),
+                                   NULL);
+    if (!xlogreader)
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("Failed while allocating a WAL reading processor")));
+
+    // Step 2: Position reader at target LSN and read the record
+    XLogBeginRead(xlogreader, lsn);
+    record = XLogReadRecord(xlogreader, &errormsg);
+
+    if (record == NULL)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not read two-phase state from WAL at %X/%X",
+                             LSN_FORMAT_ARGS(lsn))));
+
+    // Step 3: Validate this is a two-phase prepare record
+    if (XLogRecGetRmid(xlogreader) != RM_XACT_ID ||
+        (XLogRecGetInfo(xlogreader) & XLOG_XACT_OPMASK) != XLOG_XACT_PREPARE)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("expected two-phase state data is not present in WAL")));
+
+    // Step 4: Extract data length and copy to output buffer
+    if (len != NULL)
+        *len = XLogRecGetDataLen(xlogreader);
+
+    *buf = palloc(sizeof(char) * XLogRecGetDataLen(xlogreader));
+    memcpy(*buf, XLogRecGetData(xlogreader), sizeof(char) * XLogRecGetDataLen(xlogreader));
+
+    // Step 5: Clean up resources
+    XLogReaderFree(xlogreader);
+}
+```
+
+Key simplifications made:
+- Consolidated error handling branches for readability
+- Removed detailed error message variations while preserving essential error reporting
+- Added step-by-step comments to clarify the logical flow
+- Maintained all core functionality: allocation, reading, validation, data extraction, cleanup
+- Preserved critical validation checks for record type and resource management
+- Simplified error messages to focus on the essential information

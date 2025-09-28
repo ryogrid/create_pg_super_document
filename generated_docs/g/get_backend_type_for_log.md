@@ -38,3 +38,29 @@ This function provides a descriptive string identifying the current PostgreSQL b
 - Background workers can have custom type names defined in their bgw_type field
 - Essential for log analysis and debugging to identify which PostgreSQL component generated specific log entries
 - Part of PostgreSQL's comprehensive logging infrastructure for process identification
+
+## Simplified Source
+
+```c
+// Simplified version of get_backend_type_for_log
+const char *
+get_backend_type_for_log(void)
+{
+    // Check if this is the postmaster process
+    if (MyProcPid == PostmasterPid)
+        return "postmaster";
+
+    // Handle background worker processes with custom type names
+    if (MyBackendType == B_BG_WORKER)
+        return MyBgworkerEntry->bgw_type;
+
+    // All other backend types use standard descriptions
+    return GetBackendTypeDesc(MyBackendType);
+}
+```
+
+Key simplifications made:
+- Removed local variable declaration for clarity
+- Simplified conditional logic with direct returns
+- Added descriptive comments for each process type check
+- Maintained the three-tier identification logic: postmaster, background worker, regular backend

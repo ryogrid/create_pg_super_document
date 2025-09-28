@@ -44,3 +44,30 @@ An assertion check ensures that the table entry's encoding field matches the req
 - On Windows builds, the structure also includes codepage information
 - Widely used throughout PostgreSQL for displaying encoding names in error messages, logs, and user interfaces
 - The canonical names returned are the "official" PostgreSQL encoding names, which may differ from aliases accepted by `pg_char_to_encoding`
+
+## Simplified Source
+
+```c
+// Simplified version of pg_encoding_to_char
+const char *
+pg_encoding_to_char(int encoding)
+{
+    // Validate encoding ID is within valid range
+    if (PG_VALID_ENCODING(encoding)) {
+        // Direct table lookup - get encoding entry
+        const pg_enc2name *entry = &pg_enc2name_tbl[encoding];
+
+        // Return the canonical name string
+        return entry->name;
+    }
+
+    // Return empty string for invalid encoding
+    return "";
+}
+```
+
+Key simplifications made:
+- Removed assertion check for clarity (kept validation logic)
+- Added descriptive comments for each major step
+- Simplified variable naming (entry instead of p)
+- Preserved core algorithm: validate → lookup → return name or empty string

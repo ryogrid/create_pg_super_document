@@ -49,3 +49,28 @@ The function maintains a global callback list and simply appends new callbacks t
 - Essential for maintaining consistency of derived caches that depend on relation metadata
 - Used extensively in logical replication, plan caching, and type caching subsystems
 - Callbacks should be prepared to handle both specific relation invalidations and global resets efficiently
+
+## Simplified Source
+
+```c
+// Simplified version of CacheRegisterRelcacheCallback
+void CacheRegisterRelcacheCallback(RelcacheCallbackFunction func, Datum arg) {
+    // Check if we have room for another callback
+    if (relcache_callback_count >= MAX_RELCACHE_CALLBACKS)
+        elog(FATAL, "out of relcache_callback_list slots");
+
+    // Store the callback function and its argument
+    relcache_callback_list[relcache_callback_count].function = func;
+    relcache_callback_list[relcache_callback_count].arg = arg;
+
+    // Increment the callback counter
+    ++relcache_callback_count;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Maintained the essential error checking logic
+- Preserved the core registration mechanism
+- Kept the simple array-based storage approach
+- No simplifications needed as the function is already straightforward

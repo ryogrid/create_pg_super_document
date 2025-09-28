@@ -45,3 +45,32 @@ When the shared invalidation queue overflows (indicating that some invalidation 
 - The debug_discard_caches=1 setting makes the system extremely slow (100x slower) but helps detect cache-flush hazards
 - The debug_discard_caches=3 setting provides recursive cache testing but is even slower (10000x factor)
 - Critical for maintaining ACID properties and preventing stale cache reads in concurrent environments
+
+## Simplified Source
+
+```c
+// Simplified version of AcceptInvalidationMessages
+void AcceptInvalidationMessages(void) {
+    // Read and process invalidation messages from shared queue
+    // This ensures caches are consistent with recent changes by other backends
+    ReceiveSharedInvalidMessages(LocalExecuteInvalidationMessage,
+                                InvalidateSystemCaches);
+
+    // Debug code: Force additional cache flushes for testing
+    // (Only active when DISCARD_CACHES_ENABLED is compiled in)
+    #ifdef DISCARD_CACHES_ENABLED
+    if (recursion_depth < debug_discard_caches) {
+        recursion_depth++;
+        InvalidateSystemCachesExtended(true);  // Force comprehensive cache flush
+        recursion_depth--;
+    }
+    #endif
+}
+```
+
+Key simplifications made:
+- Removed extensive debug comments explaining performance implications
+- Simplified debug section to essential logic only
+- Added high-level comments explaining the main purpose
+- Consolidated debug logic into clear conditional block
+- Preserved the core invalidation message processing flow

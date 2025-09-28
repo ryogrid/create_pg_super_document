@@ -40,3 +40,27 @@ This function is typically called after memory is freed but before it is returne
 - Valgrind integration ensures that accessing wiped memory will trigger Valgrind warnings
 - This is a static inline function defined in memdebug.h, making it available throughout the codebase with minimal performance overhead
 - The function is primarily used by PostgreSQL's memory context management system to detect memory corruption bugs during development and testing
+
+## Simplified Source
+
+```c
+// Simplified version of wipe_mem
+static inline void
+wipe_mem(void *ptr, size_t size)
+{
+    // Mark memory as undefined for debugging tools
+    VALGRIND_MAKE_MEM_UNDEFINED(ptr, size);
+
+    // Fill memory with recognizable pattern (0x7F)
+    memset(ptr, 0x7F, size);
+
+    // Mark memory as inaccessible to catch use-after-free
+    VALGRIND_MAKE_MEM_NOACCESS(ptr, size);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step's purpose
+- No structural changes needed - function was already simple and clear
+- Preserved all essential functionality including Valgrind integration
+- The original function is already well-designed with minimal complexity

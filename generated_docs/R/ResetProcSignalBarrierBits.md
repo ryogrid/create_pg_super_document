@@ -49,3 +49,26 @@ The function is essential for maintaining the reliability of the barrier system 
 - Works in conjunction with the interrupt handling system to schedule retries
 - The function is lightweight and safe to call from error handling contexts
 - Located in src/backend/storage/ipc/procsignal.c:601-613
+
+## Simplified Source
+
+```c
+// Simplified version of ResetProcSignalBarrierBits
+static void ResetProcSignalBarrierBits(uint32 flags) {
+    // Restore barrier bits atomically for retry processing
+    pg_atomic_fetch_or_u32(&MyProcSignalSlot->pss_barrierCheckMask, flags);
+
+    // Mark that barrier processing is still needed
+    ProcSignalBarrierPending = true;
+
+    // Trigger interrupt handling to retry soon
+    InterruptPending = true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each operation
+- Preserved the exact logic flow without modifications
+- Maintained all three critical operations: atomic bit setting, pending flag, and interrupt flag
+- Function is already concise, so minimal simplification was needed
+- Emphasized the retry mechanism aspect in comments

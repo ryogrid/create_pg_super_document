@@ -41,3 +41,46 @@ Unlike normal reset operations that only affect backends that have fallen behind
 - Equivalent to cluster-wide InvalidateSystemCaches() operation
 - Used in scenarios where precise invalidation tracking is not possible or reliable
 - Forces complete cache rebuilds across all backends, impacting performance but ensuring correctness
+
+## Simplified Source
+
+```c
+// Simplified version of SIResetAll
+void SIResetAll(void) {
+    SISeg *segP = shmInvalBuffer;
+    int i;
+
+    // Acquire exclusive locks for atomic operation
+    LWLockAcquire(SInvalWriteLock, LW_EXCLUSIVE);
+    LWLockAcquire(SInvalReadLock, LW_EXCLUSIVE);
+
+    // Reset all active backends
+    for (i = 0; i < segP->numProcs; i++) {
+        ProcState *stateP = &segP->procState[segP->pgprocnos[i]];
+
+        // Skip sendOnly backends (they don't maintain caches)
+        if (stateP->sendOnly)
+            continue;
+
+        // Mark backend for reset and ensure it notices the reset
+        stateP->resetState = true;
+        stateP->hasMessages = true;
+    }
+
+    // Update segment state to reflect all messages consumed
+    segP->minMsgNum = segP->maxMsgNum;
+    segP->nextThreshold = CLEANUP_MIN;
+
+    // Release locks in reverse order
+    LWLockRelease(SInvalReadLock);
+    LWLockRelease(SInvalWriteLock);
+}
+```
+
+Key simplifications made:
+- Removed Assert() statement for clarity in simplified version
+- Added descriptive comments explaining each major step
+- Grouped related operations with explanatory comments
+- Simplified variable declarations for readability
+- Emphasized the atomic nature of the operation with lock acquisition/release comments
+- Clarified the purpose of setting both resetState and hasMessages flags

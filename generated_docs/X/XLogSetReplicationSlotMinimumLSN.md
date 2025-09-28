@@ -35,3 +35,22 @@ XLogSetReplicationSlotMinimumLSN is a critical component of PostgreSQL's replica
 - Part of the broader replication slot management system that tracks replication consumer requirements
 - Declared in src/include/access/xlog.h at line 214
 - Simple but vital function - its proper functioning ensures replication reliability and prevents data loss scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of XLogSetReplicationSlotMinimumLSN
+void XLogSetReplicationSlotMinimumLSN(XLogRecPtr lsn) {
+    // Atomically update the global minimum LSN for replication slots
+    // This LSN represents the earliest WAL position that must be retained
+    SpinLockAcquire(&XLogCtl->info_lck);
+    XLogCtl->replicationSlotMinLSN = lsn;
+    SpinLockRelease(&XLogCtl->info_lck);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core purpose
+- Preserved the essential spinlock-protected update pattern
+- No actual simplification needed as the function is already minimal and straightforward
+- The function is inherently simple: acquire lock, set value, release lock

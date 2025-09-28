@@ -50,3 +50,45 @@ The function includes safety checks to prevent processes from queuing while alre
 - The LW_FLAG_HAS_WAITERS flag is set atomically to indicate that the lock has processes waiting
 - In debug builds, the function maintains a counter of waiting processes
 - The wait list is protected by a spinlock to ensure atomic updates to the queue structure
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockQueueSelf
+static void
+LWLockQueueSelf(LWLock *lock, LWLockMode mode)
+{
+    // Safety checks: ensure we have a valid process structure
+    if (MyProc == NULL)
+        elog(PANIC, "cannot wait without a PGPROC structure");
+
+    if (MyProc->lwWaiting != LW_WS_NOT_WAITING)
+        elog(PANIC, "queueing for lock while waiting on another one");
+
+    // Acquire wait list lock to safely modify the queue
+    LWLockWaitListLock(lock);
+
+    // Mark lock as having waiters
+    pg_atomic_fetch_or_u32(&lock->state, LW_FLAG_HAS_WAITERS);
+
+    // Set process wait state
+    MyProc->lwWaiting = LW_WS_WAITING;
+    MyProc->lwWaitMode = mode;
+
+    // Add to queue: LW_WAIT_UNTIL_FREE goes to front, others to back
+    if (mode == LW_WAIT_UNTIL_FREE)
+        proclist_push_head(&lock->waiters, MyProcNumber, lwWaitLink);
+    else
+        proclist_push_tail(&lock->waiters, MyProcNumber, lwWaitLink);
+
+    // Release wait list lock
+    LWLockWaitListUnlock(lock);
+}
+```
+
+Key simplifications made:
+- Removed debug-only waiter counting code
+- Consolidated safety checks with clear comments
+- Simplified queue positioning logic explanation
+- Abstracted atomic operations with descriptive comments
+- Maintained essential algorithm flow and correctness

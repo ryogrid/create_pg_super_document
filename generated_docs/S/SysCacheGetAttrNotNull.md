@@ -42,3 +42,30 @@ This function provides both performance benefits (no need to check the isNull ou
 - Widely used throughout PostgreSQL for accessing mandatory system catalog attributes
 - Part of the system cache infrastructure optimized for non-nullable attribute access
 - The error is raised using elog(ERROR, ...) which will abort the current transaction if the unexpected NULL is encountered
+
+## Simplified Source
+
+```c
+// Simplified version of SysCacheGetAttrNotNull
+Datum SysCacheGetAttrNotNull(int cacheId, HeapTuple tup, AttrNumber attributeNumber) {
+    bool isnull;
+
+    // Get the attribute value from the cache
+    Datum attr = SysCacheGetAttr(cacheId, tup, attributeNumber, &isnull);
+
+    // Verify the attribute is not NULL (should never happen)
+    if (isnull) {
+        elog(ERROR, "unexpected null value in cached tuple for catalog %s column %s",
+             get_rel_name(cacheinfo[cacheId].reloid),
+             NameStr(TupleDescAttr(SysCache[cacheId]->cc_tupdesc, attributeNumber - 1)->attname));
+    }
+
+    return attr;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added inline comments explaining the two main steps
+- Simplified the error message formatting for readability
+- Preserved the core logic: call SysCacheGetAttr, check for unexpected NULL, return attribute value

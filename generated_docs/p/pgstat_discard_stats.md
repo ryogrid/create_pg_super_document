@@ -43,3 +43,39 @@ After file operations, the function calls  to reset all statistics counters and 
 - Reset timestamps are set to the current time for fixed-numbered statistics
 - All variable-numbered statistics entries are completely dropped
 - The function is located in src/backend/utils/activity/pgstat.c:419-461
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_discard_stats
+void pgstat_discard_stats(void) {
+    int ret;
+
+    // Remove the permanent statistics file from disk
+    ret = unlink(PGSTAT_STAT_PERMANENT_FILENAME);
+
+    // Handle file removal results
+    if (ret != 0) {
+        if (errno == ENOENT) {
+            // File didn't exist - log debug message
+            elog(DEBUG2, "didn't need to unlink permanent stats file - didn't exist");
+        } else {
+            // Other error - report but continue
+            ereport(LOG, "could not unlink permanent statistics file");
+        }
+    } else {
+        // Success - log debug message
+        ereport(DEBUG2, "unlinked permanent statistics file");
+    }
+
+    // Reset all statistics contents in memory
+    pgstat_reset_after_failure();
+}
+```
+
+Key simplifications made:
+- Removed detailed error message formatting and file path constants for clarity
+- Simplified error handling conditions while preserving the logic flow
+- Condensed verbose logging statements to essential information
+- Added explanatory comments for each major operation
+- Preserved the essential two-step process: file removal + memory reset

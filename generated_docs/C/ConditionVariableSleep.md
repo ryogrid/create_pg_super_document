@@ -48,3 +48,19 @@ The typical usage pattern involves calling ConditionVariablePrepareToSleep (opti
 - Must be followed by ConditionVariableCancelSleep to clean up the wait state
 - Used extensively in parallel operations, replication, buffer management, and synchronization barriers
 - The process will be awakened by ConditionVariableBroadcast or ConditionVariableSignal calls
+
+## Simplified Source
+
+```c
+// Simplified version of ConditionVariableSleep
+void ConditionVariableSleep(ConditionVariable *cv, uint32 wait_event_info) {
+    // Core logic: Delegate to timed sleep with infinite timeout
+    ConditionVariableTimedSleep(cv, -1 /* no timeout */, wait_event_info);
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple - it's a thin wrapper around ConditionVariableTimedSleep
+- The main logic is just passing through parameters with a -1 timeout for infinite waiting
+- No complex error handling or state management needed at this level
+- The actual sleeping/waiting logic is implemented in ConditionVariableTimedSleep

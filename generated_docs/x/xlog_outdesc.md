@@ -49,3 +49,36 @@ If the operation type is unrecognized by the resource manager, it will display "
 - This function is crucial for WAL debugging, error reporting, and administrative tools
 - The function modifies the provided StringInfo buffer in-place by appending to it
 - Resource managers (rmgr) are responsible for different subsystems like heap operations, btree operations, etc.
+
+## Simplified Source
+
+```c
+// Simplified version of xlog_outdesc
+void xlog_outdesc(StringInfo buf, XLogReaderState *record) {
+    // Get the resource manager for this record type
+    RmgrData rmgr = GetRmgr(XLogRecGetRmid(record));
+    uint8 info = XLogRecGetInfo(record);
+
+    // Build description: "ResourceManager/OperationType: details"
+    appendStringInfoString(buf, rmgr.rm_name);
+    appendStringInfoChar(buf, '/');
+
+    // Get operation name or show as unknown
+    const char *operation_name = rmgr.rm_identify(info);
+    if (operation_name == NULL) {
+        appendStringInfo(buf, "UNKNOWN (%X): ", info & ~XLR_INFO_MASK);
+    } else {
+        appendStringInfo(buf, "%s: ", operation_name);
+    }
+
+    // Let resource manager add detailed description
+    rmgr.rm_desc(buf, record);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Clarified the purpose: building a "ResourceManager/OperationType: details" format
+- Made variable names more descriptive (operation_name instead of id)
+- Grouped logical operations with explanatory comments
+- Preserved all original functionality while improving readability

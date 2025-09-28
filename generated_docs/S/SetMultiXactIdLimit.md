@@ -59,3 +59,83 @@ The function also handles offset vacuum limits separately and can trigger autova
 - The 40M warning threshold is intentionally not configurable to prevent misconfiguration
 - Handles both transaction and non-transaction contexts for database name resolution
 - Works in conjunction with SetOffsetVacuumLimit for comprehensive MultiXact management
+
+## Simplified Source
+
+```c
+// Simplified version of SetMultiXactIdLimit
+void SetMultiXactIdLimit(MultiXactId oldest_datminmxid, Oid oldest_datoid, bool is_startup) {
+    MultiXactId multiVacLimit, multiWarnLimit, multiStopLimit, multiWrapLimit;
+    MultiXactId curMulti;
+    bool needs_offset_vacuum;
+
+    // Calculate wrap limit - halfway through multixact ID space
+    multiWrapLimit = oldest_datminmxid + (MaxMultiXactId >> 1);
+    if (multiWrapLimit < FirstMultiXactId)
+        multiWrapLimit += FirstMultiXactId;
+
+    // Set hard stop limit - refuse assignments 3M before wrap
+    multiStopLimit = multiWrapLimit - 3000000;
+    if (multiStopLimit < FirstMultiXactId)
+        multiStopLimit -= FirstMultiXactId;
+
+    // Set warning limit - start complaining 40M before wrap
+    multiWarnLimit = multiWrapLimit - 40000000;
+    if (multiWarnLimit < FirstMultiXactId)
+        multiWarnLimit -= FirstMultiXactId;
+
+    // Set vacuum trigger limit based on freeze max age
+    multiVacLimit = oldest_datminmxid + autovacuum_multixact_freeze_max_age;
+    if (multiVacLimit < FirstMultiXactId)
+        multiVacLimit += FirstMultiXactId;
+
+    // Atomically update all limits in shared state
+    LWLockAcquire(MultiXactGenLock, LW_EXCLUSIVE);
+    MultiXactState->oldestMultiXactId = oldest_datminmxid;
+    MultiXactState->oldestMultiXactDB = oldest_datoid;
+    MultiXactState->multiVacLimit = multiVacLimit;
+    MultiXactState->multiWarnLimit = multiWarnLimit;
+    MultiXactState->multiStopLimit = multiStopLimit;
+    MultiXactState->multiWrapLimit = multiWrapLimit;
+    curMulti = MultiXactState->nextMXact;
+    LWLockRelease(MultiXactGenLock);
+
+    // Skip remaining checks if still in startup/recovery
+    if (!MultiXactState->finishedStartup)
+        return;
+
+    // Set offset vacuum limits and check if offset vacuum needed
+    needs_offset_vacuum = SetOffsetVacuumLimit(is_startup);
+
+    // Trigger autovacuum if past vacuum limit or offset vacuum needed
+    if ((MultiXactIdPrecedes(multiVacLimit, curMulti) || needs_offset_vacuum) && IsUnderPostmaster)
+        SendPostmasterSignal(PMSIGNAL_START_AUTOVAC_LAUNCHER);
+
+    // Issue warning if past warning limit
+    if (MultiXactIdPrecedes(multiWarnLimit, curMulti)) {
+        char *oldest_datname = IsTransactionState() ? get_database_name(oldest_datoid) : NULL;
+
+        if (oldest_datname) {
+            ereport(WARNING, (errmsg_plural(
+                "database \"%s\" must be vacuumed before %u more MultiXactId is used",
+                "database \"%s\" must be vacuumed before %u more MultiXactIds are used",
+                multiWrapLimit - curMulti, oldest_datname, multiWrapLimit - curMulti)));
+        } else {
+            ereport(WARNING, (errmsg_plural(
+                "database with OID %u must be vacuumed before %u more MultiXactId is used",
+                "database with OID %u must be vacuumed before %u more MultiXactIds are used",
+                multiWrapLimit - curMulti, oldest_datoid, multiWrapLimit - curMulti)));
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated variable declarations
+- Simplified the wrap limit calculation logic while preserving the wraparound handling
+- Consolidated the four limit calculations into a cleaner sequence
+- Removed debug logging for clarity
+- Simplified the warning message handling by combining both cases
+- Removed detailed error hints to focus on core warning logic
+- Abstracted the complex plural message formatting while keeping the essential warning
+- Maintained all critical functionality: limit calculation, atomic state updates, autovacuum triggering, and warning generation

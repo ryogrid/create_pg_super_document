@@ -51,3 +51,30 @@ The function uses nested Min/Max operations to ensure all constraints are satisf
 - The algorithm guarantees that the result is always a multiple of SLRU_BANK_SIZE
 - Typical usage involves calling this during system initialization to determine buffer counts for various SLRU instances (CLOG, SUBTRANS, CommitTS, etc.)
 - The divisor parameter allows fine-tuning the proportion of shared buffers allocated to each SLRU subsystem
+
+## Simplified Source
+
+```c
+// Simplified version of SimpleLruAutotuneBuffers
+int SimpleLruAutotuneBuffers(int divisor, int max) {
+    // Calculate buffer count as fraction of total shared buffers
+    int calculated_buffers = NBuffers / divisor;
+
+    // Ensure minimum allocation (at least one bank)
+    int min_buffers = SLRU_BANK_SIZE;
+
+    // Round down to bank boundaries for both calculated and max values
+    int aligned_calculated = calculated_buffers - (calculated_buffers % SLRU_BANK_SIZE);
+    int aligned_max = max - (max % SLRU_BANK_SIZE);
+
+    // Apply constraints: at least min_buffers, at most aligned_max
+    return Min(aligned_max, Max(min_buffers, aligned_calculated));
+}
+```
+
+Key simplifications made:
+- Extracted the nested Min/Max expression into clear step-by-step calculations
+- Added descriptive variable names (calculated_buffers, min_buffers, aligned_calculated, aligned_max)
+- Separated bank alignment logic for clarity
+- Added comments explaining each logical step
+- Made the constraint application order explicit and readable

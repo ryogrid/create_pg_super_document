@@ -38,3 +38,27 @@ The timestamp format follows the ISO-style pattern "YYYY-MM-DD HH:MM:SS TZ" whic
 - Returns a pointer to internal static storage that gets overwritten on subsequent calls
 - Specifically designed for logging and diagnostic output within the WAL subsystem
 - The timestamp format includes timezone information, making it useful for correlating events across different time zones
+
+## Simplified Source
+
+```c
+// Simplified version of str_time
+static char *
+str_time(pg_time_t tnow)
+{
+    static char buf[128];
+
+    // Format timestamp as "YYYY-MM-DD HH:MM:SS TZ" using log timezone
+    pg_strftime(buf, sizeof(buf),
+                "%Y-%m-%d %H:%M:%S %Z",
+                pg_localtime(&tnow, log_timezone));
+
+    return buf;
+}
+```
+
+Key simplifications made:
+- Added explanatory comment for the core formatting operation
+- Code is already quite simple, so minimal changes were needed
+- Preserved the essential timestamp formatting logic
+- Maintained the static buffer design pattern

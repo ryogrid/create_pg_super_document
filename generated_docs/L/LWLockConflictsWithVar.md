@@ -41,3 +41,43 @@ The function is designed to work without explicit memory barriers due to implied
 - The atomic read operations are safe even on platforms where uint64 reads might be torn
 - Memory barrier considerations depend on caller's spinlock usage context
 - Returns true if waiting is required, false otherwise
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockConflictsWithVar
+static bool
+LWLockConflictsWithVar(LWLock *lock, pg_atomic_uint64 *valptr, uint64 oldval,
+                       uint64 *newval, bool *result)
+{
+    // Check if lock is currently free (not held exclusively)
+    bool lock_is_held = (pg_atomic_read_u32(&lock->state) & LW_VAL_EXCLUSIVE) != 0;
+
+    if (!lock_is_held) {
+        // Lock is free - no need to wait
+        *result = true;
+        return false;
+    }
+
+    // Lock is held - check if variable value has changed
+    *result = false;
+    uint64 current_value = pg_atomic_read_u64(valptr);
+
+    if (current_value != oldval) {
+        // Variable changed - no need to wait, return new value
+        *newval = current_value;
+        return false;
+    }
+
+    // Must wait: lock is held AND variable hasn't changed
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about memory barriers and platform specifics
+- Renamed `mustwait` variable to more descriptive `lock_is_held`
+- Simplified the logic flow with clearer conditional structure
+- Consolidated variable assignment and return logic
+- Added inline comments explaining each major decision point
+- Removed the intermediate `value` variable by using `current_value` directly

@@ -30,3 +30,19 @@ The  function is a simple wrapper that delegates to  to format log line prefixes
 - This is a static function internal to elog.c, serving as a specialized interface to the more general log_status_format function
 - The actual formatting behavior depends on the Log_line_prefix global configuration variable
 - Used extensively by send_message_to_server_log to ensure consistent prefix formatting across different log destinations
+
+## Simplified Source
+
+```c
+// Simplified version of log_line_prefix
+static void log_line_prefix(StringInfo buf, ErrorData *edata) {
+    // Format log prefix using global Log_line_prefix configuration
+    // This delegates to the general-purpose formatting function
+    log_status_format(buf, Log_line_prefix, edata);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments to clarify the function's purpose
+- No major logic simplification needed as this is already a simple wrapper function
+- The function delegates all formatting work to `log_status_format` using the global `Log_line_prefix` configuration

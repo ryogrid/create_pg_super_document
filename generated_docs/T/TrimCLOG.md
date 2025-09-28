@@ -44,3 +44,49 @@ This function takes no parameters.
 - Only processes the current page if nextXID is not at a page boundary (TransactionIdToPgIndex(xid) != 0)
 - Marks the affected CLOG page as dirty after modification to ensure proper persistence
 - The zeroing operation preserves already-committed transaction bits while clearing unused positions
+
+## Simplified Source
+
+```c
+// Simplified version of TrimCLOG
+void TrimCLOG(void) {
+    // Get the next transaction ID and determine which CLOG page it belongs to
+    TransactionId xid = XidFromFullTransactionId(TransamVariables->nextXid);
+    int64 pageno = TransactionIdToPage(xid);
+    LWLock *lock = SimpleLruGetBankLock(XactCtl, pageno);
+
+    // Acquire exclusive lock on the CLOG page
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Only process if nextXID is not at the start of a page
+    if (TransactionIdToPgIndex(xid) != 0) {
+        // Calculate position within the page
+        int byteno = TransactionIdToByte(xid);
+        int bshift = TransactionIdToBIndex(xid) * CLOG_BITS_PER_XACT;
+
+        // Read the CLOG page into memory
+        int slotno = SimpleLruReadPage(XactCtl, pageno, false, xid);
+        char *byteptr = XactCtl->shared->page_buffer[slotno] + byteno;
+
+        // Zero unused bits in current byte (preserve used bits)
+        *byteptr &= (1 << bshift) - 1;
+
+        // Zero all remaining bytes in the page
+        MemSet(byteptr + 1, 0, BLCKSZ - byteno - 1);
+
+        // Mark page as dirty so it gets written to disk
+        XactCtl->shared->page_dirty[slotno] = true;
+    }
+
+    // Release the lock
+    LWLockRelease(lock);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining the theoretical edge case rationale
+- Simplified variable declarations and grouping
+- Added high-level comments explaining each major step
+- Condensed the bit manipulation logic with clearer variable names
+- Focused on the main algorithm flow rather than implementation details
+- Preserved all essential functionality and logic structure

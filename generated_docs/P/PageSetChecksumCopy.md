@@ -45,3 +45,38 @@ The returned pointer must be used immediately for I/O operations and cannot be r
 - Essential for data integrity in systems with concurrent access to shared buffers
 - Prevents race conditions between checksum calculation and hint bit modifications
 - Part of PostgreSQL's comprehensive page corruption detection system
+
+## Simplified Source
+
+```c
+// Simplified version of PageSetChecksumCopy
+char *
+PageSetChecksumCopy(Page page, BlockNumber blkno)
+{
+    static char *pageCopy = NULL;
+
+    // Early exit: return original page if checksums not needed
+    if (PageIsNew(page) || !DataChecksumsEnabled())
+        return (char *) page;
+
+    // Lazy allocation: allocate aligned buffer on first use
+    if (pageCopy == NULL)
+        pageCopy = MemoryContextAllocAligned(TopMemoryContext,
+                                           BLCKSZ,
+                                           PG_IO_ALIGN_SIZE,
+                                           0);
+
+    // Create safe copy and calculate checksum
+    memcpy(pageCopy, (char *) page, BLCKSZ);
+    ((PageHeader) pageCopy)->pd_checksum = pg_checksum_page(pageCopy, blkno);
+
+    return pageCopy;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential explanations
+- Consolidated the core logic flow into clear steps
+- Maintained all essential functionality and error checking
+- Simplified variable declarations and alignment
+- Preserved the critical race condition protection mechanism

@@ -43,3 +43,33 @@ The function also performs error cleanup by ensuring any pending lock waits are 
 - Advisory locks have different scopes: transaction-level locks are always released, while session-level advisory locks persist across transaction boundaries
 - The function safely handles cases where MyProc is NULL (no current process)
 - Always calls LockErrorCleanup first to handle any pending lock waits that might exist due to error conditions
+
+## Simplified Source
+
+```c
+// Simplified version of ProcReleaseLocks
+void ProcReleaseLocks(bool isCommit) {
+    // Safety check - return if no current process
+    if (!MyProc)
+        return;
+
+    // Clean up any pending lock waits after errors
+    LockErrorCleanup();
+
+    // Release standard locks
+    // For commit: release all except session locks (!isCommit = false)
+    // For abort: release all including session locks (!isCommit = true)
+    LockReleaseAll(DEFAULT_LOCKMETHOD, !isCommit);
+
+    // Always release transaction-level advisory locks
+    // (session-level advisory locks are preserved regardless of commit/abort)
+    LockReleaseAll(USER_LOCKMETHOD, false);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the logic flow
+- Clarified the boolean logic for lock release scope
+- Simplified the complex comment block into inline explanations
+- Made the different behaviors for commit vs abort more explicit
+- Preserved all essential functionality while improving readability

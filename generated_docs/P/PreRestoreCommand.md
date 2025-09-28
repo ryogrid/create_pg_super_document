@@ -34,3 +34,24 @@ This function takes no parameters.
 - Setting this flag is crucial for proper shutdown handling during archive recovery operations
 - The function ensures no shutdown requests are lost during the transition to restore command state
 - This is part of PostgreSQL's archive recovery mechanism and ensures clean shutdown during restore operations
+
+## Simplified Source
+
+```c
+// Simplified version of PreRestoreCommand
+void PreRestoreCommand(void) {
+    // Set flag to indicate we're in a restore command - safe to exit on SIGTERM
+    in_restore_command = true;
+
+    // Check if shutdown was already requested before we set the flag
+    if (shutdown_requested) {
+        proc_exit(1);  // Exit immediately if shutdown pending
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core logic steps
+- Preserved the essential two-step operation: flag setting and shutdown check
+- Maintained the critical safety mechanism for handling pending shutdowns
+- Function is already quite simple, so minimal changes were needed

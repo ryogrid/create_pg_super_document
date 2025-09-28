@@ -48,3 +48,64 @@ It uses a temporary memory context to prevent memory leaks during the operation 
 - Uses DEBUG1 logging level to report operation details
 - The temporary memory context ensures no memory leaks during directory traversal
 - Located in src/backend/storage/file/reinit.c:47-105
+
+## Simplified Source
+
+```c
+// Simplified version of ResetUnloggedRelations
+void ResetUnloggedRelations(int op) {
+    char temp_path[MAXPGPATH + 10 + sizeof(TABLESPACE_VERSION_DIRECTORY)];
+    DIR *spc_dir;
+    struct dirent *spc_de;
+    MemoryContext tmpctx, oldctx;
+
+    // Log the operation being performed
+    elog(DEBUG1, "resetting unlogged relations: cleanup %d init %d",
+         (op & UNLOGGED_RELATION_CLEANUP) != 0,
+         (op & UNLOGGED_RELATION_INIT) != 0);
+
+    // Create temporary memory context to avoid memory leaks
+    tmpctx = AllocSetContextCreate(CurrentMemoryContext,
+                                   "ResetUnloggedRelations",
+                                   ALLOCSET_DEFAULT_SIZES);
+    oldctx = MemoryContextSwitchTo(tmpctx);
+
+    // Begin progress reporting for startup operations
+    begin_startup_progress_phase();
+
+    // Process unlogged files in default tablespace (pg_default)
+    ResetUnloggedRelationsInTablespaceDir("base", op);
+
+    // Process all non-default tablespaces
+    spc_dir = AllocateDir("pg_tblspc");
+
+    while ((spc_de = ReadDir(spc_dir, "pg_tblspc")) != NULL) {
+        // Skip current and parent directory entries
+        if (strcmp(spc_de->d_name, ".") == 0 ||
+            strcmp(spc_de->d_name, "..") == 0)
+            continue;
+
+        // Build path to tablespace directory
+        snprintf(temp_path, sizeof(temp_path), "pg_tblspc/%s/%s",
+                 spc_de->d_name, TABLESPACE_VERSION_DIRECTORY);
+
+        // Process this tablespace directory
+        ResetUnloggedRelationsInTablespaceDir(temp_path, op);
+    }
+
+    FreeDir(spc_dir);
+
+    // Clean up memory context
+    MemoryContextSwitchTo(oldctx);
+    MemoryContextDelete(tmpctx);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential algorithm documentation
+- Maintained the core two-phase processing: default tablespace first, then others
+- Kept memory management pattern but simplified context explanations
+- Preserved the directory traversal logic with skip conditions
+- Maintained proper resource cleanup (directory handle and memory context)
+- Kept essential logging and progress reporting calls
+- Simplified variable declarations while maintaining functionality

@@ -50,3 +50,83 @@ This function takes no parameters.
 - The zeroing operations are necessary because MultiXact doesn't follow strict WAL ordering rules
 - Sets finishedStartup flag to indicate the subsystem is ready for normal operations
 - Computes wraparound limits as final step to ensure proper MultiXact ID management
+
+## Simplified Source
+
+```c
+// Simplified version of TrimMultiXact
+void TrimMultiXact(void) {
+    MultiXactId nextMXact;
+    MultiXactOffset offset;
+    MultiXactId oldestMXact;
+    Oid oldestMXactDB;
+    int64 pageno;
+    int entryno;
+    int flagsoff;
+
+    // Step 1: Capture current MultiXact state under lock protection
+    LWLockAcquire(MultiXactGenLock, LW_SHARED);
+    nextMXact = MultiXactState->nextMXact;
+    offset = MultiXactState->nextOffset;
+    oldestMXact = MultiXactState->oldestMultiXactId;
+    oldestMXactDB = MultiXactState->oldestMultiXactDB;
+    LWLockRelease(MultiXactGenLock);
+
+    // Step 2: Clean up offsets - initialize latest page and zero remainder
+    pageno = MultiXactIdToOffsetPage(nextMXact);
+    pg_atomic_write_u64(&MultiXactOffsetCtl->shared->latest_page_number, pageno);
+
+    entryno = MultiXactIdToOffsetEntry(nextMXact);
+    if (entryno != 0) {
+        // Zero out remainder of current offsets page to prevent obsolete data
+        LWLock *lock = SimpleLruGetBankLock(MultiXactOffsetCtl, pageno);
+        LWLockAcquire(lock, LW_EXCLUSIVE);
+
+        int slotno = SimpleLruReadPage(MultiXactOffsetCtl, pageno, true, nextMXact);
+        MultiXactOffset *offptr = (MultiXactOffset *)
+            MultiXactOffsetCtl->shared->page_buffer[slotno];
+        offptr += entryno;
+
+        MemSet(offptr, 0, BLCKSZ - (entryno * sizeof(MultiXactOffset)));
+        MultiXactOffsetCtl->shared->page_dirty[slotno] = true;
+        LWLockRelease(lock);
+    }
+
+    // Step 3: Clean up members - initialize latest page and zero remainder
+    pageno = MXOffsetToMemberPage(offset);
+    pg_atomic_write_u64(&MultiXactMemberCtl->shared->latest_page_number, pageno);
+
+    flagsoff = MXOffsetToFlagsOffset(offset);
+    if (flagsoff != 0) {
+        // Zero out remainder of current members page
+        LWLock *lock = SimpleLruGetBankLock(MultiXactMemberCtl, pageno);
+        LWLockAcquire(lock, LW_EXCLUSIVE);
+
+        int memberoff = MXOffsetToMemberOffset(offset);
+        int slotno = SimpleLruReadPage(MultiXactMemberCtl, pageno, true, offset);
+        TransactionId *xidptr = (TransactionId *)
+            (MultiXactMemberCtl->shared->page_buffer[slotno] + memberoff);
+
+        MemSet(xidptr, 0, BLCKSZ - memberoff);
+        MultiXactMemberCtl->shared->page_dirty[slotno] = true;
+        LWLockRelease(lock);
+    }
+
+    // Step 4: Mark subsystem as officially ready
+    LWLockAcquire(MultiXactGenLock, LW_EXCLUSIVE);
+    MultiXactState->finishedStartup = true;
+    LWLockRelease(MultiXactGenLock);
+
+    // Step 5: Compute next wraparound limit
+    SetMultiXactIdLimit(oldestMXact, oldestMXactDB, true);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations at the top for clarity
+- Added step-by-step comments explaining the main phases
+- Removed detailed comments about WAL ordering rules (kept essential logic)
+- Simplified complex pointer arithmetic explanations
+- Consolidated similar cleanup patterns for offsets and members
+- Maintained all critical functionality and error handling
+- Preserved exact lock acquisition/release patterns for correctness

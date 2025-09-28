@@ -39,3 +39,34 @@ The function serves as a last resort mechanism to prevent infinite loops when wa
 - The function provides different behavior for testing vs production environments
 - When func parameter is NULL, it defaults to "(unknown)" for error reporting
 - PANIC level errors in PostgreSQL typically indicate unrecoverable conditions that require process termination
+
+## Simplified Source
+
+```c
+// Simplified version of s_lock_stuck
+static void
+s_lock_stuck(const char *file, int line, const char *func) {
+    // Handle null function name
+    if (!func)
+        func = "(unknown)";
+
+    // Report stuck spinlock and terminate
+#if defined(S_LOCK_TEST)
+    // Test mode: print to stderr and exit
+    fprintf(stderr, "Stuck spinlock detected at %s, %s:%d.\n",
+            func, file, line);
+    exit(1);
+#else
+    // Production mode: issue PANIC error (terminates backend)
+    elog(PANIC, "stuck spinlock detected at %s, %s:%d",
+         func, file, line);
+#endif
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two execution paths (test vs production)
+- Simplified the conditional compilation structure for better readability
+- Maintained the essential error reporting and termination logic
+- Preserved the null function name handling
+- Used clearer formatting for the error message parameters

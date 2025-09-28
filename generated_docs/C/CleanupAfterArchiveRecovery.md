@@ -61,3 +61,68 @@ Special consideration is given to WAL summarization - if WAL summarization is ac
 - Waits for WAL summarization to complete before file operations to prevent conflicts
 - Only processes partial segments when archiving is active and the segment is truly partial
 - Critical for maintaining system consistency during the archive recovery to normal operation transition
+
+## Simplified Source
+
+```c
+// Simplified version of CleanupAfterArchiveRecovery
+static void
+CleanupAfterArchiveRecovery(TimeLineID EndOfLogTLI, XLogRecPtr EndOfLog,
+                           TimeLineID newTLI)
+{
+    // Step 1: Execute recovery end command if configured
+    if (recoveryEndCommand && strcmp(recoveryEndCommand, "") != 0) {
+        ExecuteRecoveryCommand(recoveryEndCommand, "recovery_end_command",
+                              true, WAIT_EVENT_RECOVERY_END_COMMAND);
+    }
+
+    // Step 2: Clean up old timeline segments
+    // Remove higher-numbered segments that are not part of new timeline's history
+    RemoveNonParentXlogFiles(EndOfLog, newTLI);
+
+    // Step 3: Handle partial segment at timeline switch point
+    // Only process if we switched mid-segment and archiving is active
+    if (XLogSegmentOffset(EndOfLog, wal_segment_size) != 0 &&
+        XLogArchivingActive()) {
+
+        char origfname[MAXFNAMELEN];
+        XLogSegNo endLogSegNo;
+
+        // Get the segment info for the end of recovery
+        XLByteToPrevSeg(EndOfLog, endLogSegNo, wal_segment_size);
+        XLogFileName(origfname, EndOfLogTLI, endLogSegNo, wal_segment_size);
+
+        // Only rename if segment isn't already marked for archiving
+        if (!XLogArchiveIsReadyOrDone(origfname)) {
+            char origpath[MAXPGPATH];
+            char partialfname[MAXFNAMELEN];
+            char partialpath[MAXPGPATH];
+
+            // Wait for WAL summarization to finish before file operations
+            if (summarize_wal) {
+                WaitForWalSummarization(EndOfLog);
+            }
+
+            // Construct file paths
+            XLogFilePath(origpath, EndOfLogTLI, endLogSegNo, wal_segment_size);
+            snprintf(partialfname, MAXFNAMELEN, "%s.partial", origfname);
+            snprintf(partialpath, MAXPGPATH, "%s.partial", origpath);
+
+            // Clean up any existing archive status for .partial file
+            XLogArchiveCleanup(partialfname);
+
+            // Rename segment to .partial and mark for archiving
+            durable_rename(origpath, partialpath, ERROR);
+            XLogArchiveNotify(partialfname);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed extensive comments explaining the rationale behind partial segment handling
+- Consolidated variable declarations closer to their usage
+- Simplified the complex explanation of timeline switch scenarios into concise comments
+- Preserved all essential logic flow and function calls
+- Maintained the three main phases: command execution, cleanup, and partial segment handling
+- Kept critical error handling and conditional checks intact

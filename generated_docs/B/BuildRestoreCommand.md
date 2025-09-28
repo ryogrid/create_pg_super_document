@@ -51,3 +51,41 @@ Error handling is built into the function through the  helper - if any required 
 - The restore command is typically configured via the  GUC parameter
 - Used during point-in-time recovery and standby server operations to retrieve archived WAL files
 - File location: src/common/archive.c:39-60
+
+## Simplified Source
+
+```c
+// Simplified version of BuildRestoreCommand
+char *
+BuildRestoreCommand(const char *restoreCommand,
+                    const char *xlogpath,
+                    const char *xlogfname,
+                    const char *lastRestartPointFname)
+{
+    char *nativePath = NULL;
+    char *result;
+
+    // Convert xlogpath to native format if provided (Windows compatibility)
+    if (xlogpath) {
+        nativePath = pstrdup(xlogpath);
+        make_native_path(nativePath);
+    }
+
+    // Replace placeholders: %f with xlogfname, %r with lastRestartPointFname, %p with nativePath
+    result = replace_percent_placeholders(restoreCommand, "restore_command", "frp",
+                                          xlogfname, lastRestartPointFname, nativePath);
+
+    // Clean up temporary native path copy
+    if (nativePath)
+        pfree(nativePath);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core logic steps
+- Clarified the placeholder replacement pattern (%f, %r, %p)
+- Explained the Windows path conversion purpose
+- Maintained the essential algorithm flow and error handling through the helper function
+- Preserved memory management (pstrdup/pfree) which is critical for correctness

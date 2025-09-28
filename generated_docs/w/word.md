@@ -42,3 +42,26 @@ The function works by using cloneouts to clone existing arcs from the word chara
 - No special handling is needed for newline characters in this context
 - The function is used as part of word boundary assertion processing in regular expressions
 - This function is the counterpart to nonword, handling positive word character matching
+
+## Simplified Source
+
+```c
+// Simplified version of word
+static void word(struct vars *v, int dir, struct state *lp, struct state *rp) {
+    // Validate direction parameter (AHEAD or BEHIND)
+    assert(dir == AHEAD || dir == BEHIND);
+
+    // Clone word character arcs between source and destination states
+    // This creates NFA transitions for word character matching
+    cloneouts(v->nfa, v->wordchrs, lp, rp, dir);
+
+    // No special newline handling needed for word characters
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core logic
+- Preserved the essential assertion check for direction validation
+- Maintained the core cloneouts call which does the actual work
+- Kept the original comment about newline handling for clarity
+- Simplified parameter formatting for readability

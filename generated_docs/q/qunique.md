@@ -47,3 +47,47 @@ The function uses a two-pointer technique where 'i' scans through all elements a
 - The function modifies the array in-place, so the original array structure is altered
 - For arrays with 0 or 1 elements, the function returns early without any processing
 - This is a generic utility that works with any data type through void pointers and element width specification
+
+## Simplified Source
+
+```c
+// Simplified version of qunique
+static inline size_t
+qunique(void *array, size_t elements, size_t width,
+        int (*compare)(const void *, const void *)) {
+
+    char *bytes = (char *) array;
+    size_t write_pos = 0;  // Position where next unique element goes
+    size_t read_pos = 1;   // Current element being examined
+
+    // Handle trivial cases
+    if (elements <= 1)
+        return elements;
+
+    // Scan through array starting from second element
+    for (read_pos = 1; read_pos < elements; read_pos++) {
+
+        // Compare current element with last kept element
+        if (compare(bytes + read_pos * width, bytes + write_pos * width) != 0) {
+            // Elements are different - keep this one
+            write_pos++;
+
+            // Move element to its new position (if needed)
+            if (write_pos != read_pos) {
+                memcpy(bytes + write_pos * width,
+                       bytes + read_pos * width, width);
+            }
+        }
+        // If elements are equal, skip (don't increment write_pos)
+    }
+
+    return write_pos + 1;  // Return new array size
+}
+```
+
+Key simplifications made:
+- Renamed variables `i` and `j` to more descriptive `read_pos` and `write_pos`
+- Separated the increment logic from the comparison for clarity
+- Added explanatory comments for each major step
+- Broke down the complex condition in the original loop
+- Made the two-pointer algorithm more explicit and easier to follow

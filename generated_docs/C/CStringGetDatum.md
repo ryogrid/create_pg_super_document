@@ -37,3 +37,22 @@ The function is implemented as a static inline function for performance efficien
 - This is primarily used by type output functions and system catalog operations
 - The string content is not copied - only the pointer is stored in the Datum
 - Care must be taken to ensure the string memory remains valid while the Datum is in use
+
+## Simplified Source
+
+```c
+// Simplified version of CStringGetDatum
+static inline Datum
+CStringGetDatum(const char *X)
+{
+    // Convert C string pointer to Datum representation
+    // No validation or copying - just wraps the pointer
+    return PointerGetDatum(X);
+}
+```
+
+Key simplifications made:
+- Function is already at its simplest form - it's just a one-line wrapper
+- Added clarifying comment about the core operation
+- Emphasized that this is a direct pointer conversion without validation or copying
+- The function serves as a type-safe interface for converting C strings to Datum format

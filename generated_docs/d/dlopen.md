@@ -37,3 +37,39 @@ The `dlopen` function is PostgreSQL's Windows implementation of the standard POS
 - Error suppression flags: `SEM_FAILCRITICALERRORS` prevents critical error dialogs, `SEM_NOOPENFILEERRORBOX` prevents file-not-found dialogs
 - Essential for PostgreSQL's pluggable architecture, enabling loading of extensions and user-defined functions
 - The file path can be absolute or relative, and Windows will search standard locations if the file is not found in the specified path
+
+## Simplified Source
+
+```c
+// Simplified version of dlopen - Windows dynamic library loader
+void *dlopen(const char *file, int mode) {
+    HMODULE library_handle;
+    int previous_error_mode;
+
+    // Step 1: Suppress Windows error popups during loading
+    previous_error_mode = SetErrorMode(SEM_FAILCRITICALERRORS | SEM_NOOPENFILEERRORBOX);
+
+    // Step 2: Load the dynamic library
+    library_handle = LoadLibrary(file);
+
+    // Step 3: Restore original error mode
+    SetErrorMode(previous_error_mode);
+
+    // Step 4: Handle loading result
+    if (!library_handle) {
+        set_dl_error();  // Capture Windows error
+        return NULL;
+    }
+
+    // Step 5: Clear any previous error and return handle
+    last_dyn_error[0] = 0;
+    return (void *) library_handle;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names (`library_handle` instead of `h`, `previous_error_mode` instead of `prevmode`)
+- Added step-by-step comments explaining the loading process
+- Organized the logic flow into clear sequential steps
+- Maintained all essential functionality while improving readability
+- Preserved critical error handling and Windows API calls

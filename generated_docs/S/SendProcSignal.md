@@ -45,3 +45,48 @@ SendProcSignal is the primary function for sending inter-process signals within 
 - Not to be confused with ProcSendSignal (different function)
 - Signal flags are checked by target process in signal handler or polling loop
 - Located in src/backend/storage/ipc/procsignal.c:257-328
+
+## Simplified Source
+
+```c
+// Simplified version of SendProcSignal
+int SendProcSignal(pid_t pid, ProcSignalReason reason, ProcNumber procNumber) {
+    volatile ProcSignalSlot *slot;
+
+    // Fast path: Use provided process number for direct slot access
+    if (procNumber != INVALID_PROC_NUMBER) {
+        slot = &ProcSignal->psh_slot[procNumber];
+
+        // Verify PID matches the slot
+        if (slot->pss_pid == pid) {
+            // Set signal flag and send SIGUSR1
+            slot->pss_signalFlags[reason] = true;
+            return kill(pid, SIGUSR1);
+        }
+    }
+    else {
+        // Slow path: Search all slots by PID (backward for auxiliary processes)
+        for (int i = NumProcSignalSlots - 1; i >= 0; i--) {
+            slot = &ProcSignal->psh_slot[i];
+
+            if (slot->pss_pid == pid) {
+                // Set signal flag and send SIGUSR1
+                slot->pss_signalFlags[reason] = true;
+                return kill(pid, SIGUSR1);
+            }
+        }
+    }
+
+    // Process not found
+    errno = ESRCH;
+    return -1;
+}
+```
+
+Key simplifications made:
+- Removed detailed race condition comments for clarity
+- Consolidated duplicate signal flag setting and kill() calls
+- Simplified variable declarations
+- Focused on the two main execution paths: direct access vs. search
+- Preserved essential error handling and return values
+- Maintained the backward search optimization for auxiliary processes

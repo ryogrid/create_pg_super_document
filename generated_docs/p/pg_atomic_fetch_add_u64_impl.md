@@ -45,3 +45,34 @@ The function atomically adds the specified value to the memory location and retu
 - Used as building block for other atomic operations like subtract, add-fetch, and memory barrier reads
 - Part of PostgreSQL's portable atomic operations infrastructure
 - Located primarily in src/backend/port/atomics.c:228-239 for the fallback implementation
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_fetch_add_u64_impl
+uint64 pg_atomic_fetch_add_u64_impl(volatile pg_atomic_uint64 *ptr, int64 add_) {
+    uint64 oldval;
+
+    // Acquire spinlock to ensure atomic operation
+    SpinLockAcquire((slock_t *) &ptr->sema);
+
+    // Store old value before modification
+    oldval = ptr->value;
+
+    // Add the specified value to the atomic variable
+    ptr->value += add_;
+
+    // Release spinlock
+    SpinLockRelease((slock_t *) &ptr->sema);
+
+    // Return the previous value (before addition)
+    return oldval;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Maintained original variable names as they are already clear
+- No complex error handling to remove - function is straightforward
+- Preserved exact logic flow since it's already minimal and efficient
+- Function implements classic atomic fetch-and-add pattern using spinlock protection

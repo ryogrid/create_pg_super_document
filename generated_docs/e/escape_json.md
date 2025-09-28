@@ -42,3 +42,49 @@ The `escape_json` function transforms a C string into a properly escaped JSON st
 - Essential for preventing JSON injection and ensuring syntactic correctness
 - Performance-optimized with macro usage for character appending
 - Used by both JSON output generation and JSON parsing/transformation functions
+
+## Simplified Source
+
+```c
+// Simplified version of escape_json
+void escape_json(StringInfo buf, const char *str) {
+    // Add opening quote to create JSON string literal
+    appendStringInfoCharMacro(buf, '"');
+
+    // Process each character in input string
+    for (const char *p = str; *p; p++) {
+        switch (*p) {
+            // Handle standard JSON escape sequences
+            case '\b': appendStringInfoString(buf, "\\b"); break;
+            case '\f': appendStringInfoString(buf, "\\f"); break;
+            case '\n': appendStringInfoString(buf, "\\n"); break;
+            case '\r': appendStringInfoString(buf, "\\r"); break;
+            case '\t': appendStringInfoString(buf, "\\t"); break;
+            case '"':  appendStringInfoString(buf, "\\\""); break;
+            case '\\': appendStringInfoString(buf, "\\\\"); break;
+
+            default:
+                // Handle control characters and regular characters
+                if ((unsigned char) *p < ' ') {
+                    // Convert control chars to unicode escape sequences
+                    appendStringInfo(buf, "\\u%04x", (int) *p);
+                } else {
+                    // Copy regular characters as-is
+                    appendStringInfoCharMacro(buf, *p);
+                }
+                break;
+        }
+    }
+
+    // Add closing quote to complete JSON string literal
+    appendStringInfoCharMacro(buf, '"');
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added descriptive comments for each major logic section
+- Grouped similar escape sequence cases together
+- Clarified the purpose of control character handling
+- Made the overall flow more readable while preserving exact functionality
+- Maintained all original escape logic and character handling

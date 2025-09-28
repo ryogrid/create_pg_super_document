@@ -32,3 +32,23 @@ This function implements the platform-specific atomic read operation for 64-bit 
 - This is part of PostgreSQL's cross-platform atomic operations abstraction layer
 - On platforms without native 64-bit atomic read support, a different implementation would be selected
 - Returns the current value of the atomic variable without modifying it
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_read_u64_impl
+static inline uint64
+pg_atomic_read_u64_impl(volatile pg_atomic_uint64 *ptr)
+{
+    // Verify proper 8-byte alignment for atomic guarantee
+    AssertPointerAlignment(ptr, 8);
+
+    // Direct read - platform guarantees atomicity for aligned 64-bit reads
+    return ptr->value;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the alignment check and atomic read guarantee
+- Preserved the original logic structure as it's already minimal and clear
+- The function is inherently simple - relies on platform-level atomic read guarantees

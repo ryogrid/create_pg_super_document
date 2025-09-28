@@ -49,3 +49,23 @@ This centralization is important because many different subsystems need to ensur
 - Critical for proper initialization of PostgreSQL's extensive caching infrastructure
 - Safe to call multiple times - subsequent calls are no-ops if context already exists
 - Part of the public API for cache management, allowing various subsystems to ensure proper memory context setup
+
+## Simplified Source
+
+```c
+// Simplified version of CreateCacheMemoryContext
+void CreateCacheMemoryContext(void)
+{
+    // Create cache memory context if it doesn't exist
+    if (!CacheMemoryContext)
+        CacheMemoryContext = AllocSetContextCreate(TopMemoryContext,
+                                                   "CacheMemoryContext",
+                                                   ALLOCSET_DEFAULT_SIZES);
+}
+```
+
+Key simplifications made:
+- Removed detailed paranoia comment for brevity
+- Streamlined the conditional check and context creation
+- Preserved the essential logic: check existence and create if needed
+- Maintained the critical parameters: parent context, name, and size configuration

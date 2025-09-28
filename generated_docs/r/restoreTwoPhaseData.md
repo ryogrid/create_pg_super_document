@@ -47,3 +47,59 @@ This function takes no parameters and operates on global TwoPhaseState.
 - Automatically filters out transactions that are no longer relevant based on XID horizon
 - Uses ProcessTwoPhaseBuffer with specific flags (true, false, false) for recovery context
 - Integrates with the WAL recovery system through PrepareRedoAdd calls
+
+## Simplified Source
+
+```c
+// Simplified version of restoreTwoPhaseData
+void restoreTwoPhaseData(void)
+{
+    DIR *twophase_dir;
+    struct dirent *file_entry;
+
+    // Lock two-phase state for exclusive access during restoration
+    LWLockAcquire(TwoPhaseStateLock, LW_EXCLUSIVE);
+
+    // Open the two-phase directory containing prepared transaction files
+    twophase_dir = AllocateDir(TWOPHASE_DIR);
+
+    // Scan each file in the directory
+    while ((file_entry = ReadDir(twophase_dir, TWOPHASE_DIR)) != NULL)
+    {
+        // Check if filename is valid (16 hex characters = transaction ID)
+        if (strlen(file_entry->d_name) == 16 &&
+            strspn(file_entry->d_name, "0123456789ABCDEF") == 16)
+        {
+            TransactionId xid;
+            FullTransactionId full_xid;
+            char *transaction_buffer;
+
+            // Convert filename to transaction ID
+            full_xid = FullTransactionIdFromU64(strtou64(file_entry->d_name, NULL, 16));
+            xid = XidFromFullTransactionId(full_xid);
+
+            // Read and process the two-phase state file
+            transaction_buffer = ProcessTwoPhaseBuffer(xid, InvalidXLogRecPtr,
+                                                     true, false, false);
+            if (transaction_buffer == NULL)
+                continue;  // Skip invalid or expired transactions
+
+            // Add the prepared transaction back to in-memory state
+            PrepareRedoAdd(transaction_buffer, InvalidXLogRecPtr,
+                          InvalidXLogRecPtr, InvalidRepOriginId);
+        }
+    }
+
+    // Clean up and release lock
+    LWLockRelease(TwoPhaseStateLock);
+    FreeDir(twophase_dir);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (twophase_dir, file_entry, transaction_buffer)
+- Added clear comments explaining each major step
+- Simplified the logic flow with better spacing and organization
+- Explained the purpose of the hex validation check
+- Clarified the role of ProcessTwoPhaseBuffer and PrepareRedoAdd calls
+- Made the overall structure more readable while preserving all essential logic

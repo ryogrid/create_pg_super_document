@@ -48,3 +48,45 @@ The function uses a specific format: "YYYY-MM-DD HH:MM:SS.mmm TZ" where mmm repr
 - Located in src/backend/utils/error/elog.c with other logging utilities
 - Returns the same timestamp value for all calls within the same log event processing cycle
 - The static buffer approach eliminates memory allocation overhead during logging
+
+## Simplified Source
+
+```c
+// Simplified version of get_formatted_log_time
+char *
+get_formatted_log_time(void)
+{
+    pg_time_t stamp_time;
+    char msbuf[13];
+
+    // Return cached result if already computed
+    if (formatted_log_time[0] != '\0')
+        return formatted_log_time;
+
+    // Get current time if not already saved
+    if (!saved_timeval_set) {
+        gettimeofday(&saved_timeval, NULL);
+        saved_timeval_set = true;
+    }
+
+    stamp_time = (pg_time_t) saved_timeval.tv_sec;
+
+    // Format base timestamp (YYYY-MM-DD HH:MM:SS     TZ)
+    pg_strftime(formatted_log_time, FORMATTED_TS_LEN,
+                "%Y-%m-%d %H:%M:%S     %Z",
+                pg_localtime(&stamp_time, log_timezone));
+
+    // Insert milliseconds into the formatted string
+    sprintf(msbuf, ".%03d", (int) (saved_timeval.tv_usec / 1000));
+    memcpy(formatted_log_time + 19, msbuf, 4);
+
+    return formatted_log_time;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about GUC initialization expectations
+- Simplified variable declarations and removed extra whitespace
+- Condensed the millisecond calculation logic
+- Maintained the essential caching mechanism and timestamp formatting
+- Preserved the core algorithm: check cache → get time → format → insert milliseconds → return

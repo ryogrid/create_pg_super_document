@@ -56,3 +56,78 @@ The function handles snapshot management by automatically using catalog snapshot
 - Sets special flags during CheckXidAlive transactions for transaction management
 - Requires scan keys to be compatible with the specified index structure
 - Essential for system catalog operations that must work during all phases of database operation
+
+## Simplified Source
+
+```c
+// Simplified version of systable_beginscan
+SysScanDesc
+systable_beginscan(Relation heapRelation,
+                   Oid indexId,
+                   bool indexOK,
+                   Snapshot snapshot,
+                   int nkeys, ScanKey key)
+{
+    SysScanDesc sysscan;
+    Relation indexRelation = NULL;
+
+    // Step 1: Determine scan method (index vs heap)
+    if (indexOK && !IgnoreSystemIndexes && !ReindexIsProcessingIndex(indexId)) {
+        indexRelation = index_open(indexId, AccessShareLock);
+    }
+
+    // Step 2: Initialize scan descriptor
+    sysscan = (SysScanDesc) palloc(sizeof(SysScanDescData));
+    sysscan->heap_rel = heapRelation;
+    sysscan->irel = indexRelation;
+    sysscan->slot = table_slot_create(heapRelation, NULL);
+
+    // Step 3: Handle snapshot management
+    if (snapshot == NULL) {
+        // Auto-create catalog snapshot
+        Oid relid = RelationGetRelid(heapRelation);
+        snapshot = RegisterSnapshot(GetCatalogSnapshot(relid));
+        sysscan->snapshot = snapshot;
+    } else {
+        // Use provided snapshot
+        sysscan->snapshot = NULL;
+    }
+
+    // Step 4: Start appropriate scan type
+    if (indexRelation) {
+        // Index scan path: translate heap attribute numbers to index columns
+        for (int i = 0; i < nkeys; i++) {
+            for (int j = 0; j < IndexRelationGetNumberOfAttributes(indexRelation); j++) {
+                if (key[i].sk_attno == indexRelation->rd_index->indkey.values[j]) {
+                    key[i].sk_attno = j + 1;
+                    break;
+                }
+            }
+        }
+
+        sysscan->iscan = index_beginscan(heapRelation, indexRelation, snapshot, nkeys, 0);
+        index_rescan(sysscan->iscan, key, nkeys, NULL, 0);
+        sysscan->scan = NULL;
+    } else {
+        // Heap scan path: disable sync scan for predictable performance
+        sysscan->scan = table_beginscan_strat(heapRelation, snapshot, nkeys, key, true, false);
+        sysscan->iscan = NULL;
+    }
+
+    // Step 5: Handle transaction state tracking
+    if (TransactionIdIsValid(CheckXidAlive)) {
+        bsysscan = true;
+    }
+
+    return sysscan;
+}
+```
+
+Key simplifications made:
+- Consolidated scan method decision logic into clear conditional flow
+- Simplified attribute number translation loop with descriptive comments
+- Removed detailed error handling for readability (kept essential logic)
+- Added step-by-step comments explaining the major phases
+- Abstracted complex snapshot management into high-level operations
+- Maintained the core index vs heap scan decision logic
+- Preserved essential transaction state tracking functionality

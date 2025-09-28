@@ -48,3 +48,63 @@ The function ensures proper cleanup of wait flags and semaphore states, maintain
 - Statistics tracking is included in LWLOCK_STATS builds to monitor dequeue frequency
 - Debug builds maintain a waiter count that is decremented when the process stops waiting
 - The function carefully manages the lwWaiting state transitions to prevent inconsistencies
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockDequeueSelf
+static void
+LWLockDequeueSelf(LWLock *lock)
+{
+    bool on_waitlist;
+
+    // Lock the wait list to check and modify our waiting status
+    LWLockWaitListLock(lock);
+
+    // Check if we're still on the waitlist
+    on_waitlist = MyProc->lwWaiting == LW_WS_WAITING;
+    if (on_waitlist) {
+        // Remove ourselves from the waiters queue
+        proclist_delete(&lock->waiters, MyProcNumber, lwWaitLink);
+    }
+
+    // If no more waiters, clear the HAS_WAITERS flag
+    if (proclist_is_empty(&lock->waiters) &&
+        (pg_atomic_read_u32(&lock->state) & LW_FLAG_HAS_WAITERS) != 0) {
+        pg_atomic_fetch_and_u32(&lock->state, ~LW_FLAG_HAS_WAITERS);
+    }
+
+    LWLockWaitListUnlock(lock);
+
+    if (on_waitlist) {
+        // We removed ourselves - clear waiting state
+        MyProc->lwWaiting = LW_WS_NOT_WAITING;
+    } else {
+        // Someone else dequeued us - handle the wakeup signal
+
+        // Restore RELEASE_OK flag that may have been cleared
+        pg_atomic_fetch_or_u32(&lock->state, LW_FLAG_RELEASE_OK);
+
+        // Wait for and consume the wakeup signal we received
+        int extraWaits = 0;
+        for (;;) {
+            PGSemaphoreLock(MyProc->sem);
+            if (MyProc->lwWaiting == LW_WS_NOT_WAITING)
+                break;
+            extraWaits++;
+        }
+
+        // Fix semaphore count for any extra signals absorbed
+        while (extraWaits-- > 0)
+            PGSemaphoreUnlock(MyProc->sem);
+    }
+}
+```
+
+Key simplifications made:
+- Removed LWLOCK_STATS tracking code for clarity
+- Removed LOCK_DEBUG waiter count management
+- Simplified comments to focus on core logic flow
+- Consolidated variable declarations
+- Preserved essential race condition handling logic
+- Maintained all critical atomic operations and semaphore management

@@ -43,3 +43,55 @@ When a resource is found in the array, it's removed by replacing it with the las
 - Raises an ERROR if the specified resource is not found in the ResourceOwner
 - Critical for manual resource cleanup when resources are released before ResourceOwner cleanup
 - Each resource type has its own wrapper function that calls this with the appropriate ResourceOwnerDesc
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerForget
+void ResourceOwnerForget(ResourceOwner owner, Datum value, const ResourceOwnerDesc *kind)
+{
+    // Safety check: Cannot forget resources after cleanup has started
+    if (owner->releasing)
+        elog(ERROR, "ResourceOwnerForget called for %s after release started", kind->name);
+
+    // Phase 1: Search through array storage (reverse order for efficiency)
+    for (int i = owner->narr - 1; i >= 0; i--) {
+        if (owner->arr[i].item == value && owner->arr[i].kind == kind) {
+            // Remove by replacing with last element
+            owner->arr[i] = owner->arr[owner->narr - 1];
+            owner->narr--;
+            return;
+        }
+    }
+
+    // Phase 2: Search hash table if resource not found in array
+    if (owner->nhash > 0) {
+        uint32 mask = owner->capacity - 1;
+        uint32 idx = hash_resource_elem(value, kind) & mask;
+
+        // Linear probing to handle hash collisions
+        for (uint32 i = 0; i < owner->capacity; i++) {
+            if (owner->hash[idx].item == value && owner->hash[idx].kind == kind) {
+                // Mark slot as empty
+                owner->hash[idx].item = (Datum) 0;
+                owner->hash[idx].kind = NULL;
+                owner->nhash--;
+                return;
+            }
+            idx = (idx + 1) & mask;
+        }
+    }
+
+    // Resource not found - this is a programming error
+    elog(ERROR, "%s %p is not owned by resource owner %s",
+         kind->name, DatumGetPointer(value), owner->name);
+}
+```
+
+Key simplifications made:
+- Removed debug statistics tracking (#ifdef RESOWNER_STATS blocks)
+- Simplified comments to focus on core logic flow
+- Consolidated error handling into essential safety checks
+- Removed detailed code comments about implementation specifics
+- Preserved the two-phase search algorithm (array then hash table)
+- Maintained critical error conditions and resource cleanup logic

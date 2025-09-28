@@ -39,3 +39,25 @@ This function takes no parameters.
 - Works for both primary and standby servers
 - The activation/deactivation decision can be influenced by XLOG_PARAMETER_CHANGE records replayed during recovery
 - Declared in src/include/access/commit_ts.h for external access
+
+## Simplified Source
+
+```c
+// Simplified version of CompleteCommitTsInitialization
+void CompleteCommitTsInitialization(void) {
+    // Check configuration and activate or deactivate accordingly
+    if (!track_commit_timestamp) {
+        // Feature disabled: turn off and clean up leftover data
+        DeactivateCommitTs();
+    } else {
+        // Feature enabled: activate for normal operation
+        ActivateCommitTs();
+    }
+}
+```
+
+Key simplifications made:
+- Condensed detailed comments into concise inline comments
+- Preserved the core conditional logic structure
+- Maintained the essential function calls (DeactivateCommitTs/ActivateCommitTs)
+- Removed verbose explanatory comments while keeping the essential algorithm clear

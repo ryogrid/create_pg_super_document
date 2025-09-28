@@ -46,3 +46,30 @@ The function enforces strict bounds checking to prevent overflow, requiring that
 - The bounds checking prevents integer overflow that could lead to incorrect results or security issues
 - The bit manipulation technique  is a well-known method to test if a number is a power of 2
 - Performance-critical function that appears in many hot code paths, hence the inline implementation
+
+## Simplified Source
+
+```c
+// Simplified version of pg_nextpower2_32
+static inline uint32
+pg_nextpower2_32(uint32 num)
+{
+    // Input validation: ensure num > 0 and within safe bounds
+    Assert(num > 0 && num <= PG_UINT32_MAX / 2 + 1);
+
+    // Check if already a power of 2 using bit trick
+    // Power of 2 numbers have only 1 bit set, so (num & (num-1)) == 0
+    if ((num & (num - 1)) == 0)
+        return num;  // Already a power of 2
+
+    // Find next power of 2: shift 1 left by (position of leftmost bit + 1)
+    return ((uint32) 1) << (pg_leftmost_one_pos32(num) + 1);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the bit manipulation logic
+- Explained the power-of-2 detection technique in plain terms
+- Clarified the algorithm for finding the next power of 2
+- Maintained all original logic and error checking
+- Enhanced readability without changing functionality

@@ -43,3 +43,47 @@ The function uses conservative error handling - problems with reading the direct
 - Removes all files from SNAPSHOT_EXPORT_DIR indiscriminately (assumes all files are orphaned)
 - Conservative approach: cleanup failures don't block system startup
 - Part of PostgreSQL's crash recovery and cleanup mechanisms
+
+## Simplified Source
+
+```c
+// Simplified version of DeleteAllExportedSnapshotFiles
+void DeleteAllExportedSnapshotFiles(void) {
+    char filepath_buffer[MAXPGPATH + sizeof(SNAPSHOT_EXPORT_DIR)];
+    DIR *snapshot_dir;
+    struct dirent *dir_entry;
+
+    // Open the snapshot export directory
+    snapshot_dir = AllocateDir(SNAPSHOT_EXPORT_DIR);
+
+    // Iterate through all files in the directory
+    while ((dir_entry = ReadDirExtended(snapshot_dir, SNAPSHOT_EXPORT_DIR, LOG)) != NULL) {
+        // Skip current and parent directory entries
+        if (strcmp(dir_entry->d_name, ".") == 0 ||
+            strcmp(dir_entry->d_name, "..") == 0) {
+            continue;
+        }
+
+        // Build full file path
+        snprintf(filepath_buffer, sizeof(filepath_buffer),
+                 SNAPSHOT_EXPORT_DIR "/%s", dir_entry->d_name);
+
+        // Attempt to delete the file, log errors but don't fail
+        if (unlink(filepath_buffer) != 0) {
+            ereport(LOG, (errcode_for_file_access(),
+                         errmsg("could not remove file \"%s\": %m", filepath_buffer)));
+        }
+    }
+
+    // Clean up directory handle
+    FreeDir(snapshot_dir);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (filepath_buffer, snapshot_dir, dir_entry)
+- Added inline comments explaining each major step
+- Simplified the conditional logic formatting for better readability
+- Preserved all essential functionality including error handling
+- Maintained the LOG-level error reporting approach
+- Kept the conservative error handling that doesn't block startup

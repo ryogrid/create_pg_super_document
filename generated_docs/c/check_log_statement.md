@@ -39,3 +39,37 @@ The function handles both raw parse trees from the grammar and planned statement
 - Supports mixed statement lists by checking each statement individually
 - Critical for PostgreSQL's security and auditing capabilities by controlling which SQL operations are recorded in logs
 - Part of PostgreSQL's comprehensive logging infrastructure that helps database administrators monitor and audit database activity
+
+## Simplified Source
+
+```c
+// Simplified version of check_log_statement
+static bool
+check_log_statement(List *stmt_list)
+{
+    // Quick exit for extreme log levels
+    if (log_statement == LOGSTMT_NONE)
+        return false;
+    if (log_statement == LOGSTMT_ALL)
+        return true;
+
+    // Check each statement against logging policy
+    foreach(stmt_item, stmt_list)
+    {
+        Node *stmt = (Node *) lfirst(stmt_item);
+
+        // If any statement meets logging criteria, log the batch
+        if (GetCommandLogLevel(stmt) <= log_statement)
+            return true;
+    }
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Preserved the core three-tier logic: none/all/selective logging
+- Maintained the essential foreach loop structure for statement evaluation
+- Kept the critical GetCommandLogLevel comparison logic
+- Added clarifying comments for each major logic section
+- No significant complexity to remove - function is already quite clean and focused

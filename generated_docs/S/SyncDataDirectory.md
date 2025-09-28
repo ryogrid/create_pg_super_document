@@ -46,3 +46,77 @@ This function takes no parameters.
 - Special handling for pg_wal symlinks and tablespace directories under pg_tblspc
 - Progress reporting is integrated for startup monitoring
 - Error tolerance design ensures startup robustness even with permission or access issues
+
+## Simplified Source
+
+```c
+// Simplified version of SyncDataDirectory
+void SyncDataDirectory(void) {
+    bool xlog_is_symlink;
+
+    // Skip if fsync is disabled
+    if (!enableFsync)
+        return;
+
+    // Check if pg_wal is a symlink
+    xlog_is_symlink = false;
+    struct stat st;
+    if (lstat("pg_wal", &st) >= 0 && S_ISLNK(st.st_mode))
+        xlog_is_symlink = true;
+
+#ifdef HAVE_SYNCFS
+    // Linux: Use efficient syncfs() for entire filesystems
+    if (recovery_init_sync_method == DATA_DIR_SYNC_METHOD_SYNCFS) {
+        begin_startup_progress_phase();
+
+        // Sync main data directory
+        do_syncfs(".");
+
+        // Sync each tablespace directory
+        DIR *dir = AllocateDir("pg_tblspc");
+        struct dirent *de;
+        while ((de = ReadDirExtended(dir, "pg_tblspc", LOG))) {
+            if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0)
+                continue;
+            char path[MAXPGPATH];
+            snprintf(path, MAXPGPATH, "pg_tblspc/%s", de->d_name);
+            do_syncfs(path);
+        }
+        FreeDir(dir);
+
+        // Sync pg_wal if it's a symlink
+        if (xlog_is_symlink)
+            do_syncfs("pg_wal");
+        return;
+    }
+#endif
+
+    // Traditional approach: Individual fsync() calls
+    begin_startup_progress_phase();
+
+#ifdef PG_FLUSH_DATA_WORKS
+    // Phase 1: Hint to kernel about upcoming fsyncs
+    walkdir(".", pre_sync_fname, false, DEBUG1);
+    if (xlog_is_symlink)
+        walkdir("pg_wal", pre_sync_fname, false, DEBUG1);
+    walkdir("pg_tblspc", pre_sync_fname, true, DEBUG1);
+#endif
+
+    begin_startup_progress_phase();
+
+    // Phase 2: Actual fsync operations
+    walkdir(".", datadir_fsync_fname, false, LOG);
+    if (xlog_is_symlink)
+        walkdir("pg_wal", datadir_fsync_fname, false, LOG);
+    walkdir("pg_tblspc", datadir_fsync_fname, true, LOG);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and logging for clarity
+- Consolidated stat checking logic into simpler flow
+- Abstracted complex directory traversal into high-level walkdir calls
+- Simplified conditional compilation blocks
+- Combined variable declarations with assignments where possible
+- Focused on the two main sync strategies: syncfs vs individual fsync
+- Preserved essential algorithm: check symlinks, choose sync method, execute sync operations

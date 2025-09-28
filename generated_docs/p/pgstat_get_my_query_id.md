@@ -41,3 +41,24 @@ This function takes no parameters and operates on:
 - Used extensively in logging and monitoring to correlate query executions
 - Part of PostgreSQL's query identification and tracking infrastructure
 - The 64-bit identifier provides sufficient uniqueness for practical query tracking needs
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_get_my_query_id
+uint64 pgstat_get_my_query_id(void) {
+    // Check if backend status entry exists
+    if (!MyBEEntry)
+        return 0;
+
+    // Return the query ID from current backend's status
+    // No locking needed - backends only access their own status
+    return MyBEEntry->st_query_id;
+}
+```
+
+Key simplifications made:
+- Preserved essential null check for MyBEEntry
+- Kept core functionality of returning query ID
+- Simplified extensive locking comments to brief note
+- Maintained the simple structure since original was already concise

@@ -36,3 +36,24 @@ This function is part of PostgreSQL's process lifecycle management, ensuring tha
 - Uses InvalidTransactionId to indicate process removal during shutdown rather than transaction end
 - The Assert(MyProc != NULL) ensures the function is only called for properly initialized processes
 - Registered as an exit callback during process initialization to ensure automatic cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of RemoveProcFromArray
+static void
+RemoveProcFromArray(int code, Datum arg)
+{
+    // Ensure process is properly initialized
+    Assert(MyProc != NULL);
+
+    // Remove current process from shared ProcArray during shutdown
+    ProcArrayRemove(MyProc, InvalidTransactionId);
+}
+```
+
+Key simplifications made:
+- Function is already very simple, minimal changes needed
+- Added explanatory comments for the assertion and main operation
+- Preserved the core logic: validation and delegation to ProcArrayRemove
+- Maintained the exit callback signature parameters (code, arg) even though unused

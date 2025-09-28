@@ -43,3 +43,45 @@ The function handles the case where longer-running transactions that were previo
 - Temporary relations have simplified logic where definitely_needed equals maybe_needed
 - Records the RecentXmin value used for this update for future reference
 - Critical for maintaining accurate global visibility state across the database cluster
+
+## Simplified Source
+
+```c
+// Simplified version of GlobalVisUpdateApply
+static void
+GlobalVisUpdateApply(ComputeXidHorizonsResult *horizons)
+{
+    // Update maybe_needed boundaries for all relation types
+    // These represent the oldest transactions that might need to be kept
+    GlobalVisSharedRels.maybe_needed =
+        FullXidRelativeTo(horizons->latest_completed, horizons->shared_oldest_nonremovable);
+    GlobalVisCatalogRels.maybe_needed =
+        FullXidRelativeTo(horizons->latest_completed, horizons->catalog_oldest_nonremovable);
+    GlobalVisDataRels.maybe_needed =
+        FullXidRelativeTo(horizons->latest_completed, horizons->data_oldest_nonremovable);
+    GlobalVisTempRels.maybe_needed =
+        FullXidRelativeTo(horizons->latest_completed, horizons->temp_oldest_nonremovable);
+
+    // Ensure definitely_needed is not earlier than maybe_needed
+    // This handles cases where long-running transactions have completed
+    GlobalVisSharedRels.definitely_needed =
+        FullTransactionIdNewer(GlobalVisSharedRels.maybe_needed, GlobalVisSharedRels.definitely_needed);
+    GlobalVisCatalogRels.definitely_needed =
+        FullTransactionIdNewer(GlobalVisCatalogRels.maybe_needed, GlobalVisCatalogRels.definitely_needed);
+    GlobalVisDataRels.definitely_needed =
+        FullTransactionIdNewer(GlobalVisDataRels.maybe_needed, GlobalVisDataRels.definitely_needed);
+
+    // For temp relations, definitely_needed always equals maybe_needed
+    GlobalVisTempRels.definitely_needed = GlobalVisTempRels.maybe_needed;
+
+    // Record the RecentXmin used for this update
+    ComputeXidHorizonsResultLastXmin = RecentXmin;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each operation
+- Maintained the exact logic flow and all essential operations
+- Clarified the relationship between maybe_needed and definitely_needed boundaries
+- Explained the special case for temporary relations
+- Preserved all global variable updates and function calls

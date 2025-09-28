@@ -50,3 +50,76 @@ The limits are calculated with generous safety margins to account for scenarios 
 - The `autovacuum_freeze_max_age` parameter is validated by guc.c to ensure sane limits
 - All limits handle XID wraparound arithmetic correctly using modular comparison functions
 - Called during recovery, normal operation, and after significant vacuum operations to maintain current limits
+
+## Simplified Source
+
+```c
+// Simplified version of SetTransactionIdLimit
+void SetTransactionIdLimit(TransactionId oldest_datfrozenxid, Oid oldest_datoid) {
+    TransactionId xidVacLimit, xidWarnLimit, xidStopLimit, xidWrapLimit;
+    TransactionId curXid;
+
+    // Calculate wraparound limit: halfway around from oldest XID
+    xidWrapLimit = oldest_datfrozenxid + (MaxTransactionId >> 1);
+    if (xidWrapLimit < FirstNormalTransactionId)
+        xidWrapLimit += FirstNormalTransactionId;
+
+    // Calculate stop limit: 3M transactions before wraparound
+    xidStopLimit = xidWrapLimit - 3000000;
+    if (xidStopLimit < FirstNormalTransactionId)
+        xidStopLimit -= FirstNormalTransactionId;
+
+    // Calculate warning limit: 40M transactions before wraparound
+    xidWarnLimit = xidWrapLimit - 40000000;
+    if (xidWarnLimit < FirstNormalTransactionId)
+        xidWarnLimit -= FirstNormalTransactionId;
+
+    // Calculate autovacuum trigger limit
+    xidVacLimit = oldest_datfrozenxid + autovacuum_freeze_max_age;
+    if (xidVacLimit < FirstNormalTransactionId)
+        xidVacLimit += FirstNormalTransactionId;
+
+    // Atomically update all limits in shared memory
+    LWLockAcquire(XidGenLock, LW_EXCLUSIVE);
+    TransamVariables->oldestXid = oldest_datfrozenxid;
+    TransamVariables->xidVacLimit = xidVacLimit;
+    TransamVariables->xidWarnLimit = xidWarnLimit;
+    TransamVariables->xidStopLimit = xidStopLimit;
+    TransamVariables->xidWrapLimit = xidWrapLimit;
+    TransamVariables->oldestXidDB = oldest_datoid;
+    curXid = XidFromFullTransactionId(TransamVariables->nextXid);
+    LWLockRelease(XidGenLock);
+
+    // Log debug information
+    ereport(DEBUG1, (errmsg_internal("transaction ID wrap limit is %u, limited by database with OID %u",
+                                     xidWrapLimit, oldest_datoid)));
+
+    // Trigger autovacuum if past vacuum limit
+    if (TransactionIdFollowsOrEquals(curXid, xidVacLimit) &&
+        IsUnderPostmaster && !InRecovery) {
+        SendPostmasterSignal(PMSIGNAL_START_AUTOVAC_LAUNCHER);
+    }
+
+    // Issue warning if past warning limit
+    if (TransactionIdFollowsOrEquals(curXid, xidWarnLimit) && !InRecovery) {
+        char *oldest_datname = IsTransactionState() ?
+            get_database_name(oldest_datoid) : NULL;
+
+        if (oldest_datname) {
+            ereport(WARNING, (errmsg("database \"%s\" must be vacuumed within %u transactions",
+                                     oldest_datname, xidWrapLimit - curXid)));
+        } else {
+            ereport(WARNING, (errmsg("database with OID %u must be vacuumed within %u transactions",
+                                     oldest_datoid, xidWrapLimit - curXid)));
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining the rationale for each threshold value
+- Consolidated variable declarations
+- Simplified warning message logic by using ternary operator
+- Removed detailed error hints to focus on core functionality
+- Abstracted complex wraparound arithmetic explanations into brief comments
+- Preserved all essential algorithm steps and safety checks

@@ -33,3 +33,47 @@ This function sets up the infrastructure needed for the Startup process to track
 - Sets up send-only shared invalidation to avoid reading messages or getting signaled on queue fill-up
 - Uses hash tables with 64-bucket initial size for lock tracking
 - Sets standbyState to STANDBY_INITIALIZED upon completion
+
+## Simplified Source
+
+```c
+// Simplified version of InitRecoveryTransactionEnvironment
+void InitRecoveryTransactionEnvironment(void) {
+    VirtualTransactionId vxid;
+    HASHCTL hash_ctl;
+
+    // Ensure this function only runs once during startup
+    Assert(RecoveryLockHash == NULL);
+
+    // Create hash table for tracking individual locks
+    hash_ctl.keysize = sizeof(xl_standby_lock);
+    hash_ctl.entrysize = sizeof(RecoveryLockEntry);
+    RecoveryLockHash = hash_create("RecoveryLockHash", 64, &hash_ctl,
+                                   HASH_ELEM | HASH_BLOBS);
+
+    // Create hash table for tracking locks by transaction ID
+    hash_ctl.keysize = sizeof(TransactionId);
+    hash_ctl.entrysize = sizeof(RecoveryLockXidEntry);
+    RecoveryLockXidHash = hash_create("RecoveryLockXidHash", 64, &hash_ctl,
+                                      HASH_ELEM | HASH_BLOBS);
+
+    // Initialize shared invalidation as send-only process
+    SharedInvalBackendInit(true);
+
+    // Create virtual transaction for Startup process
+    MyProc->vxid.procNumber = MyProcNumber;
+    vxid.procNumber = MyProcNumber;
+    vxid.localTransactionId = GetNextLocalTransactionId();
+    VirtualXactLockTableInsert(vxid);
+
+    // Mark recovery environment as initialized
+    standbyState = STANDBY_INITIALIZED;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining implementation rationale
+- Condensed hash table creation into clear sequential steps
+- Simplified virtual transaction setup with clearer variable assignments
+- Focused on the core algorithm: hash table creation → invalidation setup → virtual transaction creation
+- Maintained all essential function calls and data structure initialization

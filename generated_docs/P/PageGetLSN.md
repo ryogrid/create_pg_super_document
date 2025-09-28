@@ -40,3 +40,20 @@ This function is fundamental to PostgreSQL's durability guarantees and is used e
 - Lower LSN values indicate older modifications, higher values indicate newer ones
 - Used extensively in buffer pool management for write-ordering and checkpoint operations
 - Fundamental to PostgreSQL's ACID compliance and durability guarantees
+
+## Simplified Source
+
+```c
+// Simplified version of PageGetLSN
+static inline XLogRecPtr PageGetLSN(Page page) {
+    // Extract the LSN from the page header's pd_lsn field
+    // This gives us the WAL position of the last modification to this page
+    return PageXLogRecPtrGet(((PageHeader) page)->pd_lsn);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments describing the purpose
+- No simplification needed - function is already very concise
+- Maintained the exact logic as it's a simple one-line operation
+- The function efficiently accesses the LSN through proper type casting and conversion

@@ -40,3 +40,75 @@ XLogCompressBackupBlock attempts to compress a backup block image using the conf
 - Supports multiple compression algorithms based on wal_compression setting
 - Only compresses if result + extra header bytes < original size
 - LZ4 and ZSTD support depends on build-time configuration
+
+## Simplified Source
+
+```c
+// Simplified version of XLogCompressBackupBlock
+static bool
+XLogCompressBackupBlock(char *page, uint16 hole_offset, uint16 hole_length,
+                        char *dest, uint16 *dlen)
+{
+    int32 original_size = BLCKSZ - hole_length;
+    int32 compressed_length = -1;
+    int32 header_overhead = 0;
+    char *source_data;
+    PGAlignedBlock temp_buffer;
+
+    // Handle pages with holes by copying around the hole
+    if (hole_length != 0) {
+        source_data = temp_buffer.data;
+        // Copy data before hole + data after hole into contiguous buffer
+        memcpy(source_data, page, hole_offset);
+        memcpy(source_data + hole_offset,
+               page + (hole_offset + hole_length),
+               BLCKSZ - (hole_length + hole_offset));
+
+        // Account for extra header bytes needed for holes
+        header_overhead = SizeOfXLogRecordBlockCompressHeader;
+    } else {
+        source_data = page;  // No hole, use original page directly
+    }
+
+    // Apply compression based on configured algorithm
+    switch (wal_compression) {
+        case WAL_COMPRESSION_PGLZ:
+            compressed_length = pglz_compress(source_data, original_size, dest, PGLZ_strategy_default);
+            break;
+
+        case WAL_COMPRESSION_LZ4:
+            compressed_length = LZ4_compress_default(source_data, dest, original_size, COMPRESS_BUFSIZE);
+            if (compressed_length <= 0)
+                compressed_length = -1;  // Mark as failure
+            break;
+
+        case WAL_COMPRESSION_ZSTD:
+            compressed_length = ZSTD_compress(dest, COMPRESS_BUFSIZE, source_data, original_size, ZSTD_CLEVEL_DEFAULT);
+            if (ZSTD_isError(compressed_length))
+                compressed_length = -1;  // Mark as failure
+            break;
+
+        case WAL_COMPRESSION_NONE:
+            // Should not happen
+            break;
+    }
+
+    // Only use compression if it actually saves space
+    if (compressed_length >= 0 &&
+        compressed_length + header_overhead < original_size) {
+        *dlen = (uint16) compressed_length;
+        return true;  // Compression successful and beneficial
+    }
+
+    return false;  // Compression failed or not beneficial
+}
+```
+
+Key simplifications made:
+- Renamed variables for clarity (orig_len → original_size, len → compressed_length, extra_bytes → header_overhead)
+- Added descriptive comments explaining the hole handling logic
+- Simplified conditional logic with clearer variable names
+- Consolidated error handling patterns across compression algorithms
+- Removed build-time conditional compilation directives for readability
+- Added comments explaining the space-saving verification logic
+- Maintained all essential algorithm steps and return conditions

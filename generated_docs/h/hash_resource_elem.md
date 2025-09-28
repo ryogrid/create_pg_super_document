@@ -42,3 +42,33 @@ The approach is deliberately lightweight since there are only a few resource kin
 - The hash function is specifically designed for the resource owner's internal hash table implementation
 - The choice of hash function depends on the system's pointer size, ensuring optimal performance on both 32-bit and 64-bit architectures
 - The function balances simplicity with effectiveness, avoiding over-engineering since resource kind collisions are rare
+
+## Simplified Source
+
+```c
+// Simplified version of hash_resource_elem
+static inline uint32
+hash_resource_elem(Datum value, const ResourceOwnerDesc *kind)
+{
+    // Hash the resource value and combine with kind to avoid collisions
+    // Most resources store pointers (naturally unique), but some store
+    // integers (Files, Buffers) which need kind differentiation
+
+#if SIZEOF_DATUM == 8
+    // 64-bit systems: use 64-bit hash functions
+    uint64 value_hash = murmurhash64((uint64) value);
+    return hash_combine64(value_hash, (uint64) kind);
+#else
+    // 32-bit systems: use 32-bit hash functions
+    uint32 value_hash = murmurhash32((uint32) value);
+    return hash_combine(value_hash, (uint32) kind);
+#endif
+}
+```
+
+Key simplifications made:
+- Condensed the detailed comment into a concise explanation of the core logic
+- Extracted intermediate variables for clarity (value_hash)
+- Simplified the conditional compilation structure
+- Maintained the essential algorithm: hash value, then combine with kind
+- Preserved the 32-bit vs 64-bit logic which is fundamental to the function

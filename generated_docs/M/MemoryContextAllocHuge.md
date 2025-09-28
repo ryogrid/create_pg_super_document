@@ -39,3 +39,32 @@ The function sets the context's isReset flag to false and integrates with debugg
 - Optimized for compiler sibling call optimization patterns
 - Commonly used for large temporary buffers and data structures in encoding conversion
 - Located in src/backend/utils/mmgr/mcxt.c:1639-1670
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextAllocHuge
+void *MemoryContextAllocHuge(MemoryContext context, Size size) {
+    // Validate context and ensure not in critical section
+    Assert(MemoryContextIsValid(context));
+    AssertNotInCriticalSection(context);
+
+    // Mark context as modified
+    context->isReset = false;
+
+    // Delegate actual allocation to context's alloc method with huge flag
+    void *ret = context->methods->alloc(context, size, MCXT_ALLOC_HUGE);
+
+    // Track allocation for debugging (Valgrind integration)
+    VALGRIND_MEMPOOL_ALLOC(context, ret, size);
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Removed detailed optimization comments for clarity
+- Consolidated assertion calls with brief explanatory comments
+- Simplified variable declaration and assignment
+- Abstracted the delegation pattern to context's alloc method
+- Maintained core logic: validation, marking context, allocation, and debugging integration

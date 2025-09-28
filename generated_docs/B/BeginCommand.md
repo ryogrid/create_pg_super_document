@@ -30,3 +30,18 @@ This function is part of PostgreSQL's command processing and destination managem
 - Called early in command execution flow before query parsing and planning
 - Provides extensibility point for future destination initialization requirements
 - Exported function available throughout the PostgreSQL backend
+
+## Simplified Source
+
+```c
+// Simplified version of BeginCommand
+void BeginCommand(CommandTag commandTag, CommandDest dest) {
+    // Currently no implementation - placeholder for future initialization
+    // This function serves as a hook point for destination setup at command start
+}
+```
+
+Key simplifications made:
+- Function is already minimal - no simplification needed
+- Added clarifying comment about its purpose as a hook point
+- Preserved the empty implementation as it represents the current state

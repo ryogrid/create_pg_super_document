@@ -41,3 +41,26 @@ This dual-mode detection is essential for reliable signal handling in environmen
 - Should not be used when there is no possibility of an intermediate shell process
 - Returns boolean true if the specified signal caused the process termination, false otherwise
 - Part of PostgreSQL's common utility library for cross-component signal handling
+
+## Simplified Source
+
+```c
+// Simplified version of wait_result_is_signal
+bool wait_result_is_signal(int exit_status, int signum) {
+    // Check if process was killed directly by the signal
+    if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == signum)
+        return true;
+
+    // Check if shell reported child death via exit code (POSIX convention: 128 + signal)
+    if (WIFEXITED(exit_status) && WEXITSTATUS(exit_status) == 128 + signum)
+        return true;
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two signal detection paths
+- Preserved the essential dual-mode signal detection logic
+- Maintained the POSIX-compliant shell exit code handling (128 + signal number)
+- No actual simplification needed as the original code is already concise and clear

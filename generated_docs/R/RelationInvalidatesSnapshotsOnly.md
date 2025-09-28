@@ -32,3 +32,33 @@ RelationInvalidatesSnapshotsOnly identifies relations that do not have system ca
 - Part of PostgreSQL's invalidation mechanism that optimizes snapshot reuse for certain system catalogs
 - Used by the snapshot management system to determine invalidation behavior
 - Located in src/backend/utils/cache/syscache.c:723-745
+
+## Simplified Source
+
+```c
+// Simplified version of RelationInvalidatesSnapshotsOnly
+bool RelationInvalidatesSnapshotsOnly(Oid relid) {
+    // Check if relation is one of the special system catalogs
+    // that use snapshot invalidation instead of catcache invalidation
+    switch (relid) {
+        case DbRoleSettingRelationId:
+        case DependRelationId:
+        case SharedDependRelationId:
+        case DescriptionRelationId:
+        case SharedDescriptionRelationId:
+        case SecLabelRelationId:
+        case SharedSecLabelRelationId:
+            return true;  // These relations use snapshot invalidation
+        default:
+            break;
+    }
+
+    return false;  // All other relations use catcache invalidation
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the switch logic
+- Clarified the purpose of each return path
+- No major structural changes needed as the original function is already quite simple
+- Maintained all essential logic for the 7 special system relation checks

@@ -33,3 +33,34 @@ This function releases all locks held by the current resource owner. It provides
 - The false parameter passed to ReleaseLockIfHeld indicates these are transaction-level locks, not session-level locks
 - This function is primarily used during transaction abort or commit processing to ensure proper lock cleanup
 - The optimization of passing a pre-computed lock array is particularly beneficial when a large number of locks are held
+
+## Simplified Source
+
+```c
+// Simplified version of LockReleaseCurrentOwner
+void LockReleaseCurrentOwner(LOCALLOCK **locallocks, int nlocks) {
+    // Two approaches: use provided lock array or scan hash table
+    if (locallocks == NULL) {
+        // Approach 1: Scan all locks in hash table
+        HASH_SEQ_STATUS status;
+        LOCALLOCK *locallock;
+
+        hash_seq_init(&status, LockMethodLocalHash);
+        while ((locallock = hash_seq_search(&status)) != NULL) {
+            ReleaseLockIfHeld(locallock, false);
+        }
+    } else {
+        // Approach 2: Release locks from provided array (reverse order)
+        for (int i = nlocks - 1; i >= 0; i--) {
+            ReleaseLockIfHeld(locallocks[i], false);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and kept essential logic flow clear
+- Simplified variable declarations and moved them closer to usage
+- Made the two-path approach more obvious with clear comments
+- Consolidated the core logic into clean, readable blocks
+- Preserved the reverse-order iteration which is important for lock semantics

@@ -56,3 +56,105 @@ Key implementation details:
 - DETACH and DESTROY operations are treated identically due to Windows automatic cleanup
 - Comprehensive error handling with proper cleanup of partially completed operations
 - Uses system paging file backing for optimal performance characteristics
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_impl_windows
+static bool
+dsm_impl_windows(dsm_op op, dsm_handle handle, Size request_size,
+                 void **impl_private, void **mapped_address,
+                 Size *mapped_size, int elevel)
+{
+    HANDLE hmap;
+    char *address;
+    char name[64];
+    MEMORY_BASIC_INFORMATION info;
+
+    // Generate unique segment name using handle
+    snprintf(name, 64, "%s.%u", SEGMENT_NAME_PREFIX, handle);
+
+    // Handle cleanup operations (detach/destroy)
+    if (op == DSM_OP_DETACH || op == DSM_OP_DESTROY) {
+        // Unmap memory view if mapped
+        if (*mapped_address != NULL && !UnmapViewOfFile(*mapped_address)) {
+            ereport(elevel, (errmsg("could not unmap shared memory segment")));
+            return false;
+        }
+
+        // Close file mapping handle if open
+        if (*impl_private != NULL && !CloseHandle(*impl_private)) {
+            ereport(elevel, (errmsg("could not remove shared memory segment")));
+            return false;
+        }
+
+        // Clear output parameters
+        *impl_private = NULL;
+        *mapped_address = NULL;
+        *mapped_size = 0;
+        return true;
+    }
+
+    // Create new segment or attach to existing one
+    if (op == DSM_OP_CREATE) {
+        // Split size for 32/64-bit compatibility
+        DWORD size_high = (DWORD)(request_size >> 32);
+        DWORD size_low = (DWORD)request_size;
+
+        // Create file mapping using system paging file
+        hmap = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE,
+                                size_high, size_low, name);
+
+        // Check for conflicts with existing segments
+        DWORD errcode = GetLastError();
+        if (errcode == ERROR_ALREADY_EXISTS || errcode == ERROR_ACCESS_DENIED) {
+            if (hmap) CloseHandle(hmap);
+            return false;
+        }
+
+        if (!hmap) {
+            ereport(elevel, (errmsg("could not create shared memory segment")));
+            return false;
+        }
+    } else {
+        // Attach to existing segment
+        hmap = OpenFileMapping(FILE_MAP_WRITE | FILE_MAP_READ, FALSE, name);
+        if (!hmap) {
+            ereport(elevel, (errmsg("could not open shared memory segment")));
+            return false;
+        }
+    }
+
+    // Map the file mapping into process address space
+    address = MapViewOfFile(hmap, FILE_MAP_WRITE | FILE_MAP_READ, 0, 0, 0);
+    if (!address) {
+        CloseHandle(hmap);
+        ereport(elevel, (errmsg("could not map shared memory segment")));
+        return false;
+    }
+
+    // Query actual size of mapped region
+    if (VirtualQuery(address, &info, sizeof(info)) == 0) {
+        UnmapViewOfFile(address);
+        CloseHandle(hmap);
+        ereport(elevel, (errmsg("could not stat shared memory segment")));
+        return false;
+    }
+
+    // Set output parameters
+    *mapped_address = address;
+    *mapped_size = info.RegionSize;
+    *impl_private = hmap;
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed error code mapping and complex error handling
+- Simplified Windows API error checking to basic success/failure
+- Consolidated similar error cleanup patterns
+- Removed detailed comments about Windows internals
+- Abstracted complex bit manipulation for size parameters
+- Streamlined conditional logic flow
+- Maintained essential algorithm structure and all critical operations

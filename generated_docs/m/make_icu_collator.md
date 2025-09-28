@@ -40,3 +40,65 @@ This function initializes an ICU collator within a pg_locale_struct for use in P
 - The resulting collator is stored in TopMemoryContext for backend-lifetime persistence
 - Handles Unicode character conversion for rule processing via icu_to_uchar
 - Critical component for PostgreSQL's ICU-based internationalization and collation support
+
+## Simplified Source
+
+```c
+// Simplified version of make_icu_collator
+void make_icu_collator(const char *iculocstr,
+                      const char *icurules,
+                      struct pg_locale_struct *resultp)
+{
+#ifdef USE_ICU
+    UCollator *collator;
+
+    // Step 1: Create basic ICU collator from locale string
+    collator = pg_ucol_open(iculocstr);
+
+    // Step 2: If custom rules provided, combine with default rules
+    if (icurules) {
+        const UChar *default_rules;
+        UChar *combined_rules;
+        UChar *custom_rules;
+        int32_t length;
+
+        // Get default rules from the standard collator
+        default_rules = ucol_getRules(collator, &length);
+
+        // Convert custom rules to Unicode format
+        icu_to_uchar(&custom_rules, icurules, strlen(icurules));
+
+        // Combine default + custom rules
+        combined_rules = palloc_array(UChar, u_strlen(default_rules) + u_strlen(custom_rules) + 1);
+        u_strcpy(combined_rules, default_rules);
+        u_strcat(combined_rules, custom_rules);
+
+        // Replace collator with one using combined rules
+        ucol_close(collator);
+        collator = ucol_openRules(combined_rules, u_strlen(combined_rules),
+                                 UCOL_DEFAULT, UCOL_DEFAULT_STRENGTH, NULL, &status);
+
+        if (U_FAILURE(status))
+            ereport(ERROR, (errmsg("could not open collator for locale \"%s\" with rules \"%s\": %s",
+                                   iculocstr, icurules, u_errorName(status))));
+    }
+
+    // Step 3: Store results in persistent memory context
+    resultp->info.icu.locale = MemoryContextStrdup(TopMemoryContext, iculocstr);
+    resultp->info.icu.ucol = collator;
+
+#else
+    // Error if ICU not supported
+    ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                   errmsg("ICU is not supported in this build")));
+#endif
+}
+```
+
+Key simplifications made:
+- Removed detailed variable declarations for cleaner flow
+- Added step-by-step comments explaining the main algorithm phases
+- Simplified error handling while preserving critical checks
+- Consolidated Unicode string operations into logical blocks
+- Maintained essential ICU function calls and memory management
+- Preserved conditional compilation structure for ICU support

@@ -47,3 +47,79 @@ This static function performs the actual recursive traversal of memory context h
 - Accumulates statistics in totals parameter when provided (can be NULL)
 - Uses MemoryContextTraverseNext for safe non-recursive traversal of remaining contexts
 - Critical for debugging memory usage patterns and detecting memory leaks in complex applications
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextStatsInternal
+static void MemoryContextStatsInternal(MemoryContext context, int level,
+                                       int max_level, int max_children,
+                                       MemoryContextCounters *totals,
+                                       bool print_to_stderr) {
+    MemoryContext child;
+    int child_count = 0;
+
+    // Validate the context
+    Assert(MemoryContextIsValid(context));
+
+    // Get statistics for the current context
+    context->methods->stats(context, MemoryContextStatsPrint, &level, totals, print_to_stderr);
+
+    // Process child contexts if within depth and stack limits
+    child = context->firstchild;
+    if (level < max_level && !stack_is_too_deep()) {
+        // Recursively process up to max_children
+        while (child != NULL && child_count < max_children) {
+            MemoryContextStatsInternal(child, level + 1, max_level, max_children,
+                                       totals, print_to_stderr);
+            child = child->nextchild;
+            child_count++;
+        }
+    }
+
+    // If there are remaining children, summarize them without recursion
+    if (child != NULL) {
+        MemoryContextCounters remaining_totals;
+        memset(&remaining_totals, 0, sizeof(remaining_totals));
+
+        // Traverse remaining children and accumulate stats
+        child_count = 0;
+        while (child != NULL) {
+            child->methods->stats(child, NULL, NULL, &remaining_totals, false);
+            child_count++;
+            child = MemoryContextTraverseNext(child, context);
+        }
+
+        // Print summary of remaining children
+        if (print_to_stderr) {
+            // Print with proper indentation
+            for (int i = 0; i <= level; i++) {
+                fprintf(stderr, "  ");
+            }
+            fprintf(stderr, "%d more child contexts containing %zu total in %zu blocks\n",
+                    child_count, remaining_totals.totalspace, remaining_totals.nblocks);
+        } else {
+            // Log summary information
+            ereport(LOG_SERVER_ONLY,
+                    (errmsg_internal("level: %d; %d more child contexts", level, child_count)));
+        }
+
+        // Add to grand totals if requested
+        if (totals) {
+            totals->nblocks += remaining_totals.nblocks;
+            totals->freechunks += remaining_totals.freechunks;
+            totals->totalspace += remaining_totals.totalspace;
+            totals->freespace += remaining_totals.freespace;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Combined variable declarations and simplified loop structure
+- Removed complex error reporting details, keeping core logging logic
+- Consolidated the fprintf and ereport output formatting for clarity
+- Simplified the statistics accumulation logic while preserving functionality
+- Added clearer comments explaining each major section
+- Maintained the essential recursive vs non-recursive processing logic
+- Preserved all critical safety checks (stack depth, context validation)

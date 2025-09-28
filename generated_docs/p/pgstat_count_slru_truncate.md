@@ -34,3 +34,18 @@ The function operates by calling get_slru_entry() to retrieve the statistics ent
 - The statistics provide insights into how frequently different SLRU caches need cleanup
 - Frequent truncations might indicate high transaction volume or aggressive cleanup policies
 - Part of the PostgreSQL statistics collector subsystem for comprehensive buffer cache monitoring
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_count_slru_truncate
+void pgstat_count_slru_truncate(int slru_idx) {
+    // Increment truncate counter for the specified SLRU cache
+    get_slru_entry(slru_idx)->truncate += 1;
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already very simple and concise
+- The original function contains only one essential operation: incrementing the truncate counter
+- Added descriptive comment explaining the core purpose

@@ -44,3 +44,99 @@ The function respects several configuration options including syslog_split_messa
 - Handles multibyte character encodings properly through pg_mbcliplen
 - Configuration controlled by syslog_split_messages and syslog_sequence_numbers global variables
 - Part of PostgreSQL's error logging infrastructure in src/backend/utils/error/elog.c
+
+## Simplified Source
+
+```c
+// Simplified version of write_syslog
+static void
+write_syslog(int level, const char *line)
+{
+    static unsigned long seq = 0;
+    int len;
+    const char *nlpos;
+
+    // Initialize syslog connection if needed
+    if (!openlog_done) {
+        openlog(syslog_ident ? syslog_ident : "postgres",
+                LOG_PID | LOG_NDELAY | LOG_NOWAIT,
+                syslog_facility);
+        openlog_done = true;
+    }
+
+    // Increment sequence number for duplicate suppression
+    seq++;
+
+    // Check if message needs splitting (too long or has newlines)
+    len = strlen(line);
+    nlpos = strchr(line, '\n');
+
+    if (syslog_split_messages && (len > PG_SYSLOG_LIMIT || nlpos != NULL)) {
+        // Split long message into chunks
+        int chunk_nr = 0;
+
+        while (len > 0) {
+            char buf[PG_SYSLOG_LIMIT + 1];
+            int buflen;
+
+            // Skip leading newlines
+            if (line[0] == '\n') {
+                line++;
+                len--;
+                nlpos = strchr(line, '\n');
+                continue;
+            }
+
+            // Copy one line or maximum chunk size
+            buflen = (nlpos != NULL) ? (nlpos - line) : len;
+            buflen = Min(buflen, PG_SYSLOG_LIMIT);
+            memcpy(buf, line, buflen);
+            buf[buflen] = '\0';
+
+            // Ensure multibyte character boundary
+            buflen = pg_mbcliplen(buf, buflen, buflen);
+            if (buflen <= 0) return;
+            buf[buflen] = '\0';
+
+            // Try to break at word boundary if not at end
+            if (line[buflen] != '\0' && !isspace((unsigned char) line[buflen])) {
+                int i = buflen - 1;
+                while (i > 0 && !isspace((unsigned char) buf[i])) {
+                    i--;
+                }
+                if (i > 0) {
+                    buflen = i;
+                    buf[i] = '\0';
+                }
+            }
+
+            chunk_nr++;
+
+            // Send chunk with sequence and chunk numbers
+            if (syslog_sequence_numbers) {
+                syslog(level, "[%lu-%d] %s", seq, chunk_nr, buf);
+            } else {
+                syslog(level, "[%d] %s", chunk_nr, buf);
+            }
+
+            line += buflen;
+            len -= buflen;
+        }
+    } else {
+        // Message fits in single syslog call
+        if (syslog_sequence_numbers) {
+            syslog(level, "[%lu] %s", seq, line);
+        } else {
+            syslog(level, "%s", line);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Preserved essential syslog initialization and message splitting logic
+- Maintained multibyte character handling and word boundary detection
+- Simplified variable declarations and loop structure
+- Added clear comments explaining each major step
+- Retained all critical functionality while improving readability
+- Consolidated similar conditional branches for sequence numbering

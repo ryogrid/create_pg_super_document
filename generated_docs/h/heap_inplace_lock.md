@@ -60,3 +60,89 @@ Key behavioral aspects:
 - Uses specialized InplaceUpdateTupleLock for tuple-level locking
 - Handles complex MultiXact scenarios for concurrent lock compatibility
 - Automatically invalidates catalog snapshots when waiting occurs to ensure subsequent attempts see fresh data
+
+## Simplified Source
+
+```c
+// Simplified version of heap_inplace_lock
+bool heap_inplace_lock(Relation relation, HeapTuple oldtup_ptr, Buffer buffer,
+                       void (*release_callback)(void *), void *arg) {
+    HeapTuple oldtup = *oldtup_ptr;
+    TM_Result result;
+    bool ret;
+
+    // Assert checks and acquire locks
+    Assert(BufferIsValid(buffer));
+    LockTuple(relation, &oldtup.t_self, InplaceUpdateTupleLock);
+    LockBuffer(buffer, BUFFER_LOCK_EXCLUSIVE);
+
+    // Check tuple state compatibility with inplace update
+    result = HeapTupleSatisfiesUpdate(&oldtup, GetCurrentCommandId(false), buffer);
+
+    // Handle different tuple states
+    if (result == TM_Invisible) {
+        // Error: Cannot update invisible tuple
+        ereport(ERROR, "attempted to overwrite invisible tuple");
+    }
+    else if (result == TM_SelfModified) {
+        // Error: Already modified by current command
+        ereport(ERROR, "tuple already modified by current command");
+    }
+    else if (result == TM_BeingModified) {
+        // Tuple is being modified by another transaction
+        TransactionId xwait = HeapTupleHeaderGetRawXmax(oldtup.t_data);
+        uint16 infomask = oldtup.t_data->t_infomask;
+
+        if (infomask & HEAP_XMAX_IS_MULTI) {
+            // Handle MultiXact case - check for conflicts
+            if (DoesMultiXactIdConflict(xwait, infomask, LockTupleNoKeyExclusive, NULL)) {
+                // Conflict detected - release locks and wait
+                LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+                release_callback(arg);
+                ret = false;
+                MultiXactIdWait(xwait, MultiXactStatusNoKeyUpdate, infomask,
+                               relation, &oldtup.t_self, XLTW_Update, NULL);
+            } else {
+                ret = true;  // No conflict, can proceed
+            }
+        }
+        else if (TransactionIdIsCurrentTransactionId(xwait) ||
+                 HEAP_XMAX_IS_KEYSHR_LOCKED(infomask)) {
+            // Current transaction or key share lock - compatible
+            ret = true;
+        }
+        else {
+            // Other transaction update - release locks and wait
+            LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+            release_callback(arg);
+            ret = false;
+            XactLockTableWait(xwait, relation, &oldtup.t_self, XLTW_Update);
+        }
+    }
+    else {
+        // TM_Ok, TM_Updated, TM_Deleted cases
+        ret = (result == TM_Ok);
+        if (!ret) {
+            LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+            release_callback(arg);
+        }
+    }
+
+    // Clean up if we had to wait
+    if (!ret) {
+        UnlockTuple(relation, &oldtup.t_self, InplaceUpdateTupleLock);
+        InvalidateCatalogSnapshot();
+    }
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Removed extensive comments explaining theoretical background
+- Simplified MultiXact handling into clear conditional logic
+- Consolidated error handling patterns
+- Removed debug-only assertions for relation checks
+- Streamlined variable declarations and logic flow
+- Abstracted complex macro operations with descriptive comments
+- Focused on the core algorithm: lock → check compatibility → wait or proceed

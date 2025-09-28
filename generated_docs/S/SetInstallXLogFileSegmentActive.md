@@ -38,3 +38,25 @@ WAL file recycling and preallocation help improve performance by reusing existin
 - The exclusive lock ensures atomic updates to prevent race conditions
 - Location: src/backend/access/transam/xlog.c:9500-9507
 - Part of the WAL management infrastructure for performance optimization
+
+## Simplified Source
+
+```c
+// Simplified version of SetInstallXLogFileSegmentActive
+void SetInstallXLogFileSegmentActive(void) {
+    // Acquire exclusive lock to ensure thread-safe access
+    LWLockAcquire(ControlFileLock, LW_EXCLUSIVE);
+
+    // Enable WAL file recycling and preallocation
+    XLogCtl->InstallXLogFileSegmentActive = true;
+
+    // Release the lock
+    LWLockRelease(ControlFileLock);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Maintained original simple structure (function was already concise)
+- Clarified the purpose of lock acquisition and flag setting
+- No significant logic reduction needed due to function's simplicity

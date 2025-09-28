@@ -45,3 +45,28 @@ The function includes a platform limitation check that prevents `sub_` from bein
 - Underflow behavior follows standard C arithmetic (wraps around for unsigned integers)
 - Frequently used in lock management and resource deallocation scenarios where you need to atomically decrement counts
 - The INT_MIN restriction is enforced by an assertion to prevent potential platform-specific issues
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_fetch_sub_u32
+static inline uint32
+pg_atomic_fetch_sub_u32(volatile pg_atomic_uint32 *ptr, int32 sub_)
+{
+    // Ensure pointer is properly aligned for atomic operations
+    AssertPointerAlignment(ptr, 4);
+
+    // Prevent INT_MIN which can cause platform-specific issues
+    Assert(sub_ != INT_MIN);
+
+    // Delegate to platform-specific implementation
+    return pg_atomic_fetch_sub_u32_impl(ptr, sub_);
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic as the function is already quite minimal
+- Added descriptive comments for each assertion and operation
+- Maintained the critical platform limitation check for INT_MIN
+- Kept the delegation pattern to the platform-specific implementation
+- Function serves as a safe wrapper around the actual atomic implementation

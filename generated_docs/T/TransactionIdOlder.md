@@ -33,3 +33,27 @@ The function is essential for operations that need to find the earliest transact
 - Extensively used in visibility computation and snapshot management
 - The function relies on TransactionIdPrecedes for the core comparison logic, which handles PostgreSQL's circular transaction ID space correctly
 - Critical for determining transaction visibility boundaries and garbage collection thresholds
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionIdOlder
+static inline TransactionId TransactionIdOlder(TransactionId a, TransactionId b) {
+    // Handle invalid transaction IDs: return the valid one if only one is valid
+    if (!TransactionIdIsValid(a))
+        return b;
+
+    if (!TransactionIdIsValid(b))
+        return a;
+
+    // Both IDs are valid: return the chronologically older one
+    if (TransactionIdPrecedes(a, b))
+        return a;
+    return b;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- No actual simplification needed as the original code is already minimal and clear
+- Preserved all essential logic for handling invalid transaction IDs and comparison

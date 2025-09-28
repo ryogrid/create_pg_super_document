@@ -34,4 +34,30 @@ The function performs a two-step validation:
 ## Notes and Other Information
 - This is a static function within postgres.c, making it internal to the query execution module
 - Returns true only for single-statement lists containing transaction exit commands
-- Part of PostgreSQL's query execution flow where transaction boundaries need special handling\n- Used to optimize execution paths for transaction control statements
+- Part of PostgreSQL's query execution flow where transaction boundaries need special handling
+- Used to optimize execution paths for transaction control statements
+
+## Simplified Source
+
+```c
+// Simplified version of IsTransactionExitStmtList
+static bool IsTransactionExitStmtList(List *pstmts) {
+    // Check if list contains exactly one statement
+    if (list_length(pstmts) == 1) {
+        PlannedStmt *pstmt = linitial_node(PlannedStmt, pstmts);
+
+        // Check if it's a utility command that exits a transaction
+        if (pstmt->commandType == CMD_UTILITY &&
+            IsTransactionExitStmt(pstmt->utilityStmt)) {
+            return true;
+        }
+    }
+    return false;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the two main logic steps
+- Preserved the original structure as it's already quite clean and readable
+- No major simplifications needed - the function is straightforward with clear conditional logic
+- Maintained all essential functionality and error checking

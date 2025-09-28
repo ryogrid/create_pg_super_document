@@ -36,3 +36,19 @@ The function works by extracting the XID portion from the current transaction st
 - This function is safe to call when unsure if a transaction is active or has an assigned XID
 - Returns InvalidTransactionId rather than forcing XID assignment, making it suitable for conditional operations
 - Located in src/backend/access/transam/xact.c:468-479
+
+## Simplified Source
+
+```c
+// Simplified version of GetCurrentTransactionIdIfAny
+TransactionId GetCurrentTransactionIdIfAny(void) {
+    // Extract and return XID from current transaction state
+    // Returns InvalidTransactionId if no transaction is active or no XID assigned
+    return XidFromFullTransactionId(CurrentTransactionState->fullTransactionId);
+}
+```
+
+Key simplifications made:
+- Function is already quite simple, containing only one line of core logic
+- Added explanatory comments to clarify the return behavior
+- No significant simplification needed as the original is already minimal and clear

@@ -40,3 +40,29 @@ The memory barrier semantics make this function more expensive than the regular 
 - This function is part of PostgreSQL's portable atomic operations interface, providing consistent behavior across different platforms and architectures
 - The volatile qualifier on the pointer parameter prevents compiler optimizations that might eliminate or cache the memory access
 - Should be used when memory ordering guarantees are required, otherwise `pg_atomic_write_u64` may be more efficient
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_write_membarrier_u64
+static inline void
+pg_atomic_write_membarrier_u64(volatile pg_atomic_uint64 *ptr, uint64 val)
+{
+    // Ensure pointer is properly aligned (8-byte boundary for 64-bit atomics)
+    // Only checked when not using simulation-based atomic operations
+    assert_pointer_alignment(ptr, 8);
+
+    // Perform atomic write with memory barrier semantics
+    // This delegates to platform-specific implementation that ensures:
+    // 1. The write is atomic (indivisible)
+    // 2. Memory barriers prevent reordering of surrounding operations
+    pg_atomic_write_membarrier_u64_impl(ptr, val);
+}
+```
+
+Key simplifications made:
+- Simplified the conditional compilation check into a descriptive comment
+- Replaced `AssertPointerAlignment` with a more generic `assert_pointer_alignment` for clarity
+- Added inline comments explaining the two main responsibilities: alignment checking and atomic write
+- Preserved the essential function signature and core logic flow
+- Abstracted platform-specific details while maintaining the functional intent

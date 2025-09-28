@@ -54,3 +54,54 @@ This timeline initialization is crucial for maintaining WAL integrity and ensuri
 - Ensures no stale archive notification files exist for the new timeline segment
 - Critical for maintaining WAL continuity across timeline transitions
 - The function is designed to work before normal WAL writing is allowed, so locking considerations are minimal
+
+## Simplified Source
+
+```c
+// Simplified version of XLogInitNewTimeline
+static void
+XLogInitNewTimeline(TimeLineID endTLI, XLogRecPtr endOfLog, TimeLineID newTLI)
+{
+    char xlogfname[MAXFNAMELEN];
+    XLogSegNo endLogSegNo;
+    XLogSegNo startLogSegNo;
+
+    // Ensure we're actually switching to a different timeline
+    Assert(endTLI != newTLI);
+
+    // Update recovery tracking one final time
+    UpdateMinRecoveryPoint(InvalidXLogRecPtr, true);
+
+    // Calculate segment numbers for old and new timelines
+    XLByteToPrevSeg(endOfLog, endLogSegNo, wal_segment_size);
+    XLByteToSeg(endOfLog, startLogSegNo, wal_segment_size);
+
+    // Handle timeline switch based on whether it occurs mid-segment or at boundary
+    if (endLogSegNo == startLogSegNo) {
+        // Mid-segment switch: copy partial data from old timeline
+        XLogFileCopy(newTLI, endLogSegNo, endTLI, endLogSegNo,
+                     XLogSegmentOffset(endOfLog, wal_segment_size));
+    } else {
+        // Segment boundary switch: create new segment on new timeline
+        int fd = XLogFileInit(startLogSegNo, newTLI);
+
+        if (close(fd) != 0) {
+            XLogFileName(xlogfname, newTLI, startLogSegNo, wal_segment_size);
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not close file \"%s\": %m", xlogfname)));
+        }
+    }
+
+    // Clean up any stale archive status files for the new segment
+    XLogFileName(xlogfname, newTLI, startLogSegNo, wal_segment_size);
+    XLogArchiveCleanup(xlogfname);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added descriptive comments for each major logic section
+- Preserved essential error handling for file operations
+- Maintained the core branching logic for mid-segment vs boundary switches
+- Simplified complex comments into concise explanations
+- Kept all critical function calls and assertions

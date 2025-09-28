@@ -38,3 +38,32 @@ This policy-setting subroutine determines whether an error/log message should be
 - INFO messages are treated specially and bypass the client_min_messages threshold, always being sent to authenticated clients
 - Part of PostgreSQL's centralized error reporting policy system that separates server logging from client communication
 - Returns false when output destination is not DestRemote (local connections, file output, etc.)
+
+## Simplified Source
+
+```c
+// Simplified version of should_output_to_client
+static inline bool should_output_to_client(int elevel) {
+    // Only send messages to remote clients, never send LOG_SERVER_ONLY
+    if (whereToSendOutput == DestRemote && elevel != LOG_SERVER_ONLY) {
+        // During authentication: only send ERROR and higher severity
+        if (ClientAuthInProgress) {
+            return (elevel >= ERROR);
+        }
+        // After authentication: honor client_min_messages, but always send INFO
+        else {
+            return (elevel >= client_min_messages || elevel == INFO);
+        }
+    }
+
+    // Not a remote client connection
+    return false;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the three main logic branches
+- Preserved the exact conditional logic structure
+- Maintained all security-critical authentication checks
+- Kept the special handling for LOG_SERVER_ONLY and INFO messages
+- No actual code removal needed - function was already concise and well-structured

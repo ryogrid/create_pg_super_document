@@ -38,3 +38,22 @@ The function sets the output parameter *len to the namelen field from the Comman
 - This function provides better performance than calling GetCommandTagName() followed by strlen()
 - Used primarily in query completion string building and protocol message formatting where both name and length are required
 - The len parameter must not be NULL, as the function unconditionally dereferences it
+
+## Simplified Source
+
+```c
+// Simplified version of GetCommandTagNameAndLen
+const char *
+GetCommandTagNameAndLen(CommandTag commandTag, Size *len)
+{
+    // Look up the command tag entry in the behavior table
+    // and extract both name and pre-computed length
+    *len = tag_behavior[commandTag].namelen;
+    return tag_behavior[commandTag].name;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core logic
+- The function is already quite simple - it performs a single array lookup
+- No simplification was needed as the original is already minimal and efficient

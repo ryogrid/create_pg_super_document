@@ -45,3 +45,28 @@ The function is implemented as an inline wrapper around the platform-specific im
 - This function is part of PostgreSQL's portable atomic operations interface, providing consistent behavior across different platforms and architectures
 - The volatile qualifier on the pointer parameter prevents compiler optimizations that might eliminate or cache the memory access
 - Essential for implementing wait-free and lock-free data structures
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_compare_exchange_u64
+static inline bool
+pg_atomic_compare_exchange_u64(volatile pg_atomic_uint64 *ptr,
+                               uint64 *expected, uint64 newval)
+{
+    // Ensure proper 8-byte alignment for atomic operations
+    // (only when not using simulation mode)
+    assert_pointer_aligned(ptr, 8);
+
+    // Delegate to platform-specific atomic compare-and-swap implementation
+    // Returns true if swap occurred, false if comparison failed
+    return pg_atomic_compare_exchange_u64_impl(ptr, expected, newval);
+}
+```
+
+Key simplifications made:
+- Replaced conditional compilation directive with descriptive comment
+- Simplified AssertPointerAlignment to generic assert_pointer_aligned comment
+- Added inline comments explaining the core logic flow
+- Maintained the essential compare-and-swap semantics
+- Preserved the function signature and return behavior

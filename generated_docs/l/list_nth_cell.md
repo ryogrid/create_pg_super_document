@@ -38,3 +38,24 @@ The function operates on PostgreSQL's internal List data structure, returning a 
 - Expected to be used in contexts where bounds have already been verified
 - The function will cause an assertion failure in debug builds if invalid parameters are provided
 - Critical building block for PostgreSQL's list-based data structures throughout the codebase
+
+## Simplified Source
+
+```c
+// Simplified version of list_nth_cell
+static inline ListCell *
+list_nth_cell(const List *list, int n)
+{
+    // Validate input parameters
+    Assert(list != NIL && n >= 0 && n < list->length);
+
+    // Return direct array access to the nth element
+    return &list->elements[n];
+}
+```
+
+Key simplifications made:
+- Combined multiple assertions into a single validation check
+- Added clearer comments describing the validation and access steps
+- Preserved the essential array indexing logic
+- Maintained the inline optimization and return type

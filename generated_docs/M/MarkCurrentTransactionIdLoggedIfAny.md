@@ -32,3 +32,22 @@ The function performs a safety check using  to verify that a transaction ID exis
 - Only modifies transaction state if a valid transaction ID has been assigned
 - Critical for maintaining consistency between transaction state and WAL records
 - Located in src/backend/access/transam/xact.c:538-555
+
+## Simplified Source
+
+```c
+// Simplified version of MarkCurrentTransactionIdLoggedIfAny
+void MarkCurrentTransactionIdLoggedIfAny(void) {
+    // Check if current transaction has a valid ID assigned
+    if (FullTransactionIdIsValid(CurrentTransactionState->fullTransactionId)) {
+        // Mark that this transaction ID has been logged to WAL
+        CurrentTransactionState->didLogXid = true;
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the validation check
+- Added comment explaining the purpose of setting didLogXid flag
+- No actual code simplification needed - this function is already very concise
+- Preserved the essential conditional logic and state update

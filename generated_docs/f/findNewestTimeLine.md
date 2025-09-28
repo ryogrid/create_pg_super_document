@@ -35,3 +35,33 @@ An important guarantee provided by this function is that (result + 1) represents
 - Used primarily during recovery operations and standby promotion scenarios
 - The search is performed by probing timeline history files rather than examining WAL files directly
 - Located in src/backend/access/transam/timeline.c:264-303
+
+## Simplified Source
+
+```c
+// Simplified version of findNewestTimeLine
+TimeLineID findNewestTimeLine(TimeLineID startTLI) {
+    TimeLineID newestTLI = startTLI;
+    TimeLineID probeTLI;
+
+    // Probe sequentially for timeline history files starting from startTLI + 1
+    for (probeTLI = startTLI + 1; ; probeTLI++) {
+        if (existsTimeLineHistory(probeTLI)) {
+            // Timeline exists, update our newest found timeline
+            newestTLI = probeTLI;
+        } else {
+            // Timeline doesn't exist, we've found the end
+            break;
+        }
+    }
+
+    return newestTLI;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic explanation
+- Consolidated the core algorithm into a clear sequential probe loop
+- Maintained the original variable names for clarity
+- Preserved the essential guarantee that (result + 1) is safe for new timeline assignment
+- Simplified control flow while keeping the exact same functional behavior

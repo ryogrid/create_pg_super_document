@@ -34,3 +34,18 @@ The function is straightforward: it returns true if the address is greater than 
 - Returns false for NULL pointers or any address outside the shared memory bounds
 - Commonly used for debugging and assertion checks in shared memory management code
 - The address range check uses inclusive lower bound and exclusive upper bound [ShmemBase, ShmemEnd)
+
+## Simplified Source
+
+```c
+// Simplified version of ShmemAddrIsValid
+bool ShmemAddrIsValid(const void *addr) {
+    // Check if address falls within shared memory bounds
+    return (addr >= ShmemBase) && (addr < ShmemEnd);
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already extremely simple and clear
+- Original code contains only essential boundary checking logic
+- Function performs a straightforward range validation with no complex operations

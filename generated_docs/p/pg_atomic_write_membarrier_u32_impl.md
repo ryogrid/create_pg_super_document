@@ -34,3 +34,22 @@ This is a generic implementation of atomic write with memory barrier that ensure
 - Located in src/include/port/atomics/generic.h as part of the generic atomic operations implementation
 - The memory barrier semantics ensure that this write operation is properly synchronized and visible to other threads
 - Uses sequential consistency semantics (__ATOMIC_SEQ_CST) for the strongest memory ordering guarantees
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_write_membarrier_u32_impl
+static inline void
+pg_atomic_write_membarrier_u32_impl(volatile pg_atomic_uint32 *ptr, uint32 val)
+{
+    // Perform atomic write with memory barrier by using exchange operation
+    // The old value is discarded - we only care about the atomic write semantics
+    (void) pg_atomic_exchange_u32_impl(ptr, val);
+}
+```
+
+Key simplifications made:
+- Added explanatory comment describing the purpose of using exchange for atomic write
+- Clarified that the old value from exchange is intentionally discarded
+- Preserved the exact logic as the function is already quite simple
+- Maintained the inline and volatile semantics which are essential for correctness

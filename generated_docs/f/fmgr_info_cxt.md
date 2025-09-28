@@ -41,3 +41,19 @@ Like fmgr_info, this function is a wrapper around fmgr_info_cxt_security, but it
 - The specified memory context must be long-lived enough to support the intended lifetime of the FmgrInfo struct
 - Does not perform security checking - use fmgr_info_cxt_security directly if security validation is needed
 - Critical for preventing memory leaks in scenarios where FmgrInfo structs are cached or stored persistently
+
+## Simplified Source
+
+```c
+// Simplified version of fmgr_info_cxt
+void fmgr_info_cxt(Oid functionId, FmgrInfo *finfo, MemoryContext mcxt) {
+    // Delegate to the main function with security checking disabled
+    fmgr_info_cxt_security(functionId, finfo, mcxt, false);
+}
+```
+
+Key simplifications made:
+- This function is already minimal - it's a simple wrapper that delegates to fmgr_info_cxt_security
+- The function exists to provide a public interface with a specific memory context parameter
+- Security checking is disabled (false parameter) for this public wrapper
+- All the complex logic for function lookup, builtin handling, and language-specific initialization happens in fmgr_info_cxt_security

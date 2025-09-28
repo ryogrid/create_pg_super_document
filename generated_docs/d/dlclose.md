@@ -33,3 +33,28 @@ The `dlclose` function is PostgreSQL's Windows implementation of the standard PO
 - The handle parameter should be a valid `HMODULE` obtained from a previous `dlopen()` call
 - Attempting to close an invalid handle will result in an error being set and a return value of 1
 - This function is part of PostgreSQL's portable dynamic loading interface that allows the same code to work on both Unix-like systems and Windows
+
+## Simplified Source
+
+```c
+// Simplified version of dlclose
+int dlclose(void *handle) {
+    // Attempt to free the Windows library handle
+    if (!FreeLibrary((HMODULE) handle)) {
+        // Set error information and return failure
+        set_dl_error();
+        return 1;
+    }
+
+    // Clear any previous error message on success
+    last_dyn_error[0] = 0;
+    return 0;  // Success
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Preserved the essential error handling logic
+- Maintained the original control flow and return values
+- Clarified the Windows-specific `FreeLibrary` operation
+- Kept the error clearing mechanism on success

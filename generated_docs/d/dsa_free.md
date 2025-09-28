@@ -52,3 +52,82 @@ The function maintains proper memory management by tracking object allocation st
 - The active span in fullness class 1 is preserved even when empty to avoid allocation/deallocation thrashing
 - Large object spans are handled specially with direct page manager interaction
 - Recursive freeing is used for large allocation span objects
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_free
+void dsa_free(dsa_area *area, dsa_pointer dp)
+{
+    dsa_segment_map *segment_map;
+    int pageno;
+    dsa_pointer span_pointer;
+    dsa_area_span *span;
+    char *object;
+    size_t size;
+    int size_class;
+
+    // Ensure no stale segments exist
+    check_for_freed_segments(area);
+
+    // Locate the object and its containing span
+    segment_map = get_segment_by_index(area, DSA_EXTRACT_SEGMENT_NUMBER(dp));
+    pageno = DSA_EXTRACT_OFFSET(dp) / FPM_PAGE_SIZE;
+    span_pointer = segment_map->pagemap[pageno];
+    span = dsa_get_address(area, span_pointer);
+    object = dsa_get_address(area, dp);
+    size_class = span->size_class;
+    size = dsa_size_classes[size_class];
+
+    // Handle large objects specially
+    if (span->size_class == DSA_SCLASS_SPAN_LARGE) {
+        // Return pages directly to free page manager
+        LWLockAcquire(DSA_AREA_LOCK(area), LW_EXCLUSIVE);
+        FreePageManagerPut(segment_map->fpm,
+                          DSA_EXTRACT_OFFSET(span->start) / FPM_PAGE_SIZE,
+                          span->npages);
+        rebin_segment(area, segment_map);
+        LWLockRelease(DSA_AREA_LOCK(area));
+
+        // Unlink and free the span
+        LWLockAcquire(DSA_SCLASS_LOCK(area, DSA_SCLASS_SPAN_LARGE), LW_EXCLUSIVE);
+        unlink_span(area, span);
+        LWLockRelease(DSA_SCLASS_LOCK(area, DSA_SCLASS_SPAN_LARGE));
+
+        // Recursively free the span object
+        dsa_free(area, span_pointer);
+        return;
+    }
+
+    // Handle regular objects
+    LWLockAcquire(DSA_SCLASS_LOCK(area, size_class), LW_EXCLUSIVE);
+
+    // Add object back to span's freelist
+    NextFreeObjectIndex(object) = span->firstfree;
+    span->firstfree = (object - superblock) / size;
+    ++span->nallocatable;
+
+    // Move span to appropriate fullness class if needed
+    if (span->nallocatable == 1 && span->fclass == DSA_FULLNESS_CLASSES - 1) {
+        // Move from completely full class to next lower class
+        unlink_span(area, span);
+        add_span_to_fullness_class(area, span, span_pointer, DSA_FULLNESS_CLASSES - 2);
+    }
+    else if (span->nallocatable == span->nmax &&
+             (span->fclass != 1 || span->prevspan != InvalidDsaPointer)) {
+        // Span is completely empty and not the active span - destroy it
+        destroy_superblock(area, span_pointer);
+    }
+
+    LWLockRelease(DSA_SCLASS_LOCK(area, size_class));
+}
+```
+
+Key simplifications made:
+- Removed debug memory clobbering code (CLOBBER_FREED_MEMORY sections)
+- Simplified variable declarations by removing some intermediate variables
+- Removed detailed assertions and safety checks for clarity
+- Consolidated comments to focus on main logic flow
+- Abstracted complex pointer arithmetic and offset calculations
+- Removed detailed comments about hysteresis prevention while preserving the logic
+- Streamlined the fullness class management logic presentation

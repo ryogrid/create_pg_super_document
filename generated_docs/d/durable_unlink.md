@@ -38,3 +38,32 @@ This approach guarantees that once the function returns successfully, the file d
 - Much simpler than durable_rename as it only needs to sync the parent directory after deletion
 - Critical for ensuring that old WAL files and other temporary files are properly removed in a crash-safe manner
 - The parent directory fsync ensures that the directory metadata changes (removing the file entry) are persistent
+
+## Simplified Source
+
+```c
+// Simplified version of durable_unlink
+int durable_unlink(const char *fname, int elevel) {
+    // Step 1: Remove the file using standard unlink
+    if (unlink(fname) < 0) {
+        ereport(elevel,
+                (errcode_for_file_access(),
+                 errmsg("could not remove file \"%s\": %m", fname)));
+        return -1;
+    }
+
+    // Step 2: Sync parent directory to ensure deletion persists
+    // This guarantees crash safety by making the directory change durable
+    if (fsync_parent_path(fname, elevel) != 0)
+        return -1;
+
+    return 0;
+}
+```
+
+Key simplifications made:
+- Preserved the essential two-step algorithm: unlink + parent directory sync
+- Maintained error handling structure with ereport and return codes
+- Added clarifying comments explaining the crash safety guarantee
+- Retained the critical fsync_parent_path call that provides durability
+- Simplified formatting while preserving all functional logic

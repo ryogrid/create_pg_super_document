@@ -45,3 +45,32 @@ A critical requirement is that the exit condition must be tested between calling
 - Uses MyProcNumber to identify the current process
 - More efficient for scenarios expecting multiple sleep cycles
 - Process remains in wait queue until explicitly removed by sleep/cancel operations
+
+## Simplified Source
+
+```c
+// Simplified version of ConditionVariablePrepareToSleep
+void ConditionVariablePrepareToSleep(ConditionVariable *cv) {
+    int pgprocno = MyProcNumber;
+
+    // Cancel any previous prepared sleep for this process
+    if (cv_sleep_target != NULL) {
+        ConditionVariableCancelSleep();
+    }
+
+    // Record which condition variable we'll sleep on
+    cv_sleep_target = cv;
+
+    // Add this process to the condition variable's wait queue
+    SpinLockAcquire(&cv->mutex);
+    proclist_push_tail(&cv->wakeup, pgprocno, cvWaitLink);
+    SpinLockRelease(&cv->mutex);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining the rationale (preserved in main docs)
+- Kept essential logic flow: cancel previous sleep, record target, add to queue
+- Maintained critical spinlock protection around queue modification
+- Preserved all functional behavior while making code more readable
+- Condensed variable usage explanation into brief inline comments

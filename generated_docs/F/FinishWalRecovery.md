@@ -47,3 +47,83 @@ This function takes no parameters but returns detailed recovery completion infor
 - Closes open WAL files on Windows to prevent file system issues
 - Maintains recovery signal file status for proper post-recovery cleanup
 - Critical for ensuring database consistency during recovery-to-normal operation transition
+
+## Simplified Source
+
+```c
+// Simplified version of FinishWalRecovery
+EndOfWalRecoveryInfo *
+FinishWalRecovery(void)
+{
+    EndOfWalRecoveryInfo *result = palloc(sizeof(EndOfWalRecoveryInfo));
+    XLogRecPtr lastRec, endOfLog;
+    TimeLineID lastRecTLI;
+
+    // Step 1: Shutdown recovery components to prevent interference
+    XLogShutdownWalRcv();      // Kill WAL receiver
+    ShutDownSlotSync();        // Stop slot synchronization
+    StandbyMode = false;       // Exit standby mode
+
+    // Step 2: Determine where to start writing new WAL
+    if (!InRecovery) {
+        // Use checkpoint location if not in recovery
+        lastRec = CheckPointLoc;
+        lastRecTLI = CheckPointTLI;
+    } else {
+        // Use last replayed record from recovery
+        lastRec = XLogRecoveryCtl->lastReplayedReadRecPtr;
+        lastRecTLI = XLogRecoveryCtl->lastReplayedTLI;
+    }
+
+    // Re-read the last record to get exact endpoint
+    XLogPrefetcherBeginRead(xlogprefetcher, lastRec);
+    ReadRecord(xlogprefetcher, PANIC, false, lastRecTLI);
+    endOfLog = xlogreader->EndRecPtr;
+
+    // Step 3: Clean up archive recovery state
+    if (ArchiveRecoveryRequested) {
+        InArchiveRecovery = false;
+        if (readFile >= 0) {
+            close(readFile);
+            readFile = -1;
+        }
+    }
+
+    // Step 4: Handle partial WAL page for writing continuation
+    if (endOfLog % XLOG_BLCKSZ != 0) {
+        // Copy partial last page for WAL buffer initialization
+        XLogRecPtr pageBeginPtr = endOfLog - (endOfLog % XLOG_BLCKSZ);
+        int len = endOfLog % XLOG_BLCKSZ;
+        char *page = palloc(len);
+        memcpy(page, xlogreader->readBuf, len);
+
+        result->lastPageBeginPtr = pageBeginPtr;
+        result->lastPage = page;
+    } else {
+        // No partial page to copy
+        result->lastPageBeginPtr = endOfLog;
+        result->lastPage = NULL;
+    }
+
+    // Step 5: Populate result structure
+    result->endOfLogTLI = xlogreader->seg.ws_tli;
+    result->recoveryStopReason = getRecoveryStopReason();
+    result->lastRec = lastRec;
+    result->lastRecTLI = lastRecTLI;
+    result->endOfLog = endOfLog;
+    result->abortedRecPtr = abortedRecPtr;
+    result->missingContrecPtr = missingContrecPtr;
+    result->standby_signal_file_found = standby_signal_file_found;
+    result->recovery_signal_file_found = recovery_signal_file_found;
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated into step-by-step flow
+- Simplified variable declarations by grouping related ones
+- Abstracted complex memory operations into clear logical steps
+- Consolidated conditional logic for better readability
+- Preserved all essential functionality and error handling
+- Maintained the core algorithm: shutdown → determine endpoint → cleanup → handle partial page → return results

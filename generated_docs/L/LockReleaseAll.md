@@ -81,3 +81,134 @@ Key features:
 - Located in src/backend/storage/lmgr/lock.c at lines 2169-2443
 - Critical for transaction abort/commit cleanup and session termination
 - Optimizes empty partition scanning to avoid unnecessary lock acquisition
+
+## Simplified Source
+
+```c
+// Simplified version of LockReleaseAll
+void LockReleaseAll(LOCKMETHODID lockmethodid, bool allLocks)
+{
+    LOCALLOCK  *locallock;
+    LOCK       *lock;
+    int         partition;
+    bool        have_fast_path_lwlock = false;
+
+    // Validate lock method ID
+    if (lockmethodid <= 0 || lockmethodid >= lengthof(LockMethods))
+        elog(ERROR, "unrecognized lock method: %d", lockmethodid);
+
+    LockMethod lockMethodTable = LockMethods[lockmethodid];
+
+    // Special cleanup for virtual transaction locks
+    if (lockmethodid == DEFAULT_LOCKMETHOD)
+        VirtualXactLockTableCleanup();
+
+    // Phase 1: Process local lock table entries
+    hash_seq_init(&status, LockMethodLocalHash);
+    while ((locallock = hash_seq_search(&status)) != NULL)
+    {
+        // Skip unused or wrong lock method entries
+        if (locallock->nLocks == 0 ||
+            LOCALLOCK_LOCKMETHOD(*locallock) != lockmethodid) {
+            if (locallock->nLocks == 0)
+                RemoveLocalLock(locallock);
+            continue;
+        }
+
+        // Handle session vs transaction locks
+        if (!allLocks) {
+            // Keep only session locks (owner == NULL)
+            process_session_locks(locallock);
+            if (has_session_locks(locallock))
+                continue; // Keep this lock
+        }
+
+        // Handle fast-path locks (relation locks)
+        if (locallock->proclock == NULL || locallock->lock == NULL) {
+            if (!have_fast_path_lwlock) {
+                LWLockAcquire(&MyProc->fpInfoLock, LW_EXCLUSIVE);
+                have_fast_path_lwlock = true;
+            }
+
+            // Try fast-path release
+            if (FastPathUnGrantRelationLock(relid, lockmode)) {
+                RemoveLocalLock(locallock);
+                continue;
+            }
+
+            // Fast-path failed, need to use main lock table
+            LWLockRelease(&MyProc->fpInfoLock);
+            have_fast_path_lwlock = false;
+            LockRefindAndRelease(lockMethodTable, MyProc,
+                               &locallock->tag.lock, lockmode, false);
+        } else {
+            // Mark normal locks for release
+            if (locallock->nLocks > 0)
+                locallock->proclock->releaseMask |= LOCKBIT_ON(locallock->tag.mode);
+        }
+
+        RemoveLocalLock(locallock);
+    }
+
+    // Release fast-path lock if still held
+    if (have_fast_path_lwlock)
+        LWLockRelease(&MyProc->fpInfoLock);
+
+    // Phase 2: Process shared lock table by partition
+    for (partition = 0; partition < NUM_LOCK_PARTITIONS; partition++)
+    {
+        dlist_head *procLocks = &MyProc->myProcLocks[partition];
+
+        // Skip empty partitions for efficiency
+        if (dlist_is_empty(procLocks))
+            continue;
+
+        LWLock *partitionLock = LockHashPartitionLockByIndex(partition);
+        LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+
+        // Process each proclock in this partition
+        dlist_foreach_modify(proclock_iter, procLocks)
+        {
+            PROCLOCK *proclock = dlist_container(PROCLOCK, procLink, proclock_iter.cur);
+            lock = proclock->tag.myLock;
+
+            // Skip wrong lock method
+            if (LOCK_LOCKMETHOD(*lock) != lockmethodid)
+                continue;
+
+            // Set release mask for all locks if allLocks mode
+            if (allLocks)
+                proclock->releaseMask = proclock->holdMask;
+
+            // Skip if nothing to release
+            if (proclock->releaseMask == 0 && proclock->holdMask != 0)
+                continue;
+
+            // Release each marked lock mode
+            bool wakeupNeeded = false;
+            for (int i = 1; i <= lockMethodTable->numLockModes; i++) {
+                if (proclock->releaseMask & LOCKBIT_ON(i))
+                    wakeupNeeded |= UnGrantLock(lock, i, proclock, lockMethodTable);
+            }
+
+            proclock->releaseMask = 0;
+
+            // Clean up and wake waiters if needed
+            CleanUpLock(lock, proclock, lockMethodTable,
+                       LockTagHashCode(&lock->tag), wakeupNeeded);
+        }
+
+        LWLockRelease(partitionLock);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and debug code for clarity
+- Consolidated session lock processing into helper function concepts
+- Abstracted complex lock owner manipulation logic
+- Simplified fast-path lock handling flow
+- Removed extensive assertions and debug prints
+- Consolidated similar processing patterns
+- Added high-level comments explaining the two-phase approach
+- Streamlined partition iteration and proclock processing

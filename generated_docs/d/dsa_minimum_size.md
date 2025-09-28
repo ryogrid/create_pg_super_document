@@ -40,3 +40,32 @@ None - this is a parameter-less function that returns a computed value.
 - Essential for determining buffer sizes when using dsa_create_in_place
 - Used internally by DSA creation functions to validate minimum size requirements
 - The calculation ensures all essential DSA structures can fit within the allocated space
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_minimum_size
+size_t dsa_minimum_size(void) {
+    size_t size;
+    int pages = 0;
+
+    // Start with basic control structures
+    size = MAXALIGN(sizeof(dsa_area_control)) +
+           MAXALIGN(sizeof(FreePageManager));
+
+    // Iteratively calculate pages needed, accounting for page map growth
+    while (((size + FPM_PAGE_SIZE - 1) / FPM_PAGE_SIZE) > pages) {
+        pages++;
+        size += sizeof(dsa_pointer);  // Each page needs a pointer in the map
+    }
+
+    // Return total size as multiple of page size
+    return pages * FPM_PAGE_SIZE;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the logic flow
+- Clarified the iterative calculation approach
+- Explained the circular dependency resolution between size and page count
+- Made variable purposes clearer with inline comments

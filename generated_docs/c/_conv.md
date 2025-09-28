@@ -44,3 +44,25 @@ _conv is extensively used throughout the _fmt function to format various timesta
 - The temporary buffer approach ensures thread safety as each call uses its own stack-allocated buffer
 - Essential building block for most numeric format specifiers in strftime
 - Format string parameter allows flexible numeric formatting (zero-padding, field width, etc.)
+
+## Simplified Source
+
+```c
+// Simplified version of _conv
+static char *_conv(int n, const char *format, char *pt, const char *ptlim) {
+    // Create buffer large enough for any integer string
+    char buf[INT_STRLEN_MAXIMUM(int) + 1];
+
+    // Format the integer according to the provided format string
+    sprintf(buf, format, n);
+
+    // Add the formatted string to the output buffer and return new position
+    return _add(buf, pt, ptlim);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Preserved the essential three-step algorithm: buffer allocation, formatting, and output
+- Maintained the original logic flow without any modifications
+- No simplifications were needed as the function is already very concise and clear

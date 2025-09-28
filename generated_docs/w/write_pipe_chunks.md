@@ -41,3 +41,52 @@ Each chunk includes a PipeProtoChunk header with destination information (stderr
 - The function deliberately ignores write() return values with void casting to suppress compiler warnings
 - Essential component of PostgreSQL's logging infrastructure when stderr redirection is active
 - Uses stderr file descriptor (fileno(stderr)) for all communication with syslogger
+
+## Simplified Source
+
+```c
+// Simplified version of write_pipe_chunks
+void write_pipe_chunks(char *data, int len, int dest) {
+    PipeProtoChunk chunk;
+    int fd = fileno(stderr);
+
+    // Initialize chunk header with process info
+    chunk.proto.nuls[0] = chunk.proto.nuls[1] = '\0';
+    chunk.proto.pid = MyProcPid;
+    chunk.proto.flags = 0;
+
+    // Set destination flags based on log type
+    if (dest == LOG_DESTINATION_STDERR)
+        chunk.proto.flags |= PIPE_PROTO_DEST_STDERR;
+    else if (dest == LOG_DESTINATION_CSVLOG)
+        chunk.proto.flags |= PIPE_PROTO_DEST_CSVLOG;
+    else if (dest == LOG_DESTINATION_JSONLOG)
+        chunk.proto.flags |= PIPE_PROTO_DEST_JSONLOG;
+
+    // Send data in chunks to ensure atomic writes
+    while (len > PIPE_MAX_PAYLOAD) {
+        // Send intermediate chunk
+        chunk.proto.len = PIPE_MAX_PAYLOAD;
+        memcpy(chunk.proto.data, data, PIPE_MAX_PAYLOAD);
+        write(fd, &chunk, PIPE_HEADER_SIZE + PIPE_MAX_PAYLOAD);
+
+        // Move to next chunk
+        data += PIPE_MAX_PAYLOAD;
+        len -= PIPE_MAX_PAYLOAD;
+    }
+
+    // Send final chunk with termination flag
+    chunk.proto.flags |= PIPE_PROTO_IS_LAST;
+    chunk.proto.len = len;
+    memcpy(chunk.proto.data, data, len);
+    write(fd, &chunk, PIPE_HEADER_SIZE + len);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments and void casting for clarity
+- Simplified variable names (p → chunk, rc removed)
+- Consolidated the chunk sending logic into clearer sections
+- Added brief descriptive comments for each major step
+- Removed platform-specific considerations and focused on core algorithm
+- Maintained the essential atomic write protocol and chunking logic

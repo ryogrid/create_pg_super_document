@@ -38,3 +38,20 @@ Important behavioral notes: If the input is just a filename with no directory co
 - May produce unexpected results with paths ending in ".." - consider using canonicalize_path() first
 - Primarily intended for use cases where the result will be passed to join_path_components()
 - Used extensively throughout PostgreSQL for path manipulation operations
+
+## Simplified Source
+
+```c
+// Simplified version of get_parent_directory
+void get_parent_directory(char *path) {
+    // Core logic: Remove the last directory component from the path
+    // This is a simple wrapper that delegates to trim_directory()
+    trim_directory(path);
+}
+```
+
+Key simplifications made:
+- Function is already minimal - it's just a wrapper around trim_directory()
+- Added explanatory comment about the core purpose
+- No simplification needed as the original is already very concise
+- The complexity lies in the trim_directory() function it calls

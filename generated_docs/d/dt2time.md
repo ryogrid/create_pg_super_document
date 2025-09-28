@@ -43,3 +43,33 @@ This function decomposes a Timestamp value into its constituent time components 
 - Used in both backend datetime processing and ECPG (Embedded SQL in C) interfaces
 - The function name "dt2time" suggests "datetime to time" conversion
 - No return value - all results are returned through pointer parameters
+
+## Simplified Source
+
+```c
+// Simplified version of dt2time
+void dt2time(Timestamp jd, int *hour, int *min, int *sec, fsec_t *fsec) {
+    TimeOffset time = jd;  // Copy timestamp for manipulation
+
+    // Extract hours by dividing total microseconds by microseconds per hour
+    *hour = time / USECS_PER_HOUR;
+    time -= (*hour) * USECS_PER_HOUR;  // Remove hours from remaining time
+
+    // Extract minutes from remaining time
+    *min = time / USECS_PER_MINUTE;
+    time -= (*min) * USECS_PER_MINUTE;  // Remove minutes from remaining time
+
+    // Extract whole seconds from remaining time
+    *sec = time / USECS_PER_SEC;
+
+    // Remaining time represents fractional seconds in microseconds
+    *fsec = time - (*sec * USECS_PER_SEC);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step of the algorithm
+- Combined variable declaration and initialization for clarity
+- Made the successive extraction pattern more explicit with comments
+- Clarified that the algorithm works by progressively extracting larger time units
+- Emphasized that the remainder represents fractional seconds in microseconds

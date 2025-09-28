@@ -39,3 +39,47 @@ This conversion is fundamental to WAL space management and is used extensively i
 - Handles both first page (long header) and subsequent page (short header) scenarios
 - Uses assertions to verify that offsets are at least as large as the expected page header sizes
 - Essential for maintaining the logical addressing abstraction that hides WAL page header complexity from higher-level code
+
+## Simplified Source
+
+```c
+// Simplified version of XLogRecPtrToBytePos
+static uint64 XLogRecPtrToBytePos(XLogRecPtr ptr) {
+    uint64 fullsegs;
+    uint32 fullpages;
+    uint32 offset;
+    uint64 result;
+
+    // Calculate complete segments in this WAL position
+    XLByteToSeg(ptr, fullsegs, wal_segment_size);
+
+    // Calculate complete pages within current segment
+    fullpages = (XLogSegmentOffset(ptr, wal_segment_size)) / XLOG_BLCKSZ;
+    offset = ptr % XLOG_BLCKSZ;
+
+    if (fullpages == 0) {
+        // First page of segment: use long page header size
+        result = fullsegs * UsableBytesInSegment;
+        if (offset > 0) {
+            result += offset - SizeOfXLogLongPHD;
+        }
+    } else {
+        // Subsequent pages: account for both long and short page headers
+        result = fullsegs * UsableBytesInSegment +
+                (XLOG_BLCKSZ - SizeOfXLogLongPHD) +           // first page
+                (fullpages - 1) * UsableBytesInPage;         // full pages
+        if (offset > 0) {
+            result += offset - SizeOfXLogShortPHD;
+        }
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity while noting the validation in comments
+- Added explanatory comments for each major calculation step
+- Preserved the two-path logic (first page vs subsequent pages) which is essential
+- Maintained original variable names as they are already descriptive
+- Consolidated the page header size handling logic with clearer comments

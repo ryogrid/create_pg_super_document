@@ -43,3 +43,45 @@ The function handles Windows-specific error mapping and provides proper POSIX-co
 - Part of PostgreSQL's effort to provide cross-platform POSIX compatibility
 - The data-only synchronization can provide performance benefits over full fsync in write-heavy scenarios where metadata changes are less frequent
 - Used internally by PostgreSQL's file descriptor management system through the  wrapper
+
+## Simplified Source
+
+```c
+// Simplified version of fdatasync - Windows implementation
+int fdatasync(int fd) {
+    IO_STATUS_BLOCK iosb;
+    NTSTATUS status;
+    HANDLE handle;
+
+    // Convert file descriptor to Windows handle
+    handle = (HANDLE) _get_osfhandle(fd);
+    if (handle == INVALID_HANDLE_VALUE) {
+        errno = EBADF;
+        return -1;
+    }
+
+    // Initialize NT DLL functions if needed
+    if (initialize_ntdll() < 0)
+        return -1;
+
+    // Flush only file data (not metadata) to storage
+    memset(&iosb, 0, sizeof(iosb));
+    status = pg_NtFlushBuffersFileEx(handle,
+                                    FLUSH_FLAGS_FILE_DATA_SYNC_ONLY,
+                                    NULL, 0, &iosb);
+
+    // Return success or map error to POSIX errno
+    if (NT_SUCCESS(status))
+        return 0;
+
+    _dosmaperr(pg_RtlNtStatusToDosError(status));
+    return -1;
+}
+```
+
+Key simplifications made:
+- Consolidated error handling logic for clarity
+- Added descriptive comments explaining each major step
+- Maintained the essential Windows-specific implementation details
+- Preserved the data-only synchronization semantics that distinguish fdatasync from fsync
+- Kept critical error mapping between Windows and POSIX error codes

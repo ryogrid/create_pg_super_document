@@ -42,3 +42,47 @@ Unlike AllocateFile which uses stdio buffering, this function provides direct ac
 - All opened file descriptors are stored in the allocatedDescs array with metadata including the creating subtransaction ID
 - Returns -1 on failure, following standard UNIX convention for file operations
 - The 'Perm' suffix indicates this variant allows explicit permission specification for file creation
+
+## Simplified Source
+
+```c
+// Simplified version of OpenTransientFilePerm
+int OpenTransientFilePerm(const char *fileName, int fileFlags, mode_t fileMode) {
+    // Debug logging (optional)
+    DO_DB(elog(LOG, "OpenTransientFile: Allocated %d (%s)", numAllocatedDescs, fileName));
+
+    // Check if we can allocate another file descriptor
+    if (!reserveAllocatedDesc()) {
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_RESOURCES),
+                       errmsg("exceeded maxAllocatedDescs (%d) while trying to open file \"%s\"",
+                              maxAllocatedDescs, fileName)));
+    }
+
+    // Free up file descriptors if needed
+    ReleaseLruFiles();
+
+    // Actually open the file
+    fd = BasicOpenFilePerm(fileName, fileFlags, fileMode);
+
+    if (fd >= 0) {
+        // Track the opened file descriptor
+        AllocateDesc *desc = &allocatedDescs[numAllocatedDescs];
+        desc->kind = AllocateDescRawFD;
+        desc->desc.fd = fd;
+        desc->create_subid = GetCurrentSubTransactionId();
+        numAllocatedDescs++;
+
+        return fd;
+    }
+
+    return -1;  // File open failed
+}
+```
+
+Key simplifications made:
+- Preserved essential error handling for resource limits
+- Maintained core logic flow: check limits → free resources → open file → track descriptor
+- Added descriptive comments for each major step
+- Kept transaction tracking for proper cleanup
+- Simplified variable declarations while preserving functionality
+- Maintained standard UNIX return convention (-1 for failure)

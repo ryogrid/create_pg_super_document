@@ -31,3 +31,18 @@ This is a policy-setting subroutine that provides a centralized decision point f
 - The function is part of PostgreSQL's centralized error logging policy system located in src/backend/utils/error/elog.c
 - The decision logic handles the special case where LOG messages sort between ERROR and FATAL in the severity hierarchy, rather than using simple numeric comparison
 - Used specifically for server-side logging decisions; client output decisions are handled by the separate `should_output_to_client` function
+
+## Simplified Source
+
+```c
+// Simplified version of should_output_to_server
+static inline bool should_output_to_server(int elevel) {
+    // Check if message level meets minimum threshold for server logging
+    return is_log_level_output(elevel, log_min_messages);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - no simplification needed beyond adding explanatory comment
+- Preserved the single line of core logic that delegates to `is_log_level_output`
+- Added comment to clarify the purpose of the threshold check

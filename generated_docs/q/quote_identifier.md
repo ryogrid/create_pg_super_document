@@ -44,3 +44,85 @@ quote_identifier analyzes a SQL identifier string and determines whether it need
 - Critical for maintaining SQL standard compliance in identifier handling
 - Performance optimized with early checks for simple safe cases
 - Located in src/backend/utils/adt/ruleutils.c:12699-12782
+
+## Simplified Source
+
+```c
+// Simplified version of quote_identifier
+const char *
+quote_identifier(const char *ident)
+{
+    int nquotes = 0;
+    bool safe;
+    const char *ptr;
+    char *result;
+    char *optr;
+
+    // Check if identifier starts with lowercase letter or underscore
+    safe = ((ident[0] >= 'a' && ident[0] <= 'z') || ident[0] == '_');
+
+    // Scan the identifier for safe characters
+    for (ptr = ident; *ptr; ptr++)
+    {
+        char ch = *ptr;
+
+        if ((ch >= 'a' && ch <= 'z') ||
+            (ch >= '0' && ch <= '9') ||
+            (ch == '_'))
+        {
+            // Safe character - continue
+        }
+        else
+        {
+            safe = false;
+            if (ch == '"')
+                nquotes++;  // Count quotes for proper escaping
+        }
+    }
+
+    // Force quoting if global setting requires it
+    if (quote_all_identifiers)
+        safe = false;
+
+    // Check if identifier is a reserved keyword
+    if (safe)
+    {
+        int kwnum = ScanKeywordLookup(ident, &ScanKeywords);
+        if (kwnum >= 0 && ScanKeywordCategories[kwnum] != UNRESERVED_KEYWORD)
+            safe = false;
+    }
+
+    // Return unchanged if safe
+    if (safe)
+        return ident;
+
+    // Allocate memory for quoted identifier (original + quotes + escaping)
+    result = (char *) palloc(strlen(ident) + nquotes + 2 + 1);
+
+    // Build quoted identifier with proper escaping
+    optr = result;
+    *optr++ = '"';  // Opening quote
+
+    for (ptr = ident; *ptr; ptr++)
+    {
+        char ch = *ptr;
+        if (ch == '"')
+            *optr++ = '"';  // Escape internal quotes by doubling
+        *optr++ = ch;
+    }
+
+    *optr++ = '"';  // Closing quote
+    *optr = '\0';   // Null terminator
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Preserved core logic flow for character validation and keyword checking
+- Maintained essential quoting rules and escaping logic
+- Kept critical safety checks and global setting handling
+- Added descriptive comments for each major logic section
+- Simplified variable declarations and loop structure
+- Preserved memory allocation and string building operations
+- Maintained proper quote escaping mechanism

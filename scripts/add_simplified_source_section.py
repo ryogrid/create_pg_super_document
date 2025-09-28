@@ -94,8 +94,7 @@ class FunctionSimplificationOrchestrator:
         """
         Check if simplified source section already exists in the markdown file.
         """
-        first_letter = function_name[0].upper()
-        doc_path = Path(f'generated_docs/{first_letter}/{function_name}.md')
+        doc_path = Path(f'generated_docs/{get_first_alnum_char(function_name)}/{function_name}.md')
         
         if not doc_path.exists():
             return False
@@ -110,7 +109,7 @@ class FunctionSimplificationOrchestrator:
         """
         Build the combined prompt for Claude that includes both main task and subagent logic.
         """
-        doc_path = f'generated_docs/{get_first_alnum_char(function_name)}/{function_name}.md'
+        doc_path = f'{doc_path}.md'
         
         prompt = f"""# Function Source Code Simplification Task
 

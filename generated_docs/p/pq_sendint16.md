@@ -41,3 +41,22 @@ static inline void pq_sendint16(StringInfo buf, uint16 i)
 - Handles network byte order conversion automatically
 - Used in both frontend and backend protocol communications
 - The 16-bit size makes it suitable for counts, lengths, and small numeric values in protocol messages
+
+## Simplified Source
+
+```c
+// Simplified version of pq_sendint16
+static inline void pq_sendint16(StringInfo buf, uint16 i) {
+    // Step 1: Ensure buffer has enough space for a 16-bit integer
+    enlargeStringInfo(buf, sizeof(uint16));
+
+    // Step 2: Write the integer in network byte order to the buffer
+    pq_writeint16(buf, i);
+}
+```
+
+Key simplifications made:
+- Function is already quite simple - minimal changes needed
+- Added comments explaining the two core steps
+- The original function is already optimized and straightforward
+- Both buffer enlargement and network byte order writing are abstracted into function calls

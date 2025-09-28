@@ -31,3 +31,18 @@ This function performs a simple but critical operation in PostgreSQL's logging i
 - Used across multiple logging formats (CSV, JSON) to ensure consistent timestamp handling
 - The reset operation is lightweight but essential for maintaining accurate logging timestamps
 - Part of PostgreSQL's error and logging subsystem (elog.c)
+
+## Simplified Source
+
+```c
+// Simplified version of reset_formatted_start_time
+void reset_formatted_start_time(void) {
+    // Clear the formatted start time buffer by setting first character to null terminator
+    formatted_start_time[0] = '\0';
+}
+```
+
+Key simplifications made:
+- Function is already very simple - only one operation
+- Added explanatory comment describing the buffer clearing operation
+- No simplification needed as the original code is already minimal and clear

@@ -36,3 +36,35 @@ This function examines the beginning of a string to determine if it starts with 
 - Assumes no fork name is a prefix of another fork name
 - Used for file system operations to identify relation fork files
 - Part of PostgreSQL's relation file management and directory scanning functionality
+
+## Simplified Source
+
+```c
+// Simplified version of forkname_chars
+int forkname_chars(const char *str, ForkNumber *fork) {
+    // Iterate through all non-main fork types (skip main fork at index 0)
+    for (ForkNumber forkNum = 1; forkNum <= MAX_FORKNUM; forkNum++) {
+        int len = strlen(forkNames[forkNum]);
+
+        // Check if string starts with this fork name
+        if (strncmp(forkNames[forkNum], str, len) == 0) {
+            // Found match - set output parameter and return length
+            if (fork)
+                *fork = forkNum;
+            return len;
+        }
+    }
+
+    // No fork name found at start of string
+    if (fork)
+        *fork = InvalidForkNumber;
+    return 0;
+}
+```
+
+Key simplifications made:
+- Preserved the core algorithm: iterate through fork names and check for prefix matches
+- Maintained essential logic flow with clear comments for each step
+- Kept parameter handling and return value semantics intact
+- Simplified variable declarations by moving them closer to usage
+- Added descriptive comments explaining the purpose of each major section
