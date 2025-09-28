@@ -13,6 +13,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Optional, Set
 import logging
+import re
 
 # Configure logging
 logging.basicConfig(
@@ -47,6 +48,7 @@ class FunctionSimplificationOrchestrator:
         # Progress tracking
         self.completed = []
         self.failed = []
+        self.skipped = []
         self.in_progress = {}
         self.lock = threading.Lock()
         
@@ -61,6 +63,7 @@ class FunctionSimplificationOrchestrator:
             'total': len(self.functions),
             'completed': 0,
             'failed': 0,
+            'skipped': 0,
             'in_progress': 0
         }
     
@@ -76,10 +79,29 @@ class FunctionSimplificationOrchestrator:
         logging.info(f"Loaded {len(functions)} functions from {self.function_list_file}")
         return functions
     
+    def _check_simplified_source_exists(self, function_name: str) -> bool:
+        """
+        Check if simplified source section already exists in the markdown file.
+        """
+        first_letter = function_name[0].upper()
+        doc_path = Path(f'generated_docs/{first_letter}/{function_name}.md')
+        
+        if not doc_path.exists():
+            return False
+        
+        try:
+            content = doc_path.read_text(encoding='utf-8')
+            return '## Simplified Source' in content
+        except Exception:
+            return False
+    
     def _build_prompt(self, function_name: str) -> str:
         """
         Build the combined prompt for Claude that includes both main task and subagent logic.
         """
+        first_letter = function_name[0].upper()
+        doc_path = f'generated_docs/{first_letter}/{function_name}.md'
+        
         prompt = f"""# Function Source Code Simplification Task
 
 You are processing the PostgreSQL function: **{function_name}**
@@ -87,8 +109,8 @@ You are processing the PostgreSQL function: **{function_name}**
 ## Your Task
 1. Retrieve the source code for this function
 2. Create a simplified, readable version that preserves essential logic
-3. Append the simplified version to the existing documentation
-4. Report completion
+3. Directly append the simplified version to the existing documentation file
+4. Complete the task without creating any temporary files
 
 ## Available MCP Server Tools
 
@@ -121,16 +143,17 @@ Apply these simplification techniques:
 
 Target: 20-50% of original length while preserving essential algorithm
 
-### Step 3: Update Documentation File
-1. Check if documentation exists at: `generated_docs/{function_name[0]}/{function_name}.md`
-2. Read existing content to avoid duplication
-3. Check if "## Simplified Source" section already exists - if so, skip this function
-4. Append new section "## Simplified Source" with the simplified code
-5. Format with proper C syntax highlighting
+### Step 3: Update Documentation File Directly
+1. Check if documentation exists at: `{doc_path}`
+2. If file doesn't exist, create it with a basic header
+3. Read the existing content
+4. Check if "## Simplified Source" section already exists - if so, print "ALREADY_PROCESSED: {function_name}" and stop
+5. Append the new section "## Simplified Source" with the simplified code directly to the file
+6. Use the Write tool to update the file
 
 ## Output Format
 
-Append this section to the documentation:
+Append this section directly to `{doc_path}`:
 
 ```markdown
 ## Simplified Source
@@ -164,16 +187,18 @@ Key simplifications made:
 - Don't oversimplify to lose important functionality  
 - Maintain correctness - represent what the function actually does
 - Use consistent formatting throughout
-- If the symbol is not a function, skip it and report appropriately
-- If MCP tools are not accessible, report the issue and skip
+- If the symbol is not a function, print "NOT_A_FUNCTION: {function_name}" and stop
+- If MCP tools are not accessible, print "MCP_ERROR: {function_name}" and stop
+- **DO NOT create any temporary files - directly update the markdown file**
 
-## Completion
-When done, create a file named `output/temp/{function_name}_simplification_complete.txt` with content "finished" to signal completion.
+## Completion Confirmation
+When successfully completed, print: "COMPLETED: {function_name}"
+This confirms the simplified source has been added to the documentation.
 
 ## Error Handling
 - If pg_symbol_source returns an error or empty result, try pg_symbol_document as fallback
-- If the symbol is not found in any tool, create completion file with "skipped: not found"
-- If the documentation file doesn't exist, create it with minimal header before appending
+- If the symbol is not found in any tool, print "NOT_FOUND: {function_name}" and stop
+- If any error occurs during file writing, print "WRITE_ERROR: {function_name}" and stop
 
 Start processing now for function: {function_name}"""
         
@@ -194,6 +219,15 @@ Start processing now for function: {function_name}"""
                         break
                     continue
                 
+                # Check if already processed
+                if self._check_simplified_source_exists(function_name):
+                    with self.lock:
+                        self.skipped.append(function_name)
+                        self.stats['skipped'] += 1
+                    logging.info(f"[Worker {worker_id}] ⊘ Already processed: {function_name}")
+                    self.work_queue.task_done()
+                    continue
+                
                 # Update status
                 with self.lock:
                     self.in_progress[worker_id] = function_name
@@ -204,20 +238,14 @@ Start processing now for function: {function_name}"""
                 # Build prompt
                 prompt = self._build_prompt(function_name)
                 
-                # Clean up any previous completion marker
-                completion_file = Path(f'output/temp/{function_name}_simplification_complete.txt')
-                if completion_file.exists():
-                    completion_file.unlink()
-                
                 # Run Claude with MCP server access
                 try:
                     result = subprocess.run(
                         [
                             'claude',
-                            '--allowedTools', 'mcp,Read,Write',  # Enable MCP server access
+                            '--allowedTools', 'mcp,Read,Write',  # Enable MCP server access and file operations
                             '-p', prompt,
                             '--model', 'claude-sonnet-4-20250514',
-                            '--max-turns', '10',
                             '--permission-mode', 'bypassPermissions'
                         ],
                         capture_output=True,
@@ -226,24 +254,59 @@ Start processing now for function: {function_name}"""
                         cwd=str(Path.cwd())
                     )
                     
-                    # Check for completion
-                    if completion_file.exists():
-                        completion_content = completion_file.read_text().strip()
-                        if "skipped" in completion_content:
-                            with self.lock:
-                                self.failed.append((function_name, completion_content))
-                                self.stats['failed'] += 1
-                            logging.warning(f"[Worker {worker_id}] ⊘ Skipped: {function_name} ({completion_content})")
-                        else:
+                    # Check output for status messages
+                    output = result.stdout + result.stderr
+                    
+                    if "COMPLETED:" in output:
+                        # Verify the file was actually updated
+                        if self._check_simplified_source_exists(function_name):
                             with self.lock:
                                 self.completed.append(function_name)
                                 self.stats['completed'] += 1
                             logging.info(f"[Worker {worker_id}] ✓ Completed: {function_name}")
-                    else:
+                        else:
+                            with self.lock:
+                                self.failed.append((function_name, "File not updated"))
+                                self.stats['failed'] += 1
+                            logging.warning(f"[Worker {worker_id}] ✗ Failed (file not updated): {function_name}")
+                    
+                    elif "ALREADY_PROCESSED:" in output:
                         with self.lock:
-                            self.failed.append((function_name, "No completion marker"))
+                            self.skipped.append(function_name)
+                            self.stats['skipped'] += 1
+                        logging.info(f"[Worker {worker_id}] ⊘ Already had simplified source: {function_name}")
+                    
+                    elif "NOT_A_FUNCTION:" in output:
+                        with self.lock:
+                            self.skipped.append(function_name)
+                            self.stats['skipped'] += 1
+                        logging.info(f"[Worker {worker_id}] ⊘ Not a function: {function_name}")
+                    
+                    elif "NOT_FOUND:" in output:
+                        with self.lock:
+                            self.failed.append((function_name, "Symbol not found"))
                             self.stats['failed'] += 1
-                        logging.warning(f"[Worker {worker_id}] ✗ Failed (no completion): {function_name}")
+                        logging.warning(f"[Worker {worker_id}] ✗ Symbol not found: {function_name}")
+                    
+                    elif "MCP_ERROR:" in output or "WRITE_ERROR:" in output:
+                        error_type = "MCP error" if "MCP_ERROR:" in output else "Write error"
+                        with self.lock:
+                            self.failed.append((function_name, error_type))
+                            self.stats['failed'] += 1
+                        logging.error(f"[Worker {worker_id}] ✗ {error_type}: {function_name}")
+                    
+                    else:
+                        # No clear status message, check if file was updated
+                        if self._check_simplified_source_exists(function_name):
+                            with self.lock:
+                                self.completed.append(function_name)
+                                self.stats['completed'] += 1
+                            logging.info(f"[Worker {worker_id}] ✓ Completed (verified): {function_name}")
+                        else:
+                            with self.lock:
+                                self.failed.append((function_name, "Unknown error"))
+                                self.stats['failed'] += 1
+                            logging.warning(f"[Worker {worker_id}] ✗ Failed (unknown): {function_name}")
                     
                 except subprocess.TimeoutExpired:
                     with self.lock:
@@ -268,11 +331,12 @@ Start processing now for function: {function_name}"""
                     self.work_queue.task_done()
                     
                     # Report progress periodically
-                    if (self.stats['completed'] + self.stats['failed']) % 5 == 0:
+                    total_processed = self.stats['completed'] + self.stats['failed'] + self.stats['skipped']
+                    if total_processed % 5 == 0:
                         self._report_progress()
                     
                     # Detailed summary every 20 functions
-                    if (self.stats['completed'] + self.stats['failed']) % 20 == 0:
+                    if total_processed % 20 == 0:
                         self._report_summary()
                     
                     # Rate limiting
@@ -285,12 +349,12 @@ Start processing now for function: {function_name}"""
     def _report_progress(self):
         """Report current progress."""
         with self.lock:
-            processed = self.stats['completed'] + self.stats['failed']
+            processed = self.stats['completed'] + self.stats['failed'] + self.stats['skipped']
             percentage = (processed / self.stats['total'] * 100) if self.stats['total'] > 0 else 0
             
             logging.info(f"\n{'='*60}")
             logging.info(f"[Progress Update - {processed}/{self.stats['total']} ({percentage:.1f}%)]")
-            logging.info(f"Completed: {self.stats['completed']}, Failed: {self.stats['failed']}, In Progress: {self.stats['in_progress']}")
+            logging.info(f"Completed: {self.stats['completed']}, Failed: {self.stats['failed']}, Skipped: {self.stats['skipped']}, In Progress: {self.stats['in_progress']}")
             
             # Show recently completed
             if self.completed:
@@ -317,15 +381,16 @@ Start processing now for function: {function_name}"""
             logging.info(f"\n{'='*70}")
             logging.info(f"[SUMMARY REPORT]")
             logging.info(f"{'='*70}")
-            logging.info(f"Total Progress: {self.stats['completed'] + self.stats['failed']}/{self.stats['total']}")
-            logging.info(f"Success Rate: {self.stats['completed']}/{self.stats['completed'] + self.stats['failed']}")
+            processed = self.stats['completed'] + self.stats['failed'] + self.stats['skipped']
+            logging.info(f"Total Progress: {processed}/{self.stats['total']}")
+            logging.info(f"Success Rate: {self.stats['completed']}/{processed - self.stats['skipped']} (excluding skipped)")
             logging.info(f"Elapsed Time: {elapsed_str}")
             
             if elapsed > 0:
-                rate = (self.stats['completed'] + self.stats['failed']) / (elapsed / 60)
+                rate = processed / (elapsed / 60)
                 logging.info(f"Processing Rate: {rate:.1f} functions/minute")
                 
-                remaining = self.stats['total'] - (self.stats['completed'] + self.stats['failed'])
+                remaining = self.stats['total'] - processed
                 if rate > 0:
                     eta_minutes = remaining / rate
                     logging.info(f"Estimated Time Remaining: {int(eta_minutes)}m")
@@ -342,9 +407,6 @@ Start processing now for function: {function_name}"""
         logging.info(f"Parallel workers: {self.max_parallel}")
         logging.info(f"Timeout per function: {self.timeout_seconds}s")
         logging.info(f"{'='*70}\n")
-        
-        # Ensure output directory exists
-        Path('output/temp').mkdir(parents=True, exist_ok=True)
         
         # Start worker threads
         workers = []
@@ -368,14 +430,16 @@ Start processing now for function: {function_name}"""
         logging.info(f"\n{'='*70}")
         logging.info(f"[FINAL REPORT]")
         logging.info(f"{'='*70}")
-        logging.info(f"Total functions processed: {self.stats['completed'] + self.stats['failed']}/{self.stats['total']}")
+        total_processed = self.stats['completed'] + self.stats['failed'] + self.stats['skipped']
+        logging.info(f"Total functions processed: {total_processed}/{self.stats['total']}")
         logging.info(f"Successfully simplified: {self.stats['completed']}")
         logging.info(f"Failed: {self.stats['failed']}")
+        logging.info(f"Skipped (already processed or not functions): {self.stats['skipped']}")
         logging.info(f"Total time: {elapsed_str}")
         
-        if self.stats['completed'] + self.stats['failed'] > 0:
-            success_rate = (self.stats['completed'] / (self.stats['completed'] + self.stats['failed'])) * 100
-            logging.info(f"Success rate: {success_rate:.1f}%")
+        if total_processed - self.stats['skipped'] > 0:
+            success_rate = (self.stats['completed'] / (total_processed - self.stats['skipped'])) * 100
+            logging.info(f"Success rate (excluding skipped): {success_rate:.1f}%")
         
         if self.failed:
             logging.info("\nFailed functions:")
@@ -386,6 +450,7 @@ Start processing now for function: {function_name}"""
         results = {
             'completed': self.completed,
             'failed': [{'function': f, 'reason': r} for f, r in self.failed],
+            'skipped': self.skipped,
             'stats': self.stats,
             'elapsed_seconds': elapsed
         }
