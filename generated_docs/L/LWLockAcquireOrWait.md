@@ -41,3 +41,73 @@ The function holds interrupts during the critical section to prevent corruption 
 - The function manages the held_lwlocks array when successfully acquiring the lock
 - Includes comprehensive debugging and tracing support
 - Statistics collection is available when LWLOCK_STATS is enabled
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockAcquireOrWait
+bool LWLockAcquireOrWait(LWLock *lock, LWLockMode mode) {
+    PGPROC *proc = MyProc;
+    bool mustwait;
+    int extraWaits = 0;
+
+    Assert(mode == LW_SHARED || mode == LW_EXCLUSIVE);
+
+    // Ensure we have room for the lock
+    if (num_held_lwlocks >= MAX_SIMUL_LWLOCKS)
+        elog(ERROR, "too many LWLocks taken");
+
+    // Hold interrupts during critical section
+    HOLD_INTERRUPTS();
+
+    // First attempt to acquire the lock
+    mustwait = LWLockAttemptLock(lock, mode);
+
+    if (mustwait) {
+        // Queue ourselves as a waiter
+        LWLockQueueSelf(lock, LW_WAIT_UNTIL_FREE);
+
+        // Second attempt to acquire the lock
+        mustwait = LWLockAttemptLock(lock, mode);
+
+        if (mustwait) {
+            // Wait until awakened by lock holder
+            LWLockReportWaitStart(lock);
+
+            for (;;) {
+                PGSemaphoreLock(proc->sem);
+                if (proc->lwWaiting == LW_WS_NOT_WAITING)
+                    break;
+                extraWaits++;
+            }
+
+            LWLockReportWaitEnd();
+        } else {
+            // Got lock on second attempt, undo queueing
+            LWLockDequeueSelf(lock);
+        }
+    }
+
+    // Fix semaphore count for absorbed wakeups
+    while (extraWaits-- > 0)
+        PGSemaphoreUnlock(proc->sem);
+
+    if (mustwait) {
+        // Failed to get lock, release interrupt holdoff
+        RESUME_INTERRUPTS();
+        return false;
+    } else {
+        // Successfully acquired lock, add to held locks array
+        held_lwlocks[num_held_lwlocks].lock = lock;
+        held_lwlocks[num_held_lwlocks++].mode = mode;
+        return true;
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the unique acquire-or-wait semantics
+- Maintained the two-phase acquisition protocol for race condition handling
+- Kept the essential interrupt management and semaphore operations
+- Focused on the core lock coordination logic without debug/stats code
+- Retained proper held_lwlocks array management

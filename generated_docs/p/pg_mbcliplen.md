@@ -42,3 +42,19 @@ This is essential for maintaining data integrity in multibyte environments where
 - Commonly used in identifier truncation, logging, and data conversion functions
 - The returned length is always ≤ min(len, limit)
 - Critical for maintaining data integrity in PostgreSQL's text processing infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of pg_mbcliplen
+int pg_mbcliplen(const char *mbstr, int len, int limit) {
+    // Delegate to encoding-specific implementation to ensure character boundaries
+    return pg_encoding_mbcliplen(DatabaseEncoding->encoding, mbstr, len, limit);
+}
+```
+
+Key simplifications made:
+- This function is already simple as a wrapper function
+- Preserved the essential delegation to encoding-specific logic
+- Added comment explaining the character boundary preservation
+- No changes needed - the wrapper pattern is already optimal

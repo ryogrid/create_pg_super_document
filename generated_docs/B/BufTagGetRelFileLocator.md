@@ -34,3 +34,26 @@ BufTagGetRelFileLocator is an inline utility function that extracts the file loc
 - The returned RelFileLocator can be used for file system operations and relation identification
 - Widely used throughout buffer management for operations that need to identify the underlying relation files
 - Does not include fork or block number information - only the relation file location
+
+## Simplified Source
+
+```c
+// Simplified version of BufTagGetRelFileLocator
+static inline RelFileLocator BufTagGetRelFileLocator(const BufferTag *tag) {
+    RelFileLocator rlocator;
+
+    // Extract file location components from buffer tag
+    rlocator.spcOid = tag->spcOid;           // Tablespace OID
+    rlocator.dbOid = tag->dbOid;             // Database OID
+    rlocator.relNumber = BufTagGetRelNumber(tag);  // Relation number
+
+    return rlocator;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each field assignment
+- Preserved the structure construction logic
+- Maintained the call to BufTagGetRelNumber helper function
+- Clear separation of the three location components
+- Kept the efficient inline implementation pattern

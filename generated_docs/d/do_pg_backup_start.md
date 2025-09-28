@@ -64,3 +64,99 @@ The function includes special handling for backups started during recovery mode,
 - Constructs comprehensive tablespace mapping including both symbolic links and direct directories
 - Proper error cleanup ensures backup counter is decremented if initialization fails
 - The tablespace map file is essential for Windows tar-based backups due to symbolic link limitations
+
+## Simplified Source
+
+```c
+// Simplified version of do_pg_backup_start (complex function condensed)
+void do_pg_backup_start(const char *backupidstr, bool fast, List **tablespaces,
+                       BackupState *state, StringInfo tblspcmapfile) {
+    bool backup_started_in_recovery = RecoveryInProgress();
+
+    // Validate WAL level for online backup
+    if (!backup_started_in_recovery && !XLogIsNeeded())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("WAL level not sufficient for making an online backup")));
+
+    // Validate backup label length
+    if (strlen(backupidstr) > MAXPGPATH)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("backup label too long (max %d bytes)", MAXPGPATH)));
+
+    memcpy(state->name, backupidstr, strlen(backupidstr));
+
+    // Mark backup active and force full-page writes
+    WALInsertLockAcquireExclusive();
+    XLogCtl->Insert.runningBackups++;
+    WALInsertLockRelease();
+
+    // Setup error cleanup handler
+    PG_ENSURE_ERROR_CLEANUP(do_pg_abort_backup, DatumGetBool(true));
+    {
+        bool gotUniqueStartpoint = false;
+
+        // Force WAL switch if not in recovery
+        if (!backup_started_in_recovery)
+            RequestXLogSwitch(false);
+
+        // Ensure unique backup starting point
+        do {
+            // Force checkpoint
+            RequestCheckpoint(CHECKPOINT_FORCE | CHECKPOINT_WAIT |
+                            (fast ? CHECKPOINT_IMMEDIATE : 0));
+
+            // Get checkpoint information
+            LWLockAcquire(ControlFileLock, LW_SHARED);
+            state->checkpointloc = ControlFile->checkPoint;
+            state->startpoint = ControlFile->checkPointCopy.redo;
+            state->starttli = ControlFile->checkPointCopy.ThisTimeLineID;
+            LWLockRelease(ControlFileLock);
+
+            // Validate full-page writes during recovery
+            if (backup_started_in_recovery) {
+                // Check full-page write requirements
+                SpinLockAcquire(&XLogCtl->info_lck);
+                XLogRecPtr recptr = XLogCtl->lastFpwDisableRecPtr;
+                SpinLockRelease(&XLogCtl->info_lck);
+
+                if (state->startpoint <= recptr)
+                    ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                            errmsg("WAL generated with \"full_page_writes=off\" was replayed")));
+                gotUniqueStartpoint = true;
+            }
+
+            // Ensure unique start point for concurrent backups
+            WALInsertLockAcquireExclusive();
+            if (XLogCtl->Insert.lastBackupStart < state->startpoint) {
+                XLogCtl->Insert.lastBackupStart = state->startpoint;
+                gotUniqueStartpoint = true;
+            }
+            WALInsertLockRelease();
+        } while (!gotUniqueStartpoint);
+
+        // Build tablespace map by scanning pg_tblspc directory
+        DIR *tblspcdir = AllocateDir("pg_tblspc");
+        struct dirent *de;
+        while ((de = ReadDir(tblspcdir, "pg_tblspc")) != NULL) {
+            // Parse tablespace OID and process symlinks/directories
+            // [Detailed tablespace scanning logic condensed for brevity]
+            // Constructs tablespace map and populates tablespaces list
+        }
+        FreeDir(tblspcdir);
+
+        state->starttime = (pg_time_t) time(NULL);
+    }
+    PG_END_ENSURE_ERROR_CLEANUP(do_pg_abort_backup, DatumGetBool(true));
+
+    state->started_in_recovery = backup_started_in_recovery;
+    sessionBackupState = SESSION_BACKUP_RUNNING;
+}
+```
+
+Key simplifications made:
+- Condensed the complex tablespace scanning logic while preserving structure
+- Maintained critical validation and error handling
+- Preserved the checkpoint and backup state management logic
+- Kept the unique start point mechanism for concurrent backups
+- Maintained proper locking and error cleanup patterns
+- Note: Full tablespace processing logic omitted for brevity but follows similar patterns

@@ -50,3 +50,28 @@ The function is part of the table access method abstraction layer but provides c
 - The function is heavily used by system maintenance operations like autovacuum, reindexing, and schema management
 - Unlike regular table scans, catalog scans often need to see recent changes to system metadata, which is handled by the catalog snapshot mechanism
 - The registered snapshot ensures proper cleanup when the scan is completed
+
+## Simplified Source
+
+```c
+// Simplified version of table_beginscan_catalog
+TableScanDesc table_beginscan_catalog(Relation relation, int nkeys, struct ScanKeyData *key) {
+    // Set up scan options for catalog access
+    uint32 flags = SO_TYPE_SEQSCAN | SO_ALLOW_STRAT | SO_ALLOW_SYNC |
+                   SO_ALLOW_PAGEMODE | SO_TEMP_SNAPSHOT;
+
+    // Get relation OID and appropriate catalog snapshot
+    Oid relid = RelationGetRelid(relation);
+    Snapshot snapshot = RegisterSnapshot(GetCatalogSnapshot(relid));
+
+    // Delegate to table access method
+    return relation->rd_tableam->scan_begin(relation, snapshot, nkeys, key,
+                                            NULL, flags);
+}
+```
+
+Key simplifications made:
+- Focused on the catalog-specific setup (flags and snapshot)
+- Added clear comments for each major step
+- Emphasized the catalog snapshot management
+- Showed the delegation to the table access method

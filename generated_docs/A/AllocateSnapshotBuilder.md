@@ -18,6 +18,57 @@ This function creates a new SnapBuild structure which is the core component for 
 
 ## Parameters / Member Variables
 - : ReorderBuffer instance that will be associated with this snapshot builder
+
+## Simplified Source
+
+```c
+// Simplified version of AllocateSnapshotBuilder
+SnapBuild *AllocateSnapshotBuilder(ReorderBuffer *reorder,
+                                  TransactionId xmin_horizon,
+                                  XLogRecPtr start_lsn,
+                                  bool need_full_snapshot,
+                                  bool in_slot_creation,
+                                  XLogRecPtr two_phase_at) {
+    // Create dedicated memory context for the snapshot builder
+    MemoryContext context = AllocSetContextCreate(CurrentMemoryContext,
+                                                  "snapshot builder context",
+                                                  ALLOCSET_DEFAULT_SIZES);
+    MemoryContext oldcontext = MemoryContextSwitchTo(context);
+
+    // Allocate and initialize the snapshot builder
+    SnapBuild *builder = palloc0(sizeof(SnapBuild));
+    builder->state = SNAPBUILD_START;
+    builder->context = context;
+    builder->reorder = reorder;
+
+    // Initialize committed transaction tracking
+    builder->committed.xcnt = 0;
+    builder->committed.xcnt_space = 128;
+    builder->committed.xip = palloc0(builder->committed.xcnt_space * sizeof(TransactionId));
+    builder->committed.includes_all_transactions = true;
+
+    // Initialize catalog change tracking
+    builder->catchange.xcnt = 0;
+    builder->catchange.xip = NULL;
+
+    // Set configuration parameters
+    builder->initial_xmin_horizon = xmin_horizon;
+    builder->start_decoding_at = start_lsn;
+    builder->in_slot_creation = in_slot_creation;
+    builder->building_full_snapshot = need_full_snapshot;
+    builder->two_phase_at = two_phase_at;
+
+    MemoryContextSwitchTo(oldcontext);
+    return builder;
+}
+```
+
+Key simplifications made:
+- Grouped related initialization code together
+- Added clear comments for each major section
+- Simplified memory context management
+- Combined related field assignments
+- Focused on core snapshot builder allocation functionality
 - : Transaction ID >= which we can be sure no catalog rows have been removed
 - : LSN >= from which we want to replay commits
 - : Boolean indicating whether a full snapshot is required

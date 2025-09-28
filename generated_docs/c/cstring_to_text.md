@@ -39,3 +39,19 @@ This function is part of PostgreSQL's conversion routines exported for use by C 
 - This is a widely used utility function throughout the PostgreSQL codebase for converting C strings to text values
 - For cases where the string length is already known,  can be called directly for better performance
 - The function is defined in  as part of the variable-length data type utilities
+
+## Simplified Source
+
+```c
+// Simplified version of cstring_to_text
+text *cstring_to_text(const char *s) {
+    // Delegate to cstring_to_text_with_len with calculated length
+    return cstring_to_text_with_len(s, strlen(s));
+}
+```
+
+Key simplifications made:
+- Preserved the simple wrapper function structure
+- Added clear comment explaining the delegation pattern
+- Maintained the essential string length calculation and conversion
+- Focused on the core conversion operation

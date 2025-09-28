@@ -38,3 +38,23 @@ The function performs a simple but crucial task: it checks if the provided trans
 - It must be called at least once for every xid in XLogRecord->xl_xid
 - Many WAL record types do not pass through this function if they are not relevant to logical decoding
 - The function is essential for maintaining LSN-ordered data structures in the reorder buffer for efficient transaction processing
+
+## Simplified Source
+
+```c
+// Simplified version of ReorderBufferProcessXid
+void ReorderBufferProcessXid(ReorderBuffer *rb, TransactionId xid, XLogRecPtr lsn) {
+    // Skip invalid transaction IDs
+    if (xid == InvalidTransactionId)
+        return;
+
+    // Register the transaction with the reorder buffer
+    ReorderBufferTXNByXid(rb, xid, true, NULL, lsn, true);
+}
+```
+
+Key simplifications made:
+- Expanded the single conditional check for clarity
+- Added explicit early return for invalid transaction IDs
+- Added descriptive comments explaining the purpose
+- Maintained the essential functionality while improving readability

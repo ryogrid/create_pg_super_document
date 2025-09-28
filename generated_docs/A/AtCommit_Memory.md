@@ -37,3 +37,28 @@ This function takes no parameters but operates on several global memory context 
 - The context switching and cleanup must happen in the correct order to avoid accessing freed memory
 - Essential for long-running PostgreSQL sessions to avoid accumulating transaction memory
 - Works in conjunction with PostgreSQL's memory context tree structure where transaction contexts are children of the top context
+
+## Simplified Source
+
+```c
+// Simplified version of AtCommit_Memory
+static void AtCommit_Memory(void) {
+    // Switch to top-level memory context for future allocations
+    MemoryContextSwitchTo(TopMemoryContext);
+
+    // Free all transaction-local memory
+    Assert(TopTransactionContext != NULL);
+    MemoryContextDelete(TopTransactionContext);
+
+    // Reset transaction context pointers
+    TopTransactionContext = NULL;
+    CurTransactionContext = NULL;
+    CurrentTransactionState->curTransactionContext = NULL;
+}
+```
+
+Key simplifications made:
+- Preserved the essential memory management operations
+- Kept the critical assertion for safety
+- Maintained the proper order: switch context, delete, reset pointers
+- Focused on the core memory cleanup logic

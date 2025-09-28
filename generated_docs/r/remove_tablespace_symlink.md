@@ -36,3 +36,45 @@ This function safely removes tablespace links from the PostgreSQL pg_tblspc dire
 - Refuses to remove files that are neither directories nor symbolic links as a safety measure
 - Always reports errors for removal failures, unlike some similar functions that may ignore certain error conditions
 - Critical for maintaining consistency in the pg_tblspc directory structure during tablespace operations
+
+## Simplified Source
+
+```c
+// Simplified version of remove_tablespace_symlink
+void remove_tablespace_symlink(const char *linkloc) {
+    struct stat st;
+
+    // Step 1: Check if the file exists
+    if (lstat(linkloc, &st) < 0) {
+        if (errno == ENOENT)
+            return; // File doesn't exist - that's OK
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not stat file \"%s\": %m", linkloc)));
+    }
+
+    // Step 2: Remove based on file type
+    if (S_ISDIR(st.st_mode)) {
+        // Directory (including Windows junction points)
+        if (rmdir(linkloc) < 0 && errno != ENOENT)
+            ereport(ERROR, (errcode_for_file_access(),
+                    errmsg("could not remove directory \"%s\": %m", linkloc)));
+    }
+    else if (S_ISLNK(st.st_mode)) {
+        // Symbolic link
+        if (unlink(linkloc) < 0 && errno != ENOENT)
+            ereport(ERROR, (errcode_for_file_access(),
+                    errmsg("could not remove symbolic link \"%s\": %m", linkloc)));
+    }
+    else {
+        // Safety check - refuse to remove unexpected file types
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("\"%s\" is not a directory or symbolic link", linkloc)));
+    }
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step process comments
+- Explained the platform-specific handling (directories vs symlinks)
+- Maintained all error checking and safety measures
+- Preserved cross-platform compatibility logic

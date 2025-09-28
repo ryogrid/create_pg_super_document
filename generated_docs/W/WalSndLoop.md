@@ -50,3 +50,97 @@ The function handles both physical and logical replication through a callback me
 - Critical transition point where data loss risk ends when moving from catchup to streaming state
 - Processes configuration reloads dynamically without restart
 - Coordinates with synchronous replication through state changes
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndLoop
+static void WalSndLoop(WalSndSendDataCallback send_data) {
+    TimestampTz last_flush = 0;
+
+    // Initialize timing for timeout processing
+    last_reply_timestamp = GetCurrentTimestamp();
+    waiting_for_ping_response = false;
+
+    // Main streaming loop
+    for (;;) {
+        ResetLatch(MyLatch);
+        CHECK_FOR_INTERRUPTS();
+
+        // Handle configuration reloads
+        if (ConfigReloadPending) {
+            ConfigReloadPending = false;
+            ProcessConfigFile(PGC_SIGHUP);
+            SyncRepInitConfig();
+        }
+
+        // Process client messages
+        ProcessRepliesIfAny();
+
+        // Check for streaming completion
+        if (streamingDoneReceiving && streamingDoneSending &&
+            !pq_is_send_pending())
+            break;
+
+        // Send more data if output buffer is empty
+        if (!pq_is_send_pending())
+            send_data();
+        else
+            WalSndCaughtUp = false;
+
+        // Flush output to client
+        if (pq_flush_if_writable() != 0)
+            WalSndShutdown();
+
+        // Handle state transitions and shutdown
+        if (WalSndCaughtUp && !pq_is_send_pending()) {
+            // Transition from catchup to streaming state
+            if (MyWalSnd->state == WALSNDSTATE_CATCHUP) {
+                ereport(DEBUG1, (errmsg_internal("\"%s\" has now caught up with upstream server",
+                                                 application_name)));
+                WalSndSetState(WALSNDSTATE_STREAMING);
+            }
+
+            // Handle shutdown signal
+            if (got_SIGUSR2)
+                WalSndDone(send_data);
+        }
+
+        // Monitor timeouts and send keepalives
+        WalSndCheckTimeOut();
+        WalSndKeepaliveIfNecessary();
+
+        // Block/wait for more work
+        if ((WalSndCaughtUp && send_data != XLogSendLogical && !streamingDoneSending) ||
+            pq_is_send_pending()) {
+            long sleeptime;
+            int wakeEvents;
+            TimestampTz now;
+
+            // Set up wake conditions
+            wakeEvents = !streamingDoneReceiving ? WL_SOCKET_READABLE : 0;
+            if (pq_is_send_pending())
+                wakeEvents |= WL_SOCKET_WRITEABLE;
+
+            // Calculate sleep time and report I/O stats periodically
+            now = GetCurrentTimestamp();
+            sleeptime = WalSndComputeSleeptime(now);
+
+            if (TimestampDifferenceExceeds(last_flush, now, WALSENDER_STATS_FLUSH_INTERVAL)) {
+                pgstat_flush_io(false);
+                last_flush = now;
+            }
+
+            // Wait for events or timeout
+            WalSndWait(wakeEvents, sleeptime, WAIT_EVENT_WAL_SENDER_MAIN);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major section of the loop
+- Grouped related operations together logically
+- Simplified conditional logic while preserving essential flow
+- Maintained all critical timing, state management, and I/O handling
+- Preserved the complex wake event logic for proper blocking behavior

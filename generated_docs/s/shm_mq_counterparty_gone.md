@@ -33,3 +33,35 @@ This function determines if the counterparty process for a shared message queue 
 - Automatically marks the queue as detached when worker death is detected
 - Used to avoid indefinite waiting when the counterparty process has already terminated
 - Handles the case where a worker may not have started yet (BGWH_NOT_YET_STARTED is considered valid)
+
+## Simplified Source
+
+```c
+// Simplified version of shm_mq_counterparty_gone
+static bool shm_mq_counterparty_gone(shm_mq *mq, BackgroundWorkerHandle *handle) {
+    // Quick check: if queue is already detached, counterparty is gone
+    if (mq->mq_detached)
+        return true;
+
+    // Check worker status if handle is provided
+    if (handle != NULL) {
+        pid_t pid;
+        BgwHandleStatus status = GetBackgroundWorkerPid(handle, &pid);
+
+        // Worker has died or failed - mark as detached
+        if (status != BGWH_STARTED && status != BGWH_NOT_YET_STARTED) {
+            mq->mq_detached = true;
+            return true;
+        }
+    }
+
+    // Counterparty is still potentially available
+    return false;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each check phase
+- Preserved the detachment flag logic
+- Maintained the worker status verification
+- Kept the automatic queue marking when worker dies

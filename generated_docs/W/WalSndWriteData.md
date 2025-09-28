@@ -44,3 +44,46 @@ The function handles network I/O carefully, checking for interrupts, attempting 
 - Implements careful memory management by copying timestamp data into the prepared buffer
 - Part of the logical decoding callback interface and must maintain the expected function signature
 - Critical for maintaining responsive logical replication while preventing timeout-related disconnections
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndWriteData
+static void WalSndWriteData(LogicalDecodingContext *ctx, XLogRecPtr lsn, TransactionId xid, bool last_write) {
+    TimestampTz now;
+
+    // Fill in the send timestamp at the last moment
+    resetStringInfo(&tmpbuf);
+    now = GetCurrentTimestamp();
+    pq_sendint64(&tmpbuf, now);
+
+    // Copy timestamp into the prepared message buffer
+    memcpy(&ctx->out->data[1 + sizeof(int64) + sizeof(int64)],
+           tmpbuf.data, sizeof(int64));
+
+    // Send the prepared data as a CopyData packet
+    pq_putmessage_noblock('d', ctx->out->data, ctx->out->len);
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Try to flush output to client
+    if (pq_flush_if_writable() != 0)
+        WalSndShutdown();
+
+    // Fast path: return quickly if not near timeout and no pending writes
+    if (now < TimestampTzPlusMilliseconds(last_reply_timestamp, wal_sender_timeout / 2) &&
+        !pq_is_send_pending()) {
+        return;
+    }
+
+    // Slow path: handle pending writes and potential backpressure
+    ProcessPendingWrites();
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two-path approach
+- Simplified timestamp handling with descriptive comments
+- Explained the timeout threshold calculation
+- Preserved all essential I/O handling and flow control logic
+- Maintained critical error handling and interrupt checking

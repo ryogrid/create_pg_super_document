@@ -41,3 +41,30 @@ The function performs two main operations:
 - The function logs file deletion at DEBUG2 level for troubleshooting
 - Handles sync request cleanup to maintain consistency in the sync system
 - Part of PostgreSQL's SLRU (Simple Log Record Unit) subsystem used for various transaction logs
+
+## Simplified Source
+
+```c
+// Simplified version of SlruInternalDeleteSegment
+static void SlruInternalDeleteSegment(SlruCtl ctl, int64 segno) {
+    char path[MAXPGPATH];
+
+    // Step 1: Clean up any pending sync requests for this segment
+    if (ctl->sync_handler != SYNC_HANDLER_NONE) {
+        FileTag tag;
+        INIT_SLRUFILETAG(tag, ctl->sync_handler, segno);
+        RegisterSyncRequest(&tag, SYNC_FORGET_REQUEST, true);
+    }
+
+    // Step 2: Delete the physical file
+    SlruFileName(ctl, path, segno);
+    ereport(DEBUG2, (errmsg_internal("removing file \"%s\"", path)));
+    unlink(path);
+}
+```
+
+Key simplifications made:
+- Consolidated the two main operations into clear steps
+- Preserved the essential sync cleanup and file deletion logic
+- Simplified comments to focus on the core purpose
+- Maintained all functional behavior while improving readability

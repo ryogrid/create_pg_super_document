@@ -40,3 +40,28 @@ This function takes no parameters but modifies global variables:
 - Special handling for Cygwin systems due to cygipc behavior
 - The function ensures clean process state when shared memory attachment is not desired
 - Part of the shared memory management strategy for processes that don't inherit memory segments through fork()
+
+## Simplified Source
+
+```c
+// Simplified version of PGSharedMemoryNoReAttach
+void PGSharedMemoryNoReAttach(void) {
+    Assert(UsedShmemSegAddr != NULL);
+    Assert(IsUnderPostmaster);
+
+#ifdef __CYGWIN__
+    // Cygwin cygipc doesn't detach on exec, so force detach
+    PGSharedMemoryDetach();
+#endif
+
+    // Clean up global state to show we're not attached
+    UsedShmemSegAddr = NULL;
+    UsedShmemSegID = 0;
+}
+```
+
+Key simplifications made:
+- Preserved the essential cleanup logic
+- Maintained platform-specific Cygwin handling
+- Kept the critical assertions for safety
+- Added clear comments explaining the cleanup steps

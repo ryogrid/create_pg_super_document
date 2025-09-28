@@ -43,3 +43,20 @@ The function is defined as a static inline function in the header file, allowing
 - Used primarily in portal execution contexts where completion information needs to be transferred between different execution phases
 - The const qualifier on the src parameter ensures the source structure is not inadvertently modified
 - This function is particularly useful in multi-statement execution scenarios where individual command results need to be preserved and combined
+
+## Simplified Source
+
+```c
+// Simplified version of CopyQueryCompletion
+static inline void CopyQueryCompletion(QueryCompletion *dst, const QueryCompletion *src) {
+    // Simple member-wise copy of completion data
+    dst->commandTag = src->commandTag;
+    dst->nprocessed = src->nprocessed;
+}
+```
+
+Key simplifications made:
+- Added clarifying comment about the function's purpose
+- This function is already very simple and straightforward
+- Preserved the inline optimization and const correctness
+- The core logic remains: copy command tag and processed row count

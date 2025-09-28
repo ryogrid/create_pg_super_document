@@ -36,3 +36,17 @@ The function performs a direct lookup into the tag_behavior array to retrieve th
 - The event_trigger_ok flag is the third parameter in the PG_CMDTAG macro definitions in cmdtaglist.h
 - Event triggers provide extensibility points for database administrators and extension developers to implement custom logic around schema changes
 - This design ensures event triggers only fire on appropriate commands where they make semantic sense
+
+## Simplified Source
+
+```c
+// Simplified version of command_tag_event_trigger_ok
+bool command_tag_event_trigger_ok(CommandTag commandTag) {
+    // Direct lookup into behavior table to check if command can fire event triggers
+    return tag_behavior[commandTag].event_trigger_ok;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, only added clarifying comment
+- Core logic remains unchanged as it's a straightforward table lookup

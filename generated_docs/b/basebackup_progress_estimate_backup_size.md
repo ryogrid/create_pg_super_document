@@ -32,3 +32,19 @@ This function is a simple progress reporting utility used during PostgreSQL base
 - The function provides visibility into the backup process stages for monitoring and debugging purposes
 - Located in src/backend/backup/basebackup_progress.c at lines 196-205
 - Simple wrapper function that standardizes progress reporting across the backup subsystem
+
+## Simplified Source
+
+```c
+// Simplified version of basebackup_progress_estimate_backup_size
+void basebackup_progress_estimate_backup_size(void) {
+    // Update progress to estimate backup size phase
+    pgstat_progress_update_param(PROGRESS_BASEBACKUP_PHASE,
+                                 PROGRESS_BASEBACKUP_PHASE_ESTIMATE_BACKUP_SIZE);
+}
+```
+
+Key simplifications made:
+- Preserved essential phase update functionality
+- Maintained progress parameter setting
+- Focused on core progress reporting

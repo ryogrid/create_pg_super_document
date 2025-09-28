@@ -53,3 +53,80 @@ The function handles all standard PostgreSQL diagnostic fields including message
 - Unrecognized field codes result in ERROR-level log messages
 - The ErrorData structure is initialized with reasonable defaults before parsing
 - Used primarily in parallel query execution to forward errors from worker processes to the leader
+
+## Simplified Source
+
+```c
+// Simplified version of pq_parse_errornotice
+void pq_parse_errornotice(StringInfo msg, ErrorData *edata) {
+    // Initialize ErrorData with defaults
+    MemSet(edata, 0, sizeof(ErrorData));
+    edata->elevel = ERROR;
+    edata->assoc_context = CurrentMemoryContext;
+
+    // Parse message fields in a loop
+    for (;;) {
+        char code = pq_getmsgbyte(msg);
+
+        // End of message reached
+        if (code == '\0') {
+            pq_getmsgend(msg);
+            break;
+        }
+
+        const char *value = pq_getmsgrawstring(msg);
+
+        // Parse based on field code
+        switch (code) {
+            case PG_DIAG_SEVERITY_NONLOCALIZED:
+                // Map severity strings to error levels
+                if (strcmp(value, "DEBUG") == 0)
+                    edata->elevel = DEBUG1;
+                else if (strcmp(value, "LOG") == 0)
+                    edata->elevel = LOG;
+                else if (strcmp(value, "INFO") == 0)
+                    edata->elevel = INFO;
+                else if (strcmp(value, "NOTICE") == 0)
+                    edata->elevel = NOTICE;
+                else if (strcmp(value, "WARNING") == 0)
+                    edata->elevel = WARNING;
+                else if (strcmp(value, "ERROR") == 0)
+                    edata->elevel = ERROR;
+                else if (strcmp(value, "FATAL") == 0)
+                    edata->elevel = FATAL;
+                else if (strcmp(value, "PANIC") == 0)
+                    edata->elevel = PANIC;
+                break;
+
+            case PG_DIAG_SQLSTATE:
+                // Validate and set SQLSTATE
+                if (strlen(value) == 5)
+                    edata->sqlerrcode = MAKE_SQLSTATE(value[0], value[1],
+                                                     value[2], value[3], value[4]);
+                break;
+
+            case PG_DIAG_MESSAGE_PRIMARY:
+                edata->message = pstrdup(value);
+                break;
+
+            case PG_DIAG_MESSAGE_DETAIL:
+                edata->detail = pstrdup(value);
+                break;
+
+            case PG_DIAG_MESSAGE_HINT:
+                edata->hint = pstrdup(value);
+                break;
+
+            // Additional cases for other diagnostic fields...
+            // (schema_name, table_name, column_name, etc.)
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Reduced the switch statement to show most important cases
+- Added comments explaining the main parsing phases
+- Preserved essential logic for severity mapping and field extraction
+- Focused on the core message parsing loop structure
+- Maintained proper memory management with pstrdup

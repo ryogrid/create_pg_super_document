@@ -41,3 +41,27 @@ The function includes a notable implementation detail: various places in the cod
 - The implementation is deliberately simple and efficient, using only basic arithmetic operations
 - Critical for ISO week calculations and date formatting operations that need to know the day of the week
 - The function handles the mathematical relationship between Julian day numbers and the 7-day week cycle
+
+## Simplified Source
+
+```c
+// Simplified version of j2day
+int
+j2day(int date) {
+    // Adjust date and compute day of week (0-6, Sun-Sat)
+    date += 1;
+    date %= 7;
+
+    // Handle negative results from truncating division
+    if (date < 0)
+        date += 7;
+
+    return date;
+}
+```
+
+Key simplifications made:
+- Added comments explaining the core algorithm steps
+- Preserved the essential modular arithmetic logic
+- Maintained the negative value handling for cross-platform compatibility
+- This function is already quite simple, so minimal changes were needed

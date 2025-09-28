@@ -56,3 +56,92 @@ PortalRunMulti is the most comprehensive portal execution function, designed to 
 - Uses different destination receivers for tag-setting vs. auxiliary statements
 - Supports performance monitoring through executor statistics logging
 - Ensures proper query completion tag propagation from portal to caller
+
+## Simplified Source
+
+```c
+// Simplified version of PortalRunMulti
+static void PortalRunMulti(Portal portal, bool isTopLevel, bool setHoldSnapshot,
+                          DestReceiver *dest, DestReceiver *altdest, QueryCompletion *qc) {
+    bool active_snapshot_set = false;
+    ListCell *stmtlist_item;
+
+    // Adjust destination receivers for remote execution
+    if (dest->mydest == DestRemoteExecute)
+        dest = None_Receiver;
+    if (altdest->mydest == DestRemoteExecute)
+        altdest = None_Receiver;
+
+    // Execute each statement in the portal
+    foreach(stmtlist_item, portal->stmts) {
+        PlannedStmt *pstmt = lfirst_node(PlannedStmt, stmtlist_item);
+
+        // Check for cancellation signals
+        CHECK_FOR_INTERRUPTS();
+
+        if (pstmt->utilityStmt == NULL) {
+            // Handle plannable queries
+
+            // Set up snapshot for first query or update for subsequent ones
+            if (!active_snapshot_set) {
+                Snapshot snapshot = GetTransactionSnapshot();
+
+                if (setHoldSnapshot) {
+                    snapshot = RegisterSnapshot(snapshot);
+                    portal->holdSnapshot = snapshot;
+                }
+
+                PushCopiedSnapshot(snapshot);
+                active_snapshot_set = true;
+            } else {
+                UpdateActiveSnapshotCommandId();
+            }
+
+            // Execute the query with appropriate destination
+            if (pstmt->canSetTag) {
+                ProcessQuery(pstmt, portal->sourceText, portal->portalParams,
+                           portal->queryEnv, dest, qc);
+            } else {
+                ProcessQuery(pstmt, portal->sourceText, portal->portalParams,
+                           portal->queryEnv, altdest, NULL);
+            }
+        } else {
+            // Handle utility statements
+            if (pstmt->canSetTag) {
+                PortalRunUtility(portal, pstmt, isTopLevel, false, dest, qc);
+            } else {
+                PortalRunUtility(portal, pstmt, isTopLevel, false, altdest, NULL);
+            }
+        }
+
+        // Clean up memory between statements
+        MemoryContextDeleteChildren(portal->portalContext);
+
+        // Handle case where statements were reset (CALL/DO with COMMIT/ROLLBACK)
+        if (portal->stmts == NIL)
+            break;
+
+        // Increment command counter between statements
+        if (lnext(portal->stmts, stmtlist_item) != NULL)
+            CommandCounterIncrement();
+    }
+
+    // Clean up snapshot if we set one
+    if (active_snapshot_set)
+        PopActiveSnapshot();
+
+    // Copy completion information if needed
+    if (qc && qc->commandTag == CMDTAG_UNKNOWN &&
+        portal->qc.commandTag != CMDTAG_UNKNOWN) {
+        CopyQueryCompletion(qc, &portal->qc);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and performance monitoring code
+- Consolidated snapshot management logic
+- Simplified the plannable vs utility statement handling
+- Preserved essential error checking and cleanup logic
+- Focused on core workflow: setup, execute each statement, cleanup
+- Maintained critical safety mechanisms like interrupt checking and memory cleanup

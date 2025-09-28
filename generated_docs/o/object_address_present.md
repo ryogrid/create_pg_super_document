@@ -38,3 +38,34 @@ A key feature of this function is its intelligent subobject handling: if the tar
 - The subobject logic (objectSubId handling) prevents duplicate entries when both a whole object and its subobjects are referenced
 - Returns true if either an exact match is found or if the object is a subobject of an entry with objectSubId = 0
 - This function is critical for dependency management and avoiding duplicate object references in PostgreSQL's catalog system
+
+## Simplified Source
+
+```c
+// Simplified version of object_address_present
+bool object_address_present(const ObjectAddress *object, const ObjectAddresses *addrs) {
+    // Search backwards through the array for efficiency
+    for (int i = addrs->numrefs - 1; i >= 0; i--) {
+        const ObjectAddress *thisobj = addrs->refs + i;
+
+        // Check if class and object IDs match
+        if (object->classId == thisobj->classId &&
+            object->objectId == thisobj->objectId) {
+
+            // Exact match or thisobj represents whole object (subId = 0)
+            if (object->objectSubId == thisobj->objectSubId ||
+                thisobj->objectSubId == 0) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and kept essential logic
+- Simplified variable declarations
+- Focused on the core matching algorithm
+- Preserved the reverse iteration pattern for efficiency

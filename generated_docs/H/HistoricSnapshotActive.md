@@ -41,3 +41,18 @@ The function simply checks if the global HistoricSnapshot variable is non-NULL, 
 - Located in src/backend/utils/time/snapmgr.c at lines 1672-1677
 - Essential for maintaining consistency between normal operations and logical decoding operations
 - The return value directly corresponds to whether SetupHistoricSnapshot has been called without a corresponding TeardownHistoricSnapshot
+
+## Simplified Source
+
+```c
+// Simplified version of HistoricSnapshotActive
+bool HistoricSnapshotActive(void) {
+    // Return true if a historic snapshot is currently active
+    return HistoricSnapshot != NULL;
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the function's purpose
+- Preserved the essential logic (simple NULL check)
+- This function is already as simple as it can be - just a single boolean check

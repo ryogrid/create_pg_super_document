@@ -37,3 +37,29 @@ The function is designed to be lightweight since the prepared data might not act
 - Send time is reserved but filled in later, similar to physical WAL sending (XLogSendPhysical)
 - This is a static function local to walsender.c, used specifically for logical replication callbacks
 - The function is part of the logical decoding callback interface and must match the expected signature
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndPrepareWrite
+static void WalSndPrepareWrite(LogicalDecodingContext *ctx, XLogRecPtr lsn, TransactionId xid, bool last_write) {
+    // Prevent sync rep confusion with duplicate LSNs
+    if (!last_write)
+        lsn = InvalidXLogRecPtr;
+
+    // Reset output buffer and prepare message header
+    resetStringInfo(ctx->out);
+
+    // Build logical replication protocol message
+    pq_sendbyte(ctx->out, 'w');        // WAL data message type
+    pq_sendint64(ctx->out, lsn);       // dataStart LSN
+    pq_sendint64(ctx->out, lsn);       // walEnd LSN
+    pq_sendint64(ctx->out, 0);         // sendtime placeholder
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the LSN invalidation logic
+- Grouped protocol message construction with descriptive comments
+- Preserved all essential protocol requirements
+- Maintained lightweight design for potential unused writes

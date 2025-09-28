@@ -32,3 +32,34 @@ The function contains a comment questioning whether CatalogSnapshot should also 
 - Potential future enhancement: updating CatalogSnapshot curcid
 - Located in src/backend/utils/time/snapmgr.c:456-476
 - Part of PostgreSQL's command counter mechanism for transaction isolation
+
+## Simplified Source
+
+```c
+// Simplified version of SnapshotSetCommandId
+void SnapshotSetCommandId(CommandId curcid) {
+    // Only proceed if snapshots have been initialized
+    if (!FirstSnapshotSet) {
+        return;
+    }
+
+    // Update the current command ID in the primary snapshot
+    if (CurrentSnapshot) {
+        CurrentSnapshot->curcid = curcid;
+    }
+
+    // Update the current command ID in the secondary snapshot
+    if (SecondarySnapshot) {
+        SecondarySnapshot->curcid = curcid;
+    }
+
+    // Note: CatalogSnapshot may also need updating in the future
+}
+```
+
+Key simplifications made:
+- Added comments explaining each step of the process
+- Clarified the conditional logic for initialization check
+- Explained the purpose of updating different snapshot types
+- Preserved the original comment about CatalogSnapshot
+- Focused on core logic: check initialization, update active snapshots

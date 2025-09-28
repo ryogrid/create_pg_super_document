@@ -60,3 +60,56 @@ The function assumes the appropriate partition lock is held and maintains that s
 - The wakeupNeeded parameter is typically the return value from a prior UnGrantLock call
 - Proper cleanup is essential for lock table integrity and performance
 - The function assumes appropriate locking context (partition lock held) for safe hash table manipulation
+
+## Simplified Source
+
+```c
+// Simplified version of CleanUpLock
+static void CleanUpLock(LOCK *lock, PROCLOCK *proclock,
+                       LockMethod lockMethodTable, uint32 hashcode,
+                       bool wakeupNeeded) {
+
+    // Clean up proclock if this process no longer holds any locks
+    if (proclock->holdMask == 0) {
+        uint32 proclock_hashcode;
+
+        // Remove proclock from linked lists
+        dlist_delete(&proclock->lockLink);
+        dlist_delete(&proclock->procLink);
+
+        // Remove proclock from hash table
+        proclock_hashcode = ProcLockHashCode(&proclock->tag, hashcode);
+        if (!hash_search_with_hash_value(LockMethodProcLockHash,
+                                        &(proclock->tag),
+                                        proclock_hashcode,
+                                        HASH_REMOVE, NULL)) {
+            elog(PANIC, "proclock table corrupted");
+        }
+    }
+
+    // Clean up lock object if no one is requesting it
+    if (lock->nRequested == 0) {
+        // Verify no proclocks remain
+        Assert(dlist_is_empty(&lock->procLocks));
+
+        // Remove lock from hash table
+        if (!hash_search_with_hash_value(LockMethodLockHash,
+                                        &(lock->tag),
+                                        hashcode,
+                                        HASH_REMOVE, NULL)) {
+            elog(PANIC, "lock table corrupted");
+        }
+    }
+    // Wake up waiting processes if needed
+    else if (wakeupNeeded) {
+        ProcLockWakeup(lockMethodTable, lock);
+    }
+}
+```
+
+Key simplifications made:
+- Removed debugging print statements for clarity
+- Reorganized conditional logic for better flow
+- Added clear comments for each cleanup phase
+- Preserved critical error checking and assertions
+- Focused on the core garbage collection and wakeup logic

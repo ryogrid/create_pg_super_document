@@ -44,3 +44,33 @@ This function is a fundamental building block for VFD cache management, used whe
 - Does not actually close the file or free resources, only removes from LRU chain
 - Part of the fundamental VFD cache management infrastructure
 - Debug output shows the file name and index being deleted when enabled
+
+## Simplified Source
+
+```c
+// Simplified version of Delete
+static void Delete(File file) {
+    Vfd *vfdP;
+
+    Assert(file != 0);
+
+    DO_DB(elog(LOG, "Delete %d (%s)", file, VfdCache[file].fileName));
+    DO_DB(_dump_lru());
+
+    // Get the VFD entry to be removed
+    vfdP = &VfdCache[file];
+
+    // Remove from doubly-linked LRU list by updating adjacent entries
+    VfdCache[vfdP->lruLessRecently].lruMoreRecently = vfdP->lruMoreRecently;
+    VfdCache[vfdP->lruMoreRecently].lruLessRecently = vfdP->lruLessRecently;
+
+    DO_DB(_dump_lru());
+}
+```
+
+Key simplifications made:
+- Preserved the assertion and debug logging
+- Maintained the core doubly-linked list manipulation logic
+- Added comment explaining the LRU removal operation
+- Kept the debug output for troubleshooting
+- Simple pointer manipulation to bypass the target VFD in the chain

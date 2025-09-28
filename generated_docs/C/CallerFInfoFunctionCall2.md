@@ -37,3 +37,36 @@ This function is similar to DirectFunctionCall2 but uses the flinfo parameter to
 - The function will throw an ERROR if the called function returns NULL
 - Part of a family of CallerFInfoFunctionCall functions for enhanced function calling
 - Located in src/backend/utils/fmgr/fmgr.c:1085-1111
+
+## Simplified Source
+
+```c
+// Simplified version of CallerFInfoFunctionCall2
+Datum CallerFInfoFunctionCall2(PGFunction func, FmgrInfo *flinfo, Oid collation, Datum arg1, Datum arg2) {
+    LOCAL_FCINFO(fcinfo, 2);
+
+    // Initialize function call info with caller's context
+    InitFunctionCallInfoData(*fcinfo, flinfo, 2, collation, NULL, NULL);
+
+    // Set up both arguments
+    fcinfo->args[0].value = arg1;
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = arg2;
+    fcinfo->args[1].isnull = false;
+
+    // Call the function
+    Datum result = (*func)(fcinfo);
+
+    // Verify result is not null
+    if (fcinfo->isnull)
+        elog(ERROR, "function %p returned NULL", (void *) func);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations
+- Added descriptive comments for each major step
+- Simplified function pointer call syntax
+- Focused on the core algorithm: setup context, set two arguments, call function, validate result

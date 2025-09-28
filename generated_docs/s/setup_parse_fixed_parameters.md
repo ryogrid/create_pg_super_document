@@ -34,3 +34,30 @@ This function initializes the parameter reference handling mechanism for queries
 - The allocated FixedParamState is stored in pstate->p_ref_hook_state for use by the parameter reference hook
 - No coercion hook is needed for fixed parameters since their types are predetermined
 - Memory allocation uses palloc which is automatically freed when the current memory context is destroyed
+
+## Simplified Source
+
+```c
+// Simplified version of setup_parse_fixed_parameters
+void setup_parse_fixed_parameters(ParseState *pstate,
+                                   const Oid *paramTypes, int numParams) {
+    FixedParamState *parstate;
+
+    // Allocate and initialize parameter state structure
+    parstate = palloc(sizeof(FixedParamState));
+    parstate->paramTypes = paramTypes;
+    parstate->numParams = numParams;
+
+    // Configure parse state with parameter handling hooks
+    pstate->p_ref_hook_state = (void *) parstate;
+    pstate->p_paramref_hook = fixed_paramref_hook;
+    // No need to use p_coerce_param_hook for fixed parameters
+}
+```
+
+Key simplifications made:
+- Preserved the essential parameter state allocation and initialization
+- Maintained the hook configuration logic
+- Added clear comments explaining the setup process
+- Focused on the core parameter handling configuration
+- Kept the important note about coercion hook not being needed

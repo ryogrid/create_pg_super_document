@@ -35,3 +35,28 @@ This function initializes the parameter reference handling mechanism for queries
 - The paramTypes and numParams are double pointers, allowing the hooks to modify the arrays dynamically
 - Used primarily for EXPLAIN statements and other cases where parameter types are determined during parsing
 - Memory allocation uses palloc which is automatically freed when the current memory context is destroyed
+
+## Simplified Source
+
+```c
+// Simplified version of setup_parse_variable_parameters
+void setup_parse_variable_parameters(ParseState *pstate,
+                                    Oid **paramTypes, int *numParams) {
+    VarParamState *parstate = palloc(sizeof(VarParamState));
+
+    // Store parameter array pointers
+    parstate->paramTypes = paramTypes;
+    parstate->numParams = numParams;
+
+    // Install variable parameter handling hooks
+    pstate->p_ref_hook_state = (void *) parstate;
+    pstate->p_paramref_hook = variable_paramref_hook;
+    pstate->p_coerce_param_hook = variable_coerce_param_hook;
+}
+```
+
+Key simplifications made:
+- Preserved essential parameter state setup
+- Maintained hook installation for dynamic parameters
+- Kept parameter type array management
+- Focused on core variable parameter configuration

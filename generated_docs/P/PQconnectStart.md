@@ -39,3 +39,37 @@ PQconnectStart is a convenience wrapper around PQconnectStartParams that accepts
 - All error messages are accumulated in the PGconn structure for later inspection
 - Callers must use PQfinish to clean up the connection regardless of success or failure
 - Forms the basis for most PostgreSQL client connection scenarios in libpq
+
+## Simplified Source
+
+```c
+// Simplified version of PQconnectStart
+PGconn *PQconnectStart(const char *conninfo) {
+    // Allocate and initialize empty connection structure
+    PGconn *conn = pqMakeEmptyPGconn();
+    if (conn == NULL)
+        return NULL;
+
+    // Parse connection string into connection options
+    if (!connectOptions1(conn, conninfo))
+        return conn;  // Error details stored in conn->errorMessage
+
+    // Compute derived connection parameters
+    if (!pqConnectOptions2(conn))
+        return conn;  // Error details stored in conn->errorMessage
+
+    // Start the actual database connection process
+    if (!pqConnectDBStart(conn)) {
+        conn->status = CONNECTION_BAD;
+    }
+
+    return conn;  // Always returns valid PGconn, check status for success
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and kept essential ones
+- Combined variable declaration with assignment
+- Simplified error handling logic
+- Focused on the main connection initialization flow
+- Emphasized that conn is always returned (unless malloc fails)

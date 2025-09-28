@@ -38,3 +38,20 @@ This inline function provides efficient access to local buffer descriptors, whic
 - The function assumes the caller provides a valid local buffer ID within the allocated range
 - Located in buf_internals.h as a core utility for local buffer operations
 - Local buffers are typically used for temporary tables, sorts, and other backend-private operations
+
+## Simplified Source
+
+```c
+// Simplified version of GetLocalBufferDescriptor
+static inline BufferDesc *GetLocalBufferDescriptor(uint32 id) {
+    // Return pointer to local buffer descriptor at given index
+    return &LocalBufferDescriptors[id];
+}
+```
+
+Key simplifications made:
+- This function is already maximally simple and requires no changes
+- Preserved the direct array access pattern
+- Added comment explaining the operation
+- Maintained the efficient inline implementation
+- No bounds checking - assumes caller provides valid ID

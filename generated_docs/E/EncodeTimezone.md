@@ -36,3 +36,47 @@ EncodeTimezone converts a timezone offset (given in seconds) into its string rep
 - Conditionally includes seconds in output only when non-zero
 - Conditionally includes minutes based on style or when non-zero
 - Uses zero-padded formatting for consistent output width
+
+## Simplified Source
+
+```c
+// Simplified version of EncodeTimezone
+static char *
+EncodeTimezone(char *str, int tz, int style) {
+    // Convert seconds to hours, minutes, seconds
+    int sec = abs(tz);
+    int min = sec / SECS_PER_MINUTE;
+    sec -= min * SECS_PER_MINUTE;
+    int hour = min / MINS_PER_HOUR;
+    min -= hour * MINS_PER_HOUR;
+
+    // Write sign (inverted: negative tz becomes positive display)
+    *str++ = (tz <= 0 ? '+' : '-');
+
+    // Format based on what components are non-zero
+    if (sec != 0) {
+        // Include all components: HH:MM:SS
+        str = pg_ultostr_zeropad(str, hour, 2);
+        *str++ = ':';
+        str = pg_ultostr_zeropad(str, min, 2);
+        *str++ = ':';
+        str = pg_ultostr_zeropad(str, sec, 2);
+    } else if (min != 0 || style == USE_XSD_DATES) {
+        // Include hours and minutes: HH:MM
+        str = pg_ultostr_zeropad(str, hour, 2);
+        *str++ = ':';
+        str = pg_ultostr_zeropad(str, min, 2);
+    } else {
+        // Only hours: HH
+        str = pg_ultostr_zeropad(str, hour, 2);
+    }
+
+    return str;
+}
+```
+
+Key simplifications made:
+- Added comments explaining the time component conversion logic
+- Clarified the sign inversion behavior in comments
+- Organized the conditional formatting logic with clear comments for each case
+- Preserved the exact logic flow while making the purpose of each branch clearer

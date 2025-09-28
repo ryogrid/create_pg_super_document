@@ -35,3 +35,40 @@ This function determines if the integer value `x` is present in the bitmap set `
 
 ## Notes and Other Information
 This is one of the most frequently used bitmap set functions in PostgreSQL, appearing throughout the codebase for testing membership of relation IDs, column numbers, attribute numbers, and other identifiers. The function is designed to be fast for the common case where the value is within the allocated range, using simple array indexing and bit masking. The error for negative values reflects the design constraint that bitmap sets only handle non-negative integers, which aligns with their typical use for representing sets of database object identifiers.
+
+## Simplified Source
+
+```c
+// Simplified version of bms_is_member
+bool bms_is_member(int x, const Bitmapset *a) {
+    int wordnum, bitnum;
+
+    Assert(bms_is_valid_set(a));
+
+    // Negative values not allowed in bitmap sets
+    if (x < 0)
+        elog(ERROR, "negative bitmapset member not allowed");
+
+    // Empty set has no members
+    if (a == NULL)
+        return false;
+
+    // Calculate which word and bit position
+    wordnum = WORDNUM(x);
+    bitnum = BITNUM(x);
+
+    // Check if bit position is beyond allocated words
+    if (wordnum >= a->nwords)
+        return false;
+
+    // Test if the bit is set
+    if ((a->words[wordnum] & ((bitmapword) 1 << bitnum)) != 0)
+        return true;
+    return false;
+}
+```
+
+Key simplifications made:
+- Function is already efficient with simple bit manipulation
+- Essential for testing membership in bitmap sets
+- Handles edge cases (negative values, NULL sets, out-of-range values)

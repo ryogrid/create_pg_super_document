@@ -35,3 +35,24 @@ This function changes the session authorization user ID while PostgreSQL is runn
 - The conditional update of OuterUserId ensures proper interaction with SET ROLE functionality
 - Used primarily in session management and parallel worker processes
 - Must maintain consistency between session authorization and role state
+
+## Simplified Source
+
+```c
+// Simplified version of SetSessionAuthorization
+void SetSessionAuthorization(Oid userid, bool is_superuser) {
+    // Update the session user ID
+    SetSessionUserId(userid, is_superuser);
+
+    // Update outer user ID only if no role is currently active
+    // This implements "SET SESSION AUTHORIZATION implies SET ROLE NONE"
+    if (!SetRoleIsActive)
+        SetOuterUserId(userid, is_superuser);
+}
+```
+
+Key simplifications made:
+- Focused on the core session authorization logic
+- Clarified the conditional outer user ID update
+- Added comment explaining the SQL standard requirement
+- Emphasized the interaction with role activation state

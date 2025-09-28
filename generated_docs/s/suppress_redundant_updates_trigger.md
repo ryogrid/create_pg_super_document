@@ -63,3 +63,85 @@ If all these elements match exactly, the function returns NULL to suppress the u
 - Returns NULL to suppress update, or the new tuple pointer to allow update
 - Must be created as a BEFORE UPDATE FOR EACH ROW trigger to function correctly
 - Error messages use  for improper usage
+
+## Simplified Source
+
+```c
+// Simplified version of suppress_redundant_updates_trigger
+Datum suppress_redundant_updates_trigger(PG_FUNCTION_ARGS) {
+    TriggerData *trigdata = (TriggerData *) fcinfo->context;
+    HeapTuple newtuple, oldtuple, result;
+    HeapTupleHeader newheader, oldheader;
+
+    // Step 1: Validate trigger calling context
+    if (!CALLED_AS_TRIGGER(fcinfo)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED),
+                 errmsg("suppress_redundant_updates_trigger: must be called as trigger")));
+    }
+
+    if (!TRIGGER_FIRED_BY_UPDATE(trigdata->tg_event)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED),
+                 errmsg("suppress_redundant_updates_trigger: must be called on update")));
+    }
+
+    if (!TRIGGER_FIRED_BEFORE(trigdata->tg_event)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED),
+                 errmsg("suppress_redundant_updates_trigger: must be called before update")));
+    }
+
+    if (!TRIGGER_FIRED_FOR_ROW(trigdata->tg_event)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED),
+                 errmsg("suppress_redundant_updates_trigger: must be called for each row")));
+    }
+
+    // Step 2: Extract old and new tuple data
+    newtuple = trigdata->tg_newtuple;
+    oldtuple = trigdata->tg_trigtuple;
+    result = newtuple;  // Default: allow the update
+
+    newheader = newtuple->t_data;
+    oldheader = oldtuple->t_data;
+
+    // Step 3: Compare tuple structure and data
+    bool tuplesIdentical = (
+        // Same overall size
+        newtuple->t_len == oldtuple->t_len &&
+
+        // Same header structure
+        newheader->t_hoff == oldheader->t_hoff &&
+
+        // Same number of attributes
+        HeapTupleHeaderGetNatts(newheader) == HeapTupleHeaderGetNatts(oldheader) &&
+
+        // Same info flags (excluding transaction bits)
+        (newheader->t_infomask & ~HEAP_XACT_MASK) ==
+        (oldheader->t_infomask & ~HEAP_XACT_MASK) &&
+
+        // Same actual data content
+        memcmp(((char *) newheader) + SizeofHeapTupleHeader,
+               ((char *) oldheader) + SizeofHeapTupleHeader,
+               newtuple->t_len - SizeofHeapTupleHeader) == 0
+    );
+
+    // Step 4: Decide whether to suppress or allow the update
+    if (tuplesIdentical) {
+        result = NULL;  // Suppress redundant update
+    }
+
+    return PointerGetDatum(result);
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the validation and comparison process
+- Consolidated the multi-condition comparison into a single boolean expression for clarity
+- Made the four validation checks more explicit and organized
+- Simplified variable organization and eliminated intermediate assignments
+- Added comments explaining what each comparison checks (size, structure, attributes, flags, data)
+- Made the final decision logic more explicit (suppress vs. allow)
+- Focused on the core algorithm: validate context → extract data → compare → decide
+- Preserved all essential redundancy detection functionality

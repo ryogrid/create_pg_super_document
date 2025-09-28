@@ -42,3 +42,40 @@ This function creates a shallow copy of a tuple descriptor, copying the basic at
 - The resulting descriptor has the same number and types of attributes but with simplified metadata
 - Used extensively in query execution, SPI operations, and temporary table scenarios
 - Does not copy the constr (constraints) structure from the original descriptor
+
+## Simplified Source
+
+```c
+// Simplified version of CreateTupleDescCopy
+TupleDesc CreateTupleDescCopy(TupleDesc tupdesc) {
+    // Create template with same number of attributes
+    TupleDesc desc = CreateTemplateTupleDesc(tupdesc->natts);
+
+    // Copy all attribute data in one operation
+    memcpy(TupleDescAttr(desc, 0), TupleDescAttr(tupdesc, 0),
+           desc->natts * sizeof(FormData_pg_attribute));
+
+    // Clear constraint-related fields for all attributes
+    for (int i = 0; i < desc->natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(desc, i);
+
+        att->attnotnull = false;
+        att->atthasdef = false;
+        att->atthasmissing = false;
+        att->attidentity = '\0';
+        att->attgenerated = '\0';
+    }
+
+    // Preserve type identification from original
+    desc->tdtypeid = tupdesc->tdtypeid;
+    desc->tdtypmod = tupdesc->tdtypmod;
+
+    return desc;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the core copying and clearing operations
+- Maintained the essential flat copy + constraint clearing pattern
+- Preserved type identification copying

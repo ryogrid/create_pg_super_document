@@ -50,3 +50,68 @@ This function takes no parameters.
 - Early exits if max_replication_slots is 0 or negative
 - Performs fsync on the pg_replslot directory after cleaning up temporary directories
 - Critical for maintaining replication slot consistency across server restarts
+
+## Simplified Source
+
+```c
+// Simplified version of StartupReplicationSlots
+void StartupReplicationSlots(void) {
+    DIR *replication_dir;
+    struct dirent *replication_de;
+
+    elog(DEBUG1, "starting up replication slots");
+
+    // Open the pg_replslot directory
+    replication_dir = AllocateDir("pg_replslot");
+
+    // Iterate through all directory entries
+    while ((replication_de = ReadDir(replication_dir, "pg_replslot")) != NULL) {
+        char path[MAXPGPATH + 12];
+        PGFileType de_type;
+
+        // Skip current and parent directory entries
+        if (strcmp(replication_de->d_name, ".") == 0 ||
+            strcmp(replication_de->d_name, "..") == 0)
+            continue;
+
+        // Build full path and check file type
+        snprintf(path, sizeof(path), "pg_replslot/%s", replication_de->d_name);
+        de_type = get_dirent_type(path, replication_de, false, DEBUG1);
+
+        // Only process directories
+        if (de_type != PGFILETYPE_ERROR && de_type != PGFILETYPE_DIR)
+            continue;
+
+        // Clean up temporary directories from interrupted operations
+        if (pg_str_endswith(replication_de->d_name, ".tmp")) {
+            if (!rmtree(path, true)) {
+                ereport(WARNING, (errmsg("could not remove directory \"%s\"", path)));
+                continue;
+            }
+            fsync_fname("pg_replslot", true);
+            continue;
+        }
+
+        // Restore normal slot from disk
+        RestoreSlotFromDisk(replication_de->d_name);
+    }
+
+    FreeDir(replication_dir);
+
+    // Return early if no slots configured
+    if (max_replication_slots <= 0)
+        return;
+
+    // Compute global replication requirements
+    ReplicationSlotsComputeRequiredXmin(false);
+    ReplicationSlotsComputeRequiredLSN();
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each operation
+- Preserved essential directory iteration and cleanup logic
+- Maintained temporary directory cleanup mechanism
+- Kept all error handling and validation checks
+- Simplified variable declarations while preserving functionality
+- Maintained proper ordering of operations for replication consistency

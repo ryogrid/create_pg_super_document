@@ -30,3 +30,20 @@ The int4recv function is a PostgreSQL type receive function that converts data f
 - The function follows PostgreSQL's fmgr (function manager) calling convention
 - Located in src/backend/utils/adt/int.c:311-321
 - Counterpart to int4send for binary data handling
+
+## Simplified Source
+
+```c
+// Simplified version of int4recv
+Datum int4recv(PG_FUNCTION_ARGS) {
+    StringInfo input_buffer = (StringInfo) PG_GETARG_POINTER(0);
+
+    // Extract 4-byte integer from binary message buffer
+    PG_RETURN_INT32((int32) pq_getmsgint(input_buffer, sizeof(int32)));
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable name
+- This function is already extremely simple - just extracts a 4-byte integer from binary buffer
+- Core operation is delegated to pq_getmsgint for safe binary data extraction

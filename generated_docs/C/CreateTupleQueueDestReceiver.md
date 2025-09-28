@@ -36,3 +36,35 @@ This function serves as a factory function for creating TQueueDestReceiver objec
 - Critical component for parallel query execution, enabling tuple distribution across worker processes
 - The returned receiver manages the lifecycle of shared memory queue communication
 - Part of PostgreSQL's pluggable destination receiver architecture
+
+## Simplified Source
+
+```c
+// Simplified version of CreateTupleQueueDestReceiver
+DestReceiver *CreateTupleQueueDestReceiver(shm_mq_handle *handle) {
+    // Allocate and zero-initialize the tuple queue destination receiver
+    TQueueDestReceiver *queue_receiver = (TQueueDestReceiver *) palloc0(sizeof(TQueueDestReceiver));
+
+    // Set up the callback functions for tuple queue operations
+    queue_receiver->pub.receiveSlot = tqueueReceiveSlot;           // Send each tuple to queue
+    queue_receiver->pub.rStartup = tqueueStartupReceiver;          // Initialize queue connection
+    queue_receiver->pub.rShutdown = tqueueShutdownReceiver;        // Finalize queue communication
+    queue_receiver->pub.rDestroy = tqueueDestroyReceiver;          // Final cleanup
+
+    // Set the destination type to indicate tuple queue operation
+    queue_receiver->pub.mydest = DestTupleQueue;
+
+    // Store the shared memory queue handle for inter-process communication
+    queue_receiver->queue = handle;
+
+    // Return as base DestReceiver type
+    return (DestReceiver *) queue_receiver;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for clarity
+- Added comments explaining each callback function's purpose
+- Clarified the role of the shared memory queue handle for parallel execution
+- Explained the inter-process communication aspect
+- Focused on core logic: allocate memory, set callbacks, store handle, return receiver

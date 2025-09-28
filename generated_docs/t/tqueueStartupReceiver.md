@@ -30,3 +30,18 @@ This function serves as the startup callback implementation for TQueueDestReceiv
 - Part of the DestReceiver interface pattern where not all receiver types require startup initialization
 - The shared memory queue initialization is handled during TQueueDestReceiver creation, not during startup
 - Follows PostgreSQL's convention of providing no-op implementations for interface methods that are not needed
+
+## Simplified Source
+
+```c
+// Simplified version of tqueueStartupReceiver
+static void tqueueStartupReceiver(DestReceiver *self, int operation, TupleDesc typeinfo) {
+    // No initialization needed for tuple queue receivers
+    // Queue setup is handled during receiver creation
+}
+```
+
+Key simplifications made:
+- Preserved the no-op behavior
+- Added clarifying comments about why no action is needed
+- Maintained interface compliance

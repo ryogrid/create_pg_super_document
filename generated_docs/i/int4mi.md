@@ -33,3 +33,27 @@ The `int4mi` function implements the subtraction operation for PostgreSQL 32-bit
 - Uses safe arithmetic to prevent integer overflow, which is crucial for data integrity
 - Follows PostgreSQLs standard function calling conventions using PG_FUNCTION_ARGS
 - The overflow check ensures that operations like `INT_MIN - 1` or `INT_MAX - (-1)` are properly handled with error reporting rather than wraparound behavior
+
+## Simplified Source
+
+```c
+// Simplified version of int4mi
+Datum int4mi(PG_FUNCTION_ARGS) {
+    int32 minuend = PG_GETARG_INT32(0);      // Number to subtract from
+    int32 subtrahend = PG_GETARG_INT32(1);   // Number to subtract
+    int32 result;
+
+    // Perform safe subtraction with overflow detection
+    if (unlikely(pg_sub_s32_overflow(minuend, subtrahend, &result))) {
+        ereport(ERROR, /* integer out of range error */);
+    }
+
+    PG_RETURN_INT32(result);
+}
+```
+
+Key simplifications made:
+- Used mathematical terminology for variable names (minuend/subtrahend)
+- Simplified error handling for clarity
+- Focused on the core safe arithmetic operation
+- Demonstrates PostgreSQL's overflow-safe subtraction pattern

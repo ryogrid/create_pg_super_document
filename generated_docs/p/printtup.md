@@ -51,3 +51,67 @@ The function includes memory management by switching to a temporary memory conte
 - The comment references serializeAnalyzeReceive in explain.c which replicates similar computations
 - Memory management is carefully handled using temporary contexts to avoid memory leaks during row processing
 - Supports both text (format 0) and binary (format 1) output formats for attributes
+
+## Simplified Source
+
+```c
+// Simplified version of printtup
+static bool printtup(TupleTableSlot *slot, DestReceiver *self) {
+    TupleDesc typeinfo = slot->tts_tupleDescriptor;
+    DR_printtup *myState = (DR_printtup *) self;
+    StringInfo buf = &myState->buf;
+    int natts = typeinfo->natts;
+
+    // Update attribute info if tuple structure changed
+    if (myState->attrinfo != typeinfo || myState->nattrs != natts) {
+        printtup_prepare_info(myState, typeinfo, natts);
+    }
+
+    // Get all attribute values
+    slot_getallattrs(slot);
+
+    // Switch to temporary memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(myState->tmpcontext);
+
+    // Start DataRow message
+    pq_beginmessage_reuse(buf, PqMsg_DataRow);
+    pq_sendint16(buf, natts);
+
+    // Send each attribute
+    for (int i = 0; i < natts; i++) {
+        PrinttupAttrInfo *thisState = myState->myinfo + i;
+        Datum attr = slot->tts_values[i];
+
+        if (slot->tts_isnull[i]) {
+            pq_sendint32(buf, -1);  // NULL indicator
+            continue;
+        }
+
+        if (thisState->format == 0) {
+            // Text output
+            char *outputstr = OutputFunctionCall(&thisState->finfo, attr);
+            pq_sendcountedtext(buf, outputstr, strlen(outputstr));
+        } else {
+            // Binary output
+            bytea *outputbytes = SendFunctionCall(&thisState->finfo, attr);
+            pq_sendint32(buf, VARSIZE(outputbytes) - VARHDRSZ);
+            pq_sendbytes(buf, VARDATA(outputbytes), VARSIZE(outputbytes) - VARHDRSZ);
+        }
+    }
+
+    pq_endmessage_reuse(buf);
+
+    // Clean up temporary memory
+    MemoryContextSwitchTo(oldcontext);
+    MemoryContextReset(myState->tmpcontext);
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Preserved essential tuple formatting and transmission logic
+- Maintained NULL handling and format selection
+- Simplified memory management flow
+- Focused on core PostgreSQL protocol message construction
+- Removed debug-specific code (Valgrind checks)

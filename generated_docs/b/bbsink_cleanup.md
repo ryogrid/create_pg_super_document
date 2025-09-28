@@ -38,3 +38,22 @@ The cleanup mechanism ensures that resources are properly released regardless of
 - Part of the base backup infrastructure ensuring proper resource management throughout the backup lifecycle
 - Should be the final operation performed on a bbsink object before its destruction
 - Essential for maintaining system stability especially in error conditions or interrupted backups
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_cleanup
+static inline void bbsink_cleanup(bbsink *sink) {
+    // Ensure sink is valid
+    Assert(sink != NULL);
+
+    // Call sink-specific cleanup implementation
+    sink->bbs_ops->cleanup(sink);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - just validates input and delegates cleanup
+- Added clear comments explaining the validation and delegation
+- No additional simplification needed as the function is straightforward
+- Preserves the essential error checking and delegation pattern

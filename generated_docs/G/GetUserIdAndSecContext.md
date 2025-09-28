@@ -47,3 +47,22 @@ The SecurityRestrictionContext contains flags that indicate various security res
 - The function provides atomic access to both security-related global variables
 - Critical for maintaining security state consistency across complex operations like parallel queries, index maintenance, and transaction processing
 - Used extensively in PostgreSQL's security definer function execution and restricted operation handling
+
+## Simplified Source
+
+```c
+// Simplified version of GetUserIdAndSecContext
+void GetUserIdAndSecContext(Oid *userid, int *sec_context) {
+    // Return current user ID (may be InvalidOid in some contexts)
+    *userid = CurrentUserId;
+
+    // Return current security restriction context flags
+    *sec_context = SecurityRestrictionContext;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, just copies two global variables
+- Never throws errors or assertions, making it safe for error recovery
+- Essential for transaction state management and security context switching
+- Provides atomic access to both user ID and security context

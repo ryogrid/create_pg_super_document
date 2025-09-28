@@ -43,3 +43,53 @@ This function creates a SearchPathMatcher structure that represents the current 
 - Handles implicit addition of temporary and catalog namespaces to the search path
 - Memory management is carefully handled with separate contexts for result and intermediate calculations
 - Part of PostgreSQL's namespace resolution and query plan caching infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of GetSearchPathMatcher
+SearchPathMatcher *GetSearchPathMatcher(MemoryContext context) {
+    SearchPathMatcher *result;
+    List *schemas;
+    MemoryContext oldcxt;
+
+    // Ensure search path is up to date
+    recomputeNamespacePath();
+
+    // Switch to target memory context for allocation
+    oldcxt = MemoryContextSwitchTo(context);
+
+    // Initialize the matcher structure
+    result = (SearchPathMatcher *) palloc0(sizeof(SearchPathMatcher));
+    schemas = list_copy(activeSearchPath);
+
+    // Process schemas before the creation namespace
+    while (schemas && linitial_oid(schemas) != activeCreationNamespace) {
+        if (linitial_oid(schemas) == myTempNamespace) {
+            result->addTemp = true;
+        } else {
+            // Must be catalog namespace
+            Assert(linitial_oid(schemas) == PG_CATALOG_NAMESPACE);
+            result->addCatalog = true;
+        }
+        schemas = list_delete_first(schemas);
+    }
+
+    // Set the final schema list and generation
+    result->schemas = schemas;
+    result->generation = activePathGeneration;
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcxt);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Simplified comments while preserving essential logic
+- Consolidated the memory context management
+- Preserved the essential search path processing logic
+- Maintained the special handling for temp and catalog namespaces
+- Focused on core workflow: update path, copy and process schemas, create matcher
+- Kept critical memory context switching for proper allocation

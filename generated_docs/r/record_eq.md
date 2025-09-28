@@ -52,3 +52,87 @@ The function uses the type cache system to look up appropriate equality operator
 - Raises errors for type mismatches and column count differences
 - Memory management includes cleanup of temporary allocations and toasted input handling
 - Supports collation-aware comparisons when column collations match
+
+## Simplified Source
+
+```c
+// Simplified version of record_eq
+Datum record_eq(PG_FUNCTION_ARGS) {
+    HeapTupleHeader record1 = PG_GETARG_HEAPTUPLEHEADER(0);
+    HeapTupleHeader record2 = PG_GETARG_HEAPTUPLEHEADER(1);
+    bool result = true;
+
+    // Extract type information from both records
+    TypeInfo type1, type2;
+    extract_record_type_info(record1, &type1);
+    extract_record_type_info(record2, &type2);
+
+    // Setup temporary tuple structures
+    HeapTupleData tuple1, tuple2;
+    setup_temp_tuples(&tuple1, &tuple2, record1, record2);
+
+    // Setup or reuse cached comparison information
+    RecordCompareData *my_extra = setup_comparison_cache(fcinfo, &type1, &type2);
+
+    // Extract column values from both tuples
+    Datum *values1, *values2;
+    bool *nulls1, *nulls2;
+    extract_tuple_values(&tuple1, type1.tupdesc, &values1, &nulls1);
+    extract_tuple_values(&tuple2, type2.tupdesc, &values2, &nulls2);
+
+    // Compare columns for equality
+    int i1 = 0, i2 = 0, logical_col = 0;
+
+    while (i1 < type1.ncolumns || i2 < type2.ncolumns) {
+        // Skip dropped columns
+        skip_dropped_columns(&i1, &i2, type1.tupdesc, type2.tupdesc);
+
+        // Check for column count mismatch
+        if (i1 >= type1.ncolumns || i2 >= type2.ncolumns)
+            break;
+
+        // Get column attributes and validate types match
+        Form_pg_attribute att1 = TupleDescAttr(type1.tupdesc, i1);
+        Form_pg_attribute att2 = TupleDescAttr(type2.tupdesc, i2);
+        validate_column_types_match(att1, att2, logical_col);
+
+        // Get equality function for this column type
+        TypeCacheEntry *typentry = get_column_equality_function(my_extra, logical_col, att1->atttypid);
+
+        // Handle NULL values: both NULL = equal, one NULL = not equal
+        if (nulls1[i1] || nulls2[i2]) {
+            if (nulls1[i1] != nulls2[i2]) {
+                result = false;
+                break;
+            }
+            // Both NULL - continue to next column
+        } else {
+            // Compare non-NULL values using type-specific equality function
+            Oid collation = resolve_collation(att1, att2);
+            bool equal = call_equality_function(typentry, values1[i1], values2[i2], collation);
+            if (!equal) {
+                result = false;
+                break;
+            }
+        }
+
+        i1++; i2++; logical_col++;
+    }
+
+    // Validate final column count consistency if still equal
+    if (result)
+        validate_column_count_match(i1, i2, type1.ncolumns, type2.ncolumns);
+
+    // Cleanup resources
+    cleanup_comparison_resources(values1, nulls1, values2, nulls2, &type1, &type2, record1, record2);
+
+    PG_RETURN_BOOL(result);
+}
+```
+
+Key simplifications made:
+- Reused helper functions from record_cmp for common operations
+- Simplified equality-specific logic (no ordering, just equal/not-equal)
+- Consolidated NULL handling for equality semantics
+- Extracted equality function lookup separate from comparison functions
+- Focused on the equality check flow while maintaining type safety

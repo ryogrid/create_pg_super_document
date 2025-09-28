@@ -47,3 +47,74 @@ The function iterates through sorted pending writebacks, looks ahead to find con
 - Assumes writeback requests are only for buffers containing permanent relation blocks
 - Optimizes for consecutive block merging to improve kernel-level IO scheduling
 - Part of PostgreSQL's buffer management system for improving write performance
+
+## Simplified Source
+
+```c
+// Simplified version of IssuePendingWritebacks
+void
+IssuePendingWritebacks(WritebackContext *wb_context, IOContext io_context) {
+    instr_time io_start;
+    int i;
+
+    // Early exit if no pending writebacks
+    if (wb_context->nr_pending == 0)
+        return;
+
+    // Sort writebacks for better performance and coalescing
+    sort_pending_writebacks(wb_context->pending_writebacks, wb_context->nr_pending);
+
+    // Start timing if enabled
+    io_start = pgstat_prepare_io_time(track_io_timing);
+
+    // Process writebacks, coalescing consecutive blocks
+    for (i = 0; i < wb_context->nr_pending; i++) {
+        PendingWriteback *cur = &wb_context->pending_writebacks[i];
+        BufferTag tag = cur->tag;
+        RelFileLocator currlocator = BufTagGetRelFileLocator(&tag);
+        Size nblocks = 1;
+        int ahead;
+
+        // Look ahead to find consecutive blocks to merge
+        for (ahead = 0; i + ahead + 1 < wb_context->nr_pending; ahead++) {
+            PendingWriteback *next = &wb_context->pending_writebacks[i + ahead + 1];
+
+            // Stop if different file or fork
+            if (!RelFileLocatorEquals(currlocator, BufTagGetRelFileLocator(&next->tag)) ||
+                BufTagGetForkNum(&cur->tag) != BufTagGetForkNum(&next->tag))
+                break;
+
+            // Skip duplicate blocks
+            if (cur->tag.blockNum == next->tag.blockNum)
+                continue;
+
+            // Only merge consecutive blocks
+            if (cur->tag.blockNum + 1 != next->tag.blockNum)
+                break;
+
+            nblocks++;
+            cur = next;
+        }
+
+        // Skip ahead past merged blocks
+        i += ahead;
+
+        // Issue the writeback to storage manager
+        SMgrRelation reln = smgropen(currlocator, INVALID_PROC_NUMBER);
+        smgrwriteback(reln, BufTagGetForkNum(&tag), tag.blockNum, nblocks);
+    }
+
+    // Record IO statistics
+    pgstat_count_io_op_time(IOOBJECT_RELATION, io_context,
+                          IOOP_WRITEBACK, io_start, wb_context->nr_pending);
+
+    // Reset pending count
+    wb_context->nr_pending = 0;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major phase: sorting, timing, coalescing, and statistics
+- Simplified the consecutive block detection logic with better variable names
+- Emphasized the coalescing optimization pattern
+- Preserved the essential performance optimizations while making the algorithm clearer

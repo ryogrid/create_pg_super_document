@@ -39,3 +39,31 @@ The logic matches the behavior of _SPI_commit regarding what constitutes an atom
 - Used by transaction management code to determine if transaction control is allowed
 - Located in src/backend/executor/spi.c:581-595
 - Part of PostgreSQL's stored procedure transaction control infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of SPI_inside_nonatomic_context
+bool SPI_inside_nonatomic_context(void) {
+    // Check if not in any SPI context at all
+    if (_SPI_current == NULL)
+        return false;
+
+    // Check if context is atomic (function not procedure)
+    if (_SPI_current->atomic)
+        return false;
+
+    // Check if within subtransaction (makes it atomic)
+    if (IsSubTransaction())
+        return false;
+
+    // All checks passed - we're in a nonatomic context (procedure)
+    return true;
+}
+```
+
+Key simplifications made:
+- Function is already well-structured with clear logic flow
+- Maintains three essential checks for nonatomic context determination
+- Logic matches _SPI_commit's atomic vs nonatomic distinction
+- Essential for transaction control in stored procedures

@@ -44,3 +44,61 @@ ProcessQuery orchestrates the complete execution of a single planned query state
 
 ## Notes and Other Information
 This is a static function intended for internal use within the pquery.c module. The function must be called within a memory context that will be reset or deleted on error to prevent memory leaks from the executor. The query completion parameter (qc) is optional and may be NULL if the caller doesn't need status information. The function uses the active snapshot for query execution and no crosscheck snapshot (InvalidSnapshot).
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessQuery
+static void ProcessQuery(PlannedStmt *plan,
+                       const char *sourceText,
+                       ParamListInfo params,
+                       QueryEnvironment *queryEnv,
+                       DestReceiver *dest,
+                       QueryCompletion *qc) {
+    QueryDesc *queryDesc;
+
+    // Create query descriptor
+    queryDesc = CreateQueryDesc(plan, sourceText,
+                               GetActiveSnapshot(), InvalidSnapshot,
+                               dest, params, queryEnv, 0);
+
+    // Execute query through executor framework
+    ExecutorStart(queryDesc, 0);
+    ExecutorRun(queryDesc, ForwardScanDirection, 0, true);
+
+    // Build completion status if requested
+    if (qc) {
+        switch (queryDesc->operation) {
+            case CMD_SELECT:
+                SetQueryCompletion(qc, CMDTAG_SELECT, queryDesc->estate->es_processed);
+                break;
+            case CMD_INSERT:
+                SetQueryCompletion(qc, CMDTAG_INSERT, queryDesc->estate->es_processed);
+                break;
+            case CMD_UPDATE:
+                SetQueryCompletion(qc, CMDTAG_UPDATE, queryDesc->estate->es_processed);
+                break;
+            case CMD_DELETE:
+                SetQueryCompletion(qc, CMDTAG_DELETE, queryDesc->estate->es_processed);
+                break;
+            case CMD_MERGE:
+                SetQueryCompletion(qc, CMDTAG_MERGE, queryDesc->estate->es_processed);
+                break;
+            default:
+                SetQueryCompletion(qc, CMDTAG_UNKNOWN, queryDesc->estate->es_processed);
+                break;
+        }
+    }
+
+    // Clean up executor and query descriptor
+    ExecutorFinish(queryDesc);
+    ExecutorEnd(queryDesc);
+    FreeQueryDesc(queryDesc);
+}
+```
+
+Key simplifications made:
+- Preserved complete query execution lifecycle
+- Maintained executor framework usage pattern
+- Kept command completion status logic
+- Focused on core query processing flow

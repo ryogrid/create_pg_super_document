@@ -35,3 +35,20 @@ The function assumes that the ExplainState has been properly initialized with ou
 - Part of PostgreSQLs EXPLAIN infrastructure for displaying query information
 - Useful for including the original query text in EXPLAIN output for reference
 - Located in src/backend/commands/explain.c:1169-1183
+
+## Simplified Source
+
+```c
+// Simplified version of ExplainQueryText
+void ExplainQueryText(ExplainState *es, QueryDesc *queryDesc) {
+    // Add query text to EXPLAIN output if available
+    if (queryDesc->sourceText)
+        ExplainPropertyText("Query Text", queryDesc->sourceText, es);
+}
+```
+
+Key simplifications made:
+- Simple function with minimal changes needed
+- Added clear comment explaining the purpose
+- Maintained the essential null-check and function call
+- No complex logic to simplify - function is already very straightforward

@@ -33,3 +33,21 @@ This static function serves as a syscache invalidation callback that is triggere
 - Critical for maintaining search path consistency in a multi-user environment
 - The function parameters follow the standard syscache callback signature but only the function call itself matters for invalidation
 - Both baseSearchPathValid and searchPathCacheValid are set to false to ensure complete cache invalidation
+
+## Simplified Source
+
+```c
+// Simplified version of InvalidationCallback
+static void InvalidationCallback(Datum arg, int cacheid, uint32 hashvalue) {
+    // Invalidate search path caches when system catalogs change
+    // Forces recomputation on next access to ensure consistency
+    baseSearchPathValid = false;
+    searchPathCacheValid = false;
+}
+```
+
+Key simplifications made:
+- Focused on the essential cache invalidation logic
+- Added explanatory comments for the simple but critical operation
+- Preserved the static nature and callback signature
+- Emphasized the purpose: maintaining search path consistency

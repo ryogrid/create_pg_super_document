@@ -53,3 +53,51 @@ For non-integer types, the function delegates to `defGetString` to convert the v
 - The function is located in src/backend/commands/define.c:107-161
 - Widely used across PostgreSQL's DDL commands for processing boolean options
 - [String](../S/String.md) comparisons use pg_strcasecmp for consistent case-insensitive matching
+
+## Simplified Source
+
+```c
+// Simplified version of defGetBoolean
+bool defGetBoolean(DefElem *def) {
+    // Default to true if no parameter given
+    if (def->arg == NULL)
+        return true;
+
+    // Handle integer values (0 or 1)
+    if (nodeTag(def->arg) == T_Integer) {
+        switch (intVal(def->arg)) {
+            case 0:
+                return false;
+            case 1:
+                return true;
+            default:
+                break; // Fall through to error
+        }
+    } else {
+        // Handle string values
+        char *sval = defGetString(def);
+
+        if (pg_strcasecmp(sval, "true") == 0)
+            return true;
+        if (pg_strcasecmp(sval, "false") == 0)
+            return false;
+        if (pg_strcasecmp(sval, "on") == 0)
+            return true;
+        if (pg_strcasecmp(sval, "off") == 0)
+            return false;
+    }
+
+    // Invalid boolean value
+    ereport(ERROR,
+            (errcode(ERRCODE_SYNTAX_ERROR),
+             errmsg("%s requires a Boolean value", def->defname)));
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Consolidated the switch/case handling for integers
+- Streamlined the string comparison logic
+- Maintained all essential boolean value parsing capabilities
+- Preserved the default true behavior and error handling

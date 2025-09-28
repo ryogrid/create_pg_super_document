@@ -36,3 +36,36 @@ This function completes the initialization of a tuplestore destination receiver 
 - Part of a two-stage initialization pattern: create the receiver, then set its parameters
 - Essential for configuring how the tuplestore receiver will process and store incoming tuples
 - The memory context parameter is important for proper memory management during tuple storage operations
+
+## Simplified Source
+
+```c
+// Simplified version of SetTuplestoreDestReceiverParams
+void SetTuplestoreDestReceiverParams(DestReceiver *self,
+                                   Tuplestorestate *tStore,
+                                   MemoryContext tContext,
+                                   bool detoast,
+                                   TupleDesc target_tupdesc,
+                                   const char *map_failure_msg) {
+    TStoreState *myState = (TStoreState *) self;
+
+    // Validate that detoast and tuple conversion are not both requested
+    Assert(!(detoast && target_tupdesc));
+
+    // Verify this is actually a tuplestore receiver
+    Assert(myState->pub.mydest == DestTuplestore);
+
+    // Configure the receiver parameters
+    myState->tstore = tStore;
+    myState->cxt = tContext;
+    myState->detoast = detoast;
+    myState->target_tupdesc = target_tupdesc;
+    myState->map_failure_msg = map_failure_msg;
+}
+```
+
+Key simplifications made:
+- Preserved essential parameter assignment logic
+- Maintained important validation assertions
+- Focused on core configuration functionality
+- Added comments explaining validation checks

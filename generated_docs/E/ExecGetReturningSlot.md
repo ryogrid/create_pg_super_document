@@ -42,3 +42,34 @@ The slot is essential for storing and formatting the result tuples that will be 
 - The slot structure matches the target relation's tuple descriptor to ensure type compatibility
 - Part of PostgreSQL's advanced DML capabilities that go beyond standard SQL's row-count-only returns
 - Used in conjunction with ModifyTable executor nodes that handle data modification operations
+
+## Simplified Source
+
+```c
+// Simplified version of ExecGetReturningSlot
+TupleTableSlot *ExecGetReturningSlot(EState *estate, ResultRelInfo *relInfo) {
+    // Create slot if not already initialized
+    if (relInfo->ri_ReturningSlot == NULL) {
+        Relation rel = relInfo->ri_RelationDesc;
+
+        // Switch to query context for proper memory management
+        MemoryContext oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+        // Initialize the returning slot with relation's tuple descriptor
+        relInfo->ri_ReturningSlot = ExecInitExtraTupleSlot(estate,
+                                                           RelationGetDescr(rel),
+                                                           table_slot_callbacks(rel));
+
+        // Restore previous memory context
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    return relInfo->ri_ReturningSlot;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the lazy initialization pattern
+- Simplified variable declarations for clarity
+- Emphasized the memory context management aspect
+- Preserved the essential logic for slot creation and caching

@@ -49,3 +49,34 @@ Unlike the INSERT case, UPDATE operations always require projection due to the c
 - Always returns ri_newTupleSlot through the projection, ensuring proper slot type for the target relation
 - Critical component of PostgreSQL's UPDATE execution pipeline
 - The expression context setup maps planSlot to ecxt_outertuple and oldSlot to ecxt_scantuple for projection evaluation
+
+## Simplified Source
+
+```c
+// Simplified version of ExecGetUpdateNewTuple
+TupleTableSlot *ExecGetUpdateNewTuple(ResultRelInfo *relinfo,
+                                      TupleTableSlot *planSlot,
+                                      TupleTableSlot *oldSlot) {
+    // Get the projection info for merging old and new values
+    ProjectionInfo *newProj = relinfo->ri_projectNew;
+
+    // Validate inputs (safety checks)
+    Assert(relinfo->ri_projectNewInfoValid);
+    Assert(planSlot != NULL && !TTS_EMPTY(planSlot));
+    Assert(oldSlot != NULL && !TTS_EMPTY(oldSlot));
+
+    // Setup expression context with both tuple sources
+    ExprContext *econtext = newProj->pi_exprContext;
+    econtext->ecxt_outertuple = planSlot;   // New values from subplan
+    econtext->ecxt_scantuple = oldSlot;     // Original values
+
+    // Project to create the merged tuple
+    return ExecProject(newProj);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the tuple merging process
+- Simplified variable access for readability
+- Emphasized the dual input nature (new values + old values)
+- Preserved all essential safety checks and logic

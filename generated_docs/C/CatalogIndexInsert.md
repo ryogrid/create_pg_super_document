@@ -51,3 +51,67 @@ The function validates index readiness, extracts appropriate column values using
 - Uses assertion checks to validate that system catalog restrictions are maintained
 - Properly handles unique vs non-unique indexes by setting appropriate uniqueness check flags
 - Creates and destroys a temporary TupleTableSlot for each operation to avoid execution state overhead
+
+## Simplified Source
+
+```c
+// Simplified version of CatalogIndexInsert
+static void CatalogIndexInsert(CatalogIndexState indstate, HeapTuple heapTuple,
+                               TU_UpdateIndexes updateIndexes) {
+    int numIndexes;
+    RelationPtr relationDescs;
+    TupleTableSlot *slot;
+    IndexInfo **indexInfoArray;
+    Datum values[INDEX_MAX_KEYS];
+    bool isnull[INDEX_MAX_KEYS];
+    bool onlySummarized = (updateIndexes == TU_Summarizing);
+
+    // HOT optimization: skip index updates for heap-only tuples
+#ifndef USE_ASSERT_CHECKING
+    if (HeapTupleIsHeapOnly(heapTuple) && !onlySummarized)
+        return;
+#endif
+
+    // Get state information and check if there are indexes to update
+    numIndexes = indstate->ri_NumIndices;
+    if (numIndexes == 0)
+        return;
+
+    relationDescs = indstate->ri_IndexRelationDescs;
+    indexInfoArray = indstate->ri_IndexRelationInfo;
+
+    // Create temporary slot for tuple processing
+    slot = MakeSingleTupleTableSlot(RelationGetDescr(indstate->ri_RelationDesc),
+                                    &TTSOpsHeapTuple);
+    ExecStoreHeapTuple(heapTuple, slot, false);
+
+    // Process each index
+    for (int i = 0; i < numIndexes; i++) {
+        IndexInfo *indexInfo = indexInfoArray[i];
+        Relation index = relationDescs[i];
+
+        // Skip if index not ready or only updating summarizing indexes
+        if (!indexInfo->ii_ReadyForInserts)
+            continue;
+        if (onlySummarized && !indexInfo->ii_Summarizing)
+            continue;
+
+        // Extract index column values from tuple
+        FormIndexDatum(indexInfo, slot, NULL, values, isnull);
+
+        // Insert into index with appropriate uniqueness checking
+        index_insert(index, values, isnull, &(heapTuple->t_self),
+                    indstate->ri_RelationDesc,
+                    index->rd_index->indisunique ? UNIQUE_CHECK_YES : UNIQUE_CHECK_NO,
+                    false, indexInfo);
+    }
+
+    ExecDropSingleTupleTableSlot(slot);
+}
+```
+
+Key simplifications made:
+- Core logic: create slot, iterate indexes, extract values, insert index entries
+- HOT optimization skips unnecessary index updates for heap-only tuples
+- System catalog restrictions ensure only simple indexes without expressions
+- Selective updating supports summarizing vs normal indexes separately

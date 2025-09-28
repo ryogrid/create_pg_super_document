@@ -42,3 +42,34 @@ The function operates by:
 - The VFD is added to the front of the free list (LIFO behavior)
 - Debug logging shows the file number and filename being freed
 - Part of PostgreSQL's virtual file descriptor system that manages file handle limits
+
+## Simplified Source
+
+```c
+// Simplified version of FreeVfd
+static void FreeVfd(File file) {
+    Vfd *vfdP = &VfdCache[file];
+
+    DO_DB(elog(LOG, "FreeVfd: %d (%s)", file, vfdP->fileName ? vfdP->fileName : ""));
+
+    // Free the allocated filename string
+    if (vfdP->fileName != NULL) {
+        free(vfdP->fileName);
+        vfdP->fileName = NULL;
+    }
+
+    // Reset file descriptor state to indicate it's free
+    vfdP->fdstate = 0x0;
+
+    // Add VFD to the front of the free list
+    vfdP->nextFree = VfdCache[0].nextFree;
+    VfdCache[0].nextFree = file;
+}
+```
+
+Key simplifications made:
+- Preserved the debug logging for troubleshooting
+- Maintained the memory cleanup for fileName
+- Kept the state reset and free list management
+- Added comments explaining each cleanup step
+- Clear sequence: debug → cleanup → reset → add to free list

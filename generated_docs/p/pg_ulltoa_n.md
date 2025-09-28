@@ -44,3 +44,49 @@ This hybrid approach leverages the efficiency of 32-bit operations while correct
 - Used as building block for 64-bit signed integer conversion
 - Critical for PostgreSQL's bigint data type and internal counters that use 64-bit values
 - Algorithm processes digits right-to-left like its 32-bit counterpart
+
+## Simplified Source
+
+```c
+// Simplified version of pg_ulltoa_n
+int pg_ulltoa_n(uint64 value, char *a) {
+    int olength, i = 0;
+    uint32 value2;
+
+    // Handle zero case
+    if (value == 0) {
+        *a = '0';
+        return 1;
+    }
+
+    olength = decimalLength64(value);
+
+    // Process large values (>= 100,000,000) in 8-digit chunks
+    while (value >= 100000000) {
+        uint64 q = value / 100000000;
+        uint32 remainder = (uint32)(value - 100000000 * q);
+
+        // Convert 8-digit chunk using optimized digit table lookups
+        char *pos = a + olength - i;
+        // ... convert remainder to 8 digits at pos-8 through pos-1 ...
+
+        value = q;
+        i += 8;
+    }
+
+    // Switch to 32-bit processing for remaining digits
+    value2 = (uint32)value;
+
+    // Process remaining digits in 4-digit, 2-digit, 1-digit chunks
+    // using same optimization as pg_ultoa_n
+
+    return olength;
+}
+```
+
+Key simplifications made:
+- Preserved core 64-bit to 32-bit conversion strategy
+- Simplified the chunked processing logic
+- Maintained performance-critical structure
+- Focused on the essential algorithm flow
+- Abstracted detailed digit table operations

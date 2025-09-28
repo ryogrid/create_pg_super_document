@@ -32,3 +32,19 @@ BufTagGetForkNum is an inline accessor function that retrieves the fork number c
 - Fork numbers distinguish between main data fork, free space map fork, visibility map fork, etc.
 - Extensively used throughout the buffer management system for fork-specific operations
 - Critical for proper buffer identification and management across different relation forks
+
+## Simplified Source
+
+```c
+// Simplified version of BufTagGetForkNum
+static inline ForkNumber BufTagGetForkNum(const BufferTag *tag) {
+    // Return the fork number from the buffer tag
+    return tag->forkNum;
+}
+```
+
+Key simplifications made:
+- This function is already very simple and requires no simplification
+- Preserved the inline accessor pattern
+- Added comment explaining the purpose
+- Maintained the direct field access for performance

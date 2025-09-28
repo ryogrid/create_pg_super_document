@@ -40,3 +40,22 @@ This function is essential for:
 - The returned parent context, if not NULL, is guaranteed to be valid as long as the child context exists
 - Used primarily for memory management debugging and hierarchy traversal operations
 - The parent relationship is established when a context is created as a child of another context
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextGetParent
+MemoryContext MemoryContextGetParent(MemoryContext context) {
+    // Ensure the context is valid
+    Assert(MemoryContextIsValid(context));
+
+    // Return the parent context (NULL if top-level)
+    return context->parent;
+}
+```
+
+Key simplifications made:
+- Preserved the essential validation and return logic
+- Added clear comments explaining the function's purpose
+- Maintained the critical Assert for input validation
+- Simple and straightforward implementation matches the original's simplicity

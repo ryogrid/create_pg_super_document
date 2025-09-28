@@ -45,3 +45,27 @@ Note that as of PostgreSQL 8.1, output functions only receive the value itself w
 - Used extensively in type I/O setup and procedural language compilation
 - Essential for proper functioning of array type I/O operations
 - Direct references to `typelem` for I/O purposes elsewhere in code are generally incorrect
+
+## Simplified Source
+
+```c
+// Simplified version of getTypeIOParam
+Oid getTypeIOParam(HeapTuple typeTuple) {
+    Form_pg_type typeStruct = (Form_pg_type) GETSTRUCT(typeTuple);
+
+    // Array types get their element type OID as parameter
+    // All other types get their own type OID as parameter
+    if (OidIsValid(typeStruct->typelem)) {
+        return typeStruct->typelem;
+    } else {
+        return typeStruct->oid;
+    }
+}
+```
+
+Key simplifications made:
+- Function is already very simple, minimal changes needed
+- Added clearer comments explaining the array vs non-array logic
+- Maintained the essential type parameter selection logic
+- Preserved the central rule for I/O function parameter passing
+- Focused on the core type OID determination workflow

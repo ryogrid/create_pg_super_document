@@ -32,3 +32,26 @@ The function ensures that the bbsink chain is properly initialized and that buff
 - The function performs assertions to ensure that both bbs_next and bbs_state are properly initialized
 - After forwarding the call, the current bbsink adopts the buffer from its successor (sink->bbs_buffer = sink->bbs_next->bbs_buffer)
 - This is a utility function that reduces code duplication across different bbsink implementations that need similar forwarding behavior
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_forward_begin_backup
+void bbsink_forward_begin_backup(bbsink *sink) {
+    // Validate chain and state
+    Assert(sink->bbs_next != NULL);
+    Assert(sink->bbs_state != NULL);
+
+    // Forward begin backup to next sink
+    bbsink_begin_backup(sink->bbs_next, sink->bbs_state,
+                       sink->bbs_buffer_length);
+
+    // Share buffer with successor
+    sink->bbs_buffer = sink->bbs_next->bbs_buffer;
+}
+```
+
+Key simplifications made:
+- Preserved essential validation and buffer sharing
+- Maintained forward delegation with state passing
+- Focused on core backup initialization forwarding

@@ -45,3 +45,41 @@ The function is implemented as a static inline to minimize function call overhea
 - **NULL handling**: Always sets `*isnull` to indicate whether the returned value is NULL
 - **Caching strategy**: Leverages cached attribute offsets when available to avoid recomputation
 - **Fallback mechanism**: Uses `nocachegetattr` when cached offsets are not available or when dealing with NULL values
+
+## Simplified Source
+
+```c
+// Simplified version of fastgetattr
+static inline Datum fastgetattr(HeapTuple tup, int attnum, TupleDesc tupleDesc, bool *isnull) {
+    Assert(attnum > 0);
+
+    *isnull = false;
+
+    // Fast path for tuples with no NULL values
+    if (HeapTupleNoNulls(tup)) {
+        Form_pg_attribute att = TupleDescAttr(tupleDesc, attnum - 1);
+
+        // Use cached offset if available
+        if (att->attcacheoff >= 0)
+            return fetchatt(att, (char *) tup->t_data + tup->t_data->t_hoff +
+                           att->attcacheoff);
+        else
+            return nocachegetattr(tup, attnum, tupleDesc);
+    } else {
+        // Check NULL bitmap first
+        if (att_isnull(attnum - 1, tup->t_data->t_bits)) {
+            *isnull = true;
+            return (Datum) NULL;
+        } else {
+            return nocachegetattr(tup, attnum, tupleDesc);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the essential attribute extraction optimization logic
+- Maintained the fast path for non-NULL tuples with cached offsets
+- Kept the NULL bitmap checking for tuples with potential NULLs
+- Focused on the core performance optimization strategy
+- Retained proper delegation to nocachegetattr fallback

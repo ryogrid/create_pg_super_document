@@ -30,3 +30,33 @@ This function creates and initializes a new bbsink_copystream instance, which is
 - The allocated bbsink_copystream structure includes a message buffer for protocol messages and progress tracking fields
 - This sink type supports both archive content and manifest transmission through the same COPY stream
 - Progress reporting is configured with predefined byte and time intervals to avoid excessive client updates
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_copystream_new
+bbsink *bbsink_copystream_new(bool send_to_client) {
+    // Allocate and zero-initialize the copystream sink structure
+    bbsink_copystream *sink = palloc0(sizeof(bbsink_copystream));
+
+    // Set up the operations table for copystream functionality
+    *((const bbsink_ops **) &sink->base.bbs_ops) = &bbsink_copystream_ops;
+
+    // Store whether to send data to client
+    sink->send_to_client = send_to_client;
+
+    // Initialize progress reporting tracking
+    sink->last_progress_report_time = GetCurrentTimestamp();
+    sink->bytes_done_at_last_time_check = UINT64CONST(0);
+
+    // Return the base sink interface
+    return &sink->base;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each initialization step
+- Preserved all essential initialization logic
+- Maintained the const cast pattern for operations table
+- Kept progress reporting setup intact
+- Simplified structure while preserving all functionality

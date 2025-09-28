@@ -34,3 +34,18 @@ The function performs a direct lookup into the tag_behavior array to retrieve th
 - Used primarily in BuildQueryCompletionString to determine whether to append row count information to completion tags
 - The display_rowcount flag is the fifth parameter in the PG_CMDTAG macro definitions in cmdtaglist.h
 - This design allows PostgreSQL to provide consistent and meaningful completion messages to clients across different command types
+
+## Simplified Source
+
+```c
+// Simplified version of command_tag_display_rowcount
+bool command_tag_display_rowcount(CommandTag commandTag) {
+    // Direct lookup of display behavior from command tag table
+    return tag_behavior[commandTag].display_rowcount;
+}
+```
+
+Key simplifications made:
+- Preserved core table lookup functionality
+- Added comment explaining the purpose
+- Maintained simple, direct access pattern

@@ -46,3 +46,25 @@ This function takes no parameters.
 - The latest_page_number tracking helps optimize CLOG page extension and garbage collection
 - Proper sequencing with other startup functions is critical for correct CLOG operation
 - The function works with both postmaster and standalone-backend startup scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of StartupCLOG
+void StartupCLOG(void) {
+    // Get the next transaction ID that will be assigned
+    TransactionId xid = XidFromFullTransactionId(TransamVariables->nextXid);
+
+    // Calculate which CLOG page this transaction ID belongs to
+    int64 pageno = TransactionIdToPage(xid);
+
+    // Initialize the latest page number tracker for CLOG
+    pg_atomic_write_u64(&XactCtl->shared->latest_page_number, pageno);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each operation
+- Maintained the essential logic flow
+- Kept the atomic write operation as it's critical for thread safety
+- Preserved all function calls as they're necessary for functionality

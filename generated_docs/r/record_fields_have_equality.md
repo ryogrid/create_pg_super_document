@@ -27,3 +27,24 @@ This function checks if all fields of a composite (record) type have equality op
 
 ## Notes and Other Information
 This is a static function in typcache.c that serves as part of the type caching system for composite types, complementing the array element property functions. The function is part of a family of helper functions for composite types, as indicated by the comment "Likewise, some helper functions for composite types." It implements the same lazy evaluation pattern to avoid unnecessary computation. Equality testing for composite types requires that all constituent fields support equality operations, which makes this check essential for determining whether record/row comparisons can be performed in PostgreSQL operations.
+
+## Simplified Source
+
+```c
+// Simplified version of record_fields_have_equality
+static bool record_fields_have_equality(TypeCacheEntry *typentry) {
+    // Check if field properties have been cached yet
+    if (!(typentry->flags & TCFLAGS_CHECKED_FIELD_PROPERTIES)) {
+        // Cache the field properties if not done yet
+        cache_record_field_properties(typentry);
+    }
+
+    // Return whether all fields support equality operations
+    return (typentry->flags & TCFLAGS_HAVE_FIELD_EQUALITY) != 0;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the lazy evaluation pattern
+- Clarified what each flag check accomplishes
+- Maintained the essential logic flow for record field equality support

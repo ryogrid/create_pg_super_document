@@ -31,3 +31,20 @@ The function is the counterpart to ResourceOwnerRememberFile and is part of Post
 - The function works in conjunction with ResourceOwnerRememberFile to manage file descriptor lifecycles
 - Must be called when explicitly closing files to prevent the resource owner from attempting to close an already-closed file
 - Part of PostgreSQL's defensive programming approach to prevent double-close errors and resource management bugs
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerForgetFile
+static inline void ResourceOwnerForgetFile(ResourceOwner owner, File file) {
+    // Remove file from resource owner tracking to prevent double cleanup
+    ResourceOwnerForget(owner, Int32GetDatum(file), &file_resowner_desc);
+}
+```
+
+Key simplifications made:
+- This function is already maximally simple as a wrapper
+- Preserved the essential resource cleanup logic
+- Added comment explaining the double cleanup prevention
+- Maintained the inline performance optimization
+- Simple delegation to the general ResourceOwnerForget function

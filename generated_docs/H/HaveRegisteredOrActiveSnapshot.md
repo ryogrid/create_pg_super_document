@@ -45,3 +45,30 @@ The catalog snapshot exclusion logic is particularly important: the catalog snap
 - Returns true for any active snapshot, regardless of type
 - The catalog snapshot special case prevents spurious "snapshot available" results when only automatic catalog maintenance is occurring
 - Critical for TOAST operations and logical replication which require stable snapshot contexts
+
+## Simplified Source
+
+```c
+// Simplified version of HaveRegisteredOrActiveSnapshot
+bool HaveRegisteredOrActiveSnapshot(void) {
+    // Check for active snapshot first
+    if (ActiveSnapshot != NULL)
+        return true;
+
+    // Special case: if only catalog snapshot is registered, return false
+    // This excludes automatic catalog maintenance from "longer-lived" requirements
+    if (CatalogSnapshot != NULL &&
+        pairingheap_is_singular(&RegisteredSnapshots))
+        return false;
+
+    // Check if any snapshots are registered
+    return !pairingheap_is_empty(&RegisteredSnapshots);
+}
+```
+
+Key simplifications made:
+- Preserved the three-tier checking logic
+- Added clear comments explaining the catalog snapshot special case
+- Maintained the essential pairing heap operations
+- Focused on the core snapshot presence detection algorithm
+- Simplified the logic flow while preserving functionality

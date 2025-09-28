@@ -56,3 +56,85 @@ The function handles NULL values appropriately by setting isnull flags when sett
 - Manages memory carefully to prevent leaks during the potentially large result set iteration
 - The three-column format matches what GetPGVariableResultDesc() creates for "SHOW ALL"
 - Located in src/backend/utils/misc/guc_funcs.c:456-541
+
+## Simplified Source
+
+```c
+// Simplified version of ShowAllGUCConfig
+static void
+ShowAllGUCConfig(DestReceiver *dest)
+{
+    struct config_generic **guc_vars;
+    int num_vars;
+    TupOutputState *tstate;
+    TupleDesc tupdesc;
+    Datum values[3];
+    bool isnull[3] = {false, false, false};
+
+    // Get all GUC variables in sorted order
+    guc_vars = get_guc_variables(&num_vars);
+
+    // Create tuple descriptor for three TEXT columns: name, setting, description
+    tupdesc = CreateTemplateTupleDesc(3);
+    TupleDescInitBuiltinEntry(tupdesc, 1, "name", TEXTOID, -1, 0);
+    TupleDescInitBuiltinEntry(tupdesc, 2, "setting", TEXTOID, -1, 0);
+    TupleDescInitBuiltinEntry(tupdesc, 3, "description", TEXTOID, -1, 0);
+
+    // Initialize output state
+    tstate = begin_tup_output_tupdesc(dest, tupdesc, &TTSOpsVirtual);
+
+    // Process each GUC variable
+    for (int i = 0; i < num_vars; i++)
+    {
+        struct config_generic *conf = guc_vars[i];
+        char *setting;
+
+        // Skip hidden or non-visible parameters
+        if (conf->flags & GUC_NO_SHOW_ALL)
+            continue;
+        if (!ConfigOptionIsVisible(conf))
+            continue;
+
+        // Build result row
+        values[0] = PointerGetDatum(cstring_to_text(conf->name));
+
+        setting = ShowGUCOption(conf, true);
+        if (setting) {
+            values[1] = PointerGetDatum(cstring_to_text(setting));
+            isnull[1] = false;
+        } else {
+            values[1] = PointerGetDatum(NULL);
+            isnull[1] = true;
+        }
+
+        if (conf->short_desc) {
+            values[2] = PointerGetDatum(cstring_to_text(conf->short_desc));
+            isnull[2] = false;
+        } else {
+            values[2] = PointerGetDatum(NULL);
+            isnull[2] = true;
+        }
+
+        // Send row to output
+        do_tup_output(tstate, values, isnull);
+
+        // Clean up memory for this row
+        pfree(DatumGetPointer(values[0]));
+        if (setting) {
+            pfree(setting);
+            pfree(DatumGetPointer(values[1]));
+        }
+        if (conf->short_desc)
+            pfree(DatumGetPointer(values[2]));
+    }
+
+    end_tup_output(tstate);
+}
+```
+
+Key simplifications made:
+- Added comments explaining the main phases of operation
+- Simplified tuple descriptor creation comments
+- Made the filtering logic more explicit with clear conditions
+- Preserved all memory management and error handling
+- Maintained the exact output format and processing logic

@@ -42,3 +42,56 @@ The function implements a loop that:
 - The function updates both confirmed_flush and two_phase_at LSNs when two-phase commit support is enabled
 - Uses DEBUG1 logging to track the search for the starting point
 - Contains interrupt checks to allow for query cancellation during potentially long-running operations
+
+## Simplified Source
+
+```c
+// Simplified version of DecodingContextFindStartpoint
+void
+DecodingContextFindStartpoint(LogicalDecodingContext *ctx)
+{
+    ReplicationSlot *slot = ctx->slot;
+
+    // Start reading WAL from the slot's restart LSN
+    XLogBeginRead(ctx->reader, slot->data.restart_lsn);
+
+    elog(DEBUG1, "searching for logical decoding starting point, starting at %X/%X",
+         LSN_FORMAT_ARGS(slot->data.restart_lsn));
+
+    // Loop until we find a consistent starting point
+    for (;;)
+    {
+        XLogRecord *record;
+        char *err = NULL;
+
+        // Read the next WAL record (waits for new WAL if needed)
+        record = XLogReadRecord(ctx->reader, &err);
+        if (err)
+            elog(ERROR, "could not find logical decoding starting point: %s", err);
+        if (!record)
+            elog(ERROR, "could not find logical decoding starting point");
+
+        // Process the record through logical decoding machinery
+        LogicalDecodingProcessRecord(ctx, ctx->reader);
+
+        // Check if we've reached a consistent snapshot
+        if (DecodingContextReady(ctx))
+            break;
+
+        CHECK_FOR_INTERRUPTS();
+    }
+
+    // Update slot metadata with the consistent starting point
+    SpinLockAcquire(&slot->mutex);
+    slot->data.confirmed_flush = ctx->reader->EndRecPtr;
+    if (slot->data.two_phase)
+        slot->data.two_phase_at = ctx->reader->EndRecPtr;
+    SpinLockRelease(&slot->mutex);
+}
+```
+
+Key simplifications made:
+- Simplified comments to focus on main functionality
+- Clarified the purpose of each major step
+- Preserved all error handling and critical operations
+- Made the loop structure more readable while maintaining exact logic

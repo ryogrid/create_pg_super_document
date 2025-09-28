@@ -54,3 +54,49 @@ The actual comparison logic for specific node types is generated and included vi
 - **Error handling**: Throws ERROR for unrecognized node types, indicating a programming error
 - **Usage context**: Fundamental to query plan caching, optimization transformations, and semantic analysis
 - **Thread safety**: Function is read-only and thread-safe when used with immutable node structures
+
+## Simplified Source
+
+```c
+// Simplified version of equal
+bool equal(const void *a, const void *b) {
+    // Fast path: if both pointers are identical
+    if (a == b)
+        return true;
+
+    // Handle NULL cases: if one is NULL and other isn't, they're not equal
+    if (a == NULL || b == NULL)
+        return false;
+
+    // Check if both nodes are the same type
+    if (nodeTag(a) != nodeTag(b))
+        return false;
+
+    // Prevent stack overflow in deeply nested structures
+    check_stack_depth();
+
+    // Dispatch to type-specific comparison functions
+    switch (nodeTag(a)) {
+        // Auto-generated comparison functions for all node types
+        #include "equalfuncs.switch.c"
+
+        // Special handling for list types
+        case T_List:
+        case T_IntList:
+        case T_OidList:
+        case T_XidList:
+            return _equalList(a, b);
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(a));
+            return false;
+    }
+}
+```
+
+Key simplifications made:
+- Removed local retval variable, returning directly from cases
+- Added clear comments explaining each comparison stage
+- Simplified control flow while preserving all logic
+- Highlighted the auto-generated nature of most comparison logic
+- Maintained all safety checks and error handling

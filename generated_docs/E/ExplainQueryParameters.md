@@ -39,3 +39,28 @@ This function is useful for debugging parameterized queries by showing the actua
 - Part of PostgreSQLs EXPLAIN infrastructure for displaying query information
 - Useful for debugging and understanding parameterized query execution
 - Located in src/backend/commands/explain.c:1184-1201
+
+## Simplified Source
+
+```c
+// Simplified version of ExplainQueryParameters
+void ExplainQueryParameters(ExplainState *es, ParamListInfo params, int maxlen) {
+    // Early return if no parameters to display
+    if (params == NULL || params->numParams <= 0 || maxlen == 0)
+        return;
+
+    // Build parameter string representation
+    char *str = BuildParamLogString(params, NULL, maxlen);
+
+    // Add to output if non-empty
+    if (str && str[0] != '\0')
+        ExplainPropertyText("Query Parameters", str, es);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step
+- Combined validation checks into one if statement
+- Kept the essential logic flow intact
+- Made the parameter validation and string building more explicit
+- Maintained the non-empty string check before output

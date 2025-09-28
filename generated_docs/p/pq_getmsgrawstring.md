@@ -33,7 +33,7 @@ The  function retrieves a null-terminated string from a PostgreSQL message buffe
 
 ## Notes and Other Information
 - Returns a direct pointer into the message buffer without any data copying or conversion
-- Does NOT perform character encoding conversion, unlike 
+- Does NOT perform character encoding conversion, unlike
 - Automatically determines string length by scanning for null terminator within message boundaries
 - Validates that the null terminator exists within the message to prevent reading beyond message boundaries
 - Advances the message cursor by string length plus one (to skip the null terminator)
@@ -43,3 +43,34 @@ The  function retrieves a null-terminated string from a PostgreSQL message buffe
 - The returned pointer is valid only as long as the message buffer remains unchanged
 - Commonly used for internal protocol communication where encoding is controlled
 - Used in parallel processing and authentication contexts where raw string access is preferred
+
+## Simplified Source
+
+```c
+// Simplified version of pq_getmsgrawstring
+const char *pq_getmsgrawstring(StringInfo msg) {
+    char *str = &msg->data[msg->cursor];
+
+    // Find string length using strlen (safe due to guaranteed null termination)
+    int slen = strlen(str);
+
+    // Validate null terminator is within message bounds
+    if (msg->cursor + slen >= msg->len) {
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("invalid string in message")));
+    }
+
+    // Advance cursor past string and null terminator
+    msg->cursor += slen + 1;
+
+    return str;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major operation
+- Preserved the boundary validation logic
+- Maintained the cursor advancement mechanism
+- Kept the error handling for invalid strings
+- Emphasized the zero-copy nature by returning direct buffer pointer

@@ -35,3 +35,20 @@ The function is typically called before executing queries to ensure the completi
 - CMDTAG_UNKNOWN corresponds to the textual representation "???" and has event_trigger_ok=false, table_rewrite_ok=false, rowcount=false
 - This initialization is essential for proper query completion tracking in PostgreSQL's command execution pipeline
 - The function provides a centralized way to ensure consistent initialization across different parts of the codebase
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeQueryCompletion
+void InitializeQueryCompletion(QueryCompletion *qc) {
+    // Reset completion structure to safe defaults
+    qc->commandTag = CMDTAG_UNKNOWN;
+    qc->nprocessed = 0;
+}
+```
+
+Key simplifications made:
+- Added clarifying comment about the function's purpose
+- This function is already very simple and straightforward
+- Preserved the essential initialization: unknown command tag and zero row count
+- The core logic is just setting two struct fields to default values

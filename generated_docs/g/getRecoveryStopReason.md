@@ -55,3 +55,46 @@ The function examines the global recovery target settings and recovery stop info
 - Critical for database administration and recovery auditing
 - The generated text becomes part of PostgreSQL's permanent timeline history records
 - Used for documenting recovery operations in timeline history files
+
+## Simplified Source
+
+```c
+// Simplified version of getRecoveryStopReason
+static char *getRecoveryStopReason(void) {
+    char reason[200];
+
+    // Generate reason based on recovery target type
+    if (recoveryTarget == RECOVERY_TARGET_XID) {
+        snprintf(reason, sizeof(reason), "%s transaction %u",
+                 recoveryStopAfter ? "after" : "before", recoveryStopXid);
+    }
+    else if (recoveryTarget == RECOVERY_TARGET_TIME) {
+        snprintf(reason, sizeof(reason), "%s %s",
+                 recoveryStopAfter ? "after" : "before",
+                 timestamptz_to_str(recoveryStopTime));
+    }
+    else if (recoveryTarget == RECOVERY_TARGET_LSN) {
+        snprintf(reason, sizeof(reason), "%s LSN %X/%X",
+                 recoveryStopAfter ? "after" : "before",
+                 LSN_FORMAT_ARGS(recoveryStopLSN));
+    }
+    else if (recoveryTarget == RECOVERY_TARGET_NAME) {
+        snprintf(reason, sizeof(reason), "at restore point \"%s\"",
+                 recoveryStopName);
+    }
+    else if (recoveryTarget == RECOVERY_TARGET_IMMEDIATE) {
+        snprintf(reason, sizeof(reason), "reached consistency");
+    }
+    else {
+        snprintf(reason, sizeof(reason), "no recovery target specified");
+    }
+
+    return pstrdup(reason);
+}
+```
+
+Key simplifications made:
+- Consolidated the switch-like logic for different recovery target types
+- Added clear comments for each recovery target case
+- Maintained all essential formatting and logic
+- Preserved the dynamic string allocation pattern

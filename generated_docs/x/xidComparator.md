@@ -37,3 +37,23 @@ This function provides a comparison mechanism for sorting transaction IDs using 
 - Returns negative, zero, or positive values following standard comparator conventions
 - Critical for maintaining consistent transaction ID ordering in arrays
 - Located in src/backend/utils/adt/xid.c:139-155
+
+## Simplified Source
+
+```c
+// Simplified version of xidComparator
+int xidComparator(const void *arg1, const void *arg2) {
+    // Extract transaction IDs from void pointers
+    TransactionId xid1 = *(const TransactionId *) arg1;
+    TransactionId xid2 = *(const TransactionId *) arg2;
+
+    // Compare using standard unsigned 32-bit comparison
+    return pg_cmp_u32(xid1, xid2);
+}
+```
+
+Key simplifications made:
+- Preserved the essential comparison logic
+- Added clear comments explaining the pointer dereferencing
+- Maintained the simple structure since the original is already concise
+- Emphasized the use of standard comparison rather than wraparound-aware comparison

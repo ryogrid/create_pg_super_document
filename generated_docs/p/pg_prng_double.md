@@ -42,3 +42,24 @@ For the range (0.0, 1.0], the standard approach is to compute "1.0 - pg_prng_dou
 - Core building block for more complex probability distributions
 - Part of PostgreSQL's unified PRNG interface for consistent random number generation
 - [Range](../R/Range.md) is [0.0, 1.0) - includes 0.0 but excludes 1.0
+
+## Simplified Source
+
+```c
+// Simplified version of pg_prng_double
+double pg_prng_double(pg_prng_state *state) {
+    // Get 64-bit random value from xoroshiro128** algorithm
+    uint64 v = xoroshiro128ss(state);
+
+    // Extract upper 52 bits to match double precision mantissa
+    // Scale to [0.0, 1.0) range using ldexp
+    return ldexp((double) (v >> (64 - 52)), -52);
+}
+```
+
+Key simplifications made:
+- Function is already very simple, minimal changes needed
+- Added clearer comments explaining the bit manipulation and scaling
+- Maintained the IEEE 754 double precision logic
+- Preserved the essential uniform distribution generation
+- Focused on the core random number generation workflow

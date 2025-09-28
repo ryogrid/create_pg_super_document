@@ -40,3 +40,42 @@ This function takes no parameters.
 - Does not free the event list since it will be cleaned up more efficiently in AfterTriggerEndXact
 - Critical component of PostgreSQL's deferred constraint checking and trigger execution system
 - Called during both normal commit and two-phase commit preparation
+
+## Simplified Source
+
+```c
+// Simplified version of AfterTriggerFireDeferred
+void AfterTriggerFireDeferred(void) {
+    AfterTriggerEventList *events;
+    bool snap_pushed = false;
+
+    // Must not be inside a query
+    Assert(afterTriggers.query_depth == -1);
+
+    // Set up snapshot for trigger execution if needed
+    events = &afterTriggers.events;
+    if (events->head != NULL) {
+        PushActiveSnapshot(GetTransactionSnapshot());
+        snap_pushed = true;
+    }
+
+    // Execute all deferred triggers in a loop
+    // Loop handles cases where triggers queue more triggers
+    while (afterTriggerMarkEvents(events, NULL, false)) {
+        CommandId firing_id = afterTriggers.firing_counter++;
+
+        if (afterTriggerInvokeEvents(events, firing_id, NULL, true))
+            break;  // all fired
+    }
+
+    // Clean up snapshot if we pushed one
+    if (snap_pushed)
+        PopActiveSnapshot();
+}
+```
+
+Key simplifications made:
+- Preserved the core logic flow: snapshot setup, trigger loop, cleanup
+- Kept essential assertions and safety checks
+- Maintained the recursive trigger handling loop structure
+- Focused on the main execution path without implementation details

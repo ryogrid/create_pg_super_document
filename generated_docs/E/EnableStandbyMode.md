@@ -31,3 +31,23 @@ EnableStandbyMode is a static function that configures PostgreSQL to operate in 
 - Optimizes logging behavior for standby servers to reduce log volume
 - Essential for proper standby server configuration during recovery initialization
 - Located in src/backend/access/transam/xlogrecovery.c:478-511
+
+## Simplified Source
+
+```c
+// Simplified version of EnableStandbyMode
+static void EnableStandbyMode(void) {
+    // Enable standby mode
+    StandbyMode = true;
+
+    // Disable startup progress timeout to reduce log bloat
+    // Standby servers are always in recovery, so progress reports are redundant
+    disable_startup_progress_timeout();
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the standby mode activation
+- Explained the purpose of disabling progress timeout
+- Maintained the essential standby configuration steps
+- Preserved the simple wrapper function structure

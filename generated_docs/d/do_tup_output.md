@@ -49,3 +49,35 @@ This approach allows utility commands to easily send structured data to clients 
 - The slot is cleared both before and after use to maintain clean state
 - This is a low-level function typically called by higher-level output functions rather than directly by utility commands
 - Part of the tuple output infrastructure designed to unify how utility commands send data to clients
+
+## Simplified Source
+
+```c
+// Simplified version of do_tup_output
+void do_tup_output(TupOutputState *tstate, const Datum *values, const bool *isnull) {
+    TupleTableSlot *slot = tstate->slot;
+    int natts = slot->tts_tupleDescriptor->natts;
+
+    // Step 1: Clear the slot to ensure clean state
+    ExecClearTuple(slot);
+
+    // Step 2: Copy the provided data into the slot
+    memcpy(slot->tts_values, values, natts * sizeof(Datum));
+    memcpy(slot->tts_isnull, isnull, natts * sizeof(bool));
+
+    // Step 3: Mark slot as containing a virtual tuple
+    ExecStoreVirtualTuple(slot);
+
+    // Step 4: Send the tuple to the destination receiver
+    tstate->dest->receiveSlot(slot, tstate->dest);
+
+    // Step 5: Clean up the slot
+    ExecClearTuple(slot);
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments for clarity
+- Removed the (void) cast from receiveSlot call
+- Maintained the essential 5-step process flow
+- Preserved all core functionality

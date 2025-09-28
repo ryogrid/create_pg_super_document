@@ -54,3 +54,78 @@ The function uses getopt() for parsing and applies configuration changes through
 - Uses different error message formats depending on whether running under postmaster
 - The function supports processing database name as a positional argument
 - Critical for PostgreSQL's security model by distinguishing between trusted and untrusted option sources
+
+## Simplified Source
+
+```c
+// Simplified version of process_postgres_switches
+void process_postgres_switches(int argc, char *argv[], GucContext ctx,
+                               const char **dbname) {
+    bool secure = (ctx == PGC_POSTMASTER);
+    int errs = 0;
+    GucSource gucsource = secure ? PGC_S_ARGV : PGC_S_CLIENT;
+    int flag;
+
+    // Handle --single argument if present in secure mode
+    if (secure && argc > 1 && strcmp(argv[1], "--single") == 0) {
+        argv++;
+        argc--;
+    }
+
+    // Process command-line options using getopt
+    while ((flag = getopt(argc, argv, "B:bC:c:D:d:EeFf:h:ijk:lN:nOPp:r:S:sTt:v:W:-:")) != -1) {
+        switch (flag) {
+            case 'B': // shared_buffers
+                SetConfigOption("shared_buffers", optarg, ctx, gucsource);
+                break;
+            case 'b': // binary upgrade mode (secure only)
+                if (secure) IsBinaryUpgrade = true;
+                break;
+            case 'c': // configuration parameter
+            case '-': // long option format
+                parse_and_set_config_option(optarg, flag, ctx, gucsource);
+                break;
+            case 'D': // data directory (secure only)
+                if (secure) userDoption = strdup(optarg);
+                break;
+            case 'd': // debug level
+                set_debug_options(atoi(optarg), ctx, gucsource);
+                break;
+            case 'p': // port
+                SetConfigOption("port", optarg, ctx, gucsource);
+                break;
+            case 'h': // listen_addresses
+                SetConfigOption("listen_addresses", optarg, ctx, gucsource);
+                break;
+            // ... many more options processed similarly
+            default:
+                errs++;
+                break;
+        }
+        if (errs) break;
+    }
+
+    // Extract optional database name
+    if (!errs && dbname && *dbname == NULL && argc - optind >= 1)
+        *dbname = strdup(argv[optind++]);
+
+    // Error handling
+    if (errs || argc != optind) {
+        report_command_line_error(argv[optind]);
+    }
+
+    // Reset getopt state for future use
+    optind = 1;
+#ifdef HAVE_INT_OPTRESET
+    optreset = 1;
+#endif
+}
+```
+
+Key simplifications made:
+- Condensed the massive switch statement to show the pattern
+- Abstracted repetitive SetConfigOption calls
+- Simplified error handling logic
+- Focused on the secure vs insecure context handling
+- Emphasized the getopt parsing structure
+- Removed platform-specific getopt details for clarity

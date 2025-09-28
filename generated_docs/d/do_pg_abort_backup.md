@@ -41,3 +41,37 @@ The function handles two scenarios:
 - Issues a WARNING when aborting due to backend exit without proper pg_backup_stop call
 - Much safer than do_pg_backup_stop() for error conditions as it only performs essential cleanup
 - File location: src/backend/access/transam/xlog.c:9410-9436
+
+## Simplified Source
+
+```c
+// Simplified version of do_pg_abort_backup
+void do_pg_abort_backup(int code, Datum arg) {
+    bool during_backup_start = DatumGetBool(arg);
+
+    // Validate backup state
+    Assert(!during_backup_start || sessionBackupState == SESSION_BACKUP_NONE);
+
+    // Cleanup if backup is active or being started
+    if (during_backup_start || sessionBackupState != SESSION_BACKUP_NONE) {
+        WALInsertLockAcquireExclusive();
+        Assert(XLogCtl->Insert.runningBackups > 0);
+        XLogCtl->Insert.runningBackups--;
+
+        sessionBackupState = SESSION_BACKUP_NONE;
+        WALInsertLockRelease();
+
+        // Warn if aborting due to unexpected exit
+        if (!during_backup_start)
+            ereport(WARNING,
+                    errmsg("aborting backup due to backend exiting before pg_backup_stop was called"));
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential cleanup logic
+- Maintained critical assertions for backup state validation
+- Preserved the dual-mode operation (startup vs exit handler)
+- Kept proper locking for backup counter management
+- Maintained warning for unexpected backup termination

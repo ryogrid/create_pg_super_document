@@ -47,3 +47,45 @@ The function returns a boolean indicating whether `ProcLockWakeup` should be cal
 - Proper grant mask clearing prevents unnecessary conflict checks when no locks of a mode remain
 - The return value guides the caller on whether to perform expensive wakeup operations
 - Used primarily during normal lock release but also in cleanup and error recovery scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of UnGrantLock
+static bool UnGrantLock(LOCK *lock, LOCKMODE lockmode,
+                       PROCLOCK *proclock, LockMethod lockMethodTable) {
+    bool wakeupNeeded = false;
+
+    // Validate lock state before proceeding
+    Assert((lock->nRequested > 0) && (lock->requested[lockmode] > 0));
+    Assert((lock->nGranted > 0) && (lock->granted[lockmode] > 0));
+
+    // Update general lock statistics
+    lock->nRequested--;
+    lock->requested[lockmode]--;
+    lock->nGranted--;
+    lock->granted[lockmode]--;
+
+    // Clear grant mask bit if no more locks of this mode remain
+    if (lock->granted[lockmode] == 0) {
+        lock->grantMask &= LOCKBIT_OFF(lockmode);
+    }
+
+    // Check if waiters should be awakened
+    // Need to wake up if released lock conflicts with any waiting lock types
+    if (lockMethodTable->conflictTab[lockmode] & lock->waitMask) {
+        wakeupNeeded = true;
+    }
+
+    // Update per-process lock state
+    proclock->holdMask &= LOCKBIT_OFF(lockmode);
+
+    return wakeupNeeded;
+}
+```
+
+Key simplifications made:
+- Removed debugging print statements for clarity
+- Simplified comment structure while preserving essential logic
+- Maintained all critical assertions and conflict checking
+- Focused on the core lock release algorithm

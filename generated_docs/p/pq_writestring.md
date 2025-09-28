@@ -38,3 +38,43 @@ The function performs several key operations: it calculates the string length, c
 - Uses `pg_restrict` annotations for performance optimization
 - Critical for internationalization support in PostgreSQL's protocol, ensuring proper character encoding handling across different locales and client configurations
 - The function assumes the input string is valid and null-terminated, following PostgreSQL's string handling conventions
+
+## Simplified Source
+
+```c
+// Simplified version of pq_writestring
+static inline void pq_writestring(StringInfoData *buf, const char *str) {
+    // Get original string length
+    int original_length = strlen(str);
+
+    // Convert from server encoding to client encoding
+    char *converted_string = pg_server_to_client(str, original_length);
+
+    // If conversion happened, get new length
+    int final_length = original_length;
+    if (converted_string != str) {
+        final_length = strlen(converted_string);
+    }
+
+    // Verify buffer has enough space (including null terminator)
+    Assert(buf->len + final_length + 1 <= buf->maxlen);
+
+    // Copy string to buffer (including null terminator)
+    memcpy(buf->data + buf->len, converted_string, final_length + 1);
+
+    // Update buffer length
+    buf->len += final_length + 1;
+
+    // Clean up temporary conversion buffer if needed
+    if (converted_string != str) {
+        pfree(converted_string);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names for clarity
+- Separated encoding conversion logic into clear steps
+- Added comments explaining each operation
+- Removed pg_restrict qualifiers for simplicity
+- Focused on core logic: measure, convert, verify space, copy, update length, cleanup

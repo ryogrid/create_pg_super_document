@@ -34,4 +34,19 @@ Like , the actual comparison logic is delegated to , which provides the foundati
 - Enables greater-than comparisons in ORDER BY clauses, WHERE conditions, and other SQL constructs
 - Like all ordering functions, requires that all column types have comparison operators (btree support)
 - Follows the same lexicographic ordering rules as  but returns true for the opposite condition
-- Inherits all the robust error handling, type checking, and NULL handling behavior from 
+- Inherits all the robust error handling, type checking, and NULL handling behavior from record_cmp
+
+## Simplified Source
+
+```c
+// Simplified version of record_gt
+Datum record_gt(PG_FUNCTION_ARGS) {
+    // Use record_cmp and check if first record is greater than second
+    PG_RETURN_BOOL(record_cmp(fcinfo) > 0);
+}
+```
+
+Key simplifications made:
+- The function is already extremely simple - just checks if record_cmp returns positive
+- No additional simplification needed as it's a one-line wrapper
+- Delegates all comparison logic to record_cmp for consistency and maintainability 

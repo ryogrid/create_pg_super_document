@@ -42,3 +42,21 @@ The function is defined as a static inline function in the header file, which me
 - Fsync provisions are made for the next checkpoint unless `skipFsync` is true
 - Temporary relations do not require fsync
 - Part of PostgreSQL's storage manager interface, providing abstraction over different storage implementations
+
+## Simplified Source
+
+```c
+// Simplified version of smgrwrite
+static inline void
+smgrwrite(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+          const void *buffer, bool skipFsync) {
+    // Delegate to vectorized write function with single buffer
+    smgrwritev(reln, forknum, blocknum, &buffer, 1, skipFsync);
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple - just a one-line wrapper
+- Added comment explaining the delegation to the vectorized write function
+- This is a perfect example of the adapter pattern, converting single-block interface to batch interface
+- No further simplification possible as it's just a thin wrapper around smgrwritev

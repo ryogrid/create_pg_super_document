@@ -31,3 +31,18 @@ This function takes no parameters.
 - Used in both postmaster and standalone backend startup scenarios
 - The function essentially delegates all actual work to ActivateCommitTs, serving as a startup-specific entry point
 - Declared in src/include/access/commit_ts.h for external visibility
+
+## Simplified Source
+
+```c
+// Simplified version of StartupCommitTs
+void StartupCommitTs(void) {
+    // Activate the commit timestamp subsystem
+    ActivateCommitTs();
+}
+```
+
+Key simplifications made:
+- Added explanatory comment
+- This function is already very simple as it's just a wrapper
+- Preserved the single function call which is the core functionality

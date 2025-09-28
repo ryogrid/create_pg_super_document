@@ -33,3 +33,27 @@ The function returns  if the connected user is a superuser (when the parameter v
 - The function relies on the server's built-in parameter "is_superuser" which is automatically set based on the connecting user's privileges
 - Used primarily in pg_dump to determine whether certain privileged database objects can be accessed and dumped
 - The superuser status affects what database objects pg_dump can access, particularly system catalogs and certain metadata
+
+## Simplified Source
+
+```c
+// Simplified version of is_superuser (pg_dump context)
+static bool is_superuser(Archive *fout) {
+    ArchiveHandle *AH = (ArchiveHandle *) fout;
+
+    // Query server parameter to check superuser status
+    const char *val = PQparameterStatus(AH->connection, "is_superuser");
+
+    // Return true if parameter value is "on"
+    if (val && strcmp(val, "on") == 0)
+        return true;
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Focused on the core parameter checking logic
+- Added explanatory comments for each step
+- Preserved the pg_dump context and static nature
+- Emphasized the string comparison for "on" value

@@ -46,3 +46,50 @@ The cleanup process follows a specific order:
 - The cleanup is performed in reverse order of initialization to ensure proper dependency management
 - Critical for preventing resource leaks in long-running transactions or when many ModifyTable operations are performed
 - Part of PostgreSQL's standard executor cleanup protocol where every ExecInit* function has a corresponding ExecEnd* function
+
+## Simplified Source
+
+```c
+// Simplified version of ExecEndModifyTable
+void ExecEndModifyTable(ModifyTableState *node) {
+    // Cleanup step 1: Shutdown foreign data wrappers for each result relation
+    for (int i = 0; i < node->mt_nrels; i++) {
+        ResultRelInfo *resultRelInfo = node->resultRelInfo + i;
+
+        // Call FDW's EndForeignModify if available and not using direct modify
+        if (!resultRelInfo->ri_usesFdwDirectModify &&
+            resultRelInfo->ri_FdwRoutine != NULL &&
+            resultRelInfo->ri_FdwRoutine->EndForeignModify != NULL) {
+            resultRelInfo->ri_FdwRoutine->EndForeignModify(node->ps.state, resultRelInfo);
+        }
+
+        // Cleanup batch processing slots used by FDWs
+        for (int j = 0; j < resultRelInfo->ri_NumSlotsInitialized; j++) {
+            ExecDropSingleTupleTableSlot(resultRelInfo->ri_Slots[j]);
+            ExecDropSingleTupleTableSlot(resultRelInfo->ri_PlanSlots[j]);
+        }
+    }
+
+    // Cleanup step 2: Clean up partition tuple routing if used
+    if (node->mt_partition_tuple_routing) {
+        ExecCleanupTupleRouting(node, node->mt_partition_tuple_routing);
+
+        if (node->mt_root_tuple_slot) {
+            ExecDropSingleTupleTableSlot(node->mt_root_tuple_slot);
+        }
+    }
+
+    // Cleanup step 3: Terminate EPQ (EvalPlanQual) execution if active
+    EvalPlanQualEnd(&node->mt_epqstate);
+
+    // Cleanup step 4: Shutdown the underlying subplan recursively
+    ExecEndNode(outerPlanState(node));
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations with their usage
+- Added clear step-by-step comments for the cleanup phases
+- Simplified the FDW cleanup logic with clearer conditions
+- Focused on the essential cleanup pattern: FDW -> Partitioning -> EPQ -> Subplan
+- Removed detailed comments in favor of high-level step descriptions

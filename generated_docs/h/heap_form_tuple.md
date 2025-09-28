@@ -56,3 +56,73 @@ The function ensures proper alignment and sets up the tuple to be usable both as
 - Sets up proper Datum headers even for tuples that may never become Datums
 - Widely used throughout PostgreSQL for tuple construction in catalogs, SPI, and data manipulation
 - The returned tuple has invalid item pointer (`t_self`) and table OID initially
+
+## Simplified Source
+
+```c
+// Simplified version of heap_form_tuple
+HeapTuple heap_form_tuple(TupleDesc tupleDescriptor, const Datum *values, const bool *isnull) {
+    HeapTuple tuple;
+    HeapTupleHeader td;
+    Size len, data_len;
+    int hoff;
+    bool hasnull = false;
+    int numberOfAttributes = tupleDescriptor->natts;
+
+    // Step 1: Validate attribute count
+    if (numberOfAttributes > MaxTupleAttributeNumber)
+        ereport(ERROR, (errcode(ERRCODE_TOO_MANY_COLUMNS),
+                       errmsg("number of columns (%d) exceeds limit (%d)",
+                              numberOfAttributes, MaxTupleAttributeNumber)));
+
+    // Step 2: Check if any attributes are null
+    for (int i = 0; i < numberOfAttributes; i++) {
+        if (isnull[i]) {
+            hasnull = true;
+            break;
+        }
+    }
+
+    // Step 3: Calculate total space needed
+    len = offsetof(HeapTupleHeaderData, t_bits);
+
+    if (hasnull)
+        len += BITMAPLEN(numberOfAttributes);  // Space for null bitmap
+
+    hoff = len = MAXALIGN(len);  // Align user data safely
+    data_len = heap_compute_data_size(tupleDescriptor, values, isnull);
+    len += data_len;
+
+    // Step 4: Allocate memory for tuple structure and data together
+    tuple = (HeapTuple) palloc0(HEAPTUPLESIZE + len);
+    tuple->t_data = td = (HeapTupleHeader) ((char *) tuple + HEAPTUPLESIZE);
+
+    // Step 5: Initialize tuple structure
+    tuple->t_len = len;
+    ItemPointerSetInvalid(&(tuple->t_self));
+    tuple->t_tableOid = InvalidOid;
+
+    // Step 6: Initialize tuple header
+    HeapTupleHeaderSetDatumLength(td, len);
+    HeapTupleHeaderSetTypeId(td, tupleDescriptor->tdtypeid);
+    HeapTupleHeaderSetTypMod(td, tupleDescriptor->tdtypmod);
+    ItemPointerSetInvalid(&(td->t_ctid));
+    HeapTupleHeaderSetNatts(td, numberOfAttributes);
+    td->t_hoff = hoff;
+
+    // Step 7: Fill in the actual attribute data
+    heap_fill_tuple(tupleDescriptor, values, isnull,
+                   (char *) td + hoff, data_len, &td->t_infomask,
+                   (hasnull ? td->t_bits : NULL));
+
+    return tuple;
+}
+```
+
+Key simplifications made:
+- Organized the function into clear logical steps with descriptive comments
+- Simplified loop variable declaration
+- Added explanatory comments for memory layout and alignment
+- Highlighted the single allocation strategy for efficiency
+- Maintained all essential validation, calculation, and initialization logic
+- Focused on the core algorithm while preserving all functional behavior

@@ -38,3 +38,27 @@ The function is designed to be the primary interface for converting a parsed que
 - The hook mechanism allows for pre and post-processing of planning operations
 - This function is a critical component in PostgreSQL's extensibility architecture
 - Located in src/backend/optimizer/plan/planner.c:275-287
+
+## Simplified Source
+
+```c
+// Simplified version of planner
+PlannedStmt *planner(Query *parse, const char *query_string, int cursorOptions,
+                     ParamListInfo boundParams) {
+    PlannedStmt *result;
+
+    // Check if plugin hook is installed
+    if (planner_hook)
+        result = (*planner_hook)(parse, query_string, cursorOptions, boundParams);
+    else
+        result = standard_planner(parse, query_string, cursorOptions, boundParams);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Preserved the essential hook mechanism logic
+- Maintained the simple delegation pattern
+- Added clear comments explaining the plugin architecture
+- Focused on the core entry point functionality

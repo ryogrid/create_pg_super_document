@@ -36,3 +36,44 @@ This function serves as a factory for creating DR_printtup structures, which are
 - All attribute-related fields (attrinfo, nattrs, myinfo) are initialized to NULL/0 
 - The temporary context and buffer are initialized to NULL and will be set up later during startup
 - Uses palloc0 for zero-initialized memory allocation, ensuring all fields start in a known state
+
+## Simplified Source
+
+```c
+// Simplified version of printtup_create_DR
+DestReceiver *printtup_create_DR(CommandDest dest) {
+    // Allocate and zero-initialize the printtup destination receiver
+    DR_printtup *print_receiver = (DR_printtup *) palloc0(sizeof(DR_printtup));
+
+    // Set up the callback functions for tuple printing operations
+    print_receiver->pub.receiveSlot = printtup;            // Output each tuple (may change)
+    print_receiver->pub.rStartup = printtup_startup;       // Initialize output format
+    print_receiver->pub.rShutdown = printtup_shutdown;     // Finalize output
+    print_receiver->pub.rDestroy = printtup_destroy;       // Final cleanup
+
+    // Set the destination type (passed as parameter)
+    print_receiver->pub.mydest = dest;
+
+    // Configure automatic row description sending based on destination
+    // Send T message automatically for DestRemote, but not DestRemoteExecute
+    print_receiver->sendDescrip = (dest == DestRemote);
+
+    // Initialize tuple formatting fields to NULL/0 (set later during startup)
+    print_receiver->attrinfo = NULL;     // Attribute formatting info
+    print_receiver->nattrs = 0;          // Number of attributes
+    print_receiver->myinfo = NULL;       // Column info cache
+    print_receiver->buf.data = NULL;     // Output buffer
+    print_receiver->tmpcontext = NULL;   // Temporary memory context
+
+    // Return as base DestReceiver type
+    return (DestReceiver *) print_receiver;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for clarity
+- Added comments explaining each callback function's purpose
+- Clarified the conditional logic for sendDescrip based on destination type
+- Explained the deferred initialization of formatting fields
+- Added comments for each field initialization
+- Focused on core logic: allocate memory, set callbacks, configure options, initialize fields

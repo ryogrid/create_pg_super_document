@@ -38,6 +38,22 @@ This function is commonly used in iteration loops to safely traverse the list wi
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance
 - The function assumes the node is part of the specified list - results are unreliable if this assumption is violated
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_has_next
+static inline bool dlist_has_next(const dlist_head *head, const dlist_node *node) {
+    // Check if node's next pointer points to head sentinel
+    // If it does, this is the last node; if not, there's a next node
+    return node->next != &head->head;
+}
+```
+
+Key simplifications made:
+- Focused on the core sentinel comparison logic
+- Added clear explanation of the circular list structure
+- Emphasized the last-node detection mechanism
 - Returns `true` if there is a following node, `false` if the current node is the last in the list
 - Commonly used in PostgreSQL's GIN index operations, replication, statistics, and memory management systems
 - The function leverages the circular nature of the doubly-linked list implementation where the last node points to the head sentinel

@@ -49,3 +49,77 @@ The function uses interrupt handling to ensure safe processing of network messag
 - Ignores Flush and Sync messages during COPY mode, consistent with other PostgreSQL COPY implementations
 - Uses interrupt protection to ensure atomic message processing
 - The offset parameter appears to be included for interface consistency but is not currently used in the implementation
+
+## Simplified Source
+
+```c
+// Simplified version of HandleUploadManifestPacket
+static bool HandleUploadManifestPacket(StringInfo buf, off_t *offset,
+                                     IncrementalBackupInfo *ib) {
+    int mtype;
+    int maxmsglen;
+
+    // Protect against interrupts during message processing
+    HOLD_CANCEL_INTERRUPTS();
+
+    // Read the message type
+    pq_startmsgread();
+    mtype = pq_getbyte();
+    if (mtype == EOF) {
+        ereport(ERROR, (errcode(ERRCODE_CONNECTION_FAILURE),
+                      errmsg("unexpected EOF on client connection with an open transaction")));
+    }
+
+    // Determine message size limit based on type
+    switch (mtype) {
+        case 'd':  // CopyData
+            maxmsglen = PQ_LARGE_MESSAGE_LIMIT;
+            break;
+        case 'c':  // CopyDone
+        case 'f':  // CopyFail
+        case 'H':  // Flush
+        case 'S':  // Sync
+            maxmsglen = PQ_SMALL_MESSAGE_LIMIT;
+            break;
+        default:
+            ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                          errmsg("unexpected message type 0x%02X during COPY from stdin", mtype)));
+            maxmsglen = 0;
+            break;
+    }
+
+    // Read the message body
+    if (pq_getmessage(buf, maxmsglen)) {
+        ereport(ERROR, (errcode(ERRCODE_CONNECTION_FAILURE),
+                      errmsg("unexpected EOF on client connection with an open transaction")));
+    }
+    RESUME_CANCEL_INTERRUPTS();
+
+    // Process the message based on type
+    switch (mtype) {
+        case 'd':  // CopyData - append manifest data
+            AppendIncrementalManifestData(ib, buf->data, buf->len);
+            return true;
+
+        case 'c':  // CopyDone - operation complete
+            return false;
+
+        case 'H':  // Flush
+        case 'S':  // Sync - ignore during COPY mode
+            return true;
+
+        case 'f':  // CopyFail - report error
+            ereport(ERROR, (errcode(ERRCODE_QUERY_CANCELED),
+                          errmsg("COPY from stdin failed: %s", pq_getmsgstring(buf))));
+    }
+
+    Assert(false);  // Should not reach here
+    return false;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each message type and processing step
+- Simplified the switch statement structure
+- Preserved all essential error handling and protocol logic
+- Maintained interrupt protection for safe message processing

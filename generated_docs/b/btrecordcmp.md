@@ -31,3 +31,19 @@ The function delegates to `record_cmp` for the actual comparison and returns the
 - Returns an integer comparison result suitable for B-tree operations
 - Used internally by PostgreSQL's indexing system when creating B-tree indexes on composite types
 - Located in src/backend/utils/adt/rowtypes.c at lines 1313-1330
+
+## Simplified Source
+
+```c
+// Simplified version of btrecordcmp
+Datum btrecordcmp(PG_FUNCTION_ARGS) {
+    // Use record_cmp and return the result as 32-bit integer for B-tree operations
+    PG_RETURN_INT32(record_cmp(fcinfo));
+}
+```
+
+Key simplifications made:
+- The function is already extremely simple - just returns record_cmp result as int32
+- No additional simplification needed as it's a one-line wrapper
+- Delegates all comparison logic to record_cmp for consistency and maintainability
+- Perfect example of adapter pattern for B-tree interface compliance

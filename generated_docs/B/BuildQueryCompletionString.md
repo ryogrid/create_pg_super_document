@@ -46,3 +46,43 @@ The function performs several optimizations: it uses  for efficient string copyi
 - Uses assertion checks to prevent buffer overflows and ensure string length consistency
 - Critical for client-server communication as completion strings inform clients about command execution results
 - The function is designed for high performance with minimal memory allocation and efficient string operations
+
+## Simplified Source
+
+```c
+// Simplified version of BuildQueryCompletionString
+Size BuildQueryCompletionString(char *buff, const QueryCompletion *qc, bool nameonly) {
+    CommandTag tag = qc->commandTag;
+    Size taglen;
+    const char *tagname = GetCommandTagNameAndLen(tag, &taglen);
+
+    // Copy command tag name to buffer
+    memcpy(buff, tagname, taglen);
+    char *bufp = buff + taglen;
+
+    // Add row count for applicable commands (unless name-only requested)
+    if (command_tag_display_rowcount(tag) && !nameonly) {
+        // Special case: INSERT needs "0" for backward compatibility
+        if (tag == CMDTAG_INSERT) {
+            *bufp++ = ' ';
+            *bufp++ = '0';
+        }
+
+        // Append the actual row count
+        *bufp++ = ' ';
+        bufp += pg_ulltoa_n(qc->nprocessed, bufp);
+    }
+
+    // Null-terminate the string
+    *bufp = '\0';
+
+    return bufp - buff;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and assertions for clarity
+- Consolidated buffer pointer management
+- Simplified the INSERT special case handling
+- Focused on the main logic flow: copy tag name, optionally add counts, terminate string
+- Preserved essential backward compatibility logic

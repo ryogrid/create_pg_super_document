@@ -246,7 +246,8 @@ Start processing now for function: {function_name}"""
                             '--allowedTools', 'mcp,Read,Write',  # Enable MCP server access and file operations
                             '-p', prompt,
                             '--model', 'claude-sonnet-4-20250514',
-                            '--permission-mode', 'bypassPermissions'
+                            '--permission-mode', 'bypassPermissions',
+                            '--max-turns', str(80),
                         ],
                         capture_output=True,
                         text=True,
@@ -295,18 +296,17 @@ Start processing now for function: {function_name}"""
                             self.stats['failed'] += 1
                         logging.error(f"[Worker {worker_id}] ✗ {error_type}: {function_name}")
                     
+                    elif "Session limit reached" in output or "Rate limit exceeded" in output:
+                        with self.lock:
+                            self.failed.append((function_name, "Session/Rate limit"))
+                            self.stats['failed'] += 1
+                            logging.warning(f"[Worker {worker_id}] ✗ Failed ({output}): {function_name}")
+                        time.sleep(3600)  # Sleep for an hour before retrying
                     else:
-                        # No clear status message, check if file was updated
-                        if self._check_simplified_source_exists(function_name):
-                            with self.lock:
-                                self.completed.append(function_name)
-                                self.stats['completed'] += 1
-                            logging.info(f"[Worker {worker_id}] ✓ Completed (verified): {function_name}")
-                        else:
-                            with self.lock:
+                        with self.lock:
                                 self.failed.append((function_name, "Unknown error"))
                                 self.stats['failed'] += 1
-                            logging.warning(f"[Worker {worker_id}] ✗ Failed (unknown): {function_name}")
+                                logging.warning(f"[Worker {worker_id}] ✗ Failed (unknown): {function_name} {output[:100]}...")
                     
                 except subprocess.TimeoutExpired:
                     with self.lock:

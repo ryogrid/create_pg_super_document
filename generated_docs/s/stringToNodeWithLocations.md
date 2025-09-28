@@ -36,3 +36,18 @@ This function is primarily used in query processing contexts where location info
 - Location field restoration is only fully functional in debug builds with WRITE_READ_PARSE_PLAN_TREES enabled
 - More specialized than stringToNode, with fewer callers throughout the codebase
 - Essential for maintaining debugging and error reporting capabilities in query processing
+
+## Simplified Source
+
+```c
+// Simplified version of stringToNodeWithLocations
+void *stringToNodeWithLocations(const char *str) {
+    // Convert string to Node tree while preserving location information
+    return stringToNodeInternal(str, true);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - just a wrapper around stringToNodeInternal
+- The true parameter indicates location fields should be preserved
+- No additional simplification needed as the function is straightforward

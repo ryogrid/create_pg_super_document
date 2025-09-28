@@ -39,3 +39,51 @@ This function implements the core waiting mechanism for queue attachment synchro
 - Can potentially wait indefinitely if handle is NULL and the counterparty never attaches
 - Checks for interrupts during waiting to allow for cancellation
 - Critical for synchronizing sender and receiver attachment in parallel query execution
+
+## Simplified Source
+
+```c
+// Simplified version of shm_mq_wait_internal
+static bool shm_mq_wait_internal(shm_mq *mq, PGPROC **ptr, BackgroundWorkerHandle *handle) {
+    bool result = false;
+
+    for (;;) {
+        // Atomically check if counterparty has attached
+        SpinLockAcquire(&mq->mq_mutex);
+        result = (*ptr != NULL);
+        SpinLockRelease(&mq->mq_mutex);
+
+        // Exit if queue detached or counterparty attached
+        if (mq->mq_detached) {
+            result = false;
+            break;
+        }
+        if (result)
+            break;
+
+        // Check if background worker is still alive
+        if (handle != NULL) {
+            pid_t pid;
+            BgwHandleStatus status = GetBackgroundWorkerPid(handle, &pid);
+            if (status != BGWH_STARTED && status != BGWH_NOT_YET_STARTED) {
+                result = false;
+                break;
+            }
+        }
+
+        // Wait for attachment signal
+        WaitLatch(MyLatch, WL_LATCH_SET | WL_EXIT_ON_PM_DEATH, 0,
+                 WAIT_EVENT_MESSAGE_QUEUE_INTERNAL);
+        ResetLatch(MyLatch);
+        CHECK_FOR_INTERRUPTS();
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major operation
+- Preserved the spinlock protection for pointer checking
+- Maintained worker status monitoring and queue detachment logic
+- Kept the latch-based waiting mechanism and interrupt handling

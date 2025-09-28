@@ -50,3 +50,72 @@ The function is critical for PostgreSQL's MVCC (Multi-Version Concurrency Contro
 - Skips aborted subtransactions when traversing the transaction state stack
 - The childXids arrays are maintained in sorted order to enable binary search optimization
 - Critical performance component as it's called frequently during tuple visibility checks and heap operations
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionIdIsCurrentTransactionId
+bool TransactionIdIsCurrentTransactionId(TransactionId xid) {
+    TransactionState s;
+
+    // Special transaction IDs are never "current"
+    if (!TransactionIdIsNormal(xid))
+        return false;
+
+    // Check if matches top-level transaction
+    if (TransactionIdEquals(xid, GetTopTransactionIdIfAny()))
+        return true;
+
+    // For parallel workers, check ParallelCurrentXids array
+    if (nParallelCurrentXids > 0) {
+        // Binary search in sorted array
+        int low = 0, high = nParallelCurrentXids - 1;
+        while (low <= high) {
+            int middle = low + (high - low) / 2;
+            TransactionId probe = ParallelCurrentXids[middle];
+            if (probe == xid)
+                return true;
+            else if (probe < xid)
+                low = middle + 1;
+            else
+                high = middle - 1;
+        }
+        return false;
+    }
+
+    // Check transaction state stack (subtransactions)
+    for (s = CurrentTransactionState; s != NULL; s = s->parent) {
+        // Skip aborted transactions
+        if (s->state == TRANS_ABORT)
+            continue;
+        if (!FullTransactionIdIsValid(s->fullTransactionId))
+            continue;
+
+        // Check main transaction ID
+        if (TransactionIdEquals(xid, XidFromFullTransactionId(s->fullTransactionId)))
+            return true;
+
+        // Binary search in child XIDs array
+        int low = 0, high = s->nChildXids - 1;
+        while (low <= high) {
+            int middle = low + (high - low) / 2;
+            TransactionId probe = s->childXids[middle];
+            if (TransactionIdEquals(probe, xid))
+                return true;
+            else if (TransactionIdPrecedes(probe, xid))
+                low = middle + 1;
+            else
+                high = middle - 1;
+        }
+    }
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed detailed bootstrap and special case comments
+- Consolidated the binary search logic with clear variable names
+- Simplified the transaction state traversal loop
+- Focused on the core XID matching algorithm
+- Preserved the essential MVCC and parallel processing logic

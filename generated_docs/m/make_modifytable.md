@@ -63,3 +63,99 @@ The `make_modifytable` function constructs a ModifyTable plan node, which is the
 - Manages partition-aware updates and row-level security considerations
 - The function is quite large (200+ lines) due to the complexity of data modification planning
 - Direct modification optimization is used when FDW supports it and no local triggers/constraints exist
+
+## Simplified Source
+
+```c
+// Simplified version of make_modifytable
+static ModifyTable *make_modifytable(PlannerInfo *root, Plan *subplan,
+                                    CmdType operation, bool canSetTag,
+                                    Index nominalRelation, Index rootRelation,
+                                    bool partColsUpdated, List *resultRelations,
+                                    List *updateColnosLists, List *withCheckOptionLists,
+                                    List *returningLists, List *rowMarks,
+                                    OnConflictExpr *onconflict, List *mergeActionLists,
+                                    List *mergeJoinConditions, int epqParam) {
+    // Create ModifyTable node
+    ModifyTable *node = makeNode(ModifyTable);
+
+    // Set basic plan structure
+    node->plan.lefttree = subplan;
+    node->plan.righttree = NULL;
+    node->plan.qual = NIL;
+    node->plan.targetlist = NIL;  // Will be filled by setrefs.c
+
+    // Set operation parameters
+    node->operation = operation;
+    node->canSetTag = canSetTag;
+    node->nominalRelation = nominalRelation;
+    node->rootRelation = rootRelation;
+    node->partColsUpdated = partColsUpdated;
+    node->resultRelations = resultRelations;
+
+    // Handle ON CONFLICT clause
+    if (!onconflict) {
+        // No conflict handling
+        node->onConflictAction = ONCONFLICT_NONE;
+        node->onConflictSet = NIL;
+        node->onConflictCols = NIL;
+        node->onConflictWhere = NULL;
+        node->arbiterIndexes = NIL;
+        node->exclRelRTI = 0;
+        node->exclRelTlist = NIL;
+    } else {
+        // Set up conflict resolution
+        node->onConflictAction = onconflict->action;
+        node->onConflictSet = onconflict->onConflictSet;
+        node->onConflictCols = extract_update_targetlist_colnos(node->onConflictSet);
+        node->onConflictWhere = onconflict->onConflictWhere;
+        node->arbiterIndexes = infer_arbiter_indexes(root);
+        node->exclRelRTI = onconflict->exclRelIndex;
+        node->exclRelTlist = onconflict->exclRelTlist;
+    }
+
+    // Set remaining parameters
+    node->updateColnosLists = updateColnosLists;
+    node->withCheckOptionLists = withCheckOptionLists;
+    node->returningLists = returningLists;
+    node->rowMarks = rowMarks;
+    node->mergeActionLists = mergeActionLists;
+    node->mergeJoinConditions = mergeJoinConditions;
+    node->epqParam = epqParam;
+
+    // Process FDW private data for foreign tables
+    List *fdw_private_list = NIL;
+    Bitmapset *direct_modify_plans = NULL;
+    int i = 0;
+
+    foreach(ListCell *lc, resultRelations) {
+        Index rti = lfirst_int(lc);
+        FdwRoutine *fdwroutine = get_fdw_routine_for_relation(root, rti);
+
+        // Check for direct modification optimization
+        bool direct_modify = can_use_direct_modify(fdwroutine, root, rti, operation,
+                                                  withCheckOptionLists, nominalRelation);
+
+        if (direct_modify) {
+            direct_modify_plans = bms_add_member(direct_modify_plans, i);
+        }
+
+        // Get FDW private data
+        List *fdw_private = get_fdw_private_data(fdwroutine, root, node, rti, i, direct_modify);
+        fdw_private_list = lappend(fdw_private_list, fdw_private);
+        i++;
+    }
+
+    node->fdwPrivLists = fdw_private_list;
+    node->fdwDirectModifyPlans = direct_modify_plans;
+
+    return node;
+}
+```
+
+Key simplifications made:
+- Removed complex FDW routine lookup logic and abstracted into helper functions
+- Simplified ON CONFLICT handling into clear conditional blocks
+- Removed detailed error checking for MERGE on foreign tables (preserved functionality)
+- Abstracted complex direct modification checks into helper function
+- Maintained all essential ModifyTable node setup and parameter assignment

@@ -35,3 +35,25 @@ The function decrements the list's count after performing the deletion, maintain
 - The 'thoroughly' variant ensures the removed node's pointers are nullified, making it safer for debugging
 - Includes an assertion to verify the list count is greater than zero before deletion
 - Used primarily in lock management and process waiting queue scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of dclist_delete_from_thoroughly
+static inline void dclist_delete_from_thoroughly(dclist_head *head, dlist_node *node) {
+    // Ensure list is not empty before deletion
+    Assert(head->count > 0);
+
+    // Remove node and nullify its pointers for safety
+    dlist_delete_from_thoroughly(&head->dlist, node);
+
+    // Decrement the count to maintain list integrity
+    head->count--;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each operation
+- Preserved the safety assertion for non-empty list
+- Emphasized the pointer nullification benefit
+- Maintained the count decrement for list integrity

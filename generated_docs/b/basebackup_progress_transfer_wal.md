@@ -32,3 +32,19 @@ This function is a progress reporting utility used during PostgreSQL base backup
 - Located in src/backend/backup/basebackup_progress.c at lines 229-238
 - Simple wrapper function that standardizes progress reporting for the WAL transfer phase
 - Follows the same pattern as other progress reporting functions in the basebackup progress module
+
+## Simplified Source
+
+```c
+// Simplified version of basebackup_progress_transfer_wal
+void basebackup_progress_transfer_wal(void) {
+    // Update progress to WAL transfer phase
+    pgstat_progress_update_param(PROGRESS_BASEBACKUP_PHASE,
+                                 PROGRESS_BASEBACKUP_PHASE_TRANSFER_WAL);
+}
+```
+
+Key simplifications made:
+- Preserved essential WAL transfer phase reporting
+- Maintained progress parameter update
+- Focused on core progress tracking functionality

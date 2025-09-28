@@ -33,3 +33,43 @@ The function includes explicit handling for object types that are supported in G
 - The function distinguishes between FUNCTION, PROCEDURE, and ROUTINE object types to match SQL standard terminology
 - Used primarily in event trigger contexts to provide human-readable object type information for privilege-related DDL commands
 - The extensive list of unsupported object types serves as documentation of PostgreSQL's privilege system limitations and helps prevent runtime errors by failing early on unsupported operations
+
+## Simplified Source
+
+```c
+// Simplified version of stringify_grant_objtype
+static const char *stringify_grant_objtype(ObjectType objtype) {
+    switch (objtype) {
+        // Supported object types for GRANT/REVOKE operations
+        case OBJECT_COLUMN:         return "COLUMN";
+        case OBJECT_TABLE:          return "TABLE";
+        case OBJECT_SEQUENCE:       return "SEQUENCE";
+        case OBJECT_DATABASE:       return "DATABASE";
+        case OBJECT_DOMAIN:         return "DOMAIN";
+        case OBJECT_FDW:            return "FOREIGN DATA WRAPPER";
+        case OBJECT_FOREIGN_SERVER: return "FOREIGN SERVER";
+        case OBJECT_FUNCTION:       return "FUNCTION";
+        case OBJECT_LANGUAGE:       return "LANGUAGE";
+        case OBJECT_LARGEOBJECT:    return "LARGE OBJECT";
+        case OBJECT_SCHEMA:         return "SCHEMA";
+        case OBJECT_PARAMETER_ACL:  return "PARAMETER";
+        case OBJECT_PROCEDURE:      return "PROCEDURE";
+        case OBJECT_ROUTINE:        return "ROUTINE";
+        case OBJECT_TABLESPACE:     return "TABLESPACE";
+        case OBJECT_TYPE:           return "TYPE";
+
+        // All other object types are not supported for GRANT/REVOKE
+        default:
+            elog(ERROR, "unsupported object type: %d", (int) objtype);
+    }
+
+    return "???";  // Never reached, keeps compiler happy
+}
+```
+
+Key simplifications made:
+- Consolidated all supported object types into clear switch cases
+- Replaced the long list of unsupported cases with a default case
+- Aligned the return statements for better readability
+- Kept essential comments while removing redundant ones
+- Maintained the error handling behavior for unsupported types

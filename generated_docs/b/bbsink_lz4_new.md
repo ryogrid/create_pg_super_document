@@ -35,3 +35,49 @@ The function includes compile-time conditional compilation - if PostgreSQL is bu
 - Validates compression level is within valid range (0-12)
 - Returns pointer to the base bbsink structure, enabling polymorphic behavior
 - Part of the pluggable backup sink architecture introduced for flexible backup formats
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_lz4_new
+bbsink *bbsink_lz4_new(bbsink *next, pg_compress_specification *compress) {
+#ifndef USE_LZ4
+    // Error if LZ4 support not compiled in
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("lz4 compression is not supported by this build")));
+    return NULL;
+#else
+    bbsink_lz4 *sink;
+    int compresslevel;
+
+    // Validate next sink exists
+    Assert(next != NULL);
+
+    // Extract and validate compression level (0-12 for LZ4)
+    compresslevel = compress->level;
+    Assert(compresslevel >= 0 && compresslevel <= 12);
+
+    // Allocate and initialize LZ4 sink structure
+    sink = palloc0(sizeof(bbsink_lz4));
+
+    // Set up operations table for LZ4 functionality
+    *((const bbsink_ops **) &sink->base.bbs_ops) = &bbsink_lz4_ops;
+
+    // Chain to next sink in pipeline
+    sink->base.bbs_next = next;
+
+    // Store compression level
+    sink->compresslevel = compresslevel;
+
+    return &sink->base;
+#endif
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining build-time check and error handling
+- Preserved all validation logic and error conditions
+- Maintained the chain-of-responsibility pattern setup
+- Kept LZ4-specific compression level validation (0-12 range)
+- Simplified structure while preserving all functionality

@@ -35,3 +35,25 @@ This is a critical primitive operation used throughout B-tree navigation algorit
 - Essential for B-tree navigation algorithms that need to identify the keyspace boundaries
 - Used by sibling-finding functions to locate the current page's position within parent nodes
 - The returned value represents the first_page field, which identifies the starting page number for the key's range
+
+## Simplified Source
+
+```c
+// Simplified version of FreePageBtreeFirstKey
+static Size FreePageBtreeFirstKey(FreePageBtree *btp) {
+    Assert(btp->hdr.nused > 0);
+
+    if (btp->hdr.magic == FREE_PAGE_LEAF_MAGIC)
+        return btp->u.leaf_key[0].first_page;
+    else {
+        Assert(btp->hdr.magic == FREE_PAGE_INTERNAL_MAGIC);
+        return btp->u.internal_key[0].first_page;
+    }
+}
+```
+
+Key simplifications made:
+- Preserved type checking logic for leaf vs internal pages
+- Maintained essential assertion for non-empty page
+- Focused on core first key extraction logic
+- Simple conditional structure based on page type

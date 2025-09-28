@@ -35,3 +35,31 @@ The function is designed for read-ahead scenarios where the caller wants to peek
 - In nonblocking mode, returns NULL when data or decode buffer space is not available
 - The returned record pointer points to the tail of the decode queue
 - Must be paired with XLogNextRecord calls to actually consume decoded records
+
+## Simplified Source
+
+```c
+// Simplified version of XLogReadAhead
+DecodedXLogRecord *XLogReadAhead(XLogReaderState *state, bool nonblocking) {
+    // Return early if there are pending error messages
+    if (state->errormsg_deferred)
+        return NULL;
+
+    // Try to decode the next record without consuming it
+    XLogPageReadResult result = XLogDecodeNextRecord(state, nonblocking);
+
+    // If decode was successful, return pointer to the decoded record
+    if (result == XLREAD_SUCCESS) {
+        return state->decode_queue_tail;
+    }
+
+    // Return NULL if decode failed or no data available
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for clarity
+- Combined variable declaration with function call
+- Added descriptive comments for each major step
+- Focused on the main execution path of read-ahead functionality

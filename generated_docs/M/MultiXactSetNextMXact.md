@@ -43,3 +43,29 @@ A special consideration is made for binary upgrade operations, where the functio
 - Must be called early in startup sequence, before StartupMultiXact()
 - Critical for maintaining correct MultiXact ID sequencing during recovery
 - The IsBinaryUpgrade check ensures proper SLRU sizing during database upgrades
+
+## Simplified Source
+
+```c
+// Simplified version of MultiXactSetNextMXact
+void MultiXactSetNextMXact(MultiXactId nextMulti, MultiXactOffset nextMultiOffset) {
+    debug_elog4(DEBUG2, "MultiXact: setting next multi to %u offset %u",
+                nextMulti, nextMultiOffset);
+
+    // Update MultiXact state under lock
+    LWLockAcquire(MultiXactGenLock, LW_EXCLUSIVE);
+    MultiXactState->nextMXact = nextMulti;
+    MultiXactState->nextOffset = nextMultiOffset;
+    LWLockRelease(MultiXactGenLock);
+
+    // Extend SLRU if needed during binary upgrade
+    if (IsBinaryUpgrade)
+        MaybeExtendOffsetSlru();
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about timing and binary upgrade specifics
+- Consolidated the core operations: debug logging, state update, SLRU extension
+- Preserved essential locking and binary upgrade handling
+- Focused on the main functionality: setting next MultiXact values safely

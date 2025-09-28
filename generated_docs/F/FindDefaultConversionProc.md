@@ -35,3 +35,36 @@ This function searches for a default conversion procedure that can convert text 
 - Used primarily by the multi-byte character encoding system
 - Works in conjunction with FindDefaultConversion to locate conversion procedures
 - Essential for automatic encoding conversion between client and server character sets
+
+## Simplified Source
+
+```c
+// Simplified version of FindDefaultConversionProc
+Oid FindDefaultConversionProc(int32 for_encoding, int32 to_encoding) {
+    // Ensure namespace search path is current
+    recomputeNamespacePath();
+
+    // Search through each namespace in the active search path
+    foreach(namespace_cell, activeSearchPath) {
+        Oid namespaceId = lfirst_oid(namespace_cell);
+
+        // Skip temporary namespace - conversions not stored there
+        if (namespaceId == myTempNamespace)
+            continue;
+
+        // Look for conversion procedure in this namespace
+        Oid proc = FindDefaultConversion(namespaceId, for_encoding, to_encoding);
+        if (OidIsValid(proc))
+            return proc;
+    }
+
+    // No conversion procedure found in search path
+    return InvalidOid;
+}
+```
+
+Key simplifications made:
+- Focused on the core search algorithm through namespaces
+- Abstracted loop variable details for clarity
+- Added comments explaining the temp namespace skip logic
+- Emphasized the search-and-return pattern

@@ -34,3 +34,28 @@ This function updates the queue's bytes_read counter to reflect data consumption
 - Always signals the sender's latch to wake up blocked send operations when buffer space becomes available
 - Assumes sender pointer is stable once initialized (no locking required for sender access)
 - Critical for flow control mechanism that prevents sender from overwhelming the circular buffer
+
+## Simplified Source
+
+```c
+// Simplified version of shm_mq_inc_bytes_read
+static void shm_mq_inc_bytes_read(shm_mq *mq, Size n) {
+    // Memory barrier to separate ring reads from counter update
+    pg_read_barrier();
+
+    // Atomically increment bytes read counter
+    uint64 current_bytes = pg_atomic_read_u64(&mq->mq_bytes_read);
+    pg_atomic_write_u64(&mq->mq_bytes_read, current_bytes + n);
+
+    // Signal sender that buffer space is available
+    PGPROC *sender = mq->mq_sender;
+    Assert(sender != NULL);
+    SetLatch(&sender->procLatch);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for memory barrier and atomic operations
+- Preserved critical memory ordering and atomic counter update
+- Maintained sender signaling mechanism for flow control
+- Kept the assertion for sender validation

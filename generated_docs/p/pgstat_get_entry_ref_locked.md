@@ -43,4 +43,29 @@ The function is designed to ensure thread-safe access to PostgreSQL's shared sta
 - Returns NULL if the lock cannot be acquired (when  is true) or if the entry reference cannot be found
 - The caller is responsible for releasing the lock when done with the statistics entry
 - This function is part of PostgreSQL's shared memory statistics system introduced to improve performance and reduce contention
-- Located in 
+- Located in src/backend/utils/activity/pgstat_shmem.c
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_get_entry_ref_locked
+PgStat_EntryRef *pgstat_get_entry_ref_locked(PgStat_Kind kind, Oid dboid, Oid objoid,
+                                            bool nowait) {
+    PgStat_EntryRef *entry_ref;
+
+    // Find shared statistics entry for the specified object
+    entry_ref = pgstat_get_entry_ref(kind, dboid, objoid, true, NULL);
+
+    // Attempt to lock the entry for safe access
+    if (!pgstat_lock_entry(entry_ref, nowait))
+        return NULL;
+
+    return entry_ref;
+}
+```
+
+Key simplifications made:
+- Preserved the essential statistics entry lookup and locking
+- Maintained the nowait semantics for non-blocking access
+- Kept the core thread-safety mechanism for shared statistics
+- Focused on the primary entry reference and lock acquisition logic 

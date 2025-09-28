@@ -30,3 +30,18 @@ The function follows PostgreSQL's standard function calling convention using `PG
 - The actual comparison logic is implemented in `record_cmp`, which performs field-by-field comparison
 - Returns true when the first record is greater than or equal to the second record
 - Located in src/backend/utils/adt/rowtypes.c at lines 1307-1312
+
+## Simplified Source
+
+```c
+// Simplified version of record_ge
+Datum record_ge(PG_FUNCTION_ARGS) {
+    // Use record_cmp and check if first record is greater than or equal to second
+    PG_RETURN_BOOL(record_cmp(fcinfo) >= 0);
+}
+```
+
+Key simplifications made:
+- The function is already extremely simple - just checks if record_cmp returns >= 0
+- No additional simplification needed as it's a one-line wrapper
+- Delegates all comparison logic to record_cmp for consistency and maintainability

@@ -44,3 +44,52 @@ Like other callback wrappers, it establishes proper error context, manages outpu
 - Manages error context stack to provide meaningful error messages if the plugin callback fails
 - Handles multiple relations in a single operation, which is unique to TRUNCATE among DML operations
 - Sets `ctx->end_xact = false` to indicate this is not a transaction end event
+
+## Simplified Source
+
+```c
+// Simplified version of truncate_cb_wrapper
+static void truncate_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                               int nrelations, Relation relations[],
+                               ReorderBufferChange *change) {
+    LogicalDecodingContext *ctx = cache->private_data;
+
+    // Skip if in fast-forward mode
+    if (ctx->fast_forward)
+        return;
+
+    // Return early if plugin doesn't support truncate operations
+    if (!ctx->callbacks.truncate_cb)
+        return;
+
+    // Set up error context for better error reporting
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+    state.ctx = ctx;
+    state.callback_name = "truncate";
+    state.report_location = change->lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for the plugin
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = change->lsn;
+    ctx->end_xact = false;
+
+    // Call the plugin's truncate callback
+    ctx->callbacks.truncate_cb(ctx, txn, nrelations, relations, change);
+
+    // Restore previous error context
+    error_context_stack = errcallback.previous;
+}
+```
+
+Key simplifications made:
+- Added early returns with clear comments for skip conditions
+- Grouped related error context setup code together
+- Grouped output state configuration together
+- Added descriptive comments explaining each major section
+- Simplified error context management while preserving functionality

@@ -32,3 +32,18 @@ This static inline function serves as a convenience wrapper around the general R
 - The snapshot_resowner_desc descriptor ensures snapshots are released after locks but before other cleanup phases
 - Snapshots tracked this way will be automatically released via ResOwnerReleaseSnapshot callback
 - Must be paired with ResourceOwnerForgetSnapshot when the snapshot is no longer needed before the ResourceOwner is released
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerRememberSnapshot
+static inline void ResourceOwnerRememberSnapshot(ResourceOwner owner, Snapshot snap) {
+    // Register snapshot with resource owner for automatic cleanup
+    ResourceOwnerRemember(owner, PointerGetDatum(snap), &snapshot_resowner_desc);
+}
+```
+
+Key simplifications made:
+- Core logic is straightforward: register snapshot for tracking
+- Uses predefined descriptor for snapshot-specific resource management
+- Inline function provides type safety over direct ResourceOwnerRemember calls

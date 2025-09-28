@@ -40,3 +40,28 @@ The function includes proper interrupt handling by retrying the sem_wait() call 
 - The semaphore count is atomically decremented when the lock is acquired
 - Any unexpected errors (other than EINTR) result in a FATAL error that terminates the process
 - Part of PostgreSQL's platform-independent semaphore API for process synchronization
+
+## Simplified Source
+
+```c
+// Simplified version of PGSemaphoreLock
+void PGSemaphoreLock(PGSemaphore sema) {
+    int errStatus;
+
+    // Keep trying to acquire the semaphore until successful
+    do {
+        errStatus = sem_wait(PG_SEM_REF(sema));
+    } while (errStatus < 0 && errno == EINTR);  // Retry on signal interruption
+
+    // Fatal error if semaphore operation failed
+    if (errStatus < 0) {
+        elog(FATAL, "sem_wait failed: %m");
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the core POSIX semaphore locking logic
+- Maintained the interrupt handling loop for EINTR
+- Kept the fatal error handling for robustness
+- Added comments explaining the retry mechanism and error handling

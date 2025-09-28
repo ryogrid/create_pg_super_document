@@ -38,3 +38,25 @@ The function is part of PostgreSQL's type system infrastructure that provides a 
 - The allocated memory is managed by PostgreSQL's memory context system
 - This function is widely used throughout PostgreSQL for returning int64 values from C functions to the SQL layer
 - The function works in conjunction with DatumGetInt64() for the reverse conversion
+
+## Simplified Source
+
+```c
+// Simplified version of Int64GetDatum
+Datum Int64GetDatum(int64 X) {
+    // Allocate memory to store the 64-bit integer
+    int64 *retval = (int64 *) palloc(sizeof(int64));
+
+    // Store the value in the allocated memory
+    *retval = X;
+
+    // Return the pointer as a Datum
+    return PointerGetDatum(retval);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step
+- Maintained the essential 3-step process: allocate, store, return
+- Preserved all functionality for pass-by-reference 64-bit integers
+- Note: This version is only used when USE_FLOAT8_BYVAL is not defined

@@ -47,3 +47,41 @@ The Limit node is essential for implementing query result pagination and limitin
 - Both limitOffset and limitCount can be NULL, allowing for OFFSET-only or LIMIT-only operations
 - The limitOption parameter provides hints for optimization, such as whether the limit count is constant
 - This node is crucial for implementing efficient pagination in applications and preventing resource exhaustion from unbounded queries
+
+## Simplified Source
+
+```c
+// Simplified version of make_limit
+Limit *make_limit(Plan *lefttree, Node *limitOffset, Node *limitCount,
+                  LimitOption limitOption, int uniqNumCols, AttrNumber *uniqColIdx,
+                  Oid *uniqOperators, Oid *uniqCollations) {
+    // Create new Limit node
+    Limit *node = makeNode(Limit);
+    Plan *plan = &node->plan;
+
+    // Copy target list from child plan (no transformation needed)
+    plan->targetlist = lefttree->targetlist;
+    plan->qual = NIL;  // No additional filtering
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;  // Limit is unary operator
+
+    // Set limit-specific parameters
+    node->limitOffset = limitOffset;  // OFFSET expression
+    node->limitCount = limitCount;    // LIMIT expression
+    node->limitOption = limitOption;  // Optimization hints
+
+    // Set uniqueness parameters for optional DISTINCT functionality
+    node->uniqNumCols = uniqNumCols;
+    node->uniqColIdx = uniqColIdx;
+    node->uniqOperators = uniqOperators;
+    node->uniqCollations = uniqCollations;
+
+    return node;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the core logic: creating node, copying target list, setting parameters
+- Preserved all essential functionality including uniqueness support
+- Maintained the straightforward structure of the original function

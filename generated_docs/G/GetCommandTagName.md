@@ -38,3 +38,18 @@ The function performs a direct array lookup using the commandTag as an index int
 - The function assumes the commandTag parameter is a valid index within the tag_behavior array bounds
 - Returns a pointer to a constant string that remains valid for the lifetime of the program
 - Used extensively throughout PostgreSQL for logging, error messages, completion tags, and event trigger processing
+
+## Simplified Source
+
+```c
+// Simplified version of GetCommandTagName
+const char *GetCommandTagName(CommandTag commandTag) {
+    // Direct lookup into behavior table to get command name string
+    return tag_behavior[commandTag].name;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, only added clarifying comment
+- Core logic remains unchanged as it's a straightforward table lookup
+- Preserved the constant string return type

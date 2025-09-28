@@ -35,3 +35,28 @@ The function is implemented as a static inline function for optimal performance 
 - Uses `pg_restrict` annotations for performance optimization
 - Critical component of PostgreSQL's binary protocol used for row description messages and other protocol communications
 - Part of the family of pq_writeint functions that handle different integer sizes with appropriate endianness handling
+
+## Simplified Source
+
+```c
+// Simplified version of pq_writeint16
+static inline void pq_writeint16(StringInfoData *buf, uint16 i) {
+    // Convert host byte order to network byte order
+    uint16 network_order_value = pg_hton16(i);
+
+    // Verify buffer has enough space (debug builds only)
+    Assert(buf->len + sizeof(uint16) <= buf->maxlen);
+
+    // Copy the network-ordered bytes to buffer
+    memcpy(buf->data + buf->len, &network_order_value, sizeof(uint16));
+
+    // Update buffer length
+    buf->len += sizeof(uint16);
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for clarity
+- Added comments explaining each step
+- Removed pg_restrict qualifiers for simplicity
+- Focused on the core logic: convert byte order, verify space, copy data, update length

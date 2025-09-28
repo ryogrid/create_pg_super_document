@@ -37,3 +37,34 @@ The function includes error handling for both unrecognized options (which genera
 - The failover option controls slot availability during PostgreSQL cluster failover scenarios
 - Part of PostgreSQL's logical replication failover feature introduced for high availability setups
 - Error messages follow PostgreSQL's standard error reporting conventions with appropriate error codes
+
+## Simplified Source
+
+```c
+// Simplified version of ParseAlterReplSlotOptions
+static void ParseAlterReplSlotOptions(AlterReplicationSlotCmd *cmd, bool *failover) {
+    bool failover_given = false;
+
+    // Parse each option in the command
+    foreach_ptr(DefElem, defel, cmd->options) {
+        if (strcmp(defel->defname, "failover") == 0) {
+            // Check for duplicate failover options
+            if (failover_given) {
+                ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                              errmsg("conflicting or redundant options")));
+            }
+            failover_given = true;
+            *failover = defGetBoolean(defel);
+        } else {
+            // Unknown option
+            elog(ERROR, "unrecognized option: %s", defel->defname);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments for option parsing logic
+- Preserved duplicate detection and error handling
+- Maintained extensible design for future options
+- Kept all essential validation and error reporting

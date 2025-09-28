@@ -38,3 +38,44 @@ The parsing process relies on the nodeRead function from readfuncs.c, which hand
 - Location field restoration is only available in debug builds with WRITE_READ_PARSE_PLAN_TREES enabled
 - The function assumes the input string is a valid Node representation
 - Global state management ensures that nested calls to string parsing functions work correctly
+
+## Simplified Source
+
+```c
+// Simplified version of stringToNodeInternal
+static void *stringToNodeInternal(const char *str, bool restore_loc_fields) {
+    void *retval;
+    const char *save_strtok;
+#ifdef WRITE_READ_PARSE_PLAN_TREES
+    bool save_restore_location_fields;
+#endif
+
+    // Save current tokenizer state for re-entrancy
+    save_strtok = pg_strtok_ptr;
+    pg_strtok_ptr = str;
+
+    // Save/restore location field handling if enabled
+#ifdef WRITE_READ_PARSE_PLAN_TREES
+    save_restore_location_fields = restore_location_fields;
+    restore_location_fields = restore_loc_fields;
+#endif
+
+    // Parse the string into node structure
+    retval = nodeRead(NULL, 0);
+
+    // Restore tokenizer state
+    pg_strtok_ptr = save_strtok;
+
+#ifdef WRITE_READ_PARSE_PLAN_TREES
+    restore_location_fields = save_restore_location_fields;
+#endif
+
+    return retval;
+}
+```
+
+Key simplifications made:
+- Preserved essential re-entrancy safety mechanisms
+- Maintained conditional location field handling
+- Kept core string-to-node parsing delegation
+- Focused on safe state management and parsing

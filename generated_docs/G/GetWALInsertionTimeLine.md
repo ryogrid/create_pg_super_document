@@ -38,3 +38,20 @@ The function includes an assertion to ensure it is only called on systems that h
 - Timeline changes typically occur during recovery or standby promotion
 - Located in src/backend/access/transam/xlog.c:6499-6514
 - Essential for replication and WAL management operations
+
+## Simplified Source
+
+```c
+// Simplified version of GetWALInsertionTimeLine
+TimeLineID GetWALInsertionTimeLine(void) {
+    Assert(XLogCtl->SharedRecoveryState == RECOVERY_STATE_DONE);
+
+    // Return current insertion timeline (no lock needed since value is stable)
+    return XLogCtl->InsertTimeLineID;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, just returns insertion timeline
+- Assertion ensures function is only called on non-recovery systems
+- No locking needed since timeline is stable during normal operation

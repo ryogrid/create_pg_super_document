@@ -50,3 +50,45 @@ The function performs type checking on the argument node and converts different 
 - Throws an ERROR if the DefElem has no argument or contains an unrecognized node type
 - The function is located in src/backend/commands/define.c:48-80
 - Commonly used in DDL command processing where option values need string representation
+
+## Simplified Source
+
+```c
+// Simplified version of defGetString
+char *defGetString(DefElem *def) {
+    // Require an argument value
+    if (def->arg == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("%s requires a parameter", def->defname)));
+
+    // Convert different node types to strings
+    switch (nodeTag(def->arg)) {
+        case T_Integer:
+            return psprintf("%ld", (long) intVal(def->arg));
+        case T_Float:
+            return castNode(Float, def->arg)->fval;
+        case T_Boolean:
+            return boolVal(def->arg) ? "true" : "false";
+        case T_String:
+            return strVal(def->arg);
+        case T_TypeName:
+            return TypeNameToString((TypeName *) def->arg);
+        case T_List:
+            return NameListToString((List *) def->arg);
+        case T_A_Star:
+            return pstrdup("*");
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(def->arg));
+    }
+
+    return NULL; // Never reached
+}
+```
+
+Key simplifications made:
+- Removed redundant comments while preserving all cases
+- Streamlined switch statement structure
+- Maintained all type conversion logic
+- Preserved error handling for missing arguments
+- Kept comprehensive node type support

@@ -31,3 +31,18 @@ This function provides the binary output protocol for int2vector data types, con
 - Essential for binary protocol communication and data serialization
 - The generic array_send function handles all the complex binary formatting
 - Part of the complete int2vector I/O function suite alongside int2vectorin, int2vectorout, and int2vectorrecv
+
+## Simplified Source
+
+```c
+// Simplified version of int2vectorsend
+Datum int2vectorsend(PG_FUNCTION_ARGS) {
+    // Delegate entirely to generic array send function
+    return array_send(fcinfo);
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple - just a wrapper
+- Added comment explaining the delegation pattern
+- No further simplification needed as it's a pure passthrough function

@@ -40,3 +40,23 @@ This function should be called when a StringInfo is no longer needed to prevent 
 - Essential for preventing memory leaks in applications using temporary StringInfo objects
 - The function performs validation to prevent destruction of read-only StringInfos
 - Memory is freed using pfree(), consistent with PostgreSQL's memory management system
+
+## Simplified Source
+
+```c
+// Simplified version of destroyStringInfo
+void destroyStringInfo(StringInfo str) {
+    // Prevent destruction of read-only StringInfos
+    Assert(str->maxlen != 0);
+
+    // Free data buffer and structure
+    pfree(str->data);
+    pfree(str);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential validation
+- Maintained the assertion for read-only StringInfo protection
+- Preserved the correct order of memory deallocation
+- Kept the simple two-step cleanup process

@@ -37,3 +37,30 @@ BufferGetBlockNumber is a utility function that extracts the block number from a
 - Reads tag information without spinlock since buffer is pinned
 - Returns BlockNumber type which represents the physical block number on disk
 - Critical for buffer management and storage operations throughout PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of BufferGetBlockNumber
+BlockNumber BufferGetBlockNumber(Buffer buffer) {
+    BufferDesc *bufHdr;
+
+    // Ensure buffer is pinned before accessing metadata
+    Assert(BufferIsPinned(buffer));
+
+    // Get appropriate buffer descriptor based on buffer type
+    if (BufferIsLocal(buffer))
+        bufHdr = GetLocalBufferDescriptor(-buffer - 1);
+    else
+        bufHdr = GetBufferDescriptor(buffer - 1);
+
+    // Safe to read tag without spinlock since buffer is pinned
+    return bufHdr->tag.blockNum;
+}
+```
+
+Key simplifications made:
+- Core logic: retrieve buffer descriptor and extract block number from tag
+- Assertion ensures buffer is pinned for safe metadata access
+- Different descriptor retrieval for local vs shared buffers
+- No spinlock needed since pinned buffers have stable metadata

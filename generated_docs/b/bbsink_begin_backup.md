@@ -39,3 +39,29 @@ This inline function serves as the initialization entry point for PostgreSQL's b
 - Ensures buffer length is aligned to PostgreSQL's block size (BLCKSZ) after sink initialization
 - The function delegates actual implementation to sink-specific begin_backup operation through function pointer
 - Part of PostgreSQL's pluggable backup sink architecture allowing different compression and destination formats
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_begin_backup
+static inline void bbsink_begin_backup(bbsink *sink, bbsink_state *state, int buffer_length) {
+    Assert(sink != NULL);
+    Assert(buffer_length > 0);
+
+    // Set up sink state and buffer configuration
+    sink->bbs_state = state;
+    sink->bbs_buffer_length = buffer_length;
+    sink->bbs_ops->begin_backup(sink);
+
+    // Validate post-conditions
+    Assert(sink->bbs_buffer != NULL);
+    Assert((sink->bbs_buffer_length % BLCKSZ) == 0);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential setup logic
+- Maintained pre and post-condition assertions for safety
+- Preserved state and buffer configuration setup
+- Kept delegation to sink-specific implementation
+- Maintained block size alignment validation

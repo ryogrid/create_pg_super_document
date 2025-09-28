@@ -48,3 +48,91 @@ This function creates the initial snapshot for a logical replication slot, which
 - The conversion from snapbuild format to MVCC format can be expensive for large transaction ranges
 - Includes safeguards against snapshot size limits and serialization failures
 - The resulting snapshot has type SNAPSHOT_MVCC and can be used directly or exported for other transactions
+
+## Simplified Source
+
+```c
+// Simplified version of SnapBuildInitialSnapshot
+Snapshot SnapBuildInitialSnapshot(SnapBuild *builder) {
+    Snapshot snap;
+    TransactionId xid;
+    TransactionId safeXid;
+    TransactionId *newxip;
+    int newxcnt = 0;
+
+    Assert(XactIsoLevel == XACT_REPEATABLE_READ);
+    Assert(builder->building_full_snapshot);
+
+    // Validate preconditions
+    InvalidateCatalogSnapshot();
+    if (HaveRegisteredOrActiveSnapshot()) {
+        elog(ERROR, "cannot build an initial slot snapshot when snapshots exist");
+    }
+    Assert(!HistoricSnapshotActive());
+
+    if (builder->state != SNAPBUILD_CONSISTENT) {
+        elog(ERROR, "cannot build an initial slot snapshot before reaching a consistent state");
+    }
+
+    if (!builder->committed.includes_all_transactions) {
+        elog(ERROR, "cannot build an initial slot snapshot, not all transactions are monitored anymore");
+    }
+
+    if (TransactionIdIsValid(MyProc->xmin)) {
+        elog(ERROR, "cannot build an initial slot snapshot when MyProc->xmin already is valid");
+    }
+
+    // Build the base snapshot
+    snap = SnapBuildBuildSnapshot(builder);
+
+    // Validate xmin horizon safety
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+    safeXid = GetOldestSafeDecodingTransactionId(false);
+    LWLockRelease(ProcArrayLock);
+
+    if (TransactionIdFollows(safeXid, snap->xmin)) {
+        elog(ERROR, "cannot build an initial slot snapshot as oldest safe xid %u follows snapshot's xmin %u",
+             safeXid, snap->xmin);
+    }
+
+    // Set xmin horizon
+    MyProc->xmin = snap->xmin;
+
+    // Allocate space for converted xip array
+    newxip = (TransactionId *) palloc(sizeof(TransactionId) * GetMaxSnapshotXidCount());
+
+    // Convert from snapbuild format (committed in xip) to MVCC format (in-progress in xip)
+    for (xid = snap->xmin; NormalTransactionIdPrecedes(xid, snap->xmax);) {
+        void *test;
+
+        // Check if transaction is committed (present in snap->xip)
+        test = bsearch(&xid, snap->xip, snap->xcnt,
+                      sizeof(TransactionId), xidComparator);
+
+        if (test == NULL) {
+            // Transaction not committed - add to in-progress list
+            if (newxcnt >= GetMaxSnapshotXidCount()) {
+                ereport(ERROR, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                              errmsg("initial slot snapshot too large")));
+            }
+            newxip[newxcnt++] = xid;
+        }
+
+        TransactionIdAdvance(xid);
+    }
+
+    // Update snapshot to MVCC format
+    snap->snapshot_type = SNAPSHOT_MVCC;
+    snap->xcnt = newxcnt;
+    snap->xip = newxip;
+
+    return snap;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major phase
+- Maintained all essential validation and safety checks
+- Preserved the complex conversion logic with explanatory comments
+- Kept error handling for edge cases
+- Focused on the core algorithm for snapshot format conversion

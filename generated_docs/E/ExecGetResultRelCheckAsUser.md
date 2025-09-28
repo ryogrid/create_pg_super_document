@@ -37,3 +37,26 @@ The function handles inheritance hierarchies correctly by delegating to GetResul
 - There's a TODO comment (XXX) suggesting that returning GetUserId() might be acceptable when no permission info is found
 - This function is critical for proper security in DML operations, ensuring modifications are checked against the correct user's permissions
 - Works seamlessly with PostgreSQL's inheritance and partitioning system through its use of GetResultRTEPermissionInfo()
+
+## Simplified Source
+
+```c
+// Simplified version of ExecGetResultRelCheckAsUser
+Oid ExecGetResultRelCheckAsUser(ResultRelInfo *relInfo, EState *estate) {
+    // Get permission info for the result relation
+    RTEPermissionInfo *perminfo = GetResultRTEPermissionInfo(relInfo, estate);
+
+    // Error if no permission info found
+    if (perminfo == NULL) {
+        elog(ERROR, "no RTEPermissionInfo found for result relation");
+    }
+
+    // Return specified user or current user
+    return perminfo->checkAsUser ? perminfo->checkAsUser : GetUserId();
+}
+```
+
+Key simplifications made:
+- Simplified error message for clarity
+- Added brief comments for each logical step
+- Preserved the essential logic flow and security checks

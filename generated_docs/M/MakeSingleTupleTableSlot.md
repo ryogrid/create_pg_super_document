@@ -40,3 +40,20 @@ This function is particularly useful in scenarios where you need a temporary or 
 - Commonly used in catalog operations, index maintenance, statistical analysis, and replication contexts
 - The returned slot must be properly managed and eventually freed by the caller
 - Used extensively throughout PostgreSQL for various administrative and maintenance operations
+
+## Simplified Source
+
+```c
+// Simplified version of MakeSingleTupleTableSlot
+TupleTableSlot *MakeSingleTupleTableSlot(TupleDesc tupdesc, const TupleTableSlotOps *tts_ops) {
+    // Create and return a standalone tuple table slot
+    TupleTableSlot *slot = MakeTupleTableSlot(tupdesc, tts_ops);
+
+    return slot;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, just a wrapper around MakeTupleTableSlot
+- Provides convenient interface for creating standalone slots
+- Essential for operations outside the main executor tuple table system

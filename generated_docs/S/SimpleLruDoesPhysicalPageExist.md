@@ -51,3 +51,62 @@ This function is particularly important for systems that need to verify page ava
 - Critical for multixact and commit timestamp systems where page existence affects system behavior
 - Part of PostgreSQL's defensive programming approach - verify before attempting operations
 - Updates statistics counters to help monitor SLRU subsystem activity and performance
+
+## Simplified Source
+
+```c
+// Simplified version of SimpleLruDoesPhysicalPageExist
+bool SimpleLruDoesPhysicalPageExist(SlruCtl ctl, int64 pageno) {
+    // Calculate segment and page offset
+    int64 segno = pageno / SLRU_PAGES_PER_SEGMENT;
+    int rpageno = pageno % SLRU_PAGES_PER_SEGMENT;
+    int offset = rpageno * BLCKSZ;
+    char path[MAXPGPATH];
+    int fd;
+    bool result;
+    off_t endpos;
+
+    // Update statistics
+    pgstat_count_slru_page_exists(ctl->shared->slru_stats_idx);
+
+    // Get segment file path
+    SlruFileName(ctl, path, segno);
+
+    // Try to open file
+    fd = OpenTransientFile(path, O_RDONLY | PG_BINARY);
+    if (fd < 0) {
+        if (errno == ENOENT)
+            return false;  // File doesn't exist - normal case
+
+        // Report actual error
+        slru_errcause = SLRU_OPEN_FAILED;
+        slru_errno = errno;
+        SlruReportIOError(ctl, pageno, 0);
+    }
+
+    // Check if file is large enough to contain the page
+    if ((endpos = lseek(fd, 0, SEEK_END)) < 0) {
+        slru_errcause = SLRU_SEEK_FAILED;
+        slru_errno = errno;
+        SlruReportIOError(ctl, pageno, 0);
+    }
+
+    result = endpos >= (off_t)(offset + BLCKSZ);
+
+    // Clean up file handle
+    if (CloseTransientFile(fd) != 0) {
+        slru_errcause = SLRU_CLOSE_FAILED;
+        slru_errno = errno;
+        return false;
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major step
+- Grouped related operations together logically
+- Simplified error handling explanation while preserving all error paths
+- Focused on the core algorithm: segment calculation, file opening, size checking
+- Maintained all essential logic and error reporting behavior

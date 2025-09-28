@@ -42,3 +42,40 @@ The function performs validation on the input tuple and returns NULL if the tupl
 - The resulting tuple is completely independent of the source tuple
 - Used extensively throughout PostgreSQL for tuple duplication in catalog operations, executor operations, and SPI functions
 - Located in src/backend/access/common/heaptuple.c:776-801
+
+## Simplified Source
+
+```c
+// Simplified version of heap_copytuple
+HeapTuple
+heap_copytuple(HeapTuple tuple)
+{
+    HeapTuple newTuple;
+
+    // Validate input tuple
+    if (!HeapTupleIsValid(tuple) || tuple->t_data == NULL)
+        return NULL;
+
+    // Allocate memory for both HeapTuple struct and tuple data in one block
+    newTuple = (HeapTuple) palloc(HEAPTUPLESIZE + tuple->t_len);
+
+    // Copy metadata fields
+    newTuple->t_len = tuple->t_len;
+    newTuple->t_self = tuple->t_self;
+    newTuple->t_tableOid = tuple->t_tableOid;
+
+    // Set data pointer to the area after the HeapTuple struct
+    newTuple->t_data = (HeapTupleHeader) ((char *) newTuple + HEAPTUPLESIZE);
+
+    // Copy the actual tuple data
+    memcpy((char *) newTuple->t_data, (char *) tuple->t_data, tuple->t_len);
+
+    return newTuple;
+}
+```
+
+Key simplifications made:
+- Added comments explaining the memory allocation strategy
+- Clarified the purpose of each step in the copying process
+- Explained the pointer arithmetic for data placement
+- Preserved all validation and copying logic

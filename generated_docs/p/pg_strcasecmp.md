@@ -39,3 +39,46 @@ The function iterates through both strings simultaneously, converting characters
 - Falls back to locale-aware functions for extended character sets
 - Widely used throughout PostgreSQL for configuration options, SQL keywords, and user input processing
 - Part of PostgreSQL's portability layer to ensure consistent behavior across platforms
+
+## Simplified Source
+
+```c
+// Simplified version of pg_strcasecmp
+int pg_strcasecmp(const char *s1, const char *s2) {
+    for (;;) {
+        unsigned char ch1 = (unsigned char) *s1++;
+        unsigned char ch2 = (unsigned char) *s2++;
+
+        // Convert both characters to lowercase if they differ
+        if (ch1 != ch2) {
+            // Handle ASCII uppercase characters (A-Z)
+            if (ch1 >= 'A' && ch1 <= 'Z')
+                ch1 += 'a' - 'A';
+            // Handle extended characters with locale-aware conversion
+            else if (IS_HIGHBIT_SET(ch1) && isupper(ch1))
+                ch1 = tolower(ch1);
+
+            // Same conversion for second character
+            if (ch2 >= 'A' && ch2 <= 'Z')
+                ch2 += 'a' - 'A';
+            else if (IS_HIGHBIT_SET(ch2) && isupper(ch2))
+                ch2 = tolower(ch2);
+
+            // Return difference if still not equal after case conversion
+            if (ch1 != ch2)
+                return (int) ch1 - (int) ch2;
+        }
+
+        // End of string reached
+        if (ch1 == 0)
+            break;
+    }
+    return 0;  // Strings are equal
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the main logic sections
+- Clarified the two-stage character comparison process
+- Emphasized the ASCII vs. extended character handling
+- Made the return logic more explicit

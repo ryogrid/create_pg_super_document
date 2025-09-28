@@ -61,3 +61,47 @@ This function is essential for all operations that need to display, print, or tr
 - Complementary function to `getTypeInputInfo` - together they provide complete type conversion capabilities
 - Essential for query result formatting, error reporting, and all client-server communication involving type values
 - Part of the core type system infrastructure in PostgreSQL's lsyscache module
+
+## Simplified Source
+
+```c
+// Simplified version of getTypeOutputInfo
+void getTypeOutputInfo(Oid type, Oid *typOutput, bool *typIsVarlena) {
+    HeapTuple typeTuple;
+    Form_pg_type pt;
+
+    // Look up the type in the system catalog
+    typeTuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(type));
+    if (!HeapTupleIsValid(typeTuple)) {
+        elog(ERROR, "cache lookup failed for type %u", type);
+    }
+    pt = (Form_pg_type) GETSTRUCT(typeTuple);
+
+    // Verify the type is fully defined (not just a shell)
+    if (!pt->typisdefined) {
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("type %s is only a shell", format_type_be(type))));
+    }
+
+    // Verify the type has a valid output function
+    if (!OidIsValid(pt->typoutput)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("no output function available for type %s", format_type_be(type))));
+    }
+
+    // Return the output function OID and variable-length flag
+    *typOutput = pt->typoutput;
+    *typIsVarlena = (!pt->typbyval) && (pt->typlen == -1);
+
+    ReleaseSysCache(typeTuple);
+}
+```
+
+Key simplifications made:
+- Added clearer comments explaining each validation step
+- Maintained all essential error checking and validation
+- Preserved the system catalog lookup mechanism
+- Focused on the core type output information retrieval
+- Kept the variable-length type detection logic intact

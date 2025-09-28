@@ -45,3 +45,73 @@ This function takes no parameters.
 - Uses multiple lightweight locks (SerializableFinishedListLock, SerializableXactHashLock, SerializablePredicateListLock) to coordinate with concurrent operations
 - Read-only transactions can be completely removed while read-write transactions may only be partially cleaned (keeping SERIALIZABLEXACT structure but removing locks and conflicts)
 - Located at src/backend/storage/lmgr/predicate.c:3687
+
+## Simplified Source
+
+```c
+// Simplified version of ClearOldPredicateLocks
+static void ClearOldPredicateLocks(void) {
+    dlist_mutable_iter iter;
+
+    // Phase 1: Clean up finished transactions
+    LWLockAcquire(SerializableFinishedListLock, LW_EXCLUSIVE);
+    LWLockAcquire(SerializableXactHashLock, LW_SHARED);
+
+    dlist_foreach_modify(iter, FinishedSerializableTransactions) {
+        SERIALIZABLEXACT *finishedSxact =
+            dlist_container(SERIALIZABLEXACT, finishedLink, iter.cur);
+
+        // Check if transaction is no longer interesting to any active transaction
+        if (transaction_committed_before_active_snapshots(finishedSxact)) {
+            // Complete removal - transaction is totally obsolete
+            LWLockRelease(SerializableXactHashLock);
+            dlist_delete_thoroughly(&finishedSxact->finishedLink);
+            ReleaseOneSerializableXact(finishedSxact, false, false);
+            LWLockAcquire(SerializableXactHashLock, LW_SHARED);
+        }
+        else if (can_do_partial_cleanup(finishedSxact)) {
+            // Partial cleanup - keep structure but clear locks/conflicts
+            LWLockRelease(SerializableXactHashLock);
+
+            if (SxactIsReadOnly(finishedSxact)) {
+                // Read-only transactions can be completely removed
+                dlist_delete_thoroughly(&finishedSxact->finishedLink);
+                ReleaseOneSerializableXact(finishedSxact, false, false);
+            } else {
+                // Read-write transactions: keep SERIALIZABLEXACT but clear locks
+                ReleaseOneSerializableXact(finishedSxact, true, false);
+            }
+
+            update_cleanup_progress(finishedSxact->commitSeqNo);
+            LWLockAcquire(SerializableXactHashLock, LW_SHARED);
+        }
+        else {
+            // Still needed by active transactions
+            break;
+        }
+    }
+    LWLockRelease(SerializableXactHashLock);
+
+    // Phase 2: Clean up old predicate locks from summarized data
+    LWLockAcquire(SerializablePredicateListLock, LW_SHARED);
+    dlist_foreach_modify(iter, &OldCommittedSxact->predicateLocks) {
+        PREDICATELOCK *predlock =
+            dlist_container(PREDICATELOCK, xactLink, iter.cur);
+
+        if (predlock_can_be_cleaned(predlock)) {
+            // Remove this old predicate lock
+            remove_predicate_lock_completely(predlock);
+        }
+    }
+
+    LWLockRelease(SerializablePredicateListLock);
+    LWLockRelease(SerializableFinishedListLock);
+}
+```
+
+Key simplifications made:
+- Abstracted complex transaction age checks into helper function names
+- Simplified the nested condition logic for transaction cleanup
+- Consolidated predicate lock removal logic
+- Removed detailed hash table manipulation for clarity
+- Focused on the two main cleanup phases

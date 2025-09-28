@@ -39,3 +39,36 @@ If no matching timeline is found, the function raises an ERROR, as this indicate
 - Used extensively during WAL recovery to determine correct timeline context
 - Timeline ranges are inclusive at the beginning and exclusive at the end
 - Function should never return 0 in normal operation - the return 0 is only to suppress compiler warnings
+
+## Simplified Source
+
+```c
+// Simplified version of tliOfPointInHistory
+TimeLineID tliOfPointInHistory(XLogRecPtr ptr, List *history) {
+    ListCell *cell;
+
+    // Search through timeline history entries
+    foreach(cell, history) {
+        TimeLineHistoryEntry *tle = (TimeLineHistoryEntry *) lfirst(cell);
+
+        // Check if the pointer falls within this timeline's range
+        // begin <= ptr < end (with special handling for invalid boundaries)
+        if ((XLogRecPtrIsInvalid(tle->begin) || tle->begin <= ptr) &&
+            (XLogRecPtrIsInvalid(tle->end) || ptr < tle->end)) {
+            // Found the timeline that was active at this point
+            return tle->tli;
+        }
+    }
+
+    // Timeline history should be contiguous - this should never happen
+    elog(ERROR, "timeline history was not contiguous");
+    return 0; // Keep compiler quiet
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the search logic
+- Explained the boundary checking with invalid WAL pointer handling
+- Maintained the essential timeline lookup algorithm
+- Preserved error handling for non-contiguous history
+- Focused on the core timeline identification logic

@@ -34,3 +34,26 @@ The int4send function is a PostgreSQL type send function that converts a 32-bit 
 - The function follows PostgreSQL's fmgr (function manager) calling convention
 - Located in src/backend/utils/adt/int.c:322-339
 - Counterpart to int4recv for binary data handling
+
+## Simplified Source
+
+```c
+// Simplified version of int4send
+Datum int4send(PG_FUNCTION_ARGS) {
+    int32 input_value = PG_GETARG_INT32(0);
+    StringInfoData output_buffer;
+
+    // Create binary output buffer and write integer value
+    pq_begintypsend(&output_buffer);
+    pq_sendint32(&output_buffer, input_value);
+
+    // Return the binary data as bytea
+    PG_RETURN_BYTEA_P(pq_endtypsend(&output_buffer));
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names
+- Added comments explaining the binary serialization process
+- This function follows a standard pattern: begin buffer, write data, end buffer
+- Core binary formatting is handled by PostgreSQL's pq_* functions

@@ -30,3 +30,37 @@ This function allocates and initializes a DR_intorel structure that implements t
 
 ## Notes and Other Information
 The function initializes the pub.mydest field to DestIntoRel to identify this as a relation destination receiver. Other private fields of the DR_intorel structure are set during the intorel_startup phase rather than during creation. The returned DestReceiver pointer provides a generic interface while hiding the specific DR_intorel implementation details.
+
+## Simplified Source
+
+```c
+// Simplified version of CreateIntoRelDestReceiver
+DestReceiver *CreateIntoRelDestReceiver(IntoClause *intoClause) {
+    // Allocate and zero-initialize the into-relation destination receiver
+    DR_intorel *into_receiver = (DR_intorel *) palloc0(sizeof(DR_intorel));
+
+    // Set up the callback functions for relation creation operations
+    into_receiver->pub.receiveSlot = intorel_receive;      // Insert each tuple into relation
+    into_receiver->pub.rStartup = intorel_startup;         // Create the target relation
+    into_receiver->pub.rShutdown = intorel_shutdown;       // Finalize the relation
+    into_receiver->pub.rDestroy = intorel_destroy;         // Final cleanup
+
+    // Set the destination type to indicate relation creation operation
+    into_receiver->pub.mydest = DestIntoRel;
+
+    // Store the INTO clause specification (can be NULL if provided later)
+    into_receiver->into = intoClause;
+
+    // Note: Other private fields will be set during intorel_startup
+
+    // Return as base DestReceiver type
+    return (DestReceiver *) into_receiver;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for clarity
+- Added comments explaining each callback function's purpose
+- Clarified that intoClause can be NULL and set later
+- Explained deferred initialization of other fields
+- Focused on core logic: allocate memory, set callbacks, store clause, return receiver

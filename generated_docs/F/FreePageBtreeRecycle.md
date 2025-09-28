@@ -39,3 +39,34 @@ This function adds a page to the btree recycle list by converting it into a Free
 - Increments btree_recycle_count to track the number of recycled pages
 - Uses relative pointers for shared memory compatibility
 - Handles the case where the recycle list was previously empty (head == NULL)
+
+## Simplified Source
+
+```c
+// Simplified version of FreePageBtreeRecycle
+static void FreePageBtreeRecycle(FreePageManager *fpm, Size pageno) {
+    char *base = fpm_segment_base(fpm);
+    FreePageSpanLeader *head = relptr_access(base, fmp->btree_recycle);
+    FreePageSpanLeader *span = (FreePageSpanLeader *) fpm_page_to_pointer(base, pageno);
+
+    // Initialize span as recycled page
+    span->magic = FREE_PAGE_SPAN_LEADER_MAGIC;
+    span->npages = 1;
+
+    // Insert at head of recycle list
+    relptr_store(base, span->next, head);
+    relptr_store(base, span->prev, (FreePageSpanLeader *) NULL);
+    if (head != NULL)
+        relptr_store(base, head->prev, span);
+
+    // Update list head and count
+    relptr_store(base, fpm->btree_recycle, span);
+    fpm->btree_recycle_count++;
+}
+```
+
+Key simplifications made:
+- Preserved core linked list insertion logic
+- Maintained proper span leader initialization
+- Focused on the list manipulation algorithm
+- Kept essential pointer management operations

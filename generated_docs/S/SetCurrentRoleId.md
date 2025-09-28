@@ -38,3 +38,35 @@ This function changes the role ID while PostgreSQL is running, implementing the 
 - Updates global role state variables to maintain consistency
 - Critical component of PostgreSQL's role-based access control system
 - The is_superuser parameter is ignored when performing 'SET ROLE NONE'
+
+## Simplified Source
+
+```c
+// Simplified version of SetCurrentRoleId
+void SetCurrentRoleId(Oid roleid, bool is_superuser) {
+    if (!OidIsValid(roleid)) {
+        // SET ROLE NONE: revert to session user
+        SetRoleIsActive = false;
+
+        // Early return if session not yet initialized
+        if (!OidIsValid(SessionUserId))
+            return;
+
+        // Use session user credentials
+        roleid = SessionUserId;
+        is_superuser = SessionUserIsSuperuser;
+    } else {
+        // SET ROLE <roleid>: activate the specified role
+        SetRoleIsActive = true;
+    }
+
+    // Apply the role change
+    SetOuterUserId(roleid, is_superuser);
+}
+```
+
+Key simplifications made:
+- Clarified the two main branches: SET ROLE NONE vs SET ROLE <roleid>
+- Added explanatory comments for each decision point
+- Emphasized the role activation state management
+- Simplified the early initialization handling logic

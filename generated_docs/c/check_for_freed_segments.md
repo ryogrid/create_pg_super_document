@@ -47,3 +47,33 @@ The  function implements a lock-free detection mechanism for segment cleanup in 
 - Works in conjunction with  which increments the freed counter
 - Part of PostgreSQL's sophisticated memory safety infrastructure for shared memory
 - The memory barrier ensures visibility of segment frees across process boundaries
+
+## Simplified Source
+
+```c
+// Simplified version of check_for_freed_segments
+static void
+check_for_freed_segments(dsa_area *area) {
+    size_t freed_segment_counter;
+
+    // Ensure memory ordering: see freed segments before using dsa_pointer
+    pg_read_barrier();
+
+    // Check if any segments have been freed since last check
+    freed_segment_counter = area->control->freed_segment_counter;
+
+    if (unlikely(area->freed_segment_counter != freed_segment_counter)) {
+        // Segments were freed - need to clean up mappings
+        LWLockAcquire(DSA_AREA_LOCK(area), LW_EXCLUSIVE);
+        check_for_freed_segments_locked(area);
+        LWLockRelease(DSA_AREA_LOCK(area));
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the memory ordering requirement
+- Simplified the complex memory synchronization explanation into actionable comments
+- Emphasized the counter-based detection mechanism
+- Clarified that this function handles the race condition between segment freeing and pointer resolution
+- Preserved the lock-free fast path with locked cleanup fallback pattern

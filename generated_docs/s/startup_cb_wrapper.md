@@ -39,3 +39,39 @@ The wrapper ensures that if an error occurs during plugin startup, administrator
 - The error callback has no associated LSN since startup operations don't correspond to specific WAL positions
 - Static function used internally within logical replication infrastructure
 - Part of the plugin callback wrapper ecosystem that provides consistent error handling across all plugin operations
+
+## Simplified Source
+
+```c
+// Simplified version of startup_cb_wrapper
+static void startup_cb_wrapper(LogicalDecodingContext *ctx, OutputPluginOptions *opt, bool is_init) {
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    Assert(!ctx->fast_forward);
+
+    // Set up error context for detailed error reporting
+    state.ctx = ctx;
+    state.callback_name = "startup";
+    state.report_location = InvalidXLogRecPtr;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state
+    ctx->accept_writes = false;
+    ctx->end_xact = false;
+
+    // Call the actual plugin startup callback
+    ctx->callbacks.startup_cb(ctx, opt, is_init);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```
+
+Key simplifications made:
+- Function is already well-structured, maintains error handling framework
+- Provides safety wrapper around plugin startup callbacks
+- Essential for proper error reporting during plugin initialization

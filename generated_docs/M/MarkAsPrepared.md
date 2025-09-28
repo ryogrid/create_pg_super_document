@@ -35,3 +35,34 @@ MarkAsPrepared is the final step in preparing a transaction for two-phase commit
 - Adding to ProcArray is essential for proper transaction visibility and conflict detection
 - Must be called after all other preparation steps are complete (including GXactLoadSubxactData if needed)
 - The transaction becomes eligible for COMMIT PREPARED or ROLLBACK PREPARED after this call
+
+## Simplified Source
+
+```c
+// Simplified version of MarkAsPrepared
+static void MarkAsPrepared(GlobalTransaction gxact, bool lock_held) {
+    // Acquire lock if caller doesn't already hold it
+    if (!lock_held) {
+        LWLockAcquire(TwoPhaseStateLock, LW_EXCLUSIVE);
+    }
+
+    // Mark the transaction as valid
+    Assert(!gxact->valid);
+    gxact->valid = true;
+
+    // Release lock if we acquired it
+    if (!lock_held) {
+        LWLockRelease(TwoPhaseStateLock);
+    }
+
+    // Add to global ProcArray for transaction visibility
+    ProcArrayAdd(GetPGProcByNumber(gxact->pgprocno));
+}
+```
+
+Key simplifications made:
+- Consolidated lock acquisition and release logic
+- Added clear comments for each major operation
+- Preserved the conditional locking mechanism for optimization
+- Maintained the assertion and ProcArray registration
+- Focused on the core state transition from preparing to prepared

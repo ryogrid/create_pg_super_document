@@ -42,3 +42,31 @@ This function flags a read-only serializable transaction as unsafe by setting th
 - Releases all conflict records back to the RWConflictPool
 - Part of PostgreSQL's safe snapshot optimization for read-only transactions
 - Located in src/backend/storage/lmgr/predicate.c:699-730
+
+## Simplified Source
+
+```c
+// Simplified version of FlagSxactUnsafe
+static void FlagSxactUnsafe(SERIALIZABLEXACT *sxact) {
+    dlist_mutable_iter iter;
+
+    // Mark the read-only transaction as unsafe
+    sxact->flags |= SXACT_FLAG_RO_UNSAFE;
+
+    // Clean up all possible unsafe conflict records
+    // Once unsafe, we don't need to track potential conflicts anymore
+    dlist_foreach_modify(iter, &sxact->possibleUnsafeConflicts) {
+        RWConflict conflict =
+            dlist_container(RWConflictData, inLink, iter.cur);
+
+        // Release this conflict back to the pool
+        ReleaseRWConflict(conflict);
+    }
+}
+```
+
+Key simplifications made:
+- Removed debug assertions for clarity
+- Added clear comments explaining the purpose
+- Simplified the conflict cleanup logic description
+- Focused on the core functionality: flag setting and conflict cleanup

@@ -42,3 +42,23 @@ The function includes an assertion to verify that all tablespaces have been proc
 - Includes validation that ensures all tablespaces were properly processed during the backup
 - Part of the base backup infrastructure ensuring proper finalization and consistency recording
 - The actual finalization behavior depends on the specific sink implementation but typically includes recording backup metadata and cleanup operations
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_end_backup
+static inline void bbsink_end_backup(bbsink *sink, XLogRecPtr endptr, TimeLineID endtli) {
+    Assert(sink != NULL);
+    Assert(sink->bbs_state->tablespace_num == list_length(sink->bbs_state->tablespaces));
+
+    // Delegate to sink-specific implementation
+    sink->bbs_ops->end_backup(sink, endptr, endtli);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Maintained critical assertion for tablespace completion validation
+- Preserved the delegation pattern with WAL position parameters
+- Kept the inline function optimization
+- Maintained backup completion interface with timeline tracking

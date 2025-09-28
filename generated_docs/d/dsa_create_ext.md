@@ -41,3 +41,41 @@ The function requires a caller-provided LWLock tranche ID because these are scar
 - Registers cleanup callback for proper resource management when control segment detaches
 - Part of PostgreSQL's shared memory management infrastructure
 - Located in src/backend/utils/mmgr/dsa.c:421-470
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_create_ext
+dsa_area *
+dsa_create_ext(int tranche_id, size_t init_segment_size, size_t max_segment_size) {
+    dsm_segment *segment;
+    dsa_area *area;
+
+    // Create initial DSM segment for control object and first usable space
+    segment = dsm_create(init_segment_size, 0);
+
+    // Pin segment so DSA controls lifetime explicitly
+    // (prevents premature cleanup when backends detach)
+    dsm_pin_segment(segment);
+
+    // Create DSA area with control object in this segment
+    area = create_internal(dsm_segment_address(segment),
+                          init_segment_size,
+                          tranche_id,
+                          dsm_segment_handle(segment), segment,
+                          init_segment_size, max_segment_size);
+
+    // Register cleanup callback for when control segment detaches
+    on_dsm_detach(segment, &dsa_on_dsm_detach_release_in_place,
+                  PointerGetDatum(dsm_segment_address(segment)));
+
+    return area;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Condensed variable declarations for clarity
+- Emphasized the key concept of segment pinning for lifetime control
+- Simplified the create_internal call presentation
+- Focused on the core pattern: create segment → pin → initialize DSA → register cleanup

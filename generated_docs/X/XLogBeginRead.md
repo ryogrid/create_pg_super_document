@@ -42,3 +42,28 @@ The function is designed to be safe and cannot fail during initialization - any 
 - The function resets all internal state including EndRecPtr, NextRecPtr, ReadRecPtr, and DecodeRecPtr
 - Used extensively throughout PostgreSQL for WAL reading in recovery, replication, logical decoding, and various utility operations
 - The function uses Assert() to validate that RecPtr is not invalid, which is only active in debug builds
+
+## Simplified Source
+
+```c
+// Simplified version of XLogBeginRead
+void XLogBeginRead(XLogReaderState *state, XLogRecPtr RecPtr) {
+    // Validate input
+    Assert(!XLogRecPtrIsInvalid(RecPtr));
+
+    // Reset decoder state
+    ResetDecoder(state);
+
+    // Initialize reader position pointers
+    state->EndRecPtr = RecPtr;      // End of current record
+    state->NextRecPtr = RecPtr;     // Next record to read
+    state->ReadRecPtr = InvalidXLogRecPtr;   // Last record read
+    state->DecodeRecPtr = InvalidXLogRecPtr; // Last record decoded
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each pointer's purpose
+- Grouped related operations logically
+- Preserved all essential initialization logic
+- Maintained safe initialization pattern that cannot fail

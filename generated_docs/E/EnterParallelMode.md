@@ -37,3 +37,24 @@ This function takes no parameters.
 - Part of PostgreSQL's parallel query execution infrastructure
 - Must be paired with corresponding ExitParallelMode calls to maintain proper nesting
 - The nesting level approach allows multiple subsystems to independently manage their parallel execution state
+
+## Simplified Source
+
+```c
+// Simplified version of EnterParallelMode
+void EnterParallelMode(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Ensure parallel mode level is valid
+    Assert(s->parallelModeLevel >= 0);
+
+    // Increment parallel mode nesting level
+    ++s->parallelModeLevel;
+}
+```
+
+Key simplifications made:
+- Preserved the essential parallel mode level increment
+- Kept the safety assertion for level validation
+- Maintained the straightforward nesting counter logic
+- Focused on the core parallel mode tracking mechanism

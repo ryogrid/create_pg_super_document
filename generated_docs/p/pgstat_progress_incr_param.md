@@ -39,3 +39,30 @@ This is commonly used for metrics like the number of tuples processed, blocks sc
 - More efficient than separate read and update operations for cumulative metrics
 - Particularly useful in loops where progress accumulates incrementally
 - Used less frequently than pgstat_progress_update_param but provides better semantics for cumulative counters
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_progress_incr_param
+void pgstat_progress_incr_param(int index, int64 incr) {
+    volatile PgBackendStatus *beentry = MyBEEntry;
+
+    // Validate parameter index
+    Assert(index >= 0 && index < PGSTAT_NUM_PROGRESS_PARAM);
+
+    // Early return if tracking not available or disabled
+    if (!beentry || !pgstat_track_activities)
+        return;
+
+    // Atomically increment the progress parameter
+    PGSTAT_BEGIN_WRITE_ACTIVITY(beentry);
+    beentry->st_progress_param[index] += incr;
+    PGSTAT_END_WRITE_ACTIVITY(beentry);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each validation and operation
+- Preserved the range validation assertion
+- Maintained the atomic write protection mechanism
+- Kept the early return optimization for disabled tracking

@@ -47,3 +47,57 @@ All validation failures result in LOG-level error messages and NULL return value
 - Length validation ensures the record contains exactly one CheckPoint structure with appropriate headers
 - The function is specifically designed for use during recovery initialization where checkpoint validation is critical
 - All error conditions are logged with descriptive messages to aid in debugging recovery issues
+
+## Simplified Source
+
+```c
+// Simplified version of ReadCheckpointRecord
+static XLogRecord *ReadCheckpointRecord(XLogPrefetcher *xlogprefetcher,
+                                       XLogRecPtr RecPtr, TimeLineID replayTLI) {
+    XLogRecord *record;
+    uint8 info;
+
+    // Step 1: Validate checkpoint location
+    if (!XRecOffIsValid(RecPtr)) {
+        ereport(LOG, (errmsg("invalid checkpoint location")));
+        return NULL;
+    }
+
+    // Step 2: Read the record from WAL
+    XLogPrefetcherBeginRead(xlogprefetcher, RecPtr);
+    record = ReadRecord(xlogprefetcher, LOG, true, replayTLI);
+
+    if (record == NULL) {
+        ereport(LOG, (errmsg("invalid checkpoint record")));
+        return NULL;
+    }
+
+    // Step 3: Validate resource manager ID
+    if (record->xl_rmid != RM_XLOG_ID) {
+        ereport(LOG, (errmsg("invalid resource manager ID in checkpoint record")));
+        return NULL;
+    }
+
+    // Step 4: Validate checkpoint record type
+    info = record->xl_info & ~XLR_INFO_MASK;
+    if (info != XLOG_CHECKPOINT_SHUTDOWN && info != XLOG_CHECKPOINT_ONLINE) {
+        ereport(LOG, (errmsg("invalid xl_info in checkpoint record")));
+        return NULL;
+    }
+
+    // Step 5: Validate record length
+    if (record->xl_tot_len != SizeOfXLogRecord + SizeOfXLogRecordDataHeaderShort + sizeof(CheckPoint)) {
+        ereport(LOG, (errmsg("invalid length of checkpoint record")));
+        return NULL;
+    }
+
+    return record;
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step validation process
+- Grouped related validation checks with descriptive comments
+- Maintained all critical validation logic
+- Preserved error handling and logging
+- Focused on the essential checkpoint validation workflow

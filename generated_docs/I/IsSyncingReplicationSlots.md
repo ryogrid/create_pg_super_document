@@ -35,3 +35,17 @@ This function takes no parameters.
 - The underlying  variable is a process-local static boolean that gets set during slot synchronization operations
 - Used for validation and behavioral changes in replication-related code paths
 - Located in src/backend/replication/logical/slotsync.c:1644-1653
+
+## Simplified Source
+
+```c
+// Simplified version of IsSyncingReplicationSlots
+bool IsSyncingReplicationSlots(void) {
+    // Return the process-local syncing slots flag
+    return syncing_slots;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, just returns a static boolean flag
+- Used to determine if current process is synchronizing replication slots

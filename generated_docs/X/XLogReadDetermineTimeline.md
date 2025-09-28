@@ -52,3 +52,65 @@ Key behaviors include:
 - Callers must ensure they don't read past current replay position during recovery
 - Historical timeline validation prevents reading beyond timeline validity boundaries
 - The function is optimized to avoid timeline history re-reads when possible
+
+## Simplified Source
+
+```c
+// Simplified version of XLogReadDetermineTimeline
+void XLogReadDetermineTimeline(XLogReaderState *state, XLogRecPtr wantPage, uint32 wantLength, TimeLineID currTLI) {
+    const XLogRecPtr lastReadPage = (state->seg.ws_segno * state->segcxt.ws_segsize + state->segoff);
+
+    Assert(wantPage != InvalidXLogRecPtr && wantPage % XLOG_BLCKSZ == 0);
+    Assert(wantLength <= XLOG_BLCKSZ);
+    Assert(currTLI != 0);
+
+    // Fast path: if desired page is already valid and available
+    if (lastReadPage == wantPage &&
+        state->readLen != 0 &&
+        lastReadPage + state->readLen >= wantPage + Min(wantLength, XLOG_BLCKSZ - 1))
+        return;
+
+    // Continue if reading from current timeline and seeking forward
+    if (state->currTLI == currTLI && wantPage >= lastReadPage) {
+        Assert(state->currTLIValidUntil == InvalidXLogRecPtr);
+        return;
+    }
+
+    // Continue if reading from validated historical timeline within same segment
+    if (state->currTLIValidUntil != InvalidXLogRecPtr &&
+        state->currTLI != currTLI &&
+        state->currTLI != 0 &&
+        ((wantPage + wantLength) / state->segcxt.ws_segsize) <
+        (state->currTLIValidUntil / state->segcxt.ws_segsize))
+        return;
+
+    // Need to determine timeline - read timeline history
+    {
+        List *timelineHistory = readTimeLineHistory(currTLI);
+        XLogRecPtr endOfSegment;
+
+        // Calculate end of the segment containing wantPage
+        endOfSegment = ((wantPage / state->segcxt.ws_segsize) + 1) * state->segcxt.ws_segsize - 1;
+        Assert(wantPage / state->segcxt.ws_segsize == endOfSegment / state->segcxt.ws_segsize);
+
+        // Find timeline of the last LSN on the segment
+        state->currTLI = tliOfPointInHistory(endOfSegment, timelineHistory);
+        state->currTLIValidUntil = tliSwitchPoint(state->currTLI, timelineHistory, &state->nextTLI);
+
+        Assert(state->currTLIValidUntil == InvalidXLogRecPtr ||
+               wantPage + wantLength < state->currTLIValidUntil);
+
+        list_free_deep(timelineHistory);
+
+        elog(DEBUG3, "switched to timeline %u valid until %X/%X",
+             state->currTLI, LSN_FORMAT_ARGS(state->currTLIValidUntil));
+    }
+}
+```
+
+Key simplifications made:
+- Maintained essential timeline determination logic
+- Preserved fast-path optimizations for common cases
+- Kept timeline history reading and validation
+- Simplified complex conditional checks while preserving correctness
+- Maintained all assertion checks for debugging

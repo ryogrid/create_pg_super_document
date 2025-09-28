@@ -35,3 +35,30 @@ The function uses the LOCAL_FCINFO macro to create a local FunctionCallInfoData 
 - Part of a family of FunctionCallNColl functions (0-4 parameters) that provide collation-aware function calling interfaces
 - The collation parameter allows for locale-sensitive operations in functions that support collation
 - Located in src/backend/utils/fmgr/fmgr.c:1112-1128
+
+## Simplified Source
+
+```c
+// Simplified version of FunctionCall0Coll
+Datum FunctionCall0Coll(FmgrInfo *flinfo, Oid collation) {
+    LOCAL_FCINFO(fcinfo, 0);
+
+    // Initialize function call info with no arguments but specific collation
+    InitFunctionCallInfoData(*fcinfo, flinfo, 0, collation, NULL, NULL);
+
+    // Invoke the function
+    Datum result = FunctionCallInvoke(fcinfo);
+
+    // Verify result is not null
+    if (fcinfo->isnull)
+        elog(ERROR, "function %u returned NULL", flinfo->fn_oid);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations
+- Added descriptive comments explaining the purpose
+- Focused on the core flow: setup with collation, invoke function, validate result
+- Preserved error handling with function OID for better debugging

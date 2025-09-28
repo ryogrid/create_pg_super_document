@@ -34,3 +34,19 @@ The function uses a void pointer for the source_pgproc parameter to avoid includ
 - The void* parameter type for source_pgproc maintains header file independence
 - Used primarily in parallel execution contexts where workers need to adopt the main process's snapshot
 - The InvalidPid parameter indicates that no specific process ID tracking is needed for this snapshot installation
+
+## Simplified Source
+
+```c
+// Simplified version of RestoreTransactionSnapshot
+void RestoreTransactionSnapshot(Snapshot snapshot, void *source_pgproc) {
+    // Install the restored snapshot as the transaction snapshot
+    SetTransactionSnapshot(snapshot, NULL, InvalidPid, source_pgproc);
+}
+```
+
+Key simplifications made:
+- Simple wrapper function with clear purpose
+- Maintained void* typing for header independence
+- Preserved all essential parameters
+- Added descriptive comment

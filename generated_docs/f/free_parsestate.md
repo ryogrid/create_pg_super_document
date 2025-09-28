@@ -40,3 +40,32 @@ If a target relation was opened during parsing operations, the function ensures 
 - Should be called for every ParseState created with  to avoid memory leaks
 - The validation check prevents potential issues with attribute numbering in tuple structures
 - Location: src/backend/parser/parse_node.c:72-105
+
+## Simplified Source
+
+```c
+// Simplified version of free_parsestate
+void free_parsestate(ParseState *pstate) {
+    // Validate result column count doesn't exceed limits
+    if (pstate->p_next_resno - 1 > MaxTupleAttributeNumber) {
+        ereport(ERROR,
+               (errcode(ERRCODE_TOO_MANY_COLUMNS),
+                errmsg("target lists can have at most %d entries",
+                       MaxTupleAttributeNumber)));
+    }
+
+    // Close target relation if one was opened
+    if (pstate->p_target_relation != NULL) {
+        table_close(pstate->p_target_relation, NoLock);
+    }
+
+    // Free the ParseState structure
+    pfree(pstate);
+}
+```
+
+Key simplifications made:
+- Preserved essential column count validation
+- Maintained target relation cleanup
+- Kept memory deallocation
+- Focused on core resource cleanup functionality

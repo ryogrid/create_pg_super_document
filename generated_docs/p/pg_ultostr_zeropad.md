@@ -41,3 +41,38 @@ This function converts a uint32 value into a decimal string representation and s
 - Caller responsibility to ensure destination buffer has adequate space
 - Designed for efficient string building patterns where multiple numeric components are concatenated
 - Assert ensures minwidth > 0 for input validation
+
+## Simplified Source
+
+```c
+// Simplified version of pg_ultostr_zeropad
+char *
+pg_ultostr_zeropad(char *str, uint32 value, int32 minwidth) {
+    int len;
+
+    // Fast path for common 2-digit case
+    if (value < 100 && minwidth == 2) {
+        memcpy(str, DIGIT_TABLE + value * 2, 2);
+        return str + 2;
+    }
+
+    // Convert number to string
+    len = pg_ultoa_n(value, str);
+
+    // If already wide enough, return
+    if (len >= minwidth)
+        return str + len;
+
+    // Need zero padding: shift digits right and fill with zeros
+    memmove(str + minwidth - len, str, len);
+    memset(str, '0', minwidth - len);
+
+    return str + minwidth;
+}
+```
+
+Key simplifications made:
+- Added comments explaining the fast path optimization
+- Clarified the zero-padding logic with descriptive comments
+- Preserved the efficient implementation while making the algorithm clearer
+- Emphasized the common case optimization and general padding approach

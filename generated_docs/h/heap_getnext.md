@@ -53,3 +53,41 @@ The function includes important safety mechanisms: it validates that the relatio
 - Returns NULL if no tuple is found ()
 - Performs statistics tracking via  for monitoring scan activity
 - The function is widely used directly without going through the table AM interface, hence the safety checks
+
+## Simplified Source
+
+```c
+// Simplified version of heap_getnext
+HeapTuple heap_getnext(TableScanDesc sscan, ScanDirection direction) {
+    HeapScanDesc scan = (HeapScanDesc) sscan;
+
+    // Safety check: ensure this is a heap access method
+    if (unlikely(sscan->rs_rd->rd_tableam != GetHeapamTableAmRoutine()))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg_internal("only heap AM is supported")));
+
+    // Prevent calls during logical decoding for consistency
+    if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan))
+        elog(ERROR, "unexpected heap_getnext call during logical decoding");
+
+    // Get next tuple using appropriate method
+    if (scan->rs_base.rs_flags & SO_ALLOW_PAGEMODE)
+        heapgettup_pagemode(scan, direction, scan->rs_base.rs_nkeys, scan->rs_base.rs_key);
+    else
+        heapgettup(scan, direction, scan->rs_base.rs_nkeys, scan->rs_base.rs_key);
+
+    // Return NULL if no tuple found
+    if (scan->rs_ctup.t_data == NULL)
+        return NULL;
+
+    // Track statistics and return tuple
+    pgstat_count_heap_getnext(scan->rs_base.rs_rd);
+    return &scan->rs_ctup;
+}
+```
+
+Key simplifications made:
+- Focused on the core safety checks and tuple retrieval logic
+- Emphasized the two scanning modes (pagemode vs regular)
+- Added clear comments for error conditions
+- Simplified the validation and statistics tracking flow

@@ -34,3 +34,29 @@ This function updates the base backup progress tracking system to indicate that 
 - The comment explains the rationale for marking all tablespaces as complete even if the main tablespace archive is still open
 - Located in src/backend/backup/basebackup_progress.c at lines 206-228
 - Part of PostgreSQL's comprehensive progress tracking for backup operations
+
+## Simplified Source
+
+```c
+// Simplified version of basebackup_progress_wait_wal_archive
+void basebackup_progress_wait_wal_archive(bbsink_state *state) {
+    const int index[] = {
+        PROGRESS_BASEBACKUP_PHASE,
+        PROGRESS_BASEBACKUP_TBLSPC_STREAMED
+    };
+    int64 val[2];
+
+    // Set phase to WAL archive waiting and mark all tablespaces complete
+    // (remaining content will be WAL files, not tablespace data)
+    val[0] = PROGRESS_BASEBACKUP_PHASE_WAIT_WAL_ARCHIVE;
+    val[1] = list_length(state->tablespaces);
+
+    pgstat_progress_update_multi_param(2, index, val);
+}
+```
+
+Key simplifications made:
+- Preserved essential multi-parameter progress update
+- Maintained tablespace completion reporting logic
+- Kept WAL archive waiting phase indication
+- Focused on core progress tracking with proper parameter arrays

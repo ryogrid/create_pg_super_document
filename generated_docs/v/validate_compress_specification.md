@@ -56,3 +56,67 @@ Advanced features validation:
 - The function assumes the spec structure has already been populated by a parsing function
 - Does not verify build-time availability of compression libraries - only validates logical parameter correctness
 - Supports internationalization through gettext (_("...")) for error messages
+
+## Simplified Source
+
+```c
+// Simplified version of validate_compress_specification
+char *validate_compress_specification(pg_compress_specification *spec) {
+    int min_level = 1;
+    int max_level = 1;
+    int default_level = 0;
+
+    // Check for parse errors first
+    if (spec->parse_error != NULL)
+        return spec->parse_error;
+
+    // Set algorithm-specific level ranges
+    switch (spec->algorithm) {
+        case PG_COMPRESSION_GZIP:
+            max_level = 9;
+            default_level = Z_DEFAULT_COMPRESSION;
+            break;
+        case PG_COMPRESSION_LZ4:
+            max_level = 12;
+            default_level = 0; // fast mode
+            break;
+        case PG_COMPRESSION_ZSTD:
+            max_level = ZSTD_maxCLevel();
+            min_level = ZSTD_minCLevel();
+            default_level = ZSTD_CLEVEL_DEFAULT;
+            break;
+        case PG_COMPRESSION_NONE:
+            if (spec->level != 0)
+                return psprintf(_("compression algorithm \"%s\" does not accept a compression level"),
+                                get_compress_algorithm_name(spec->algorithm));
+            break;
+    }
+
+    // Validate compression level
+    if ((spec->level < min_level || spec->level > max_level) &&
+        spec->level != default_level)
+        return psprintf(_("compression algorithm \"%s\" expects a compression level between %d and %d (default at %d)"),
+                        get_compress_algorithm_name(spec->algorithm),
+                        min_level, max_level, default_level);
+
+    // Validate algorithm-specific options
+    if ((spec->options & PG_COMPRESSION_OPTION_WORKERS) != 0 &&
+        (spec->algorithm != PG_COMPRESSION_ZSTD))
+        return psprintf(_("compression algorithm \"%s\" does not accept a worker count"),
+                        get_compress_algorithm_name(spec->algorithm));
+
+    if ((spec->options & PG_COMPRESSION_OPTION_LONG_DISTANCE) != 0 &&
+        (spec->algorithm != PG_COMPRESSION_ZSTD))
+        return psprintf(_("compression algorithm \"%s\" does not support long-distance mode"),
+                        get_compress_algorithm_name(spec->algorithm));
+
+    return NULL; // Success
+}
+```
+
+Key simplifications made:
+- Removed conditional compilation guards for clarity
+- Streamlined switch case structure
+- Consolidated validation logic
+- Maintained all essential validation checks
+- Preserved error message formatting

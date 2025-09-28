@@ -40,3 +40,45 @@ The function implements atomic reads of the worker PID while acknowledging that 
 - Uses generation numbers to detect slot reuse and validate handle freshness
 - Implements simple locking strategy rather than memory barriers for data synchronization
 - Located in src/backend/postmaster/bgworker.c:1082-1136
+
+## Simplified Source
+
+```c
+// Simplified version of GetBackgroundWorkerPid
+BgwHandleStatus GetBackgroundWorkerPid(BackgroundWorkerHandle *handle, pid_t *pidp) {
+    BackgroundWorkerSlot *slot;
+    pid_t pid;
+
+    // Get the worker slot from the handle
+    Assert(handle->slot < max_worker_processes);
+    slot = &BackgroundWorkerData->slot[handle->slot];
+
+    // Lock shared worker data for safe access
+    LWLockAcquire(BackgroundWorkerLock, LW_SHARED);
+
+    // Check if handle is still valid and worker slot is in use
+    if (handle->generation != slot->generation || !slot->in_use) {
+        pid = 0;  // Worker stopped or handle is stale
+    } else {
+        pid = slot->pid;  // Get current PID (may be InvalidPid if not started)
+    }
+
+    LWLockRelease(BackgroundWorkerLock);
+
+    // Return appropriate status based on PID value
+    if (pid == 0)
+        return BGWH_STOPPED;
+    else if (pid == InvalidPid)
+        return BGWH_NOT_YET_STARTED;
+
+    *pidp = pid;
+    return BGWH_STARTED;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Emphasized the role of generation numbers in handle validation
+- Made the PID interpretation logic more explicit
+- Clarified the three possible return states
+- Focused on the core worker status checking functionality

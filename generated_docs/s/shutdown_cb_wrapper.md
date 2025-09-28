@@ -37,3 +37,39 @@ The wrapper ensures that if an error occurs during plugin shutdown, administrato
 - Called during cleanup when freeing decoding contexts
 - Part of the plugin callback wrapper ecosystem that provides consistent error handling across all plugin operations
 - Critical for proper plugin resource cleanup and error reporting during logical replication termination
+
+## Simplified Source
+
+```c
+// Simplified version of shutdown_cb_wrapper
+static void shutdown_cb_wrapper(LogicalDecodingContext *ctx) {
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    Assert(!ctx->fast_forward);
+
+    // Set up error context for detailed error reporting
+    state.ctx = ctx;
+    state.callback_name = "shutdown";
+    state.report_location = InvalidXLogRecPtr;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state
+    ctx->accept_writes = false;
+    ctx->end_xact = false;
+
+    // Call the actual plugin shutdown callback
+    ctx->callbacks.shutdown_cb(ctx);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```
+
+Key simplifications made:
+- Function is already well-structured, maintains error handling framework
+- Provides safety wrapper around plugin shutdown callbacks
+- Essential for proper error reporting during plugin cleanup

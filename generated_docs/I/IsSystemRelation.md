@@ -36,3 +36,20 @@ The function acts as a wrapper around IsSystemClass, extracting the relation OID
 - Does not perform catalog accesses, making it safe to use in contexts where catalog lookups are not possible
 - For purposes other than protection/access control, consider using IsCatalogRelation instead
 - The function is located in src/backend/catalog/catalog.c:73-84
+
+## Simplified Source
+
+```c
+// Simplified version of IsSystemRelation
+bool
+IsSystemRelation(Relation relation)
+{
+    // Delegate to IsSystemClass with relation OID and pg_class tuple
+    return IsSystemClass(RelationGetRelid(relation), relation->rd_rel);
+}
+```
+
+Key simplifications made:
+- Added comment explaining the delegation to IsSystemClass
+- Function is already very simple, essentially a wrapper
+- Preserved the exact functionality while clarifying purpose

@@ -57,3 +57,109 @@ The function returns the end LSN of flushed WAL, which is normally >= the reques
 - Includes optimization for scenarios where the WAL sender is far behind, using fast-path checks to avoid unnecessary work
 - Critical for maintaining data consistency in logical replication with failover capabilities
 - The function's ability to return early on shutdown makes it essential for responsive system shutdown procedures
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndWaitForWal
+static XLogRecPtr WalSndWaitForWal(XLogRecPtr loc) {
+    int wakeEvents;
+    uint32 wait_event = 0;
+    static XLogRecPtr RecentFlushPtr = InvalidXLogRecPtr;
+    TimestampTz last_flush = 0;
+
+    // Fast path: if we already have enough WAL and standbys are caught up
+    if (!XLogRecPtrIsInvalid(RecentFlushPtr) &&
+        !NeedToWaitForWal(loc, RecentFlushPtr, &wait_event))
+        return RecentFlushPtr;
+
+    // Main waiting loop
+    for (;;) {
+        bool wait_for_standby_at_stop = false;
+        long sleeptime;
+        TimestampTz now;
+
+        // Clear any pending wakeups and check for interrupts
+        ResetLatch(MyLatch);
+        CHECK_FOR_INTERRUPTS();
+
+        // Handle configuration reloads
+        if (ConfigReloadPending) {
+            ConfigReloadPending = false;
+            ProcessConfigFile(PGC_SIGHUP);
+            SyncRepInitConfig();
+        }
+
+        // Process client replies
+        ProcessRepliesIfAny();
+
+        // Trigger WAL flush if shutting down
+        if (got_STOPPING)
+            XLogBackgroundFlush();
+
+        // Update flush position (unless waiting for standby confirmation)
+        if (wait_event != WAIT_EVENT_WAIT_FOR_STANDBY_CONFIRMATION) {
+            if (!RecoveryInProgress())
+                RecentFlushPtr = GetFlushRecPtr(NULL);
+            else
+                RecentFlushPtr = GetXLogReplayRecPtr(NULL);
+        }
+
+        // Check if we can stop during shutdown
+        if (got_STOPPING) {
+            if (NeedToWaitForStandbys(RecentFlushPtr, &wait_event))
+                wait_for_standby_at_stop = true;
+            else
+                break;
+        }
+
+        // Send keepalive if needed
+        if (MyWalSnd->flush < sentPtr && MyWalSnd->write < sentPtr && !waiting_for_ping_response)
+            WalSndKeepalive(false, InvalidXLogRecPtr);
+
+        // Exit if caught up and no standby wait needed
+        if (!wait_for_standby_at_stop && !NeedToWaitForWal(loc, RecentFlushPtr, &wait_event))
+            break;
+
+        // Mark as caught up
+        WalSndCaughtUp = true;
+
+        // Flush pending output
+        if (pq_flush_if_writable() != 0)
+            WalSndShutdown();
+
+        // Exit if streaming is done
+        if (streamingDoneReceiving && streamingDoneSending && !pq_is_send_pending())
+            break;
+
+        // Check for timeout and send keepalives
+        WalSndCheckTimeOut();
+        WalSndKeepaliveIfNecessary();
+
+        // Calculate sleep time and wait
+        now = GetCurrentTimestamp();
+        sleeptime = WalSndComputeSleeptime(now);
+        wakeEvents = WL_SOCKET_READABLE;
+        if (pq_is_send_pending())
+            wakeEvents |= WL_SOCKET_WRITEABLE;
+
+        // Flush IO statistics periodically
+        if (TimestampDifferenceExceeds(last_flush, now, WALSENDER_STATS_FLUSH_INTERVAL)) {
+            pgstat_flush_io(false);
+            last_flush = now;
+        }
+
+        WalSndWait(wakeEvents, sleeptime, wait_event);
+    }
+
+    // Reactivate latch and return flush position
+    SetLatch(MyLatch);
+    return RecentFlushPtr;
+}
+```
+
+Key simplifications made:
+- Maintained core waiting loop structure and essential logic
+- Preserved WAL flush coordination and standby confirmation handling
+- Kept client communication and shutdown handling intact
+- Simplified complex condition checks while preserving functionality

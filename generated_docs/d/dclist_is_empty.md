@@ -36,3 +36,22 @@ This function checks whether a doubly-linked count list (dclist) contains any el
 - Parameter is const-qualified indicating the function doesn't modify the list
 - Part of PostgreSQL's doubly-linked count list implementation in src/include/lib/ilist.h
 - Commonly used in lock management and process synchronization code
+
+## Simplified Source
+
+```c
+// Simplified version of dclist_is_empty
+static inline bool dclist_is_empty(const dclist_head *head) {
+    // Verify consistency between count and underlying dlist
+    Assert(dlist_is_empty(&head->dlist) == (head->count == 0));
+
+    // Return true if count is zero (O(1) operation)
+    return (head->count == 0);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the consistency check and operation
+- Preserved the assertion for debugging validation
+- Emphasized the O(1) performance characteristic
+- Maintained the simple count-based emptiness check

@@ -38,3 +38,23 @@ By comparing from character 8 onwards, this function ensures proper ordering by 
 - The +8 offset skips the timeline portion of WAL filenames to focus on chronological ordering
 - Returns standard strcmp semantics: negative if a < b, zero if equal, positive if a > b
 - Critical for ensuring WAL files are sent in the correct order during backup to reduce recycling risks
+
+## Simplified Source
+
+```c
+// Simplified version of compareWalFileNames
+static int compareWalFileNames(const ListCell *a, const ListCell *b) {
+    char *fna = (char *) lfirst(a);
+    char *fnb = (char *) lfirst(b);
+
+    // Compare log/segment portion (skip first 8 chars for timeline)
+    return strcmp(fna + 8, fnb + 8);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving core comparison logic
+- Maintained the +8 offset to skip timeline portion
+- Preserved the standard strcmp return semantics
+- Kept the essential functionality for WAL file chronological ordering
+- Maintained list_sort compatibility for backup operations

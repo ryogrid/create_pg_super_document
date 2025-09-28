@@ -39,3 +39,29 @@ This ensures proper resource tracking and cleanup when the transaction ends, eit
 - Resource owners form a hierarchy that enables proper cleanup on transaction abort
 - Critical for preventing resource leaks in PostgreSQL's resource management system
 - All transaction-related resources will be owned by this resource owner or its children
+
+## Simplified Source
+
+```c
+// Simplified version of AtStart_ResourceOwner
+static void AtStart_ResourceOwner(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Ensure no existing transaction resource owner
+    Assert(TopTransactionResourceOwner == NULL);
+
+    // Create top-level resource owner for the transaction
+    s->curTransactionOwner = ResourceOwnerCreate(NULL, "TopTransaction");
+
+    // Set all resource owner globals
+    TopTransactionResourceOwner = s->curTransactionOwner;
+    CurTransactionResourceOwner = s->curTransactionOwner;
+    CurrentResourceOwner = s->curTransactionOwner;
+}
+```
+
+Key simplifications made:
+- Function is already simple, just creates and assigns resource owner
+- Maintains assertion for clean state validation
+- Essential for resource tracking and cleanup in transactions
+- Establishes resource owner hierarchy for proper cleanup

@@ -30,3 +30,24 @@ The function determines if a record type has extended hashing support by checkin
 - The result is cached to avoid recomputation of field properties
 - Used to determine eligibility for advanced hash-based operations that require better collision resistance
 - Part of PostgreSQL's tiered hashing system where extended hashing is an enhancement over basic hashing
+
+## Simplified Source
+
+```c
+// Simplified version of record_fields_have_extended_hashing
+static bool record_fields_have_extended_hashing(TypeCacheEntry *typentry) {
+    // Check if field properties have been cached yet
+    if (!(typentry->flags & TCFLAGS_CHECKED_FIELD_PROPERTIES)) {
+        // Cache the field properties if not done yet
+        cache_record_field_properties(typentry);
+    }
+
+    // Return whether all fields support extended hashing
+    return (typentry->flags & TCFLAGS_HAVE_FIELD_EXTENDED_HASHING) != 0;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the lazy evaluation pattern
+- Clarified the purpose of extended hashing capability check
+- Maintained the essential logic flow for record field extended hashing support

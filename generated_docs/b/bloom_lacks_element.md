@@ -41,3 +41,30 @@ The function uses the same bit manipulation techniques as `bloom_add_element` to
 - Early termination optimization - returns true immediately when first unset bit is found
 - Uses same bit addressing as bloom_add_element for consistency
 - False positive rate depends on filter size, number of elements, and hash function count
+
+## Simplified Source
+
+```c
+// Simplified version of bloom_lacks_element
+bool bloom_lacks_element(bloom_filter *filter, unsigned char *elem, size_t len) {
+    uint32 hashes[MAX_HASH_FUNCS];
+    int i;
+
+    // Compute k hash values for the element
+    k_hashes(filter, hashes, elem, len);
+
+    // Check if all corresponding bits are set
+    for (i = 0; i < filter->k_hash_funcs; i++) {
+        if (!(filter->bitset[hashes[i] >> 3] & (1 << (hashes[i] & 7))))
+            return true;  // Definitely not present
+    }
+
+    return false;  // Probably present
+}
+```
+
+Key simplifications made:
+- Preserved k-hash computation matching bloom_add_element
+- Maintained efficient bit testing using shift and mask operations
+- Kept early termination optimization for performance
+- Clear return logic for definite absence vs probable presence

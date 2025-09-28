@@ -63,3 +63,96 @@ The function operates through several key phases:
 - Critical for proper database initialization, client connection setup, and locale-aware operations
 - Platform differences are abstracted through conditional compilation (#ifndef WIN32, #ifdef __darwin__)
 - The function serves as a bridge between system locale settings and PostgreSQL's internal encoding system
+
+## Simplified Source
+
+```c
+// Simplified version of pg_get_encoding_from_locale
+int pg_get_encoding_from_locale(const char *ctype, bool write_message) {
+    char *sys;
+    int i;
+
+    // Handle special case: C/POSIX locales allow all encodings
+    if (ctype) {
+        if (pg_strcasecmp(ctype, "C") == 0 || pg_strcasecmp(ctype, "POSIX") == 0) {
+            return PG_SQL_ASCII;
+        }
+        // Temporarily set locale to extract codeset
+        char *save = setlocale(LC_CTYPE, NULL);
+        if (!save) return -1;
+        save = strdup(save);
+        if (!save) return -1;
+
+        char *name = setlocale(LC_CTYPE, ctype);
+        if (!name) {
+            free(save);
+            return -1;
+        }
+
+        // Get codeset information (platform-specific)
+#ifndef WIN32
+        sys = nl_langinfo(CODESET);
+        if (sys) sys = strdup(sys);
+#else
+        sys = win32_langinfo(name);
+#endif
+
+        setlocale(LC_CTYPE, save);  // Restore original locale
+        free(save);
+    } else {
+        // Use current locale
+        ctype = setlocale(LC_CTYPE, NULL);
+        if (!ctype) return -1;
+
+        if (pg_strcasecmp(ctype, "C") == 0 || pg_strcasecmp(ctype, "POSIX") == 0) {
+            return PG_SQL_ASCII;
+        }
+
+#ifndef WIN32
+        sys = nl_langinfo(CODESET);
+        if (sys) sys = strdup(sys);
+#else
+        sys = win32_langinfo(ctype);
+#endif
+    }
+
+    if (!sys) return -1;
+
+    // Look up encoding in mapping table
+    for (i = 0; encoding_match_list[i].system_enc_name; i++) {
+        if (pg_strcasecmp(sys, encoding_match_list[i].system_enc_name) == 0) {
+            free(sys);
+            return encoding_match_list[i].pg_enc_code;
+        }
+    }
+
+    // Platform-specific workarounds
+#ifdef __darwin__
+    if (strlen(sys) == 0) {  // macOS empty CODESET = UTF-8
+        free(sys);
+        return PG_UTF8;
+    }
+#endif
+
+    // Report warning for unrecognized encoding
+    if (write_message) {
+#ifdef FRONTEND
+        fprintf(stderr, _("could not determine encoding for locale \"%s\": codeset is \"%s\""), ctype, sys);
+        fputc('\n', stderr);
+#else
+        ereport(WARNING, (errmsg("could not determine encoding for locale \"%s\": codeset is \"%s\"", ctype, sys)));
+#endif
+    }
+
+    free(sys);
+    return -1;
+}
+```
+
+Key simplifications made:
+- Streamlined the locale handling logic
+- Consolidated error checking patterns
+- Preserved platform-specific conditional compilation
+- Maintained memory management and error handling
+- Added clear comments for each major step
+- Kept the essential locale manipulation and encoding lookup logic

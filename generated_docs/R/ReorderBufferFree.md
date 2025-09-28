@@ -31,3 +31,23 @@ ReorderBufferFree performs complete cleanup of a ReorderBuffer instance. It deal
 - Should be called when logical decoding is complete or when cleaning up after errors
 - Requires MyReplicationSlot to be valid for cleanup operations
 - Complementary function to ReorderBufferAllocate
+
+## Simplified Source
+
+```c
+// Simplified version of ReorderBufferFree
+void ReorderBufferFree(ReorderBuffer *rb) {
+    MemoryContext context = rb->context;
+
+    // Delete the memory context (frees all allocated data)
+    MemoryContextDelete(context);
+
+    // Clean up any serialized transaction data on disk
+    ReorderBufferCleanupSerializedTXNs(NameStr(MyReplicationSlot->data.name));
+}
+```
+
+Key simplifications made:
+- Function is already simple and well-structured
+- Memory context deletion handles bulk cleanup efficiently
+- Disk cleanup prevents storage leaks from serialized transactions

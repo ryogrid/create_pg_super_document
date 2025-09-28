@@ -52,3 +52,55 @@ The function performs several key operations:
 - Post-parse analysis hooks allow extensions to modify or inspect the analyzed query
 - [Query](../Q/Query.md) ID generation supports query statistics and monitoring features
 - The function handles both optimizable SQL statements and utility statements differently
+
+## Simplified Source
+
+```c
+// Simplified version of parse_analyze_fixedparams
+Query *
+parse_analyze_fixedparams(RawStmt *parseTree, const char *sourceText,
+                          const Oid *paramTypes, int numParams,
+                          QueryEnvironment *queryEnv)
+{
+    ParseState *pstate = make_parsestate(NULL);
+    Query *query;
+    JumbleState *jstate = NULL;
+
+    Assert(sourceText != NULL);
+
+    // Set up parse state with source text
+    pstate->p_sourcetext = sourceText;
+
+    // Set up parameter types if provided
+    if (numParams > 0)
+        setup_parse_fixed_parameters(pstate, paramTypes, numParams);
+
+    // Set query environment
+    pstate->p_queryEnv = queryEnv;
+
+    // Transform the raw statement into a Query node
+    query = transformTopLevelStmt(pstate, parseTree);
+
+    // Generate query ID for statistics if enabled
+    if (IsQueryIdEnabled())
+        jstate = JumbleQuery(query);
+
+    // Call post-parse analysis hook if configured
+    if (post_parse_analyze_hook)
+        (*post_parse_analyze_hook)(pstate, query, jstate);
+
+    // Clean up parse state
+    free_parsestate(pstate);
+
+    // Report query ID for statistics
+    pgstat_report_query_id(query->queryId, false);
+
+    return query;
+}
+```
+
+Key simplifications made:
+- Added comments explaining each major phase of analysis
+- Clarified the purpose of parameter setup and query environment
+- Preserved all essential functionality including hooks and statistics
+- Maintained exact control flow and error handling

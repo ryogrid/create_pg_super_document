@@ -34,3 +34,34 @@ This function serves as a factory method for creating tuplestore destination rec
 - Private fields like tstore, cxt, detoast, target_tupdesc, and map_failure_msg are left uninitialized and must be set via SetTuplestoreDestReceiverParams
 - Part of PostgreSQL's destination receiver framework for handling query results
 - The mydest field is set to DestTuplestore to identify this as a tuplestore-type receiver
+
+## Simplified Source
+
+```c
+// Simplified version of CreateTuplestoreDestReceiver
+DestReceiver *CreateTuplestoreDestReceiver(void) {
+    // Allocate and zero-initialize the tuplestore destination receiver
+    TStoreState *tuplestore_receiver = (TStoreState *) palloc0(sizeof(TStoreState));
+
+    // Set up the callback functions for tuplestore operations
+    tuplestore_receiver->pub.receiveSlot = tstoreReceiveSlot_notoast;  // Store each tuple (may change)
+    tuplestore_receiver->pub.rStartup = tstoreStartupReceiver;         // Initialize tuplestore
+    tuplestore_receiver->pub.rShutdown = tstoreShutdownReceiver;       // Finalize storage
+    tuplestore_receiver->pub.rDestroy = tstoreDestroyReceiver;         // Final cleanup
+
+    // Set the destination type to indicate tuplestore operation
+    tuplestore_receiver->pub.mydest = DestTuplestore;
+
+    // Note: Private fields will be set later by SetTuplestoreDestReceiverParams
+
+    // Return as base DestReceiver type
+    return (DestReceiver *) tuplestore_receiver;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for clarity
+- Added comments explaining each callback function's purpose
+- Clarified that receiveSlot callback may change based on configuration
+- Explained deferred initialization of private fields via SetTuplestoreDestReceiverParams
+- Focused on core logic: allocate memory, set callbacks, return receiver

@@ -50,3 +50,113 @@ The function implements strict validation rules to prevent invalid configuration
 - Two-phase commit option cannot be changed after slot creation to maintain consistency
 - Failover slots cannot be created on standby servers except during slot synchronization process
 - The slot is marked as active with the current process PID upon successful creation
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotCreate
+void ReplicationSlotCreate(const char *name, bool db_specific,
+                          ReplicationSlotPersistency persistency,
+                          bool two_phase, bool failover, bool synced) {
+    ReplicationSlot *slot = NULL;
+    int i;
+
+    Assert(MyReplicationSlot == NULL);
+
+    // Validate slot name
+    ReplicationSlotValidateName(name, ERROR);
+
+    // Validate failover constraints
+    if (failover) {
+        if (RecoveryInProgress() && !IsSyncingReplicationSlots()) {
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                          errmsg("cannot enable failover for a replication slot created on the standby")));
+        }
+        if (persistency == RS_TEMPORARY && !IsSyncingReplicationSlots()) {
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                          errmsg("cannot enable failover for a temporary replication slot")));
+        }
+    }
+
+    // Acquire allocation lock to prevent concurrent creation
+    LWLockAcquire(ReplicationSlotAllocationLock, LW_EXCLUSIVE);
+
+    // Find available slot and check for name collision
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+    for (i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *s = &ReplicationSlotCtl->replication_slots[i];
+
+        if (s->in_use && strcmp(name, NameStr(s->data.name)) == 0) {
+            ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                          errmsg("replication slot \"%s\" already exists", name)));
+        }
+        if (!s->in_use && slot == NULL) {
+            slot = s;
+        }
+    }
+    LWLockRelease(ReplicationSlotControlLock);
+
+    // Check if all slots are in use
+    if (slot == NULL) {
+        ereport(ERROR, (errcode(ERRCODE_CONFIGURATION_LIMIT_EXCEEDED),
+                      errmsg("all replication slots are in use"),
+                      errhint("Free one or increase \"max_replication_slots\".")));
+    }
+
+    // Initialize slot data
+    Assert(!slot->in_use);
+    Assert(slot->active_pid == 0);
+
+    memset(&slot->data, 0, sizeof(ReplicationSlotPersistentData));
+    namestrcpy(&slot->data.name, name);
+    slot->data.database = db_specific ? MyDatabaseId : InvalidOid;
+    slot->data.persistency = persistency;
+    slot->data.two_phase = two_phase;
+    slot->data.two_phase_at = InvalidXLogRecPtr;
+    slot->data.failover = failover;
+    slot->data.synced = synced;
+
+    // Initialize shared memory fields
+    slot->just_dirtied = false;
+    slot->dirty = false;
+    slot->effective_xmin = InvalidTransactionId;
+    slot->effective_catalog_xmin = InvalidTransactionId;
+    slot->candidate_catalog_xmin = InvalidTransactionId;
+    slot->candidate_xmin_lsn = InvalidXLogRecPtr;
+    slot->candidate_restart_valid = InvalidXLogRecPtr;
+    slot->candidate_restart_lsn = InvalidXLogRecPtr;
+    slot->last_saved_confirmed_flush = InvalidXLogRecPtr;
+    slot->inactive_since = 0;
+
+    // Create slot on disk
+    CreateSlotOnDisk(slot);
+
+    // Mark slot as in use and active
+    LWLockAcquire(ReplicationSlotControlLock, LW_EXCLUSIVE);
+    slot->in_use = true;
+
+    SpinLockAcquire(&slot->mutex);
+    slot->active_pid = MyProcPid;
+    SpinLockRelease(&slot->mutex);
+    MyReplicationSlot = slot;
+
+    LWLockRelease(ReplicationSlotControlLock);
+
+    // Create statistics entry for logical slots
+    if (SlotIsLogical(slot)) {
+        pgstat_create_replslot(slot);
+    }
+
+    LWLockRelease(ReplicationSlotAllocationLock);
+
+    // Notify other processes
+    ConditionVariableBroadcast(&slot->active_cv);
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major step
+- Consolidated error handling
+- Maintained all essential validation and locking
+- Preserved atomic slot creation process
+- Kept all initialization and safety checks

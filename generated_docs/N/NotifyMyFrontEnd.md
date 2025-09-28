@@ -41,3 +41,30 @@ The function constructs protocol messages using PostgreSQL's message buffer syst
 - For local output, formats as INFO log message showing channel and payload
 - Part of PostgreSQL's asynchronous notification system (NOTIFY/LISTEN)
 - Function is exposed in async.h header for use by other subsystems
+
+## Simplified Source
+
+```c
+// Simplified version of NotifyMyFrontEnd
+void NotifyMyFrontEnd(const char *channel, const char *payload, int32 srcPid) {
+    if (whereToSendOutput == DestRemote) {
+        // Send notification as protocol message to remote client
+        StringInfoData buf;
+        pq_beginmessage(&buf, PqMsg_NotificationResponse);
+        pq_sendint32(&buf, srcPid);
+        pq_sendstring(&buf, channel);
+        pq_sendstring(&buf, payload);
+        pq_endmessage(&buf);
+        // Note: no pq_flush() to allow message batching
+    } else {
+        // Log notification for local/server output
+        elog(INFO, "NOTIFY for \"%s\" payload \"%s\"", channel, payload);
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for remote vs local output paths
+- Preserved the protocol message construction sequence
+- Maintained the batching optimization (no flush)
+- Kept the fallback logging for non-remote destinations

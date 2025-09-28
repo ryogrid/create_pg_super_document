@@ -36,3 +36,53 @@ The `is_projection_capable_path` function evaluates whether a specific path node
 - [ProjectSet](../P/ProjectSet.md) paths are considered non-projection-capable to prevent interference with set-returning function placement
 - This function is crucial for the planner's decision on whether to add explicit Projection plan nodes
 - The restriction on ProjectSet may be relaxed in future PostgreSQL versions
+
+## Simplified Source
+
+```c
+// Simplified version of is_projection_capable_path
+bool is_projection_capable_path(Path *path) {
+    // Most plan types can project, so list the ones that can't
+    switch (path->pathtype) {
+        // Non-projection-capable node types
+        case T_Hash:
+        case T_Material:
+        case T_Memoize:
+        case T_Sort:
+        case T_IncrementalSort:
+        case T_Unique:
+        case T_SetOp:
+        case T_LockRows:
+        case T_Limit:
+        case T_ModifyTable:
+        case T_MergeAppend:
+        case T_RecursiveUnion:
+            return false;
+
+        // CustomScan: check support flag
+        case T_CustomScan:
+            if (castNode(CustomPath, path)->flags & CUSTOMPATH_SUPPORT_PROJECTION)
+                return true;
+            return false;
+
+        // Append: only if it's a dummy path (becomes Result node)
+        case T_Append:
+            return IS_DUMMY_APPEND(path);
+
+        // ProjectSet: prevented to keep SRFs at top level
+        case T_ProjectSet:
+            return false;
+
+        // All other path types can project
+        default:
+            break;
+    }
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining special cases
+- Grouped non-projection-capable types into a single case block
+- Preserved all essential logic for projection capability checking
+- Maintained special handling for CustomScan, Append, and ProjectSet paths

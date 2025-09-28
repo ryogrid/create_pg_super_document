@@ -72,3 +72,49 @@ The function provides detailed tracking for specific operation types:
 - Always calls pgstat_count_io_op_n() to ensure operation counts are recorded even when timing is disabled
 - Part of PostgreSQL's comprehensive IO performance monitoring system
 - The start_time parameter should typically be obtained from pgstat_prepare_io_time()
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_count_io_op_time
+void
+pgstat_count_io_op_time(IOObject io_object, IOContext io_context, IOOp io_op,
+                       instr_time start_time, uint32 cnt) {
+    // Track timing if enabled
+    if (track_io_timing) {
+        instr_time io_time;
+
+        // Calculate elapsed time
+        INSTR_TIME_SET_CURRENT(io_time);
+        INSTR_TIME_SUBTRACT(io_time, start_time);
+
+        // Update buffer usage stats for specific operations
+        if (io_op == IOOP_WRITE || io_op == IOOP_EXTEND) {
+            pgstat_count_buffer_write_time(INSTR_TIME_GET_MICROSEC(io_time));
+            if (io_object == IOOBJECT_RELATION)
+                INSTR_TIME_ADD(pgBufferUsage.shared_blk_write_time, io_time);
+            else if (io_object == IOOBJECT_TEMP_RELATION)
+                INSTR_TIME_ADD(pgBufferUsage.local_blk_write_time, io_time);
+        } else if (io_op == IOOP_READ) {
+            pgstat_count_buffer_read_time(INSTR_TIME_GET_MICROSEC(io_time));
+            if (io_object == IOOBJECT_RELATION)
+                INSTR_TIME_ADD(pgBufferUsage.shared_blk_read_time, io_time);
+            else if (io_object == IOOBJECT_TEMP_RELATION)
+                INSTR_TIME_ADD(pgBufferUsage.local_blk_read_time, io_time);
+        }
+
+        // Accumulate timing in pending stats
+        INSTR_TIME_ADD(PendingIOStats.pending_times[io_object][io_context][io_op],
+                      io_time);
+    }
+
+    // Always count operations regardless of timing
+    pgstat_count_io_op_n(io_object, io_context, io_op, cnt);
+}
+```
+
+Key simplifications made:
+- Added clear comments for timing calculation and buffer usage update phases
+- Emphasized the dual nature: timing (optional) + counting (always)
+- Simplified the conditional logic for different operation types
+- Preserved the essential statistics tracking for both shared and temp relations

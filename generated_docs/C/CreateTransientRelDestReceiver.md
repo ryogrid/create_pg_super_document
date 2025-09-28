@@ -47,3 +47,35 @@ This receiver is specifically designed for the materialized view refresh workflo
 - The receiver implements optimized bulk insertion suitable for large result sets typical in materialized view refreshes
 - This is part of the destination receiver pattern used throughout PostgreSQL for flexible query result handling
 - The returned receiver must be properly managed through its lifecycle callbacks to ensure resource cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of CreateTransientRelDestReceiver
+DestReceiver *CreateTransientRelDestReceiver(Oid transientoid) {
+    // Allocate and zero-initialize the transient relation destination receiver
+    DR_transientrel *transient_receiver = (DR_transientrel *) palloc0(sizeof(DR_transientrel));
+
+    // Set up the callback functions for transient relation operations
+    transient_receiver->pub.receiveSlot = transientrel_receive;     // Insert each tuple
+    transient_receiver->pub.rStartup = transientrel_startup;        // Initialize relation
+    transient_receiver->pub.rShutdown = transientrel_shutdown;      // Finalize insertion
+    transient_receiver->pub.rDestroy = transientrel_destroy;        // Final cleanup
+
+    // Set the destination type to indicate transient relation operation
+    transient_receiver->pub.mydest = DestTransientRel;
+
+    // Store the OID of the target transient relation
+    transient_receiver->transientoid = transientoid;
+
+    // Return as base DestReceiver type
+    return (DestReceiver *) transient_receiver;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for clarity
+- Added comments explaining each callback function's purpose
+- Clarified the purpose of storing the transient relation OID
+- Explained the role in materialized view refresh workflow
+- Focused on core logic: allocate memory, set callbacks, store OID, return receiver

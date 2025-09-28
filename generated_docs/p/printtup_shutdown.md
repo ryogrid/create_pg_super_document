@@ -40,3 +40,37 @@ This ensures that all dynamically allocated memory associated with the printtup 
 - All pointer fields are explicitly set to NULL after freeing to prevent dangling pointer issues
 - The function safely handles cases where pointers might already be NULL by checking before freeing
 - This is a cleanup function that should be called exactly once per DR_printtup instance
+
+## Simplified Source
+
+```c
+// Simplified version of printtup_shutdown
+static void printtup_shutdown(DestReceiver *self) {
+    DR_printtup *myState = (DR_printtup *) self;
+
+    // Clean up attribute information
+    if (myState->myinfo) {
+        pfree(myState->myinfo);
+        myState->myinfo = NULL;
+    }
+    myState->attrinfo = NULL;
+
+    // Clean up I/O buffer
+    if (myState->buf.data) {
+        pfree(myState->buf.data);
+        myState->buf.data = NULL;
+    }
+
+    // Clean up temporary memory context
+    if (myState->tmpcontext) {
+        MemoryContextDelete(myState->tmpcontext);
+        myState->tmpcontext = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Preserved all essential cleanup operations
+- Maintained null pointer safety
+- Grouped related cleanup operations with comments
+- Focused on systematic resource deallocation

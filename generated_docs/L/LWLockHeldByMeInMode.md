@@ -47,3 +47,28 @@ This function is extensively used throughout PostgreSQL's codebase in assertions
 - The function performs both pointer comparison for the lock and value comparison for the mode
 - Particularly important in multi-mode locking scenarios where shared and exclusive access have different semantic meanings
 - Located in src/backend/storage/lmgr/lwlock.c:1939-1949
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockHeldByMeInMode
+bool LWLockHeldByMeInMode(LWLock *lock, LWLockMode mode) {
+    // Search through all locks held by current process
+    for (int i = 0; i < num_held_lwlocks; i++) {
+        // Check if both lock and mode match
+        if (held_lwlocks[i].lock == lock && held_lwlocks[i].mode == mode) {
+            return true;
+        }
+    }
+
+    // Lock not found in specified mode
+    return false;
+}
+```
+
+Key simplifications made:
+- Combined variable declaration with loop initialization
+- Added clear comments explaining the search logic
+- Simplified the conditional check presentation
+- Focused on the core algorithm: linear search through held locks array
+- Made the return logic more explicit with comments

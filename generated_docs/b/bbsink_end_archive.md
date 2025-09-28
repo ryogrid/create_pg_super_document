@@ -34,3 +34,22 @@ This inline function serves as a wrapper to finalize and close a previously open
 - Must be called after all archive contents have been processed to ensure proper archive closure
 - Critical for maintaining data integrity and proper cleanup of archive resources
 - Typically called in pairs with bbsink_begin_archive to bracket archive creation and completion
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_end_archive
+static inline void bbsink_end_archive(bbsink *sink) {
+    Assert(sink != NULL);
+
+    // Delegate to sink-specific implementation
+    sink->bbs_ops->end_archive(sink);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Maintained assertion for defensive programming
+- Preserved the delegation pattern to sink-specific operations
+- Kept the inline function optimization
+- Maintained the clean finalization interface

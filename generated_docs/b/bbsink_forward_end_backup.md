@@ -36,3 +36,21 @@ The forwarding of endptr and endtli is crucial as these parameters contain the e
 - The endtli parameter ensures timeline consistency for the backup
 - Part of the callback-based architecture for chaining backup sink operations
 - Used to ensure all sinks in the chain properly finalize their backup operations with consistent WAL position information
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_forward_end_backup
+void bbsink_forward_end_backup(bbsink *sink, XLogRecPtr endptr, TimeLineID endtli) {
+    // Validate chain exists
+    Assert(sink->bbs_next != NULL);
+
+    // Forward end backup with WAL position info to next sink
+    bbsink_end_backup(sink->bbs_next, endptr, endtli);
+}
+```
+
+Key simplifications made:
+- Preserved essential chain validation
+- Maintained WAL position forwarding with endptr and endtli
+- Focused on core backup finalization forwarding

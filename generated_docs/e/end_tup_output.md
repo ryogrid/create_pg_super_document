@@ -45,3 +45,27 @@ Notably, the function does not destroy the DestReceiver itself, as that responsi
 - Part of the complete tuple output lifecycle: begin_tup_output_tupdesc → do_tup_output (multiple calls) → end_tup_output
 - Used consistently across utility commands that leverage the tuple output infrastructure
 - Proper resource management ensures that all allocated memory and slots are correctly cleaned up
+
+## Simplified Source
+
+```c
+// Simplified version of end_tup_output
+void end_tup_output(TupOutputState *tstate) {
+    // Step 1: Shutdown the destination receiver
+    tstate->dest->rShutdown(tstate->dest);
+
+    // Step 2: Clean up the tuple slot
+    ExecDropSingleTupleTableSlot(tstate->slot);
+
+    // Step 3: Free the TupOutputState structure
+    pfree(tstate);
+
+    // Note: DestReceiver destruction is caller's responsibility
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments
+- Extracted the important note about DestReceiver responsibility
+- Maintained the essential 3-step cleanup process
+- Preserved all core functionality

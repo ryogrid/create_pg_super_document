@@ -52,3 +52,73 @@ The function supports intelligent index updates through the TU_UpdateIndexes mec
 - Handles both regular and partition table constraints appropriately
 - Used primarily in logical replication contexts where complete update semantics are required
 - Assumes caller has opened necessary indexes and manages them appropriately
+
+## Simplified Source
+
+```c
+// Simplified version of ExecSimpleRelationUpdate
+void ExecSimpleRelationUpdate(ResultRelInfo *resultRelInfo,
+                              EState *estate, EPQState *epqstate,
+                              TupleTableSlot *searchslot, TupleTableSlot *slot) {
+    bool skip_tuple = false;
+    Relation rel = resultRelInfo->ri_RelationDesc;
+    ItemPointer tid = &(searchslot->tts_tid);
+
+    // Validate relation type (regular table, non-system)
+    Assert(rel->rd_rel->relkind == RELKIND_RELATION);
+    Assert(!IsCatalogRelation(rel));
+
+    // Check replica identity for UPDATE operation
+    CheckCmdReplicaIdentity(rel, CMD_UPDATE);
+
+    // Execute BEFORE UPDATE triggers
+    if (resultRelInfo->ri_TrigDesc &&
+        resultRelInfo->ri_TrigDesc->trig_update_before_row) {
+        if (!ExecBRUpdateTriggers(estate, epqstate, resultRelInfo,
+                                  tid, NULL, slot, NULL, NULL)) {
+            skip_tuple = true;  // Trigger says skip this update
+        }
+    }
+
+    // Proceed with update if not skipped
+    if (!skip_tuple) {
+        List *recheckIndexes = NIL;
+        TU_UpdateIndexes update_indexes;
+
+        // Compute stored generated columns
+        if (rel->rd_att->constr && rel->rd_att->constr->has_generated_stored) {
+            ExecComputeStoredGenerated(resultRelInfo, estate, slot, CMD_UPDATE);
+        }
+
+        // Validate constraints
+        if (rel->rd_att->constr) {
+            ExecConstraints(resultRelInfo, slot, estate);
+        }
+        if (rel->rd_rel->relispartition) {
+            ExecPartitionCheck(resultRelInfo, slot, estate, true);
+        }
+
+        // Update the tuple
+        simple_table_tuple_update(rel, tid, slot, estate->es_snapshot, &update_indexes);
+
+        // Update indexes if needed
+        if (resultRelInfo->ri_NumIndices > 0 && (update_indexes != TU_None)) {
+            recheckIndexes = ExecInsertIndexTuples(resultRelInfo, slot, estate,
+                                                   true, false, NULL, NIL,
+                                                   (update_indexes == TU_Summarizing));
+        }
+
+        // Execute AFTER UPDATE triggers
+        ExecARUpdateTriggers(estate, resultRelInfo, NULL, NULL,
+                             tid, NULL, slot, recheckIndexes, NULL, false);
+
+        list_free(recheckIndexes);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major step in the update process
+- Emphasized the validation and trigger flow
+- Highlighted the intelligent index update optimization
+- Preserved all essential constraint checking and trigger execution

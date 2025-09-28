@@ -47,3 +47,25 @@ This optimization is particularly important for:
 - Used extensively in the WAL prefetcher subsystem to implement efficient non-blocking record reading
 - The decode queue mechanism allows multiple WAL records to be decoded in advance, improving overall system throughput during recovery and replication
 - The deferred error mechanism ensures that errors are properly propagated even when using asynchronous/queued processing patterns
+
+## Simplified Source
+
+```c
+// Simplified version of XLogReaderHasQueuedRecordOrError
+static inline bool XLogReaderHasQueuedRecordOrError(XLogReaderState *state) {
+    // Check if there are decoded records waiting in the queue
+    bool has_queued_records = (state->decode_queue_head != NULL);
+
+    // Check if there's a deferred error message
+    bool has_deferred_error = state->errormsg_deferred;
+
+    // Return true if either condition is present
+    return has_queued_records || has_deferred_error;
+}
+```
+
+Key simplifications made:
+- Expanded the single return statement for clarity
+- Added descriptive variable names to explain the two conditions
+- Added comments explaining what each part checks
+- Made the logic flow more explicit while preserving the same functionality

@@ -42,3 +42,48 @@ InitializeBackupManifest prepares the backup manifest system for operation by cl
 - Initializes the JSON structure with version 2 format and includes the database system identifier
 - The force_encode option is primarily used for testing scenarios involving special character encoding
 - Sets up initial state flags like first_file and still_checksumming to control subsequent manifest operations
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeBackupManifest
+void InitializeBackupManifest(backup_manifest_info *manifest,
+                             backup_manifest_option want_manifest,
+                             pg_checksum_type manifest_checksum_type) {
+    // Initialize manifest structure
+    memset(manifest, 0, sizeof(backup_manifest_info));
+    manifest->checksum_type = manifest_checksum_type;
+
+    if (want_manifest == MANIFEST_OPTION_NO) {
+        manifest->buffile = NULL;
+    } else {
+        // Create temporary buffer file and setup checksum context
+        manifest->buffile = BufFileCreateTemp(false);
+        manifest->manifest_ctx = pg_cryptohash_create(PG_SHA256);
+        if (pg_cryptohash_init(manifest->manifest_ctx) < 0)
+            elog(ERROR, "failed to initialize checksum of backup manifest: %s",
+                 pg_cryptohash_error(manifest->manifest_ctx));
+    }
+
+    // Setup initial state
+    manifest->manifest_size = UINT64CONST(0);
+    manifest->force_encode = (want_manifest == MANIFEST_OPTION_FORCE_ENCODE);
+    manifest->first_file = true;
+    manifest->still_checksumming = true;
+
+    // Write JSON header if manifest is enabled
+    if (want_manifest != MANIFEST_OPTION_NO)
+        AppendToManifest(manifest,
+                        "{ \"PostgreSQL-Backup-Manifest-Version\": 2,\n"
+                        "\"System-Identifier\": " UINT64_FORMAT ",\n"
+                        "\"Files\": [",
+                        GetSystemIdentifier());
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving initialization logic
+- Maintained conditional setup based on manifest option
+- Preserved cryptographic context initialization with error handling
+- Kept JSON header generation and system identifier inclusion
+- Maintained all essential state flag initialization

@@ -30,3 +30,23 @@ ProcSendSignal provides a mechanism to signal a specific backend process by sett
 - Complementary function to ProcWaitForSignal for inter-process communication
 - Throws an ERROR if the procNumber is negative or exceeds the process count
 - Essential for coordinating between backends in scenarios like buffer management and lock cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of ProcSendSignal
+void ProcSendSignal(ProcNumber procNumber) {
+    // Validate process number is within bounds
+    if (procNumber < 0 || procNumber >= ProcGlobal->allProcCount) {
+        elog(ERROR, "procNumber out of range");
+    }
+
+    // Signal the target process by setting its latch
+    SetLatch(&ProcGlobal->allProcs[procNumber].procLatch);
+}
+```
+
+Key simplifications made:
+- Clear bounds checking with descriptive comment
+- Simple latch setting operation
+- Focused on core functionality: validate and signal

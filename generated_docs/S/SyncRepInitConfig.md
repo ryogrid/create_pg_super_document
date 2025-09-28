@@ -37,3 +37,34 @@ When a priority change is detected, the function logs a debug message indicating
 
 ## Notes and Other Information
 This function is part of the WAL sender side of synchronous replication and is called frequently during WAL sender operation to handle configuration changes. The mutex protection ensures that priority updates are atomic with respect to other WAL sender operations that may read the priority value. The priority determination is based on the synchronous_standby_names configuration parameter and the application_name of the connected standby.
+
+## Simplified Source
+
+```c
+// Simplified version of SyncRepInitConfig
+void SyncRepInitConfig(void) {
+    int priority;
+
+    // Get current standby priority from configuration
+    priority = SyncRepGetStandbyPriority();
+
+    // Update priority if it has changed
+    if (MyWalSnd->sync_standby_priority != priority) {
+        // Atomically update the priority
+        SpinLockAcquire(&MyWalSnd->mutex);
+        MyWalSnd->sync_standby_priority = priority;
+        SpinLockRelease(&MyWalSnd->mutex);
+
+        // Log the priority change
+        ereport(DEBUG1,
+                (errmsg_internal("standby \"%s\" now has synchronous standby priority %d",
+                                application_name, priority)));
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Condensed the priority update logic with descriptive comments
+- Preserved critical mutex protection for thread safety
+- Maintained logging for debugging and monitoring

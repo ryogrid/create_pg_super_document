@@ -40,3 +40,19 @@ The function is defined as a static inline function in the header file, making i
 - The QueryCompletion structure it populates is used to communicate command results back to clients
 - The commandTag parameter comes from an enum that includes all supported SQL command types
 - The nprocessed count is particularly important for commands like INSERT, UPDATE, DELETE that affect multiple rows
+
+## Simplified Source
+
+```c
+// Simplified version of SetQueryCompletion
+static inline void SetQueryCompletion(QueryCompletion *qc, CommandTag commandTag, uint64 nprocessed) {
+    // Set command type and row count in completion structure
+    qc->commandTag = commandTag;
+    qc->nprocessed = nprocessed;
+}
+```
+
+Key simplifications made:
+- This function is already minimal as a simple setter
+- Added descriptive comment explaining the purpose
+- Preserved essential initialization logic

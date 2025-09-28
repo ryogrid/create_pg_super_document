@@ -51,3 +51,60 @@ This function takes no parameters but operates on several global variables:
 - Sets got_SIGUSR2 signal when caught up and stopping to ensure orderly connection termination
 - Updates shared memory WAL sender status with spinlock protection for concurrent access safety
 - Error handling includes detailed error messages for invalid WAL records during logical decoding
+
+## Simplified Source
+
+```c
+// Simplified version of XLogSendLogical
+static void XLogSendLogical(void) {
+    XLogRecord *record;
+    char *errm;
+    static XLogRecPtr flushPtr = InvalidXLogRecPtr;  // Cached to avoid spinlock contention
+
+    // Assume not caught up until proven otherwise
+    WalSndCaughtUp = false;
+
+    // Read next WAL record
+    record = XLogReadRecord(logical_decoding_ctx->reader, &errm);
+
+    // Handle read errors
+    if (errm != NULL)
+        elog(ERROR, "could not find record while sending logically-decoded data: %s", errm);
+
+    // Process valid record through logical decoding
+    if (record != NULL) {
+        LogicalDecodingProcessRecord(logical_decoding_ctx, logical_decoding_ctx->reader);
+        sentPtr = logical_decoding_ctx->reader->EndRecPtr;
+    }
+
+    // Update flush pointer when needed
+    if (flushPtr == InvalidXLogRecPtr ||
+        logical_decoding_ctx->reader->EndRecPtr >= flushPtr) {
+        // Use appropriate LSN based on sender type
+        if (am_cascading_walsender)
+            flushPtr = GetXLogReplayRecPtr(NULL);  // Standby uses replay LSN
+        else
+            flushPtr = GetFlushRecPtr(NULL);       // Primary uses flush LSN
+    }
+
+    // Check if we've caught up
+    if (logical_decoding_ctx->reader->EndRecPtr >= flushPtr)
+        WalSndCaughtUp = true;
+
+    // Handle graceful shutdown when caught up
+    if (WalSndCaughtUp && got_STOPPING)
+        got_SIGUSR2 = true;
+
+    // Update shared memory status atomically
+    SpinLockAcquire(&MyWalSnd->mutex);
+    MyWalSnd->sentPtr = sentPtr;
+    SpinLockRelease(&MyWalSnd->mutex);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the logical flow
+- Simplified flush pointer management logic with descriptive comments
+- Explained the cascading vs non-cascading sender logic
+- Preserved all essential error handling and state management
+- Maintained performance optimization with static flush pointer caching

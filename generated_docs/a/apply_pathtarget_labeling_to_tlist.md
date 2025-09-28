@@ -35,3 +35,51 @@ The function includes error checking to ensure that sortgroupref labels are appl
 - Includes comprehensive error checking for missing expressions and conflicting sortgroupref labels
 - Primarily used during plan creation when target lists need to be reconciled with PathTarget labeling
 - The weakened matching for Vars handles cases where set-returning function inlining has provided additional type information
+
+## Simplified Source
+
+```c
+// Simplified version of apply_pathtarget_labeling_to_tlist
+void apply_pathtarget_labeling_to_tlist(List *tlist, PathTarget *target) {
+    // Nothing to do if no sortgrouprefs data
+    if (target->sortgrouprefs == NULL)
+        return;
+
+    // Iterate through PathTarget expressions
+    int i = 0;
+    foreach(ListCell *lc, target->exprs) {
+        Expr *expr = (Expr *) lfirst(lc);
+
+        // Only process expressions that have sortgroupref labels
+        if (target->sortgrouprefs[i]) {
+            TargetEntry *tle;
+
+            // Find matching entry in target list
+            if (expr && IsA(expr, Var)) {
+                // Use weakened matching for Vars (handles SRF inlining)
+                tle = tlist_member_match_var((Var *) expr, tlist);
+            } else {
+                // Use exact matching for other expressions
+                tle = tlist_member(expr, tlist);
+            }
+
+            // Error checking for missing or conflicting labels
+            if (!tle)
+                elog(ERROR, "ORDER/GROUP BY expression not found in targetlist");
+            if (tle->ressortgroupref != 0 &&
+                tle->ressortgroupref != target->sortgrouprefs[i])
+                elog(ERROR, "targetlist item has multiple sortgroupref labels");
+
+            // Apply the sortgroupref label
+            tle->ressortgroupref = target->sortgrouprefs[i];
+        }
+        i++;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about SRF inlining and matching strategies
+- Consolidated the matching logic into clear conditional blocks
+- Preserved essential functionality for label transfer and error checking
+- Maintained the different matching strategies for Var vs non-Var expressions

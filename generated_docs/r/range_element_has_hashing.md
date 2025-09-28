@@ -31,3 +31,24 @@ The function determines if a range or multirange type's element type supports ha
 - Essential for enabling hash-based operations on range and multirange types
 - Part of PostgreSQL's range type system that allows operations on ranges based on their element type capabilities
 - Works in conjunction with similar functions for comparison operations on range types
+
+## Simplified Source
+
+```c
+// Simplified version of range_element_has_hashing
+static bool range_element_has_hashing(TypeCacheEntry *typentry) {
+    // Check if element properties have been cached yet
+    if (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES)) {
+        // Cache the element properties if not done yet
+        cache_range_element_properties(typentry);
+    }
+
+    // Return whether element type supports hashing
+    return (typentry->flags & TCFLAGS_HAVE_ELEM_HASHING) != 0;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the lazy evaluation pattern
+- Clarified the purpose of each condition check
+- Maintained the essential logic flow

@@ -41,3 +41,38 @@ The algorithm aims for approximately two bytes per element to achieve the target
 - False positive rate remains below 2% even when bitset size is rounded down significantly
 - Seed parameter allows preventing repeated false positives when same dataset is processed multiple times
 - Memory allocation includes both the bloom_filter header and the variable-length bitset in a single block
+
+## Simplified Source
+
+```c
+// Simplified version of bloom_create
+bloom_filter *bloom_create(int64 total_elems, int bloom_work_mem, uint64 seed) {
+    bloom_filter *filter;
+    int bloom_power;
+    uint64 bitset_bytes;
+    uint64 bitset_bits;
+
+    // Calculate target bitset size (2 bytes per element)
+    bitset_bytes = Min(bloom_work_mem * 1024, total_elems * 2);
+    bitset_bytes = Max(1024 * 1024, bitset_bytes);  // Min 1MB
+
+    // Round down to highest power of two
+    bloom_power = my_bloom_power(bitset_bytes * BITS_PER_BYTE);
+    bitset_bits = 1ULL << bloom_power;
+    bitset_bytes = bitset_bits / BITS_PER_BYTE;
+
+    // Allocate filter with bitset
+    filter = palloc0(offsetof(bloom_filter, bitset) + sizeof(unsigned char) * bitset_bytes);
+    filter->k_hash_funcs = optimal_k(bitset_bits, total_elems);
+    filter->seed = seed;
+    filter->m = bitset_bits;
+
+    return filter;
+}
+```
+
+Key simplifications made:
+- Preserved size calculation and power-of-two alignment logic
+- Maintained memory constraints (1MB min, work_mem max)
+- Kept optimal hash function count calculation
+- Focused on core allocation and initialization

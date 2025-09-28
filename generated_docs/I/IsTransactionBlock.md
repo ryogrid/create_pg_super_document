@@ -35,3 +35,28 @@ This function takes no parameters and returns a boolean value indicating transac
 
 ## Notes and Other Information
 The function specifically returns false for TBLOCK_DEFAULT and TBLOCK_STARTED states, treating these as "not in a transaction block" for the purposes of command restrictions. This distinction is important because while TBLOCK_STARTED technically represents an active transaction, it's considered safe for operations that would otherwise be prohibited in transaction blocks since no user commands have been executed yet.
+
+## Simplified Source
+
+```c
+// Simplified version of IsTransactionBlock
+bool
+IsTransactionBlock(void)
+{
+    TransactionState s = CurrentTransactionState;
+
+    // Check if we're in the default or just-started state
+    // (both are considered "not in a transaction block")
+    if (s->blockState == TBLOCK_DEFAULT || s->blockState == TBLOCK_STARTED)
+        return false;
+
+    // All other states represent active transaction blocks
+    return true;
+}
+```
+
+Key simplifications made:
+- Added comments explaining the logic behind the state checks
+- Clarified that DEFAULT and STARTED states are treated as "not in transaction block"
+- Preserved the exact boolean logic flow
+- Function is already simple, so minimal changes were needed

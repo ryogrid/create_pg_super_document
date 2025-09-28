@@ -41,3 +41,36 @@ The function maintains the same snapshot data structure passed in - no new alloc
 - Cannot be used during hot standby recovery - will throw an error with guidance to use 'repeatable read' instead
 - For SERIALIZABLE READ ONLY DEFERRABLE transactions, provides an optimization by using GetSafeSnapshot() which can wait for a suitable snapshot to avoid SSI (Serializable Snapshot Isolation) overhead
 - The function is part of PostgreSQL's predicate locking system for implementing true serializable isolation
+
+## Simplified Source
+
+```c
+// Simplified version of GetSerializableTransactionSnapshot
+Snapshot GetSerializableTransactionSnapshot(Snapshot snapshot) {
+    Assert(IsolationIsSerializable());
+
+    // Serializable mode not supported during recovery (hot standby)
+    if (RecoveryInProgress()) {
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot use serializable mode in a hot standby"),
+                 errdetail("\"default_transaction_isolation\" is set to \"serializable\"."),
+                 errhint("You can use \"SET default_transaction_isolation = 'repeatable read'\" to change the default.")));
+    }
+
+    // Special optimization for read-only deferrable transactions
+    if (XactReadOnly && XactDeferrable) {
+        return GetSafeSnapshot(snapshot);
+    }
+
+    // Standard serializable transaction snapshot
+    return GetSerializableTransactionSnapshotInt(snapshot, NULL, InvalidPid);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about the implementation details
+- Consolidated the error handling into a clear block
+- Simplified the control flow while preserving all functionality
+- Maintained the special optimization path for read-only deferrable transactions
+- Preserved the essential validation and error reporting

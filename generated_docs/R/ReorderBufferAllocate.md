@@ -18,6 +18,76 @@ ReorderBufferAllocate creates a new ReorderBuffer instance with proper memory ma
 ## Parameters / Member Variables
 This function takes no parameters.
 
+## Simplified Source
+
+```c
+// Simplified version of ReorderBufferAllocate
+ReorderBuffer *ReorderBufferAllocate(void) {
+    // Create dedicated memory context for the reorder buffer
+    MemoryContext new_ctx = AllocSetContextCreate(CurrentMemoryContext,
+                                                  "ReorderBuffer",
+                                                  ALLOCSET_DEFAULT_SIZES);
+
+    // Allocate the main buffer structure
+    ReorderBuffer *buffer = (ReorderBuffer *) MemoryContextAlloc(new_ctx, sizeof(ReorderBuffer));
+    buffer->context = new_ctx;
+
+    // Create specialized memory contexts for different data types
+    buffer->change_context = SlabContextCreate(new_ctx, "Change",
+                                              SLAB_DEFAULT_BLOCK_SIZE,
+                                              sizeof(ReorderBufferChange));
+    buffer->txn_context = SlabContextCreate(new_ctx, "TXN",
+                                           SLAB_DEFAULT_BLOCK_SIZE,
+                                           sizeof(ReorderBufferTXN));
+    buffer->tup_context = GenerationContextCreate(new_ctx, "Tuples",
+                                                  SLAB_DEFAULT_BLOCK_SIZE,
+                                                  SLAB_DEFAULT_BLOCK_SIZE,
+                                                  SLAB_DEFAULT_BLOCK_SIZE);
+
+    // Set up transaction tracking hash table
+    HASHCTL hash_ctl;
+    memset(&hash_ctl, 0, sizeof(hash_ctl));
+    hash_ctl.keysize = sizeof(TransactionId);
+    hash_ctl.entrysize = sizeof(ReorderBufferTXNByIdEnt);
+    hash_ctl.hcxt = buffer->context;
+    buffer->by_txn = hash_create("ReorderBufferByXid", 1000, &hash_ctl,
+                                HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    // Initialize transaction ordering heap
+    buffer->txn_heap = pairingheap_allocate(ReorderBufferTXNSizeCompare, NULL);
+
+    // Initialize statistics counters
+    buffer->spillTxns = 0;
+    buffer->spillCount = 0;
+    buffer->spillBytes = 0;
+    buffer->streamTxns = 0;
+    buffer->streamCount = 0;
+    buffer->streamBytes = 0;
+    buffer->totalTxns = 0;
+    buffer->totalBytes = 0;
+
+    // Initialize lists and reset state
+    dlist_init(&buffer->toplevel_by_lsn);
+    dlist_init(&buffer->txns_by_base_snapshot_lsn);
+    dclist_init(&buffer->catchange_txns);
+    buffer->by_txn_last_xid = InvalidTransactionId;
+    buffer->by_txn_last_txn = NULL;
+    buffer->current_restart_decoding_lsn = InvalidXLogRecPtr;
+
+    // Clean up any stale serialized data from previous uses
+    ReorderBufferCleanupSerializedTXNs(NameStr(MyReplicationSlot->data.name));
+
+    return buffer;
+}
+```
+
+Key simplifications made:
+- Grouped related initialization code together
+- Added clear comments for each major section
+- Simplified memory context setup while preserving functionality
+- Combined related field initializations
+- Focused on core allocation and initialization logic
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate

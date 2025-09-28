@@ -46,3 +46,70 @@ The function requires that input queries come directly from the parser or have b
 - [Command](../C/Command.md) tag determination follows specific precedence: original query first, then last qualifying INSTEAD rule query
 - Input queries must have appropriate locks acquired via AcquireRewriteLocks before calling this function
 - The function is assertion-protected to ensure only one query can set the command tag in the result list
+
+## Simplified Source
+
+```c
+// Simplified version of QueryRewrite
+List *QueryRewrite(Query *parsetree) {
+    uint64 input_query_id = parsetree->queryId;
+    List *querylist;
+    List *results;
+    ListCell *l;
+    CmdType origCmdType;
+    bool foundOriginalQuery;
+    Query *lastInstead;
+
+    // Validate input is top-level original query
+    Assert(parsetree->querySource == QSRC_ORIGINAL);
+    Assert(parsetree->canSetTag);
+
+    // Phase 1: Apply all non-SELECT rules
+    querylist = RewriteQuery(parsetree, NIL, 0);
+
+    // Phase 2: Apply RIR rules and preserve query ID
+    results = NIL;
+    foreach(l, querylist) {
+        Query *query = (Query *) lfirst(l);
+
+        query = fireRIRrules(query, NIL);
+        query->queryId = input_query_id;
+        results = lappend(results, query);
+    }
+
+    // Phase 3: Determine command tag ownership
+    origCmdType = parsetree->commandType;
+    foundOriginalQuery = false;
+    lastInstead = NULL;
+
+    foreach(l, results) {
+        Query *query = (Query *) lfirst(l);
+
+        if (query->querySource == QSRC_ORIGINAL) {
+            Assert(query->canSetTag);
+            Assert(!foundOriginalQuery);
+            foundOriginalQuery = true;
+        } else {
+            Assert(!query->canSetTag);
+            if (query->commandType == origCmdType &&
+                (query->querySource == QSRC_INSTEAD_RULE ||
+                 query->querySource == QSRC_QUAL_INSTEAD_RULE)) {
+                lastInstead = query;
+            }
+        }
+    }
+
+    // Set command tag if original query not found
+    if (!foundOriginalQuery && lastInstead != NULL) {
+        lastInstead->canSetTag = true;
+    }
+
+    return results;
+}
+```
+
+Key simplifications made:
+- Preserved complete three-phase rewriting process
+- Maintained rule application order and command tag logic
+- Kept essential validation and assertions
+- Focused on core query rewrite orchestration

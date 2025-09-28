@@ -23,6 +23,36 @@ UnregisterSnapshotNoOwner is the core implementation of snapshot unregistration 
   - [pairingheap_remove](../p/pairingheap_remove.md)
   - [FreeSnapshot](../F/FreeSnapshot.md)
   - [SnapshotResetXmin](../S/SnapshotResetXmin.md)
+
+## Simplified Source
+
+```c
+// Simplified version of UnregisterSnapshotNoOwner
+static void UnregisterSnapshotNoOwner(Snapshot snapshot) {
+    // Validate state
+    Assert(snapshot->regd_count > 0);
+    Assert(!pairingheap_is_empty(&RegisteredSnapshots));
+
+    // Decrement reference count
+    snapshot->regd_count--;
+
+    // Remove from registered snapshots heap when ref count reaches zero
+    if (snapshot->regd_count == 0)
+        pairingheap_remove(&RegisteredSnapshots, &snapshot->ph_node);
+
+    // Free snapshot if no references remain
+    if (snapshot->regd_count == 0 && snapshot->active_count == 0) {
+        FreeSnapshot(snapshot);
+        SnapshotResetXmin();
+    }
+}
+```
+
+Key simplifications made:
+- Focused on the reference counting and cleanup logic
+- Emphasized the two-stage cleanup (remove from heap, then free)
+- Added clear comments for each validation and cleanup step
+- Simplified the conditional logic structure
 - Called from (representative examples):
   - [UnregisterSnapshotFromOwner](UnregisterSnapshotFromOwner.md)
   - [ResOwnerReleaseSnapshot](../R/ResOwnerReleaseSnapshot.md)

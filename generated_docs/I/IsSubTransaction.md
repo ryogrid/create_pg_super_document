@@ -36,3 +36,25 @@ This function takes no parameters and returns a boolean value indicating whether
 
 ## Notes and Other Information
 The function uses a threshold of nestingLevel >= 2 to determine subtransaction status, where level 1 is the top-level transaction. This simple check is used throughout PostgreSQL to enforce different behaviors for subtransactions, such as preventing certain operations that are only allowed at the top-level transaction or enabling subtransaction-specific functionality like savepoint management. The function is particularly important for SPI operations and transaction property validation.
+
+## Simplified Source
+
+```c
+// Simplified version of IsSubTransaction
+bool
+IsSubTransaction(void)
+{
+    TransactionState s = CurrentTransactionState;
+
+    // Check if we're in a subtransaction (nesting level 2 or higher)
+    if (s->nestingLevel >= 2)
+        return true;
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Added comment explaining the nesting level check
+- Preserved the exact logic flow
+- Function is already very simple, so minimal changes were needed

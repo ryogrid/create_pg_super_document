@@ -44,3 +44,26 @@ The function allocates memory using `palloc` to create a new text value with the
 - The resulting text value includes the full variable-length header structure required by PostgreSQL's type system
 - Performance advantage over `cstring_to_text` when the string length is already known, as it avoids the `strlen` call
 - Used extensively throughout PostgreSQL for converting C string data to text, especially in JSON, XML, and string manipulation functions
+
+## Simplified Source
+
+```c
+// Simplified version of cstring_to_text_with_len
+text *cstring_to_text_with_len(const char *s, int len) {
+    text *result = (text *) palloc(len + VARHDRSZ);
+
+    // Set the total size including header
+    SET_VARSIZE(result, len + VARHDRSZ);
+
+    // Copy the string data to the text data area
+    memcpy(VARDATA(result), s, len);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Preserved the essential text creation logic
+- Maintained proper memory allocation with variable header
+- Kept the core data copying operation
+- Focused on the fundamental string-to-text conversion process

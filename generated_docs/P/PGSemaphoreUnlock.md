@@ -46,3 +46,29 @@ The function includes robust interrupt handling by retrying the sem_post() call 
 - Any unexpected errors (other than EINTR) result in a FATAL error that terminates the process
 - Critical for releasing resources and coordinating between PostgreSQL processes
 - Part of PostgreSQL's platform-independent semaphore API for process synchronization
+
+## Simplified Source
+
+```c
+// Simplified version of PGSemaphoreUnlock
+void PGSemaphoreUnlock(PGSemaphore sema) {
+    int errStatus;
+
+    // Keep trying to release the semaphore until successful
+    do {
+        errStatus = sem_post(PG_SEM_REF(sema));
+    } while (errStatus < 0 && errno == EINTR);  // Retry on signal interruption
+
+    // Fatal error if semaphore operation failed
+    if (errStatus < 0) {
+        elog(FATAL, "sem_post failed: %m");
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the core POSIX semaphore release logic
+- Maintained the interrupt handling loop for EINTR
+- Removed verbose comments about unlikely EINTR scenarios
+- Kept the fatal error handling for robustness
+- Added clear comments explaining the operation flow

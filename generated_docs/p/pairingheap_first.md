@@ -41,3 +41,20 @@ This function is essential for priority queue operations where you need to exami
 - Commonly used in priority queue scenarios where you need to peek at the next item to process
 - Used extensively in PostgreSQL's indexing and transaction management systems
 - The returned node pointer can be used to access the actual data stored in the node
+
+## Simplified Source
+
+```c
+// Simplified version of pairingheap_first
+pairingheap_node *pairingheap_first(pairingheap *heap) {
+    Assert(!pairingheap_is_empty(heap));
+
+    return heap->ph_root;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Maintained the essential empty heap assertion
+- Focused on the core operation: returning the root node
+- Preserved the O(1) access pattern

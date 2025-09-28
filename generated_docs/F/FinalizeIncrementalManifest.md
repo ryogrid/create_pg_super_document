@@ -41,3 +41,35 @@ The function serves as the cleanup and finalization step in the incremental mani
 - Memory cleanup is thorough, releasing both buffer data and parser state resources
 - Proper memory context switching ensures cleanup occurs in the correct memory context
 - After this function completes, the IncrementalBackupInfo structure should not be used for further manifest data processing
+
+## Simplified Source
+
+```c
+// Simplified version of FinalizeIncrementalManifest
+void FinalizeIncrementalManifest(IncrementalBackupInfo *ib) {
+    MemoryContext oldcontext;
+
+    // Switch to the incremental backup memory context
+    oldcontext = MemoryContextSwitchTo(ib->mcxt);
+
+    // Parse the final chunk of manifest data
+    json_parse_manifest_incremental_chunk(ib->inc_state, ib->buf.data,
+                                         ib->buf.len, true);
+
+    // Clean up the buffer memory
+    pfree(ib->buf.data);
+    ib->buf.data = NULL;
+
+    // Shut down the incremental parser state
+    json_parse_manifest_incremental_shutdown(ib->inc_state);
+
+    // Restore the previous memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments
+- Maintained essential memory context management
+- Preserved all cleanup operations
+- Focused on the core finalization workflow

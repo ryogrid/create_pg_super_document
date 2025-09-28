@@ -47,3 +47,44 @@ The function uses DSMRegistryLock to ensure thread-safe initialization, preventi
 - Uses double-checked locking pattern for efficient concurrent access
 - The DSA and hash table are pinned to prevent them from being detached while in use
 - Critical for the proper functioning of PostgreSQL's named DSM segment infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of init_dsm_registry
+static void init_dsm_registry(void) {
+    // Quick exit if already initialized
+    if (dsm_registry_table)
+        return;
+
+    // Use lock to ensure only one process creates the table
+    LWLockAcquire(DSMRegistryLock, LW_EXCLUSIVE);
+
+    if (DSMRegistryCtx->dshh == DSHASH_HANDLE_INVALID) {
+        // Create new dynamic shared hash table
+        dsm_registry_dsa = dsa_create(LWTRANCHE_DSM_REGISTRY_DSA);
+        dsa_pin(dsm_registry_dsa);
+        dsa_pin_mapping(dsm_registry_dsa);
+        dsm_registry_table = dshash_create(dsm_registry_dsa, &dsh_params, NULL);
+
+        // Store handles for other backends
+        DSMRegistryCtx->dsah = dsa_get_handle(dsm_registry_dsa);
+        DSMRegistryCtx->dshh = dshash_get_hash_table_handle(dsm_registry_table);
+    } else {
+        // Attach to existing hash table
+        dsm_registry_dsa = dsa_attach(DSMRegistryCtx->dsah);
+        dsa_pin_mapping(dsm_registry_dsa);
+        dsm_registry_table = dshash_attach(dsm_registry_dsa, &dsh_params,
+                                         DSMRegistryCtx->dshh, NULL);
+    }
+
+    LWLockRelease(DSMRegistryLock);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving the two-mode logic
+- Consolidated initialization and attachment paths with clear comments
+- Maintained the critical locking and handle management
+- Preserved the lazy initialization pattern
+- Focused on the core create-vs-attach decision logic

@@ -42,3 +42,26 @@ This simple insertion strategy maintains the heap property and the structural in
 - Widely used throughout PostgreSQL for priority queue operations in indexing, scanning, and transaction management
 - The caller is responsible for allocating and initializing the node's data before calling this function
 - Does not perform any memory allocation - only manipulates existing node pointers
+
+## Simplified Source
+
+```c
+// Simplified version of pairingheap_add
+void pairingheap_add(pairingheap *heap, pairingheap_node *node) {
+    // Initialize the new node as a leaf (no children)
+    node->first_child = NULL;
+
+    // Merge the new node with the current root
+    heap->ph_root = merge(heap, heap->ph_root, node);
+
+    // Set root pointers properly (no parent or siblings for root)
+    heap->ph_root->prev_or_parent = NULL;
+    heap->ph_root->next_sibling = NULL;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step
+- Preserved the essential O(1) insertion logic
+- Maintained the critical pointer manipulations
+- Simple and straightforward implementation that matches the original's efficiency

@@ -35,3 +35,21 @@ This is particularly useful when a DSM segment needs to be shared across multipl
 - Once pinned, the mapping will remain valid until the session ends or dsm_unpin_mapping is called
 - This is a critical function for implementing persistent shared data structures that span multiple queries
 - The function is safe to call multiple times on the same segment (it will have no effect if already pinned)
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_pin_mapping
+void dsm_pin_mapping(dsm_segment *seg) {
+    // Pin mapping by removing from resource owner tracking
+    if (seg->resowner != NULL) {
+        ResourceOwnerForgetDSM(seg->resowner, seg);
+        seg->resowner = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Preserved core logic of removing resource owner tracking
+- Added explanatory comment for the main operation
+- Maintained the conditional check for existing resource owner

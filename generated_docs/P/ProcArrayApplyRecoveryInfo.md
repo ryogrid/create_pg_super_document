@@ -64,3 +64,131 @@ The function handles edge cases such as duplicate XIDs from prepared transaction
 - Critical for Hot Standby functionality and read-only query processing on standby servers
 - The function can be called multiple times and must handle reentrant scenarios safely
 - Sorts transaction IDs logically before adding to KnownAssignedXids to maintain ordering invariants
+
+## Simplified Source
+
+```c
+// Simplified version of ProcArrayApplyRecoveryInfo
+void ProcArrayApplyRecoveryInfo(RunningTransactions running) {
+    TransactionId *xids;
+    TransactionId advanceNextXid;
+    int nxids;
+
+    // Basic validation
+    Assert(standbyState >= STANDBY_INITIALIZED);
+    Assert(TransactionIdIsValid(running->nextXid));
+
+    // Clean up stale transactions and locks
+    ExpireOldKnownAssignedTransactionIds(running->oldestRunningXid);
+
+    // Update nextXid to match primary
+    advanceNextXid = running->nextXid;
+    TransactionIdRetreat(advanceNextXid);
+    AdvanceNextFullTransactionIdPastXid(advanceNextXid);
+
+    StandbyReleaseOldLocks(running->oldestRunningXid);
+
+    // If snapshot is already ready, nothing more to do
+    if (standbyState == STANDBY_SNAPSHOT_READY)
+        return;
+
+    // Handle pending snapshot state
+    if (standbyState == STANDBY_SNAPSHOT_PENDING) {
+        // Check if we can reset pending state
+        if (running->subxid_status != SUBXIDS_MISSING || running->xcnt == 0) {
+            KnownAssignedXidsReset();
+            standbyState = STANDBY_INITIALIZED;
+        } else {
+            // Check if pending condition is resolved
+            if (TransactionIdPrecedes(standbySnapshotPendingXmin, running->oldestRunningXid)) {
+                standbyState = STANDBY_SNAPSHOT_READY;
+                elog(DEBUG1, "recovery snapshots are now enabled");
+            }
+            return;
+        }
+    }
+
+    Assert(standbyState == STANDBY_INITIALIZED);
+
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    // Build list of active XIDs
+    xids = palloc(sizeof(TransactionId) * (running->xcnt + running->subxcnt));
+    nxids = 0;
+
+    for (int i = 0; i < running->xcnt + running->subxcnt; i++) {
+        TransactionId xid = running->xids[i];
+
+        // Skip already completed transactions
+        if (TransactionIdDidCommit(xid) || TransactionIdDidAbort(xid))
+            continue;
+
+        xids[nxids++] = xid;
+    }
+
+    // Add XIDs to KnownAssignedXids if we have any
+    if (nxids > 0) {
+        if (procArray->numKnownAssignedXids != 0) {
+            LWLockRelease(ProcArrayLock);
+            elog(ERROR, "KnownAssignedXids is not empty");
+        }
+
+        // Sort XIDs before adding
+        qsort(xids, nxids, sizeof(TransactionId), xidLogicalComparator);
+
+        // Add sorted XIDs, skipping duplicates
+        for (int i = 0; i < nxids; i++) {
+            if (i > 0 && TransactionIdEquals(xids[i - 1], xids[i])) {
+                elog(DEBUG1, "found duplicated transaction %u", xids[i]);
+                continue;
+            }
+            KnownAssignedXidsAdd(xids[i], xids[i], true);
+        }
+    }
+
+    pfree(xids);
+
+    // Extend SUBTRANS up to nextXid
+    TransactionIdAdvance(latestObservedXid);
+    while (TransactionIdPrecedes(latestObservedXid, running->nextXid)) {
+        ExtendSUBTRANS(latestObservedXid);
+        TransactionIdAdvance(latestObservedXid);
+    }
+    TransactionIdRetreat(latestObservedXid);
+
+    // Set final state based on subxid completeness
+    if (running->subxid_status == SUBXIDS_MISSING) {
+        standbyState = STANDBY_SNAPSHOT_PENDING;
+        standbySnapshotPendingXmin = latestObservedXid;
+        procArray->lastOverflowedXid = latestObservedXid;
+    } else {
+        standbyState = STANDBY_SNAPSHOT_READY;
+        standbySnapshotPendingXmin = InvalidTransactionId;
+
+        if (running->subxid_status == SUBXIDS_IN_SUBTRANS)
+            procArray->lastOverflowedXid = latestObservedXid;
+        else
+            procArray->lastOverflowedXid = InvalidTransactionId;
+    }
+
+    // Update latest completed XID
+    MaintainLatestCompletedXidRecovery(running->latestCompletedXid);
+
+    LWLockRelease(ProcArrayLock);
+
+    // Log final state
+    if (standbyState == STANDBY_SNAPSHOT_READY)
+        elog(DEBUG1, "recovery snapshots are now enabled");
+    else
+        elog(DEBUG1, "recovery snapshot waiting for complete snapshot");
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations and removed unnecessary temporary variables
+- Simplified the state transition logic while preserving all three states
+- Streamlined the XID collection and validation loop
+- Abstracted complex debug logging into simpler messages
+- Focused on the core algorithm: cleanup, advance XIDs, populate known assigned XIDs, set state
+- Preserved essential locking, memory management, and error handling
+- Maintained the overflow handling and SUBTRANS extension logic

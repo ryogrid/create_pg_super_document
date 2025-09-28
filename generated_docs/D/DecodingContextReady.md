@@ -38,3 +38,19 @@ The snapshot building process progresses through several states before reaching 
 - The SNAPBUILD_CONSISTENT state indicates that all necessary transaction information has been gathered
 - Used as a prerequisite check before beginning actual logical change processing
 - Part of the snapshot building state machine that ensures transactional consistency in logical replication
+
+## Simplified Source
+
+```c
+// Simplified version of DecodingContextReady
+bool DecodingContextReady(LogicalDecodingContext *ctx) {
+    // Check if snapshot builder has reached consistent state
+    return SnapBuildCurrentState(ctx->snapshot_builder) == SNAPBUILD_CONSISTENT;
+}
+```
+
+Key simplifications made:
+- Preserved the essential state checking logic
+- Maintained the simple function structure since the original is already minimal
+- Added clear comment explaining the consistency check
+- Focused on the core readiness determination

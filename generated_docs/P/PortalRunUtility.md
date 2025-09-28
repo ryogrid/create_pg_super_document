@@ -48,3 +48,55 @@ PortalRunUtility is responsible for executing utility statements (non-DML comman
 - Switches back to portal context after utility execution to handle context changes
 - Used for executing utility statements in various portal execution strategies
 - Properly handles snapshot lifecycle including registration, activation, and cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of PortalRunUtility
+static void PortalRunUtility(Portal portal, PlannedStmt *pstmt,
+                           bool isTopLevel, bool setHoldSnapshot,
+                           DestReceiver *dest, QueryCompletion *qc) {
+    // Set up snapshot if utility statement needs one
+    if (PlannedStmtRequiresSnapshot(pstmt)) {
+        Snapshot snapshot = GetTransactionSnapshot();
+
+        // Register snapshot for hold scenarios
+        if (setHoldSnapshot) {
+            snapshot = RegisterSnapshot(snapshot);
+            portal->holdSnapshot = snapshot;
+        }
+
+        // Activate snapshot and associate with portal
+        PushActiveSnapshotWithLevel(snapshot, portal->createLevel);
+        portal->portalSnapshot = GetActiveSnapshot();
+    } else {
+        portal->portalSnapshot = NULL;
+    }
+
+    // Execute the utility statement
+    ProcessUtility(pstmt,
+                  portal->sourceText,
+                  (portal->cplan != NULL),
+                  isTopLevel ? PROCESS_UTILITY_TOPLEVEL : PROCESS_UTILITY_QUERY,
+                  portal->portalParams,
+                  portal->queryEnv,
+                  dest,
+                  qc);
+
+    // Restore portal context in case utility changed it
+    MemoryContextSwitchTo(portal->portalContext);
+
+    // Clean up snapshot if we set one
+    if (portal->portalSnapshot != NULL && ActiveSnapshotSet()) {
+        Assert(portal->portalSnapshot == GetActiveSnapshot());
+        PopActiveSnapshot();
+    }
+    portal->portalSnapshot = NULL;
+}
+```
+
+Key simplifications made:
+- Preserved essential snapshot management logic
+- Maintained utility statement execution flow
+- Kept important cleanup and context switching
+- Focused on core portal execution functionality

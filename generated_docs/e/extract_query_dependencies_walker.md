@@ -52,3 +52,70 @@ The walker uses standard PostgreSQL tree traversal patterns, returning false to 
 - Row security detection is accumulated in the `context->glob->dependsOnRole` flag
 - The walker pattern ensures complete traversal of complex nested query structures
 - [PlaceHolderVar](../P/PlaceHolderVar.md) nodes are explicitly asserted against, indicating they should not appear at this stage of processing
+
+## Simplified Source
+
+```c
+// Simplified version of extract_query_dependencies_walker
+bool extract_query_dependencies_walker(Node *node, PlannerInfo *context) {
+    if (node == NULL) {
+        return false;
+    }
+
+    Assert(!IsA(node, PlaceHolderVar));
+
+    if (IsA(node, Query)) {
+        Query *query = (Query *) node;
+        ListCell *lc;
+
+        // Handle utility statements
+        if (query->commandType == CMD_UTILITY) {
+            // Special processing for CALL statements
+            if (IsA(query->utilityStmt, CallStmt)) {
+                CallStmt *callstmt = (CallStmt *) query->utilityStmt;
+                extract_query_dependencies_walker((Node *) callstmt->funcexpr, context);
+                extract_query_dependencies_walker((Node *) callstmt->outargs, context);
+                return false;
+            }
+
+            // Check for nested queries in utility statements
+            query = UtilityContainsQuery(query->utilityStmt);
+            if (query == NULL) {
+                return false;
+            }
+        }
+
+        // Track row security dependencies
+        if (query->hasRowSecurity) {
+            context->glob->dependsOnRole = true;
+        }
+
+        // Collect relation OIDs from range table
+        foreach(lc, query->rtable) {
+            RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc);
+
+            if (rte->rtekind == RTE_RELATION ||
+                (rte->rtekind == RTE_SUBQUERY && OidIsValid(rte->relid)) ||
+                (rte->rtekind == RTE_NAMEDTUPLESTORE && OidIsValid(rte->relid))) {
+                context->glob->relationOids =
+                    lappend_oid(context->glob->relationOids, rte->relid);
+            }
+        }
+
+        // Recurse into query subexpressions
+        return query_tree_walker(query, extract_query_dependencies_walker,
+                               (void *) context, 0);
+    }
+
+    // Handle expression nodes
+    fix_expr_common(context, node);
+    return expression_tree_walker(node, extract_query_dependencies_walker,
+                                (void *) context);
+}
+```
+
+Key simplifications made:
+- Preserved complete dependency extraction logic
+- Maintained special handling for utility and CALL statements
+- Kept relation OID collection from range tables
+- Focused on core tree walking and dependency tracking

@@ -36,3 +36,24 @@ The function uses debug tracing through NL1_printf macros to log the beginning a
 - Part of the standard node lifecycle: Init -> Execute -> End
 - Ensures proper resource cleanup in case of query cancellation or completion
 - Simple cleanup function that relies on recursive child node termination
+
+## Simplified Source
+
+```c
+// Simplified version of ExecEndNestLoop
+void ExecEndNestLoop(NestLoopState *node) {
+    // Cleanup step 1: Shutdown outer child plan recursively
+    ExecEndNode(outerPlanState(node));
+
+    // Cleanup step 2: Shutdown inner child plan recursively
+    ExecEndNode(innerPlanState(node));
+
+    // Note: Memory cleanup handled automatically by PostgreSQL's memory context system
+}
+```
+
+Key simplifications made:
+- Removed debug logging statements (NL1_printf calls)
+- Added explanatory comments for the two main cleanup steps
+- Focused on the essential recursive shutdown pattern
+- Added note about automatic memory management

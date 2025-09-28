@@ -32,3 +32,21 @@ The manifest in PostgreSQL's backup system contains metadata about the backup, i
 - The manifest processing is a distinct phase in the backup process, separate from archive processing
 - This forwarding pattern is essential for maintaining the chain of responsibility in composite bbsink architectures during manifest handling
 - The function enables coordinated manifest processing across multiple bbsink implementations in a pipeline
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_forward_begin_manifest
+void bbsink_forward_begin_manifest(bbsink *sink) {
+    // Validate chain exists
+    Assert(sink->bbs_next != NULL);
+
+    // Forward begin manifest to next sink
+    bbsink_begin_manifest(sink->bbs_next);
+}
+```
+
+Key simplifications made:
+- Preserved essential chain validation
+- Maintained simple forwarding delegation
+- Focused on core manifest initialization forwarding

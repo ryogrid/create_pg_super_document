@@ -39,3 +39,41 @@ This function manages buffer transitions during heap scanning by coordinating wi
 - Handles scan direction changes by resetting read stream prefetch state
 - Updates both rs_cbuf (current buffer) and rs_cblock (current block number) in scan descriptor
 - Essential component of PostgreSQL's streaming read infrastructure for heap access
+
+## Simplified Source
+
+```c
+// Simplified version of heap_fetch_next_buffer
+static inline void heap_fetch_next_buffer(HeapScanDesc scan, ScanDirection dir) {
+    Assert(scan->rs_read_stream);
+
+    // Release previous buffer if any
+    if (BufferIsValid(scan->rs_cbuf)) {
+        ReleaseBuffer(scan->rs_cbuf);
+        scan->rs_cbuf = InvalidBuffer;
+    }
+
+    // Check for interrupts during long scans
+    CHECK_FOR_INTERRUPTS();
+
+    // Handle scan direction changes
+    if (unlikely(scan->rs_dir != dir)) {
+        scan->rs_prefetch_block = scan->rs_cblock;
+        read_stream_reset(scan->rs_read_stream);
+    }
+
+    // Update scan direction and fetch next buffer
+    scan->rs_dir = dir;
+    scan->rs_cbuf = read_stream_next_buffer(scan->rs_read_stream, NULL);
+
+    // Update current block number if buffer is valid
+    if (BufferIsValid(scan->rs_cbuf))
+        scan->rs_cblock = BufferGetBlockNumber(scan->rs_cbuf);
+}
+```
+
+Key simplifications made:
+- Core logic: release previous buffer, handle direction changes, fetch next buffer
+- Direction change detection resets prefetch to avoid incorrect block ordering
+- Interrupt checking ensures responsiveness during long sequential scans
+- Read stream infrastructure manages actual buffer fetching and prefetching

@@ -40,3 +40,38 @@ The function performs several safety checks including magic number validation an
 - Validates area integrity using magic number checks before performing operations
 - Only unpins DSM segments when the reference count reaches zero to prevent premature cleanup
 - The function handles arrays of segment handles and only unpins valid (non-invalid) handles
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_release_in_place
+void dsa_release_in_place(void *place) {
+    dsa_area_control *control = (dsa_area_control *) place;
+
+    // Acquire exclusive lock for safe reference counting
+    LWLockAcquire(&control->lock, LW_EXCLUSIVE);
+
+    // Validate area integrity
+    Assert(control->segment_header.magic == (DSA_SEGMENT_HEADER_MAGIC ^ control->handle ^ 0));
+    Assert(control->refcnt > 0);
+
+    // Decrement reference count
+    if (--control->refcnt == 0) {
+        // Unpin all DSM segments when last reference is released
+        for (int i = 0; i <= control->high_segment_index; ++i) {
+            dsm_handle handle = control->segment_handles[i];
+            if (handle != DSM_HANDLE_INVALID) {
+                dsm_unpin_segment(handle);
+            }
+        }
+    }
+
+    LWLockRelease(&control->lock);
+}
+```
+
+Key simplifications made:
+- Combined variable declarations with usage
+- Added explanatory comments for each major operation
+- Preserved all critical logic including locking, assertions, and cleanup
+- Maintained the reference counting and segment unpinning behavior

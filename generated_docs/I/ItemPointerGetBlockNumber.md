@@ -37,3 +37,22 @@ This is the recommended function to use when extracting block numbers from item 
 - Widely used throughout PostgreSQL core for safe block number access
 - Returns a BlockNumber type representing the physical block number on disk
 - The Assert ensures that invalid pointers are caught during development and testing
+
+## Simplified Source
+
+```c
+// Simplified version of ItemPointerGetBlockNumber
+static inline BlockNumber ItemPointerGetBlockNumber(const ItemPointerData *pointer) {
+    // Verify item pointer is valid (assertion only in debug builds)
+    Assert(ItemPointerIsValid(pointer));
+
+    // Delegate to unchecked version for actual extraction
+    return ItemPointerGetBlockNumberNoCheck(pointer);
+}
+```
+
+Key simplifications made:
+- Preserved the essential validity checking with Assert
+- Maintained the delegation to the unchecked version
+- Kept the inline function optimization
+- Focused on the core safety wrapper functionality

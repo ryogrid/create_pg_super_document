@@ -54,3 +54,44 @@ The function supports performance tracking through  and includes DTrace/SystemTa
 - Performance statistics collection can be enabled via the  configuration parameter
 - The function is located in src/backend/tcop/postgres.c:768-807
 - DTrace/SystemTap integration provides runtime query rewrite tracing capabilities
+
+## Simplified Source
+
+```c
+// Simplified version of pg_analyze_and_rewrite_withcb
+List *pg_analyze_and_rewrite_withcb(RawStmt *parsetree,
+                                   const char *query_string,
+                                   ParserSetupHook parserSetup,
+                                   void *parserSetupArg,
+                                   QueryEnvironment *queryEnv) {
+    Query *query;
+    List *querytree_list;
+
+    // Start tracing for query rewrite
+    TRACE_POSTGRESQL_QUERY_REWRITE_START(query_string);
+
+    // Phase 1: Parse analysis with custom callback
+    if (log_parser_stats)
+        ResetUsage();
+
+    query = parse_analyze_withcb(parsetree, query_string, parserSetup,
+                                parserSetupArg, queryEnv);
+
+    if (log_parser_stats)
+        ShowUsage("PARSE ANALYSIS STATISTICS");
+
+    // Phase 2: Query rewriting
+    querytree_list = pg_rewrite_query(query);
+
+    // End tracing
+    TRACE_POSTGRESQL_QUERY_REWRITE_DONE(query_string);
+
+    return querytree_list;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the two main phases: parse analysis and rewriting
+- Maintained performance tracking and tracing capabilities
+- Streamlined the function flow while preserving essential functionality

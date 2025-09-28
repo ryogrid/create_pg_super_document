@@ -38,3 +38,48 @@ JumbleQuery processes a parsed SQL query (Query node) to generate a unique ident
 - Uses zero-collision avoidance: assigns 1 for regular queries, 2 for utility statements when hash is zero
 - Part of PostgreSQL's query normalization system used by pg_stat_statements and query planning
 - Requires query ID generation to be enabled (checked via IsQueryIdEnabled)
+
+## Simplified Source
+
+```c
+// Simplified version of JumbleQuery
+JumbleState *JumbleQuery(Query *query) {
+    JumbleState *jstate = NULL;
+
+    Assert(IsQueryIdEnabled());
+
+    // Allocate and initialize jumble state
+    jstate = (JumbleState *) palloc(sizeof(JumbleState));
+
+    // Set up workspace for query jumbling
+    jstate->jumble = (unsigned char *) palloc(JUMBLE_SIZE);
+    jstate->jumble_len = 0;
+    jstate->clocations_buf_size = 32;
+    jstate->clocations = (LocationLen *) palloc(jstate->clocations_buf_size * sizeof(LocationLen));
+    jstate->clocations_count = 0;
+    jstate->highest_extern_param_id = 0;
+
+    // Generate normalized representation and compute hash
+    _jumbleNode(jstate, (Node *) query);
+    query->queryId = DatumGetUInt64(hash_any_extended(jstate->jumble,
+                                                     jstate->jumble_len,
+                                                     0));
+
+    // Handle zero hash collision avoidance
+    if (query->queryId == UINT64CONST(0)) {
+        if (query->utilityStmt) {
+            query->queryId = UINT64CONST(2);
+        } else {
+            query->queryId = UINT64CONST(1);
+        }
+    }
+
+    return jstate;
+}
+```
+
+Key simplifications made:
+- Preserved complete query jumbling and hashing logic
+- Maintained workspace initialization
+- Kept zero collision avoidance handling
+- Focused on core query ID generation functionality

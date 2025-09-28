@@ -31,3 +31,24 @@ The `puttzcode` function takes a 32-bit integer value and writes it to the speci
 - This function is static and only accessible within the zic.c compilation unit
 - Part of the timezone data compilation infrastructure in PostgreSQL
 - The entire buffer is written to the file in a single fwrite operation
+
+## Simplified Source
+
+```c
+// Simplified version of puttzcode
+static void
+puttzcode(const int32 val, FILE *const fp) {
+    char buf[4];
+
+    // Convert int32 to big-endian binary format
+    convert(val, buf);
+
+    // Write the 4-byte buffer to file
+    fwrite(buf, sizeof buf, 1, fp);
+}
+```
+
+Key simplifications made:
+- Simple function with clear purpose: convert integer to binary and write to file
+- Emphasized the conversion to big-endian format step
+- Focused on the core pattern: convert → write

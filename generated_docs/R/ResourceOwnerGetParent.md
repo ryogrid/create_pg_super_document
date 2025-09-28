@@ -35,3 +35,18 @@ The function is primarily used by the lock manager and other subsystems that nee
 - Used primarily by lock management subsystem for resource transfer operations
 - Part of the public resource owner API for hierarchy navigation
 - Critical for proper subtransaction resource management where locks need to be transferred to parent contexts
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerGetParent
+ResourceOwner ResourceOwnerGetParent(ResourceOwner owner) {
+    // Return the parent resource owner (NULL if top-level)
+    return owner->parent;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, so minimal changes needed
+- Added clear comment explaining return value
+- Focused on single responsibility: returning parent pointer

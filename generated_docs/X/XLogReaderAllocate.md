@@ -44,3 +44,55 @@ XLogReaderState *XLogReaderAllocate(int wal_segment_size, const char *waldir, XL
 - The function properly cleans up partial allocations on failure (pfree calls)
 - Initial record buffer is allocated with minimal size and can grow as needed
 - This is the primary entry point for creating WAL readers in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of XLogReaderAllocate
+XLogReaderState *XLogReaderAllocate(int wal_segment_size, const char *waldir,
+                                   XLogReaderRoutine *routine, void *private_data) {
+    XLogReaderState *state;
+
+    // Allocate main state structure with zero initialization
+    state = (XLogReaderState *) palloc_extended(sizeof(XLogReaderState),
+                                               MCXT_ALLOC_NO_OOM | MCXT_ALLOC_ZERO);
+    if (!state)
+        return NULL;
+
+    // Set up caller-provided routines
+    state->routine = *routine;
+
+    // Allocate aligned read buffer for WAL pages
+    state->readBuf = (char *) palloc_extended(XLOG_BLCKSZ, MCXT_ALLOC_NO_OOM);
+    if (!state->readBuf) {
+        pfree(state);
+        return NULL;
+    }
+
+    // Initialize WAL segment context
+    WALOpenSegmentInit(&state->seg, &state->segcxt, wal_segment_size, waldir);
+
+    // Set private data for callbacks
+    state->private_data = private_data;
+
+    // Allocate error message buffer
+    state->errormsg_buf = palloc_extended(MAX_ERRORMSG_LEN + 1, MCXT_ALLOC_NO_OOM);
+    if (!state->errormsg_buf) {
+        pfree(state->readBuf);
+        pfree(state);
+        return NULL;
+    }
+    state->errormsg_buf[0] = '\0';
+
+    // Allocate initial record buffer
+    allocate_recordbuf(state, 0);
+
+    return state;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each allocation step
+- Preserved graceful error handling with cleanup on failure
+- Maintained all essential buffer allocations and initialization
+- Simplified the structure while preserving critical memory management

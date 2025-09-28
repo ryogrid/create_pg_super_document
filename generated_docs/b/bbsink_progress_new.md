@@ -34,3 +34,42 @@ This function creates a new basebackup sink wrapper that adds progress tracking 
 - Progress tracking is initialized with a total backup size of -1, which gets translated to NULL in the progress reporting system
 - The actual backup size estimate will be updated later if estimate_backup_size is true
 - This function is part of the PostgreSQL base backup infrastructure that provides real-time progress information during backup operations
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_progress_new
+bbsink *bbsink_progress_new(bbsink *next, bool estimate_backup_size) {
+    bbsink *sink;
+
+    // Validate next sink exists
+    Assert(next != NULL);
+
+    // Allocate and initialize progress tracking sink
+    sink = palloc0(sizeof(bbsink));
+
+    // Set up operations table for progress tracking functionality
+    *((const bbsink_ops **) &sink->bbs_ops) = &bbsink_progress_ops;
+
+    // Chain to next sink in pipeline
+    sink->bbs_next = next;
+
+    // Initialize progress reporting for base backup
+    // Start command tracking with invalid OID
+    pgstat_progress_start_command(PROGRESS_COMMAND_BASEBACKUP, InvalidOid);
+
+    // Set total backup size to -1 (translates to NULL = unknown size)
+    // Will be updated later if size estimation is enabled
+    pgstat_progress_update_param(PROGRESS_BASEBACKUP_BACKUP_TOTAL, -1);
+
+    return sink;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining progress tracking initialization
+- Preserved all essential functionality and sink chaining
+- Maintained progress reporting system setup
+- Kept validation and memory allocation intact
+- Simplified structure while preserving all functionality
+- Note: estimate_backup_size parameter is stored implicitly in the progress system

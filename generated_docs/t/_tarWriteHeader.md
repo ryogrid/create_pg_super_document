@@ -51,3 +51,55 @@ When sizeonly is true, the function performs size calculation without actually w
 - The function is designed to work with PostgreSQL's streaming backup architecture
 - Buffer management is handled through the bbsink interface for efficient I/O operations
 - Supports both regular file headers and symbolic link headers through the linktarget parameter
+
+## Simplified Source
+
+```c
+// Simplified version of _tarWriteHeader
+static int64 _tarWriteHeader(bbsink *sink, const char *filename, const char *linktarget,
+                            struct stat *statbuf, bool sizeonly) {
+    enum tarError rc;
+
+    if (!sizeonly) {
+        // Validate buffer size for TAR block
+        StaticAssertDecl(TAR_BLOCK_SIZE <= BLCKSZ, "BLCKSZ too small for tar block");
+        Assert(sink->bbs_buffer_length >= TAR_BLOCK_SIZE);
+
+        // Create TAR header in buffer
+        rc = tarCreateHeader(sink->bbs_buffer, filename, linktarget,
+                            statbuf->st_size, statbuf->st_mode,
+                            statbuf->st_uid, statbuf->st_gid,
+                            statbuf->st_mtime);
+
+        // Handle TAR format errors
+        switch (rc) {
+            case TAR_OK:
+                break;
+            case TAR_NAME_TOO_LONG:
+                ereport(ERROR,
+                        (errmsg("file name too long for tar format: \"%s\"", filename)));
+                break;
+            case TAR_SYMLINK_TOO_LONG:
+                ereport(ERROR,
+                        (errmsg("symbolic link target too long for tar format: "
+                                "file name \"%s\", target \"%s\"",
+                                filename, linktarget)));
+                break;
+            default:
+                elog(ERROR, "unrecognized tar error: %d", rc);
+        }
+
+        // Send header to backup sink
+        bbsink_archive_contents(sink, TAR_BLOCK_SIZE);
+    }
+
+    return TAR_BLOCK_SIZE;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Streamlined the error handling switch statement
+- Maintained TAR format validation and buffer size checks
+- Preserved the essential TAR header creation and transmission functionality
+- Kept all error reporting for format violations

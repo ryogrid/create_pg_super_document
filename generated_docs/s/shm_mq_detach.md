@@ -40,3 +40,37 @@ The detachment process follows a specific sequence: first, any pending send data
 - Critical for proper resource management in PostgreSQL's parallel processing framework
 - Used extensively in parallel query execution, tuple queues, and logical replication
 - Must be called to avoid resource leaks when done with a message queue
+
+## Simplified Source
+
+```c
+// Simplified version of shm_mq_detach
+void shm_mq_detach(shm_mq_handle *mqh) {
+    // Commit any pending send data before detaching
+    if (mqh->mqh_send_pending > 0) {
+        shm_mq_inc_bytes_written(mqh->mqh_queue, mqh->mqh_send_pending);
+        mqh->mqh_send_pending = 0;
+    }
+
+    // Notify counterparty of detachment
+    shm_mq_detach_internal(mqh->mqh_queue);
+
+    // Cancel DSM segment cleanup callback if registered
+    if (mqh->mqh_segment) {
+        cancel_on_dsm_detach(mqh->mqh_segment,
+                            shm_mq_detach_callback,
+                            PointerGetDatum(mqh->mqh_queue));
+    }
+
+    // Free local memory resources
+    if (mqh->mqh_buffer != NULL)
+        pfree(mqh->mqh_buffer);
+    pfree(mqh);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each cleanup phase
+- Preserved the sequential cleanup order for data integrity
+- Maintained the pending data commit logic
+- Kept the DSM callback cancellation and memory cleanup

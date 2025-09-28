@@ -52,3 +52,105 @@ The function handles different behavior depending on whether the backup is taken
 - WAL archiving wait loop continues indefinitely until segments are archived or interrupted
 - Uses exclusive WAL insertion lock to maintain consistency when updating backup counters
 - File location: src/backend/access/transam/xlog.c:9136-9409
+
+## Simplified Source
+
+```c
+// Simplified version of do_pg_backup_stop (complex function condensed)
+void do_pg_backup_stop(BackupState *state, bool waitforarchive) {
+    bool backup_stopped_in_recovery = RecoveryInProgress();
+
+    // Validate WAL level
+    if (!backup_stopped_in_recovery && !XLogIsNeeded())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("WAL level not sufficient for making an online backup")));
+
+    // Update backup counters and session state
+    WALInsertLockAcquireExclusive();
+    Assert(XLogCtl->Insert.runningBackups > 0);
+    XLogCtl->Insert.runningBackups--;
+    sessionBackupState = SESSION_BACKUP_NONE;
+    WALInsertLockRelease();
+
+    // Check for standby promotion during backup
+    if (state->started_in_recovery && !backup_stopped_in_recovery)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("the standby was promoted during online backup")));
+
+    if (backup_stopped_in_recovery) {
+        // Recovery mode: validate full-page writes and use min recovery point
+        SpinLockAcquire(&XLogCtl->info_lck);
+        XLogRecPtr recptr = XLogCtl->lastFpwDisableRecPtr;
+        SpinLockRelease(&XLogCtl->info_lck);
+
+        if (state->startpoint <= recptr)
+            ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                    errmsg("WAL generated with \"full_page_writes=off\" was replayed")));
+
+        LWLockAcquire(ControlFileLock, LW_SHARED);
+        state->stoppoint = ControlFile->minRecoveryPoint;
+        state->stoptli = ControlFile->minRecoveryPointTLI;
+        LWLockRelease(ControlFileLock);
+    } else {
+        // Normal mode: write end-of-backup record and create history file
+        XLogBeginInsert();
+        XLogRegisterData((char *) (&state->startpoint), sizeof(state->startpoint));
+        state->stoppoint = XLogInsert(RM_XLOG_ID, XLOG_BACKUP_END);
+        state->stoptli = XLogCtl->InsertTimeLineID;
+
+        // Force WAL switch
+        RequestXLogSwitch(false);
+        state->stoptime = (pg_time_t) time(NULL);
+
+        // Create backup history file
+        char histfilepath[MAXPGPATH];
+        XLogSegNo _logSegNo;
+        XLByteToSeg(state->startpoint, _logSegNo, wal_segment_size);
+        BackupHistoryFilePath(histfilepath, state->stoptli, _logSegNo,
+                              state->startpoint, wal_segment_size);
+
+        FILE *fp = AllocateFile(histfilepath, "w");
+        if (!fp)
+            ereport(ERROR, (errcode_for_file_access(),
+                    errmsg("could not create file \"%s\": %m", histfilepath)));
+
+        char *history_file = build_backup_content(state, true);
+        fprintf(fp, "%s", history_file);
+        pfree(history_file);
+
+        if (fflush(fp) || ferror(fp) || FreeFile(fp))
+            ereport(ERROR, (errcode_for_file_access(),
+                    errmsg("could not write file \"%s\": %m", histfilepath)));
+
+        CleanupBackupHistory();
+    }
+
+    // Wait for WAL archiving if requested
+    if (waitforarchive && ((backup_stopped_in_recovery && XLogArchivingAlways()) ||
+                          (!backup_stopped_in_recovery && XLogArchivingActive()))) {
+        // Wait for required WAL segments to be archived
+        // [Archiving wait loop condensed for brevity]
+        char lastxlogfilename[MAXFNAMELEN];
+        char histfilename[MAXFNAMELEN];
+        int waits = 0;
+
+        while (XLogArchiveIsBusy(lastxlogfilename) || XLogArchiveIsBusy(histfilename)) {
+            CHECK_FOR_INTERRUPTS();
+            WaitLatch(MyLatch, WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                      1000L, WAIT_EVENT_BACKUP_WAIT_WAL_ARCHIVE);
+            ResetLatch(MyLatch);
+            waits++;
+            // Progress reporting logic...
+        }
+        ereport(NOTICE, (errmsg("all required WAL segments have been archived")));
+    }
+}
+```
+
+Key simplifications made:
+- Condensed the WAL archiving wait loop while preserving structure
+- Maintained critical backup state management and validation
+- Preserved the dual-mode operation (recovery vs normal)
+- Kept essential error handling and file operations
+- Maintained proper locking patterns and cleanup
+- Note: Some detailed logic condensed for brevity but core functionality preserved

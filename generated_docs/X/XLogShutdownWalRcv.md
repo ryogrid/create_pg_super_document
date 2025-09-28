@@ -38,3 +38,24 @@ The function combines WAL receiver shutdown with the cleanup of associated state
 - Uses exclusive locking to ensure atomic updates to the control structure
 - Location: src/backend/access/transam/xlog.c:9489-9499
 - Essential for clean shutdown during recovery transitions and replication state changes
+
+## Simplified Source
+
+```c
+// Simplified version of XLogShutdownWalRcv
+void XLogShutdownWalRcv(void) {
+    // Step 1: Shutdown the WAL receiver process
+    ShutdownWalRcv();
+
+    // Step 2: Reset the installation flag under lock protection
+    LWLockAcquire(ControlFileLock, LW_EXCLUSIVE);
+    XLogCtl->InstallXLogFileSegmentActive = false;
+    LWLockRelease(ControlFileLock);
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments
+- Maintained the simple wrapper function structure
+- Preserved critical locking mechanism
+- Focused on the coordinated shutdown process

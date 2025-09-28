@@ -47,3 +47,43 @@ The function is designed to handle page modifications that might have occurred s
 - Returns InvalidOffsetNumber if the child pointer is not found on the page
 - Optimized for the common case where page modifications involve insertions rather than deletions
 - Critical for maintaining parent-child relationships during index traversal after page splits or modifications
+
+## Simplified Source
+
+```c
+// Simplified version of entryFindChildPtr
+static OffsetNumber entryFindChildPtr(GinBtree btree, Page page, BlockNumber blkno, OffsetNumber storedOff) {
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+
+    // Try the stored offset first (optimization for unchanged pages)
+    if (storedOff >= FirstOffsetNumber && storedOff <= maxoff) {
+        IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, storedOff));
+        if (GinGetDownlink(itup) == blkno)
+            return storedOff;
+
+        // Search rightward from stored position (common case for insertions)
+        for (OffsetNumber i = storedOff + 1; i <= maxoff; i++) {
+            itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, i));
+            if (GinGetDownlink(itup) == blkno)
+                return i;
+        }
+        maxoff = storedOff - 1;
+    }
+
+    // Last resort: complete linear scan from beginning
+    for (OffsetNumber i = FirstOffsetNumber; i <= maxoff; i++) {
+        IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, i));
+        if (GinGetDownlink(itup) == blkno)
+            return i;
+    }
+
+    return InvalidOffsetNumber;
+}
+```
+
+Key simplifications made:
+- Removed assertions for clarity
+- Added explanatory comments for each search phase
+- Consolidated variable declarations
+- Emphasized the three-phase search strategy
+- Maintained the optimization logic while improving readability

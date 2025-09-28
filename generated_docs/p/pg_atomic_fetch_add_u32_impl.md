@@ -38,3 +38,30 @@ This implementation is part of PostgreSQL's portable atomic operations layer, wh
 - The function is thread-safe but may cause blocking if multiple threads contend for the same atomic variable
 - Part of PostgreSQL's conditional compilation system - only compiled when native atomic operations are unavailable
 - The semaphore field in the atomic structure is used as a spinlock for synchronization
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_fetch_add_u32_impl
+uint32 pg_atomic_fetch_add_u32_impl(volatile pg_atomic_uint32 *ptr, int32 add_) {
+    uint32 oldval;
+
+    // Acquire spinlock for atomic operation
+    SpinLockAcquire((slock_t *) &ptr->sema);
+
+    // Save original value and perform addition
+    oldval = ptr->value;
+    ptr->value += add_;
+
+    // Release spinlock
+    SpinLockRelease((slock_t *) &ptr->sema);
+
+    return oldval;
+}
+```
+
+Key simplifications made:
+- Core logic: acquire lock, save old value, add new value, release lock, return old value
+- Spinlock-based fallback implementation for platforms without native atomic operations
+- Thread-safe operation through exclusive locking mechanism
+- Returns original value before addition for fetch-and-add semantics

@@ -42,3 +42,29 @@ The authenticated user ID established by this function remains constant througho
 - Critical for establishing the security context that underlies all subsequent authorization decisions
 - The authenticated user ID cannot be changed once set, unlike session or current user IDs
 - Used in parallel worker processes to inherit the authenticated identity from the main backend process
+
+## Simplified Source
+
+```c
+// Simplified version of SetAuthenticatedUserId
+void SetAuthenticatedUserId(Oid userid) {
+    // Validate input - must be a valid user OID
+    Assert(OidIsValid(userid));
+
+    // Ensure this is called only once per session
+    Assert(!OidIsValid(AuthenticatedUserId));
+
+    // Set the authenticated user for this session
+    AuthenticatedUserId = userid;
+
+    // Update the process entry so other backends can see our user
+    MyProc->roleId = userid;
+}
+```
+
+Key simplifications made:
+- Focused on the core authentication establishment logic
+- Preserved critical assertions for safety
+- Added explanatory comments for each step
+- Emphasized the one-time-only semantics
+- Showed the dual update pattern (global var + process entry)

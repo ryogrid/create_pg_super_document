@@ -47,3 +47,42 @@ The function uses a clever hack where  is repurposed to collect row security fla
 - The dependency extraction is intentionally incomplete compared to full planning - it doesn't account for const-folding effects or domain elision, which is acceptable since those would only add dependencies, not remove critical ones
 - The dummy planner structures allow reuse of existing dependency tracking infrastructure without full query planning overhead
 - Row security detection is handled as a special case using the  flag in the global state
+
+## Simplified Source
+
+```c
+// Simplified version of extract_query_dependencies
+void extract_query_dependencies(Node *query, List **relationOids,
+                               List **invalItems, bool *hasRowSecurity) {
+    PlannerGlobal glob;
+    PlannerInfo root;
+
+    // Initialize dummy planner global state
+    MemSet(&glob, 0, sizeof(glob));
+    glob.type = T_PlannerGlobal;
+    glob.relationOids = NIL;
+    glob.invalItems = NIL;
+    glob.dependsOnRole = false;  // Used to track row security
+
+    // Initialize dummy planner info state
+    MemSet(&root, 0, sizeof(root));
+    root.type = T_PlannerInfo;
+    root.glob = &glob;
+
+    // Extract dependencies using existing walker infrastructure
+    (void) extract_query_dependencies_walker(query, &root);
+
+    // Return collected dependency information
+    *relationOids = glob.relationOids;
+    *invalItems = glob.invalItems;
+    *hasRowSecurity = glob.dependsOnRole;
+}
+```
+
+Key simplifications made:
+- Simplified comments while preserving essential functionality
+- Consolidated the dummy state setup
+- Preserved the essential initialization of PlannerGlobal and PlannerInfo structures
+- Maintained the walker call and output parameter assignment
+- Focused on core workflow: setup dummy state, run dependency walker, return results
+- Kept the clever hack of using dependsOnRole for row security tracking

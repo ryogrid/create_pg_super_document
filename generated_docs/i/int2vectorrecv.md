@@ -36,3 +36,44 @@ This function handles the binary input protocol for int2vector data types, conve
 - Validates that the result is a proper int2vector (1-D, 0-based, no nulls, INT2OID elements)
 - Uses -1 as the typmod parameter to indicate no specific type modifier
 - Essential for binary protocol communication and data serialization/deserialization
+
+## Simplified Source
+
+```c
+// Simplified version of int2vectorrecv
+Datum int2vectorrecv(PG_FUNCTION_ARGS) {
+    LOCAL_FCINFO(local_fcinfo, 3);
+    StringInfo input_buffer = (StringInfo) PG_GETARG_POINTER(0);
+    int2vector *result;
+
+    // Setup function call info for array_recv (needed for caching)
+    InitFunctionCallInfoData(*local_fcinfo, fcinfo->flinfo, 3,
+                             InvalidOid, NULL, NULL);
+
+    // Set arguments for array_recv: buffer, element type, typmod
+    local_fcinfo->args[0].value = PointerGetDatum(input_buffer);
+    local_fcinfo->args[0].isnull = false;
+    local_fcinfo->args[1].value = ObjectIdGetDatum(INT2OID);
+    local_fcinfo->args[1].isnull = false;
+    local_fcinfo->args[2].value = Int32GetDatum(-1);  // No typmod
+    local_fcinfo->args[2].isnull = false;
+
+    // Delegate to generic array receive function
+    result = (int2vector *) DatumGetPointer(array_recv(local_fcinfo));
+
+    // Validate int2vector constraints
+    if (ARR_NDIM(result) != 1 || ARR_HASNULL(result) ||
+        ARR_ELEMTYPE(result) != INT2OID || ARR_LBOUND(result)[0] != 0) {
+        ereport(ERROR, /* invalid int2vector data error */);
+    }
+
+    PG_RETURN_POINTER(result);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names
+- Added comments explaining the function call setup process
+- Consolidated validation logic with clear constraints
+- Focused on the delegation pattern and validation steps
+- Removed detailed error message for clarity

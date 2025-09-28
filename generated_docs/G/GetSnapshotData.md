@@ -83,3 +83,150 @@ The function also updates global visibility bounds (GlobalVis*Rels) and backend-
 - The function handles both bootstrap mode and normal transaction processing
 - Critical for maintaining transaction isolation and implementing PostgreSQL's MVCC model
 - Updates global visibility state used by vacuum and other maintenance operations
+
+## Simplified Source
+
+```c
+// Simplified version of GetSnapshotData
+Snapshot GetSnapshotData(Snapshot snapshot) {
+    ProcArrayStruct *arrayP = procArray;
+    TransactionId *other_xids = ProcGlobal->xids;
+    TransactionId xmin, xmax;
+    int count = 0;
+    int subcount = 0;
+    bool suboverflowed = false;
+
+    Assert(snapshot != NULL);
+
+    // Allocate XID arrays if this is the first call
+    if (snapshot->xip == NULL) {
+        snapshot->xip = (TransactionId *)
+            malloc(GetMaxSnapshotXidCount() * sizeof(TransactionId));
+        if (snapshot->xip == NULL) {
+            ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+        }
+
+        snapshot->subxip = (TransactionId *)
+            malloc(GetMaxSnapshotSubxidCount() * sizeof(TransactionId));
+        if (snapshot->subxip == NULL) {
+            ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+        }
+    }
+
+    // Acquire shared lock on process array
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Try to reuse existing snapshot data
+    if (GetSnapshotDataReuse(snapshot)) {
+        LWLockRelease(ProcArrayLock);
+        return snapshot;
+    }
+
+    // Get current transaction state
+    FullTransactionId latest_completed = TransamVariables->latestCompletedXid;
+    TransactionId myxid = other_xids[MyProc->pgxactoff];
+
+    // Set xmax to next XID after latest completed
+    xmax = XidFromFullTransactionId(latest_completed);
+    TransactionIdAdvance(xmax);
+    xmin = xmax; // Start with xmax, then find actual minimum
+
+    // Include our own XID in xmin calculation
+    if (TransactionIdIsNormal(myxid) && NormalTransactionIdPrecedes(myxid, xmin)) {
+        xmin = myxid;
+    }
+
+    snapshot->takenDuringRecovery = RecoveryInProgress();
+
+    if (!snapshot->takenDuringRecovery) {
+        // Normal operation: scan proc array for active transactions
+        int numProcs = arrayP->numProcs;
+        TransactionId *xip = snapshot->xip;
+
+        for (int pgxactoff = 0; pgxactoff < numProcs; pgxactoff++) {
+            TransactionId xid = UINT32_ACCESS_ONCE(other_xids[pgxactoff]);
+            uint8 statusFlags;
+
+            // Skip invalid XIDs and our own XID
+            if (xid == InvalidTransactionId || pgxactoff == MyProc->pgxactoff) {
+                continue;
+            }
+
+            // Skip XIDs >= xmax (they're considered running anyway)
+            if (!NormalTransactionIdPrecedes(xid, xmax)) {
+                continue;
+            }
+
+            // Skip VACUUM and logical decoding processes
+            statusFlags = ProcGlobal->statusFlags[pgxactoff];
+            if (statusFlags & (PROC_IN_LOGICAL_DECODING | PROC_IN_VACUUM)) {
+                continue;
+            }
+
+            // Update xmin and add to snapshot
+            if (NormalTransactionIdPrecedes(xid, xmin)) {
+                xmin = xid;
+            }
+            xip[count++] = xid;
+
+            // Collect subtransaction XIDs if not overflowed
+            if (!suboverflowed) {
+                XidCacheStatus *subxidState = &ProcGlobal->subxidStates[pgxactoff];
+                if (subxidState->overflowed) {
+                    suboverflowed = true;
+                } else if (subxidState->count > 0) {
+                    PGPROC *proc = &allProcs[arrayP->pgprocnos[pgxactoff]];
+                    pg_read_barrier();
+                    memcpy(snapshot->subxip + subcount, proc->subxids.xids,
+                           subxidState->count * sizeof(TransactionId));
+                    subcount += subxidState->count;
+                }
+            }
+        }
+    } else {
+        // Hot Standby: use known assigned XIDs
+        subcount = KnownAssignedXidsGetAndSetXmin(snapshot->subxip, &xmin, xmax);
+        if (TransactionIdPrecedesOrEquals(xmin, procArray->lastOverflowedXid)) {
+            suboverflowed = true;
+        }
+    }
+
+    // Update backend globals and release lock
+    if (!TransactionIdIsValid(MyProc->xmin)) {
+        MyProc->xmin = TransactionXmin = xmin;
+    }
+
+    LWLockRelease(ProcArrayLock);
+
+    // Update global visibility bounds for vacuum coordination
+    // (GlobalVis* variables update logic simplified)
+
+    RecentXmin = xmin;
+
+    // Fill in snapshot structure
+    snapshot->xmin = xmin;
+    snapshot->xmax = xmax;
+    snapshot->xcnt = count;
+    snapshot->subxcnt = subcount;
+    snapshot->suboverflowed = suboverflowed;
+    snapshot->snapXactCompletionCount = TransamVariables->xactCompletionCount;
+    snapshot->curcid = GetCurrentCommandId(false);
+
+    // Initialize snapshot metadata
+    snapshot->active_count = 0;
+    snapshot->regd_count = 0;
+    snapshot->copied = false;
+    snapshot->lsn = InvalidXLogRecPtr;
+    snapshot->whenTaken = 0;
+
+    return snapshot;
+}
+```
+
+Key simplifications made:
+- Condensed the complex ProcArray scanning logic into essential steps
+- Simplified memory allocation and error handling
+- Removed detailed global visibility update logic (noted as simplified)
+- Consolidated Hot Standby vs normal operation paths
+- Preserved all critical functionality while dramatically reducing complexity
+- Maintained proper locking and memory barriers where essential

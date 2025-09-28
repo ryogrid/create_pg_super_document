@@ -34,3 +34,18 @@ This implementation leverages all the complex comparison logic already present i
 - Inherits all the same behavior regarding type mismatches, column count differences, and NULL handling from 
 - Part of the complete set of comparison operators for PostgreSQL record types
 - The  parameter is passed through unchanged to , maintaining all context and argument information
+
+## Simplified Source
+
+```c
+// Simplified version of record_ne
+Datum record_ne(PG_FUNCTION_ARGS) {
+    // Simply negate the result of record equality
+    PG_RETURN_BOOL(!DatumGetBool(record_eq(fcinfo)));
+}
+```
+
+Key simplifications made:
+- The function is already extremely simple - just negates record_eq result
+- No additional simplification needed as it's a one-line wrapper
+- Maintains the same semantics and error handling through record_eq delegation

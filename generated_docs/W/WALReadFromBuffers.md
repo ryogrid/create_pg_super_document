@@ -40,3 +40,74 @@ The function will only operate on the current timeline and refuses to read durin
 - Callers must ensure they don't read beyond LogwrtResult.Write position
 - The double verification approach ensures that evicted pages are detected reliably
 - Critical for WAL streaming replication performance as it avoids disk I/O for recent WAL data
+
+## Simplified Source
+
+```c
+// Simplified version of WALReadFromBuffers
+Size WALReadFromBuffers(char *dstbuf, XLogRecPtr startptr, Size count, TimeLineID tli) {
+    char *pdst = dstbuf;
+    XLogRecPtr recptr = startptr;
+    XLogRecPtr inserted;
+    Size nbytes = count;
+
+    // Only read from current timeline, not during recovery
+    if (RecoveryInProgress() || tli != GetWALInsertionTimeLine())
+        return 0;
+
+    Assert(!XLogRecPtrIsInvalid(startptr));
+
+    // Ensure requested data is within inserted WAL range
+    inserted = pg_atomic_read_u64(&XLogCtl->logInsertResult);
+    if (startptr + count > inserted)
+        ereport(ERROR, (errmsg("cannot read past end of generated WAL")));
+
+    // Lock-free loop through WAL buffer pages
+    while (nbytes > 0) {
+        uint32 offset = recptr % XLOG_BLCKSZ;
+        int idx = XLogRecPtrToBufIdx(recptr);
+        XLogRecPtr expectedEndPtr = recptr + (XLOG_BLCKSZ - offset);
+        XLogRecPtr endptr;
+        const char *page;
+        const char *psrc;
+        Size npagebytes;
+
+        // First verification: check correct page is present
+        endptr = pg_atomic_read_u64(&XLogCtl->xlblocks[idx]);
+        if (expectedEndPtr != endptr)
+            break;  // Page evicted, stop reading
+
+        // Calculate source and bytes to copy from this page
+        page = XLogCtl->pages + idx * (Size) XLOG_BLCKSZ;
+        psrc = page + offset;
+        npagebytes = Min(nbytes, XLOG_BLCKSZ - offset);
+
+        // Memory barrier before data copy
+        pg_read_barrier();
+
+        // Copy data from WAL buffer
+        memcpy(pdst, psrc, npagebytes);
+
+        // Memory barrier after data copy
+        pg_read_barrier();
+
+        // Second verification: ensure page wasn't evicted during copy
+        endptr = pg_atomic_read_u64(&XLogCtl->xlblocks[idx]);
+        if (expectedEndPtr != endptr)
+            break;  // Page evicted during copy, stop reading
+
+        // Update position for next iteration
+        pdst += npagebytes;
+        recptr += npagebytes;
+        nbytes -= npagebytes;
+    }
+
+    return pdst - dstbuf;  // Return bytes successfully copied
+}
+```
+
+Key simplifications made:
+- Maintained lock-free double verification algorithm for data consistency
+- Preserved memory barriers essential for correct ordering
+- Simplified error handling while keeping essential safety checks
+- Focused on core loop structure and buffer management

@@ -46,3 +46,72 @@ WALRead provides a convenient abstraction for reading WAL data by handling segme
 - Includes wait event reporting for monitoring WAL read operations (backend only)
 - Returns true on success, false on failure with detailed error information in errinfo
 - Designed to be used as a building block for more complex WAL reading scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of WALRead
+bool WALRead(XLogReaderState *state, char *buf, XLogRecPtr startptr, Size count, TimeLineID tli, WALReadError *errinfo) {
+    char *p = buf;
+    XLogRecPtr recptr = startptr;
+    Size nbytes = count;
+
+    while (nbytes > 0) {
+        uint32 startoff = XLogSegmentOffset(recptr, state->segcxt.ws_segsize);
+        int segbytes, readbytes;
+
+        // Open new segment if needed (different segment or timeline)
+        if (state->seg.ws_file < 0 ||
+            !XLByteInSeg(recptr, state->seg.ws_segno, state->segcxt.ws_segsize) ||
+            tli != state->seg.ws_tli) {
+
+            XLogSegNo nextSegNo;
+
+            // Close current segment if open
+            if (state->seg.ws_file >= 0)
+                state->routine.segment_close(state);
+
+            // Open the required segment
+            XLByteToSeg(recptr, nextSegNo, state->segcxt.ws_segsize);
+            state->routine.segment_open(state, nextSegNo, &tli);
+
+            // Update segment info
+            state->seg.ws_tli = tli;
+            state->seg.ws_segno = nextSegNo;
+        }
+
+        // Calculate bytes to read from this segment
+        if (nbytes > (state->segcxt.ws_segsize - startoff))
+            segbytes = state->segcxt.ws_segsize - startoff;
+        else
+            segbytes = nbytes;
+
+        // Read data from segment
+        errno = 0;
+        readbytes = pg_pread(state->seg.ws_file, p, segbytes, (off_t) startoff);
+
+        if (readbytes <= 0) {
+            // Fill error information on failure
+            errinfo->wre_errno = errno;
+            errinfo->wre_req = segbytes;
+            errinfo->wre_read = readbytes;
+            errinfo->wre_off = startoff;
+            errinfo->wre_seg = state->seg;
+            return false;
+        }
+
+        // Update position for next iteration
+        recptr += readbytes;
+        nbytes -= readbytes;
+        p += readbytes;
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed wait event reporting for backend processes
+- Simplified segment boundary checking logic
+- Focused on core read loop and error handling
+- Maintained proper segment management and error reporting

@@ -56,3 +56,44 @@ This approach provides better performance for read-only access patterns while ma
 - Scans only the relevant bank's slots rather than using the full LRU mechanism
 - Updates LRU information and statistics when page is found with shared lock
 - Provides the same safety guarantees as SimpleLruReadPage while improving performance
+
+## Simplified Source
+
+```c
+// Simplified version of SimpleLruReadPage_ReadOnly
+int SimpleLruReadPage_ReadOnly(SlruCtl ctl, int64 pageno, TransactionId xid) {
+    SlruShared shared = ctl->shared;
+    LWLock *banklock = SimpleLruGetBankLock(ctl, pageno);
+    int bankno = pageno % ctl->nbanks;
+    int bankstart = bankno * SLRU_BANK_SIZE;
+    int bankend = bankstart + SLRU_BANK_SIZE;
+
+    // Phase 1: Try to find page with shared lock for better concurrency
+    LWLockAcquire(banklock, LW_SHARED);
+
+    // Scan bank slots for the requested page
+    for (int slotno = bankstart; slotno < bankend; slotno++) {
+        if (shared->page_status[slotno] != SLRU_PAGE_EMPTY &&
+            shared->page_number[slotno] == pageno &&
+            shared->page_status[slotno] != SLRU_PAGE_READ_IN_PROGRESS) {
+
+            // Page found: Update LRU info and stats
+            SlruRecentlyUsed(shared, slotno);
+            pgstat_count_slru_page_hit(shared->slru_stats_idx);
+            return slotno;
+        }
+    }
+
+    // Phase 2: Page not found, upgrade to exclusive lock and use full read
+    LWLockRelease(banklock);
+    LWLockAcquire(banklock, LW_EXCLUSIVE);
+    return SimpleLruReadPage(ctl, pageno, true, xid);
+}
+```
+
+Key simplifications made:
+- Removed detailed error reporting context from comments
+- Consolidated bank calculation variables
+- Simplified the two-phase approach explanation in comments
+- Focused on the core optimization strategy: shared lock first, then exclusive fallback
+- Preserved the essential algorithm flow and all functional logic

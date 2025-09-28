@@ -31,3 +31,24 @@ The shm_mq_get_sender function returns a pointer to the PGPROC structure represe
 - Provides read-only access to the queue sender configuration
 - Mirrors the functionality of shm_mq_get_receiver but for the sending side
 - Located in src/backend/storage/ipc/shm_mq.c:257-289
+
+## Simplified Source
+
+```c
+// Simplified version of shm_mq_get_sender
+PGPROC *shm_mq_get_sender(shm_mq *mq) {
+    PGPROC *sender;
+
+    // Thread-safe access to sender field
+    SpinLockAcquire(&mq->mq_mutex);
+    sender = mq->mq_sender;
+    SpinLockRelease(&mq->mq_mutex);
+
+    return sender;
+}
+```
+
+Key simplifications made:
+- Preserved the essential thread-safety mechanism with spinlock
+- Added explanatory comment for the locking purpose
+- Maintained the simple get operation structure

@@ -34,3 +34,25 @@ The implementation follows a simplified assignment strategy due to kernel API li
 - The GUC value may not reflect the actual kernel setting, requiring show_hook functions for accurate display
 - Part of PostgreSQL's broader TCP keep-alive configuration system that includes idle time, interval, and count settings
 - The function is declared in src/include/utils/guc_hooks.h and used by the GUC system infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of assign_tcp_keepalives_idle
+void assign_tcp_keepalives_idle(int newval, void *extra) {
+    // Apply the new TCP keepalive idle time directly to current connection
+    // Note: We use simplified assignment strategy due to kernel API limitations:
+    // - Cannot test values without setting them
+    // - Cannot reliably unset values once set
+    // - Therefore we skip check-then-assign pattern and apply immediately
+    // - Error reporting is handled by pq_setkeepalivesidle via ereport(LOG)
+    pq_setkeepalivesidle(newval, MyProcPort);
+}
+```
+
+Key simplifications made:
+- Removed the void cast as the return value is intentionally ignored
+- Condensed the detailed explanation into a clear comment block
+- Emphasized the key design decision about simplified assignment strategy
+- Made the error handling approach explicit
+- Focused on the core functionality rather than implementation details

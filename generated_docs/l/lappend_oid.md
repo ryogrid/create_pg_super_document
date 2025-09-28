@@ -44,3 +44,33 @@ This function is extensively used throughout PostgreSQL for managing collections
 - Must use return value as function may reallocate the list structure
 - Critical for catalog operations, ACL management, and object dependency tracking
 - One of the core functions for PostgreSQL's object identifier management system
+
+## Simplified Source
+
+```c
+// Simplified version of lappend_oid
+List *lappend_oid(List *list, Oid datum) {
+    // Verify this is an OID list (debug check)
+    Assert(IsOidList(list));
+
+    // Handle empty list case - create new OID list
+    if (list == NIL)
+        list = new_list(T_OidList, 1);
+    else
+        // Add new cell to existing list
+        new_tail_cell(list);
+
+    // Store the OID value in the last cell
+    llast_oid(list) = datum;
+
+    // Validate list structure (debug check)
+    check_list_invariants(list);
+
+    return list;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the list building process
+- Clarified the two-path logic for empty vs existing lists
+- Core logic remains unchanged as it's already well-structured

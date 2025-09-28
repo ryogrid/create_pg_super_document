@@ -40,3 +40,52 @@ The function includes signal handling to prevent interruption during the potenti
 - On Linux, prevents SIGBUS by pre-allocating tmpfs pages rather than creating holes
 - Wait events are reported for monitoring allocation time
 - Critical for reliable shared memory operation on systems with limited tmpfs space
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_impl_posix_resize
+static int dsm_impl_posix_resize(int fd, off_t size) {
+    int rc;
+    int save_errno;
+    sigset_t save_sigmask;
+
+    // Block signals to prevent interruption during allocation
+    if (IsUnderPostmaster)
+        sigprocmask(SIG_SETMASK, &BlockSig, &save_sigmask);
+
+    pgstat_report_wait_start(WAIT_EVENT_DSM_ALLOCATE);
+
+#if defined(HAVE_POSIX_FALLOCATE) && defined(__linux__)
+    // On Linux: pre-allocate tmpfs pages to prevent SIGBUS
+    do {
+        rc = posix_fallocate(fd, 0, size);
+    } while (rc == EINTR);
+
+    errno = rc;  // posix_fallocate doesn't set errno
+#else
+    // Other platforms: simple file extension
+    do {
+        rc = ftruncate(fd, size);
+    } while (rc < 0 && errno == EINTR);
+#endif
+
+    pgstat_report_wait_end();
+
+    // Restore signal mask
+    if (IsUnderPostmaster) {
+        save_errno = errno;
+        sigprocmask(SIG_SETMASK, &save_sigmask, NULL);
+        errno = save_errno;
+    }
+
+    return rc;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic flow
+- Consolidated signal handling explanation into brief comments
+- Maintained platform-specific conditional compilation
+- Preserved critical error handling and retry loops
+- Focused on the core allocation strategy differences between platforms

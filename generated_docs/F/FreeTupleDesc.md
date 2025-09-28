@@ -43,3 +43,56 @@ This function performs a complete cleanup of a tuple descriptor by deallocating 
 - Used extensively in cleanup scenarios across the PostgreSQL codebase
 - Essential for preventing memory leaks in tuple descriptor management
 - Must only be called when no active references exist to the tuple descriptor
+
+## Simplified Source
+
+```c
+// Simplified version of FreeTupleDesc
+void FreeTupleDesc(TupleDesc tupdesc) {
+    // Validate reference count
+    Assert(tupdesc->tdrefcount <= 0);
+
+    // Free constraint structures if they exist
+    if (tupdesc->constr) {
+        // Free default value expressions
+        if (tupdesc->constr->num_defval > 0) {
+            AttrDefault *attrdef = tupdesc->constr->defval;
+            for (int i = tupdesc->constr->num_defval - 1; i >= 0; i--)
+                pfree(attrdef[i].adbin);
+            pfree(attrdef);
+        }
+
+        // Free missing value data
+        if (tupdesc->constr->missing) {
+            AttrMissing *attrmiss = tupdesc->constr->missing;
+            for (int i = tupdesc->natts - 1; i >= 0; i--) {
+                if (attrmiss[i].am_present &&
+                    !TupleDescAttr(tupdesc, i)->attbyval)
+                    pfree(DatumGetPointer(attrmiss[i].am_value));
+            }
+            pfree(attrmiss);
+        }
+
+        // Free check constraints
+        if (tupdesc->constr->num_check > 0) {
+            ConstrCheck *check = tupdesc->constr->check;
+            for (int i = tupdesc->constr->num_check - 1; i >= 0; i--) {
+                pfree(check[i].ccname);
+                pfree(check[i].ccbin);
+            }
+            pfree(check);
+        }
+
+        pfree(tupdesc->constr);
+    }
+
+    // Finally free the tuple descriptor itself
+    pfree(tupdesc);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Consolidated the nested freeing operations
+- Maintained proper reference count validation
+- Preserved all essential cleanup operations for constraints, defaults, and missing values

@@ -39,3 +39,22 @@ This function takes no parameters and returns:
 - CurrentUserId can temporarily differ from OuterUserId during SECURITY DEFINER function calls
 - The assertion makes this function unsuitable for use in error recovery paths; use GetUserIdAndSecContext() instead for such cases
 - This is one of the core security functions in PostgreSQL privilege system
+
+## Simplified Source
+
+```c
+// Simplified version of GetUserId
+Oid GetUserId(void) {
+    // Ensure the current user ID is valid before returning it
+    Assert(OidIsValid(CurrentUserId));
+
+    // Return the current effective user ID
+    return CurrentUserId;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the validation and return purpose
+- Preserved the critical assertion for debugging and safety
+- Focused on the core function: validate and return the current effective user ID
+- Emphasized that this returns effective (not session) user ID

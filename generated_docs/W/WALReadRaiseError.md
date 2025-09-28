@@ -38,3 +38,39 @@ The function constructs meaningful error messages that include the WAL segment f
 - Incomplete read errors are treated as data corruption and use ERRCODE_DATA_CORRUPTED
 - Error messages include precise offset information and read/request byte counts for debugging
 - File location: src/backend/access/transam/xlogutils.c:1020-1043
+
+## Simplified Source
+
+```c
+// Simplified version of WALReadRaiseError
+void WALReadRaiseError(WALReadError *errinfo) {
+    WALOpenSegment *seg = &errinfo->wre_seg;
+    char fname[MAXFNAMELEN];
+
+    // Generate WAL segment filename for error message
+    XLogFileName(fname, seg->ws_tli, seg->ws_segno, wal_segment_size);
+
+    if (errinfo->wre_read < 0) {
+        // System read error - preserve errno
+        errno = errinfo->wre_errno;
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not read from WAL segment %s, offset %d: %m",
+                        fname, errinfo->wre_off)));
+    }
+    else if (errinfo->wre_read == 0) {
+        // Incomplete read - data corruption
+        ereport(ERROR,
+                (errcode(ERRCODE_DATA_CORRUPTED),
+                 errmsg("could not read from WAL segment %s, offset %d: read %d of %d",
+                        fname, errinfo->wre_off, errinfo->wre_read,
+                        errinfo->wre_req)));
+    }
+}
+```
+
+Key simplifications made:
+- Function is already well-structured for error handling
+- Distinguishes between system errors and data corruption
+- Provides detailed error context including filename, offset, and byte counts
+- Always raises ERROR, never returns normally

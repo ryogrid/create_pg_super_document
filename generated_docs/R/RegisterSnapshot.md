@@ -34,3 +34,23 @@ RegisterSnapshot provides a simple interface for registering a snapshot with the
 - Part of PostgreSQL's snapshot management system for MVCC
 - Provides a safer interface by handling null/invalid snapshots gracefully
 - Located in src/backend/utils/time/snapmgr.c:794-806
+
+## Simplified Source
+
+```c
+// Simplified version of RegisterSnapshot
+Snapshot RegisterSnapshot(Snapshot snapshot) {
+    // Handle invalid snapshots gracefully
+    if (snapshot == InvalidSnapshot)
+        return InvalidSnapshot;
+
+    // Register with current resource owner
+    return RegisterSnapshotOnOwner(snapshot, CurrentResourceOwner);
+}
+```
+
+Key simplifications made:
+- Focused on the null checking and delegation pattern
+- Added clear comments for each step
+- Emphasized the convenience wrapper nature
+- Showed the automatic use of CurrentResourceOwner

@@ -40,3 +40,108 @@ The function determines scan direction based on the forward parameter and curren
 - Uses NoMovementScanDirection when already at boundary or count <= 0
 - Supports FETCH_ALL by converting to count = 0 for the executor
 - Located in src/backend/tcop/pquery.c:865-997
+
+## Simplified Source
+
+```c
+// Simplified version of PortalRunSelect
+static uint64 PortalRunSelect(Portal portal, bool forward, long count, DestReceiver *dest) {
+    QueryDesc *queryDesc = portal->queryDesc;
+    ScanDirection direction;
+    uint64 nprocessed;
+
+    // Must have either a ready query or held data
+    Assert(queryDesc || portal->holdStore);
+
+    // Set destination for the query
+    if (queryDesc)
+        queryDesc->dest = dest;
+
+    if (forward) {
+        // Forward scan logic
+        if (portal->atEnd || count <= 0) {
+            direction = NoMovementScanDirection;
+            count = 0;
+        } else {
+            direction = ForwardScanDirection;
+        }
+
+        // Handle FETCH_ALL
+        if (count == FETCH_ALL)
+            count = 0;
+
+        // Execute from store or live query
+        if (portal->holdStore) {
+            nprocessed = RunFromStore(portal, direction, (uint64) count, dest);
+        } else {
+            PushActiveSnapshot(queryDesc->snapshot);
+            ExecutorRun(queryDesc, direction, (uint64) count, false);
+            nprocessed = queryDesc->estate->es_processed;
+            PopActiveSnapshot();
+        }
+
+        // Update portal position for forward scan
+        if (!ScanDirectionIsNoMovement(direction)) {
+            if (nprocessed > 0)
+                portal->atStart = false;
+            if (count == 0 || nprocessed < (uint64) count)
+                portal->atEnd = true;
+            portal->portalPos += nprocessed;
+        }
+    } else {
+        // Backward scan logic
+        if (portal->cursorOptions & CURSOR_OPT_NO_SCROLL) {
+            ereport(ERROR,
+                   (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                    errmsg("cursor can only scan forward"),
+                    errhint("Declare it with SCROLL option to enable backward scan.")));
+        }
+
+        if (portal->atStart || count <= 0) {
+            direction = NoMovementScanDirection;
+            count = 0;
+        } else {
+            direction = BackwardScanDirection;
+        }
+
+        // Handle FETCH_ALL
+        if (count == FETCH_ALL)
+            count = 0;
+
+        // Execute from store or live query
+        if (portal->holdStore) {
+            nprocessed = RunFromStore(portal, direction, (uint64) count, dest);
+        } else {
+            PushActiveSnapshot(queryDesc->snapshot);
+            ExecutorRun(queryDesc, direction, (uint64) count, false);
+            nprocessed = queryDesc->estate->es_processed;
+            PopActiveSnapshot();
+        }
+
+        // Update portal position for backward scan
+        if (!ScanDirectionIsNoMovement(direction)) {
+            if (nprocessed > 0 && portal->atEnd) {
+                portal->atEnd = false;
+                portal->portalPos++;
+            }
+            if (count == 0 || nprocessed < (uint64) count) {
+                portal->atStart = true;
+                portal->portalPos = 0;
+            } else {
+                portal->portalPos -= nprocessed;
+            }
+        }
+    }
+
+    return nprocessed;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Consolidated variable declarations
+- Maintained the forward/backward scan distinction
+- Preserved scroll validation and error handling
+- Kept essential portal position management
+- Focused on core workflow: determine direction, execute, update position
+- Maintained critical safety checks and snapshot management

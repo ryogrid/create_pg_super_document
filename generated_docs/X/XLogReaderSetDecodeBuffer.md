@@ -33,3 +33,27 @@ void XLogReaderSetDecodeBuffer(XLogReaderState *state, void *buffer, size_t size
 - The buffer is used for decoding records that fit within the provided size
 - Oversized records will require separate allocation regardless of this buffer setting
 - This function should only be called once per XLogReaderState instance during initialization
+
+## Simplified Source
+
+```c
+// Simplified version of XLogReaderSetDecodeBuffer
+void XLogReaderSetDecodeBuffer(XLogReaderState *state, void *buffer, size_t size) {
+    // Ensure no buffer is already set
+    Assert(state->decode_buffer == NULL);
+
+    // Configure the decoding buffer
+    state->decode_buffer = buffer;
+    state->decode_buffer_size = size;
+
+    // Initialize head and tail pointers to buffer start
+    state->decode_buffer_tail = buffer;
+    state->decode_buffer_head = buffer;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each configuration step
+- Maintained the essential buffer setup logic
+- Preserved the assertion for safety
+- Focused on the buffer initialization process

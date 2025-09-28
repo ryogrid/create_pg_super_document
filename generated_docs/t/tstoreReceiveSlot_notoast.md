@@ -34,3 +34,22 @@ This callback is selected by `tstoreStartupReceiver` when analysis determines th
 - Always returns true to indicate successful tuple reception
 - Part of a three-function callback system (notoast, detoast, tupmap) chosen based on tuple characteristics
 - The function name explicitly indicates it does not perform detoasting operations
+
+## Simplified Source
+
+```c
+// Simplified version of tstoreReceiveSlot_notoast
+static bool tstoreReceiveSlot_notoast(TupleTableSlot *slot, DestReceiver *self) {
+    TStoreState *myState = (TStoreState *) self;
+
+    // Direct storage without detoasting or mapping
+    tuplestore_puttupleslot(myState->tstore, slot);
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Preserved core tuple storage functionality
+- Maintained simple, efficient execution path
+- Added comment explaining the direct storage approach

@@ -39,3 +39,31 @@ This is a static function, meaning it's only accessible within the plancache.c f
 - In normal usage, exactly one statement should have canSetTag set
 - The function performs a simple linear search through the statement list
 - Located in src/backend/utils/cache/plancache.c:1753-1771
+
+## Simplified Source
+
+```c
+// Simplified version of QueryListGetPrimaryStmt
+static Query *QueryListGetPrimaryStmt(List *stmts) {
+    ListCell *current_cell;
+
+    // Iterate through each statement in the list
+    foreach(current_cell, stmts) {
+        Query *current_stmt = lfirst_node(Query, current_cell);
+
+        // Return the first statement that can set command tags
+        if (current_stmt->canSetTag) {
+            return current_stmt;
+        }
+    }
+
+    // No primary statement found
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names for clarity
+- Added comments explaining the search logic
+- Focused on core logic: iterate through list, find statement with canSetTag, return first match
+- Maintained the simple linear search approach

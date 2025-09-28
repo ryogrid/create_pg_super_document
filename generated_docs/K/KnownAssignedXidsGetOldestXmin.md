@@ -41,3 +41,33 @@ This function is essential for determining transaction visibility horizons and m
 - Part of PostgreSQL's Hot Standby recovery mechanism for transaction management
 - The function is used to determine the oldest active transaction for cleanup and visibility decisions
 - No locking requirements are explicitly mentioned in the code, but typically called while holding appropriate locks on the procArray structure
+
+## Simplified Source
+
+```c
+// Simplified version of KnownAssignedXidsGetOldestXmin
+static TransactionId KnownAssignedXidsGetOldestXmin(void) {
+    // Get current array boundaries
+    int tail = procArray->tailKnownAssignedXids;
+    int head = procArray->headKnownAssignedXids;
+
+    // Ensure memory consistency
+    pg_read_barrier();
+
+    // Find first valid transaction ID (which is the oldest due to sorting)
+    for (int i = tail; i < head; i++) {
+        if (KnownAssignedXidsValid[i]) {
+            return KnownAssignedXids[i];
+        }
+    }
+
+    // No valid entries found
+    return InvalidTransactionId;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Added descriptive comments for each major step
+- Simplified the loop logic while preserving functionality
+- Focused on the core algorithm: find first valid entry in sorted array

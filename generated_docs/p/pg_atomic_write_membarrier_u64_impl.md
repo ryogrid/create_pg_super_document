@@ -39,3 +39,20 @@ The function discards the previous value returned by the exchange operation (usi
 - Should be used only when memory ordering guarantees are specifically required
 - Complementary to  for consistent barrier semantics
 - The void cast explicitly indicates that the old value is intentionally ignored
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_write_membarrier_u64_impl
+static inline void pg_atomic_write_membarrier_u64_impl(volatile pg_atomic_uint64 *ptr, uint64 val) {
+    // Perform atomic write with memory barrier using exchange operation
+    // The old value is discarded - we only need the barrier semantics
+    (void) pg_atomic_exchange_u64_impl(ptr, val);
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the memory barrier purpose
+- Noted that the old value from exchange is intentionally discarded
+- Maintained the essential atomic exchange operation
+- Preserved the inline function structure

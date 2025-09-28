@@ -45,3 +45,48 @@ The implementation uses a loop to handle nested domains efficiently, looking up 
 - Used extensively in type coercion and casting operations throughout the PostgreSQL parser and planner
 - Essential for maintaining type safety when working with user-defined domain types
 - The function is located in lsyscache.c, which provides cached access to system catalog information
+
+## Simplified Source
+
+```c
+// Simplified version of getBaseTypeAndTypmod
+Oid getBaseTypeAndTypmod(Oid typid, int32 *typmod) {
+    // Loop to unwind domain type hierarchy
+    for (;;) {
+        HeapTuple tup;
+        Form_pg_type typTup;
+
+        // Look up type information in system cache
+        tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+        if (!HeapTupleIsValid(tup)) {
+            elog(ERROR, "cache lookup failed for type %u", typid);
+        }
+
+        typTup = (Form_pg_type) GETSTRUCT(tup);
+
+        // Check if this is a domain type
+        if (typTup->typtype != TYPTYPE_DOMAIN) {
+            // Found base type, we're done
+            ReleaseSysCache(tup);
+            break;
+        }
+
+        // This is a domain, follow the chain
+        Assert(*typmod == -1);  // Domain levels should have -1 typmod
+        typid = typTup->typbasetype;
+        *typmod = typTup->typtypmod;
+
+        ReleaseSysCache(tup);
+    }
+
+    return typid;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the domain unwinding process
+- Highlighted the iterative approach to handle nested domains
+- Simplified the system cache lookup and validation
+- Emphasized the typmod handling for domain hierarchies
+- Focused on the main purpose: resolving base types from domain types
+- Preserved the essential type resolution logic

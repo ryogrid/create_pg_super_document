@@ -38,3 +38,42 @@ The function handles both built-in and custom GUC variables, applying proper acc
 
 ## Notes and Other Information
 The returned string is allocated with palloc() and must be freed by the caller using pfree(). The function enforces PostgreSQL's privilege system, requiring appropriate permissions to examine certain configuration variables. The varname parameter, if provided, receives a pointer to the canonical variable name from the GUC registry (this pointer should not be freed). The function respects the missing_ok parameter to provide flexible error handling for applications that need to handle non-existent variables gracefully.
+
+## Simplified Source
+
+```c
+// Simplified version of GetConfigOptionByName
+char *GetConfigOptionByName(const char *name, const char **varname, bool missing_ok) {
+    struct config_generic *record;
+
+    // Find the configuration option
+    record = find_option(name, false, missing_ok, ERROR);
+    if (record == NULL) {
+        if (varname)
+            *varname = NULL;
+        return NULL;
+    }
+
+    // Check if user has permission to examine this option
+    if (!ConfigOptionIsVisible(record))
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied to examine \"%s\"", name),
+                 errdetail("Only roles with privileges of the \"%s\" role may examine this parameter.",
+                           "pg_read_all_settings")));
+
+    // Return canonical name if requested
+    if (varname)
+        *varname = record->name;
+
+    // Return string representation of the option value
+    return ShowGUCOption(record, true);
+}
+```
+
+Key simplifications made:
+- Preserved the essential variable lookup and validation logic
+- Maintained the permission checking mechanism
+- Simplified error reporting while keeping security checks
+- Focused on the core configuration retrieval steps
+- Preserved the optional varname output functionality

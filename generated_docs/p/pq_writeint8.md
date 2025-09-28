@@ -33,3 +33,26 @@ The function uses the  qualifier to enable compiler optimizations by indicating 
 - Uses  annotations for performance optimization by allowing the compiler to assume non-overlapping memory regions
 - Part of PostgreSQL's binary protocol serialization infrastructure used throughout the communication layer
 - The function works directly on the raw buffer data without any endianness considerations since 8-bit values are endianness-neutral
+
+## Simplified Source
+
+```c
+// Simplified version of pq_writeint8
+static inline void pq_writeint8(StringInfoData *buf, uint8 i) {
+    // Verify buffer has enough space
+    Assert(buf->len + sizeof(uint8) <= buf->maxlen);
+
+    // Copy the byte directly to buffer
+    memcpy(buf->data + buf->len, &i, sizeof(uint8));
+
+    // Update buffer length
+    buf->len += sizeof(uint8);
+}
+```
+
+Key simplifications made:
+- Removed pg_restrict annotations for clarity (performance optimization detail)
+- Eliminated the intermediate variable 'ni' as it's not necessary
+- Added clear comments for each operation step
+- Simplified the memcpy call by removing unnecessary cast
+- Focused on the core operation: append byte to buffer

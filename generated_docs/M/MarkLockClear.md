@@ -39,3 +39,21 @@ The function is crucial for PostgreSQL's catalog caching mechanism, as it provid
 - This is part of PostgreSQL's shared invalidation message system for maintaining cache consistency
 - The lockCleared flag helps optimize catalog cache invalidation by avoiding unnecessary cache flushes when the backend already knows it has current information
 - Located in src/backend/storage/lmgr/lock.c at lines 1802-1817
+
+## Simplified Source
+
+```c
+// Simplified version of MarkLockClear
+void MarkLockClear(LOCALLOCK *locallock) {
+    // Verify the lock is actually held
+    Assert(locallock->nLocks > 0);
+
+    // Mark lock as clear - indicates we've processed all sinval messages
+    // generated before acquiring this lock
+    locallock->lockCleared = true;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, only added clarifying comments
+- The core logic remains unchanged as it's a straightforward flag-setting operation

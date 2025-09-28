@@ -43,3 +43,29 @@ This design allows PostgreSQL to minimize performance impact when IO timing stat
 - Used in conjunction with pgstat_count_io_op_time() to measure and record IO operation durations
 - Part of PostgreSQL's performance monitoring infrastructure for analyzing IO bottlenecks
 - The zero initialization when tracking is disabled prevents undefined behavior and compiler warnings
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_prepare_io_time
+instr_time
+pgstat_prepare_io_time(bool track_io_guc) {
+    instr_time io_start;
+
+    if (track_io_guc) {
+        // Capture current time for timing measurement
+        INSTR_TIME_SET_CURRENT(io_start);
+    } else {
+        // Set to zero when timing disabled (avoids compiler warnings)
+        INSTR_TIME_SET_ZERO(io_start);
+    }
+
+    return io_start;
+}
+```
+
+Key simplifications made:
+- This function is already very simple - just a conditional timestamp capture
+- Added clear comments explaining when timing is captured vs when it's zeroed
+- Emphasized the optimization aspect (avoid overhead when timing disabled)
+- Preserved the essential pattern used throughout PostgreSQL's IO timing infrastructure

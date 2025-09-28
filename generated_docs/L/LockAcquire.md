@@ -46,3 +46,21 @@ The function can return different results indicating whether the lock was freshl
 - The function is transaction-safe and integrates with PostgreSQL's deadlock detection
 - Used extensively throughout the system for relation, page, tuple, and advisory locking
 - Provides the foundation for all PostgreSQL locking operations
+
+## Simplified Source
+
+```c
+// Simplified version of LockAcquire
+LockAcquireResult LockAcquire(const LOCKTAG *locktag, LOCKMODE lockmode,
+                              bool sessionLock, bool dontWait) {
+    // Delegate to extended version with default parameters
+    return LockAcquireExtended(locktag, lockmode, sessionLock, dontWait,
+                               true, NULL);
+}
+```
+
+Key simplifications made:
+- Focused on the delegation pattern to LockAcquireExtended
+- Showed the simplified interface compared to the extended version
+- Emphasized the wrapper nature of this function
+- Preserved the key parameters that callers need to understand

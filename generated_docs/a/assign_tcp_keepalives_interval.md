@@ -33,3 +33,20 @@ The tcp_keepalives_interval parameter controls the time interval between individ
 - On Windows, uses SIO_KEEPALIVE_VALS; on Unix-like systems, uses TCP_KEEPINTVL socket option
 - Part of PostgreSQL's libpq communication subsystem for managing client connections
 - The actual socket option setting may fail on unsupported platforms, but the error is logged rather than propagated
+
+## Simplified Source
+
+```c
+// Simplified version of assign_tcp_keepalives_interval
+void assign_tcp_keepalives_interval(int newval, void *extra) {
+    // Apply the new keepalive interval setting to current connection
+    // See assign_tcp_keepalives_idle for detailed comments about error handling
+    pq_setkeepalivesinterval(newval, MyProcPort);
+}
+```
+
+Key simplifications made:
+- Removed the void cast since the return value is intentionally ignored
+- Added clear comment explaining the function's purpose
+- Referenced the related idle function for detailed implementation notes
+- Focused on the core functionality of applying TCP keepalive interval settings

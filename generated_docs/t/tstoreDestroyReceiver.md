@@ -27,3 +27,18 @@ This is a simple cleanup function that serves as the rDestroy callback for tuple
 - Part of the DestReceiver callback interface pattern used throughout PostgreSQL for handling query results
 - The function is registered as the rDestroy callback in CreateTuplestoreDestReceiver
 - Very simple implementation that only calls pfree - all the complex cleanup is handled elsewhere in the receiver lifecycle
+
+## Simplified Source
+
+```c
+// Simplified version of tstoreDestroyReceiver
+static void tstoreDestroyReceiver(DestReceiver *self) {
+    // Final cleanup: free the receiver structure
+    pfree(self);
+}
+```
+
+Key simplifications made:
+- Preserved essential memory deallocation
+- Added clarifying comment about purpose
+- Maintained minimal interface compliance

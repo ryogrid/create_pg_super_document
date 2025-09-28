@@ -44,3 +44,39 @@ The function uses TupleDescInitBuiltinEntry() instead of TupleDescInitEntry() fo
 - The do_text_output_oneline macro handles the conversion from C string to PostgreSQL text datum
 - Complements ShowAllGUCConfig() for the single-parameter case
 - Located in src/backend/utils/misc/guc_funcs.c:428-455
+
+## Simplified Source
+
+```c
+// Simplified version of ShowGUCConfigOption
+static void
+ShowGUCConfigOption(const char *name, DestReceiver *dest)
+{
+    TupOutputState *tstate;
+    TupleDesc tupdesc;
+    const char *varname;
+    char *value;
+
+    // Get the parameter value and canonical name
+    value = GetConfigOptionByName(name, &varname, false);
+
+    // Create single-column tuple descriptor with parameter name as column name
+    tupdesc = CreateTemplateTupleDesc(1);
+    TupleDescInitBuiltinEntry(tupdesc, 1, varname, TEXTOID, -1, 0);
+
+    // Initialize output state
+    tstate = begin_tup_output_tupdesc(dest, tupdesc, &TTSOpsVirtual);
+
+    // Send the value as a single-row result
+    do_text_output_oneline(tstate, value);
+
+    // Clean up
+    end_tup_output(tstate);
+}
+```
+
+Key simplifications made:
+- Added comments explaining each major step
+- Clarified the purpose of using canonical name as column name
+- Preserved all the core functionality
+- Simplified the flow while maintaining exact behavior

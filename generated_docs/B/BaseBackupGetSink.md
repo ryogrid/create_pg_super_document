@@ -36,3 +36,21 @@ The function is part of the backup sink chain construction process, where multip
 - The actual bbsink implementation depends on the target type (client, server-file, etc.)
 - Part of PostgreSQL's pluggable backup sink architecture
 - The returned bbsink must implement the standard bbsink interface for backup data processing
+
+## Simplified Source
+
+```c
+// Simplified version of BaseBackupGetSink
+bbsink *BaseBackupGetSink(BaseBackupTargetHandle *handle, bbsink *next_sink) {
+    // Delegate to target-specific sink constructor
+    // Pass next_sink for chaining and detail_arg for configuration
+    return handle->type->get_sink(next_sink, handle->detail_arg);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - just a delegation wrapper
+- Added clear comments explaining the delegation pattern
+- No additional simplification needed as the function is straightforward
+- Preserves the polymorphic dispatch to target-specific implementations
+- Maintains the communication mechanism between check_detail and get_sink functions

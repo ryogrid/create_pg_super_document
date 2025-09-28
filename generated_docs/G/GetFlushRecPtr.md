@@ -42,3 +42,30 @@ The function includes an assertion to ensure it is only called on systems that a
 - No locking required for timeline access during normal operation
 - Located in src/backend/access/transam/xlog.c:6478-6498
 - Widely used by replication and WAL sender processes
+
+## Simplified Source
+
+```c
+// Simplified version of GetFlushRecPtr
+XLogRecPtr GetFlushRecPtr(TimeLineID *insertTLI) {
+    // Ensure we're not in recovery mode
+    Assert(XLogCtl->SharedRecoveryState == RECOVERY_STATE_DONE);
+
+    // Refresh the current write result information
+    RefreshXLogWriteResult(LogwrtResult);
+
+    // Optionally return the current insertion timeline ID
+    if (insertTLI) {
+        *insertTLI = XLogCtl->InsertTimeLineID;
+    }
+
+    // Return the last flushed WAL position
+    return LogwrtResult.Flush;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each step
+- Simplified the conditional timeline assignment
+- Removed the complex comment about locking (captured in function comments)
+- Preserved all essential functionality and safety checks

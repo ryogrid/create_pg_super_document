@@ -30,3 +30,20 @@ FreeBackupManifest is a cleanup function that properly releases the cryptographi
 - Sets the context pointer to NULL after freeing to prevent accidental reuse
 - Essential for proper resource management in long-running backup operations
 - Part of the standard initialization/cleanup pattern used throughout PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of FreeBackupManifest
+void FreeBackupManifest(backup_manifest_info *manifest) {
+    // Free cryptographic hash context
+    pg_cryptohash_free(manifest->manifest_ctx);
+    manifest->manifest_ctx = NULL;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential cleanup
+- Maintained the cryptographic context cleanup
+- Preserved null pointer assignment to prevent reuse
+- Kept the simple two-step cleanup process

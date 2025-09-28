@@ -50,3 +50,79 @@ The output includes:
 - Helpful for diagnosing memory fragmentation and allocation patterns
 - Should only be used for debugging purposes due to performance impact
 - The pinned status indicates whether the area is pinned in memory
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_dump
+void
+dsa_dump(dsa_area *area) {
+    size_t i, j;
+
+    // Phase 1: Dump area-level information
+    LWLockAcquire(DSA_AREA_LOCK(area), LW_EXCLUSIVE);
+    check_for_freed_segments_locked(area);
+
+    fprintf(stderr, "dsa_area handle %x:\n", area->control->handle);
+    fprintf(stderr, "  max_total_segment_size: %zu\n", area->control->max_total_segment_size);
+    fprintf(stderr, "  total_segment_size: %zu\n", area->control->total_segment_size);
+    fprintf(stderr, "  refcnt: %d\n", area->control->refcnt);
+    fprintf(stderr, "  pinned: %c\n", area->control->pinned ? 't' : 'f');
+
+    // Phase 2: Dump segment bin information
+    fprintf(stderr, "  segment bins:\n");
+    for (i = 0; i < DSA_NUM_SEGMENT_BINS; ++i) {
+        if (area->control->segment_bins[i] != DSA_SEGMENT_INDEX_NONE) {
+            dump_segment_bin(area, i);
+        }
+    }
+    LWLockRelease(DSA_AREA_LOCK(area));
+
+    // Phase 3: Dump pool information for each size class
+    fprintf(stderr, "  pools:\n");
+    for (i = 0; i < DSA_NUM_SIZE_CLASSES; ++i) {
+        LWLockAcquire(DSA_SCLASS_LOCK(area, i), LW_EXCLUSIVE);
+
+        if (has_spans_in_any_fullness_class(area, i)) {
+            dump_size_class_pool(area, i);
+
+            // Dump each fullness class within this size class
+            for (j = 0; j < DSA_FULLNESS_CLASSES; ++j) {
+                dump_fullness_class(area, i, j);
+            }
+        }
+
+        LWLockRelease(DSA_SCLASS_LOCK(area, i));
+    }
+}
+
+// Helper function concepts (simplified representations)
+void dump_segment_bin(dsa_area *area, size_t bin_index) {
+    // Iterate through segment chain and print segment details
+    dsa_segment_index segment_index = area->control->segment_bins[bin_index];
+    while (segment_index != DSA_SEGMENT_INDEX_NONE) {
+        dsa_segment_map *segment_map = get_segment_by_index(area, segment_index);
+        fprintf(stderr, "      segment index %zu, usable_pages = %zu, mapped at %p\n",
+                segment_index, segment_map->header->usable_pages, segment_map->mapped_address);
+        segment_index = segment_map->header->next;
+    }
+}
+
+void dump_fullness_class(dsa_area *area, size_t size_class, size_t fullness_class) {
+    // Walk span chain and print span details
+    dsa_pointer span_pointer = area->control->pools[size_class].spans[fullness_class];
+    while (DsaPointerIsValid(span_pointer)) {
+        dsa_area_span *span = dsa_get_address(area, span_pointer);
+        fprintf(stderr, "        span at " DSA_POINTER_FORMAT ", objects free = %hu/%hu\n",
+                span_pointer, span->nallocatable, span->nmax);
+        span_pointer = span->nextspan;
+    }
+}
+```
+
+Key simplifications made:
+- Broke down the function into clear phases with comments
+- Abstracted repetitive debugging output into conceptual helper functions
+- Simplified the nested loops while preserving the core structure
+- Emphasized the incremental locking strategy
+- Focused on the core pattern: lock → dump info → unlock for each major data structure

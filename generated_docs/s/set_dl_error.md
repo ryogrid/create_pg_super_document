@@ -36,3 +36,31 @@ This function takes no parameters.
 - Forces English language output using 
 - If  fails, provides a fallback error message format: "unknown error %lu"
 - The error message persists until the next dynamic loading operation succeeds or another error occurs
+
+## Simplified Source
+
+```c
+// Simplified version of set_dl_error
+static void set_dl_error(void) {
+    // Get the Windows error code
+    DWORD err = GetLastError();
+
+    // Try to format the error message using Windows API
+    if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+                      NULL, err,
+                      MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT),
+                      last_dyn_error, sizeof(last_dyn_error) - 1,
+                      NULL) == 0) {
+        // Fallback to generic error message if formatting fails
+        snprintf(last_dyn_error, sizeof(last_dyn_error) - 1,
+                 "unknown error %lu", err);
+    }
+}
+```
+
+Key simplifications made:
+- Reformatted the FormatMessage call for better readability
+- Added clear comments explaining each step
+- Simplified the flag combination presentation
+- Focused on the core logic: get error code, format it, or use fallback
+- Removed complex line wrapping while preserving functionality

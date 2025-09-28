@@ -48,3 +48,18 @@ The function is designed to handle any type of binary data and is commonly used 
 - Commonly used in conjunction with other pq_sendXXX functions to build complete protocol messages
 - Part of the family of pq_sendXXX functions that provide type-specific and general-purpose data appending capabilities
 - The trailing null-byte maintained by the underlying appendBinaryStringInfo provides additional safety margins
+
+## Simplified Source
+
+```c
+// Simplified version of pq_sendbytes
+void pq_sendbytes(StringInfo buf, const void *data, int datalen) {
+    // Append raw binary data to the buffer with trailing null-byte for safety
+    appendBinaryStringInfo(buf, data, datalen);
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple, serving as a thin wrapper
+- Added descriptive comment explaining the safety feature
+- Preserved the essential functionality and safety considerations

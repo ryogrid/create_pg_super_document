@@ -51,3 +51,76 @@ The function extracts type information from the tuple header, decomposes the tup
 - Part of PostgreSQL's binary protocol for efficient data transfer
 - Output format is platform-independent and suitable for network transmission
 - Memory management uses palloc/pfree for PostgreSQL compatibility
+
+## Simplified Source
+
+```c
+// Simplified version of record_send
+Datum record_send(PG_FUNCTION_ARGS) {
+    HeapTupleHeader rec = PG_GETARG_HEAPTUPLEHEADER(0);
+
+    // Extract type information from tuple header
+    Oid tupType = HeapTupleHeaderGetTypeId(rec);
+    int32 tupTypmod = HeapTupleHeaderGetTypMod(rec);
+    TupleDesc tupdesc = lookup_rowtype_tupdesc(tupType, tupTypmod);
+    int ncolumns = tupdesc->natts;
+
+    // Build temporary tuple structure for processing
+    HeapTupleData tuple;
+    setup_temp_tuple(&tuple, rec);
+
+    // Setup or reuse cached I/O information
+    RecordIOData *my_extra = setup_record_io_cache(fcinfo, ncolumns, tupType, tupTypmod);
+
+    // Extract column values from tuple
+    Datum *values = (Datum *) palloc(ncolumns * sizeof(Datum));
+    bool *nulls = (bool *) palloc(ncolumns * sizeof(bool));
+    heap_deform_tuple(&tuple, tupdesc, values, nulls);
+
+    // Initialize binary output buffer
+    StringInfoData buf;
+    pq_begintypsend(&buf);
+
+    // Write column count (excluding dropped columns)
+    int validcols = count_valid_columns(tupdesc, ncolumns);
+    pq_sendint32(&buf, validcols);
+
+    // Process each column
+    for (int i = 0; i < ncolumns; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        // Skip dropped columns
+        if (att->attisdropped)
+            continue;
+
+        // Write column type OID
+        pq_sendint32(&buf, att->atttypid);
+
+        // Handle NULL values
+        if (nulls[i]) {
+            pq_sendint32(&buf, -1);  // -1 indicates NULL
+            continue;
+        }
+
+        // Convert column value to binary and send
+        setup_column_send_function(my_extra, i, att->atttypid, fcinfo);
+        bytea *outputbytes = SendFunctionCall(&my_extra->columns[i].proc, values[i]);
+
+        // Send data length and data
+        int datalen = VARSIZE(outputbytes) - VARHDRSZ;
+        pq_sendint32(&buf, datalen);
+        pq_sendbytes(&buf, VARDATA(outputbytes), datalen);
+    }
+
+    // Cleanup and return binary result
+    cleanup_resources(values, nulls, tupdesc);
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```
+
+Key simplifications made:
+- Extracted helper functions for common operations (setup_temp_tuple, setup_record_io_cache, etc.)
+- Simplified the tuple setup and column processing logic
+- Consolidated binary output operations
+- Abstracted complex memory context and caching details
+- Focused on the main binary serialization flow while preserving data integrity

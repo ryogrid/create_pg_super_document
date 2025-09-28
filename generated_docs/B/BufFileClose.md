@@ -23,6 +23,30 @@ The function performs three main operations in sequence:
 ## Parameters / Member Variables
 - : Pointer to the BufFile structure to be closed and cleaned up
 
+## Simplified Source
+
+```c
+// Simplified version of BufFileClose
+void BufFileClose(BufFile *file) {
+    // Flush any unwritten data to ensure no data loss
+    BufFileFlush(file);
+
+    // Close all underlying file descriptors
+    for (int i = 0; i < file->numFiles; i++)
+        FileClose(file->files[i]);
+
+    // Free allocated memory
+    pfree(file->files);
+    pfree(file);
+}
+```
+
+Key simplifications made:
+- Focused on the three-step cleanup process
+- Emphasized data integrity through flushing
+- Simplified the loop structure for closing multiple files
+- Showed clear memory cleanup pattern
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufFileFlush](BufFileFlush.md) (flushes pending data before closing)

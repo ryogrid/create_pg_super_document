@@ -50,3 +50,48 @@ Key characteristics:
 - Must be called multiple times with different parameter combinations to apply all relevant settings (database-specific, role-specific, and global)
 - The snapshot parameter ensures that settings are applied based on a consistent view of the catalog
 - Critical component of PostgreSQL's per-database and per-role configuration parameter system
+
+## Simplified Source
+
+```c
+// Simplified version of ApplySetting
+void ApplySetting(Snapshot snapshot, Oid databaseid, Oid roleid,
+                  Relation relsetting, GucSource source) {
+    ScanKeyData keys[2];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Set up scan keys for exact database/role match
+    ScanKeyInit(&keys[0], Anum_pg_db_role_setting_setdatabase,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(databaseid));
+    ScanKeyInit(&keys[1], Anum_pg_db_role_setting_setrole,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(roleid));
+
+    // Scan pg_db_role_setting for matching entries
+    scan = systable_beginscan(relsetting, DbRoleSettingDatidRolidIndexId,
+                              true, snapshot, 2, keys);
+
+    // Process each matching setting tuple
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        bool isnull;
+        Datum datum = heap_getattr(tup, Anum_pg_db_role_setting_setconfig,
+                                   RelationGetDescr(relsetting), &isnull);
+
+        if (!isnull) {
+            ArrayType *config_array = DatumGetArrayTypeP(datum);
+
+            // Apply all settings at SUSET privilege level
+            ProcessGUCArray(config_array, PGC_SUSET, source, GUC_ACTION_SET);
+        }
+    }
+
+    systable_endscan(scan);
+}
+```
+
+Key simplifications made:
+- Focused on the core catalog scanning and setting application logic
+- Simplified the key setup and scan process
+- Added clear comments for each major step
+- Emphasized the SUSET privilege level processing
+- Consolidated the tuple processing loop

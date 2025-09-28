@@ -41,3 +41,46 @@ If no matching target is found, the function reports an error with ERRCODE_FEATU
 - Throws an error if the requested target type is not registered
 - The returned handle is used by BaseBackupGetSink to create the actual backup sink
 - Memory for the handle is allocated in the current memory context
+
+## Simplified Source
+
+```c
+// Simplified version of BaseBackupGetTargetHandle
+BaseBackupTargetHandle *BaseBackupGetTargetHandle(char *target, char *target_detail) {
+    ListCell *lc;
+
+    // Initialize target list if needed
+    if (BaseBackupTargetTypeList == NIL)
+        initialize_target_list();
+
+    // Search for matching target type
+    foreach(lc, BaseBackupTargetTypeList) {
+        BaseBackupTargetType *ttype = lfirst(lc);
+
+        if (strcmp(ttype->name, target) == 0) {
+            BaseBackupTargetHandle *handle;
+
+            // Create and populate handle
+            handle = palloc(sizeof(BaseBackupTargetHandle));
+            handle->type = ttype;
+            handle->detail_arg = ttype->check_detail(target, target_detail);
+
+            return handle;
+        }
+    }
+
+    // Target not found - report error
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("unrecognized target: \"%s\"", target)));
+
+    return NULL; // Never reached
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving logic flow
+- Simplified the target search loop structure
+- Consolidated handle creation and initialization
+- Maintained error handling and memory allocation
+- Preserved the essential lookup and validation functionality

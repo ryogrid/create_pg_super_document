@@ -38,3 +38,32 @@ This function is essential for query execution infrastructure, particularly for 
 - The canSetTag flag determines which statement provides command completion tags
 - Critical for proper command tag generation in query result reporting
 - Used primarily during portal execution setup and result metadata determination
+
+## Simplified Source
+
+```c
+// Simplified version of PortalGetPrimaryStmt
+PlannedStmt *PortalGetPrimaryStmt(Portal portal) {
+    ListCell *lc;
+
+    // Search through portal's statement list
+    foreach(lc, portal->stmts) {
+        PlannedStmt *stmt = lfirst_node(PlannedStmt, lc);
+
+        // Return the first statement that can set command tags
+        if (stmt->canSetTag) {
+            return stmt;
+        }
+    }
+
+    // No primary statement found
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the search for canSetTag statements
+- Highlighted the purpose: finding the statement responsible for command tags
+- Simplified the iteration logic with clear explanations
+- Focused on the main use case: identifying the primary statement in a portal
+- Preserved the essential linear search pattern

@@ -37,3 +37,45 @@ The function establishes the foundation for parsing by setting up default values
 - Inheritance from parent ParseState enables nested parsing contexts, commonly used in subqueries and complex SQL constructs
 - Hook functions allow customization of parsing behavior for different contexts
 - Location: src/backend/parser/parse_node.c:39-71
+
+## Simplified Source
+
+```c
+// Simplified version of make_parsestate
+ParseState *make_parsestate(ParseState *parentParseState) {
+    ParseState *pstate;
+
+    // Allocate and zero-initialize the ParseState
+    pstate = palloc0(sizeof(ParseState));
+
+    // Set parent relationship
+    pstate->parentParseState = parentParseState;
+
+    // Initialize default values
+    pstate->p_next_resno = 1;
+    pstate->p_resolve_unknowns = true;
+
+    // Inherit configuration from parent if provided
+    if (parentParseState) {
+        pstate->p_sourcetext = parentParseState->p_sourcetext;
+
+        // Copy all hooks from parent
+        pstate->p_pre_columnref_hook = parentParseState->p_pre_columnref_hook;
+        pstate->p_post_columnref_hook = parentParseState->p_post_columnref_hook;
+        pstate->p_paramref_hook = parentParseState->p_paramref_hook;
+        pstate->p_coerce_param_hook = parentParseState->p_coerce_param_hook;
+        pstate->p_ref_hook_state = parentParseState->p_ref_hook_state;
+
+        // Share query environment
+        pstate->p_queryEnv = parentParseState->p_queryEnv;
+    }
+
+    return pstate;
+}
+```
+
+Key simplifications made:
+- Preserved essential ParseState initialization
+- Maintained parent inheritance logic
+- Kept hook copying for extensibility
+- Focused on core parsing context setup

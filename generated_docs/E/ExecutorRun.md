@@ -45,3 +45,26 @@ ExecutorRun handles various execution scenarios, from simple tuple retrieval to 
 - The hook mechanism allows extensions to completely replace or wrap the standard executor execution behavior
 - The execute_once parameter exists for API stability but is not actively used in current implementation
 - Located at src/backend/executor/execMain.c:299-309
+
+## Simplified Source
+
+```c
+// Simplified version of ExecutorRun
+void ExecutorRun(QueryDesc *queryDesc,
+               ScanDirection direction, uint64 count,
+               bool execute_once) {
+    // Check for plugin hook and use it if present
+    if (ExecutorRun_hook) {
+        (*ExecutorRun_hook)(queryDesc, direction, count, execute_once);
+    } else {
+        // Use standard implementation
+        standard_ExecutorRun(queryDesc, direction, count, execute_once);
+    }
+}
+```
+
+Key simplifications made:
+- Preserved essential hook mechanism for plugins
+- Maintained standard implementation delegation
+- Focused on core executor entry point functionality
+- Kept plugin architecture pattern

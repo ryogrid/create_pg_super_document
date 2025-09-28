@@ -46,3 +46,64 @@ The function assumes that RevalidateCachedQuery has already been called to verif
 - Manages transaction isolation by checking if TransactionXmin has advanced for transient plans
 - Generic plans are never one-shot plans (assertion enforced)
 - Invalid plans are automatically unlinked from their parent CachedPlanSource
+
+## Simplified Source
+
+```c
+// Simplified version of CheckCachedPlan
+static bool CheckCachedPlan(CachedPlanSource *plansource) {
+    CachedPlan *plan = plansource->gplan;
+
+    // Caller must have already validated the querytree
+    Assert(plansource->is_valid);
+
+    // No generic plan available
+    if (!plan) {
+        return false;
+    }
+
+    Assert(plan->magic == CACHEDPLAN_MAGIC);
+    Assert(!plan->is_oneshot); // Generic plans are never one-shot
+
+    // Check if plan is valid for current role
+    if (plan->is_valid && plan->dependsOnRole &&
+        plan->planRoleId != GetUserId()) {
+        plan->is_valid = false;
+    }
+
+    // Try to validate and acquire locks
+    if (plan->is_valid) {
+        Assert(plan->refcount > 0); // Plan should be referenced
+
+        // Acquire executor locks
+        AcquireExecutorLocks(plan->stmt_list, true);
+
+        // Check transaction isolation for transient plans
+        if (plan->is_valid &&
+            TransactionIdIsValid(plan->saved_xmin) &&
+            !TransactionIdEquals(plan->saved_xmin, TransactionXmin)) {
+            plan->is_valid = false;
+        }
+
+        // Final validation check after lock acquisition
+        if (plan->is_valid) {
+            // Plan is valid and locked - ready for execution
+            return true;
+        }
+
+        // Race condition occurred - release locks
+        AcquireExecutorLocks(plan->stmt_list, false);
+    }
+
+    // Plan is invalid - clean up and return false
+    ReleaseGenericPlan(plansource);
+    return false;
+}
+```
+
+Key simplifications made:
+- Organized validation checks into logical sequence
+- Added clear comments for each validation step
+- Simplified the race condition handling logic
+- Preserved all essential validation and locking functionality
+- Maintained the critical error handling paths

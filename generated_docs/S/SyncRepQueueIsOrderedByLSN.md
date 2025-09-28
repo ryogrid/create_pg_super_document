@@ -36,3 +36,37 @@ The function walks through the doubly-linked list of processes waiting for synch
 - Uses WalSndCtl->SyncRepQueue[mode] to access the specific wait queue
 - The function assumes that lastLSN starts at 0, meaning all valid LSNs in the queue should be greater than 0
 - This validation is crucial for maintaining the correctness of synchronous replication ordering
+
+## Simplified Source
+
+```c
+// Simplified version of SyncRepQueueIsOrderedByLSN
+static bool SyncRepQueueIsOrderedByLSN(int mode) {
+    // Validate mode parameter
+    Assert(mode >= 0 && mode < NUM_SYNC_REP_WAIT_MODE);
+
+    XLogRecPtr lastLSN = 0;
+    dlist_iter iter;
+
+    // Check each process in the sync replication queue
+    dlist_foreach(iter, &WalSndCtl->SyncRepQueue[mode]) {
+        PGPROC *proc = dlist_container(PGPROC, syncRepLinks, iter.cur);
+
+        // Ensure LSNs are in strictly ascending order
+        if (proc->waitLSN <= lastLSN) {
+            return false;  // Queue is not properly ordered
+        }
+
+        lastLSN = proc->waitLSN;
+    }
+
+    return true;  // Queue is properly ordered
+}
+```
+
+Key simplifications made:
+- Combined variable declarations for clarity
+- Added descriptive comments for each major step
+- Simplified the LSN comparison logic explanation
+- Focused on the core validation: strict ascending order of LSNs
+- Made the return conditions more explicit with comments

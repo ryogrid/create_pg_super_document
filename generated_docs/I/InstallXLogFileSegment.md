@@ -45,3 +45,59 @@ The function performs the installation under ControlFileLock protection to preve
 - Asserts that target path doesn't exist before attempting installation
 - Function can be temporarily disabled by startup process during certain operations
 - Located in src/backend/access/transam/xlog.c:3540-3594
+
+## Simplified Source
+
+```c
+// Simplified version of InstallXLogFileSegment
+static bool InstallXLogFileSegment(XLogSegNo *segno, char *tmppath,
+                                   bool find_free, XLogSegNo max_segno, TimeLineID tli) {
+    char path[MAXPGPATH];
+    struct stat stat_buf;
+
+    Assert(tli != 0);
+
+    // Construct the target file path
+    XLogFilePath(path, tli, *segno, wal_segment_size);
+
+    // Acquire exclusive lock to prevent concurrent modifications
+    LWLockAcquire(ControlFileLock, LW_EXCLUSIVE);
+
+    // Check if installation is currently disabled
+    if (!XLogCtl->InstallXLogFileSegmentActive) {
+        LWLockRelease(ControlFileLock);
+        return false;
+    }
+
+    if (!find_free) {
+        // Force installation: remove any existing file
+        durable_unlink(path, DEBUG1);
+    } else {
+        // Find first available slot
+        while (stat(path, &stat_buf) == 0) {
+            if ((*segno) >= max_segno) {
+                LWLockRelease(ControlFileLock);
+                return false;  // No free slot found
+            }
+            (*segno)++;
+            XLogFilePath(path, tli, *segno, wal_segment_size);
+        }
+    }
+
+    // Atomically rename temp file to final location
+    if (durable_rename(tmppath, path, LOG) != 0) {
+        LWLockRelease(ControlFileLock);
+        return false;
+    }
+
+    LWLockRelease(ControlFileLock);
+    return true;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major operation
+- Simplified the parameter documentation in comments
+- Focused on the core algorithm: lock, find slot or force, rename file
+- Made the error conditions more explicit with comments
+- Preserved the atomic nature while making the flow clearer

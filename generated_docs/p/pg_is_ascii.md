@@ -35,3 +35,26 @@ The function provides a fast, efficient way to validate that a string contains o
 - The function is optimized for early exit, stopping as soon as a non-ASCII character is found
 - Essential for SASL preparation and authentication processes where character encoding matters
 - Used extensively during database initialization to validate locale names and settings
+
+## Simplified Source
+
+```c
+// Simplified version of pg_is_ascii
+bool pg_is_ascii(const char *str) {
+    // Check each character for high bit (non-ASCII)
+    while (*str) {
+        if (IS_HIGHBIT_SET(*str)) {
+            return false;  // Found non-ASCII character
+        }
+        str++;
+    }
+    return true;  // All characters are ASCII
+}
+```
+
+Key simplifications made:
+- Preserved the core ASCII checking logic
+- Added clear comments explaining the high bit check
+- Maintained the early exit optimization
+- Kept the essential IS_HIGHBIT_SET macro usage
+- Simple and straightforward implementation with no changes needed

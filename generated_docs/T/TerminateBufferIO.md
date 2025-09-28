@@ -58,3 +58,40 @@ The clear_dirty parameter enables proper handling of write operations by clearin
 - Used for both successful I/O completion and error handling scenarios
 - Part of PostgreSQL's buffer I/O completion infrastructure
 - The buffer must be pinned when this function is called
+
+## Simplified Source
+
+```c
+// Simplified version of TerminateBufferIO
+static void
+TerminateBufferIO(BufferDesc *buf, bool clear_dirty, uint32 set_flag_bits,
+                  bool forget_owner) {
+    uint32 buf_state;
+
+    // Lock buffer header and clear I/O flags
+    buf_state = LockBufHdr(buf);
+    buf_state &= ~(BM_IO_IN_PROGRESS | BM_IO_ERROR);
+
+    // Clear dirty flags for successful writes (if not re-dirtied)
+    if (clear_dirty && !(buf_state & BM_JUST_DIRTIED))
+        buf_state &= ~(BM_DIRTY | BM_CHECKPOINT_NEEDED);
+
+    // Apply additional status flags (e.g., BM_VALID, BM_IO_ERROR)
+    buf_state |= set_flag_bits;
+    UnlockBufHdr(buf, buf_state);
+
+    // Release I/O from resource owner if requested
+    if (forget_owner)
+        ResourceOwnerForgetBufferIO(CurrentResourceOwner,
+                                  BufferDescriptorGetBuffer(buf));
+
+    // Wake up any processes waiting for this I/O to complete
+    ConditionVariableBroadcast(BufferDescriptorGetIOCV(buf));
+}
+```
+
+Key simplifications made:
+- Added clear comments for each major phase of I/O termination
+- Simplified the state management logic with descriptive comments
+- Emphasized the coordination aspect (waking up waiting processes)
+- Preserved the essential flag management and resource ownership logic

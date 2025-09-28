@@ -45,3 +45,63 @@ This static function is the core snapshot creation mechanism in PostgreSQL's log
 - Initially creates snapshots without subtransaction information (subxip empty)
 - Critical component of the logical replication consistency mechanism
 - Located in src/backend/replication/logical/snapbuild.c:499-578
+
+## Simplified Source
+
+```c
+// Simplified version of SnapBuildBuildSnapshot
+static Snapshot SnapBuildBuildSnapshot(SnapBuild *builder) {
+    Snapshot snapshot;
+    Size ssize;
+
+    // Ensure we're in the correct state for snapshot building
+    Assert(builder->state >= SNAPBUILD_FULL_SNAPSHOT);
+
+    // Calculate memory needed for snapshot and transaction arrays
+    ssize = sizeof(SnapshotData) +
+            sizeof(TransactionId) * builder->committed.xcnt +
+            sizeof(TransactionId) * 1; /* toplevel xid */
+
+    // Allocate and initialize snapshot structure
+    snapshot = MemoryContextAllocZero(builder->context, ssize);
+    snapshot->snapshot_type = SNAPSHOT_HISTORIC_MVCC;
+
+    // Set transaction range boundaries
+    snapshot->xmin = builder->xmin;
+    snapshot->xmax = builder->xmax;
+
+    // Set up array of committed transactions to be treated as visible
+    snapshot->xip = (TransactionId *) ((char *) snapshot + sizeof(SnapshotData));
+    snapshot->xcnt = builder->committed.xcnt;
+
+    // Copy committed transaction IDs
+    memcpy(snapshot->xip, builder->committed.xip,
+           builder->committed.xcnt * sizeof(TransactionId));
+
+    // Sort transaction array for efficient binary search
+    qsort(snapshot->xip, snapshot->xcnt, sizeof(TransactionId), xidComparator);
+
+    // Initialize subtransaction fields (empty initially)
+    snapshot->subxcnt = 0;
+    snapshot->subxip = NULL;
+    snapshot->suboverflowed = false;
+
+    // Set standard snapshot properties
+    snapshot->takenDuringRecovery = false;
+    snapshot->copied = false;
+    snapshot->curcid = FirstCommandId;
+    snapshot->active_count = 0;
+    snapshot->regd_count = 0;
+    snapshot->snapXactCompletionCount = 0;
+
+    return snapshot;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about xip/subxip field repurposing
+- Consolidated memory layout calculations
+- Simplified the transaction ID validation logic
+- Focused on the core snapshot construction steps
+- Abstracted complex field initialization into logical groups
+- Preserved the essential sorting and memory management logic

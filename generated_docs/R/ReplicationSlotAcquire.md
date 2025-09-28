@@ -43,3 +43,91 @@ The function uses a combination of lightweight locks and condition variables to 
 - Logs acquisition events for WAL sender processes based on log_replication_commands setting
 - Handles both single-user mode (no concurrency checks) and multi-user mode
 - Protects against stale statistics from previous slot usage by calling pgstat_acquire_replslot for logical slots
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotAcquire
+void ReplicationSlotAcquire(const char *name, bool nowait) {
+    ReplicationSlot *s;
+    int active_pid;
+
+    Assert(name != NULL);
+
+retry:
+    Assert(MyReplicationSlot == NULL);
+
+    // Find the named replication slot
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+    s = SearchNamedReplicationSlot(name, false);
+
+    if (s == NULL || !s->in_use) {
+        LWLockRelease(ReplicationSlotControlLock);
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("replication slot \"%s\" does not exist", name)));
+    }
+
+    // Check if slot is active in another process
+    if (IsUnderPostmaster) {
+        // Prepare to wait if needed
+        if (!nowait)
+            ConditionVariablePrepareToSleep(&s->active_cv);
+
+        // Atomically check and claim the slot
+        SpinLockAcquire(&s->mutex);
+        if (s->active_pid == 0)
+            s->active_pid = MyProcPid;
+        active_pid = s->active_pid;
+        SpinLockRelease(&s->mutex);
+    } else {
+        // Single user mode - no concurrency
+        s->active_pid = active_pid = MyProcPid;
+    }
+
+    LWLockRelease(ReplicationSlotControlLock);
+
+    // Handle slot already in use by another process
+    if (active_pid != MyProcPid) {
+        if (!nowait) {
+            // Wait for slot to be released and retry
+            ConditionVariableSleep(&s->active_cv, WAIT_EVENT_REPLICATION_SLOT_DROP);
+            ConditionVariableCancelSleep();
+            goto retry;
+        }
+
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_IN_USE),
+                       errmsg("replication slot \"%s\" is active for PID %d",
+                             NameStr(s->data.name), active_pid)));
+    } else if (!nowait) {
+        ConditionVariableCancelSleep(); // no sleep needed
+    }
+
+    // Successfully acquired the slot
+    ConditionVariableBroadcast(&s->active_cv);
+    MyReplicationSlot = s;
+
+    // Initialize statistics for logical slots
+    if (SlotIsLogical(s))
+        pgstat_acquire_replslot(s);
+
+    // Reset inactive timer
+    SpinLockAcquire(&s->mutex);
+    s->inactive_since = 0;
+    SpinLockRelease(&s->mutex);
+
+    // Log acquisition for WAL senders
+    if (am_walsender) {
+        ereport(log_replication_commands ? LOG : DEBUG1,
+                SlotIsLogical(s)
+                ? errmsg("acquired logical replication slot \"%s\"", NameStr(s->data.name))
+                : errmsg("acquired physical replication slot \"%s\"", NameStr(s->data.name)));
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Grouped related operations together logically
+- Simplified error handling while preserving essential checks
+- Maintained the retry mechanism and concurrency control
+- Preserved all critical locking and synchronization logic

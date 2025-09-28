@@ -46,3 +46,39 @@ This function is crucial for determining branch points during timeline switches 
 - Critical for replication and recovery operations that need to understand timeline branching
 - Used extensively in WAL streaming and physical replication setup
 - The function assumes timeline history is properly ordered and complete
+
+## Simplified Source
+
+```c
+// Simplified version of tliSwitchPoint
+XLogRecPtr tliSwitchPoint(TimeLineID tli, List *history, TimeLineID *nextTLI) {
+    ListCell *cell;
+
+    // Initialize output parameter if provided
+    if (nextTLI)
+        *nextTLI = 0;
+
+    // Search through timeline history
+    foreach(cell, history) {
+        TimeLineHistoryEntry *tle = (TimeLineHistoryEntry *) lfirst(cell);
+
+        if (tle->tli == tli)
+            return tle->end;  // Found the timeline, return its end point
+
+        // Track the next timeline ID for output
+        if (nextTLI)
+            *nextTLI = tle->tli;
+    }
+
+    // Timeline not found in history
+    ereport(ERROR, (errmsg("requested timeline %u is not in this server's history", tli)));
+    return InvalidXLogRecPtr;  // Keep compiler quiet
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the search logic
+- Simplified the timeline tracking with descriptive comments
+- Preserved essential error handling for missing timelines
+- Maintained the nextTLI output parameter logic
+- Kept the function compact while preserving all functionality

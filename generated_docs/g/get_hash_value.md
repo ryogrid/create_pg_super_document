@@ -34,3 +34,17 @@ This function is an exported routine that computes the hash value for a key usin
 - Passes the key pointer and key size to the hash function
 - Exported specifically to support partitioned table implementations
 - The hash value's low-order bits are often used to determine partition numbers in distributed hash table scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of get_hash_value
+uint32 get_hash_value(HTAB *hashp, const void *keyPtr) {
+    return hashp->hash(keyPtr, hashp->keysize);
+}
+```
+
+Key simplifications made:
+- Pure function call delegation to hash table's hash function
+- Direct parameter pass-through with key pointer and size
+- Simple wrapper providing public interface to internal hash computation

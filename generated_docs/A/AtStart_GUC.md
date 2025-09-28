@@ -39,3 +39,22 @@ This function takes no parameters.
 - The warning message helps identify bugs in transaction cleanup or improper nesting
 - Part of PostgreSQL's transactional configuration system that ensures GUC changes can be properly rolled back
 - Should always be paired with a corresponding AtEOXact_GUC call at transaction end
+
+## Simplified Source
+
+```c
+// Simplified version of AtStart_GUC
+void AtStart_GUC(void) {
+    // Validate that nest level is 0 between transactions
+    if (GUCNestLevel != 0)
+        elog(WARNING, "GUC nest level = %d at transaction start", GUCNestLevel);
+
+    // Set nest level to 1 for transaction context
+    GUCNestLevel = 1;
+}
+```
+
+Key simplifications made:
+- Function is already simple, just validates and sets GUC nesting level
+- Maintains important warning for detecting cleanup bugs
+- Essential for transactional GUC configuration management

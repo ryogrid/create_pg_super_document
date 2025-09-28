@@ -40,3 +40,54 @@ FillPortalStore is a specialized function used to execute queries and store thei
 - For PORTAL_UTIL_SELECT, it delegates to PortalRunUtility
 - [Query](../Q/Query.md) completion information is preserved and copied to the portal's completion data
 - The destination receiver is properly destroyed after use to prevent memory leaks
+
+## Simplified Source
+
+```c
+// Simplified version of FillPortalStore
+static void FillPortalStore(Portal portal, bool isTopLevel) {
+    QueryCompletion qc;
+
+    // Initialize completion tracking and create tuple store
+    InitializeQueryCompletion(&qc);
+    PortalCreateHoldStore(portal);
+
+    // Create destination receiver for tuple store
+    DestReceiver *treceiver = CreateDestReceiver(DestTuplestore);
+    SetTuplestoreDestReceiverParams(treceiver, portal->holdStore,
+                                  portal->holdContext, false, NULL, NULL);
+
+    // Execute query based on portal strategy
+    switch (portal->strategy) {
+        case PORTAL_ONE_RETURNING:
+        case PORTAL_ONE_MOD_WITH:
+            // Run multi-statement portal with tuplestore output
+            PortalRunMulti(portal, isTopLevel, true, treceiver, None_Receiver, &qc);
+            break;
+
+        case PORTAL_UTIL_SELECT:
+            // Run utility statement
+            PortalRunUtility(portal, linitial_node(PlannedStmt, portal->stmts),
+                           isTopLevel, true, treceiver, &qc);
+            break;
+
+        default:
+            elog(ERROR, "unsupported portal strategy: %d", (int) portal->strategy);
+    }
+
+    // Update portal with actual completion data
+    if (qc.commandTag != CMDTAG_UNKNOWN) {
+        CopyQueryCompletion(&portal->qc, &qc);
+    }
+
+    // Clean up destination receiver
+    treceiver->rDestroy(treceiver);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations
+- Simplified comments while preserving essential information
+- Maintained the switch statement structure for clarity
+- Preserved error handling and cleanup logic
+- Focused on the core workflow: setup store, execute query, update completion data, cleanup

@@ -34,4 +34,19 @@ This function completes the set of comparison operators for record types by prov
 - Part of the complete comparison operator family (=, !=, <, <=, >, >=) for PostgreSQL record types
 - Essential for implementing inclusive range comparisons in SQL queries
 - Like other ordering functions, requires that all column types support comparison operators
-- Inherits the same lexicographic comparison semantics and error handling from the underlying  function
+- Inherits the same lexicographic comparison semantics and error handling from the underlying record_cmp function
+
+## Simplified Source
+
+```c
+// Simplified version of record_le
+Datum record_le(PG_FUNCTION_ARGS) {
+    // Use record_cmp and check if first record is less than or equal to second
+    PG_RETURN_BOOL(record_cmp(fcinfo) <= 0);
+}
+```
+
+Key simplifications made:
+- The function is already extremely simple - just checks if record_cmp returns <= 0
+- No additional simplification needed as it's a one-line wrapper
+- Delegates all comparison logic to record_cmp for consistency and maintainability

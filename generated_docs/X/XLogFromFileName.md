@@ -38,3 +38,25 @@ XLogFromFileName performs the reverse operation of XLogFileName by parsing a WAL
 - Critical for WAL file analysis, backup operations, and streaming replication
 - Assumes the input filename is a valid WAL segment name (should be validated with IsXLogFileName first)
 - The logical segment number calculation accounts for the variable WAL segment size
+
+## Simplified Source
+
+```c
+// Simplified version of XLogFromFileName
+static inline void XLogFromFileName(const char *fname, TimeLineID *tli,
+                                    XLogSegNo *logSegNo, int wal_segsz_bytes) {
+    uint32 log, seg;
+
+    // Parse hexadecimal timeline, log, and segment from filename
+    sscanf(fname, "%08X%08X%08X", tli, &log, &seg);
+
+    // Calculate logical segment number from log and segment components
+    *logSegNo = (uint64) log * XLogSegmentsPerXLogId(wal_segsz_bytes) + seg;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the parsing and calculation steps
+- Combined variable declarations for clarity
+- Focused on the core algorithm: parse filename components and calculate logical segment
+- Simplified the explanation of the hexadecimal parsing operation

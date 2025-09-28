@@ -47,3 +47,32 @@ This function takes no parameters and operates on global MultiXact state.
 - Part of the startup sequence that prepares PostgreSQL for normal operation
 - Does not perform any disk I/O, only updates in-memory state
 - Essential for maintaining consistency between MultiXact ID/offset mappings and their storage pages
+
+## Simplified Source
+
+```c
+// Simplified version of StartupMultiXact
+void StartupMultiXact(void) {
+    // Get the current MultiXact state values
+    MultiXactId multi = MultiXactState->nextMXact;
+    MultiXactOffset offset = MultiXactState->nextOffset;
+    int64 pageno;
+
+    // Initialize offset log's latest page number
+    // Convert MultiXact ID to its offset page number
+    pageno = MultiXactIdToOffsetPage(multi);
+    pg_atomic_write_u64(&MultiXactOffsetCtl->shared->latest_page_number, pageno);
+
+    // Initialize member log's latest page number
+    // Convert offset to its member page number
+    pageno = MXOffsetToMemberPage(offset);
+    pg_atomic_write_u64(&MultiXactMemberCtl->shared->latest_page_number, pageno);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each operation
+- Preserved the essential two-step initialization process
+- Kept atomic operations as they're critical for thread safety
+- Maintained the local variable declarations for clarity
+- Explained the purpose of each page number calculation

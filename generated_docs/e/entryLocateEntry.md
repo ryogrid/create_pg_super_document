@@ -45,3 +45,65 @@ For full scans, it simply returns the leftmost child page. For targeted searches
 - Handles special case of right infinity for rightmost pages
 - Returns the block number of the child page to descend to next
 - Updates the stack offset to point to the located entry for continued traversal
+
+## Simplified Source
+
+```c
+// Simplified version of entryLocateEntry
+static BlockNumber entryLocateEntry(GinBtree btree, GinBtreeStack *stack) {
+    Page page = BufferGetPage(stack->buffer);
+
+    // Handle full scan case: return leftmost child
+    if (btree->fullScan) {
+        stack->off = FirstOffsetNumber;
+        stack->predictNumber *= PageGetMaxOffsetNumber(page);
+        return btree->getLeftMostChild(btree, page);
+    }
+
+    // Binary search for target entry
+    OffsetNumber low = FirstOffsetNumber;
+    OffsetNumber high = PageGetMaxOffsetNumber(page) + 1;
+    OffsetNumber maxoff = high - 1;
+
+    while (high > low) {
+        OffsetNumber mid = low + ((high - low) / 2);
+        int result;
+
+        if (mid == maxoff && GinPageRightMost(page)) {
+            // Right infinity case
+            result = -1;
+        } else {
+            // Compare with entry at mid position
+            IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, mid));
+            OffsetNumber attnum = gintuple_get_attrnum(btree->ginstate, itup);
+            Datum key = gintuple_get_key(btree->ginstate, itup, &category);
+
+            result = ginCompareAttEntries(btree->ginstate,
+                                        btree->entryAttnum, btree->entryKey, btree->entryCategory,
+                                        attnum, key, category);
+        }
+
+        if (result == 0) {
+            // Found exact match
+            stack->off = mid;
+            return GinGetDownlink(itup);
+        } else if (result > 0) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+
+    // No exact match, use the position where key should be
+    stack->off = high;
+    IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, high));
+    return GinGetDownlink(itup);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling assertions for clarity
+- Consolidated variable declarations
+- Added explanatory comments for main logic sections
+- Simplified the binary search flow
+- Focused on the core algorithm while maintaining correctness

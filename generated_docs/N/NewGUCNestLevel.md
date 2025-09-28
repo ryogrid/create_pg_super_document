@@ -43,3 +43,18 @@ This function takes no parameters and returns:
 - Used extensively throughout PostgreSQL for operations that need to temporarily modify configuration
 - Essential for maintaining proper ACID semantics for configuration changes in nested contexts
 - The nesting level affects how push_old_value and other GUC functions handle state management
+
+## Simplified Source
+
+```c
+// Simplified version of NewGUCNestLevel
+int NewGUCNestLevel(void) {
+    // Increment and return the GUC nesting level
+    return ++GUCNestLevel;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments (essential logic is self-explanatory)
+- Preserved the atomic increment-and-return operation
+- Maintained the error-free guarantee critical for subtransaction start

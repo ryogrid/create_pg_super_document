@@ -44,3 +44,24 @@ After the first execution, the function pointer is updated to eliminate the vali
 - Critical for handling schema evolution in long-running connections and prepared statements
 - The validation check is performed only once per expression state, making it efficient for repeated evaluations
 - Part of PostgreSQL's expression evaluation infrastructure that bridges compilation-time optimizations with runtime validation
+
+## Simplified Source
+
+```c
+// Simplified version of ExecInterpExprStillValid
+Datum ExecInterpExprStillValid(ExprState *state, ExprContext *econtext, bool *isNull) {
+    // First execution: validate expression is still compatible with schema
+    CheckExprStillValid(state, econtext);
+
+    // Switch to direct evaluation function for subsequent calls
+    state->evalfunc = (ExprStateEvalFunc) state->evalfunc_private;
+
+    // Execute the actual expression evaluation
+    return state->evalfunc(state, econtext, isNull);
+}
+```
+
+Key simplifications made:
+- Highlighted the one-time validation pattern
+- Clarified the function pointer switch for performance optimization
+- Maintained the essential logic flow for schema compatibility checking

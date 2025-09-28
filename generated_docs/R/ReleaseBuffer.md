@@ -46,3 +46,26 @@ This function is essential for proper buffer management and resource cleanup, en
 - Local buffers have separate handling through UnpinLocalBuffer
 - Essential for preventing buffer leaks and ensuring proper buffer pool management
 - Used extensively in access methods, WAL recovery, and executor operations
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseBuffer
+void ReleaseBuffer(Buffer buffer) {
+    // Validate buffer ID
+    if (!BufferIsValid(buffer))
+        elog(ERROR, "bad buffer ID: %d", buffer);
+
+    // Route to appropriate unpin function based on buffer type
+    if (BufferIsLocal(buffer))
+        UnpinLocalBuffer(buffer);
+    else
+        UnpinBuffer(GetBufferDescriptor(buffer - 1));
+}
+```
+
+Key simplifications made:
+- Core logic: validate buffer and delegate to appropriate unpin function
+- Handles both local and shared buffers with simple type check
+- Shared buffer IDs are converted to 0-based descriptor indices
+- Essential error checking prevents invalid buffer operations

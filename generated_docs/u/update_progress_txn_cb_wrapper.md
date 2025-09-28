@@ -49,3 +49,43 @@ Key responsibilities include:
 - Progress updates help clients track replication lag and processing status during long-running transactions
 - Manages error context stack properly to ensure cleanup on both success and failure paths
 - The write_location is updated to reflect the current processing position for accurate progress reporting
+
+## Simplified Source
+
+```c
+// Simplified version of update_progress_txn_cb_wrapper
+static void update_progress_txn_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                                          XLogRecPtr lsn) {
+    LogicalDecodingContext *ctx = cache->private_data;
+
+    // Set up error context for progress updates
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+    state.ctx = ctx;
+    state.callback_name = "update_progress_txn";
+    state.report_location = lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for progress updates (no writes allowed)
+    ctx->accept_writes = false;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = lsn;
+    ctx->end_xact = false;
+
+    // Send progress update to clients
+    OutputPluginUpdateProgress(ctx, false);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```
+
+Key simplifications made:
+- Removed assertion check for clarity
+- Grouped error context setup together
+- Grouped output state configuration together
+- Added descriptive comments for each section
+- Emphasized that this is for progress tracking, not data output

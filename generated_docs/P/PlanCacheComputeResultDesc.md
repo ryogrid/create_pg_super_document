@@ -39,3 +39,47 @@ This function analyzes a list of statement queries to determine what type of res
 - The result tuple descriptor is created in the current memory context, making it the caller's responsibility to manage its lifetime
 - For RETURNING queries, it specifically looks for the returningList rather than the targetList
 - This function is crucial for plan caching as it allows the system to know what kind of results to expect without executing the plan
+
+## Simplified Source
+
+```c
+// Simplified version of PlanCacheComputeResultDesc
+static TupleDesc PlanCacheComputeResultDesc(List *stmt_list) {
+    Query *query;
+
+    // Determine execution strategy and compute result descriptor
+    switch (ChoosePortalStrategy(stmt_list)) {
+        case PORTAL_ONE_SELECT:
+        case PORTAL_ONE_MOD_WITH:
+            // Single SELECT or modifying query with CTE
+            query = linitial_node(Query, stmt_list);
+            return ExecCleanTypeFromTL(query->targetList);
+
+        case PORTAL_ONE_RETURNING:
+            // Query with RETURNING clause
+            query = QueryListGetPrimaryStmt(stmt_list);
+            Assert(query->returningList);
+            return ExecCleanTypeFromTL(query->returningList);
+
+        case PORTAL_UTIL_SELECT:
+            // Utility statement that returns tuples
+            query = linitial_node(Query, stmt_list);
+            Assert(query->utilityStmt);
+            return UtilityTupleDescriptor(query->utilityStmt);
+
+        case PORTAL_MULTI_QUERY:
+            // Multi-query portal doesn't return tuples
+            break;
+    }
+
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Simplified comments while preserving essential logic
+- Consolidated the switch statement cases
+- Preserved the essential assertions for safety
+- Maintained the different tuple descriptor extraction methods
+- Focused on core workflow: determine strategy, extract appropriate tuple descriptor
+- Kept the NULL return for non-tuple-returning cases

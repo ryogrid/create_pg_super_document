@@ -36,3 +36,22 @@ This inline function serves as a wrapper to begin a new archive within the Postg
 - The function delegates actual archive creation to sink-specific implementation through function pointer
 - Part of PostgreSQL's pluggable backup sink architecture allowing different compression and archiving formats
 - Called multiple times during a backup session as different archives (like base backup and WAL files) are created
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_begin_archive
+static inline void bbsink_begin_archive(bbsink *sink, const char *archive_name) {
+    Assert(sink != NULL);
+
+    // Delegate to sink-specific implementation
+    sink->bbs_ops->begin_archive(sink, archive_name);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Maintained assertion for defensive programming
+- Preserved the delegation pattern to sink-specific operations
+- Kept the inline function optimization
+- Maintained the clean interface design

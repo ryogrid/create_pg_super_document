@@ -34,3 +34,22 @@ This function provides a unified way to obtain the CommandTag that represents th
 - Part of the event trigger command tag resolution system
 - Enables consistent command identification across different event trigger scenarios
 - Critical for proper event trigger filtering based on command types
+
+## Simplified Source
+
+```c
+// Simplified version of EventTriggerGetTag
+static CommandTag EventTriggerGetTag(Node *parsetree, EventTriggerEvent event) {
+    // Special case: login events have their own fixed command tag
+    if (event == EVT_Login)
+        return CMDTAG_LOGIN;
+
+    // For all other events, extract tag from the parse tree
+    return CreateCommandTag(parsetree);
+}
+```
+
+Key simplifications made:
+- Added clarifying comments explaining the two-path logic
+- Core logic remains unchanged as it's already very simple
+- Preserved the special case handling for login events

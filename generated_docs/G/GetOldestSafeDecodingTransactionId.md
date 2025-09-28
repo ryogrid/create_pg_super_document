@@ -58,3 +58,61 @@ Returns:
 - Considers both general and catalog-specific replication slot horizons when appropriate
 - Critical for ensuring logical replication consistency and preventing premature vacuum cleanup
 - Used primarily in logical replication and change data capture scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of GetOldestSafeDecodingTransactionId
+TransactionId GetOldestSafeDecodingTransactionId(bool catalogOnly) {
+    ProcArrayStruct *arrayP = procArray;
+    TransactionId oldestSafeXid;
+    int index;
+    bool recovery_in_progress = RecoveryInProgress();
+
+    Assert(LWLockHeldByMe(ProcArrayLock));
+
+    // Start with nextXid as safe but pessimal initial value
+    LWLockAcquire(XidGenLock, LW_SHARED);
+    oldestSafeXid = XidFromFullTransactionId(TransamVariables->nextXid);
+
+    // Use existing replication slot horizons if available
+    if (TransactionIdIsValid(procArray->replication_slot_xmin) &&
+        TransactionIdPrecedes(procArray->replication_slot_xmin, oldestSafeXid))
+        oldestSafeXid = procArray->replication_slot_xmin;
+
+    // Consider catalog-specific horizon if catalogOnly
+    if (catalogOnly &&
+        TransactionIdIsValid(procArray->replication_slot_catalog_xmin) &&
+        TransactionIdPrecedes(procArray->replication_slot_catalog_xmin, oldestSafeXid))
+        oldestSafeXid = procArray->replication_slot_catalog_xmin;
+
+    // During normal operation, scan active transactions for minimum
+    if (!recovery_in_progress) {
+        TransactionId *other_xids = ProcGlobal->xids;
+
+        for (index = 0; index < arrayP->numProcs; index++) {
+            TransactionId xid;
+
+            // Fetch XID atomically
+            xid = UINT32_ACCESS_ONCE(other_xids[index]);
+
+            if (!TransactionIdIsNormal(xid))
+                continue;
+
+            if (TransactionIdPrecedes(xid, oldestSafeXid))
+                oldestSafeXid = xid;
+        }
+    }
+
+    LWLockRelease(XidGenLock);
+    return oldestSafeXid;
+}
+```
+
+Key simplifications made:
+- Removed detailed explanatory comments about algorithm rationale
+- Consolidated lock acquisition and horizon checking logic
+- Simplified the active transaction scanning loop
+- Focused on the core algorithm steps
+- Preserved essential locking and safety mechanisms
+- Maintained the distinction between recovery and normal operation modes

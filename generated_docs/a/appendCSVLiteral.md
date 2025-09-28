@@ -32,3 +32,39 @@ This function safely converts a C string into CSV format and appends it to a Str
 - Escapes embedded quotes by doubling them (CSV standard)
 - All strings are quoted regardless of content for consistency
 - Located in src/backend/utils/error/csvlog.c:37-62
+
+## Simplified Source
+
+```c
+// Simplified version of appendCSVLiteral
+static inline void appendCSVLiteral(StringInfo buf, const char *data) {
+    const char *p = data;
+    char c;
+
+    // Handle NULL input by appending nothing
+    if (p == NULL) {
+        return;
+    }
+
+    // Start with opening quote
+    appendStringInfoCharMacro(buf, '"');
+
+    // Process each character, escaping quotes
+    while ((c = *p++) != '\0') {
+        if (c == '"') {
+            appendStringInfoCharMacro(buf, '"');  // Escape quote by doubling
+        }
+        appendStringInfoCharMacro(buf, c);
+    }
+
+    // End with closing quote
+    appendStringInfoCharMacro(buf, '"');
+}
+```
+
+Key simplifications made:
+- Preserved the null input handling
+- Maintained the CSV quote escaping logic (double quotes)
+- Added clear comments for each step of CSV formatting
+- Kept the efficient appendStringInfoCharMacro usage
+- Simple flow: null check → open quote → escape content → close quote

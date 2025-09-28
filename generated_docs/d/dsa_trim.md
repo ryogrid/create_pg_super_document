@@ -39,3 +39,50 @@ Large objects (DSA_SCLASS_SPAN_LARGE) are skipped because they already return se
 - Uses exclusive locking on each size class to ensure thread-safe operations
 - Empty superblocks in other fullness classes are automatically returned by dsa_free
 - This is an expensive operation that should be used judiciously when memory pressure is high
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_trim
+void
+dsa_trim(dsa_area *area) {
+    int size_class;
+
+    // Process size classes in reverse order (highest to lowest)
+    // This ensures spans-of-spans are processed last
+    for (size_class = DSA_NUM_SIZE_CLASSES - 1; size_class >= 0; --size_class) {
+        dsa_area_pool *pool = &area->control->pools[size_class];
+        dsa_pointer span_pointer;
+
+        // Skip large objects - they already free aggressively
+        if (size_class == DSA_SCLASS_SPAN_LARGE) {
+            continue;
+        }
+
+        // Look for empty superblocks in fullness class 1
+        LWLockAcquire(DSA_SCLASS_LOCK(area, size_class), LW_EXCLUSIVE);
+        span_pointer = pool->spans[1];
+
+        while (DsaPointerIsValid(span_pointer)) {
+            dsa_area_span *span = dsa_get_address(area, span_pointer);
+            dsa_pointer next = span->nextspan;
+
+            // If superblock is completely empty, destroy it
+            if (span->nallocatable == span->nmax) {
+                destroy_superblock(area, span_pointer);
+            }
+
+            span_pointer = next;
+        }
+
+        LWLockRelease(DSA_SCLASS_LOCK(area, size_class));
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the reverse processing order strategy
+- Simplified the loop structure while preserving the core algorithm
+- Highlighted the key decision point (empty superblock detection)
+- Emphasized the exclusive locking pattern for thread safety
+- Focused on the core pattern: iterate pools → find empty superblocks → destroy them

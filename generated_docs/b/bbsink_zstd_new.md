@@ -37,3 +37,45 @@ This function creates a new zstd compression basebackup sink that wraps another 
 - Uses Assert to ensure next parameter is not NULL
 - The sink follows the chain-of-responsibility pattern where each sink processes data before passing to the next
 - Memory is allocated using palloc0 to zero-initialize the structure
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_zstd_new
+bbsink *bbsink_zstd_new(bbsink *next, pg_compress_specification *compress) {
+#ifndef USE_ZSTD
+    // Error if zstd support not compiled in
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("zstd compression is not supported by this build")));
+    return NULL;
+#else
+    bbsink_zstd *sink;
+
+    // Validate next sink exists
+    Assert(next != NULL);
+
+    // Allocate and initialize zstd sink structure
+    sink = palloc0(sizeof(bbsink_zstd));
+
+    // Set up operations table for zstd functionality
+    *((const bbsink_ops **) &sink->base.bbs_ops) = &bbsink_zstd_ops;
+
+    // Chain to next sink in pipeline
+    sink->base.bbs_next = next;
+
+    // Store compression specification
+    sink->compress = compress;
+
+    return &sink->base;
+#endif
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining build-time check and error handling
+- Preserved all validation logic and error conditions
+- Maintained the chain-of-responsibility pattern setup
+- Kept compression specification storage intact
+- Simplified structure while preserving all functionality
+- Note: zstd compression levels are validated elsewhere in the compression specification

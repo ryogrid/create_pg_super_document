@@ -37,3 +37,19 @@ The function is part of PostgreSQL's table access method (TAM) abstraction layer
 - The function delegates to the specific table access method's scan_end implementation
 - Used extensively throughout PostgreSQL for cleaning up various types of scans including sequential scans, bitmap scans, and analyze scans
 - Part of the TAM abstraction that enables pluggable storage engines
+
+## Simplified Source
+
+```c
+// Simplified version of table_endscan
+static inline void table_endscan(TableScanDesc scan) {
+    // Delegate to table access method's scan_end function
+    scan->rs_rd->rd_tableam->scan_end(scan);
+}
+```
+
+Key simplifications made:
+- Focused on the simple delegation pattern
+- Emphasized the table access method abstraction
+- Showed the inline nature of the function
+- Clear single-line implementation with proper cleanup

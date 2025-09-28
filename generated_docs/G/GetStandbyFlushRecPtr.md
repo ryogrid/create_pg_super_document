@@ -45,3 +45,44 @@ The function includes safety assertions to ensure it's only called in appropriat
 - Timeline safety is ensured by only extending to received WAL when it's on the same timeline as replayed WAL
 - The function name reflects its role in providing the 'flush' boundary for standby operations
 - Returns the more advanced position between replay and receive pointers when timeline conditions are met
+
+## Simplified Source
+
+```c
+// Simplified version of GetStandbyFlushRecPtr
+XLogRecPtr GetStandbyFlushRecPtr(TimeLineID *tli) {
+    XLogRecPtr replayPtr, receivePtr, result;
+    TimeLineID replayTLI, receiveTLI;
+
+    // Ensure this is called in appropriate context
+    Assert(am_cascading_walsender || IsSyncingReplicationSlots());
+
+    // Get the current receive position from walreceiver
+    receivePtr = GetWalRcvFlushRecPtr(NULL, &receiveTLI);
+
+    // Get the current replay position
+    replayPtr = GetXLogReplayRecPtr(&replayTLI);
+
+    // Return the replay timeline ID if requested
+    if (tli) {
+        *tli = replayTLI;
+    }
+
+    // Start with the replayed position as baseline
+    result = replayPtr;
+
+    // Extend to received position if on same timeline and more advanced
+    if (receiveTLI == replayTLI && receivePtr > replayPtr) {
+        result = receivePtr;
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations
+- Added clear step-by-step comments
+- Simplified the timeline comparison logic
+- Removed detailed inline comments (captured in overview)
+- Preserved all essential safety checks and functionality

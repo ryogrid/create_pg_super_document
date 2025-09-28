@@ -39,3 +39,33 @@ This function implements the filtering logic for event triggers, deciding whethe
 - Uses bitmap sets (bms) for efficient command tag matching
 - Assumes that disabled event triggers are already filtered out at a higher level
 - Critical for ensuring event triggers behave correctly in replication environments
+
+## Simplified Source
+
+```c
+// Simplified version of filter_event_trigger
+static bool filter_event_trigger(CommandTag tag, EventTriggerCacheItem *item) {
+    // Filter by session replication role
+    if (SessionReplicationRole == SESSION_REPLICATION_ROLE_REPLICA) {
+        // In replica mode, skip triggers that only fire on origin
+        if (item->enabled == TRIGGER_FIRES_ON_ORIGIN)
+            return false;
+    } else {
+        // In origin mode, skip triggers that only fire on replica
+        if (item->enabled == TRIGGER_FIRES_ON_REPLICA)
+            return false;
+    }
+
+    // Filter by command tags if any were specified
+    if (!bms_is_empty(item->tagset) && !bms_is_member(tag, item->tagset))
+        return false;
+
+    // All filters passed - allow this trigger to fire
+    return true;
+}
+```
+
+Key simplifications made:
+- Added clarifying comments for each filtering step
+- Simplified the replication role logic explanation
+- Core filtering logic remains unchanged

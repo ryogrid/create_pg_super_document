@@ -43,3 +43,33 @@ This function takes no parameters and operates on global statistics state.
 - Critical for maintaining system stability when statistics corruption is detected
 - Part of the defensive programming approach in PostgreSQL's statistics subsystem
 - Located in src/backend/utils/activity/pgstat.c:1694-1716
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_reset_after_failure
+static void pgstat_reset_after_failure(void) {
+    TimestampTz ts = GetCurrentTimestamp();
+
+    // Step 1: Reset all fixed-numbered statistics
+    for (int kind = PGSTAT_KIND_FIRST_VALID; kind <= PGSTAT_KIND_LAST; kind++) {
+        const PgStat_KindInfo *kind_info = pgstat_get_kind_info(kind);
+
+        // Only process statistics kinds with fixed amounts
+        if (!kind_info->fixed_amount)
+            continue;
+
+        // Call the reset callback for this statistics kind
+        kind_info->reset_all_cb(ts);
+    }
+
+    // Step 2: Drop all variable-numbered statistics entries
+    pgstat_drop_all_entries();
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments for the two-phase reset process
+- Explained the fixed vs variable statistics distinction
+- Maintained the essential reset and cleanup logic
+- Preserved the callback-based architecture

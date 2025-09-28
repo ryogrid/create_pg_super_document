@@ -50,3 +50,83 @@ The function performs extensive validation to ensure physical target lists are o
 - For IndexOnlyScan, validates that all index columns are returnable
 - When CP_LABEL_TLIST is specified, ensures sort/group columns are simple Vars without conflicts
 - Located at src/backend/optimizer/plan/createplan.c:866-1002
+
+## Simplified Source
+
+```c
+// Simplified version of use_physical_tlist
+static bool use_physical_tlist(PlannerInfo *root, Path *path, int flags) {
+    RelOptInfo *rel = path->parent;
+
+    // Quick rejection for exact/small tlist requirements
+    if (flags & (CP_EXACT_TLIST | CP_SMALL_TLIST))
+        return false;
+
+    // Only support specific relation types
+    if (rel->rtekind != RTE_RELATION && rel->rtekind != RTE_SUBQUERY &&
+        rel->rtekind != RTE_FUNCTION && rel->rtekind != RTE_TABLEFUNC &&
+        rel->rtekind != RTE_VALUES && rel->rtekind != RTE_CTE)
+        return false;
+
+    // Must be base relation (no inheritance)
+    if (rel->reloptkind != RELOPT_BASEREL)
+        return false;
+
+    // Don't use with custom paths or empty bitmap heaps
+    if (IsA(path, CustomPath))
+        return false;
+    if (IsA(path, BitmapHeapPath) && path->pathtarget->exprs == NIL)
+        return false;
+
+    // Check for system columns or whole-row vars
+    for (int i = rel->min_attr; i <= 0; i++) {
+        if (!bms_is_empty(rel->attr_needed[i - rel->min_attr]))
+            return false;
+    }
+
+    // Check for placeholder expressions that need evaluation
+    foreach(ListCell *lc, root->placeholder_list) {
+        PlaceHolderInfo *phinfo = (PlaceHolderInfo *) lfirst(lc);
+        if (bms_nonempty_difference(phinfo->ph_needed, rel->relids) &&
+            bms_is_subset(phinfo->ph_eval_at, rel->relids))
+            return false;
+    }
+
+    // Special handling for index-only scans
+    if (path->pathtype == T_IndexOnlyScan) {
+        IndexOptInfo *indexinfo = ((IndexPath *) path)->indexinfo;
+        for (int i = 0; i < indexinfo->ncolumns; i++) {
+            if (!indexinfo->canreturn[i])
+                return false;
+        }
+    }
+
+    // Check sort/group column constraints for labeling
+    if ((flags & CP_LABEL_TLIST) && path->pathtarget->sortgrouprefs) {
+        Bitmapset *sortgroupatts = NULL;
+        int i = 0;
+        foreach(ListCell *lc, path->pathtarget->exprs) {
+            Expr *expr = (Expr *) lfirst(lc);
+            if (path->pathtarget->sortgrouprefs[i]) {
+                if (expr && IsA(expr, Var)) {
+                    int attno = ((Var *) expr)->varattno - FirstLowInvalidHeapAttributeNumber;
+                    if (bms_is_member(attno, sortgroupatts))
+                        return false;
+                    sortgroupatts = bms_add_member(sortgroupatts, attno);
+                } else {
+                    return false;
+                }
+            }
+            i++;
+        }
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining each check
+- Consolidated related validation checks into logical groups
+- Preserved all essential validation logic for safe physical tlist usage
+- Maintained the comprehensive checking for various edge cases

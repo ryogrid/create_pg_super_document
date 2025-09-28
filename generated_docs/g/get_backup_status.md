@@ -38,3 +38,19 @@ None - this function takes no parameters.
 - The function is thread-safe as it only reads a session-local variable
 - Used extensively in backup validation and state checking throughout the backup subsystem
 - The returned SessionBackupState value determines valid operations for the current session's backup context
+
+## Simplified Source
+
+```c
+// Simplified version of get_backup_status
+SessionBackupState get_backup_status(void) {
+    // Return the current session's backup state
+    return sessionBackupState;
+}
+```
+
+Key simplifications made:
+- Function is already very simple - just returns a global variable
+- Added clear comment explaining the purpose
+- No additional simplification needed as the function is straightforward
+- Preserves the essential session-level backup state access pattern

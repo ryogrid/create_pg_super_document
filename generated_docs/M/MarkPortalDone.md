@@ -34,3 +34,29 @@ The function first validates that the portal is in the expected ACTIVE state usi
 - The cleanup hook execution is essential for preventing issues during transaction abort scenarios, particularly with ROLLBACK commands in already-aborted transactions
 - After cleanup execution, the cleanup pointer is set to NULL to prevent double cleanup
 - Located in src/backend/utils/mmgr/portalmem.c:414-441
+
+## Simplified Source
+
+```c
+// Simplified version of MarkPortalDone
+void MarkPortalDone(Portal portal) {
+    // Validate that portal is in active state
+    Assert(portal->status == PORTAL_ACTIVE);
+
+    // Transition to done state
+    portal->status = PORTAL_DONE;
+
+    // Execute cleanup hook if present
+    if (PointerIsValid(portal->cleanup)) {
+        portal->cleanup(portal);
+        portal->cleanup = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated comments while preserving essential information
+- Maintained the assertion for state validation
+- Preserved the cleanup hook execution logic
+- Focused on the core workflow: validate state, update status, run cleanup
+- Kept the essential safety mechanisms for proper portal lifecycle management

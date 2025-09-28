@@ -54,3 +54,62 @@ The function handles both standalone and cascading replication scenarios, automa
 - Validates WAL segment availability after reading to detect concurrent WAL recycling
 - Used by logical replication infrastructure to efficiently stream decoded changes
 - The function assumes that WAL segments are managed by WalSndSegmentOpen for timeline transitions
+
+## Simplified Source
+
+```c
+// Simplified version of logical_read_xlog_page
+static int logical_read_xlog_page(XLogReaderState *state, XLogRecPtr targetPagePtr, int reqLen,
+                                  XLogRecPtr targetRecPtr, char *cur_page) {
+    XLogRecPtr flushptr;
+    int count;
+    WALReadError errinfo;
+    XLogSegNo segno;
+    TimeLineID currTLI;
+
+    // Wait for sufficient WAL to be available
+    flushptr = WalSndWaitForWal(targetPagePtr + reqLen);
+
+    // Determine current timeline based on server state
+    am_cascading_walsender = RecoveryInProgress();
+
+    if (am_cascading_walsender)
+        GetXLogReplayRecPtr(&currTLI);     // Standby: use replay timeline
+    else
+        currTLI = GetWALInsertionTimeLine(); // Primary: use insertion timeline
+
+    // Set up timeline information for reading
+    XLogReadDetermineTimeline(state, targetPagePtr, reqLen, currTLI);
+    sendTimeLineIsHistoric = (state->currTLI != currTLI);
+    sendTimeLine = state->currTLI;
+    sendTimeLineValidUpto = state->currTLIValidUntil;
+    sendTimeLineNextTLI = state->nextTLI;
+
+    // Check if we have enough WAL available
+    if (flushptr < targetPagePtr + reqLen)
+        return -1;  // Not enough WAL, signal shutdown
+
+    // Calculate how much data to read
+    if (targetPagePtr + XLOG_BLCKSZ <= flushptr)
+        count = XLOG_BLCKSZ;              // Full page available
+    else
+        count = flushptr - targetPagePtr;  // Partial page
+
+    // Read the WAL data
+    if (!WALRead(state, cur_page, targetPagePtr, count, currTLI, &errinfo))
+        WALReadRaiseError(&errinfo);
+
+    // Validate that the WAL segment is still available
+    XLByteToSeg(targetPagePtr, segno, state->segcxt.ws_segsize);
+    CheckXLogRemoved(segno, state->seg.ws_tli);
+
+    return count;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining timeline selection logic
+- Simplified the WAL availability check and data reading flow
+- Preserved all essential timeline management and validation
+- Maintained critical error handling for WAL segment availability
+- Explained the cascading vs non-cascading sender logic

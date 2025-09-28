@@ -38,3 +38,28 @@ This is a local operation that only searches within the current process's mappin
 - Linear search performance: O(n) where n is the number of mapped segments in current process
 - Typically used before dsm_attach to avoid redundant attachment attempts
 - The returned dsm_segment pointer is valid as long as the mapping remains active in the process
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_find_mapping
+dsm_segment *dsm_find_mapping(dsm_handle handle) {
+    dlist_iter iter;
+    dsm_segment *seg;
+
+    // Search through all mapped segments in current process
+    dlist_foreach(iter, &dsm_segment_list) {
+        seg = dlist_container(dsm_segment, node, iter.cur);
+        if (seg->handle == handle)
+            return seg;
+    }
+
+    return NULL;  // No mapping found
+}
+```
+
+Key simplifications made:
+- Consolidated comments into essential flow description
+- Maintained the simple linear search logic
+- Preserved the dlist container extraction pattern
+- Kept the straightforward return logic

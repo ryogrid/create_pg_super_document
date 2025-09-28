@@ -42,3 +42,70 @@ The function implements a security model requiring explicit pg_write_server_file
 - Validates directory is empty before proceeding with backup
 - Returns a bbsink pointer that can be chained with other backup destinations
 - Part of PostgreSQL's basebackup infrastructure for server-side backup storage
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_server_new
+bbsink *bbsink_server_new(bbsink *next, char *pathname) {
+    bbsink_server *sink = palloc0(sizeof(bbsink_server));
+
+    // Initialize bbsink structure
+    *((const bbsink_ops **) &sink->base.bbs_ops) = &bbsink_server_ops;
+    sink->pathname = pathname;
+    sink->base.bbs_next = next;
+
+    // Check role privileges for server file writing
+    StartTransactionCommand();
+    if (!has_privs_of_role(GetUserId(), ROLE_PG_WRITE_SERVER_FILES)) {
+        ereport(ERROR,
+               (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                errmsg("permission denied to create backup stored on server"),
+                errdetail("Only roles with privileges of the \"pg_write_server_files\" role may create a backup stored on the server.")));
+    }
+    CommitTransactionCommand();
+
+    // Require absolute path to prevent accidental backup to data directory
+    if (!is_absolute_path(pathname)) {
+        ereport(ERROR,
+               (errcode(ERRCODE_INVALID_NAME),
+                errmsg("relative path not allowed for backup stored on server")));
+    }
+
+    // Check and create directory as needed
+    switch (pg_check_dir(pathname)) {
+        case 0:
+            // Create directory if it doesn't exist
+            if (MakePGDirectory(pathname) < 0) {
+                ereport(ERROR,
+                       (errcode_for_file_access(),
+                        errmsg("could not create directory \"%s\": %m", pathname)));
+            }
+            break;
+        case 1:
+            // Directory exists and is empty
+            break;
+        case 2:
+        case 3:
+        case 4:
+            // Directory exists but is not empty
+            ereport(ERROR,
+                   (errcode(ERRCODE_DUPLICATE_FILE),
+                    errmsg("directory \"%s\" exists but is not empty", pathname)));
+            break;
+        default:
+            // Access problem
+            ereport(ERROR,
+                   (errcode_for_file_access(),
+                    errmsg("could not access directory \"%s\": %m", pathname)));
+    }
+
+    return &sink->base;
+}
+```
+
+Key simplifications made:
+- Preserved complete security validation and permission checks
+- Maintained directory creation and validation logic
+- Kept essential error handling for various directory states
+- Focused on core bbsink initialization and safety mechanisms

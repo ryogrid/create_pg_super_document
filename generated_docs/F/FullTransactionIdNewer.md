@@ -37,3 +37,27 @@ This function is particularly important for operations that need to track the mo
 - Used primarily in snapshot management and visibility computation where extended transaction ID range is beneficial
 - The function is the FullTransactionId equivalent of TransactionIdOlder, but returns the newer rather than older ID
 - Essential for maintaining accurate transaction visibility in systems with high transaction rates where 32-bit transaction IDs might wrap around more frequently
+
+## Simplified Source
+
+```c
+// Simplified version of FullTransactionIdNewer
+static inline FullTransactionId FullTransactionIdNewer(FullTransactionId a, FullTransactionId b) {
+    // Handle invalid transaction IDs
+    if (!FullTransactionIdIsValid(a))
+        return b;
+    if (!FullTransactionIdIsValid(b))
+        return a;
+
+    // Return the newer (following) transaction ID
+    if (FullTransactionIdFollows(a, b))
+        return a;
+    return b;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the core logic: handling invalid IDs and comparison
+- Maintained the essential validity checks and ordering comparison
+- Preserved the inline function structure

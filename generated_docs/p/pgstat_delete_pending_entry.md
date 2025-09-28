@@ -33,3 +33,35 @@ This function handles the complete deletion of a pending statistics entry from t
 - Calls kind-specific deletion callbacks when available to allow for custom cleanup logic
 - Removes the entry from the pending doubly-linked list to maintain list integrity
 - Part of PostgreSQL's statistics memory management and cleanup infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_delete_pending_entry
+void pgstat_delete_pending_entry(PgStat_EntryRef *entry_ref) {
+    PgStat_Kind kind = entry_ref->shared_entry->key.kind;
+    const PgStat_KindInfo *kind_info = pgstat_get_kind_info(kind);
+    void *pending_data = entry_ref->pending;
+
+    // Safety checks
+    Assert(pending_data != NULL);
+    Assert(!pgstat_get_kind_info(kind)->fixed_amount);
+
+    // Call kind-specific deletion callback if available
+    if (kind_info->delete_pending_cb)
+        kind_info->delete_pending_cb(entry_ref);
+
+    // Free memory and clear pointer
+    pfree(pending_data);
+    entry_ref->pending = NULL;
+
+    // Remove from pending list
+    dlist_delete(&entry_ref->pending_node);
+}
+```
+
+Key simplifications made:
+- Focused on the cleanup sequence: callback, memory free, list removal
+- Emphasized the safety assertions for data validation
+- Added clear comments for each cleanup step
+- Simplified the kind info retrieval and usage pattern

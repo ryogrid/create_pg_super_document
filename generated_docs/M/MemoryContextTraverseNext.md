@@ -36,3 +36,36 @@ This function implements a non-recursive tree traversal algorithm for memory con
 - Typical usage pattern is in a loop: process the initial context, then iterate through all descendants using this function
 - Essential for operations that need to visit all contexts in a hierarchy safely, such as memory statistics gathering and context validation
 - The traversal algorithm ensures every descendant context is visited exactly once
+
+## Simplified Source
+
+```c
+// Simplified version of MemoryContextTraverseNext
+static MemoryContext
+MemoryContextTraverseNext(MemoryContext curr, MemoryContext top)
+{
+    // First, try to visit the first child
+    if (curr->firstchild != NULL)
+        return curr->firstchild;
+
+    // No children, so try to move to next sibling
+    // If no sibling, move up to parent and try again
+    while (curr->nextchild == NULL)
+    {
+        curr = curr->parent;
+
+        // If we've reached the top, traversal is complete
+        if (curr == top)
+            return NULL;
+    }
+
+    // Found a sibling to visit next
+    return curr->nextchild;
+}
+```
+
+Key simplifications made:
+- Added comments explaining the traversal logic
+- Clarified the algorithm flow: children first, then siblings, then parent backtracking
+- Preserved the exact non-recursive algorithm
+- Made the loop termination condition clearer

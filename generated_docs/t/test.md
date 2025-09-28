@@ -48,3 +48,74 @@ This function takes no parameters as it is a void function designed for testing 
 - It demonstrates both immediate execution and prepared statement execution patterns
 - The test creates temporary data structures and cleans them up properly
 - This function is part of the PostgreSQL regression test suite for ECPG functionality
+
+## Simplified Source
+
+```c
+// Simplified version of test
+static void test(void) {
+    // Declare variables for database operations
+    int item[4], ind[4], i = 1;
+    int item1, ind1;
+    char sqlstr[64] = "SELECT item2 FROM T ORDER BY item2 NULLS LAST";
+
+    // Enable debugging and connect to database
+    ECPGdebug(1, stderr);
+    ECPGconnect("ecpg1_regression", NULL, NULL, NULL, 0);
+
+    // Set up error handling
+    // whenever sql_warning sqlprint;
+    // whenever sqlerror sqlprint;
+
+    // Create test table and insert data
+    ECPGdo("create table T ( Item1 int , Item2 int )");
+    ECPGdo("insert into T values ( 1 , null )");
+    ECPGdo("insert into T values ( 1 , $1 )", i);
+
+    i++;
+    ECPGdo("insert into T values ( 1 , $1 )", i);
+
+    // Test prepared statements
+    ECPGprepare("i", " insert into T values ( 1 , 2 ) ");
+    ECPGdo("execute i");
+
+    // Fetch data into arrays
+    ECPGdo("select Item2 from T order by Item2 nulls last", item, ind);
+
+    // Print results
+    for (i = 0; i < 4; i++)
+        printf("item[%d] = %d\n", i, ind[i] ? -1 : item[i]);
+
+    // Test cursor operations
+    ECPGdo("declare C cursor for select Item1 from T");
+    ECPGdo("fetch 1 in C", &i);
+    printf("i = %d\n", i);
+    ECPGdo("close C");
+
+    // Test prepared cursor with dynamic SQL
+    ECPGprepare("stmt1", sqlstr);
+    ECPGdo("declare cur1 cursor for $1", prepared_statement("stmt1"));
+
+    // Fetch from cursor until no more data
+    i = 0;
+    while (i < 100) {
+        ECPGdo("fetch cur1", &item1, &ind1);
+        if (sqlca.sqlcode == ECPG_NOT_FOUND) break;
+        printf("item[%d] = %d\n", i, ind1 ? -1 : item1);
+        i++;
+    }
+    ECPGdo("close cur1");
+
+    // Clean up
+    ECPGdo("drop table T");
+    ECPGdisconnect("ALL");
+}
+```
+
+Key simplifications made:
+- Removed detailed ECPG preprocessor directives and line number tracking
+- Consolidated repetitive error handling code into comments
+- Simplified variable declarations and removed embedded SQL syntax markers
+- Abstracted complex ECPG parameter handling
+- Focused on the logical flow of database operations
+- Removed platform-specific debugging and error checking details

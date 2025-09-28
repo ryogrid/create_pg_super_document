@@ -35,3 +35,37 @@ This function performs the initial setup required before sending query results t
 - Attribute information setup is deferred until the first printtup call for performance optimization
 - Row description messages are sent only if sendDescrip flag is true (typically for DestRemote)
 - The function supports potential tuple type changes during execution, though this rarely occurs in practice
+
+## Simplified Source
+
+```c
+// Simplified version of printtup_startup
+static void printtup_startup(DestReceiver *self, int operation, TupleDesc typeinfo) {
+    DR_printtup *myState = (DR_printtup *) self;
+    Portal portal = myState->portal;
+
+    // Create I/O buffer for message formatting
+    initStringInfo(&myState->buf);
+
+    // Create temporary memory context for row processing
+    myState->tmpcontext = AllocSetContextCreate(CurrentMemoryContext,
+                                               "printtup",
+                                               ALLOCSET_DEFAULT_SIZES);
+
+    // Send row description if required
+    if (myState->sendDescrip) {
+        SendRowDescriptionMessage(&myState->buf,
+                                typeinfo,
+                                FetchPortalTargetList(portal),
+                                portal->formats);
+    }
+
+    // Attribute info setup is deferred until first tuple
+}
+```
+
+Key simplifications made:
+- Preserved essential initialization logic
+- Maintained I/O buffer and memory context setup
+- Kept row description message sending
+- Added comment about deferred attribute info setup

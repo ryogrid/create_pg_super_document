@@ -37,3 +37,27 @@ InitQueryHashTable creates and configures the global hash table that stores prep
 - Called lazily only when the first prepared statement needs to be stored
 - The global prepared_queries variable stores the hash table reference for subsequent operations
 - Part of PostgreSQL's prepared statement infrastructure for efficient statement reuse
+
+## Simplified Source
+
+```c
+// Simplified version of InitQueryHashTable
+static void InitQueryHashTable(void) {
+    HASHCTL hash_ctl;
+
+    // Configure hash table parameters
+    hash_ctl.keysize = NAMEDATALEN;
+    hash_ctl.entrysize = sizeof(PreparedStatement);
+
+    // Create the global prepared queries hash table
+    prepared_queries = hash_create("Prepared Queries", 32, &hash_ctl,
+                                  HASH_ELEM | HASH_STRINGS);
+}
+```
+
+Key simplifications made:
+- Added clarifying comments about the function's purpose
+- This function is already quite simple and straightforward
+- Preserved the essential hash table configuration
+- Maintained the proper flags for string-based keys and element management
+- The core logic: configure hash control structure, create hash table with appropriate flags

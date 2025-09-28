@@ -35,3 +35,25 @@ The function operates by accessing the VarParamState from the ParseState's refer
 - It performs validation but does not enforce completeness of parameter usage or type assignment
 - Located in src/backend/parser/parse_param.c:268-285
 - The actual validation logic is delegated to check_parameter_resolution_walker through query_tree_walker
+
+## Simplified Source
+
+```c
+// Simplified version of check_variable_parameters
+void check_variable_parameters(ParseState *pstate, Query *query) {
+    VarParamState *parstate = (VarParamState *) pstate->p_ref_hook_state;
+
+    // Only check if parameters were generated during parsing
+    if (*parstate->numParams > 0) {
+        query_tree_walker(query,
+                        check_parameter_resolution_walker,
+                        (void *) pstate, 0);
+    }
+}
+```
+
+Key simplifications made:
+- Preserved essential parameter validation logic
+- Maintained parameter count check optimization
+- Kept tree walker delegation pattern
+- Focused on core validation orchestration

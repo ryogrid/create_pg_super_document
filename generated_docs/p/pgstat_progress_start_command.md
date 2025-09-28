@@ -44,3 +44,29 @@ The function uses atomic write operations to ensure consistency when updating th
 - Uses atomic write operations (PGSTAT_BEGIN/END_WRITE_ACTIVITY) to ensure data consistency
 - The progress parameter array is zeroed to provide a clean slate for subsequent progress updates
 - This is typically the first function called when starting any trackable long-running operation
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_progress_start_command
+void pgstat_progress_start_command(ProgressCommandType cmdtype, Oid relid) {
+    volatile PgBackendStatus *beentry = MyBEEntry;
+
+    // Early exit if progress tracking is disabled
+    if (!beentry || !pgstat_track_activities)
+        return;
+
+    // Set command type and target relation with atomic operations
+    PGSTAT_BEGIN_WRITE_ACTIVITY(beentry);
+    beentry->st_progress_command = cmdtype;
+    beentry->st_progress_command_target = relid;
+    MemSet(&beentry->st_progress_param, 0, sizeof(beentry->st_progress_param));
+    PGSTAT_END_WRITE_ACTIVITY(beentry);
+}
+```
+
+Key simplifications made:
+- Removed verbose comments while preserving essential logic
+- Combined condition checks for clarity
+- Emphasized the atomic write operation pattern
+- Maintained the core functionality of initializing progress tracking

@@ -44,3 +44,64 @@ The function follows the standard pattern of acquiring the slot, making validate
 - Synced slots cannot be altered during recovery to maintain consistency
 - The function properly handles slot acquisition and release for safe concurrent access
 - Used primarily by the ALTER REPLICATION SLOT SQL command through the replication protocol
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotAlter
+void ReplicationSlotAlter(const char *name, bool failover) {
+    Assert(MyReplicationSlot == NULL);
+
+    // Acquire the replication slot
+    ReplicationSlotAcquire(name, false);
+
+    // Validate slot type - only logical slots supported
+    if (SlotIsPhysical(MyReplicationSlot)) {
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                      errmsg("cannot use %s with a physical replication slot",
+                             "ALTER_REPLICATION_SLOT")));
+    }
+
+    // Handle recovery mode restrictions
+    if (RecoveryInProgress()) {
+        // Don't allow altering synced slots
+        if (MyReplicationSlot->data.synced) {
+            ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                          errmsg("cannot alter replication slot \"%s\"", name),
+                          errdetail("This replication slot is being synchronized from the primary server.")));
+        }
+
+        // Don't allow enabling failover on standby
+        if (failover) {
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                          errmsg("cannot enable failover for a replication slot on the standby")));
+        }
+    }
+
+    // Don't allow failover for temporary slots
+    if (failover && MyReplicationSlot->data.persistency == RS_TEMPORARY) {
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                      errmsg("cannot enable failover for a temporary replication slot")));
+    }
+
+    // Update failover setting if it has changed
+    if (MyReplicationSlot->data.failover != failover) {
+        SpinLockAcquire(&MyReplicationSlot->mutex);
+        MyReplicationSlot->data.failover = failover;
+        SpinLockRelease(&MyReplicationSlot->mutex);
+
+        // Mark dirty and save the changes
+        ReplicationSlotMarkDirty();
+        ReplicationSlotSave();
+    }
+
+    // Release the slot
+    ReplicationSlotRelease();
+}
+```
+
+Key simplifications made:
+- Added clear comments for each validation step
+- Preserved all essential error checking and slot management
+- Maintained proper locking around slot data modification
+- Kept the atomic update pattern for slot persistence

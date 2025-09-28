@@ -46,3 +46,26 @@ Located in , this implementation is conditionally compiled and used only on syst
 - Used extensively throughout PostgreSQL for safe string operations, particularly in memory allocation routines (), encoding validation, and SQL string escaping functions
 - The function provides O(n) time complexity where n is the minimum of actual string length and 
 - Critical for preventing buffer overflow vulnerabilities when processing untrusted input strings
+
+## Simplified Source
+
+```c
+// Simplified version of strnlen
+size_t strnlen(const char *str, size_t maxlen) {
+    const char *p = str;
+
+    // Scan string until null terminator or maxlen reached
+    while (maxlen-- > 0 && *p) {
+        p++;
+    }
+
+    // Return number of characters examined
+    return p - str;
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the scanning logic
+- Preserved the essential bounded string length calculation
+- Maintained the efficient pointer arithmetic approach
+- Simple and safe implementation following POSIX semantics

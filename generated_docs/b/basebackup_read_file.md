@@ -40,3 +40,40 @@ This function provides a robust file reading interface specifically designed for
 - Uses PostgreSQL's wait event reporting system for monitoring
 - Validates read completeness unless partial_read_ok is true
 - Essential component for reliable file I/O during backup operations
+
+## Simplified Source
+
+```c
+// Simplified version of basebackup_read_file
+static ssize_t basebackup_read_file(int fd, char *buf, size_t nbytes, off_t offset,
+                                   const char *filename, bool partial_read_ok) {
+    ssize_t rc;
+
+    // Report wait event and perform read
+    pgstat_report_wait_start(WAIT_EVENT_BASEBACKUP_READ);
+    rc = pg_pread(fd, buf, nbytes, offset);
+    pgstat_report_wait_end();
+
+    // Handle read errors
+    if (rc < 0)
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not read file \"%s\": %m", filename)));
+
+    // Validate read completeness if required
+    if (!partial_read_ok && rc > 0 && rc != nbytes)
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not read file \"%s\": read %zd of %zu",
+                        filename, rc, nbytes)));
+
+    return rc;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving core functionality
+- Consolidated error handling logic
+- Maintained wait event reporting for monitoring
+- Preserved comprehensive error reporting with filename context
+- Kept validation for read completeness when required

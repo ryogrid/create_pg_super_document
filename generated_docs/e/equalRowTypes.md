@@ -47,3 +47,44 @@ Unlike , this function deliberately ignores many pg_attribute fields that define
 - Handles record types derived from tables by checking dropped column consistency
 - Used primarily for type compatibility checking rather than exact structural equality
 - Essential for determining if record types can be used interchangeably in expressions and function calls
+
+## Simplified Source
+
+```c
+// Simplified version of equalRowTypes
+bool equalRowTypes(TupleDesc tupdesc1, TupleDesc tupdesc2) {
+    // Check basic structural compatibility
+    if (tupdesc1->natts != tupdesc2->natts)
+        return false;
+    if (tupdesc1->tdtypeid != tupdesc2->tdtypeid)
+        return false;
+
+    // Compare each attribute for type compatibility
+    for (int i = 0; i < tupdesc1->natts; i++) {
+        Form_pg_attribute attr1 = TupleDescAttr(tupdesc1, i);
+        Form_pg_attribute attr2 = TupleDescAttr(tupdesc2, i);
+
+        // Check attribute name, type, typmod, and collation
+        if (strcmp(NameStr(attr1->attname), NameStr(attr2->attname)) != 0)
+            return false;
+        if (attr1->atttypid != attr2->atttypid)
+            return false;
+        if (attr1->atttypmod != attr2->atttypmod)
+            return false;
+        if (attr1->attcollation != attr2->attcollation)
+            return false;
+
+        // Ensure consistency for dropped fields
+        if (attr1->attisdropped != attr2->attisdropped)
+            return false;
+    }
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the core comparison logic
+- Maintained all essential compatibility checks
+- Streamlined the attribute iteration and comparison

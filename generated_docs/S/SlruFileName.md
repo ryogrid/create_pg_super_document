@@ -59,3 +59,26 @@ The function uses snprintf to safely construct the path string and returns the n
 - The function includes range assertions to ensure segment numbers are within valid bounds for each naming scheme
 - The %04X format string is used for standard names but supports up to 24-bit integers through SlruCorrectSegmentFilenameLength()
 - This function is central to SLRU file management and is used throughout the SLRU subsystem for file operations
+
+## Simplified Source
+
+```c
+// Simplified version of SlruFileName
+static inline int SlruFileName(SlruCtl ctl, char *path, int64 segno) {
+    if (ctl->long_segment_names) {
+        // Long format: 15-character hex (0-2^60-1)
+        Assert(segno >= 0 && segno <= INT64CONST(0xFFFFFFFFFFFFFFF));
+        return snprintf(path, MAXPGPATH, "%s/%015llX", ctl->Dir, (long long) segno);
+    } else {
+        // Standard format: 4-6 character hex (0-2^24-1)
+        Assert(segno >= 0 && segno <= INT64CONST(0xFFFFFF));
+        return snprintf(path, MAXPGPATH, "%s/%04X", ctl->Dir, (unsigned int) segno);
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the core logic for both naming schemes
+- Kept essential range assertions for safety
+- Maintained the hexadecimal formatting differences
+- Removed detailed comments to focus on functionality

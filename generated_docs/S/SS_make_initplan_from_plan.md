@@ -50,3 +50,42 @@ The function performs several key operations:
 - The plan_name is automatically generated as "InitPlan N" where N is the plan ID
 - Location: `src/backend/optimizer/plan/subselect.c:3017-3057`
 - This function works in conjunction with `SS_make_initplan_output_param` to provide a complete initplan creation workflow
+
+## Simplified Source
+
+```c
+// Simplified version of SS_make_initplan_from_plan
+void SS_make_initplan_from_plan(PlannerInfo *root, PlannerInfo *subroot,
+                               Plan *plan, Param *prm) {
+    // Add subplan to global lists (plan, path, root)
+    root->glob->subplans = lappend(root->glob->subplans, plan);
+    root->glob->subpaths = lappend(root->glob->subpaths, NULL);  // Dummy path
+    root->glob->subroots = lappend(root->glob->subroots, subroot);
+
+    // Create SubPlan node for the initplan
+    SubPlan *node = makeNode(SubPlan);
+    node->subLinkType = EXPR_SUBLINK;
+    node->plan_id = list_length(root->glob->subplans);
+    node->plan_name = psprintf("InitPlan %d", node->plan_id);
+
+    // Extract type information from first column
+    get_first_col_type(plan, &node->firstColType, &node->firstColTypmod,
+                       &node->firstColCollation);
+
+    // Set parallel safety and output parameter
+    node->parallel_safe = plan->parallel_safe;
+    node->setParam = list_make1_int(prm->paramid);
+
+    // Add to initplan list
+    root->init_plans = lappend(root->init_plans, node);
+
+    // Calculate subplan costs
+    cost_subplan(subroot, node, plan);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about path handling and dependencies
+- Focused on the core steps: register plan, create SubPlan, set parameters, add to initplan list
+- Preserved all essential functionality for initplan creation
+- Grouped related operations for better readability

@@ -34,3 +34,17 @@ The function is part of PostgreSQL's command tag infrastructure that categorizes
 - Part of the command tag behavior system that includes other properties like event_trigger_ok and display_rowcount
 - Used primarily by the event trigger subsystem to determine when table rewrite triggers should be activated
 - The underlying data comes from the cmdtaglist.h include file which defines all command behaviors
+
+## Simplified Source
+
+```c
+// Simplified version of command_tag_table_rewrite_ok
+bool command_tag_table_rewrite_ok(CommandTag commandTag) {
+    // Direct lookup into behavior table to check if command can trigger table rewrite
+    return tag_behavior[commandTag].table_rewrite_ok;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, only added clarifying comment
+- Core logic remains unchanged as it's a straightforward table lookup

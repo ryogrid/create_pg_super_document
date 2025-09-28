@@ -40,3 +40,51 @@ ThrowErrorData provides a mechanism to re-report errors using information from a
 - Primarily used in parallel processing scenarios for error propagation
 - Follows the standard error reporting pattern: errstart → field setup → errfinish
 - Increments and decrements recursion_depth to track nested error handling
+
+## Simplified Source
+
+```c
+// Simplified version of ThrowErrorData
+void ThrowErrorData(ErrorData *edata) {
+    ErrorData *newedata;
+    MemoryContext oldcontext;
+
+    // Start error reporting - exit early if error level is filtered
+    if (!errstart(edata->elevel, edata->domain))
+        return;
+
+    // Get current error stack entry and setup context
+    newedata = &errordata[errordata_stack_depth];
+    recursion_depth++;
+    oldcontext = MemoryContextSwitchTo(newedata->assoc_context);
+
+    // Copy error fields from input ErrorData
+    if (edata->sqlerrcode != 0)
+        newedata->sqlerrcode = edata->sqlerrcode;
+    if (edata->message)
+        newedata->message = pstrdup(edata->message);
+    if (edata->detail)
+        newedata->detail = pstrdup(edata->detail);
+    if (edata->hint)
+        newedata->hint = pstrdup(edata->hint);
+    if (edata->context)
+        newedata->context = pstrdup(edata->context);
+
+    // Copy positional and contextual information
+    newedata->cursorpos = edata->cursorpos;
+    newedata->internalpos = edata->internalpos;
+    if (edata->internalquery)
+        newedata->internalquery = pstrdup(edata->internalquery);
+
+    // Restore memory context and complete error reporting
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+    errfinish(edata->filename, edata->lineno, edata->funcname);
+}
+```
+
+Key simplifications made:
+- Condensed repetitive field copying logic
+- Added explanatory comments for each major phase
+- Preserved essential memory management and error reporting flow
+- Maintained all critical error field transfers

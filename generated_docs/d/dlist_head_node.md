@@ -36,3 +36,18 @@ This function is a convenience wrapper around  that returns the first node in a 
 - The function is defined as static inline for optimal performance
 - Part of PostgreSQL's intrusive list implementation in src/include/lib/ilist.h
 - Returns a pointer to the actual dlist_node structure, not the containing data structure
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_head_node
+static inline dlist_node *dlist_head_node(dlist_head *head) {
+    // Get first node using zero offset
+    return (dlist_node *) dlist_head_element_off(head, 0);
+}
+```
+
+Key simplifications made:
+- Focused on the wrapper pattern around dlist_head_element_off
+- Emphasized the zero offset for getting the actual node structure
+- Showed the direct casting and delegation

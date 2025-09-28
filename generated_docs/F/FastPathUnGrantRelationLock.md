@@ -38,3 +38,47 @@ The function continues iterating through all slots even after finding and cleari
 - The function processes all slots to maintain accurate usage statistics, not just the target slot
 - Works in conjunction with FastPathGrantRelationLock to provide optimized relation locking
 - Does not remove the relation entry from the fast-path slot even when all lock modes are cleared
+
+## Simplified Source
+
+```c
+// Simplified version of FastPathUnGrantRelationLock
+static bool FastPathUnGrantRelationLock(Oid relid, LOCKMODE lockmode) {
+    uint32 f;
+    bool result = false;
+
+    // Reset and recalculate usage count
+    FastPathLocalUseCount = 0;
+
+    // Search through all fast-path slots
+    for (f = 0; f < FP_LOCK_SLOTS_PER_BACKEND; f++) {
+        // Check if this slot holds the target relation and lock mode
+        if (MyProc->fpRelId[f] == relid &&
+            FAST_PATH_CHECK_LOCKMODE(MyProc, f, lockmode)) {
+
+            // Should only find one match
+            Assert(!result);
+
+            // Clear the lock mode from this slot
+            FAST_PATH_CLEAR_LOCKMODE(MyProc, f, lockmode);
+            result = true;
+
+            // Continue iterating to update usage count
+        }
+
+        // Count slots still in use for usage statistics
+        if (FAST_PATH_GET_BITS(MyProc, f) != 0) {
+            ++FastPathLocalUseCount;
+        }
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Simplified the loop logic while preserving dual functionality
+- Added clear comments explaining the search and counting logic
+- Maintained the assertion for detecting duplicate releases
+- Preserved the usage count recalculation mechanism
+- Focused on the core fast-path lock release algorithm

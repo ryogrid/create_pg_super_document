@@ -43,3 +43,33 @@ The function assumes the recycle list is not empty (asserted) and ensures proper
 - Ensures page alignment before returning the recycled page
 - The recycled page is reused as-is without additional formatting, improving performance
 - Part of the broader page lifecycle management system that optimizes memory usage in the free page manager
+
+## Simplified Source
+
+```c
+// Simplified version of FreePageBtreeGetRecycled
+static FreePageBtree *FreePageBtreeGetRecycled(FreePageManager *fpm) {
+    char *base = fpm_segment_base(fpm);
+    FreePageSpanLeader *victim = relptr_access(base, fpm->btree_recycle);
+
+    // Get the current head and update to next item
+    Assert(victim != NULL);
+    FreePageSpanLeader *newhead = relptr_access(base, victim->next);
+
+    // Update linked list pointers
+    if (newhead != NULL)
+        relptr_copy(newhead->prev, victim->prev);
+    relptr_store(base, fmp->btree_recycle, newhead);
+
+    // Update count and return recycled page
+    Assert(fpm_pointer_is_page_aligned(base, victim));
+    fpm->btree_recycle_count--;
+    return (FreePageBtree *) victim;
+}
+```
+
+Key simplifications made:
+- Focused on core linked list manipulation logic
+- Preserved essential assertions for safety
+- Maintained proper pointer management
+- Removed detailed comments to highlight the algorithm

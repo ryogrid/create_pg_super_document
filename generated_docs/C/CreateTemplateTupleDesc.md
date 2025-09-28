@@ -43,3 +43,34 @@ This function allocates and initializes an empty tuple descriptor structure with
 - The attribute array uses FormData_pg_attribute elements, but only guarantees ATTRIBUTE_FIXED_PART_SIZE bytes are valid
 - Memory layout optimization: allocates the descriptor and attribute array in a single palloc call
 - This is a fundamental function used throughout PostgreSQL for creating tuple descriptors in various contexts
+
+## Simplified Source
+
+```c
+// Simplified version of CreateTemplateTupleDesc
+TupleDesc CreateTemplateTupleDesc(int natts) {
+    TupleDesc desc;
+
+    // Validate input
+    Assert(natts >= 0);
+
+    // Allocate memory for tuple descriptor and attribute array together
+    desc = (TupleDesc) palloc(offsetof(struct TupleDescData, attrs) +
+                              natts * sizeof(FormData_pg_attribute));
+
+    // Initialize tuple descriptor fields
+    desc->natts = natts;
+    desc->constr = NULL;           // no constraints initially
+    desc->tdtypeid = RECORDOID;    // anonymous record type
+    desc->tdtypmod = -1;           // no type modifier
+    desc->tdrefcount = -1;         // not reference-counted
+
+    return desc;
+}
+```
+
+Key simplifications made:
+- Removed detailed memory allocation comments while preserving the essential concept
+- Condensed field initialization with inline comments explaining purpose
+- Maintained all essential logic and memory allocation strategy
+- Preserved critical memory layout optimization (single allocation for descriptor + attributes)

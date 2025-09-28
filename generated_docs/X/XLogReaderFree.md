@@ -37,3 +37,30 @@ void XLogReaderFree(XLogReaderState *state)
 - Must be called to prevent memory leaks when done with a WAL reader
 - Should not be called on the same state structure more than once
 - No return value - this is a void function that performs cleanup only
+
+## Simplified Source
+
+```c
+// Simplified version of XLogReaderFree
+void XLogReaderFree(XLogReaderState *state) {
+    // Close any open WAL segment file
+    if (state->seg.ws_file != -1)
+        state->routine.segment_close(state);
+
+    // Free decode buffer if allocated by reader
+    if (state->decode_buffer && state->free_decode_buffer)
+        pfree(state->decode_buffer);
+
+    // Free all other allocated buffers
+    pfree(state->errormsg_buf);
+    if (state->readRecordBuf)
+        pfree(state->readRecordBuf);
+    pfree(state->readBuf);
+    pfree(state);
+}
+```
+
+Key simplifications made:
+- Function is already well-structured for cleanup
+- Handles conditional cleanup based on allocation flags
+- Systematically frees all allocated resources

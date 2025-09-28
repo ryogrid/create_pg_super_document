@@ -32,3 +32,21 @@ This forwarding pattern ensures that cleanup operations cascade through the enti
 - Part of the callback-based architecture for chaining backup sink operations
 - The function includes an assertion to ensure proper sink chain configuration
 - Critical for maintaining system stability by ensuring complete cleanup of backup operations
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_forward_cleanup
+void bbsink_forward_cleanup(bbsink *sink) {
+    // Validate chain exists
+    Assert(sink->bbs_next != NULL);
+
+    // Forward cleanup to next sink
+    bbsink_cleanup(sink->bbs_next);
+}
+```
+
+Key simplifications made:
+- Preserved essential chain validation
+- Maintained cleanup forwarding delegation
+- Focused on core resource cleanup forwarding

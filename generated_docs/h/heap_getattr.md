@@ -51,3 +51,28 @@ This design ensures compatibility with schema evolution while maintaining perfor
 - **Safety first**: Includes proper bounds checking and validation, making it the recommended choice when attribute validity is uncertain
 - **NULL value handling**: Consistently sets `*isnull` output parameter across all code paths
 - **Static inline implementation**: Provides function call elimination for performance while maintaining a clean interface
+
+## Simplified Source
+
+```c
+// Simplified version of heap_getattr
+static inline Datum heap_getattr(HeapTuple tup, int attnum, TupleDesc tupleDesc, bool *isnull) {
+    if (attnum > 0) {
+        // Handle user attributes (1-based)
+        if (attnum > (int) HeapTupleHeaderGetNatts(tup->t_data))
+            // Attribute missing from tuple, get default value
+            return getmissingattr(tupleDesc, attnum, isnull);
+        else
+            // Attribute exists, use fast path
+            return fastgetattr(tup, attnum, tupleDesc, isnull);
+    } else {
+        // Handle system attributes (0 or negative)
+        return heap_getsysattr(tup, attnum, tupleDesc, isnull);
+    }
+}
+```
+
+Key simplifications made:
+- Function is already concise, main logic is the three-way dispatch
+- Handles user attributes, missing attributes, and system attributes appropriately
+- Essential for safe attribute extraction with schema evolution support

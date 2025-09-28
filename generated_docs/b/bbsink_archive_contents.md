@@ -43,3 +43,23 @@ This inline function handles the processing of archive content data within Postg
 - Called frequently during backup operations as data is written to archives
 - Expects callers to optimize buffer usage by filling buffers reasonably before calling
 - Critical function in the data flow path of base backup operations
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_archive_contents
+static inline void bbsink_archive_contents(bbsink *sink, size_t len) {
+    Assert(sink != NULL);
+    Assert(len > 0 && len <= sink->bbs_buffer_length);
+
+    // Delegate to sink-specific implementation
+    sink->bbs_ops->archive_contents(sink, len);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving validation logic
+- Maintained essential assertions for buffer length validation
+- Preserved the delegation pattern to sink-specific operations
+- Kept the inline function optimization
+- Maintained defensive programming with null pointer checks

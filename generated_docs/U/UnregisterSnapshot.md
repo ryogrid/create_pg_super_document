@@ -35,3 +35,23 @@ UnregisterSnapshot provides a simple interface for unregistering a snapshot from
 - Provides a safer interface by handling null snapshots gracefully
 - Counterpart to RegisterSnapshot for snapshot lifecycle management
 - Located in src/backend/utils/time/snapmgr.c:836-848
+
+## Simplified Source
+
+```c
+// Simplified version of UnregisterSnapshot
+void UnregisterSnapshot(Snapshot snapshot) {
+    // Handle null snapshots gracefully
+    if (snapshot == NULL)
+        return;
+
+    // Unregister from current resource owner
+    UnregisterSnapshotFromOwner(snapshot, CurrentResourceOwner);
+}
+```
+
+Key simplifications made:
+- Focused on the null checking and delegation pattern
+- Added clear comments for each step
+- Emphasized the convenience wrapper nature
+- Showed the automatic use of CurrentResourceOwner

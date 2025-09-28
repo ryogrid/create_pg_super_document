@@ -38,3 +38,29 @@ The function validates that the portal is not already in DONE state (since done 
 - The cleanup hook execution prevents resource leaks and maintains system consistency during error conditions
 - After cleanup execution, the cleanup pointer is set to NULL to prevent double cleanup
 - Located in src/backend/utils/mmgr/portalmem.c:442-467
+
+## Simplified Source
+
+```c
+// Simplified version of MarkPortalFailed
+void MarkPortalFailed(Portal portal) {
+    // Validate portal state: cannot fail a portal that's already done
+    Assert(portal->status != PORTAL_DONE);
+
+    // Transition portal to failed state
+    portal->status = PORTAL_FAILED;
+
+    // Execute cleanup hook if present to prevent resource leaks
+    if (PointerIsValid(portal->cleanup)) {
+        portal->cleanup(portal);
+        portal->cleanup = NULL;  // Prevent double cleanup
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the state transition validation
+- Highlighted the cleanup hook execution for resource management
+- Emphasized the prevention of resource leaks during error scenarios
+- Simplified the error handling flow while preserving essential logic
+- Focused on the main purpose: safe transition to failed state with cleanup

@@ -36,3 +36,50 @@ The function validates that gzip compression is supported at build time (require
 - Compression level must be between 1-9 or Z_DEFAULT_COMPRESSION
 - Memory is allocated using palloc0, which initializes the structure to zero
 - The function follows PostgreSQL's bbsink interface for chaining backup sinks
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_gzip_new
+bbsink *bbsink_gzip_new(bbsink *next, pg_compress_specification *compress) {
+#ifndef HAVE_LIBZ
+    // Error if gzip support not compiled in
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("gzip compression is not supported by this build")));
+    return NULL;
+#else
+    bbsink_gzip *sink;
+    int compresslevel;
+
+    // Validate next sink exists
+    Assert(next != NULL);
+
+    // Extract and validate compression level
+    compresslevel = compress->level;
+    Assert((compresslevel >= 1 && compresslevel <= 9) ||
+           compresslevel == Z_DEFAULT_COMPRESSION);
+
+    // Allocate and initialize gzip sink structure
+    sink = palloc0(sizeof(bbsink_gzip));
+
+    // Set up operations table for gzip functionality
+    *((const bbsink_ops **) &sink->base.bbs_ops) = &bbsink_gzip_ops;
+
+    // Chain to next sink in pipeline
+    sink->base.bbs_next = next;
+
+    // Store compression level
+    sink->compresslevel = compresslevel;
+
+    return &sink->base;
+#endif
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining build-time check and error handling
+- Preserved all validation logic and error conditions
+- Maintained the chain-of-responsibility pattern setup
+- Kept compression level validation intact
+- Simplified structure while preserving all functionality

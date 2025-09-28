@@ -39,3 +39,23 @@ This forwarding pattern allows for composition of different backup sink behavior
 - This is part of a callback-based architecture where different sink implementations can be chained together
 - The function includes assertions to ensure proper sink chain configuration and shared buffer state
 - Used specifically for processing backup manifest contents during PostgreSQL base backup operations
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_forward_manifest_contents
+void bbsink_forward_manifest_contents(bbsink *sink, size_t len) {
+    // Validate chain and buffer sharing
+    Assert(sink->bbs_next != NULL);
+    Assert(sink->bbs_buffer == sink->bbs_next->bbs_buffer);
+    Assert(sink->bbs_buffer_length == sink->bbs_next->bbs_buffer_length);
+
+    // Forward manifest contents to next sink
+    bbsink_manifest_contents(sink->bbs_next, len);
+}
+```
+
+Key simplifications made:
+- Preserved essential buffer sharing validation
+- Maintained manifest contents forwarding with length
+- Focused on core manifest data forwarding with shared buffers

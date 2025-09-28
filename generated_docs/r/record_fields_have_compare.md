@@ -28,3 +28,24 @@ The function determines if a record type has comparison support by checking if a
 - The function implements lazy evaluation - field properties are only computed when first needed
 - The result is cached in the TypeCacheEntry flags to avoid repeated computation
 - Essential for determining whether record types can participate in comparison operations like sorting and equality checks
+
+## Simplified Source
+
+```c
+// Simplified version of record_fields_have_compare
+static bool record_fields_have_compare(TypeCacheEntry *typentry) {
+    // Check if field properties have been cached yet
+    if (!(typentry->flags & TCFLAGS_CHECKED_FIELD_PROPERTIES)) {
+        // Cache the field properties if not done yet
+        cache_record_field_properties(typentry);
+    }
+
+    // Return whether all fields support comparison
+    return (typentry->flags & TCFLAGS_HAVE_FIELD_COMPARE) != 0;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the lazy evaluation pattern
+- Clarified the purpose of each flag check
+- Maintained the essential logic flow for record field comparison support

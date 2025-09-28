@@ -38,3 +38,26 @@ This function takes no parameters.
 - Handles unexpected termination scenarios gracefully
 - Safe to call multiple times (subsequent calls are no-ops)
 - Critical for system stability in multi-process PostgreSQL environment
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_backend_shutdown
+void dsm_backend_shutdown(void) {
+    // Detach all remaining DSM segments during backend shutdown
+    while (!dlist_is_empty(&dsm_segment_list)) {
+        // Get the first segment from the list
+        dsm_segment *seg = dlist_head_element(dsm_segment, node, &dsm_segment_list);
+
+        // Detach it (this also removes it from the list)
+        dsm_detach(seg);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the purpose and each step
+- Consolidated the segment retrieval and detachment logic
+- Emphasized that dsm_detach automatically removes segments from the list
+- Focused on the core algorithm: iterate through list and detach each segment
+- Simplified the loop structure while preserving the cleanup functionality

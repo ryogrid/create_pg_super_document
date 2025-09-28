@@ -35,3 +35,37 @@ This function is a variant of palloc that provides zero-initialized memory alloc
 - Integrates with Valgrind for memory debugging
 - More efficient than separate palloc() + memset() calls
 - Commonly used for allocating structures that need to start with clean state
+
+## Simplified Source
+
+```c
+// Simplified version of palloc0
+void *palloc0(Size size) {
+    MemoryContext context = CurrentMemoryContext;
+
+    // Validate context and ensure we're not in a critical section
+    Assert(MemoryContextIsValid(context));
+    AssertNotInCriticalSection(context);
+
+    // Mark context as having active allocations
+    context->isReset = false;
+
+    // Allocate memory from the context
+    void *ret = context->methods->alloc(context, size, 0);
+
+    // Track allocation for debugging tools
+    VALGRIND_MEMPOOL_ALLOC(context, ret, size);
+
+    // Zero-initialize the allocated memory
+    MemSetAligned(ret, 0, size);
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Consolidated variable declarations at the top
+- Focused on the core algorithm: validate context, mark as active, allocate, track, zero-fill, return
+- Preserved all debugging support and memory tracking
+- Made the zero-initialization step explicit and clear

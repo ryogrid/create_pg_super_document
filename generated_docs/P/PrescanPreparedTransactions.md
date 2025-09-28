@@ -43,3 +43,68 @@ The function processes each prepared transaction by calling ProcessTwoPhaseBuffe
 - Dynamically allocates and grows the XID array using palloc/repalloc with doubling strategy
 - Validates transaction integrity through ProcessTwoPhaseBuffer calls with specific parameters
 - Critical for proper subtrans initialization and XID assignment during startup recovery
+
+## Simplified Source
+
+```c
+// Simplified version of PrescanPreparedTransactions
+TransactionId PrescanPreparedTransactions(TransactionId **xids_p, int *nxids_p) {
+    FullTransactionId nextXid = TransamVariables->nextXid;
+    TransactionId origNextXid = XidFromFullTransactionId(nextXid);
+    TransactionId result = origNextXid;
+    TransactionId *xids = NULL;
+    int nxids = 0;
+    int allocsize = 0;
+
+    // Scan all prepared transactions under lock
+    LWLockAcquire(TwoPhaseStateLock, LW_EXCLUSIVE);
+    for (int i = 0; i < TwoPhaseState->numPrepXacts; i++) {
+        GlobalTransaction gxact = TwoPhaseState->prepXacts[i];
+        TransactionId xid = gxact->xid;
+
+        // Validate transaction buffer
+        char *buf = ProcessTwoPhaseBuffer(xid, gxact->prepare_start_lsn,
+                                         gxact->ondisk, false, true);
+        if (buf == NULL)
+            continue;
+
+        // Update running minimum XID
+        if (TransactionIdPrecedes(xid, result))
+            result = xid;
+
+        // Collect XID if requested
+        if (xids_p) {
+            // Grow array if needed
+            if (nxids == allocsize) {
+                if (nxids == 0) {
+                    allocsize = 10;
+                    xids = palloc(allocsize * sizeof(TransactionId));
+                } else {
+                    allocsize = allocsize * 2;
+                    xids = repalloc(xids, allocsize * sizeof(TransactionId));
+                }
+            }
+            xids[nxids++] = xid;
+        }
+
+        pfree(buf);
+    }
+    LWLockRelease(TwoPhaseStateLock);
+
+    // Return collected XIDs if requested
+    if (xids_p) {
+        *xids_p = xids;
+        *nxids_p = nxids;
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about PITR recovery and XID handling
+- Consolidated variable declarations for better readability
+- Simplified the array growth logic while preserving the doubling strategy
+- Focused on the core algorithm: scan, validate, collect minimum XID
+- Preserved essential memory management and locking semantics
+- Maintained the optional XID collection functionality

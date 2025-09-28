@@ -42,3 +42,26 @@ The cleanup is performed without error checking - failure to remove the files is
 - The  files indicate segments ready for archiving (normally shouldn't exist when cleanup is called)
 - No error handling is performed - file removal failures are silently ignored
 - Located in src/backend/access/transam/xlogarchive.c at lines 712-725
+
+## Simplified Source
+
+```c
+// Simplified version of XLogArchiveCleanup
+void XLogArchiveCleanup(const char *xlog) {
+    char archiveStatusPath[MAXPGPATH];
+
+    // Remove the .done file (indicates archiving completed)
+    StatusFilePath(archiveStatusPath, xlog, ".done");
+    unlink(archiveStatusPath);
+
+    // Remove the .ready file if present (normally shouldn't exist)
+    StatusFilePath(archiveStatusPath, xlog, ".ready");
+    unlink(archiveStatusPath);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the purpose of each status file
+- Removed the "should we complain about failure?" comments
+- Focused on the core operation: cleanup archive status files
+- Simplified the presentation while preserving the no-error-checking behavior

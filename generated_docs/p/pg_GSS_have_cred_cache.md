@@ -40,3 +40,34 @@ If credentials are successfully acquired, they are returned through the output p
 - The function is used to probe credential availability before attempting authentication
 - Returns true only if credentials are successfully acquired, false for any failure condition
 - Used in connection logic to determine if GSS authentication is viable
+
+## Simplified Source
+
+```c
+// Simplified version of pg_GSS_have_cred_cache
+bool pg_GSS_have_cred_cache(gss_cred_id_t *cred_out) {
+    OM_uint32 major, minor;
+    gss_cred_id_t cred = GSS_C_NO_CREDENTIAL;
+
+    // Try to acquire default GSS credentials for initiating connections
+    major = gss_acquire_cred(&minor, GSS_C_NO_NAME, 0, GSS_C_NO_OID_SET,
+                            GSS_C_INITIATE, &cred, NULL, NULL);
+
+    // Check if credential acquisition was successful
+    if (major != GSS_S_COMPLETE) {
+        *cred_out = NULL;
+        return false;
+    }
+
+    // Return the acquired credentials
+    *cred_out = cred;
+    return true;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the credential acquisition process
+- Emphasized the role of checking for default credentials
+- Made the success/failure logic more explicit
+- Clarified the output parameter handling
+- Focused on the core functionality of credential probing

@@ -39,3 +39,67 @@ This function parses a textual representation of a vector of smallint (int2) val
 - Sets standard array metadata: ndim=1, dataoffset=0, elemtype=INT2OID, lbound1=0
 - Performs strict validation of input format and numeric ranges
 - Returns a properly formatted int2vector suitable for internal PostgreSQL operations
+
+## Simplified Source
+
+```c
+// Simplified version of int2vectorin
+Datum int2vectorin(PG_FUNCTION_ARGS) {
+    char *input_string = PG_GETARG_CSTRING(0);
+    Node *error_context = fcinfo->context;
+    int2vector *result;
+    int allocated_size = 32;  // Initial allocation guess
+    int element_count = 0;
+
+    // Allocate initial memory for result vector
+    result = (int2vector *) palloc0(Int2VectorSize(allocated_size));
+
+    // Parse space-separated integers from input string
+    while (true) {
+        long parsed_value;
+        char *end_pointer;
+
+        // Skip whitespace
+        while (*input_string && isspace(*input_string))
+            input_string++;
+        if (*input_string == '\0')
+            break;
+
+        // Expand allocation if needed
+        if (element_count >= allocated_size) {
+            allocated_size *= 2;
+            result = (int2vector *) repalloc(result, Int2VectorSize(allocated_size));
+        }
+
+        // Parse integer value with error checking
+        parsed_value = strtol(input_string, &end_pointer, 10);
+
+        // Validate parsing success and range
+        if (input_string == end_pointer || parsed_value < SHRT_MIN || parsed_value > SHRT_MAX) {
+            ereturn(error_context, (Datum) 0, /* error details */);
+        }
+
+        // Store value and advance to next token
+        result->values[element_count] = parsed_value;
+        input_string = end_pointer;
+        element_count++;
+    }
+
+    // Set final vector metadata
+    SET_VARSIZE(result, Int2VectorSize(element_count));
+    result->ndim = 1;
+    result->dataoffset = 0;
+    result->elemtype = INT2OID;
+    result->dim1 = element_count;
+    result->lbound1 = 0;
+
+    PG_RETURN_POINTER(result);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling messages for clarity
+- Used more descriptive variable names
+- Consolidated error checking logic
+- Added high-level comments explaining each major step
+- Focused on the main parsing and allocation algorithm

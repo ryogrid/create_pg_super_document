@@ -30,3 +30,23 @@ This function serves as the shutdown callback for TQueueDestReceiver objects, pe
 - Sets queue pointer to NULL after detachment following PostgreSQL coding conventions
 - Part of the DestReceiver cleanup lifecycle for parallel execution infrastructure
 - Critical for maintaining proper shared memory queue reference counts and cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of tqueueShutdownReceiver
+static void tqueueShutdownReceiver(DestReceiver *self) {
+    TQueueDestReceiver *tqueue = (TQueueDestReceiver *) self;
+
+    // Clean up shared memory queue connection
+    if (tqueue->queue != NULL) {
+        shm_mq_detach(tqueue->queue);
+    }
+    tqueue->queue = NULL;
+}
+```
+
+Key simplifications made:
+- Preserved essential cleanup logic
+- Maintained null pointer safety check
+- Focused on core shared memory queue detachment functionality

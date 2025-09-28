@@ -45,3 +45,50 @@ The function is particularly careful during error abort situations (when portal-
 - [QueryDesc](../Q/QueryDesc.md) is reset to NULL early to prevent double cleanup attempts in case of errors
 - The function is idempotent - it's safe to call multiple times on the same portal
 - Transaction abort mechanisms will handle resource cleanup if this function itself fails during error scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of PortalCleanup
+void PortalCleanup(Portal portal) {
+    QueryDesc *queryDesc;
+
+    // Validate portal and cleanup hook
+    Assert(PortalIsValid(portal));
+    Assert(portal->cleanup == PortalCleanup);
+
+    // Check if there's an active query descriptor to clean up
+    queryDesc = portal->queryDesc;
+    if (queryDesc) {
+        // Reset queryDesc early to prevent double cleanup
+        portal->queryDesc = NULL;
+
+        // Only proceed with executor cleanup if portal isn't failed
+        if (portal->status != PORTAL_FAILED) {
+            ResourceOwner saveResourceOwner;
+
+            // Switch to portal's resource owner context
+            saveResourceOwner = CurrentResourceOwner;
+            if (portal->resowner) {
+                CurrentResourceOwner = portal->resowner;
+            }
+
+            // Properly shut down the executor
+            ExecutorFinish(queryDesc);
+            ExecutorEnd(queryDesc);
+            FreeQueryDesc(queryDesc);
+
+            // Restore original resource owner
+            CurrentResourceOwner = saveResourceOwner;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added clearer comments explaining each cleanup phase
+- Simplified the resource owner handling structure
+- Maintained all essential error safety measures
+- Preserved the executor shutdown sequence
+- Focused on the core portal cleanup workflow
+- Kept the defensive programming patterns for error scenarios

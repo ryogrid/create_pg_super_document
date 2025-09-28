@@ -44,4 +44,28 @@ The function includes an optimization to skip sorting when the list has fewer th
 - Optimized to skip sorting for lists with 0 or 1 elements
 - Commonly used for sorting relation lists, path lists, and other collections that need ordering
 - The comparator function should follow standard qsort conventions for return values
-- [List](../L/List.md) structure integrity is validated before sorting
+- List structure integrity is validated before sorting
+
+## Simplified Source
+
+```c
+// Simplified version of list_sort
+void list_sort(List *list, list_sort_comparator cmp) {
+    typedef int (*qsort_comparator) (const void *a, const void *b);
+    int len;
+
+    check_list_invariants(list);
+
+    // Skip sorting for lists with less than two elements
+    len = list_length(list);
+    if (len > 1)
+        qsort(list->elements, len, sizeof(ListCell), (qsort_comparator) cmp);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Maintained list validation and optimization for small lists
+- Preserved the qsort wrapper functionality
+- Kept the type casting for comparator function compatibility
+- Maintained the core sorting algorithm delegation to qsort

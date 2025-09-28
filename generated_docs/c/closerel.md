@@ -23,6 +23,40 @@ Key functionality includes:
 The function supports both explicit closes (with relname parameter) and implicit closes (with NULL relname), making it flexible for different bootstrap scenarios.
 
 ## Parameters / Member Variables
+- `relname`: Optional relation name for validation (can be NULL for implicit close)
+
+## Simplified Source
+
+```c
+// Simplified version of closerel
+void closerel(char *relname) {
+    // Validate relation name if provided
+    if (relname) {
+        if (boot_reldesc) {
+            if (strcmp(RelationGetRelationName(boot_reldesc), relname) != 0)
+                elog(ERROR, "close of %s when %s was expected",
+                     relname, RelationGetRelationName(boot_reldesc));
+        } else {
+            elog(ERROR, "close of %s before any relation was opened", relname);
+        }
+    }
+
+    // Ensure a relation is actually open
+    if (boot_reldesc == NULL)
+        elog(ERROR, "no open relation to close");
+
+    // Close the relation and reset global state
+    elog(DEBUG4, "close relation %s", RelationGetRelationName(boot_reldesc));
+    table_close(boot_reldesc, NoLock);
+    boot_reldesc = NULL;
+}
+```
+
+Key simplifications made:
+- Focused on the validation and cleanup sequence
+- Emphasized the global state management (boot_reldesc)
+- Added clear comments for each validation step
+- Simplified the error handling logic
 - `relname`: Name of the relation to close (can be NULL for implicit close operations)
 
 ## Dependencies

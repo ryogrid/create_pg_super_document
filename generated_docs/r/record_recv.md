@@ -47,3 +47,96 @@ The function performs extensive validation including column count verification, 
 - Validates that receive functions consume exactly the expected amount of binary data
 - Memory management ensures result can be safely freed by caller
 - Part of PostgreSQL's binary protocol for efficient data transfer
+
+## Simplified Source
+
+```c
+// Simplified version of record_recv
+Datum record_recv(PG_FUNCTION_ARGS) {
+    StringInfo buf = (StringInfo) PG_GETARG_POINTER(0);
+    Oid tupType = PG_GETARG_OID(1);
+    int32 tupTypmod = PG_GETARG_INT32(2);
+
+    // Basic validation: anonymous records not supported
+    if (tupType == RECORDOID && tupTypmod < 0)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("input of anonymous composite types is not implemented")));
+
+    // Get type information
+    TupleDesc tupdesc = lookup_rowtype_tupdesc(tupType, tupTypmod);
+    int ncolumns = tupdesc->natts;
+
+    // Setup or reuse cached I/O information
+    RecordIOData *my_extra = setup_record_io_cache(fcinfo, ncolumns, tupType, tupTypmod);
+
+    // Allocate arrays for column values
+    Datum *values = (Datum *) palloc(ncolumns * sizeof(Datum));
+    bool *nulls = (bool *) palloc(ncolumns * sizeof(bool));
+
+    // Read and validate column count from binary data
+    int usercols = pq_getmsgint(buf, 4);
+    int validcols = count_valid_columns(tupdesc, ncolumns);
+    if (usercols != validcols)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("wrong number of columns: %d, expected %d", usercols, validcols)));
+
+    // Process each column
+    for (int i = 0; i < ncolumns; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        // Skip dropped columns
+        if (att->attisdropped) {
+            values[i] = (Datum) 0;
+            nulls[i] = true;
+            continue;
+        }
+
+        // Read column type and validate if built-in type
+        Oid coltypoid = pq_getmsgint(buf, sizeof(Oid));
+        validate_column_type(coltypoid, att->atttypid, i);
+
+        // Read column data length
+        int itemlen = pq_getmsgint(buf, 4);
+        if (itemlen < -1 || itemlen > (buf->len - buf->cursor))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                           errmsg("insufficient data left in message")));
+
+        // Handle NULL values
+        if (itemlen == -1) {
+            nulls[i] = true;
+            continue;
+        }
+
+        // Setup buffer for column data
+        StringInfoData item_buf;
+        setup_column_buffer(&item_buf, buf, itemlen);
+        nulls[i] = false;
+
+        // Get receive function for this column type and call it
+        setup_column_receive_function(my_extra, i, att->atttypid, fcinfo);
+        values[i] = ReceiveFunctionCall(&my_extra->columns[i].proc, &item_buf,
+                                       my_extra->columns[i].typioparam, att->atttypmod);
+
+        // Validate that all data was consumed
+        if (item_buf.cursor != itemlen)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                           errmsg("improper binary format in record column %d", i + 1)));
+    }
+
+    // Create tuple and return as heap tuple header
+    HeapTuple tuple = heap_form_tuple(tupdesc, values, nulls);
+    HeapTupleHeader result = copy_tuple_header(tuple);
+
+    // Cleanup
+    cleanup_resources(tuple, values, nulls, tupdesc);
+
+    PG_RETURN_HEAPTUPLEHEADER(result);
+}
+```
+
+Key simplifications made:
+- Extracted helper functions for common operations (setup_record_io_cache, count_valid_columns, etc.)
+- Simplified error handling while preserving critical validations
+- Consolidated buffer management logic
+- Abstracted complex memory management details
+- Focused on the main execution flow while maintaining type safety

@@ -39,3 +39,27 @@ Once an element is added to the filter, subsequent calls to `bloom_lacks_element
 - Uses bitwise AND with 7 to get bit offset within byte (equivalent to modulo 8)
 - Multiple hash functions ensure good distribution and optimal false positive rate
 - No bounds checking is performed - [hash](../h/hash.md) values must be within bitset range
+
+## Simplified Source
+
+```c
+// Simplified version of bloom_add_element
+void bloom_add_element(bloom_filter *filter, unsigned char *elem, size_t len) {
+    uint32 hashes[MAX_HASH_FUNCS];
+    int i;
+
+    // Compute k hash values for the element
+    k_hashes(filter, hashes, elem, len);
+
+    // Set corresponding bits in bitset
+    for (i = 0; i < filter->k_hash_funcs; i++) {
+        filter->bitset[hashes[i] >> 3] |= 1 << (hashes[i] & 7);
+    }
+}
+```
+
+Key simplifications made:
+- Preserved k-hash computation for multiple hash functions
+- Maintained efficient bit addressing using shift and mask operations
+- Focused on core bit-setting logic
+- Kept the essential loop structure for multiple hash functions

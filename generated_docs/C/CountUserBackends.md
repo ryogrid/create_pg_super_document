@@ -37,3 +37,44 @@ The function iterates through all processes under ProcArrayLock protection, matc
 - The filtering ensures accurate counts for resource management and user monitoring
 - Acquires shared lock for consistent results across the counting operation
 - Part of PostgreSQL's role-based access control and resource management system
+
+## Simplified Source
+
+```c
+// Simplified version of CountUserBackends
+int CountUserBackends(Oid roleid) {
+    ProcArrayStruct *arrayP = procArray;
+    int count = 0;
+
+    // Lock the process array for consistent reading
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Iterate through all processes in the array
+    for (int index = 0; index < arrayP->numProcs; index++) {
+        int pgprocno = arrayP->pgprocnos[index];
+        PGPROC *proc = &allProcs[pgprocno];
+
+        // Skip inactive processes (prepared transactions)
+        if (proc->pid == 0)
+            continue;
+
+        // Skip background workers - only count regular user backends
+        if (proc->isBackgroundWorker)
+            continue;
+
+        // Count if this process belongs to the target role
+        if (proc->roleId == roleid)
+            count++;
+    }
+
+    LWLockRelease(ProcArrayLock);
+    return count;
+}
+```
+
+Key simplifications made:
+- Focused on the core counting algorithm with filtering
+- Added clear comments for each filtering condition
+- Emphasized the lock acquisition pattern for consistency
+- Showed the three-step filter: active, non-background, matching role
+- Simplified loop structure while preserving logic

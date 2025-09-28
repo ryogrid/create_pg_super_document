@@ -39,3 +39,29 @@ GetCurrentCommandId returns the current command ID (currentCommandId) for the ac
 - The function is critical for MVCC (Multi-Version Concurrency Control) implementation
 - Located in src/backend/access/transam/xact.c:826-855
 - Used extensively throughout the system for both data modification and snapshot management
+
+## Simplified Source
+
+```c
+// Simplified version of GetCurrentCommandId
+CommandId GetCurrentCommandId(bool used) {
+    // Track usage for data modification operations
+    if (used) {
+        // Parallel workers cannot modify data
+        if (IsParallelWorker())
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_TRANSACTION_STATE),
+                     errmsg("cannot modify data in a parallel worker")));
+
+        currentCommandIdUsed = true;
+    }
+
+    return currentCommandId;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the core logic: parallel worker check and usage tracking
+- Maintained the essential error handling for parallel workers
+- Preserved the global command ID tracking mechanism

@@ -34,3 +34,33 @@ This function serves as an error context callback specifically designed to provi
 - Memory allocated by relpathperm() is properly freed using pfree()
 - Provides critical debugging information for buffer I/O failures
 - Part of PostgreSQL error reporting infrastructure for buffer management operations
+
+## Simplified Source
+
+```c
+// Simplified version of shared_buffer_write_error_callback
+static void
+shared_buffer_write_error_callback(void *arg) {
+    BufferDesc *bufHdr = (BufferDesc *) arg;
+
+    // Provide error context if buffer descriptor is available
+    if (bufHdr != NULL) {
+        // Get relation path for error message
+        char *path = relpathperm(BufTagGetRelFileLocator(&bufHdr->tag),
+                               BufTagGetForkNum(&bufHdr->tag));
+
+        // Add context information to error report
+        errcontext("writing block %u of relation %s",
+                  bufHdr->tag.blockNum, path);
+
+        // Clean up allocated path string
+        pfree(path);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the error context functionality
+- This function is already quite simple - it formats error context information
+- Emphasized the purpose: providing helpful debugging info during buffer write failures
+- Preserved the essential pattern used in PostgreSQL's error reporting system

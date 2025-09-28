@@ -42,3 +42,44 @@ The  function performs a hash table lookup operation in PostgreSQL's dynamic sha
 - The returned entry pointer remains valid only while the lock is held
 - If an error occurs before releasing the lock, the lock is automatically released but the caller must ensure entry integrity
 - The function includes magic number validation to ensure hash table integrity
+
+## Simplified Source
+
+```c
+// Simplified version of dshash_find
+void *dshash_find(dshash_table *hash_table, const void *key, bool exclusive) {
+    dshash_hash hash;
+    size_t partition;
+    dshash_table_item *item;
+
+    hash = hash_key(hash_table, key);
+    partition = PARTITION_FOR_HASH(hash);
+
+    Assert(hash_table->control->magic == DSHASH_MAGIC);
+    ASSERT_NO_PARTITION_LOCKS_HELD_BY_ME(hash_table);
+
+    // Acquire partition lock (shared or exclusive)
+    LWLockAcquire(PARTITION_LOCK(hash_table, partition),
+                  exclusive ? LW_EXCLUSIVE : LW_SHARED);
+    ensure_valid_bucket_pointers(hash_table);
+
+    // Search the bucket for the key
+    item = find_in_bucket(hash_table, key, BUCKET_FOR_HASH(hash_table, hash));
+
+    if (!item) {
+        // Not found - release lock and return NULL
+        LWLockRelease(PARTITION_LOCK(hash_table, partition));
+        return NULL;
+    } else {
+        // Found - return entry (caller must release lock)
+        return ENTRY_FROM_ITEM(item);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated lock acquisition with clear mode selection
+- Simplified the found/not-found logic flow
+- Maintained critical assertions and bucket validation
+- Preserved the caller-must-release-lock contract
+- Focused on the core hash-and-search operation

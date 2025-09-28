@@ -36,3 +36,33 @@ This function performs crucial one-time setup for the expression evaluation inte
 - The reverse lookup table enables mapping from jump addresses back to opcodes
 - Critical for threaded dispatch optimization in expression evaluation
 - Initialization is performed only once when dispatch_table is NULL
+
+## Simplified Source
+
+```c
+// Simplified version of ExecInitInterpreter
+static void ExecInitInterpreter(void) {
+#if defined(EEO_USE_COMPUTED_GOTO)
+    // Initialize dispatch table only once
+    if (dispatch_table == NULL) {
+        // Get dispatch table addresses from interpreter
+        dispatch_table = (const void **) DatumGetPointer(ExecInterpExpr(NULL, NULL, NULL));
+
+        // Build reverse lookup table for address-to-opcode mapping
+        for (int i = 0; i < EEOP_LAST; i++) {
+            reverse_dispatch_table[i].opcode = dispatch_table[i];
+            reverse_dispatch_table[i].op = (ExprEvalOp) i;
+        }
+
+        // Sort reverse lookup table for binary search
+        qsort(reverse_dispatch_table, EEOP_LAST,
+              sizeof(ExprEvalOpLookup), dispatch_compare_ptr);
+    }
+#endif
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the computed goto optimization setup
+- Clarified the purpose of the reverse lookup table construction
+- Maintained the essential initialization logic for expression evaluation performance

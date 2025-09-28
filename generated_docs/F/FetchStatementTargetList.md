@@ -34,3 +34,75 @@ For Query nodes, it checks the command type and returns either the main targetLi
 - Returns NIL for statements that don't have a determinable target list
 - Used by both portal management code and plan cache functionality
 - Located in src/backend/tcop/pquery.c:348-432
+
+## Simplified Source
+
+```c
+// Simplified version of FetchStatementTargetList
+List *FetchStatementTargetList(Node *stmt) {
+    // Handle null input
+    if (stmt == NULL) {
+        return NIL;
+    }
+
+    // Handle Query nodes
+    if (IsA(stmt, Query)) {
+        Query *query = (Query *) stmt;
+
+        if (query->commandType == CMD_UTILITY) {
+            // Recursively process utility statement
+            return FetchStatementTargetList(query->utilityStmt);
+        } else {
+            // For SELECT queries, return main target list
+            if (query->commandType == CMD_SELECT) {
+                return query->targetList;
+            }
+            // For queries with RETURNING, return returning list
+            if (query->returningList) {
+                return query->returningList;
+            }
+            return NIL;
+        }
+    }
+
+    // Handle PlannedStmt nodes
+    if (IsA(stmt, PlannedStmt)) {
+        PlannedStmt *planned_stmt = (PlannedStmt *) stmt;
+
+        if (planned_stmt->commandType == CMD_UTILITY) {
+            // Recursively process utility statement
+            return FetchStatementTargetList(planned_stmt->utilityStmt);
+        } else {
+            // Return plan tree's target list for SELECT or RETURNING queries
+            if (planned_stmt->commandType == CMD_SELECT || planned_stmt->hasReturning) {
+                return planned_stmt->planTree->targetlist;
+            }
+            return NIL;
+        }
+    }
+
+    // Handle FETCH statements
+    if (IsA(stmt, FetchStmt)) {
+        FetchStmt *fetch_stmt = (FetchStmt *) stmt;
+        Portal portal = GetPortalByName(fetch_stmt->portalname);
+        return FetchPortalTargetList(portal);
+    }
+
+    // Handle EXECUTE statements
+    if (IsA(stmt, ExecuteStmt)) {
+        ExecuteStmt *execute_stmt = (ExecuteStmt *) stmt;
+        PreparedStatement *prepared = FetchPreparedStatement(execute_stmt->name, true);
+        return FetchPreparedStatementTargetList(prepared);
+    }
+
+    // Unknown statement type
+    return NIL;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names for clarity
+- Consolidated similar logic branches for Query and PlannedStmt
+- Added comments explaining each statement type handling
+- Removed some assertions for simplicity
+- Focused on core logic: identify statement type, extract appropriate target list

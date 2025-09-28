@@ -54,3 +54,113 @@ This function takes no parameters as it operates on global recovery state.
 - Recovery can be paused and resumed via hot-standby session requests
 - The function logs detailed information about recovery start, progress, and completion
 - Resource manager startup and cleanup are handled at the beginning and end of recovery
+
+## Simplified Source
+
+```c
+// Simplified version of PerformWalRecovery
+void PerformWalRecovery(void) {
+    XLogRecord *record;
+    bool reachedRecoveryTarget = false;
+    TimeLineID replayTLI;
+
+    // Initialize recovery progress tracking
+    InitializeRecoveryProgress();
+
+    // Signal postmaster that recovery has started
+    if (IsUnderPostmaster)
+        SendPostmasterSignal(PMSIGNAL_RECOVERY_STARTED);
+
+    // Check if we can allow read-only connections
+    CheckRecoveryConsistency();
+
+    // Find first record to replay
+    if (RedoStartLSN < CheckPointLoc) {
+        // Start from REDO location
+        replayTLI = RedoStartTLI;
+        XLogPrefetcherBeginRead(xlogprefetcher, RedoStartLSN);
+        record = ReadRecord(xlogprefetcher, PANIC, false, replayTLI);
+
+        // Verify it's a checkpoint redo record
+        if (!IsCheckpointRedoRecord(record))
+            ereport(FATAL, "unexpected record type at redo point");
+    } else {
+        // Start after checkpoint
+        replayTLI = CheckPointTLI;
+        record = ReadRecord(xlogprefetcher, LOG, false, replayTLI);
+    }
+
+    if (record != NULL) {
+        InRedo = true;
+        RmgrStartup();
+
+        ereport(LOG, "redo starts at %X/%X", LSN_FORMAT_ARGS(xlogreader->ReadRecPtr));
+
+        // Main recovery loop
+        do {
+            // Handle interrupts and pause requests
+            HandleStartupProcInterrupts();
+            if (RecoveryIsPaused())
+                recoveryPausesHere(false);
+
+            // Check if we've reached recovery target
+            if (recoveryStopsBefore(xlogreader)) {
+                reachedRecoveryTarget = true;
+                break;
+            }
+
+            // Apply delay if configured
+            if (recoveryApplyDelay(xlogreader)) {
+                if (RecoveryIsPaused())
+                    recoveryPausesHere(false);
+            }
+
+            // Apply the WAL record
+            ApplyWalRecord(xlogreader, record, &replayTLI);
+
+            // Check recovery target after applying record
+            if (recoveryStopsAfter(xlogreader)) {
+                reachedRecoveryTarget = true;
+                break;
+            }
+
+            // Read next record
+            record = ReadRecord(xlogprefetcher, LOG, false, replayTLI);
+        } while (record != NULL);
+
+        // Handle recovery completion based on target action
+        if (reachedRecoveryTarget) {
+            switch (recoveryTargetAction) {
+                case RECOVERY_TARGET_ACTION_SHUTDOWN:
+                    proc_exit(3);
+                case RECOVERY_TARGET_ACTION_PAUSE:
+                    SetRecoveryPause(true);
+                    recoveryPausesHere(true);
+                case RECOVERY_TARGET_ACTION_PROMOTE:
+                    break;
+            }
+        }
+
+        RmgrCleanup();
+        ereport(LOG, "redo done at %X/%X", LSN_FORMAT_ARGS(xlogreader->ReadRecPtr));
+
+        InRedo = false;
+    } else {
+        ereport(LOG, "redo is not required");
+    }
+
+    // Verify recovery target was reached if required
+    if (ArchiveRecoveryRequested && recoveryTarget != RECOVERY_TARGET_UNSET &&
+        !reachedRecoveryTarget)
+        ereport(FATAL, "recovery ended before configured recovery target was reached");
+}
+```
+
+Key simplifications made:
+- Abstracted complex shared memory initialization into InitializeRecoveryProgress()
+- Simplified record type checking with IsCheckpointRedoRecord() helper
+- Consolidated recovery pause checking into RecoveryIsPaused() helper
+- Removed detailed debug logging and progress reporting code
+- Focused on the main recovery flow: initialize, find start, replay loop, cleanup
+- Preserved essential error handling and recovery target logic
+- Removed low-level spinlock and timing details while maintaining core functionality

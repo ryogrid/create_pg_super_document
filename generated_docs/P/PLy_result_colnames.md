@@ -40,3 +40,36 @@ Returns a Python list where each element is a Unicode string representing a colu
 - This method is typically used for introspecting query results in PL/Python functions
 - The method takes no arguments (METH_NOARGS in the method definition)
 - Part of the public API for PLyResult objects accessible from Python code
+
+## Simplified Source
+
+```c
+// Simplified version of PLy_result_colnames
+static PyObject *PLy_result_colnames(PyObject *self, PyObject *unused) {
+    PLyResultObject *result_obj = (PLyResultObject *) self;
+
+    // Validate result has column information
+    if (!result_obj->tupdesc) {
+        PLy_exception_set(PLy_exc_error, "command did not produce a result set");
+        return NULL;
+    }
+
+    // Create Python list for column names
+    PyObject *column_list = PyList_New(result_obj->tupdesc->natts);
+    if (!column_list)
+        return NULL;
+
+    // Extract each column name from tuple descriptor
+    for (int i = 0; i < result_obj->tupdesc->natts; i++) {
+        Form_pg_attribute attr = TupleDescAttr(result_obj->tupdesc, i);
+        PyList_SET_ITEM(column_list, i, PLyUnicode_FromString(NameStr(attr->attname)));
+    }
+
+    return column_list;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names for clarity
+- Added explanatory comments for each major step
+- Focused on the main logic flow: validation, list creation, name extraction

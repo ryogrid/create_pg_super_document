@@ -38,5 +38,22 @@ The function is implemented as a static inline function for performance reasons,
 ## Notes and Other Information
 - The function assumes that the caller has verified a next node exists, enforced by the assertion
 - Used extensively in PostgreSQL's GIN index operations and replication logic
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_next_node
+static inline dlist_node *dlist_next_node(dlist_head *head, dlist_node *node) {
+    // Assert that a next node exists
+    Assert(dlist_has_next(head, node));
+    // Return the next node
+    return node->next;
+}
+```
+
+Key simplifications made:
+- Focused on the assertion-protected access pattern
+- Emphasized the safety check before returning next pointer
+- Showed the simple pointer dereference with validation
 - Part of the safe list traversal API that prevents common list iteration errors
 - The assertion helps catch programming errors where code attempts to traverse beyond list boundaries

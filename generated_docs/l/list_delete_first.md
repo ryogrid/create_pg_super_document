@@ -39,3 +39,27 @@ An important performance consideration is that this operation takes O(n) time pr
 - Performance warning: O(n) complexity due to element shifting - consider using list_delete_last() for better performance if list order can be reversed
 - Commonly used in parsing, optimization, and execution contexts where lists need to be consumed element by element
 - The operation is atomic and maintains list structure invariants through check_list_invariants()
+
+## Simplified Source
+
+```c
+// Simplified version of list_delete_first
+List *list_delete_first(List *list) {
+    // Validate list structure
+    check_list_invariants(list);
+
+    // Handle empty list case
+    if (list == NIL) {
+        return NIL;
+    }
+
+    // Delete the first element (index 0)
+    return list_delete_nth_cell(list, 0);
+}
+```
+
+Key simplifications made:
+- Preserved essential first element deletion logic
+- Maintained null list safety check
+- Kept list structure validation
+- Focused on core delegation to nth cell deletion

@@ -70,3 +70,85 @@ The function handles both streaming logical replication and two-phase commit sce
 - Creates wrapper callbacks to add error context information to output plugin calls
 - Memory allocation failures in WAL reader allocation result in out-of-memory errors
 - The function establishes the foundation for all subsequent logical decoding operations
+
+## Simplified Source
+
+```c
+// Simplified version of StartupDecodingContext
+static LogicalDecodingContext *
+StartupDecodingContext(List *output_plugin_options,
+                      XLogRecPtr start_lsn,
+                      TransactionId xmin_horizon,
+                      bool need_full_snapshot,
+                      bool fast_forward,
+                      bool in_create,
+                      XLogReaderRoutine *xl_routine,
+                      LogicalOutputPluginWriterPrepareWrite prepare_write,
+                      LogicalOutputPluginWriterWrite do_write,
+                      LogicalOutputPluginWriterUpdateProgress update_progress) {
+
+    ReplicationSlot *slot = MyReplicationSlot;
+
+    // Create memory context for logical decoding
+    MemoryContext context = AllocSetContextCreate(CurrentMemoryContext,
+                                                  "Logical decoding context",
+                                                  ALLOCSET_DEFAULT_SIZES);
+    MemoryContext old_context = MemoryContextSwitchTo(context);
+    LogicalDecodingContext *ctx = palloc0(sizeof(LogicalDecodingContext));
+
+    ctx->context = context;
+
+    // Load output plugin (unless fast forward mode)
+    if (!fast_forward)
+        LoadOutputPlugin(&ctx->callbacks, NameStr(slot->data.plugin));
+
+    // Set logical decoding process status
+    if (!IsTransactionOrTransactionBlock()) {
+        LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+        MyProc->statusFlags |= PROC_IN_LOGICAL_DECODING;
+        ProcGlobal->statusFlags[MyProc->pgxactoff] = MyProc->statusFlags;
+        LWLockRelease(ProcArrayLock);
+    }
+
+    // Initialize core components
+    ctx->slot = slot;
+    ctx->reader = XLogReaderAllocate(wal_segment_size, NULL, xl_routine, ctx);
+    ctx->reorder = ReorderBufferAllocate();
+    ctx->snapshot_builder = AllocateSnapshotBuilder(ctx->reorder, xmin_horizon,
+                                                   start_lsn, need_full_snapshot,
+                                                   in_create, slot->data.two_phase_at);
+
+    // Set up callback wrappers for error handling
+    ctx->reorder->begin = begin_cb_wrapper;
+    ctx->reorder->apply_change = change_cb_wrapper;
+    ctx->reorder->commit = commit_cb_wrapper;
+
+    // Configure streaming support based on available callbacks
+    ctx->streaming = (ctx->callbacks.stream_start_cb != NULL) ||
+                    (ctx->callbacks.stream_commit_cb != NULL) ||
+                    (ctx->callbacks.stream_change_cb != NULL);
+
+    // Configure two-phase support based on available callbacks
+    ctx->twophase = (ctx->callbacks.begin_prepare_cb != NULL) ||
+                   (ctx->callbacks.prepare_cb != NULL) ||
+                   (ctx->callbacks.commit_prepared_cb != NULL);
+
+    // Set up output handling
+    ctx->out = makeStringInfo();
+    ctx->prepare_write = prepare_write;
+    ctx->write = do_write;
+    ctx->update_progress = update_progress;
+    ctx->output_plugin_options = output_plugin_options;
+    ctx->fast_forward = fast_forward;
+
+    MemoryContextSwitchTo(old_context);
+    return ctx;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling for out of memory conditions
+- Consolidated callback wrapper assignments
+- Simplified streaming and two-phase capability detection
+- Abstracted detailed callback setup for all stream types
+- Focused on core initialization flow

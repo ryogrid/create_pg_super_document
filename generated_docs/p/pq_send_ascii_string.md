@@ -41,3 +41,31 @@ This function is specifically used in error handling scenarios where PostgreSQL 
 - This is a more conservative alternative to pq_sendstring when encoding issues arise
 - The function ensures that no badly encoded strings are sent to the client
 - Part of PostgreSQL's robust error handling system that prioritizes message delivery over perfect formatting
+
+## Simplified Source
+
+```c
+// Simplified version of pq_send_ascii_string
+void pq_send_ascii_string(StringInfo buf, const char *str) {
+    // Process each character in the string
+    while (*str) {
+        char ch = *str++;
+
+        // Replace non-ASCII characters with '?' for safety
+        if (IS_HIGHBIT_SET(ch)) {
+            ch = '?';
+        }
+        appendStringInfoCharMacro(buf, ch);
+    }
+
+    // Append null terminator
+    appendStringInfoChar(buf, '\0');
+}
+```
+
+Key simplifications made:
+- Preserved the core ASCII safety mechanism
+- Maintained the character-by-character processing loop
+- Added clear comments explaining the non-ASCII replacement
+- Kept the null termination for proper string formatting
+- Simple and focused on the ASCII sanitization logic

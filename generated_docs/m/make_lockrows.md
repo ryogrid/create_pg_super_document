@@ -38,3 +38,32 @@ The node maintains a list of row marking specifications that determine what type
 - Row marks specify different locking strengths (FOR UPDATE, FOR SHARE, FOR NO KEY UPDATE, FOR KEY SHARE)
 - EPQ parameters are crucial for handling concurrent updates in a multi-user environment
 - This node is essential for implementing PostgreSQL's MVCC (Multi-Version Concurrency Control) row locking semantics
+
+## Simplified Source
+
+```c
+// Simplified version of make_lockrows
+static LockRows *make_lockrows(Plan *lefttree, List *rowMarks, int epqParam) {
+    // Create new LockRows node
+    LockRows *node = makeNode(LockRows);
+    Plan *plan = &node->plan;
+
+    // Copy target list from child plan (no transformation needed)
+    plan->targetlist = lefttree->targetlist;
+    plan->qual = NIL;  // No additional filtering
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;  // LockRows is unary operator
+
+    // Set locking-specific parameters
+    node->rowMarks = rowMarks;  // Locking specifications for relations
+    node->epqParam = epqParam;  // Parameter for concurrent update handling
+
+    return node;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the core logic: creating node, copying target list, setting parameters
+- Preserved essential functionality including row marking and EPQ support
+- Maintained the simple structure of the original function

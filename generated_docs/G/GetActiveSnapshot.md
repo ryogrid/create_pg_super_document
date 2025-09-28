@@ -40,3 +40,23 @@ GetActiveSnapshot provides access to the currently active snapshot by returning 
 - Used extensively in executor, planner, and utility command contexts
 - The returned snapshot determines tuple visibility for the current operation
 - Must be called only when an active snapshot exists (enforced by assertion)
+
+## Simplified Source
+
+```c
+// Simplified version of GetActiveSnapshot
+Snapshot GetActiveSnapshot(void) {
+    // Ensure we have an active snapshot before accessing it
+    Assert(ActiveSnapshot != NULL);
+
+    // Return the snapshot at the top of the active stack
+    return ActiveSnapshot->as_snap;
+}
+```
+
+Key simplifications made:
+- This function is already very simple as it's just an accessor
+- Added clear comments explaining the assertion and purpose
+- Highlighted that it returns the topmost snapshot from the stack
+- Emphasized the MVCC role of providing current visibility rules
+- Focused on the essential accessor pattern with safety check

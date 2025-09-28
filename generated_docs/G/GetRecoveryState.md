@@ -34,3 +34,29 @@ GetRecoveryState is a thread-safe function that retrieves the current recovery s
 - See xlog.h for details about possible RecoveryState values
 - Located in src/backend/access/transam/xlog.c:6349-6367
 - Critical for WAL and recovery management subsystems
+
+## Simplified Source
+
+```c
+// Simplified version of GetRecoveryState
+RecoveryState GetRecoveryState(void) {
+    RecoveryState retval;
+
+    // Acquire spinlock for atomic access to shared memory
+    SpinLockAcquire(&XLogCtl->info_lck);
+
+    // Read current recovery state from shared memory
+    retval = XLogCtl->SharedRecoveryState;
+
+    // Release spinlock
+    SpinLockRelease(&XLogCtl->info_lck);
+
+    return retval;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the thread-safety mechanism
+- Focused on the core operation: atomic read of shared recovery state
+- Made the spinlock protection pattern explicit with comments
+- Simplified the variable handling while preserving thread safety

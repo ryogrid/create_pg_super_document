@@ -38,3 +38,33 @@ GXactLoadSubxactData is responsible for populating the subtransaction informatio
 - No additional locking is required since the GlobalTransaction is not yet marked as valid
 - Uses memcpy for efficient copying of subtransaction ID arrays
 - Essential for maintaining transaction visibility and lock information for prepared transactions with nested transactions
+
+## Simplified Source
+
+```c
+// Simplified version of GXactLoadSubxactData
+static void GXactLoadSubxactData(GlobalTransaction gxact, int nsubxacts,
+                                TransactionId *children) {
+    PGPROC *proc = GetPGProcByNumber(gxact->pgprocno);
+
+    // Handle subtransaction overflow
+    if (nsubxacts > PGPROC_MAX_CACHED_SUBXIDS) {
+        proc->subxidStatus.overflowed = true;
+        nsubxacts = PGPROC_MAX_CACHED_SUBXIDS;
+    }
+
+    // Copy subtransaction IDs if any exist
+    if (nsubxacts > 0) {
+        memcpy(proc->subxids.xids, children,
+               nsubxacts * sizeof(TransactionId));
+        proc->subxidStatus.count = nsubxacts;
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated overflow handling into clear conditional logic
+- Added comments explaining the overflow and copy operations
+- Preserved the essential subtransaction data loading mechanism
+- Maintained the PGPROC_MAX_CACHED_SUBXIDS limit handling
+- Focused on the core data transfer from children array to PGPROC

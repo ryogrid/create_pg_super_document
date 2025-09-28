@@ -45,3 +45,25 @@ The function is widely used throughout PostgreSQL for debugging, logging, error 
 - The function is located in src/backend/utils/fmgr/fmgr.c at lines 1763-1771
 - Extensively used in PL/Perl, PL/Tcl, and JSON conversion functions
 - For performance-critical code, cache the FmgrInfo and use OutputFunctionCall directly
+
+## Simplified Source
+
+```c
+// Simplified version of OidOutputFunctionCall
+char *OidOutputFunctionCall(Oid functionId, Datum val) {
+    FmgrInfo flinfo;
+
+    // Set up function manager info for the output function
+    fmgr_info(functionId, &flinfo);
+
+    // Call the output function to convert Datum to string
+    return OutputFunctionCall(&flinfo, val);
+}
+```
+
+Key simplifications made:
+- Function is already very simple, minimal changes needed
+- Added descriptive comments explaining the two-step process
+- Maintained the essential function lookup and call pattern
+- Preserved the convenience wrapper functionality
+- Focused on the core type output conversion workflow

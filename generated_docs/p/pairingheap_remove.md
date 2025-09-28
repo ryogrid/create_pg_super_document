@@ -46,3 +46,49 @@ The function carefully manages the doubly-linked structure of sibling nodes and 
 - Used in PostgreSQL's logical replication and snapshot management systems
 - Critical for maintaining ordered collections where arbitrary elements need to be removed
 - The algorithm ensures that heap ordering is preserved after removal by merging children appropriately
+
+## Simplified Source
+
+```c
+// Simplified version of pairingheap_remove
+void pairingheap_remove(pairingheap *heap, pairingheap_node *node) {
+    // Special case: removing root node
+    if (node == heap->ph_root) {
+        pairingheap_remove_first(heap);
+        return;
+    }
+
+    // Save node's children and next sibling before modification
+    pairingheap_node *children = node->first_child;
+    pairingheap_node *next_sibling = node->next_sibling;
+
+    // Find pointer to this node in parent or previous sibling
+    pairingheap_node **prev_ptr;
+    if (node->prev_or_parent->first_child == node)
+        prev_ptr = &node->prev_or_parent->first_child;
+    else
+        prev_ptr = &node->prev_or_parent->next_sibling;
+
+    if (children) {
+        // Node has children: merge them and link the result in place
+        pairingheap_node *replacement = merge_children(heap, children);
+        replacement->prev_or_parent = node->prev_or_parent;
+        replacement->next_sibling = next_sibling;
+        *prev_ptr = replacement;
+
+        if (next_sibling)
+            next_sibling->prev_or_parent = replacement;
+    } else {
+        // Node has no children: simply unlink it
+        *prev_ptr = next_sibling;
+        if (next_sibling)
+            next_sibling->prev_or_parent = node->prev_or_parent;
+    }
+}
+```
+
+Key simplifications made:
+- Clarified the root node special case handling
+- Added clear comments for the two main branches (with/without children)
+- Emphasized the pointer manipulation for unlinking
+- Simplified the complex sibling and parent relationship updates

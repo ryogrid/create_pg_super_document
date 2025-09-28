@@ -68,3 +68,55 @@ The dependency analysis phase passes the complete objects list as pendingObjects
 - Uses the same locking and cleanup patterns as performDeletion
 - Particularly useful for operations like DROP SCHEMA CASCADE where many related objects need deletion
 - The pendingObjects parameter in findDependentObjects enables the key optimization that distinguishes this from repeated single deletions
+
+## Simplified Source
+
+```c
+// Simplified version of performMultipleDeletions
+void performMultipleDeletions(const ObjectAddresses *objects, DropBehavior behavior, int flags) {
+    // Early exit if no objects to delete
+    if (objects->numrefs <= 0)
+        return;
+
+    // Open dependency relation once for efficiency
+    Relation depRel = table_open(DependRelationId, RowExclusiveLock);
+
+    // Prepare list to collect all objects to delete
+    ObjectAddresses *targetObjects = new_object_addresses();
+
+    // Process each object and find all dependencies
+    for (int i = 0; i < objects->numrefs; i++) {
+        const ObjectAddress *thisobj = objects->refs + i;
+
+        // Lock the object before processing
+        AcquireDeletionLock(thisobj, flags);
+
+        // Find all dependent objects (unified context prevents internal conflicts)
+        findDependentObjects(thisobj,
+                           DEPFLAG_ORIGINAL,
+                           flags,
+                           NULL,               // empty stack
+                           targetObjects,
+                           objects,            // entire list as context
+                           &depRel);
+    }
+
+    // Check permissions and report what will be deleted
+    reportDependentObjects(targetObjects, behavior, flags,
+                         (objects->numrefs == 1 ? objects->refs : NULL));
+
+    // Perform the actual deletions
+    deleteObjectsInList(targetObjects, &depRel, flags);
+
+    // Clean up
+    free_object_addresses(targetObjects);
+    table_close(depRel, RowExclusiveLock);
+}
+```
+
+Key simplifications made:
+- Removed extensive comments while preserving essential logic
+- Simplified variable declarations
+- Highlighted the unified context optimization in comments
+- Focused on the main workflow: lock → find dependencies → report → delete → cleanup
+- Preserved the efficiency optimization of opening pg_depend once

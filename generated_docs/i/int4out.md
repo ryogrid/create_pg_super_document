@@ -32,3 +32,24 @@ The int4out function is a PostgreSQL type output function that converts a 32-bit
 - Uses palloc for memory allocation
 - The function follows PostgreSQL's fmgr (function manager) calling convention
 - Located in src/backend/utils/adt/int.c:298-310
+
+## Simplified Source
+
+```c
+// Simplified version of int4out
+Datum int4out(PG_FUNCTION_ARGS) {
+    int32 input_value = PG_GETARG_INT32(0);
+    char *result = (char *) palloc(12);  // Sign + 10 digits + null terminator
+
+    // Convert integer to string
+    pg_ltoa(input_value, result);
+
+    PG_RETURN_CSTRING(result);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable name
+- Added comment explaining memory allocation size
+- This function is already very simple - core logic is just integer-to-string conversion
+- Focused on the essential conversion operation

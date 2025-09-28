@@ -48,3 +48,33 @@ The function returns a boolean indicating whether promotion occurred, which affe
 - The promotion path optimizes for faster failover by deferring expensive checkpoint operations
 - In promotion scenarios, a checkpoint is requested later for safety after the system is fully operational
 - Located in src/backend/access/transam/xlog.c:6263-6312
+
+## Simplified Source
+
+```c
+// Simplified version of PerformRecoveryXLogAction
+static bool PerformRecoveryXLogAction(void) {
+    bool promoted = false;
+
+    // Check if this is a promotion scenario (standby -> primary)
+    if (ArchiveRecoveryRequested && IsUnderPostmaster && PromoteIsTriggered()) {
+        promoted = true;
+
+        // Create lightweight end-of-recovery record for fast promotion
+        CreateEndOfRecoveryRecord();
+    } else {
+        // Normal recovery: request full shutdown checkpoint
+        RequestCheckpoint(CHECKPOINT_END_OF_RECOVERY |
+                         CHECKPOINT_IMMEDIATE |
+                         CHECKPOINT_WAIT);
+    }
+
+    return promoted;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining checkpoint vs end-of-recovery record trade-offs
+- Consolidated the core decision logic into clear if-else branches
+- Focused on the main execution paths: promotion vs normal recovery
+- Preserved essential functionality and return value semantics

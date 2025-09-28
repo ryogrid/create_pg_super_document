@@ -38,3 +38,33 @@ Since virtual transaction locks are only released at transaction end, this funct
 - Designed to work with the virtual transaction ID visibility system
 - Part of PostgreSQL's transaction isolation and conflict detection mechanism
 - Only sets fpVXIDLock flag and fpLocalTransactionId - actual cleanup handled elsewhere
+
+## Simplified Source
+
+```c
+// Simplified version of VirtualXactLockTableInsert
+void VirtualXactLockTableInsert(VirtualTransactionId vxid) {
+    Assert(VirtualTransactionIdIsValid(vxid));
+
+    // Acquire exclusive lock on fast-path info
+    LWLockAcquire(&MyProc->fpInfoLock, LW_EXCLUSIVE);
+
+    // Validate state before setting lock
+    Assert(MyProc->vxid.procNumber == vxid.procNumber);
+    Assert(MyProc->fpLocalTransactionId == InvalidLocalTransactionId);
+    Assert(MyProc->fpVXIDLock == false);
+
+    // Set fast-path virtual transaction lock
+    MyProc->fpVXIDLock = true;
+    MyProc->fpLocalTransactionId = vxid.localTransactionId;
+
+    // Release lock
+    LWLockRelease(&MyProc->fpInfoLock);
+}
+```
+
+Key simplifications made:
+- Function is already simple and well-structured
+- Maintains essential assertions for state validation
+- Preserves lock acquisition pattern for thread safety
+- Core fast-path locking mechanism for virtual transactions

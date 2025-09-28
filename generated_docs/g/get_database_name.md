@@ -40,3 +40,38 @@ This function looks up a database name in the system catalog pg_database using t
 - Uses system cache for performance optimization
 - Thread-safe and can be called from any backend process
 - Commonly used in logging and error reporting throughout the PostgreSQL codebase
+
+## Simplified Source
+
+```c
+// Simplified version of get_database_name
+char *
+get_database_name(Oid dbid)
+{
+    HeapTuple dbtuple;
+    char *result;
+
+    // Look up database tuple in system cache
+    dbtuple = SearchSysCache1(DATABASEOID, ObjectIdGetDatum(dbid));
+
+    if (HeapTupleIsValid(dbtuple))
+    {
+        // Extract database name and duplicate it
+        result = pstrdup(NameStr(((Form_pg_database) GETSTRUCT(dbtuple))->datname));
+        ReleaseSysCache(dbtuple);
+    }
+    else
+    {
+        // Database not found
+        result = NULL;
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added comments explaining the lookup process
+- Clarified the purpose of each major step
+- Preserved all error handling and memory management
+- Function is already quite simple, so minimal changes were needed

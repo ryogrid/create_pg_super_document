@@ -41,3 +41,31 @@ The function plays a crucial role in memory management for cached plans, particu
 - The function handles the case where gplan might be NULL gracefully
 - Used extensively throughout the plan cache system for proper resource cleanup
 - Critical for preventing memory leaks in the plan caching system
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseGenericPlan
+static void ReleaseGenericPlan(CachedPlanSource *plansource) {
+    // Check if a generic plan exists
+    if (plansource->gplan) {
+        CachedPlan *plan = plansource->gplan;
+
+        // Validate plan structure integrity
+        Assert(plan->magic == CACHEDPLAN_MAGIC);
+
+        // Clear reference before releasing to prevent double-free
+        plansource->gplan = NULL;
+
+        // Release the cached plan
+        ReleaseCachedPlan(plan, NULL);
+    }
+}
+```
+
+Key simplifications made:
+- Function is already very simple, minimal changes needed
+- Added descriptive comments explaining each step
+- Maintained the defensive programming pattern
+- Preserved the magic number validation
+- Focused on the essential plan release workflow

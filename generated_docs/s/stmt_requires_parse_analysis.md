@@ -44,3 +44,41 @@ The function categorizes statements into three groups:
 - The function is essential for plan caching and revalidation strategies
 - Statement types handled as 'optimizable' include INSERT, DELETE, UPDATE, MERGE, SELECT, RETURN, and PL assignment statements
 - 'Special case' statements like DECLARE CURSOR, EXPLAIN, CREATE TABLE AS, and CALL also require parse analysis despite not being traditional DML
+
+## Simplified Source
+
+```c
+// Simplified version of stmt_requires_parse_analysis
+bool stmt_requires_parse_analysis(RawStmt *parseTree) {
+    // Check statement type to determine if complex analysis is needed
+    switch (nodeTag(parseTree->stmt)) {
+        // Optimizable statements that require full transformation
+        case T_InsertStmt:
+        case T_DeleteStmt:
+        case T_UpdateStmt:
+        case T_MergeStmt:
+        case T_SelectStmt:
+        case T_ReturnStmt:
+        case T_PLAssignStmt:
+            return true;
+
+        // Special cases requiring analysis but not traditional DML
+        case T_DeclareCursorStmt:
+        case T_ExplainStmt:
+        case T_CreateTableAsStmt:
+        case T_CallStmt:
+            return true;
+
+        default:
+            // All other statements are utility commands
+            return false;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Simplified the switch statement structure
+- Consolidated return statements for better readability
+- Maintained the three-tier classification system
+- Preserved all critical statement type handling

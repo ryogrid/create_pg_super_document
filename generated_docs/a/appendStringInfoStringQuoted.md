@@ -42,3 +42,64 @@ The implementation efficiently processes the string by searching for single quot
 - The ellipsis indicator ("...") is only added when actual truncation occurs
 - Single quotes are escaped by doubling them, following SQL standard conventions
 - The function is declared in src/include/mb/stringinfo_mb.h as part of PostgreSQL's multibyte string utilities
+
+## Simplified Source
+
+```c
+// Simplified version of appendStringInfoStringQuoted
+void appendStringInfoStringQuoted(StringInfo str, const char *s, int maxlen) {
+    char *copy = NULL;
+    const char *chunk_search_start, *chunk_copy_start, *chunk_end;
+    int slen;
+    bool ellipsis;
+
+    Assert(str != NULL);
+
+    slen = strlen(s);
+
+    // Handle length limitation with multibyte-aware clipping
+    if (maxlen >= 0 && maxlen < slen) {
+        int finallen = pg_mbcliplen(s, slen, maxlen);
+        copy = pnstrdup(s, finallen);
+        chunk_search_start = copy;
+        chunk_copy_start = copy;
+        ellipsis = true;
+    } else {
+        chunk_search_start = s;
+        chunk_copy_start = s;
+        ellipsis = false;
+    }
+
+    // Add opening single quote
+    appendStringInfoCharMacro(str, '\'');
+
+    // Process string chunk by chunk, doubling single quotes
+    while ((chunk_end = strchr(chunk_search_start, '\'')) != NULL) {
+        // Copy chunk including the found quote
+        appendBinaryStringInfoNT(str, chunk_copy_start, chunk_end - chunk_copy_start + 1);
+
+        // Set up to include this quote in the next chunk (for doubling)
+        chunk_copy_start = chunk_end;
+        chunk_search_start = chunk_end + 1;
+    }
+
+    // Add final chunk with closing quote and optional ellipsis
+    if (ellipsis) {
+        appendStringInfo(str, "%s...'", chunk_copy_start);
+    } else {
+        appendStringInfo(str, "%s'", chunk_copy_start);
+    }
+
+    // Clean up temporary copy if created
+    if (copy) {
+        pfree(copy);
+    }
+}
+```
+
+Key simplifications made:
+- Added clearer comments explaining the quote doubling mechanism
+- Simplified the chunk processing logic explanation
+- Maintained all essential functionality for SQL quoting and truncation
+- Preserved multibyte character handling
+- Focused on the core string escaping and formatting workflow

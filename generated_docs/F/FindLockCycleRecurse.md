@@ -38,3 +38,76 @@ The function also handles lock groups by checking both the current process and o
 - The function returns true if a deadlock cycle is detected, false otherwise
 - Maximum recursion depth is limited by MaxBackends to prevent infinite recursion
 - Critical component of PostgreSQL's automatic deadlock resolution mechanism
+
+## Simplified Source
+
+```c
+// Simplified version of FindLockCycleRecurse
+static bool FindLockCycleRecurse(PGPROC *checkProc, int depth,
+                                EDGE *softEdges, int *nSoftEdges) {
+    int i;
+    dlist_iter iter;
+
+    // Step 1: Handle lock group leadership
+    // If this process is a lock group member, check the leader instead
+    if (checkProc->lockGroupLeader != NULL) {
+        checkProc = checkProc->lockGroupLeader;
+    }
+
+    // Step 2: Check if we've already visited this process (cycle detection)
+    for (i = 0; i < nVisitedProcs; i++) {
+        if (visitedProcs[i] == checkProc) {
+            // Found a cycle - check if it includes the starting point
+            if (i == 0) {
+                // True deadlock: cycle includes the starting process
+                nDeadlockDetails = depth;  // Record cycle length
+                return true;
+            }
+            // False cycle: doesn't include starting point, not a deadlock
+            return false;
+        }
+    }
+
+    // Step 3: Mark this process as visited
+    visitedProcs[nVisitedProcs++] = checkProc;
+
+    // Step 4: Check direct wait-for edges from this process
+    if (checkProc->links.next != NULL && checkProc->waitLock != NULL) {
+        // Process is waiting - check what it's waiting for
+        if (FindLockCycleRecurseMember(checkProc, checkProc, depth,
+                                     softEdges, nSoftEdges)) {
+            return true;  // Found deadlock through direct wait
+        }
+    }
+
+    // Step 5: Check wait-for edges from lock group members
+    // Even if this process isn't waiting, other group members might be
+    dlist_foreach(iter, &checkProc->lockGroupMembers) {
+        PGPROC *memberProc = dlist_container(PGPROC, lockGroupLink, iter.cur);
+
+        // Check if group member is waiting (and it's not the current process)
+        if (memberProc->links.next != NULL &&
+            memberProc->waitLock != NULL &&
+            memberProc != checkProc) {
+
+            // Recursively check this group member's dependencies
+            if (FindLockCycleRecurseMember(memberProc, checkProc, depth,
+                                         softEdges, nSoftEdges)) {
+                return true;  // Found deadlock through group member
+            }
+        }
+    }
+
+    // Step 6: No deadlock found in this path
+    return false;
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the algorithm phases
+- Simplified variable declarations and combined where appropriate
+- Clarified the two types of cycles (true deadlock vs. false cycle)
+- Made the lock group handling logic more explicit
+- Reduced nested conditions for better readability
+- Preserved all essential deadlock detection logic
+- Focused on the main algorithm flow rather than low-level details

@@ -57,3 +57,49 @@ This relationship management is essential for logical replication to handle comp
 - The function includes safeguards to prevent duplicate assignments of the same subtransaction
 - [Snapshot](../S/Snapshot.md) inheritance ensures that visibility information is properly maintained in the transaction hierarchy
 - LSN ordering validation ensures the integrity of the reorder buffer's internal structure
+
+## Simplified Source
+
+```c
+// Simplified version of ReorderBufferAssignChild
+void ReorderBufferAssignChild(ReorderBuffer *rb, TransactionId xid,
+                             TransactionId subxid, XLogRecPtr lsn) {
+    // Get or create parent and child transaction objects
+    bool new_top, new_sub;
+    ReorderBufferTXN *txn = ReorderBufferTXNByXid(rb, xid, true, &new_top, lsn, true);
+    ReorderBufferTXN *subtxn = ReorderBufferTXNByXid(rb, subxid, true, &new_sub, lsn, false);
+
+    // Handle existing subtransaction assignment
+    if (!new_sub) {
+        if (rbtxn_is_known_subxact(subtxn)) {
+            // Already assigned as subtransaction - nothing to do
+            return;
+        } else {
+            // Was previously top-level - remove from top-level list
+            dlist_delete(&subtxn->node);
+        }
+    }
+
+    // Mark as subtransaction and set parent reference
+    subtxn->txn_flags |= RBTXN_IS_SUBXACT;
+    subtxn->toplevel_xid = xid;
+    subtxn->toptxn = txn;
+
+    // Add to parent's subtransaction list
+    dlist_push_tail(&txn->subtxns, &subtxn->node);
+    txn->nsubtxns++;
+
+    // Transfer snapshot from child to parent if needed
+    ReorderBufferTransferSnapToParent(txn, subtxn);
+
+    // Verify LSN ordering consistency
+    AssertTXNLsnOrder(rb);
+}
+```
+
+Key simplifications made:
+- Combined variable declarations with function calls where appropriate
+- Added clear comments explaining each major step
+- Simplified conditional logic flow for better readability
+- Focused on core functionality of establishing parent-child relationship
+- Removed detailed assertions while preserving essential validation

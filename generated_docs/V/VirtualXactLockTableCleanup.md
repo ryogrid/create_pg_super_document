@@ -46,3 +46,48 @@ None (void function)
 - Critical for preventing virtual transaction lock leaks and ensuring proper cleanup
 - Works in conjunction with VirtualXactLockTableInsert() to manage virtual transaction lock lifecycle
 - Protected by fpInfoLock to ensure atomic state changes
+
+## Simplified Source
+
+```c
+// Simplified version of VirtualXactLockTableCleanup
+void VirtualXactLockTableCleanup(void) {
+    bool fastpath;
+    LocalTransactionId lxid;
+
+    // Validate we have a valid virtual transaction
+    Assert(MyProc->vxid.procNumber != INVALID_PROC_NUMBER);
+
+    // Atomically clear fast-path VXID lock state
+    LWLockAcquire(&MyProc->fpInfoLock, LW_EXCLUSIVE);
+
+    fastpath = MyProc->fpVXIDLock;
+    lxid = MyProc->fpLocalTransactionId;
+    MyProc->fpVXIDLock = false;
+    MyProc->fpLocalTransactionId = InvalidLocalTransactionId;
+
+    LWLockRelease(&MyProc->fpInfoLock);
+
+    // Check if lock was materialized (transferred to main lock table)
+    // This happens when fpVXIDLock was cleared but lxid remained valid
+    if (!fastpath && LocalTransactionIdIsValid(lxid)) {
+        VirtualTransactionId vxid;
+        LOCKTAG locktag;
+
+        // Construct virtual transaction identifier
+        vxid.procNumber = MyProcNumber;
+        vxid.localTransactionId = lxid;
+        SET_LOCKTAG_VIRTUALTRANSACTION(locktag, vxid);
+
+        // Release the materialized lock from main lock table
+        LockRefindAndRelease(LockMethods[DEFAULT_LOCKMETHOD], MyProc,
+                           &locktag, ExclusiveLock, false);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated related operations into logical blocks
+- Added clear comments explaining the materialization check logic
+- Preserved the critical fast-path vs materialized lock distinction
+- Simplified variable declarations and lock acquisition pattern

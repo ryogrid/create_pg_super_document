@@ -35,3 +35,30 @@ The function works by delegating to  with NULL match criteria, meaning all entri
 - After completion,  is set to NULL, indicating no local references remain
 - The Assert statement ensures that all references were properly released before destroying the hash table
 - This function is essential for preventing shared memory leaks in PostgreSQL's statistics collection system
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_release_all_entry_refs
+static void pgstat_release_all_entry_refs(bool discard_pending) {
+    // Early return if no reference hash table exists
+    if (pgStatEntryRefHash == NULL)
+        return;
+
+    // Release all entry references with no specific filter
+    pgstat_release_matching_entry_refs(discard_pending, NULL, 0);
+
+    // Verify all references were released
+    Assert(pgStatEntryRefHash->members == 0);
+
+    // Clean up and destroy the hash table
+    pgstat_entry_ref_hash_destroy(pgStatEntryRefHash);
+    pgStatEntryRefHash = NULL;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major operation
+- Preserved the safety check for null hash table
+- Maintained the assertion for verification
+- Kept the cleanup sequence intact

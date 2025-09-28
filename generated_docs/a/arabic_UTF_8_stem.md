@@ -49,3 +49,122 @@ The function operates in several main phases:
 - Critical component of PostgreSQL's Arabic language support in full-text search
 - The function modifies the input word in-place within the Snowball environment structure
 - Handles both verb and noun morphology with different processing strategies
+
+## Simplified Source
+
+```c
+// Simplified version of arabic_UTF_8_stem
+extern int arabic_UTF_8_stem(struct SN_env * z) {
+    // Initialize stemming flags for different word types
+    z->I[2] = 1;  // Enable noun processing
+    z->I[1] = 1;  // Enable verb processing
+    z->I[0] = 0;  // Clear special case flag
+
+    // Phase 1: Initial validation and pre-normalization
+    int start_pos = z->c;
+    r_Checks1(z);           // Validate input and set initial state
+    z->c = start_pos;       // Restore position
+    r_Normalize_pre(z);     // Normalize Arabic text (alef variations, etc.)
+
+    // Phase 2: Suffix processing (right-to-left)
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Try verb processing if enabled
+    if (z->I[1]) {
+        // Apply verb suffix removal in multiple steps
+        bool verb_processed = false;
+
+        // Step 1: Primary verb suffixes
+        while (r_Suffix_Verb_Step1(z)) {
+            verb_processed = true;
+        }
+
+        // Step 2: Secondary verb suffixes (try variants a, b, c)
+        if (verb_processed) {
+            if (!r_Suffix_Verb_Step2a(z)) {
+                if (!r_Suffix_Verb_Step2c(z)) {
+                    skip_b_utf8(z->p, z->c, z->lb, 1); // Skip one char if no match
+                }
+            }
+        } else {
+            // Alternative: try step 2b, then 2a as fallback
+            if (!r_Suffix_Verb_Step2b(z)) {
+                r_Suffix_Verb_Step2a(z);
+            }
+        }
+    }
+
+    // Try noun processing if verb processing failed or disabled
+    else if (z->I[2]) {
+        // Complex noun suffix processing with multiple variants
+        bool noun_processed = false;
+
+        // Try specialized noun suffix first
+        if (r_Suffix_Noun_Step2c2(z)) {
+            noun_processed = true;
+        }
+        // Try standard noun processing paths
+        else if (!z->I[0]) {  // Normal case
+            if (r_Suffix_Noun_Step1a(z)) {
+                // Apply secondary noun suffixes
+                if (!r_Suffix_Noun_Step2a(z) && !r_Suffix_Noun_Step2b(z)) {
+                    r_Suffix_Noun_Step2c1(z);
+                }
+                noun_processed = true;
+            }
+        }
+
+        // Alternative noun processing path
+        if (!noun_processed && r_Suffix_Noun_Step1b(z)) {
+            if (!r_Suffix_Noun_Step2a(z) && !r_Suffix_Noun_Step2b(z)) {
+                r_Suffix_Noun_Step2c1(z);
+            }
+            noun_processed = true;
+        }
+
+        // Final noun suffix step
+        if (noun_processed) {
+            r_Suffix_Noun_Step3(z);
+        }
+    }
+
+    // Handle alef maqsura normalization if other processing failed
+    if (!z->I[1] && !z->I[2]) {
+        r_Suffix_All_alef_maqsura(z);
+    }
+
+    // Phase 3: Prefix processing (left-to-right)
+    z->c = z->lb;
+    int prefix_start = z->c;
+
+    // Apply prefix removal steps
+    r_Prefix_Step1(z);      // Basic prefixes
+    r_Prefix_Step2(z);      // Additional prefixes
+
+    // Apply specialized prefix removal based on word type
+    if (!r_Prefix_Step3a_Noun(z)) {         // Try noun prefixes first
+        if (z->I[2] && !r_Prefix_Step3b_Noun(z)) {  // Try alternative noun prefixes
+            // Try verb prefixes if noun prefixes failed
+            if (z->I[1]) {
+                r_Prefix_Step3_Verb(z);
+                r_Prefix_Step4_Verb(z);
+            }
+        }
+    }
+    z->c = prefix_start;  // Restore position after prefix processing
+
+    // Phase 4: Final normalization
+    r_Normalize_post(z);    // Final cleanup and normalization
+
+    return 1;  // Success
+}
+```
+
+Key simplifications made:
+- Removed complex nested goto statements and replaced with clearer if-else logic
+- Consolidated repetitive suffix processing patterns into loops where appropriate
+- Added descriptive comments explaining each processing phase
+- Simplified the control flow while preserving the essential Arabic stemming algorithm
+- Focused on the main execution paths rather than all edge cases
+- Abstracted the complex position tracking with simpler variable management

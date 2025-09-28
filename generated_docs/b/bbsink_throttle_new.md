@@ -41,3 +41,44 @@ The function sets up the throttling mechanism by:
 - The throttling mechanism operates at a frequency defined by 
 - Memory is allocated using  to ensure zero-initialization of the structure
 - Part of PostgreSQL's basebackup throttling subsystem for controlling backup transfer rates
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_throttle_new
+bbsink *bbsink_throttle_new(bbsink *next, uint32 maxrate) {
+    bbsink_throttle *sink;
+
+    // Validate parameters
+    Assert(next != NULL);
+    Assert(maxrate > 0);
+
+    // Allocate and initialize throttle sink structure
+    sink = palloc0(sizeof(bbsink_throttle));
+
+    // Set up operations table for throttling functionality
+    *((const bbsink_ops **) &sink->base.bbs_ops) = &bbsink_throttle_ops;
+
+    // Chain to next sink in pipeline
+    sink->base.bbs_next = next;
+
+    // Calculate throttling sample size
+    // Convert maxrate (KB/s) to bytes per throttling interval
+    sink->throttling_sample =
+        (int64) maxrate * (int64) 1024 / THROTTLING_FREQUENCY;
+
+    // Calculate minimum time unit for throttling sample transfer
+    // Time in microseconds for one throttling interval
+    sink->elapsed_min_unit = USECS_PER_SEC / THROTTLING_FREQUENCY;
+
+    return &sink->base;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining throttling calculations
+- Preserved all validation logic and parameter checking
+- Maintained the throttling algorithm setup
+- Kept sink chaining and operations table setup intact
+- Simplified structure while preserving all functionality
+- Clarified the conversion from KB/s to bytes per interval

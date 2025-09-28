@@ -32,3 +32,32 @@ nodeToStringInternal is the core implementation function for converting PostgreS
 - The actual location values can be useful for debugging purposes
 - Memory for the returned string is allocated using PostgreSQL's palloc mechanism
 - The function follows PostgreSQL's pattern of using StringInfo for efficient string building
+
+## Simplified Source
+
+```c
+// Simplified version of nodeToStringInternal
+static char *nodeToStringInternal(const void *obj, bool write_loc_fields) {
+    StringInfoData str;
+    bool save_write_location_fields;
+
+    // Save current location field setting
+    save_write_location_fields = write_location_fields;
+    write_location_fields = write_loc_fields;
+
+    // Initialize string buffer and convert node to string
+    initStringInfo(&str);
+    outNode(&str, obj);
+
+    // Restore original location field setting
+    write_location_fields = save_write_location_fields;
+
+    return str.data;
+}
+```
+
+Key simplifications made:
+- Preserved essential location field control mechanism
+- Maintained string buffer initialization and node output
+- Kept global state save/restore pattern
+- Focused on core node-to-string conversion functionality

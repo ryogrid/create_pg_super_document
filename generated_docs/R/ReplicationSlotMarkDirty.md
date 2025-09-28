@@ -43,3 +43,26 @@ The 'dirty' flag indicates the slot has changes that need to be saved, while 'ju
 - The 'just_dirtied' flag allows background processes to identify recently modified slots
 - Part of PostgreSQL's lazy evaluation strategy for slot persistence
 - Essential for tracking when slots need to be checkpointed or saved during shutdown
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotMarkDirty
+void ReplicationSlotMarkDirty(void) {
+    ReplicationSlot *slot = MyReplicationSlot;
+
+    Assert(MyReplicationSlot != NULL);
+
+    // Atomically mark the slot as dirty
+    SpinLockAcquire(&slot->mutex);
+    MyReplicationSlot->just_dirtied = true;
+    MyReplicationSlot->dirty = true;
+    SpinLockRelease(&slot->mutex);
+}
+```
+
+Key simplifications made:
+- Added clear comment for the atomic operation
+- Maintained essential thread safety with spinlock
+- Preserved both dirty flags for proper tracking
+- Simple and focused on core functionality

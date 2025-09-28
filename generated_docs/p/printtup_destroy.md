@@ -32,3 +32,18 @@ The function performs only one operation: freeing the memory allocated for the D
 - The function assumes that the shutdown function has already been called and that it's safe to free the structure
 - This is the final cleanup step in the DestReceiver lifecycle for printtup operations
 - The function is very simple by design, as the actual resource cleanup is handled by printtup_shutdown
+
+## Simplified Source
+
+```c
+// Simplified version of printtup_destroy
+static void printtup_destroy(DestReceiver *self) {
+    // Final cleanup: deallocate the receiver structure
+    pfree(self);
+}
+```
+
+Key simplifications made:
+- Preserved essential memory deallocation
+- Added clarifying comment about final cleanup purpose
+- Maintained minimal interface for DestReceiver lifecycle

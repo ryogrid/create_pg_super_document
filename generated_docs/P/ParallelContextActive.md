@@ -33,3 +33,18 @@ The function is commonly used by transaction management and locking systems to m
 - Simple wrapper around dlist_is_empty for better code readability
 - Critical for ensuring proper cleanup sequences during transaction commit/abort
 - Helps coordinate between parallel execution and other PostgreSQL subsystems
+
+## Simplified Source
+
+```c
+// Simplified version of ParallelContextActive
+bool ParallelContextActive(void) {
+    // Check if any parallel contexts are currently active
+    return !dlist_is_empty(&pcxt_list);
+}
+```
+
+Key simplifications made:
+- Added clear comment explaining the function purpose
+- The function is already very simple, so no major simplification needed
+- Focuses on the single responsibility: checking parallel context status

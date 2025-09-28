@@ -39,3 +39,17 @@ This function takes no parameters.
 - The value is used during Hot Standby processing where multiple data structures (KnownAssignedXids in shared memory, and local structures in various backends) must be identically sized
 - The sizing calculation ensures compatibility between GetSnapshotData(), TransactionIdIsInProgress(), and GetRunningTransactionData()
 - All snapshot-related data structures that may be copied wholesale must use this same size to maintain consistency
+
+## Simplified Source
+
+```c
+// Simplified version of GetMaxSnapshotSubxidCount
+int GetMaxSnapshotSubxidCount(void) {
+    return TOTAL_MAX_CACHED_SUBXIDS;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the core operation: returning the constant value
+- Maintained the simple constant accessor pattern

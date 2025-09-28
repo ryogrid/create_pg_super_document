@@ -31,3 +31,19 @@ This function is a simple progress reporting utility that updates the base backu
 - Provides visibility into backup operations for monitoring and user feedback purposes
 - Simple single-purpose function that only updates the phase indicator without additional logic
 - Essential for understanding backup timing, as checkpoint operations can take significant time depending on system load and data size
+
+## Simplified Source
+
+```c
+// Simplified version of basebackup_progress_wait_checkpoint
+void basebackup_progress_wait_checkpoint(void) {
+    // Update progress to checkpoint waiting phase
+    pgstat_progress_update_param(PROGRESS_BASEBACKUP_PHASE,
+                                 PROGRESS_BASEBACKUP_PHASE_WAIT_CHECKPOINT);
+}
+```
+
+Key simplifications made:
+- Preserved essential checkpoint waiting phase reporting
+- Maintained progress parameter update
+- Focused on core progress tracking functionality

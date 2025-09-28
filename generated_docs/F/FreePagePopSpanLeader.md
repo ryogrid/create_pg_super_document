@@ -37,3 +37,35 @@ This function removes a FreePageSpanLeader from the doubly-linked list freelist 
 - Uses relative pointers for memory management in shared memory contexts
 - Critical for proper memory management during span size changes and allocation operations
 - Assumes the span leader exists at the given page number and contains valid list pointers
+
+## Simplified Source
+
+```c
+// Simplified version of FreePagePopSpanLeader
+static void FreePagePopSpanLeader(FreePageManager *fpm, Size pageno) {
+    char *base = fmp_segment_base(fpm);
+    FreePageSpanLeader *span = (FreePageSpanLeader *) fpm_page_to_pointer(base, pageno);
+
+    // Get adjacent nodes
+    FreePageSpanLeader *next = relptr_access(base, span->next);
+    FreePageSpanLeader *prev = relptr_access(base, span->prev);
+
+    // Update linked list pointers
+    if (next != NULL)
+        relptr_copy(next->prev, span->prev);
+    if (prev != NULL) {
+        relptr_copy(prev->next, span->next);
+    } else {
+        // Removing head of freelist - update freelist array
+        Size f = Min(span->npages, FPM_NUM_FREELISTS) - 1;
+        Assert(relptr_offset(fpm->freelist[f]) == pageno * FPM_PAGE_SIZE);
+        relptr_copy(fpm->freelist[f], span->next);
+    }
+}
+```
+
+Key simplifications made:
+- Preserved essential linked list removal logic
+- Maintained special case handling for list head removal
+- Kept freelist array update for head removal
+- Focused on core pointer manipulation algorithm

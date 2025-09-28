@@ -49,3 +49,57 @@ The function implements several optimization paths and special cases:
 - The general conversion path requires being inside a database transaction
 - Critical function for maintaining data integrity when processing external input
 - Located in src/backend/utils/mb/mbutils.c:676-737
+
+## Simplified Source
+
+```c
+// Simplified version of pg_any_to_server
+char *pg_any_to_server(const char *s, int len, int encoding) {
+    // Empty strings are always valid
+    if (len <= 0) {
+        return unconstify(char *, s);
+    }
+
+    // No conversion needed - just validate the data
+    if (encoding == DatabaseEncoding->encoding || encoding == PG_SQL_ASCII) {
+        (void) pg_verify_mbstr(DatabaseEncoding->encoding, s, len, false);
+        return unconstify(char *, s);
+    }
+
+    // Special case: database is SQL_ASCII
+    if (DatabaseEncoding->encoding == PG_SQL_ASCII) {
+        if (PG_VALID_BE_ENCODING(encoding)) {
+            // Validate under the source encoding
+            (void) pg_verify_mbstr(encoding, s, len, false);
+        } else {
+            // For unsafe encodings, reject any non-ASCII characters
+            for (int i = 0; i < len; i++) {
+                if (s[i] == '\0' || IS_HIGHBIT_SET(s[i])) {
+                    ereport(ERROR,
+                            (errcode(ERRCODE_CHARACTER_NOT_IN_REPERTOIRE),
+                             errmsg("invalid byte value for encoding \"%s\": 0x%02x",
+                                    pg_enc2name_tbl[PG_SQL_ASCII].name,
+                                    (unsigned char) s[i])));
+                }
+            }
+        }
+        return unconstify(char *, s);
+    }
+
+    // Fast path for client encoding conversion
+    if (encoding == ClientEncoding->encoding) {
+        return perform_default_encoding_conversion(s, len, true);
+    }
+
+    // General conversion case
+    return (char *) pg_do_encoding_conversion((unsigned char *) unconstify(char *, s),
+                                            len, encoding, DatabaseEncoding->encoding);
+}
+```
+
+Key simplifications made:
+- Organized the function into clear decision blocks
+- Added comments explaining each conversion path
+- Simplified the ASCII validation loop for readability
+- Preserved all essential validation and conversion logic
+- Maintained the optimization paths while improving clarity

@@ -40,3 +40,18 @@ The actual comparison logic is delegated to , which handles:
 - The comparison follows lexicographic ordering: compares fields left-to-right until finding a difference
 - Inherits all error handling and type checking behavior from 
 - Essential for supporting ORDER BY clauses, B-tree indexes, and other operations requiring record ordering
+
+## Simplified Source
+
+```c
+// Simplified version of record_lt
+Datum record_lt(PG_FUNCTION_ARGS) {
+    // Use record_cmp and check if first record is less than second
+    PG_RETURN_BOOL(record_cmp(fcinfo) < 0);
+}
+```
+
+Key simplifications made:
+- The function is already extremely simple - just checks if record_cmp returns negative
+- No additional simplification needed as it's a one-line wrapper
+- Delegates all comparison logic to record_cmp for consistency and maintainability

@@ -42,3 +42,22 @@ This function is essential for memory management and slot reuse in the executor 
 - Critical for proper memory management in query execution
 - Part of the TupleTableSlot abstraction layer that provides uniform access to different tuple storage formats
 - Commonly used before storing new data in a slot or when resetting executor node state
+
+## Simplified Source
+
+```c
+// Simplified version of ExecClearTuple
+static inline TupleTableSlot *ExecClearTuple(TupleTableSlot *slot) {
+    // Delegate to slot type-specific clearing implementation
+    slot->tts_ops->clear(slot);
+
+    // Return the same slot for convenient operation chaining
+    return slot;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the delegation pattern
+- Highlighted the return value purpose for operation chaining
+- Focused on the core abstraction: type-specific clearing through function pointers
+- Maintained the essential simplicity of this wrapper function

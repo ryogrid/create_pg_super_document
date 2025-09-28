@@ -51,3 +51,25 @@ This function takes no parameters.
 - Widely used in executor nodes and heap access methods for proper transaction identification
 - Important for logical replication where the correct transaction context must be preserved
 - Essential for lock management and prepared transactions where transaction identity is crucial for cleanup and recovery
+
+## Simplified Source
+
+```c
+// Simplified version of GetCurrentTransactionId
+TransactionId GetCurrentTransactionId(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Assign XID if not yet set
+    if (!FullTransactionIdIsValid(s->fullTransactionId))
+        AssignTransactionId(s);
+
+    // Return the XID for current transaction level
+    return XidFromFullTransactionId(s->fullTransactionId);
+}
+```
+
+Key simplifications made:
+- Preserved the lazy XID assignment logic
+- Maintained the transaction state access pattern
+- Kept the essential validity check and assignment
+- Focused on the core transaction ID retrieval mechanism

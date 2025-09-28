@@ -44,3 +44,17 @@ The function is specifically exported for use by snapmgr.c, demonstrating the mo
 - Part of the interface between procarray.c (process management) and snapmgr.c (snapshot management)
 - The maxProcs value is typically set based on configuration parameters like max_connections and various background worker limits
 - Used in both regular transaction snapshots and specialized logical replication snapshots
+
+## Simplified Source
+
+```c
+// Simplified version of GetMaxSnapshotXidCount
+int GetMaxSnapshotXidCount(void) {
+    return procArray->maxProcs;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the core operation: returning the maximum process count
+- Maintained the simple accessor pattern

@@ -42,3 +42,59 @@ RunFromStore is a specialized function that retrieves tuples from a portal's tup
 - Respects destination receiver feedback - stops if receiver indicates it can't accept more tuples
 - Properly cleans up the temporary tuple slot after use
 - Used for retrieving results from portals that have been filled by FillPortalStore
+
+## Simplified Source
+
+```c
+// Simplified version of RunFromStore
+static uint64 RunFromStore(Portal portal, ScanDirection direction, uint64 count,
+                          DestReceiver *dest) {
+    uint64 current_tuple_count = 0;
+    TupleTableSlot *slot;
+
+    // Create temporary slot for tuple retrieval
+    slot = MakeSingleTupleTableSlot(portal->tupDesc, &TTSOpsMinimalTuple);
+
+    // Start destination receiver
+    dest->rStartup(dest, CMD_SELECT, portal->tupDesc);
+
+    // Process tuples if movement is requested
+    if (!ScanDirectionIsNoMovement(direction)) {
+        bool forward = ScanDirectionIsForward(direction);
+
+        for (;;) {
+            MemoryContext oldcontext;
+            bool ok;
+
+            // Switch to portal context for tuple store access
+            oldcontext = MemoryContextSwitchTo(portal->holdContext);
+            ok = tuplestore_gettupleslot(portal->holdStore, forward, false, slot);
+            MemoryContextSwitchTo(oldcontext);
+
+            // No more tuples available
+            if (!ok) break;
+
+            // Send tuple to destination
+            if (!dest->receiveSlot(slot, dest)) break;
+
+            ExecClearTuple(slot);
+
+            // Check count limit
+            current_tuple_count++;
+            if (count && count == current_tuple_count) break;
+        }
+    }
+
+    // Clean up
+    dest->rShutdown(dest);
+    ExecDropSingleTupleTableSlot(slot);
+
+    return current_tuple_count;
+}
+```
+
+Key simplifications made:
+- Preserved complete tuple retrieval logic
+- Maintained memory context management
+- Kept destination receiver protocol
+- Focused on core scanning and fetching functionality

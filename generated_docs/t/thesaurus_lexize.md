@@ -45,3 +45,129 @@ The function receives its parameters through PostgreSQL's standard function argu
 - Memory management uses PostgreSQL's palloc/pfree system
 - Returns NULL when no substitution is found or processing is complete
 - The `getnext` flag in `dstate` controls whether the caller should expect more results
+
+## Simplified Source
+
+```c
+// Simplified version of thesaurus_lexize
+Datum thesaurus_lexize(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    DictThesaurus *dict = (DictThesaurus *) PG_GETARG_POINTER(0);
+    DictSubState *state = (DictSubState *) PG_GETARG_POINTER(3);
+
+    TSLexeme *subdictResult = NULL;
+    LexemeInfo *storedInfo = NULL;
+    LexemeInfo *currentInfo = NULL;
+    uint16 currentPos = 0;
+    bool hasMoreResults = false;
+
+    // Step 1: Validate function call and state
+    if (PG_NARGS() != 4 || state == NULL) {
+        elog(ERROR, "forbidden call of thesaurus or nested call");
+    }
+
+    if (state->isend) {
+        PG_RETURN_POINTER(NULL);  // Processing complete
+    }
+
+    // Step 2: Initialize position from previous state
+    storedInfo = (LexemeInfo *) state->private_state;
+    if (storedInfo) {
+        currentPos = storedInfo->posinsubst + 1;
+    }
+
+    // Step 3: Ensure subdictionary is valid and call it
+    if (!dict->subdict->isvalid) {
+        dict->subdict = lookup_ts_dictionary_cache(dict->subdictOid);
+    }
+
+    // Call the subdictionary to normalize the input
+    subdictResult = (TSLexeme *) DatumGetPointer(
+        FunctionCall4(&(dict->subdict->lexize),
+                     PointerGetDatum(dict->subdict->dictData),
+                     PG_GETARG_DATUM(1),     // input word
+                     PG_GETARG_DATUM(2),     // input length
+                     PointerGetDatum(NULL))); // no nested state
+
+    // Step 4: Process subdictionary result
+    if (subdictResult && subdictResult->lexeme) {
+        // Case A: Subdictionary produced lexemes - try thesaurus matching
+        TSLexeme *currentLexeme = subdictResult;
+
+        // Process each variant group from the subdictionary
+        while (currentLexeme->lexeme) {
+            uint16 variantNum = currentLexeme->nvariant;
+            uint16 lexemeCount = 0;
+            TSLexeme *variantStart = currentLexeme;
+            LexemeInfo **lexemeInfos;
+
+            // Count lexemes in this variant group
+            while (currentLexeme->lexeme && currentLexeme->nvariant == variantNum) {
+                lexemeCount++;
+                currentLexeme++;
+            }
+
+            // Look up thesaurus entries for all lexemes in this variant
+            lexemeInfos = (LexemeInfo **) palloc(sizeof(LexemeInfo *) * lexemeCount);
+            bool allFound = true;
+
+            for (uint16 i = 0; i < lexemeCount; i++) {
+                lexemeInfos[i] = findTheLexeme(dict, variantStart[i].lexeme);
+                if (lexemeInfos[i] == NULL) {
+                    allFound = false;
+                    break;
+                }
+            }
+
+            if (allFound) {
+                // All lexemes found in thesaurus - try to find variant match
+                currentInfo = findVariant(currentInfo, storedInfo, currentPos,
+                                        lexemeInfos, lexemeCount);
+            }
+
+            pfree(lexemeInfos);
+        }
+    }
+    else if (subdictResult) {
+        // Case B: Subdictionary returned empty result (stop-word)
+        LexemeInfo *stopWordInfo = findTheLexeme(dict, NULL);
+        currentInfo = findVariant(NULL, storedInfo, currentPos, &stopWordInfo, 1);
+    }
+    else {
+        // Case C: Subdictionary didn't recognize the word
+        currentInfo = NULL;
+    }
+
+    // Step 5: Update state and check for matches
+    state->private_state = (void *) currentInfo;
+
+    if (!currentInfo) {
+        // No thesaurus match found
+        state->getnext = false;
+        PG_RETURN_POINTER(NULL);
+    }
+
+    // Step 6: Check if we have a valid substitution
+    TSLexeme *result = checkMatch(dict, currentInfo, currentPos, &hasMoreResults);
+
+    if (result != NULL) {
+        // Found a match - return it
+        state->getnext = hasMoreResults;
+        PG_RETURN_POINTER(result);
+    }
+
+    // Step 7: No match this time, but continue processing
+    state->getnext = true;
+    PG_RETURN_POINTER(NULL);
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step processing phases with comments
+- Simplified variable names for better readability
+- Consolidated complex variant processing logic into clearer flow
+- Made the three main processing cases (lexemes, stop-words, unrecognized) more explicit
+- Reduced nested conditions and improved control flow
+- Added descriptive comments explaining the thesaurus matching algorithm
+- Preserved all essential functionality while making the logic more accessible
+- Focused on the main algorithm rather than low-level memory management details

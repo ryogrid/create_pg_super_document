@@ -37,3 +37,32 @@ static void allocate_recordbuf(XLogReaderState *state, uint32 reclength)
 - Large commit or abort records may require buffers larger than the minimum size
 - Always frees the existing buffer before allocating a new one to prevent memory leaks
 - Updates both the buffer pointer and size field in the state structure atomically
+
+## Simplified Source
+
+```c
+// Simplified version of allocate_recordbuf
+static void allocate_recordbuf(XLogReaderState *state, uint32 reclength) {
+    uint32 newSize = reclength;
+
+    // Round up to XLOG_BLCKSZ boundary for alignment
+    newSize += XLOG_BLCKSZ - (newSize % XLOG_BLCKSZ);
+
+    // Ensure minimum size for typical records
+    newSize = Max(newSize, 5 * Max(BLCKSZ, XLOG_BLCKSZ));
+
+    // Free existing buffer if present
+    if (state->readRecordBuf)
+        pfree(state->readRecordBuf);
+
+    // Allocate new buffer with calculated size
+    state->readRecordBuf = (char *) palloc(newSize);
+    state->readRecordBufSize = newSize;
+}
+```
+
+Key simplifications made:
+- Function is already well-structured for buffer management
+- Rounds size to block boundaries for efficiency
+- Ensures minimum size to avoid frequent reallocations
+- Properly frees old buffer before allocating new one

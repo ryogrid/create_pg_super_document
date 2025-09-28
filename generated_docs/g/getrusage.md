@@ -47,3 +47,55 @@ The implementation is limited to retrieving information about the current proces
 - The  is simplified on Windows, containing only  (user CPU time) and  (system CPU time)
 - Other resource usage fields typically found in full POSIX  implementations (like memory usage) are not populated
 - Used primarily by PostgreSQL's performance monitoring and logging infrastructure to track CPU usage
+
+## Simplified Source
+
+```c
+// Simplified version of getrusage (Windows implementation)
+int getrusage(int who, struct rusage *rusage) {
+    FILETIME starttime, exittime, kerneltime, usertime;
+    ULARGE_INTEGER li;
+
+    // Only support RUSAGE_SELF (current process)
+    if (who != RUSAGE_SELF) {
+        errno = EINVAL;
+        return -1;
+    }
+
+    // Validate rusage pointer
+    if (rusage == NULL) {
+        errno = EFAULT;
+        return -1;
+    }
+
+    // Initialize the rusage structure
+    memset(rusage, 0, sizeof(struct rusage));
+
+    // Get process timing information from Windows
+    if (GetProcessTimes(GetCurrentProcess(), &starttime, &exittime, &kerneltime, &usertime) == 0) {
+        _dosmaperr(GetLastError());
+        return -1;
+    }
+
+    // Convert kernel time (system CPU time) to struct timeval
+    memcpy(&li, &kerneltime, sizeof(FILETIME));
+    li.QuadPart /= 10L;  // Convert from 100ns to microseconds
+    rusage->ru_stime.tv_sec = li.QuadPart / 1000000L;
+    rusage->ru_stime.tv_usec = li.QuadPart % 1000000L;
+
+    // Convert user time (user CPU time) to struct timeval
+    memcpy(&li, &usertime, sizeof(FILETIME));
+    li.QuadPart /= 10L;  // Convert from 100ns to microseconds
+    rusage->ru_utime.tv_sec = li.QuadPart / 1000000L;
+    rusage->ru_utime.tv_usec = li.QuadPart % 1000000L;
+
+    return 0;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for better readability
+- Added clearer comments explaining Windows-specific conversion logic
+- Simplified error handling structure
+- Maintained all essential functionality for Windows resource usage tracking
+- Preserved the FILETIME to timeval conversion logic

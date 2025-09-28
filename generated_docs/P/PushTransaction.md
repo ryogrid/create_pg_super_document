@@ -58,3 +58,56 @@ This function takes no parameters and operates on global transaction state varia
 - Parallel processing flags are carefully managed to track whether the subtransaction is created within a parallel operation
 - The topXidLogged flag is initialized to false, indicating that the top-level XID hasn't been logged yet
 - Located in src/backend/access/transam/xact.c:5354-5415
+
+## Simplified Source
+
+```c
+// Simplified version of PushTransaction
+static void PushTransaction(void) {
+    TransactionState p = CurrentTransactionState;
+    TransactionState s;
+
+    // Allocate new subtransaction state in TopTransactionContext
+    s = (TransactionState) MemoryContextAllocZero(TopTransactionContext,
+                                                  sizeof(TransactionStateData));
+
+    // Assign unique subtransaction ID with wraparound check
+    currentSubTransactionId += 1;
+    if (currentSubTransactionId == InvalidSubTransactionId) {
+        currentSubTransactionId -= 1;
+        pfree(s);
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("cannot have more than 2^32-1 subtransactions in a transaction")));
+    }
+
+    // Initialize new subtransaction state
+    s->fullTransactionId = InvalidFullTransactionId;  // assigned later
+    s->subTransactionId = currentSubTransactionId;
+    s->parent = p;
+    s->nestingLevel = p->nestingLevel + 1;
+    s->gucNestLevel = NewGUCNestLevel();
+    s->savepointLevel = p->savepointLevel;
+    s->state = TRANS_DEFAULT;
+    s->blockState = TBLOCK_SUBBEGIN;
+
+    // Preserve current context
+    GetUserIdAndSecContext(&s->prevUser, &s->prevSecContext);
+    s->prevXactReadOnly = XactReadOnly;
+    s->startedInRecovery = p->startedInRecovery;
+
+    // Setup parallel processing state
+    s->parallelModeLevel = 0;
+    s->parallelChildXact = (p->parallelModeLevel != 0 || p->parallelChildXact);
+    s->topXidLogged = false;
+
+    // Make this the current transaction state
+    CurrentTransactionState = s;
+}
+```
+
+Key simplifications made:
+- Preserved the essential subtransaction creation logic
+- Maintained the critical ID assignment and wraparound protection
+- Kept all necessary state initialization
+- Focused on the core subtransaction stack management
+- Retained memory allocation in the correct context

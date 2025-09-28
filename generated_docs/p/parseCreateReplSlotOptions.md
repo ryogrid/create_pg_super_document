@@ -62,3 +62,84 @@ The function supports several key options:
 - Provides detailed error messages for invalid option combinations or unrecognized parameter values
 - Uses PostgreSQL's standard DefElem parsing utilities (defGetString, defGetBoolean)
 - Part of the replication slot management infrastructure that supports both streaming and logical replication
+
+## Simplified Source
+
+```c
+// Simplified version of parseCreateReplSlotOptions
+static void
+parseCreateReplSlotOptions(CreateReplicationSlotCmd *cmd,
+                          bool *reserve_wal,
+                          CRSSnapshotAction *snapshot_action,
+                          bool *two_phase, bool *failover)
+{
+    ListCell *lc;
+    bool snapshot_action_given = false;
+    bool reserve_wal_given = false;
+    bool two_phase_given = false;
+    bool failover_given = false;
+
+    // Parse each option in the command's options list
+    foreach(lc, cmd->options)
+    {
+        DefElem *defel = (DefElem *) lfirst(lc);
+
+        if (strcmp(defel->defname, "snapshot") == 0)
+        {
+            // Handle snapshot option (logical slots only)
+            if (snapshot_action_given || cmd->kind != REPLICATION_KIND_LOGICAL)
+                ereport(ERROR, "conflicting or redundant options");
+
+            char *action = defGetString(defel);
+            snapshot_action_given = true;
+
+            if (strcmp(action, "export") == 0)
+                *snapshot_action = CRS_EXPORT_SNAPSHOT;
+            else if (strcmp(action, "nothing") == 0)
+                *snapshot_action = CRS_NOEXPORT_SNAPSHOT;
+            else if (strcmp(action, "use") == 0)
+                *snapshot_action = CRS_USE_SNAPSHOT;
+            else
+                ereport(ERROR, "unrecognized value for snapshot option: %s", action);
+        }
+        else if (strcmp(defel->defname, "reserve_wal") == 0)
+        {
+            // Handle reserve_wal option (physical slots only)
+            if (reserve_wal_given || cmd->kind != REPLICATION_KIND_PHYSICAL)
+                ereport(ERROR, "conflicting or redundant options");
+
+            reserve_wal_given = true;
+            *reserve_wal = defGetBoolean(defel);
+        }
+        else if (strcmp(defel->defname, "two_phase") == 0)
+        {
+            // Handle two_phase option (logical slots only)
+            if (two_phase_given || cmd->kind != REPLICATION_KIND_LOGICAL)
+                ereport(ERROR, "conflicting or redundant options");
+
+            two_phase_given = true;
+            *two_phase = defGetBoolean(defel);
+        }
+        else if (strcmp(defel->defname, "failover") == 0)
+        {
+            // Handle failover option (logical slots only)
+            if (failover_given || cmd->kind != REPLICATION_KIND_LOGICAL)
+                ereport(ERROR, "conflicting or redundant options");
+
+            failover_given = true;
+            *failover = defGetBoolean(defel);
+        }
+        else
+        {
+            elog(ERROR, "unrecognized option: %s", defel->defname);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Simplified error messages while preserving validation logic
+- Added comments to clarify the purpose of each option type
+- Preserved all duplicate detection and type validation logic
+- Made the option parsing structure more readable
+- Maintained strict separation between physical and logical slot options

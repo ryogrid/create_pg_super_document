@@ -34,3 +34,18 @@ nodeToStringWithLocations is an externally visible entry point for converting Po
 - Also used in main query processing functions (pg_parse_query, pg_rewrite_query, pg_plan_query) likely for debug logging
 - Memory for the returned string is allocated using PostgreSQL's palloc mechanism
 - Should only be used when location information is specifically needed, as it can make the output more verbose
+
+## Simplified Source
+
+```c
+// Simplified version of nodeToStringWithLocations
+char *nodeToStringWithLocations(const void *obj) {
+    // Convert node to string representation with location fields included
+    return nodeToStringInternal(obj, true);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - just a wrapper around nodeToStringInternal
+- The true parameter indicates location fields should be included in output
+- No additional simplification needed as the function is straightforward

@@ -47,3 +47,32 @@ This infrastructure is commonly used by utility commands like EXPLAIN and SHOW A
 - The function automatically calls the destination's startup routine to prepare for receiving tuples
 - Used extensively in replication commands, configuration display commands, and explain functionality
 - The slot operations parameter allows flexibility in how tuples are stored and manipulated
+
+## Simplified Source
+
+```c
+// Simplified version of begin_tup_output_tupdesc
+TupOutputState *begin_tup_output_tupdesc(DestReceiver *dest,
+                                         TupleDesc tupdesc,
+                                         const TupleTableSlotOps *tts_ops) {
+    TupOutputState *tstate;
+
+    // Allocate output state structure
+    tstate = (TupOutputState *) palloc(sizeof(TupOutputState));
+
+    // Create tuple slot for output operations
+    tstate->slot = MakeSingleTupleTableSlot(tupdesc, tts_ops);
+    tstate->dest = dest;
+
+    // Initialize destination for receiving tuples
+    tstate->dest->rStartup(tstate->dest, (int) CMD_SELECT, tupdesc);
+
+    return tstate;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each initialization step
+- This function is already minimal, serving as a simple constructor
+- Preserved all essential components for tuple output infrastructure
+- Maintained the CMD_SELECT startup to prepare destination for tuple reception

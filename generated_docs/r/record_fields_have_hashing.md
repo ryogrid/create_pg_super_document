@@ -29,3 +29,24 @@ The function determines if a record type has hashing support by checking if all 
 - The result is cached to avoid repeated computation of field properties
 - Critical for enabling hash-based operations like hash joins, hash aggregation, and hash partitioning on record types
 - Works in conjunction with record_fields_have_compare to provide complete operation support information
+
+## Simplified Source
+
+```c
+// Simplified version of record_fields_have_hashing
+static bool record_fields_have_hashing(TypeCacheEntry *typentry) {
+    // Check if field properties have been cached yet
+    if (!(typentry->flags & TCFLAGS_CHECKED_FIELD_PROPERTIES)) {
+        // Cache the field properties if not done yet
+        cache_record_field_properties(typentry);
+    }
+
+    // Return whether all fields support hashing operations
+    return (typentry->flags & TCFLAGS_HAVE_FIELD_HASHING) != 0;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the lazy evaluation pattern
+- Clarified the purpose of hashing capability check
+- Maintained the essential logic flow for record field hashing support

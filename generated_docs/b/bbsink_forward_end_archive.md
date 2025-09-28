@@ -35,3 +35,21 @@ This forwarding mechanism is crucial for maintaining the integrity of multi-stag
 - This is particularly important for compression-based bbsinks (gzip, lz4, zstd) that need to finalize their compression streams
 - The forwarding pattern ensures that all bbsinks in a chain can perform proper cleanup in the correct order
 - This function is essential for maintaining the chain of responsibility pattern in composite bbsink architectures where multiple processing stages need coordinated finalization
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_forward_end_archive
+void bbsink_forward_end_archive(bbsink *sink) {
+    // Validate chain exists
+    Assert(sink->bbs_next != NULL);
+
+    // Forward end archive to next sink
+    bbsink_end_archive(sink->bbs_next);
+}
+```
+
+Key simplifications made:
+- Preserved essential chain validation
+- Maintained finalization forwarding delegation
+- Focused on core archive end forwarding

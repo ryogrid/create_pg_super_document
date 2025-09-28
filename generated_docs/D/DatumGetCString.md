@@ -35,3 +35,19 @@ DatumGetCString is a static inline function that extracts a C string from a Datu
 - The function performs no validation on the string content or null-termination - it assumes the Datum contains a valid C string pointer
 - C strings are not full PostgreSQL types but serve as an important interface mechanism for the type system
 - Widely used in JSON processing, formatting functions, type coercion, and procedural language interfaces
+
+## Simplified Source
+
+```c
+// Simplified version of DatumGetCString
+static inline char *DatumGetCString(Datum X) {
+    // Cast Datum pointer to C string pointer
+    return (char *) DatumGetPointer(X);
+}
+```
+
+Key simplifications made:
+- Added explanatory comment for the casting operation
+- Preserved the simple pointer cast mechanism
+- Maintained the static inline optimization
+- Emphasized the specialized string extraction purpose

@@ -39,3 +39,31 @@ The function includes important safety mechanisms to prevent data loss scenarios
 - This is the standard entry point for dropping replication slots by name
 - Properly handles both blocking and non-blocking slot acquisition modes
 - Used by SQL functions and replication protocol commands for slot management
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotDrop
+void
+ReplicationSlotDrop(const char *name, bool nowait)
+{
+    Assert(MyReplicationSlot == NULL);
+
+    // Acquire the slot to be dropped
+    ReplicationSlotAcquire(name, nowait);
+
+    // Prevent dropping synced slots during recovery
+    if (RecoveryInProgress() && MyReplicationSlot->data.synced)
+        ereport(ERROR,
+                "cannot drop replication slot \"%s\" - slot is being synchronized from primary", name);
+
+    // Perform the actual drop operation
+    ReplicationSlotDropAcquired();
+}
+```
+
+Key simplifications made:
+- Simplified the error message while preserving the essential information
+- Added concise comments explaining each major step
+- Preserved all safety checks and error conditions
+- Maintained the exact control flow and logic

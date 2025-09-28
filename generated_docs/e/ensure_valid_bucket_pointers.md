@@ -43,3 +43,26 @@ This synchronization mechanism allows multiple backends to safely access the sam
 - Essential for maintaining consistency between backend-local cached state and shared table state
 - The design allows for lock-free synchronization of bucket pointers across multiple backends
 - Part of the lazy synchronization strategy used by the dynamic shared hash table implementation
+
+## Simplified Source
+
+```c
+// Simplified version of ensure_valid_bucket_pointers
+static inline void
+ensure_valid_bucket_pointers(dshash_table *hash_table) {
+    // Check if hash table was resized by another backend
+    if (hash_table->size_log2 != hash_table->control->size_log2) {
+        // Update local bucket pointer to current shared buckets
+        hash_table->buckets = dsa_get_address(hash_table->area,
+                                            hash_table->control->buckets);
+        // Update local size to match shared size
+        hash_table->size_log2 = hash_table->control->size_log2;
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the resize detection mechanism
+- Simplified the logic to focus on the synchronization pattern
+- This function is already very simple - it's essentially a cache invalidation check
+- Preserved the essential logic for keeping local state synchronized with shared state

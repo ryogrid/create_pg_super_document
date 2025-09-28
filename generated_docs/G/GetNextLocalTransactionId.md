@@ -39,3 +39,25 @@ The sequential allocation of local transaction IDs across successive processes u
 - The nextLocalTransactionId counter is copied from the previous backend's value during initialization
 - Critical for transaction management and virtual transaction identification throughout PostgreSQL
 - Simple but essential component of the transaction system's scalability design
+
+## Simplified Source
+
+```c
+// Simplified version of GetNextLocalTransactionId
+LocalTransactionId GetNextLocalTransactionId(void) {
+    LocalTransactionId result;
+
+    // Loop to avoid returning InvalidLocalTransactionId at wraparound
+    do {
+        result = nextLocalTransactionId++;
+    } while (!LocalTransactionIdIsValid(result));
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, just increments local counter
+- Maintains wraparound protection by validating result
+- Essential for lock-free VirtualTransactionId allocation
+- Part of the two-component transaction ID system (ProcNumber + LocalTransactionId)

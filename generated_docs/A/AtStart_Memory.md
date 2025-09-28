@@ -41,3 +41,41 @@ The function ensures proper memory isolation for transaction operations and prov
 - TopTransactionContext and CurTransactionContext are the same in top-level transactions
 - The function switches to CurTransactionContext as the active memory context
 - Critical for memory management and cleanup in PostgreSQL's transaction system
+
+## Simplified Source
+
+```c
+// Simplified version of AtStart_Memory
+static void AtStart_Memory(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Create TransactionAbortContext if not already created
+    if (TransactionAbortContext == NULL)
+        TransactionAbortContext = AllocSetContextCreate(TopMemoryContext,
+                                                        "TransactionAbortContext",
+                                                        32 * 1024,  // Fixed size for abort safety
+                                                        32 * 1024,
+                                                        32 * 1024);
+
+    // Ensure no existing transaction context
+    Assert(TopTransactionContext == NULL);
+
+    // Create main transaction memory context
+    TopTransactionContext = AllocSetContextCreate(TopMemoryContext,
+                                                  "TopTransactionContext",
+                                                  ALLOCSET_DEFAULT_SIZES);
+
+    // In top-level transaction, current context equals top context
+    CurTransactionContext = TopTransactionContext;
+    s->curTransactionContext = CurTransactionContext;
+
+    // Switch to the transaction context
+    MemoryContextSwitchTo(CurTransactionContext);
+}
+```
+
+Key simplifications made:
+- Maintained essential memory context creation for transaction and abort contexts
+- Preserved fixed-size abort context for out-of-memory protection
+- Simplified context hierarchy setup while preserving functionality
+- Essential for transaction memory management and cleanup

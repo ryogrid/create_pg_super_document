@@ -55,3 +55,60 @@ The parsing process involves:
 - Supports multiple parsing modes including default SQL, type names, and PL/pgSQL expressions
 - The function handles memory management by cleaning up scanner resources regardless of parse success or failure
 - Mode-specific lookahead tokens are used to provide context to the parser for specialized parsing scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of raw_parser
+List *raw_parser(const char *str, RawParseMode mode) {
+    core_yyscan_t yyscanner;
+    base_yy_extra_type yyextra;
+    int yyresult;
+
+    // Initialize the flex scanner with the input string
+    yyscanner = scanner_init(str, &yyextra.core_yy_extra,
+                           &ScanKeywords, ScanKeywordTokens);
+
+    // Set up mode-specific lookahead token if needed
+    if (mode == RAW_PARSE_DEFAULT) {
+        yyextra.have_lookahead = false;
+    } else {
+        // Map parsing modes to their corresponding tokens
+        static const int mode_token[] = {
+            [RAW_PARSE_DEFAULT] = 0,
+            [RAW_PARSE_TYPE_NAME] = MODE_TYPE_NAME,
+            [RAW_PARSE_PLPGSQL_EXPR] = MODE_PLPGSQL_EXPR,
+            [RAW_PARSE_PLPGSQL_ASSIGN1] = MODE_PLPGSQL_ASSIGN1,
+            [RAW_PARSE_PLPGSQL_ASSIGN2] = MODE_PLPGSQL_ASSIGN2,
+            [RAW_PARSE_PLPGSQL_ASSIGN3] = MODE_PLPGSQL_ASSIGN3,
+        };
+
+        yyextra.have_lookahead = true;
+        yyextra.lookahead_token = mode_token[mode];
+        yyextra.lookahead_yylloc = 0;
+        yyextra.lookahead_end = NULL;
+    }
+
+    // Initialize the bison parser
+    parser_init(&yyextra);
+
+    // Execute the parsing
+    yyresult = base_yyparse(yyscanner);
+
+    // Clean up scanner resources
+    scanner_finish(yyscanner);
+
+    // Return parse tree or NIL on error
+    if (yyresult)
+        return NIL;
+
+    return yyextra.parsetree;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Preserved all essential logic and error handling
+- Maintained the mode token mapping structure
+- Kept memory cleanup and error handling intact
+- Simplified conditional structure while preserving functionality

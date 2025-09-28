@@ -38,3 +38,21 @@ This function is essential for PostgreSQL's transparent handling of large data v
 - The returned data should be treated as read-only in most contexts
 - Critical for PostgreSQL's ability to handle large text, bytea, and other variable-length data types efficiently
 - Memory management of the returned pointer depends on whether detoasting occurred
+
+## Simplified Source
+
+```c
+// Simplified version of pg_detoast_datum
+struct varlena *pg_detoast_datum(struct varlena *datum) {
+    // Check if data is TOASTed (compressed or stored externally)
+    if (VARATT_IS_EXTENDED(datum))
+        return detoast_attr(datum);  // Decompress/reconstruct the data
+    else
+        return datum;  // Return as-is if not TOASTed
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the TOAST check and actions
+- Focused on the core logic: check TOAST status, decompress if needed, return appropriate pointer
+- Preserved the essential algorithm while making the purpose more explicit

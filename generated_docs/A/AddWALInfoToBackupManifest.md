@@ -47,3 +47,86 @@ AddWALInfoToBackupManifest concludes the file section of the backup manifest and
 - Each WAL range specifies Timeline, Start-LSN, and End-LSN in hexadecimal format
 - Essential for ensuring backup restoration can replay all required WAL segments
 - Works with PostgreSQL's timeline branching system used for point-in-time recovery scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of AddWALInfoToBackupManifest
+void AddWALInfoToBackupManifest(backup_manifest_info *manifest, XLogRecPtr startptr,
+                               TimeLineID starttli, XLogRecPtr endptr,
+                               TimeLineID endtli) {
+    List *timelines;
+    ListCell *lc;
+    bool first_wal_range = true;
+    bool found_start_timeline = false;
+
+    // Early exit if manifest is disabled
+    if (!IsManifestEnabled(manifest))
+        return;
+
+    // Terminate the files list and start WAL-Ranges section
+    AppendStringToManifest(manifest, "\n],\n");
+    timelines = readTimeLineHistory(endtli);
+    AppendStringToManifest(manifest, "\"WAL-Ranges\": [\n");
+
+    // Process timeline history in reverse chronological order
+    foreach(lc, timelines) {
+        TimeLineHistoryEntry *entry = lfirst(lc);
+        XLogRecPtr tl_beginptr;
+
+        // Skip timelines that ended before backup started
+        if (!XLogRecPtrIsInvalid(entry->end) && entry->end < startptr)
+            continue;
+
+        // Validate first timeline matches ending timeline
+        if (first_wal_range && endtli != entry->tli)
+            ereport(ERROR,
+                    errmsg("expected end timeline %u but found timeline %u",
+                           starttli, entry->tli));
+
+        // Determine WAL range start point
+        if (starttli == entry->tli)
+            tl_beginptr = startptr;
+        else {
+            tl_beginptr = entry->begin;
+            if (XLogRecPtrIsInvalid(entry->begin))
+                ereport(ERROR,
+                        errmsg("expected start timeline %u but found timeline %u",
+                               starttli, entry->tli));
+        }
+
+        // Add WAL range to manifest
+        AppendToManifest(manifest,
+                        "%s{ \"Timeline\": %u, \"Start-LSN\": \"%X/%X\", \"End-LSN\": \"%X/%X\" }",
+                        first_wal_range ? "" : ",\n",
+                        entry->tli,
+                        LSN_FORMAT_ARGS(tl_beginptr),
+                        LSN_FORMAT_ARGS(endptr));
+
+        // Stop when we reach the starting timeline
+        if (starttli == entry->tli) {
+            found_start_timeline = true;
+            break;
+        }
+
+        endptr = entry->begin;
+        first_wal_range = false;
+    }
+
+    // Validate that starting timeline was found
+    if (!found_start_timeline)
+        ereport(ERROR,
+                errmsg("start timeline %u not found in history of timeline %u",
+                       starttli, endtli));
+
+    // Terminate WAL ranges section
+    AppendStringToManifest(manifest, "\n],\n");
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving complex timeline logic
+- Streamlined the timeline processing loop
+- Maintained all validation and error handling
+- Preserved the JSON manifest generation functionality
+- Kept timeline branching and WAL range calculation logic

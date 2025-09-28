@@ -31,3 +31,19 @@ This inline utility function provides a simple bounds check to determine if an i
 - Used primarily for input validation and array bounds checking
 - Essential for preventing array out-of-bounds access in the pgstat_kind_infos array
 - Part of PostgreSQL's defensive programming practices for the statistics subsystem
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_is_kind_valid
+static inline bool
+pgstat_is_kind_valid(int ikind) {
+    // Check if kind value is within valid range
+    return ikind >= PGSTAT_KIND_FIRST_VALID && ikind <= PGSTAT_KIND_LAST;
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple - just a range check
+- Added comment explaining the validation purpose
+- No simplification needed as it's already a single bounds check statement

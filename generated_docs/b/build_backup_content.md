@@ -53,3 +53,80 @@ The function uses the log timezone (not session timezone) for timestamp formatti
 - Contains assertions to ensure data consistency, particularly for incremental backup parameters
 - The function is located in src/backend/access/transam/xlogbackup.c:29-94
 - Output format includes standardized fields like START WAL LOCATION, CHECKPOINT LOCATION, BACKUP METHOD (always "streamed"), START TIME, LABEL, and timeline information
+
+## Simplified Source
+
+```c
+// Simplified version of build_backup_content
+char *build_backup_content(BackupState *state, bool ishistoryfile) {
+    char startstrbuf[128];
+    char startxlogfile[MAXFNAMELEN];
+    XLogSegNo startsegno;
+    StringInfo result = makeStringInfo();
+    char *data;
+
+    Assert(state != NULL);
+
+    // Format start time using log timezone
+    pg_strftime(startstrbuf, sizeof(startstrbuf), "%Y-%m-%d %H:%M:%S %Z",
+                pg_localtime(&state->starttime, log_timezone));
+
+    // Generate WAL filename for start position
+    XLByteToSeg(state->startpoint, startsegno, wal_segment_size);
+    XLogFileName(startxlogfile, state->starttli, startsegno, wal_segment_size);
+    appendStringInfo(result, "START WAL LOCATION: %X/%X (file %s)\n",
+                     LSN_FORMAT_ARGS(state->startpoint), startxlogfile);
+
+    // Add stop information for history files
+    if (ishistoryfile) {
+        char stopxlogfile[MAXFNAMELEN];
+        XLogSegNo stopsegno;
+
+        XLByteToSeg(state->stoppoint, stopsegno, wal_segment_size);
+        XLogFileName(stopxlogfile, state->stoptli, stopsegno, wal_segment_size);
+        appendStringInfo(result, "STOP WAL LOCATION: %X/%X (file %s)\n",
+                         LSN_FORMAT_ARGS(state->stoppoint), stopxlogfile);
+    }
+
+    // Add standard backup metadata
+    appendStringInfo(result, "CHECKPOINT LOCATION: %X/%X\n",
+                     LSN_FORMAT_ARGS(state->checkpointloc));
+    appendStringInfoString(result, "BACKUP METHOD: streamed\n");
+    appendStringInfo(result, "BACKUP FROM: %s\n",
+                     state->started_in_recovery ? "standby" : "primary");
+    appendStringInfo(result, "START TIME: %s\n", startstrbuf);
+    appendStringInfo(result, "LABEL: %s\n", state->name);
+    appendStringInfo(result, "START TIMELINE: %u\n", state->starttli);
+
+    // Add stop time and timeline for history files
+    if (ishistoryfile) {
+        char stopstrfbuf[128];
+
+        pg_strftime(stopstrfbuf, sizeof(stopstrfbuf), "%Y-%m-%d %H:%M:%S %Z",
+                    pg_localtime(&state->stoptime, log_timezone));
+        appendStringInfo(result, "STOP TIME: %s\n", stopstrfbuf);
+        appendStringInfo(result, "STOP TIMELINE: %u\n", state->stoptli);
+    }
+
+    // Add incremental backup information if present
+    Assert(XLogRecPtrIsInvalid(state->istartpoint) == (state->istarttli == 0));
+    if (!XLogRecPtrIsInvalid(state->istartpoint)) {
+        appendStringInfo(result, "INCREMENTAL FROM LSN: %X/%X\n",
+                         LSN_FORMAT_ARGS(state->istartpoint));
+        appendStringInfo(result, "INCREMENTAL FROM TLI: %u\n",
+                         state->istarttli);
+    }
+
+    // Return the formatted content
+    data = result->data;
+    pfree(result);
+    return data;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving formatting logic
+- Streamlined the conditional sections for history vs label files
+- Maintained timezone handling for consistent timestamps
+- Preserved WAL filename generation and LSN formatting
+- Kept incremental backup support and validation assertions

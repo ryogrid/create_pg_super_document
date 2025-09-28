@@ -52,3 +52,77 @@ The function enforces strict calling context validation - it will raise an error
 - Handles nullable fields appropriately (schema_name, object_name, object_identity, address components)
 - Essential for event trigger functions that need to audit or replicate DDL drop operations
 - Located in src/backend/commands/event_trigger.c:1397-1492
+
+## Simplified Source
+
+```c
+// Simplified version of pg_event_trigger_dropped_objects
+Datum pg_event_trigger_dropped_objects(PG_FUNCTION_ARGS) {
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+    slist_iter iter;
+
+    // Validate context: must be called within sql_drop event trigger
+    if (!currentEventTriggerState || !currentEventTriggerState->in_sql_drop)
+        ereport(ERROR, (errcode(ERRCODE_E_R_I_E_EVENT_TRIGGER_PROTOCOL_VIOLATED),
+                errmsg("pg_event_trigger_dropped_objects() can only be called in a sql_drop event trigger function")));
+
+    // Initialize result tuplestore
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Iterate through each dropped object in the SQLDropList
+    slist_foreach(iter, &(currentEventTriggerState->SQLDropList)) {
+        SQLDropObject *obj = slist_container(SQLDropObject, next, iter.cur);
+        Datum values[12] = {0};
+        bool nulls[12] = {0};
+        int i = 0;
+
+        // Populate 12-column result row with object information
+        values[i++] = ObjectIdGetDatum(obj->address.classId);     // classid
+        values[i++] = ObjectIdGetDatum(obj->address.objectId);   // objid
+        values[i++] = Int32GetDatum(obj->address.objectSubId);   // objsubid
+        values[i++] = BoolGetDatum(obj->original);               // original
+        values[i++] = BoolGetDatum(obj->normal);                 // normal
+        values[i++] = BoolGetDatum(obj->istemp);                 // is_temporary
+        values[i++] = CStringGetTextDatum(obj->objecttype);      // object_type
+
+        // Handle nullable string fields
+        if (obj->schemaname)
+            values[i++] = CStringGetTextDatum(obj->schemaname);
+        else
+            nulls[i++] = true;
+
+        if (obj->objname)
+            values[i++] = CStringGetTextDatum(obj->objname);
+        else
+            nulls[i++] = true;
+
+        if (obj->objidentity)
+            values[i++] = CStringGetTextDatum(obj->objidentity);
+        else
+            nulls[i++] = true;
+
+        // Handle address arrays
+        if (obj->addrnames) {
+            values[i++] = PointerGetDatum(strlist_to_textarray(obj->addrnames));
+            values[i++] = obj->addrargs ?
+                         PointerGetDatum(strlist_to_textarray(obj->addrargs)) :
+                         PointerGetDatum(construct_empty_array(TEXTOID));
+        } else {
+            nulls[i++] = true;  // address_names
+            nulls[i++] = true;  // address_args
+        }
+
+        // Add row to result set
+        tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+    }
+
+    return (Datum) 0;
+}
+```
+
+Key simplifications made:
+- Combined variable declarations and assignments where possible
+- Added clear comments explaining each step
+- Simplified null handling logic with ternary operators
+- Removed excessive intermediate variables
+- Focused on the main execution flow

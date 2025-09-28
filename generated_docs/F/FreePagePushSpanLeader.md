@@ -54,3 +54,32 @@ The function is part of PostgreSQL's free page management system, which organize
 - The span leader structure is placed at the beginning of the first free page in the span
 - Proper doubly-linked list maintenance ensures O(1) insertion time and maintains list integrity
 - The magic number FREE_PAGE_SPAN_LEADER_MAGIC helps with debugging and corruption detection
+
+## Simplified Source
+
+```c
+// Simplified version of FreePagePushSpanLeader
+static void FreePagePushSpanLeader(FreePageManager *fpm, Size first_page, Size npages) {
+    char *base = fmp_segment_base(fpm);
+    Size f = Min(npages, FPM_NUM_FREELISTS) - 1;
+    FreePageSpanLeader *head = relptr_access(base, fpm->freelist[f]);
+    FreePageSpanLeader *span = (FreePageSpanLeader *) fpm_page_to_pointer(base, first_page);
+
+    // Initialize new span leader
+    span->magic = FREE_PAGE_SPAN_LEADER_MAGIC;
+    span->npages = npages;
+
+    // Insert at head of appropriate freelist
+    relptr_store(base, span->next, head);
+    relptr_store(base, span->prev, (FreePageSpanLeader *) NULL);
+    if (head != NULL)
+        relptr_store(base, head->prev, span);
+    relptr_store(base, fpm->freelist[f], span);
+}
+```
+
+Key simplifications made:
+- Preserved freelist selection logic based on span size
+- Maintained proper span leader initialization
+- Kept essential linked list insertion at head
+- Focused on core data structure management

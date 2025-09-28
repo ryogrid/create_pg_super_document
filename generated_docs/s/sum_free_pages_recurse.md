@@ -47,3 +47,31 @@ Note that this function counts B-tree structure pages, not the actual free pages
 - Used primarily in debug builds for consistency checking via FPM_EXTRA_ASSERTS
 - The recursion follows the B-tree structure from internal nodes down to leaves
 - Does not count the actual free pages, only the pages used by the B-tree structure itself
+
+## Simplified Source
+
+```c
+// Simplified version of sum_free_pages_recurse
+static void sum_free_pages_recurse(FreePageManager *fpm, FreePageBtree *btp, Size *sum) {
+    char *base = fpm_segment_base(fpm);
+
+    // Validate node type and count this page
+    Assert(btp->hdr.magic == FREE_PAGE_INTERNAL_MAGIC ||
+           btp->hdr.magic == FREE_PAGE_LEAF_MAGIC);
+    ++*sum;
+
+    // Recursively process children if internal node
+    if (btp->hdr.magic == FREE_PAGE_INTERNAL_MAGIC) {
+        for (Size index = 0; index < btp->hdr.nused; ++index) {
+            FreePageBtree *child = relptr_access(base, btp->u.internal_key[index].child);
+            sum_free_pages_recurse(fpm, child, sum);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Combined magic number validation in single assertion
+- Added descriptive comments for key operations
+- Preserved the recursive tree traversal logic
+- Focused on the core counting and traversal functionality

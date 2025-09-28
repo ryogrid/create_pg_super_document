@@ -42,3 +42,29 @@ This function takes no parameters.
 - The function is performance-critical as it's called during every query analysis
 - When compute_query_id is COMPUTE_QUERY_ID_AUTO, modules like pg_stat_statements can enable query ID computation by setting query_id_enabled to true
 - Located in src/include/nodes/queryjumble.h:77-84
+
+## Simplified Source
+
+```c
+// Simplified version of IsQueryIdEnabled
+static inline bool IsQueryIdEnabled(void) {
+    // Check if explicitly disabled
+    if (compute_query_id == COMPUTE_QUERY_ID_OFF) {
+        return false;
+    }
+
+    // Check if explicitly enabled
+    if (compute_query_id == COMPUTE_QUERY_ID_ON) {
+        return true;
+    }
+
+    // For AUTO mode, defer to module-controlled flag
+    return query_id_enabled;
+}
+```
+
+Key simplifications made:
+- Preserved complete GUC setting evaluation logic
+- Maintained three-way decision structure
+- Kept module override capability for AUTO mode
+- Focused on core enablement check functionality

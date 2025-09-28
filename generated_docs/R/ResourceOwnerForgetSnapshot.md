@@ -23,6 +23,21 @@ This static inline function serves as a convenience wrapper around the general R
   - [ResourceOwnerForget](ResourceOwnerForget.md)
   - [PointerGetDatum](../P/PointerGetDatum.md)
   - snapshot_resowner_desc (static descriptor)
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerForgetSnapshot
+static inline void ResourceOwnerForgetSnapshot(ResourceOwner owner, Snapshot snap) {
+    // Remove snapshot from resource owner tracking
+    ResourceOwnerForget(owner, PointerGetDatum(snap), &snapshot_resowner_desc);
+}
+```
+
+Key simplifications made:
+- Focused on the delegation pattern to ResourceOwnerForget
+- Emphasized the snapshot-specific resource descriptor usage
+- Showed the inline wrapper nature of the function
 - Called from (representative examples):
   - [UnregisterSnapshotFromOwner](../U/UnregisterSnapshotFromOwner.md)
 

@@ -35,3 +35,28 @@ Upon successful validation, the function updates the portal's status to ACTIVE a
 - Runtime validation prevents execution of portals that are not ready, maintaining system integrity
 - The activeSubid field assignment enables proper cleanup during subtransaction abort scenarios
 - Located in src/backend/utils/mmgr/portalmem.c:395-413
+
+## Simplified Source
+
+```c
+// Simplified version of MarkPortalActive
+void MarkPortalActive(Portal portal) {
+    // Safety check: portal must be in READY state to activate
+    if (portal->status != PORTAL_READY) {
+        ereport(ERROR,
+               (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("portal \"%s\" cannot be run", portal->name)));
+    }
+
+    // Transition to active state and record subtransaction
+    portal->status = PORTAL_ACTIVE;
+    portal->activeSubid = GetCurrentSubTransactionId();
+}
+```
+
+Key simplifications made:
+- Simplified comments while preserving essential safety information
+- Maintained the critical error checking logic
+- Preserved the state transition and subtransaction tracking
+- Focused on the core workflow: validate state, update status, record subtransaction ID
+- Kept the error reporting intact as it's essential for system integrity

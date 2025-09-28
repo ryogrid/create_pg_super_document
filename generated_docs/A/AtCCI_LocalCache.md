@@ -31,3 +31,26 @@ This function takes no parameters.
 - Essential for PostgreSQL's multi-version concurrency control (MVCC) implementation
 - The two-step process (relation map then invalidation messages) ensures proper ordering of cache updates
 - Part of PostgreSQL's mechanism to ensure that DDL changes become visible to subsequent commands within the same transaction
+
+## Simplified Source
+
+```c
+// Simplified version of AtCCI_LocalCache
+static void AtCCI_LocalCache(void) {
+    // Step 1: Make pending relation map changes visible
+    // This must happen before processing invalidation messages
+    // so that relation cache invalidations can see the updated mappings
+    AtCCI_RelationMap();
+
+    // Step 2: Process local invalidation messages to update catalog caches
+    // This makes catalog changes visible for the next command in this transaction
+    CommandEndInvalidationMessages();
+}
+```
+
+Key simplifications made:
+- Added detailed comments explaining the two-step process
+- Clarified the critical ordering requirement between the two operations
+- Explained the purpose of each function call
+- Focused on core logic: update relation maps first, then process invalidation messages
+- Emphasized the importance of the specific sequence for correct cache behavior

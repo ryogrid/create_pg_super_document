@@ -34,3 +34,20 @@ The function acts as a thin wrapper around , delegating the actual socket option
 - Only applies to TCP connections; Unix domain socket connections are handled appropriately by the underlying  function
 - Part of PostgreSQL's configuration management system that allows runtime changes to connection parameters
 - The TCP_USER_TIMEOUT feature may not be available on all platforms, which is handled by the underlying implementation
+
+## Simplified Source
+
+```c
+// Simplified version of assign_tcp_user_timeout
+void assign_tcp_user_timeout(int newval, void *extra) {
+    // Apply the new TCP user timeout setting to current connection
+    // See assign_tcp_keepalives_idle for detailed comments about error handling
+    pq_settcpusertimeout(newval, MyProcPort);
+}
+```
+
+Key simplifications made:
+- Removed the void cast since the return value is intentionally ignored
+- Added clear comment explaining the function's purpose
+- Referenced the related keepalive function for detailed implementation notes
+- Focused on the core functionality of applying TCP user timeout settings

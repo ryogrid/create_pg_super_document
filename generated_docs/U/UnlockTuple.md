@@ -40,3 +40,28 @@ This function is part of PostgreSQL's hierarchical locking system and is used ex
 - It's commonly used in conjunction with LockTuple for tuple-level locking during row modifications
 - The lock tag construction ensures proper identification of the specific tuple across the entire database cluster
 - Part of the lock manager subsystem (lmgr) that handles PostgreSQL's sophisticated locking hierarchy
+
+## Simplified Source
+
+```c
+// Simplified version of UnlockTuple
+void UnlockTuple(Relation relation, ItemPointer tid, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Construct tuple-specific lock tag
+    SET_LOCKTAG_TUPLE(tag,
+                      relation->rd_lockInfo.lockRelId.dbId,
+                      relation->rd_lockInfo.lockRelId.relId,
+                      ItemPointerGetBlockNumber(tid),
+                      ItemPointerGetOffsetNumber(tid));
+
+    // Release the lock
+    LockRelease(&tag, lockmode, false);
+}
+```
+
+Key simplifications made:
+- Preserved the essential lock tag construction logic
+- Maintained the tuple identification mechanism
+- Added clear comments explaining the unlock process
+- Focused on the core tuple-level lock release functionality

@@ -34,3 +34,37 @@ This function serves as the most commonly used memory allocation interface in Po
 - Designed to enable compiler optimizations through sibling call optimization
 - Integrates with Valgrind for memory debugging
 - Expects the underlying allocation method to handle OOM conditions and never return NULL
+
+## Simplified Source
+
+```c
+// Simplified version of palloc
+void *palloc(Size size) {
+    MemoryContext context = CurrentMemoryContext;
+
+    // Validate context and ensure we're not in a critical section
+    Assert(MemoryContextIsValid(context));
+    AssertNotInCriticalSection(context);
+
+    // Mark context as having active allocations
+    context->isReset = false;
+
+    // Delegate to context-specific allocation method
+    void *ret = context->methods->alloc(context, size, 0);
+
+    // OOM is handled by alloc function, so ret should never be NULL
+    Assert(ret != NULL);
+
+    // Track allocation for debugging tools
+    VALGRIND_MEMPOOL_ALLOC(context, ret, size);
+
+    return ret;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each major step
+- Consolidated variable declarations at the top
+- Removed the detailed performance comments for clarity
+- Focused on the core algorithm: validate context, mark as active, allocate, track, return
+- Preserved all assertions and debugging support

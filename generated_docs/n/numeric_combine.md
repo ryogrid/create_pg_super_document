@@ -50,3 +50,95 @@ The combining process involves adding counts, merging scale tracking data, and u
 - Proper memory context management ensures combined state data persists appropriately
 - The function validates it's called in an appropriate aggregate context using AggCheckCallContext
 - Designed to work with makeNumericAggStateCurrentContext(true) which indicates sumX2 calculation is required
+
+## Simplified Source
+
+```c
+// Simplified version of numeric_combine
+Datum numeric_combine(PG_FUNCTION_ARGS) {
+    NumericAggState *state1;
+    NumericAggState *state2;
+    MemoryContext agg_context;
+    MemoryContext old_context;
+
+    // Step 1: Validate this is called in proper aggregate context
+    if (!AggCheckCallContext(fcinfo, &agg_context)) {
+        elog(ERROR, "aggregate function called in non-aggregate context");
+    }
+
+    // Step 2: Extract the two aggregate states to combine
+    state1 = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+    state2 = PG_ARGISNULL(1) ? NULL : (NumericAggState *) PG_GETARG_POINTER(1);
+
+    // Step 3: Handle NULL states
+    if (state2 == NULL) {
+        // Nothing to combine - return first state as-is
+        PG_RETURN_POINTER(state1);
+    }
+
+    if (state1 == NULL) {
+        // Create new state from state2
+        old_context = MemoryContextSwitchTo(agg_context);
+
+        state1 = makeNumericAggStateCurrentContext(true);  // true = needs sumX2
+
+        // Copy all fields from state2 to new state1
+        state1->N = state2->N;
+        state1->NaNcount = state2->NaNcount;
+        state1->pInfcount = state2->pInfcount;
+        state1->nInfcount = state2->nInfcount;
+        state1->maxScale = state2->maxScale;
+        state1->maxScaleCount = state2->maxScaleCount;
+
+        // Copy accumulated sums
+        accum_sum_copy(&state1->sumX, &state2->sumX);
+        accum_sum_copy(&state1->sumX2, &state2->sumX2);
+
+        MemoryContextSwitchTo(old_context);
+        PG_RETURN_POINTER(state1);
+    }
+
+    // Step 4: Merge both states
+    // Combine basic counts
+    state1->N += state2->N;
+    state1->NaNcount += state2->NaNcount;
+    state1->pInfcount += state2->pInfcount;
+    state1->nInfcount += state2->nInfcount;
+
+    // Step 5: Handle scale information (for precision tracking)
+    if (state2->N > 0) {
+        // Merge scale tracking information
+        if (state2->maxScale > state1->maxScale) {
+            // state2 has higher precision
+            state1->maxScale = state2->maxScale;
+            state1->maxScaleCount = state2->maxScaleCount;
+        }
+        else if (state2->maxScale == state1->maxScale) {
+            // Same precision - add counts
+            state1->maxScaleCount += state2->maxScaleCount;
+        }
+
+        // Step 6: Combine accumulated sums in proper memory context
+        old_context = MemoryContextSwitchTo(agg_context);
+
+        // Mathematically combine the sums and sums of squares
+        accum_sum_combine(&state1->sumX, &state2->sumX);    // Σx
+        accum_sum_combine(&state1->sumX2, &state2->sumX2);  // Σx²
+
+        MemoryContextSwitchTo(old_context);
+    }
+
+    PG_RETURN_POINTER(state1);
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining each phase of the combine operation
+- Organized the logic into logical sections: validation, state handling, merging
+- Simplified variable organization and eliminated intermediate variables
+- Made the three main cases explicit: NULL state2, NULL state1, both states exist
+- Clarified the purpose of scale tracking (precision management)
+- Added comments explaining the mathematical operations (Σx and Σx²)
+- Made memory context switching more explicit and understandable
+- Focused on the core aggregate combining algorithm rather than low-level details
+- Preserved all essential numeric aggregation functionality

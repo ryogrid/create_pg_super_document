@@ -42,3 +42,30 @@ Each command type typically defines its own set of progress parameters (e.g., VA
 - This is the most frequently called progress tracking function during operation execution
 - Different command types use different indices for different metrics (e.g., blocks processed vs. tuples processed)
 - The function is called repeatedly throughout long-running operations to provide real-time progress updates
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_progress_update_param
+void pgstat_progress_update_param(int index, int64 val) {
+    volatile PgBackendStatus *beentry = MyBEEntry;
+
+    // Validate index bounds
+    Assert(index >= 0 && index < PGSTAT_NUM_PROGRESS_PARAM);
+
+    // Early exit if progress tracking is disabled
+    if (!beentry || !pgstat_track_activities)
+        return;
+
+    // Update the progress parameter atomically
+    PGSTAT_BEGIN_WRITE_ACTIVITY(beentry);
+    beentry->st_progress_param[index] = val;
+    PGSTAT_END_WRITE_ACTIVITY(beentry);
+}
+```
+
+Key simplifications made:
+- Preserved bounds checking assertion for safety
+- Simplified early exit condition check
+- Emphasized the atomic update pattern
+- Maintained the core functionality of updating progress parameters

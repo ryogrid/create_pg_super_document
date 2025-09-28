@@ -39,3 +39,27 @@ The reverse ordering is intentional and explicitly noted in the source code comm
 - The function accesses the  field of ResourceElem structures to examine release_phase and release_priority values
 - Uses PostgreSQL's  utility function for reliable unsigned integer comparison
 - Critical for maintaining data integrity during transaction rollback and error recovery scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of resource_priority_cmp
+static int resource_priority_cmp(const void *a, const void *b) {
+    const ResourceElem *ra = (const ResourceElem *) a;
+    const ResourceElem *rb = (const ResourceElem *) b;
+
+    // Sort by release phase first (reverse order - higher phases first)
+    if (ra->kind->release_phase != rb->kind->release_phase) {
+        return (ra->kind->release_phase > rb->kind->release_phase) ? -1 : 1;
+    }
+
+    // Within same phase, sort by priority (reverse order - higher priority first)
+    return pg_cmp_u32(rb->kind->release_priority, ra->kind->release_priority);
+}
+```
+
+Key simplifications made:
+- Clarified the reverse ordering logic with explicit comparisons
+- Added comments explaining the two-level sorting criteria
+- Made the intent of higher-value-first ordering more explicit
+- Simplified the conditional logic flow

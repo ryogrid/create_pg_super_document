@@ -30,3 +30,18 @@ This function is critical for maintaining cache coherency across different backe
 - Part of the StartTransaction infrastructure that ensures proper initialization of various subsystems
 - Cache invalidation is crucial for maintaining data consistency in a multi-backend environment
 - The function is called early in the transaction startup sequence to ensure clean cache state
+
+## Simplified Source
+
+```c
+// Simplified version of AtStart_Cache
+static void AtStart_Cache(void) {
+    // Accept and process any pending invalidation messages
+    AcceptInvalidationMessages();
+}
+```
+
+Key simplifications made:
+- Function is already very simple, just processes cache invalidations
+- Essential for maintaining cache coherency at transaction start
+- Ensures backend caches are synchronized before transaction work begins

@@ -44,3 +44,58 @@ Key behaviors:
 - For overflowed subXID arrays, the subxip is only copied if the snapshot was taken during recovery (where all top-level XIDs are stored in subxip)
 - Memory allocation uses a single block containing both the snapshot structure and XID arrays for efficiency
 - The snapXactCompletionCount is reset to 0 in the copy
+
+## Simplified Source
+
+```c
+// Simplified version of CopySnapshot
+static Snapshot CopySnapshot(Snapshot snapshot) {
+    Snapshot newsnap;
+    Size subxipoff;
+    Size size;
+
+    Assert(snapshot != InvalidSnapshot);
+
+    // Calculate total size needed: snapshot + xip array + subxip array
+    size = subxipoff = sizeof(SnapshotData) + snapshot->xcnt * sizeof(TransactionId);
+    if (snapshot->subxcnt > 0) {
+        size += snapshot->subxcnt * sizeof(TransactionId);
+    }
+
+    // Allocate memory for snapshot and arrays in one block
+    newsnap = (Snapshot) MemoryContextAlloc(TopTransactionContext, size);
+    memcpy(newsnap, snapshot, sizeof(SnapshotData));
+
+    // Initialize copy-specific fields
+    newsnap->regd_count = 0;
+    newsnap->active_count = 0;
+    newsnap->copied = true;
+    newsnap->snapXactCompletionCount = 0;
+
+    // Copy main XID array
+    if (snapshot->xcnt > 0) {
+        newsnap->xip = (TransactionId *) (newsnap + 1);
+        memcpy(newsnap->xip, snapshot->xip, snapshot->xcnt * sizeof(TransactionId));
+    } else {
+        newsnap->xip = NULL;
+    }
+
+    // Copy sub-transaction XID array (skip if overflowed unless taken during recovery)
+    if (snapshot->subxcnt > 0 &&
+        (!snapshot->suboverflowed || snapshot->takenDuringRecovery)) {
+        newsnap->subxip = (TransactionId *) ((char *) newsnap + subxipoff);
+        memcpy(newsnap->subxip, snapshot->subxip, snapshot->subxcnt * sizeof(TransactionId));
+    } else {
+        newsnap->subxip = NULL;
+    }
+
+    return newsnap;
+}
+```
+
+Key simplifications made:
+- Consolidated memory allocation logic into clearer blocks
+- Added comments explaining the memory layout strategy
+- Simplified the subXID array handling conditions
+- Preserved all essential functionality while improving readability
+- Maintained the single-block allocation optimization

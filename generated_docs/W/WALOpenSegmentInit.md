@@ -40,3 +40,27 @@ This function is part of PostgreSQL's WAL reading infrastructure, which is essen
 - Segment number (ws_segno) and timeline ID (ws_tli) are initialized to 0
 - The waldir parameter is optional - if provided, it's copied to the context structure with bounds checking via snprintf
 - This initialization is typically done once when allocating a new XLogReader structure
+
+## Simplified Source
+
+```c
+// Simplified version of WALOpenSegmentInit
+static void WALOpenSegmentInit(WALOpenSegment *seg, WALSegmentContext *segcxt,
+                              int segsize, const char *waldir) {
+    // Initialize WAL segment structure
+    seg->ws_file = -1;  // No file open initially
+    seg->ws_segno = 0;  // No segment number set
+    seg->ws_tli = 0;    // No timeline set
+
+    // Initialize segment context
+    segcxt->ws_segsize = segsize;
+    if (waldir)
+        snprintf(segcxt->ws_dir, MAXPGPATH, "%s", waldir);
+}
+```
+
+Key simplifications made:
+- Function is already simple, just initializes structures
+- Sets segment file descriptor to invalid state (-1)
+- Conditionally copies WAL directory path if provided
+- Essential setup for WAL reading operations

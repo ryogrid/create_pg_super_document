@@ -48,3 +48,31 @@ If no reference count entry exists for the buffer (indicating it's not currently
 - Does not modify the reference count or move entries between storage tiers
 - Commonly used in buffer management logic to check pinning status before performing operations
 - Essential for debugging and monitoring buffer usage patterns
+
+## Simplified Source
+
+```c
+// Simplified version of GetPrivateRefCount
+static inline int32 GetPrivateRefCount(Buffer buffer) {
+    PrivateRefCountEntry *ref;
+
+    Assert(BufferIsValid(buffer));
+    Assert(!BufferIsLocal(buffer));
+
+    // Look up the reference count entry for this buffer
+    ref = GetPrivateRefCountEntry(buffer, false);
+
+    // Return the reference count, or 0 if not found
+    if (ref == NULL) {
+        return 0;
+    }
+    return ref->refcount;
+}
+```
+
+Key simplifications made:
+- Preserved the assertion checks for validity
+- Maintained the core lookup and return logic
+- Added clear comments explaining the operation
+- Kept the inline performance optimization
+- Simple conditional logic for null reference handling

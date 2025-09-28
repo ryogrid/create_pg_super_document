@@ -42,3 +42,38 @@ The tuple store is configured based on the cursor options - enabling random acce
 - The function includes a TODO comment questioning whether maintenance_work_mem should be used instead of work_mem
 - Critical for HOLD cursor functionality where cursor results must survive transaction commits
 - All three hold-related fields (holdContext, holdStore, holdSnapshot) must be NULL before calling this function
+
+## Simplified Source
+
+```c
+// Simplified version of PortalCreateHoldStore
+void PortalCreateHoldStore(Portal portal) {
+    MemoryContext oldcxt;
+
+    // Validate portal state - no existing hold infrastructure
+    Assert(portal->holdContext == NULL);
+    Assert(portal->holdStore == NULL);
+    Assert(portal->holdSnapshot == NULL);
+
+    // Create memory context for hold data (not child of portal context)
+    portal->holdContext = AllocSetContextCreate(TopPortalContext,
+                                              "PortalHoldContext",
+                                              ALLOCSET_DEFAULT_SIZES);
+
+    // Switch to hold context for tuple store creation
+    oldcxt = MemoryContextSwitchTo(portal->holdContext);
+
+    // Create tuple store with scrolling support if needed
+    portal->holdStore = tuplestore_begin_heap(portal->cursorOptions & CURSOR_OPT_SCROLL,
+                                             true,  // cross-transaction files
+                                             work_mem);
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```
+
+Key simplifications made:
+- Preserved essential hold store infrastructure creation
+- Maintained important validation assertions
+- Kept cross-transaction persistence setup
+- Focused on core memory context and tuple store creation

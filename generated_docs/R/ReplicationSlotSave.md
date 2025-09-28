@@ -40,3 +40,26 @@ This is a critical function for ensuring replication slot durability - without p
 - This is a synchronization point where in-memory slot changes become durable
 - Called frequently during logical replication to ensure progress is not lost
 - Essential for maintaining replication slot consistency across server restarts
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotSave
+void ReplicationSlotSave(void) {
+    char path[MAXPGPATH];
+
+    Assert(MyReplicationSlot != NULL);
+
+    // Build the file path for the slot
+    sprintf(path, "pg_replslot/%s", NameStr(MyReplicationSlot->data.name));
+
+    // Save the slot to disk
+    SaveSlotToPath(MyReplicationSlot, path, ERROR);
+}
+```
+
+Key simplifications made:
+- Added clear comments for each step
+- Maintained essential error handling with ERROR level
+- Preserved the simple path construction logic
+- Focused on core serialization functionality

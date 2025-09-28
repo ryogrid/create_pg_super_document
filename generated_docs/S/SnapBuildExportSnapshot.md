@@ -47,3 +47,54 @@ The function ensures that the source transaction remains open so that importing 
 - Returns the snapshot name that can be used with SET TRANSACTION SNAPSHOT
 - Logs the export event with transaction count information
 - The transaction started by this function must remain open until the snapshot is no longer needed by importing sessions
+
+## Simplified Source
+
+```c
+// Simplified version of SnapBuildExportSnapshot
+const char *SnapBuildExportSnapshot(SnapBuild *builder) {
+    Snapshot snap;
+    char *snapname;
+
+    // Ensure we're not in a transaction
+    if (IsTransactionOrTransactionBlock()) {
+        elog(ERROR, "cannot export a snapshot from within a transaction");
+    }
+
+    // Prevent concurrent exports
+    if (SavedResourceOwnerDuringExport) {
+        elog(ERROR, "can only export one snapshot at a time");
+    }
+
+    // Set up export state
+    SavedResourceOwnerDuringExport = CurrentResourceOwner;
+    ExportInProgress = true;
+
+    // Start a transaction for the export
+    StartTransactionCommand();
+
+    // Configure transaction properties
+    XactIsoLevel = XACT_REPEATABLE_READ;
+    XactReadOnly = true;
+
+    // Build the initial snapshot
+    snap = SnapBuildInitialSnapshot(builder);
+
+    // Export the snapshot using standard mechanism
+    snapname = ExportSnapshot(snap);
+
+    // Log the export event
+    ereport(LOG, (errmsg_plural(
+        "exported logical decoding snapshot: \"%s\" with %u transaction ID",
+        "exported logical decoding snapshot: \"%s\" with %u transaction IDs",
+        snap->xcnt, snapname, snap->xcnt)));
+
+    return snapname;
+}
+```
+
+Key simplifications made:
+- Added clear comments for each validation and setup step
+- Maintained all essential error checking
+- Preserved transaction state management
+- Kept the logging for operational visibility

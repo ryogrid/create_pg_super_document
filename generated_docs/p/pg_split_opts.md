@@ -47,3 +47,50 @@ The function is designed to parse option strings that might contain embedded spa
 - Each parsed argument is allocated with pstrdup and must be freed by the caller
 - Commonly used for processing startup options and configuration strings
 - Handles empty strings gracefully by doing nothing
+
+## Simplified Source
+
+```c
+// Simplified version of pg_split_opts
+void pg_split_opts(char **argv, int *argcp, const char *optstr) {
+    StringInfoData s;
+    initStringInfo(&s);
+
+    while (*optstr) {
+        bool last_was_escape = false;
+        resetStringInfo(&s);
+
+        // Skip leading whitespace
+        while (isspace((unsigned char) *optstr))
+            optstr++;
+
+        if (*optstr == '\0')
+            break;
+
+        // Parse single option, handling escapes
+        while (*optstr) {
+            if (isspace((unsigned char) *optstr) && !last_was_escape)
+                break;  // End of current option
+
+            if (!last_was_escape && *optstr == '\\') {
+                last_was_escape = true;
+            } else {
+                last_was_escape = false;
+                appendStringInfoChar(&s, *optstr);
+            }
+            optstr++;
+        }
+
+        // Store completed option in argv array
+        argv[(*argcp)++] = pstrdup(s.data);
+    }
+
+    pfree(s.data);
+}
+```
+
+Key simplifications made:
+- Focused on the core parsing loop with escape handling
+- Added clear comments for each parsing phase
+- Emphasized the escape sequence processing logic
+- Simplified the string building and storage pattern

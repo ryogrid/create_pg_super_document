@@ -46,3 +46,27 @@ The function is specifically designed to handle top-level statements, which have
 - The function is a thin wrapper that primarily handles location data transfer
 - Part of the parsing pipeline that connects raw parsing with semantic analysis
 - Used exclusively for top-level statements, not for sub-statements or recursive analysis
+
+## Simplified Source
+
+```c
+// Simplified version of transformTopLevelStmt
+Query *transformTopLevelStmt(ParseState *pstate, RawStmt *parseTree) {
+    Query *result;
+
+    // Transform statement allowing SELECT INTO at top level
+    result = transformOptionalSelectInto(pstate, parseTree->stmt);
+
+    // Transfer location information for error reporting
+    result->stmt_location = parseTree->stmt_location;
+    result->stmt_len = parseTree->stmt_len;
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Preserved essential statement transformation delegation
+- Maintained location information transfer
+- Focused on core top-level processing functionality
+- Kept SELECT INTO handling capability

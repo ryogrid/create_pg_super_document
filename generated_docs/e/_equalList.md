@@ -47,3 +47,68 @@ Returns:  if the lists are equal,  otherwise
 - The  macro provides parallel iteration over both lists simultaneously
 - Lists are ubiquitous in PostgreSQL's node system, representing everything from target lists to join conditions
 - The function represents a critical optimization point since list comparisons are frequent in query planning and execution
+
+## Simplified Source
+
+```c
+// Simplified version of _equalList
+static bool _equalList(const List *a, const List *b) {
+    const ListCell *item_a;
+    const ListCell *item_b;
+
+    // Quick scalar checks before element-by-element comparison
+    COMPARE_SCALAR_FIELD(type);
+    COMPARE_SCALAR_FIELD(length);
+
+    // Type-specific comparison for efficiency
+    switch (a->type) {
+        case T_List:
+            forboth(item_a, a, item_b, b) {
+                if (!equal(lfirst(item_a), lfirst(item_b))) {
+                    return false;
+                }
+            }
+            break;
+
+        case T_IntList:
+            forboth(item_a, a, item_b, b) {
+                if (lfirst_int(item_a) != lfirst_int(item_b)) {
+                    return false;
+                }
+            }
+            break;
+
+        case T_OidList:
+            forboth(item_a, a, item_b, b) {
+                if (lfirst_oid(item_a) != lfirst_oid(item_b)) {
+                    return false;
+                }
+            }
+            break;
+
+        case T_XidList:
+            forboth(item_a, a, item_b, b) {
+                if (lfirst_xid(item_a) != lfirst_xid(item_b)) {
+                    return false;
+                }
+            }
+            break;
+
+        default:
+            elog(ERROR, "unrecognized list node type: %d", (int) a->type);
+            return false;
+    }
+
+    // Verify both lists fully consumed
+    Assert(item_a == NULL);
+    Assert(item_b == NULL);
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Preserved complete type-specific comparison logic
+- Maintained performance optimization with switch outside loop
+- Kept specialized accessor macros for different list types
+- Focused on core list equality checking functionality

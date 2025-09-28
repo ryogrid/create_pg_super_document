@@ -37,3 +37,23 @@ This dual behavior is essential for logical decoding functionality, as it allows
 - System caches must be reset after logical decoding completes due to historic snapshot usage
 - Located in src/backend/utils/time/snapmgr.c:352-373
 - Part of PostgreSQL's MVCC (Multi-Version Concurrency Control) snapshot management system
+
+## Simplified Source
+
+```c
+// Simplified version of GetCatalogSnapshot
+Snapshot GetCatalogSnapshot(Oid relid) {
+    // Check if we're doing logical decoding
+    if (HistoricSnapshotActive())
+        return HistoricSnapshot;
+
+    // Normal catalog access - get current snapshot
+    return GetNonHistoricCatalogSnapshot(relid);
+}
+```
+
+Key simplifications made:
+- Focused on the core decision logic between historic and current snapshots
+- Added clear comments explaining the logical decoding special case
+- Emphasized the dual behavior pattern
+- Simplified the conditional logic flow

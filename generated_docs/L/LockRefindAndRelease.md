@@ -60,3 +60,78 @@ This is a low-level function that assumes the caller has verified the operation 
 - Proper partition locking (LWLock) is used to ensure thread safety
 - The strong lock count decrementing is specifically needed for two-phase commit scenarios
 - The caller must ensure there are no remaining LOCALLOCK objects pointing to the lock being released
+
+## Simplified Source
+
+```c
+// Simplified version of LockRefindAndRelease
+static void LockRefindAndRelease(LockMethod lockMethodTable, PGPROC *proc,
+                                LOCKTAG *locktag, LOCKMODE lockmode,
+                                bool decrement_strong_lock_count) {
+    LOCK *lock;
+    PROCLOCK *proclock;
+    PROCLOCKTAG proclocktag;
+    uint32 hashcode;
+    uint32 proclock_hashcode;
+    LWLock *partitionLock;
+    bool wakeupNeeded;
+
+    // Calculate hash and acquire partition lock
+    hashcode = LockTagHashCode(locktag);
+    partitionLock = LockHashPartitionLock(hashcode);
+    LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+
+    // Find the lock object in shared hash table
+    lock = (LOCK *) hash_search_with_hash_value(LockMethodLockHash,
+                                               locktag, hashcode,
+                                               HASH_FIND, NULL);
+    if (!lock) {
+        elog(PANIC, "failed to re-find shared lock object");
+    }
+
+    // Find the proclock object associating process with lock
+    proclocktag.myLock = lock;
+    proclocktag.myProc = proc;
+    proclock_hashcode = ProcLockHashCode(&proclocktag, hashcode);
+
+    proclock = (PROCLOCK *) hash_search_with_hash_value(LockMethodProcLockHash,
+                                                       &proclocktag,
+                                                       proclock_hashcode,
+                                                       HASH_FIND, NULL);
+    if (!proclock) {
+        elog(PANIC, "failed to re-find shared proclock object");
+    }
+
+    // Verify process actually holds this lock mode
+    if (!(proclock->holdMask & LOCKBIT_ON(lockmode))) {
+        LWLockRelease(partitionLock);
+        elog(WARNING, "you don't own a lock of type %s",
+             lockMethodTable->lockModeNames[lockmode]);
+        return;
+    }
+
+    // Release the lock and clean up
+    wakeupNeeded = UnGrantLock(lock, lockmode, proclock, lockMethodTable);
+    CleanUpLock(lock, proclock, lockMethodTable, hashcode, wakeupNeeded);
+
+    LWLockRelease(partitionLock);
+
+    // Handle strong lock count for 2PC scenarios
+    if (decrement_strong_lock_count &&
+        ConflictsWithRelationFastPath(locktag, lockmode)) {
+        uint32 fasthashcode = FastPathStrongLockHashPartition(hashcode);
+
+        SpinLockAcquire(&FastPathStrongRelationLocks->mutex);
+        Assert(FastPathStrongRelationLocks->count[fasthashcode] > 0);
+        FastPathStrongRelationLocks->count[fasthashcode]--;
+        SpinLockRelease(&FastPathStrongRelationLocks->mutex);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated hash table lookups into clear logical blocks
+- Simplified error handling while preserving critical checks
+- Added comments explaining each major phase of the operation
+- Preserved the two-phase commit strong lock count handling
+- Focused on the core lock release and cleanup algorithm

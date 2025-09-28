@@ -41,3 +41,28 @@ The logging helps database administrators monitor temporary file usage patterns 
 - The size comparison uses integer division (size / 1024) to convert bytes to KB
 - Statistics are always reported regardless of the logging configuration
 - Helps with monitoring and troubleshooting temporary file usage in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of ReportTemporaryFileUsage
+static void ReportTemporaryFileUsage(const char *path, off_t size) {
+    // Always report temporary file statistics
+    pgstat_report_tempfile(size);
+
+    // Log temporary file info if logging is enabled and size meets threshold
+    if (log_temp_files >= 0) {
+        if ((size / 1024) >= log_temp_files) {
+            ereport(LOG, (errmsg("temporary file: path \"%s\", size %lu",
+                                path, (unsigned long) size)));
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the dual purpose: statistics reporting and optional logging
+- Maintained the size threshold check in kilobytes
+- Kept the conditional logging based on log_temp_files configuration
+- Added comments explaining the two main operations
+- Simple and clear structure with no unnecessary complexity

@@ -47,3 +47,58 @@ This function is essential for preventing memory leaks and managing buffer space
 - When the buffer becomes empty, resets both head and tail pointers to the buffer start for optimal memory reuse
 - Uses likely/unlikely hints for branch prediction optimization
 - Critical for memory management in long-running WAL reading operations
+
+## Simplified Source
+
+```c
+// Simplified version of XLogReleasePreviousRecord
+XLogRecPtr XLogReleasePreviousRecord(XLogReaderState *state) {
+    // Return early if no record to release
+    if (!state->record)
+        return InvalidXLogRecPtr;
+
+    // Get the record to release and its next LSN
+    DecodedXLogRecord *record = state->record;
+    XLogRecPtr next_lsn = record->next_lsn;
+
+    // Remove record from decode queue
+    state->record = NULL;
+    state->decode_queue_head = record->next;
+
+    // Update tail pointer if this was the last record
+    if (state->decode_queue_tail == record)
+        state->decode_queue_tail = NULL;
+
+    // Handle memory deallocation based on record type
+    if (record->oversized) {
+        // Oversized records are separately allocated - free directly
+        pfree(record);
+    } else {
+        // Regular records are in the decode buffer - update buffer head
+        state->decode_buffer_head = (char *) record;
+
+        // Find next non-oversized record to set as new buffer head
+        record = record->next;
+        while (record && record->oversized)
+            record = record->next;
+
+        if (record) {
+            // Move buffer head to next record
+            state->decode_buffer_head = (char *) record;
+        } else {
+            // No more records - reset buffer to beginning
+            state->decode_buffer_head = state->decode_buffer;
+            state->decode_buffer_tail = state->decode_buffer;
+        }
+    }
+
+    return next_lsn;
+}
+```
+
+Key simplifications made:
+- Removed complex assertions for clarity
+- Combined variable declarations with assignments
+- Added clear comments explaining memory management strategy
+- Simplified buffer management logic flow
+- Focused on core functionality while preserving essential memory cleanup

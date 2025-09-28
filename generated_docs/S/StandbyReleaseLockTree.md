@@ -35,3 +35,26 @@ The function operates by first releasing locks for the main transaction, then it
 - It ensures that both main transaction and subtransaction locks are properly released
 - The function maintains consistency between primary and standby servers by properly managing lock state during WAL replay
 - Located in src/backend/storage/ipc/standby.c:1091-1104
+
+## Simplified Source
+
+```c
+// Simplified version of StandbyReleaseLockTree
+void StandbyReleaseLockTree(TransactionId xid, int nsubxids, TransactionId *subxids) {
+    int i;
+
+    // Release locks for main transaction
+    StandbyReleaseLocks(xid);
+
+    // Release locks for all subtransactions
+    for (i = 0; i < nsubxids; i++) {
+        StandbyReleaseLocks(subxids[i]);
+    }
+}
+```
+
+Key simplifications made:
+- Straightforward function with minimal optimization needed
+- Clear separation of main transaction and subtransaction processing
+- Preserved the essential lock release logic for transaction trees
+- Maintained the simple iterative approach for processing subtransactions

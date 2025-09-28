@@ -44,3 +44,33 @@ The function includes safety assertions to verify the entry is properly initiali
 - Reference count must be > 0 before calling, indicating the entry is valid and not dropped
 - The generation number captured here is used later for detecting stale cached references
 - Critical for the lock-free reference counting mechanism that allows safe concurrent access to statistics entries
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_acquire_entry_ref
+static void pgstat_acquire_entry_ref(PgStat_EntryRef *entry_ref,
+                                      PgStatShared_HashEntry *shhashent,
+                                      PgStatShared_Common *shheader) {
+    // Verify entry is properly initialized and has valid reference count
+    Assert(shheader->magic == 0xdeadbeef);
+    Assert(pg_atomic_read_u32(&shhashent->refcount) > 0);
+
+    // Atomically increment reference count to prevent deallocation
+    pg_atomic_fetch_add_u32(&shhashent->refcount, 1);
+
+    // Release the dshash partition lock
+    dshash_release_lock(pgStatLocal.shared_hash, shhashent);
+
+    // Set up local reference structure
+    entry_ref->shared_stats = shheader;
+    entry_ref->shared_entry = shhashent;
+    entry_ref->generation = pg_atomic_read_u32(&shhashent->generation);
+}
+```
+
+Key simplifications made:
+- Core logic: increment reference count, release lock, setup local reference
+- Magic number check ensures entry is properly initialized
+- Atomic operations ensure thread-safe reference counting
+- Generation tracking enables cache coherency detection

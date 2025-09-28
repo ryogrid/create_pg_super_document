@@ -38,3 +38,24 @@ The merge join node itself relies on PostgreSQL's memory context management for 
 - Debug logging provides visibility into the shutdown process when enabled
 - Critical for proper resource management in long-running transactions or when handling query cancellation
 - Must be called to prevent resource leaks when query execution terminates
+
+## Simplified Source
+
+```c
+// Simplified version of ExecEndMergeJoin
+void ExecEndMergeJoin(MergeJoinState *node) {
+    // Cleanup step 1: Shutdown inner child plan recursively
+    ExecEndNode(innerPlanState(node));
+
+    // Cleanup step 2: Shutdown outer child plan recursively
+    ExecEndNode(outerPlanState(node));
+
+    // Note: Memory cleanup handled automatically by PostgreSQL's memory context system
+}
+```
+
+Key simplifications made:
+- Removed debug logging statements (MJ1_printf calls)
+- Added explanatory comments for the two main cleanup steps
+- Focused on the essential recursive shutdown pattern
+- Added note about automatic memory management

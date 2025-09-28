@@ -41,3 +41,44 @@ If the input is NULL or an empty string, the function immediately returns CMDTAG
 - The case-insensitive comparison allows for flexible command name matching
 - Critical function for event trigger validation and command tag resolution throughout PostgreSQL
 - The returned CommandTag can be used as an index into the tag_behavior array for accessing command properties
+
+## Simplified Source
+
+```c
+// Simplified version of GetCommandTagEnum
+CommandTag GetCommandTagEnum(const char *commandname) {
+    const CommandTagBehavior *base, *last, *position;
+    int result;
+
+    // Handle null or empty input
+    if (commandname == NULL || *commandname == '\0') {
+        return CMDTAG_UNKNOWN;
+    }
+
+    // Binary search through sorted tag_behavior array
+    base = tag_behavior;
+    last = tag_behavior + lengthof(tag_behavior) - 1;
+
+    while (last >= base) {
+        position = base + ((last - base) >> 1);
+        result = pg_strcasecmp(commandname, position->name);
+
+        if (result == 0) {
+            // Found match - return CommandTag index
+            return (CommandTag)(position - tag_behavior);
+        } else if (result < 0) {
+            last = position - 1;
+        } else {
+            base = position + 1;
+        }
+    }
+
+    return CMDTAG_UNKNOWN;
+}
+```
+
+Key simplifications made:
+- Preserved complete binary search algorithm
+- Maintained case-insensitive string comparison
+- Kept essential null/empty input validation
+- Focused on core lookup functionality

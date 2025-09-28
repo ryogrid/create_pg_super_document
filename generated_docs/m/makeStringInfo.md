@@ -38,3 +38,24 @@ The  function is a convenience function that creates a new StringInfo object by 
 - The returned StringInfo must be freed when no longer needed to avoid memory leaks
 - Widely used throughout PostgreSQL for dynamic string building operations, especially in JSON processing, backup operations, and query explanation
 - The function abstracts away the complexity of manual allocation and initialization
+
+## Simplified Source
+
+```c
+// Simplified version of makeStringInfo
+StringInfo makeStringInfo(void) {
+    StringInfo res;
+
+    // Allocate structure and initialize
+    res = (StringInfo) palloc(sizeof(StringInfoData));
+    initStringInfo(res);
+
+    return res;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential functionality
+- Maintained the allocation and initialization pattern
+- Preserved the simple two-step creation process
+- Kept the clean interface for StringInfo creation

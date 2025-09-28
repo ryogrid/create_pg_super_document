@@ -45,3 +45,30 @@ This operation is particularly important during logical replication setup, where
 - Once a slot becomes persistent, it cannot be reverted to ephemeral status
 - The slot will appear in pg_replication_slots view after this operation
 - Critical for ensuring replication continuity across server restarts
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotPersist
+void ReplicationSlotPersist(void) {
+    ReplicationSlot *slot = MyReplicationSlot;
+
+    Assert(slot != NULL);
+    Assert(slot->data.persistency != RS_PERSISTENT);
+
+    // Atomically change to persistent
+    SpinLockAcquire(&slot->mutex);
+    slot->data.persistency = RS_PERSISTENT;
+    SpinLockRelease(&slot->mutex);
+
+    // Mark dirty and save immediately
+    ReplicationSlotMarkDirty();
+    ReplicationSlotSave();
+}
+```
+
+Key simplifications made:
+- Added clear comments for each step
+- Maintained essential assertions and thread safety
+- Preserved immediate save for durability
+- Focused on core persistence conversion logic

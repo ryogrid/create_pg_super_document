@@ -53,3 +53,98 @@ Unlike TupleDescInitEntry which can handle any type by consulting the catalog, t
 - Designed for use in environments where catalog access is unavailable or undesirable
 - All variable-length fields in the attribute structure are not set as they are not present in tupledescs
 - Type-specific attributes like length, alignment, and storage are hardcoded based on the builtin type properties
+
+## Simplified Source
+
+```c
+// Simplified version of TupleDescInitBuiltinEntry
+void TupleDescInitBuiltinEntry(TupleDesc desc,
+                               AttrNumber attributeNumber,
+                               const char *attributeName,
+                               Oid oidtypeid,
+                               int32 typmod,
+                               int attdim) {
+    Form_pg_attribute att;
+
+    // Basic validation
+    Assert(PointerIsValid(desc));
+    Assert(attributeNumber >= 1 && attributeNumber <= desc->natts);
+    Assert(attdim >= 0 && attdim <= PG_INT16_MAX);
+
+    // Get attribute structure and set basic properties
+    att = TupleDescAttr(desc, attributeNumber - 1);
+    att->attrelid = 0;  // dummy value
+    namestrcpy(&(att->attname), attributeName);
+
+    // Set common attribute properties
+    att->attcacheoff = -1;
+    att->atttypmod = typmod;
+    att->attnum = attributeNumber;
+    att->attndims = attdim;
+    att->atttypid = oidtypeid;
+
+    // Initialize flags
+    att->attnotnull = false;
+    att->atthasdef = false;
+    att->atthasmissing = false;
+    att->attidentity = '\0';
+    att->attgenerated = '\0';
+    att->attisdropped = false;
+    att->attislocal = true;
+    att->attinhcount = 0;
+
+    // Set type-specific properties based on builtin type
+    switch (oidtypeid) {
+        case TEXTOID:
+        case TEXTARRAYOID:
+            // Variable-length text types
+            att->attlen = -1;
+            att->attbyval = false;
+            att->attalign = TYPALIGN_INT;
+            att->attstorage = TYPSTORAGE_EXTENDED;
+            att->attcollation = DEFAULT_COLLATION_OID;
+            break;
+
+        case BOOLOID:
+            // Single-byte boolean
+            att->attlen = 1;
+            att->attbyval = true;
+            att->attalign = TYPALIGN_CHAR;
+            att->attstorage = TYPSTORAGE_PLAIN;
+            att->attcollation = InvalidOid;
+            break;
+
+        case INT4OID:
+        case OIDOID:
+            // 4-byte integers
+            att->attlen = 4;
+            att->attbyval = true;
+            att->attalign = TYPALIGN_INT;
+            att->attstorage = TYPSTORAGE_PLAIN;
+            att->attcollation = InvalidOid;
+            break;
+
+        case INT8OID:
+            // 8-byte integer
+            att->attlen = 8;
+            att->attbyval = FLOAT8PASSBYVAL;
+            att->attalign = TYPALIGN_DOUBLE;
+            att->attstorage = TYPSTORAGE_PLAIN;
+            att->attcollation = InvalidOid;
+            break;
+
+        default:
+            elog(ERROR, "unsupported type %u", oidtypeid);
+    }
+
+    // Set common properties for all types
+    att->attcompression = InvalidCompressionMethod;
+}
+```
+
+Key simplifications made:
+- Combined similar INT4OID and OIDOID cases as they have identical properties
+- Consolidated common property assignments
+- Added descriptive comments for each type category
+- Grouped related assignments together for better readability
+- Maintained all essential logic and error handling

@@ -35,3 +35,27 @@ The function includes an important warning that callers should copy any data the
 - Cache validity is automatically checked and rebuilt if necessary using the EventTriggerCacheState global variable
 - Part of the event trigger subsystem located in src/backend/utils/cache/evtcache.c
 - Memory returned should be treated as volatile and copied if persistence across catalog operations is required
+
+## Simplified Source
+
+```c
+// Simplified version of EventCacheLookup
+List *EventCacheLookup(EventTriggerEvent event) {
+    EventTriggerCacheEntry *entry;
+
+    // Ensure cache is built and valid
+    if (EventTriggerCacheState != ETCS_VALID)
+        BuildEventTriggerCache();
+
+    // Look up triggers for this event type
+    entry = hash_search(EventTriggerCache, &event, HASH_FIND, NULL);
+
+    // Return trigger list or empty list if none found
+    return entry != NULL ? entry->triggerlist : NIL;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the cache lookup process
+- Core logic remains unchanged as it's already well-structured
+- Preserved the essential cache validation and hash lookup flow

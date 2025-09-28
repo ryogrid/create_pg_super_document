@@ -34,3 +34,20 @@ The tcp_keepalives_count parameter controls the maximum number of keepalive prob
 - Part of PostgreSQL's libpq communication subsystem for managing client connections
 - The actual socket option setting may fail on unsupported platforms, but the error is logged rather than propagated
 - This parameter works in conjunction with tcp_keepalives_idle and tcp_keepalives_interval to provide comprehensive TCP keepalive control
+
+## Simplified Source
+
+```c
+// Simplified version of assign_tcp_keepalives_count
+void assign_tcp_keepalives_count(int newval, void *extra) {
+    // Apply the new keepalive count setting to current connection
+    // See assign_tcp_keepalives_idle for detailed comments about error handling
+    pq_setkeepalivescount(newval, MyProcPort);
+}
+```
+
+Key simplifications made:
+- Removed the void cast since the return value is intentionally ignored
+- Added clear comment explaining the function's purpose
+- Referenced related function for implementation details
+- Focused on the core functionality of applying TCP keepalive settings

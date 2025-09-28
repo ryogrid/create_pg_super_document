@@ -54,3 +54,57 @@ This approach is particularly useful for dynamic SQL scenarios where parameter i
 - Useful for scenarios where parameter types need to be inferred from usage context
 - Still maintains the same post-analysis hooks and query ID generation as the fixed variant
 - The function signature uses double pointers for paramTypes and numParams to allow modification
+
+## Simplified Source
+
+```c
+// Simplified version of parse_analyze_varparams
+Query *parse_analyze_varparams(RawStmt *parseTree, const char *sourceText,
+                              Oid **paramTypes, int *numParams,
+                              QueryEnvironment *queryEnv) {
+    ParseState *pstate = make_parsestate(NULL);
+    Query *query;
+    JumbleState *jstate = NULL;
+
+    // Set up parse state with source text
+    Assert(sourceText != NULL);
+    pstate->p_sourcetext = sourceText;
+
+    // Configure variable parameter handling (allows type deduction)
+    setup_parse_variable_parameters(pstate, paramTypes, numParams);
+
+    // Set query environment
+    pstate->p_queryEnv = queryEnv;
+
+    // Transform the parse tree into a Query node
+    query = transformTopLevelStmt(pstate, parseTree);
+
+    // Validate that all parameters are properly resolved
+    check_variable_parameters(pstate, query);
+
+    // Generate query ID if enabled
+    if (IsQueryIdEnabled())
+        jstate = JumbleQuery(query);
+
+    // Call post-parse analysis hook if present
+    if (post_parse_analyze_hook)
+        (*post_parse_analyze_hook)(pstate, query, jstate);
+
+    // Clean up parse state
+    free_parsestate(pstate);
+
+    // Report query ID for statistics
+    pgstat_report_query_id(query->queryId, false);
+
+    return query;
+}
+```
+
+Key simplifications made:
+- Simplified comments while preserving essential functionality
+- Consolidated variable declarations where appropriate
+- Maintained the essential analysis workflow
+- Preserved critical parameter validation and setup
+- Kept the hook mechanism and query ID generation
+- Focused on core steps: setup, transform, validate, report
+- Maintained proper cleanup and error checking

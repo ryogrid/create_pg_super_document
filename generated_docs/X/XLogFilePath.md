@@ -43,3 +43,26 @@ The segment number is split into high and low parts based on the number of segme
 - The WAL file naming convention ensures lexicographic ordering matches temporal ordering
 - The timeline ID allows for branching WAL histories during point-in-time recovery scenarios
 - Segment numbering is designed to handle very large WAL histories by splitting into high/low components
+
+## Simplified Source
+
+```c
+// Simplified version of XLogFilePath
+static inline void XLogFilePath(char *path, TimeLineID tli, XLogSegNo logSegNo, int wal_segsz_bytes) {
+    // Calculate high and low parts of segment number based on WAL segment size
+    uint32 segments_per_xlogid = XLogSegmentsPerXLogId(wal_segsz_bytes);
+    uint32 high_part = (uint32)(logSegNo / segments_per_xlogid);
+    uint32 low_part = (uint32)(logSegNo % segments_per_xlogid);
+
+    // Format: pg_wal/TTTTTTTTXXXXXXXXYYYYYYYY
+    // T=timeline, X=high segment part, Y=low segment part
+    snprintf(path, MAXPGPATH, XLOGDIR "/%08X%08X%08X", tli, high_part, low_part);
+}
+```
+
+Key simplifications made:
+- Extracted the segment calculations into separate variables for clarity
+- Added comments explaining the file naming format
+- Simplified the inline calculations by making them explicit
+- Preserved the exact formatting logic and safety checks
+- Made the high/low segment split more readable

@@ -31,3 +31,21 @@ This forwarding pattern maintains the chain of responsibility design, allowing d
 - Part of the callback-based architecture for chaining backup sink operations
 - The function includes an assertion to ensure proper sink chain configuration
 - Critical for proper cleanup and finalization of backup manifest operations in PostgreSQL base backups
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_forward_end_manifest
+void bbsink_forward_end_manifest(bbsink *sink) {
+    // Validate chain exists
+    Assert(sink->bbs_next != NULL);
+
+    // Forward end manifest to next sink
+    bbsink_end_manifest(sink->bbs_next);
+}
+```
+
+Key simplifications made:
+- Preserved essential chain validation
+- Maintained manifest finalization forwarding
+- Focused on core manifest end forwarding

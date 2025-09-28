@@ -38,6 +38,50 @@ The function validates that the requested statistics kind supports pending data 
   - [pgstat_report_subscription_error](pgstat_report_subscription_error.md)
 
 ## Notes and Other Information
+- Creates pending statistics memory context lazily on first use
+- Validates that the statistics kind supports pending operations via flush callback check
+- Allocates pending data storage in zero-initialized memory for consistent state
+- Adds pending entries to global list for processing during statistics flushing
+- Critical component of PostgreSQL's statistics collection infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_prep_pending_entry
+PgStat_EntryRef *pgstat_prep_pending_entry(PgStat_Kind kind, Oid dboid, Oid objoid, bool *created_entry) {
+    PgStat_EntryRef *entry_ref;
+
+    // Ensure kind supports pending operations
+    Assert(pgstat_get_kind_info(kind)->flush_pending_cb != NULL);
+
+    // Create pending context if needed
+    if (unlikely(!pgStatPendingContext)) {
+        pgStatPendingContext = AllocSetContextCreate(TopMemoryContext,
+                                                     "PgStat Pending",
+                                                     ALLOCSET_SMALL_SIZES);
+    }
+
+    // Get or create entry reference
+    entry_ref = pgstat_get_entry_ref(kind, dboid, objoid, true, created_entry);
+
+    // Allocate pending data if not already present
+    if (entry_ref->pending == NULL) {
+        size_t entrysize = pgstat_get_kind_info(kind)->pending_size;
+        Assert(entrysize != (size_t) -1);
+
+        entry_ref->pending = MemoryContextAllocZero(pgStatPendingContext, entrysize);
+        dlist_push_tail(&pgStatPending, &entry_ref->pending_node);
+    }
+
+    return entry_ref;
+}
+```
+
+Key simplifications made:
+- Focused on the lazy initialization and allocation pattern
+- Emphasized the pending data infrastructure setup
+- Added clear comments for memory context and entry management
+- Simplified the assertion and size checking logic
 - Creates the PgStat Pending memory context using TopMemoryContext as parent for proper lifetime management
 - Uses ALLOCSET_SMALL_SIZES allocation strategy optimized for small, frequent allocations
 - Validates that the statistics kind has a registered flush_pending_cb before proceeding

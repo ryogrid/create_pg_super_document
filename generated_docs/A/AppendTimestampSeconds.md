@@ -41,3 +41,19 @@ This function serves as an abstraction layer that encapsulates timestamp-specifi
 - Uses MAX_TIMESTAMP_PRECISION to provide maximum available precision for timestamps
 - Like AppendSeconds, it does not NUL-terminate the result
 - Part of PostgreSQL's timestamp encoding infrastructure, specifically used in EncodeDateTime for various timestamp format outputs
+
+## Simplified Source
+
+```c
+// Simplified version of AppendTimestampSeconds
+static char *
+AppendTimestampSeconds(char *cp, struct pg_tm *tm, fsec_t fsec) {
+    // Format seconds and fractional seconds for timestamp with maximum precision
+    return AppendSeconds(cp, tm->tm_sec, fsec, MAX_TIMESTAMP_PRECISION, true);
+}
+```
+
+Key simplifications made:
+- This function is already very simple - it's a thin wrapper around AppendSeconds
+- Added comment explaining the core purpose
+- The function delegates all formatting logic to AppendSeconds with timestamp-specific parameters

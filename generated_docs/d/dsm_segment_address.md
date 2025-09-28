@@ -39,3 +39,17 @@ Dynamic shared memory segments in PostgreSQL are used for inter-process communic
 - This is a lightweight accessor function with no complex logic
 - Used extensively in parallel processing infrastructure and dynamic shared memory allocation
 - The returned void pointer can be cast to appropriate types based on the data stored in the segment
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_segment_address
+void *dsm_segment_address(dsm_segment *seg) {
+    Assert(seg->mapped_address != NULL);
+    return seg->mapped_address;
+}
+```
+
+Key simplifications made:
+- This function is already very simple, containing only an assertion and return statement
+- No simplification needed - preserved the essential safety check and memory access

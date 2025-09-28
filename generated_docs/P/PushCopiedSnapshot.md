@@ -35,3 +35,18 @@ PushCopiedSnapshot creates a copy of the provided snapshot and pushes it onto th
 - Should be used when the caller intends to modify the active snapshot (e.g., call UpdateActiveSnapshotCommandId)
 - The copied snapshot is automatically managed and released when popped from the stack
 - Typically used in scenarios where command execution requires snapshot modification
+
+## Simplified Source
+
+```c
+// Simplified version of PushCopiedSnapshot
+void PushCopiedSnapshot(Snapshot snapshot) {
+    // Create a copy of the snapshot and push it onto the stack
+    PushActiveSnapshot(CopySnapshot(snapshot));
+}
+```
+
+Key simplifications made:
+- Preserved essential snapshot copying and pushing logic
+- Maintained simple, clear function composition
+- Focused on core functionality of making modifiable snapshots

@@ -44,3 +44,34 @@ The created receiver is marked with DestSQLFunction destination type, identifyin
 - The receiver's private fields are set later by postquel_start during actual execution setup  
 - Integrates with PostgreSQL's memory context system for proper resource management
 - Used specifically within the SQL function execution infrastructure to collect and process function result sets
+
+## Simplified Source
+
+```c
+// Simplified version of CreateSQLFunctionDestReceiver
+DestReceiver *CreateSQLFunctionDestReceiver(void) {
+    // Allocate and zero-initialize the SQL function destination receiver
+    DR_sqlfunction *sql_receiver = (DR_sqlfunction *) palloc0(sizeof(DR_sqlfunction));
+
+    // Set up the callback functions for SQL function result processing
+    sql_receiver->pub.receiveSlot = sqlfunction_receive;       // Process each result tuple
+    sql_receiver->pub.rStartup = sqlfunction_startup;          // Initialize for execution
+    sql_receiver->pub.rShutdown = sqlfunction_shutdown;        // Cleanup after execution
+    sql_receiver->pub.rDestroy = sqlfunction_destroy;          // Final resource cleanup
+
+    // Set the destination type to indicate SQL function operation
+    sql_receiver->pub.mydest = DestSQLFunction;
+
+    // Note: Private fields will be set later by postquel_start
+
+    // Return as base DestReceiver type
+    return (DestReceiver *) sql_receiver;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for clarity
+- Added comments explaining each callback function's purpose
+- Clarified the deferred initialization by postquel_start
+- Explained the zero-initialization importance for private fields
+- Focused on core logic: allocate memory, set callbacks, return receiver

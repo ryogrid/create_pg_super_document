@@ -44,3 +44,64 @@ The function returns true if an exact match is found, and false otherwise. In bo
 - Always updates stack offset to the correct position regardless of match result
 - For empty pages (high < low), sets offset to FirstOffsetNumber and returns false
 - Critical for both search operations and determining insertion points for new entries
+
+## Simplified Source
+
+```c
+// Simplified version of entryLocateLeafEntry
+static bool entryLocateLeafEntry(GinBtree btree, GinBtreeStack *stack) {
+    Page page = BufferGetPage(stack->buffer);
+
+    // Handle full scan case
+    if (btree->fullScan) {
+        stack->off = FirstOffsetNumber;
+        return true;
+    }
+
+    OffsetNumber low = FirstOffsetNumber;
+    OffsetNumber high = PageGetMaxOffsetNumber(page);
+
+    // Handle empty page
+    if (high < low) {
+        stack->off = FirstOffsetNumber;
+        return false;
+    }
+
+    high++;
+
+    // Binary search for exact entry
+    while (high > low) {
+        OffsetNumber mid = low + ((high - low) / 2);
+
+        // Get entry at mid position and compare
+        IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, mid));
+        OffsetNumber attnum = gintuple_get_attrnum(btree->ginstate, itup);
+        Datum key = gintuple_get_key(btree->ginstate, itup, &category);
+
+        int result = ginCompareAttEntries(btree->ginstate,
+                                        btree->entryAttnum, btree->entryKey, btree->entryCategory,
+                                        attnum, key, category);
+
+        if (result == 0) {
+            // Found exact match
+            stack->off = mid;
+            return true;
+        } else if (result > 0) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+
+    // No exact match found, set insertion point
+    stack->off = high;
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed assertions for clarity
+- Added explanatory comments for each major section
+- Consolidated variable declarations within the search loop
+- Emphasized the boolean return value meaning (exact match vs insertion point)
+- Simplified the control flow while preserving the binary search algorithm

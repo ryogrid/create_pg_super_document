@@ -50,3 +50,64 @@ The function uses a streaming approach to handle potentially large manifest file
 - Uses a streaming approach with buffered I/O to handle large manifests efficiently
 - The manifest file is rewound after writing to prepare for reading and transmission
 - Error handling includes specific messages for checksum finalization failures and file access issues
+
+## Simplified Source
+
+```c
+// Simplified version of SendBackupManifest
+void SendBackupManifest(backup_manifest_info *manifest, bbsink *sink) {
+    uint8 checksumbuf[PG_SHA256_DIGEST_LENGTH];
+    char checksumstringbuf[PG_SHA256_DIGEST_STRING_LENGTH];
+    size_t manifest_bytes_done = 0;
+
+    // Early exit if manifest is disabled
+    if (!IsManifestEnabled(manifest))
+        return;
+
+    // Finalize manifest checksum (always SHA-256)
+    manifest->still_checksumming = false;
+    if (pg_cryptohash_final(manifest->manifest_ctx, checksumbuf,
+                            sizeof(checksumbuf)) < 0)
+        elog(ERROR, "failed to finalize checksum of backup manifest: %s",
+             pg_cryptohash_error(manifest->manifest_ctx));
+
+    // Append checksum to manifest
+    AppendStringToManifest(manifest, "\"Manifest-Checksum\": \"");
+    hex_encode((char *) checksumbuf, sizeof checksumbuf, checksumstringbuf);
+    checksumstringbuf[PG_SHA256_DIGEST_STRING_LENGTH - 1] = '\0';
+    AppendStringToManifest(manifest, checksumstringbuf);
+    AppendStringToManifest(manifest, "\"}\n");
+
+    // Rewind file for reading and transmission
+    if (BufFileSeek(manifest->buffile, 0, 0L, SEEK_SET) != 0)
+        elog(ERROR, "could not rewind temporary file: %m");
+
+    // Begin manifest transmission
+    bbsink_begin_manifest(sink);
+
+    // Stream manifest contents in chunks
+    while (manifest_bytes_done < manifest->manifest_size) {
+        char buffer[65536];
+        size_t bytes_to_read = Min(sizeof(buffer),
+                                   manifest->manifest_size - manifest_bytes_done);
+
+        BufFileReadExact(manifest->buffile, buffer, bytes_to_read);
+        bbsink_manifest_contents(sink, buffer, bytes_to_read);
+        manifest_bytes_done += bytes_to_read;
+    }
+
+    // Complete manifest transmission
+    bbsink_end_manifest(sink);
+
+    // Cleanup
+    BufFileClose(manifest->buffile);
+    manifest->buffile = NULL;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving core logic
+- Consolidated error handling pattern
+- Simplified the streaming loop structure
+- Maintained proper resource cleanup
+- Preserved the essential checksum and transmission functionality

@@ -34,3 +34,27 @@ This internal function maps a hash value to the appropriate bucket number within
 - high_mask represents the mask for the expanded portion of the table
 - low_mask is used for the original portion when the initial bucket calculation exceeds max_bucket
 - Critical component of PostgreSQL's dynamic hashing algorithm
+
+## Simplified Source
+
+```c
+// Simplified version of calc_bucket
+static inline uint32 calc_bucket(HASHHDR *hctl, uint32 hash_val) {
+    uint32 bucket;
+
+    // Apply high mask for expanded table portion
+    bucket = hash_val & hctl->high_mask;
+
+    // If bucket exceeds current max, use low mask
+    if (bucket > hctl->max_bucket)
+        bucket = bucket & hctl->low_mask;
+
+    return bucket;
+}
+```
+
+Key simplifications made:
+- Preserved two-level masking algorithm for dynamic expansion
+- Maintained efficient bitwise operations for bucket calculation
+- Added descriptive comments for the masking logic
+- Focused on core bucket mapping functionality

@@ -27,6 +27,51 @@ If a new parent is specified, the owner is inserted at the head of the new paren
 The function maintains the singly-linked list structure used for child management, where each parent maintains a  pointer and children are linked through  pointers.
 
 ## Parameters / Member Variables
+- `owner`: The ResourceOwner to be reparented
+- `newparent`: The new parent ResourceOwner (can be NULL to make owner a top-level owner)
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerNewParent
+void ResourceOwnerNewParent(ResourceOwner owner, ResourceOwner newparent) {
+    ResourceOwner oldparent = owner->parent;
+
+    // Phase 1: Remove from old parent's child list
+    if (oldparent) {
+        if (owner == oldparent->firstchild) {
+            // Owner is first child - update parent's firstchild pointer
+            oldparent->firstchild = owner->nextchild;
+        } else {
+            // Find owner in sibling list and remove it
+            for (ResourceOwner child = oldparent->firstchild; child; child = child->nextchild) {
+                if (owner == child->nextchild) {
+                    child->nextchild = owner->nextchild;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Phase 2: Add to new parent's child list
+    if (newparent) {
+        Assert(owner != newparent);  // Prevent self-parenting
+        owner->parent = newparent;
+        owner->nextchild = newparent->firstchild;
+        newparent->firstchild = owner;
+    } else {
+        // Make owner a top-level resource owner
+        owner->parent = NULL;
+        owner->nextchild = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Focused on the two-phase relinking operation
+- Added clear comments for child list manipulation
+- Emphasized the linked list pointer updates
+- Simplified the search and removal logic
 - : The ResourceOwner to be reparented
 - : The new parent ResourceOwner, or NULL to make owner a top-level resource owner
 

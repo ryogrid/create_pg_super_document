@@ -42,3 +42,28 @@ The cleanup sequence is:
 - The shutdown callback allows output plugins to perform any necessary cleanup before the context is destroyed
 - Memory context deletion ensures all memory allocated within the context is freed
 - Used extensively throughout the logical replication system when decoding operations complete or encounter errors
+
+## Simplified Source
+
+```c
+// Simplified version of FreeDecodingContext
+void FreeDecodingContext(LogicalDecodingContext *ctx) {
+    // Call plugin shutdown callback if available
+    if (ctx->callbacks.shutdown_cb != NULL)
+        shutdown_cb_wrapper(ctx);
+
+    // Free decoding components in order
+    ReorderBufferFree(ctx->reorder);
+    FreeSnapshotBuilder(ctx->snapshot_builder);
+    XLogReaderFree(ctx->reader);
+
+    // Delete entire memory context
+    MemoryContextDelete(ctx->context);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each cleanup step
+- Preserved the proper cleanup order
+- Maintained all essential resource deallocation
+- This function is already minimal as it performs systematic cleanup

@@ -43,3 +43,27 @@ The virtual tuple approach avoids data copying by allowing direct manipulation o
 - Sets tts_nvalid to the full number of attributes in the tuple descriptor, indicating all columns are valid
 - More efficient than storing physical tuples when the data is already in deformed (column-wise) format
 - Essential for many executor nodes that generate or transform tuple data without working with physical tuple representations
+
+## Simplified Source
+
+```c
+// Simplified version of ExecStoreVirtualTuple
+TupleTableSlot *ExecStoreVirtualTuple(TupleTableSlot *slot) {
+    // Sanity checks
+    Assert(slot != NULL);
+    Assert(slot->tts_tupleDescriptor != NULL);
+    Assert(TTS_EMPTY(slot));
+
+    // Mark slot as containing valid data
+    slot->tts_flags &= ~TTS_FLAG_EMPTY;
+    slot->tts_nvalid = slot->tts_tupleDescriptor->natts;
+
+    return slot;
+}
+```
+
+Key simplifications made:
+- Function is already simple, just marks slot as containing valid virtual tuple
+- Maintains essential assertions for proper usage protocol
+- Part of three-step virtual tuple protocol: clear → populate → store
+- Efficient approach that avoids data copying

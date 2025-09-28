@@ -38,3 +38,27 @@ The function follows PostgreSQL's standard approach of prioritizing data integri
 - Uses PostgreSQL's overflow-safe arithmetic utilities to prevent silent data corruption
 - Demonstrates PostgreSQL's philosophy of explicit error handling for edge cases
 - The overflow check ensures compliance with SQL standards for numeric precision and error handling
+
+## Simplified Source
+
+```c
+// Simplified version of int4pl
+Datum int4pl(PG_FUNCTION_ARGS) {
+    int32 first_operand = PG_GETARG_INT32(0);
+    int32 second_operand = PG_GETARG_INT32(1);
+    int32 result;
+
+    // Perform safe addition with overflow detection
+    if (unlikely(pg_add_s32_overflow(first_operand, second_operand, &result))) {
+        ereport(ERROR, /* integer out of range error */);
+    }
+
+    PG_RETURN_INT32(result);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names
+- Simplified error handling for clarity
+- Focused on the core safe arithmetic operation
+- This function exemplifies PostgreSQL's approach to overflow-safe arithmetic

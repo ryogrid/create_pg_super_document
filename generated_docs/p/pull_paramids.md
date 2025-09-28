@@ -32,3 +32,24 @@ The function works by delegating the actual tree traversal to `pull_paramids_wal
 - Located in src/backend/optimizer/util/clauses.c at lines 5418-5427
 - The returned Bitmapset should be managed appropriately by the caller (freed when no longer needed)
 - This function is commonly used in query optimization phases where understanding parameter dependencies is critical
+
+## Simplified Source
+
+```c
+// Simplified version of pull_paramids
+Bitmapset *pull_paramids(Expr *expr) {
+    // Initialize empty result set
+    Bitmapset *result = NULL;
+
+    // Walk expression tree and collect parameter IDs
+    pull_paramids_walker((Node *) expr, &result);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed cast explanation comment for clarity
+- Focused on the core logic: initialize result, walk tree, return result
+- Preserved essential functionality of parameter ID extraction
+- Maintained the simple wrapper pattern around the walker function

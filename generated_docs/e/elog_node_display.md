@@ -44,3 +44,38 @@ The `elog_node_display` function is a logging utility that outputs PostgreSQL No
 - The title parameter helps identify different debugging contexts in log files
 - Can be controlled by PostgreSQL's logging configuration parameters
 - Located in src/backend/nodes/print.c:72-96
+
+## Simplified Source
+
+```c
+// Simplified version of elog_node_display
+void elog_node_display(int lev, const char *title, const void *obj, bool pretty) {
+    char *s;
+    char *f;
+
+    // Convert node to string representation with locations
+    s = nodeToStringWithLocations(obj);
+
+    // Apply formatting based on pretty flag
+    if (pretty) {
+        f = pretty_format_node_dump(s);
+    } else {
+        f = format_node_dump(s);
+    }
+
+    pfree(s);
+
+    // Log the formatted node with title
+    ereport(lev,
+           (errmsg_internal("%s:", title),
+            errdetail_internal("%s", f)));
+
+    pfree(f);
+}
+```
+
+Key simplifications made:
+- Preserved essential node-to-string conversion and formatting
+- Maintained pretty vs standard formatting choice
+- Kept proper memory management with pfree
+- Focused on core logging functionality

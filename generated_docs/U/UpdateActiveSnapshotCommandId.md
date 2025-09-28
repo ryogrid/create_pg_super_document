@@ -38,3 +38,35 @@ UpdateActiveSnapshotCommandId updates the current command ID (curcid) of the act
 - Prevents modification during parallel operations to maintain consistency across workers
 - Typically called after PushCopiedSnapshot to ensure the copied snapshot has the current command ID
 - Used in scenarios where command execution requires up-to-date visibility rules
+
+## Simplified Source
+
+```c
+// Simplified version of UpdateActiveSnapshotCommandId
+void UpdateActiveSnapshotCommandId(void) {
+    CommandId save_curcid, curcid;
+
+    // Validate active snapshot state
+    Assert(ActiveSnapshot != NULL);
+    Assert(ActiveSnapshot->as_snap->active_count == 1);
+    Assert(ActiveSnapshot->as_snap->regd_count == 0);
+
+    // Get current command ID
+    save_curcid = ActiveSnapshot->as_snap->curcid;
+    curcid = GetCurrentCommandId(false);
+
+    // Prevent modification during parallel operations
+    if (IsInParallelMode() && save_curcid != curcid) {
+        elog(ERROR, "cannot modify commandid in active snapshot during a parallel operation");
+    }
+
+    // Update snapshot's command ID
+    ActiveSnapshot->as_snap->curcid = curcid;
+}
+```
+
+Key simplifications made:
+- Preserved essential command ID update logic
+- Maintained critical validation assertions
+- Kept parallel mode safety check
+- Focused on core snapshot modification functionality

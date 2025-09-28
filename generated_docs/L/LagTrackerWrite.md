@@ -36,3 +36,50 @@ The function implements a circular buffer with overflow protection - when the bu
 - Uses a circular buffer design where the slowest reader (typically the apply process) controls space release
 - Implements simple adaptive sampling when buffer becomes full by overwriting the most recent sample
 - Part of PostgreSQL's replication lag tracking infrastructure introduced for monitoring standby performance
+
+## Simplified Source
+
+```c
+// Simplified version of LagTrackerWrite
+static void LagTrackerWrite(XLogRecPtr lsn, TimestampTz local_flush_time) {
+    bool buffer_full;
+    int new_write_head;
+    int i;
+
+    if (!am_walsender)
+        return;
+
+    // Skip if LSN hasn't advanced since last time
+    if (lag_tracker->last_lsn == lsn)
+        return;
+    lag_tracker->last_lsn = lsn;
+
+    // Check if advancing write head would collide with any read head
+    new_write_head = (lag_tracker->write_head + 1) % LAG_TRACKER_BUFFER_SIZE;
+    buffer_full = false;
+    for (i = 0; i < NUM_SYNC_REP_WAIT_MODE; ++i) {
+        if (new_write_head == lag_tracker->read_heads[i])
+            buffer_full = true;
+    }
+
+    // If buffer full, rewind and overwrite last sample (adaptive sampling)
+    if (buffer_full) {
+        new_write_head = lag_tracker->write_head;
+        if (lag_tracker->write_head > 0)
+            lag_tracker->write_head--;
+        else
+            lag_tracker->write_head = LAG_TRACKER_BUFFER_SIZE - 1;
+    }
+
+    // Store sample at current write head position
+    lag_tracker->buffer[lag_tracker->write_head].lsn = lsn;
+    lag_tracker->buffer[lag_tracker->write_head].time = local_flush_time;
+    lag_tracker->write_head = new_write_head;
+}
+```
+
+Key simplifications made:
+- Function is already well-structured for circular buffer management
+- Maintains efficient duplicate detection by LSN comparison
+- Preserves adaptive sampling strategy when buffer becomes full
+- Essential for replication lag monitoring and performance tuning

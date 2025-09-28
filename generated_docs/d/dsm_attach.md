@@ -48,3 +48,77 @@ The function handles both main region segments (allocated from PostgreSQL's main
 - Handles both main region and system-level segment types transparently
 - Thread-safe operation using DynamicSharedMemoryControlLock
 - Caller should use dsm_find_mapping() first to check for existing attachments
+
+## Simplified Source
+
+```c
+// Simplified version of dsm_attach
+dsm_segment *dsm_attach(dsm_handle h) {
+    dsm_segment *seg;
+    dlist_iter iter;
+    uint32 i, nitems;
+
+    Assert(IsUnderPostmaster);
+
+    if (!dsm_init_done)
+        dsm_backend_startup();
+
+    // Check for duplicate attachment
+    dlist_foreach(iter, &dsm_segment_list) {
+        seg = dlist_container(dsm_segment, node, iter.cur);
+        if (seg->handle == h)
+            elog(ERROR, "can't attach the same segment more than once");
+    }
+
+    // Create segment descriptor
+    seg = dsm_create_descriptor();
+    seg->handle = h;
+
+    // Find and increment reference count in control segment
+    LWLockAcquire(DynamicSharedMemoryControlLock, LW_EXCLUSIVE);
+    nitems = dsm_control->nitems;
+    for (i = 0; i < nitems; ++i) {
+        // Skip unused or dying segments
+        if (dsm_control->item[i].refcnt <= 1)
+            continue;
+
+        // Check for handle match
+        if (dsm_control->item[i].handle != seg->handle)
+            continue;
+
+        // Found matching segment - increment reference count
+        dsm_control->item[i].refcnt++;
+        seg->control_slot = i;
+
+        // Set up mapping for main region segments
+        if (is_main_region_dsm_handle(seg->handle)) {
+            seg->mapped_address = (char *) dsm_main_space_begin +
+                dsm_control->item[i].first_page * FPM_PAGE_SIZE;
+            seg->mapped_size = dsm_control->item[i].npages * FPM_PAGE_SIZE;
+        }
+        break;
+    }
+    LWLockRelease(DynamicSharedMemoryControlLock);
+
+    // Handle case where segment wasn't found
+    if (seg->control_slot == INVALID_CONTROL_SLOT) {
+        dsm_detach(seg);
+        return NULL;
+    }
+
+    // Map non-main region segments
+    if (!is_main_region_dsm_handle(seg->handle))
+        dsm_impl_op(DSM_OP_ATTACH, seg->handle, 0, &seg->impl_private,
+                    &seg->mapped_address, &seg->mapped_size, ERROR);
+
+    return seg;
+}
+```
+
+Key simplifications made:
+- Consolidated duplicate attachment check logic
+- Simplified control segment search loop with clear comments
+- Combined reference counting and mapping setup
+- Maintained critical error handling paths
+- Preserved the two-tier segment mapping strategy (main region vs system-level)
+- Focused on the core attach logic flow

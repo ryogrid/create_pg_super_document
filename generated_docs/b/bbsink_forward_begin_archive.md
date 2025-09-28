@@ -32,3 +32,21 @@ This forwarding mechanism allows multiple bbsink implementations to be chained t
 - This is a utility function that simplifies the implementation of bbsink types that need to forward archive operations
 - The archive_name parameter is passed through unchanged to maintain the original archive identification
 - This forwarding pattern is essential for maintaining the chain of responsibility in composite bbsink architectures
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_forward_begin_archive
+void bbsink_forward_begin_archive(bbsink *sink, const char *archive_name) {
+    // Validate chain exists
+    Assert(sink->bbs_next != NULL);
+
+    // Forward begin archive to next sink
+    bbsink_begin_archive(sink->bbs_next, archive_name);
+}
+```
+
+Key simplifications made:
+- Preserved essential chain validation
+- Maintained simple forwarding delegation
+- Focused on core begin archive forwarding

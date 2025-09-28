@@ -26,3 +26,26 @@ This function performs the cleanup and deallocation of a SnapBuild structure. It
 
 ## Notes and Other Information
 The function uses a two-step cleanup approach: first explicitly freeing the snapshot with reference counting (which includes error checking), then using memory context deletion to clean up all other resources. This design ensures that snapshots are properly managed with reference counting while other allocations are efficiently cleaned up through the memory context mechanism. The explicit snapshot cleanup is important because snapshots may be shared between different contexts and require proper reference counting.
+
+## Simplified Source
+
+```c
+// Simplified version of FreeSnapshotBuilder
+void FreeSnapshotBuilder(SnapBuild *builder) {
+    MemoryContext context = builder->context;
+
+    // Explicitly free the snapshot with reference counting
+    if (builder->snapshot != NULL) {
+        SnapBuildSnapDecRefcount(builder->snapshot);
+        builder->snapshot = NULL;
+    }
+
+    // Delete memory context to free all other resources
+    MemoryContextDelete(context);
+}
+```
+
+Key simplifications made:
+- Function is already well-structured for cleanup
+- Two-phase cleanup: explicit snapshot cleanup then memory context deletion
+- Proper reference counting for shared snapshots

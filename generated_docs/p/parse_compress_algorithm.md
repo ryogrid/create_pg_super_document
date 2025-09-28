@@ -39,3 +39,31 @@ The  function looks up a compression algorithm by its string name and sets the c
 - Supports four compression algorithms: none, gzip, lz4, and zstd
 - Used primarily in command-line tools and backup-related functionality to parse user-specified compression options
 - Located in src/common/compression.c, making it available to both backend and frontend code
+
+## Simplified Source
+
+```c
+// Simplified version of parse_compress_algorithm
+bool parse_compress_algorithm(char *name, pg_compress_algorithm *algorithm) {
+    // Simple string-to-enum mapping
+    if (strcmp(name, "none") == 0)
+        *algorithm = PG_COMPRESSION_NONE;
+    else if (strcmp(name, "gzip") == 0)
+        *algorithm = PG_COMPRESSION_GZIP;
+    else if (strcmp(name, "lz4") == 0)
+        *algorithm = PG_COMPRESSION_LZ4;
+    else if (strcmp(name, "zstd") == 0)
+        *algorithm = PG_COMPRESSION_ZSTD;
+    else
+        return false; // Unknown algorithm
+
+    return true; // Successfully parsed
+}
+```
+
+Key simplifications made:
+- Streamlined if-else chain for clarity
+- Removed detailed comments while preserving logic
+- Maintained case-sensitive string comparison
+- Preserved all supported compression algorithms
+- Kept simple boolean return pattern

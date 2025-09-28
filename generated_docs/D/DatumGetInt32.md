@@ -36,3 +36,19 @@ DatumGetInt32 is a static inline function that converts a PostgreSQL Datum value
 - Often used in conjunction with PG_GETARG_INT32 macro for extracting function arguments
 - The function assumes the Datum contains a valid 32-bit signed integer value - no validation is performed
 - Performance-critical as it's used in hot code paths like sorting and comparison operations
+
+## Simplified Source
+
+```c
+// Simplified version of DatumGetInt32
+static inline int32 DatumGetInt32(Datum X) {
+    // Simple cast from Datum to 32-bit signed integer
+    return (int32) X;
+}
+```
+
+Key simplifications made:
+- This function is already maximally simple with just a cast operation
+- No simplification needed - it's a fundamental type conversion utility
+- Added comment explaining the cast operation
+- Preserved the inline performance optimization

@@ -32,3 +32,38 @@ The function handles memory management by allocating new chunks when the current
 - Maintains running totals of bytes_free, total_len, and num_chunks for efficient management
 - The data is copied into the records structure, so callers retain ownership of their original data
 - Critical component of the two-phase commit state persistence mechanism
+
+## Simplified Source
+
+```c
+// Simplified version of save_state_data
+static void save_state_data(const void *data, uint32 len) {
+    uint32 padlen = MAXALIGN(len);
+
+    // Allocate new chunk if current chunk doesn't have enough space
+    if (padlen > records.bytes_free) {
+        records.tail->next = palloc0(sizeof(StateFileChunk));
+        records.tail = records.tail->next;
+        records.tail->len = 0;
+        records.tail->next = NULL;
+        records.num_chunks++;
+
+        // Allocate space (minimum 512 bytes or required padded length)
+        records.bytes_free = Max(padlen, 512);
+        records.tail->data = palloc(records.bytes_free);
+    }
+
+    // Copy data to the chunk and update counters
+    memcpy(((char *) records.tail->data) + records.tail->len, data, len);
+    records.tail->len += padlen;
+    records.bytes_free -= padlen;
+    records.total_len += padlen;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Simplified variable declarations
+- Highlighted the key operations: chunk allocation and data copying
+- Preserved MAXALIGN padding critical for disk I/O
+- Maintained the chunk-based memory management strategy

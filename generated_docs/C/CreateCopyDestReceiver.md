@@ -50,3 +50,36 @@ This function takes no parameters. The returned DR_copy structure contains:
 - The function uses PostgreSQL's memory management (palloc) for allocation
 - Progress reporting is handled in the copy_dest_receive callback, updating the PROGRESS_COPY_TUPLES_PROCESSED parameter
 - Located in src/backend/commands/copyto.c:1272-1286
+
+## Simplified Source
+
+```c
+// Simplified version of CreateCopyDestReceiver
+DestReceiver *CreateCopyDestReceiver(void) {
+    // Allocate memory for the COPY destination receiver
+    DR_copy *copy_receiver = (DR_copy *) palloc(sizeof(DR_copy));
+
+    // Set up the callback functions for tuple processing
+    copy_receiver->pub.receiveSlot = copy_dest_receive;    // Process each tuple
+    copy_receiver->pub.rStartup = copy_dest_startup;       // Initialize at start
+    copy_receiver->pub.rShutdown = copy_dest_shutdown;     // Cleanup at end
+    copy_receiver->pub.rDestroy = copy_dest_destroy;       // Final cleanup
+
+    // Set the destination type to indicate COPY TO operation
+    copy_receiver->pub.mydest = DestCopyOut;
+
+    // Initialize state fields
+    copy_receiver->cstate = NULL;     // Will be set later with COPY configuration
+    copy_receiver->processed = 0;     // Counter for tuples processed
+
+    // Return as base DestReceiver type
+    return (DestReceiver *) copy_receiver;
+}
+```
+
+Key simplifications made:
+- Added descriptive variable name for clarity
+- Added comments explaining each callback function's purpose
+- Explained the purpose of each field initialization
+- Clarified the two-phase initialization (create now, configure later)
+- Focused on core logic: allocate memory, set callbacks, initialize state, return receiver

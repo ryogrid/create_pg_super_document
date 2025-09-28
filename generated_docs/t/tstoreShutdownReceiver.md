@@ -38,3 +38,38 @@ The function safely handles cases where some resources may not have been allocat
 - The order of cleanup operations ensures proper resource deallocation
 - Part of the standard DestReceiver lifecycle: startup -> receive -> shutdown
 - Essential for preventing memory leaks in long-running queries or repeated operations
+
+## Simplified Source
+
+```c
+// Simplified version of tstoreShutdownReceiver
+static void tstoreShutdownReceiver(DestReceiver *self) {
+    TStoreState *myState = (TStoreState *) self;
+
+    // Clean up detoasting workspace
+    if (myState->outvalues) {
+        pfree(myState->outvalues);
+        myState->outvalues = NULL;
+    }
+    if (myState->tofree) {
+        pfree(myState->tofree);
+        myState->tofree = NULL;
+    }
+
+    // Clean up tuple conversion resources
+    if (myState->tupmap) {
+        free_conversion_map(myState->tupmap);
+        myState->tupmap = NULL;
+    }
+    if (myState->mapslot) {
+        ExecDropSingleTupleTableSlot(myState->mapslot);
+        myState->mapslot = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Preserved all essential cleanup operations
+- Maintained null pointer safety checks
+- Grouped related cleanup operations with comments
+- Focused on systematic resource deallocation

@@ -35,3 +35,21 @@ The function is specifically intended for DSA areas created in shared memory tha
 - Provides automatic cleanup of DSA areas when backend processes terminate unexpectedly or normally
 - Complements dsa_on_dsm_detach_release_in_place for different shared memory scenarios
 - Ensures proper resource cleanup even if the application doesn't explicitly release the DSA area before exit
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_on_shmem_exit_release_in_place
+void
+dsa_on_shmem_exit_release_in_place(int code, Datum place) {
+    // Release the DSA area at the specified memory location
+    // The 'code' parameter is ignored (callback interface requirement)
+    dsa_release_in_place(DatumGetPointer(place));
+}
+```
+
+Key simplifications made:
+- Single-line function with clear purpose
+- Added comment explaining the ignored code parameter
+- Focused on the essential operation: converting Datum to pointer and releasing DSA
+- Emphasized that this is a callback wrapper function

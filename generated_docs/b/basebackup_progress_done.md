@@ -31,3 +31,18 @@ This function marks the completion of a PostgreSQL base backup operation by call
 - Simple wrapper function that provides a clean interface to end backup progress tracking
 - Complements the other progress functions by handling the termination phase
 - Ensures that progress tracking resources are properly released after backup completion
+
+## Simplified Source
+
+```c
+// Simplified version of basebackup_progress_done
+void basebackup_progress_done(void) {
+    // End progress tracking for backup command
+    pgstat_progress_end_command();
+}
+```
+
+Key simplifications made:
+- Preserved essential progress tracking termination
+- Maintained simple delegation pattern
+- Focused on core cleanup functionality

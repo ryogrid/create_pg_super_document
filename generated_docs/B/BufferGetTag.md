@@ -42,3 +42,34 @@ BufferGetTag is a comprehensive buffer metadata extraction function that retriev
 - Uses helper macros to extract relfilelocator and fork number from the tag
 - Critical for WAL logging operations that need complete buffer identification
 - Handles both local and shared buffers using appropriate descriptor access methods
+
+## Simplified Source
+
+```c
+// Simplified version of BufferGetTag
+void BufferGetTag(Buffer buffer, RelFileLocator *rlocator, ForkNumber *forknum,
+                  BlockNumber *blknum) {
+    BufferDesc *bufHdr;
+
+    // Ensure buffer is pinned (same checks as BufferGetBlockNumber)
+    Assert(BufferIsPinned(buffer));
+
+    // Get buffer descriptor for local or shared buffer
+    if (BufferIsLocal(buffer))
+        bufHdr = GetLocalBufferDescriptor(-buffer - 1);
+    else
+        bufHdr = GetBufferDescriptor(buffer - 1);
+
+    // Extract tag information (safe to read without spinlock since pinned)
+    *rlocator = BufTagGetRelFileLocator(&bufHdr->tag);
+    *forknum = BufTagGetForkNum(&bufHdr->tag);
+    *blknum = bufHdr->tag.blockNum;
+}
+```
+
+Key simplifications made:
+- Preserved the essential buffer tag extraction logic
+- Maintained safety checks with Assert for pinned buffer
+- Kept the local vs shared buffer handling
+- Focused on the core tag information retrieval process
+- Retained proper use of helper macros for tag extraction

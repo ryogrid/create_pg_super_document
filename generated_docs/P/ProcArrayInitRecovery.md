@@ -35,3 +35,23 @@ The function retreats the provided XID by one using TransactionIdRetreat, which 
 - Uses TransactionIdRetreat to ensure safe starting point for subsequent recovery operations
 - Part of PostgreSQL's hot standby and streaming replication infrastructure
 - Critical for maintaining consistency in transaction visibility during recovery
+
+## Simplified Source
+
+```c
+// Simplified version of ProcArrayInitRecovery
+void ProcArrayInitRecovery(TransactionId initializedUptoXID) {
+    Assert(standbyState == STANDBY_INITIALIZED);
+    Assert(TransactionIdIsNormal(initializedUptoXID));
+
+    // Set baseline for transaction tracking during recovery
+    latestObservedXid = initializedUptoXID;
+    TransactionIdRetreat(latestObservedXid);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about CLOG and SUBTRANS initialization
+- Focused on the essential function: setting the recovery baseline XID
+- Preserved all validation assertions and core functionality
+- Maintained the retreat operation for safe starting point establishment

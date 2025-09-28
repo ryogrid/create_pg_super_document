@@ -44,3 +44,62 @@ After successfully moving the file, the function creates appropriate archive sta
 - Uses durable_rename to ensure atomic file replacement with proper synchronization
 - Critical for maintaining consistency between restored files and active WAL processing
 - The reload mechanism is essential for preventing WAL senders from serving stale data after file replacement
+
+## Simplified Source
+
+```c
+// Simplified version of KeepFileRestoredFromArchive
+void KeepFileRestoredFromArchive(const char *path, const char *xlogfname) {
+    char xlogfpath[MAXPGPATH];
+    bool reload = false;
+    struct stat statbuf;
+
+    // Construct target path in pg_wal directory
+    snprintf(xlogfpath, MAXPGPATH, XLOGDIR "/%s", xlogfname);
+
+    // Handle existing file replacement
+    if (stat(xlogfpath, &statbuf) == 0) {
+        char oldpath[MAXPGPATH];
+
+#ifdef WIN32
+        // Windows: rename old file to avoid locking issues
+        static unsigned int deletedcounter = 1;
+        snprintf(oldpath, MAXPGPATH, "%s.deleted%u", xlogfpath, deletedcounter++);
+        if (rename(xlogfpath, oldpath) != 0)
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not rename file \"%s\" to \"%s\": %m",
+                                  xlogfpath, oldpath)));
+#else
+        // Non-Windows: use original path
+        strlcpy(oldpath, xlogfpath, MAXPGPATH);
+#endif
+        // Remove old file
+        if (unlink(oldpath) != 0)
+            ereport(FATAL, (errcode_for_file_access(),
+                           errmsg("could not remove file \"%s\": %m", xlogfpath)));
+        reload = true;
+    }
+
+    // Move restored file to permanent location
+    durable_rename(path, xlogfpath, ERROR);
+
+    // Create archive status file based on archive mode
+    if (XLogArchiveMode != ARCHIVE_MODE_ALWAYS)
+        XLogArchiveForceDone(xlogfname);  // Create .done file
+    else
+        XLogArchiveNotify(xlogfname);     // Create .ready file
+
+    // Notify WAL senders if file was replaced
+    if (reload)
+        WalSndRqstFileReload();
+
+    // Signal new WAL availability
+    WalSndWakeup(true, false);
+}
+```
+
+Key simplifications made:
+- Maintained platform-specific file handling for Windows vs non-Windows
+- Preserved essential error handling and cleanup logic
+- Simplified complex path construction and file management
+- Kept WAL sender notification and archive mode handling intact

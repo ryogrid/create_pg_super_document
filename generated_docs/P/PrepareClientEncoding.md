@@ -41,3 +41,64 @@ The function implements an optimization by checking for cases that don't require
 - The function caches conversion procedures in ConvProcList but doesn't immediately remove older entries for the same encoding pair
 - During transaction rollback scenarios, it can only restore previous settings using the cache
 - Conversion functions are loaded into TopMemoryContext to ensure they persist across memory context resets
+
+## Simplified Source
+
+```c
+// Simplified version of PrepareClientEncoding
+int PrepareClientEncoding(int encoding) {
+    // Validate encoding is supported for frontend
+    if (!PG_VALID_FE_ENCODING(encoding))
+        return -1;
+
+    // Can't validate during startup
+    if (!backend_startup_complete)
+        return 0;
+
+    int current_server_encoding = GetDatabaseEncoding();
+
+    // Check if conversion is needed at all
+    if (current_server_encoding == encoding ||
+        current_server_encoding == PG_SQL_ASCII ||
+        encoding == PG_SQL_ASCII)
+        return 0;
+
+    if (IsTransactionState()) {
+        // In transaction: lookup conversion functions in catalogs
+        Oid to_server_proc = FindDefaultConversionProc(encoding, current_server_encoding);
+        Oid to_client_proc = FindDefaultConversionProc(current_server_encoding, encoding);
+
+        if (!OidIsValid(to_server_proc) || !OidIsValid(to_client_proc))
+            return -1;
+
+        // Cache conversion info for future use
+        ConvProcInfo *convinfo = allocate_conversion_info();
+        convinfo->s_encoding = current_server_encoding;
+        convinfo->c_encoding = encoding;
+
+        // Load function manager info into persistent memory
+        load_conversion_functions(convinfo, to_server_proc, to_client_proc);
+
+        // Add to conversion cache list
+        ConvProcList = lcons(convinfo, ConvProcList);
+
+        return 0;
+    } else {
+        // Outside transaction: check if conversion is already cached
+        foreach(cache_entry, ConvProcList) {
+            ConvProcInfo *oldinfo = (ConvProcInfo *) lfirst(cache_entry);
+            if (oldinfo->s_encoding == current_server_encoding &&
+                oldinfo->c_encoding == encoding)
+                return 0;
+        }
+        return -1;  // Not cached, cannot validate
+    }
+}
+```
+
+Key simplifications made:
+- Abstracted memory allocation and function loading details
+- Simplified the complex memory context switching logic
+- Focused on the two main paths: in-transaction vs cached lookup
+- Consolidated error checking patterns
+- Emphasized the core validation and caching strategy

@@ -45,3 +45,36 @@ The function requires explicit cleanup by all backends that create or attach to 
 - Uses DSM_HANDLE_INVALID since no new DSM segment is created for the control object
 - Registers cleanup callbacks only when a containing DSM segment is provided
 - Located in src/backend/utils/mmgr/dsa.c:471-497
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_create_in_place_ext
+dsa_area *
+dsa_create_in_place_ext(void *place, size_t size,
+                        int tranche_id, dsm_segment *segment,
+                        size_t init_segment_size, size_t max_segment_size) {
+    dsa_area *area;
+
+    // Create DSA in existing shared memory space
+    // Use DSM_HANDLE_INVALID and NULL since we're not creating a new segment
+    area = create_internal(place, size, tranche_id,
+                          DSM_HANDLE_INVALID, NULL,
+                          init_segment_size, max_segment_size);
+
+    // Register cleanup callback if a containing DSM segment was provided
+    if (segment != NULL) {
+        on_dsm_detach(segment, &dsa_on_dsm_detach_release_in_place,
+                      PointerGetDatum(place));
+    }
+
+    return area;
+}
+```
+
+Key simplifications made:
+- Condensed the function structure for clarity
+- Added clear comment explaining the key difference (using existing memory vs creating new segment)
+- Highlighted the conditional cleanup registration
+- Simplified the create_internal call presentation
+- Focused on the core pattern: create in existing space → optionally register cleanup

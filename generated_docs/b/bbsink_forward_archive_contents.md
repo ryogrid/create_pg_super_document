@@ -35,3 +35,23 @@ The function enforces strict buffer sharing requirements through assertions, ens
 - Code using this function should initialize its own bbs_buffer and bbs_buffer_length fields to match the successor sink's values
 - The design explicitly avoids data copying to prevent unnecessary memory allocation and improve performance
 - This forwarding pattern is essential for maintaining efficiency in multi-stage backup processing pipelines
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_forward_archive_contents
+void bbsink_forward_archive_contents(bbsink *sink, size_t len) {
+    // Validate chain and buffer sharing
+    Assert(sink->bbs_next != NULL);
+    Assert(sink->bbs_buffer == sink->bbs_next->bbs_buffer);
+    Assert(sink->bbs_buffer_length == sink->bbs_next->bbs_buffer_length);
+
+    // Forward archive contents to next sink
+    bbsink_archive_contents(sink->bbs_next, len);
+}
+```
+
+Key simplifications made:
+- Preserved essential buffer sharing validation
+- Maintained forward delegation pattern
+- Focused on core chain forwarding functionality

@@ -41,3 +41,27 @@ An important memory management aspect is that the CurrentMemoryContext when this
 - Multiple calls to report the same query_id are harmless as duplicates are ignored
 - The hook mechanism allows extensions to completely replace or wrap the standard executor startup behavior
 - Located at src/backend/executor/execMain.c:121-139
+
+## Simplified Source
+
+```c
+// Simplified version of ExecutorStart
+void ExecutorStart(QueryDesc *queryDesc, int eflags) {
+    // Report query ID for statistics (harmless if already reported)
+    pgstat_report_query_id(queryDesc->plannedstmt->queryId, false);
+
+    // Use hook mechanism if plugin installed, otherwise use standard implementation
+    if (ExecutorStart_hook) {
+        (*ExecutorStart_hook)(queryDesc, eflags);
+    } else {
+        standard_ExecutorStart(queryDesc, eflags);
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the two main operations
+- Highlighted the hook mechanism for plugin extensibility
+- Simplified the query ID reporting explanation
+- Focused on the main purpose: starting query execution with plugin support
+- Preserved the essential hook pattern while making the flow clearer

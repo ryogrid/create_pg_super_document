@@ -40,3 +40,39 @@ The implementation carefully preserves the errno value throughout execution to s
 - Designed specifically for segments known to have existed during server runtime
 - Error messages include the complete WAL filename for diagnostic purposes
 - Critical for maintaining data consistency in backup and replication scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of CheckXLogRemoved
+void CheckXLogRemoved(XLogSegNo segno, TimeLineID tli) {
+    int save_errno = errno;
+    XLogSegNo lastRemovedSegNo;
+
+    // Get last removed segment number under lock
+    SpinLockAcquire(&XLogCtl->info_lck);
+    lastRemovedSegNo = XLogCtl->lastRemovedSegNo;
+    SpinLockRelease(&XLogCtl->info_lck);
+
+    // Check if requested segment has been removed
+    if (segno <= lastRemovedSegNo) {
+        char filename[MAXFNAMELEN];
+
+        XLogFileName(filename, tli, segno, wal_segment_size);
+        errno = save_errno;
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("requested WAL segment %s has already been removed",
+                        filename)));
+    }
+
+    errno = save_errno;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving core logic
+- Maintained errno preservation for safe error handling
+- Preserved thread-safe access to shared data with spin locks
+- Kept comprehensive error reporting with filename context
+- Maintained the essential WAL segment availability check

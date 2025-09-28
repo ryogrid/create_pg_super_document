@@ -30,3 +30,17 @@ This function returns the WAL level stored in the control file, which represents
 - Used in logical replication requirements checking
 - Returns WalLevel enum type
 - Located in src/backend/access/transam/xlog.c:4814-4822
+
+## Simplified Source
+
+```c
+// Simplified version of GetActiveWalLevelOnStandby
+WalLevel GetActiveWalLevelOnStandby(void) {
+    // Return the WAL level from the control file
+    return ControlFile->wal_level;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, just returns control file WAL level
+- Essential for standby servers to get effective WAL level from primary

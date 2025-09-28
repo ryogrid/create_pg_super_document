@@ -35,3 +35,43 @@ The function handles the same subset of object types that support privilege oper
 - Complements stringify_grant_objtype by providing the alternate syntax format required for ALTER DEFAULT PRIVILEGES
 - The extensive list of unsupported object types mirrors that of stringify_grant_objtype, maintaining consistency in PostgreSQL's privilege system limitations
 - Essential for proper event trigger reporting of ALTER DEFAULT PRIVILEGES commands, ensuring the object type appears in the correct grammatical form expected by users and applications
+
+## Simplified Source
+
+```c
+// Simplified version of stringify_adefprivs_objtype
+static const char *stringify_adefprivs_objtype(ObjectType objtype) {
+    switch (objtype) {
+        // Supported object types for ALTER DEFAULT PRIVILEGES (plural forms)
+        case OBJECT_COLUMN:         return "COLUMNS";
+        case OBJECT_TABLE:          return "TABLES";
+        case OBJECT_SEQUENCE:       return "SEQUENCES";
+        case OBJECT_DATABASE:       return "DATABASES";
+        case OBJECT_DOMAIN:         return "DOMAINS";
+        case OBJECT_FDW:            return "FOREIGN DATA WRAPPERS";
+        case OBJECT_FOREIGN_SERVER: return "FOREIGN SERVERS";
+        case OBJECT_FUNCTION:       return "FUNCTIONS";
+        case OBJECT_LANGUAGE:       return "LANGUAGES";
+        case OBJECT_LARGEOBJECT:    return "LARGE OBJECTS";
+        case OBJECT_SCHEMA:         return "SCHEMAS";
+        case OBJECT_PROCEDURE:      return "PROCEDURES";
+        case OBJECT_ROUTINE:        return "ROUTINES";
+        case OBJECT_TABLESPACE:     return "TABLESPACES";
+        case OBJECT_TYPE:           return "TYPES";
+
+        // All other object types are not supported for ALTER DEFAULT PRIVILEGES
+        default:
+            elog(ERROR, "unsupported object type: %d", (int) objtype);
+    }
+
+    return "???";  // Never reached, keeps compiler happy
+}
+```
+
+Key simplifications made:
+- Consolidated all supported object types into clear switch cases
+- Replaced the long list of unsupported cases with a default case
+- Aligned the return statements for better readability
+- Emphasized the plural nature of the returned strings
+- Maintained the error handling behavior for unsupported types
+- Simplified structure while preserving exact functionality

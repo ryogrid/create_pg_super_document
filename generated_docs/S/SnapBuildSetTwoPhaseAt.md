@@ -29,3 +29,17 @@ This function is used to configure the LSN (Log Sequence Number) threshold at wh
 - The LSN threshold helps optimize performance by only decoding two-phase operations when necessary
 - Part of PostgreSQL's logical replication and snapshot building infrastructure
 - Located in src/backend/replication/logical/snapbuild.c:434-442
+
+## Simplified Source
+
+```c
+// Simplified version of SnapBuildSetTwoPhaseAt
+void SnapBuildSetTwoPhaseAt(SnapBuild *builder, XLogRecPtr ptr) {
+    // Set the LSN at which two-phase decoding is enabled
+    builder->two_phase_at = ptr;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, just sets the two-phase LSN threshold
+- Essential for controlling when two-phase commit operations are decoded

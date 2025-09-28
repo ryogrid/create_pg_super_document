@@ -33,3 +33,28 @@ The  function constructs a ProjectSet plan node used in PostgreSQL's query execu
 - Only sets lefttree to the subplan; righttree is always NULL for ProjectSet nodes
 - Part of PostgreSQL's plan creation infrastructure in the optimizer module
 - [ProjectSet](../P/ProjectSet.md) nodes are specifically designed to handle the complexities of set-returning functions in the target list
+
+## Simplified Source
+
+```c
+// Simplified version of make_project_set
+static ProjectSet *make_project_set(List *tlist, Plan *subplan) {
+    // Create new ProjectSet node
+    ProjectSet *node = makeNode(ProjectSet);
+    Plan *plan = &node->plan;
+
+    // Set up plan structure
+    plan->targetlist = tlist;      // Target list with SRFs
+    plan->qual = NIL;              // No filtering
+    plan->lefttree = subplan;      // Input plan
+    plan->righttree = NULL;        // ProjectSet is unary operator
+
+    return node;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for clarity
+- Focused on the core logic: create node, set target list, connect subplan
+- Preserved essential functionality for handling set-returning functions
+- Maintained the simple structure of the original function

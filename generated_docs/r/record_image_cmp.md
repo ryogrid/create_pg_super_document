@@ -54,3 +54,86 @@ The function uses caching via `RecordCompareData` to avoid repeated type lookups
 - The comparison is deterministic and suitable for sorting operations
 - Performance optimized with caching of type information between calls
 - Located in src/backend/utils/adt/rowtypes.c at lines 1331-1576
+
+## Simplified Source
+
+```c
+// Simplified version of record_image_cmp
+static int record_image_cmp(FunctionCallInfo fcinfo) {
+    HeapTupleHeader record1 = PG_GETARG_HEAPTUPLEHEADER(0);
+    HeapTupleHeader record2 = PG_GETARG_HEAPTUPLEHEADER(1);
+
+    // Extract type information from both records
+    TypeInfo type1, type2;
+    extract_record_type_info(record1, &type1);
+    extract_record_type_info(record2, &type2);
+
+    // Setup temporary tuple structures and cached comparison data
+    HeapTupleData tuple1, tuple2;
+    setup_temp_tuples(&tuple1, &tuple2, record1, record2);
+    RecordCompareData *my_extra = setup_comparison_cache(fcinfo, &type1, &type2);
+
+    // Extract column values from both tuples
+    Datum *values1, *values2;
+    bool *nulls1, *nulls2;
+    extract_tuple_values(&tuple1, type1.tupdesc, &values1, &nulls1);
+    extract_tuple_values(&tuple2, type2.tupdesc, &values2, &nulls2);
+
+    // Compare columns using byte-level comparison
+    int result = 0;
+    int i1 = 0, i2 = 0, logical_col = 0;
+
+    while (i1 < type1.ncolumns || i2 < type2.ncolumns) {
+        // Skip dropped columns
+        skip_dropped_columns(&i1, &i2, type1.tupdesc, type2.tupdesc);
+        if (i1 >= type1.ncolumns || i2 >= type2.ncolumns)
+            break;
+
+        // Validate column types match
+        Form_pg_attribute att1 = TupleDescAttr(type1.tupdesc, i1);
+        Form_pg_attribute att2 = TupleDescAttr(type2.tupdesc, i2);
+        validate_column_types_match(att1, att2, logical_col);
+
+        // Handle NULL comparison
+        if (nulls1[i1] || nulls2[i2]) {
+            result = compare_nulls(nulls1[i1], nulls2[i2]);
+            if (result != 0) break;
+        } else {
+            // Byte-level comparison based on storage type
+            if (att1->attbyval) {
+                // Compare by-value types directly
+                result = compare_by_value(values1[i1], values2[i2]);
+            } else if (att1->attlen > 0) {
+                // Fixed-length types: direct memory comparison
+                result = memcmp(DatumGetPointer(values1[i1]),
+                               DatumGetPointer(values2[i2]), att1->attlen);
+            } else if (att1->attlen == -1) {
+                // Variable-length types with TOAST handling
+                result = compare_varlena_data(values1[i1], values2[i2]);
+            } else {
+                elog(ERROR, "unexpected attlen: %d", att1->attlen);
+            }
+
+            if (result != 0) break;
+        }
+
+        i1++; i2++; logical_col++;
+    }
+
+    // Validate final column count consistency
+    if (result == 0)
+        validate_column_count_match(i1, i2, type1.ncolumns, type2.ncolumns);
+
+    // Cleanup resources
+    cleanup_comparison_resources(values1, nulls1, values2, nulls2, &type1, &type2, record1, record2);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Extracted helper functions for type extraction, tuple setup, and column processing
+- Simplified the complex byte comparison logic into separate functions by storage type
+- Consolidated TOAST handling for variable-length data into helper function
+- Abstracted memory management and caching details
+- Focused on the main byte-level comparison algorithm while preserving accuracy

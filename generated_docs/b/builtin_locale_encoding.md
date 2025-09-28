@@ -42,3 +42,30 @@ For any other locale name, the function raises an ERROR, as only these two local
 - Part of PostgreSQL's builtin collation provider infrastructure
 - Used during collation definition and validation processes
 - The builtin provider is a simplified alternative to system-dependent locale providers
+
+## Simplified Source
+
+```c
+// Simplified version of builtin_locale_encoding
+int builtin_locale_encoding(const char *locale) {
+    // Check for "C" locale - any encoding allowed
+    if (strcmp(locale, "C") == 0)
+        return -1;
+
+    // Check for "C.UTF-8" locale - UTF-8 required
+    if (strcmp(locale, "C.UTF-8") == 0)
+        return PG_UTF8;
+
+    // Unsupported locale for builtin provider
+    ereport(ERROR,
+            (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+             errmsg("invalid locale name \"%s\" for builtin provider", locale)));
+
+    return 0; // unreachable
+}
+```
+
+Key simplifications made:
+- Function is already simple, validates only two supported builtin locales
+- Returns -1 for "C" (any encoding), PG_UTF8 for "C.UTF-8"
+- Errors for unsupported locales

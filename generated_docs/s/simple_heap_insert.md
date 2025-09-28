@@ -35,3 +35,19 @@ This function serves as a convenience wrapper for heap_insert() with default par
 - Sets insertion options to 0 (no special flags)
 - Passes NULL for bulk insert state parameter
 - More suitable for single-tuple insertions in system catalogs than heap_insert
+
+## Simplified Source
+
+```c
+// Simplified version of simple_heap_insert
+void simple_heap_insert(Relation relation, HeapTuple tup) {
+    // Call heap_insert with default parameters for system catalog operations
+    heap_insert(relation, tup, GetCurrentCommandId(true), 0, NULL);
+}
+```
+
+Key simplifications made:
+- Core logic: wrapper that calls heap_insert with sensible defaults
+- Automatically uses current command ID for transaction management
+- No special insertion options or bulk insert optimizations
+- Preferred interface for straightforward system catalog modifications

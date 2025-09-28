@@ -41,3 +41,57 @@ The `smgropen` function is responsible for obtaining an SMgrRelation object that
 - The smgr_which field is hardcoded to 0 (currently only md.c storage manager exists)
 - Does not open physical files - that's handled by other functions
 - Cached block numbers are initialized to InvalidBlockNumber
+
+## Simplified Source
+
+```c
+// Simplified version of smgropen
+SMgrRelation
+smgropen(RelFileLocator rlocator, ProcNumber backend) {
+    RelFileLocatorBackend brlocator;
+    SMgrRelation reln;
+    bool found;
+
+    // Initialize hash table on first use
+    if (SMgrRelationHash == NULL) {
+        HASHCTL ctl;
+        ctl.keysize = sizeof(RelFileLocatorBackend);
+        ctl.entrysize = sizeof(SMgrRelationData);
+        SMgrRelationHash = hash_create("smgr relation table", 400,
+                                     &ctl, HASH_ELEM | HASH_BLOBS);
+        dlist_init(&unpinned_relns);
+    }
+
+    // Look up or create relation entry
+    brlocator.locator = rlocator;
+    brlocator.backend = backend;
+    reln = (SMgrRelation) hash_search(SMgrRelationHash, &brlocator,
+                                    HASH_ENTER, &found);
+
+    // Initialize new relation objects
+    if (!found) {
+        // Initialize target block and cached block counts
+        reln->smgr_targblock = InvalidBlockNumber;
+        for (int i = 0; i <= MAX_FORKNUM; ++i)
+            reln->smgr_cached_nblocks[i] = InvalidBlockNumber;
+
+        // Set storage manager type (currently only md.c)
+        reln->smgr_which = 0;
+
+        // Add to unpinned list with zero pin count
+        reln->pincount = 0;
+        dlist_push_tail(&unpinned_relns, &reln->node);
+
+        // Initialize storage manager implementation
+        smgrsw[reln->smgr_which].smgr_open(reln);
+    }
+
+    return reln;
+}
+```
+
+Key simplifications made:
+- Added clear comments for hash table initialization and relation lookup phases
+- Simplified the new relation initialization logic with descriptive comments
+- Emphasized the caching and lifetime management aspects
+- Preserved the essential lazy initialization pattern and storage manager abstraction

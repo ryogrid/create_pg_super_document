@@ -40,3 +40,23 @@ The function includes several assertions to ensure it operates on a valid non-le
 - Used as a callback function in GinBtree operations, particularly for full scans
 - Simple but critical function for navigating to the leftmost branch during index traversal
 - Part of the GIN index's strategy for systematic page traversal during operations like full index scans
+
+## Simplified Source
+
+```c
+// Simplified version of entryGetLeftMostPage
+static BlockNumber entryGetLeftMostPage(GinBtree btree, Page page) {
+    // Get the first index tuple on the page
+    IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, FirstOffsetNumber));
+
+    // Return the downlink (child page block number)
+    return GinGetDownlink(itup);
+}
+```
+
+Key simplifications made:
+- Removed assertions for clarity
+- Added explanatory comments
+- Consolidated the operation into clear steps
+- Emphasized the straightforward nature of accessing the leftmost child
+- Maintained the essential functionality while improving readability

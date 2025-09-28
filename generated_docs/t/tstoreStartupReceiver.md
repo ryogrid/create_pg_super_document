@@ -42,3 +42,53 @@ The function implements a performance optimization strategy by choosing the most
 - Detoasting and tuple conversion are mutually exclusive operations (Assert(!myState->tupmap) when needtoast is true)
 - Memory allocation uses the receiver's memory context for proper cleanup
 - The function sets up workspace arrays (outvalues, tofree) only when detoasting is required
+
+## Simplified Source
+
+```c
+// Simplified version of tstoreStartupReceiver
+static void tstoreStartupReceiver(DestReceiver *self, int operation, TupleDesc typeinfo) {
+    TStoreState *myState = (TStoreState *) self;
+    bool needtoast = false;
+    int natts = typeinfo->natts;
+
+    // Check if any columns need detoasting
+    if (myState->detoast) {
+        for (int i = 0; i < natts; i++) {
+            Form_pg_attribute attr = TupleDescAttr(typeinfo, i);
+            if (!attr->attisdropped && attr->attlen == -1) {
+                needtoast = true;
+                break;
+            }
+        }
+    }
+
+    // Set up tuple conversion mapping if needed
+    if (myState->target_tupdesc) {
+        myState->tupmap = convert_tuples_by_position(typeinfo,
+                                                   myState->target_tupdesc,
+                                                   myState->map_failure_msg);
+    }
+
+    // Choose appropriate callback based on processing needs
+    if (needtoast) {
+        // Set up detoasting callback and workspace
+        myState->pub.receiveSlot = tstoreReceiveSlot_detoast;
+        myState->outvalues = MemoryContextAlloc(myState->cxt, natts * sizeof(Datum));
+        myState->tofree = MemoryContextAlloc(myState->cxt, natts * sizeof(Datum));
+    } else if (myState->tupmap) {
+        // Set up tuple mapping callback
+        myState->pub.receiveSlot = tstoreReceiveSlot_tupmap;
+        myState->mapslot = MakeSingleTupleTableSlot(myState->target_tupdesc, &TTSOpsVirtual);
+    } else {
+        // Use fast path for simple cases
+        myState->pub.receiveSlot = tstoreReceiveSlot_notoast;
+    }
+}
+```
+
+Key simplifications made:
+- Preserved core logic for selecting appropriate callback
+- Simplified variable-length attribute detection
+- Maintained essential workspace allocation
+- Focused on the three main processing paths

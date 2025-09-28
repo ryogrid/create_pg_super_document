@@ -39,3 +39,31 @@ The function serves as a bridge between various PostgreSQL subsystems (locks, mu
 - The function handles both cases where data is provided (len > 0) and header-only records (len = 0)
 - Resource managers must use unique rmid values to avoid conflicts during recovery
 - The records registered through this function are essential for proper transaction recovery and cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of RegisterTwoPhaseRecord
+void RegisterTwoPhaseRecord(TwoPhaseRmgrId rmid, uint16 info, const void *data, uint32 len) {
+    TwoPhaseRecordOnDisk record;
+
+    // Create record header with resource manager info
+    record.rmid = rmid;
+    record.info = info;
+    record.len = len;
+
+    // Save the record header
+    save_state_data(&record, sizeof(TwoPhaseRecordOnDisk));
+
+    // Save the data payload if present
+    if (len > 0)
+        save_state_data(data, len);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic
+- Simplified variable declarations
+- Highlighted the two-step process: header then data
+- Preserved the conditional data saving logic
+- Maintained the interface for resource manager registration

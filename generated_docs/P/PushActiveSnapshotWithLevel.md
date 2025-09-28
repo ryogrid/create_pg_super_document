@@ -47,3 +47,47 @@ The function ensures snapshot lifetime management and proper isolation by mainta
 - The as_level field ensures proper nesting - snapshots can only be pushed at levels >= current top
 - Used internally by PushActiveSnapshot and directly by portal management code
 - Should be balanced with PopActiveSnapshot calls to maintain stack integrity
+
+## Simplified Source
+
+```c
+// Simplified version of PushActiveSnapshotWithLevel
+void PushActiveSnapshotWithLevel(Snapshot snapshot, int snap_level) {
+    ActiveSnapshotElt *newactive;
+
+    // Validate input parameters
+    Assert(snapshot != InvalidSnapshot);
+    Assert(ActiveSnapshot == NULL || snap_level >= ActiveSnapshot->as_level);
+
+    // Allocate new stack element in transaction context
+    newactive = MemoryContextAlloc(TopTransactionContext, sizeof(ActiveSnapshotElt));
+
+    // Copy snapshot if it's statically allocated or not already copied
+    if (snapshot == CurrentSnapshot || snapshot == SecondarySnapshot ||
+        !snapshot->copied) {
+        newactive->as_snap = CopySnapshot(snapshot);
+    } else {
+        newactive->as_snap = snapshot;
+    }
+
+    // Set up stack linkage and level
+    newactive->as_next = ActiveSnapshot;
+    newactive->as_level = snap_level;
+
+    // Increment reference count for the snapshot
+    newactive->as_snap->active_count++;
+
+    // Update stack pointers
+    ActiveSnapshot = newactive;
+    if (OldestActiveSnapshot == NULL) {
+        OldestActiveSnapshot = ActiveSnapshot;  // First active snapshot
+    }
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each phase of stack management
+- Highlighted the snapshot copying logic and its rationale
+- Simplified the memory allocation and reference counting explanations
+- Focused on the stack manipulation and nesting level validation
+- Preserved the essential MVCC snapshot management logic

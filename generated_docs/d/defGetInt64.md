@@ -53,3 +53,41 @@ The function is specifically designed for cases where 64-bit integer precision i
 - Primarily used in sequence operations and other contexts requiring 64-bit integer precision
 - More complex than other defGet functions due to the Float-to-int64 conversion logic
 - Requires an explicit argument value; reports error if def->arg is NULL
+
+## Simplified Source
+
+```c
+// Simplified version of defGetInt64
+int64 defGetInt64(DefElem *def) {
+    // Require an argument value
+    if (def->arg == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("%s requires a numeric value", def->defname)));
+
+    // Handle different node types
+    switch (nodeTag(def->arg)) {
+        case T_Integer:
+            return (int64) intVal(def->arg);
+
+        case T_Float:
+            // Large integers represented as Float by lexer
+            return DatumGetInt64(DirectFunctionCall1(int8in,
+                                CStringGetDatum(castNode(Float, def->arg)->fval)));
+
+        default:
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("%s requires a numeric value", def->defname)));
+    }
+
+    return 0; // Never reached
+}
+```
+
+Key simplifications made:
+- Removed redundant comments while preserving essential logic
+- Streamlined the switch statement structure
+- Maintained the special Float-to-int64 conversion logic
+- Preserved error handling for invalid arguments
+- Kept the essential functionality for handling large integers

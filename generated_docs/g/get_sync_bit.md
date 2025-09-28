@@ -54,3 +54,52 @@ The function implements several key behaviors:
 - Platform-specific conditional compilation ensures O_SYNC and O_DSYNC are only used when supported
 - When fsync is disabled, the function only returns direct I/O flags without synchronization flags
 - Error handling includes a check for unrecognized sync methods with appropriate error reporting
+
+## Simplified Source
+
+```c
+// Simplified version of get_sync_bit
+static int get_sync_bit(int method) {
+    int o_direct_flag = 0;
+
+    // Enable O_DIRECT if requested, except for walreceiver process
+    if ((io_direct_flags & IO_DIRECT_WAL) && !AmWalReceiverProcess()) {
+        o_direct_flag = PG_O_DIRECT;
+    }
+
+    // If fsync is disabled, only return direct I/O flags
+    if (!enableFsync) {
+        return o_direct_flag;
+    }
+
+    // Return appropriate sync flags based on WAL sync method
+    switch (method) {
+        case WAL_SYNC_METHOD_FSYNC:
+        case WAL_SYNC_METHOD_FSYNC_WRITETHROUGH:
+        case WAL_SYNC_METHOD_FDATASYNC:
+            return o_direct_flag;  // No additional sync flags needed
+
+#ifdef O_SYNC
+        case WAL_SYNC_METHOD_OPEN:
+            return O_SYNC | o_direct_flag;  // Synchronous write
+#endif
+
+#ifdef O_DSYNC
+        case WAL_SYNC_METHOD_OPEN_DSYNC:
+            return O_DSYNC | o_direct_flag;  // Data synchronous write
+#endif
+
+        default:
+            elog(ERROR, "unrecognized \"wal_sync_method\": %d", method);
+            return 0;
+    }
+}
+```
+
+Key simplifications made:
+- Removed verbose comments about enum platform support
+- Simplified the direct I/O logic explanation
+- Consolidated the switch cases with clearer comments
+- Maintained platform-specific conditional compilation
+- Preserved error handling for invalid sync methods
+- Added inline comments explaining each sync method's purpose

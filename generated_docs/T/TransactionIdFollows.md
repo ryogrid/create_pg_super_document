@@ -35,3 +35,26 @@ This function performs a logical comparison to determine if transaction ID `id1`
 - Used in subtransaction management to ensure proper parent-child relationships
 - The `> 0` comparison in the modulo arithmetic correctly identifies when `id1` follows `id2` in the circular transaction ID space
 - Like other transaction ID comparison functions, assumes the compared IDs are not more than 2^31 transactions apart
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionIdFollows
+bool TransactionIdFollows(TransactionId id1, TransactionId id2) {
+    int32 diff;
+
+    // For special transaction IDs, use simple comparison
+    if (!TransactionIdIsNormal(id1) || !TransactionIdIsNormal(id2))
+        return (id1 > id2);
+
+    // For normal XIDs, use modular arithmetic to handle wraparound
+    diff = (int32) (id1 - id2);
+    return (diff > 0);
+}
+```
+
+Key simplifications made:
+- Preserved the essential wraparound-aware comparison logic
+- Added clear comments distinguishing special vs normal transaction ID handling
+- Maintained the simple but crucial modular arithmetic calculation
+- Focused on the core comparison algorithm
