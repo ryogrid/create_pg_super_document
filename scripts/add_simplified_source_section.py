@@ -25,6 +25,17 @@ logging.basicConfig(
     ]
 )
 
+def get_first_alnum_char(text: str) -> str:
+    """
+    Returns the first alphanumeric character in a string.
+    Returns '_' if no alphanumeric character is found.
+    This is case-sensitive.
+    """
+    for char in text:
+        if char.isalnum():
+            return char
+    return "_" # Default directory if no alphanumeric character is found
+
 class FunctionSimplificationOrchestrator:
     def __init__(self, 
                  function_list_file: str = 'experimental/function_call_hierarchy.txt',
@@ -99,8 +110,7 @@ class FunctionSimplificationOrchestrator:
         """
         Build the combined prompt for Claude that includes both main task and subagent logic.
         """
-        first_letter = function_name[0].upper()
-        doc_path = f'generated_docs/{first_letter}/{function_name}.md'
+        doc_path = f'generated_docs/{get_first_alnum_char(function_name)}/{function_name}.md'
         
         prompt = f"""# Function Source Code Simplification Task
 
@@ -247,7 +257,6 @@ Start processing now for function: {function_name}"""
                             '-p', prompt,
                             '--model', 'claude-sonnet-4-20250514',
                             '--permission-mode', 'bypassPermissions',
-                            '--max-turns', str(80),
                         ],
                         capture_output=True,
                         text=True,
@@ -302,6 +311,7 @@ Start processing now for function: {function_name}"""
                             self.stats['failed'] += 1
                             logging.warning(f"[Worker {worker_id}] ✗ Failed ({output}): {function_name}")
                         time.sleep(3600)  # Sleep for an hour before retrying
+                        self.work_queue.put(function_name)  # Requeue the function
                     else:
                         with self.lock:
                                 self.failed.append((function_name, "Unknown error"))
