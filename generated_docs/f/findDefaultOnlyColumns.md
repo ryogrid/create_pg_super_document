@@ -41,3 +41,51 @@ This analysis enables the rewriter to optimize queries like `INSERT INTO table V
 - Column numbering is 1-based (attribute numbers)
 - Critical for VALUES clause optimization in INSERT/UPDATE operations
 - Helps distinguish between mixed-value columns and pure-default columns
+
+## Simplified Source
+
+```c
+static Bitmapset *
+findDefaultOnlyColumns(RangeTblEntry *rte)
+{
+    Bitmapset *default_only_cols = NULL;
+    ListCell *row_cell;
+
+    // Process each row in VALUES list
+    foreach(row_cell, rte->values_lists)
+    {
+        List *row = (List *) lfirst(row_cell);
+        ListCell *col_cell;
+        int col_num = 0;
+
+        if (default_only_cols == NULL)
+        {
+            // First row: build initial bitmap of DEFAULT columns
+            foreach(col_cell, row)
+            {
+                Node *column = (Node *) lfirst(col_cell);
+                col_num++;
+                if (IsA(column, SetToDefault))
+                    default_only_cols = bms_add_member(default_only_cols, col_num);
+            }
+        }
+        else
+        {
+            // Subsequent rows: remove columns that are not DEFAULT
+            foreach(col_cell, row)
+            {
+                Node *column = (Node *) lfirst(col_cell);
+                col_num++;
+                if (!IsA(column, SetToDefault))
+                    default_only_cols = bms_del_member(default_only_cols, col_num);
+            }
+        }
+
+        // Early exit if no columns are default-only anymore
+        if (bms_is_empty(default_only_cols))
+            break;
+    }
+
+    return default_only_cols;
+}
+```

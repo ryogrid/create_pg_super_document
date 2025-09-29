@@ -45,3 +45,86 @@ When check_cols is true, the function also verifies that at least one column in 
 - The check_cols parameter allows the function to be used for different types of operations (DELETE vs INSERT/UPDATE)
 - Returns const char* error messages marked for internationalization but not translated by this function
 - Only accepts views that select from exactly one base relation (table, foreign table, view, or partitioned table)
+
+## Simplified Source
+
+```c
+const char *
+view_query_is_auto_updatable(Query *viewquery, bool check_cols)
+{
+    RangeTblRef *rtr;
+    RangeTblEntry *base_rte;
+
+    // Check SQL-92 auto-updatable view restrictions
+    if (viewquery->distinctClause != NIL)
+        return gettext_noop("Views containing DISTINCT are not automatically updatable.");
+
+    if (viewquery->groupClause != NIL || viewquery->groupingSets)
+        return gettext_noop("Views containing GROUP BY are not automatically updatable.");
+
+    if (viewquery->havingQual != NULL)
+        return gettext_noop("Views containing HAVING are not automatically updatable.");
+
+    if (viewquery->setOperations != NULL)
+        return gettext_noop("Views containing UNION, INTERSECT, or EXCEPT are not automatically updatable.");
+
+    if (viewquery->cteList != NIL)
+        return gettext_noop("Views containing WITH are not automatically updatable.");
+
+    if (viewquery->limitOffset != NULL || viewquery->limitCount != NULL)
+        return gettext_noop("Views containing LIMIT or OFFSET are not automatically updatable.");
+
+    // Check for aggregates, window functions, and set-returning functions
+    if (viewquery->hasAggs)
+        return gettext_noop("Views that return aggregate functions are not automatically updatable.");
+
+    if (viewquery->hasWindowFuncs)
+        return gettext_noop("Views that return window functions are not automatically updatable.");
+
+    if (viewquery->hasTargetSRFs)
+        return gettext_noop("Views that return set-returning functions are not automatically updatable.");
+
+    // Ensure exactly one base relation in FROM clause
+    if (list_length(viewquery->jointree->fromlist) != 1)
+        return gettext_noop("Views that do not select from a single table or view are not automatically updatable.");
+
+    rtr = (RangeTblRef *) linitial(viewquery->jointree->fromlist);
+    if (!IsA(rtr, RangeTblRef))
+        return gettext_noop("Views that do not select from a single table or view are not automatically updatable.");
+
+    // Validate base relation type
+    base_rte = rt_fetch(rtr->rtindex, viewquery->rtable);
+    if (base_rte->rtekind != RTE_RELATION ||
+        (base_rte->relkind != RELKIND_RELATION &&
+         base_rte->relkind != RELKIND_FOREIGN_TABLE &&
+         base_rte->relkind != RELKIND_VIEW &&
+         base_rte->relkind != RELKIND_PARTITIONED_TABLE))
+        return gettext_noop("Views that do not select from a single table or view are not automatically updatable.");
+
+    if (base_rte->tablesample)
+        return gettext_noop("Views containing TABLESAMPLE are not automatically updatable.");
+
+    // Check for at least one updatable column if required
+    if (check_cols)
+    {
+        ListCell   *cell;
+        bool        found = false;
+
+        foreach(cell, viewquery->targetList)
+        {
+            TargetEntry *tle = (TargetEntry *) lfirst(cell);
+
+            if (view_col_is_auto_updatable(rtr, tle) == NULL)
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+            return gettext_noop("Views that have no updatable columns are not automatically updatable.");
+    }
+
+    return NULL;  // View is auto-updatable
+}
+```

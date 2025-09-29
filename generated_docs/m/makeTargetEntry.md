@@ -22,7 +22,7 @@ The function creates a new TargetEntry node using PostgreSQL's node allocation s
 
 ## Parameters / Member Variables
 - : Expression to be evaluated for this target entry (can be a column reference, function call, constant, etc.)
-- : Result column number (position in the target list, starting from 1)  
+- : Result column number (position in the target list, starting from 1)
 - : Result column name (can be NULL for unnamed expressions)
 - : Boolean flag indicating whether this is a "junk" column (used internally but not returned to user)
 
@@ -42,3 +42,29 @@ The function creates a new TargetEntry node using PostgreSQL's node allocation s
 - This is a core function used extensively throughout the parser, optimizer, and rewriter subsystems
 - The  flag is crucial for distinguishing between user-visible columns and internal processing columns
 - Located in src/backend/nodes/makefuncs.c:287-319
+
+## Simplified Source
+
+```c
+TargetEntry *
+makeTargetEntry(Expr *expr,
+                AttrNumber resno,
+                char *resname,
+                bool resjunk)
+{
+    TargetEntry *tle = makeNode(TargetEntry);
+
+    // Set the primary fields
+    tle->expr = expr;
+    tle->resno = resno;
+    tle->resname = resname;
+    tle->resjunk = resjunk;
+
+    // Initialize optional fields to defaults
+    tle->ressortgroupref = 0;
+    tle->resorigtbl = InvalidOid;
+    tle->resorigcol = 0;
+
+    return tle;
+}
+```

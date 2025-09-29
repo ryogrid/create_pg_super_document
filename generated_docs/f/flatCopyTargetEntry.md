@@ -19,7 +19,7 @@ The function creates a new TargetEntry node and copies all field values from the
 ## Parameters / Member Variables
 - `src_tle`: Source TargetEntry node to be copied (must be a valid TargetEntry node)
 
-## Dependencies  
+## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation)
   - IsA (macro for node type checking)
@@ -38,3 +38,18 @@ The function creates a new TargetEntry node and copies all field values from the
 - The Assert() ensures type safety by verifying the source is actually a TargetEntry node
 - More efficient than deep copying when substructure sharing is acceptable or desired
 - Located in src/backend/nodes/makefuncs.c:320-333
+
+## Simplified Source
+
+```c
+TargetEntry *
+flatCopyTargetEntry(TargetEntry *src_tle)
+{
+    TargetEntry *new_tle = makeNode(TargetEntry);
+
+    // Shallow copy all fields from source to new TargetEntry
+    memcpy(new_tle, src_tle, sizeof(TargetEntry));
+
+    return new_tle;
+}
+```
