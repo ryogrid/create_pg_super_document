@@ -50,3 +50,40 @@ None - operates on global state and MyProc
 - Includes debugging support via DumpAllLocks when LOCK_DEBUG is enabled
 - Located in src/backend/storage/lmgr/proc.c:1759-1844
 - Part of PostgreSQL's comprehensive deadlock prevention and detection system
+
+## Simplified Source
+
+```c
+static void
+CheckDeadLock(void)
+{
+    int i;
+
+    // Acquire all lock partition locks in order to get stable view
+    for (i = 0; i < NUM_LOCK_PARTITIONS; i++)
+        LWLockAcquire(LockHashPartitionLockByIndex(i), LW_EXCLUSIVE);
+
+    // Check if we've been awakened while acquiring locks
+    // If unlinked from wait queue, we can proceed
+    if (MyProc->links.prev == NULL || MyProc->links.next == NULL)
+        goto check_done;
+
+    // Run deadlock detection algorithm
+    deadlock_state = DeadLockCheck(MyProc);
+
+    // If hard deadlock detected, remove ourselves from wait queue
+    if (deadlock_state == DS_HARD_DEADLOCK)
+    {
+        // Remove from wait queue and set error status
+        Assert(MyProc->waitLock != NULL);
+        RemoveFromWaitQueue(MyProc, LockTagHashCode(&(MyProc->waitLock->tag)));
+
+        // Transaction will abort, releasing other locks automatically
+    }
+
+check_done:
+    // Release all partition locks in reverse order
+    for (i = NUM_LOCK_PARTITIONS; --i >= 0;)
+        LWLockRelease(LockHashPartitionLockByIndex(i));
+}
+```

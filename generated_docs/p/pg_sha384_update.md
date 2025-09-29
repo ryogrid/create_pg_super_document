@@ -42,3 +42,13 @@ The function can be called multiple times to process data incrementally, automat
 - Must be called after `pg_sha384_init` and before `pg_sha384_final` in the hash computation sequence
 - The function follows the standard incremental hashing pattern allowing streaming of large datasets
 - Part of PostgreSQL's internal cryptographic library and should not be called directly by user code
+
+## Simplified Source
+
+```c
+void pg_sha384_update(pg_sha384_ctx *context, const uint8 *data, size_t len) {
+    // SHA-384 shares the same algorithm as SHA-512, just different initial values
+    // So we can safely cast and delegate to the SHA-512 implementation
+    pg_sha512_update((pg_sha512_ctx *) context, data, len);
+}
+```

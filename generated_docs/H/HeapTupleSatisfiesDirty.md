@@ -55,3 +55,93 @@ The function is static and primarily used internally by the visibility subsystem
 The snapshot parameter serves as both input and output - the function modifies snapshot->xmin, snapshot->xmax, and snapshot->speculativeToken to inform the caller about concurrent transactions affecting the tuple. This information is crucial for operations that need to track or wait for concurrent transactions.
 
 Special handling is included for speculative insertions, where the inserting transaction might still back down without aborting the entire transaction. The speculative token is returned to allow proper coordination between concurrent operations.
+
+## Simplified Source
+
+```c
+static bool HeapTupleSatisfiesDirty(HeapTuple htup, Snapshot snapshot, Buffer buffer)
+{
+    HeapTupleHeader tuple = htup->t_data;
+
+    // Initialize output parameters
+    snapshot->xmin = snapshot->xmax = InvalidTransactionId;
+    snapshot->speculativeToken = 0;
+
+    // Step 1: Check if tuple insertion is committed
+    if (!HeapTupleHeaderXminCommitted(tuple)) {
+        if (HeapTupleHeaderXminInvalid(tuple))
+            return false;
+
+        // Handle pre-9.0 binary upgrade cases (HEAP_MOVED_OFF/IN)
+        if (handle_moved_tuples(tuple, buffer))
+            return process_moved_result();
+
+        // Handle current transaction's insertion
+        if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmin(tuple))) {
+            return handle_current_transaction_insert(tuple, buffer);
+        }
+
+        // Handle in-progress insertion by another transaction
+        if (TransactionIdIsInProgress(HeapTupleHeaderGetRawXmin(tuple))) {
+            // Return speculative token if this is a speculative insert
+            if (HeapTupleHeaderIsSpeculative(tuple)) {
+                snapshot->speculativeToken = HeapTupleHeaderGetSpeculativeToken(tuple);
+            }
+            snapshot->xmin = HeapTupleHeaderGetRawXmin(tuple);
+            return true; // Visible even though inserter hasn't committed
+        }
+
+        // Check if inserting transaction committed
+        if (TransactionIdDidCommit(HeapTupleHeaderGetRawXmin(tuple))) {
+            SetHintBits(tuple, buffer, HEAP_XMIN_COMMITTED, HeapTupleHeaderGetRawXmin(tuple));
+        } else {
+            SetHintBits(tuple, buffer, HEAP_XMIN_INVALID, InvalidTransactionId);
+            return false;
+        }
+    }
+
+    // Step 2: Insertion is committed, now check deletion/update status
+    if (tuple->t_infomask & HEAP_XMAX_INVALID)
+        return true; // Not deleted/updated
+
+    if (tuple->t_infomask & HEAP_XMAX_COMMITTED) {
+        if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask))
+            return true; // Just locked, not deleted
+        return false; // Actually deleted/updated
+    }
+
+    // Handle multixact (multiple lockers/updaters)
+    if (tuple->t_infomask & HEAP_XMAX_IS_MULTI) {
+        return handle_multixact_case(tuple, snapshot);
+    }
+
+    // Handle single transaction in xmax
+    TransactionId xmax = HeapTupleHeaderGetRawXmax(tuple);
+
+    if (TransactionIdIsCurrentTransactionId(xmax)) {
+        return !HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask) ? false : true;
+    }
+
+    if (TransactionIdIsInProgress(xmax)) {
+        // Report in-progress deleting transaction
+        if (!HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask))
+            snapshot->xmax = xmax;
+        return true; // Visible until deleter commits
+    }
+
+    if (!TransactionIdDidCommit(xmax)) {
+        // Deleting transaction aborted
+        SetHintBits(tuple, buffer, HEAP_XMAX_INVALID, InvalidTransactionId);
+        return true;
+    }
+
+    // Deleting transaction committed
+    if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask)) {
+        SetHintBits(tuple, buffer, HEAP_XMAX_INVALID, InvalidTransactionId);
+        return true;
+    }
+
+    SetHintBits(tuple, buffer, HEAP_XMAX_COMMITTED, xmax);
+    return false; // Deleted by committed transaction
+}
+```

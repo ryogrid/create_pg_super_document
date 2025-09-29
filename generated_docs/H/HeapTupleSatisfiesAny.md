@@ -35,3 +35,13 @@ The function serves as a "bypass" for the normal MVCC visibility checks, allowin
 - Provides a consistent interface with other visibility functions while bypassing all MVCC checks
 - Essential for operations that need to see deleted, uncommitted, or otherwise invisible tuples
 - Part of PostgreSQL's pluggable tuple visibility system architecture
+
+## Simplified Source
+
+```c
+static bool HeapTupleSatisfiesAny(HeapTuple htup, Snapshot snapshot, Buffer buffer)
+{
+    // Always return true - every tuple is visible with SnapshotAny
+    return true;
+}
+```

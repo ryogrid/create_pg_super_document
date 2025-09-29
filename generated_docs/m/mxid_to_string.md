@@ -41,3 +41,36 @@ This function creates a formatted string representation of a MultiXact ID and it
 - Primarily used for debugging, logging, and error reporting
 - Format: "MultiXactId count[xid1 (status1), xid2 (status2), ...]"
 - Located in src/backend/access/transam/multixact.c:1769-1799
+
+## Simplified Source
+
+```c
+char *
+mxid_to_string(MultiXactId multi, int nmembers, MultiXactMember *members)
+{
+    static char *str = NULL;
+    StringInfoData buf;
+
+    // Free previous result
+    if (str != NULL)
+        pfree(str);
+
+    // Initialize string buffer
+    initStringInfo(&buf);
+
+    // Format: "multixact_id member_count[first_xid (status)"
+    appendStringInfo(&buf, "%u %d[%u (%s)", multi, nmembers, members[0].xid,
+                     mxstatus_to_string(members[0].status));
+
+    // Add remaining members: ", xid (status)"
+    for (int i = 1; i < nmembers; i++)
+        appendStringInfo(&buf, ", %u (%s)", members[i].xid,
+                         mxstatus_to_string(members[i].status));
+
+    // Close bracket and return persistent copy
+    appendStringInfoChar(&buf, ']');
+    str = MemoryContextStrdup(TopMemoryContext, buf.data);
+    pfree(buf.data);
+    return str;
+}
+```

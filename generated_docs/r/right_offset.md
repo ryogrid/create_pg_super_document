@@ -31,3 +31,12 @@ The `right_offset` function implements the standard binary heap indexing formula
 - Essential for heap maintenance operations like sifting down during heap property restoration
 - The function works with 64-bit indices to support large heap sizes
 - Together with `left_offset`, provides the complete set of child navigation functions for binary heap algorithms
+
+## Simplified Source
+
+```c
+static inline uint64 right_offset(uint64 i) {
+    // Calculate right child index in binary heap: 2*i + 2
+    return 2 * i + 2;
+}
+```

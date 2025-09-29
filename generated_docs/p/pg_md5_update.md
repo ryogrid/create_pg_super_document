@@ -39,3 +39,37 @@ The function maintains a running count of processed bits (md5_n) and uses an int
 - The internal buffer (md5_buf) size is exactly MD5_BUFLEN (64 bytes) to match MD5 block size requirements
 - Critical middle step in PostgreSQL's MD5 workflow: init → update → final
 - Thread-safe as it only modifies the provided context structure
+
+## Simplified Source
+
+```c
+void
+pg_md5_update(pg_md5_ctx *ctx, const uint8 *data, size_t len)
+{
+    // Update bit count (bytes to bits)
+    ctx->md5_n += len * 8;
+
+    // Calculate space available in current buffer
+    unsigned int gap = MD5_BUFLEN - ctx->md5_i;
+
+    if (len >= gap) {
+        // Fill current buffer and process it
+        memmove(ctx->md5_buf + ctx->md5_i, data, gap);
+        md5_calc(ctx->md5_buf, ctx);
+
+        // Process complete 64-byte blocks directly from input
+        unsigned int i;
+        for (i = gap; i + MD5_BUFLEN <= len; i += MD5_BUFLEN) {
+            md5_calc(data + i, ctx);
+        }
+
+        // Buffer remaining partial data
+        ctx->md5_i = len - i;
+        memmove(ctx->md5_buf, data + i, ctx->md5_i);
+    } else {
+        // Just append to current buffer
+        memmove(ctx->md5_buf + ctx->md5_i, data, len);
+        ctx->md5_i += len;
+    }
+}
+```

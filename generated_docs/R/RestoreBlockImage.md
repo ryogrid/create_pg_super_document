@@ -46,3 +46,89 @@ The function supports multiple compression algorithms conditionally based on bui
 - The output page buffer must be exactly BLCKSZ bytes in size
 - Essential for crash recovery and point-in-time recovery operations
 - Used extensively during WAL replay to restore full pages when incremental changes are insufficient
+
+## Simplified Source
+```c
+bool RestoreBlockImage(XLogReaderState *record, uint8 block_id, char *page)
+{
+    DecodedBkpBlock *bkpb;
+    char *ptr;
+    PGAlignedBlock tmp;
+
+    // Validate block ID and check for image
+    if (block_id > record->record->max_block_id ||
+        !record->record->blocks[block_id].in_use) {
+        report_invalid_record(record, "invalid block %d specified", block_id);
+        return false;
+    }
+
+    if (!record->record->blocks[block_id].has_image) {
+        report_invalid_record(record, "block %d has no image", block_id);
+        return false;
+    }
+
+    bkpb = &record->record->blocks[block_id];
+    ptr = bkpb->bkp_image;
+
+    // Handle compressed images
+    if (BKPIMAGE_COMPRESSED(bkpb->bimg_info)) {
+        bool decomp_success = true;
+
+        if (bkpb->bimg_info & BKPIMAGE_COMPRESS_PGLZ) {
+            // Decompress using PGLZ
+            if (pglz_decompress(ptr, bkpb->bimg_len, tmp.data,
+                               BLCKSZ - bkpb->hole_length, true) < 0) {
+                decomp_success = false;
+            }
+        } else if (bkpb->bimg_info & BKPIMAGE_COMPRESS_LZ4) {
+            // Decompress using LZ4 (if available)
+#ifdef USE_LZ4
+            if (LZ4_decompress_safe(ptr, tmp.data, bkpb->bimg_len,
+                                   BLCKSZ - bkpb->hole_length) <= 0) {
+                decomp_success = false;
+            }
+#else
+            report_invalid_record(record, "LZ4 compression not supported");
+            return false;
+#endif
+        } else if (bkpb->bimg_info & BKPIMAGE_COMPRESS_ZSTD) {
+            // Decompress using ZSTD (if available)
+#ifdef USE_ZSTD
+            size_t result = ZSTD_decompress(tmp.data, BLCKSZ - bkpb->hole_length,
+                                           ptr, bkpb->bimg_len);
+            if (ZSTD_isError(result)) {
+                decomp_success = false;
+            }
+#else
+            report_invalid_record(record, "ZSTD compression not supported");
+            return false;
+#endif
+        } else {
+            report_invalid_record(record, "unknown compression method");
+            return false;
+        }
+
+        if (!decomp_success) {
+            report_invalid_record(record, "decompression failed for block %d", block_id);
+            return false;
+        }
+
+        ptr = tmp.data;
+    }
+
+    // Restore page, handling holes if present
+    if (bkpb->hole_length == 0) {
+        // No hole, simple copy
+        memcpy(page, ptr, BLCKSZ);
+    } else {
+        // Copy around hole and zero-fill hole region
+        memcpy(page, ptr, bkpb->hole_offset);
+        MemSet(page + bkpb->hole_offset, 0, bkpb->hole_length);
+        memcpy(page + (bkpb->hole_offset + bkpb->hole_length),
+               ptr + bkpb->hole_offset,
+               BLCKSZ - (bkpb->hole_offset + bkpb->hole_length));
+    }
+
+    return true;
+}
+```

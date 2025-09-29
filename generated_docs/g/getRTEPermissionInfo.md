@@ -41,3 +41,27 @@ RTEPermissionInfo *getRTEPermissionInfo(List *rteperminfos, RangeTblEntry *rte)
 - The validation checks help ensure the integrity of the permission info system and catch potential bugs early
 - Widely used throughout the query execution pipeline, from planning to execution phases
 - The function serves as the primary interface for accessing permission information during query processing
+
+## Simplified Source
+
+```c
+RTEPermissionInfo *getRTEPermissionInfo(List *rteperminfos, RangeTblEntry *rte) {
+    // Validate permission info index is within valid range
+    if (rte->perminfoindex == 0 || rte->perminfoindex > list_length(rteperminfos)) {
+        elog(ERROR, "invalid perminfoindex %u in RTE with relid %u",
+             rte->perminfoindex, rte->relid);
+    }
+
+    // Get permission info from list (convert 1-based index to 0-based)
+    RTEPermissionInfo *perminfo = list_nth_node(RTEPermissionInfo, rteperminfos,
+                                                rte->perminfoindex - 1);
+
+    // Verify relation IDs match between RTE and permission info
+    if (perminfo->relid != rte->relid) {
+        elog(ERROR, "permission info relid mismatch: index %u has relid %u, RTE has relid %u",
+             rte->perminfoindex, perminfo->relid, rte->relid);
+    }
+
+    return perminfo;
+}
+```

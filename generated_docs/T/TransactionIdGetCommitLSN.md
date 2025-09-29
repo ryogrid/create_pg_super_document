@@ -34,3 +34,26 @@ The function is primarily used in visibility checking contexts where the system 
 
 ## Notes and Other Information
 The function leverages caching from TransactionLogFetch operations since most callers have recently checked transaction status. For special XIDs (bootstrap, frozen, etc.), it returns InvalidXLogRecPtr since these are always considered committed without needing WAL records. The grouping of transactions on the same clog page means the returned LSN might correspond to a later transaction in the same group, which still provides the necessary durability guarantee.
+
+## Simplified Source
+
+```c
+XLogRecPtr
+TransactionIdGetCommitLSN(TransactionId xid)
+{
+    XLogRecPtr result;
+
+    // Check cache first (optimization for recently fetched transactions)
+    if (TransactionIdEquals(xid, cachedFetchXid))
+        return cachedCommitLSN;
+
+    // Special XIDs are always committed, no WAL record needed
+    if (!TransactionIdIsNormal(xid))
+        return InvalidXLogRecPtr;
+
+    // Get transaction status and associated LSN
+    (void) TransactionIdGetStatus(xid, &result);
+
+    return result;
+}
+```

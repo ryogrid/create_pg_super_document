@@ -29,3 +29,21 @@ This function provides exclusive locking for PostgreSQL statistics entries to en
 
 ## Notes and Other Information
 Most statistics operations require exclusive access, making this the primary locking function. The function always returns true when nowait is false, as LWLockAcquire() will block until successful.
+
+## Simplified Source
+
+```c
+bool
+pgstat_lock_entry(PgStat_EntryRef *entry_ref, bool nowait)
+{
+    LWLock *lock = &entry_ref->shared_stats->lock;
+
+    // Try conditional lock if nowait requested
+    if (nowait)
+        return LWLockConditionalAcquire(lock, LW_EXCLUSIVE);
+
+    // Otherwise block until lock acquired
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+    return true;
+}
+```

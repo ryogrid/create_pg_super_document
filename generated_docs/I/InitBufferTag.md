@@ -44,3 +44,22 @@ The function extracts the tablespace OID and database OID directly from the RelF
 - Used extensively throughout the buffer management subsystem for buffer identification
 - Critical for proper buffer hash table operations and buffer lookup functionality
 - The function ensures consistent initialization of BufferTag structures across the codebase
+
+## Simplified Source
+
+```c
+static inline void
+InitBufferTag(BufferTag *tag, const RelFileLocator *rlocator,
+              ForkNumber forkNum, BlockNumber blockNum)
+{
+    // Set tablespace and database identifiers from the file locator
+    tag->spcOid = rlocator->spcOid;
+    tag->dbOid = rlocator->dbOid;
+
+    // Set relation number and fork number using helper function
+    BufTagSetRelForkDetails(tag, rlocator->relNumber, forkNum);
+
+    // Set the specific block number
+    tag->blockNum = blockNum;
+}
+```

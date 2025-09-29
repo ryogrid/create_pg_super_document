@@ -43,3 +43,40 @@ GetForeignDataWrapperExtended is the core function for looking up foreign-data w
 - The returned structure includes: fdwid, owner, fdwname, fdwhandler, fdwvalidator, and options
 - Error handling is controlled by the FDW_MISSING_OK flag in the flags parameter
 - This is the primary implementation function that other FDW lookup functions delegate to
+
+## Simplified Source
+
+```c
+ForeignDataWrapper *
+GetForeignDataWrapperExtended(Oid fdwid, bits16 flags)
+{
+    // Look up foreign data wrapper in system catalog
+    HeapTuple tp = SearchSysCache1(FOREIGNDATAWRAPPEROID, ObjectIdGetDatum(fdwid));
+
+    // Handle missing wrapper based on flags
+    if (!HeapTupleIsValid(tp)) {
+        if ((flags & FDW_MISSING_OK) == 0)
+            elog(ERROR, "cache lookup failed for foreign-data wrapper %u", fdwid);
+        return NULL;
+    }
+
+    // Extract wrapper information from catalog tuple
+    Form_pg_foreign_data_wrapper fdwform = (Form_pg_foreign_data_wrapper) GETSTRUCT(tp);
+
+    // Allocate and populate ForeignDataWrapper structure
+    ForeignDataWrapper *fdw = (ForeignDataWrapper *) palloc(sizeof(ForeignDataWrapper));
+    fdw->fdwid = fdwid;
+    fdw->owner = fdwform->fdwowner;
+    fdw->fdwname = pstrdup(NameStr(fdwform->fdwname));
+    fdw->fdwhandler = fdwform->fdwhandler;
+    fdw->fdwvalidator = fdwform->fdwvalidator;
+
+    // Extract and parse options
+    Datum datum = SysCacheGetAttr(FOREIGNDATAWRAPPEROID, tp,
+                                  Anum_pg_foreign_data_wrapper_fdwoptions, &isnull);
+    fdw->options = isnull ? NIL : untransformRelOptions(datum);
+
+    ReleaseSysCache(tp);
+    return fdw;
+}
+```

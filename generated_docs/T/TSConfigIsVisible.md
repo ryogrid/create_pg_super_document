@@ -30,3 +30,14 @@ TSConfigIsVisible is a simple wrapper function that determines if a text search 
 - The function is part of PostgreSQL's namespace visibility system for text search configurations
 - Visibility depends on the current search path and whether other configurations with the same name appear earlier in the path
 - Located in src/backend/catalog/namespace.c:3210-3221
+
+## Simplified Source
+
+```c
+bool
+TSConfigIsVisible(Oid cfgid)
+{
+    // Simple wrapper that delegates to the extended version
+    return TSConfigIsVisibleExt(cfgid, NULL);
+}
+```

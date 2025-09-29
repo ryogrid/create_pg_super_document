@@ -30,3 +30,12 @@ The `left_offset` function implements the standard binary heap indexing formula 
 - Used in conjunction with `right_offset` for complete binary tree navigation
 - Essential for heap maintenance operations like sifting down during heap property restoration
 - The function works with 64-bit indices to support large heap sizes
+
+## Simplified Source
+
+```c
+static inline uint64 left_offset(uint64 i) {
+    // Calculate left child index in binary heap: 2*i + 1
+    return 2 * i + 1;
+}
+```

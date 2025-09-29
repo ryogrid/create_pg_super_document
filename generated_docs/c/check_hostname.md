@@ -45,3 +45,92 @@ The function implements caching of DNS resolution results in the  structure to a
 - Debug messages are logged when address resolution fails to match the original client IP
 - The function is static and only used within the HBA authentication module
 - Both IPv4 and IPv6 addresses are supported with appropriate comparison functions
+
+## Simplified Source
+
+```c
+static bool
+check_hostname(hbaPort *port, const char *hostname)
+{
+    struct addrinfo *gai_result, *gai;
+    int ret;
+    bool found;
+
+    // Quick exit if hostname resolution previously failed
+    if (port->remote_hostname_resolv < 0)
+        return false;
+
+    // Perform reverse DNS lookup if not already done
+    if (!port->remote_hostname)
+    {
+        char remote_hostname[NI_MAXHOST];
+
+        ret = pg_getnameinfo_all(&port->raddr.addr, port->raddr.salen,
+                                remote_hostname, sizeof(remote_hostname),
+                                NULL, 0, NI_NAMEREQD);
+        if (ret != 0)
+        {
+            // Cache failure and return false
+            port->remote_hostname_resolv = -2;
+            port->remote_hostname_errcode = ret;
+            return false;
+        }
+
+        port->remote_hostname = pstrdup(remote_hostname);
+    }
+
+    // Check if resolved hostname matches the pattern
+    if (!hostname_match(hostname, port->remote_hostname))
+        return false;
+
+    // If forward lookup already verified, we're done
+    if (port->remote_hostname_resolv == +1)
+        return true;
+
+    // Perform forward DNS lookup for verification
+    ret = getaddrinfo(port->remote_hostname, NULL, NULL, &gai_result);
+    if (ret != 0)
+    {
+        port->remote_hostname_resolv = -2;
+        port->remote_hostname_errcode = ret;
+        return false;
+    }
+
+    // Check if any resolved IP matches the original client IP
+    found = false;
+    for (gai = gai_result; gai; gai = gai->ai_next)
+    {
+        if (gai->ai_addr->sa_family == port->raddr.addr.ss_family)
+        {
+            if (gai->ai_addr->sa_family == AF_INET)
+            {
+                if (ipv4eq((struct sockaddr_in *) gai->ai_addr,
+                          (struct sockaddr_in *) &port->raddr.addr))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            else if (gai->ai_addr->sa_family == AF_INET6)
+            {
+                if (ipv6eq((struct sockaddr_in6 *) gai->ai_addr,
+                          (struct sockaddr_in6 *) &port->raddr.addr))
+                {
+                    found = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Clean up and cache result
+    if (gai_result)
+        freeaddrinfo(gai_result);
+
+    if (!found)
+        elog(DEBUG2, "hostname \"%s\" rejected - address resolution mismatch", hostname);
+
+    port->remote_hostname_resolv = found ? +1 : -1;
+    return found;
+}
+```

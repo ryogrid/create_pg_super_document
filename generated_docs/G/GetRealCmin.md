@@ -34,3 +34,17 @@ This function takes a combo command ID and returns the original cmin value by pe
 - The comboCids array is maintained in TopTransactionContext and destroyed at transaction end
 - The combo CID system is designed to handle the common case where tuples are not both inserted and deleted in the same transaction, while still supporting that scenario when needed
 - The function is critical for translating combo command IDs back to their original cmin values for visibility checking and transaction processing
+
+## Simplified Source
+
+```c
+static CommandId
+GetRealCmin(CommandId combocid)
+{
+    // Validate combo ID is within bounds
+    Assert(combocid < usedComboCids);
+
+    // Return the original cmin from combo CID array
+    return comboCids[combocid].cmin;
+}
+```

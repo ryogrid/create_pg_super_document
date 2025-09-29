@@ -30,3 +30,12 @@ This function performs maintenance work on the KnownAssignedXids data structure 
 - Uses the KAX_STARTUP_PROCESS_IDLE flag to indicate the specific context of maintenance
 - Part of PostgreSQL's Hot Standby recovery system for optimizing transaction tracking performance
 - Does not require explicit locking as KnownAssignedXidsCompress handles its own synchronization
+
+## Simplified Source
+```c
+void KnownAssignedTransactionIdsIdleMaintenance(void)
+{
+    // Perform opportunistic compression of known assigned XIDs during idle time
+    KnownAssignedXidsCompress(KAX_STARTUP_PROCESS_IDLE, false);
+}
+```

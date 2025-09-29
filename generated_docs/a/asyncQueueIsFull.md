@@ -38,3 +38,19 @@ This function takes no parameters and returns:
 - The queue operates on a page-based model where each page can contain multiple notification entries
 - Part of PostgreSQL's flow control mechanism to prevent unbounded queue growth
 - When the queue is full, new NOTIFY commands will be blocked or delayed
+
+## Simplified Source
+
+```c
+static bool
+asyncQueueIsFull(void)
+{
+    // Calculate occupied pages in the queue
+    int64 headPage = QUEUE_POS_PAGE(QUEUE_HEAD);  // Where new notifications go
+    int64 tailPage = QUEUE_POS_PAGE(QUEUE_TAIL);  // Where old notifications are consumed
+    int64 occupied = headPage - tailPage;
+
+    // Queue is full when occupied pages exceed maximum
+    return occupied >= max_notify_queue_pages;
+}
+```

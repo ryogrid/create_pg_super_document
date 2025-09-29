@@ -42,3 +42,20 @@ PostgreSQL supports different lock methods (though DEFAULT_LOCKMETHOD is most co
 - Commonly used lock mode names include: "AccessShareLock", "RowShareLock", "RowExclusiveLock", "ShareUpdateExclusiveLock", "ShareLock", "ShareRowExclusiveLock", "ExclusiveLock", "AccessExclusiveLock"
 - Essential for user-visible lock reporting in system views and functions
 - The function assumes the caller has already validated that the lock method and mode are legitimate
+
+## Simplified Source
+
+```c
+const char *
+GetLockmodeName(LOCKMETHODID lockmethodid, LOCKMODE mode)
+{
+    // Validate lock method ID is in valid range
+    Assert(lockmethodid > 0 && lockmethodid < lengthof(LockMethods));
+
+    // Validate mode is in valid range for this lock method
+    Assert(mode > 0 && mode <= LockMethods[lockmethodid]->numLockModes);
+
+    // Return the textual name from the lock method configuration
+    return LockMethods[lockmethodid]->lockModeNames[mode];
+}
+```

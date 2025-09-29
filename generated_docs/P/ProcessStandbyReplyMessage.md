@@ -22,7 +22,7 @@ A notable optimization clears stale lag metrics when a standby reports being ful
 ## Parameters / Member Variables
 This function takes no parameters but processes data from the global  buffer containing:
 - : LSN up to which WAL has been written to disk on standby
-- : LSN up to which WAL has been flushed to disk on standby  
+- : LSN up to which WAL has been flushed to disk on standby
 - : LSN up to which WAL has been applied on standby
 - : Timestamp when the reply was sent by standby
 - : Boolean indicating if standby requests a keepalive response
@@ -45,3 +45,67 @@ This function takes no parameters but processes data from the global  buffer con
 - Provides detailed debug logging of received positions and lag metrics
 - Critical for synchronous replication coordination and monitoring
 - Located in src/backend/replication/walsender.c:2406-2510
+
+## Simplified Source
+
+```c
+static void
+ProcessStandbyReplyMessage(void)
+{
+    XLogRecPtr writePtr, flushPtr, applyPtr;
+    bool replyRequested;
+    TimeOffset writeLag, flushLag, applyLag;
+    static bool fullyAppliedLastTime = false;
+
+    // Parse standby reply message
+    writePtr = pq_getmsgint64(&reply_message);
+    flushPtr = pq_getmsgint64(&reply_message);
+    applyPtr = pq_getmsgint64(&reply_message);
+    replyTime = pq_getmsgint64(&reply_message);
+    replyRequested = pq_getmsgbyte(&reply_message);
+
+    // Calculate replication lag times
+    TimestampTz now = GetCurrentTimestamp();
+    writeLag = LagTrackerRead(SYNC_REP_WAIT_WRITE, writePtr, now);
+    flushLag = LagTrackerRead(SYNC_REP_WAIT_FLUSH, flushPtr, now);
+    applyLag = LagTrackerRead(SYNC_REP_WAIT_APPLY, applyPtr, now);
+
+    // Clear stale lag metrics if standby is fully caught up twice in a row
+    bool clearLagTimes = false;
+    if (applyPtr == sentPtr) {
+        if (fullyAppliedLastTime)
+            clearLagTimes = true;
+        fullyAppliedLastTime = true;
+    } else {
+        fullyAppliedLastTime = false;
+    }
+
+    // Send keepalive response if requested
+    if (replyRequested)
+        WalSndKeepalive(false, InvalidXLogRecPtr);
+
+    // Update shared WalSender state with current positions and lag metrics
+    WalSnd *walsnd = MyWalSnd;
+    SpinLockAcquire(&walsnd->mutex);
+    walsnd->write = writePtr;
+    walsnd->flush = flushPtr;
+    walsnd->apply = applyPtr;
+    if (writeLag != -1 || clearLagTimes) walsnd->writeLag = writeLag;
+    if (flushLag != -1 || clearLagTimes) walsnd->flushLag = flushLag;
+    if (applyLag != -1 || clearLagTimes) walsnd->applyLag = applyLag;
+    walsnd->replyTime = replyTime;
+    SpinLockRelease(&walsnd->mutex);
+
+    // Release waiting sync rep processes
+    if (!am_cascading_walsender)
+        SyncRepReleaseWaiters();
+
+    // Advance replication slot based on confirmed flush position
+    if (MyReplicationSlot && flushPtr != InvalidXLogRecPtr) {
+        if (SlotIsLogical(MyReplicationSlot))
+            LogicalConfirmReceivedLocation(flushPtr);
+        else
+            PhysicalConfirmReceivedLocation(flushPtr);
+    }
+}
+```

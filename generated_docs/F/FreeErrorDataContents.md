@@ -33,3 +33,29 @@ FreeErrorDataContents is a static utility function that systematically deallocat
 - Safe to call multiple times on the same ErrorData structure due to null checking
 - Used both during normal error processing cleanup and when explicitly freeing copied ErrorData structures
 - Covers all known dynamically allocated string fields in the ErrorData structure
+
+## Simplified Source
+
+```c
+static void
+FreeErrorDataContents(ErrorData *edata)
+{
+    // Free all dynamically allocated string fields
+    if (edata->message)         pfree(edata->message);
+    if (edata->detail)          pfree(edata->detail);
+    if (edata->detail_log)      pfree(edata->detail_log);
+    if (edata->hint)            pfree(edata->hint);
+    if (edata->context)         pfree(edata->context);
+    if (edata->backtrace)       pfree(edata->backtrace);
+
+    // Free database object name fields
+    if (edata->schema_name)     pfree(edata->schema_name);
+    if (edata->table_name)      pfree(edata->table_name);
+    if (edata->column_name)     pfree(edata->column_name);
+    if (edata->datatype_name)   pfree(edata->datatype_name);
+    if (edata->constraint_name) pfree(edata->constraint_name);
+
+    // Free internal query string
+    if (edata->internalquery)   pfree(edata->internalquery);
+}
+```

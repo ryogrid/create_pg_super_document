@@ -52,3 +52,51 @@ The  function converts human-readable time components stored in a  structure int
 - Performs multiple overflow checks to prevent integer overflow during calculation
 - The function is the inverse of timestamp2tm and is essential for timestamp input/parsing operations
 - All intermediate calculations use TimeOffset type to handle potential overflow scenarios
+
+## Simplified Source
+
+```c
+int
+tm2timestamp(struct pg_tm *tm, fsec_t fsec, int *tzp, Timestamp *result)
+{
+    // Validate input date
+    if (!IS_VALID_JULIAN(tm->tm_year, tm->tm_mon, tm->tm_mday)) {
+        *result = 0;
+        return -1;
+    }
+
+    // Convert date to days since PostgreSQL epoch (J2000)
+    TimeOffset date = date2j(tm->tm_year, tm->tm_mon, tm->tm_mday) - POSTGRES_EPOCH_JDATE;
+
+    // Convert time to microseconds since midnight
+    TimeOffset time = time2t(tm->tm_hour, tm->tm_min, tm->tm_sec, fsec);
+
+    // Combine date and time
+    *result = date * USECS_PER_DAY + time;
+
+    // Check for overflow
+    if ((*result - time) / USECS_PER_DAY != date) {
+        *result = 0;
+        return -1;
+    }
+
+    // Check for range errors (just-barely overflow cases)
+    if ((*result < 0 && date > 0) || (*result > 0 && date < -1)) {
+        *result = 0;
+        return -1;
+    }
+
+    // Apply timezone offset if requested
+    if (tzp != NULL) {
+        *result = dt2local(*result, -(*tzp));
+    }
+
+    // Final validation
+    if (!IS_VALID_TIMESTAMP(*result)) {
+        *result = 0;
+        return -1;
+    }
+
+    return 0;
+}
+```

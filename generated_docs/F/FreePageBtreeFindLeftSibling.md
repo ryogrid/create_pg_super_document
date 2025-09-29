@@ -37,3 +37,39 @@ The function handles the edge case where the passed page is the leftmost page in
 - Maintains level tracking to ensure proper descent to the correct tree level
 - The algorithm guarantees that the returned sibling is at the same tree level as the input page
 - Critical for B-tree maintenance operations like page consolidation and redistribution
+
+## Simplified Source
+
+```c
+static FreePageBtree *
+FreePageBtreeFindLeftSibling(char *base, FreePageBtree *btp)
+{
+    FreePageBtree *p = btp;
+    int levels = 0;
+
+    // Move up the tree until we can move left
+    for (;;) {
+        Size first_page = FreePageBtreeFirstKey(p);
+        p = relptr_access(base, p->hdr.parent);
+
+        if (p == NULL)
+            return NULL; // Leftmost page in tree
+
+        Size index = FreePageBtreeSearchInternal(p, first_page);
+        if (index > 0) {
+            // Found position where we can move left
+            p = relptr_access(base, p->u.internal_key[index - 1].child);
+            break;
+        }
+        levels++;
+    }
+
+    // Descend to the same level by going right at each level
+    while (levels > 0) {
+        p = relptr_access(base, p->u.internal_key[p->hdr.nused - 1].child);
+        levels--;
+    }
+
+    return p;
+}
+```

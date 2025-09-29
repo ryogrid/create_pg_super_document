@@ -31,3 +31,12 @@ The function serves as the primary interface for visibility checking when error 
 - The function will throw an error if the conversion OID is invalid, rather than gracefully handling the missing case
 - Part of PostgreSQL's namespace visibility system that determines which objects are accessible without schema qualification
 - Located in src/backend/catalog/namespace.c:2509-2520
+
+## Simplified Source
+
+```c
+bool ConversionIsVisible(Oid conid) {
+    // Delegate to extended version with error-throwing behavior
+    return ConversionIsVisibleExt(conid, NULL);
+}
+```

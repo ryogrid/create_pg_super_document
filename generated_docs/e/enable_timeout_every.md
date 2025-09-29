@@ -38,3 +38,21 @@ The periodic nature makes this function particularly useful for recurring operat
 - The delay is specified in milliseconds for fine-grained control over timing
 - Uses the PostgreSQL timestamp system for precise timing calculations
 - Part of PostgreSQL's unified timeout management system introduced to handle various timing-sensitive operations
+
+## Simplified Source
+
+```c
+void enable_timeout_every(TimeoutId id, TimestampTz fin_time, int delay_ms) {
+    TimestampTz now;
+
+    // Temporarily disable alarm interrupts for safety
+    disable_alarm();
+
+    // Set up the periodic timeout
+    now = GetCurrentTimestamp();
+    enable_timeout(id, now, fin_time, delay_ms);
+
+    // Re-enable timer interrupts with new schedule
+    schedule_alarm(now);
+}
+```

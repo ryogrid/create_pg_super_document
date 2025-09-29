@@ -36,3 +36,27 @@ The backtrace_function_list is organized as a sequence of null-terminated string
 - Related to the check_backtrace_functions configuration mechanism mentioned in the comments
 - This is part of PostgreSQL's configurable debugging infrastructure for selective backtrace generation
 - Enables targeted debugging by allowing administrators to specify which functions should trigger backtrace collection
+
+## Simplified Source
+
+```c
+static bool
+matches_backtrace_functions(const char *funcname)
+{
+    const char *p;
+
+    // Quick exit for invalid inputs
+    if (!backtrace_function_list || !funcname || funcname[0] == '\0')
+        return false;
+
+    // Search through the function name list
+    p = backtrace_function_list;
+    while (*p != '\0') {
+        if (strcmp(funcname, p) == 0)
+            return true;
+        p += strlen(p) + 1;  // Move to next null-terminated string
+    }
+
+    return false;
+}
+```

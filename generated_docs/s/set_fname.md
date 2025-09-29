@@ -27,3 +27,14 @@ The `set_fname` function is a static inline helper function that assigns a field
 
 ## Notes and Other Information
 This is a static inline function, meaning it's only accessible within the jsonapi.c file and will likely be inlined by the compiler for performance. The function provides a clean abstraction for managing field names during JSON parsing, helping to track the hierarchical structure of nested JSON objects.
+
+## Simplified Source
+
+```c
+static inline void
+set_fname(JsonLexContext *lex, char *fname)
+{
+    // Set field name for current parsing level
+    lex->pstack->fnames[lex->lex_level] = fname;
+}
+```

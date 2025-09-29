@@ -31,3 +31,12 @@ The `have_prediction` function is a simple predicate that determines whether the
 - Essential for implementing conditional logic in the predictive parsing algorithm
 - Helps prevent accessing empty prediction stacks
 - Simple but crucial for the control flow of the incremental JSON parser
+
+## Simplified Source
+
+```c
+static inline bool have_prediction(JsonParserStack *pstack) {
+    // Check if there are any predictions on the stack
+    return pstack->pred_index > 0;
+}
+```

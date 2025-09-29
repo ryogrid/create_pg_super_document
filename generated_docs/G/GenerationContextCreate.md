@@ -50,3 +50,62 @@ The Generation context maintains a doubly-linked list of blocks and tracks the c
 - The allocChunkLimit is calculated to ensure at least Generation_CHUNK_FRACTION chunks can fit in a maximum-sized block
 - Memory allocation failure triggers an ERROR with detailed context information
 - The context uses a doubly-linked list to track all blocks for efficient management
+
+## Simplified Source
+
+```c
+MemoryContext
+GenerationContextCreate(MemoryContext parent,
+                       const char *name,
+                       Size minContextSize,
+                       Size initBlockSize,
+                       Size maxBlockSize)
+{
+    GenerationContext *context;
+    GenerationBlock *initial_block;
+    Size allocSize;
+
+    // Validate parameters - ensure sizes are aligned and within limits
+    Assert(initBlockSize >= 1024 && initBlockSize == MAXALIGN(initBlockSize));
+    Assert(maxBlockSize >= initBlockSize && maxBlockSize <= MEMORYCHUNK_MAX_BLOCKOFFSET);
+
+    // Calculate size needed for context + initial block
+    allocSize = MAXALIGN(sizeof(GenerationContext)) +
+                Generation_BLOCKHDRSZ + Generation_CHUNKHDRSZ;
+    allocSize = Max(allocSize, minContextSize ? minContextSize : initBlockSize);
+
+    // Allocate memory for the context and initial block
+    context = (GenerationContext *) malloc(allocSize);
+    if (context == NULL) {
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of memory")));
+    }
+
+    // Initialize block list and set up initial block
+    dlist_init(&context->blocks);
+    initial_block = KeeperBlock(context);
+    GenerationBlockInit(context, initial_block,
+                       allocSize - MAXALIGN(sizeof(GenerationContext)));
+    dlist_push_head(&context->blocks, &initial_block->node);
+
+    // Set context parameters
+    context->block = initial_block;
+    context->freeblock = NULL;
+    context->initBlockSize = initBlockSize;
+    context->maxBlockSize = maxBlockSize;
+    context->nextBlockSize = initBlockSize;
+
+    // Calculate chunk size limit for efficient allocation
+    context->allocChunkLimit = Min(maxBlockSize, MEMORYCHUNK_MAX_VALUE);
+    while ((context->allocChunkLimit + Generation_CHUNKHDRSZ) >
+           ((maxBlockSize - Generation_BLOCKHDRSZ) / Generation_CHUNK_FRACTION)) {
+        context->allocChunkLimit >>= 1;
+    }
+
+    // Complete context creation
+    MemoryContextCreate((MemoryContext) context, T_GenerationContext,
+                       MCTX_GENERATION_ID, parent, name);
+
+    return (MemoryContext) context;
+}
+```

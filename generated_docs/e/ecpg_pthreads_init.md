@@ -33,3 +33,12 @@ This function takes no parameters.
 - Essential for thread safety in multi-threaded ECPG applications
 - Called proactively by various ECPG functions to ensure the threading infrastructure is ready
 - Part of PostgreSQL's embedded SQL (ECPG) preprocessor library infrastructure
+
+## Simplified Source
+
+```c
+void ecpg_pthreads_init(void) {
+    // Ensure thread-specific key is initialized exactly once
+    pthread_once(&actual_connection_key_once, ecpg_actual_connection_init);
+}
+```

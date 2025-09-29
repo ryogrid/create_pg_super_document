@@ -49,3 +49,43 @@ The `AdjustTimestampForTypmod` function adjusts timestamp precision by rounding 
 - The rounding algorithm adds half the scale unit before truncating to achieve proper rounding
 - Located in src/backend/utils/adt/timestamp.c:366-415
 - Precision 0 = seconds, 1 = deciseconds, ..., 6 = microseconds
+
+## Simplified Source
+
+```c
+bool
+AdjustTimestampForTypmod(Timestamp *time, int32 typmod, Node *escontext)
+{
+    // Lookup tables for precision adjustment
+    static const int64 TimestampScales[MAX_TIMESTAMP_PRECISION + 1] = {
+        1000000, 100000, 10000, 1000, 100, 10, 1
+    };
+    static const int64 TimestampOffsets[MAX_TIMESTAMP_PRECISION + 1] = {
+        500000, 50000, 5000, 500, 50, 5, 0
+    };
+
+    // Skip adjustment for infinite timestamps or default precision
+    if (TIMESTAMP_NOT_FINITE(*time) || typmod == -1 || typmod == MAX_TIMESTAMP_PRECISION) {
+        return true;
+    }
+
+    // Validate typmod range
+    if (typmod < 0 || typmod > MAX_TIMESTAMP_PRECISION) {
+        ereturn(escontext, false,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("timestamp(%d) precision must be between %d and %d",
+                        typmod, 0, MAX_TIMESTAMP_PRECISION)));
+    }
+
+    // Round timestamp to specified precision
+    if (*time >= 0) {
+        *time = ((*time + TimestampOffsets[typmod]) / TimestampScales[typmod]) *
+                TimestampScales[typmod];
+    } else {
+        *time = -((((-*time) + TimestampOffsets[typmod]) / TimestampScales[typmod]) *
+                  TimestampScales[typmod]);
+    }
+
+    return true;
+}
+```

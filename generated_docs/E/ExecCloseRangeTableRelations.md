@@ -37,3 +37,19 @@ The function works in coordination with ExecCloseResultRelations to ensure compl
 - The function's design assumes that `es_relations` array slots are either valid relation descriptors or NULL
 - Part of the standard PostgreSQL executor resource cleanup protocol
 - Lock preservation is important for maintaining proper transaction isolation and consistency
+
+## Simplified Source
+
+```c
+void
+ExecCloseRangeTableRelations(EState *estate)
+{
+    int i;
+
+    // Close all opened range table relations
+    for (i = 0; i < estate->es_range_table_size; i++) {
+        if (estate->es_relations[i])
+            table_close(estate->es_relations[i], NoLock);
+    }
+}
+```

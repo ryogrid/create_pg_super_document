@@ -41,3 +41,15 @@ The function first calls dlist_member_check to validate the node membership (in 
 - After validation, it delegates the actual deletion to the standard dlist_delete function
 - Used primarily in scenarios where list integrity is critical and debugging support is beneficial
 - The head parameter is only used for validation purposes, not for the actual deletion operation
+
+## Simplified Source
+
+```c
+static inline void dlist_delete_from(dlist_head *head, dlist_node *node) {
+    // Debug build only: Verify node belongs to this list
+    dlist_member_check(head, node);
+
+    // Remove the node from the list
+    dlist_delete(node);
+}
+```

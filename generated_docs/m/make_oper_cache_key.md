@@ -44,3 +44,42 @@ The function handles two scenarios: when the operator name is schema-qualified (
 - Uses NAMEDATALEN for operator name length limits
 - MAX_CACHED_PATH_LEN defines the maximum cacheable search path length
 - Critical for PostgreSQL's operator resolution performance optimization
+
+## Simplified Source
+
+```c
+static bool
+make_oper_cache_key(ParseState *pstate, OprCacheKey *key, List *opname,
+                    Oid ltypeId, Oid rtypeId, int location)
+{
+    char *schemaname;
+    char *opername;
+
+    // Parse the operator name (may be schema-qualified)
+    DeconstructQualifiedName(opname, &schemaname, &opername);
+
+    // Initialize key structure for stable hashing
+    MemSet(key, 0, sizeof(OprCacheKey));
+
+    // Store operator name and argument types
+    strlcpy(key->oprname, opername, NAMEDATALEN);
+    key->left_arg = ltypeId;
+    key->right_arg = rtypeId;
+
+    if (schemaname) {
+        // Schema-qualified: search only in specified schema
+        ParseCallbackState pcbstate;
+        setup_parser_errposition_callback(&pcbstate, pstate, location);
+        key->search_path[0] = LookupExplicitNamespace(schemaname, false);
+        cancel_parser_errposition_callback(&pcbstate);
+    }
+    else {
+        // Unqualified: use current search path
+        if (fetch_search_path_array(key->search_path,
+                                    MAX_CACHED_PATH_LEN) > MAX_CACHED_PATH_LEN)
+            return false;  // Search path too long for caching
+    }
+
+    return true;
+}
+```

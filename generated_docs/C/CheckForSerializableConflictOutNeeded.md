@@ -43,3 +43,26 @@ This function is typically called before more expensive conflict detection opera
 - Part of the broader serializable snapshot isolation implementation that prevents serialization anomalies
 - The "pivot" reference in the error detail relates to dangerous structures in the conflict graph that can lead to serialization anomalies
 - Located at src/backend/storage/lmgr/predicate.c:3981
+
+## Simplified Source
+
+```c
+bool CheckForSerializableConflictOutNeeded(Relation relation, Snapshot snapshot)
+{
+    // Step 1: Check if serialization is needed for this read
+    if (!SerializationNeededForRead(relation, snapshot))
+        return false;
+
+    // Step 2: Check if our transaction is already doomed
+    if (SxactIsDoomed(MySerializableXact)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                 errmsg("could not serialize access due to read/write dependencies among transactions"),
+                 errdetail_internal("Reason code: Canceled on identification as a pivot, during conflict out checking."),
+                 errhint("The transaction might succeed if retried.")));
+    }
+
+    // Step 3: Conflict checking is needed
+    return true;
+}
+```

@@ -41,3 +41,35 @@ The function includes validation checks through SCAN_CHECKS and CHECK_SCAN_PROCE
 - Resource cleanup is performed in a specific order: heap fetch resources first, then AM-specific cleanup, then reference count management, snapshot cleanup, and finally scan descriptor deallocation
 - The function is part of the index access method interface in PostgreSQL's storage system
 - Located in src/backend/access/index/indexam.c:378-407
+
+## Simplified Source
+
+```c
+void
+index_endscan(IndexScanDesc scan)
+{
+    // Validate scan descriptor and access method
+    SCAN_CHECKS;
+    CHECK_SCAN_PROCEDURE(amendscan);
+
+    // Clean up table access resources (buffer pins, etc.)
+    if (scan->xs_heapfetch)
+    {
+        table_index_fetch_end(scan->xs_heapfetch);
+        scan->xs_heapfetch = NULL;
+    }
+
+    // Call access method-specific end scan routine
+    scan->indexRelation->rd_indam->amendscan(scan);
+
+    // Release index relation reference count
+    RelationDecrementReferenceCount(scan->indexRelation);
+
+    // Unregister temporary snapshot if used
+    if (scan->xs_temp_snap)
+        UnregisterSnapshot(scan->xs_snapshot);
+
+    // Release the scan descriptor itself
+    IndexScanEnd(scan);
+}
+```

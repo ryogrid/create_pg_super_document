@@ -27,3 +27,17 @@ This function provides a mapping from PostgreSQL's internal character encoding i
 - The returned string is a constant from the mapping table and should not be modified
 - Used primarily for initializing ICU converters and other ICU-based operations
 - Located in src/common/encnames.c:472-484
+
+## Simplified Source
+
+```c
+const char *
+get_encoding_name_for_icu(int encoding) {
+    // Validate the encoding is a valid backend encoding
+    if (!PG_VALID_BE_ENCODING(encoding))
+        return NULL;
+
+    // Return ICU encoding name from lookup table
+    return pg_enc2icu_tbl[encoding];
+}
+```

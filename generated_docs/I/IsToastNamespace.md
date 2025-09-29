@@ -42,3 +42,15 @@ The function does not perform catalog accesses and will return false for tempora
 - Part of PostgreSQL's TOAST system for handling oversized attribute values
 - PG_TOAST_NAMESPACE is defined as OID 99 in pg_namespace.dat
 - Located in src/backend/catalog/catalog.c at lines 230-246
+
+## Simplified Source
+
+```c
+bool
+IsToastNamespace(Oid namespaceId)
+{
+    // Check if it's the global pg_toast namespace or current session's temp toast namespace
+    return (namespaceId == PG_TOAST_NAMESPACE) ||
+           isTempToastNamespace(namespaceId);
+}
+```

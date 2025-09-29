@@ -44,3 +44,79 @@ This function is designed for marking buffers dirty when making non-critical cha
 - Does not guarantee buffer will be marked dirty due to potential race conditions
 - Integrates with vacuum cost accounting system
 - Critical for hint bit updates in heap visibility checks and index maintenance operations
+
+## Simplified Source
+
+```c
+void
+MarkBufferDirtyHint(Buffer buffer, bool buffer_std)
+{
+    BufferDesc *buf_hdr;
+    Page page = BufferGetPage(buffer);
+
+    if (!BufferIsValid(buffer))
+        elog(ERROR, "bad buffer ID: %d", buffer);
+
+    // Handle local buffers separately
+    if (BufferIsLocal(buffer))
+    {
+        MarkLocalBufferDirty(buffer);
+        return;
+    }
+
+    buf_hdr = GetBufferDescriptor(buffer - 1);
+
+    // Quick exit if already dirty (unlocked check for performance)
+    if ((pg_atomic_read_u32(&buf_hdr->state) & (BM_DIRTY | BM_JUST_DIRTIED)) !=
+        (BM_DIRTY | BM_JUST_DIRTIED))
+    {
+        XLogRecPtr lsn = InvalidXLogRecPtr;
+        bool dirtied = false;
+        bool delay_chkpt_flags = false;
+        uint32 buf_state;
+
+        // WAL logging for hint bit protection (torn page protection)
+        if (XLogHintBitIsNeeded() &&
+            (pg_atomic_read_u32(&buf_hdr->state) & BM_PERMANENT))
+        {
+            // Skip if in recovery or file skips WAL
+            if (RecoveryInProgress() ||
+                RelFileLocatorSkippingWAL(BufTagGetRelFileLocator(&buf_hdr->tag)))
+                return;
+
+            // Delay checkpoint to prevent race conditions
+            MyProc->delayChkptFlags |= DELAY_CHKPT_START;
+            delay_chkpt_flags = true;
+            lsn = XLogSaveBufferForHint(buffer, buffer_std);
+        }
+
+        // Acquire buffer header lock and mark dirty
+        buf_state = LockBufHdr(buf_hdr);
+
+        if (!(buf_state & BM_DIRTY))
+        {
+            dirtied = true;
+
+            // Set LSN if we wrote a backup block
+            if (!XLogRecPtrIsInvalid(lsn))
+                PageSetLSN(page, lsn);
+        }
+
+        buf_state |= BM_DIRTY | BM_JUST_DIRTIED;
+        UnlockBufHdr(buf_hdr, buf_state);
+
+        // Clear checkpoint delay flag
+        if (delay_chkpt_flags)
+            MyProc->delayChkptFlags &= ~DELAY_CHKPT_START;
+
+        // Update statistics if buffer was dirtied
+        if (dirtied)
+        {
+            VacuumPageDirty++;
+            pgBufferUsage.shared_blks_dirtied++;
+            if (VacuumCostActive)
+                VacuumCostBalance += VacuumCostPageDirty;
+        }
+    }
+}
+```

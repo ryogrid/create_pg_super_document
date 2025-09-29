@@ -40,3 +40,50 @@ This function takes no parameters and operates on global shared memory structure
 - Uses NotifyQueueTailLock to restrict operation to one backend per cluster
 - Pre-v13 required exact QUEUE_TAIL positioning, maintained for prudence in current versions
 - Strategic lock release prevents holding locks during expensive truncation operations
+
+## Simplified Source
+
+```c
+static void asyncQueueAdvanceTail(void) {
+    QueuePosition min;
+    int64 oldtailpage;
+    int64 newtailpage;
+    int64 boundary;
+
+    // Restrict to one backend per cluster
+    LWLockAcquire(NotifyQueueTailLock, LW_EXCLUSIVE);
+
+    // Compute new tail position (minimum among all backends)
+    LWLockAcquire(NotifyQueueLock, LW_EXCLUSIVE);
+    min = QUEUE_HEAD;
+
+    // Find minimum position across all listening backends
+    for (ProcNumber i = QUEUE_FIRST_LISTENER; i != INVALID_PROC_NUMBER;
+         i = QUEUE_NEXT_LISTENER(i)) {
+        min = QUEUE_POS_MIN(min, QUEUE_BACKEND_POS(i));
+    }
+
+    // Update logical tail and remember old physical tail
+    QUEUE_TAIL = min;
+    oldtailpage = QUEUE_STOP_PAGE;
+    LWLockRelease(NotifyQueueLock);
+
+    // Check if we can truncate old SLRU segments
+    newtailpage = QUEUE_POS_PAGE(min);
+    boundary = newtailpage - (newtailpage % SLRU_PAGES_PER_SEGMENT);
+
+    // Only truncate if tail crossed a segment boundary
+    if (asyncQueuePagePrecedes(oldtailpage, boundary)) {
+
+        // Physically remove old segments
+        SimpleLruTruncate(NotifyCtl, newtailpage);
+
+        // Update physical tail
+        LWLockAcquire(NotifyQueueLock, LW_EXCLUSIVE);
+        QUEUE_STOP_PAGE = newtailpage;
+        LWLockRelease(NotifyQueueLock);
+    }
+
+    LWLockRelease(NotifyQueueTailLock);
+}
+```

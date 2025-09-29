@@ -44,3 +44,25 @@ This is a fundamental utility function used extensively throughout the catalog s
 - Memory is allocated using palloc, so it will be automatically freed at end of transaction
 - Part of the core dependency tracking infrastructure used throughout PostgreSQL
 - Used extensively during DDL operations for tracking object relationships
+
+## Simplified Source
+
+```c
+ObjectAddresses *
+new_object_addresses(void)
+{
+    ObjectAddresses *addrs;
+
+    // Allocate the main structure
+    addrs = palloc(sizeof(ObjectAddresses));
+
+    // Initialize with starting capacity of 32 entries
+    addrs->numrefs = 0;  // Empty array initially
+    addrs->maxrefs = 32;  // Initial capacity
+    addrs->refs = (ObjectAddress *)
+        palloc(addrs->maxrefs * sizeof(ObjectAddress));
+    addrs->extras = NULL;  // Only allocated when needed
+
+    return addrs;
+}
+```

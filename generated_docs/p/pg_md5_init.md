@@ -37,3 +37,24 @@ The function also resets the message length counter (md5_n) and buffer index (md
 - The context can be reused for multiple hash computations by calling pg_md5_init() again
 - Thread-safe as it only modifies the provided context structure
 - Essential first step in PostgreSQL's MD5 hashing workflow: init → update → final
+
+## Simplified Source
+
+```c
+void
+pg_md5_init(pg_md5_ctx *ctx)
+{
+    // Reset counters and buffer index
+    ctx->md5_n = 0;      // Total message length
+    ctx->md5_i = 0;      // Current buffer position
+
+    // Initialize MD5 state variables with RFC 1321 constants
+    ctx->md5_sta = MD5_A0;  // 0x67452301
+    ctx->md5_stb = MD5_B0;  // 0xefcdab89
+    ctx->md5_stc = MD5_C0;  // 0x98badcfe
+    ctx->md5_std = MD5_D0;  // 0x10325476
+
+    // Clear the internal processing buffer
+    memset(ctx->md5_buf, 0, sizeof(ctx->md5_buf));
+}
+```

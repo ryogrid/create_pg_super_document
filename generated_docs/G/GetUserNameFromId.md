@@ -46,3 +46,28 @@ This function looks up a user name from the PostgreSQL system catalog using the 
 - Used extensively throughout PostgreSQL for converting role OIDs to names
 - Essential for error messages, logging, and user-facing output that displays role names
 - The noerr parameter allows for graceful handling of invalid role references
+
+## Simplified Source
+
+```c
+char *
+GetUserNameFromId(Oid roleid, bool noerr)
+{
+    // Look up role in system catalog
+    HeapTuple tuple = SearchSysCache1(AUTHOID, ObjectIdGetDatum(roleid));
+
+    if (!HeapTupleIsValid(tuple)) {
+        // Handle missing role based on noerr flag
+        if (!noerr)
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("invalid role OID: %u", roleid)));
+        return NULL;
+    }
+
+    // Extract role name from catalog tuple
+    char *result = pstrdup(NameStr(((Form_pg_authid) GETSTRUCT(tuple))->rolname));
+    ReleaseSysCache(tuple);
+    return result;
+}
+```

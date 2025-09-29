@@ -51,3 +51,52 @@ The function is designed to be lightweight and non-blocking, making it suitable 
 - Returns conservative estimates when precise information is not immediately available
 - Critical for buffer management decisions and hint bit setting operations
 - The updateMinRecoveryPoint flag can be disabled during crash recovery for safety
+
+## Simplified Source
+
+```c
+bool
+XLogNeedsFlush(XLogRecPtr record)
+{
+    // During recovery: check if minRecoveryPoint needs updating
+    if (RecoveryInProgress())
+    {
+        // Crash recovery optimization: disable updates if minRecoveryPoint invalid
+        if (XLogRecPtrIsInvalid(LocalMinRecoveryPoint) && InRecovery)
+            updateMinRecoveryPoint = false;
+
+        // Quick exit if already updated or updates disabled
+        if (record <= LocalMinRecoveryPoint || !updateMinRecoveryPoint)
+            return false;
+
+        // Try to update local minRecoveryPoint (non-blocking)
+        if (!LWLockConditionalAcquire(ControlFileLock, LW_SHARED))
+            return true;  // Conservative guess if lock busy
+
+        LocalMinRecoveryPoint = ControlFile->minRecoveryPoint;
+        LocalMinRecoveryPointTLI = ControlFile->minRecoveryPointTLI;
+        LWLockRelease(ControlFileLock);
+
+        // Final check after update
+        if (record <= LocalMinRecoveryPoint || !updateMinRecoveryPoint)
+            return false;
+        else
+            return true;
+    }
+
+    // Normal operation: check WAL flush status
+
+    // Quick exit if already flushed
+    if (record <= LogwrtResult.Flush)
+        return false;
+
+    // Refresh cached flush state
+    RefreshXLogWriteResult(LogwrtResult);
+
+    // Final check after refresh
+    if (record <= LogwrtResult.Flush)
+        return false;
+
+    return true;
+}
+```

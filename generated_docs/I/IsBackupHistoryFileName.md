@@ -28,3 +28,20 @@ This function validates whether a filename follows the expected backup history f
 
 ## Notes and Other Information
 The function implements a three-step validation: first ensuring the filename is longer than XLOG_FNAME_LEN, then verifying the prefix contains only hexadecimal digits for the expected length, and finally confirming it ends with '.backup'. This approach efficiently filters out non-backup-history files while ensuring proper format compliance. The function is commonly used in WAL cleanup and archival utilities.
+
+## Simplified Source
+
+```c
+static inline bool
+IsBackupHistoryFileName(const char *fname)
+{
+    // Check if filename is long enough and has proper hex prefix
+    bool hasValidLength = strlen(fname) > XLOG_FNAME_LEN;
+    bool hasHexPrefix = strspn(fname, "0123456789ABCDEF") == XLOG_FNAME_LEN;
+
+    // Check if filename ends with ".backup" extension
+    bool hasBackupExtension = strcmp(fname + strlen(fname) - strlen(".backup"), ".backup") == 0;
+
+    return hasValidLength && hasHexPrefix && hasBackupExtension;
+}
+```

@@ -33,3 +33,25 @@ The function creates a BufFile that is not read-only by default and is not assoc
 - The fileset and name fields are set to NULL, indicating this is not a named or FileSet-managed file
 - The caller must explicitly set isInterXact if the BufFile should survive transaction boundaries
 - This function is typically used for temporary files that exist only within a single transaction
+
+## Simplified Source
+
+```c
+static BufFile *
+makeBufFile(File firstfile)
+{
+    // Create common BufFile structure for single file
+    BufFile *file = makeBufFileCommon(1);
+
+    // Allocate and set up file array with the provided file handle
+    file->files = (File *) palloc(sizeof(File));
+    file->files[0] = firstfile;
+
+    // Initialize file properties
+    file->readOnly = false;    // Allow read and write operations
+    file->fileset = NULL;      // Not part of a FileSet
+    file->name = NULL;         // Not a named file
+
+    return file;
+}
+```

@@ -39,3 +39,28 @@ The filter queue is organized with the most recently added filters at the head a
 - Critical for preventing memory leaks and maintaining filter system performance
 - Inline function for performance in the WAL replay path
 - Must be called regularly during replay to prevent unbounded filter accumulation
+
+## Simplified Source
+
+```c
+static inline void
+XLogPrefetcherCompleteFilters(XLogPrefetcher *prefetcher, XLogRecPtr replaying_lsn)
+{
+    // Process expired filters from the tail of the queue
+    while (!dlist_is_empty(&prefetcher->filter_queue))
+    {
+        // Get the oldest filter from the queue
+        XLogPrefetcherFilter *filter = dlist_tail_element(XLogPrefetcherFilter,
+                                                          link,
+                                                          &prefetcher->filter_queue);
+
+        // If this filter hasn't expired yet, stop processing
+        if (filter->filter_until_replayed >= replaying_lsn)
+            break;
+
+        // Remove expired filter from both queue and hash table
+        dlist_delete(&filter->link);
+        hash_search(prefetcher->filter_table, filter, HASH_REMOVE, NULL);
+    }
+}
+```

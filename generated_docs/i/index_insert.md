@@ -55,3 +55,32 @@ The function returns a boolean indicating whether the insertion was successful.
 - The actual insertion logic is implemented by each specific index access method
 - Used throughout PostgreSQL for all index insertions regardless of index type
 - Located in src/backend/access/index/indexam.c:213-240
+
+## Simplified Source
+
+```c
+bool index_insert(Relation indexRelation,
+                 Datum *values,
+                 bool *isnull,
+                 ItemPointer heap_t_ctid,
+                 Relation heapRelation,
+                 IndexUniqueCheck checkUnique,
+                 bool indexUnchanged,
+                 IndexInfo *indexInfo) {
+
+    // Validate relation and check access method has insert procedure
+    RELATION_CHECKS;
+    CHECK_REL_PROCEDURE(aminsert);
+
+    // Check for serializable conflicts if index doesn't support predicate locks
+    if (!(indexRelation->rd_indam->ampredlocks)) {
+        CheckForSerializableConflictIn(indexRelation, NULL, InvalidBlockNumber);
+    }
+
+    // Delegate to access method's specific insert function
+    return indexRelation->rd_indam->aminsert(indexRelation, values, isnull,
+                                           heap_t_ctid, heapRelation,
+                                           checkUnique, indexUnchanged,
+                                           indexInfo);
+}
+```

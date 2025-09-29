@@ -34,3 +34,12 @@ The function is part of PostgreSQL's visibility checking infrastructure, which i
 - Only considers collations that work with the current database encoding as visible
 - Returns true if the collation would be found by unqualified name resolution, false otherwise
 - Part of PostgreSQL's general object visibility framework used by various system catalogs and utilities
+
+## Simplified Source
+
+```c
+bool CollationIsVisible(Oid collid) {
+    // Delegate to extended version with error-throwing behavior
+    return CollationIsVisibleExt(collid, NULL);
+}
+```

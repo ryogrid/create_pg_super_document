@@ -41,3 +41,22 @@ The function is part of libpq's preferred modern connection API, offering better
 - Part of the synchronous connection API - blocks until connection completes or fails
 - Widely used throughout PostgreSQL client tools and utilities for reliable connection establishment
 - The expand_dbname parameter allows for flexible handling of database names that may contain embedded connection information
+
+## Simplified Source
+
+```c
+PGconn *PQconnectdbParams(const char *const *keywords,
+                          const char *const *values,
+                          int expand_dbname) {
+    // Start asynchronous connection process
+    PGconn *conn = PQconnectStartParams(keywords, values, expand_dbname);
+
+    // If connection object created successfully and not in error state
+    if (conn && conn->status != CONNECTION_BAD) {
+        // Complete the connection synchronously
+        (void) pqConnectDBComplete(conn);
+    }
+
+    return conn;
+}
+```

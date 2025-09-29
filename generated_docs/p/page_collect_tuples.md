@@ -48,3 +48,56 @@ This function iterates through all item identifiers on a heap page and evaluates
 - Optimizes visibility checking when all_visible is true
 - Handles serializable isolation level conflict detection when required
 - Core building block for heap scanning operations in PostgreSQL
+
+## Simplified Source
+
+```c
+static int
+page_collect_tuples(HeapScanDesc scan, Snapshot snapshot,
+                   Page page, Buffer buffer,
+                   BlockNumber block, int lines,
+                   bool all_visible, bool check_serializable)
+{
+    int ntup = 0;
+    OffsetNumber lineoff;
+
+    // Iterate through all line pointers on the page
+    for (lineoff = FirstOffsetNumber; lineoff <= lines; lineoff++)
+    {
+        ItemId lpp = PageGetItemId(page, lineoff);
+        HeapTupleData loctup;
+        bool valid;
+
+        // Skip non-normal items (dead, redirected, etc.)
+        if (!ItemIdIsNormal(lpp))
+            continue;
+
+        // Set up tuple structure
+        loctup.t_data = (HeapTupleHeader) PageGetItem(page, lpp);
+        loctup.t_len = ItemIdGetLength(lpp);
+        loctup.t_tableOid = RelationGetRelid(scan->rs_base.rs_rd);
+        ItemPointerSet(&(loctup.t_self), block, lineoff);
+
+        // Check tuple visibility
+        if (all_visible)
+            valid = true;  // Fast path: all tuples are visible
+        else
+            valid = HeapTupleSatisfiesVisibility(&loctup, snapshot, buffer);
+
+        // Check for serializable conflicts if needed
+        if (check_serializable)
+            HeapCheckForSerializableConflictOut(valid, scan->rs_base.rs_rd,
+                                              &loctup, buffer, snapshot);
+
+        // Record visible tuple offset
+        if (valid)
+        {
+            scan->rs_vistuples[ntup] = lineoff;
+            ntup++;
+        }
+    }
+
+    Assert(ntup <= MaxHeapTuplesPerPage);
+    return ntup;
+}
+```

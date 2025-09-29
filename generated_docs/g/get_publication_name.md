@@ -43,3 +43,31 @@ The function searches the PUBLICATIONOID system cache to retrieve the publicatio
 - Part of the logical replication infrastructure in PostgreSQL
 - Located in src/backend/utils/cache/lsyscache.c:3645-3674
 - The returned string is a copy, so modifications won't affect the system catalog
+
+## Simplified Source
+
+```c
+char *
+get_publication_name(Oid pubid, bool missing_ok)
+{
+    HeapTuple tup;
+    char *pubname;
+    Form_pg_publication pubform;
+
+    // Look up publication by OID
+    tup = SearchSysCache1(PUBLICATIONOID, ObjectIdGetDatum(pubid));
+
+    if (!HeapTupleIsValid(tup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for publication %u", pubid);
+        return NULL;
+    }
+
+    // Extract and copy publication name
+    pubform = (Form_pg_publication) GETSTRUCT(tup);
+    pubname = pstrdup(NameStr(pubform->pubname));
+
+    ReleaseSysCache(tup);
+    return pubname;
+}
+```

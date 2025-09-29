@@ -33,3 +33,27 @@ SubTransactionIsActive traverses the current transaction state hierarchy to dete
 - Aborted subtransactions are considered inactive and are skipped during the search
 - Located in src/backend/access/transam/xact.c:802-825
 - Part of PostgreSQL's nested transaction management system
+
+## Simplified Source
+
+```c
+bool
+SubTransactionIsActive(SubTransactionId subxid)
+{
+    TransactionState s;
+
+    // Walk up the transaction hierarchy
+    for (s = CurrentTransactionState; s != NULL; s = s->parent)
+    {
+        // Skip aborted subtransactions
+        if (s->state == TRANS_ABORT)
+            continue;
+
+        // Check if this transaction matches the ID
+        if (s->subTransactionId == subxid)
+            return true;
+    }
+
+    return false;
+}
+```

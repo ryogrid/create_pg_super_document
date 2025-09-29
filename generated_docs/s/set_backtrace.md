@@ -42,3 +42,39 @@ This static function is the core implementation for capturing call stack backtra
 - Gracefully handles cases where backtrace_symbols returns NULL
 - Requires that this function and related functions are not inlined for accurate backtraces
 - Located in src/backend/utils/error/elog.c:1116-1156
+
+## Simplified Source
+
+```c
+static void
+set_backtrace(ErrorData *edata, int num_skip)
+{
+    StringInfoData errtrace;
+
+    initStringInfo(&errtrace);
+
+#ifdef HAVE_BACKTRACE_SYMBOLS
+    {
+        void *buf[100];
+        int nframes;
+        char **strfrms;
+
+        // Capture call stack
+        nframes = backtrace(buf, lengthof(buf));
+        strfrms = backtrace_symbols(buf, nframes);
+
+        if (strfrms != NULL) {
+            // Format stack frames, skipping internal frames
+            for (int i = num_skip; i < nframes; i++)
+                appendStringInfo(&errtrace, "\n%s", strfrms[i]);
+            free(strfrms);
+        }
+    }
+#else
+    appendStringInfoString(&errtrace,
+        "backtrace generation is not supported by this installation");
+#endif
+
+    edata->backtrace = errtrace.data;
+}
+```

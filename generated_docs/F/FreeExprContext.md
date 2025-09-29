@@ -41,3 +41,23 @@ An important consequence of this function is that any previously computed pass-b
 - Properly handles both standalone ExprContexts and those associated with an EState
 - Essential for preventing memory leaks in PostgreSQL's expression evaluation system
 - Should be paired with CreateExprContext or CreateStandaloneExprContext calls
+
+## Simplified Source
+```c
+void FreeExprContext(ExprContext *econtext, bool isCommit)
+{
+    // Execute shutdown callbacks
+    ShutdownExprContext(econtext, isCommit);
+
+    // Delete the per-tuple memory context
+    MemoryContextDelete(econtext->ecxt_per_tuple_memory);
+
+    // Unlink from owning EState if present
+    EState *estate = econtext->ecxt_estate;
+    if (estate)
+        estate->es_exprcontexts = list_delete_ptr(estate->es_exprcontexts, econtext);
+
+    // Free the ExprContext structure
+    pfree(econtext);
+}
+```

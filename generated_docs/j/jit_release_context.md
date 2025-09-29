@@ -35,3 +35,16 @@ This function provides proper cleanup for JIT compilation contexts in PostgreSQL
 - Essential for preventing memory leaks in JIT compilation contexts
 - Called during executor cleanup and resource owner cleanup to ensure proper resource deallocation
 - The provider-specific release function handles cleanup of compilation artifacts, LLVM contexts, and other provider-managed resources
+
+## Simplified Source
+```c
+void jit_release_context(JitContext *context)
+{
+    // Call provider-specific cleanup if provider is loaded
+    if (provider_successfully_loaded)
+        provider.release_context(context);
+
+    // Free the context structure
+    pfree(context);
+}
+```

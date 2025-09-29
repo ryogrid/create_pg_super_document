@@ -38,6 +38,43 @@ On non-Windows platforms (Linux, Unix variants), this function performs no opera
 ## Notes and Other Information
 - Only performs actual work on Windows platforms when  is defined
 - The duplicated handle in the postmaster is not usable in other processes but serves as a reference holder
-- Uses  flag when duplicating handles
+- Uses DUPLICATE_SAME_ACCESS flag when duplicating handles
 - Critical for preventing premature cleanup of pinned segments on Windows
-- The implementation is conditional on  being 
+- The implementation is conditional on USE_DSM_WINDOWS being defined
+
+## Simplified Source
+
+```c
+void
+dsm_impl_pin_segment(dsm_handle handle, void *impl_private,
+                     void **impl_private_pm_handle)
+{
+    switch (dynamic_shared_memory_type) {
+#ifdef USE_DSM_WINDOWS
+        case DSM_IMPL_WINDOWS:
+            if (IsUnderPostmaster) {
+                HANDLE hmap;
+
+                // Duplicate handle into postmaster to prevent cleanup
+                if (!DuplicateHandle(GetCurrentProcess(), impl_private,
+                                   PostmasterHandle, &hmap, 0, FALSE,
+                                   DUPLICATE_SAME_ACCESS)) {
+                    char name[64];
+                    snprintf(name, 64, "%s.%u", SEGMENT_NAME_PREFIX, handle);
+                    _dosmaperr(GetLastError());
+                    ereport(ERROR,
+                           (errcode_for_dynamic_shared_memory(),
+                            errmsg("could not duplicate handle for \"%s\": %m", name)));
+                }
+
+                // Store postmaster handle for later cleanup
+                *impl_private_pm_handle = hmap;
+            }
+            break;
+#endif
+        default:
+            // No action needed on non-Windows platforms
+            break;
+    }
+}
+``` 

@@ -37,3 +37,20 @@ The  function is a static utility function in the PostgreSQL WAL (Write-Ahead Lo
 - Memory allocated by relpathperm is properly freed with pfree to prevent memory leaks
 - The function provides clear distinction between two types of invalid page conditions to aid in diagnosis
 - Used primarily during WAL replay and recovery operations when PostgreSQL encounters problematic pages
+
+## Simplified Source
+```c
+static void report_invalid_page(int elevel, RelFileLocator locator, ForkNumber forkno,
+                               BlockNumber blkno, bool present)
+{
+    char *path = relpathperm(locator, forkno);
+
+    if (present) {
+        elog(elevel, "page %u of relation %s is uninitialized", blkno, path);
+    } else {
+        elog(elevel, "page %u of relation %s does not exist", blkno, path);
+    }
+
+    pfree(path);
+}
+```

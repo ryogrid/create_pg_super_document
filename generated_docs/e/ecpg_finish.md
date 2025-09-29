@@ -38,3 +38,46 @@ This function implements comprehensive connection cleanup for the ECPG library. 
 - Uses ECPG_COMPAT_PGSQL mode for prepared statement deallocation
 - Logs connection closure events for debugging purposes
 - Part of ECPG's connection management infrastructure ensuring proper resource cleanup
+
+## Simplified Source
+
+```c
+static void
+ecpg_finish(struct connection *act)
+{
+    if (act != NULL) {
+        struct ECPGtype_information_cache *cache, *ptr;
+
+        // Clean up prepared statements and close PostgreSQL connection
+        ecpg_deallocate_all_conn(0, ECPG_COMPAT_PGSQL, act);
+        PQfinish(act->connection);
+
+        // Remove connection from global list
+        if (act == all_connections)
+            all_connections = act->next;
+        else {
+            struct connection *con;
+            for (con = all_connections; con->next && con->next != act; con = con->next);
+            if (con->next)
+                con->next = act->next;
+        }
+
+        // Update current connection pointers if needed
+        if (pthread_getspecific(actual_connection_key) == act)
+            pthread_setspecific(actual_connection_key, all_connections);
+        if (actual_connection == act)
+            actual_connection = all_connections;
+
+        // Free connection resources
+        for (cache = act->cache_head; cache; ptr = cache, cache = cache->next, ecpg_free(ptr));
+        ecpg_free(act->name);
+        ecpg_free(act);
+
+        // Clean up cursor variables when last connection closes
+        if (all_connections == NULL) {
+            struct var_list *iv_ptr;
+            for (; ivlist; iv_ptr = ivlist, ivlist = ivlist->next, ecpg_free(iv_ptr));
+        }
+    }
+}
+```

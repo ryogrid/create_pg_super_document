@@ -54,3 +54,89 @@ The function uses a state machine approach, examining the current character to d
 - Central to PostgreSQL's JSON processing infrastructure across multiple modules
 - Error handling preserves exact token positions for meaningful error messages
 - Supports all JSON specification token types including structural punctuation and literals
+
+## Simplified Source
+
+```c
+JsonParseErrorType json_lex(JsonLexContext *lex) {
+    const char *s;
+    const char *const end = lex->input + lex->input_length;
+    JsonParseErrorType result;
+
+    // Handle completed partial tokens from incremental parsing
+    if (lex->incremental && lex->inc_state->partial_completed) {
+        resetStringInfo(&(lex->inc_state->partial_token));
+        lex->token_terminator = lex->input;
+        lex->inc_state->partial_completed = false;
+    }
+
+    s = lex->token_terminator;
+
+    // Complex partial token handling for incremental parsing
+    if (lex->incremental && lex->inc_state->partial_token.len) {
+        // ... [Partial token reconstruction logic] ...
+        // This involves accumulating characters across input chunks
+        // until we have a complete token, then recursively calling json_lex
+    }
+
+    // Skip whitespace and track line numbers
+    while (s < end && (*s == ' ' || *s == '\t' || *s == '\n' || *s == '\r')) {
+        if (*s++ == '\n') {
+            ++lex->line_number;
+            lex->line_start = s;
+        }
+    }
+    lex->token_start = s;
+
+    // Determine token type by examining first character
+    if (s >= end) {
+        lex->token_type = JSON_TOKEN_END;
+    } else {
+        switch (*s) {
+            case '{': lex->token_type = JSON_TOKEN_OBJECT_START; break;
+            case '}': lex->token_type = JSON_TOKEN_OBJECT_END; break;
+            case '[': lex->token_type = JSON_TOKEN_ARRAY_START; break;
+            case ']': lex->token_type = JSON_TOKEN_ARRAY_END; break;
+            case ',': lex->token_type = JSON_TOKEN_COMMA; break;
+            case ':': lex->token_type = JSON_TOKEN_COLON; break;
+            case '"':
+                // Parse string token
+                result = json_lex_string(lex);
+                if (result != JSON_SUCCESS) return result;
+                lex->token_type = JSON_TOKEN_STRING;
+                break;
+            case '-':
+            case '0'...'9':
+                // Parse number token
+                result = json_lex_number(lex, s, NULL, NULL);
+                if (result != JSON_SUCCESS) return result;
+                lex->token_type = JSON_TOKEN_NUMBER;
+                break;
+            default:
+                // Handle literals: true, false, null
+                const char *p;
+                for (p = s; p < end && JSON_ALPHANUMERIC_CHAR(*p); p++);
+
+                if (p - s == 4 && memcmp(s, "true", 4) == 0)
+                    lex->token_type = JSON_TOKEN_TRUE;
+                else if (p - s == 5 && memcmp(s, "false", 5) == 0)
+                    lex->token_type = JSON_TOKEN_FALSE;
+                else if (p - s == 4 && memcmp(s, "null", 4) == 0)
+                    lex->token_type = JSON_TOKEN_NULL;
+                else
+                    return JSON_INVALID_TOKEN;
+
+                lex->token_terminator = p;
+        }
+
+        // Update token boundaries for single-character tokens
+        if (*s != '"' && (*s < '0' || *s > '9') && *s != '-' &&
+            !JSON_ALPHANUMERIC_CHAR(*s)) {
+            lex->prev_token_terminator = lex->token_terminator;
+            lex->token_terminator = s + 1;
+        }
+    }
+
+    return JSON_SUCCESS;
+}
+```

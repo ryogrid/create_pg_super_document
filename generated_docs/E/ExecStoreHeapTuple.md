@@ -46,3 +46,29 @@ The function performs type checking to ensure the target slot is a heap tuple sl
 - Returns the passed-in slot pointer for convenience
 - Used extensively in catalog operations, indexing, replication, and statistical analysis
 - Part of PostgreSQL's tuple table slot system for efficient tuple management
+
+## Simplified Source
+
+```c
+TupleTableSlot *ExecStoreHeapTuple(HeapTuple tuple,
+                                  TupleTableSlot *slot,
+                                  bool shouldFree) {
+    // Validate inputs
+    Assert(tuple != NULL);
+    Assert(slot != NULL);
+    Assert(slot->tts_tupleDescriptor != NULL);
+
+    // Ensure target slot is correct type for heap tuples
+    if (unlikely(!TTS_IS_HEAPTUPLE(slot))) {
+        elog(ERROR, "trying to store a heap tuple into wrong type of slot");
+    }
+
+    // Store tuple in slot with specified memory ownership
+    tts_heap_store_tuple(slot, tuple, shouldFree);
+
+    // Preserve table OID from source tuple
+    slot->tts_tableOid = tuple->t_tableOid;
+
+    return slot;
+}
+```

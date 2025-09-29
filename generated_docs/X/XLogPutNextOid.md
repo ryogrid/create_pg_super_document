@@ -37,3 +37,18 @@ A notable design consideration is that when OIDs are used as filesystem names (f
 - The race condition with filesystem OID usage is considered acceptable due to conflict detection and retry mechanisms
 - Uses the standard WAL insertion API (XLogBeginInsert/XLogRegisterData/XLogInsert pattern)
 - The WAL record type XLOG_NEXTOID is handled during recovery to restore OID counter state
+
+## Simplified Source
+```c
+void XLogPutNextOid(Oid nextOid)
+{
+    // Create and write a WAL record for the next OID value
+    XLogBeginInsert();
+    XLogRegisterData((char *) (&nextOid), sizeof(Oid));
+    XLogInsert(RM_XLOG_ID, XLOG_NEXTOID);
+
+    // Note: Record is not immediately flushed
+    // Buffer LSN interlock ensures proper ordering with subsequent records
+    // that use these OIDs, maintaining WAL consistency
+}
+```

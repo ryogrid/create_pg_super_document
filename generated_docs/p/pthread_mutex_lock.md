@@ -41,3 +41,28 @@ This function implements the POSIX pthread_mutex_lock functionality for Windows 
 - Part of PostgreSQL's pthread compatibility layer for Windows
 - Widely used throughout ECPG and libpq for thread synchronization
 - The initstate field tracks initialization: 0=uninitialized, 1=ready, 2=initializing
+
+## Simplified Source
+
+```c
+int pthread_mutex_lock(pthread_mutex_t *mp) {
+    // Lazy initialization: initialize critical section if needed
+    if (mp->initstate != 1) {
+        LONG istate;
+
+        // Use atomic operation to coordinate between threads
+        while ((istate = InterlockedExchange(&mp->initstate, 2)) == 2)
+            Sleep(0);  // Wait while another thread initializes
+
+        // Initialize if not already done
+        if (istate != 1)
+            InitializeCriticalSection(&mp->csection);
+
+        InterlockedExchange(&mp->initstate, 1);
+    }
+
+    // Acquire the lock
+    EnterCriticalSection(&mp->csection);
+    return 0;
+}
+```

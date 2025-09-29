@@ -37,3 +37,17 @@ This function unlocks a relation lock identified by a LockRelId structure and lo
 - The function sets sessionLock parameter to false in LockRelease, indicating this is not a session-level lock
 - Part of PostgreSQL's lock manager subsystem located in src/backend/storage/lmgr/lmgr.c
 - Works in conjunction with LockRelationId to provide relation-level locking
+
+## Simplified Source
+
+```c
+void UnlockRelationId(LockRelId *relid, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Create lock tag from database and relation IDs
+    SET_LOCKTAG_RELATION(tag, relid->dbId, relid->relId);
+
+    // Release the lock
+    LockRelease(&tag, lockmode, false);
+}
+```

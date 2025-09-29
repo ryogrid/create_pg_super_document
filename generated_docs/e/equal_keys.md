@@ -38,3 +38,17 @@ The function delegates the actual comparison to the  stored in the hash table's 
 - The function assumes that the comparison function follows the standard C library convention where 0 indicates equality
 - It's a critical component of the hash table's key lookup and manipulation operations
 - Located at src/backend/lib/dshash.c:1074-1084
+
+## Simplified Source
+
+```c
+static inline bool
+equal_keys(dshash_table *hash_table, const void *a, const void *b)
+{
+    // Use the hash table's configured comparison function
+    // Returns true if keys are equal (compare function returns 0)
+    return hash_table->params.compare_function(a, b,
+                                               hash_table->params.key_size,
+                                               hash_table->arg) == 0;
+}
+```

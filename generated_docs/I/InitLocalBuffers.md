@@ -38,3 +38,50 @@ None (void function)
 - Sets global NLocBuffer to indicate local buffer system is ready
 - Uses num_temp_buffers GUC parameter to determine number of local buffers to allocate
 - Intentionally leaves atomic variables uninitialized to catch incorrect atomic usage on local buffers
+
+## Simplified Source
+
+```c
+static void
+InitLocalBuffers(void)
+{
+    int nbufs = num_temp_buffers;
+    HASHCTL info;
+    int i;
+
+    // Prevent parallel workers from accessing temporary tables
+    if (IsParallelWorker())
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TRANSACTION_STATE),
+                       errmsg("cannot access temporary tables during a parallel operation")));
+
+    // Allocate buffer management arrays
+    LocalBufferDescriptors = calloc(nbufs, sizeof(BufferDesc));
+    LocalBufferBlockPointers = calloc(nbufs, sizeof(Block));
+    LocalRefCount = calloc(nbufs, sizeof(int32));
+
+    // Check allocation success
+    if (!LocalBufferDescriptors || !LocalBufferBlockPointers || !LocalRefCount)
+        ereport(FATAL, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+
+    nextFreeLocalBufId = 0;
+
+    // Initialize buffer descriptors with negative IDs
+    for (i = 0; i < nbufs; i++) {
+        BufferDesc *buf = GetLocalBufferDescriptor(i);
+        buf->buf_id = -i - 2;  // Negative to distinguish from shared buffers
+    }
+
+    // Create hash table for buffer lookups
+    info.keysize = sizeof(BufferTag);
+    info.entrysize = sizeof(LocalBufferLookupEnt);
+
+    LocalBufHash = hash_create("Local Buffer Lookup Table", nbufs, &info,
+                              HASH_ELEM | HASH_BLOBS);
+
+    if (!LocalBufHash)
+        elog(ERROR, "could not initialize local buffer hash table");
+
+    // Mark initialization complete
+    NLocBuffer = nbufs;
+}
+```

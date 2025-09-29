@@ -44,3 +44,29 @@ The key difference is that it works with nuchrs (Unicode/high character counts) 
 - Optimizes by returning existing color if entry is already in appropriate subcolor
 - Part of PostgreSQL's regex engine color management system for handling Unicode and multi-byte character mappings
 - Does not set firstchr like subcolor() does, since high colormap entries may represent ranges rather than single characters
+
+## Simplified Source
+```c
+static color subcolorhi(struct colormap *cm, color *pco)
+{
+    color co;    // current color of entry
+    color sco;   // new subcolor
+
+    // Get current color and create new subcolor
+    co = *pco;
+    sco = newsub(cm, co);
+    if (CISERR())
+        return COLORLESS;
+
+    // If already in correct subcolor, return it
+    if (co == sco)
+        return co;
+
+    // Update Unicode character counts and mapping
+    cm->cd[co].nuchrs--;
+    cm->cd[sco].nuchrs++;
+    *pco = sco;
+
+    return sco;
+}
+```

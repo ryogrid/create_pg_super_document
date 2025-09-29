@@ -40,3 +40,38 @@ This batching approach is crucial for performance when dealing with large transa
 - Only processes subtransactions, never the main transaction ID (passed as InvalidTransactionId to TransactionIdSetPageStatus)
 - Uses efficient page-wise batching to minimize CLOG page lock overhead
 - Part of the sophisticated multi-phase algorithm implemented by TransactionIdSetTreeStatus for handling cross-page transaction trees
+
+## Simplified Source
+
+```c
+static void
+set_status_by_pages(int nsubxids, TransactionId *subxids,
+                   XidStatus status, XLogRecPtr lsn)
+{
+    int64 pageno = TransactionIdToPage(subxids[0]);
+    int offset = 0;
+    int i = 0;
+
+    // Process transactions in page-sized chunks
+    while (i < nsubxids) {
+        int num_on_page = 0;
+        int64 nextpageno;
+
+        // Count consecutive transactions on the same page
+        do {
+            nextpageno = TransactionIdToPage(subxids[i]);
+            if (nextpageno != pageno)
+                break;
+            num_on_page++;
+            i++;
+        } while (i < nsubxids);
+
+        // Update all transactions on this page at once
+        TransactionIdSetPageStatus(InvalidTransactionId,
+                                  num_on_page, subxids + offset,
+                                  status, lsn, pageno, false);
+        offset = i;
+        pageno = nextpageno;
+    }
+}
+```

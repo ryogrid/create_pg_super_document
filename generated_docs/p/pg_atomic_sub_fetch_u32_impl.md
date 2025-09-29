@@ -32,3 +32,15 @@ This is a generic implementation of atomic subtract-and-fetch operation that com
 - This function is part of PostgreSQL's portable atomic operations abstraction layer
 - Located in src/include/port/atomics/generic.h as part of the generic atomic operations implementation
 - Complements the add_fetch operation by providing the subtract equivalent
+
+## Simplified Source
+
+```c
+static inline uint32
+pg_atomic_sub_fetch_u32_impl(volatile pg_atomic_uint32 *ptr, int32 sub_)
+{
+    // Perform atomic subtraction and return new value
+    // Use fetch_sub to get old value, then subtract to get new value
+    return pg_atomic_fetch_sub_u32_impl(ptr, sub_) - sub_;
+}
+```

@@ -45,3 +45,74 @@ This function provides comprehensive logging of recovery conflicts during hot st
 - Uses errdetail_log_plural for proper singular/plural formatting of conflict details
 - Assert ensures wait_list is NULL when conflict is resolved (still_waiting is false)
 - Essential for diagnosing hot standby performance issues and conflict resolution
+
+## Simplified Source
+
+```c
+void
+LogRecoveryConflict(ProcSignalReason reason, TimestampTz wait_start,
+                   TimestampTz now, VirtualTransactionId *wait_list,
+                   bool still_waiting)
+{
+    long secs;
+    int usecs;
+    long msecs;
+    StringInfoData buf;
+    int nprocs = 0;
+
+    // Ensure wait_list is NULL when conflict is resolved
+    Assert(still_waiting || wait_list == NULL);
+
+    // Calculate wait duration
+    TimestampDifference(wait_start, now, &secs, &usecs);
+    msecs = secs * 1000 + usecs / 1000;
+    usecs = usecs % 1000;
+
+    // Build list of conflicting process PIDs if provided
+    if (wait_list)
+    {
+        VirtualTransactionId *vxids = wait_list;
+        while (VirtualTransactionIdIsValid(*vxids))
+        {
+            PGPROC *proc = ProcNumberGetProc(vxids->procNumber);
+
+            // Skip inactive backends
+            if (proc)
+            {
+                if (nprocs == 0)
+                {
+                    initStringInfo(&buf);
+                    appendStringInfo(&buf, "%d", proc->pid);
+                }
+                else
+                    appendStringInfo(&buf, ", %d", proc->pid);
+
+                nprocs++;
+            }
+
+            vxids++;
+        }
+    }
+
+    // Log appropriate message based on conflict status
+    if (still_waiting)
+    {
+        ereport(LOG,
+                errmsg("recovery still waiting after %ld.%03d ms: %s",
+                       msecs, usecs, get_recovery_conflict_desc(reason)),
+                nprocs > 0 ? errdetail_log_plural("Conflicting process: %s.",
+                                                  "Conflicting processes: %s.",
+                                                  nprocs, buf.data) : 0);
+    }
+    else
+    {
+        ereport(LOG,
+                errmsg("recovery finished waiting after %ld.%03d ms: %s",
+                       msecs, usecs, get_recovery_conflict_desc(reason)));
+    }
+
+    // Clean up string buffer
+    if (nprocs > 0)
+        pfree(buf.data);
+}
+```

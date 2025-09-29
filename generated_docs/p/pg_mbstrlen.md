@@ -35,3 +35,24 @@ The function includes an important optimization: if the current database encodin
 - Essential for accurate character counting in multibyte environments
 - Commonly used in text formatting, validation, and processing functions
 - Assumes input string is properly null-terminated and contains valid multibyte sequences
+
+## Simplified Source
+
+```c
+int
+pg_mbstrlen(const char *mbstr) {
+    int len = 0;
+
+    // Optimization for single-byte encodings: use standard strlen
+    if (pg_database_encoding_max_length() == 1)
+        return strlen(mbstr);
+
+    // Count characters (not bytes) by advancing through multibyte string
+    while (*mbstr) {
+        mbstr += pg_mblen(mbstr);  // Skip to next character
+        len++;                     // Count one more character
+    }
+
+    return len;
+}
+```

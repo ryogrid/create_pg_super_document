@@ -35,3 +35,29 @@ The function carefully manages resource ownership by temporarily switching to th
 - The files array is reallocated to accommodate the new file handle
 - The numFiles counter is incremented after successfully adding the new file
 - This function is typically called when write operations exceed the capacity of existing component files
+
+## Simplified Source
+
+```c
+static void extendBufFile(BufFile *file) {
+    // Temporarily switch to BufFile's resource owner
+    ResourceOwner oldowner = CurrentResourceOwner;
+    CurrentResourceOwner = file->resowner;
+
+    // Create new file: temporary file or fileset segment
+    File newfile;
+    if (file->fileset == NULL) {
+        newfile = OpenTemporaryFile(file->isInterXact);
+    } else {
+        newfile = MakeNewFileSetSegment(file, file->numFiles);
+    }
+
+    // Restore original resource owner
+    CurrentResourceOwner = oldowner;
+
+    // Expand files array and add new file
+    file->files = repalloc(file->files, (file->numFiles + 1) * sizeof(File));
+    file->files[file->numFiles] = newfile;
+    file->numFiles++;
+}
+```

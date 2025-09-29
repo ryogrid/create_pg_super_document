@@ -35,3 +35,38 @@ Like its startup counterpart, this function implements a safety mechanism to det
 - Returns BGWH_POSTMASTER_DIED if postmaster dies during wait
 - Unlike the startup function, this does not return a PID since the worker is stopped
 - Located in src/backend/postmaster/bgworker.c:1182-1220
+
+## Simplified Source
+
+```c
+BgwHandleStatus
+WaitForBackgroundWorkerShutdown(BackgroundWorkerHandle *handle)
+{
+    BgwHandleStatus status;
+
+    for (;;) {
+        pid_t pid;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Check current worker status
+        status = GetBackgroundWorkerPid(handle, &pid);
+        if (status == BGWH_STOPPED)
+            break;
+
+        // Wait for state change or postmaster death
+        int rc = WaitLatch(MyLatch,
+                          WL_LATCH_SET | WL_POSTMASTER_DEATH, 0,
+                          WAIT_EVENT_BGWORKER_SHUTDOWN);
+
+        if (rc & WL_POSTMASTER_DEATH) {
+            status = BGWH_POSTMASTER_DIED;
+            break;
+        }
+
+        ResetLatch(MyLatch);
+    }
+
+    return status;
+}
+```

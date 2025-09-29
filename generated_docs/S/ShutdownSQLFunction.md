@@ -41,3 +41,48 @@ ShutdownSQLFunction is a critical cleanup callback function in PostgreSQL's SQL 
 - Handles both readonly and non-readonly function types with appropriate snapshot management
 - Works in conjunction with the executor's callback registration system
 - The function resets execution states to F_EXEC_START, allowing for potential reuse of the execution context
+
+## Simplified Source
+
+```c
+static void
+ShutdownSQLFunction(Datum arg)
+{
+    SQLFunctionCachePtr fcache = (SQLFunctionCachePtr) DatumGetPointer(arg);
+    execution_state *es;
+    ListCell *lc;
+
+    // Shut down all execution states
+    foreach(lc, fcache->func_state)
+    {
+        es = (execution_state *) lfirst(lc);
+        while (es)
+        {
+            // Clean up running execution states
+            if (es->status == F_EXEC_RUN)
+            {
+                // Manage snapshots for non-readonly functions
+                if (!fcache->readonly_func)
+                    PushActiveSnapshot(es->qd->snapshot);
+
+                postquel_end(es);
+
+                if (!fcache->readonly_func)
+                    PopActiveSnapshot();
+            }
+
+            // Reset for potential reuse
+            es->status = F_EXEC_START;
+            es = es->next;
+        }
+    }
+
+    // Clean up tuplestore
+    if (fcache->tstore)
+        tuplestore_end(fcache->tstore);
+    fcache->tstore = NULL;
+
+    // Mark callback as deregistered
+    fcache->shutdown_reg = false;
+}
+```

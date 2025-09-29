@@ -53,3 +53,39 @@ Key implementation details:
 - Used primarily for text processing functions that need locale-aware case conversion
 - Handles Windows-specific UTF-8 encoding issues where standard wcstombs functions don't work correctly
 - The output buffer size should account for multibyte character expansion
+
+## Simplified Source
+
+```c
+size_t
+wchar2char(char *to, const wchar_t *from, size_t tolen, pg_locale_t locale) {
+    size_t result;
+
+    // Validate locale provider is LIBC
+    Assert(!locale || locale->provider == COLLPROVIDER_LIBC);
+
+    if (tolen == 0)
+        return 0;
+
+#ifdef WIN32
+    // Special handling for Windows UTF-8 encoding
+    if (GetDatabaseEncoding() == PG_UTF8) {
+        result = WideCharToMultiByte(CP_UTF8, 0, from, -1, to, tolen, NULL, NULL);
+        // Adjust result: Windows includes null terminator in count
+        if (result <= 0)
+            result = -1;
+        else
+            result--;
+    }
+    else
+#endif
+    // Use appropriate wcstombs function based on locale
+    if (locale == NULL) {
+        result = wcstombs(to, from, tolen);
+    } else {
+        result = wcstombs_l(to, from, tolen, locale->info.lt);
+    }
+
+    return result;
+}
+```

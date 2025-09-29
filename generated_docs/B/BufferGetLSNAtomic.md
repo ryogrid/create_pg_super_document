@@ -41,3 +41,32 @@ BufferGetLSNAtomic provides a thread-safe way to retrieve the LSN of a buffer pa
 - Essential for WAL (Write-Ahead Logging) operations where LSN consistency is critical
 - Widely used in index operations (GiST, B-tree) and heap visibility operations
 - The atomic nature prevents reading inconsistent LSN values during concurrent page modifications
+
+## Simplified Source
+
+```c
+XLogRecPtr
+BufferGetLSNAtomic(Buffer buffer)
+{
+    char *page = BufferGetPage(buffer);
+    BufferDesc *buf_hdr;
+    XLogRecPtr lsn;
+    uint32 buf_state;
+
+    // Fast path: no locking needed for local buffers or when hint bits disabled
+    if (!XLogHintBitIsNeeded() || BufferIsLocal(buffer))
+        return PageGetLSN(page);
+
+    // Verify buffer validity and pin
+    Assert(BufferIsValid(buffer));
+    Assert(BufferIsPinned(buffer));
+
+    // Get LSN atomically with buffer header lock
+    buf_hdr = GetBufferDescriptor(buffer - 1);
+    buf_state = LockBufHdr(buf_hdr);
+    lsn = PageGetLSN(page);
+    UnlockBufHdr(buf_hdr, buf_state);
+
+    return lsn;
+}
+```

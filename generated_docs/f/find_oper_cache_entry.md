@@ -36,3 +36,36 @@ The function performs lazy initialization of the cache hash table, creating it w
 - Registers invalidation callbacks for OPERNAMENSP and CASTSOURCETARGET syscaches
 - Cache size starts at 256 buckets and grows as needed
 - Critical for performance optimization in operator resolution
+
+## Simplified Source
+
+```c
+static Oid
+find_oper_cache_entry(OprCacheKey *key)
+{
+    // Initialize hash table on first use
+    if (OprCacheHash == NULL) {
+        HASHCTL ctl;
+        ctl.keysize = sizeof(OprCacheKey);
+        ctl.entrysize = sizeof(OprCacheEntry);
+
+        // Create hash table with 256 initial buckets
+        OprCacheHash = hash_create("Operator lookup cache", 256,
+                                   &ctl, HASH_ELEM | HASH_BLOBS);
+
+        // Register callbacks to invalidate cache when catalogs change
+        CacheRegisterSyscacheCallback(OPERNAMENSP,
+                                      InvalidateOprCacheCallBack, (Datum) 0);
+        CacheRegisterSyscacheCallback(CASTSOURCETARGET,
+                                      InvalidateOprCacheCallBack, (Datum) 0);
+    }
+
+    // Search for existing cache entry
+    OprCacheEntry *oprentry = hash_search(OprCacheHash, key, HASH_FIND, NULL);
+
+    if (oprentry == NULL)
+        return InvalidOid;
+
+    return oprentry->opr_oid;
+}
+```

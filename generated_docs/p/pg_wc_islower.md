@@ -48,3 +48,48 @@ The function handles six different regex strategies:
 - ICU support is conditional on compile-time configuration (USE_ICU)
 - Strategy selection is determined by `pg_regex_strategy` global variable
 - Functionally parallel to pg_wc_isupper but for lowercase detection
+
+## Simplified Source
+
+```c
+static int
+pg_wc_islower(pg_wchar c)
+{
+    switch (pg_regex_strategy) {
+        case PG_REGEX_LOCALE_C:
+            // ASCII-only check using character properties table
+            return (c <= 127 && (pg_char_properties[c] & PG_ISLOWER));
+
+        case PG_REGEX_BUILTIN:
+            // Use PostgreSQL's built-in Unicode classification
+            return pg_u_islower(c);
+
+        case PG_REGEX_LOCALE_WIDE:
+            // Use system wide character function if supported
+            if (sizeof(wchar_t) >= 4 || c <= 0xFFFF)
+                return iswlower((wint_t) c);
+            // Fall through to single-byte if character too large
+
+        case PG_REGEX_LOCALE_1BYTE:
+            // Use standard single-byte function
+            return (c <= UCHAR_MAX && islower((unsigned char) c));
+
+        case PG_REGEX_LOCALE_WIDE_L:
+            // Use locale-specific wide character function
+            if (sizeof(wchar_t) >= 4 || c <= 0xFFFF)
+                return iswlower_l((wint_t) c, pg_regex_locale->info.lt);
+            // Fall through to single-byte if character too large
+
+        case PG_REGEX_LOCALE_1BYTE_L:
+            // Use locale-specific single-byte function
+            return (c <= UCHAR_MAX &&
+                    islower_l((unsigned char) c, pg_regex_locale->info.lt));
+
+        case PG_REGEX_LOCALE_ICU:
+            // Use ICU library if available
+            return u_islower(c);
+    }
+
+    return 0;  // Should never reach here
+}
+```

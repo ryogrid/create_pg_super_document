@@ -53,3 +53,95 @@ When delete_ok is true, the function optimizes memory usage by clearing fully-pr
 - Supports cross-partition updates by managing separate source and destination partition relations
 - Optimizes memory usage by clearing processed chunks when delete_ok is true
 - Part of PostgreSQL's two-phase trigger execution: marking events (afterTriggerMarkEvents) followed by invoking them (this function)
+
+## Simplified Source
+
+```c
+static bool afterTriggerInvokeEvents(AfterTriggerEventList *events,
+                                    CommandId firing_id,
+                                    EState *estate,
+                                    bool delete_ok) {
+    bool all_fired = true;
+    bool local_estate = false;
+    ResultRelInfo *rInfo = NULL;
+    Relation rel = NULL;
+
+    // Create local EState if none provided
+    if (estate == NULL) {
+        estate = CreateExecutorState();
+        local_estate = true;
+    }
+
+    // Create memory context for trigger function calls
+    MemoryContext per_tuple_context =
+        AllocSetContextCreate(CurrentMemoryContext,
+                             "AfterTriggerTupleContext",
+                             ALLOCSET_DEFAULT_SIZES);
+
+    // Iterate through each chunk of events
+    for_each_chunk(chunk, *events) {
+        bool all_fired_in_chunk = true;
+
+        // Process each event in the chunk
+        for_each_event(event, chunk) {
+            AfterTriggerShared evtshared = GetTriggerSharedData(event);
+
+            // Check if this event should be fired in current cycle
+            if ((event->ate_flags & AFTER_TRIGGER_IN_PROGRESS) &&
+                evtshared->ats_firing_id == firing_id) {
+
+                // Get relation info if changed from previous event
+                if (rel == NULL || RelationGetRelid(rel) != evtshared->ats_relid) {
+                    rInfo = ExecGetTriggerResultRel(estate, evtshared->ats_relid, NULL);
+                    rel = rInfo->ri_RelationDesc;
+                    // Setup tuple slots for foreign tables
+                    if (rel->rd_rel->relkind == RELKIND_FOREIGN_TABLE) {
+                        // Create specialized tuple slots
+                    }
+                }
+
+                // Handle cross-partition updates
+                ResultRelInfo *src_rInfo, *dst_rInfo;
+                if ((event->ate_flags & AFTER_TRIGGER_TUP_BITS) ==
+                    AFTER_TRIGGER_CP_UPDATE) {
+                    src_rInfo = ExecGetTriggerResultRel(estate, event->ate_src_part, rInfo);
+                    dst_rInfo = ExecGetTriggerResultRel(estate, event->ate_dst_part, rInfo);
+                } else {
+                    src_rInfo = dst_rInfo = rInfo;
+                }
+
+                // Execute the trigger
+                AfterTriggerExecute(estate, event, rInfo, src_rInfo, dst_rInfo,
+                                   trigdesc, finfo, instr,
+                                   per_tuple_context, slot1, slot2);
+
+                // Mark event as done
+                event->ate_flags &= ~AFTER_TRIGGER_IN_PROGRESS;
+                event->ate_flags |= AFTER_TRIGGER_DONE;
+
+            } else if (!(event->ate_flags & AFTER_TRIGGER_DONE)) {
+                // Found unfired event
+                all_fired = all_fired_in_chunk = false;
+            }
+        }
+
+        // Clear processed chunks if allowed
+        if (delete_ok && all_fired_in_chunk) {
+            chunk->freeptr = CHUNK_DATA_START(chunk);
+            chunk->endfree = chunk->endptr;
+            if (chunk == events->tail)
+                events->tailfree = chunk->freeptr;
+        }
+    }
+
+    // Cleanup resources
+    MemoryContextDelete(per_tuple_context);
+    if (local_estate) {
+        ExecCloseResultRelations(estate);
+        ExecResetTupleTable(estate->es_tupleTable, false);
+        FreeExecutorState(estate);
+    }
+
+    return all_fired;
+}
+```

@@ -61,3 +61,75 @@ XactLogCommitRecord is a critical function in PostgreSQL's transaction logging s
 - Critical for crash recovery, streaming replication, and logical replication functionality
 - The function carefully constructs variable-length WAL records with proper ordering of components
 - Includes support for filtering by transaction origin for selective replication
+
+## Simplified Source
+
+```c
+XLogRecPtr XactLogCommitRecord(TimestampTz commit_time,
+                              int nsubxacts, TransactionId *subxacts,
+                              int nrels, RelFileLocator *rels,
+                              int ndroppedstats, xl_xact_stats_item *droppedstats,
+                              int nmsgs, SharedInvalidationMessage *msgs,
+                              bool relcacheInval, int xactflags,
+                              TransactionId twophase_xid, const char *twophase_gid) {
+    xl_xact_commit xlrec;
+    xl_xact_xinfo xl_xinfo;
+    uint8 info;
+
+    // Initialize structures
+    xl_xinfo.xinfo = 0;
+
+    // Determine commit type: regular or two-phase commit
+    if (!TransactionIdIsValid(twophase_xid))
+        info = XLOG_XACT_COMMIT;
+    else
+        info = XLOG_XACT_COMMIT_PREPARED;
+
+    // Set basic commit time
+    xlrec.xact_time = commit_time;
+
+    // Build transaction info flags based on what data we have
+    if (relcacheInval)
+        xl_xinfo.xinfo |= XACT_COMPLETION_UPDATE_RELCACHE_FILE;
+    if (forceSyncCommit)
+        xl_xinfo.xinfo |= XACT_COMPLETION_FORCE_SYNC_COMMIT;
+    if (synchronous_commit >= SYNCHRONOUS_COMMIT_REMOTE_APPLY)
+        xl_xinfo.xinfo |= XACT_COMPLETION_APPLY_FEEDBACK;
+
+    // Set flags for optional data sections
+    if (nmsgs > 0 || XLogLogicalInfoActive())
+        xl_xinfo.xinfo |= XACT_XINFO_HAS_DBINFO;
+    if (nsubxacts > 0)
+        xl_xinfo.xinfo |= XACT_XINFO_HAS_SUBXACTS;
+    if (nrels > 0)
+        xl_xinfo.xinfo |= XACT_XINFO_HAS_RELFILELOCATORS;
+    if (ndroppedstats > 0)
+        xl_xinfo.xinfo |= XACT_XINFO_HAS_DROPPED_STATS;
+    if (nmsgs > 0)
+        xl_xinfo.xinfo |= XACT_XINFO_HAS_INVALS;
+    if (TransactionIdIsValid(twophase_xid))
+        xl_xinfo.xinfo |= XACT_XINFO_HAS_TWOPHASE;
+    if (replorigin_session_origin != InvalidRepOriginId)
+        xl_xinfo.xinfo |= XACT_XINFO_HAS_ORIGIN;
+
+    if (xl_xinfo.xinfo != 0)
+        info |= XLOG_XACT_HAS_INFO;
+
+    // Build the WAL record by registering all data sections
+    XLogBeginInsert();
+
+    // Register the basic commit record
+    XLogRegisterData((char *) (&xlrec), sizeof(xl_xact_commit));
+
+    // Register optional sections based on flags set above
+    if (xl_xinfo.xinfo != 0)
+        XLogRegisterData((char *) (&xl_xinfo.xinfo), sizeof(xl_xinfo.xinfo));
+
+    // Register database info, subtransactions, relations, etc. based on flags
+    // ... (register various optional data sections as needed)
+
+    // Set record flags and insert into WAL
+    XLogSetRecordFlags(XLOG_INCLUDE_ORIGIN);
+    return XLogInsert(RM_XACT_ID, info);
+}
+```

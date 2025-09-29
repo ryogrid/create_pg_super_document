@@ -31,3 +31,16 @@ This function stores the timestamp that marks the start time of the current chun
 - The timestamp is stored in currentChunkStartTime field of XLogRecoveryCtl
 - Part of WAL processing coordination, helping track progress through WAL record chunks
 - Enables all backends to see the current chunk processing status, not just the startup process
+
+## Simplified Source
+
+```c
+static void
+SetCurrentChunkStartTime(TimestampTz xtime)
+{
+    // Thread-safe update of chunk start time in shared memory
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+    XLogRecoveryCtl->currentChunkStartTime = xtime;
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+}
+```

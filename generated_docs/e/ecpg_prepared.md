@@ -34,3 +34,15 @@ ecpg_prepared(const char *name, struct connection *con)
 - The function performs a simple lookup without any side effects on the prepared statement
 - Part of the internal ECPG API, primarily used by other ECPG library functions
 - Essential for statement execution when the original command text needs to be referenced or logged
+
+## Simplified Source
+
+```c
+char *ecpg_prepared(const char *name, struct connection *con) {
+    // Find the prepared statement by name in the connection
+    struct prepared_statement *this = ecpg_find_prepared_statement(name, con, NULL);
+
+    // Return the command text if found, NULL otherwise
+    return this ? this->stmt->command : NULL;
+}
+```

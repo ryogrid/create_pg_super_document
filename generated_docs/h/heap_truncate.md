@@ -38,3 +38,39 @@ The function differs from the transaction-safe implementation in commands/tablec
 - Maintains exclusive locks on all relations until transaction commit
 - Performs foreign key constraint checking before truncation to prevent referential integrity violations
 - Processes multiple relations in a single operation for efficiency
+
+## Simplified Source
+
+```c
+void
+heap_truncate(List *relids)
+{
+    List *relations = NIL;
+    ListCell *cell;
+
+    // Open all relations with exclusive locks
+    foreach(cell, relids)
+    {
+        Oid rid = lfirst_oid(cell);
+        Relation rel;
+
+        rel = table_open(rid, AccessExclusiveLock);
+        relations = lappend(relations, rel);
+    }
+
+    // Check foreign key constraints before truncation
+    heap_truncate_check_FKs(relations, true);
+
+    // Truncate each relation
+    foreach(cell, relations)
+    {
+        Relation rel = lfirst(cell);
+
+        // Perform the actual truncation
+        heap_truncate_one_rel(rel);
+
+        // Close relation but keep exclusive lock until commit
+        table_close(rel, NoLock);
+    }
+}
+```

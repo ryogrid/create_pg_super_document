@@ -39,3 +39,36 @@ postquel_get_single_result is responsible for extracting and properly formatting
 - Performs datumCopy for non-null pass-by-reference values to ensure data persistence
 - Used both for single-value scalar functions and for processing individual rows in set-returning functions
 - Properly handles null values by setting fcinfo->isnull appropriately
+
+## Simplified Source
+
+```c
+static Datum
+postquel_get_single_result(TupleTableSlot *slot,
+                          FunctionCallInfo fcinfo,
+                          SQLFunctionCachePtr fcache,
+                          MemoryContext resultcontext)
+{
+    Datum value;
+    MemoryContext oldcontext;
+
+    // Switch to result context for proper memory allocation
+    oldcontext = MemoryContextSwitchTo(resultcontext);
+
+    if (fcache->returnsTuple) {
+        // Return entire tuple as a single Datum
+        fcinfo->isnull = false;
+        value = ExecFetchSlotHeapTupleDatum(slot);
+    } else {
+        // Extract scalar value from first column
+        value = slot_getattr(slot, 1, &(fcinfo->isnull));
+
+        // Copy value if not null (for pass-by-reference types)
+        if (!fcinfo->isnull)
+            value = datumCopy(value, fcache->typbyval, fcache->typlen);
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+    return value;
+}
+```

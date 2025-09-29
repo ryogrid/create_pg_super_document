@@ -39,3 +39,24 @@ The detection is pessimistic because it cannot determine whether the lock being 
 - Reports ERRCODE_T_R_DEADLOCK_DETECTED error code when canceling transactions
 - The error message specifically mentions 'buffer deadlock with recovery' to distinguish from regular deadlocks
 - Low-probability errors in practice, making the current simple approach acceptable for now
+
+## Simplified Source
+
+```c
+void
+CheckRecoveryConflictDeadlock(void)
+{
+    // Should only be called from non-startup processes
+    Assert(!InRecovery);
+
+    // Check if we're holding buffer pins that delay recovery
+    if (!HoldingBufferPinThatDelaysRecovery())
+        return;
+
+    // Cancel transaction to prevent deadlock with startup process
+    ereport(ERROR,
+            (errcode(ERRCODE_T_R_DEADLOCK_DETECTED),
+             errmsg("canceling statement due to conflict with recovery"),
+             errdetail("User transaction caused buffer deadlock with recovery.")));
+}
+```

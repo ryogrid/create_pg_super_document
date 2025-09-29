@@ -33,3 +33,14 @@ This function takes no parameters.
 - Used in conjunction with `IsPromoteSignaled()` to check the current promotion state
 - The flag is declared as `volatile sig_atomic_t` to ensure safe access from signal handlers
 - Located in the startup process implementation (startup.c:294-297)
+
+## Simplified Source
+
+```c
+void
+ResetPromoteSignaled(void)
+{
+    // Clear the promotion signal flag
+    promote_signaled = false;
+}
+```

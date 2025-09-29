@@ -32,3 +32,25 @@ postquel_end is responsible for the orderly shutdown of query execution for a SQ
 - Utility commands (CMD_UTILITY) bypass the Executor framework and don't require ExecutorFinish/ExecutorEnd
 - The destination receiver's rDestroy method is called to clean up output handling
 - After cleanup, the QueryDesc pointer is set to NULL to prevent accidental reuse
+
+## Simplified Source
+
+```c
+static void
+postquel_end(execution_state *es)
+{
+    // Mark execution as done to prevent duplicate cleanup
+    es->status = F_EXEC_DONE;
+
+    // Regular queries need executor shutdown, utility commands don't
+    if (es->qd->operation != CMD_UTILITY) {
+        ExecutorFinish(es->qd);
+        ExecutorEnd(es->qd);
+    }
+
+    // Clean up destination and free query descriptor
+    es->qd->dest->rDestroy(es->qd->dest);
+    FreeQueryDesc(es->qd);
+    es->qd = NULL;
+}
+```

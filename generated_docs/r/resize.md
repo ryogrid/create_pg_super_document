@@ -63,3 +63,62 @@ This operation is expensive but infrequent, as hash tables only resize when they
 - Memory allocation uses DSA_ALLOC_HUGE and DSA_ALLOC_ZERO flags for efficient large allocation
 - The resize operation is atomic from the perspective of other backends
 - All existing items are preserved and redistributed to maintain hash table correctness
+
+## Simplified Source
+```c
+static void resize(dshash_table *hash_table, size_t new_size_log2)
+{
+    dsa_pointer old_buckets;
+    dsa_pointer new_buckets_shared;
+    dsa_pointer *new_buckets;
+    size_t new_size = ((size_t) 1) << new_size_log2;
+    size_t old_size;
+    size_t i;
+
+    // Acquire exclusive locks on all partitions
+    for (i = 0; i < DSHASH_NUM_PARTITIONS; ++i) {
+        LWLockAcquire(PARTITION_LOCK(hash_table, i), LW_EXCLUSIVE);
+
+        // Check if another backend already resized
+        if (i == 0 && hash_table->control->size_log2 >= new_size_log2) {
+            LWLockRelease(PARTITION_LOCK(hash_table, 0));
+            return; // Already resized, exit early
+        }
+    }
+
+    // Allocate new larger bucket array
+    new_buckets_shared = dsa_allocate_extended(hash_table->area,
+                                              sizeof(dsa_pointer) * new_size,
+                                              DSA_ALLOC_HUGE | DSA_ALLOC_ZERO);
+    new_buckets = dsa_get_address(hash_table->area, new_buckets_shared);
+
+    // Redistribute all existing items to new buckets
+    old_size = ((size_t) 1) << hash_table->control->size_log2;
+    for (i = 0; i < old_size; ++i) {
+        dsa_pointer item_pointer = hash_table->buckets[i];
+
+        while (DsaPointerIsValid(item_pointer)) {
+            dshash_table_item *item = dsa_get_address(hash_table->area, item_pointer);
+            dsa_pointer next_item_pointer = item->next;
+
+            // Reinsert item into new bucket based on hash
+            size_t new_bucket_index = BUCKET_INDEX_FOR_HASH_AND_SIZE(item->hash, new_size_log2);
+            insert_item_into_bucket(hash_table, item_pointer, item, &new_buckets[new_bucket_index]);
+
+            item_pointer = next_item_pointer;
+        }
+    }
+
+    // Atomically swap to new bucket array
+    old_buckets = hash_table->control->buckets;
+    hash_table->control->buckets = new_buckets_shared;
+    hash_table->control->size_log2 = new_size_log2;
+    hash_table->buckets = new_buckets;
+    dsa_free(hash_table->area, old_buckets);
+
+    // Release all partition locks
+    for (i = 0; i < DSHASH_NUM_PARTITIONS; ++i) {
+        LWLockRelease(PARTITION_LOCK(hash_table, i));
+    }
+}
+```

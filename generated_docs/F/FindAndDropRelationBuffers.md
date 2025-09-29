@@ -49,3 +49,49 @@ FindAndDropRelationBuffers implements an optimized approach to buffer removal by
 - Double-checks buffer identity after acquiring buffer header lock to handle race conditions
 - Critical optimization component used by both DropRelationBuffers and DropRelationsAllBuffers
 - Requires exact relation size knowledge to iterate through valid block numbers
+
+## Simplified Source
+
+```c
+static void FindAndDropRelationBuffers(RelFileLocator rlocator, ForkNumber forkNum,
+                                      BlockNumber nForkBlock, BlockNumber firstDelBlock) {
+    // Iterate through each block to be dropped
+    for (BlockNumber curBlock = firstDelBlock; curBlock < nForkBlock; curBlock++) {
+        BufferTag bufTag;
+        uint32 bufHash;
+        LWLock *bufPartitionLock;
+        int buf_id;
+
+        // Create buffer tag for this specific block
+        InitBufferTag(&bufTag, &rlocator, forkNum, curBlock);
+
+        // Calculate hash and get partition lock
+        bufHash = BufTableHashCode(&bufTag);
+        bufPartitionLock = BufMappingPartitionLock(bufHash);
+
+        // Look up buffer in mapping table
+        LWLockAcquire(bufPartitionLock, LW_SHARED);
+        buf_id = BufTableLookup(&bufTag, bufHash);
+        LWLockRelease(bufPartitionLock);
+
+        // Skip if buffer not found in pool
+        if (buf_id < 0)
+            continue;
+
+        // Get buffer descriptor and lock it
+        BufferDesc *bufHdr = GetBufferDescriptor(buf_id);
+        uint32 buf_state = LockBufHdr(bufHdr);
+
+        // Double-check buffer identity and invalidate if match
+        if (BufTagMatchesRelFileLocator(&bufHdr->tag, &rlocator) &&
+            BufTagGetForkNum(&bufHdr->tag) == forkNum &&
+            bufHdr->tag.blockNum >= firstDelBlock) {
+            // InvalidateBuffer releases the spinlock
+            InvalidateBuffer(bufHdr);
+        } else {
+            // Not our buffer, just unlock
+            UnlockBufHdr(bufHdr, buf_state);
+        }
+    }
+}
+```

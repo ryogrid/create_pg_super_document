@@ -18,7 +18,7 @@ The queue uses a ring buffer design to efficiently manage pending read operation
 
 ## Parameters / Member Variables
 - `max_distance`: Maximum number of WAL records that can be queued for reading ahead
-- `max_inflight`: Maximum number of concurrent I/O operations allowed (must be ≤ max_distance)  
+- `max_inflight`: Maximum number of concurrent I/O operations allowed (must be ≤ max_distance)
 - `lrq_private`: Private data pointer passed through to callback functions
 - `next`: Callback function used to determine the next LSN to prefetch
 
@@ -35,3 +35,37 @@ The queue uses a ring buffer design to efficiently manage pending read operation
 - Uses a ring buffer with size max_distance + 1 to distinguish between full and empty states
 - Initializes all queue counters (head, tail, inflight, completed) to zero for a clean starting state
 - The allocated queue structure includes both the control data and the ring buffer storage in a single allocation
+
+## Simplified Source
+
+```c
+static inline LsnReadQueue *
+lrq_alloc(uint32 max_distance, uint32 max_inflight, uintptr_t lrq_private, LsnReadQueueNextFun next)
+{
+    LsnReadQueue *lrq;
+    uint32 size;
+
+    // Validate configuration parameters
+    Assert(max_distance >= max_inflight);
+
+    // Calculate ring buffer size (extra slot to distinguish full from empty)
+    size = max_distance + 1;
+
+    // Allocate memory for queue structure and ring buffer
+    lrq = palloc(offsetof(LsnReadQueue, queue) + sizeof(lrq->queue[0]) * size);
+
+    // Initialize queue configuration
+    lrq->lrq_private = lrq_private;
+    lrq->max_inflight = max_inflight;
+    lrq->size = size;
+    lrq->next = next;
+
+    // Initialize queue state
+    lrq->head = 0;
+    lrq->tail = 0;
+    lrq->inflight = 0;
+    lrq->completed = 0;
+
+    return lrq;
+}
+```

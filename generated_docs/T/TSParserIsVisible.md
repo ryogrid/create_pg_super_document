@@ -31,3 +31,14 @@ Visibility in PostgreSQL's namespace system means that an object can be referenc
 - Part of PostgreSQL's visibility checking infrastructure for text search objects
 - Returns true if the parser would be found by unqualified name lookup, false otherwise
 - Located in src/backend/catalog/namespace.c at lines 2774-2785
+
+## Simplified Source
+
+```c
+bool
+TSParserIsVisible(Oid prsId)
+{
+    // Simple wrapper that delegates to the extended version
+    return TSParserIsVisibleExt(prsId, NULL);
+}
+```

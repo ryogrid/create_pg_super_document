@@ -38,3 +38,47 @@ This function initiates execution of one query within a SQL function by setting 
 - Sets EXEC_FLAG_SKIP_TRIGGERS for lazy evaluation to prevent AfterTrigger context stacking issues
 - Utility commands bypass executor initialization as they don't require planning infrastructure
 - Updates execution state status to F_EXEC_RUN after successful startup
+
+## Simplified Source
+
+```c
+static void
+postquel_start(execution_state *es, SQLFunctionCachePtr fcache)
+{
+    DestReceiver *dest;
+
+    Assert(es->qd == NULL);
+    Assert(ActiveSnapshotSet());
+
+    // Choose destination: tuplestore for result queries, discard for others
+    if (es->setsResult) {
+        DR_sqlfunction *myState;
+
+        dest = CreateDestReceiver(DestSQLFunction);
+        myState = (DR_sqlfunction *) dest;
+        myState->tstore = fcache->tstore;
+        myState->cxt = CurrentMemoryContext;
+        myState->filter = fcache->junkFilter;
+    } else {
+        dest = None_Receiver;
+    }
+
+    // Create query descriptor
+    es->qd = CreateQueryDesc(es->stmt,
+                            fcache->src,
+                            GetActiveSnapshot(),
+                            InvalidSnapshot,
+                            dest,
+                            fcache->paramLI,
+                            es->qd ? es->qd->queryEnv : NULL,
+                            0);
+
+    // Start executor for non-utility commands
+    if (es->qd->operation != CMD_UTILITY) {
+        int eflags = es->lazyEval ? EXEC_FLAG_SKIP_TRIGGERS : 0;
+        ExecutorStart(es->qd, eflags);
+    }
+
+    es->status = F_EXEC_RUN;
+}
+```

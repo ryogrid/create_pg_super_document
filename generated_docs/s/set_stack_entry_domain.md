@@ -35,3 +35,17 @@ The function ensures that both the main error message domain and the context mes
 - Both edata->domain and edata->context_domain are set to the same value for consistency
 - The context_domain initialization follows the same pattern as set_errcontext_domain() function
 - This is part of PostgreSQL's internationalization infrastructure for error messages
+
+## Simplified Source
+
+```c
+static void
+set_stack_entry_domain(ErrorData *edata, const char *domain)
+{
+    // Set main domain (default to postgres backend domain)
+    edata->domain = domain ? domain : PG_TEXTDOMAIN("postgres");
+
+    // Initialize context domain the same way
+    edata->context_domain = edata->domain;
+}
+```

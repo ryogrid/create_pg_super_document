@@ -44,3 +44,21 @@ The function is primarily used for:
 - This is a read-only operation that doesn't modify the context or its contents
 - Useful for memory management optimization, allowing code to skip expensive operations on empty contexts
 - The child context check takes precedence over the type-specific check for performance reasons
+
+## Simplified Source
+
+```c
+bool
+MemoryContextIsEmpty(MemoryContext context)
+{
+    // Validate input context
+    Assert(MemoryContextIsValid(context));
+
+    // Context with children is never considered empty
+    if (context->firstchild != NULL)
+        return false;
+
+    // Use type-specific emptiness check
+    return context->methods->is_empty(context);
+}
+```

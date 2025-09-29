@@ -39,3 +39,27 @@ When the program fails, it provides both a user-friendly error message indicatin
 - Uses wait_result_to_str() to provide detailed information about how the program terminated (exit code, signal, etc.)
 - Part of PostgreSQL's COPY TO PROGRAM feature that allows piping data directly to external commands
 - The function ensures proper cleanup and meaningful error reporting for failed external programs
+
+## Simplified Source
+
+```c
+static void ClosePipeToProgram(CopyToState cstate) {
+    Assert(cstate->is_program);
+
+    // Close the pipe and get the program exit status
+    int pclose_rc = ClosePipeStream(cstate->copy_file);
+
+    if (pclose_rc == -1) {
+        // Pipe closure failed
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not close pipe to external command: %m")));
+    } else if (pclose_rc != 0) {
+        // Program failed with non-zero exit status
+        ereport(ERROR,
+                (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                 errmsg("program \"%s\" failed", cstate->filename),
+                 errdetail_internal("%s", wait_result_to_str(pclose_rc))));
+    }
+}
+```

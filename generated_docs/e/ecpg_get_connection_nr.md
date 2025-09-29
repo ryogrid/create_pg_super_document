@@ -37,3 +37,35 @@ This function implements the core connection lookup logic for the ECPG library. 
 - Thread-safe for retrieving current connections via pthread thread-specific data
 - The returned connection structure contains the actual PostgreSQL connection (PGconn), autocommit status, and other connection metadata
 - Part of ECPG's connection management infrastructure that supports both single-threaded and multi-threaded applications
+
+## Simplified Source
+
+```c
+static struct connection *ecpg_get_connection_nr(const char *connection_name) {
+    struct connection *ret = NULL;
+
+    // Handle current/default connection requests
+    if ((connection_name == NULL) || (strcmp(connection_name, "CURRENT") == 0)) {
+        // Initialize thread support
+        ecpg_pthreads_init();
+
+        // Get thread-specific connection
+        ret = pthread_getspecific(actual_connection_key);
+
+        // Fall back to global connection if no thread-specific one exists
+        if (ret == NULL)
+            ret = actual_connection;
+    }
+    else {
+        // Search for named connection in the connection list
+        for (struct connection *con = all_connections; con != NULL; con = con->next) {
+            if (con->name != NULL && strcmp(connection_name, con->name) == 0) {
+                ret = con;
+                break;
+            }
+        }
+    }
+
+    return ret;
+}
+```

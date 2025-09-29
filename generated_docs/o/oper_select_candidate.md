@@ -40,3 +40,40 @@ The `oper_select_candidate` function attempts to resolve conflicts when multiple
 - Uses the same resolution logic as function overload resolution
 - Part of PostgreSQL's operator overload resolution system
 - Located in src/backend/parser/parse_oper.c:312-369
+
+## Simplified Source
+
+```c
+static FuncDetailCode
+oper_select_candidate(int nargs,
+                      Oid *input_typeids,
+                      FuncCandidateList candidates,
+                      Oid *operOid)
+{
+    // Filter candidates that can't accept the input types
+    int ncandidates = func_match_argtypes(nargs, input_typeids,
+                                          candidates, &candidates);
+
+    // Handle trivial cases
+    if (ncandidates == 0) {
+        *operOid = InvalidOid;
+        return FUNCDETAIL_NOTFOUND;
+    }
+    if (ncandidates == 1) {
+        *operOid = candidates->oid;
+        return FUNCDETAIL_NORMAL;
+    }
+
+    // Multiple candidates: use function resolution heuristics
+    candidates = func_select_candidate(nargs, input_typeids, candidates);
+
+    if (candidates) {
+        *operOid = candidates->oid;
+        return FUNCDETAIL_NORMAL;
+    }
+
+    // Failed to select best candidate
+    *operOid = InvalidOid;
+    return FUNCDETAIL_MULTIPLE;
+}
+```

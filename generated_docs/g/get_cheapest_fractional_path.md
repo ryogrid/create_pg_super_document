@@ -45,3 +45,36 @@ This is essential for optimizing queries where only a portion of results will be
 - The function always considers the cheapest_total_path as a baseline candidate
 - Essential for LIMIT optimization and partial result scenarios
 - Works by comparing fractional costs rather than total costs for better path selection
+
+## Simplified Source
+
+```c
+Path *
+get_cheapest_fractional_path(RelOptInfo *rel, double tuple_fraction)
+{
+    Path       *best_path = rel->cheapest_total_path;
+    ListCell   *l;
+
+    // If all tuples needed, return cheapest total path
+    if (tuple_fraction <= 0.0)
+        return best_path;
+
+    // Convert absolute count to fraction if needed
+    if (tuple_fraction >= 1.0 && best_path->rows > 0)
+        tuple_fraction /= best_path->rows;
+
+    // Find path with best fractional cost
+    foreach(l, rel->pathlist)
+    {
+        Path *path = (Path *) lfirst(l);
+
+        if (path == rel->cheapest_total_path ||
+            compare_fractional_path_costs(best_path, path, tuple_fraction) <= 0)
+            continue;
+
+        best_path = path;
+    }
+
+    return best_path;
+}
+```

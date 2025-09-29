@@ -43,3 +43,62 @@ The  function is the central error reporting mechanism for the ECPG library. It 
 - Error messages are truncated at 149 characters to fit in sqlca->sqlerrm.sqlerrmc
 - Logs the error using ecpg_log for debugging purposes
 - Handles over 20 different ECPG error codes with specific error messages for each
+
+## Simplified Source
+
+```c
+void ecpg_raise(int line, int code, const char *sqlstate, const char *str) {
+    struct sqlca_t *sqlca = ECPGget_sqlca();
+
+    // Handle memory allocation failure
+    if (!sqlca) {
+        ecpg_log("out of memory");
+        ECPGfree_auto_mem();
+        return;
+    }
+
+    // Set error code and state
+    sqlca->sqlcode = code;
+    strncpy(sqlca->sqlstate, sqlstate, sizeof(sqlca->sqlstate));
+
+    // Generate appropriate error message based on error code
+    switch (code) {
+        case ECPG_NOT_FOUND:
+            snprintf(sqlca->sqlerrm.sqlerrmc, sizeof(sqlca->sqlerrm.sqlerrmc),
+                     ecpg_gettext("no data found on line %d"), line);
+            break;
+
+        case ECPG_OUT_OF_MEMORY:
+            snprintf(sqlca->sqlerrm.sqlerrmc, sizeof(sqlca->sqlerrm.sqlerrmc),
+                     ecpg_gettext("out of memory on line %d"), line);
+            break;
+
+        case ECPG_UNSUPPORTED:
+            snprintf(sqlca->sqlerrm.sqlerrmc, sizeof(sqlca->sqlerrm.sqlerrmc),
+                     ecpg_gettext("unsupported type \"%s\" on line %d"), str, line);
+            break;
+
+        case ECPG_CONVERT_BOOL:
+            if (str)
+                snprintf(sqlca->sqlerrm.sqlerrmc, sizeof(sqlca->sqlerrm.sqlerrmc),
+                         ecpg_gettext("invalid syntax for type boolean: \"%s\", on line %d"), str, line);
+            else
+                snprintf(sqlca->sqlerrm.sqlerrmc, sizeof(sqlca->sqlerrm.sqlerrmc),
+                         ecpg_gettext("could not convert boolean value: size mismatch, on line %d"), line);
+            break;
+
+        // ... other error cases follow same pattern ...
+
+        default:
+            snprintf(sqlca->sqlerrm.sqlerrmc, sizeof(sqlca->sqlerrm.sqlerrmc),
+                     ecpg_gettext("SQL error %d on line %d"), code, line);
+    }
+
+    // Set error message length and log the error
+    sqlca->sqlerrm.sqlerrml = strlen(sqlca->sqlerrm.sqlerrmc);
+    ecpg_log("raising sqlcode %d on line %d: %s\n", code, line, sqlca->sqlerrm.sqlerrmc);
+
+    // Clean up allocated memory
+    ECPGfree_auto_mem();
+}
+```

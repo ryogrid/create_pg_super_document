@@ -42,3 +42,129 @@ For non-commit records, the function caps the synchronization level to remote fl
 
 ## Notes and Other Information
 This function must be called while holding interrupts during transaction commit to prevent shared memory queue cleanups from being influenced by external interruptions. The function implements careful state management and uses memory barriers to ensure proper synchronization between WAL senders and waiting backends. It gracefully handles process termination requests and query cancellations by issuing appropriate warnings about potentially unreplicated transactions.
+
+## Simplified Source
+
+```c
+void
+SyncRepWaitForLSN(XLogRecPtr lsn, bool commit)
+{
+    int mode;
+
+    // Must be called during interrupt holdoff
+    Assert(InterruptHoldoffCount > 0);
+
+    // Fast exit if sync replication not requested or no standbys defined
+    if (!SyncRepRequested() ||
+        ((((volatile WalSndCtlData *) WalSndCtl)->sync_standbys_status) &
+         (SYNC_STANDBY_INIT | SYNC_STANDBY_DEFINED)) == SYNC_STANDBY_INIT)
+        return;
+
+    // Set replication mode (cap non-commits to flush level)
+    if (commit)
+        mode = SyncRepWaitMode;
+    else
+        mode = Min(SyncRepWaitMode, SYNC_REP_WAIT_FLUSH);
+
+    Assert(dlist_node_is_detached(&MyProc->syncRepLinks));
+    Assert(WalSndCtl != NULL);
+
+    LWLockAcquire(SyncRepLock, LW_EXCLUSIVE);
+    Assert(MyProc->syncRepState == SYNC_REP_NOT_WAITING);
+
+    // Check if we need to wait based on standby status and LSN
+    if (WalSndCtl->sync_standbys_status & SYNC_STANDBY_INIT)
+    {
+        if ((WalSndCtl->sync_standbys_status & SYNC_STANDBY_DEFINED) == 0 ||
+            lsn <= WalSndCtl->lsn[mode])
+        {
+            LWLockRelease(SyncRepLock);
+            return;
+        }
+    }
+    else if (lsn <= WalSndCtl->lsn[mode])
+    {
+        // LSN already replicated
+        LWLockRelease(SyncRepLock);
+        return;
+    }
+    else if (!SyncStandbysDefined())
+    {
+        // No sync standbys configured
+        LWLockRelease(SyncRepLock);
+        return;
+    }
+
+    // Add ourselves to wait queue
+    MyProc->waitLSN = lsn;
+    MyProc->syncRepState = SYNC_REP_WAITING;
+    SyncRepQueueInsert(mode);
+    Assert(SyncRepQueueIsOrderedByLSN(mode));
+    LWLockRelease(SyncRepLock);
+
+    // Update process title to show waiting status
+    if (update_process_title)
+    {
+        char buffer[32];
+        sprintf(buffer, "waiting for %X/%X", LSN_FORMAT_ARGS(lsn));
+        set_ps_display_suffix(buffer);
+    }
+
+    // Wait for replication confirmation
+    for (;;)
+    {
+        int rc;
+        ResetLatch(MyLatch);
+
+        // Check if replication is complete
+        if (MyProc->syncRepState == SYNC_REP_WAIT_COMPLETE)
+            break;
+
+        // Handle shutdown request
+        if (ProcDiePending)
+        {
+            ereport(WARNING,
+                    (errcode(ERRCODE_ADMIN_SHUTDOWN),
+                     errmsg("canceling the wait for synchronous replication and terminating connection due to administrator command"),
+                     errdetail("The transaction has already committed locally, but might not have been replicated to the standby.")));
+            whereToSendOutput = DestNone;
+            SyncRepCancelWait();
+            break;
+        }
+
+        // Handle query cancel
+        if (QueryCancelPending)
+        {
+            QueryCancelPending = false;
+            ereport(WARNING,
+                    (errmsg("canceling wait for synchronous replication due to user request"),
+                     errdetail("The transaction has already committed locally, but might not have been replicated to the standby.")));
+            SyncRepCancelWait();
+            break;
+        }
+
+        // Wait for wakeup signal
+        rc = WaitLatch(MyLatch, WL_LATCH_SET | WL_POSTMASTER_DEATH, -1,
+                       WAIT_EVENT_SYNC_REP);
+
+        // Handle postmaster death
+        if (rc & WL_POSTMASTER_DEATH)
+        {
+            ProcDiePending = true;
+            whereToSendOutput = DestNone;
+            SyncRepCancelWait();
+            break;
+        }
+    }
+
+    // Clean up state after replication confirmed
+    pg_read_barrier();
+    Assert(dlist_node_is_detached(&MyProc->syncRepLinks));
+    MyProc->syncRepState = SYNC_REP_NOT_WAITING;
+    MyProc->waitLSN = 0;
+
+    // Reset process title
+    if (update_process_title)
+        set_ps_display_remove_suffix();
+}
+```

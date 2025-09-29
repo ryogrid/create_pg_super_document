@@ -45,3 +45,52 @@ ecpg_log is the central logging function for ECPG debug output. It supports prin
 - Dynamically allocates format string buffer with PID/NO_PID prefix
 - Widely used throughout ECPG library for debugging and error reporting
 - Located in src/interfaces/ecpg/ecpglib/misc.c at lines 232-289
+
+## Simplified Source
+
+```c
+void ecpg_log(const char *format, ...) {
+    va_list ap;
+    struct sqlca_t *sqlca = ECPGget_sqlca();
+    char *fmt;
+
+    // Quick check: if debugging disabled, exit early
+    if (!simple_debug)
+        return;
+
+    // Localize error message
+    const char *intl_format = ecpg_gettext(format);
+
+    // Create format string with PID prefix
+    int bufsize = strlen(intl_format) + 100;
+    fmt = malloc(bufsize);
+    if (!fmt) return;
+
+    if (ecpg_internal_regression_mode)
+        snprintf(fmt, bufsize, "[NO_PID]: %s", intl_format);
+    else
+        snprintf(fmt, bufsize, "[%d]: %s", (int) getpid(), intl_format);
+
+    // Thread-safe logging with mutex protection
+    pthread_mutex_lock(&debug_mutex);
+
+    // Recheck debug flag under mutex protection
+    if (simple_debug) {
+        // Output formatted message to debug stream
+        va_start(ap, format);
+        vfprintf(debugstream, fmt, ap);
+        va_end(ap);
+
+        // In regression mode, also dump sqlca state
+        if (ecpg_internal_regression_mode && sqlca) {
+            fprintf(debugstream, "[NO_PID]: sqlca: code: %ld, state: %s\n",
+                    sqlca->sqlcode, sqlca->sqlstate);
+        }
+
+        fflush(debugstream);
+    }
+
+    pthread_mutex_unlock(&debug_mutex);
+    free(fmt);
+}
+```

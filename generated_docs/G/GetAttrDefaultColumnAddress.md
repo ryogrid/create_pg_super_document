@@ -34,3 +34,39 @@ This function performs a reverse lookup in the pg_attrdef system catalog, taking
 
 ## Notes and Other Information
 The function uses shared locking throughout its operation, making it safe for concurrent access with other readers. It utilizes the AttrDefaultOidIndexId index for efficient OID-based lookups rather than scanning the entire table. The returned ObjectAddress follows PostgreSQL's standard addressing convention for table columns, where the class ID identifies the object type (RelationRelationId for relations), the object ID identifies the specific relation, and the object sub ID identifies the specific column within that relation. This function is commonly used in dependency tracking, object description generation, and various DDL operations where the system needs to identify which column a default expression belongs to. The InvalidObjectAddress return value provides a clear indication when the specified pg_attrdef OID does not exist in the catalog.
+
+## Simplified Source
+
+```c
+ObjectAddress
+GetAttrDefaultColumnAddress(Oid attrdefoid)
+{
+    ObjectAddress result = InvalidObjectAddress;
+    Relation attrdef;
+    ScanKeyData skey[1];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open pg_attrdef catalog
+    attrdef = table_open(AttrDefaultRelationId, AccessShareLock);
+
+    // Set up scan key for OID lookup
+    ScanKeyInit(&skey[0], Anum_pg_attrdef_oid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(attrdefoid));
+    scan = systable_beginscan(attrdef, AttrDefaultOidIndexId, true, NULL, 1, skey);
+
+    // Get the matching tuple and extract column address
+    if (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Form_pg_attrdef atdform = (Form_pg_attrdef) GETSTRUCT(tup);
+
+        result.classId = RelationRelationId;
+        result.objectId = atdform->adrelid;
+        result.objectSubId = atdform->adnum;
+    }
+
+    systable_endscan(scan);
+    table_close(attrdef, AccessShareLock);
+
+    return result;
+}
+```

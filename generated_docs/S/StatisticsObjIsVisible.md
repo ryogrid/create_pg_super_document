@@ -32,3 +32,12 @@ The function serves as the primary interface for visibility checking of statisti
 - Part of PostgreSQL's namespace visibility system for extended statistics objects
 - Statistics objects are part of PostgreSQL's multi-column statistics feature
 - Located in src/backend/catalog/namespace.c:2632-2643
+
+## Simplified Source
+
+```c
+bool StatisticsObjIsVisible(Oid stxid) {
+    // Delegate to extended version with error-throwing behavior
+    return StatisticsObjIsVisibleExt(stxid, NULL);
+}
+```

@@ -36,3 +36,15 @@ The function includes two assertions to verify its preconditions: m must not exc
 - The power-of-two constraint aligns with bloom filter bitset sizes determined by my_bloom_power
 - Marked as inline for maximum performance in hash-intensive bloom filter operations
 - The assertion checks ensure the function is only used with valid power-of-two values up to the supported range
+
+## Simplified Source
+
+```c
+static inline uint32
+mod_m(uint32 val, uint64 m)
+{
+    // Fast modulo for power-of-two values
+    // Instead of val % m, use bitwise AND for performance
+    return val & (m - 1);
+}
+```

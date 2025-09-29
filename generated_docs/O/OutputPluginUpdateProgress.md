@@ -40,3 +40,16 @@ The function performs these operations:
 - The skipped_xact parameter helps distinguish between processed and filtered transactions
 - Useful for monitoring logical replication lag and throughput
 - Can be integrated with PostgreSQL's statistics system or external monitoring tools
+
+## Simplified Source
+
+```c
+void OutputPluginUpdateProgress(struct LogicalDecodingContext *ctx, bool skipped_xact) {
+    // Check if plugin supports progress tracking
+    if (!ctx->update_progress)
+        return;
+
+    // Call the plugin's progress update callback with current state
+    ctx->update_progress(ctx, ctx->write_location, ctx->write_xid, skipped_xact);
+}
+```

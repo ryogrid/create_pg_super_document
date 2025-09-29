@@ -47,3 +47,41 @@ The function assumes that  and  have been properly set to identify the current t
 - This function is part of PostgreSQL's table-driven JSON parser implementation
 - The error types returned by this function correspond to specific expected JSON constructs (arrays, objects, values, etc.) providing context-aware error reporting
 - File location: src/common/jsonapi.c:2056-2099
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+report_parse_error(JsonParseContext ctx, JsonLexContext *lex)
+{
+    // Check for premature end of input
+    if (lex->token_start == NULL || lex->token_type == JSON_TOKEN_END)
+        return JSON_EXPECTED_MORE;
+
+    // Map parsing context to appropriate error type
+    switch (ctx)
+    {
+        case JSON_PARSE_END:
+            return JSON_EXPECTED_END;
+        case JSON_PARSE_VALUE:
+            return JSON_EXPECTED_JSON;
+        case JSON_PARSE_STRING:
+            return JSON_EXPECTED_STRING;
+        case JSON_PARSE_ARRAY_START:
+            return JSON_EXPECTED_ARRAY_FIRST;
+        case JSON_PARSE_ARRAY_NEXT:
+            return JSON_EXPECTED_ARRAY_NEXT;
+        case JSON_PARSE_OBJECT_START:
+            return JSON_EXPECTED_OBJECT_FIRST;
+        case JSON_PARSE_OBJECT_LABEL:
+            return JSON_EXPECTED_COLON;
+        case JSON_PARSE_OBJECT_NEXT:
+            return JSON_EXPECTED_OBJECT_NEXT;
+        case JSON_PARSE_OBJECT_COMMA:
+            return JSON_EXPECTED_STRING;
+    }
+
+    // Should never reach here
+    return JSON_SUCCESS;
+}
+```

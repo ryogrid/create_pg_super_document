@@ -32,3 +32,12 @@ The lex_peek function provides a simple way to examine the current token in the 
 
 ## Notes and Other Information
 This function is crucial for implementing predictive parsing in the JSON parser. It allows the parser to examine upcoming tokens to make parsing decisions without consuming the token, which is essential for error recovery and proper JSON grammar implementation. The inline nature ensures minimal performance overhead for this frequently called operation.
+
+## Simplified Source
+
+```c
+static inline JsonTokenType lex_peek(JsonLexContext *lex) {
+    // Return the current token type without advancing the lexer
+    return lex->token_type;
+}
+```

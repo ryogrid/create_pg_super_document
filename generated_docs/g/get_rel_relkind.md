@@ -48,3 +48,25 @@ The function performs a system cache lookup on the pg_class catalog using the re
 - Used extensively throughout PostgreSQL for relation type discrimination
 - Essential for permission checking, DDL operations, and catalog management
 - Located in src/backend/utils/cache/lsyscache.c:2003-2026
+
+## Simplified Source
+
+```c
+char get_rel_relkind(Oid relid) {
+    HeapTuple tp;
+
+    // Look up relation in system cache
+    tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract relation structure and get relkind
+        Form_pg_class reltup = (Form_pg_class) GETSTRUCT(tp);
+        char result = reltup->relkind;
+
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        return '\0';  // Relation not found
+    }
+}
+```

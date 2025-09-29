@@ -39,3 +39,63 @@ The replacement algorithm uses a circular search pattern starting from  to find 
 
 ## Notes and Other Information
 The function implements a careful balance between performance and memory usage. When the cache is not full, it provides O(1) allocation by simply using the next available slot. When replacement is needed, it uses a heuristic that assumes character positions further from the current position are less likely to be needed again. The "ancient" threshold of 33% ensures reasonable cache turnover while avoiding premature eviction of potentially useful state sets. If no suitable victim can be found, the function reports a critical assertion error, indicating a serious problem with the DFA's state management.
+
+## Simplified Source
+
+```c
+static struct sset *pickss(struct vars *v, struct dfa *d, chr *cp, chr *start) {
+    int i;
+    struct sset *ss;
+    chr *ancient;
+
+    // Fast path: if cache isn't full, allocate new state set
+    if (d->nssused < d->nssets) {
+        i = d->nssused++;
+        ss = &d->ssets[i];
+
+        // Initialize the new state set
+        ss->states = &d->statesarea[i * d->wordsper];
+        ss->flags = 0;
+        ss->ins.ss = NULL;
+        ss->ins.co = WHITE;
+        ss->outs = &d->outsarea[i * d->ncolors];
+        ss->inchain = &d->incarea[i * d->ncolors];
+
+        // Clear output and chain arrays
+        for (i = 0; i < d->ncolors; i++) {
+            ss->outs[i] = NULL;
+            ss->inchain[i].ss = NULL;
+        }
+        return ss;
+    }
+
+    // Cache is full - find a victim state set to reuse
+    // Calculate "ancient" threshold (oldest 33% are expendable)
+    if (cp - start > d->nssets * 2 / 3)
+        ancient = cp - d->nssets * 2 / 3;
+    else
+        ancient = start;
+
+    // Search from current search position to end
+    for (ss = d->search; ss < &d->ssets[d->nssets]; ss++) {
+        if ((ss->lastseen == NULL || ss->lastseen < ancient) &&
+            !(ss->flags & LOCKED)) {
+            d->search = ss + 1;  // Update search position
+            return ss;
+        }
+    }
+
+    // Search from beginning to current search position
+    for (ss = d->ssets; ss < d->search; ss++) {
+        if ((ss->lastseen == NULL || ss->lastseen < ancient) &&
+            !(ss->flags & LOCKED)) {
+            d->search = ss + 1;  // Update search position
+            return ss;
+        }
+    }
+
+    // Critical error: no suitable victim found
+    ERR(REG_ASSERT);
+    return NULL;
+}
+```

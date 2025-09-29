@@ -44,3 +44,16 @@ The comparison is essential for buffer management operations that target entire 
 - Used extensively in buffer cleanup operations during relation drops and truncations
 - More efficient than full BufferTag comparison when only relation identity matters
 - Essential for maintaining buffer consistency during DDL operations on relations
+
+## Simplified Source
+
+```c
+static inline bool
+BufTagMatchesRelFileLocator(const BufferTag *tag, const RelFileLocator *rlocator)
+{
+    // Compare relation-level identifiers: tablespace, database, and relation number
+    return (tag->spcOid == rlocator->spcOid) &&
+           (tag->dbOid == rlocator->dbOid) &&
+           (BufTagGetRelNumber(tag) == rlocator->relNumber);
+}
+```

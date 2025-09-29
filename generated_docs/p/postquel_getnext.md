@@ -35,3 +35,37 @@ This function drives execution of a single query within a SQL function, handling
 - Respects returnsSet flag to determine when to allow early stopping in lazy mode
 - Uses es_processed count from executor estate to detect when no tuples were produced
 - Protects function cache's parse tree when processing utility statements
+
+## Simplified Source
+
+```c
+static bool
+postquel_getnext(execution_state *es, SQLFunctionCachePtr fcache)
+{
+    bool result;
+
+    if (es->qd->operation == CMD_UTILITY) {
+        // Process utility commands (DDL, etc.) to completion
+        ProcessUtility(es->qd->plannedstmt,
+                      fcache->src,
+                      true,  /* protect function cache's parsetree */
+                      PROCESS_UTILITY_QUERY,
+                      es->qd->params,
+                      es->qd->queryEnv,
+                      es->qd->dest,
+                      NULL);
+        result = true;  // Utility commands always complete
+    } else {
+        // For regular queries: lazy mode gets 1 tuple, normal mode runs to completion
+        uint64 count = (es->lazyEval) ? 1 : 0;
+
+        ExecutorRun(es->qd, ForwardScanDirection, count,
+                   !fcache->returnsSet || !es->lazyEval);
+
+        // Complete if we ran to end or got no tuples
+        result = (count == 0 || es->qd->estate->es_processed == 0);
+    }
+
+    return result;
+}
+```

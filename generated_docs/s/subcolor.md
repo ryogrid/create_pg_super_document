@@ -46,3 +46,33 @@ When a new subcolor is successfully created, the function updates the character 
 - Maintains accurate character counts (nschrs) for both source and destination colors
 - Updates the firstchr field when assigning the first character to a new subcolor
 - Part of PostgreSQL's regex engine color management system for handling character classes and ranges
+
+## Simplified Source
+```c
+static color subcolor(struct colormap *cm, chr c)
+{
+    color co;    // current color of c
+    color sco;   // new subcolor
+
+    assert(c <= MAX_SIMPLE_CHR);
+
+    // Get current color and create new subcolor
+    co = cm->locolormap[c - CHR_MIN];
+    sco = newsub(cm, co);
+    if (CISERR())
+        return COLORLESS;
+
+    // If already in correct subcolor, return it
+    if (co == sco)
+        return co;
+
+    // Update character counts and mappings
+    cm->cd[co].nschrs--;
+    if (cm->cd[sco].nschrs == 0)
+        cm->cd[sco].firstchr = c;
+    cm->cd[sco].nschrs++;
+    cm->locolormap[c - CHR_MIN] = sco;
+
+    return sco;
+}
+```

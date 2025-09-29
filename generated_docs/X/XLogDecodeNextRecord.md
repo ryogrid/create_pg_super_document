@@ -50,3 +50,186 @@ The function implements a state machine that can restart record reading when enc
 - Special handling for XLOG_SWITCH records that extend to segment boundaries
 - Uses randAccess flag to control previous-record pointer validation during sequential reads
 - Implements circular buffer management through decode_buffer_tail updates
+
+## Simplified Source
+
+```c
+static XLogPageReadResult
+XLogDecodeNextRecord(XLogReaderState *state, bool nonblocking)
+{
+    XLogRecPtr RecPtr;
+    XLogRecord *record;
+    uint32 total_len;
+    bool randAccess = false;
+    bool assembled = false;
+    DecodedXLogRecord *decoded = NULL;
+
+    // Clear error state and set starting position
+    state->errormsg_buf[0] = '\0';
+    state->abortedRecPtr = InvalidXLogRecPtr;
+    state->missingContrecPtr = InvalidXLogRecPtr;
+    RecPtr = state->NextRecPtr;
+
+    // Determine access pattern - random access for caller-supplied positions
+    if (state->DecodeRecPtr == InvalidXLogRecPtr) {
+        randAccess = true;
+    }
+
+restart:
+    state->nonblocking = nonblocking;
+    state->currRecPtr = RecPtr;
+
+    // Calculate page and record offset
+    XLogRecPtr targetPagePtr = RecPtr - (RecPtr % XLOG_BLCKSZ);
+    uint32 targetRecOff = RecPtr % XLOG_BLCKSZ;
+
+    // Read the page containing record header
+    int readOff = ReadPageInternal(state, targetPagePtr,
+                                   Min(targetRecOff + SizeOfXLogRecord, XLOG_BLCKSZ));
+    if (readOff == XLREAD_WOULDBLOCK)
+        return XLREAD_WOULDBLOCK;
+    else if (readOff < 0)
+        goto err;
+
+    // Handle page header and validate record position
+    uint32 pageHeaderSize = XLogPageHeaderSize((XLogPageHeader) state->readBuf);
+    if (targetRecOff == 0) {
+        RecPtr += pageHeaderSize;
+        targetRecOff = pageHeaderSize;
+    }
+
+    // Read record length and validate header if on same page
+    record = (XLogRecord *) (state->readBuf + RecPtr % XLOG_BLCKSZ);
+    total_len = record->xl_tot_len;
+
+    bool gotheader = false;
+    if (targetRecOff <= XLOG_BLCKSZ - SizeOfXLogRecord) {
+        if (!ValidXLogRecordHeader(state, RecPtr, state->DecodeRecPtr, record, randAccess))
+            goto err;
+        gotheader = true;
+    }
+
+    // Try to allocate decode space
+    decoded = XLogReadRecordAlloc(state, total_len, false);
+    if (decoded == NULL && nonblocking)
+        return XLREAD_WOULDBLOCK;
+
+    uint32 len = XLOG_BLCKSZ - RecPtr % XLOG_BLCKSZ;
+    if (total_len > len) {
+        // Multi-page record - reassemble from continuation pages
+        assembled = true;
+        memcpy(state->readRecordBuf, state->readBuf + RecPtr % XLOG_BLCKSZ, len);
+
+        char *buffer = state->readRecordBuf + len;
+        uint32 gotlen = len;
+
+        // Read continuation pages
+        do {
+            targetPagePtr += XLOG_BLCKSZ;
+            readOff = ReadPageInternal(state, targetPagePtr, SizeOfXLogShortPHD);
+            if (readOff == XLREAD_WOULDBLOCK)
+                return XLREAD_WOULDBLOCK;
+            else if (readOff < 0)
+                goto err;
+
+            XLogPageHeader pageHeader = (XLogPageHeader) state->readBuf;
+
+            // Handle overwritten continuation records
+            if (pageHeader->xlp_info & XLP_FIRST_IS_OVERWRITE_CONTRECORD) {
+                state->overwrittenRecPtr = RecPtr;
+                RecPtr = targetPagePtr;
+                goto restart;
+            }
+
+            // Validate continuation record markers
+            if (!(pageHeader->xlp_info & XLP_FIRST_IS_CONTRECORD))
+                goto err;
+
+            // Read continuation data
+            readOff = ReadPageInternal(state, targetPagePtr,
+                                       Min(total_len - gotlen + SizeOfXLogShortPHD, XLOG_BLCKSZ));
+            if (readOff == XLREAD_WOULDBLOCK)
+                return XLREAD_WOULDBLOCK;
+
+            pageHeaderSize = XLogPageHeaderSize(pageHeader);
+            char *contdata = (char *) state->readBuf + pageHeaderSize;
+            len = Min(pageHeader->xlp_rem_len, XLOG_BLCKSZ - pageHeaderSize);
+
+            memcpy(buffer, contdata, len);
+            buffer += len;
+            gotlen += len;
+
+            // Validate header once assembled
+            if (!gotheader && gotlen >= SizeOfXLogRecord) {
+                record = (XLogRecord *) state->readRecordBuf;
+                if (!ValidXLogRecordHeader(state, RecPtr, state->DecodeRecPtr, record, randAccess))
+                    goto err;
+                gotheader = true;
+            }
+
+        } while (gotlen < total_len);
+
+        record = (XLogRecord *) state->readRecordBuf;
+        if (!ValidXLogRecord(state, record, RecPtr))
+            goto err;
+
+        state->NextRecPtr = targetPagePtr + pageHeaderSize + MAXALIGN(pageHeader->xlp_rem_len);
+    } else {
+        // Single page record
+        if (!ValidXLogRecord(state, record, RecPtr))
+            goto err;
+        state->NextRecPtr = RecPtr + MAXALIGN(total_len);
+    }
+
+    state->DecodeRecPtr = RecPtr;
+
+    // Handle XLOG_SWITCH records - extend to segment boundary
+    if (record->xl_rmid == RM_XLOG_ID &&
+        (record->xl_info & ~XLR_INFO_MASK) == XLOG_SWITCH) {
+        state->NextRecPtr += state->segcxt.ws_segsize - 1;
+        state->NextRecPtr -= XLogSegmentOffset(state->NextRecPtr, state->segcxt.ws_segsize);
+    }
+
+    // Allocate final decode buffer if needed
+    if (decoded == NULL) {
+        decoded = XLogReadRecordAlloc(state, total_len, true);
+    }
+
+    // Decode the record and add to queue
+    char *errormsg;
+    if (DecodeXLogRecord(state, decoded, record, RecPtr, &errormsg)) {
+        decoded->next_lsn = state->NextRecPtr;
+
+        // Update decode buffer management
+        if (!decoded->oversized) {
+            if ((char *) decoded == state->decode_buffer)
+                state->decode_buffer_tail = state->decode_buffer + decoded->size;
+            else
+                state->decode_buffer_tail += decoded->size;
+        }
+
+        // Add to decode queue
+        if (state->decode_queue_tail)
+            state->decode_queue_tail->next = decoded;
+        state->decode_queue_tail = decoded;
+        if (!state->decode_queue_head)
+            state->decode_queue_head = decoded;
+
+        return XLREAD_SUCCESS;
+    }
+
+err:
+    // Handle assembly errors for multi-page records
+    if (assembled) {
+        state->abortedRecPtr = RecPtr;
+        state->missingContrecPtr = targetPagePtr;
+        state->errormsg_deferred = true;
+    }
+
+    if (decoded && decoded->oversized)
+        pfree(decoded);
+
+    XLogReaderInvalReadState(state);
+    return XLREAD_FAIL;
+}
+```

@@ -44,3 +44,27 @@ The function provides error handling by returning false if any invalid hexadecim
 - Used primarily for decoding checksums and hash values stored in backup manifests
 - The caller is responsible for allocating sufficient space in the result buffer
 - Processing stops immediately upon encountering the first invalid character
+
+## Simplified Source
+
+```c
+static bool
+hexdecode_string(uint8 *result, char *input, int nbytes)
+{
+    // Process each byte (2 hex characters)
+    for (int i = 0; i < nbytes; i++) {
+        // Decode the two hex characters for this byte
+        int high_nibble = hexdecode_char(input[i * 2]);
+        int low_nibble = hexdecode_char(input[i * 2 + 1]);
+
+        // Check for invalid characters
+        if (high_nibble < 0 || low_nibble < 0)
+            return false;
+
+        // Combine nibbles into byte: high * 16 + low
+        result[i] = high_nibble * 16 + low_nibble;
+    }
+
+    return true;
+}
+```

@@ -41,3 +41,19 @@ This function takes no parameters.
 - Debug tracing is available when  is enabled
 - After this function completes, the backend is no longer listening to any notification channels
 - The function is called by  to ensure proper cleanup when a backend process terminates
+
+## Simplified Source
+
+```c
+static void
+Exec_UnlistenAllCommit(void)
+{
+    // Debug logging if tracing is enabled
+    if (Trace_notify)
+        elog(DEBUG1, "Exec_UnlistenAllCommit(%d)", MyProcPid);
+
+    // Free all listen channels and reset list
+    list_free_deep(listenChannels);
+    listenChannels = NIL;
+}
+```

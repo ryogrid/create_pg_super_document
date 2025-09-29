@@ -56,3 +56,63 @@ The function queries the pg_operator system catalog to retrieve operator informa
 - Returns a palloc'd string that must be freed by the caller
 - For invalid OIDs, either returns NULL or the numeric OID as a string depending on flags
 - Located in src/backend/utils/adt/regproc.c:722-792
+
+## Simplified Source
+
+```c
+char *format_operator_extended(Oid operator_oid, bits16 flags) {
+    // Look up operator in system catalog
+    HeapTuple opertup = SearchSysCache1(OPEROID, ObjectIdGetDatum(operator_oid));
+
+    if (HeapTupleIsValid(opertup)) {
+        Form_pg_operator operform = (Form_pg_operator) GETSTRUCT(opertup);
+        char *oprname = NameStr(operform->oprname);
+        StringInfoData buf;
+
+        initStringInfo(&buf);
+
+        // Add schema qualification if needed
+        if ((flags & FORMAT_OPERATOR_FORCE_QUALIFY) != 0 ||
+            !OperatorIsVisible(operator_oid)) {
+            char *nspname = get_namespace_name(operform->oprnamespace);
+            appendStringInfo(&buf, "%s.", quote_identifier(nspname));
+        }
+
+        // Build operator signature: name(lefttype,righttype)
+        appendStringInfo(&buf, "%s(", oprname);
+
+        // Left operand type (or NONE for unary operators)
+        if (operform->oprleft) {
+            char *lefttype = (flags & FORMAT_OPERATOR_FORCE_QUALIFY) ?
+                format_type_be_qualified(operform->oprleft) :
+                format_type_be(operform->oprleft);
+            appendStringInfo(&buf, "%s,", lefttype);
+        } else {
+            appendStringInfoString(&buf, "NONE,");
+        }
+
+        // Right operand type (or NONE for prefix operators)
+        if (operform->oprright) {
+            char *righttype = (flags & FORMAT_OPERATOR_FORCE_QUALIFY) ?
+                format_type_be_qualified(operform->oprright) :
+                format_type_be(operform->oprright);
+            appendStringInfo(&buf, "%s)", righttype);
+        } else {
+            appendStringInfoString(&buf, "NONE)");
+        }
+
+        ReleaseSysCache(opertup);
+        return buf.data;
+    }
+
+    // Handle invalid operator OID
+    if ((flags & FORMAT_OPERATOR_INVALID_AS_NULL) != 0) {
+        return NULL;  // Return NULL for missing operators
+    } else {
+        // Return numeric OID as fallback
+        char *result = palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", operator_oid);
+        return result;
+    }
+}
+```

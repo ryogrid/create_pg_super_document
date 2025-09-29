@@ -39,3 +39,26 @@ This function is essential for implementing holdable cursors in PostgreSQL, whic
 - Both createSubid and activeSubid are set to InvalidSubTransactionId to indicate the portal no longer belongs to the current transaction
 - The createLevel is reset to 0 as part of the holdable conversion process
 - Critical for implementing PostgreSQL's holdable cursor functionality
+
+## Simplified Source
+
+```c
+static void
+HoldPortal(Portal portal)
+{
+    // Create storage and persist holdable portal data
+    PortalCreateHoldStore(portal);
+    PersistHoldablePortal(portal);
+
+    // Release cached plan reference
+    PortalReleaseCachedPlan(portal);
+
+    // Transfer resource ownership away from current transaction
+    portal->resowner = NULL;
+
+    // Mark portal as no longer belonging to current transaction
+    portal->createSubid = InvalidSubTransactionId;
+    portal->activeSubid = InvalidSubTransactionId;
+    portal->createLevel = 0;
+}
+```

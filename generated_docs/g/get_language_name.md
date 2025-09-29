@@ -45,3 +45,30 @@ When a language is found, the function extracts the language name from the  tupl
 - Returns a palloc'd string that must be freed by the caller
 - Commonly used in object description functions and pg_dump operations
 - The returned string contains only the language name, not the full language definition
+
+## Simplified Source
+
+```c
+char *
+get_language_name(Oid langoid, bool missing_ok)
+{
+    HeapTuple tp;
+
+    // Look up language by OID
+    tp = SearchSysCache1(LANGOID, ObjectIdGetDatum(langoid));
+    if (HeapTupleIsValid(tp)) {
+        Form_pg_language lantup = (Form_pg_language) GETSTRUCT(tp);
+        char *result;
+
+        // Extract and copy language name
+        result = pstrdup(NameStr(lantup->lanname));
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // Handle missing language
+    if (!missing_ok)
+        elog(ERROR, "cache lookup failed for language %u", langoid);
+    return NULL;
+}
+```

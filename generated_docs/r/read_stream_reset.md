@@ -36,3 +36,30 @@ The function is particularly useful for scenarios where a scan needs to be resta
 - Ensures no I/O operations remain in progress after reset
 - Safe to call multiple times on the same stream
 - After reset, the stream assumes data is likely cached and starts with minimal lookahead
+
+## Simplified Source
+
+```c
+void
+read_stream_reset(ReadStream *stream)
+{
+    Buffer buffer;
+
+    // Stop lookahead operations
+    stream->distance = 0;
+
+    // Clear fast path state and buffered block
+    stream->buffered_blocknum = InvalidBlockNumber;
+    stream->fast_path = false;
+
+    // Release all remaining pinned buffers
+    while ((buffer = read_stream_next_buffer(stream, NULL)) != InvalidBuffer)
+        ReleaseBuffer(buffer);
+
+    Assert(stream->pinned_buffers == 0);
+    Assert(stream->ios_in_progress == 0);
+
+    // Restart with conservative single-block distance
+    stream->distance = 1;
+}
+```

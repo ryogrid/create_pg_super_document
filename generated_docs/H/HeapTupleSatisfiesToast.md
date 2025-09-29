@@ -49,3 +49,70 @@ The function deliberately avoids full MVCC time qualification checks since TOAST
 - Handles speculative insertion scenarios where tuples may be canceled by super-deletion
 - Part of PostgreSQL's TOAST system architecture, which stores large values separately from main table rows
 - Uses hint bits for performance optimization while maintaining the simplified checking logic
+
+## Simplified Source
+
+```c
+static bool
+HeapTupleSatisfiesToast(HeapTuple htup, Snapshot snapshot, Buffer buffer)
+{
+    HeapTupleHeader tuple = htup->t_data;
+
+    // Basic tuple validation
+    Assert(ItemPointerIsValid(&htup->t_self));
+    Assert(htup->t_tableOid != InvalidOid);
+
+    // Check if Xmin is already committed (fast path)
+    if (!HeapTupleHeaderXminCommitted(tuple))
+    {
+        // Handle invalid Xmin
+        if (HeapTupleHeaderXminInvalid(tuple))
+            return false;
+
+        // Handle legacy VACUUM FULL operations (pre-9.0)
+        if (tuple->t_infomask & HEAP_MOVED_OFF)
+        {
+            TransactionId xvac = HeapTupleHeaderGetXvac(tuple);
+
+            // Check transaction status and set hint bits
+            if (TransactionIdIsCurrentTransactionId(xvac))
+                return false;
+
+            if (!TransactionIdIsInProgress(xvac))
+            {
+                if (TransactionIdDidCommit(xvac))
+                {
+                    SetHintBits(tuple, buffer, HEAP_XMIN_INVALID, InvalidTransactionId);
+                    return false;
+                }
+                SetHintBits(tuple, buffer, HEAP_XMIN_COMMITTED, InvalidTransactionId);
+            }
+        }
+        else if (tuple->t_infomask & HEAP_MOVED_IN)
+        {
+            TransactionId xvac = HeapTupleHeaderGetXvac(tuple);
+
+            // Similar check for MOVED_IN case
+            if (!TransactionIdIsCurrentTransactionId(xvac))
+            {
+                if (TransactionIdIsInProgress(xvac))
+                    return false;
+
+                if (TransactionIdDidCommit(xvac))
+                    SetHintBits(tuple, buffer, HEAP_XMIN_COMMITTED, InvalidTransactionId);
+                else
+                {
+                    SetHintBits(tuple, buffer, HEAP_XMIN_INVALID, InvalidTransactionId);
+                    return false;
+                }
+            }
+        }
+        // Handle speculative insertion cancellation
+        else if (!TransactionIdIsValid(HeapTupleHeaderGetXmin(tuple)))
+            return false;
+    }
+
+    // TOAST tuple is valid if it passes all checks
+    return true;
+}
+```

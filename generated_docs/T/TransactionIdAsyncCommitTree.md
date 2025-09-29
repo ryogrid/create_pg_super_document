@@ -43,3 +43,15 @@ Asynchronous commits provide better performance by not waiting for the commit re
 - Used during both normal operation and WAL replay (crash recovery)
 - Part of PostgreSQL's configurable commit behavior (synchronous_commit setting)
 - The commit tree operation ensures all subtransactions are properly marked with the same commit semantics
+
+## Simplified Source
+
+```c
+void TransactionIdAsyncCommitTree(TransactionId xid, int nxids, TransactionId *xids,
+                                  XLogRecPtr lsn) {
+    // Mark the entire transaction tree as committed for async commits
+    // Include the commit LSN for durability tracking
+    TransactionIdSetTreeStatus(xid, nxids, xids,
+                               TRANSACTION_STATUS_COMMITTED, lsn);
+}
+```

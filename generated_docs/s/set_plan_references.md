@@ -50,3 +50,63 @@ Additionally, the function performs a final optimization by removing unnecessary
 - Returns the same Plan node passed in, except when the input node is deemed unnecessary
 - Results are stored in various global lists: finalrtable, finalrowmarks, resultRelations, appendRelations, relationOids, and invalItems
 - Handles AlternativeSubPlans by maintaining workspace arrays (isAltSubplan, isUsedSubplan) to track usage
+
+## Simplified Source
+
+```c
+Plan *
+set_plan_references(PlannerInfo *root, Plan *plan)
+{
+    Plan       *result;
+    PlannerGlobal *glob = root->glob;
+    int         rtoffset = list_length(glob->finalrtable);
+    ListCell   *lc;
+
+    // Add all RTEs to flattened rangetable
+    add_rtes_to_flat_rtable(root, false);
+
+    // Adjust and copy PlanRowMarks
+    foreach(lc, root->rowMarks)
+    {
+        PlanRowMark *rc = lfirst_node(PlanRowMark, lc);
+        PlanRowMark *newrc = (PlanRowMark *) palloc(sizeof(PlanRowMark));
+        memcpy(newrc, rc, sizeof(PlanRowMark));
+        newrc->rti += rtoffset;
+        newrc->prti += rtoffset;
+        glob->finalrowmarks = lappend(glob->finalrowmarks, newrc);
+    }
+
+    // Adjust AppendRelInfos
+    foreach(lc, root->append_rel_list)
+    {
+        AppendRelInfo *appinfo = lfirst_node(AppendRelInfo, lc);
+        appinfo->parent_relid += rtoffset;
+        appinfo->child_relid += rtoffset;
+        appinfo->translated_vars = NIL; // Drop for executor
+        glob->appendRelations = lappend(glob->appendRelations, appinfo);
+    }
+
+    // Set up AlternativeSubPlan workspace if needed
+    if (root->hasAlternativeSubPlans)
+    {
+        root->isAltSubplan = (bool *) palloc0(list_length(glob->subplans) * sizeof(bool));
+        root->isUsedSubplan = (bool *) palloc0(list_length(glob->subplans) * sizeof(bool));
+    }
+
+    // Process the plan tree
+    result = set_plan_refs(root, plan, rtoffset);
+
+    // Clean up unused AlternativeSubPlans
+    if (root->hasAlternativeSubPlans)
+    {
+        foreach(lc, glob->subplans)
+        {
+            int ndx = foreach_current_index(lc);
+            if (root->isAltSubplan[ndx] && !root->isUsedSubplan[ndx])
+                lfirst(lc) = NULL;
+        }
+    }
+
+    return result;
+}
+```

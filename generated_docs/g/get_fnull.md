@@ -25,3 +25,12 @@ The `get_fnull` function is a static inline helper function that returns the boo
 
 ## Notes and Other Information
 This is a static inline function, meaning it is only accessible within the jsonapi.c file and will likely be inlined by the compiler for performance. The function serves as a companion to `set_fnull`, providing read access to the null flags stored during JSON parsing. It returns a boolean value indicating whether the field at the current lexical level should be treated as null, which is essential for proper JSON null value handling.
+
+## Simplified Source
+
+```c
+static inline bool get_fnull(JsonLexContext *lex) {
+    // Get the null flag for the current parsing level
+    return lex->pstack->fnull[lex->lex_level];
+}
+```

@@ -31,3 +31,15 @@ The `pop_prediction` function implements a stack pop operation for the JSON pars
 - The function pre-decrements the prediction index before accessing the array
 - Essential for implementing the predictive parsing algorithm in the JSON grammar engine
 - Part of the incremental JSON parsing infrastructure
+
+## Simplified Source
+
+```c
+static inline char pop_prediction(JsonParserStack *pstack) {
+    // Ensure prediction stack has elements
+    Assert(pstack->pred_index > 0);
+
+    // Decrement index and return the prediction character
+    return pstack->prediction[--pstack->pred_index];
+}
+```

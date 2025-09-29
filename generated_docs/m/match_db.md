@@ -36,3 +36,17 @@ The function extracts a database OID from the  parameter and compares it against
 - Returns  if the entry matches the target database,  otherwise
 - This function enables efficient database-specific cleanup during operations like database drops or process exits
 - The matching is based on the  field within the entry's key structure
+
+## Simplified Source
+
+```c
+static bool
+match_db(PgStat_EntryRefHashEntry *ent, Datum match_data)
+{
+    // Extract target database OID from match criteria
+    Oid dboid = DatumGetObjectId(match_data);
+
+    // Check if entry's database OID matches target
+    return ent->key.dboid == dboid;
+}
+```

@@ -44,3 +44,30 @@ The function serves as a critical component of PostgreSQL's cache coherency syst
 - Includes safety mechanisms for handling invalidation during transaction abort
 - Critical for maintaining cache consistency in multi-transaction environments
 - Part of PostgreSQL's shared invalidation message processing system
+
+## Simplified Source
+
+```c
+static void
+RelationFlushRelation(Relation relation)
+{
+    // Special handling for relations created in current transaction
+    if (relation->rd_createSubid != InvalidSubTransactionId ||
+        relation->rd_firstRelfilelocatorSubid != InvalidSubTransactionId) {
+
+        if (IsTransactionState() && relation->rd_droppedSubid == InvalidSubTransactionId) {
+            // Safely rebuild relation by temporarily incrementing refcount
+            RelationIncrementReferenceCount(relation);
+            RelationClearRelation(relation, true);  // rebuild = true
+            RelationDecrementReferenceCount(relation);
+        } else {
+            // During abort or if relation is dropped, just invalidate
+            RelationInvalidateRelation(relation);
+        }
+    } else {
+        // For pre-existing relations: rebuild if open, remove if unused
+        bool rebuild = !RelationHasReferenceCountZero(relation);
+        RelationClearRelation(relation, rebuild);
+    }
+}
+```

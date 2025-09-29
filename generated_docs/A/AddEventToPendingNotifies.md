@@ -39,3 +39,53 @@ The function assumes that pendingNotifies->events is already non-empty, which al
 - The function maintains both a list (for order) and hash table (for performance) data structures
 - Uses CurTransactionContext for hash table memory allocation
 - Asserts are used to ensure the notification doesn't already exist in the hash table
+
+## Simplified Source
+
+```c
+static void
+AddEventToPendingNotifies(Notification *n)
+{
+    Assert(pendingNotifies->events != NIL);
+
+    // Create hash table when list gets large enough
+    if (list_length(pendingNotifies->events) >= MIN_HASHABLE_NOTIFIES &&
+        pendingNotifies->hashtab == NULL)
+    {
+        HASHCTL hash_ctl;
+        ListCell *l;
+
+        // Configure hash table
+        hash_ctl.keysize = sizeof(Notification *);
+        hash_ctl.entrysize = sizeof(struct NotificationHash);
+        hash_ctl.hash = notification_hash;
+        hash_ctl.match = notification_match;
+        hash_ctl.hcxt = CurTransactionContext;
+
+        // Create the hash table
+        pendingNotifies->hashtab = hash_create("Pending Notifies", 256L,
+                                             &hash_ctl,
+                                             HASH_ELEM | HASH_FUNCTION | HASH_COMPARE | HASH_CONTEXT);
+
+        // Add all existing events to hash table
+        foreach(l, pendingNotifies->events)
+        {
+            Notification *existing = (Notification *) lfirst(l);
+            bool found;
+            (void) hash_search(pendingNotifies->hashtab, &existing, HASH_ENTER, &found);
+            Assert(!found);
+        }
+    }
+
+    // Add new event to list
+    pendingNotifies->events = lappend(pendingNotifies->events, n);
+
+    // Add to hash table if it exists
+    if (pendingNotifies->hashtab != NULL)
+    {
+        bool found;
+        (void) hash_search(pendingNotifies->hashtab, &n, HASH_ENTER, &found);
+        Assert(!found);
+    }
+}
+```

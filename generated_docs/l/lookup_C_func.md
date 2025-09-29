@@ -43,3 +43,30 @@ This validation ensures that cached function pointers remain valid even if the f
 - The function returns NULL in multiple cases: no hash table, no entry found, or outdated entry
 - The CFuncHash table is lazily initialized and may not exist early in session startup
 - Transaction ID and TID comparison ensures cache coherency with catalog updates
+
+## Simplified Source
+
+```c
+static CFuncHashTabEntry *
+lookup_C_func(HeapTuple procedureTuple)
+{
+    Oid fn_oid = ((Form_pg_proc) GETSTRUCT(procedureTuple))->oid;
+    CFuncHashTabEntry *entry;
+
+    // Check if hash table exists
+    if (CFuncHash == NULL)
+        return NULL;
+
+    // Search for function entry by OID
+    entry = (CFuncHashTabEntry *) hash_search(CFuncHash, &fn_oid, HASH_FIND, NULL);
+    if (entry == NULL)
+        return NULL;
+
+    // Verify cached entry is still current
+    if (entry->fn_xmin == HeapTupleHeaderGetRawXmin(procedureTuple->t_data) &&
+        ItemPointerEquals(&entry->fn_tid, &procedureTuple->t_self))
+        return entry;  // Cache hit - entry is valid
+
+    return NULL;  // Entry is outdated
+}
+```

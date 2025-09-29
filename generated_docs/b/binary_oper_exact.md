@@ -34,3 +34,40 @@ The  function performs an "exact" match search for binary operators based on the
 - Implements PostgreSQL's type coercion logic for unknown literals
 - Part of PostgreSQL's operator resolution system in the parser
 - Located in src/backend/parser/parse_oper.c:262-311
+
+## Simplified Source
+
+```c
+static Oid
+binary_oper_exact(List *opname, Oid arg1, Oid arg2)
+{
+    bool was_unknown = false;
+
+    // Handle unknown types by using the other operand's type
+    if ((arg1 == UNKNOWNOID) && (arg2 != InvalidOid)) {
+        arg1 = arg2;
+        was_unknown = true;
+    }
+    else if ((arg2 == UNKNOWNOID) && (arg1 != InvalidOid)) {
+        arg2 = arg1;
+        was_unknown = true;
+    }
+
+    // Try direct operator lookup
+    Oid result = OpernameGetOprid(opname, arg1, arg2);
+    if (OidIsValid(result))
+        return result;
+
+    // If we had unknown types, try with base types
+    if (was_unknown) {
+        Oid basetype = getBaseType(arg1);
+        if (basetype != arg1) {
+            result = OpernameGetOprid(opname, basetype, basetype);
+            if (OidIsValid(result))
+                return result;
+        }
+    }
+
+    return InvalidOid;
+}
+```

@@ -48,3 +48,28 @@ The function makes a conservative assumption that each initPlan executes once du
 - This function is widely used throughout the PostgreSQL optimizer for cost accounting when initPlans are moved between plan nodes or when their costs need to be factored into planning decisions
 - The returned cost should typically be added to both startup_cost and total_cost of the plan node that will host the initPlans
 - Part of the broader initPlan cost management system that ensures accurate query cost estimation
+
+## Simplified Source
+
+```c
+void SS_compute_initplan_cost(List *init_plans, Cost *initplan_cost_p, bool *unsafe_initplans_p) {
+    Cost initplan_cost = 0;
+    bool unsafe_initplans = false;
+
+    // Iterate through all initPlans
+    foreach(lc, init_plans) {
+        SubPlan *initsubplan = lfirst_node(SubPlan, lc);
+
+        // Accumulate total cost (startup + per-call)
+        initplan_cost += initsubplan->startup_cost + initsubplan->per_call_cost;
+
+        // Check if any plan is not parallel-safe
+        if (!initsubplan->parallel_safe)
+            unsafe_initplans = true;
+    }
+
+    // Return results through output parameters
+    *initplan_cost_p = initplan_cost;
+    *unsafe_initplans_p = unsafe_initplans;
+}
+```

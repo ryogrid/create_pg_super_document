@@ -43,3 +43,23 @@ The result is used by the planner to determine parallel execution feasibility an
 - Critical for PostgreSQL's parallel query execution infrastructure
 - The function examines all aspects of the query including functions, operators, and special constructs
 - Used as a gating check before attempting parallel plan generation
+
+## Simplified Source
+
+```c
+char
+max_parallel_hazard(Query *parse)
+{
+    max_parallel_hazard_context context;
+
+    // Initialize context for tree traversal
+    context.max_hazard = PROPARALLEL_SAFE;
+    context.max_interesting = PROPARALLEL_UNSAFE;
+    context.safe_param_ids = NIL;
+
+    // Walk the query tree to find worst hazard level
+    (void) max_parallel_hazard_walker((Node *) parse, &context);
+
+    return context.max_hazard;
+}
+```

@@ -41,3 +41,25 @@ This function creates a qualified identifier in the format "qualifier.ident" or 
 - Essential for generating safe SQL identifiers in PostgreSQL's rule and utility systems
 - Used extensively in object description and identity functions throughout the codebase
 - Part of the ruleutils.c module which handles SQL generation and formatting utilities
+
+## Simplified Source
+
+```c
+char *
+quote_qualified_identifier(const char *qualifier, const char *ident)
+{
+    StringInfoData buf;
+
+    // Initialize buffer for building qualified name
+    initStringInfo(&buf);
+
+    // Add qualifier if provided
+    if (qualifier)
+        appendStringInfo(&buf, "%s.", quote_identifier(qualifier));
+
+    // Add the main identifier
+    appendStringInfoString(&buf, quote_identifier(ident));
+
+    return buf.data;
+}
+```

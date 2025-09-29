@@ -33,3 +33,14 @@ The function specifically ignores any subId component of the object address, ope
 - The function deliberately ignores the subId field of the ObjectAddress, treating whole objects as the unit of pinning
 - Pinned objects are typically system catalogs and other core database infrastructure that must remain intact for the database to function properly
 - The pinning mechanism is a critical safety feature that prevents accidental deletion of essential system objects
+
+## Simplified Source
+```c
+static bool isObjectPinned(const ObjectAddress *object)
+{
+    // Test if object is essential for basic database functionality
+    // Delegates to IsPinnedObject with class ID and object ID
+    // (subId is ignored - whole objects are treated as pinning units)
+    return IsPinnedObject(object->classId, object->objectId);
+}
+```

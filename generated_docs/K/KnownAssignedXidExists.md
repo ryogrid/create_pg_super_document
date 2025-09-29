@@ -29,3 +29,17 @@ This function is typically used during transaction visibility checks to determin
 - This is a read-only operation that does not modify the KnownAssignedXids array
 - Includes assertion to ensure the transaction ID is valid before searching
 - Used primarily in transaction visibility determination on standby servers
+
+## Simplified Source
+
+```c
+static bool
+KnownAssignedXidExists(TransactionId xid)
+{
+    // Validate transaction ID
+    Assert(TransactionIdIsValid(xid));
+
+    // Search for XID without removing it from array
+    return KnownAssignedXidsSearch(xid, false);
+}
+```

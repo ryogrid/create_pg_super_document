@@ -47,3 +47,16 @@ The function is specifically designed for code paths that don't have direct acce
 - Used by buffer management code to determine appropriate dirty buffer handling
 - The pending sync mechanism ensures that relations skipping WAL are properly synced to disk before transaction commit
 - Critical for maintaining data durability while allowing performance optimizations during bulk operations
+
+## Simplified Source
+
+```c
+bool RelFileLocatorSkippingWAL(RelFileLocator rlocator) {
+    // Check if pending sync hash table exists and contains this relation
+    if (!pendingSyncHash ||
+        hash_search(pendingSyncHash, &rlocator, HASH_FIND, NULL) == NULL)
+        return false;
+
+    return true;
+}
+```

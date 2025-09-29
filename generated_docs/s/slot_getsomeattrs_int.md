@@ -39,3 +39,26 @@ The function includes validation to ensure the requested attribute number is val
 - The function handles schema evolution scenarios where newer code expects more attributes than older tuple formats contain
 - Updates slot->tts_nvalid to maintain consistency after attribute fetching
 - Error handling includes validation that attnum doesn't exceed the tuple descriptor's attribute count
+
+## Simplified Source
+
+```c
+void slot_getsomeattrs_int(TupleTableSlot *slot, int attnum) {
+    // Validate input parameters
+    Assert(slot->tts_nvalid < attnum);
+    Assert(attnum > 0);
+
+    if (unlikely(attnum > slot->tts_tupleDescriptor->natts)) {
+        elog(ERROR, "invalid attribute number %d", attnum);
+    }
+
+    // Fetch attributes from the underlying tuple using slot-specific method
+    slot->tts_ops->getsomeattrs(slot, attnum);
+
+    // Fill in missing attributes if tuple doesn't have enough
+    if (unlikely(slot->tts_nvalid < attnum)) {
+        slot_getmissingattrs(slot, slot->tts_nvalid, attnum);
+        slot->tts_nvalid = attnum;
+    }
+}
+```

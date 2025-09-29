@@ -41,3 +41,15 @@ The commit operation follows PostgreSQL's transaction logging protocol where sub
 - The InvalidXLogRecPtr parameter indicates this is a regular commit (not an async commit with specific LSN)
 - Part of the transaction commit pipeline that ensures all related transactions are properly marked in the commit log
 - Essential for two-phase commit protocols and transaction recovery during crash recovery
+
+## Simplified Source
+
+```c
+void TransactionIdCommitTree(TransactionId xid, int nxids, TransactionId *xids) {
+    // Mark the entire transaction tree as committed
+    // Use InvalidXLogRecPtr since this is a regular (not async) commit
+    TransactionIdSetTreeStatus(xid, nxids, xids,
+                               TRANSACTION_STATUS_COMMITTED,
+                               InvalidXLogRecPtr);
+}
+```

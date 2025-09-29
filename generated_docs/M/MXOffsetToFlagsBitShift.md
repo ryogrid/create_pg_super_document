@@ -36,3 +36,19 @@ The calculation process:
 - Works in conjunction with MXOffsetToFlagsOffset to provide complete addressing within MultiXact member pages
 - The bit shift value is used with bitwise operations to extract or modify specific member flags
 - Each member uses MXACT_MEMBER_BITS_PER_XACT bits to store its flags, allowing multiple members to share a single flag word efficiently
+
+## Simplified Source
+
+```c
+static inline int
+MXOffsetToFlagsBitShift(MultiXactOffset offset)
+{
+    // Find position within member group
+    int member_in_group = offset % MULTIXACT_MEMBERS_PER_MEMBERGROUP;
+
+    // Calculate bit shift (each member uses MXACT_MEMBER_BITS_PER_XACT bits)
+    int bit_shift = member_in_group * MXACT_MEMBER_BITS_PER_XACT;
+
+    return bit_shift;
+}
+```

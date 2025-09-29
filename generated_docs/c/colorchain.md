@@ -39,3 +39,19 @@ The color chain structure allows the regex engine to efficiently find all arcs o
 - Critical for color-based optimizations in the regex compilation process
 - Includes assertion to ensure valid color indices (>= 0)
 - Works in conjunction with  to provide complete chain management functionality
+
+## Simplified Source
+
+```c
+static void colorchain(struct colormap *cm, struct arc *a) {
+    struct colordesc *cd = &cm->cd[a->co];
+
+    // Add arc to beginning of the color's chain
+    if (cd->arcs != NULL)
+        cd->arcs->colorchainRev = a;  // Update existing head's reverse pointer
+
+    a->colorchain = cd->arcs;    // Point to current head (or NULL)
+    a->colorchainRev = NULL;     // New arc becomes head, no previous arc
+    cd->arcs = a;                // Update color descriptor's head pointer
+}
+```

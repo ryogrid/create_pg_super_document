@@ -33,3 +33,14 @@ The visibility check considers whether the template's namespace is in the curren
 - Will throw an error if the template OID is not found in the system catalog (since is_missing is NULL)
 - Used primarily in contexts where template existence is already confirmed and only visibility needs to be checked
 - Part of the broader text search infrastructure for managing template visibility and namespace resolution
+
+## Simplified Source
+
+```c
+bool
+TSTemplateIsVisible(Oid tmplId)
+{
+    // Simple wrapper that delegates to the extended version
+    return TSTemplateIsVisibleExt(tmplId, NULL);
+}
+```

@@ -40,3 +40,37 @@ The target lists and qualifications in the generated plan tree remain in planner
 - Attaches any initialization plans created during query processing to the topmost plan node
 - Validates that all NestLoopParams are properly assigned to plan nodes
 - The function is located at src/backend/optimizer/plan/createplan.c:338-388
+
+## Simplified Source
+
+```c
+Plan *create_plan(PlannerInfo *root, Path *best_path) {
+    Plan *plan;
+
+    // Verify preconditions
+    Assert(root->plan_params == NIL);
+
+    // Initialize workspace for plan creation
+    root->curOuterRels = NULL;
+    root->curOuterParams = NIL;
+
+    // Recursively convert path tree to plan tree
+    plan = create_plan_recurse(root, best_path, CP_EXACT_TLIST);
+
+    // Apply proper column names to top-level targetlist (except for ModifyTable)
+    if (!IsA(plan, ModifyTable))
+        apply_tlist_labeling(plan->targetlist, root->processed_tlist);
+
+    // Attach any initialization plans to the topmost plan node
+    SS_attach_initplans(root, plan);
+
+    // Verify all NestLoopParams were properly assigned
+    if (root->curOuterParams != NIL)
+        elog(ERROR, "failed to assign all NestLoopParams to plan nodes");
+
+    // Reset plan parameters to prevent ID reuse
+    root->plan_params = NIL;
+
+    return plan;
+}
+```

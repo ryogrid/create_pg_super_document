@@ -44,3 +44,40 @@ The function ensures that C-language functions have proper PG_FUNCTION_INFO_V1 d
 - The function is separated from fmgr_info_C_lang to allow validation of functions not yet in pg_proc
 - Memory management includes cleaning up the constructed info function name
 - Only API version 1 is currently supported, with clear error messages for unsupported versions
+
+## Simplified Source
+
+```c
+const Pg_finfo_record *
+fetch_finfo_record(void *filehandle, const char *funcname)
+{
+    char *infofuncname;
+    PGFInfoFunction infofunc;
+    const Pg_finfo_record *inforec;
+
+    // Construct info function name: "pg_finfo_" + funcname
+    infofuncname = psprintf("pg_finfo_%s", funcname);
+
+    // Look up the info function in the shared library
+    infofunc = (PGFInfoFunction) lookup_external_function(filehandle, infofuncname);
+    if (infofunc == NULL)
+    {
+        ereport(ERROR, "could not find function information for function");
+        return NULL;
+    }
+
+    // Call the info function to get the record
+    inforec = (*infofunc) ();
+
+    // Validate the returned record
+    if (inforec == NULL)
+        elog(ERROR, "null result from info function");
+
+    // Check API version (only version 1 supported)
+    if (inforec->api_version != 1)
+        ereport(ERROR, "unrecognized API version");
+
+    pfree(infofuncname);
+    return inforec;
+}
+```

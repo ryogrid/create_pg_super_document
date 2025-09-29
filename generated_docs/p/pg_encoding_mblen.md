@@ -47,3 +47,16 @@ The function is designed for use cases where the input string is either zero-ter
 - Callers working with untrusted input should consider using Min(remaining, result) or the safer pg_encoding_mblen_or_incomplete() variant
 - Core component of PostgreSQL's multibyte character support system used throughout the codebase
 - Performance-critical function optimized for fast dispatch to encoding-specific implementations
+
+## Simplified Source
+
+```c
+int
+pg_encoding_mblen(int encoding, const char *mbstr)
+{
+    // Validate encoding and dispatch to appropriate mblen function
+    return (PG_VALID_ENCODING(encoding) ?
+            pg_wchar_table[encoding].mblen((const unsigned char *) mbstr) :
+            pg_wchar_table[PG_SQL_ASCII].mblen((const unsigned char *) mbstr));
+}
+```

@@ -43,3 +43,27 @@ The function includes performance optimizations with branch prediction hints, fa
 - Critical for converting historical 32-bit transaction IDs to full 64-bit form when processing WAL records, snapshots, and two-phase commit state
 - The function's design accounts for PostgreSQL's requirement to freeze old XIDs before they become ambiguous due to wraparound
 - Essential for maintaining transaction visibility and consistency when working with mixed 32-bit and 64-bit transaction ID representations
+
+## Simplified Source
+
+```c
+static inline FullTransactionId
+FullTransactionIdFromAllowableAt(FullTransactionId nextFullXid, TransactionId xid) {
+    uint32 epoch;
+
+    // Handle special transaction IDs (InvalidTransactionId, etc.)
+    if (!TransactionIdIsNormal(xid))
+        return FullTransactionIdFromEpochAndXid(0, xid);
+
+    // Determine which epoch this XID belongs to
+    epoch = EpochFromFullTransactionId(nextFullXid);
+
+    // If XID is greater than nextFullXid's 32-bit part, it must be from previous epoch
+    if (unlikely(xid > XidFromFullTransactionId(nextFullXid))) {
+        epoch--;
+    }
+
+    // Construct full transaction ID with determined epoch
+    return FullTransactionIdFromEpochAndXid(epoch, xid);
+}
+```

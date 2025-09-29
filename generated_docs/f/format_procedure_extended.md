@@ -59,3 +59,60 @@ The function supports two primary formatting flags:
 - Central implementation for all procedure formatting in the PostgreSQL backend
 - Provides foundation for both user-facing and internal procedure name formatting
 - Schema qualification logic considers both search path visibility and explicit flag requirements
+
+## Simplified Source
+
+```c
+char *format_procedure_extended(Oid procedure_oid, bits16 flags) {
+    // Look up procedure in system catalog
+    HeapTuple proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(procedure_oid));
+
+    if (HeapTupleIsValid(proctup)) {
+        Form_pg_proc procform = (Form_pg_proc) GETSTRUCT(proctup);
+        char *proname = NameStr(procform->proname);
+        int nargs = procform->pronargs;
+        StringInfoData buf;
+
+        initStringInfo(&buf);
+
+        // Determine schema qualification
+        char *nspname = NULL;
+        if ((flags & FORMAT_PROC_FORCE_QUALIFY) != 0 ||
+            !FunctionIsVisible(procedure_oid)) {
+            nspname = get_namespace_name(procform->pronamespace);
+        }
+
+        // Build procedure signature: [schema.]name(arg_types...)
+        appendStringInfo(&buf, "%s(",
+                        quote_qualified_identifier(nspname, proname));
+
+        // Add argument types
+        for (int i = 0; i < nargs; i++) {
+            Oid argtype = procform->proargtypes.values[i];
+
+            if (i > 0) {
+                appendStringInfoChar(&buf, ',');
+            }
+
+            char *typename = (flags & FORMAT_PROC_FORCE_QUALIFY) ?
+                format_type_be_qualified(argtype) :
+                format_type_be(argtype);
+            appendStringInfoString(&buf, typename);
+        }
+        appendStringInfoChar(&buf, ')');
+
+        ReleaseSysCache(proctup);
+        return buf.data;
+    }
+
+    // Handle invalid procedure OID
+    if ((flags & FORMAT_PROC_INVALID_AS_NULL) != 0) {
+        return NULL;  // Return NULL for missing procedures
+    } else {
+        // Return numeric OID as fallback
+        char *result = palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", procedure_oid);
+        return result;
+    }
+}
+```

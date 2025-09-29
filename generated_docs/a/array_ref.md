@@ -51,4 +51,19 @@ It essentially converts the ArrayType pointer to a Datum and delegates all actua
 - New code should prefer using  directly for better flexibility
 - The function adds minimal overhead as it simply wraps the underlying implementation
 - Essential for PostgreSQL's configuration system (GUC arrays) and rule utilities
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum
+array_ref(ArrayType *array, int nSubscripts, int *indx,
+         int arraytyplen, int elmlen, bool elmbyval, char elmalign,
+         bool *isNull)
+{
+    // Simple wrapper: convert ArrayType pointer to Datum and delegate
+    return array_get_element(PointerGetDatum(array), nSubscripts, indx,
+                           arraytyplen, elmlen, elmbyval, elmalign,
+                           isNull);
+}
+```

@@ -37,3 +37,24 @@ The function first checks if serialization is needed for the given relation and 
 - The function will cause any existing page-level or tuple-level predicate locks on the same relation to be cleaned up
 - Commonly called at the beginning of table scans to establish read dependencies for serializable transactions
 - Part of PostgreSQL's implementation of true serializable isolation level using predicate locking
+
+## Simplified Source
+
+```c
+void
+PredicateLockRelation(Relation relation, Snapshot snapshot) {
+    PREDICATELOCKTARGETTAG tag;
+
+    // Check if serialization is needed for this relation and snapshot
+    if (!SerializationNeededForRead(relation, snapshot))
+        return;
+
+    // Create predicate lock target tag for the relation
+    SET_PREDICATELOCKTARGETTAG_RELATION(tag,
+                                        relation->rd_locator.dbOid,
+                                        relation->rd_id);
+
+    // Acquire the predicate lock
+    PredicateLockAcquire(&tag);
+}
+```

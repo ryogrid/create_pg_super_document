@@ -48,3 +48,54 @@ Special logic exists for WAL sender connections, where physical replication conn
 - Returns true on first match found, false if no tokens match
 - Keywords are processed before regular expressions for efficiency
 - "samegroup" and "samerole" are treated identically (legacy compatibility)
+
+## Simplified Source
+
+```c
+static bool
+check_db(const char *dbname, const char *role, Oid roleid, List *tokens)
+{
+    ListCell *cell;
+    AuthToken *tok;
+
+    // Check each authentication token
+    foreach(cell, tokens)
+    {
+        tok = lfirst(cell);
+
+        // Special handling for WAL sender connections
+        if (am_walsender && !am_db_walsender)
+        {
+            // Physical replication can only match "replication" keyword
+            if (token_is_keyword(tok, "replication"))
+                return true;
+        }
+        else if (token_is_keyword(tok, "all"))
+            return true;
+        else if (token_is_keyword(tok, "sameuser"))
+        {
+            // Database name must match role name
+            if (strcmp(dbname, role) == 0)
+                return true;
+        }
+        else if (token_is_keyword(tok, "samegroup") ||
+                 token_is_keyword(tok, "samerole"))
+        {
+            // Role must be member of group/role with database name
+            if (is_member(roleid, dbname))
+                return true;
+        }
+        else if (token_is_keyword(tok, "replication"))
+            continue;  // Skip if not a walsender
+        else if (token_has_regexp(tok))
+        {
+            // Regular expression matching
+            if (regexec_auth_token(dbname, tok, 0, NULL) == REG_OKAY)
+                return true;
+        }
+        else if (token_matches(tok, dbname))
+            return true;  // Exact string match
+    }
+    return false;
+}
+```

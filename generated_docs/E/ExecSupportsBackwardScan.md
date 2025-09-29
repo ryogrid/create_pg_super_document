@@ -58,3 +58,59 @@ For nodes that pass data through from children (Result, Append, SubqueryScan, Lo
 - Some node types like IncrementalSort are excluded because they optimize memory usage by keeping only partial data, making full backward scanning impossible
 - Custom scan providers must explicitly declare backward scan support through the CUSTOMPATH_SUPPORT_BACKWARD_SCAN flag
 - The function's conservative approach returns false for any unrecognized plan types, ensuring system stability
+
+## Simplified Source
+
+```c
+bool
+ExecSupportsBackwardScan(Plan *node)
+{
+    if (node == NULL || node->parallel_aware)
+        return false;
+
+    switch (nodeTag(node))
+    {
+        // Simple scan types that support backward scan
+        case T_SeqScan:
+        case T_TidScan:
+        case T_Material:
+        case T_Sort:
+            return true;
+
+        // Index scans depend on index type
+        case T_IndexScan:
+            return IndexSupportsBackwardScan(((IndexScan *) node)->indexid);
+
+        // Nodes that pass through child capabilities
+        case T_Result:
+        case T_LockRows:
+        case T_Limit:
+            if (outerPlan(node) != NULL)
+                return ExecSupportsBackwardScan(outerPlan(node));
+            return false;
+
+        // Append needs all children to support backward scan
+        case T_Append:
+            {
+                ListCell *l;
+                if (((Append *) node)->nasyncplans > 0)
+                    return false;
+                foreach(l, ((Append *) node)->appendplans)
+                {
+                    if (!ExecSupportsBackwardScan((Plan *) lfirst(l)))
+                        return false;
+                }
+                return true;
+            }
+
+        // Types that never support backward scan
+        case T_SampleScan:
+        case T_Gather:
+        case T_IncrementalSort:
+            return false;
+
+        default:
+            return false;
+    }
+}
+```

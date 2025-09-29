@@ -37,3 +37,22 @@ static void report_invalid_record(XLogReaderState *state, const char *fmt, ...)
 - Sets errormsg_deferred flag to true, indicating the error should be reported later
 - The error message is stored in state->errormsg_buf with a maximum length of MAX_ERRORMSG_LEN
 - Extensively used throughout WAL record validation and decoding processes to provide detailed error reporting
+
+## Simplified Source
+```c
+static void report_invalid_record(XLogReaderState *state, const char *fmt, ...)
+{
+    va_list args;
+
+    // Translate format string for internationalization
+    fmt = _(fmt);
+
+    // Format error message into state buffer
+    va_start(args, fmt);
+    vsnprintf(state->errormsg_buf, MAX_ERRORMSG_LEN, fmt, args);
+    va_end(args);
+
+    // Mark error as deferred for later reporting
+    state->errormsg_deferred = true;
+}
+```

@@ -35,3 +35,43 @@ postquel_sub_params is responsible for parameter substitution in SQL functions. 
 - Handles null arguments appropriately by setting the isnull flag
 - If there are no arguments (nargs == 0), sets fcache->paramLI to NULL
 - The function includes detailed comments explaining the rationale for making expanded objects read-only to prevent parameter mutation issues
+
+## Simplified Source
+
+```c
+static void
+postquel_sub_params(SQLFunctionCachePtr fcache,
+                   FunctionCallInfo fcinfo)
+{
+    int nargs = fcinfo->nargs;
+
+    if (nargs > 0) {
+        ParamListInfo paramLI;
+        Oid *argtypes = fcache->pinfo->argtypes;
+
+        // Create or reuse parameter list
+        if (fcache->paramLI == NULL) {
+            paramLI = makeParamList(nargs);
+            fcache->paramLI = paramLI;
+        } else {
+            paramLI = fcache->paramLI;
+            Assert(paramLI->numParams == nargs);
+        }
+
+        // Copy each argument into parameter list
+        for (int i = 0; i < nargs; i++) {
+            ParamExternData *prm = &paramLI->params[i];
+
+            // Force expanded objects to read-only to prevent mutation issues
+            prm->isnull = fcinfo->args[i].isnull;
+            prm->value = MakeExpandedObjectReadOnly(fcinfo->args[i].value,
+                                                   prm->isnull,
+                                                   get_typlen(argtypes[i]));
+            prm->pflags = 0;
+            prm->ptype = argtypes[i];
+        }
+    } else {
+        fcache->paramLI = NULL;
+    }
+}
+```

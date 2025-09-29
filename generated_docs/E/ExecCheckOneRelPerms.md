@@ -51,3 +51,68 @@ The user ID for permission checking is determined either from the checkAsUser fi
 - Only SELECT, INSERT, and UPDATE permissions can be satisfied at the column level; other permissions (like DELETE, TRUNCATE) must be granted at the relation level
 - Error reporting is done at the table level even when column-level permission checks fail
 - The function is designed to handle both explicit column references and implicit whole-row references
+
+## Simplified Source
+
+```c
+bool ExecCheckOneRelPerms(RTEPermissionInfo *perminfo) {
+    AclMode requiredPerms = perminfo->requiredPerms;
+    Oid relOid = perminfo->relid;
+
+    // Determine user ID for permission check (setuid or current user)
+    Oid userid = OidIsValid(perminfo->checkAsUser) ?
+                 perminfo->checkAsUser : GetUserId();
+
+    // Check relation-level permissions first
+    AclMode relPerms = pg_class_aclmask(relOid, userid, requiredPerms, ACLMASK_ALL);
+    AclMode remainingPerms = requiredPerms & ~relPerms;
+
+    if (remainingPerms == 0) {
+        return true;  // All permissions satisfied at relation level
+    }
+
+    // Only SELECT, INSERT, UPDATE can be satisfied at column level
+    if (remainingPerms & ~(ACL_SELECT | ACL_INSERT | ACL_UPDATE)) {
+        return false;
+    }
+
+    // Check column-level SELECT permissions
+    if (remainingPerms & ACL_SELECT) {
+        if (bms_is_empty(perminfo->selectedCols)) {
+            // No specific columns referenced - need SELECT on any column
+            if (pg_attribute_aclcheck_all(relOid, userid, ACL_SELECT, ACLMASK_ANY) != ACLCHECK_OK)
+                return false;
+        } else {
+            // Check each selected column
+            int col = -1;
+            while ((col = bms_next_member(perminfo->selectedCols, col)) >= 0) {
+                AttrNumber attno = col + FirstLowInvalidHeapAttributeNumber;
+
+                if (attno == InvalidAttrNumber) {
+                    // Whole-row reference - need SELECT on all columns
+                    if (pg_attribute_aclcheck_all(relOid, userid, ACL_SELECT, ACLMASK_ALL) != ACLCHECK_OK)
+                        return false;
+                } else {
+                    // Check specific column permission
+                    if (pg_attribute_aclcheck(relOid, attno, userid, ACL_SELECT) != ACLCHECK_OK)
+                        return false;
+                }
+            }
+        }
+    }
+
+    // Check column-level INSERT permissions
+    if (remainingPerms & ACL_INSERT) {
+        if (!ExecCheckPermissionsModified(relOid, userid, perminfo->insertedCols, ACL_INSERT))
+            return false;
+    }
+
+    // Check column-level UPDATE permissions
+    if (remainingPerms & ACL_UPDATE) {
+        if (!ExecCheckPermissionsModified(relOid, userid, perminfo->updatedCols, ACL_UPDATE))
+            return false;
+    }
+
+    return true;
+}
+```

@@ -38,3 +38,15 @@ The smgrprefetch function is a storage manager interface for initiating asynchro
 - Part of the storage manager abstraction layer
 - Critical for optimizing sequential and predictable access patterns
 - Used extensively in buffer management for both shared and local buffers
+
+## Simplified Source
+
+```c
+bool
+smgrprefetch(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+             int nblocks)
+{
+    // Delegate to the appropriate storage manager implementation
+    return smgrsw[reln->smgr_which].smgr_prefetch(reln, forknum, blocknum, nblocks);
+}
+```

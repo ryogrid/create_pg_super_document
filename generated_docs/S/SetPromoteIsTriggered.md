@@ -21,7 +21,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire
-  - SpinLockRelease  
+  - SpinLockRelease
   - [SetRecoveryPause](SetRecoveryPause.md)
   - XLogRecoveryCtl (global variable)
 - Called from (representative examples):
@@ -33,3 +33,22 @@ This function takes no parameters.
 - Automatically clears recovery pause state to prevent inconsistent state reporting during promotion
 - Sets both shared and local promotion flags for efficient access patterns
 - Located at src/backend/access/transam/xlogrecovery.c:4413-4433
+
+## Simplified Source
+
+```c
+static void
+SetPromoteIsTriggered(void)
+{
+    // Set shared promotion flag under spinlock protection
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+    XLogRecoveryCtl->SharedPromoteIsTriggered = true;
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    // Clear recovery pause state since promotion takes precedence
+    SetRecoveryPause(false);
+
+    // Set local promotion flag for quick access
+    LocalPromoteIsTriggered = true;
+}
+```

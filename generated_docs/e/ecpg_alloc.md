@@ -45,3 +45,22 @@ The function allocates memory using , ensuring that all allocated memory is init
 - Extensively used throughout ECPG for connection management, descriptor handling, statement processing, and data conversion
 - Part of ECPG's comprehensive memory management system that helps ensure robust embedded SQL applications
 - The zero-initialization feature helps prevent common bugs related to uninitialized pointers and data structures
+
+## Simplified Source
+
+```c
+char *
+ecpg_alloc(long size, int lineno)
+{
+    // Allocate zero-initialized memory
+    char *new = (char *) calloc(1L, size);
+
+    // Handle allocation failure
+    if (!new) {
+        ecpg_raise(lineno, ECPG_OUT_OF_MEMORY, ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY, NULL);
+        return NULL;
+    }
+
+    return new;
+}
+```

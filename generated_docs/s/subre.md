@@ -60,3 +60,50 @@ Each subre structure represents a specific operation or construct in the regular
 - The cnfa field is initialized with ZAPCNFA and will be populated later during compilation
 - Memory allocation failures are handled gracefully with proper error reporting
 - Used extensively throughout the regex parsing and compilation process to build the parse tree
+
+## Simplified Source
+
+```c
+static struct subre *
+subre(struct vars *v, int op, int flags, struct state *begin, struct state *end)
+{
+    struct subre *ret;
+
+    // Check for stack overflow to prevent infinite recursion
+    if (STACK_TOO_DEEP(v->re)) {
+        ERR(REG_ETOOBIG);
+        return NULL;
+    }
+
+    // Try to reuse from free list first, otherwise allocate new
+    if (v->treefree != NULL) {
+        ret = v->treefree;
+        v->treefree = ret->child;
+    } else {
+        ret = (struct subre *) MALLOC(sizeof(struct subre));
+        if (ret == NULL) {
+            ERR(REG_ESPACE);
+            return NULL;
+        }
+        // Chain for cleanup
+        ret->chain = v->treechain;
+        v->treechain = ret;
+    }
+
+    // Initialize the subre structure with defaults
+    ret->op = op;
+    ret->flags = flags;
+    ret->latype = -1;
+    ret->id = 0;
+    ret->capno = 0;
+    ret->backno = 0;
+    ret->min = ret->max = 1;
+    ret->child = NULL;
+    ret->sibling = NULL;
+    ret->begin = begin;
+    ret->end = end;
+    ZAPCNFA(ret->cnfa);
+
+    return ret;
+}
+```

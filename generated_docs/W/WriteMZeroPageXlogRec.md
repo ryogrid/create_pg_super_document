@@ -308,3 +308,18 @@ Text creation and manipulation
 - Essential for maintaining consistency of MultiXact data structures across crashes and replication
 - The WAL record contains the page number as data, allowing recovery processes to identify which page was zeroed
 - Used during MultiXact cleanup operations when pages need to be reset
+
+## Simplified Source
+
+```c
+static void WriteMZeroPageXlogRec(int64 pageno, uint8 info) {
+    // Begin WAL record creation
+    XLogBeginInsert();
+
+    // Register the page number as data in the record
+    XLogRegisterData((char *) (&pageno), sizeof(pageno));
+
+    // Insert the WAL record with MultiXact resource manager
+    XLogInsert(RM_MULTIXACT_ID, info);
+}
+```

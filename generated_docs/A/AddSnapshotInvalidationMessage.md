@@ -42,3 +42,31 @@ The function places snapshot invalidation messages into the relcache subgroup fo
 - Uses VALGRIND_MAKE_MEM_DEFINED to ensure proper memory initialization for debugging tools
 - [Snapshot](../S/Snapshot.md) invalidations are grouped with relcache messages for processing efficiency
 - Part of PostgreSQL's shared invalidation message system for maintaining cache coherency across backends
+
+## Simplified Source
+
+```c
+static void
+AddSnapshotInvalidationMessage(InvalidationMsgsGroup *group,
+                               Oid dbId, Oid relId)
+{
+    SharedInvalidationMessage msg;
+
+    // Check for duplicates - don't add if message already exists
+    ProcessMessageSubGroup(group, RelCacheMsgs,
+                          if (msg->sn.id == SHAREDINVALSNAPSHOT_ID &&
+                              msg->sn.relId == relId)
+                          return);
+
+    // Construct snapshot invalidation message
+    msg.sn.id = SHAREDINVALSNAPSHOT_ID;
+    msg.sn.dbId = dbId;
+    msg.sn.relId = relId;
+
+    // Initialize padding bytes for Valgrind in shared memory
+    VALGRIND_MAKE_MEM_DEFINED(&msg, sizeof(msg));
+
+    // Add message to relation cache message group (for simplicity)
+    AddInvalidationMessage(group, RelCacheMsgs, &msg);
+}
+```

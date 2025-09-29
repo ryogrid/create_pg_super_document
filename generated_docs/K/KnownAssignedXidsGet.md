@@ -35,3 +35,17 @@ The function requires the caller to hold the ProcArrayLock in at least shared mo
 - Caller must ensure proper locking (ProcArrayLock in shared mode minimum) before calling this function
 - The function returns the number of transaction IDs stored in the output array
 - This function is part of PostgreSQL's Hot Standby implementation for managing known assigned transaction IDs on standby servers
+
+## Simplified Source
+
+```c
+static int
+KnownAssignedXidsGet(TransactionId *xarray, TransactionId xmax)
+{
+    // Initialize temporary variable for xmin tracking
+    TransactionId xtmp = InvalidTransactionId;
+
+    // Delegate to the full implementation that also handles xmin setting
+    return KnownAssignedXidsGetAndSetXmin(xarray, &xtmp, xmax);
+}
+```

@@ -41,3 +41,22 @@ Note that this function only handles the reference count cleanup; the actual mem
 - Essential for maintaining proper relation reference counting in PostgreSQL's resource management
 - Typically called during cleanup phases of query execution or planning
 - The function does not explicitly destroy the hash table or memory context - this is handled externally
+
+## Simplified Source
+
+```c
+void
+DestroyPartitionDirectory(PartitionDirectory pdir)
+{
+    HASH_SEQ_STATUS status;
+    PartitionDirectoryEntry *pde;
+
+    // Iterate through all cached partition entries
+    hash_seq_init(&status, pdir->pdir_hash);
+    while ((pde = hash_seq_search(&status)) != NULL)
+    {
+        // Release reference count for each cached relation
+        RelationDecrementReferenceCount(pde->rel);
+    }
+}
+```

@@ -38,3 +38,41 @@ The function includes what the code calls a "horrid kluge" - moving initPlans up
 - Properly sets parallel execution properties (parallel_aware = false, parallel_safe inherited)
 - The cost computation uses a dummy Path structure just for the cost_material() call
 - Located in src/backend/optimizer/plan/createplan.c at lines 6528-6568
+
+## Simplified Source
+
+```c
+Plan *
+materialize_finished_plan(Plan *subplan)
+{
+    Plan       *matplan;
+    Path        matpath;    // dummy for cost calculation
+    Cost        initplan_cost;
+    bool        unsafe_initplans;
+
+    // Create material node
+    matplan = (Plan *) make_material(subplan);
+
+    // Move initPlans from subplan to material node
+    matplan->initPlan = subplan->initPlan;
+    subplan->initPlan = NIL;
+
+    // Calculate initplan costs and adjust subplan costs
+    SS_compute_initplan_cost(matplan->initPlan, &initplan_cost, &unsafe_initplans);
+    subplan->startup_cost -= initplan_cost;
+    subplan->total_cost -= initplan_cost;
+
+    // Calculate material costs and set final costs
+    cost_material(&matpath, subplan->startup_cost, subplan->total_cost,
+                  subplan->plan_rows, subplan->plan_width);
+
+    matplan->startup_cost = matpath.startup_cost + initplan_cost;
+    matplan->total_cost = matpath.total_cost + initplan_cost;
+    matplan->plan_rows = subplan->plan_rows;
+    matplan->plan_width = subplan->plan_width;
+    matplan->parallel_aware = false;
+    matplan->parallel_safe = subplan->parallel_safe;
+
+    return matplan;
+}
+```

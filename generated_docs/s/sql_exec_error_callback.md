@@ -36,3 +36,58 @@ sql_exec_error_callback serves as PostgreSQL's error context callback specifical
 - Returns early if the function cache is not available or function name is not set, indicating very early initialization failure
 - Helps developers debug SQL functions by clearly identifying which statement within a multi-statement function caused an error
 - The callback mechanism integrates with PostgreSQL's error reporting system to provide contextual stack traces
+
+## Simplified Source
+
+```c
+static void
+sql_exec_error_callback(void *arg)
+{
+    FmgrInfo *flinfo = (FmgrInfo *) arg;
+    SQLFunctionCachePtr fcache = (SQLFunctionCachePtr) flinfo->fn_extra;
+    int syntaxerrposition;
+
+    // Return early if function cache not available
+    if (fcache == NULL || fcache->fname == NULL)
+        return;
+
+    // Handle syntax error position mapping
+    syntaxerrposition = geterrposition();
+    if (syntaxerrposition > 0 && fcache->src != NULL) {
+        errposition(0);
+        internalerrposition(syntaxerrposition);
+        internalerrquery(fcache->src);
+    }
+
+    // Find which statement was executing when error occurred
+    if (fcache->func_state) {
+        execution_state *es;
+        int query_num;
+        ListCell *lc;
+
+        es = NULL;
+        query_num = 1;
+        foreach(lc, fcache->func_state) {
+            es = (execution_state *) lfirst(lc);
+            while (es) {
+                if (es->qd) {
+                    errcontext("SQL function \"%s\" statement %d",
+                              fcache->fname, query_num);
+                    break;
+                }
+                es = es->next;
+            }
+            if (es)
+                break;
+            query_num++;
+        }
+        if (es == NULL) {
+            // Couldn't identify specific statement
+            errcontext("SQL function \"%s\"", fcache->fname);
+        }
+    } else {
+        // Error during function initialization
+        errcontext("SQL function \"%s\" during startup", fcache->fname);
+    }
+}
+```

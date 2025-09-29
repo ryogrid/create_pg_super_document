@@ -44,3 +44,52 @@ The function includes security checks to prevent deferred triggers from being fi
 - Implements security restrictions by preventing deferred trigger execution in security-restricted operations
 - The function modifies event flags in place, marking processed events as either IN_PROGRESS or DONE
 - Part of PostgreSQL's sophisticated trigger deferral mechanism that allows triggers to be executed at specific points in transaction processing
+
+## Simplified Source
+
+```c
+static bool afterTriggerMarkEvents(AfterTriggerEventList *events,
+                                  AfterTriggerEventList *move_list,
+                                  bool immediate_only) {
+    bool found = false;
+    bool deferred_found = false;
+
+    // Process each event in the event list
+    for_each_event_chunk(event, chunk, *events) {
+        AfterTriggerShared evtshared = GetTriggerSharedData(event);
+        bool defer_it = false;
+
+        // Check if event hasn't been processed yet
+        if (!(event->ate_flags & (AFTER_TRIGGER_DONE | AFTER_TRIGGER_IN_PROGRESS))) {
+
+            // Determine if this event should be deferred
+            if (immediate_only && afterTriggerCheckState(evtshared)) {
+                defer_it = true;
+            } else {
+                // Mark event to be fired in current cycle
+                evtshared->ats_firing_id = afterTriggers.firing_counter;
+                event->ate_flags |= AFTER_TRIGGER_IN_PROGRESS;
+                found = true;
+            }
+        }
+
+        // Move deferred events to separate list if requested
+        if (defer_it && move_list != NULL) {
+            deferred_found = true;
+
+            // Add to move_list and mark original as done
+            afterTriggerAddEvent(move_list, event, evtshared);
+            event->ate_flags |= AFTER_TRIGGER_DONE;
+        }
+    }
+
+    // Security check: prevent deferred triggers in restricted operations
+    if (deferred_found && InSecurityRestrictedOperation()) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("cannot fire deferred trigger within security-restricted operation")));
+    }
+
+    return found;
+}
+```

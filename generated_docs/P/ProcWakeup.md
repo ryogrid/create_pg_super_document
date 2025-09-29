@@ -46,3 +46,27 @@ The function is designed to work correctly only for successful lock acquisition 
 - Part of the lock management subsystem's wakeup protocol
 - Located in src/backend/storage/lmgr/proc.c:1683-1710
 - Should not be used directly for error cases - use RemoveFromWaitQueue instead for proper cleanup
+
+## Simplified Source
+
+```c
+void ProcWakeup(PGPROC *proc, ProcWaitStatus waitStatus) {
+    // Safety check: ensure process is still in wait queue
+    if (dlist_node_is_detached(&proc->links))
+        return;
+
+    Assert(proc->waitStatus == PROC_WAIT_STATUS_WAITING);
+
+    // Remove process from the lock wait queue
+    dclist_delete_from_thoroughly(&proc->waitLock->waitProcs, &proc->links);
+
+    // Clean up process state and set final status
+    proc->waitLock = NULL;
+    proc->waitProcLock = NULL;
+    proc->waitStatus = waitStatus;
+    pg_atomic_write_u64(&MyProc->waitStart, 0);
+
+    // Wake up the sleeping process
+    SetLatch(&proc->procLatch);
+}
+```

@@ -34,3 +34,31 @@ RelationPreserveStorage marks a relation as not to be deleted after all, removin
 - Critical for relation mapper correctness when mapping updates are committed separately
 - Used during ALTER TABLE index operations to preserve existing index builds for reuse
 - Memory allocated for removed PendingRelDelete entries is freed using pfree
+
+## Simplified Source
+
+```c
+void RelationPreserveStorage(RelFileLocator rlocator, bool atCommit) {
+    PendingRelDelete *pending;
+    PendingRelDelete *prev = NULL;
+
+    // Search through pending deletion list
+    for (pending = pendingDeletes; pending != NULL; pending = pending->next) {
+        // Check if this entry matches the relation and deletion type
+        if (RelFileLocatorEquals(rlocator, pending->rlocator) &&
+            pending->atCommit == atCommit) {
+            // Remove entry from linked list
+            if (prev)
+                prev->next = pending->next;
+            else
+                pendingDeletes = pending->next;
+
+            // Free the entry and continue with same prev
+            pfree(pending);
+        } else {
+            // Keep this entry, advance prev pointer
+            prev = pending;
+        }
+    }
+}
+```

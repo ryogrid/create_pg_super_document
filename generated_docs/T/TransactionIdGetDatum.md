@@ -36,3 +36,12 @@ TransactionIdGetDatum performs a simple type cast from a TransactionId to a Datu
 - Used heavily in control data reporting, replication functions, and lock status queries
 - The function assumes the input TransactionId is valid - no validation is performed
 - Critical for exposing internal transaction state to external applications and administrative tools
+
+## Simplified Source
+
+```c
+static inline Datum TransactionIdGetDatum(TransactionId X) {
+    // Simple cast from TransactionId to Datum
+    return (Datum) X;
+}
+```

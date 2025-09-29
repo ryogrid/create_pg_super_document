@@ -26,3 +26,32 @@ The inc_lex_level function manages the nesting depth tracking in JSON parsing an
 
 ## Notes and Other Information
 This function is specifically designed for incremental JSON parsing where the parser must maintain state across multiple input chunks. The dynamic stack expansion ensures that deeply nested JSON structures can be parsed without predetermined limits. The function only performs expensive memory reallocation when actually needed (when incremental mode is enabled and the stack is nearly full), making it efficient for both regular and incremental parsing scenarios. The expansion happens in chunks (JS_STACK_CHUNK_SIZE) to amortize allocation costs.
+
+## Simplified Source
+
+```c
+static inline void inc_lex_level(JsonLexContext *lex) {
+    // Increment nesting level
+    lex->lex_level += 1;
+
+    // For incremental parsing, expand stacks if needed
+    if (lex->incremental && lex->lex_level >= lex->pstack->stack_size) {
+        // Expand stack by a chunk
+        lex->pstack->stack_size += JS_STACK_CHUNK_SIZE;
+
+        // Reallocate prediction buffer
+        lex->pstack->prediction = repalloc(lex->pstack->prediction,
+                                         lex->pstack->stack_size * JS_MAX_PROD_LEN);
+
+        // Reallocate field name array if it exists
+        if (lex->pstack->fnames)
+            lex->pstack->fnames = repalloc(lex->pstack->fnames,
+                                         lex->pstack->stack_size * sizeof(char *));
+
+        // Reallocate null flag array if it exists
+        if (lex->pstack->fnull)
+            lex->pstack->fnull = repalloc(lex->pstack->fnull,
+                                        lex->pstack->stack_size * sizeof(bool));
+    }
+}
+```

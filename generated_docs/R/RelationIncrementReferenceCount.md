@@ -38,3 +38,20 @@ The function follows a two-step process:
 - The function ensures resource owner capacity before making changes, preventing memory allocation failures during reference tracking
 - This is part of PostgreSQL's reference counting mechanism to prevent premature cleanup of actively used relations
 - Always paired with RelationDecrementReferenceCount when the relation reference is no longer needed
+
+## Simplified Source
+
+```c
+void
+RelationIncrementReferenceCount(Relation rel) {
+    // Ensure resource owner can track one more relation reference
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+
+    // Increment the relation's reference count
+    rel->rd_refcnt += 1;
+
+    // Track this reference for cleanup (except during bootstrap)
+    if (!IsBootstrapProcessingMode())
+        ResourceOwnerRememberRelationRef(CurrentResourceOwner, rel);
+}
+```

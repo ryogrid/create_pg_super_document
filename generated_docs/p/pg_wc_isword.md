@@ -41,3 +41,14 @@ This approach ensures that word character classification follows the same locale
 - Used in regex character class operations and word boundary detection
 - Much simpler implementation than other character classification functions due to delegation to `pg_wc_isalnum`
 - Location: src/backend/regex/regc_pg_locale.c:396-404
+
+## Simplified Source
+
+```c
+static int pg_wc_isword(pg_wchar c) {
+    // Word characters include underscore and alphanumeric characters
+    if (c == CHR('_'))
+        return 1;
+    return pg_wc_isalnum(c);
+}
+```

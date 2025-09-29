@@ -30,3 +30,28 @@ This static function is responsible for freeing snapshots that were created by t
 
 ## Notes and Other Information
 The function enforces strict invariants about snapshot state: the snapshot must be of type SNAPSHOT_HISTORIC_MVCC, have curcid set to FirstCommandId, not be suboverflowed or taken during recovery, have zero registered count, not be copied, and not be active. These checks ensure that only snapshots created and managed by the logical replication snapshot building system are freed through this function, preventing accidental freeing of external or system snapshots. The function uses both compile-time assertions (Assert) for debugging and runtime checks (elog) for critical validation.
+
+## Simplified Source
+
+```c
+static void
+SnapBuildFreeSnapshot(Snapshot snap)
+{
+    // Validate snapshot is of correct type and state
+    Assert(snap->snapshot_type == SNAPSHOT_HISTORIC_MVCC);
+    Assert(snap->curcid == FirstCommandId);
+    Assert(!snap->suboverflowed);
+    Assert(!snap->takenDuringRecovery);
+    Assert(snap->regd_count == 0);
+
+    // Runtime checks for critical conditions
+    if (snap->copied)
+        elog(ERROR, "cannot free a copied snapshot");
+
+    if (snap->active_count)
+        elog(ERROR, "cannot free an active snapshot");
+
+    // Free the snapshot memory
+    pfree(snap);
+}
+```

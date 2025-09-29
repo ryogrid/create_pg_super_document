@@ -34,3 +34,23 @@ The `getladfa` function manages DFA creation and caching specifically for LACON 
 - LACONs cannot contain backrefs, so no special backref setup is needed
 - Returns the cached or newly created DFA for the specified LACON
 - The function is static and only used within the regex execution engine
+
+## Simplified Source
+
+```c
+static struct dfa *
+getladfa(struct vars *v, int n)
+{
+    // Validate LACON index bounds
+    assert(n > 0 && n < v->g->nlacons && v->g->lacons != NULL);
+
+    // Create DFA if not already cached
+    if (v->ladfas[n] == NULL) {
+        struct subre *sub = &v->g->lacons[n];
+        v->ladfas[n] = newdfa(v, &sub->cnfa, &v->g->cmap, DOMALLOC);
+        // LACONs can't contain backrefs, so no additional setup needed
+    }
+
+    return v->ladfas[n];
+}
+```

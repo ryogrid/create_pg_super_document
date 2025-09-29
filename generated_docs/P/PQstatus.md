@@ -43,3 +43,16 @@ The function directly returns the status field from the PGconn structure, which 
 - Essential for error handling and connection state verification
 - Used extensively throughout PostgreSQL utilities and client applications
 - The returned status reflects the current state and may change during connection establishment
+
+## Simplified Source
+
+```c
+ConnStatusType PQstatus(const PGconn *conn) {
+    // Return CONNECTION_BAD for null connection pointer
+    if (!conn)
+        return CONNECTION_BAD;
+
+    // Return the current connection status
+    return conn->status;
+}
+```

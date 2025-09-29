@@ -44,3 +44,25 @@ The function is essential for type resolution in PostgreSQL's polymorphic type s
 - Critical for polymorphic function resolution involving multirange types
 - Used extensively in type coercion and ACL checking
 - Properly manages system cache resources by releasing cached tuples
+
+## Simplified Source
+
+```c
+Oid get_multirange_range(Oid multirangeOid) {
+    HeapTuple tp;
+
+    // Look up multirange in system cache
+    tp = SearchSysCache1(RANGEMULTIRANGE, ObjectIdGetDatum(multirangeOid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract range structure and get the range type OID
+        Form_pg_range rngtup = (Form_pg_range) GETSTRUCT(tp);
+        Oid result = rngtup->rngtypid;
+
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        return InvalidOid;  // Not a valid multirange type
+    }
+}
+```

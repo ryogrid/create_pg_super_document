@@ -48,4 +48,18 @@ The function performs validation to ensure the mutex is properly initialized bef
 - Return value: 0 on success, EINVAL if the mutex is not properly initialized
 - This implementation is part of PostgreSQL's embedded SQL (ECPG) compatibility layer for Windows
 - The initstate field in the mutex structure tracks initialization: 0 = not initialized, 1 = initialized, 2 = initialization in progress
+
+## Simplified Source
+
+```c
+int pthread_mutex_unlock(pthread_mutex_t *mp) {
+    // Validate mutex is properly initialized
+    if (mp->initstate != 1)
+        return EINVAL;
+
+    // Release the critical section
+    LeaveCriticalSection(&mp->csection);
+    return 0;
+}
+```
 - Proper error handling prevents undefined behavior when attempting to unlock an uninitialized mutex

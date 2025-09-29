@@ -39,3 +39,57 @@ The function uses unsigned arithmetic internally to correctly handle the full ra
 - Provides soft error handling through ErrorSaveContext when escontext is provided
 - Uses unsigned arithmetic internally to handle two's complement edge cases correctly
 - Part of PostgreSQL's robust numeric input parsing infrastructure
+
+## Simplified Source
+
+```c
+int32
+pg_strtoint32_safe(const char *s, Node *escontext)
+{
+    const char *ptr = s;
+    uint32 tmp = 0;
+    bool neg = false;
+
+    // Fast path: handle simple base-10 numbers
+    if (*ptr == '-') {
+        ptr++;
+        neg = true;
+    }
+
+    // Parse decimal digits
+    if ((*ptr - '0') < 10) {
+        tmp = (*ptr++ - '0');
+
+        while ((*ptr - '0') < 10) {
+            if (tmp > -(PG_INT32_MIN / 10))
+                goto out_of_range;
+            tmp = tmp * 10 + (*ptr++ - '0');
+        }
+
+        if (*ptr == '\0') {
+            // Fast path complete
+            return neg ? -((int32) tmp) : (int32) tmp;
+        }
+    }
+
+    // Slow path: handle hex (0x), octal (0o), binary (0b), and underscores
+    // ... [detailed parsing for different bases] ...
+
+    // Final range checking and return
+    if (neg) {
+        if (tmp > (uint32)(-(PG_INT32_MIN + 1)) + 1)
+            goto out_of_range;
+        return -((int32) tmp);
+    }
+
+    if (tmp > PG_INT32_MAX)
+        goto out_of_range;
+
+    return (int32) tmp;
+
+out_of_range:
+    ereturn(escontext, 0,
+            (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+             errmsg("value \"%s\" is out of range for type integer", s)));
+}
+```

@@ -47,3 +47,60 @@ The  function processes character ranges that are above MAX_SIMPLE_CHR, handling
 - Manages dynamic memory allocation with space estimation based on worst-case scenario
 - Uses assertion to verify space estimation was adequate
 - Part of the regex engine's color management system for handling complex Unicode character ranges efficiently
+
+## Simplified Source
+```c
+static void subcoloronerange(struct vars *v, chr from, chr to,
+                            struct state *lp, struct state *rp,
+                            color *lastsubcolor)
+{
+    struct colormap *cm = v->cm;
+
+    assert(from > MAX_SIMPLE_CHR);
+    assert(from < to);
+
+    // Allocate space for potentially expanded ranges
+    colormaprange *newranges = MALLOC((cm->numcmranges * 2 + 1) * sizeof(colormaprange));
+    if (newranges == NULL) {
+        CERR(REG_ESPACE);
+        return;
+    }
+
+    int numnewranges = 0;
+    int newrow;
+
+    // Copy ranges before target range
+    // ... [pre-target range copying] ...
+
+    // Process overlapping ranges with complex splitting logic
+    while (/* overlapping ranges exist */) {
+        if (/* range before target */) {
+            // Create new range for non-overlapping portion
+            // ... [new range creation] ...
+        }
+
+        if (/* range fully contained */) {
+            // Process existing range in-place
+            // ... [in-place processing] ...
+        } else {
+            // Split existing range
+            // ... [range splitting logic] ...
+        }
+
+        // Update colors for the processed row
+        subcoloronerow(v, newrow, lp, rp, lastsubcolor);
+    }
+
+    // Handle any remaining portion of target range
+    // ... [remaining range handling] ...
+
+    // Copy remaining ranges after target
+    // ... [post-target range copying] ...
+
+    // Update colormap with new range structure
+    if (cm->cmranges != NULL)
+        FREE(cm->cmranges);
+    cm->cmranges = newranges;
+    cm->numcmranges = numnewranges;
+}
+```

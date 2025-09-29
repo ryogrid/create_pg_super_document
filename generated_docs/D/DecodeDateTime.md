@@ -49,3 +49,140 @@ DecodeDateTime is PostgreSQL's comprehensive date/time interpretation engine tha
 - Returns 0 for full date, 1 for time-only (treated as error by most callers), negative DTERR codes for errors
 - Critical component used by all PostgreSQL date/time input functions
 - Handles both backend and ECPG client library datetime processing needs
+
+## Simplified Source
+
+```c
+int
+DecodeDateTime(char **field, int *ftype, int nf,
+               int *dtype, struct pg_tm *tm, fsec_t *fsec, int *tzp,
+               DateTimeErrorExtra *extra)
+{
+    int fmask = 0;  // Track which fields we've seen
+    int mer = HR24; // AM/PM indicator
+    bool haveTextMonth = false;
+    pg_tz *namedTz = NULL;
+    pg_tz *abbrevTz = NULL;
+
+    // Initialize output structure
+    *dtype = DTK_DATE;
+    tm->tm_hour = tm->tm_min = tm->tm_sec = 0;
+    *fsec = 0;
+    tm->tm_isdst = -1;
+    if (tzp != NULL) *tzp = 0;
+
+    // Process each field
+    for (int i = 0; i < nf; i++) {
+        int tmask;
+
+        switch (ftype[i]) {
+            case DTK_DATE:
+                // Handle date field - may be simple date or timezone
+                if (fmask & (DTK_M(MONTH) | DTK_M(DAY))) {
+                    // Already have date parts, this might be timezone
+                    if (tzp == NULL) return DTERR_BAD_FORMAT;
+
+                    // Try to decode as timezone
+                    if (isdigit(*field[i])) {
+                        DecodeTimezone(field[i], tzp);
+                        tmask = DTK_M(TZ);
+                    } else {
+                        namedTz = pg_tzset(field[i]);
+                        if (!namedTz) return DTERR_BAD_TIMEZONE;
+                        tmask = DTK_M(TZ);
+                    }
+                } else {
+                    // Decode as date
+                    DecodeDate(field[i], fmask, &tmask, &is2digits, tm);
+                }
+                break;
+
+            case DTK_TIME:
+                // Decode time field
+                DecodeTime(field[i], fmask, INTERVAL_FULL_RANGE, &tmask, tm, fsec);
+                if (time_overflows(tm->tm_hour, tm->tm_min, tm->tm_sec, *fsec))
+                    return DTERR_FIELD_OVERFLOW;
+                break;
+
+            case DTK_TZ:
+                // Timezone offset
+                if (tzp == NULL) return DTERR_BAD_FORMAT;
+                DecodeTimezone(field[i], tzp);
+                tmask = DTK_M(TZ);
+                break;
+
+            case DTK_NUMBER:
+                // Handle numeric fields - could be date, time, or Julian day
+                DecodeNumber(strlen(field[i]), field[i], haveTextMonth, fmask,
+                           &tmask, tm, fsec, &is2digits);
+                break;
+
+            case DTK_STRING:
+            case DTK_SPECIAL:
+                // Handle special strings (month names, 'now', 'today', etc.)
+                DecodeSpecial(i, field[i], &val);
+
+                switch (type) {
+                    case MONTH:
+                        haveTextMonth = true;
+                        tm->tm_mon = val;
+                        tmask = DTK_M(MONTH);
+                        break;
+
+                    case RESERV:
+                        // Handle 'now', 'today', 'yesterday', etc.
+                        switch (val) {
+                            case DTK_NOW:
+                                GetCurrentTimeUsec(tm, fsec, tzp);
+                                tmask = DTK_DATE_M | DTK_TIME_M | DTK_M(TZ);
+                                break;
+                            case DTK_TODAY:
+                                GetCurrentDateTime(&cur_tm);
+                                tm->tm_year = cur_tm.tm_year;
+                                tm->tm_mon = cur_tm.tm_mon;
+                                tm->tm_mday = cur_tm.tm_mday;
+                                tmask = DTK_DATE_M;
+                                break;
+                        }
+                        break;
+
+                    case AMPM:
+                        mer = val;
+                        break;
+                }
+                break;
+        }
+
+        // Check for duplicate field types
+        if (tmask & fmask) return DTERR_BAD_FORMAT;
+        fmask |= tmask;
+    }
+
+    // Post-processing and validation
+    if (*dtype == DTK_DATE) {
+        // Validate date components
+        ValidateDate(fmask, isjulian, is2digits, bc, tm);
+
+        // Handle AM/PM conversion
+        if (mer == AM && tm->tm_hour == 12) tm->tm_hour = 0;
+        else if (mer == PM && tm->tm_hour != 12) tm->tm_hour += 12;
+
+        // Resolve timezone if needed
+        if (namedTz != NULL) {
+            *tzp = DetermineTimeZoneOffset(tm, namedTz);
+        } else if (abbrevTz != NULL) {
+            *tzp = DetermineTimeZoneAbbrevOffset(tm, abbrev, abbrevTz);
+        } else if (tzp != NULL && !(fmask & DTK_M(TZ))) {
+            *tzp = DetermineTimeZoneOffset(tm, session_timezone);
+        }
+
+        // Check for incomplete input
+        if ((fmask & DTK_DATE_M) != DTK_DATE_M) {
+            if ((fmask & DTK_TIME_M) == DTK_TIME_M) return 1;
+            return DTERR_BAD_FORMAT;
+        }
+    }
+
+    return 0;
+}
+```

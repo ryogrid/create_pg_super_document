@@ -41,3 +41,29 @@ This operation is crucial during color optimization phases where arcs may need t
 - Critical for proper memory management and chain consistency
 - Works in conjunction with  to provide complete chain management functionality
 - Handles both head-of-chain and middle/end-of-chain removal scenarios
+
+## Simplified Source
+
+```c
+static void uncolorchain(struct colormap *cm, struct arc *a) {
+    struct colordesc *cd = &cm->cd[a->co];
+    struct arc *prev_arc = a->colorchainRev;
+
+    // Update the previous arc's forward pointer or color descriptor's head
+    if (prev_arc == NULL) {
+        // Arc is at head of chain - update color descriptor
+        cd->arcs = a->colorchain;
+    } else {
+        // Arc is in middle/end - update previous arc's forward pointer
+        prev_arc->colorchain = a->colorchain;
+    }
+
+    // Update the next arc's reverse pointer if it exists
+    if (a->colorchain != NULL)
+        a->colorchain->colorchainRev = prev_arc;
+
+    // Clear removed arc's pointers for safety
+    a->colorchain = NULL;
+    a->colorchainRev = NULL;
+}
+```

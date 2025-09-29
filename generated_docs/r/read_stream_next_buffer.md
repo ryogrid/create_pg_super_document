@@ -41,3 +41,120 @@ The fast path is optimized for scenarios where all data is already cached (behav
 - Returns InvalidBuffer when the stream is exhausted or no more blocks are available
 - Manages buffer pin transfers from stream to caller, maintaining accurate pin counts
 - The per_buffer_data pointer remains valid only until the next call to this function
+
+## Simplified Source
+
+```c
+Buffer
+read_stream_next_buffer(ReadStream *stream, void **per_buffer_data)
+{
+    Buffer buffer;
+    int16 oldest_buffer_index;
+
+    // Fast path for all-cached scans (no I/O needed)
+    if (likely(stream->fast_path)) {
+        BlockNumber next_blocknum;
+
+        // Return buffer from previous call
+        oldest_buffer_index = stream->oldest_buffer_index;
+        buffer = stream->buffers[oldest_buffer_index];
+
+        // Get next block to pin
+        next_blocknum = read_stream_get_block(stream, NULL);
+
+        if (likely(next_blocknum != InvalidBlockNumber)) {
+            // Pin buffer for next call
+            if (likely(!StartReadBuffer(&stream->ios[0].op,
+                                      &stream->buffers[oldest_buffer_index],
+                                      next_blocknum,
+                                      stream->advice_enabled ?
+                                      READ_BUFFERS_ISSUE_ADVICE : 0))) {
+                return buffer;  // Fast return - no I/O needed
+            }
+
+            // Next call must wait for I/O
+            stream->oldest_io_index = 0;
+            stream->next_io_index = stream->max_ios > 1 ? 1 : 0;
+            stream->ios_in_progress = 1;
+            stream->ios[0].buffer_index = oldest_buffer_index;
+            stream->seq_blocknum = next_blocknum + 1;
+        } else {
+            // End of stream
+            stream->distance = 0;
+            stream->oldest_buffer_index = stream->next_buffer_index;
+            stream->pinned_buffers = 0;
+        }
+
+        stream->fast_path = false;
+        return buffer;
+    }
+
+    // Check if stream is empty
+    if (unlikely(stream->pinned_buffers == 0)) {
+        if (stream->distance == 0)
+            return InvalidBuffer;
+
+        // Prime the stream
+        read_stream_look_ahead(stream, true);
+        if (stream->pinned_buffers == 0)
+            return InvalidBuffer;
+    }
+
+    // Get oldest buffer and per-buffer data
+    oldest_buffer_index = stream->oldest_buffer_index;
+    buffer = stream->buffers[oldest_buffer_index];
+    if (per_buffer_data)
+        *per_buffer_data = get_per_buffer_data(stream, oldest_buffer_index);
+
+    // Wait for I/O if needed
+    if (stream->ios_in_progress > 0 &&
+        stream->ios[stream->oldest_io_index].buffer_index == oldest_buffer_index) {
+        int16 io_index = stream->oldest_io_index;
+        int16 distance;
+
+        WaitReadBuffers(&stream->ios[io_index].op);
+
+        stream->ios_in_progress--;
+        if (++stream->oldest_io_index == stream->max_ios)
+            stream->oldest_io_index = 0;
+
+        // Adjust distance based on I/O behavior
+        if (stream->ios[io_index].op.flags & READ_BUFFERS_ISSUE_ADVICE) {
+            // Fast ramp up for cache hits
+            distance = stream->distance * 2;
+            distance = Min(distance, stream->max_pinned_buffers);
+            stream->distance = distance;
+        } else {
+            // Controlled growth for cache misses
+            if (stream->distance > stream->io_combine_limit) {
+                stream->distance--;
+            } else {
+                distance = stream->distance * 2;
+                distance = Min(distance, stream->io_combine_limit);
+                distance = Min(distance, stream->max_pinned_buffers);
+                stream->distance = distance;
+            }
+        }
+    }
+
+    // Transfer pin to caller and advance
+    stream->pinned_buffers--;
+    stream->oldest_buffer_index++;
+    if (stream->oldest_buffer_index == stream->queue_size)
+        stream->oldest_buffer_index = 0;
+
+    // Prepare for next call
+    read_stream_look_ahead(stream, false);
+
+    // Check if we can use fast path next time
+    if (stream->ios_in_progress == 0 &&
+        stream->pinned_buffers == 1 &&
+        stream->distance == 1 &&
+        stream->pending_read_nblocks == 0 &&
+        stream->per_buffer_data_size == 0) {
+        stream->fast_path = true;
+    }
+
+    return buffer;
+}
+```

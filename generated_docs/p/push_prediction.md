@@ -32,3 +32,15 @@ The `push_prediction` function is used in JSON parsing to implement a predictive
 - Uses memcpy for efficient copying of production sequences
 - The function advances the prediction index to prepare for the next prediction operation
 - Essential for implementing predictive parsing in the JSON grammar engine
+
+## Simplified Source
+
+```c
+static inline void push_prediction(JsonParserStack *pstack, td_entry entry) {
+    // Copy production rule to prediction stack at current position
+    memcpy(pstack->prediction + pstack->pred_index, entry.prod, entry.len);
+
+    // Advance prediction index by the length of the production
+    pstack->pred_index += entry.len;
+}
+```

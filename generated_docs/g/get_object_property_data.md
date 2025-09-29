@@ -47,3 +47,29 @@ If the requested class_id is not found in the ObjectProperty table, the function
 - Located in src/backend/catalog/objectaddress.c:2746-2780
 - Central to the object address subsystem's metadata retrieval functionality
 - The NULL return at the end is only to satisfy compiler warnings and should never be reached
+
+## Simplified Source
+
+```c
+static const ObjectPropertyType *
+get_object_property_data(Oid class_id) {
+    static const ObjectPropertyType *prop_last = NULL;
+    int index;
+
+    // Quick cache check for consecutive lookups of same class
+    if (prop_last && prop_last->class_oid == class_id)
+        return prop_last;
+
+    // Search the ObjectProperty table for matching class ID
+    for (index = 0; index < lengthof(ObjectProperty); index++) {
+        if (ObjectProperty[index].class_oid == class_id) {
+            prop_last = &ObjectProperty[index];  // Cache for next lookup
+            return &ObjectProperty[index];
+        }
+    }
+
+    // Error if class ID not found
+    ereport(ERROR, (errmsg_internal("unrecognized class ID: %u", class_id)));
+    return NULL;  // Never reached, keeps compiler happy
+}
+```

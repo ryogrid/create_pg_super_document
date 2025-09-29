@@ -36,3 +36,19 @@ The  function serves as a comprehensive cache invalidation mechanism when Postgr
 - More comprehensive than  as it handles both shared and local mappings unconditionally
 - Critical for maintaining data consistency in high-traffic scenarios where the invalidation message system becomes overwhelmed
 - Part of PostgreSQL's robust cache coherency infrastructure that handles edge cases in distributed cache invalidation
+
+## Simplified Source
+
+```c
+void
+RelationMapInvalidateAll(void)
+{
+    // Reload shared relation mapping file if currently valid
+    if (shared_map.magic == RELMAPPER_FILEMAGIC)
+        load_relmap_file(true, false);
+
+    // Reload local relation mapping file if currently valid
+    if (local_map.magic == RELMAPPER_FILEMAGIC)
+        load_relmap_file(false, false);
+}
+```

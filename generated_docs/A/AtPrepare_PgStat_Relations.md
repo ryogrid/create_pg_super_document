@@ -41,3 +41,34 @@ The function ensures that relation statistics are preserved across the prepare/c
 - The statistics data will be applied or discarded during the subsequent commit/abort phase
 - Essential for maintaining statistics consistency in distributed transaction scenarios
 - Handles both regular tables and shared system tables via the shared flag
+
+## Simplified Source
+
+```c
+void
+AtPrepare_PgStat_Relations(PgStat_SubXactStatus *xact_state)
+{
+    PgStat_TableXactStatus *trans;
+
+    // Iterate through all table transaction status entries
+    for (trans = xact_state->first; trans != NULL; trans = trans->next)
+    {
+        TwoPhasePgStatRecord record;
+
+        // Copy transaction statistics to 2PC record
+        record.tuples_inserted = trans->tuples_inserted;
+        record.tuples_updated = trans->tuples_updated;
+        record.tuples_deleted = trans->tuples_deleted;
+        record.inserted_pre_truncdrop = trans->inserted_pre_truncdrop;
+        record.updated_pre_truncdrop = trans->updated_pre_truncdrop;
+        record.deleted_pre_truncdrop = trans->deleted_pre_truncdrop;
+        record.id = trans->parent->id;
+        record.shared = trans->parent->shared;
+        record.truncdropped = trans->truncdropped;
+
+        // Register the record with the two-phase commit system
+        RegisterTwoPhaseRecord(TWOPHASE_RM_PGSTAT_ID, 0,
+                              &record, sizeof(TwoPhasePgStatRecord));
+    }
+}
+```

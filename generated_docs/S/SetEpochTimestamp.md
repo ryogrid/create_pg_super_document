@@ -10,7 +10,7 @@ Returns a Timestamp value representing the PostgreSQL epoch (January 1, 2000 00:
 
 ```c
 struct pg_tm tt,
-			   *tm = &tt;
+		   *tm = &tt;
 ```
 ## Detailed Description
 SetEpochTimestamp is a utility function that creates and returns a Timestamp value corresponding to the PostgreSQL epoch. The PostgreSQL epoch is defined as January 1, 2000 00:00:00 UTC, which serves as the reference point for PostgreSQL's internal timestamp calculations. This function uses GetEpochTime() to obtain the epoch time in a broken-down time structure (pg_tm), then converts it to PostgreSQL's internal Timestamp representation using tm2timestamp().
@@ -27,7 +27,7 @@ SetEpochTimestamp is a utility function that creates and returns a Timestamp val
 
 - Called from (representative examples):
   - [timestamp_in](../t/timestamp_in.md): Used for parsing timestamp input
-  - [timestamptz_in](../t/timestamptz_in.md): Used for parsing timestamptz input  
+  - [timestamptz_in](../t/timestamptz_in.md): Used for parsing timestamptz input
   - [timestamp_part_common](../t/timestamp_part_common.md): Used in EXTRACT operations
   - [timestamptz_part_common](../t/timestamptz_part_common.md): Used in EXTRACT operations for timestamptz
   - [PGTYPEStimestamp_from_asc](../P/PGTYPEStimestamp_from_asc.md): Used in ECPG library for timestamp parsing
@@ -37,3 +37,22 @@ SetEpochTimestamp is a utility function that creates and returns a Timestamp val
 - The function does not perform error checking on the tm2timestamp conversion as noted in the comment
 - It's a core utility function used throughout PostgreSQL's timestamp handling subsystem
 - The epoch timestamp serves as a baseline for relative timestamp calculations and parsing operations
+
+## Simplified Source
+
+```c
+Timestamp
+SetEpochTimestamp(void)
+{
+    Timestamp dt;
+    struct pg_tm tt, *tm = &tt;
+
+    // Get the epoch time (January 1, 2000 00:00:00 UTC)
+    GetEpochTime(tm);
+
+    // Convert to PostgreSQL timestamp format
+    tm2timestamp(tm, 0, NULL, &dt);
+
+    return dt;
+}
+```

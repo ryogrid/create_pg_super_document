@@ -53,3 +53,84 @@ The function uses an iterative approach rather than deep recursion to assign XID
 - Critical for maintaining transaction visibility and MVCC consistency
 - Located in src/backend/access/transam/xact.c:632-787
 - Manages unreported XIDs for hot standby servers via XLOG_XACT_ASSIGNMENT records
+
+## Simplified Source
+
+```c
+static void
+AssignTransactionId(TransactionState s)
+{
+    bool isSubXact = (s->parent != NULL);
+    bool log_unknown_top = false;
+
+    // Verify transaction is ready for XID assignment
+    Assert(!FullTransactionIdIsValid(s->fullTransactionId));
+    Assert(s->state == TRANS_INPROGRESS);
+
+    // Prevent XID assignment during parallel operations
+    if (IsInParallelMode() || IsParallelWorker())
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TRANSACTION_STATE),
+                       errmsg("cannot assign transaction IDs during a parallel operation")));
+
+    // Ensure parent transactions have XIDs first (iterative approach)
+    if (isSubXact && !FullTransactionIdIsValid(s->parent->fullTransactionId))
+    {
+        // Collect all parents without XIDs and assign them bottom-up
+        TransactionState *parents = palloc(sizeof(TransactionState) * s->nestingLevel);
+        size_t parentOffset = 0;
+        TransactionState p = s->parent;
+
+        while (p != NULL && !FullTransactionIdIsValid(p->fullTransactionId))
+        {
+            parents[parentOffset++] = p;
+            p = p->parent;
+        }
+
+        while (parentOffset != 0)
+            AssignTransactionId(parents[--parentOffset]);
+        pfree(parents);
+    }
+
+    // Check if we need to log top-level XID for logical replication
+    if (isSubXact && XLogLogicalInfoActive() && !TopTransactionStateData.didLogXid)
+        log_unknown_top = true;
+
+    // Generate new transaction ID and set up subtransaction hierarchy
+    s->fullTransactionId = GetNewTransactionId(isSubXact);
+    if (!isSubXact)
+        XactTopFullTransactionId = s->fullTransactionId;
+
+    if (isSubXact)
+        SubTransSetParent(XidFromFullTransactionId(s->fullTransactionId),
+                         XidFromFullTransactionId(s->parent->fullTransactionId));
+
+    // Set up predicate locking and transaction lock for top-level transactions
+    if (!isSubXact)
+        RegisterPredicateLockingXid(XidFromFullTransactionId(s->fullTransactionId));
+
+    XactLockTableInsert(XidFromFullTransactionId(s->fullTransactionId));
+
+    // Handle WAL logging for subtransaction visibility on standby servers
+    if (isSubXact && XLogStandbyInfoActive())
+    {
+        unreportedXids[nUnreportedXids] = XidFromFullTransactionId(s->fullTransactionId);
+        nUnreportedXids++;
+
+        // Log assignment record when we have enough unreported XIDs or need top-level logging
+        if (nUnreportedXids >= PGPROC_MAX_CACHED_SUBXIDS || log_unknown_top)
+        {
+            xl_xact_assignment xlrec;
+            xlrec.xtop = GetTopTransactionId();
+            xlrec.nsubxacts = nUnreportedXids;
+
+            XLogBeginInsert();
+            XLogRegisterData((char *) &xlrec, MinSizeOfXactAssignment);
+            XLogRegisterData((char *) unreportedXids, nUnreportedXids * sizeof(TransactionId));
+            XLogInsert(RM_XACT_ID, XLOG_XACT_ASSIGNMENT);
+
+            nUnreportedXids = 0;
+            TopTransactionStateData.didLogXid = true;
+        }
+    }
+}
+```

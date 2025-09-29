@@ -58,3 +58,64 @@ Important: Redo functions should typically use XLogReadBufferForRedoExtended ins
 - Invalid page logging supports end-of-recovery consistency verification
 - The function assumes single-process recovery environment for some optimizations
 - Proper error handling ensures data integrity during replay operations
+
+## Simplified Source
+```c
+Buffer XLogReadBufferExtended(RelFileLocator rlocator, ForkNumber forknum,
+                             BlockNumber blkno, ReadBufferMode mode,
+                             Buffer recent_buffer)
+{
+    BlockNumber lastblock;
+    Buffer buffer;
+    SMgrRelation smgr;
+
+    Assert(blkno != P_NEW);
+
+    // Fast path: check if recent_buffer hint is valid
+    if (BufferIsValid(recent_buffer) && mode == RBM_NORMAL &&
+        ReadRecentBuffer(rlocator, forknum, blkno, recent_buffer)) {
+        buffer = recent_buffer;
+        goto validate_page;
+    }
+
+    // Open relation and ensure it exists
+    smgr = smgropen(rlocator, INVALID_PROC_NUMBER);
+    smgrcreate(smgr, forknum, true);
+
+    lastblock = smgrnblocks(smgr, forknum);
+
+    if (blkno < lastblock) {
+        // Page exists, read it
+        buffer = ReadBufferWithoutRelcache(rlocator, forknum, blkno, mode, NULL, true);
+    } else {
+        // Page doesn't exist
+        if (mode == RBM_NORMAL) {
+            log_invalid_page(rlocator, forknum, blkno, false);
+            return InvalidBuffer;
+        }
+        if (mode == RBM_NORMAL_NO_LOG) {
+            return InvalidBuffer;
+        }
+
+        // Extend relation with new pages
+        Assert(InRecovery);
+        buffer = ExtendBufferedRelTo(BMR_SMGR(smgr, RELPERSISTENCE_PERMANENT),
+                                    forknum, NULL,
+                                    EB_PERFORMING_RECOVERY | EB_SKIP_EXTENSION_LOCK,
+                                    blkno + 1, mode);
+    }
+
+validate_page:
+    if (mode == RBM_NORMAL) {
+        // Check if page is properly initialized
+        Page page = (Page) BufferGetPage(buffer);
+        if (PageIsNew(page)) {
+            ReleaseBuffer(buffer);
+            log_invalid_page(rlocator, forknum, blkno, true);
+            return InvalidBuffer;
+        }
+    }
+
+    return buffer;
+}
+```

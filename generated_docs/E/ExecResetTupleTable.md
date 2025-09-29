@@ -49,3 +49,44 @@ The function handles different slot types appropriately, distinguishing between 
 - Delegates type-specific cleanup to each slot's release function
 - Critical for preventing memory leaks in long-running queries and complex execution plans
 - The function is safe to call on empty or NULL tuple tables
+
+## Simplified Source
+```c
+void ExecResetTupleTable(List *tupleTable, bool shouldFree)
+{
+    // Process each slot in the tuple table
+    foreach(cell, tupleTable)
+    {
+        TupleTableSlot *slot = lfirst_node(TupleTableSlot, cell);
+
+        // Clear tuple data and release slot resources
+        ExecClearTuple(slot);
+        slot->tts_ops->release(slot);
+
+        // Release tuple descriptor if present
+        if (slot->tts_tupleDescriptor)
+        {
+            ReleaseTupleDesc(slot->tts_tupleDescriptor);
+            slot->tts_tupleDescriptor = NULL;
+        }
+
+        // Free slot memory if requested
+        if (shouldFree)
+        {
+            // Free dynamic arrays for flexible slots
+            if (!TTS_FIXED(slot))
+            {
+                if (slot->tts_values)
+                    pfree(slot->tts_values);
+                if (slot->tts_isnull)
+                    pfree(slot->tts_isnull);
+            }
+            pfree(slot);
+        }
+    }
+
+    // Free the list structure itself if requested
+    if (shouldFree)
+        list_free(tupleTable);
+}
+```

@@ -39,3 +39,14 @@ The function uses  to efficiently copy the entire structure contents, ensuring t
 - The static  template contains: sqlcaid='SQLCA   ', sqlabc=sizeof(struct sqlca_t), sqlcode=0, empty error fields, sqlerrp='NOT SET ', and zero-initialized arrays
 - Thread-safe as it only performs a simple memory copy operation
 - Part of the PostgreSQL ECPG (Embedded SQL in C) interface library
+
+## Simplified Source
+
+```c
+void
+ecpg_init_sqlca(struct sqlca_t *sqlca)
+{
+    // Copy default SQLCA template to target structure
+    memcpy((char *) sqlca, (char *) &sqlca_init, sizeof(struct sqlca_t));
+}
+```

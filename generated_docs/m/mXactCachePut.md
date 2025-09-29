@@ -49,3 +49,50 @@ To prevent unbounded cache growth, the function implements a simple LRU eviction
 - The cache is backend-local and transaction-scoped - it persists only for the duration of the current transaction
 - Memory allocation uses the flexible array member pattern to allocate exactly the required space for each entry
 - Evicted cache entries are properly freed to prevent memory leaks within the transaction context
+
+## Simplified Source
+
+```c
+static void
+mXactCachePut(MultiXactId multi, int nmembers, MultiXactMember *members)
+{
+    mXactCacheEnt *entry;
+
+    debug_elog3(DEBUG2, "CachePut: storing %s",
+                mxid_to_string(multi, nmembers, members));
+
+    // Initialize cache context if needed
+    if (MXactContext == NULL) {
+        debug_elog2(DEBUG2, "CachePut: initializing memory context");
+        MXactContext = AllocSetContextCreate(TopTransactionContext,
+                                             "MultiXact cache context",
+                                             ALLOCSET_SMALL_SIZES);
+    }
+
+    // Allocate cache entry with flexible array for members
+    entry = MemoryContextAlloc(MXactContext,
+                               offsetof(mXactCacheEnt, members) +
+                               nmembers * sizeof(MultiXactMember));
+
+    // Fill entry data
+    entry->multi = multi;
+    entry->nmembers = nmembers;
+    memcpy(entry->members, members, nmembers * sizeof(MultiXactMember));
+
+    // Sort members for consistency with lookup operations
+    qsort(entry->members, nmembers, sizeof(MultiXactMember), mxactMemberComparator);
+
+    // Add to head of cache list
+    dclist_push_head(&MXactCache, &entry->node);
+
+    // Evict oldest entry if cache is full
+    if (dclist_count(&MXactCache) > MAX_CACHE_ENTRIES) {
+        dlist_node *node = dclist_tail_node(&MXactCache);
+        dclist_delete_from(&MXactCache, node);
+
+        entry = dclist_container(mXactCacheEnt, node, node);
+        debug_elog3(DEBUG2, "CachePut: pruning cached multi %u", entry->multi);
+        pfree(entry);
+    }
+}
+```

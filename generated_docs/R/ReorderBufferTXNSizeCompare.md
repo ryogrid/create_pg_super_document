@@ -42,3 +42,20 @@ This comparison function is essential for memory management in logical replicati
 - The function assumes both heap nodes contain valid ReorderBufferTXN structures
 - Critical for memory pressure management in logical replication by enabling size-based transaction prioritization
 - The  parameter is unused but required to match the pairing heap comparison function signature
+
+## Simplified Source
+
+```c
+static int ReorderBufferTXNSizeCompare(const pairingheap_node *a, const pairingheap_node *b, void *arg) {
+    // Extract transaction structures from heap nodes
+    const ReorderBufferTXN *ta = pairingheap_const_container(ReorderBufferTXN, txn_node, a);
+    const ReorderBufferTXN *tb = pairingheap_const_container(ReorderBufferTXN, txn_node, b);
+
+    // Compare transaction sizes: smaller transactions have higher priority
+    if (ta->size < tb->size)
+        return -1;
+    if (ta->size > tb->size)
+        return 1;
+    return 0;  // Equal sizes
+}
+```

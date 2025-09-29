@@ -32,3 +32,43 @@ OpenTemporaryFile is the primary interface for creating temporary files in Postg
 
 ## Notes and Other Information
 This function is part of PostgreSQL's temporary file management system in src/backend/storage/file/fd.c. It implements sophisticated tablespace management logic, preferring user-configured temporary tablespaces for transaction-scoped files while ensuring long-lived files don't interfere with tablespace administration. The function requires that temporary_files_allowed is true before proceeding. All temporary files created are automatically marked with FD_DELETE_AT_CLOSE and FD_TEMP_FILE_LIMIT flags. The resource owner integration ensures that transaction-scoped temporary files are automatically cleaned up even if not explicitly closed, preventing resource leaks during error conditions.
+
+## Simplified Source
+
+```c
+File
+OpenTemporaryFile(bool interXact)
+{
+    File file = 0;
+
+    // Ensure temporary files are allowed
+    Assert(temporary_files_allowed);
+
+    // Prepare resource owner for file registration (if not interXact)
+    if (!interXact)
+        ResourceOwnerEnlarge(CurrentResourceOwner);
+
+    // Try to use configured temporary tablespaces first
+    if (numTempTableSpaces > 0 && !interXact) {
+        Oid tblspcOid = GetNextTempTableSpace();
+        if (OidIsValid(tblspcOid))
+            file = OpenTemporaryFileInTablespace(tblspcOid, false);
+    }
+
+    // Fall back to database default tablespace if needed
+    if (file <= 0) {
+        Oid defaultTablespace = MyDatabaseTableSpace ?
+                                MyDatabaseTableSpace : DEFAULTTABLESPACE_OID;
+        file = OpenTemporaryFileInTablespace(defaultTablespace, true);
+    }
+
+    // Mark file for deletion at close and set size limits
+    VfdCache[file].fdstate |= FD_DELETE_AT_CLOSE | FD_TEMP_FILE_LIMIT;
+
+    // Register with resource owner for automatic cleanup (if not interXact)
+    if (!interXact)
+        RegisterTemporaryFile(file);
+
+    return file;
+}
+```

@@ -39,3 +39,14 @@ Unpacked 4988 files and folders to /home/ryo/.cursor-server/bin/031e7e0ff1e2eda9
 - Provides a fail-safe mechanism to prevent resource leaks when processes terminate unexpectedly
 - The comment indicates it uses 'same logic as abort', reinforcing the delegation pattern to AtAbort_Twophase
 - Part of PostgreSQL's robust error handling and resource management for two-phase transactions
+
+## Simplified Source
+
+```c
+static void
+AtProcExit_Twophase(int code, Datum arg)
+{
+    // Clean up two-phase commit resources using same logic as abort
+    AtAbort_Twophase();
+}
+```

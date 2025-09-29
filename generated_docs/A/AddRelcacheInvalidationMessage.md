@@ -45,3 +45,32 @@ The function employs several optimizations: it assumes the database ID never cha
 - Includes Valgrind memory debugging support for multi-process shared memory scenarios
 - Part of PostgreSQL's relation cache invalidation system that ensures cache consistency when relation metadata changes
 - More intelligent than catalog cache invalidation functions due to its duplicate detection capabilities
+
+## Simplified Source
+
+```c
+static void
+AddRelcacheInvalidationMessage(InvalidationMsgsGroup *group,
+                               Oid dbId, Oid relId)
+{
+    SharedInvalidationMessage msg;
+
+    // Check for duplicates - don't add if already exists or if global invalidation present
+    ProcessMessageSubGroup(group, RelCacheMsgs,
+                          if (msg->rc.id == SHAREDINVALRELCACHE_ID &&
+                              (msg->rc.relId == relId ||
+                               msg->rc.relId == InvalidOid))
+                          return);
+
+    // Construct relation cache invalidation message
+    msg.rc.id = SHAREDINVALRELCACHE_ID;
+    msg.rc.dbId = dbId;
+    msg.rc.relId = relId;
+
+    // Initialize padding bytes for Valgrind in shared memory
+    VALGRIND_MAKE_MEM_DEFINED(&msg, sizeof(msg));
+
+    // Add message to relation cache message group
+    AddInvalidationMessage(group, RelCacheMsgs, &msg);
+}
+```

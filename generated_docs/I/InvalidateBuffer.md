@@ -69,3 +69,68 @@ The function is essential for PostgreSQL's ability to safely drop relations and 
 - Only used in contexts where no other backend should be interested in the page content
 - The function carefully coordinates between buffer locks, partition locks, and I/O completion
 - Essential for PostgreSQL's transactional DDL implementation and storage space reclamation
+
+## Simplified Source
+
+```c
+static void InvalidateBuffer(BufferDesc *buf) {
+    BufferTag oldTag;
+    uint32 oldHash;
+    LWLock *oldPartitionLock;
+    uint32 oldFlags;
+    uint32 buf_state;
+
+    // Save buffer tag before releasing spinlock
+    oldTag = buf->tag;
+
+    // Release buffer header lock
+    buf_state = pg_atomic_read_u32(&buf->state);
+    UnlockBufHdr(buf, buf_state);
+
+    // Calculate hash and get partition lock for this buffer
+    oldHash = BufTableHashCode(&oldTag);
+    oldPartitionLock = BufMappingPartitionLock(oldHash);
+
+retry:
+    // Acquire exclusive lock on buffer mapping
+    LWLockAcquire(oldPartitionLock, LW_EXCLUSIVE);
+
+    // Re-lock buffer header and check if tag changed
+    buf_state = LockBufHdr(buf);
+    if (!BufferTagsEqual(&buf->tag, &oldTag)) {
+        // Buffer changed while we waited - abort
+        UnlockBufHdr(buf, buf_state);
+        LWLockRelease(oldPartitionLock);
+        return;
+    }
+
+    // Wait for any ongoing I/O to complete
+    if (BUF_STATE_GET_REFCOUNT(buf_state) != 0) {
+        UnlockBufHdr(buf, buf_state);
+        LWLockRelease(oldPartitionLock);
+
+        // Safety check: ensure we don't have our own pin
+        if (GetPrivateRefCount(BufferDescriptorGetBuffer(buf)) > 0)
+            elog(ERROR, "buffer is pinned in InvalidateBuffer");
+
+        WaitIO(buf);
+        goto retry;
+    }
+
+    // Clear buffer tag and flags
+    oldFlags = buf_state & BUF_FLAG_MASK;
+    ClearBufferTag(&buf->tag);
+    buf_state &= ~(BUF_FLAG_MASK | BUF_USAGECOUNT_MASK);
+    UnlockBufHdr(buf, buf_state);
+
+    // Remove from buffer lookup table if it was there
+    if (oldFlags & BM_TAG_VALID)
+        BufTableDelete(&oldTag, oldHash);
+
+    // Release mapping lock
+    LWLockRelease(oldPartitionLock);
+
+    // Return buffer to freelist
+    StrategyFreeBuffer(buf);
+}
+```

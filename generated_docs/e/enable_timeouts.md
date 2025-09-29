@@ -47,3 +47,55 @@ The function processes each timeout in the array according to its specified type
 - Error handling includes validation of timeout types with appropriate error messages
 - Particularly useful in scenarios like lock resolution and process sleeping where multiple timeouts coordinate different aspects of the operation
 - Part of PostgreSQL's advanced timeout management system designed for high-performance concurrent operations
+
+## Simplified Source
+
+```c
+void
+enable_timeouts(const EnableTimeoutParams *timeouts, int count)
+{
+    TimestampTz now;
+    int i;
+
+    // Disable interrupts for safety during setup
+    disable_alarm();
+
+    // Get current time once for all timeouts
+    now = GetCurrentTimestamp();
+
+    // Process each timeout configuration
+    for (i = 0; i < count; i++)
+    {
+        TimeoutId id = timeouts[i].id;
+        TimestampTz fin_time;
+
+        // Handle different timeout types
+        switch (timeouts[i].type)
+        {
+            case TMPARAM_AFTER:
+                // Relative timeout (delay from now)
+                fin_time = TimestampTzPlusMilliseconds(now, timeouts[i].delay_ms);
+                enable_timeout(id, now, fin_time, 0);
+                break;
+
+            case TMPARAM_AT:
+                // Absolute timeout (specific timestamp)
+                enable_timeout(id, now, timeouts[i].fin_time, 0);
+                break;
+
+            case TMPARAM_EVERY:
+                // Periodic timeout (repeating)
+                fin_time = TimestampTzPlusMilliseconds(now, timeouts[i].delay_ms);
+                enable_timeout(id, now, fin_time, timeouts[i].delay_ms);
+                break;
+
+            default:
+                elog(ERROR, "unrecognized timeout type %d", (int) timeouts[i].type);
+                break;
+        }
+    }
+
+    // Activate the timer system
+    schedule_alarm(now);
+}
+```

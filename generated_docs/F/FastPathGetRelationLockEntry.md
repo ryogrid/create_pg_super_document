@@ -43,3 +43,61 @@ The function first searches the current backend's fast-path slots for the specif
 - The caller is responsible for updating the corresponding LOCALLOCK object
 - Critical for maintaining lock visibility when transitioning from fast-path to standard locking infrastructure
 - Handles error cases where expected lock objects cannot be found in the shared hash table
+
+## Simplified Source
+
+```c
+static PROCLOCK *
+FastPathGetRelationLockEntry(LOCALLOCK *locallock)
+{
+    LOCKTAG *locktag = &locallock->tag.lock;
+    PROCLOCK *proclock = NULL;
+    Oid relid = locktag->locktag_field2;
+    uint32 f;
+
+    // Search fast-path slots for matching relation lock
+    LWLockAcquire(&MyProc->fpInfoLock, LW_EXCLUSIVE);
+
+    for (f = 0; f < FP_LOCK_SLOTS_PER_BACKEND; f++)
+    {
+        // Check if slot matches our relation and has the right lock mode
+        if (relid != MyProc->fpRelId[f] || FAST_PATH_GET_BITS(MyProc, f) == 0)
+            continue;
+
+        if (!FAST_PATH_CHECK_LOCKMODE(MyProc, f, locallock->tag.mode))
+            break;
+
+        // Transfer lock from fast-path to shared hash table
+        LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+        proclock = SetupLockInTable(lockMethodTable, MyProc, locktag,
+                                    locallock->hashcode, locallock->tag.mode);
+        if (!proclock)
+            ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                           errmsg("out of shared memory")));
+
+        GrantLock(proclock->tag.myLock, proclock, locallock->tag.mode);
+        FAST_PATH_CLEAR_LOCKMODE(MyProc, f, locallock->tag.mode);
+        LWLockRelease(partitionLock);
+        break;
+    }
+
+    LWLockRelease(&MyProc->fpInfoLock);
+
+    // If not found in fast-path, search shared hash table
+    if (proclock == NULL)
+    {
+        LWLockAcquire(partitionLock, LW_SHARED);
+        LOCK *lock = hash_search_with_hash_value(LockMethodLockHash, locktag,
+                                                 locallock->hashcode, HASH_FIND, NULL);
+        if (!lock)
+            elog(ERROR, "failed to re-find shared lock object");
+
+        proclock = find_proclock_by_lock_and_proc(lock, MyProc);
+        if (!proclock)
+            elog(ERROR, "failed to re-find shared proclock object");
+        LWLockRelease(partitionLock);
+    }
+
+    return proclock;
+}
+```

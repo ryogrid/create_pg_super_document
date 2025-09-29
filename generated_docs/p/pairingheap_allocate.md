@@ -33,8 +33,30 @@ The newly allocated heap starts empty with its root pointer set to NULL. The com
   - [ReorderBufferAllocate](../R/ReorderBufferAllocate.md) (logical replication reorder buffer allocation)
 
 ## Notes and Other Information
-- The heap is allocated using PostgreSQL's memory management system via 
+- The heap is allocated using PostgreSQL's memory management system via
 - The heap starts empty with  set to NULL
 - The comparison function and argument are stored for use throughout the heap's lifetime
 - This function is commonly used in PostgreSQL's indexing and replication subsystems where priority queues are needed
 - Memory allocated by this function should be freed using appropriate PostgreSQL memory management functions
+
+## Simplified Source
+
+```c
+pairingheap *
+pairingheap_allocate(pairingheap_comparator compare, void *arg)
+{
+    pairingheap *heap;
+
+    // Allocate memory for the heap structure
+    heap = (pairingheap *) palloc(sizeof(pairingheap));
+
+    // Initialize heap with comparison function and argument
+    heap->ph_compare = compare;
+    heap->ph_arg = arg;
+
+    // Start with empty heap
+    heap->ph_root = NULL;
+
+    return heap;
+}
+```

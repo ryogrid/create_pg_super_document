@@ -37,3 +37,24 @@ The function includes an optimization for small requests, immediately returning 
 - Part of PostgreSQL's resource management system preventing local buffer exhaustion
 - Critical for operations that may pin many buffers simultaneously, such as bulk data operations
 - Helps maintain system stability by preventing runaway buffer pin acquisition in temporary relation operations
+
+## Simplified Source
+
+```c
+void
+LimitAdditionalLocalPins(uint32 *additional_pins)
+{
+    uint32 max_pins;
+
+    // Fast path for small requests
+    if (*additional_pins <= 1)
+        return;
+
+    // Calculate maximum allowable pins based on available local buffers
+    max_pins = (num_temp_buffers - NLocalPinnedBuffers);
+
+    // Limit the request to available capacity
+    if (*additional_pins >= max_pins)
+        *additional_pins = max_pins;
+}
+```

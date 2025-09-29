@@ -37,3 +37,26 @@ Similar to dclist_insert_after, this function includes important safety measures
 - Implemented as a static inline function for performance efficiency
 - Used in process sleep management within PostgreSQL's lock manager for maintaining wait queues
 - Part of PostgreSQL's intrusive list implementation that doesn't require separate memory allocation for list nodes
+
+## Simplified Source
+
+```c
+static inline void
+dclist_insert_before(dclist_head *head, dlist_node *before, dlist_node *node)
+{
+    // Validate that 'before' node is actually in this list
+    dlist_member_check(&head->dlist, before);
+
+    // Ensure list has at least one node
+    Assert(head->count > 0);
+
+    // Insert the new node before the specified node
+    dlist_insert_before(before, node);
+
+    // Update the count
+    head->count++;
+
+    // Check for count overflow
+    Assert(head->count > 0);
+}
+```

@@ -59,3 +59,88 @@ The function processes notifications from the pendingNotifies list, converting e
 - The dummy entry mechanism ensures consistent page layout for readers
 - Part of PostgreSQL's asynchronous notification system's write path
 - Critical for maintaining queue integrity across transaction boundaries
+
+## Simplified Source
+
+```c
+static ListCell *
+asyncQueueAddEntries(ListCell *nextNotify)
+{
+    AsyncQueueEntry qe;
+    QueuePosition queue_head;
+    int64 pageno;
+    int offset;
+    int slotno;
+    LWLock *prevlock;
+
+    // Work with local copy for transactional safety
+    queue_head = QUEUE_HEAD;
+
+    // Initialize or read the current page
+    pageno = QUEUE_POS_PAGE(queue_head);
+    prevlock = SimpleLruGetBankLock(NotifyCtl, pageno);
+    LWLockAcquire(prevlock, LW_EXCLUSIVE);
+
+    if (QUEUE_POS_IS_ZERO(queue_head))
+        slotno = SimpleLruZeroPage(NotifyCtl, pageno);  // First write
+    else
+        slotno = SimpleLruReadPage(NotifyCtl, pageno, true, InvalidTransactionId);
+
+    // Mark page as dirty for writes
+    NotifyCtl->shared->page_dirty[slotno] = true;
+
+    // Process each notification
+    while (nextNotify != NULL)
+    {
+        Notification *n = (Notification *) lfirst(nextNotify);
+
+        // Convert notification to queue entry format
+        asyncQueueNotificationToEntry(n, &qe);
+        offset = QUEUE_POS_OFFSET(queue_head);
+
+        // Check if entry fits on current page
+        if (offset + qe.length <= QUEUE_PAGESIZE)
+        {
+            nextNotify = lnext(pendingNotifies->events, nextNotify);
+        }
+        else
+        {
+            // Fill page with dummy entry
+            qe.length = QUEUE_PAGESIZE - offset;
+            qe.dboid = InvalidOid;
+            qe.data[0] = qe.data[1] = '\0';  // Empty channel and payload
+        }
+
+        // Copy entry to shared buffer
+        memcpy(NotifyCtl->shared->page_buffer[slotno] + offset, &qe, qe.length);
+
+        // Advance position and handle page boundary
+        if (asyncQueueAdvance(&queue_head, qe.length))
+        {
+            // Handle lock change for new page if needed
+            pageno = QUEUE_POS_PAGE(queue_head);
+            LWLock *lock = SimpleLruGetBankLock(NotifyCtl, pageno);
+            if (lock != prevlock)
+            {
+                LWLockRelease(prevlock);
+                LWLockAcquire(lock, LW_EXCLUSIVE);
+                prevlock = lock;
+            }
+
+            // Initialize next page and schedule cleanup if needed
+            slotno = SimpleLruZeroPage(NotifyCtl, QUEUE_POS_PAGE(queue_head));
+
+            if (QUEUE_POS_PAGE(queue_head) % QUEUE_CLEANUP_DELAY == 0)
+                tryAdvanceTail = true;
+
+            break;  // Page full, exit loop
+        }
+    }
+
+    // Commit changes and release lock
+    QUEUE_HEAD = queue_head;
+    LWLockRelease(prevlock);
+
+    return nextNotify;  // Return remaining unprocessed notifications
+}
+```

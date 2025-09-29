@@ -48,3 +48,39 @@ This design ensures that ring buffers are only reused when they're not actively 
 - Returns NULL when no suitable buffer is available, triggering fallback to normal allocation
 - Critical for maintaining the controlled access pattern of ring buffer strategies
 - The usage_count check prevents reusing buffers that have become popular with other processes
+
+## Simplified Source
+
+```c
+static BufferDesc *
+GetBufferFromRing(BufferAccessStrategy strategy, uint32 *buf_state)
+{
+    BufferDesc *buf;
+    Buffer bufnum;
+    uint32 local_buf_state;
+
+    // Advance to next ring slot (circular)
+    if (++strategy->current >= strategy->nbuffers)
+        strategy->current = 0;
+
+    // Check if slot is initialized
+    bufnum = strategy->buffers[strategy->current];
+    if (bufnum == InvalidBuffer)
+        return NULL;  // Slot empty, use normal allocation
+
+    // Check if buffer can be reused safely
+    buf = GetBufferDescriptor(bufnum - 1);
+    local_buf_state = LockBufHdr(buf);
+
+    // Buffer is usable if not pinned and usage count is low
+    if (BUF_STATE_GET_REFCOUNT(local_buf_state) == 0 &&
+        BUF_STATE_GET_USAGECOUNT(local_buf_state) <= 1) {
+        *buf_state = local_buf_state;
+        return buf;  // Return with lock held
+    }
+
+    // Buffer is busy or hot, can't reuse
+    UnlockBufHdr(buf, local_buf_state);
+    return NULL;  // Use normal allocation instead
+}
+```

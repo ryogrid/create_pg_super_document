@@ -31,3 +31,23 @@ This function is called whenever a deadlock is detected in the PostgreSQL system
 - Uses the current database ID (MyDatabaseId) to identify which database statistics to update
 - Provides simple increment operation for deadlock counting
 - Called by the deadlock detection mechanism when deadlocks are identified
+
+## Simplified Source
+
+```c
+void
+pgstat_report_deadlock(void)
+{
+    PgStat_StatDBEntry *dbent;
+
+    // Only track statistics if enabled
+    if (!pgstat_track_counts)
+        return;
+
+    // Get the database statistics entry for current database
+    dbent = pgstat_prep_database_pending(MyDatabaseId);
+
+    // Increment the deadlock counter
+    dbent->deadlocks++;
+}
+```

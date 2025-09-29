@@ -46,3 +46,49 @@ GetForeignServerExtended is the core function for looking up foreign server obje
 - Error handling is controlled by the FSV_MISSING_OK flag in the flags parameter
 - This is the primary implementation function that other foreign server lookup functions delegate to
 - Foreign servers define connection parameters and metadata for accessing external data sources through FDWs
+
+## Simplified Source
+
+```c
+ForeignServer *
+GetForeignServerExtended(Oid serverid, bits16 flags)
+{
+    // Look up foreign server in system catalog
+    HeapTuple tp = SearchSysCache1(FOREIGNSERVEROID, ObjectIdGetDatum(serverid));
+
+    // Handle missing server based on flags
+    if (!HeapTupleIsValid(tp)) {
+        if ((flags & FSV_MISSING_OK) == 0)
+            elog(ERROR, "cache lookup failed for foreign server %u", serverid);
+        return NULL;
+    }
+
+    // Extract server information from catalog tuple
+    Form_pg_foreign_server serverform = (Form_pg_foreign_server) GETSTRUCT(tp);
+
+    // Allocate and populate ForeignServer structure
+    ForeignServer *server = (ForeignServer *) palloc(sizeof(ForeignServer));
+    server->serverid = serverid;
+    server->servername = pstrdup(NameStr(serverform->srvname));
+    server->owner = serverform->srvowner;
+    server->fdwid = serverform->srvfdw;
+
+    // Extract optional server type
+    Datum datum = SysCacheGetAttr(FOREIGNSERVEROID, tp,
+                                  Anum_pg_foreign_server_srvtype, &isnull);
+    server->servertype = isnull ? NULL : TextDatumGetCString(datum);
+
+    // Extract optional server version
+    datum = SysCacheGetAttr(FOREIGNSERVEROID, tp,
+                           Anum_pg_foreign_server_srvversion, &isnull);
+    server->serverversion = isnull ? NULL : TextDatumGetCString(datum);
+
+    // Extract and parse options
+    datum = SysCacheGetAttr(FOREIGNSERVEROID, tp,
+                           Anum_pg_foreign_server_srvoptions, &isnull);
+    server->options = isnull ? NIL : untransformRelOptions(datum);
+
+    ReleaseSysCache(tp);
+    return server;
+}
+```

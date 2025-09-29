@@ -32,3 +32,17 @@ The function internally calls TwoPhaseGetGXact to locate the global transaction 
 - Dummy proc numbers start at MaxBackends to avoid conflicts with real backend process numbers
 - The lock_held parameter provides flexibility for callers who already hold the necessary locks, improving performance in nested lock scenarios
 - This function is primarily used in multixact operations during two-phase commit recovery and cleanup processes
+
+## Simplified Source
+
+```c
+ProcNumber
+TwoPhaseGetDummyProcNumber(TransactionId xid, bool lock_held)
+{
+    // Get global transaction structure for the XID
+    GlobalTransaction gxact = TwoPhaseGetGXact(xid, lock_held);
+
+    // Return the dummy proc number
+    return gxact->pgprocno;
+}
+```

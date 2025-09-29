@@ -48,3 +48,28 @@ This is the preferred interface for external callers throughout the PostgreSQL c
 - Does not perform duplicate checking - caller responsibility
 - Memory managed through PostgreSQL's palloc/repalloc system
 - Critical for maintaining object dependency relationships during DDL operations
+
+## Simplified Source
+
+```c
+void
+add_exact_object_address(const ObjectAddress *object,
+                         ObjectAddresses *addrs)
+{
+    ObjectAddress *item;
+
+    // Expand array if needed (double the capacity)
+    if (addrs->numrefs >= addrs->maxrefs)
+    {
+        addrs->maxrefs *= 2;
+        addrs->refs = (ObjectAddress *)
+            repalloc(addrs->refs, addrs->maxrefs * sizeof(ObjectAddress));
+        Assert(!addrs->extras);  // Should be NULL during expansion
+    }
+
+    // Copy the ObjectAddress structure and increment count
+    item = addrs->refs + addrs->numrefs;
+    *item = *object;  // Structure copy
+    addrs->numrefs++;
+}
+```

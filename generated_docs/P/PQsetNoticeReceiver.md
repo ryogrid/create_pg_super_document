@@ -35,3 +35,26 @@ PQsetNoticeReceiver allows applications to install a custom callback function th
 - The notice receiver is called synchronously when notices are received from the server
 - Applications should avoid performing lengthy operations in the notice receiver callback
 - The PGresult passed to the callback should not be freed by the application
+
+## Simplified Source
+
+```c
+PQnoticeReceiver PQsetNoticeReceiver(PGconn *conn, PQnoticeReceiver proc, void *arg) {
+    PQnoticeReceiver old;
+
+    // Handle null connection safely
+    if (conn == NULL)
+        return NULL;
+
+    // Store previous notice receiver for return
+    old = conn->noticeHooks.noticeRec;
+
+    // Install new notice receiver if provided
+    if (proc) {
+        conn->noticeHooks.noticeRec = proc;
+        conn->noticeHooks.noticeRecArg = arg;
+    }
+
+    return old;
+}
+```

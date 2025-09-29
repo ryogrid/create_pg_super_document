@@ -36,3 +36,41 @@ This function takes no parameters.
 - Uses atomic operations to ensure thread safety in concurrent environments
 - The wraparound handling with spinlock synchronization is critical for maintaining consistency with StrategySyncStart()
 - May return buffer IDs slightly out of order when multiple processes are competing, but this doesn't affect correctness of the clock algorithm
+
+## Simplified Source
+
+```c
+static inline uint32
+ClockSweepTick(void)
+{
+    // Atomically advance clock hand to next buffer
+    uint32 victim = pg_atomic_fetch_add_u32(&StrategyControl->nextVictimBuffer, 1);
+
+    // Handle wraparound if victim >= NBuffers
+    if (victim >= NBuffers) {
+        uint32 originalVictim = victim;
+        victim = victim % NBuffers;  // Wrap to valid buffer range
+
+        // If we caused wraparound, increment completePasses with proper locking
+        if (victim == 0) {
+            uint32 expected = originalVictim + 1;
+            bool success = false;
+
+            while (!success) {
+                SpinLockAcquire(&StrategyControl->buffer_strategy_lock);
+
+                uint32 wrapped = expected % NBuffers;
+                success = pg_atomic_compare_exchange_u32(
+                    &StrategyControl->nextVictimBuffer, &expected, wrapped);
+
+                if (success)
+                    StrategyControl->completePasses++;
+
+                SpinLockRelease(&StrategyControl->buffer_strategy_lock);
+            }
+        }
+    }
+
+    return victim;
+}
+```

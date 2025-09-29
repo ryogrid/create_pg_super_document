@@ -40,3 +40,30 @@ A key feature is the filename normalization process: the function strips directo
 - The normalized filename excludes directory paths to make error messages more readable and build-path independent
 - Used primarily for debugging and error reporting to help developers locate where errors originated
 - Does not allocate memory; stores pointers to the provided strings directly in the ErrorData structure
+
+## Simplified Source
+
+```c
+static void
+set_stack_entry_location(ErrorData *edata,
+                         const char *filename, int lineno,
+                         const char *funcname)
+{
+    if (filename) {
+        const char *slash;
+
+        // Extract base filename from full path
+        slash = strrchr(filename, '/');      // Unix path separator
+        if (slash)
+            filename = slash + 1;
+        slash = strrchr(filename, '\\');     // Windows path separator
+        if (slash)
+            filename = slash + 1;
+    }
+
+    // Store location information in error data
+    edata->filename = filename;
+    edata->lineno = lineno;
+    edata->funcname = funcname;
+}
+```

@@ -47,3 +47,38 @@ Upper relations are identified by an UpperRelationKind enum value and a Relids s
 - Parallel processing consideration is initially disabled but may be enabled later
 - The function operates at lines 1470-1520 in src/backend/optimizer/util/relnode.c
 - This is a key function in PostgreSQL's upper-level query planning infrastructure
+
+## Simplified Source
+
+```c
+RelOptInfo *
+fetch_upper_rel(PlannerInfo *root, UpperRelationKind kind, Relids relids)
+{
+    RelOptInfo *upperrel;
+    ListCell   *lc;
+
+    // Check if we already created this upper relation
+    foreach(lc, root->upper_rels[kind])
+    {
+        upperrel = (RelOptInfo *) lfirst(lc);
+        if (bms_equal(upperrel->relids, relids))
+            return upperrel;
+    }
+
+    // Create new upper relation
+    upperrel = makeNode(RelOptInfo);
+    upperrel->reloptkind = RELOPT_UPPER_REL;
+    upperrel->relids = bms_copy(relids);
+
+    // Initialize path-related fields
+    upperrel->consider_startup = (root->tuple_fraction > 0);
+    upperrel->reltarget = create_empty_pathtarget();
+    upperrel->pathlist = NIL;
+    upperrel->cheapest_startup_path = NULL;
+    upperrel->cheapest_total_path = NULL;
+
+    // Add to relation list and return
+    root->upper_rels[kind] = lappend(root->upper_rels[kind], upperrel);
+    return upperrel;
+}
+```

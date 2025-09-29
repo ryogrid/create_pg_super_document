@@ -41,3 +41,36 @@ The function first ensures the CFuncHash table exists (creating it if necessary)
 - The function uses PostgreSQL's generic hash table implementation
 - Transaction visibility information (fn_xmin, fn_tid) is stored to handle catalog changes
 - The hash key is the function OID, enabling O(1) lookup performance
+
+## Simplified Source
+
+```c
+static void
+record_C_func(HeapTuple procedureTuple,
+              PGFunction user_fn, const Pg_finfo_record *inforec)
+{
+    Oid fn_oid = ((Form_pg_proc) GETSTRUCT(procedureTuple))->oid;
+    CFuncHashTabEntry *entry;
+    bool found;
+
+    // Create hash table if it doesn't exist
+    if (CFuncHash == NULL)
+    {
+        HASHCTL hash_ctl;
+        hash_ctl.keysize = sizeof(Oid);
+        hash_ctl.entrysize = sizeof(CFuncHashTabEntry);
+        CFuncHash = hash_create("CFuncHash", 100, &hash_ctl,
+                               HASH_ELEM | HASH_BLOBS);
+    }
+
+    // Insert or find existing entry
+    entry = (CFuncHashTabEntry *) hash_search(CFuncHash, &fn_oid,
+                                              HASH_ENTER, &found);
+
+    // Store function metadata
+    entry->fn_xmin = HeapTupleHeaderGetRawXmin(procedureTuple->t_data);
+    entry->fn_tid = procedureTuple->t_self;
+    entry->user_fn = user_fn;
+    entry->inforec = inforec;
+}
+```

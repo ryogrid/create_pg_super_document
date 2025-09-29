@@ -42,3 +42,28 @@ The function ensures that the catalog cache ID fits within the int8 range by ass
 - Part of PostgreSQL's catalog cache invalidation system that ensures cache consistency when catalog data changes
 - The ID parameter is cast to int8, limiting the number of possible catalog caches to 127
 - The hash value and database ID together uniquely identify a specific cached catalog entry to invalidate
+
+## Simplified Source
+
+```c
+static void
+AddCatcacheInvalidationMessage(InvalidationMsgsGroup *group,
+                               int id, uint32 hashValue, Oid dbId)
+{
+    SharedInvalidationMessage msg;
+
+    // Validate catalog cache ID fits in int8
+    Assert(id < CHAR_MAX);
+
+    // Populate catalog cache invalidation message
+    msg.cc.id = (int8) id;
+    msg.cc.dbId = dbId;
+    msg.cc.hashValue = hashValue;
+
+    // Initialize padding bytes for Valgrind in shared memory
+    VALGRIND_MAKE_MEM_DEFINED(&msg, sizeof(msg));
+
+    // Add message to catalog cache message group
+    AddInvalidationMessage(group, CatCacheMsgs, &msg);
+}
+```

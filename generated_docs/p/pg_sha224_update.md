@@ -33,8 +33,20 @@ The function processes input data incrementally, allowing for streaming hash com
 
 ## Notes and Other Information
 - SHA-224 is defined in FIPS 180-4 as a variant of SHA-256
-- The context structure  is actually a typedef alias for 
+- The context structure  is actually a typedef alias for
 - This implementation leverages the fact that SHA-224 and SHA-256 differ only in initialization values and output truncation
 - The function can be called multiple times to process data in chunks
 - Calling with  is valid and does nothing (handled by the underlying )
 - Part of PostgreSQL's cryptographic hash infrastructure used for various security functions
+
+## Simplified Source
+
+```c
+void
+pg_sha224_update(pg_sha224_ctx *context, const uint8 *data, size_t len)
+{
+    // SHA-224 uses identical processing to SHA-256
+    // Only difference is initial values and output truncation
+    pg_sha256_update((pg_sha256_ctx *) context, data, len);
+}
+```

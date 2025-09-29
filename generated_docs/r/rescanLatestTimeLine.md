@@ -41,3 +41,53 @@ The function performs several validation steps:
 - Timeline switching is only allowed if the new timeline is a proper descendant and the fork occurred after the current replay position
 - Logs informational messages when timeline switches occur or when invalid timelines are detected
 - Returns `true` if a timeline switch occurred, `false` otherwise
+
+## Simplified Source
+```c
+static bool rescanLatestTimeLine(TimeLineID replayTLI, XLogRecPtr replayLSN)
+{
+    TimeLineID newtarget;
+    TimeLineID oldtarget = recoveryTargetTLI;
+    List *newExpectedTLEs;
+    bool found = false;
+
+    // Check if a newer timeline exists
+    newtarget = findNewestTimeLine(recoveryTargetTLI);
+    if (newtarget == recoveryTargetTLI) {
+        return false; // No new timelines found
+    }
+
+    // Read history of the new timeline
+    newExpectedTLEs = readTimeLineHistory(newtarget);
+
+    // Verify current timeline is part of new timeline's history
+    foreach(cell, newExpectedTLEs) {
+        TimeLineHistoryEntry *currentTle = (TimeLineHistoryEntry *) lfirst(cell);
+        if (currentTle->tli == recoveryTargetTLI) {
+            found = true;
+            // Check fork point is after current replay position
+            if (currentTle->end < replayLSN) {
+                ereport(LOG, (errmsg("timeline forked before current recovery point")));
+                return false;
+            }
+            break;
+        }
+    }
+
+    if (!found) {
+        ereport(LOG, (errmsg("new timeline is not a child of current timeline")));
+        return false;
+    }
+
+    // Switch to new timeline
+    recoveryTargetTLI = newtarget;
+    list_free_deep(expectedTLEs);
+    expectedTLEs = newExpectedTLEs;
+
+    // Restore timeline history files
+    restoreTimeLineHistoryFiles(oldtarget + 1, newtarget);
+
+    ereport(LOG, (errmsg("switched to timeline %u", recoveryTargetTLI)));
+    return true;
+}
+```

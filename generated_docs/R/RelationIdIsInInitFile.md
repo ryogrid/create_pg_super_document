@@ -44,3 +44,25 @@ The function serves as a gate-keeper to ensure that only performance-critical re
 - Primary criteria: nailed relations + syscache-supporting relations + specific exceptions
 - Used by the invalidation system to determine which init files need to be invalidated
 - File location: src/backend/utils/cache/relcache.c:6726-6765
+
+## Simplified Source
+
+```c
+bool
+RelationIdIsInInitFile(Oid relationId)
+{
+    // Special case relations that are nailed but don't support syscache
+    if (relationId == SharedSecLabelRelationId ||
+        relationId == TriggerRelidNameIndexId ||
+        relationId == DatabaseNameIndexId ||
+        relationId == SharedSecLabelObjectIndexId)
+    {
+        // Verify these special cases don't support syscache
+        Assert(!RelationSupportsSysCache(relationId));
+        return true;
+    }
+
+    // Include all relations that support system caches
+    return RelationSupportsSysCache(relationId);
+}
+```

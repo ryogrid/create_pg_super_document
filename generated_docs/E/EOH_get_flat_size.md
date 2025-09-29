@@ -40,3 +40,12 @@ The function delegates to the appropriate type-specific implementation through t
 - Used extensively in TOAST operations and datum serialization/copying operations
 - Part of the expanded object API that provides type-agnostic access to type-specific functionality
 - The function is defined in src/backend/utils/adt/expandeddatum.c:75-80
+
+## Simplified Source
+
+```c
+Size EOH_get_flat_size(ExpandedObjectHeader *eohptr) {
+    // Delegate to type-specific get_flat_size method
+    return eohptr->eoh_methods->get_flat_size(eohptr);
+}
+```

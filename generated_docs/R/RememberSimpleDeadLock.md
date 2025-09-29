@@ -45,3 +45,29 @@ This information is later used by `DeadLockReport` to generate comprehensive err
 - This is part of PostgreSQL's deadlock detection optimization - simple cases are handled more efficiently than complex multi-process deadlock cycles
 - The populated `deadlockDetails` array is consumed by `DeadLockReport` to format detailed error messages
 - This function assumes that the deadlock detection logic has already determined that a two-way deadlock exists between the specified processes
+
+## Simplified Source
+
+```c
+void
+RememberSimpleDeadLock(PGPROC *proc1, LOCKMODE lockmode, LOCK *lock, PGPROC *proc2)
+{
+    DEADLOCK_INFO *info = &deadlockDetails[0];
+
+    // Store info for first process (wants to acquire lock)
+    info->locktag = lock->tag;
+    info->lockmode = lockmode;
+    info->pid = proc1->pid;
+
+    // Move to second entry
+    info++;
+
+    // Store info for second process (already waiting)
+    info->locktag = proc2->waitLock->tag;
+    info->lockmode = proc2->waitLockMode;
+    info->pid = proc2->pid;
+
+    // Set total count for two-process deadlock
+    nDeadlockDetails = 2;
+}
+```

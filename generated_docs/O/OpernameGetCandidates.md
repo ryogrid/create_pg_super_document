@@ -41,3 +41,42 @@ This function performs comprehensive operator candidate lookup in the PostgreSQL
 - Handles namespace masking to prevent duplicate candidates from multiple namespaces
 - Used primarily in operator resolution and disambiguation during SQL parsing
 - Critical for supporting PostgreSQL's operator overloading mechanism
+
+## Simplified Source
+
+```c
+FuncCandidateList
+OpernameGetCandidates(List *names, char oprkind, bool missing_schema_ok)
+{
+    FuncCandidateList resultList = NULL;
+    char *schemaname;
+    char *opername;
+    Oid namespaceId;
+    CatCList *catlist;
+
+    // Parse the operator name (may be schema-qualified)
+    DeconstructQualifiedName(names, &schemaname, &opername);
+
+    if (schemaname) {
+        // Schema-qualified: search only in specified schema
+        namespaceId = LookupExplicitNamespace(schemaname, missing_schema_ok);
+        if (missing_schema_ok && !OidIsValid(namespaceId))
+            return NULL;
+    }
+    else {
+        // Unqualified: search all namespaces in search path
+        namespaceId = InvalidOid;
+        recomputeNamespacePath();
+    }
+
+    // Search system catalog for operators by name
+    catlist = SearchSysCacheList1(OPERNAMENSP, CStringGetDatum(opername));
+
+    // Process catalog results and build candidate list
+    // (filtering by namespace, operator kind, and handling duplicates)
+    // [Complex processing logic simplified for readability]
+
+    ReleaseSysCacheList(catlist);
+    return resultList;
+}
+```

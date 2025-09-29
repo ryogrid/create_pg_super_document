@@ -10,12 +10,12 @@ Looks up a relation descriptor by OID, either retrieving it from the relation ca
 
 ```c
 structure exists to
-			 * perform pg_class lookups. The structure of such entries doesn't
-			 * change, but we still want to update the rd_rel entry. So
-			 * rd_isvalid = false is left in place for a later lookup.
-			 */
-			Assert(rd->rd_isvalid ||
-				   (rd->rd_isnailed && !criticalRelcachesBuilt));
+		 * perform pg_class lookups. The structure of such entries doesn't
+		 * change, but we still want to update the rd_rel entry. So
+		 * rd_isvalid = false is left in place for a later lookup.
+		 */
+		Assert(rd->rd_isvalid ||
+			   (rd->rd_isnailed && !criticalRelcachesBuilt));
 ```
 ## Detailed Description
 This function is the primary interface for obtaining relation descriptors in PostgreSQL. It implements a two-level lookup strategy:
@@ -57,3 +57,49 @@ The function always increments the relation's reference count, requiring callers
 - Handles special cases during bootstrap when critical relation caches aren't yet built
 - Part of PostgreSQL's relation cache management system that provides efficient access to relation metadata
 - The function asserts that it's called within a transaction context using IsTransactionState()
+
+## Simplified Source
+
+```c
+Relation
+RelationIdGetRelation(Oid relationId) {
+    Relation rd;
+
+    // Ensure we're in a transaction
+    Assert(IsTransactionState());
+
+    // Try to find relation in cache first
+    RelationIdCacheLookup(relationId, rd);
+
+    if (RelationIsValid(rd)) {
+        // Return NULL for dropped relations
+        if (rd->rd_droppedSubid != InvalidSubTransactionId) {
+            Assert(!rd->rd_isvalid);
+            return NULL;
+        }
+
+        // Increment reference count
+        RelationIncrementReferenceCount(rd);
+
+        // Revalidate cache entry if needed
+        if (!rd->rd_isvalid) {
+            if (rd->rd_rel->relkind == RELKIND_INDEX ||
+                rd->rd_rel->relkind == RELKIND_PARTITIONED_INDEX)
+                RelationReloadIndexInfo(rd);  // Limited reload for indexes
+            else
+                RelationClearRelation(rd, true);  // Full reload for others
+
+            Assert(rd->rd_isvalid ||
+                   (rd->rd_isnailed && !criticalRelcachesBuilt));
+        }
+        return rd;
+    }
+
+    // Cache miss: build new relation descriptor
+    rd = RelationBuildDesc(relationId, true);
+    if (RelationIsValid(rd))
+        RelationIncrementReferenceCount(rd);
+
+    return rd;
+}
+```

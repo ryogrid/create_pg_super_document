@@ -35,3 +35,20 @@ This function is commonly used in PostgreSQL's explain functionality and other p
 - The function modifies a local endtime variable but does not modify the input starttime
 - Commonly used for performance measurements in explain plans and system monitoring
 - The precision depends on the underlying system's timer resolution
+
+## Simplified Source
+
+```c
+static double elapsed_time(instr_time *starttime) {
+    instr_time endtime;
+
+    // Get current time
+    INSTR_TIME_SET_CURRENT(endtime);
+
+    // Calculate elapsed time by subtracting start from end
+    INSTR_TIME_SUBTRACT(endtime, *starttime);
+
+    // Return result as seconds (double precision)
+    return INSTR_TIME_GET_DOUBLE(endtime);
+}
+```

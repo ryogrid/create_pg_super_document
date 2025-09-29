@@ -35,3 +35,17 @@ This function takes a combo command ID and returns the original cmax value by pe
 - The combo CID system is designed to handle the common case where tuples are not both inserted and deleted in the same transaction, while still supporting that scenario when needed
 - The function is critical for translating combo command IDs back to their original cmax values for visibility checking and transaction processing
 - Works in tandem with GetRealCmin to provide complete cmin/cmax information from combo command IDs
+
+## Simplified Source
+
+```c
+static CommandId
+GetRealCmax(CommandId combocid)
+{
+    // Verify combo ID is within valid range
+    Assert(combocid < usedComboCids);
+
+    // Return the original cmax from combo CID table
+    return comboCids[combocid].cmax;
+}
+```

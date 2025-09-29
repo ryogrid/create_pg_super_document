@@ -46,3 +46,56 @@ The algorithm splits the transaction IDs into groups where each group contains t
 - The function is designed to handle cases where nsubxids is zero (no subtransactions)
 - Critical for maintaining commit timestamp consistency across transaction trees
 - Location: src/backend/access/transam/commit_ts.c:141-221
+
+## Simplified Source
+
+```c
+void TransactionTreeSetCommitTsData(TransactionId xid, int nsubxids,
+                                   TransactionId *subxids, TimestampTz timestamp,
+                                   RepOriginId nodeid) {
+    // Skip if commit timestamp tracking is disabled
+    if (!commitTsShared->commitTsActive)
+        return;
+
+    // Find the newest transaction ID in this batch
+    TransactionId newestXact = (nsubxids > 0) ? subxids[nsubxids - 1] : xid;
+
+    // Process transactions in groups by SLRU page to minimize page locks
+    TransactionId headxid = xid;
+    int i = 0;
+
+    while (true) {
+        int64 pageno = TransactionIdToCTsPage(headxid);
+        int j;
+
+        // Find all subxids on the same page as headxid
+        for (j = i; j < nsubxids; j++) {
+            if (TransactionIdToCTsPage(subxids[j]) != pageno)
+                break;
+        }
+
+        // Set commit timestamp for all transactions on this page
+        SetXidCommitTsInPage(headxid, j - i, subxids + i, timestamp, nodeid, pageno);
+
+        // Exit if we've processed all subtransactions
+        if (j >= nsubxids)
+            break;
+
+        // Move to next page group
+        headxid = subxids[j];
+        i = j + 1;
+    }
+
+    // Update shared memory cache with latest commit info
+    LWLockAcquire(CommitTsLock, LW_EXCLUSIVE);
+    commitTsShared->xidLastCommit = xid;
+    commitTsShared->dataLastCommit.time = timestamp;
+    commitTsShared->dataLastCommit.nodeid = nodeid;
+
+    // Advance newest commit timestamp marker if needed
+    if (TransactionIdPrecedes(TransamVariables->newestCommitTsXid, newestXact))
+        TransamVariables->newestCommitTsXid = newestXact;
+
+    LWLockRelease(CommitTsLock);
+}
+```

@@ -49,3 +49,31 @@ This approach is particularly important for ACL (Access Control List) error mess
 - TOAST tables are treated as regular tables for permission purposes
 - Critical component in PostgreSQL's access control and object identification infrastructure
 - The function never raises errors, making it safe for use in error handling paths
+
+## Simplified Source
+
+```c
+ObjectType get_relkind_objtype(char relkind) {
+    switch (relkind) {
+        case RELKIND_RELATION:
+        case RELKIND_PARTITIONED_TABLE:
+            return OBJECT_TABLE;
+        case RELKIND_INDEX:
+        case RELKIND_PARTITIONED_INDEX:
+            return OBJECT_INDEX;
+        case RELKIND_SEQUENCE:
+            return OBJECT_SEQUENCE;
+        case RELKIND_VIEW:
+            return OBJECT_VIEW;
+        case RELKIND_MATVIEW:
+            return OBJECT_MATVIEW;
+        case RELKIND_FOREIGN_TABLE:
+            return OBJECT_FOREIGN_TABLE;
+        case RELKIND_TOASTVALUE:
+            return OBJECT_TABLE;
+        default:
+            // Defensive: return generic table type for unknown relkinds
+            return OBJECT_TABLE;
+    }
+}
+```

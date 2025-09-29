@@ -42,3 +42,14 @@ The function simply delegates to the standard  function, making it safe to use w
 - Used in connection management, descriptor handling, statement processing, and automatic memory management
 - Part of ECPG's memory management system that helps prevent memory leaks in embedded SQL applications
 - The wrapper design allows for potential future enhancements to memory management without breaking existing code
+
+## Simplified Source
+
+```c
+void
+ecpg_free(void *ptr)
+{
+    // Simple wrapper around standard free()
+    free(ptr);
+}
+```

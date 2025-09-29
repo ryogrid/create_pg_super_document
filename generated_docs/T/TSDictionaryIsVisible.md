@@ -34,3 +34,14 @@ Visibility in PostgreSQL's namespace system determines whether an object can be 
 - Mirrors the functionality of TSParserIsVisible but for dictionary objects
 - Used in object description generation and regtype output formatting
 - Located in src/backend/catalog/namespace.c at lines 2919-2930
+
+## Simplified Source
+
+```c
+bool
+TSDictionaryIsVisible(Oid dictId)
+{
+    // Simple wrapper that delegates to the extended version
+    return TSDictionaryIsVisibleExt(dictId, NULL);
+}
+```

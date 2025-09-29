@@ -40,3 +40,29 @@ The function uses SimpleLruReadPage_ReadOnly to access the CLOG page, which hand
 - Lock acquisition and release is handled automatically by SimpleLruReadPage_ReadOnly
 - The function extracts exactly 2 bits per transaction from the packed CLOG page format
 - [Group](../G/Group.md) LSN tracking enables efficient batch flushing of related transactions
+
+## Simplified Source
+
+```c
+XidStatus TransactionIdGetStatus(TransactionId xid, XLogRecPtr *lsn) {
+    // Calculate page and byte position for this transaction
+    int64 pageno = TransactionIdToPage(xid);
+    int byteno = TransactionIdToByte(xid);
+    int bshift = TransactionIdToBIndex(xid) * CLOG_BITS_PER_XACT;
+
+    // Read the CLOG page (with automatic locking)
+    int slotno = SimpleLruReadPage_ReadOnly(XactCtl, pageno, xid);
+    char *byteptr = XactCtl->shared->page_buffer[slotno] + byteno;
+
+    // Extract 2-bit status from the packed format
+    XidStatus status = (*byteptr >> bshift) & CLOG_XACT_BITMASK;
+
+    // Get LSN for flush guarantee
+    int lsnindex = GetLSNIndex(slotno, xid);
+    *lsn = XactCtl->shared->group_lsn[lsnindex];
+
+    // Release lock and return status
+    LWLockRelease(SimpleLruGetBankLock(XactCtl, pageno));
+    return status;
+}
+```

@@ -42,3 +42,41 @@ The function provides flexibility in error handling - it can either raise an err
 - The returned filehandle can be used with lookup_external_function for more efficient subsequent function lookups from the same library
 - Memory allocated for the expanded filename is properly cleaned up with pfree()
 - The function uses the standard POSIX dlsym() function for symbol lookup within the loaded library
+
+## Simplified Source
+
+```c
+void *
+load_external_function(const char *filename, const char *funcname,
+                      bool signalNotFound, void **filehandle)
+{
+    char *fullname;
+    void *lib_handle;
+    void *function_ptr;
+
+    // Expand filename to full path
+    fullname = expand_dynamic_library_name(filename);
+
+    // Load the shared library
+    lib_handle = internal_load_library(fullname);
+
+    // Return library handle if requested
+    if (filehandle)
+        *filehandle = lib_handle;
+
+    // Look up the function in the library
+    function_ptr = dlsym(lib_handle, funcname);
+
+    // Handle function not found case
+    if (function_ptr == NULL && signalNotFound) {
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("could not find function \"%s\" in file \"%s\"",
+                        funcname, fullname)));
+    }
+
+    // Clean up and return
+    pfree(fullname);
+    return function_ptr;
+}
+```

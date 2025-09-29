@@ -42,3 +42,18 @@ The function uses the unlikely() compiler hint to optimize for the common case w
 - Uses compiler hints (unlikely) for branch prediction optimization
 - The returned SMgrRelation handle is pinned to prevent premature closure
 - Essential for all storage-level operations on relations including I/O, truncation, and size queries
+
+## Simplified Source
+
+```c
+static inline SMgrRelation
+RelationGetSmgr(Relation rel)
+{
+    // Initialize storage manager if not already opened
+    if (rel->rd_smgr == NULL) {
+        rel->rd_smgr = smgropen(rel->rd_locator, rel->rd_backend);
+        smgrpin(rel->rd_smgr);  // Pin to prevent premature closure
+    }
+    return rel->rd_smgr;
+}
+```

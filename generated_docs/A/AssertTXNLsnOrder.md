@@ -41,3 +41,60 @@ This function performs comprehensive validation of LSN ordering and transaction 
 - Validates that transactions with base snapshots have valid base_snapshot_lsn values
 - Serves as an essential debugging tool for catching transaction ordering bugs during development
 - No-op in production builds, ensuring no performance impact on release versions
+
+## Simplified Source
+
+```c
+static void
+AssertTXNLsnOrder(ReorderBuffer *rb)
+{
+#ifdef USE_ASSERT_CHECKING
+    LogicalDecodingContext *ctx = rb->private_data;
+    dlist_iter iter;
+    XLogRecPtr prev_first_lsn = InvalidXLogRecPtr;
+    XLogRecPtr prev_base_snap_lsn = InvalidXLogRecPtr;
+
+    // Skip verification before decoding starts - associations may be incomplete
+    if (SnapBuildXactNeedsSkip(ctx->snapshot_builder, ctx->reader->EndRecPtr))
+        return;
+
+    // Validate toplevel_by_lsn list ordering
+    dlist_foreach(iter, &rb->toplevel_by_lsn) {
+        ReorderBufferTXN *cur_txn = dlist_container(ReorderBufferTXN, node, iter.cur);
+
+        // Validate transaction LSN constraints
+        Assert(cur_txn->first_lsn != InvalidXLogRecPtr);
+        if (cur_txn->end_lsn != InvalidXLogRecPtr)
+            Assert(cur_txn->first_lsn <= cur_txn->end_lsn);
+
+        // Verify strict LSN ordering
+        if (prev_first_lsn != InvalidXLogRecPtr)
+            Assert(prev_first_lsn < cur_txn->first_lsn);
+
+        // Ensure no subtransactions in top-level list
+        Assert(!rbtxn_is_known_subxact(cur_txn));
+
+        prev_first_lsn = cur_txn->first_lsn;
+    }
+
+    // Validate txns_by_base_snapshot_lsn list ordering
+    dlist_foreach(iter, &rb->txns_by_base_snapshot_lsn) {
+        ReorderBufferTXN *cur_txn = dlist_container(ReorderBufferTXN,
+                                                    base_snapshot_node, iter.cur);
+
+        // Validate snapshot requirements
+        Assert(cur_txn->base_snapshot != NULL);
+        Assert(cur_txn->base_snapshot_lsn != InvalidXLogRecPtr);
+
+        // Verify strict LSN ordering
+        if (prev_base_snap_lsn != InvalidXLogRecPtr)
+            Assert(prev_base_snap_lsn < cur_txn->base_snapshot_lsn);
+
+        // Ensure no subtransactions in list
+        Assert(!rbtxn_is_known_subxact(cur_txn));
+
+        prev_base_snap_lsn = cur_txn->base_snapshot_lsn;
+    }
+#endif
+}
+```

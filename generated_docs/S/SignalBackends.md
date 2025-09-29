@@ -43,3 +43,64 @@ This function is responsible for notifying listening backend processes that new 
 - Memory allocation could theoretically fail - comments suggest pre-allocation might be considered
 - Internal static function, not exposed outside async.c module
 - Critical component of PostgreSQL's LISTEN/NOTIFY mechanism
+
+## Simplified Source
+
+```c
+static void SignalBackends(void) {
+    int32 *pids;
+    ProcNumber *procnos;
+    int count = 0;
+
+    // Allocate arrays to store target PIDs and proc numbers
+    pids = (int32 *) palloc(MaxBackends * sizeof(int32));
+    procnos = (ProcNumber *) palloc(MaxBackends * sizeof(ProcNumber));
+
+    // Phase 1: Build list of backends to signal (under lock)
+    LWLockAcquire(NotifyQueueLock, LW_EXCLUSIVE);
+
+    for (ProcNumber i = QUEUE_FIRST_LISTENER; i != INVALID_PROC_NUMBER;
+         i = QUEUE_NEXT_LISTENER(i)) {
+        int32 pid = QUEUE_BACKEND_PID(i);
+        QueuePosition pos = QUEUE_BACKEND_POS(i);
+
+        if (QUEUE_BACKEND_DBOID(i) == MyDatabaseId) {
+            // Signal same-database listeners unless already caught up
+            if (QUEUE_POS_EQUAL(pos, QUEUE_HEAD))
+                continue;
+        } else {
+            // Signal other-database listeners only if they're far behind
+            if (asyncQueuePageDiff(QUEUE_POS_PAGE(QUEUE_HEAD),
+                                   QUEUE_POS_PAGE(pos)) < QUEUE_CLEANUP_DELAY)
+                continue;
+        }
+
+        // Add to signal list
+        pids[count] = pid;
+        procnos[count] = i;
+        count++;
+    }
+
+    LWLockRelease(NotifyQueueLock);
+
+    // Phase 2: Send signals (no locks held)
+    for (int i = 0; i < count; i++) {
+        int32 pid = pids[i];
+
+        // Optimize self-signaling
+        if (pid == MyProcPid) {
+            notifyInterruptPending = true;
+            continue;
+        }
+
+        // Send signal to other backends
+        if (SendProcSignal(pid, PROCSIG_NOTIFY_INTERRUPT, procnos[i]) < 0) {
+            elog(DEBUG3, "could not signal backend with PID %d: %m", pid);
+        }
+    }
+
+    // Clean up temporary arrays
+    pfree(pids);
+    pfree(procnos);
+}
+```

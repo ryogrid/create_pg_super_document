@@ -39,3 +39,50 @@ The function also handles in-progress cache builds, marking them as dead unless 
 - When debug_discard is true, in-progress builds are preserved to allow cache invalidation testing to proceed
 - Dead entries are tracked for later cleanup when reference counts reach zero
 - The function updates cache invalidation statistics when CATCACHE_STATS is enabled
+
+## Simplified Source
+
+```c
+static void
+ResetCatalogCache(CatCache *cache, bool debug_discard)
+{
+    int i;
+
+    // Clean up cached lists - remove or mark as dead
+    for (i = 0; i < cache->cc_nlbuckets; i++) {
+        dlist_head *bucket = &cache->cc_lbucket[i];
+
+        dlist_foreach_modify(iter, bucket) {
+            CatCList *cl = dlist_container(CatCList, cache_elem, iter.cur);
+
+            if (cl->refcount > 0)
+                cl->dead = true;  // Mark dead if still referenced
+            else
+                CatCacheRemoveCList(cache, cl);  // Remove if no references
+        }
+    }
+
+    // Clean up cached tuples - remove or mark as dead
+    for (i = 0; i < cache->cc_nbuckets; i++) {
+        dlist_head *bucket = &cache->cc_bucket[i];
+
+        dlist_foreach_modify(iter, bucket) {
+            CatCTup *ct = dlist_container(CatCTup, cache_elem, iter.cur);
+
+            if (ct->refcount > 0 || (ct->c_list && ct->c_list->refcount > 0)) {
+                ct->dead = true;  // Mark dead if still referenced
+            } else {
+                CatCacheRemoveCTup(cache, ct);  // Remove if no references
+            }
+        }
+    }
+
+    // Mark in-progress builds as dead (unless in debug mode)
+    if (!debug_discard) {
+        for (CatCInProgress *e = catcache_in_progress_stack; e != NULL; e = e->next) {
+            if (e->cache == cache)
+                e->dead = true;
+        }
+    }
+}
+```

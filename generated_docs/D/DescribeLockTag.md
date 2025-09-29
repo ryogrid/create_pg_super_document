@@ -34,3 +34,79 @@ This function appends a human-readable description of a lockable object to a Str
 - Each lock type has a specific format showing the most relevant identifiers (database ID, relation ID, page number, tuple coordinates, etc.)
 - The LOCKTAG_USERLOCK case includes a comment noting it's reserved for old contrib code
 - Includes a default case for unrecognized lock tag types to ensure robust error handling
+
+## Simplified Source
+
+```c
+void
+DescribeLockTag(StringInfo buf, const LOCKTAG *tag)
+{
+    switch ((LockTagType) tag->locktag_type) {
+        case LOCKTAG_RELATION:
+            appendStringInfo(buf, _("relation %u of database %u"),
+                           tag->locktag_field2, tag->locktag_field1);
+            break;
+
+        case LOCKTAG_RELATION_EXTEND:
+            appendStringInfo(buf, _("extension of relation %u of database %u"),
+                           tag->locktag_field2, tag->locktag_field1);
+            break;
+
+        case LOCKTAG_DATABASE_FROZEN_IDS:
+            appendStringInfo(buf, _("pg_database.datfrozenxid of database %u"),
+                           tag->locktag_field1);
+            break;
+
+        case LOCKTAG_PAGE:
+            appendStringInfo(buf, _("page %u of relation %u of database %u"),
+                           tag->locktag_field3, tag->locktag_field2, tag->locktag_field1);
+            break;
+
+        case LOCKTAG_TUPLE:
+            appendStringInfo(buf, _("tuple (%u,%u) of relation %u of database %u"),
+                           tag->locktag_field3, tag->locktag_field4,
+                           tag->locktag_field2, tag->locktag_field1);
+            break;
+
+        case LOCKTAG_TRANSACTION:
+            appendStringInfo(buf, _("transaction %u"), tag->locktag_field1);
+            break;
+
+        case LOCKTAG_VIRTUALTRANSACTION:
+            appendStringInfo(buf, _("virtual transaction %d/%u"),
+                           tag->locktag_field1, tag->locktag_field2);
+            break;
+
+        case LOCKTAG_SPECULATIVE_TOKEN:
+            appendStringInfo(buf, _("speculative token %u of transaction %u"),
+                           tag->locktag_field2, tag->locktag_field1);
+            break;
+
+        case LOCKTAG_OBJECT:
+            appendStringInfo(buf, _("object %u of class %u of database %u"),
+                           tag->locktag_field3, tag->locktag_field2, tag->locktag_field1);
+            break;
+
+        case LOCKTAG_USERLOCK:
+            appendStringInfo(buf, _("user lock [%u,%u,%u]"),
+                           tag->locktag_field1, tag->locktag_field2, tag->locktag_field3);
+            break;
+
+        case LOCKTAG_ADVISORY:
+            appendStringInfo(buf, _("advisory lock [%u,%u,%u,%u]"),
+                           tag->locktag_field1, tag->locktag_field2,
+                           tag->locktag_field3, tag->locktag_field4);
+            break;
+
+        case LOCKTAG_APPLY_TRANSACTION:
+            appendStringInfo(buf, _("remote transaction %u of subscription %u of database %u"),
+                           tag->locktag_field3, tag->locktag_field2, tag->locktag_field1);
+            break;
+
+        default:
+            appendStringInfo(buf, _("unrecognized locktag type %d"),
+                           (int) tag->locktag_type);
+            break;
+    }
+}
+```

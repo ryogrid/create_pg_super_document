@@ -50,3 +50,51 @@ This streaming approach allows hashing of data larger than memory by processing 
 - Buffer management ensures no data is lost between calls
 - Part of PostgreSQL's streaming hash interface supporting both small and very large inputs
 - Must be followed by pg_sha512_final() to complete the hash and obtain the digest
+
+## Simplified Source
+
+```c
+void pg_sha512_update(pg_sha512_ctx *context, const uint8 *data, size_t len) {
+    size_t freespace, usedspace;
+
+    // Early return for empty input
+    if (len == 0)
+        return;
+
+    // Check if there's data already in the buffer
+    usedspace = (context->bitcount[0] >> 3) % PG_SHA512_BLOCK_LENGTH;
+
+    if (usedspace > 0) {
+        // Fill existing buffer if possible
+        freespace = PG_SHA512_BLOCK_LENGTH - usedspace;
+
+        if (len >= freespace) {
+            // Complete the buffer and process it
+            memcpy(&context->buffer[usedspace], data, freespace);
+            ADDINC128(context->bitcount, freespace << 3);
+            len -= freespace;
+            data += freespace;
+            SHA512_Transform(context, context->buffer);
+        } else {
+            // Just store the data, not enough for a full block
+            memcpy(&context->buffer[usedspace], data, len);
+            ADDINC128(context->bitcount, len << 3);
+            return;
+        }
+    }
+
+    // Process complete blocks directly from input
+    while (len >= PG_SHA512_BLOCK_LENGTH) {
+        SHA512_Transform(context, data);
+        ADDINC128(context->bitcount, PG_SHA512_BLOCK_LENGTH << 3);
+        len -= PG_SHA512_BLOCK_LENGTH;
+        data += PG_SHA512_BLOCK_LENGTH;
+    }
+
+    // Store any leftover data for next call
+    if (len > 0) {
+        memcpy(context->buffer, data, len);
+        ADDINC128(context->bitcount, len << 3);
+    }
+}
+```

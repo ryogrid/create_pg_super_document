@@ -50,3 +50,59 @@ The `prepare_common` function encapsulates the core logic for preparing SQL stat
 - Maintains a linked list of prepared statements per connection
 - Sets the prepared flag to true after successful preparation
 - Part of the ECPG library's prepared statement infrastructure
+
+## Simplified Source
+
+```c
+static bool prepare_common(int lineno, struct connection *con, const char *name, const char *variable) {
+    // Allocate new prepared statement structure
+    struct prepared_statement *this = (struct prepared_statement *)
+        ecpg_alloc(sizeof(struct prepared_statement), lineno);
+    if (!this)
+        return false;
+
+    // Allocate statement structure
+    struct statement *stmt = (struct statement *)
+        ecpg_alloc(sizeof(struct statement), lineno);
+    if (!stmt) {
+        ecpg_free(this);
+        return false;
+    }
+
+    // Initialize statement
+    stmt->lineno = lineno;
+    stmt->connection = con;
+    stmt->command = ecpg_strdup(variable, lineno);
+    stmt->inlist = stmt->outlist = NULL;
+
+    // Replace C variables with parameter placeholders
+    replace_variables(&(stmt->command), lineno);
+
+    // Set up prepared statement
+    this->name = ecpg_strdup(name, lineno);
+    this->stmt = stmt;
+
+    // Send PREPARE command to PostgreSQL server
+    PGresult *query = PQprepare(stmt->connection->connection, name, stmt->command, 0, NULL);
+    if (!ecpg_check_PQresult(query, stmt->lineno, stmt->connection->connection, stmt->compat)) {
+        // Cleanup on failure
+        ecpg_free(stmt->command);
+        ecpg_free(this->name);
+        ecpg_free(this);
+        ecpg_free(stmt);
+        return false;
+    }
+
+    // Log successful preparation
+    ecpg_log("prepare_common on line %d: name %s; query: \"%s\"\n",
+             stmt->lineno, name, stmt->command);
+    PQclear(query);
+    this->prepared = true;
+
+    // Add to connection's prepared statement list
+    this->next = con->prep_stmts;
+    con->prep_stmts = this;
+
+    return true;
+}
+```

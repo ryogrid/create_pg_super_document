@@ -48,3 +48,73 @@ This ordering maintains consistency between original execution and replay scenar
 - Critical for WAL-based replication and recovery - ensures invalidation messages are durably recorded
 - Used in both regular commits and two-phase commit preparation
 - The message ordering is carefully maintained to ensure identical behavior during replay
+
+## Simplified Source
+
+```c
+int
+xactGetCommittedInvalidationMessages(SharedInvalidationMessage **msgs,
+                                   bool *RelcacheInitFileInval)
+{
+    SharedInvalidationMessage *msgarray;
+    int nummsgs;
+    int nmsgs;
+
+    // Quick exit if no invalidation messages
+    if (transInvalInfo == NULL)
+    {
+        *RelcacheInitFileInval = false;
+        *msgs = NULL;
+        return 0;
+    }
+
+    // Must be at top level transaction
+    Assert(transInvalInfo->my_level == 1 && transInvalInfo->parent == NULL);
+
+    // Set relcache init file invalidation flag
+    *RelcacheInitFileInval = transInvalInfo->RelcacheInitFileInval;
+
+    // Count total messages needed
+    nummsgs = NumMessagesInGroup(&transInvalInfo->PriorCmdInvalidMsgs) +
+              NumMessagesInGroup(&transInvalInfo->CurrentCmdInvalidMsgs);
+
+    // Allocate array for all messages
+    *msgs = msgarray = (SharedInvalidationMessage *)
+        MemoryContextAlloc(CurTransactionContext,
+                          nummsgs * sizeof(SharedInvalidationMessage));
+
+    // Copy messages in processing order to maintain consistency
+    nmsgs = 0;
+
+    // Prior catalog cache messages
+    ProcessMessageSubGroupMulti(&transInvalInfo->PriorCmdInvalidMsgs,
+                               CatCacheMsgs,
+                               (memcpy(msgarray + nmsgs, msgs,
+                                      n * sizeof(SharedInvalidationMessage)),
+                                nmsgs += n));
+
+    // Current catalog cache messages
+    ProcessMessageSubGroupMulti(&transInvalInfo->CurrentCmdInvalidMsgs,
+                               CatCacheMsgs,
+                               (memcpy(msgarray + nmsgs, msgs,
+                                      n * sizeof(SharedInvalidationMessage)),
+                                nmsgs += n));
+
+    // Prior relation cache messages
+    ProcessMessageSubGroupMulti(&transInvalInfo->PriorCmdInvalidMsgs,
+                               RelCacheMsgs,
+                               (memcpy(msgarray + nmsgs, msgs,
+                                      n * sizeof(SharedInvalidationMessage)),
+                                nmsgs += n));
+
+    // Current relation cache messages
+    ProcessMessageSubGroupMulti(&transInvalInfo->CurrentCmdInvalidMsgs,
+                               RelCacheMsgs,
+                               (memcpy(msgarray + nmsgs, msgs,
+                                      n * sizeof(SharedInvalidationMessage)),
+                                nmsgs += n));
+
+    Assert(nmsgs == nummsgs);
+    return nmsgs;
+}
+```

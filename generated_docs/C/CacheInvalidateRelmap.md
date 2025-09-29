@@ -40,3 +40,21 @@ The function constructs a SharedInvalidationMessage with the SHAREDINVALRELMAP_I
 - Essential for maintaining consistency when relation-to-filenode mappings change, particularly for system catalogs
 - The immediate sending ensures that all backends have consistent view of relation file mappings after changes
 - Used primarily when the relation mapper writes updated mapping files to disk
+
+## Simplified Source
+
+```c
+void CacheInvalidateRelmap(Oid databaseId) {
+    SharedInvalidationMessage msg;
+
+    // Set up relmap invalidation message
+    msg.rm.id = SHAREDINVALRELMAP_ID;
+    msg.rm.dbId = databaseId;  // 0 for shared catalogs, specific DB OID otherwise
+
+    // Ensure memory is properly defined for debugging tools
+    VALGRIND_MAKE_MEM_DEFINED(&msg, sizeof(msg));
+
+    // Send invalidation message to all backends immediately
+    SendSharedInvalidMessages(&msg, 1);
+}
+```

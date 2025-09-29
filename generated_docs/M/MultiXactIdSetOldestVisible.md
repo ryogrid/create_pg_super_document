@@ -48,3 +48,44 @@ The function handles MultiXactId wraparound by ensuring the computed value is at
 - Idempotent operation - only sets the value if not already valid
 - The computed value provides a conservative estimate that ensures no required MultiXactId data is lost
 - Essential for maintaining data integrity in concurrent MultiXactId operations
+
+## Simplified Source
+
+```c
+static void
+MultiXactIdSetOldestVisible(void)
+{
+    // Only set if not already valid
+    if (!MultiXactIdIsValid(OldestVisibleMXactId[MyProcNumber]))
+    {
+        MultiXactId oldest_mxact;
+        int i;
+
+        // Acquire exclusive lock to prevent concurrent updates
+        LWLockAcquire(MultiXactGenLock, LW_EXCLUSIVE);
+
+        // Start with next MultiXactId, handle wraparound
+        oldest_mxact = MultiXactState->nextMXact;
+        if (oldest_mxact < FirstMultiXactId)
+            oldest_mxact = FirstMultiXactId;
+
+        // Find minimum across all backend's oldest member entries
+        for (i = 0; i < MaxOldestSlot; i++)
+        {
+            MultiXactId this_oldest = OldestMemberMXactId[i];
+
+            if (MultiXactIdIsValid(this_oldest) &&
+                MultiXactIdPrecedes(this_oldest, oldest_mxact))
+                oldest_mxact = this_oldest;
+        }
+
+        // Set our oldest visible MultiXactId
+        OldestVisibleMXactId[MyProcNumber] = oldest_mxact;
+
+        LWLockRelease(MultiXactGenLock);
+
+        debug_elog4(DEBUG2, "MultiXact: setting OldestVisible[%d] = %u",
+                    MyProcNumber, oldest_mxact);
+    }
+}
+```

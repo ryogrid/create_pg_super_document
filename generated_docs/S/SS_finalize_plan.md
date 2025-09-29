@@ -38,3 +38,13 @@ The actual recursive processing is delegated to the finalize_plan function, whic
 - The function serves as a thin wrapper around finalize_plan, providing the initial parameters for the recursive traversal
 - Parameter finalization is essential for proper handling of correlated subqueries and nested plan execution
 - Declared in src/include/optimizer/subselect.h
+
+## Simplified Source
+
+```c
+void SS_finalize_plan(PlannerInfo *root, Plan *plan) {
+    // Recursively process the entire plan tree to compute parameter sets
+    // for each plan node (extParam, allParam, and RangeTblFunction.funcparams)
+    (void) finalize_plan(root, plan, -1, root->outer_params, NULL);
+}
+```

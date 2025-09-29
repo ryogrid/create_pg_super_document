@@ -48,3 +48,25 @@ Unlike the standard , this function ensures proper error reporting through ECPG'
 - Extensively used throughout ECPG for connection management, descriptor handling, statement processing, and parameter management
 - Particularly important for managing connection parameters, SQL statement text, and prepared statement names
 - Part of ECPG's comprehensive memory management system that ensures safe string handling in embedded SQL applications
+
+## Simplified Source
+
+```c
+char *ecpg_strdup(const char *string, int lineno) {
+    char *new;
+
+    // Handle null input safely
+    if (string == NULL)
+        return NULL;
+
+    // Attempt string duplication
+    new = strdup(string);
+    if (!new) {
+        // Report memory allocation failure with line number
+        ecpg_raise(lineno, ECPG_OUT_OF_MEMORY, ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY, NULL);
+        return NULL;
+    }
+
+    return new;
+}
+```

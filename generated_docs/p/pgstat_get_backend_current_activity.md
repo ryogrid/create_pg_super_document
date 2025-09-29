@@ -44,3 +44,51 @@ The function is specifically designed for use in diagnostic scenarios where the 
 - Implements memory leak tolerance ("this'll leak a bit of memory, but that seems acceptable")
 - Return strings match those used by pg_stat_get_backend_activity for consistency
 - Uses volatile pointer semantics to prevent compiler optimizations that could break atomic access
+
+## Simplified Source
+
+```c
+const char *
+pgstat_get_backend_current_activity(int pid, bool checkUser)
+{
+    PgBackendStatus *beentry;
+    int i;
+
+    // Search through all backend status entries
+    beentry = BackendStatusArray;
+    for (i = 1; i <= MaxBackends; i++) {
+        volatile PgBackendStatus *vbeentry = beentry;
+        bool found;
+
+        // Use atomic read protocol to safely check PID
+        for (;;) {
+            int before_changecount;
+            int after_changecount;
+
+            pgstat_begin_read_activity(vbeentry, before_changecount);
+            found = (vbeentry->st_procpid == pid);
+            pgstat_end_read_activity(vbeentry, after_changecount);
+
+            if (pgstat_read_activity_complete(before_changecount, after_changecount))
+                break;
+
+            CHECK_FOR_INTERRUPTS();  // Allow breaking out if stuck
+        }
+
+        if (found) {
+            // Check permissions
+            if (checkUser && !superuser() && beentry->st_userid != GetUserId())
+                return "<insufficient privilege>";
+            else if (*(beentry->st_activity_raw) == '\0')
+                return "<command string not enabled>";
+            else
+                return pgstat_clip_activity(beentry->st_activity_raw);
+        }
+
+        beentry++;
+    }
+
+    // PID not found
+    return "<backend information not available>";
+}
+```

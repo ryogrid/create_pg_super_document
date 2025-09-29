@@ -43,3 +43,23 @@ The function first casts the Datum to a varattrib_1b_e pointer, then uses memcpy
 - The use of memcpy is deliberate to handle potential pointer alignment issues
 - This is a fundamental utility function used throughout PostgreSQL's expanded object system
 - The function is defined in src/backend/utils/adt/expandeddatum.c:29-47
+
+## Simplified Source
+
+```c
+ExpandedObjectHeader *DatumGetEOHP(Datum d) {
+    varattrib_1b_e *datum = (varattrib_1b_e *) DatumGetPointer(d);
+    varatt_expanded ptr;
+
+    // Verify input is an expanded object reference
+    Assert(VARATT_IS_EXTERNAL_EXPANDED(datum));
+
+    // Safely copy pointer to handle alignment issues
+    memcpy(&ptr, VARDATA_EXTERNAL(datum), sizeof(ptr));
+
+    // Verify extracted pointer is valid expanded header
+    Assert(VARATT_IS_EXPANDED_HEADER(ptr.eohptr));
+
+    return ptr.eohptr;
+}
+```

@@ -50,3 +50,69 @@ None (void function)
 - Falls back gracefully when called outside a transaction (storage system uses database default)
 - Converts explicit database default tablespace references to InvalidOid for consistency
 - Essential for operations that create temporary files like sorting, hashing, and tuple storage
+
+## Simplified Source
+
+```c
+void
+PrepareTempTablespaces(void)
+{
+    // Skip if already configured or not in transaction
+    if (TempTablespacesAreSet() || !IsTransactionState())
+        return;
+
+    // Parse the temp_tablespaces GUC setting
+    char *rawname = pstrdup(temp_tablespaces);
+    List *namelist;
+
+    if (!SplitIdentifierString(rawname, ',', &namelist)) {
+        // Handle syntax error - use no temp tablespaces
+        SetTempTablespaces(NULL, 0);
+        pfree(rawname);
+        list_free(namelist);
+        return;
+    }
+
+    // Allocate tablespace OID array in transaction context
+    Oid *tblSpcs = (Oid *) MemoryContextAlloc(TopTransactionContext,
+                                              list_length(namelist) * sizeof(Oid));
+    int numSpcs = 0;
+
+    // Validate each tablespace name and collect valid OIDs
+    ListCell *l;
+    foreach(l, namelist) {
+        char *curname = (char *) lfirst(l);
+
+        // Handle empty string (database default)
+        if (curname[0] == '\0') {
+            tblSpcs[numSpcs++] = InvalidOid;
+            continue;
+        }
+
+        // Look up tablespace by name
+        Oid curoid = get_tablespace_oid(curname, true);
+        if (curoid == InvalidOid)
+            continue;  // Skip invalid tablespace names
+
+        // Handle explicit database default tablespace
+        if (curoid == MyDatabaseTableSpace) {
+            tblSpcs[numSpcs++] = InvalidOid;
+            continue;
+        }
+
+        // Check CREATE permission on tablespace
+        AclResult aclresult = object_aclcheck(TableSpaceRelationId, curoid,
+                                              GetUserId(), ACL_CREATE);
+        if (aclresult != ACLCHECK_OK)
+            continue;  // Skip tablespaces without permission
+
+        tblSpcs[numSpcs++] = curoid;
+    }
+
+    // Configure the storage system with valid tablespaces
+    SetTempTablespaces(tblSpcs, numSpcs);
+
+    pfree(rawname);
+    list_free(namelist);
+}
+```

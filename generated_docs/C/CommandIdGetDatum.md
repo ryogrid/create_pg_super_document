@@ -30,3 +30,12 @@ CommandIdGetDatum is a static inline function that performs a simple type cast f
 - The function performs a simple cast with no validation, directly converting the CommandId to Datum
 - Used in system attribute access functions and return macros for CommandId values
 - Part of PostgreSQL's broader Datum conversion API that provides type-safe conversion methods between specific types and the generic Datum representation
+
+## Simplified Source
+
+```c
+static inline Datum CommandIdGetDatum(CommandId X) {
+    // Simple cast from CommandId to Datum
+    return (Datum) X;
+}
+```

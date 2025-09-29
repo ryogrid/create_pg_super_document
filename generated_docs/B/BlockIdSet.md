@@ -34,3 +34,15 @@ BlockIdSet initializes a BlockIdData structure by decomposing a BlockNumber (32-
 - Part of PostgreSQL's block management system for efficient storage space utilization
 - [BlockIdData](BlockIdData.md) structures can be SHORTALIGN'd, making them space-efficient for on-disk storage
 - Commonly used in tuple headers and page management operations
+
+## Simplified Source
+
+```c
+static inline void
+BlockIdSet(BlockIdData *blockId, BlockNumber blockNumber)
+{
+    // Split 32-bit block number into high and low 16-bit components
+    blockId->bi_hi = blockNumber >> 16;  // Upper 16 bits
+    blockId->bi_lo = blockNumber & 0xffff;  // Lower 16 bits
+}
+```

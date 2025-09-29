@@ -51,3 +51,30 @@ The function implements proper error handling by raising appropriate ECPG errors
 - Thread-safe operation through ECPGget_sqlca() which handles per-thread SQLCA management
 - Returns false on any validation failure, true on successful initialization
 - Part of the core ECPG runtime library located at src/interfaces/ecpg/ecpglib/misc.c:73-95
+
+## Simplified Source
+
+```c
+bool ecpg_init(const struct connection *con, const char *connection_name, const int lineno) {
+    // Get the SQL Communication Area for this thread
+    struct sqlca_t *sqlca = ECPGget_sqlca();
+
+    // Check if SQLCA is available
+    if (sqlca == NULL) {
+        ecpg_raise(lineno, ECPG_OUT_OF_MEMORY, ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY, NULL);
+        return false;
+    }
+
+    // Initialize the SQLCA to default state
+    ecpg_init_sqlca(sqlca);
+
+    // Verify database connection is valid
+    if (con == NULL) {
+        ecpg_raise(lineno, ECPG_NO_CONN, ECPG_SQLSTATE_CONNECTION_DOES_NOT_EXIST,
+                   connection_name ? connection_name : ecpg_gettext("NULL"));
+        return false;
+    }
+
+    return true;
+}
+```

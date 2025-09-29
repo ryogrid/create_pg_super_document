@@ -38,3 +38,38 @@ This function checks the current state of the WAL receiver by examining the shar
 - Returns true if WAL receiver is in any state other than WALRCV_STOPPED
 - Critical for coordinating WAL receiver lifecycle management across processes
 - Automatically handles cleanup of failed startup attempts by transitioning to stopped state
+
+## Simplified Source
+
+```c
+bool
+WalRcvRunning(void)
+{
+    // Get current state and start time from shared memory
+    SpinLockAcquire(&walrcv->mutex);
+    WalRcvState state = walrcv->walRcvState;
+    pg_time_t startTime = walrcv->startTime;
+    SpinLockRelease(&walrcv->mutex);
+
+    // Check for startup timeout
+    if (state == WALRCV_STARTING) {
+        pg_time_t now = time(NULL);
+
+        if ((now - startTime) > WALRCV_STARTUP_TIMEOUT) {
+            // Startup took too long - mark as stopped
+            SpinLockAcquire(&walrcv->mutex);
+            if (walrcv->walRcvState == WALRCV_STARTING) {
+                walrcv->walRcvState = WALRCV_STOPPED;
+                state = WALRCV_STOPPED;
+
+                // Notify waiting processes
+                ConditionVariableBroadcast(&walrcv->walRcvStoppedCV);
+            }
+            SpinLockRelease(&walrcv->mutex);
+        }
+    }
+
+    // Return true if not stopped
+    return (state != WALRCV_STOPPED);
+}
+```

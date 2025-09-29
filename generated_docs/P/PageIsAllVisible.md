@@ -38,3 +38,14 @@ The function performs a simple bitwise AND operation between the page's pd_flags
 - The flag helps determine when pages can be skipped during vacuum operations
 - Frequently used in heap access methods and vacuum lazy operations
 - Returns true if all tuples on the page are visible to everyone, false otherwise
+
+## Simplified Source
+
+```c
+static inline bool
+PageIsAllVisible(Page page)
+{
+    // Check if the PD_ALL_VISIBLE flag is set in the page header
+    return ((PageHeader) page)->pd_flags & PD_ALL_VISIBLE;
+}
+```

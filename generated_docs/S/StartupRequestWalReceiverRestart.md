@@ -40,3 +40,17 @@ If both conditions are met, it sets the `pendingWalRcvRestart` flag to true and 
 - Logs a message at LOG level to indicate the restart request
 - Safe to call even when streaming replication is not active (no-op in that case)
 - Part of PostgreSQL's streaming replication infrastructure for handling dynamic configuration changes
+
+## Simplified Source
+```c
+void StartupRequestWalReceiverRestart(void)
+{
+    // Only restart if currently streaming and WAL receiver is running
+    if (currentSource == XLOG_FROM_STREAM && WalRcvRunning()) {
+        ereport(LOG, (errmsg("WAL receiver process shutdown requested")));
+
+        // Set flag to trigger restart
+        pendingWalRcvRestart = true;
+    }
+}
+```

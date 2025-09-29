@@ -46,3 +46,46 @@ The function handles schema qualification by checking if the operator family is 
 - Critical for generating descriptions of access method operators and procedures
 - Ensures proper memory management with system cache operations
 - Access method lookup uses a stricter error policy (always fails if not found)
+
+## Simplified Source
+
+```c
+static void
+getOpFamilyDescription(StringInfo buffer, Oid opfid, bool missing_ok)
+{
+    HeapTuple opfTup;
+    Form_pg_opfamily opfForm;
+    HeapTuple amTup;
+    Form_pg_am amForm;
+    char *nspname;
+
+    // Look up operator family information
+    opfTup = SearchSysCache1(OPFAMILYOID, ObjectIdGetDatum(opfid));
+    if (!HeapTupleIsValid(opfTup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for opfamily %u", opfid);
+        return;
+    }
+    opfForm = (Form_pg_opfamily) GETSTRUCT(opfTup);
+
+    // Look up access method information
+    amTup = SearchSysCache1(AMOID, ObjectIdGetDatum(opfForm->opfmethod));
+    if (!HeapTupleIsValid(amTup))
+        elog(ERROR, "cache lookup failed for access method %u", opfForm->opfmethod);
+    amForm = (Form_pg_am) GETSTRUCT(amTup);
+
+    // Determine if schema qualification is needed
+    if (OpfamilyIsVisible(opfid))
+        nspname = NULL;
+    else
+        nspname = get_namespace_name(opfForm->opfnamespace);
+
+    // Format description string
+    appendStringInfo(buffer, _("operator family %s for access method %s"),
+                     quote_qualified_identifier(nspname, NameStr(opfForm->opfname)),
+                     NameStr(amForm->amname));
+
+    ReleaseSysCache(amTup);
+    ReleaseSysCache(opfTup);
+}
+```

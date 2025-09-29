@@ -48,3 +48,30 @@ Like other error reporting functions, it operates within PostgreSQL's error hand
 - Part of PostgreSQL's structured error reporting with security-conscious message routing
 - Enables comprehensive server-side logging while maintaining appropriate client information boundaries
 - Essential for debugging and monitoring in production environments where client access to detailed internal state would be inappropriate
+
+## Simplified Source
+
+```c
+int
+errdetail_log(const char *fmt, ...)
+{
+    ErrorData *edata = &errordata[errordata_stack_depth];
+    MemoryContext oldcontext;
+
+    // Manage recursion safety
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+
+    // Switch to error data's memory context for safe message handling
+    oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Evaluate the message with translation support (detail_log = server-only)
+    EVALUATE_MESSAGE(edata->domain, detail_log, false, true);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+
+    return 0;  // Return value not meaningful
+}
+```

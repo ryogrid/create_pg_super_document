@@ -57,3 +57,45 @@ The function is particularly important when copying datums out of transient memo
 - Pass-by-value types require no memory allocation since the value is already copied by parameter passing
 - The function is crucial for datum lifecycle management in complex operations like aggregation and sorting
 - Callers can assume the returned datum is independent of the original datum's memory
+
+## Simplified Source
+
+```c
+Datum datumCopy(Datum value, bool typByVal, int typLen) {
+    Datum res;
+
+    if (typByVal) {
+        // Pass-by-value: just return the value (already copied)
+        res = value;
+    }
+    else if (typLen == -1) {
+        // Variable-length (varlena) type
+        struct varlena *vl = (struct varlena *) DatumGetPointer(value);
+
+        if (VARATT_IS_EXTERNAL_EXPANDED(vl)) {
+            // Flatten expanded object into caller's memory context
+            ExpandedObjectHeader *eoh = DatumGetEOHP(value);
+            Size resultsize = EOH_get_flat_size(eoh);
+            char *resultptr = (char *) palloc(resultsize);
+            EOH_flatten_into(eoh, (void *) resultptr, resultsize);
+            res = PointerGetDatum(resultptr);
+        }
+        else {
+            // Regular varlena: copy the entire datum
+            Size realSize = (Size) VARSIZE_ANY(vl);
+            char *resultptr = (char *) palloc(realSize);
+            memcpy(resultptr, vl, realSize);
+            res = PointerGetDatum(resultptr);
+        }
+    }
+    else {
+        // Fixed-length pass-by-reference type
+        Size realSize = datumGetSize(value, typByVal, typLen);
+        char *resultptr = (char *) palloc(realSize);
+        memcpy(resultptr, DatumGetPointer(value), realSize);
+        res = PointerGetDatum(resultptr);
+    }
+
+    return res;
+}
+```

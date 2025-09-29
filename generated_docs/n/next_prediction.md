@@ -33,3 +33,15 @@ The `next_prediction` function provides a non-destructive look-ahead operation f
 - Used for decision-making in the parsing algorithm where the parser needs to know what to expect next
 - Complementary to `pop_prediction` which actually consumes the prediction
 - Essential for implementing look-ahead functionality in the predictive JSON parser
+
+## Simplified Source
+
+```c
+static inline char next_prediction(JsonParserStack *pstack) {
+    // Ensure we have at least one prediction
+    Assert(pstack->pred_index > 0);
+
+    // Return the top prediction without removing it
+    return pstack->prediction[pstack->pred_index - 1];
+}
+```

@@ -44,3 +44,25 @@ The WAL record uses the XLOG_INVALIDATIONS record type and includes both the hea
 - The xl_invalidations structure is zeroed before use to ensure clean initialization
 - Both the header structure and the message array are registered as separate data chunks in the WAL record
 - Located in src/backend/storage/ipc/standby.c:1462-1483
+
+## Simplified Source
+
+```c
+void LogStandbyInvalidations(int nmsgs, SharedInvalidationMessage *msgs,
+                            bool relcacheInitFileInval) {
+    xl_invalidations xlrec;
+
+    // Prepare the invalidation record header
+    memset(&xlrec, 0, sizeof(xlrec));
+    xlrec.dbId = MyDatabaseId;
+    xlrec.tsId = MyDatabaseTableSpace;
+    xlrec.relcacheInitFileInval = relcacheInitFileInval;
+    xlrec.nmsgs = nmsgs;
+
+    // Write to WAL: header followed by invalidation messages
+    XLogBeginInsert();
+    XLogRegisterData((char *) (&xlrec), MinSizeOfInvalidations);
+    XLogRegisterData((char *) msgs, nmsgs * sizeof(SharedInvalidationMessage));
+    XLogInsert(RM_STANDBY_ID, XLOG_INVALIDATIONS);
+}
+```

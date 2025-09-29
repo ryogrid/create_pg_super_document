@@ -10,8 +10,8 @@ Fetches a tuple at a specific TID as part of an index scan, performing visibilit
 
 ```c
 static inline bool table_index_fetch_tuple(struct IndexFetchTableData *scan,
-					ItemPointer tid, Snapshot snapshot,
-					TupleTableSlot *slot, bool *call_again, bool *all_dead)
+				ItemPointer tid, Snapshot snapshot,
+				TupleTableSlot *slot, bool *call_again, bool *all_dead)
 ```
 ## Detailed Description
 This function is a core component of PostgreSQL's index scanning mechanism within the table access method (tableam) interface. It retrieves a tuple identified by a tuple ID (TID) and tests its visibility according to the provided snapshot. The function is designed to handle advanced scenarios like PostgreSQL's Heap-Only Tuple (HOT) optimization, where multiple row versions can be reached through a single index entry.
@@ -57,3 +57,21 @@ The key distinction from table_tuple_fetch_row_version() is that this function c
 - Critical for index scan performance, especially with HOT optimization
 - The call_again mechanism allows iteration through multiple tuple versions efficiently
 - The all_dead flag enables index cleanup optimizations by identifying completely dead tuples
+
+## Simplified Source
+
+```c
+static inline bool
+table_index_fetch_tuple(struct IndexFetchTableData *scan,
+                        ItemPointer tid, Snapshot snapshot,
+                        TupleTableSlot *slot, bool *call_again, bool *all_dead) {
+
+    // Prevent unexpected calls during logical decoding
+    if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan))
+        elog(ERROR, "unexpected table_index_fetch_tuple call during logical decoding");
+
+    // Delegate to table access method's index_fetch_tuple implementation
+    return scan->rel->rd_tableam->index_fetch_tuple(scan, tid, snapshot,
+                                                    slot, call_again, all_dead);
+}
+```

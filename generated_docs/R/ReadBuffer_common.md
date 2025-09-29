@@ -48,3 +48,54 @@ ReadBuffer_common serves as the core implementation for all buffer reading opera
 - RBM_ZERO_ON_ERROR mode translates to READ_BUFFERS_ZERO_ON_ERROR flags for the asynchronous read operations
 - The function is marked as always_inline for performance since it's a critical path in database operations
 - For zero-and-lock modes, there's no difference between exclusive and cleanup-strength locks since no other process can access the page contents yet
+
+## Simplified Source
+
+```c
+static pg_attribute_always_inline Buffer ReadBuffer_common(Relation rel, SMgrRelation smgr,
+                                                           char smgr_persistence, ForkNumber forkNum,
+                                                           BlockNumber blockNum, ReadBufferMode mode,
+                                                           BufferAccessStrategy strategy) {
+    ReadBuffersOperation operation;
+    Buffer buffer;
+    int flags;
+
+    // Handle P_NEW block requests (extending relation)
+    if (unlikely(blockNum == P_NEW)) {
+        uint32 flags = EB_SKIP_EXTENSION_LOCK;
+
+        // For zero-and-lock modes, lock the new buffer immediately
+        if (mode == RBM_ZERO_AND_LOCK || mode == RBM_ZERO_AND_CLEANUP_LOCK)
+            flags |= EB_LOCK_FIRST;
+
+        return ExtendBufferedRel(BMR_REL(rel), forkNum, strategy, flags);
+    }
+
+    // Handle zero-and-lock modes
+    if (unlikely(mode == RBM_ZERO_AND_CLEANUP_LOCK || mode == RBM_ZERO_AND_LOCK)) {
+        bool found;
+
+        // Pin the buffer and zero/lock it
+        buffer = PinBufferForBlock(rel, smgr, smgr_persistence,
+                                  forkNum, blockNum, strategy, &found);
+        ZeroAndLockBuffer(buffer, mode, found);
+        return buffer;
+    }
+
+    // Handle standard read modes (possibly with zero-on-error)
+    flags = (mode == RBM_ZERO_ON_ERROR) ? READ_BUFFERS_ZERO_ON_ERROR : 0;
+
+    // Set up read operation
+    operation.smgr = smgr;
+    operation.rel = rel;
+    operation.smgr_persistence = smgr_persistence;
+    operation.forknum = forkNum;
+    operation.strategy = strategy;
+
+    // Start asynchronous read and wait if needed
+    if (StartReadBuffer(&operation, &buffer, blockNum, flags))
+        WaitReadBuffers(&operation);
+
+    return buffer;
+}
+```

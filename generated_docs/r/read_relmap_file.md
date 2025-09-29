@@ -46,3 +46,59 @@ The function manages concurrent access by acquiring RelationMappingLock unless t
 - Critical for PostgreSQL system catalog access - failures at ERROR level or higher
 - The sinval mechanism ensures re-reading if files are updated during operation
 - Part of PostgreSQL's core relation mapping infrastructure for system catalogs
+
+## Simplified Source
+
+```c
+static void read_relmap_file(RelMapFile *map, char *dbpath, bool lock_held, int elevel) {
+    char mapfilename[MAXPGPATH];
+    pg_crc32c crc;
+    int fd, r;
+
+    // Acquire lock unless caller already holds it
+    if (!lock_held)
+        LWLockAcquire(RelationMappingLock, LW_SHARED);
+
+    // Build filename and open the relation mapping file
+    snprintf(mapfilename, sizeof(mapfilename), "%s/%s", dbpath, RELMAPPER_FILENAME);
+    fd = OpenTransientFile(mapfilename, O_RDONLY | PG_BINARY);
+    if (fd < 0)
+        ereport(elevel, (errcode_for_file_access(),
+                errmsg("could not open file \"%s\": %m", mapfilename)));
+
+    // Read the entire RelMapFile structure
+    pgstat_report_wait_start(WAIT_EVENT_RELATION_MAP_READ);
+    r = read(fd, map, sizeof(RelMapFile));
+    if (r != sizeof(RelMapFile)) {
+        if (r < 0)
+            ereport(elevel, (errcode_for_file_access(),
+                    errmsg("could not read file \"%s\": %m", mapfilename)));
+        else
+            ereport(elevel, (errcode(ERRCODE_DATA_CORRUPTED),
+                    errmsg("could not read file \"%s\": read %d of %zu",
+                           mapfilename, r, sizeof(RelMapFile))));
+    }
+    pgstat_report_wait_end();
+
+    // Close file and release lock
+    CloseTransientFile(fd);
+    if (!lock_held)
+        LWLockRelease(RelationMappingLock);
+
+    // Validate file contents: magic number and mapping count
+    if (map->magic != RELMAPPER_FILEMAGIC ||
+        map->num_mappings < 0 ||
+        map->num_mappings > MAX_MAPPINGS)
+        ereport(elevel, (errmsg("relation mapping file \"%s\" contains invalid data",
+                               mapfilename)));
+
+    // Verify CRC checksum
+    INIT_CRC32C(crc);
+    COMP_CRC32C(crc, (char *) map, offsetof(RelMapFile, crc));
+    FIN_CRC32C(crc);
+
+    if (!EQ_CRC32C(crc, map->crc))
+        ereport(elevel, (errmsg("relation mapping file \"%s\" contains incorrect checksum",
+                               mapfilename)));
+}
+```

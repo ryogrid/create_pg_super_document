@@ -25,3 +25,12 @@ The `get_fname` function is a static inline helper function that returns the fie
 
 ## Notes and Other Information
 This is a static inline function, meaning it is only accessible within the jsonapi.c file and will likely be inlined by the compiler for performance. The function serves as a companion to `set_fname`, providing read access to the field names stored during JSON parsing. It returns a char pointer to the field name string, which may be NULL if no field name has been set for the current level.
+
+## Simplified Source
+
+```c
+static inline char *get_fname(JsonLexContext *lex) {
+    // Get the field name for the current parsing level
+    return lex->pstack->fnames[lex->lex_level];
+}
+```

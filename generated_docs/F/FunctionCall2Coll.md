@@ -48,3 +48,31 @@ The function creates a local FunctionCallInfoData structure with space for 2 arg
 - Extensively used throughout PostgreSQL for comparison functions, BRIN index operations, B-tree operations, GiST operations, range type operations, and various data type operations
 - Critical for operations that require comparing two values with collation awareness
 - Located in src/backend/utils/fmgr/fmgr.c:1149-1170
+
+## Simplified Source
+
+```c
+Datum FunctionCall2Coll(FmgrInfo *flinfo, Oid collation, Datum arg1, Datum arg2)
+{
+    LOCAL_FCINFO(fcinfo, 2);
+    Datum result;
+
+    // Step 1: Initialize function call info structure with 2 arguments and collation
+    InitFunctionCallInfoData(*fcinfo, flinfo, 2, collation, NULL, NULL);
+
+    // Step 2: Set up the two arguments
+    fcinfo->args[0].value = arg1;
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = arg2;
+    fcinfo->args[1].isnull = false;
+
+    // Step 3: Call the actual function
+    result = FunctionCallInvoke(fcinfo);
+
+    // Step 4: Check for unexpected NULL result
+    if (fcinfo->isnull)
+        elog(ERROR, "function %u returned NULL", flinfo->fn_oid);
+
+    return result;
+}
+```

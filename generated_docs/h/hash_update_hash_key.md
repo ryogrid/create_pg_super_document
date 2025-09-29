@@ -49,3 +49,69 @@ The function includes special handling for frozen hashtables (updates are disall
 - Currently reports false even if old and new hash keys are identical (this is intentional for existing uses)
 - Includes hash statistics tracking when HASH_STATISTICS is enabled
 - Disallows updates on frozen hashtables to maintain data consistency
+
+## Simplified Source
+
+```c
+bool
+hash_update_hash_key(HTAB *hashp, void *existingEntry, const void *newKeyPtr)
+{
+    HASHELEMENT *existingElement = ELEMENT_FROM_KEY(existingEntry);
+    uint32 newhashvalue, bucket, newbucket;
+    HASHBUCKET currBucket, *prevBucketPtr, *oldPrevPtr;
+
+    // Check if hashtable is frozen (disallow updates)
+    if (hashp->frozen)
+        elog(ERROR, "cannot update in frozen hashtable");
+
+    // Find existing element in its current hash chain
+    bucket = hash_initial_lookup(hashp, existingElement->hashvalue, &prevBucketPtr);
+    currBucket = *prevBucketPtr;
+
+    while (currBucket != NULL) {
+        if (currBucket == existingElement)
+            break;
+        prevBucketPtr = &(currBucket->link);
+        currBucket = *prevBucketPtr;
+    }
+
+    // Verify element exists in table
+    if (currBucket == NULL)
+        elog(ERROR, "hash_update_hash_key argument is not in hashtable");
+
+    oldPrevPtr = prevBucketPtr;
+
+    // Calculate new hash value and find target bucket
+    newhashvalue = hashp->hash(newKeyPtr, hashp->keysize);
+    newbucket = hash_initial_lookup(hashp, newhashvalue, &prevBucketPtr);
+    currBucket = *prevBucketPtr;
+
+    // Check for collision with existing key
+    while (currBucket != NULL) {
+        if (currBucket->hashvalue == newhashvalue &&
+            hashp->match(ELEMENTKEY(currBucket), newKeyPtr, hashp->keysize) == 0)
+            break;
+        prevBucketPtr = &(currBucket->link);
+        currBucket = *prevBucketPtr;
+    }
+
+    // Return false if new key already exists
+    if (currBucket != NULL)
+        return false;
+
+    currBucket = existingElement;
+
+    // Update hash chain links if moving to different bucket
+    if (bucket != newbucket) {
+        *oldPrevPtr = currBucket->link;
+        *prevBucketPtr = currBucket;
+        currBucket->link = NULL;
+    }
+
+    // Update element with new key and hash value
+    currBucket->hashvalue = newhashvalue;
+    hashp->keycopy(ELEMENTKEY(currBucket), newKeyPtr, hashp->keysize);
+
+    return true;
+}
+```

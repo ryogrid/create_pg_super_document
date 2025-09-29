@@ -49,3 +49,37 @@ For ambiguous operators, it suggests that explicit type casts might resolve the 
 - Uses ERRCODE_UNDEFINED_FUNCTION for no matches
 - Generates helpful hints about explicit type casting to resolve operator resolution issues
 - The function never returns as it always raises an ERROR
+
+## Simplified Source
+
+```c
+static void
+op_error(ParseState *pstate, List *op,
+         Oid arg1, Oid arg2,
+         FuncDetailCode fdresult, int location)
+{
+    if (fdresult == FUNCDETAIL_MULTIPLE) {
+        // Multiple operators found - ambiguous
+        ereport(ERROR,
+                (errcode(ERRCODE_AMBIGUOUS_FUNCTION),
+                 errmsg("operator is not unique: %s",
+                        op_signature_string(op, arg1, arg2)),
+                 errhint("Could not choose a best candidate operator. "
+                         "You might need to add explicit type casts."),
+                 parser_errposition(pstate, location)));
+    }
+    else {
+        // No operator found
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("operator does not exist: %s",
+                        op_signature_string(op, arg1, arg2)),
+                 (!arg1 || !arg2) ?
+                 errhint("No operator matches the given name and argument type. "
+                         "You might need to add an explicit type cast.") :
+                 errhint("No operator matches the given name and argument types. "
+                         "You might need to add explicit type casts."),
+                 parser_errposition(pstate, location)));
+    }
+}
+```

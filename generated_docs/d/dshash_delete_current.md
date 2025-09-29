@@ -40,3 +40,21 @@ dshash_delete_current provides the ability to safely delete the current item dur
 - Primarily used in PostgreSQL's statistics system for removing obsolete or unwanted statistics entries
 - After deletion, the scan can continue normally with subsequent dshash_seq_next() calls
 - The deleted item's memory is properly freed and returned to the dynamic shared area
+
+## Simplified Source
+
+```c
+void
+dshash_delete_current(dshash_seq_status *status)
+{
+    dshash_table *hash_table = status->hash_table;
+    dshash_table_item *item = status->curitem;
+
+    // Verify scan is in exclusive mode and locks are held
+    Assert(status->exclusive);
+    Assert(hash_table->control->magic == DSHASH_MAGIC);
+
+    // Delete the current item
+    delete_item(hash_table, item);
+}
+```

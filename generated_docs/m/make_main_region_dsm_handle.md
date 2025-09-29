@@ -40,3 +40,25 @@ The handle construction uses bit manipulation to pack the slot number and random
 - Handle format: [random bits][slot << 1][1] (LSB always 1)
 - Critical for proper DSM handle uniqueness and identification
 - Located in src/backend/storage/ipc/dsm.c:1262-1280
+
+## Simplified Source
+
+```c
+static inline dsm_handle
+make_main_region_dsm_handle(int slot)
+{
+    dsm_handle handle;
+
+    // Start with 1 to ensure handle is odd (avoids collision with extra segments)
+    handle = 1;
+
+    // Encode slot number in bits 1 and above
+    handle |= slot << 1;
+
+    // Add random bits in upper portion to avoid handle reuse conflicts
+    handle |= pg_prng_uint32(&pg_global_prng_state) <<
+              (pg_leftmost_one_pos32(dsm_control->maxitems) + 1);
+
+    return handle;
+}
+```

@@ -49,3 +49,80 @@ The function supports test mode (PGC_S_TEST) where it reports issues as notices 
 - Test mode allows configuration validation with reduced error severity
 - Integrates with PostgreSQL's role-based access control system
 - Part of the GUC hook mechanism for dynamic configuration validation
+
+## Simplified Source
+
+```c
+bool
+check_role(char **newval, void **extra, GucSource source)
+{
+    HeapTuple roleTup;
+    Oid roleid;
+    bool is_superuser;
+    role_auth_extra *myextra;
+    Form_pg_authid roleform;
+
+    // Handle "SET ROLE NONE" - unset current role
+    if (strcmp(*newval, "none") == 0)
+    {
+        roleid = InvalidOid;
+        is_superuser = false;
+    }
+    // Special case for parallel worker initialization
+    else if (InitializingParallelWorker)
+    {
+        roleid = GetCurrentRoleId();
+        is_superuser = current_role_is_superuser;
+    }
+    else
+    {
+        // Need transaction state for catalog lookups
+        if (!IsTransactionState())
+            return false;
+
+        // Look up the role in system catalog
+        roleTup = SearchSysCache1(AUTHNAME, PointerGetDatum(*newval));
+        if (!HeapTupleIsValid(roleTup))
+        {
+            if (source == PGC_S_TEST)
+            {
+                ereport(NOTICE, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                                errmsg("role \"%s\" does not exist", *newval)));
+                return true;
+            }
+            GUC_check_errmsg("role \"%s\" does not exist", *newval);
+            return false;
+        }
+
+        roleform = (Form_pg_authid) GETSTRUCT(roleTup);
+        roleid = roleform->oid;
+        is_superuser = roleform->rolsuper;
+
+        ReleaseSysCache(roleTup);
+
+        // Check if session user can assume this role
+        if (!member_can_set_role(GetSessionUserId(), roleid))
+        {
+            if (source == PGC_S_TEST)
+            {
+                ereport(NOTICE, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                                errmsg("permission will be denied to set role \"%s\"", *newval)));
+                return true;
+            }
+            GUC_check_errcode(ERRCODE_INSUFFICIENT_PRIVILEGE);
+            GUC_check_errmsg("permission denied to set role \"%s\"", *newval);
+            return false;
+        }
+    }
+
+    // Set up extra data for assign_role function
+    myextra = (role_auth_extra *) guc_malloc(LOG, sizeof(role_auth_extra));
+    if (!myextra)
+        return false;
+    myextra->roleid = roleid;
+    myextra->is_superuser = is_superuser;
+    *extra = (void *) myextra;
+
+    return true;
+}
+```

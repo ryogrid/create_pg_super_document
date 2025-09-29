@@ -37,3 +37,14 @@ This function works in conjunction with GetBufferFromRing to maintain the ring s
 - Simply assigns the buffer number to the current slot in the strategy's buffer array
 - Critical for populating ring slots when existing buffers cannot be reused
 - The current position is managed by GetBufferFromRing, so this function doesn't modify strategy->current
+
+## Simplified Source
+
+```c
+static void
+AddBufferToRing(BufferAccessStrategy strategy, BufferDesc *buf)
+{
+    // Add buffer to current slot in ring
+    strategy->buffers[strategy->current] = BufferDescriptorGetBuffer(buf);
+}
+```

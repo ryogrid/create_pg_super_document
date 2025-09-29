@@ -45,3 +45,43 @@ The `CatalogCacheComputeTupleHashValue` function serves as a tuple-oriented wrap
 - The extracted key values are immediately passed to `CatalogCacheComputeHashValue` for hash computation
 - Essential for cache invalidation operations where existing tuples need to be located and removed from the cache
 - Supports the same 1-4 key limitation as the underlying hash computation function
+
+## Simplified Source
+
+```c
+static uint32
+CatalogCacheComputeTupleHashValue(CatCache *cache, int nkeys, HeapTuple tuple)
+{
+    Datum v1 = 0, v2 = 0, v3 = 0, v4 = 0;
+    bool isNull = false;
+    int *cc_keyno = cache->cc_keyno;
+    TupleDesc cc_tupdesc = cache->cc_tupdesc;
+
+    // Extract key values from tuple based on number of keys
+    switch (nkeys)
+    {
+        case 4:
+            v4 = fastgetattr(tuple, cc_keyno[3], cc_tupdesc, &isNull);
+            Assert(!isNull);
+            // FALLTHROUGH
+        case 3:
+            v3 = fastgetattr(tuple, cc_keyno[2], cc_tupdesc, &isNull);
+            Assert(!isNull);
+            // FALLTHROUGH
+        case 2:
+            v2 = fastgetattr(tuple, cc_keyno[1], cc_tupdesc, &isNull);
+            Assert(!isNull);
+            // FALLTHROUGH
+        case 1:
+            v1 = fastgetattr(tuple, cc_keyno[0], cc_tupdesc, &isNull);
+            Assert(!isNull);
+            break;
+        default:
+            elog(FATAL, "wrong number of hash keys: %d", nkeys);
+            break;
+    }
+
+    // Compute and return hash value using extracted key values
+    return CatalogCacheComputeHashValue(cache, nkeys, v1, v2, v3, v4);
+}
+```

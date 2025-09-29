@@ -42,3 +42,64 @@ This function serves as the primary interface for retrieving transaction objects
 - When creating new transactions, they are initialized with restart_decoding_lsn from the reorder buffer
 - Top-level transactions are maintained in LSN order in the toplevel_by_lsn list for proper commit ordering
 - The function is static and only used within the reorderbuffer.c module
+
+## Simplified Source
+
+```c
+static ReorderBufferTXN *
+ReorderBufferTXNByXid(ReorderBuffer *rb, TransactionId xid, bool create,
+                      bool *is_new, XLogRecPtr lsn, bool create_as_top)
+{
+    ReorderBufferTXN *txn;
+    ReorderBufferTXNByIdEnt *ent;
+    bool found;
+
+    // Check single-entry cache first for recent transaction
+    if (TransactionIdIsValid(rb->by_txn_last_xid) && rb->by_txn_last_xid == xid) {
+        txn = rb->by_txn_last_txn;
+
+        if (txn != NULL) {
+            // Cache hit - return existing transaction
+            if (is_new)
+                *is_new = false;
+            return txn;
+        }
+
+        // Cached as non-existent - return NULL if not creating
+        if (!create)
+            return NULL;
+    }
+
+    // Search or create in hash table
+    ent = (ReorderBufferTXNByIdEnt *)
+        hash_search(rb->by_txn, &xid, create ? HASH_ENTER : HASH_FIND, &found);
+
+    if (found) {
+        txn = ent->txn;
+    } else if (create) {
+        // Create new transaction entry
+        ent->txn = ReorderBufferGetTXN(rb);
+        ent->txn->xid = xid;
+        txn = ent->txn;
+        txn->first_lsn = lsn;
+        txn->restart_decoding_lsn = rb->current_restart_decoding_lsn;
+
+        // Add to top-level transaction list if requested
+        if (create_as_top) {
+            dlist_push_tail(&rb->toplevel_by_lsn, &txn->node);
+            AssertTXNLsnOrder(rb);
+        }
+    } else {
+        txn = NULL;  // Not found and not creating
+    }
+
+    // Update cache with result
+    rb->by_txn_last_xid = xid;
+    rb->by_txn_last_txn = txn;
+
+    if (is_new)
+        *is_new = !found;
+
+    return txn;
+}
+```

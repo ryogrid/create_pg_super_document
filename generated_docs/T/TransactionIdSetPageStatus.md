@@ -57,3 +57,41 @@ The group update optimization is particularly beneficial in high-concurrency sce
 - Falls back gracefully to direct lock acquisition if group update mechanisms fail
 - Optimizes for the common case where all transactions being updated are on the same CLOG page
 - Part of PostgreSQL's broader effort to reduce lock contention in high-concurrency transaction processing scenarios
+
+## Simplified Source
+
+```c
+static void
+TransactionIdSetPageStatus(TransactionId xid, int nsubxids,
+                          TransactionId *subxids, XidStatus status,
+                          XLogRecPtr lsn, int64 pageno,
+                          bool all_xact_same_page)
+{
+    // Get the bank lock for this page
+    LWLock *lock = SimpleLruGetBankLock(XactCtl, pageno);
+
+    // Try group update optimization if conditions are favorable
+    if (all_xact_same_page && xid == MyProc->xid &&
+        nsubxids <= THRESHOLD_SUBTRANS_CLOG_OPT &&
+        nsubxids == MyProc->subxidStatus.count &&
+        (nsubxids == 0 || memcmp(subxids, MyProc->subxids.xids,
+                                nsubxids * sizeof(TransactionId)) == 0)) {
+
+        // Try to get lock immediately
+        if (LWLockConditionalAcquire(lock, LW_EXCLUSIVE)) {
+            TransactionIdSetPageStatusInternal(xid, nsubxids, subxids, status, lsn, pageno);
+            LWLockRelease(lock);
+            return;
+        }
+        // Try group update mechanism
+        else if (TransactionGroupUpdateXidStatus(xid, status, lsn, pageno)) {
+            return; // Group update succeeded
+        }
+    }
+
+    // Fall back to regular lock acquisition
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+    TransactionIdSetPageStatusInternal(xid, nsubxids, subxids, status, lsn, pageno);
+    LWLockRelease(lock);
+}
+```

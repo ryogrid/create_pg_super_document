@@ -8,8 +8,8 @@ Reports detailed error messages for various types of datetime input processing e
 
 ## Definition
 ```c
-void DateTimeParseError(int dterr, DateTimeErrorExtra *extra, 
-                       const char *str, const char *datatype, 
+void DateTimeParseError(int dterr, DateTimeErrorExtra *extra,
+                       const char *str, const char *datatype,
                        Node *escontext)
 ```
 
@@ -54,3 +54,61 @@ Different error types produce specialized error messages:
 - MD_FIELD_OVERFLOW errors specifically suggest checking DateStyle configuration
 - Default case handles DTERR_BAD_FORMAT and any unrecognized error codes
 - Function is void and does not return - either throws an error or fills escontext
+
+## Simplified Source
+
+```c
+void
+DateTimeParseError(int dterr, DateTimeErrorExtra *extra,
+                   const char *str, const char *datatype,
+                   Node *escontext)
+{
+    switch (dterr) {
+        case DTERR_FIELD_OVERFLOW:
+            errsave(escontext,
+                    (errcode(ERRCODE_DATETIME_FIELD_OVERFLOW),
+                     errmsg("date/time field value out of range: \"%s\"", str)));
+            break;
+
+        case DTERR_MD_FIELD_OVERFLOW:
+            errsave(escontext,
+                    (errcode(ERRCODE_DATETIME_FIELD_OVERFLOW),
+                     errmsg("date/time field value out of range: \"%s\"", str),
+                     errhint("Perhaps you need a different \"datestyle\" setting.")));
+            break;
+
+        case DTERR_INTERVAL_OVERFLOW:
+            errsave(escontext,
+                    (errcode(ERRCODE_INTERVAL_FIELD_OVERFLOW),
+                     errmsg("interval field value out of range: \"%s\"", str)));
+            break;
+
+        case DTERR_TZDISP_OVERFLOW:
+            errsave(escontext,
+                    (errcode(ERRCODE_INVALID_TIME_ZONE_DISPLACEMENT_VALUE),
+                     errmsg("time zone displacement out of range: \"%s\"", str)));
+            break;
+
+        case DTERR_BAD_TIMEZONE:
+            errsave(escontext,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("time zone \"%s\" not recognized", extra->dtee_timezone)));
+            break;
+
+        case DTERR_BAD_ZONE_ABBREV:
+            errsave(escontext,
+                    (errcode(ERRCODE_CONFIG_FILE_ERROR),
+                     errmsg("time zone \"%s\" not recognized", extra->dtee_timezone),
+                     errdetail("This time zone name appears in the configuration file for time zone abbreviation \"%s\".",
+                               extra->dtee_abbrev)));
+            break;
+
+        case DTERR_BAD_FORMAT:
+        default:
+            errsave(escontext,
+                    (errcode(ERRCODE_INVALID_DATETIME_FORMAT),
+                     errmsg("invalid input syntax for type %s: \"%s\"", datatype, str)));
+            break;
+    }
+}
+```

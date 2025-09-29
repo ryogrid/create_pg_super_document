@@ -43,3 +43,18 @@ This is particularly useful in executor nodes that need to track multiple slots 
 - The tuple table List serves as a registry for cleanup purposes during plan destruction
 - All slots in a tuple table can be cleaned up together using ExecResetTupleTable
 - This function maintains the same optimization benefits as MakeTupleTableSlot for fixed descriptors
+
+## Simplified Source
+
+```c
+TupleTableSlot *ExecAllocTableSlot(List **tupleTable, TupleDesc desc,
+                                   const TupleTableSlotOps *tts_ops) {
+    // Create a new tuple table slot
+    TupleTableSlot *slot = MakeTupleTableSlot(desc, tts_ops);
+
+    // Add the slot to the tuple table list for tracking
+    *tupleTable = lappend(*tupleTable, slot);
+
+    return slot;
+}
+```

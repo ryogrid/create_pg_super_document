@@ -46,3 +46,44 @@ The function includes assertions to ensure there is at most one updating transac
 - Includes assertion checking to verify at most one updater exists
 - In debug builds, validates the entire MultiXactId to ensure only one updater
 - Caller is responsible for checking the status of the returned transaction ID
+
+## Simplified Source
+
+```c
+static TransactionId
+MultiXactIdGetUpdateXid(TransactionId xmax, uint16 t_infomask)
+{
+    TransactionId update_xact = InvalidTransactionId;
+    MultiXactMember *members;
+    int nmembers;
+
+    Assert(!(t_infomask & HEAP_XMAX_LOCK_ONLY));
+    Assert(t_infomask & HEAP_XMAX_IS_MULTI);
+
+    // Get all members of the MultiXactId
+    nmembers = GetMultiXactIdMembers(xmax, &members, false, false);
+
+    if (nmembers > 0)
+    {
+        // Find the updating transaction (ignore lockers)
+        for (int i = 0; i < nmembers; i++)
+        {
+            if (!ISUPDATE_from_mxstatus(members[i].status))
+                continue;
+
+            // There can be at most one updater
+            Assert(update_xact == InvalidTransactionId);
+            update_xact = members[i].xid;
+
+#ifndef USE_ASSERT_CHECKING
+            // In non-debug builds, break after finding updater
+            break;
+#endif
+        }
+
+        pfree(members);
+    }
+
+    return update_xact;
+}
+```

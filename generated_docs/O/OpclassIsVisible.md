@@ -33,3 +33,12 @@ The visibility check is crucial for PostgreSQL's schema system, as it determines
 - Part of PostgreSQL's namespace visibility system used throughout the catalog management
 - Returns true if the operator class is visible, false otherwise
 - Does not handle missing operator classes gracefully - use OpclassIsVisibleExt for error handling
+
+## Simplified Source
+
+```c
+bool OpclassIsVisible(Oid opcid) {
+    // Simple wrapper: check if operator class is visible in search path
+    return OpclassIsVisibleExt(opcid, NULL);
+}
+```

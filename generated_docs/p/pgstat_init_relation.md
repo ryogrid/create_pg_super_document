@@ -38,3 +38,33 @@ The function assumes that the relation's `pgstat_info` field has been zeroed dur
 - The function respects the global pgstat_track_counts setting and can disable tracking dynamically
 - If statistics tracking is disabled after being enabled, the function properly cleans up existing associations
 - The actual allocation of pending stats memory and shared memory references happens in pgstat_assoc_relation()
+
+## Simplified Source
+
+```c
+void
+pgstat_init_relation(Relation rel) {
+    char relkind = rel->rd_rel->relkind;
+
+    // Only track stats for relations with storage and partitioned tables
+    if (!RELKIND_HAS_STORAGE(relkind) && relkind != RELKIND_PARTITIONED_TABLE) {
+        rel->pgstat_enabled = false;
+        rel->pgstat_info = NULL;
+        return;
+    }
+
+    // Check if global statistics tracking is enabled
+    if (!pgstat_track_counts) {
+        // Clean up any existing stats association
+        if (rel->pgstat_info)
+            pgstat_unlink_relation(rel);
+
+        rel->pgstat_enabled = false;
+        rel->pgstat_info = NULL;
+        return;
+    }
+
+    // Enable statistics tracking for this relation
+    rel->pgstat_enabled = true;
+}
+```

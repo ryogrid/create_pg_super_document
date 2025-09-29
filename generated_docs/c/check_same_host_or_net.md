@@ -49,3 +49,28 @@ This approach provides a robust way to implement network-based access control wi
 - The function is static and only used within the HBA authentication module
 - Both IPv4 and IPv6 interfaces are supported through the underlying implementation
 - Early termination is implemented in the callback - once any interface matches, enumeration stops and the function returns true
+
+## Simplified Source
+
+```c
+static bool
+check_same_host_or_net(SockAddr *raddr, IPCompareMethod method)
+{
+    check_network_data cn;
+
+    // Set up data structure for callback
+    cn.method = method;
+    cn.raddr = raddr;
+    cn.result = false;
+
+    errno = 0;
+    // Enumerate all network interfaces and check for matches
+    if (pg_foreach_ifaddr(check_network_callback, &cn) < 0)
+    {
+        ereport(LOG, (errmsg("error enumerating network interfaces: %m")));
+        return false;
+    }
+
+    return cn.result;
+}
+```

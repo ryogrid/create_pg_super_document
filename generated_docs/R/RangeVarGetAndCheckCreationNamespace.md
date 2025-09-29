@@ -61,3 +61,81 @@ Key safety features include namespace locking to prevent schema dropping during 
 - Modifies the input RangeVar to set appropriate persistence based on target namespace
 - Uses retry logic with SharedInvalidMessageCounter to handle concurrent DDL operations
 - Returns namespace OID and optionally sets existing relation OID through output parameter
+
+## Simplified Source
+```c
+Oid RangeVarGetAndCheckCreationNamespace(RangeVar *relation,
+                                        LOCKMODE lockmode,
+                                        Oid *existing_relation_id) {
+    Oid relid = InvalidOid;
+    Oid nspid;
+    uint64 inval_count;
+    bool retry = false;
+
+    // Reject cross-database references
+    if (relation->catalogname) {
+        if (strcmp(relation->catalogname, get_database_name(MyDatabaseId)) != 0) {
+            ereport(ERROR, "cross-database references are not implemented");
+        }
+    }
+
+    // Retry loop to handle concurrent DDL operations
+    for (;;) {
+        inval_count = SharedInvalidMessageCounter;
+
+        // Get target namespace and check for existing relation
+        nspid = RangeVarGetCreationNamespace(relation);
+        if (existing_relation_id != NULL) {
+            relid = get_relname_relid(relation->relname, nspid);
+        }
+
+        // Skip permission checks in bootstrap mode
+        if (IsBootstrapProcessingMode()) {
+            break;
+        }
+
+        // Check CREATE permission on namespace
+        AclResult aclresult = object_aclcheck(NamespaceRelationId, nspid,
+                                            GetUserId(), ACL_CREATE);
+        if (aclresult != ACLCHECK_OK) {
+            aclcheck_error(aclresult, OBJECT_SCHEMA, get_namespace_name(nspid));
+        }
+
+        // Handle retry logic - release old locks if targets changed
+        if (retry) {
+            // Release locks if namespace or relation changed
+            handle_lock_cleanup_on_retry();
+        }
+
+        // Acquire locks on namespace and existing relation
+        LockDatabaseObject(NamespaceRelationId, nspid, 0, AccessShareLock);
+
+        if (lockmode != NoLock && OidIsValid(relid)) {
+            // Check ownership before locking existing relation
+            if (!object_ownercheck(RelationRelationId, relid, GetUserId())) {
+                aclcheck_error(ACLCHECK_NOT_OWNER,
+                             get_relkind_objtype(get_rel_relkind(relid)),
+                             relation->relname);
+            }
+            LockRelationOid(relid, lockmode);
+        }
+
+        // Exit if no invalidation messages processed
+        if (inval_count == SharedInvalidMessageCounter) {
+            break;
+        }
+
+        retry = true;
+    }
+
+    // Adjust relation persistence based on namespace type
+    RangeVarAdjustRelationPersistence(relation, nspid);
+
+    // Set output parameter
+    if (existing_relation_id != NULL) {
+        *existing_relation_id = relid;
+    }
+
+    return nspid;
+}
+```

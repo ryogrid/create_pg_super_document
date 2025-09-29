@@ -42,3 +42,57 @@ The  function performs the complete deallocation of a prepared statement in the 
 - Memory cleanup is performed regardless of backend deallocation success to prevent memory leaks
 - The function properly maintains the linked list integrity by updating the previous statement's next pointer or the connection's prep_stmts head pointer
 - Error handling includes raising ECPG_INVALID_STMT errors for invalid statement names in non-INFORMIX modes
+
+## Simplified Source
+
+```c
+static bool deallocate_one(int lineno, enum COMPAT_MODE c, struct connection *con,
+                          struct prepared_statement *prev, struct prepared_statement *this) {
+    bool success = false;
+
+    // Log the deallocation attempt
+    ecpg_log("deallocate_one on line %d: name %s\n", lineno, this->name);
+
+    // Deallocate the statement in the backend database
+    if (this->prepared) {
+        // Build DEALLOCATE command
+        char *text = (char *) ecpg_alloc(strlen("deallocate \"\" ") + strlen(this->name),
+                                        this->stmt->lineno);
+        if (text) {
+            sprintf(text, "deallocate \"%s\"", this->name);
+
+            // Execute deallocate command
+            PGresult *query = PQexec(this->stmt->connection->connection, text);
+            ecpg_free(text);
+
+            // Check if command succeeded
+            if (ecpg_check_PQresult(query, lineno, this->stmt->connection->connection,
+                                   this->stmt->compat)) {
+                PQclear(query);
+                success = true;
+            }
+        }
+    }
+
+    // Handle error cases (except in INFORMIX mode)
+    if (!success && !INFORMIX_MODE(c)) {
+        ecpg_raise(lineno, ECPG_INVALID_STMT, ECPG_SQLSTATE_INVALID_SQL_STATEMENT_NAME,
+                   this->name);
+        return false;
+    }
+
+    // Free all client-side resources
+    ecpg_free(this->stmt->command);
+    ecpg_free(this->stmt);
+    ecpg_free(this->name);
+
+    // Remove from linked list
+    if (prev != NULL)
+        prev->next = this->next;
+    else
+        con->prep_stmts = this->next;
+
+    ecpg_free(this);
+    return true;
+}
+```

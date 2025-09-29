@@ -34,3 +34,14 @@ This function takes no parameters and returns a boolean value.
 - The function follows PostgreSQL's pattern of providing accessor functions for global state variables
 - Used during recovery to determine when to transition from standby to primary mode
 - Part of the broader standby server promotion mechanism that enables failover scenarios
+
+## Simplified Source
+
+```c
+bool
+IsPromoteSignaled(void)
+{
+    // Return the current state of the promotion signal flag
+    return promote_signaled;
+}
+```

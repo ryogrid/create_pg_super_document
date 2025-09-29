@@ -46,3 +46,30 @@ This function performs a system cache lookup to retrieve the attribute name (col
 - Essential function for translating internal attribute numbers to user-visible column names
 - Commonly used in error reporting, rule deparsing, and object description functions
 - The missing_ok parameter allows graceful handling of non-existent attributes in some contexts
+
+## Simplified Source
+
+```c
+char *
+get_attname(Oid relid, AttrNumber attnum, bool missing_ok)
+{
+    HeapTuple tp;
+
+    // Look up attribute by relation OID and attribute number
+    tp = SearchSysCache2(ATTNUM, ObjectIdGetDatum(relid), Int16GetDatum(attnum));
+    if (HeapTupleIsValid(tp)) {
+        Form_pg_attribute att_tup = (Form_pg_attribute) GETSTRUCT(tp);
+        char *result;
+
+        // Extract and copy attribute name
+        result = pstrdup(NameStr(att_tup->attname));
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // Handle missing attribute
+    if (!missing_ok)
+        elog(ERROR, "cache lookup failed for attribute %d of relation %u", attnum, relid);
+    return NULL;
+}
+```

@@ -51,9 +51,55 @@ The function uses a three-element wchar_t array passed via lparam to communicate
 ## Notes and Other Information
 - This function is Windows-specific and only compiled on Windows builds
 - Uses Windows API functions for locale information retrieval
-- Implements case-insensitive matching using 
+- Implements case-insensitive matching using
 - Returns FALSE to stop enumeration when a match is found, TRUE to continue searching
 - Handles both language-only matching ("English") and language_country matching ("English_United States")
 - The dwFlags parameter is explicitly ignored in this implementation
 - Uses wide character (UTF-16) strings throughout for compatibility with Windows locale APIs
 - Critical for converting user-friendly locale names to Windows system locale identifiers
+
+## Simplified Source
+
+```c
+static BOOL CALLBACK
+search_locale_enum(LPWSTR pStr, DWORD dwFlags, LPARAM lparam) {
+    wchar_t test_locale[LOCALE_NAME_MAX_LENGTH];
+    wchar_t **argv = (wchar_t **) lparam;
+
+    // Initialize search status to "not found"
+    *argv[2] = (wchar_t) 0;
+    memset(test_locale, 0, sizeof(test_locale));
+
+    // Get English language name for this locale
+    if (GetLocaleInfoEx(pStr, LOCALE_SENGLISHLANGUAGENAME,
+                        test_locale, LOCALE_NAME_MAX_LENGTH)) {
+
+        // Language-only comparison (no country specified)
+        if (wcsrchr(pStr, '-') == NULL || wcsrchr(argv[0], '_') == NULL) {
+            if (_wcsicmp(argv[0], test_locale) == 0) {
+                wcscpy(argv[1], pStr);      // Store matching locale
+                *argv[2] = (wchar_t) 1;     // Mark as found
+                return FALSE;               // Stop enumeration
+            }
+        }
+        // Language_Country comparison
+        else {
+            wcscat(test_locale, L"_");
+            size_t len = wcslen(test_locale);
+
+            // Get English country name and append
+            if (GetLocaleInfoEx(pStr, LOCALE_SENGLISHCOUNTRYNAME,
+                                test_locale + len,
+                                LOCALE_NAME_MAX_LENGTH - len)) {
+                if (_wcsicmp(argv[0], test_locale) == 0) {
+                    wcscpy(argv[1], pStr);      // Store matching locale
+                    *argv[2] = (wchar_t) 1;     // Mark as found
+                    return FALSE;               // Stop enumeration
+                }
+            }
+        }
+    }
+
+    return TRUE;  // Continue enumeration
+}
+```

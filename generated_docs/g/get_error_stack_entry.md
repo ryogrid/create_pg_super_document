@@ -43,4 +43,32 @@ The error stack mechanism allows PostgreSQL to handle errors that occur during e
 - The returned entry must be properly cleaned up using  and decrementing 
 - Preserves the current  value in  to maintain error context across function calls
 - Multiple stack entries indicate nested error conditions, which usually suggests the system is in trouble
-- This mechanism is separate from  checks, which guard against recursion within a single stack entry
+- This mechanism is separate from recursion_depth checks, which guard against recursion within a single stack entry
+
+## Simplified Source
+
+```c
+static ErrorData *
+get_error_stack_entry(void)
+{
+    ErrorData *edata;
+
+    // Allocate new error frame on stack
+    errordata_stack_depth++;
+
+    // Check for stack overflow to prevent infinite error loops
+    if (unlikely(errordata_stack_depth >= ERRORDATA_STACK_SIZE)) {
+        errordata_stack_depth = -1;  // Make room on stack
+        ereport(PANIC, (errmsg_internal("ERRORDATA_STACK_SIZE exceeded")));
+    }
+
+    // Initialize error frame to all zeroes
+    edata = &errordata[errordata_stack_depth];
+    memset(edata, 0, sizeof(ErrorData));
+
+    // Save errno to preserve error state
+    edata->saved_errno = errno;
+
+    return edata;
+}
+```

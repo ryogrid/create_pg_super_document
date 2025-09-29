@@ -54,3 +54,93 @@ The function is static and represents the standard MVCC visibility semantics use
 The function handles legacy HEAP_MOVED_OFF and HEAP_MOVED_IN cases for pre-9.0 binary upgrade compatibility. For current transactions, it uses command ID comparison to implement statement-level read consistency within a transaction.
 
 A critical optimization is that hint bits are only updated when transactions are definitively known to be committed/aborted according to the snapshot, avoiding the overhead of checking actual transaction status when it wouldn't change the visibility result. This design choice prioritizes reducing lock contention over immediate hint bit accuracy.
+
+## Simplified Source
+
+```c
+static bool HeapTupleSatisfiesMVCC(HeapTuple htup, Snapshot snapshot, Buffer buffer)
+{
+    HeapTupleHeader tuple = htup->t_data;
+
+    // Step 1: Check if tuple insertion (xmin) is committed
+    if (!HeapTupleHeaderXminCommitted(tuple)) {
+        if (HeapTupleHeaderXminInvalid(tuple))
+            return false;
+
+        // Handle pre-9.0 binary upgrade cases (HEAP_MOVED_OFF/IN)
+        if (handle_moved_cases(tuple, snapshot, buffer))
+            return process_moved_result();
+
+        // Handle current transaction's insertion
+        if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmin(tuple))) {
+            // Check command-level visibility
+            if (HeapTupleHeaderGetCmin(tuple) >= snapshot->curcid)
+                return false; // Inserted after scan started
+
+            return handle_current_transaction_xmax(tuple, snapshot, buffer);
+        }
+
+        // Check if inserting transaction is visible in snapshot
+        if (XidInMVCCSnapshot(HeapTupleHeaderGetRawXmin(tuple), snapshot))
+            return false; // Still in progress according to snapshot
+
+        // Check actual transaction status and set hint bits
+        if (TransactionIdDidCommit(HeapTupleHeaderGetRawXmin(tuple))) {
+            SetHintBits(tuple, buffer, HEAP_XMIN_COMMITTED, HeapTupleHeaderGetRawXmin(tuple));
+        } else {
+            SetHintBits(tuple, buffer, HEAP_XMIN_INVALID, InvalidTransactionId);
+            return false;
+        }
+    }
+    else {
+        // xmin is marked committed, but check snapshot visibility
+        if (!HeapTupleHeaderXminFrozen(tuple) &&
+            XidInMVCCSnapshot(HeapTupleHeaderGetRawXmin(tuple), snapshot))
+            return false; // Treat as still in progress
+    }
+
+    // Step 2: Insertion is visible, now check deletion/update (xmax)
+    if (tuple->t_infomask & HEAP_XMAX_INVALID)
+        return true; // Not deleted
+
+    if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask))
+        return true; // Just locked, not deleted
+
+    // Handle MultiXact (multiple concurrent operations)
+    if (tuple->t_infomask & HEAP_XMAX_IS_MULTI) {
+        TransactionId xmax = HeapTupleGetUpdateXid(tuple);
+        return handle_multixact_visibility(xmax, tuple, snapshot);
+    }
+
+    // Handle single deleting transaction
+    if (!(tuple->t_infomask & HEAP_XMAX_COMMITTED)) {
+        // Check if current transaction deleted this tuple
+        if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmax(tuple))) {
+            if (HeapTupleHeaderGetCmax(tuple) >= snapshot->curcid)
+                return true; // Deleted after scan started
+            else
+                return false; // Deleted before scan started
+        }
+
+        // Check if deleting transaction is visible in snapshot
+        if (XidInMVCCSnapshot(HeapTupleHeaderGetRawXmax(tuple), snapshot))
+            return true; // Deleter still in progress
+
+        // Check actual transaction status
+        if (!TransactionIdDidCommit(HeapTupleHeaderGetRawXmax(tuple))) {
+            SetHintBits(tuple, buffer, HEAP_XMAX_INVALID, InvalidTransactionId);
+            return true; // Deleting transaction aborted
+        }
+
+        SetHintBits(tuple, buffer, HEAP_XMAX_COMMITTED, HeapTupleHeaderGetRawXmax(tuple));
+    }
+    else {
+        // xmax is marked committed, but check snapshot visibility
+        if (XidInMVCCSnapshot(HeapTupleHeaderGetRawXmax(tuple), snapshot))
+            return true; // Treat deleter as still in progress
+    }
+
+    // Deleting transaction committed and is visible - tuple is deleted
+    return false;
+}
+```

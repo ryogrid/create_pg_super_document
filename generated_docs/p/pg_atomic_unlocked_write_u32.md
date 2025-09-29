@@ -38,3 +38,17 @@ The function provides no memory barrier semantics and includes pointer alignment
 - Primarily used in buffer management code where performance is crucial
 - Part of PostgreSQL's portable atomic operations abstraction layer
 - Use with caution - prefer pg_atomic_write_u32 unless performance is absolutely critical
+
+## Simplified Source
+
+```c
+static inline void
+pg_atomic_unlocked_write_u32(volatile pg_atomic_uint32 *ptr, uint32 val)
+{
+    // Verify pointer is properly aligned for atomic operations
+    AssertPointerAlignment(ptr, 4);
+
+    // Perform the unlocked atomic write via platform-specific implementation
+    pg_atomic_unlocked_write_u32_impl(ptr, val);
+}
+```

@@ -50,3 +50,65 @@ The function handles both regular and speculative insertion scenarios. Speculati
 - The function sets ri_NumIndices to 0 initially and only updates it after successful allocation
 - RowExclusiveLock is acquired on all indices, indicating intention to perform modifications
 - For speculative operations, additional metadata is built only for unique indices since they're the only ones that can participate in conflict detection
+
+## Simplified Source
+
+```c
+void ExecOpenIndices(ResultRelInfo *resultRelInfo, bool speculative) {
+    Relation resultRelation = resultRelInfo->ri_RelationDesc;
+    List *indexoidlist;
+    int len, i;
+    RelationPtr relationDescs;
+    IndexInfo **indexInfoArray;
+
+    // Initialize index count
+    resultRelInfo->ri_NumIndices = 0;
+
+    // Fast path: return early if relation has no indices
+    if (!RelationGetForm(resultRelation)->relhasindex) {
+        return;
+    }
+
+    // Get list of index OIDs for this relation
+    indexoidlist = RelationGetIndexList(resultRelation);
+    len = list_length(indexoidlist);
+    if (len == 0) {
+        return;
+    }
+
+    // Allocate arrays to store index descriptors and metadata
+    relationDescs = (RelationPtr) palloc(len * sizeof(Relation));
+    indexInfoArray = (IndexInfo **) palloc(len * sizeof(IndexInfo *));
+
+    // Store arrays in result structure
+    resultRelInfo->ri_NumIndices = len;
+    resultRelInfo->ri_IndexRelationDescs = relationDescs;
+    resultRelInfo->ri_IndexRelationInfo = indexInfoArray;
+
+    // Open each index and build metadata
+    i = 0;
+    foreach(l, indexoidlist) {
+        Oid indexOid = lfirst_oid(l);
+        Relation indexDesc;
+        IndexInfo *ii;
+
+        // Open index with exclusive lock for modifications
+        indexDesc = index_open(indexOid, RowExclusiveLock);
+
+        // Extract index metadata from system catalog
+        ii = BuildIndexInfo(indexDesc);
+
+        // Add speculative insertion info for unique indices if needed
+        if (speculative && ii->ii_Unique) {
+            BuildSpeculativeIndexInfo(indexDesc, ii);
+        }
+
+        // Store in arrays
+        relationDescs[i] = indexDesc;
+        indexInfoArray[i] = ii;
+        i++;
+    }
+
+    list_free(indexoidlist);
+}
+```

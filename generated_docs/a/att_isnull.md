@@ -38,3 +38,14 @@ The att_isnull function is a low-level utility that examines a tuple's null bitm
 - The function returns true if the attribute is null (bit is 0) and false if non-null (bit is 1)
 - This function is fundamental to PostgreSQL's tuple representation and is used throughout the system for null checking
 - The function is defined in tupmacs.h, indicating its role as a core tuple manipulation macro/function
+
+## Simplified Source
+
+```c
+static inline bool att_isnull(int ATT, const bits8 *BITS) {
+    // Calculate byte index: ATT >> 3 divides by 8
+    // Calculate bit position: ATT & 0x07 gives remainder (0-7)
+    // Check if the bit is 0 (null) - invert because 0=null, 1=non-null
+    return !(BITS[ATT >> 3] & (1 << (ATT & 0x07)));
+}
+```

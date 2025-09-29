@@ -42,3 +42,34 @@ The function performs a simple indexed lookup using the LargeObjectMetadataOidIn
 - Uses indexed scan for efficient lookup performance
 - Part of the object address and ACL checking infrastructure
 - Located in src/backend/catalog/pg_largeobject.c:155-184
+
+## Simplified Source
+
+```c
+bool
+LargeObjectExists(Oid loid)
+{
+    // Prepare scan key to search by OID
+    ScanKeyData skey[1];
+    ScanKeyInit(&skey[0], Anum_pg_largeobject_metadata_oid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(loid));
+
+    // Open large object metadata table
+    Relation pg_lo_meta = table_open(LargeObjectMetadataRelationId, AccessShareLock);
+
+    // Start indexed scan using the OID index
+    SysScanDesc sd = systable_beginscan(pg_lo_meta,
+                                       LargeObjectMetadataOidIndexId, true,
+                                       NULL, 1, skey);
+
+    // Check if we found a matching tuple
+    HeapTuple tuple = systable_getnext(sd);
+    bool retval = HeapTupleIsValid(tuple);
+
+    // Clean up scan and close table
+    systable_endscan(sd);
+    table_close(pg_lo_meta, AccessShareLock);
+
+    return retval;
+}
+```

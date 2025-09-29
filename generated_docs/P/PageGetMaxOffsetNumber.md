@@ -42,3 +42,20 @@ This function is essential for page traversal operations, space management, and 
 - Essential for maintaining page integrity during concurrent access
 - The inline declaration provides performance optimization for this frequently called function
 - Offset numbers are 1-based, so a page with 3 items will return offset number 3
+
+## Simplified Source
+
+```c
+static inline OffsetNumber
+PageGetMaxOffsetNumber(Page page)
+{
+    PageHeader pageheader = (PageHeader) page;
+
+    // Return 0 for uninitialized pages to ensure safe behavior
+    if (pageheader->pd_lower <= SizeOfPageHeaderData)
+        return 0;
+    else
+        // Calculate number of item identifiers = total items on page
+        return (pageheader->pd_lower - SizeOfPageHeaderData) / sizeof(ItemIdData);
+}
+```

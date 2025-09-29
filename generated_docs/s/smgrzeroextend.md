@@ -39,3 +39,22 @@ The smgrzeroextend function is a storage manager interface for efficiently exten
 - Invalidates the cache if the expected block count doesn't match actual state
 - Part of the storage manager abstraction layer supporting different storage implementations
 - Commonly used in buffer management for extending relations efficiently
+
+## Simplified Source
+
+```c
+void
+smgrzeroextend(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+               int nblocks, bool skipFsync)
+{
+    // Delegate to the appropriate storage manager implementation
+    smgrsw[reln->smgr_which].smgr_zeroextend(reln, forknum, blocknum,
+                                            nblocks, skipFsync);
+
+    // Update cached block count if it matches expected value
+    if (reln->smgr_cached_nblocks[forknum] == blocknum)
+        reln->smgr_cached_nblocks[forknum] = blocknum + nblocks;
+    else
+        reln->smgr_cached_nblocks[forknum] = InvalidBlockNumber;
+}
+```

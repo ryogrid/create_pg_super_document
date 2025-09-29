@@ -44,3 +44,81 @@ The implementation includes overflow protection by periodically decrementing all
 - Dynamically adjusts nextThreshold based on current queue utilization for optimal cleanup frequency
 - May temporarily release and reacquire locks when signaling backends, so minFree guarantee is not absolute
 - Part of PostgreSQL's distributed cache invalidation system ensuring bounded memory usage and backend synchronization
+
+## Simplified Source
+
+```c
+void SICleanupQueue(bool callerHasWriteLock, int minFree) {
+    SISeg *segP = shmInvalBuffer;
+    int min, minsig, lowbound, numMsgs;
+    ProcState *needSig = NULL;
+
+    // Acquire exclusive locks for queue modification
+    if (!callerHasWriteLock)
+        LWLockAcquire(SInvalWriteLock, LW_EXCLUSIVE);
+    LWLockAcquire(SInvalReadLock, LW_EXCLUSIVE);
+
+    // Find minimum message number across all backends
+    min = segP->maxMsgNum;
+    minsig = min - SIG_THRESHOLD;
+    lowbound = min - MAXNUMMESSAGES + minFree;
+
+    // Check each active backend
+    for (int i = 0; i < segP->numProcs; i++) {
+        ProcState *stateP = &segP->procState[segP->pgprocnos[i]];
+        int n = stateP->nextMsgNum;
+
+        // Skip reset or send-only backends
+        if (stateP->resetState || stateP->sendOnly)
+            continue;
+
+        // Force reset if backend is too far behind
+        if (n < lowbound) {
+            stateP->resetState = true;
+            continue;
+        }
+
+        // Track global minimum and find backend needing signal
+        if (n < min)
+            min = n;
+        if (n < minsig && !stateP->signaled) {
+            minsig = n;
+            needSig = stateP;
+        }
+    }
+    segP->minMsgNum = min;
+
+    // Handle counter overflow by wrapping around
+    if (min >= MSGNUMWRAPAROUND) {
+        segP->minMsgNum -= MSGNUMWRAPAROUND;
+        segP->maxMsgNum -= MSGNUMWRAPAROUND;
+        for (int i = 0; i < segP->numProcs; i++)
+            segP->procState[segP->pgprocnos[i]].nextMsgNum -= MSGNUMWRAPAROUND;
+    }
+
+    // Set next cleanup threshold
+    numMsgs = segP->maxMsgNum - segP->minMsgNum;
+    segP->nextThreshold = (numMsgs < CLEANUP_MIN) ?
+        CLEANUP_MIN : (numMsgs / CLEANUP_QUANTUM + 1) * CLEANUP_QUANTUM;
+
+    // Signal lagging backend if needed
+    if (needSig) {
+        pid_t his_pid = needSig->procPid;
+        ProcNumber his_procNumber = (needSig - &segP->procState[0]);
+
+        needSig->signaled = true;
+        LWLockRelease(SInvalReadLock);
+        LWLockRelease(SInvalWriteLock);
+
+        SendProcSignal(his_pid, PROCSIG_CATCHUP_INTERRUPT, his_procNumber);
+
+        if (callerHasWriteLock)
+            LWLockAcquire(SInvalWriteLock, LW_EXCLUSIVE);
+    } else {
+        // Clean release of locks
+        LWLockRelease(SInvalReadLock);
+        if (!callerHasWriteLock)
+            LWLockRelease(SInvalWriteLock);
+    }
+}
+```

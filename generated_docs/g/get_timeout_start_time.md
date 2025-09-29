@@ -34,3 +34,15 @@ The function returns a TimestampTz value representing the absolute time when the
 - Used primarily in lock management and process synchronization contexts
 - The persistent nature of start_time values helps maintain consistent timing information
 - No validation is performed on the TimeoutId parameter
+
+## Simplified Source
+
+```c
+TimestampTz
+get_timeout_start_time(TimeoutId id)
+{
+    // Return the start time for the specified timeout
+    // Returns 0 if timeout has never been activated
+    return all_timeouts[id].start_time;
+}
+```

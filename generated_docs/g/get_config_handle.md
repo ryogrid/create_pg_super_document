@@ -34,3 +34,19 @@ This is particularly useful in scenarios where the same configuration option nee
 - The returned handle remains valid as long as the GUC system is initialized
 - Designed to work in conjunction with set_config_with_handle() for performance optimization
 - Located in src/backend/utils/misc/guc.c:4287-4301
+
+## Simplified Source
+
+```c
+config_handle *
+get_config_handle(const char *name)
+{
+    struct config_generic *gen = find_option(name, false, false, 0);
+
+    // Return handle only if it's a permanent GUC (not a placeholder)
+    if (gen && ((gen->flags & GUC_CUSTOM_PLACEHOLDER) == 0))
+        return gen;
+
+    return NULL;
+}
+```

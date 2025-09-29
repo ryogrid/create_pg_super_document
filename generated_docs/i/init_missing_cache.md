@@ -36,3 +36,24 @@ This function takes no parameters.
 - The hash table starts with 32 buckets and can grow as needed
 - Part of PostgreSQL optimization for handling missing attributes in tuple processing
 - Sets global variable `missing_cache` to point to the created hash table
+
+## Simplified Source
+
+```c
+static void init_missing_cache() {
+    HASHCTL hash_ctl;
+
+    // Configure hash table parameters
+    hash_ctl.keysize = sizeof(missing_cache_key);
+    hash_ctl.entrysize = sizeof(missing_cache_key);
+    hash_ctl.hcxt = TopMemoryContext;  // Use persistent memory context
+    hash_ctl.hash = missing_hash;      // Custom hash function
+    hash_ctl.match = missing_match;    // Custom comparison function
+
+    // Create the hash table for caching missing attribute values
+    missing_cache = hash_create("Missing Values Cache",
+                               32,  // Initial bucket count
+                               &hash_ctl,
+                               HASH_ELEM | HASH_CONTEXT | HASH_FUNCTION | HASH_COMPARE);
+}
+```

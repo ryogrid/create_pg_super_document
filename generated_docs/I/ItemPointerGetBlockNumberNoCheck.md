@@ -34,3 +34,14 @@ This function is primarily used in performance-critical code paths where the val
 - Used extensively in item pointer comparison and manipulation functions
 - The NoCheck suffix indicates this is the unchecked version of the function
 - Returns a BlockNumber type representing the physical block number on disk
+
+## Simplified Source
+
+```c
+static inline BlockNumber
+ItemPointerGetBlockNumberNoCheck(const ItemPointerData *pointer)
+{
+    // Extract block number from item pointer without validation
+    return BlockIdGetBlockNumber(&pointer->ip_blkid);
+}
+```

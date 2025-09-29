@@ -41,3 +41,29 @@ This function combines memory allocation and insertion operations for new hash t
 - The allocated size includes both the item metadata and the user entry size with proper alignment
 - Uses MAXALIGN to ensure proper memory alignment for the hash table item structure
 - Returns the newly inserted item for immediate use by the caller
+
+## Simplified Source
+```c
+static dshash_table_item *
+insert_into_bucket(dshash_table *hash_table, const void *key, dsa_pointer *bucket)
+{
+    dsa_pointer item_pointer;
+    dshash_table_item *item;
+
+    // Allocate memory for new hash table item plus entry data
+    item_pointer = dsa_allocate(hash_table->area,
+                               hash_table->params.entry_size +
+                               MAXALIGN(sizeof(dshash_table_item)));
+
+    // Get address of allocated memory
+    item = dsa_get_address(hash_table->area, item_pointer);
+
+    // Copy key into the new entry
+    copy_key(hash_table, ENTRY_FROM_ITEM(item), key);
+
+    // Insert item into bucket chain
+    insert_item_into_bucket(hash_table, item_pointer, item, bucket);
+
+    return item;
+}
+```

@@ -48,3 +48,19 @@ The function constructs an iovec structure from the provided buffer and amount p
 - Returns the number of bytes actually written, or -1 on error following standard POSIX conventions
 - Part of PostgreSQL's VFD system which provides automatic file handle management and efficient resource usage
 - The underlying FileWriteV function enforces temp_file_limit for temporary files and maintains accurate file size tracking
+
+## Simplified Source
+
+```c
+static inline ssize_t FileWrite(File file, const void *buffer, size_t amount,
+                               off_t offset, uint32 wait_event_info) {
+    // Convert single buffer to vectored I/O structure
+    struct iovec iov = {
+        .iov_base = unconstify(void *, buffer),
+        .iov_len = amount
+    };
+
+    // Delegate to vectored write function
+    return FileWriteV(file, &iov, 1, offset, wait_event_info);
+}
+```

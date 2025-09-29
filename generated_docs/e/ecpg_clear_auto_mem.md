@@ -43,3 +43,24 @@ This function takes no parameters.
 - Commonly called in prologue functions and connection management to prepare for new operations
 - The comment "only free our own structure" in the source code emphasizes this selective behavior
 - Essential for preventing double-free errors when user data lifetime extends beyond the tracking period
+
+## Simplified Source
+
+```c
+void
+ecpg_clear_auto_mem(void)
+{
+    struct auto_mem *am = get_auto_allocs();
+
+    // Clear only tracking structures, not user data
+    if (am) {
+        do {
+            struct auto_mem *act = am;
+            am = am->next;
+            ecpg_free(act);  // Free tracking structure only
+        } while (am);
+
+        set_auto_allocs(NULL);
+    }
+}
+```

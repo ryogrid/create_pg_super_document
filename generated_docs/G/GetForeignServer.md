@@ -36,3 +36,14 @@ GetForeignServer is a wrapper function that provides a convenient interface to l
 - For cases where you need to handle missing servers gracefully, use GetForeignServerExtended directly with FSV_MISSING_OK flag
 - Returns a palloc'd ForeignServer structure that should be freed by the caller when no longer needed
 - Foreign servers define connection parameters and options for accessing external data sources
+
+## Simplified Source
+
+```c
+ForeignServer *
+GetForeignServer(Oid serverid)
+{
+    // Simple wrapper that calls the extended version with default flags
+    return GetForeignServerExtended(serverid, 0);
+}
+```

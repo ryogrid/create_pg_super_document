@@ -37,3 +37,40 @@ When a hash table is available (indicating sufficient notification volume), it u
 - Memory comparison includes both channel and payload data plus 2 bytes for null terminators
 - Essential for preventing duplicate notifications within the same transaction
 - Part of PostgreSQL's transaction-scoped notification deduplication system
+
+## Simplified Source
+
+```c
+static bool
+AsyncExistsPendingNotify(Notification *n)
+{
+    // No pending notifications at all
+    if (pendingNotifies == NULL)
+        return false;
+
+    // Use hash table for fast lookup if available
+    if (pendingNotifies->hashtab != NULL)
+    {
+        if (hash_search(pendingNotifies->hashtab, &n, HASH_FIND, NULL))
+            return true;
+    }
+    else
+    {
+        // Scan through list for smaller notification sets
+        ListCell *l;
+        foreach(l, pendingNotifies->events)
+        {
+            Notification *existing = (Notification *) lfirst(l);
+
+            // Quick length check before expensive comparison
+            if (n->channel_len == existing->channel_len &&
+                n->payload_len == existing->payload_len &&
+                memcmp(n->data, existing->data,
+                       n->channel_len + n->payload_len + 2) == 0)
+                return true;
+        }
+    }
+
+    return false;
+}
+```

@@ -50,3 +50,31 @@ The function returns HTSV_Result values that indicate vacuum status:
 The key logic upgrade happens when a tuple is initially marked as HEAPTUPLE_RECENTLY_DEAD by HeapTupleSatisfiesVacuumHorizon, but the dead_after transaction ID precedes OldestXmin, indicating that all transactions that could have seen the tuple are now complete. In this case, the status is upgraded to HEAPTUPLE_DEAD, allowing VACUUM to safely remove the tuple.
 
 This two-level approach (base horizon checking plus oldest transaction cutoff) provides an efficient way to determine vacuum eligibility while ensuring transaction isolation properties are maintained.
+
+## Simplified Source
+
+```c
+HTSV_Result HeapTupleSatisfiesVacuum(HeapTuple htup, TransactionId OldestXmin, Buffer buffer)
+{
+    TransactionId dead_after = InvalidTransactionId;
+    HTSV_Result res;
+
+    // Step 1: Get basic vacuum status and death transaction ID
+    res = HeapTupleSatisfiesVacuumHorizon(htup, buffer, &dead_after);
+
+    // Step 2: Upgrade recently dead to dead if old enough
+    if (res == HEAPTUPLE_RECENTLY_DEAD) {
+        Assert(TransactionIdIsValid(dead_after));
+
+        // If the transaction that deleted this tuple is old enough,
+        // no running transaction can see it anymore - it's truly dead
+        if (TransactionIdPrecedes(dead_after, OldestXmin))
+            res = HEAPTUPLE_DEAD;
+    }
+    else {
+        Assert(!TransactionIdIsValid(dead_after));
+    }
+
+    return res;
+}
+```

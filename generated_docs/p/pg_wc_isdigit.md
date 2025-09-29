@@ -48,3 +48,48 @@ The function handles six different regex strategies:
 - Falls through from wide character cases to single-byte cases when character is out of wide character range
 - Relies on global `pg_regex_strategy` and `pg_regex_locale` variables set by `pg_set_regex_collation`
 - Location: src/backend/regex/regc_pg_locale.c:294-327
+
+## Simplified Source
+
+```c
+static int
+pg_wc_isdigit(pg_wchar c)
+{
+    switch (pg_regex_strategy) {
+        case PG_REGEX_LOCALE_C:
+            // ASCII-only check using character properties table
+            return (c <= 127 && (pg_char_properties[c] & PG_ISDIGIT));
+
+        case PG_REGEX_BUILTIN:
+            // Use PostgreSQL's built-in Unicode classification
+            return pg_u_isdigit(c, true);
+
+        case PG_REGEX_LOCALE_WIDE:
+            // Use system wide character function if supported
+            if (sizeof(wchar_t) >= 4 || c <= 0xFFFF)
+                return iswdigit((wint_t) c);
+            // Fall through to single-byte if character too large
+
+        case PG_REGEX_LOCALE_1BYTE:
+            // Use standard single-byte function
+            return (c <= UCHAR_MAX && isdigit((unsigned char) c));
+
+        case PG_REGEX_LOCALE_WIDE_L:
+            // Use locale-specific wide character function
+            if (sizeof(wchar_t) >= 4 || c <= 0xFFFF)
+                return iswdigit_l((wint_t) c, pg_regex_locale->info.lt);
+            // Fall through to single-byte if character too large
+
+        case PG_REGEX_LOCALE_1BYTE_L:
+            // Use locale-specific single-byte function
+            return (c <= UCHAR_MAX &&
+                    isdigit_l((unsigned char) c, pg_regex_locale->info.lt));
+
+        case PG_REGEX_LOCALE_ICU:
+            // Use ICU library if available
+            return u_isdigit(c);
+    }
+
+    return 0;  // Should never reach here
+}
+```

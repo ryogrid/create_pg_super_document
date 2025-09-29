@@ -46,3 +46,33 @@ XLogRecGetBlockTagExtended provides comprehensive access to block reference info
 - More flexible than XLogRecGetBlockTag as it handles missing block references gracefully
 - The prefetch_buffer parameter is unique to this extended version and not available in the basic version
 - Commonly used in scenarios where block reference existence is uncertain or when prefetch information is needed
+
+## Simplified Source
+```c
+bool XLogRecGetBlockTagExtended(XLogReaderState *record, uint8 block_id,
+                               RelFileLocator *rlocator, ForkNumber *forknum,
+                               BlockNumber *blknum, Buffer *prefetch_buffer)
+{
+    DecodedBkpBlock *bkpb;
+
+    // Check if block reference exists
+    if (!XLogRecHasBlockRef(record, block_id)) {
+        return false;
+    }
+
+    // Get block reference data
+    bkpb = &record->record->blocks[block_id];
+
+    // Fill output parameters if provided
+    if (rlocator)
+        *rlocator = bkpb->rlocator;
+    if (forknum)
+        *forknum = bkpb->forknum;
+    if (blknum)
+        *blknum = bkpb->blkno;
+    if (prefetch_buffer)
+        *prefetch_buffer = bkpb->prefetch_buffer;
+
+    return true;
+}
+```

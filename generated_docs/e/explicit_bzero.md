@@ -42,3 +42,15 @@ This multi-platform approach ensures that sensitive data such as passwords, cryp
 - The volatile function pointer technique used on non-Windows/non-memset_s systems is borrowed from OpenSSH
 - This is a critical security function that helps prevent sensitive data from being recovered from memory dumps or swap files
 - The function provides consistent behavior across all supported PostgreSQL platforms while using the most appropriate secure clearing method for each
+
+## Simplified Source
+
+```c
+void
+explicit_bzero(void *buf, size_t len)
+{
+    // Securely clear memory buffer to prevent data recovery
+    // Uses platform-specific secure memory clearing function
+    bzero_p(buf, len);
+}
+```

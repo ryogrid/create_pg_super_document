@@ -50,3 +50,21 @@ This is a fundamental function used throughout PostgreSQL's role and permission 
 - InvalidOid is returned when missing_ok is true and the role doesn't exist
 - Error message format: "role \"rolename\" does not exist" when missing_ok is false
 - This function only looks up regular roles, not special pseudo-roles like PUBLIC
+
+## Simplified Source
+
+```c
+Oid get_role_oid(const char *rolname, bool missing_ok) {
+    // Look up role OID in system catalog cache
+    Oid oid = GetSysCacheOid1(AUTHNAME, Anum_pg_authid_oid,
+                              CStringGetDatum(rolname));
+
+    // Handle missing role based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("role \"%s\" does not exist", rolname)));
+    }
+
+    return oid;
+}
+```

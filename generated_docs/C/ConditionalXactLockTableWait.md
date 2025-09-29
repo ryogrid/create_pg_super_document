@@ -45,3 +45,46 @@ This makes it particularly useful in scenarios where the calling code needs to m
 - Essential for implementing NOWAIT-style operations and avoiding deadlocks in complex locking scenarios
 - Simpler parameter interface than XactLockTableWait since it's focused on the conditional aspect rather than detailed error reporting
 - Commonly used in tuple locking where alternative locking modes or strategies may be employed if the primary transaction is still active
+
+## Simplified Source
+
+```c
+bool
+ConditionalXactLockTableWait(TransactionId xid)
+{
+    LOCKTAG tag;
+    bool first = true;
+
+    for (;;)
+    {
+        // Validate transaction ID
+        Assert(TransactionIdIsValid(xid));
+        Assert(!TransactionIdEquals(xid, GetTopTransactionIdIfAny()));
+
+        // Try to acquire share lock on transaction (non-blocking)
+        SET_LOCKTAG_TRANSACTION(tag, xid);
+        if (LockAcquire(&tag, ShareLock, false, true) == LOCKACQUIRE_NOT_AVAIL)
+            return false;  // Transaction still running
+
+        // Release lock immediately
+        LockRelease(&tag, ShareLock, false);
+
+        // Check if transaction completed
+        if (!TransactionIdIsInProgress(xid))
+            break;
+
+        // Handle retry for subtransaction case
+        if (!first)
+        {
+            CHECK_FOR_INTERRUPTS();
+            pg_usleep(1000L);  // Brief sleep before retry
+        }
+        first = false;
+
+        // Move to parent transaction
+        xid = SubTransGetTopmostTransaction(xid);
+    }
+
+    return true;  // Transaction completed
+}
+```

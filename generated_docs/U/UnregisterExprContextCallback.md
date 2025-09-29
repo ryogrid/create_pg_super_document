@@ -30,3 +30,32 @@ The function is typically used when a resource or operation that registered a cl
 
 ## Notes and Other Information
 This function performs an exact match on both the function pointer and argument value, ensuring that only the specific callback instance is removed. Multiple callbacks with the same function but different arguments will remain intact unless they specifically match both criteria. The function safely handles cases where the callback to be removed is not found in the list.
+
+## Simplified Source
+
+```c
+void
+UnregisterExprContextCallback(ExprContext *econtext,
+                             ExprContextCallbackFunction function,
+                             Datum arg)
+{
+    ExprContext_CB **prev_callback;
+    ExprContext_CB *ecxt_callback;
+
+    prev_callback = &econtext->ecxt_callbacks;
+
+    // Walk through callback list
+    while ((ecxt_callback = *prev_callback) != NULL)
+    {
+        // Check for exact match of function and argument
+        if (ecxt_callback->function == function && ecxt_callback->arg == arg)
+        {
+            // Remove callback from list and free it
+            *prev_callback = ecxt_callback->next;
+            pfree(ecxt_callback);
+        }
+        else
+            prev_callback = &ecxt_callback->next;
+    }
+}
+```

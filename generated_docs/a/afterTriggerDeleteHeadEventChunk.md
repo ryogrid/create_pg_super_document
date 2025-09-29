@@ -33,3 +33,34 @@ This function safely removes the head chunk from a query's after-trigger event l
 - The assertion prevents deletion when only one chunk remains, maintaining list structure
 - Resetting obsoleted pointers to NULL provides graceful fallback behavior
 - Part of PostgreSQL's strategy for managing memory usage during bulk trigger execution
+
+## Simplified Source
+```c
+static void afterTriggerDeleteHeadEventChunk(AfterTriggersQueryData *qs)
+{
+    AfterTriggerEventChunk *target = qs->events.head;
+
+    // Ensure there's a next chunk before deletion
+    Assert(target && target->next);
+
+    // Update dependent pointers in per-table data
+    foreach(cell, qs->tables)
+    {
+        AfterTriggersTableData *table = lfirst(cell);
+
+        // Reset pointers that reference the chunk being deleted
+        if (table->after_trig_done && table->after_trig_events.tail == target)
+        {
+            table->after_trig_events.head = NULL;
+            table->after_trig_events.tail = NULL;
+            table->after_trig_events.tailfree = NULL;
+        }
+    }
+
+    // Remove head chunk from main event list
+    qs->events.head = target->next;
+
+    // Free the deleted chunk
+    pfree(target);
+}
+```

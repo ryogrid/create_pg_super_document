@@ -36,3 +36,25 @@ BufferIsPermanent is a buffer management function that checks whether a given bu
 - The function performs atomic reads of buffer state, making it safe to call concurrently
 - The BM_PERMANENT flag cannot change while a pin is held, eliminating the need for spinlock protection
 - Used primarily in visibility and hint bit operations where permanence affects caching decisions
+
+## Simplified Source
+
+```c
+bool
+BufferIsPermanent(Buffer buffer)
+{
+    BufferDesc *buf_hdr;
+
+    // Local buffers are used only for temp relations
+    if (BufferIsLocal(buffer))
+        return false;
+
+    // Verify buffer validity and pin
+    Assert(BufferIsValid(buffer));
+    Assert(BufferIsPinned(buffer));
+
+    // Check BM_PERMANENT flag atomically (no spinlock needed while pinned)
+    buf_hdr = GetBufferDescriptor(buffer - 1);
+    return (pg_atomic_read_u32(&buf_hdr->state) & BM_PERMANENT) != 0;
+}
+```

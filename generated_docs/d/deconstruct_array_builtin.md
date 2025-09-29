@@ -62,3 +62,44 @@ This function is particularly useful when working with system catalog arrays or 
   - TID: ItemPointerData size, pass-by-reference, short-aligned
 - This function is commonly used in system catalog manipulation and built-in function implementations
 - The type characteristics are compile-time constants, making this function very efficient for supported types
+
+## Simplified Source
+
+```c
+void deconstruct_array_builtin(ArrayType *array, Oid elmtype,
+                              Datum **elemsp, bool **nullsp, int *nelemsp) {
+    int elmlen;
+    bool elmbyval;
+    char elmalign;
+
+    // Look up hardcoded type properties based on element type
+    switch (elmtype) {
+        case CHAROID:
+            elmlen = 1; elmbyval = true; elmalign = TYPALIGN_CHAR;
+            break;
+        case CSTRINGOID:
+            elmlen = -2; elmbyval = false; elmalign = TYPALIGN_CHAR;
+            break;
+        case FLOAT8OID:
+            elmlen = sizeof(float8); elmbyval = FLOAT8PASSBYVAL; elmalign = TYPALIGN_DOUBLE;
+            break;
+        case INT2OID:
+            elmlen = sizeof(int16); elmbyval = true; elmalign = TYPALIGN_SHORT;
+            break;
+        case OIDOID:
+            elmlen = sizeof(Oid); elmbyval = true; elmalign = TYPALIGN_INT;
+            break;
+        case TEXTOID:
+            elmlen = -1; elmbyval = false; elmalign = TYPALIGN_INT;
+            break;
+        case TIDOID:
+            elmlen = sizeof(ItemPointerData); elmbyval = false; elmalign = TYPALIGN_SHORT;
+            break;
+        default:
+            elog(ERROR, "type %u not supported by deconstruct_array_builtin()", elmtype);
+    }
+
+    // Delegate to the main array deconstruction function
+    deconstruct_array(array, elmtype, elmlen, elmbyval, elmalign, elemsp, nullsp, nelemsp);
+}
+```

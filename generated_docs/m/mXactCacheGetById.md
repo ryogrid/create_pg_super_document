@@ -41,3 +41,39 @@ The caller is responsible for freeing the allocated memory returned through the 
 - The function modifies the doubly-linked list structure while using a non-modifiable iterator, which is acceptable because iteration exits immediately after the modification
 - Provides a complete independent copy of the member array, protecting against cache modifications affecting the caller's data
 - Part of the backend-local cache system that helps avoid repeated SLRU area accesses for known MultiXacts
+
+## Simplified Source
+
+```c
+static int
+mXactCacheGetById(MultiXactId multi, MultiXactMember **members)
+{
+    dlist_iter iter;
+
+    debug_elog3(DEBUG2, "CacheGet: looking for %u", multi);
+
+    // Search through cache entries
+    dclist_foreach(iter, &MXactCache) {
+        mXactCacheEnt *entry = dclist_container(mXactCacheEnt, node, iter.cur);
+
+        if (entry->multi == multi) {
+            // Found match - allocate copy of member array
+            Size size = sizeof(MultiXactMember) * entry->nmembers;
+            MultiXactMember *ptr = palloc(size);
+            memcpy(ptr, entry->members, size);
+
+            debug_elog3(DEBUG2, "CacheGet: found %s",
+                        mxid_to_string(multi, entry->nmembers, entry->members));
+
+            // Move to head for LRU optimization
+            dclist_move_head(&MXactCache, iter.cur);
+
+            *members = ptr;
+            return entry->nmembers;
+        }
+    }
+
+    debug_elog2(DEBUG2, "CacheGet: not found");
+    return -1;
+}
+```

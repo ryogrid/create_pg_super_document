@@ -46,9 +46,46 @@ The function handles arbitrary input sizes efficiently, whether smaller or large
 
 ## Notes and Other Information
 - This is a public function, part of PostgreSQL's external SHA-1 API
-- Can be called multiple times between  and 
+- Can be called multiple times between  and
 - Handles input data of any size efficiently, from single bytes to large buffers
 - Updates the bit count (ctx->c.b64[0]) for each byte processed, needed for final padding
 - Safe for streaming applications - maintains internal state across multiple calls
 - Memory-efficient design minimizes copying overhead for various input sizes
 - Does not modify input data - takes const pointer for read-only access
+
+## Simplified Source
+
+```c
+void
+pg_sha1_update(pg_sha1_ctx *ctx, const uint8 *data, size_t len)
+{
+    const uint8 *input = data;
+    size_t off = 0;
+
+    // Process input data in chunks
+    while (off < len) {
+        // Calculate buffer position and available space
+        size_t buffer_pos = COUNT % 64;
+        size_t available_space = 64 - buffer_pos;
+
+        // Determine how much to copy this iteration
+        size_t copy_size = (available_space < len - off) ?
+                          available_space : len - off;
+
+        // Copy data to internal buffer
+        memmove(&ctx->m.b8[buffer_pos], &input[off], copy_size);
+
+        // Update counters
+        COUNT += copy_size;
+        COUNT %= 64;
+        ctx->c.b64[0] += copy_size * 8;  // Convert to bits
+
+        // Process complete 64-byte block
+        if (COUNT % 64 == 0) {
+            sha1_step(ctx);
+        }
+
+        off += copy_size;
+    }
+}
+```

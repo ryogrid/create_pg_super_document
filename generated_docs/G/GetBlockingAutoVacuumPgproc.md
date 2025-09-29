@@ -31,3 +31,21 @@ This function takes no parameters.
 - This is typically used when a process determines it is blocked by autovacuum and needs to identify the specific autovacuum worker
 - The function is simple but crucial for proper handling of autovacuum blocking scenarios in the lock manager
 - Part of the mechanism that allows user processes to potentially cancel blocking autovacuum operations
+
+## Simplified Source
+
+```c
+PGPROC *
+GetBlockingAutoVacuumPgproc(void)
+{
+    PGPROC *ptr;
+
+    // Get the current blocking autovacuum process
+    ptr = blocking_autovacuum_proc;
+
+    // Reset the pointer for one-time consumption
+    blocking_autovacuum_proc = NULL;
+
+    return ptr;
+}
+```

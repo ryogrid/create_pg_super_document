@@ -48,3 +48,37 @@ The function opens the  relation with an AccessShareLock, performs a catalog sca
 - Assumes at most one matching tuple (enforces uniqueness constraint)
 - Holds AccessShareLock on pg_tablespace during the operation
 - Used extensively throughout the system for error messages, object descriptions, and DDL operations
+
+## Simplified Source
+
+```c
+char *
+get_tablespace_name(Oid spc_oid)
+{
+    char *result;
+    Relation rel;
+    TableScanDesc scandesc;
+    HeapTuple tuple;
+    ScanKeyData entry[1];
+
+    // Open pg_tablespace catalog for scanning
+    rel = table_open(TableSpaceRelationId, AccessShareLock);
+
+    // Set up scan key to search by OID
+    ScanKeyInit(&entry[0], Anum_pg_tablespace_oid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(spc_oid));
+    scandesc = table_beginscan_catalog(rel, 1, entry);
+    tuple = heap_getnext(scandesc, ForwardScanDirection);
+
+    // Extract tablespace name if found
+    if (HeapTupleIsValid(tuple))
+        result = pstrdup(NameStr(((Form_pg_tablespace) GETSTRUCT(tuple))->spcname));
+    else
+        result = NULL;
+
+    table_endscan(scandesc);
+    table_close(rel, AccessShareLock);
+
+    return result;
+}
+```

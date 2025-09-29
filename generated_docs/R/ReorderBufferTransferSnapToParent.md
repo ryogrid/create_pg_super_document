@@ -41,3 +41,45 @@ The function ensures that only top-level transactions receive further snapshots 
 - After the operation, the subtransactions base_snapshot is always set to NULL and base_snapshot_lsn to InvalidXLogRecPtr
 - The function manipulates doubly-linked lists to maintain proper ordering of snapshots by LSN
 - This is part of PostgreSQLs logical replication infrastructure for maintaining consistent snapshots across transaction hierarchies
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferTransferSnapToParent(ReorderBufferTXN *txn, ReorderBufferTXN *subtxn)
+{
+    // Verify parent-child relationship
+    Assert(subtxn->toplevel_xid == txn->xid);
+
+    if (subtxn->base_snapshot != NULL) {
+        // Transfer snapshot if parent has none or subtxn's is earlier
+        if (txn->base_snapshot == NULL ||
+            subtxn->base_snapshot_lsn < txn->base_snapshot_lsn) {
+
+            // Clean up parent's existing snapshot if present
+            if (txn->base_snapshot != NULL) {
+                SnapBuildSnapDecRefcount(txn->base_snapshot);
+                dlist_delete(&txn->base_snapshot_node);
+            }
+
+            // Transfer snapshot from subtxn to parent
+            txn->base_snapshot = subtxn->base_snapshot;
+            txn->base_snapshot_lsn = subtxn->base_snapshot_lsn;
+
+            // Move parent to subtxn's position in snapshot list
+            dlist_insert_before(&subtxn->base_snapshot_node, &txn->base_snapshot_node);
+
+            // Clear subtxn's snapshot references
+            subtxn->base_snapshot = NULL;
+            subtxn->base_snapshot_lsn = InvalidXLogRecPtr;
+            dlist_delete(&subtxn->base_snapshot_node);
+        } else {
+            // Parent's snapshot is better - discard subtxn's snapshot
+            SnapBuildSnapDecRefcount(subtxn->base_snapshot);
+            dlist_delete(&subtxn->base_snapshot_node);
+            subtxn->base_snapshot = NULL;
+            subtxn->base_snapshot_lsn = InvalidXLogRecPtr;
+        }
+    }
+}
+```

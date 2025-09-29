@@ -36,3 +36,40 @@ The function first checks if text domain binding has already been performed. If 
 
 ## Notes and Other Information
 The function preserves errno/GetLastError() values around the bindtextdomain() call since that function may modify error codes. The implementation uses double-checked locking for performance optimization. The locale directory resolution prioritizes the PGLOCALEDIR environment variable over the compile-time LOCALEDIR constant. This function is essential for ECPG's internationalization support and is called extensively throughout the ECPG library for error messages and user-facing text.
+
+## Simplified Source
+
+```c
+char *
+ecpg_gettext(const char *msgid)
+{
+    static volatile bool already_bound = false;
+    static pthread_mutex_t binddomain_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+    // One-time initialization of text domain
+    if (!already_bound) {
+        // Preserve error state during initialization
+        int save_errno = errno;
+
+        pthread_mutex_lock(&binddomain_mutex);
+
+        if (!already_bound) {
+            const char *ldir;
+
+            // Get locale directory from environment or default
+            ldir = getenv("PGLOCALEDIR");
+            if (!ldir)
+                ldir = LOCALEDIR;
+
+            bindtextdomain(PG_TEXTDOMAIN("ecpglib"), ldir);
+            already_bound = true;
+        }
+
+        pthread_mutex_unlock(&binddomain_mutex);
+        errno = save_errno;
+    }
+
+    // Return localized message
+    return dgettext(PG_TEXTDOMAIN("ecpglib"), msgid);
+}
+```

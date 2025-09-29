@@ -47,3 +47,47 @@ Both returned strings (pubname and nspname) are palloc'd and must be freed by th
 - Located in src/backend/catalog/objectaddress.c:2855-2902
 - Part of PostgreSQL's logical replication publication schema management system
 - Returns false on failure, true on success with valid string pointers
+
+## Simplified Source
+
+```c
+static bool
+getPublicationSchemaInfo(const ObjectAddress *object, bool missing_ok,
+                         char **pubname, char **nspname)
+{
+    HeapTuple tup;
+    Form_pg_publication_namespace pnform;
+
+    // Look up publication schema record
+    tup = SearchSysCache1(PUBLICATIONNAMESPACE, ObjectIdGetDatum(object->objectId));
+    if (!HeapTupleIsValid(tup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for publication schema %u", object->objectId);
+        return false;
+    }
+
+    pnform = (Form_pg_publication_namespace) GETSTRUCT(tup);
+
+    // Get publication name
+    *pubname = get_publication_name(pnform->pnpubid, missing_ok);
+    if (!(*pubname)) {
+        ReleaseSysCache(tup);
+        return false;
+    }
+
+    // Get namespace name
+    *nspname = get_namespace_name(pnform->pnnspid);
+    if (!(*nspname)) {
+        Oid schemaid = pnform->pnnspid;
+
+        pfree(*pubname);
+        ReleaseSysCache(tup);
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for schema %u", schemaid);
+        return false;
+    }
+
+    ReleaseSysCache(tup);
+    return true;
+}
+```

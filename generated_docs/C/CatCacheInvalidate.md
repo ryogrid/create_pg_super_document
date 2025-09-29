@@ -46,3 +46,50 @@ The function accepts the small risk of false positive invalidations due to hash 
 - Updates invalidation statistics when CATCACHE_STATS is compiled in
 - Handles the global catcache_in_progress_stack to invalidate entries being built concurrently
 - Critical component of PostgreSQL's cache coherency system during catalog modifications
+
+## Simplified Source
+
+```c
+void
+CatCacheInvalidate(CatCache *cache, uint32 hashValue)
+{
+    Index hashIndex;
+
+    // Step 1: Invalidate all cache lists (too hard to determine which are still valid)
+    for (int i = 0; i < cache->cc_nlbuckets; i++) {
+        dlist_head *bucket = &cache->cc_lbucket[i];
+
+        dlist_foreach_modify(iter, bucket) {
+            CatCList *cl = dlist_container(CatCList, cache_elem, iter.cur);
+
+            if (cl->refcount > 0)
+                cl->dead = true;  // Mark dead if referenced
+            else
+                CatCacheRemoveCList(cache, cl);  // Remove if no references
+        }
+    }
+
+    // Step 2: Invalidate matching hash entries in the specific bucket
+    hashIndex = HASH_INDEX(hashValue, cache->cc_nbuckets);
+    dlist_foreach_modify(iter, &cache->cc_bucket[hashIndex]) {
+        CatCTup *ct = dlist_container(CatCTup, cache_elem, iter.cur);
+
+        if (hashValue == ct->hash_value) {
+            if (ct->refcount > 0 || (ct->c_list && ct->c_list->refcount > 0)) {
+                ct->dead = true;  // Mark dead if referenced
+            } else {
+                CatCacheRemoveCTup(cache, ct);  // Remove if no references
+            }
+            // Continue looking for multiple matches
+        }
+    }
+
+    // Step 3: Invalidate in-progress cache builds
+    for (CatCInProgress *e = catcache_in_progress_stack; e != NULL; e = e->next) {
+        if (e->cache == cache) {
+            if (e->list || e->hash_value == hashValue)
+                e->dead = true;
+        }
+    }
+}
+```

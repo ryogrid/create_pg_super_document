@@ -42,3 +42,50 @@ This function serves as a monitoring and alerting mechanism for the asynchronous
 - Updates lastQueueFillWarn timestamp in asyncQueueControl after issuing warning
 - Internal static function, not exposed outside async.c module
 - Part of PostgreSQL's proactive monitoring system to prevent notification queue overflow
+
+## Simplified Source
+
+```c
+static void
+asyncQueueFillWarning(void)
+{
+    double fillDegree;
+    TimestampTz t;
+
+    // Check current queue usage
+    fillDegree = asyncQueueUsage();
+    if (fillDegree < 0.5)  // Only warn if >= 50% full
+        return;
+
+    t = GetCurrentTimestamp();
+
+    // Rate limit warnings using configured interval
+    if (TimestampDifferenceExceeds(asyncQueueControl->lastQueueFillWarn,
+                                   t, QUEUE_FULL_WARN_INTERVAL))
+    {
+        QueuePosition min = QUEUE_HEAD;
+        int32 minPid = InvalidPid;
+
+        // Find backend with oldest transaction
+        for (ProcNumber i = QUEUE_FIRST_LISTENER; i != INVALID_PROC_NUMBER;
+             i = QUEUE_NEXT_LISTENER(i))
+        {
+            Assert(QUEUE_BACKEND_PID(i) != InvalidPid);
+            min = QUEUE_POS_MIN(min, QUEUE_BACKEND_POS(i));
+            if (QUEUE_POS_EQUAL(min, QUEUE_BACKEND_POS(i)))
+                minPid = QUEUE_BACKEND_PID(i);
+        }
+
+        // Issue warning with detailed information
+        ereport(WARNING,
+                (errmsg("NOTIFY queue is %.0f%% full", fillDegree * 100),
+                 (minPid != InvalidPid ?
+                  errdetail("The server process with PID %d is among those with the oldest transactions.", minPid) : 0),
+                 (minPid != InvalidPid ?
+                  errhint("The NOTIFY queue cannot be emptied until that process ends its current transaction.") : 0)));
+
+        // Update timestamp to prevent excessive warnings
+        asyncQueueControl->lastQueueFillWarn = t;
+    }
+}
+```

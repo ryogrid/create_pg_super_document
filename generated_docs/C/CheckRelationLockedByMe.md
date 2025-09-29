@@ -17,7 +17,7 @@ This function verifies if the current transaction has acquired a lock on the spe
 
 ## Parameters / Member Variables
 - : The relation to check for lock ownership
-- : The minimum lock mode to check for  
+- : The minimum lock mode to check for
 - : If true, also accepts stronger (numerically higher) lock modes as satisfying the check
 
 ## Dependencies
@@ -36,3 +36,20 @@ This function verifies if the current transaction has acquired a lock on the spe
 - Uses the relation's lockRelId which contains both database ID and relation ID
 - The "stronger" lock concept is semantically questionable but works for its intended purposes
 - Located in src/backend/storage/lmgr/lmgr.c:330-346
+
+## Simplified Source
+
+```c
+bool
+CheckRelationLockedByMe(Relation relation, LOCKMODE lockmode, bool orstronger) {
+    LOCKTAG tag;
+
+    // Construct lock tag from relation's database and relation IDs
+    SET_LOCKTAG_RELATION(tag,
+                         relation->rd_lockInfo.lockRelId.dbId,
+                         relation->rd_lockInfo.lockRelId.relId);
+
+    // Check if current transaction holds the lock
+    return LockHeldByMe(&tag, lockmode, orstronger);
+}
+```

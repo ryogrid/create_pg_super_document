@@ -51,3 +51,64 @@ The function is designed to be called only once per write attempt, meaning it ma
 - Part of PostgreSQL's transaction status management system, used by subsystems like CLOG, subtransaction status, and multixact
 - Critical for data durability as it ensures dirty pages are persisted to disk
 - Integrates with checkpoint mechanism to track buffer write statistics
+
+## Simplified Source
+
+```c
+static void SlruInternalWritePage(SlruCtl ctl, int slotno, SlruWriteAll fdata) {
+    SlruShared shared = ctl->shared;
+    int64 pageno = shared->page_number[slotno];
+    int bankno = SlotGetBankNumber(slotno);
+    bool ok;
+
+    Assert(shared->page_status[slotno] != SLRU_PAGE_EMPTY);
+    Assert(LWLockHeldByMeInMode(SimpleLruGetBankLock(ctl, pageno), LW_EXCLUSIVE));
+
+    // Wait for any in-progress write to complete
+    while (shared->page_status[slotno] == SLRU_PAGE_WRITE_IN_PROGRESS &&
+           shared->page_number[slotno] == pageno) {
+        SimpleLruWaitIO(ctl, slotno);
+    }
+
+    // Skip if page is not dirty or no longer contains expected page
+    if (!shared->page_dirty[slotno] ||
+        shared->page_status[slotno] != SLRU_PAGE_VALID ||
+        shared->page_number[slotno] != pageno)
+        return;
+
+    // Mark as write-in-progress and clear dirty flag
+    shared->page_status[slotno] = SLRU_PAGE_WRITE_IN_PROGRESS;
+    shared->page_dirty[slotno] = false;
+
+    // Acquire buffer lock and release bank lock for I/O
+    LWLockAcquire(&shared->buffer_locks[slotno].lock, LW_EXCLUSIVE);
+    LWLockRelease(&shared->bank_locks[bankno].lock);
+
+    // Perform the actual write
+    ok = SlruPhysicalWritePage(ctl, pageno, slotno, fdata);
+
+    // Handle write failure during flush
+    if (!ok && fdata) {
+        for (int i = 0; i < fdata->num_files; i++)
+            CloseTransientFile(fdata->fd[i]);
+    }
+
+    // Re-acquire bank lock and update page state
+    LWLockAcquire(&shared->bank_locks[bankno].lock, LW_EXCLUSIVE);
+
+    // Restore dirty flag if write failed
+    if (!ok)
+        shared->page_dirty[slotno] = true;
+
+    shared->page_status[slotno] = SLRU_PAGE_VALID;
+    LWLockRelease(&shared->buffer_locks[slotno].lock);
+
+    // Report any I/O errors
+    if (!ok)
+        SlruReportIOError(ctl, pageno, InvalidTransactionId);
+
+    // Update checkpoint statistics if part of checkpoint
+    if (fdata)
+        CheckpointStats.ckpt_bufs_written++;
+}
+```

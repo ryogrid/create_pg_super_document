@@ -45,3 +45,32 @@ The function gracefully handles attempts to unlisten from channels that weren't 
 - The permissive approach allows UNLISTEN commands to succeed even for non-listened channels
 - Debug tracing is available when  is enabled to help with troubleshooting
 - The function includes a design question in the comments about whether to complain about unlistening non-listened channels
+
+## Simplified Source
+
+```c
+static void
+Exec_UnlistenCommit(const char *channel)
+{
+    // Debug logging if tracing is enabled
+    if (Trace_notify)
+        elog(DEBUG1, "Exec_UnlistenCommit(%s,%d)", channel, MyProcPid);
+
+    // Search for and remove the specified channel
+    ListCell *q;
+    foreach(q, listenChannels)
+    {
+        char *lchan = (char *) lfirst(q);
+
+        if (strcmp(lchan, channel) == 0)
+        {
+            // Remove from list and free memory
+            listenChannels = foreach_delete_current(listenChannels, q);
+            pfree(lchan);
+            break;
+        }
+    }
+
+    // Note: No error if channel wasn't being listened to
+}
+```

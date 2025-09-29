@@ -34,3 +34,20 @@ This is typically called after a successful operator lookup to cache the result 
 - Simple function that performs the final step in operator caching
 - Part of the operator resolution performance optimization system
 - No return value - operation always succeeds if preconditions are met
+
+## Simplified Source
+
+```c
+static void
+make_oper_cache_entry(OprCacheKey *key, Oid opr_oid)
+{
+    // Ensure cache hash table exists
+    Assert(OprCacheHash != NULL);
+
+    // Insert or update cache entry
+    OprCacheEntry *oprentry = hash_search(OprCacheHash, key, HASH_ENTER, NULL);
+
+    // Store the operator OID
+    oprentry->opr_oid = opr_oid;
+}
+```

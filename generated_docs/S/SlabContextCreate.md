@@ -47,3 +47,59 @@ The function calculates a blocklist_shift value that maps the number of free chu
 - Includes memory context checking infrastructure when enabled for debugging
 - Uses malloc directly for context allocation to avoid bootstrapping issues
 - Comprehensive error reporting with context name for debugging failed allocations
+
+## Simplified Source
+
+```c
+MemoryContext SlabContextCreate(MemoryContext parent, const char *name,
+                               Size blockSize, Size chunkSize) {
+    SlabContext *slab;
+    Size fullChunkSize;
+    int chunksPerBlock;
+
+    // Validate size constraints
+    Assert(blockSize <= MEMORYCHUNK_MAX_BLOCKOFFSET);
+
+    // Ensure minimum chunk size for free list pointers
+    if (chunkSize < sizeof(MemoryChunk *))
+        chunkSize = sizeof(MemoryChunk *);
+
+    // Calculate full chunk size including header and alignment
+    fullChunkSize = Slab_CHUNKHDRSZ + MAXALIGN(chunkSize);
+    Assert(fullChunkSize <= MEMORYCHUNK_MAX_VALUE);
+
+    // Calculate how many chunks fit per block
+    chunksPerBlock = (blockSize - Slab_BLOCKHDRSZ) / fullChunkSize;
+    if (chunksPerBlock == 0)
+        elog(ERROR, "block size %zu too small for %zu-byte chunks",
+             blockSize, chunkSize);
+
+    // Allocate and initialize slab context
+    slab = malloc(Slab_CONTEXT_HDRSZ(chunksPerBlock));
+    if (slab == NULL)
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of memory")));
+
+    // Initialize slab configuration
+    slab->chunkSize = chunkSize;
+    slab->fullChunkSize = fullChunkSize;
+    slab->blockSize = blockSize;
+    slab->chunksPerBlock = chunksPerBlock;
+
+    // Calculate shift for efficient blocklist indexing
+    slab->blocklist_shift = 0;
+    while ((chunksPerBlock >> slab->blocklist_shift) >= (SLAB_BLOCKLIST_COUNT - 1))
+        slab->blocklist_shift++;
+
+    // Initialize block management lists
+    dclist_init(&slab->emptyblocks);
+    for (int i = 0; i < SLAB_BLOCKLIST_COUNT; i++)
+        dlist_init(&slab->blocklist[i]);
+
+    // Complete memory context initialization
+    MemoryContextCreate((MemoryContext) slab, T_SlabContext,
+                       MCTX_SLAB_ID, parent, name);
+
+    return (MemoryContext) slab;
+}
+```

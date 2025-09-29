@@ -41,3 +41,45 @@ The createarc function performs the actual creation of a new arc within an NFA s
 - Updates state arc counters (nouts and nins) for proper bookkeeping
 - Handles color chain management for colored arcs in parent NFAs
 - Uses reverse chain pointers (inchainRev, outchainRev) for efficient bidirectional traversal
+
+## Simplified Source
+
+```c
+static void createarc(struct nfa *nfa, int t, color co,
+                     struct state *from, struct state *to) {
+    struct arc *a;
+
+    // Allocate memory for new arc
+    a = allocarc(nfa);
+    if (NISERR())
+        return;
+
+    // Initialize arc properties
+    a->type = t;
+    a->co = co;
+    a->to = to;
+    a->from = from;
+
+    // Add arc to destination state's incoming chain (at beginning)
+    a->inchain = to->ins;
+    a->inchainRev = NULL;
+    if (to->ins)
+        to->ins->inchainRev = a;
+    to->ins = a;
+
+    // Add arc to source state's outgoing chain (at beginning)
+    a->outchain = from->outs;
+    a->outchainRev = NULL;
+    if (from->outs)
+        from->outs->outchainRev = a;
+    from->outs = a;
+
+    // Update state arc counters
+    from->nouts++;
+    to->nins++;
+
+    // Add to color chain if colored and top-level NFA
+    if (COLORED(a) && nfa->parent == NULL)
+        colorchain(nfa->cm, a);
+}
+```

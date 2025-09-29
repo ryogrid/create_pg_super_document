@@ -42,3 +42,12 @@ The function allocates memory for the result string using PostgreSQL's memory ma
 - The default formatting (flags = 0) uses standard qualification rules
 - Part of PostgreSQL's object formatting infrastructure for error reporting and logging
 - Widely used in error messages where procedure identification is needed
+
+## Simplified Source
+
+```c
+char *format_procedure(Oid procedure_oid) {
+    // Use extended function with default flags
+    return format_procedure_extended(procedure_oid, 0);
+}
+```

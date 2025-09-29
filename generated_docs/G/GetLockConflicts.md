@@ -47,3 +47,136 @@ The implementation first checks for potential fast-path conflicts by examining e
 - The function performs database-level filtering to optimize fast-path scanning
 - Transactions without valid lxid are considered non-conflicting (post-commit state)
 - Includes panic-level error checking for impossible conditions like too many conflicts
+
+## Simplified Source
+
+```c
+VirtualTransactionId *
+GetLockConflicts(const LOCKTAG *locktag, LOCKMODE lockmode, int *countp)
+{
+    static VirtualTransactionId *vxids;
+    LOCKMETHODID lockmethodid = locktag->locktag_lockmethodid;
+    LockMethod lockMethodTable;
+    LOCK *lock;
+    LOCKMASK conflictMask;
+    int count = 0;
+    int fast_count = 0;
+
+    // Validate lock method and mode
+    if (lockmethodid <= 0 || lockmethodid >= lengthof(LockMethods))
+        elog(ERROR, "unrecognized lock method: %d", lockmethodid);
+    lockMethodTable = LockMethods[lockmethodid];
+    if (lockmode <= 0 || lockmode > lockMethodTable->numLockModes)
+        elog(ERROR, "unrecognized lock mode: %d", lockmode);
+
+    // Allocate result array
+    if (InHotStandby) {
+        if (vxids == NULL)
+            vxids = MemoryContextAlloc(TopMemoryContext,
+                sizeof(VirtualTransactionId) * (MaxBackends + max_prepared_xacts + 1));
+    } else {
+        vxids = palloc0(sizeof(VirtualTransactionId) * (MaxBackends + max_prepared_xacts + 1));
+    }
+
+    // Get hash code and conflict mask
+    uint32 hashcode = LockTagHashCode(locktag);
+    LWLock *partitionLock = LockHashPartitionLock(hashcode);
+    conflictMask = lockMethodTable->conflictTab[lockmode];
+
+    // Check fast-path locks for relation conflicts
+    if (ConflictsWithRelationFastPath(locktag, lockmode))
+    {
+        Oid relid = locktag->locktag_field2;
+
+        // Scan all backends for fast-path conflicts
+        for (int i = 0; i < ProcGlobal->allProcCount; i++)
+        {
+            PGPROC *proc = &ProcGlobal->allProcs[i];
+
+            if (proc == MyProc) continue;  // Skip self
+
+            LWLockAcquire(&proc->fpInfoLock, LW_SHARED);
+
+            // Check database match
+            if (proc->databaseId != locktag->locktag_field1) {
+                LWLockRelease(&proc->fpInfoLock);
+                continue;
+            }
+
+            // Check fast-path slots for conflicts
+            for (uint32 f = 0; f < FP_LOCK_SLOTS_PER_BACKEND; f++)
+            {
+                if (relid != proc->fpRelId[f]) continue;
+
+                uint32 lockmask = FAST_PATH_GET_BITS(proc, f);
+                if (!lockmask) continue;
+
+                lockmask <<= FAST_PATH_LOCKNUMBER_OFFSET;
+                if ((lockmask & conflictMask) == 0) break;
+
+                // Found conflict - add to result
+                VirtualTransactionId vxid;
+                GET_VXID_FROM_PGPROC(vxid, *proc);
+                if (VirtualTransactionIdIsValid(vxid))
+                    vxids[count++] = vxid;
+                break;
+            }
+
+            LWLockRelease(&proc->fpInfoLock);
+        }
+    }
+
+    fast_count = count;
+
+    // Check standard lock table
+    LWLockAcquire(partitionLock, LW_SHARED);
+
+    lock = hash_search_with_hash_value(LockMethodLockHash, locktag, hashcode, HASH_FIND, NULL);
+    if (!lock) {
+        // No lock object exists
+        LWLockRelease(partitionLock);
+        vxids[count] = (VirtualTransactionId) {INVALID_PROC_NUMBER, InvalidLocalTransactionId};
+        if (countp) *countp = count;
+        return vxids;
+    }
+
+    // Examine all lock holders for conflicts
+    dlist_iter proclock_iter;
+    dlist_foreach(proclock_iter, &lock->procLocks)
+    {
+        PROCLOCK *proclock = dlist_container(PROCLOCK, lockLink, proclock_iter.cur);
+
+        if (conflictMask & proclock->holdMask)
+        {
+            PGPROC *proc = proclock->tag.myProc;
+
+            if (proc != MyProc)  // Skip self
+            {
+                VirtualTransactionId vxid;
+                GET_VXID_FROM_PGPROC(vxid, *proc);
+
+                if (VirtualTransactionIdIsValid(vxid))
+                {
+                    // Avoid duplicates from fast-path scan
+                    bool duplicate = false;
+                    for (int i = 0; i < fast_count; ++i) {
+                        if (VirtualTransactionIdEquals(vxids[i], vxid)) {
+                            duplicate = true;
+                            break;
+                        }
+                    }
+                    if (!duplicate)
+                        vxids[count++] = vxid;
+                }
+            }
+        }
+    }
+
+    LWLockRelease(partitionLock);
+
+    // Terminate array and return
+    vxids[count] = (VirtualTransactionId) {INVALID_PROC_NUMBER, InvalidLocalTransactionId};
+    if (countp) *countp = count;
+    return vxids;
+}
+```

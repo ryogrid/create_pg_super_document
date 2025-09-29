@@ -28,3 +28,12 @@ The `dec_lex_level` function is a simple inline utility function that decrements
 - This is a static inline function for performance optimization
 - Used internally within the JSON parsing API to maintain proper nesting level tracking
 - The function is called when the parser exits nested JSON structures to properly decrement the depth counter
+
+## Simplified Source
+
+```c
+static inline void dec_lex_level(JsonLexContext *lex) {
+    // Simply decrement the nesting level when exiting JSON structures
+    lex->lex_level -= 1;
+}
+```

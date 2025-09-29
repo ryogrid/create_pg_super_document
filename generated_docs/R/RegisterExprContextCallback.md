@@ -37,3 +37,28 @@ This function provides a mechanism for registering cleanup callbacks that will b
 - Callbacks are not invoked during error abort scenarios - only during normal cleanup
 - Essential for functions that maintain state or resources across multiple invocations
 - Part of PostgreSQL's expression evaluation cleanup infrastructure
+
+## Simplified Source
+
+```c
+void
+RegisterExprContextCallback(ExprContext *econtext,
+                           ExprContextCallbackFunction function,
+                           Datum arg)
+{
+    ExprContext_CB *ecxt_callback;
+
+    // Allocate callback structure in per-query memory context
+    ecxt_callback = (ExprContext_CB *)
+        MemoryContextAlloc(econtext->ecxt_per_query_memory,
+                          sizeof(ExprContext_CB));
+
+    // Store callback function and argument
+    ecxt_callback->function = function;
+    ecxt_callback->arg = arg;
+
+    // Add to front of callback list (LIFO execution order)
+    ecxt_callback->next = econtext->ecxt_callbacks;
+    econtext->ecxt_callbacks = ecxt_callback;
+}
+```

@@ -35,3 +35,12 @@ This function provides a Windows-compatible stub implementation of the POSIX pth
 - The empty implementation suggests that thread-specific storage is either not required or handled differently on Windows
 - Part of PostgreSQL's threading compatibility layer for Windows platforms
 - The function signature matches POSIX pthread_setspecific but without functionality
+
+## Simplified Source
+
+```c
+void pthread_setspecific(pthread_key_t key, void *val) {
+    // Stub implementation - no operation performed
+    // PostgreSQL's Windows port handles thread-local storage differently
+}
+```

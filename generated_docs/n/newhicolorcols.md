@@ -77,3 +77,44 @@ The  function is responsible for expanding the hicolormap array horizontally. It
 - Uses backwards iteration through rows to safely duplicate data in-place after reallocation
 - Increases color reference counts (nuchrs) for all duplicated color entries
 - Part of the regex engine's color compression system that manages efficient color-to-character mappings
+
+## Simplified Source
+```c
+static void newhicolorcols(struct colormap *cm)
+{
+    color *newarray;
+    int r, c;
+
+    // Check for potential overflow
+    if (cm->hiarraycols >= INT_MAX / (cm->maxarrayrows * 2)) {
+        CERR(REG_ESPACE);
+        return;
+    }
+
+    // Reallocate array to double the width
+    newarray = (color *) REALLOC(cm->hicolormap,
+                                cm->maxarrayrows * cm->hiarraycols * 2 * sizeof(color));
+    if (newarray == NULL) {
+        CERR(REG_ESPACE);
+        return;
+    }
+    cm->hicolormap = newarray;
+
+    // Duplicate existing columns (work backwards due to in-place realloc)
+    for (r = cm->hiarrayrows - 1; r >= 0; r--) {
+        color *oldrowptr = &newarray[r * cm->hiarraycols];
+        color *newrowptr = &newarray[r * cm->hiarraycols * 2];
+        color *newrowptr2 = newrowptr + cm->hiarraycols;
+
+        // Copy each column and update reference counts
+        for (c = 0; c < cm->hiarraycols; c++) {
+            color co = oldrowptr[c];
+            newrowptr[c] = newrowptr2[c] = co;
+            cm->cd[co].nuchrs++;
+        }
+    }
+
+    // Update column count
+    cm->hiarraycols *= 2;
+}
+```

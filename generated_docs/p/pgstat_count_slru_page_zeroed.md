@@ -31,3 +31,14 @@ This metric is valuable for understanding SLRU buffer allocation patterns and ca
 - The function performs a simple atomic increment operation on the blocks_zeroed counter
 - Part of PostgreSQL's comprehensive buffer management statistics collection
 - Located in src/backend/utils/activity/pgstat_slru.c:59-64
+
+## Simplified Source
+
+```c
+void
+pgstat_count_slru_page_zeroed(int slru_idx)
+{
+    // Get the statistics entry for this SLRU instance and increment zeroed blocks counter
+    get_slru_entry(slru_idx)->blocks_zeroed += 1;
+}
+```

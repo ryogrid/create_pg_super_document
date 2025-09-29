@@ -37,3 +37,22 @@ The function iterates through the entire list starting from the head's next poin
 - **Debug Purpose**: This function is primarily used for validation and debugging, often called by other list manipulation functions when built with assertion checking enabled
 - **Const Correctness**: Both parameters are const-qualified since this function only reads the list structure without modifying it
 - **Thread Safety**: Read-only operation that should be safe for concurrent access, but external synchronization may still be needed depending on the context
+
+## Simplified Source
+
+```c
+void
+dlist_member_check(const dlist_head *head, const dlist_node *node)
+{
+    const dlist_node *cur;
+
+    // Traverse the entire list to find the node
+    for (cur = head->head.next; cur != &head->head; cur = cur->next) {
+        if (cur == node)
+            return;  // Node found
+    }
+
+    // Node not found - report error
+    elog(ERROR, "double linked list member check failure");
+}
+```

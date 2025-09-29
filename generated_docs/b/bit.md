@@ -51,3 +51,43 @@ The function ensures proper zero-padding for shorter inputs and truncation for l
 - Ensures the last byte of the result is properly zero-padded to maintain bit string integrity
 - Part of PostgreSQL's comprehensive type system for handling bit string data types
 - Located in src/backend/utils/adt/varbit.c:391-428
+
+## Simplified Source
+
+```c
+Datum bit(PG_FUNCTION_ARGS) {
+    VarBit *arg = PG_GETARG_VARBIT_P(0);
+    int32 len = PG_GETARG_INT32(1);
+    bool isExplicit = PG_GETARG_BOOL(2);
+    VarBit *result;
+    int rlen;
+
+    // Return unchanged if target length is invalid or already matches
+    if (len <= 0 || len > VARBITMAXLEN || len == VARBITLEN(arg)) {
+        PG_RETURN_VARBIT_P(arg);
+    }
+
+    // For implicit casts, require exact length match
+    if (!isExplicit) {
+        ereport(ERROR,
+                (errcode(ERRCODE_STRING_DATA_LENGTH_MISMATCH),
+                 errmsg("bit string length %d does not match type bit(%d)",
+                        VARBITLEN(arg), len)));
+    }
+
+    // Allocate result with target length (zero-initialized)
+    rlen = VARBITTOTALLEN(len);
+    result = (VarBit *) palloc0(rlen);
+    SET_VARSIZE(result, rlen);
+    VARBITLEN(result) = len;
+
+    // Copy data (truncating or padding as needed)
+    memcpy(VARBITS(result), VARBITS(arg),
+           Min(VARBITBYTES(result), VARBITBYTES(arg)));
+
+    // Ensure proper zero-padding in last byte
+    VARBIT_PAD(result);
+
+    PG_RETURN_VARBIT_P(result);
+}
+```

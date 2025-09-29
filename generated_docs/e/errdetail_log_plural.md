@@ -39,3 +39,31 @@ The function manages memory context switching to ensure proper memory allocation
 - Part of the PostgreSQL error reporting infrastructure
 - Manages recursion depth and memory context for safe operation
 - Uses the same pluralization mechanism as other error message functions in the system
+
+## Simplified Source
+
+```c
+int
+errdetail_log_plural(const char *fmt_singular, const char *fmt_plural,
+                     unsigned long n, ...)
+{
+    ErrorData *edata = &errordata[errordata_stack_depth];
+    MemoryContext oldcontext;
+
+    // Track recursion depth for safety
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+
+    // Switch to error data memory context
+    oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Evaluate and set the plural message based on count 'n'
+    EVALUATE_MESSAGE_PLURAL(edata->domain, detail_log, false);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+
+    return 0;  // Return value doesn't matter
+}
+```

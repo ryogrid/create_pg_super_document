@@ -39,3 +39,50 @@ pg_sha256_update is the core function for feeding data into a SHA-256 hash compu
 - The bit count is maintained in bits (left-shifted by 3) rather than bytes
 - Critical for streaming hash operations where data arrives in arbitrary chunks
 - [Variables](../V/Variables.md) are explicitly cleared at the end for security purposes
+
+## Simplified Source
+
+```c
+void
+pg_sha256_update(pg_sha256_ctx *context, const uint8 *data, size_t len)
+{
+    // Handle empty input
+    if (len == 0)
+        return;
+
+    // Check if buffer has partial data from previous calls
+    size_t used_space = (context->bitcount >> 3) % PG_SHA256_BLOCK_LENGTH;
+
+    if (used_space > 0) {
+        size_t free_space = PG_SHA256_BLOCK_LENGTH - used_space;
+
+        if (len >= free_space) {
+            // Fill buffer and process it
+            memcpy(&context->buffer[used_space], data, free_space);
+            context->bitcount += free_space << 3;
+            len -= free_space;
+            data += free_space;
+            SHA256_Transform(context, context->buffer);
+        } else {
+            // Just add to buffer and return
+            memcpy(&context->buffer[used_space], data, len);
+            context->bitcount += len << 3;
+            return;
+        }
+    }
+
+    // Process complete 64-byte blocks directly
+    while (len >= PG_SHA256_BLOCK_LENGTH) {
+        SHA256_Transform(context, data);
+        context->bitcount += PG_SHA256_BLOCK_LENGTH << 3;
+        len -= PG_SHA256_BLOCK_LENGTH;
+        data += PG_SHA256_BLOCK_LENGTH;
+    }
+
+    // Buffer any remaining partial block
+    if (len > 0) {
+        memcpy(context->buffer, data, len);
+        context->bitcount += len << 3;
+    }
+}
+```

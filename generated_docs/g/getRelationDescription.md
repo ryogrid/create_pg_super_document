@@ -45,3 +45,68 @@ The function automatically qualifies relation names with schema names when the r
 - Critical for generating user-friendly descriptions in error messages and logs
 - Handles edge cases like TOAST tables and composite types
 - Ensures proper memory management with system cache operations
+
+## Simplified Source
+
+```c
+static void
+getRelationDescription(StringInfo buffer, Oid relid, bool missing_ok)
+{
+    HeapTuple relTup;
+    Form_pg_class relForm;
+    char *nspname;
+    char *relname;
+
+    // Look up relation information
+    relTup = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(relTup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for relation %u", relid);
+        return;
+    }
+    relForm = (Form_pg_class) GETSTRUCT(relTup);
+
+    // Determine if schema qualification is needed
+    if (RelationIsVisible(relid))
+        nspname = NULL;
+    else
+        nspname = get_namespace_name(relForm->relnamespace);
+
+    relname = quote_qualified_identifier(nspname, NameStr(relForm->relname));
+
+    // Format description based on relation kind
+    switch (relForm->relkind) {
+        case RELKIND_RELATION:
+        case RELKIND_PARTITIONED_TABLE:
+            appendStringInfo(buffer, _("table %s"), relname);
+            break;
+        case RELKIND_INDEX:
+        case RELKIND_PARTITIONED_INDEX:
+            appendStringInfo(buffer, _("index %s"), relname);
+            break;
+        case RELKIND_SEQUENCE:
+            appendStringInfo(buffer, _("sequence %s"), relname);
+            break;
+        case RELKIND_TOASTVALUE:
+            appendStringInfo(buffer, _("toast table %s"), relname);
+            break;
+        case RELKIND_VIEW:
+            appendStringInfo(buffer, _("view %s"), relname);
+            break;
+        case RELKIND_MATVIEW:
+            appendStringInfo(buffer, _("materialized view %s"), relname);
+            break;
+        case RELKIND_COMPOSITE_TYPE:
+            appendStringInfo(buffer, _("composite type %s"), relname);
+            break;
+        case RELKIND_FOREIGN_TABLE:
+            appendStringInfo(buffer, _("foreign table %s"), relname);
+            break;
+        default:
+            appendStringInfo(buffer, _("relation %s"), relname);
+            break;
+    }
+
+    ReleaseSysCache(relTup);
+}
+```

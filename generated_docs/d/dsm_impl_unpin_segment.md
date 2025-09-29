@@ -35,8 +35,43 @@ On non-Windows platforms, this function performs no operations since those syste
 
 ## Notes and Other Information
 - Only performs actual work on Windows platforms when  is defined
-- Uses  flag to close the source handle without creating a new one
-- Sets  to NULL after successful cleanup
-- Essential counterpart to  for proper resource management
+- Uses DUPLICATE_CLOSE_SOURCE flag to close the source handle without creating a new one
+- Sets impl_private to NULL after successful cleanup
+- Essential counterpart to dsm_impl_pin_segment for proper resource management
 - Allows segments to be cleaned up automatically by Windows once all backend references are removed
-- The implementation is conditional on  being 
+- The implementation is conditional on USE_DSM_WINDOWS being defined
+
+## Simplified Source
+
+```c
+void
+dsm_impl_unpin_segment(dsm_handle handle, void **impl_private)
+{
+    switch (dynamic_shared_memory_type) {
+#ifdef USE_DSM_WINDOWS
+        case DSM_IMPL_WINDOWS:
+            if (IsUnderPostmaster) {
+                // Close the postmaster handle that was keeping the segment alive
+                if (*impl_private &&
+                    !DuplicateHandle(PostmasterHandle, *impl_private,
+                                   NULL, NULL, 0, FALSE,
+                                   DUPLICATE_CLOSE_SOURCE)) {
+                    char name[64];
+                    snprintf(name, 64, "%s.%u", SEGMENT_NAME_PREFIX, handle);
+                    _dosmaperr(GetLastError());
+                    ereport(ERROR,
+                           (errcode_for_dynamic_shared_memory(),
+                            errmsg("could not duplicate handle for \"%s\": %m", name)));
+                }
+
+                // Clear the handle pointer
+                *impl_private = NULL;
+            }
+            break;
+#endif
+        default:
+            // No action needed on non-Windows platforms
+            break;
+    }
+}
+``` 

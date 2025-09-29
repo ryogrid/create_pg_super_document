@@ -49,3 +49,62 @@ When conditions are met, it attempts to acquire an exclusive buffer cleanup lock
 - Does not update the Free Space Map (FSM) to encourage reuse of freed space by updates to the same page
 - Carefully tracks statistics to distinguish between newly dead items and actually reclaimed space
 - The mark_unused_now parameter is currently always false for safety during on-access pruning
+
+## Simplified Source
+
+```c
+void
+heap_page_prune_opt(Relation relation, Buffer buffer)
+{
+    Page page = BufferGetPage(buffer);
+    TransactionId prune_xid;
+    GlobalVisState *vistest;
+    Size minfree;
+
+    // Skip pruning during recovery mode
+    if (RecoveryInProgress())
+        return;
+
+    // Check if page has potential dead tuples
+    prune_xid = ((PageHeader) page)->pd_prune_xid;
+    if (!TransactionIdIsValid(prune_xid))
+        return;
+
+    // Test if transactions can be pruned
+    vistest = GlobalVisTestFor(relation);
+    if (!GlobalVisTestIsRemovableXid(vistest, prune_xid))
+        return;
+
+    // Calculate minimum free space threshold
+    minfree = RelationGetTargetPageFreeSpace(relation, HEAP_DEFAULT_FILLFACTOR);
+    minfree = Max(minfree, BLCKSZ / 10);
+
+    // Check if page needs pruning based on free space
+    if (PageIsFull(page) || PageGetHeapFreeSpace(page) < minfree)
+    {
+        // Try to acquire cleanup lock without blocking
+        if (!ConditionalLockBufferForCleanup(buffer))
+            return;
+
+        // Recheck conditions with accurate data
+        if (PageIsFull(page) || PageGetHeapFreeSpace(page) < minfree)
+        {
+            OffsetNumber dummy_off_loc;
+            PruneFreezeResult presult;
+
+            // Perform actual pruning and freezing
+            heap_page_prune_and_freeze(relation, buffer, vistest, 0,
+                                     NULL, &presult, PRUNE_ON_ACCESS,
+                                     &dummy_off_loc, NULL, NULL);
+
+            // Update statistics for reclaimed tuples
+            if (presult.ndeleted > presult.nnewlpdead)
+                pgstat_update_heap_dead_tuples(relation,
+                                              presult.ndeleted - presult.nnewlpdead);
+        }
+
+        // Release the cleanup lock
+        LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+    }
+}
+```

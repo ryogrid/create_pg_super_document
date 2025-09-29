@@ -41,3 +41,48 @@ The function includes special handling for the WHITE color, which cannot be free
 - The function maintains the integrity of the freelist by removing entries that exceed the current maximum
 - This is part of PostgreSQL's regular expression engine color management system
 - The function is static, meaning it's only used within the regc_color.c file
+
+## Simplified Source
+
+```c
+static void freecolor(struct colormap *cm, color co) {
+    struct colordesc *cd = &cm->cd[co];
+
+    // Cannot free the WHITE color
+    if (co == WHITE)
+        return;
+
+    // Mark color as free
+    cd->flags = FREECOL;
+
+    if ((size_t) co == cm->max) {
+        // Color is at max index - compact the colormap
+        while (cm->max > WHITE && UNUSEDCOLOR(&cm->cd[cm->max]))
+            cm->max--;
+
+        // Clean up freelist entries beyond new max
+        while ((size_t) cm->free > cm->max)
+            cm->free = cm->cd[cm->free].sub;
+
+        // Remove freelist entries that exceed max
+        if (cm->free > 0) {
+            color prev_color = cm->free;
+            color next_color = cm->cd[prev_color].sub;
+            while (next_color > 0) {
+                if ((size_t) next_color > cm->max) {
+                    // Remove this entry from freelist
+                    next_color = cm->cd[next_color].sub;
+                    cm->cd[prev_color].sub = next_color;
+                } else {
+                    prev_color = next_color;
+                    next_color = cm->cd[prev_color].sub;
+                }
+            }
+        }
+    } else {
+        // Add color to freelist
+        cd->sub = cm->free;
+        cm->free = (color) (cd - cm->cd);
+    }
+}
+```

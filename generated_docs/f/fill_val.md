@@ -52,3 +52,93 @@ The function performs several critical tasks:
 - Manages the conversion between different varlena formats (short vs. full header) for space efficiency
 - Updates infomask flags (HEAP_HASNULL, HEAP_HASVARWIDTH, HEAP_HASEXTERNAL) that are essential for tuple interpretation
 - The function uses pointer arithmetic and bit manipulation for efficient tuple layout construction
+
+## Simplified Source
+
+```c
+static inline void fill_val(Form_pg_attribute att,
+                           bits8 **bit,
+                           int *bitmask,
+                           char **dataP,
+                           uint16 *infomask,
+                           Datum datum,
+                           bool isnull) {
+    Size data_length;
+    char *data = *dataP;
+
+    // Handle null bitmap construction
+    if (bit != NULL) {
+        // Advance bitmap position
+        if (*bitmask != HIGHBIT) {
+            *bitmask <<= 1;
+        } else {
+            *bit += 1;
+            **bit = 0x0;
+            *bitmask = 1;
+        }
+
+        // Set null bit and return early if value is null
+        if (isnull) {
+            *infomask |= HEAP_HASNULL;
+            return;
+        }
+
+        **bit |= *bitmask;
+    }
+
+    // Handle different data types
+    if (att->attbyval) {
+        // Pass-by-value: store value directly
+        data = (char *) att_align_nominal(data, att->attalign);
+        store_att_byval(data, datum, att->attlen);
+        data_length = att->attlen;
+    }
+    else if (att->attlen == -1) {
+        // Variable-length (varlena) data
+        Pointer val = DatumGetPointer(datum);
+        *infomask |= HEAP_HASVARWIDTH;
+
+        if (VARATT_IS_EXTERNAL(val)) {
+            if (VARATT_IS_EXTERNAL_EXPANDED(val)) {
+                // Flatten expanded objects
+                ExpandedObjectHeader *eoh = DatumGetEOHP(datum);
+                data = (char *) att_align_nominal(data, att->attalign);
+                data_length = EOH_get_flat_size(eoh);
+                EOH_flatten_into(eoh, data, data_length);
+            } else {
+                // External reference
+                *infomask |= HEAP_HASEXTERNAL;
+                data_length = VARSIZE_EXTERNAL(val);
+                memcpy(data, val, data_length);
+            }
+        }
+        else if (VARATT_IS_SHORT(val)) {
+            // Short varlena format
+            data_length = VARSIZE_SHORT(val);
+            memcpy(data, val, data_length);
+        }
+        else {
+            // Full 4-byte header varlena
+            data = (char *) att_align_nominal(data, att->attalign);
+            data_length = VARSIZE(val);
+            memcpy(data, val, data_length);
+        }
+    }
+    else if (att->attlen == -2) {
+        // C-string: null-terminated string
+        *infomask |= HEAP_HASVARWIDTH;
+        data_length = strlen(DatumGetCString(datum)) + 1;
+        memcpy(data, DatumGetPointer(datum), data_length);
+    }
+    else {
+        // Fixed-length pass-by-reference
+        data = (char *) att_align_nominal(data, att->attalign);
+        data_length = att->attlen;
+        memcpy(data, DatumGetPointer(datum), data_length);
+    }
+
+    // Advance data pointer
+    data += data_length;
+    *dataP = data;
+}
+```

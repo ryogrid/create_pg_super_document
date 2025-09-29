@@ -37,3 +37,18 @@ This function is heavily used in buffer management operations where precise bloc
 - Used extensively in buffer lookup and validation operations
 - The comparison order is optimized for early exit on mismatches
 - Essential for ensuring buffer operations target the correct database blocks
+
+## Simplified Source
+
+```c
+static inline bool
+BufferTagsEqual(const BufferTag *tag1, const BufferTag *tag2)
+{
+    // Compare all BufferTag fields for exact match
+    return (tag1->spcOid == tag2->spcOid) &&
+           (tag1->dbOid == tag2->dbOid) &&
+           (tag1->relNumber == tag2->relNumber) &&
+           (tag1->blockNum == tag2->blockNum) &&
+           (tag1->forkNum == tag2->forkNum);
+}
+```

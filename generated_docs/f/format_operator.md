@@ -40,3 +40,12 @@ The function generates output in the format "opr_name(lefttype,righttype)" with 
 - Returns a palloc'd string that must be freed by the caller
 - Uses default behavior: schema qualification only when necessary, numeric OID returned for invalid operators
 - Located in src/backend/utils/adt/regproc.c:793-798
+
+## Simplified Source
+
+```c
+char *format_operator(Oid operator_oid) {
+    // Use extended function with default flags
+    return format_operator_extended(operator_oid, 0);
+}
+```

@@ -40,3 +40,24 @@ The function includes a NULL check to ensure it only performs cleanup operations
 - The function ensures proper resource management by unpinning before closing
 - After calling this function, any subsequent access to the relation's storage will require reopening the smgr via RelationGetSmgr
 - Essential for preventing resource leaks in the storage manager subsystem
+
+## Simplified Source
+
+```c
+static inline void
+RelationCloseSmgr(Relation relation)
+{
+    // Only close if smgr handle exists
+    if (relation->rd_smgr != NULL)
+    {
+        // Unpin the storage manager relation
+        smgrunpin(relation->rd_smgr);
+
+        // Close the storage manager handle
+        smgrclose(relation->rd_smgr);
+
+        // Clear the handle to indicate it's closed
+        relation->rd_smgr = NULL;
+    }
+}
+```

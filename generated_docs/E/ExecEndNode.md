@@ -46,3 +46,80 @@ The function is designed to be called only after query execution is complete, as
 - Includes special handling for nodes that require no cleanup (ValuesScanState, NamedTuplestoreScanState, WorkTableScanState)
 - Uses recursive pattern where many node-specific ExecEnd* functions call ExecEndNode on their child nodes
 - Critical for parallel query cleanup through specialized functions like ExecEndGather and ExecEndGatherMerge
+
+## Simplified Source
+```c
+void ExecEndNode(PlanState *node)
+{
+    // Handle null nodes gracefully
+    if (node == NULL)
+        return;
+
+    // Prevent stack overflow in deep recursion
+    check_stack_depth();
+
+    // Clean up changed parameters bitmapset
+    if (node->chgParam != NULL)
+    {
+        bms_free(node->chgParam);
+        node->chgParam = NULL;
+    }
+
+    // Dispatch to appropriate cleanup function based on node type
+    switch (nodeTag(node))
+    {
+        // Control nodes
+        case T_ResultState:
+            ExecEndResult((ResultState *) node);
+            break;
+        case T_ModifyTableState:
+            ExecEndModifyTable((ModifyTableState *) node);
+            break;
+        case T_AppendState:
+            ExecEndAppend((AppendState *) node);
+            break;
+
+        // Scan nodes
+        case T_SeqScanState:
+            ExecEndSeqScan((SeqScanState *) node);
+            break;
+        case T_IndexScanState:
+            ExecEndIndexScan((IndexScanState *) node);
+            break;
+        case T_BitmapHeapScanState:
+            ExecEndBitmapHeapScan((BitmapHeapScanState *) node);
+            break;
+
+        // Join nodes
+        case T_NestLoopState:
+            ExecEndNestLoop((NestLoopState *) node);
+            break;
+        case T_HashJoinState:
+            ExecEndHashJoin((HashJoinState *) node);
+            break;
+
+        // Materialization nodes
+        case T_SortState:
+            ExecEndSort((SortState *) node);
+            break;
+        case T_HashState:
+            ExecEndHash((HashState *) node);
+            break;
+        case T_AggState:
+            ExecEndAgg((AggState *) node);
+            break;
+
+        // Nodes with no cleanup needed
+        case T_ValuesScanState:
+        case T_NamedTuplestoreScanState:
+        case T_WorkTableScanState:
+            break;
+
+        // ... other node types follow same pattern
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(node));
+            break;
+    }
+}
+```

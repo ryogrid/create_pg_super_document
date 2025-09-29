@@ -33,3 +33,14 @@ This function is a simple wrapper around the generic ResourceOwnerRemember() fun
 - The function is part of PostgreSQL's resource management system that ensures proper cleanup of resources
 - Uses the generic resource owner infrastructure with DSM-specific cleanup callbacks
 - The corresponding cleanup function is ResourceOwnerForgetDSM
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerRememberDSM(ResourceOwner owner, dsm_segment *seg)
+{
+    // Register DSM segment with resource owner for automatic cleanup
+    ResourceOwnerRemember(owner, PointerGetDatum(seg), &dsm_resowner_desc);
+}
+```

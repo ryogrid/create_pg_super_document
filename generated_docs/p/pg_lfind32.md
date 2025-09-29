@@ -47,3 +47,37 @@ The function is conditionally compiled to fall back to scalar implementation whe
 - Critical component in PostgreSQL's transaction processing and snapshot management systems
 - Automatically adapts to array size with different optimization strategies for small vs large arrays
 - The overlap strategy in final processing prioritizes consistent SIMD performance over avoiding redundant checks
+
+## Simplified Source
+
+```c
+static inline bool
+pg_lfind32(uint32 key, const uint32 *base, uint32 nelem)
+{
+#ifndef USE_NO_SIMD
+    uint32      i = 0;
+    const Vector32 keys = vector32_broadcast(key);
+    const uint32 nelem_per_vector = sizeof(Vector32) / sizeof(uint32);
+    const uint32 nelem_per_iteration = 4 * nelem_per_vector;
+    const uint32 tail_idx = nelem & ~(nelem_per_iteration - 1);
+
+    // Use scalar search for small arrays
+    if (nelem < nelem_per_iteration)
+        return pg_lfind32_one_by_one_helper(key, base, nelem);
+
+    // Process elements in 4-register blocks with SIMD
+    do
+    {
+        if (pg_lfind32_simd_helper(keys, &base[i]))
+            return true;
+        i += nelem_per_iteration;
+    } while (i < tail_idx);
+
+    // Process final elements with overlapping SIMD operation
+    return pg_lfind32_simd_helper(keys, &base[nelem - nelem_per_iteration]);
+#else
+    // Fallback to scalar implementation
+    return pg_lfind32_one_by_one_helper(key, base, nelem);
+#endif
+}
+```

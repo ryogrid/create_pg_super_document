@@ -44,3 +44,80 @@ The `matchuntil` function is designed for incremental regex matching with search
 - Supports both normal and traced execution modes
 - Returns 1 for match found, 0 for no match or internal error
 - Critical for efficient implementation of lookahead/lookbehind assertions in PostgreSQL regex engine
+
+## Simplified Source
+
+```c
+static int
+matchuntil(struct vars *v, struct dfa *d, chr *probe,
+           struct sset **lastcss, chr **lastcp)
+{
+    chr *cp = *lastcp;
+    struct sset *css = *lastcss;
+    struct sset *ss;
+    struct colormap *cm = d->cm;
+
+    // Fast path for MATCHALL NFAs - just count characters
+    if (d->cnfa->flags & MATCHALL) {
+        size_t nchr = probe - v->start;
+        if (nchr < d->cnfa->minmatchall)
+            return 0;
+        return 1;  // maxmatchall is always infinite
+    }
+
+    // Initialize or restart if needed
+    if (cp == NULL || cp > probe) {
+        cp = v->start;
+        css = initialize(v, d, cp);
+        if (css == NULL)
+            return 0;
+
+        // Handle beginning-of-string transition
+        color co = d->cnfa->bos[(v->eflags & REG_NOTBOL) ? 0 : 1];
+        css = miss(v, d, css, co, cp, v->start);
+        if (css == NULL)
+            return 0;
+        css->lastseen = cp;
+    } else if (css == NULL) {
+        return 0;  // Previously determined no match possible
+    }
+
+    // Main character scanning loop
+    while (cp < probe) {
+        color co = GETCOLOR(cm, *cp);
+        ss = css->outs[co];
+        if (ss == NULL) {
+            ss = miss(v, d, css, co, cp + 1, v->start);
+            if (ss == NULL)
+                break;
+        }
+        cp++;
+        ss->lastseen = cp;
+        css = ss;
+    }
+
+    *lastcss = css;
+    *lastcp = cp;
+
+    if (css == NULL)
+        return 0;
+
+    // Process final character or end-of-string
+    color co;
+    if (cp < v->stop) {
+        co = GETCOLOR(cm, *cp);
+        ss = css->outs[co];
+        if (ss == NULL)
+            ss = miss(v, d, css, co, cp + 1, v->start);
+    } else {
+        co = d->cnfa->eos[(v->eflags & REG_NOTEOL) ? 0 : 1];
+        ss = miss(v, d, css, co, cp, v->start);
+    }
+
+    // Check if we reached a match state
+    if (ss == NULL || !(ss->flags & POSTSTATE))
+        return 0;
+
+    return 1;
+}
+```

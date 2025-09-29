@@ -57,3 +57,72 @@ This function is particularly valuable for debugging tools and recovery scenario
 - Critical for WAL debugging tools like pg_waldump that need to start reading from arbitrary positions
 - More flexible than XLogBeginRead() but with higher computational overhead due to searching
 - Properly handles page boundaries and record alignment requirements
+
+## Simplified Source
+
+```c
+XLogRecPtr
+XLogFindNextRecord(XLogReaderState *state, XLogRecPtr RecPtr)
+{
+    XLogRecPtr tmpRecPtr;
+    XLogRecPtr found = InvalidXLogRecPtr;
+    XLogPageHeader header;
+    char *errormsg;
+
+    // Ensure nonblocking reads don't interfere
+    state->nonblocking = false;
+
+    // Phase 1: Skip over any continuation data spanning multiple pages
+    tmpRecPtr = RecPtr;
+    while (true) {
+        // Calculate page boundary and record offset
+        uint32 targetRecOff = tmpRecPtr % XLOG_BLCKSZ;
+        XLogRecPtr targetPagePtr = tmpRecPtr - targetRecOff;
+
+        // Read the page containing potential record
+        int readLen = ReadPageInternal(state, targetPagePtr, targetRecOff);
+        if (readLen < 0)
+            goto err;
+
+        header = (XLogPageHeader) state->readBuf;
+        uint32 pageHeaderSize = XLogPageHeaderSize(header);
+
+        // Ensure we have full page header
+        readLen = ReadPageInternal(state, targetPagePtr, pageHeaderSize);
+        if (readLen < 0)
+            goto err;
+
+        // Handle continuation records
+        if (header->xlp_info & XLP_FIRST_IS_CONTRECORD) {
+            // Check if continuation spans to next page
+            if (MAXALIGN(header->xlp_rem_len) >= (XLOG_BLCKSZ - pageHeaderSize)) {
+                // Continuation continues on next page
+                tmpRecPtr = targetPagePtr + XLOG_BLCKSZ;
+            } else {
+                // Continuation ends on this page - skip past it
+                tmpRecPtr = targetPagePtr + pageHeaderSize + MAXALIGN(header->xlp_rem_len);
+                break;
+            }
+        } else {
+            // No continuation - start of page after header
+            tmpRecPtr = targetPagePtr + pageHeaderSize;
+            break;
+        }
+    }
+
+    // Phase 2: Search for record at or after target LSN
+    XLogBeginRead(state, tmpRecPtr);
+    while (XLogReadRecord(state, &errormsg) != NULL) {
+        // Found a record at or past our target
+        if (RecPtr <= state->ReadRecPtr) {
+            found = state->ReadRecPtr;
+            XLogBeginRead(state, found);  // Rewind to start of found record
+            return found;
+        }
+    }
+
+err:
+    XLogReaderInvalReadState(state);
+    return InvalidXLogRecPtr;
+}
+```

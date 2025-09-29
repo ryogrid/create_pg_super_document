@@ -35,3 +35,20 @@ This function creates a WAL record to log the zeroing of a CLOG page. When a new
 - Also used by commit timestamp functionality through the XactCtl function pointer mechanism
 - The page number is logged as binary data to minimize WAL record size
 - Follows the standard PostgreSQL WAL logging pattern: BeginInsert → RegisterData → Insert
+
+## Simplified Source
+
+```c
+static void
+WriteZeroPageXlogRec(int64 pageno)
+{
+    // Start WAL record creation
+    XLogBeginInsert();
+
+    // Register the page number as record data
+    XLogRegisterData((char *) (&pageno), sizeof(pageno));
+
+    // Insert the WAL record for CLOG zero page operation
+    XLogInsert(RM_CLOG_ID, CLOG_ZEROPAGE);
+}
+```

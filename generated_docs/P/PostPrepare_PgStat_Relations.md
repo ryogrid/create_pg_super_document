@@ -38,3 +38,22 @@ Note that AtEOXact_PgStat_Relations is not called during the PREPARE phase, maki
 - Simpler than AtEOXact_PgStat_Relations because it only needs to unlink, not transfer statistics
 - Essential for proper statistics handling in distributed transaction scenarios
 - Works in conjunction with AtPrepare_PgStat_Relations to maintain statistics consistency
+
+## Simplified Source
+
+```c
+void
+PostPrepare_PgStat_Relations(PgStat_SubXactStatus *xact_state)
+{
+    PgStat_TableXactStatus *trans;
+
+    // Iterate through all transaction status entries
+    for (trans = xact_state->first; trans != NULL; trans = trans->next) {
+        PgStat_TableStatus *tabstat;
+
+        // Unlink transaction state from table statistics
+        tabstat = trans->parent;
+        tabstat->trans = NULL;
+    }
+}
+```

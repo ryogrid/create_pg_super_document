@@ -34,3 +34,17 @@ The function works by first calling TwoPhaseGetGXact to locate the global transa
 - This is essential for lock management and wait queue operations during prepared transaction lifetime
 - The lock_held parameter allows for optimized calling patterns when the caller already holds necessary locks
 - Primarily used by the lock manager for handling locks associated with prepared transactions
+
+## Simplified Source
+
+```c
+PGPROC *
+TwoPhaseGetDummyProc(TransactionId xid, bool lock_held)
+{
+    // Get the global transaction for this XID
+    GlobalTransaction gxact = TwoPhaseGetGXact(xid, lock_held);
+
+    // Return the PGPROC structure using the stored process number
+    return GetPGProcByNumber(gxact->pgprocno);
+}
+```

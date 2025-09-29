@@ -32,3 +32,11 @@ The function increments the `blocks_exists` counter, which helps track how frequ
 - Useful for understanding system behavior during page management operations
 - Part of PostgreSQL's comprehensive buffer management statistics collection
 - Located in src/backend/utils/activity/pgstat_slru.c:71-76
+
+## Simplified Source
+
+```c
+void pgstat_count_slru_page_exists(int slru_idx) {
+    get_slru_entry(slru_idx)->blocks_exists += 1;
+}
+```

@@ -39,3 +39,30 @@ This function identifies system objects that are essential to PostgreSQL's opera
 - Databases are never pinned, allowing template0 and template1 to serve as mutual backups
 - The function errs on the side of marking more objects as pinned rather than maintaining a precise minimal set
 - This approach provides better performance than detailed dependency tracking while maintaining system integrity
+
+## Simplified Source
+```c
+bool IsPinnedObject(Oid classId, Oid objectId)
+{
+    // User-defined objects (high OIDs) are never pinned
+    if (objectId >= FirstUnpinnedObjectId)
+        return false;
+
+    // Large objects are never pinned (user-assignable OIDs)
+    if (classId == LargeObjectRelationId)
+        return false;
+
+    // Policy exceptions: specific objects we don't want pinned
+
+    // Public namespace is not pinned
+    if (classId == NamespaceRelationId && objectId == PG_PUBLIC_NAMESPACE)
+        return false;
+
+    // Databases are never pinned (allows template rebuilding)
+    if (classId == DatabaseRelationId)
+        return false;
+
+    // All other initdb-created objects are pinned
+    return true;
+}
+```

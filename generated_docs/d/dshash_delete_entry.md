@@ -38,3 +38,23 @@ The  function performs a direct deletion of an entry from a dynamic shared hash 
 - The entry pointer becomes invalid after this function completes
 - Uses the hash value stored in the item to determine the correct partition
 - No return value as the deletion is always performed (entry is assumed to exist)
+
+## Simplified Source
+
+```c
+void
+dshash_delete_entry(dshash_table *hash_table, void *entry)
+{
+    // Convert entry pointer to internal item structure
+    dshash_table_item *item = ITEM_FROM_ENTRY(entry);
+    size_t partition = PARTITION_FOR_HASH(item->hash);
+
+    // Verify hash table state and exclusive lock
+    Assert(hash_table->control->magic == DSHASH_MAGIC);
+    Assert(LWLockHeldByMeInMode(PARTITION_LOCK(hash_table, partition), LW_EXCLUSIVE));
+
+    // Delete the item and release the lock
+    delete_item(hash_table, item);
+    LWLockRelease(PARTITION_LOCK(hash_table, partition));
+}
+```

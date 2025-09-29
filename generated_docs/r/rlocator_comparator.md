@@ -34,3 +34,27 @@ This function implements a three-way comparison for RelFileLocator structures, f
 - Used for efficiently sorting and searching arrays of RelFileLocator structures
 - Essential for buffer management operations that need to process multiple relations efficiently
 - The ordering established by this function must be consistent with RelFileLocatorEquals logic
+
+## Simplified Source
+
+```c
+static int rlocator_comparator(const void *p1, const void *p2) {
+    RelFileLocator n1 = *(const RelFileLocator *) p1;
+    RelFileLocator n2 = *(const RelFileLocator *) p2;
+
+    // Compare relation number first
+    if (n1.relNumber < n2.relNumber) return -1;
+    if (n1.relNumber > n2.relNumber) return 1;
+
+    // Then compare database OID
+    if (n1.dbOid < n2.dbOid) return -1;
+    if (n1.dbOid > n2.dbOid) return 1;
+
+    // Finally compare tablespace OID
+    if (n1.spcOid < n2.spcOid) return -1;
+    if (n1.spcOid > n2.spcOid) return 1;
+
+    // All components equal
+    return 0;
+}
+```

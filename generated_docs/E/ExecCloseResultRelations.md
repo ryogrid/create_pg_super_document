@@ -41,3 +41,39 @@ The function ensures that all result-related relations are properly closed to pr
 - Includes assertions to verify that trigger target relations are "dummy" ResultRelInfos without indexes
 - Critical for preventing relation descriptor leaks in complex queries involving result relations
 - The separation between result relations and range table relations allows for modular cleanup handling
+
+## Simplified Source
+```c
+void ExecCloseResultRelations(EState *estate)
+{
+    // Close result relations and their indexes
+    foreach(cell, estate->es_opened_result_relations)
+    {
+        ResultRelInfo *resultRelInfo = lfirst(cell);
+
+        // Close indexes first
+        ExecCloseIndices(resultRelInfo);
+
+        // Close ancestor relations that are stubs (RTI = 0)
+        foreach(ancestor_cell, resultRelInfo->ri_ancestorResultRels)
+        {
+            ResultRelInfo *ancestor_info = lfirst(ancestor_cell);
+
+            // Skip ancestors with RTI > 0 (closed elsewhere)
+            if (ancestor_info->ri_RangeTableIndex > 0)
+                continue;
+
+            table_close(ancestor_info->ri_RelationDesc, NoLock);
+        }
+    }
+
+    // Close trigger target relations (dummy ResultRelInfos)
+    foreach(cell, estate->es_trig_target_relations)
+    {
+        ResultRelInfo *resultRelInfo = lfirst(cell);
+
+        // These are dummy relations without indexes
+        table_close(resultRelInfo->ri_RelationDesc, NoLock);
+    }
+}
+```

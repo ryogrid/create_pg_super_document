@@ -46,3 +46,53 @@ The  function is a specialized version of subcolor processing that handles indiv
 - Manages dynamic memory allocation for the new colormaprange array
 - Uses assertion to verify space estimation was adequate
 - Part of the regex engine's color management system that maintains efficient character-to-color mappings while preserving the ability to distinguish individual characters when needed
+
+## Simplified Source
+```c
+static void subcoloronechr(struct vars *v, chr ch, struct state *lp,
+                          struct state *rp, color *lastsubcolor)
+{
+    struct colormap *cm = v->cm;
+
+    // Handle simple characters efficiently
+    if (ch <= MAX_SIMPLE_CHR)
+    {
+        color sco = subcolor(cm, ch);
+        NOERR();
+        if (sco != *lastsubcolor)
+        {
+            newarc(v->nfa, PLAIN, sco, lp, rp);
+            *lastsubcolor = sco;
+        }
+        return;
+    }
+
+    // For complex characters, need to manage colormap ranges
+    colormaprange *newranges = MALLOC((cm->numcmranges + 2) * sizeof(colormaprange));
+    if (newranges == NULL) {
+        CERR(REG_ESPACE);
+        return;
+    }
+
+    int numnewranges = 0;
+    int newrow;
+
+    // Copy ranges before target character
+    // ... [range processing logic] ...
+
+    // Handle the target character (create/split ranges as needed)
+    // ... [character isolation logic] ...
+
+    // Copy ranges after target character
+    // ... [remaining range copying] ...
+
+    // Process the new row for subcolor allocation
+    subcoloronerow(v, newrow, lp, rp, lastsubcolor);
+
+    // Update colormap with new ranges
+    if (cm->cmranges != NULL)
+        FREE(cm->cmranges);
+    cm->cmranges = newranges;
+    cm->numcmranges = numnewranges;
+}
+```

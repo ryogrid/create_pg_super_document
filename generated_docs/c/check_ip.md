@@ -36,3 +36,19 @@ The function first ensures that the client's address family (IPv4 or IPv6) match
 - This function is static and only used within the HBA authentication module
 - It serves as a wrapper around the more complex  function, providing a simpler interface for HBA-specific use cases
 - The function returns immediately with false if address families don't match, making it efficient for mixed IPv4/IPv6 environments
+
+## Simplified Source
+
+```c
+static bool
+check_ip(SockAddr *raddr, struct sockaddr *addr, struct sockaddr *mask)
+{
+    // Check if address families match and IP is in subnet range
+    if (raddr->addr.ss_family == addr->sa_family &&
+        pg_range_sockaddr(&raddr->addr,
+                          (struct sockaddr_storage *) addr,
+                          (struct sockaddr_storage *) mask))
+        return true;
+    return false;
+}
+```

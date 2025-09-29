@@ -46,3 +46,36 @@ The function handles the conversion from TupleTableSlots to HeapTuples as needed
 - Preserves table OID information (t_tableOid) during HeapTuple conversion for proper catalog relationships
 - This function is commonly used in DDL operations that create multiple related catalog entries simultaneously
 - The TU_All flag ensures all indexes are updated for each inserted tuple
+
+## Simplified Source
+```c
+void CatalogTuplesMultiInsertWithInfo(Relation heapRel, TupleTableSlot **slot,
+                                     int ntuples, CatalogIndexState indstate)
+{
+    // Early return if no tuples to insert
+    if (ntuples <= 0)
+        return;
+
+    // Bulk insert all tuples into the heap relation
+    heap_multi_insert(heapRel, slot, ntuples,
+                      GetCurrentCommandId(true), 0, NULL);
+
+    // Update catalog indexes individually (no bulk index insert available)
+    for (int i = 0; i < ntuples; i++)
+    {
+        bool should_free;
+        HeapTuple tuple;
+
+        // Convert slot to HeapTuple for index insertion
+        tuple = ExecFetchSlotHeapTuple(slot[i], true, &should_free);
+        tuple->t_tableOid = slot[i]->tts_tableOid;
+
+        // Insert into all catalog indexes
+        CatalogIndexInsert(indstate, tuple, TU_All);
+
+        // Clean up if tuple was allocated
+        if (should_free)
+            heap_freetuple(tuple);
+    }
+}
+```

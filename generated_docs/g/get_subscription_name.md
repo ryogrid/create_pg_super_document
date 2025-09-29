@@ -44,3 +44,31 @@ The function searches the SUBSCRIPTIONOID system cache to retrieve the subscript
 - Located in src/backend/utils/cache/lsyscache.c:3695-3716
 - The returned string is a copy, so modifications won't affect the system catalog
 - Used during subscription removal operations and system catalog introspection
+
+## Simplified Source
+
+```c
+char *
+get_subscription_name(Oid subid, bool missing_ok)
+{
+    HeapTuple tup;
+    char *subname;
+    Form_pg_subscription subform;
+
+    // Look up subscription by OID
+    tup = SearchSysCache1(SUBSCRIPTIONOID, ObjectIdGetDatum(subid));
+
+    if (!HeapTupleIsValid(tup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for subscription %u", subid);
+        return NULL;
+    }
+
+    // Extract and copy subscription name
+    subform = (Form_pg_subscription) GETSTRUCT(tup);
+    subname = pstrdup(NameStr(subform->subname));
+
+    ReleaseSysCache(tup);
+    return subname;
+}
+```

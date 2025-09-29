@@ -57,3 +57,102 @@ Key optimizations include:
 - Critical for PostgreSQL's tuple access performance, especially for wide tables with many attributes
 - The function converts from 1-based attribute numbering (external interface) to 0-based internal indexing
 - Balances between computation cost and cache effectiveness to optimize overall system performance
+
+## Simplified Source
+
+```c
+Datum nocachegetattr(HeapTuple tup, int attnum, TupleDesc tupleDesc) {
+    HeapTupleHeader td = tup->t_data;
+    char *tp = (char *) td + td->t_hoff;  // Data start
+    bits8 *bp = td->t_bits;               // Null bitmap
+    bool slow = false;
+    int off;
+
+    attnum--;  // Convert to 0-based indexing
+
+    // Check if there are nulls before target attribute
+    if (!HeapTupleNoNulls(tup)) {
+        // Use bit manipulation to check for nulls before target
+        int byte = attnum >> 3;
+        int finalbit = attnum & 0x07;
+        if ((~bp[byte]) & ((1 << finalbit) - 1)) {
+            slow = true;  // Found nulls before target
+        } else {
+            // Check earlier bytes for any nulls
+            for (int i = 0; i < byte; i++) {
+                if (bp[i] != 0xFF) {
+                    slow = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (!slow) {
+        // Fast path: no nulls before target
+        Form_pg_attribute att = TupleDescAttr(tupleDesc, attnum);
+
+        // Use cached offset if available
+        if (att->attcacheoff >= 0) {
+            return fetchatt(att, tp + att->attcacheoff);
+        }
+
+        // Check for variable-width attributes up to target
+        if (HeapTupleHasVarWidth(tup)) {
+            for (int j = 0; j <= attnum; j++) {
+                if (TupleDescAttr(tupleDesc, j)->attlen <= 0) {
+                    slow = true;
+                    break;
+                }
+            }
+        }
+
+        // If still fast path, cache offsets for all fixed-width attributes
+        if (!slow) {
+            // Initialize cached offsets for leading fixed-width columns
+            off = 0;
+            for (int j = 0; j < tupleDesc->natts && j <= attnum; j++) {
+                Form_pg_attribute att = TupleDescAttr(tupleDesc, j);
+                if (att->attlen <= 0) break;
+
+                off = att_align_nominal(off, att->attalign);
+                att->attcacheoff = off;
+                off += att->attlen;
+            }
+            off = TupleDescAttr(tupleDesc, attnum)->attcacheoff;
+        }
+    }
+
+    if (slow) {
+        // Slow path: walk through tuple carefully
+        off = 0;
+        bool usecache = true;
+
+        for (int i = 0; i <= attnum; i++) {
+            Form_pg_attribute att = TupleDescAttr(tupleDesc, i);
+
+            // Skip null attributes
+            if (HeapTupleHasNulls(tup) && att_isnull(i, bp)) {
+                usecache = false;
+                continue;
+            }
+
+            // Handle alignment and caching
+            if (usecache && att->attcacheoff >= 0) {
+                off = att->attcacheoff;
+            } else {
+                off = att_align_nominal(off, att->attalign);
+                if (usecache) att->attcacheoff = off;
+            }
+
+            if (i == attnum) break;
+
+            // Advance past this attribute
+            off = att_addlength_pointer(off, att->attlen, tp + off);
+            if (att->attlen <= 0) usecache = false;
+        }
+    }
+
+    return fetchatt(TupleDescAttr(tupleDesc, attnum), tp + off);
+}
+```
