@@ -43,3 +43,22 @@ This function is widely used throughout PostgreSQL for building lists of integer
 - Must use return value as function may reallocate the list structure
 - Type-safe alternative to using lappend with integer pointers
 - One of the most frequently used list manipulation functions in PostgreSQL codebase
+
+## Simplified Source
+
+```c
+List *
+lappend_int(List *list, int datum)
+{
+    Assert(IsIntegerList(list));
+
+    if (list == NIL)
+        list = new_list(T_IntList, 1);  // Create new integer list
+    else
+        new_tail_cell(list);            // Add new cell to existing list
+
+    llast_int(list) = datum;            // Set the integer value
+    check_list_invariants(list);        // Debug validation
+    return list;
+}
+```

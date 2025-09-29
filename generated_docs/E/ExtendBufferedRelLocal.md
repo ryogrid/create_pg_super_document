@@ -64,3 +64,102 @@ The function handles the complexity of coordinating buffer allocation, hash tabl
 - I/O timing and statistics are tracked for performance monitoring of temporary relation operations
 - The function ensures resource owner tracking for all pinned buffers
 - Part of PostgreSQL's buffered relation extension system optimized for temporary relation performance
+
+## Simplified Source
+
+```c
+BlockNumber ExtendBufferedRelLocal(BufferManagerRelation bmr, ForkNumber fork,
+                                  uint32 flags, uint32 extend_by, BlockNumber extend_upto,
+                                  Buffer *buffers, uint32 *extended_by)
+{
+    BlockNumber first_block;
+
+    // Initialize local buffer hash table if not done yet
+    if (LocalBufHash == NULL)
+        InitLocalBuffers();
+
+    // Limit extension size based on available pins
+    LimitAdditionalLocalPins(&extend_by);
+
+    // Allocate victim buffers and zero-fill them
+    for (uint32 i = 0; i < extend_by; i++) {
+        buffers[i] = GetLocalVictimBuffer();
+        BufferDesc *buf_hdr = GetLocalBufferDescriptor(-buffers[i] - 1);
+        Block buf_block = LocalBufHdrGetBlock(buf_hdr);
+        MemSet((char *) buf_block, 0, BLCKSZ);  // Zero-initialize new pages
+    }
+
+    // Get current relation size
+    first_block = smgrnblocks(bmr.smgr, fork);
+
+    // Validate extension parameters
+    if (extend_upto != InvalidBlockNumber) {
+        Assert(first_block <= extend_upto);
+        Assert((uint64) first_block + extend_by <= extend_upto);
+    }
+
+    // Check for relation size limit
+    if ((uint64) first_block + extend_by >= MaxBlockNumber)
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("cannot extend relation %s beyond %u blocks",
+                             relpath(bmr.smgr->smgr_rlocator, fork), MaxBlockNumber)));
+
+    // Set up hash table entries for each new block
+    for (uint32 i = 0; i < extend_by; i++) {
+        int victim_buf_id = -buffers[i] - 1;
+        BufferDesc *victim_buf_hdr = GetLocalBufferDescriptor(victim_buf_id);
+        BufferTag tag;
+        LocalBufferLookupEnt *hresult;
+        bool found;
+
+        ResourceOwnerEnlarge(CurrentResourceOwner);
+        InitBufferTag(&tag, &bmr.smgr->smgr_rlocator.locator, fork, first_block + i);
+
+        // Try to insert into hash table
+        hresult = (LocalBufferLookupEnt *) hash_search(LocalBufHash, (void *) &tag, HASH_ENTER, &found);
+
+        if (found) {
+            // Block already exists, use existing buffer
+            BufferDesc *existing_hdr;
+            uint32 buf_state;
+
+            UnpinLocalBuffer(BufferDescriptorGetBuffer(victim_buf_hdr));
+            existing_hdr = GetLocalBufferDescriptor(hresult->id);
+            PinLocalBuffer(existing_hdr, false);
+            buffers[i] = BufferDescriptorGetBuffer(existing_hdr);
+
+            // Mark buffer as invalid (will be validated after extension)
+            buf_state = pg_atomic_read_u32(&existing_hdr->state);
+            buf_state &= ~BM_VALID;
+            pg_atomic_unlocked_write_u32(&existing_hdr->state, buf_state);
+        } else {
+            // New block, set up victim buffer
+            uint32 buf_state = pg_atomic_read_u32(&victim_buf_hdr->state);
+            victim_buf_hdr->tag = tag;
+            buf_state |= BM_TAG_VALID | BUF_USAGECOUNT_ONE;
+            pg_atomic_unlocked_write_u32(&victim_buf_hdr->state, buf_state);
+            hresult->id = victim_buf_id;
+        }
+    }
+
+    // Perform actual disk extension with I/O timing
+    instr_time io_start = pgstat_prepare_io_time(track_io_timing);
+    smgrzeroextend(bmr.smgr, fork, first_block, extend_by, false);
+    pgstat_count_io_op_time(IOOBJECT_TEMP_RELATION, IOCONTEXT_NORMAL,
+                           IOOP_EXTEND, io_start, extend_by);
+
+    // Mark all buffers as valid
+    for (uint32 i = 0; i < extend_by; i++) {
+        Buffer buf = buffers[i];
+        BufferDesc *buf_hdr = GetLocalBufferDescriptor(-buf - 1);
+        uint32 buf_state = pg_atomic_read_u32(&buf_hdr->state);
+        buf_state |= BM_VALID;
+        pg_atomic_unlocked_write_u32(&buf_hdr->state, buf_state);
+    }
+
+    *extended_by = extend_by;
+    pgBufferUsage.local_blks_written += extend_by;
+
+    return first_block;
+}
+```

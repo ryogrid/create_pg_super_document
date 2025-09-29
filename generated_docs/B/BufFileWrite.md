@@ -51,3 +51,50 @@ The write process is entirely buffered - data is copied to the internal buffer a
 - Errors are reported via ereport() using PostgreSQL's error reporting mechanism
 - Supports writing data larger than the buffer size by breaking it into chunks
 - Maintains file positioning information for proper buffer management and seeking operations
+
+## Simplified Source
+
+```c
+void BufFileWrite(BufFile *file, const void *ptr, size_t size)
+{
+    size_t nthistime;
+
+    Assert(!file->readOnly);
+
+    while (size > 0)
+    {
+        // If buffer is full, dump it out
+        if (file->pos >= BLCKSZ)
+        {
+            if (file->dirty)
+                BufFileDumpBuffer(file);
+            else
+            {
+                // Direct transition from reading to writing
+                file->curOffset += file->pos;
+                file->pos = 0;
+                file->nbytes = 0;
+            }
+        }
+
+        // Calculate how much to write this time
+        nthistime = BLCKSZ - file->pos;
+        if (nthistime > size)
+            nthistime = size;
+        Assert(nthistime > 0);
+
+        // Copy data to buffer
+        memcpy(file->buffer.data + file->pos, ptr, nthistime);
+
+        // Update buffer state
+        file->dirty = true;
+        file->pos += nthistime;
+        if (file->nbytes < file->pos)
+            file->nbytes = file->pos;
+
+        // Advance to next chunk
+        ptr = (const char *) ptr + nthistime;
+        size -= nthistime;
+    }
+}
+```

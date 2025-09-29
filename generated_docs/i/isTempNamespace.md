@@ -41,3 +41,16 @@ The function first validates that myTempNamespace is a valid OID using OidIsVali
 - Temporary namespaces are automatically created by PostgreSQL when a session first creates temporary objects
 - The myTempNamespace variable is managed by the namespace subsystem and may be InvalidOid if no temporary namespace has been created for the session yet
 - This function is frequently used in access control, object management, and special handling of temporary objects throughout the PostgreSQL codebase
+
+## Simplified Source
+
+```c
+// Check if namespace is the current session's temp namespace
+bool
+isTempNamespace(Oid namespaceId)
+{
+    if (OidIsValid(myTempNamespace) && myTempNamespace == namespaceId)
+        return true;
+    return false;
+}
+```

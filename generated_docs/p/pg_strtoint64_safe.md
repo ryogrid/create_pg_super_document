@@ -41,3 +41,205 @@ The function uses unsigned arithmetic internally to correctly handle the full ra
 - Uses unsigned arithmetic internally for correct two's complement edge case handling
 - Essential component of PostgreSQL's bigint type input processing
 - Accumulates values as unsigned to handle the full signed range correctly
+
+## Simplified Source
+
+```c
+int64 pg_strtoint64_safe(const char *s, Node *escontext)
+{
+    const char *ptr = s;
+    const char *firstdigit;
+    uint64 tmp = 0;
+    bool neg = false;
+    unsigned char digit;
+
+    // Fast path: try to parse simple decimal numbers quickly
+    if (*ptr == '-')
+    {
+        ptr++;
+        neg = true;
+    }
+
+    // Process first digit
+    digit = (*ptr - '0');
+    if (likely(digit < 10))
+    {
+        ptr++;
+        tmp = digit;
+    }
+    else
+        goto slow;  // Need at least one digit
+
+    // Process remaining digits in fast path
+    for (;;)
+    {
+        digit = (*ptr - '0');
+        if (digit >= 10)
+            break;
+        ptr++;
+
+        if (unlikely(tmp > -(PG_INT64_MIN / 10)))
+            goto out_of_range;
+        tmp = tmp * 10 + digit;
+    }
+
+    // If string doesn't end cleanly, use slow path
+    if (unlikely(*ptr != '\0'))
+        goto slow;
+
+    // Convert to final result with range checking
+    if (neg)
+    {
+        if (unlikely(tmp > (uint64) (-(PG_INT64_MIN + 1)) + 1))
+            goto out_of_range;
+        return -((int64) tmp);
+    }
+
+    if (unlikely(tmp > PG_INT64_MAX))
+        goto out_of_range;
+    return (int64) tmp;
+
+slow:
+    // Slow path: handle complex formats (hex, octal, binary, underscores)
+    tmp = 0;
+    ptr = s;
+
+    // Skip leading spaces
+    while (isspace((unsigned char) *ptr))
+        ptr++;
+
+    // Handle sign
+    if (*ptr == '-')
+    {
+        ptr++;
+        neg = true;
+    }
+    else if (*ptr == '+')
+        ptr++;
+
+    // Parse based on prefix
+    if (ptr[0] == '0' && (ptr[1] == 'x' || ptr[1] == 'X'))
+    {
+        // Hexadecimal: 0x...
+        firstdigit = ptr += 2;
+        for (;;)
+        {
+            if (isxdigit((unsigned char) *ptr))
+            {
+                if (unlikely(tmp > -(PG_INT64_MIN / 16)))
+                    goto out_of_range;
+                tmp = tmp * 16 + hexlookup[(unsigned char) *ptr++];
+            }
+            else if (*ptr == '_')
+            {
+                ptr++;
+                if (*ptr == '\0' || !isxdigit((unsigned char) *ptr))
+                    goto invalid_syntax;
+            }
+            else
+                break;
+        }
+    }
+    else if (ptr[0] == '0' && (ptr[1] == 'o' || ptr[1] == 'O'))
+    {
+        // Octal: 0o...
+        firstdigit = ptr += 2;
+        for (;;)
+        {
+            if (*ptr >= '0' && *ptr <= '7')
+            {
+                if (unlikely(tmp > -(PG_INT64_MIN / 8)))
+                    goto out_of_range;
+                tmp = tmp * 8 + (*ptr++ - '0');
+            }
+            else if (*ptr == '_')
+            {
+                ptr++;
+                if (*ptr == '\0' || *ptr < '0' || *ptr > '7')
+                    goto invalid_syntax;
+            }
+            else
+                break;
+        }
+    }
+    else if (ptr[0] == '0' && (ptr[1] == 'b' || ptr[1] == 'B'))
+    {
+        // Binary: 0b...
+        firstdigit = ptr += 2;
+        for (;;)
+        {
+            if (*ptr >= '0' && *ptr <= '1')
+            {
+                if (unlikely(tmp > -(PG_INT64_MIN / 2)))
+                    goto out_of_range;
+                tmp = tmp * 2 + (*ptr++ - '0');
+            }
+            else if (*ptr == '_')
+            {
+                ptr++;
+                if (*ptr == '\0' || *ptr < '0' || *ptr > '1')
+                    goto invalid_syntax;
+            }
+            else
+                break;
+        }
+    }
+    else
+    {
+        // Decimal with underscores
+        firstdigit = ptr;
+        for (;;)
+        {
+            if (*ptr >= '0' && *ptr <= '9')
+            {
+                if (unlikely(tmp > -(PG_INT64_MIN / 10)))
+                    goto out_of_range;
+                tmp = tmp * 10 + (*ptr++ - '0');
+            }
+            else if (*ptr == '_')
+            {
+                if (unlikely(ptr == firstdigit))
+                    goto invalid_syntax;
+                ptr++;
+                if (*ptr == '\0' || !isdigit((unsigned char) *ptr))
+                    goto invalid_syntax;
+            }
+            else
+                break;
+        }
+    }
+
+    // Require at least one digit
+    if (unlikely(ptr == firstdigit))
+        goto invalid_syntax;
+
+    // Allow trailing whitespace
+    while (isspace((unsigned char) *ptr))
+        ptr++;
+
+    if (unlikely(*ptr != '\0'))
+        goto invalid_syntax;
+
+    // Final conversion with range checking
+    if (neg)
+    {
+        if (tmp > (uint64) (-(PG_INT64_MIN + 1)) + 1)
+            goto out_of_range;
+        return -((int64) tmp);
+    }
+
+    if (tmp > PG_INT64_MAX)
+        goto out_of_range;
+    return (int64) tmp;
+
+out_of_range:
+    ereturn(escontext, 0,
+            (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+             errmsg("value \"%s\" is out of range for type %s", s, "bigint")));
+
+invalid_syntax:
+    ereturn(escontext, 0,
+            (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+             errmsg("invalid input syntax for type %s: \"%s\"", "bigint", s)));
+}
+```

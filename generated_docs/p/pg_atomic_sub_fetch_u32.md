@@ -44,3 +44,23 @@ The function serves as a high-level wrapper around the platform-specific impleme
 - Used extensively in vacuum operations, bitmap operations, lightweight locks, and statistics management
 - The inline nature of the function ensures minimal overhead while maintaining atomicity guarantees
 - Platform limitations prevent the use of INT_MIN as the subtraction value due to potential overflow issues in two's complement arithmetic
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_sub_fetch_u32
+static inline uint32 pg_atomic_sub_fetch_u32(volatile pg_atomic_uint32 *ptr, int32 sub_) {
+    // Ensure proper alignment and valid subtraction value
+    AssertPointerAlignment(ptr, 4);
+    Assert(sub_ != INT_MIN);
+
+    // Perform atomic subtraction and return new value
+    return pg_atomic_sub_fetch_u32_impl(ptr, sub_);
+}
+```
+
+Key simplifications made:
+- Preserved essential validation checks for alignment and INT_MIN
+- Maintained the core atomic operation call
+- Added descriptive comments for each major step
+- Kept the function signature and return semantics intact

@@ -48,3 +48,73 @@ The destruction process includes calling dsm_impl_op with DSM_OP_DESTROY and, fo
 - For main-region segments, returns allocated pages back to the shared free page manager
 - Error handling ensures atomic updates and proper cleanup even in failure scenarios
 - The reference count semantics: 0=unused slot, 1=no active references, >1=active references
+
+## Simplified Source
+
+```c
+void dsm_unpin_segment(dsm_handle handle)
+{
+    uint32 control_slot = INVALID_CONTROL_SLOT;
+    bool destroy = false;
+    uint32 i;
+
+    // Find the control slot for the given handle
+    LWLockAcquire(DynamicSharedMemoryControlLock, LW_EXCLUSIVE);
+    for (i = 0; i < dsm_control->nitems; ++i)
+    {
+        // Skip unused slots and segments that are concurrently going away
+        if (dsm_control->item[i].refcnt <= 1)
+            continue;
+
+        // If we've found our handle, we can stop searching
+        if (dsm_control->item[i].handle == handle)
+        {
+            control_slot = i;
+            break;
+        }
+    }
+
+    // Validate that we found the slot and it's properly pinned
+    if (control_slot == INVALID_CONTROL_SLOT)
+        elog(ERROR, "cannot unpin unknown segment handle");
+    if (!dsm_control->item[control_slot].pinned)
+        elog(ERROR, "cannot unpin a segment that is not pinned");
+    Assert(dsm_control->item[control_slot].refcnt > 1);
+
+    // Allow implementation-specific cleanup
+    if (!is_main_region_dsm_handle(handle))
+        dsm_impl_unpin_segment(handle,
+                               &dsm_control->item[control_slot].impl_private_pm_handle);
+
+    // Decrement reference count and unpin
+    if (--dsm_control->item[control_slot].refcnt == 1)
+        destroy = true;
+    dsm_control->item[control_slot].pinned = false;
+
+    LWLockRelease(DynamicSharedMemoryControlLock);
+
+    // Clean up resources if that was the last reference
+    if (destroy)
+    {
+        void *junk_impl_private = NULL;
+        void *junk_mapped_address = NULL;
+        Size junk_mapped_size = 0;
+
+        // Destroy the segment
+        if (is_main_region_dsm_handle(handle) ||
+            dsm_impl_op(DSM_OP_DESTROY, handle, 0, &junk_impl_private,
+                        &junk_mapped_address, &junk_mapped_size, WARNING))
+        {
+            LWLockAcquire(DynamicSharedMemoryControlLock, LW_EXCLUSIVE);
+            if (is_main_region_dsm_handle(handle))
+                FreePageManagerPut((FreePageManager *) dsm_main_space_begin,
+                                   dsm_control->item[control_slot].first_page,
+                                   dsm_control->item[control_slot].npages);
+            Assert(dsm_control->item[control_slot].handle == handle);
+            Assert(dsm_control->item[control_slot].refcnt == 1);
+            dsm_control->item[control_slot].refcnt = 0;
+            LWLockRelease(DynamicSharedMemoryControlLock);
+        }
+    }
+}
+```

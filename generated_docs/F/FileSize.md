@@ -38,3 +38,24 @@ FileSize efficiently determines the size of a file by using the lseek() system c
 - Includes debug logging to track file size queries
 - Commonly used for validation and space calculations in storage management operations
 - Critical for storage managers to understand file boundaries and plan operations
+
+## Simplified Source
+
+```c
+off_t FileSize(File file)
+{
+    Assert(FileIsValid(file));
+
+    DO_DB(elog(LOG, "FileSize %d (%s)", file, VfdCache[file].fileName));
+
+    // Ensure file is open
+    if (FileIsNotOpen(file))
+    {
+        if (FileAccess(file) < 0)
+            return (off_t) -1;
+    }
+
+    // Seek to end of file to get size
+    return lseek(VfdCache[file].fd, 0, SEEK_END);
+}
+```

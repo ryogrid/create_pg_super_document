@@ -32,3 +32,23 @@ This function iterates through all chunks in an AfterTriggerEventList and frees 
 - Part of PostgreSQL's memory management for deferred trigger execution
 - Does not free the events structure itself, only the chunks it contains
 - Safe to call on already-empty event lists
+
+## Simplified Source
+
+```c
+static void afterTriggerFreeEventList(AfterTriggerEventList *events)
+{
+    AfterTriggerEventChunk *chunk;
+
+    // Free all chunks in the linked list
+    while ((chunk = events->head) != NULL)
+    {
+        events->head = chunk->next;
+        pfree(chunk);
+    }
+
+    // Reset tail pointers
+    events->tail = NULL;
+    events->tailfree = NULL;
+}
+```

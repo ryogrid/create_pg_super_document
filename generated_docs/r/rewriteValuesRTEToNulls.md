@@ -33,3 +33,40 @@ Unlike rewriteValuesRTE, this function unconditionally replaces all SetToDefault
 - Provides a simpler alternative to rewriteValuesRTE when target relation context is unavailable
 - Always replaces DEFAULT with NULL regardless of any potential default expressions
 - Does not return a status value unlike rewriteValuesRTE, as it always processes all DEFAULT items
+
+## Simplified Source
+
+```c
+static void rewriteValuesRTEToNulls(Query *parsetree, RangeTblEntry *rte)
+{
+    List *newValues;
+    ListCell *lc;
+
+    newValues = NIL;
+    foreach(lc, rte->values_lists)
+    {
+        List *sublist = (List *) lfirst(lc);
+        List *newList = NIL;
+        ListCell *lc2;
+
+        foreach(lc2, sublist)
+        {
+            Node *col = (Node *) lfirst(lc2);
+
+            if (IsA(col, SetToDefault))
+            {
+                SetToDefault *def = (SetToDefault *) col;
+
+                // Replace DEFAULT with NULL constant
+                newList = lappend(newList, makeNullConst(def->typeId,
+                                                        def->typeMod,
+                                                        def->collation));
+            }
+            else
+                newList = lappend(newList, col);
+        }
+        newValues = lappend(newValues, newList);
+    }
+    rte->values_lists = newValues;
+}
+```

@@ -43,3 +43,23 @@ SHA-384 uses different initial hash values compared to SHA-512, even though both
 - The bitcount array uses two 64-bit values to handle input sizes up to 2^128 - 1 bits
 - This function must be called before any `pg_sha384_update` or `pg_sha384_final` operations
 - Part of PostgreSQL's internal cryptographic library and should not be called directly by user code
+
+## Simplified Source
+
+```c
+void pg_sha384_init(pg_sha384_ctx *context)
+{
+    // Check if context pointer is valid
+    if (context == NULL)
+        return;
+
+    // Copy SHA-384 specific initial hash values to context state
+    memcpy(context->state, sha384_initial_hash_value, PG_SHA512_DIGEST_LENGTH);
+
+    // Clear the input buffer
+    memset(context->buffer, 0, PG_SHA384_BLOCK_LENGTH);
+
+    // Reset both bit counters to zero
+    context->bitcount[0] = context->bitcount[1] = 0;
+}
+```

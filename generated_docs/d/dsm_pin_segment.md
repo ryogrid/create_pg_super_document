@@ -40,3 +40,38 @@ This is different from dsm_pin_mapping, which only affects the current process's
 - Increments the segment's reference count to prevent automatic cleanup
 - For main region segments, platform-specific pinning is skipped
 - Critical for implementing long-lived shared data structures that outlast individual sessions
+
+## Simplified Source
+
+```c
+void
+dsm_pin_segment(dsm_segment *seg)
+{
+    void *handle = NULL;
+
+    // Acquire lock to safely modify shared control structure
+    LWLockAcquire(DynamicSharedMemoryControlLock, LW_EXCLUSIVE);
+
+    // Check if already pinned (prevent double-pinning)
+    if (dsm_control->item[seg->control_slot].pinned)
+        elog(ERROR, "cannot pin a segment that is already pinned");
+
+    // Call platform-specific pinning if needed
+    if (!is_main_region_dsm_handle(seg->handle))
+        dsm_impl_pin_segment(seg->handle, seg->impl_private, &handle);
+
+    // Mark as pinned and increment reference count
+    dsm_control->item[seg->control_slot].pinned = true;
+    dsm_control->item[seg->control_slot].refcnt++;
+    dsm_control->item[seg->control_slot].impl_private_pm_handle = handle;
+
+    LWLockRelease(DynamicSharedMemoryControlLock);
+}
+```
+
+**Simplified Explanation:**
+1. Acquire exclusive lock on DSM control structure
+2. Check that segment isn't already pinned (error if it is)
+3. Call platform-specific pinning for non-main-region segments
+4. Mark segment as pinned and increment its reference count
+5. Store any implementation-specific handle and release lock

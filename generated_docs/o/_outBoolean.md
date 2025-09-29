@@ -31,3 +31,14 @@ This function converts a Boolean node into its textual representation by appendi
 - The function directly accesses the boolval field of the Boolean node structure
 - Part of PostgreSQL's node serialization system used for debugging, logging, and inter-process communication
 - The output format matches the expected input format for the corresponding node reading functions
+
+## Simplified Source
+
+```c
+static void
+_outBoolean(StringInfo str, const Boolean *node)
+{
+    // Simply output "true" or "false" based on the boolean value
+    appendStringInfoString(str, node->boolval ? "true" : "false");
+}
+```

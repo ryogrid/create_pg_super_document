@@ -39,3 +39,32 @@ The function operates as part of the rule rewriting system (RIR - Rules Instead 
 - Part of the PostgreSQL rule rewriting system for handling views and rules
 - Specifically designed to handle subselects within expressions rather than top-level queries
 - Tracks row security information across all processed sublinks
+
+## Simplified Source
+
+```c
+static bool
+fireRIRonSubLink(Node *node, fireRIRonSubLink_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, SubLink))
+    {
+        SubLink *sub = (SubLink *) node;
+
+        // Apply fireRIRrules to the subselect
+        sub->subselect = (Node *) fireRIRrules((Query *) sub->subselect,
+                                               context->activeRIRs);
+
+        // Track row security from sublinks
+        context->hasRowSecurity |= ((Query *) sub->subselect)->hasRowSecurity;
+
+        // Continue processing lefthand args of SubLink
+    }
+
+    // Don't recurse into Query nodes - already processed by fireRIRrules
+    return expression_tree_walker(node, fireRIRonSubLink,
+                                  (void *) context);
+}
+```

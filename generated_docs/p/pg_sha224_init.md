@@ -45,3 +45,23 @@ SHA-224 uses the same internal structure and block processing algorithm as SHA-2
 - This function must be called before any `pg_sha224_update` or `pg_sha224_final` operations
 - Part of PostgreSQL's internal cryptographic library and should not be called directly by user code
 - The use of SHA-256 constants (PG_SHA256_DIGEST_LENGTH, PG_SHA256_BLOCK_LENGTH) reflects the shared implementation between SHA-224 and SHA-256
+
+## Simplified Source
+
+```c
+void pg_sha224_init(pg_sha224_ctx *context)
+{
+    // Check if context pointer is valid
+    if (context == NULL)
+        return;
+
+    // Copy SHA-224 specific initial hash values to context state
+    memcpy(context->state, sha224_initial_hash_value, PG_SHA256_DIGEST_LENGTH);
+
+    // Clear the input buffer
+    memset(context->buffer, 0, PG_SHA256_BLOCK_LENGTH);
+
+    // Reset bit counter to zero
+    context->bitcount = 0;
+}
+```

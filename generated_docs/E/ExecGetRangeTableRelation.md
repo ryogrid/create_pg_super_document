@@ -37,3 +37,40 @@ This function implements lazy opening of relations referenced in the query's ran
 - Uses lazy initialization pattern - relations are only opened when first accessed
 - Includes assertion checks to verify proper locking in non-parallel execution
 - The function assumes the range table entry is of type RTE_RELATION
+
+## Simplified Source
+
+```c
+Relation
+ExecGetRangeTableRelation(EState *estate, Index rti)
+{
+    Relation rel;
+
+    Assert(rti > 0 && rti <= estate->es_range_table_size);
+
+    rel = estate->es_relations[rti - 1];
+    if (rel == NULL)
+    {
+        // First time through, so open the relation
+        RangeTblEntry *rte = exec_rt_fetch(rti, estate);
+        Assert(rte->rtekind == RTE_RELATION);
+
+        if (!IsParallelWorker())
+        {
+            // In normal query, we should already have the appropriate lock
+            rel = table_open(rte->relid, NoLock);
+            Assert(rte->rellockmode == AccessShareLock ||
+                   CheckRelationLockedByMe(rel, rte->rellockmode, false));
+        }
+        else
+        {
+            // Parallel workers need their own local lock
+            rel = table_open(rte->relid, rte->rellockmode);
+        }
+
+        estate->es_relations[rti - 1] = rel;
+    }
+
+    return rel;
+}
+```

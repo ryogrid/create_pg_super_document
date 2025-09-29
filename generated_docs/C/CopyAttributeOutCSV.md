@@ -48,3 +48,82 @@ This function handles the CSV formatting of individual attribute values during C
 - Handles multi-byte character encodings properly by using encoding-aware character length functions
 - Forces quoting for values that match the null representation to avoid ambiguity
 - Special case handling for the PostgreSQL end-of-data marker "\\" when it's the only attribute to prevent misinterpretation
+
+## Simplified Source
+
+```c
+static void
+CopyAttributeOutCSV(CopyToState cstate, const char *string,
+                    bool use_quote)
+{
+    const char *ptr;
+    const char *start;
+    char c;
+    char delimc = cstate->opts.delim[0];
+    char quotec = cstate->opts.quote[0];
+    char escapec = cstate->opts.escape[0];
+    bool single_attr = (list_length(cstate->attnumlist) == 1);
+
+    // Force quoting if it matches null_print (before conversion!)
+    if (!use_quote && strcmp(string, cstate->opts.null_print) == 0)
+        use_quote = true;
+
+    if (cstate->need_transcoding)
+        ptr = pg_server_to_any(string, strlen(string), cstate->file_encoding);
+    else
+        ptr = string;
+
+    // Make a preliminary pass to discover if it needs quoting
+    if (!use_quote)
+    {
+        // Because '\\.' can be a data value, quote it if it appears alone
+        if (single_attr && strcmp(ptr, "\\.") == 0)
+            use_quote = true;
+        else
+        {
+            const char *tptr = ptr;
+            while ((c = *tptr) != '\0')
+            {
+                if (c == delimc || c == quotec || c == '\n' || c == '\r')
+                {
+                    use_quote = true;
+                    break;
+                }
+                if (IS_HIGHBIT_SET(c) && cstate->encoding_embeds_ascii)
+                    tptr += pg_encoding_mblen(cstate->file_encoding, tptr);
+                else
+                    tptr++;
+            }
+        }
+    }
+
+    if (use_quote)
+    {
+        CopySendChar(cstate, quotec);
+
+        // Use the same optimization strategy as in CopyAttributeOutText
+        start = ptr;
+        while ((c = *ptr) != '\0')
+        {
+            if (c == quotec || c == escapec)
+            {
+                DUMPSOFAR();
+                CopySendChar(cstate, escapec);
+                start = ptr;    // we include char in next run
+            }
+            if (IS_HIGHBIT_SET(c) && cstate->encoding_embeds_ascii)
+                ptr += pg_encoding_mblen(cstate->file_encoding, ptr);
+            else
+                ptr++;
+        }
+        DUMPSOFAR();
+
+        CopySendChar(cstate, quotec);
+    }
+    else
+    {
+        // If it doesn't need quoting, we can just dump it as-is
+        CopySendString(cstate, ptr);
+    }
+}
+```

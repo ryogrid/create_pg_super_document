@@ -34,3 +34,48 @@ CheckValidRowMarkRel performs runtime validation of row marking (locking) operat
 - Foreign tables require FDW support via RefetchForeignRow callback
 - This is primarily a defensive check since parser/planner should catch most violations
 - Part of the executor's initialization phase to ensure safe row marking operations
+
+## Simplified Source
+
+```c
+static void
+CheckValidRowMarkRel(Relation rel, RowMarkType markType)
+{
+    switch (rel->rd_rel->relkind)
+    {
+        case RELKIND_RELATION:
+        case RELKIND_PARTITIONED_TABLE:
+            // Regular tables and partitioned tables are OK
+            break;
+
+        case RELKIND_SEQUENCE:
+            ereport(ERROR, "cannot lock rows in sequence");
+            break;
+
+        case RELKIND_TOASTVALUE:
+            ereport(ERROR, "cannot lock rows in TOAST relation");
+            break;
+
+        case RELKIND_VIEW:
+            ereport(ERROR, "cannot lock rows in view");
+            break;
+
+        case RELKIND_MATVIEW:
+            // Materialized views allow references but not locking
+            if (markType != ROW_MARK_REFERENCE)
+                ereport(ERROR, "cannot lock rows in materialized view");
+            break;
+
+        case RELKIND_FOREIGN_TABLE:
+            // Check if FDW supports row refetching
+            FdwRoutine *fdwroutine = GetFdwRoutineForRelation(rel, false);
+            if (fdwroutine->RefetchForeignRow == NULL)
+                ereport(ERROR, "cannot lock rows in foreign table");
+            break;
+
+        default:
+            ereport(ERROR, "cannot lock rows in relation");
+            break;
+    }
+}
+```

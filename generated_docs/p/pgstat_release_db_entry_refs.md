@@ -36,3 +36,16 @@ The function uses the  callback to filter entries by database OID and calls  wit
 - The function leverages the callback mechanism to efficiently filter entries by database
 - Part of PostgreSQL's cleanup mechanism to prevent memory leaks when databases are dropped
 - Ensures that shared memory resources can be properly freed when databases are removed
+
+## Simplified Source
+
+```c
+// Release all local references to statistics entries for a specific database
+static void
+pgstat_release_db_entry_refs(Oid dboid)
+{
+    pgstat_release_matching_entry_refs(/* discard pending = */ true,
+                                      match_db,
+                                      ObjectIdGetDatum(dboid));
+}
+```

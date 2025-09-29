@@ -38,3 +38,13 @@ This function is part of PostgreSQL's local buffer management system, which hand
 - The function combines buffer unpinning with resource owner cleanup, ensuring that resource tracking remains consistent
 - Local buffers are used for temporary relations that are private to a single backend process
 - The resource owner mechanism helps prevent resource leaks by automatically cleaning up resources when transactions or subtransactions end
+
+## Simplified Source
+
+```c
+void UnpinLocalBuffer(Buffer buffer)
+{
+    UnpinLocalBufferNoOwner(buffer);
+    ResourceOwnerForgetBuffer(CurrentResourceOwner, buffer);
+}
+```

@@ -32,3 +32,29 @@ BufTableInsert attempts to create a new mapping between a BufferTag and a buffer
 
 ## Notes and Other Information
 The caller must hold an exclusive lock on the BufMappingLock for the tags partition to ensure thread-safe modification of the hashtable. The function includes assertions to validate that the buffer ID is non-negative (since -1 is reserved for "not-in-table") and that the block number is not P_NEW (which represents an invalid tag for extending relations). The return value semantics are important: -1 indicates successful insertion, while any non-negative value indicates the buffer ID of a pre-existing conflicting entry.
+
+## Simplified Source
+
+```c
+int BufTableInsert(BufferTag *tagPtr, uint32 hashcode, int buf_id)
+{
+    BufferLookupEnt *result;
+    bool found;
+
+    Assert(buf_id >= 0);        /* -1 is reserved for not-in-table */
+    Assert(tagPtr->blockNum != P_NEW);  /* invalid tag */
+
+    result = (BufferLookupEnt *)
+        hash_search_with_hash_value(SharedBufHash,
+                                    tagPtr,
+                                    hashcode,
+                                    HASH_ENTER,
+                                    &found);
+
+    if (found)          /* found something already in the table */
+        return result->id;
+
+    result->id = buf_id;
+    return -1;
+}
+```

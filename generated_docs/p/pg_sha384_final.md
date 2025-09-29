@@ -46,3 +46,29 @@ The key difference from `pg_sha512_final` is that SHA-384 only processes the fir
 - The digest parameter can be NULL, allowing the function to be used solely for secure context cleanup
 - Follows RFC 6234 specifications for SHA-384 hash computation
 - Part of PostgreSQL's internal cryptographic library and should not be called directly by user code
+
+## Simplified Source
+
+```c
+void pg_sha384_final(pg_sha384_ctx *context, uint8 *digest) {
+    // Only proceed if digest buffer is provided
+    if (digest != NULL) {
+        // Finalize using SHA-512 logic (contexts are compatible)
+        SHA512_Last((pg_sha512_ctx *) context);
+
+        // Convert to host byte order on little-endian systems
+        // Only process first 6 words (384 bits) unlike SHA-512's 8 words
+        #ifndef WORDS_BIGENDIAN
+        for (int j = 0; j < 6; j++) {
+            REVERSE64(context->state[j], context->state[j]);
+        }
+        #endif
+
+        // Copy first 48 bytes (384 bits) to output digest
+        memcpy(digest, context->state, PG_SHA384_DIGEST_LENGTH);
+    }
+
+    // Securely clear context data
+    memset(context, 0, sizeof(pg_sha384_ctx));
+}
+```

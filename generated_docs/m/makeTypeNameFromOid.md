@@ -36,3 +36,20 @@ This approach is more efficient when the type identity is already established, a
 - Commonly used in DDL processing and utility commands where types are being manipulated programmatically
 - Declared in src/include/nodes/makefuncs.h at line 74
 - Particularly useful in ALTER TABLE operations and serial column generation
+
+## Simplified Source
+
+```c
+TypeName *makeTypeNameFromOid(Oid typeOid, int32 typmod)
+{
+    // Create a new TypeName node
+    TypeName *n = makeNode(TypeName);
+
+    // Set the type OID and modifier directly (bypassing name resolution)
+    n->typeOid = typeOid;
+    n->typemod = typmod;
+    n->location = -1;  // Unknown source location
+
+    return n;
+}
+```

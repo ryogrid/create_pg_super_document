@@ -33,3 +33,18 @@ The function ensures consistency in error message wording across the PostgreSQL 
 - Primarily used in sequence operations and utility command processing where backend-local state synchronization is critical
 - Part of PostgreSQL's parallel query execution safety framework
 - Helps maintain data consistency by preventing operations that could lead to undefined behavior in parallel contexts
+
+## Simplified Source
+
+```c
+// Prevent command execution during parallel operations
+void
+PreventCommandIfParallelMode(const char *cmdname)
+{
+    if (IsInParallelMode())
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_TRANSACTION_STATE),
+                 errmsg("cannot execute %s during a parallel operation",
+                        cmdname)));
+}
+```

@@ -32,3 +32,15 @@ This function takes no parameters.
 - Callers that strictly require a free buffer should not rely solely on this function due to race conditions
 - Primarily useful for heuristic decisions or optimizations where approximate information is sufficient
 - The result becomes stale immediately after returning if other processes are concurrently allocating buffers
+
+## Simplified Source
+
+```c
+bool have_free_buffer(void)
+{
+    if (StrategyControl->firstFreeBuffer >= 0)
+        return true;
+    else
+        return false;
+}
+```

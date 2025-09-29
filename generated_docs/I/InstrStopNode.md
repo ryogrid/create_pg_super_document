@@ -40,3 +40,40 @@ InstrStopNode is called at the completion of plan node execution to finalize per
 
 ## Notes and Other Information
 The function tracks the 'firsttuple' timing metric which is crucial for query optimization as it indicates how quickly a node starts producing results. In async mode, special logic handles cases where tuple emission may be delayed or irregular. The function safely resets the start time after use, allowing for proper detection of instrumentation errors in subsequent calls. Buffer and WAL usage calculations rely on the previously processed BufferUsageAccumDiff and WalUsageAccumDiff functions to provide accurate delta measurements.
+
+## Simplified Source
+
+```c
+void
+InstrStopNode(Instrumentation *instr, double nTuples)
+{
+    double save_tuplecount = instr->tuplecount;
+    instr->tuplecount += nTuples;
+
+    // Calculate elapsed time if timing enabled
+    if (instr->need_timer) {
+        if (INSTR_TIME_IS_ZERO(instr->starttime))
+            elog(ERROR, "InstrStopNode called without start");
+
+        instr_time endtime;
+        INSTR_TIME_SET_CURRENT(endtime);
+        INSTR_TIME_ACCUM_DIFF(instr->counter, endtime, instr->starttime);
+        INSTR_TIME_SET_ZERO(instr->starttime);
+    }
+
+    // Accumulate buffer and WAL usage deltas
+    if (instr->need_bufusage)
+        BufferUsageAccumDiff(&instr->bufusage, &pgBufferUsage, &instr->bufusage_start);
+
+    if (instr->need_walusage)
+        WalUsageAccumDiff(&instr->walusage, &pgWalUsage, &instr->walusage_start);
+
+    // Track first tuple timing
+    if (!instr->running) {
+        instr->running = true;
+        instr->firsttuple = INSTR_TIME_GET_DOUBLE(instr->counter);
+    } else if (instr->async_mode && save_tuplecount < 1.0) {
+        instr->firsttuple = INSTR_TIME_GET_DOUBLE(instr->counter);
+    }
+}
+```

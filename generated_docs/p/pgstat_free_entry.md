@@ -44,3 +44,32 @@ After removing the entry from the hash table and releasing any associated locks,
 - Critical for preventing memory leaks in the shared statistics system
 - The function assumes proper locking has been handled by the caller
 - Part of the statistics entry lifecycle management in PostgreSQL's shared memory architecture
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_free_entry
+static void pgstat_free_entry(PgStatShared_HashEntry *shent, dshash_seq_status *hstat) {
+    // Save the DSA pointer before deleting the hash entry
+    dsa_pointer pdsa = shent->body;
+
+    // Delete the entry from hash table (two modes available)
+    if (!hstat) {
+        // Direct deletion mode
+        dshash_delete_entry(pgStatLocal.shared_hash, shent);
+    } else {
+        // Iteration-safe deletion mode
+        dshash_delete_current(hstat);
+    }
+
+    // Free the actual statistics data memory
+    dsa_free(pgStatLocal.dsa, pdsa);
+}
+```
+
+Key simplifications made:
+- Combined variable declaration with assignment for clarity
+- Added descriptive comments explaining the two-phase cleanup
+- Clarified the two deletion modes with inline comments
+- Preserved the essential memory management logic
+- Removed detailed comments while maintaining readability

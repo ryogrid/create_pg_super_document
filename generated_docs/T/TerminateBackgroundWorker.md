@@ -35,3 +35,33 @@ The function is designed to be safe to call regardless of the worker's current s
 - Termination is asynchronous - the function returns immediately after setting the flag
 - Actual worker process termination is handled by the postmaster
 - Located in src/backend/postmaster/bgworker.c:1221-1261
+
+## Simplified Source
+
+```c
+void TerminateBackgroundWorker(BackgroundWorkerHandle *handle)
+{
+    BackgroundWorkerSlot *slot;
+    bool signal_postmaster = false;
+
+    // Validate handle and get the worker slot
+    Assert(handle->slot < max_worker_processes);
+    slot = &BackgroundWorkerData->slot[handle->slot];
+
+    // Set terminate flag under lock protection
+    LWLockAcquire(BackgroundWorkerLock, LW_EXCLUSIVE);
+
+    // Only terminate if generation matches (slot not reused)
+    if (handle->generation == slot->generation)
+    {
+        slot->terminate = true;
+        signal_postmaster = true;
+    }
+
+    LWLockRelease(BackgroundWorkerLock);
+
+    // Notify postmaster of the termination request
+    if (signal_postmaster)
+        SendPostmasterSignal(PMSIGNAL_BACKGROUND_WORKER_CHANGE);
+}
+```

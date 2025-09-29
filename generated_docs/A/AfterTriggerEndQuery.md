@@ -41,3 +41,47 @@ The function processes events in a loop to handle cases where trigger functions 
 - Implements a loop to process triggers that queue additional events at the same query level
 - Separates decision-making (which triggers to fire) from execution to ensure consistent behavior with SET CONSTRAINTS IMMEDIATE
 - Decrements query_depth counter to maintain proper nesting level tracking
+
+## Simplified Source
+
+```c
+void
+AfterTriggerEndQuery(EState *estate)
+{
+    // Validate we're inside a query
+    Assert(afterTriggers.query_depth >= 0);
+
+    // Quick exit if no trigger events initialized
+    if (afterTriggers.query_depth >= afterTriggers.maxquerydepth) {
+        afterTriggers.query_depth--;
+        return;
+    }
+
+    AfterTriggersQueryData *qs = &afterTriggers.query_stack[afterTriggers.query_depth];
+
+    // Process immediate triggers and transfer deferred ones
+    for (;;) {
+        if (afterTriggerMarkEvents(&qs->events, &afterTriggers.events, true)) {
+            CommandId firing_id = afterTriggers.firing_counter++;
+            AfterTriggerEventChunk *oldtail = qs->events.tail;
+
+            // Fire immediate triggers
+            if (afterTriggerInvokeEvents(&qs->events, firing_id, estate, false))
+                break;  // All fired successfully
+
+            // Recalculate qs after potential reallocation
+            qs = &afterTriggers.query_stack[afterTriggers.query_depth];
+
+            // Clean up completely-fired chunks
+            while (qs->events.head != oldtail)
+                afterTriggerDeleteHeadEventChunk(qs);
+        } else {
+            break;
+        }
+    }
+
+    // Release query-level storage
+    AfterTriggerFreeQuery(&afterTriggers.query_stack[afterTriggers.query_depth]);
+    afterTriggers.query_depth--;
+}
+```

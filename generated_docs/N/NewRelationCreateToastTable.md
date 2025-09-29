@@ -35,3 +35,14 @@ The function is designed for scenarios where a new relation has been created and
 - Sets  to false and  to InvalidOid when calling CheckAndCreateToastTable
 - Commonly used in CREATE TABLE AS SELECT operations and other utility commands that create new relations
 - The simplified parameter set makes it ideal for straightforward new table creation scenarios
+
+## Simplified Source
+
+```c
+void NewRelationCreateToastTable(Oid relOid, Datum reloptions)
+{
+    // Simple wrapper that creates a TOAST table for a new relation
+    // Uses default settings: AccessExclusiveLock, no old TOAST table
+    CheckAndCreateToastTable(relOid, reloptions, AccessExclusiveLock, false, InvalidOid);
+}
+```

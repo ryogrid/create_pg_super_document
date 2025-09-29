@@ -37,3 +37,16 @@ The  function retrieves the cached number of blocks for a specified fork of a st
 - Code elsewhere in PostgreSQL is designed to cope with potentially stale cached data
 - This function provides a performance optimization by avoiding repeated disk operations during recovery
 - Located in src/backend/storage/smgr/smgr.c:679-700
+
+## Simplified Source
+
+```c
+BlockNumber smgrnblocks_cached(SMgrRelation reln, ForkNumber forknum)
+{
+    // Only use cached values in recovery mode
+    if (InRecovery && reln->smgr_cached_nblocks[forknum] != InvalidBlockNumber)
+        return reln->smgr_cached_nblocks[forknum];
+
+    return InvalidBlockNumber;
+}
+```

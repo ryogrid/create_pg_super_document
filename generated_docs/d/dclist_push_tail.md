@@ -39,3 +39,23 @@ The function leverages the underlying dlist_push_tail implementation for the act
 - Implemented as a static inline function for performance efficiency
 - Widely used across PostgreSQL for various subsystems including replication, deadlock detection, and statistics management
 - Part of PostgreSQL's intrusive list implementation that doesn't require separate memory allocation for list nodes
+
+## Simplified Source
+
+```c
+static inline void dclist_push_tail(dclist_head *head, dlist_node *node)
+{
+    // Initialize list if it's in NULL state
+    if (head->dlist.head.next == NULL)
+        dclist_init(head);
+
+    // Insert the node at the tail
+    dlist_push_tail(&head->dlist, node);
+
+    // Increment the count
+    head->count++;
+
+    // Check for count overflow
+    Assert(head->count > 0);
+}
+```

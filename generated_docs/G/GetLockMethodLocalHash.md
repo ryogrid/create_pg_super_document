@@ -32,3 +32,12 @@ The function simply returns a pointer to the LockMethodLocalHash, which contains
 - Useful for debugging lock-related issues and validating lock invariants
 - The function has no side effects and simply returns a pointer to existing data
 - External modules should treat the returned hash table as read-only to avoid corrupting lock state
+
+## Simplified Source
+
+```c
+HTAB *GetLockMethodLocalHash(void)
+{
+    return LockMethodLocalHash;
+}
+```

@@ -34,3 +34,16 @@ The function is declared as static inline for performance optimization, as it's 
 - The inline declaration optimizes performance for this frequently-called utility function
 - Network byte order (big-endian) ensures cross-platform compatibility of binary COPY data
 - Part of the binary COPY protocol implementation that handles type-specific data serialization
+
+## Simplified Source
+
+```c
+static inline void
+CopySendInt32(CopyToState cstate, int32 val)
+{
+    uint32 buf;
+
+    buf = pg_hton32((uint32) val);
+    CopySendData(cstate, &buf, sizeof(buf));
+}
+```

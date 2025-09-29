@@ -49,3 +49,28 @@ The function operates by:
 - Random access support adds trailing length information when TUPLESORT_RANDOMACCESS option is enabled
 - The function only writes the tuple body data, excluding the minimal tuple header to optimize storage
 - Part of PostgreSQL's external sorting infrastructure used for large dataset operations that exceed memory capacity
+
+## Simplified Source
+
+```c
+static void writetup_heap(Tuplesortstate *state, LogicalTape *tape, SortTuple *stup)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    MinimalTuple tuple = (MinimalTuple) stup->tuple;
+
+    // Calculate lengths - skip minimal tuple header, write only body
+    char *tupbody = (char *) tuple + MINIMAL_TUPLE_DATA_OFFSET;
+    unsigned int tupbodylen = tuple->t_len - MINIMAL_TUPLE_DATA_OFFSET;
+    unsigned int tuplen = tupbodylen + sizeof(int);  // Total on-disk size
+
+    // Write tuple length header
+    LogicalTapeWrite(tape, &tuplen, sizeof(tuplen));
+
+    // Write tuple body data
+    LogicalTapeWrite(tape, tupbody, tupbodylen);
+
+    // Write trailing length for random access support if needed
+    if (base->sortopt & TUPLESORT_RANDOMACCESS)
+        LogicalTapeWrite(tape, &tuplen, sizeof(tuplen));
+}
+```

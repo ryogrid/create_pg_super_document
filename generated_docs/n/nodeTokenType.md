@@ -41,3 +41,54 @@ The function uses pattern matching and syntax validation to distinguish between 
 - [String](../S/String.md) tokens are identified by surrounding double quotes
 - Bit string tokens are identified by leading 'b' or 'x' characters
 - Static function internal to the node reading subsystem
+
+## Simplified Source
+
+```c
+static NodeTag nodeTokenType(const char *token, int length)
+{
+    NodeTag retval;
+    const char *numptr;
+    int numlen;
+
+    // Check if the token is a number
+    numptr = token;
+    numlen = length;
+    if (*numptr == '+' || *numptr == '-')
+        numptr++, numlen--;
+
+    if ((numlen > 0 && isdigit((unsigned char) *numptr)) ||
+        (numlen > 1 && *numptr == '.' && isdigit((unsigned char) numptr[1])))
+    {
+        // Test if it's an integer or float using strtoint
+        char *endptr;
+        errno = 0;
+        (void) strtoint(numptr, &endptr, 10);
+        if (endptr != token + length || errno == ERANGE)
+            return T_Float;
+        return T_Integer;
+    }
+
+    // Check single-character structural tokens
+    else if (*token == '(')
+        retval = LEFT_PAREN;
+    else if (*token == ')')
+        retval = RIGHT_PAREN;
+    else if (*token == '{')
+        retval = LEFT_BRACE;
+    // Check boolean literals
+    else if ((length == 4 && strncmp(token, "true", 4) == 0) ||
+             (length == 5 && strncmp(token, "false", 5) == 0))
+        retval = T_Boolean;
+    // Check quoted strings
+    else if (*token == '"' && length > 1 && token[length - 1] == '"')
+        retval = T_String;
+    // Check bit strings (binary or hex)
+    else if (*token == 'b' || *token == 'x')
+        retval = T_BitString;
+    else
+        retval = OTHER_TOKEN;
+
+    return retval;
+}
+```

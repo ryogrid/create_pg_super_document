@@ -35,3 +35,13 @@ The function is commonly used throughout the PostgreSQL executor to determine th
 - The returned TupleDesc should not be modified by the caller
 - Used extensively throughout the executor for type information propagation
 - Essential for proper slot management and tuple handling in PostgreSQL's execution engine
+
+## Simplified Source
+
+```c
+TupleDesc
+ExecGetResultType(PlanState *planstate)
+{
+    return planstate->ps_ResultTupleDesc;
+}
+```

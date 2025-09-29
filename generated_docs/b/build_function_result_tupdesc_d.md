@@ -49,3 +49,105 @@ This function is split out from build_function_result_tupdesc_t to allow Procedu
 - Validates array structure and dimensions, throwing errors for malformed input
 - Creates a template tuple descriptor and initializes each entry with proper type and name information
 - Used during function creation to pre-compute result types before catalog insertion
+
+## Simplified Source
+
+```c
+TupleDesc build_function_result_tupdesc_d(char prokind,
+                                          Datum proallargtypes,
+                                          Datum proargmodes,
+                                          Datum proargnames)
+{
+    TupleDesc desc;
+    ArrayType *arr;
+    int numargs;
+    Oid *argtypes;
+    char *argmodes;
+    Datum *argnames = NULL;
+    Oid *outargtypes;
+    char **outargnames;
+    int numoutargs;
+    int nargnames;
+    int i;
+
+    // Return NULL if required arrays are missing
+    if (proallargtypes == PointerGetDatum(NULL) ||
+        proargmodes == PointerGetDatum(NULL))
+        return NULL;
+
+    // Extract and validate argument types array
+    arr = DatumGetArrayTypeP(proallargtypes);
+    numargs = ARR_DIMS(arr)[0];
+    if (ARR_NDIM(arr) != 1 || numargs < 0 || ARR_HASNULL(arr) ||
+        ARR_ELEMTYPE(arr) != OIDOID)
+        elog(ERROR, "proallargtypes is not a 1-D Oid array or it contains nulls");
+    argtypes = (Oid *) ARR_DATA_PTR(arr);
+
+    // Extract and validate argument modes array
+    arr = DatumGetArrayTypeP(proargmodes);
+    if (ARR_NDIM(arr) != 1 || ARR_DIMS(arr)[0] != numargs ||
+        ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != CHAROID)
+        elog(ERROR, "proargmodes is not a 1-D char array of length %d or it contains nulls", numargs);
+    argmodes = (char *) ARR_DATA_PTR(arr);
+
+    // Extract argument names if provided
+    if (proargnames != PointerGetDatum(NULL)) {
+        arr = DatumGetArrayTypeP(proargnames);
+        if (ARR_NDIM(arr) != 1 || ARR_DIMS(arr)[0] != numargs ||
+            ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != TEXTOID)
+            elog(ERROR, "proargnames is not a 1-D text array of length %d or it contains nulls", numargs);
+        deconstruct_array_builtin(arr, TEXTOID, &argnames, NULL, &nargnames);
+        Assert(nargnames == numargs);
+    }
+
+    // Handle empty argument list
+    if (numargs <= 0)
+        return NULL;
+
+    // Extract output arguments (OUT, INOUT, TABLE modes)
+    outargtypes = (Oid *) palloc(numargs * sizeof(Oid));
+    outargnames = (char **) palloc(numargs * sizeof(char *));
+    numoutargs = 0;
+
+    for (i = 0; i < numargs; i++) {
+        char *pname;
+
+        // Skip input-only and variadic arguments
+        if (argmodes[i] == PROARGMODE_IN || argmodes[i] == PROARGMODE_VARIADIC)
+            continue;
+
+        Assert(argmodes[i] == PROARGMODE_OUT ||
+               argmodes[i] == PROARGMODE_INOUT ||
+               argmodes[i] == PROARGMODE_TABLE);
+
+        outargtypes[numoutargs] = argtypes[i];
+
+        // Get parameter name or generate default
+        if (argnames)
+            pname = TextDatumGetCString(argnames[i]);
+        else
+            pname = NULL;
+
+        if (pname == NULL || pname[0] == '\0') {
+            pname = psprintf("column%d", numoutargs + 1);
+        }
+        outargnames[numoutargs] = pname;
+        numoutargs++;
+    }
+
+    // Functions need at least 2 output args to return tuples
+    if (numoutargs < 2 && prokind != PROKIND_PROCEDURE)
+        return NULL;
+
+    // Create and populate tuple descriptor
+    desc = CreateTemplateTupleDesc(numoutargs);
+    for (i = 0; i < numoutargs; i++) {
+        TupleDescInitEntry(desc, i + 1,
+                          outargnames[i],
+                          outargtypes[i],
+                          -1, 0);
+    }
+
+    return desc;
+}
+```

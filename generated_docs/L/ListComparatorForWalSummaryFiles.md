@@ -34,3 +34,15 @@ The function uses PostgreSQL's pg_cmp_u64 utility to perform a safe comparison o
 - Designed to be used with PostgreSQL's list_sort function or similar sorting mechanisms
 - The comparison is based solely on start_lsn values, ensuring WAL summary files are processed in the order they were created
 - This ordering is crucial for incremental backup operations where WAL changes must be applied in chronological sequence
+
+## Simplified Source
+
+```c
+static int ListComparatorForWalSummaryFiles(const ListCell *a, const ListCell *b)
+{
+    WalSummaryFile *ws1 = lfirst(a);
+    WalSummaryFile *ws2 = lfirst(b);
+
+    return pg_cmp_u64(ws1->start_lsn, ws2->start_lsn);
+}
+```

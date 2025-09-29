@@ -41,3 +41,13 @@ The function delegates to the slot's type-specific copy_minimal_tuple operation 
 - Essential for operations like tuple stores, sorts, and hash tables that need to store many tuples efficiently
 - The minimal tuple format excludes some metadata present in HeapTuple to save space
 - Used extensively in executor nodes that need to cache or temporarily store large numbers of tuples
+
+## Simplified Source
+
+```c
+static inline MinimalTuple ExecCopySlotMinimalTuple(TupleTableSlot *slot)
+{
+    // Delegate to slot-specific copy operation for minimal tuple format
+    return slot->tts_ops->copy_minimal_tuple(slot);
+}
+```

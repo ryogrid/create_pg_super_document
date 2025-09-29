@@ -39,3 +39,27 @@ The function operates in a systematic manner:
 - Critical for preventing resource leaks, particularly buffer pins and relation references
 - The recursive handling of subplans ensures complete cleanup of complex query trees
 - Part of the standard PostgreSQL executor shutdown sequence
+
+## Simplified Source
+
+```c
+static void
+ExecEndPlan(PlanState *planstate, EState *estate)
+{
+    // Shut down main plan node
+    ExecEndNode(planstate);
+
+    // Shut down all subplan nodes
+    foreach(ListCell *l, estate->es_subplanstates) {
+        PlanState *subplanstate = (PlanState *) lfirst(l);
+        ExecEndNode(subplanstate);
+    }
+
+    // Reset tuple table to release buffer pins
+    ExecResetTupleTable(estate->es_tupleTable, false);
+
+    // Close all relations
+    ExecCloseResultRelations(estate);
+    ExecCloseRangeTableRelations(estate);
+}
+```

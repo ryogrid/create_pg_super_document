@@ -39,3 +39,15 @@ ExecInitExtraTupleSlot is designed for creating additional tuple slots beyond th
 - Used for specialized scenarios requiring additional tuple storage
 - Essential for trigger operations, subplans, and complex executor nodes
 - Located in src/backend/executor/execTuples.c:1918-1933
+
+## Simplified Source
+
+```c
+TupleTableSlot *
+ExecInitExtraTupleSlot(EState *estate,
+                       TupleDesc tupledesc,
+                       const TupleTableSlotOps *tts_ops)
+{
+    return ExecAllocTableSlot(&estate->es_tupleTable, tupledesc, tts_ops);
+}
+```

@@ -53,3 +53,46 @@ The function maintains backward compatibility by using slightly different whites
 - The foreach macro provides safe iteration over list cells
 - Error handling ensures that unrecognized list types are caught at runtime
 - Part of the broader node serialization infrastructure that enables query plan storage, debugging, and transmission
+
+## Simplified Source
+
+```c
+static void _outList(StringInfo str, const List *node)
+{
+    const ListCell *lc;
+
+    // Start with opening parenthesis
+    appendStringInfoChar(str, '(');
+
+    // Add type indicator for specialized lists
+    if (IsA(node, IntList))
+        appendStringInfoChar(str, 'i');
+    else if (IsA(node, OidList))
+        appendStringInfoChar(str, 'o');
+    else if (IsA(node, XidList))
+        appendStringInfoChar(str, 'x');
+
+    // Process each list element
+    foreach(lc, node)
+    {
+        if (IsA(node, List))
+        {
+            // Generic node list: serialize node + space
+            outNode(str, lfirst(lc));
+            if (lnext(node, lc))
+                appendStringInfoChar(str, ' ');
+        }
+        else if (IsA(node, IntList))
+            appendStringInfo(str, " %d", lfirst_int(lc));
+        else if (IsA(node, OidList))
+            appendStringInfo(str, " %u", lfirst_oid(lc));
+        else if (IsA(node, XidList))
+            appendStringInfo(str, " %u", lfirst_xid(lc));
+        else
+            elog(ERROR, "unrecognized list node type: %d", (int) node->type);
+    }
+
+    // End with closing parenthesis
+    appendStringInfoChar(str, ')');
+}
+```

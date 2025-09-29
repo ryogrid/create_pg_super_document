@@ -43,3 +43,40 @@ The function ensures that the order and content of list elements are properly re
 - For typed lists (Int, Oid, Xid), it directly jumbles the scalar values for efficiency
 - Unlike `_jumbleNode`, this function throws an ERROR (not just a warning) for unrecognized list types, as list types are more constrained and controlled
 - The function leverages PostgreSQL's `foreach` macro for safe list iteration across all list types
+
+## Simplified Source
+
+```c
+static void
+_jumbleList(JumbleState *jstate, Node *node)
+{
+    List       *expr = (List *) node;
+    ListCell   *l;
+
+    switch (expr->type) {
+        case T_List:
+            // Generic lists - recursively jumble each Node element
+            foreach(l, expr)
+                _jumbleNode(jstate, lfirst(l));
+            break;
+        case T_IntList:
+            // Integer lists - directly jumble each int value
+            foreach(l, expr)
+                JUMBLE_FIELD_SINGLE(lfirst_int(l));
+            break;
+        case T_OidList:
+            // OID lists - directly jumble each OID value
+            foreach(l, expr)
+                JUMBLE_FIELD_SINGLE(lfirst_oid(l));
+            break;
+        case T_XidList:
+            // XID lists - directly jumble each XID value
+            foreach(l, expr)
+                JUMBLE_FIELD_SINGLE(lfirst_xid(l));
+            break;
+        default:
+            elog(ERROR, "unrecognized list node type: %d", (int) expr->type);
+            return;
+    }
+}
+```

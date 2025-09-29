@@ -43,3 +43,18 @@ The simplicity of this function suggests it may be designed as a stable API that
 - The function name emphasizes the conceptual operation (storing a view query) rather than the implementation mechanism (creating rules)
 - Used in both initial view creation and view replacement scenarios
 - The delegation pattern allows for potential future enhancements without breaking the API contract with callers
+
+## Simplified Source
+```c
+/*
+ * Use the rules system to store the query for the view.
+ */
+void
+StoreViewQuery(Oid viewOid, Query *viewParse, bool replace)
+{
+    /*
+     * Now create the rules associated with the view.
+     */
+    DefineViewRules(viewOid, viewParse, replace);
+}
+```

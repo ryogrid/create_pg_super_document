@@ -36,3 +36,14 @@ This function is used to serialize Integer nodes, which are part of PostgreSQL's
 - Uses standard printf-style formatting ("%d") to convert the integer to its string representation
 - Part of PostgreSQL's node serialization system, specifically handling literal integer values from SQL queries
 - The output format is minimal and focused purely on the numeric content rather than structural metadata
+
+## Simplified Source
+
+```c
+static void
+_outInteger(StringInfo str, const Integer *node)
+{
+    // Simply format the integer value as a decimal string
+    appendStringInfo(str, "%d", node->ival);
+}
+```

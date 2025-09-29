@@ -53,3 +53,73 @@ The function applies policies in a specific order to ensure proper privilege esc
 - Security qualifiers are used for filtering existing rows, while with-check options validate new/modified rows
 - The function respects the checkAsUser setting for privilege escalation scenarios
 - Policy evaluation follows PostgreSQL's privilege hierarchy where UPDATE/DELETE policies are checked before SELECT policies
+
+## Simplified Source
+
+```c
+void get_row_security_policies(Query *root, RangeTblEntry *rte, int rt_index,
+                              List **securityQuals, List **withCheckOptions,
+                              bool *hasRowSecurity, bool *hasSubLinks) {
+    // Initialize return values
+    *securityQuals = NIL;
+    *withCheckOptions = NIL;
+    *hasRowSecurity = false;
+    *hasSubLinks = false;
+
+    // Only process normal relations
+    if (rte->relkind != RELKIND_RELATION &&
+        rte->relkind != RELKIND_PARTITIONED_TABLE)
+        return;
+
+    // Determine effective user and RLS status
+    perminfo = getRTEPermissionInfo(root->rteperminfos, rte);
+    user_id = OidIsValid(perminfo->checkAsUser) ?
+              perminfo->checkAsUser : GetUserId();
+    rls_status = check_enable_rls(rte->relid, perminfo->checkAsUser, false);
+
+    // Early exit if no RLS
+    if (rls_status == RLS_NONE)
+        return;
+    if (rls_status == RLS_NONE_ENV) {
+        *hasRowSecurity = true;
+        return;
+    }
+
+    // Open relation and determine command type
+    rel = table_open(rte->relid, NoLock);
+    commandType = rt_index == root->resultRelation ?
+                  root->commandType : CMD_SELECT;
+
+    // Apply policies based on command type and permissions
+    get_policies_for_relation(rel, commandType, user_id,
+                             &permissive_policies, &restrictive_policies);
+
+    // For SELECT/UPDATE/DELETE: add security qualifiers
+    if (commandType == CMD_SELECT || commandType == CMD_UPDATE ||
+        commandType == CMD_DELETE) {
+        add_security_quals(rt_index, permissive_policies, restrictive_policies,
+                          securityQuals, hasSubLinks);
+    }
+
+    // For INSERT/UPDATE: add with-check options
+    if (commandType == CMD_INSERT || commandType == CMD_UPDATE) {
+        add_with_check_options(rel, rt_index,
+                              commandType == CMD_INSERT ?
+                              WCO_RLS_INSERT_CHECK : WCO_RLS_UPDATE_CHECK,
+                              permissive_policies, restrictive_policies,
+                              withCheckOptions, hasSubLinks, false);
+    }
+
+    // Handle special cases for mixed permissions and complex commands
+    // (SELECT FOR UPDATE, INSERT ON CONFLICT, MERGE operations)
+    // Each case adds appropriate security qualifiers and with-check options
+
+    table_close(rel, NoLock);
+
+    // Propagate checkAsUser to subqueries
+    setRuleCheckAsUser((Node *) *securityQuals, perminfo->checkAsUser);
+    setRuleCheckAsUser((Node *) *withCheckOptions, perminfo->checkAsUser);
+
+    *hasRowSecurity = true;
+}
+```

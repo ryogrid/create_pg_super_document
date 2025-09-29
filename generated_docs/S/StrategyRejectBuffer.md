@@ -43,3 +43,24 @@ The rejection mechanism helps optimize bulk read performance by avoiding the ove
 - This optimization is crucial for bulk read operations where write I/O should be minimized
 - The function is part of PostgreSQL's sophisticated buffer replacement strategy system that balances performance across different workload patterns
 - Return value of true indicates the buffer manager should select a different victim; false means proceed with writing and reusing the current buffer
+
+## Simplified Source
+
+```c
+bool StrategyRejectBuffer(BufferAccessStrategy strategy, BufferDesc *buf, bool from_ring)
+{
+    // Only handle bulk read strategies
+    if (strategy->btype != BAS_BULKREAD)
+        return false;
+
+    // Only reject if buffer came from ring and is current ring member
+    if (!from_ring ||
+        strategy->buffers[strategy->current] != BufferDescriptorGetBuffer(buf))
+        return false;
+
+    // Remove dirty buffer from ring to prevent infinite loop
+    strategy->buffers[strategy->current] = InvalidBuffer;
+
+    return true;
+}
+```

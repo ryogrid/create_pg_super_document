@@ -40,3 +40,49 @@ The function also includes a nudging mechanism: when the queue becomes more than
 - Uses CheckpointerCommLock for thread-safe access to shared memory structures
 - Includes statistical counting of direct backend writes for monitoring purposes
 - The function will not execute under non-postmaster processes and returns false immediately in such cases
+
+## Simplified Source
+
+```c
+bool ForwardSyncRequest(const FileTag *ftag, SyncRequestType type)
+{
+    CheckpointerRequest *request;
+    bool too_full;
+
+    if (!IsUnderPostmaster)
+        return false;        // probably shouldn't even get here
+
+    if (AmCheckpointerProcess())
+        elog(ERROR, "ForwardSyncRequest must not be called in checkpointer");
+
+    LWLockAcquire(CheckpointerCommLock, LW_EXCLUSIVE);
+
+    // If the checkpointer isn't running or the request queue is full, the
+    // backend will have to perform its own fsync request. But before forcing
+    // that to happen, we can try to compact the request queue.
+    if (CheckpointerShmem->checkpointer_pid == 0 ||
+        (CheckpointerShmem->num_requests >= CheckpointerShmem->max_requests &&
+         !CompactCheckpointerRequestQueue()))
+    {
+        LWLockRelease(CheckpointerCommLock);
+        return false;
+    }
+
+    // OK, insert request
+    request = &CheckpointerShmem->requests[CheckpointerShmem->num_requests++];
+    request->ftag = *ftag;
+    request->type = type;
+
+    // If queue is more than half full, nudge the checkpointer to empty it
+    too_full = (CheckpointerShmem->num_requests >=
+                CheckpointerShmem->max_requests / 2);
+
+    LWLockRelease(CheckpointerCommLock);
+
+    // ... but not till after we release the lock
+    if (too_full && ProcGlobal->checkpointerLatch)
+        SetLatch(ProcGlobal->checkpointerLatch);
+
+    return true;
+}
+```

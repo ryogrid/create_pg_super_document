@@ -39,4 +39,17 @@ This function is part of PostgreSQL's internal MD5 implementation and follows th
 - The MD5 algorithm produces a fixed-size 128-bit (16-byte) output regardless of input size
 - This is part of PostgreSQL's fallback MD5 implementation, used when system-provided crypto libraries are not available or preferred
 - The function handles endianness concerns internally through the  function
-- After calling this function, the  buffer will contain the raw binary MD5 hash (not a hexadecimal string representation)
+- After calling this function, the dest buffer will contain the raw binary MD5 hash (not a hexadecimal string representation)
+
+## Simplified Source
+
+```c
+void pg_md5_final(pg_md5_ctx *ctx, uint8 *dest)
+{
+    // Apply MD5 padding to complete the message
+    md5_pad(ctx);
+
+    // Extract the final hash digest from context
+    md5_result(dest, ctx);
+}
+```

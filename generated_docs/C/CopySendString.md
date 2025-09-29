@@ -34,3 +34,13 @@ This function is a higher-level convenience function built on top of the core Co
 - This function is static, meaning it's only accessible within the copyto.c file
 - Data is buffered for efficiency and flushed later, typically at row boundaries
 - The null terminator is not included in the transmitted data (only the string content is sent)
+
+## Simplified Source
+
+```c
+static void
+CopySendString(CopyToState cstate, const char *str)
+{
+    appendBinaryStringInfo(cstate->fe_msgbuf, str, strlen(str));
+}
+```

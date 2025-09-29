@@ -42,3 +42,64 @@ The function implements sophisticated error handling, particularly for program p
 - Updates progress reporting statistics after each row is processed
 - The function is static, indicating it's only used within the copyto.c file
 - Handles both binary and text mode operations appropriately
+
+## Simplified Source
+
+```c
+static void
+CopySendEndOfRow(CopyToState cstate)
+{
+    StringInfo fe_msgbuf = cstate->fe_msgbuf;
+
+    switch (cstate->copy_dest)
+    {
+        case COPY_FILE:
+            if (!cstate->opts.binary)
+            {
+                // Platform-specific line termination
+#ifndef WIN32
+                CopySendChar(cstate, '\n');
+#else
+                CopySendString(cstate, "\r\n");
+#endif
+            }
+
+            if (fwrite(fe_msgbuf->data, fe_msgbuf->len, 1, cstate->copy_file) != 1 ||
+                ferror(cstate->copy_file))
+            {
+                if (cstate->is_program)
+                {
+                    if (errno == EPIPE)
+                    {
+                        // Try to get better error message from subprocess
+                        ClosePipeToProgram(cstate);
+                        errno = EPIPE;
+                    }
+                    ereport(ERROR, "could not write to COPY program");
+                }
+                else
+                    ereport(ERROR, "could not write to COPY file");
+            }
+            break;
+
+        case COPY_FRONTEND:
+            // FE/BE protocol uses \n as newline for all platforms
+            if (!cstate->opts.binary)
+                CopySendChar(cstate, '\n');
+
+            // Dump the accumulated row as one CopyData message
+            (void) pq_putmessage(PqMsg_CopyData, fe_msgbuf->data, fe_msgbuf->len);
+            break;
+
+        case COPY_CALLBACK:
+            cstate->data_dest_cb(fe_msgbuf->data, fe_msgbuf->len);
+            break;
+    }
+
+    // Update the progress
+    cstate->bytes_processed += fe_msgbuf->len;
+    pgstat_progress_update_param(PROGRESS_COPY_BYTES_PROCESSED, cstate->bytes_processed);
+
+    resetStringInfo(fe_msgbuf);
+}
+```

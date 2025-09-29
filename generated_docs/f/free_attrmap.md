@@ -36,3 +36,16 @@ The `free_attrmap` function is the complementary cleanup function to `make_attrm
 - Complementary function to `make_attrmap`
 - Used extensively throughout PostgreSQL for cleanup in table operations, index creation, and logical replication
 - Located in `src/backend/access/common/attmap.c:56-74`
+
+## Simplified Source
+
+```c
+void free_attrmap(AttrMap *map)
+{
+    // Free the attribute numbers array first
+    pfree(map->attnums);
+
+    // Then free the main structure
+    pfree(map);
+}
+```

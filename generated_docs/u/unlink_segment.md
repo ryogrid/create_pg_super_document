@@ -41,3 +41,39 @@ The function maintains the integrity of the doubly-linked list by ensuring all p
 - The unlinking operation is atomic in terms of maintaining list consistency
 - Used in memory management operations when segments need to be moved between bins or removed entirely
 - Part of the dynamic shared area's internal bookkeeping for free space management
+
+## Simplified Source
+
+```c
+static void
+unlink_segment(dsa_area *area, dsa_segment_map *segment_map)
+{
+    // Update previous segment's next pointer (or bin head if first)
+    if (segment_map->header->prev != DSA_SEGMENT_INDEX_NONE)
+    {
+        dsa_segment_map *prev = get_segment_by_index(area, segment_map->header->prev);
+        prev->header->next = segment_map->header->next;
+    }
+    else
+    {
+        // This was the head of the bin, update bin pointer
+        Assert(area->control->segment_bins[segment_map->header->bin] ==
+               get_segment_index(area, segment_map));
+        area->control->segment_bins[segment_map->header->bin] =
+            segment_map->header->next;
+    }
+
+    // Update next segment's previous pointer
+    if (segment_map->header->next != DSA_SEGMENT_INDEX_NONE)
+    {
+        dsa_segment_map *next = get_segment_by_index(area, segment_map->header->next);
+        next->header->prev = segment_map->header->prev;
+    }
+}
+```
+
+**Simplified Explanation:**
+1. If segment has a previous segment, update its next pointer to skip current segment
+2. If segment is head of bin (no previous), update the bin head pointer to next segment
+3. If segment has a next segment, update its previous pointer to skip current segment
+4. This maintains doubly-linked list integrity when removing a segment from its bin

@@ -37,3 +37,16 @@ This is a simple wrapper function that invokes the user-defined hash function st
 - Used by all major hash table operations that need to determine bucket placement
 - The actual hash computation is delegated to the user-provided hash function
 - Returns a dshash_hash value which is typically used with modulo operations to determine the target bucket
+
+## Simplified Source
+
+```c
+// Compute hash value for a key using the table's hash function
+static inline dshash_hash
+hash_key(dshash_table *hash_table, const void *key)
+{
+    return hash_table->params.hash_function(key,
+                                           hash_table->params.key_size,
+                                           hash_table->arg);
+}
+```

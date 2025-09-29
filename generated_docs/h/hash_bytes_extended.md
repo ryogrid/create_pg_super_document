@@ -39,3 +39,56 @@ Like `hash_bytes`, it processes data efficiently in 12-byte chunks with optimize
 - Maintains the same performance characteristics and safety guarantees as hash_bytes
 - Essential for applications requiring larger hash spaces or cryptographic seeding capabilities
 - Used as the foundation for other extended hash functions in PostgreSQL's hash function family
+
+## Simplified Source
+
+```c
+uint64
+hash_bytes_extended(const unsigned char *k, int keylen, uint64 seed)
+{
+    uint32 a, b, c, len;
+
+    // Set up internal state
+    len = keylen;
+    a = b = c = 0x9e3779b9 + len + 3923095;
+
+    // If seed provided, mix it into initial state
+    if (seed != 0) {
+        a += (uint32) (seed >> 32);
+        b += (uint32) seed;
+        mix(a, b, c);
+    }
+
+    // Process data efficiently based on memory alignment
+    if (((uintptr_t) k & UINT32_ALIGN_MASK) == 0) {
+        // Aligned access path - process 12-byte chunks
+        const uint32 *ka = (const uint32 *) k;
+        while (len >= 12) {
+            a += ka[0];
+            b += ka[1];
+            c += ka[2];
+            mix(a, b, c);
+            ka += 3;
+            len -= 12;
+        }
+        // Handle remaining bytes with endian-specific logic
+        k = (const unsigned char *) ka;
+        // ... endian-specific switch statements for remaining bytes
+    } else {
+        // Unaligned access path - manual byte assembly
+        while (len >= 12) {
+            // Assemble 32-bit values from bytes (endian-specific)
+            // ... byte assembly and mix operations
+            k += 12;
+            len -= 12;
+        }
+        // Handle remaining bytes
+        // ... endian-specific switch statements
+    }
+
+    final(a, b, c);
+
+    // Return 64-bit result: upper 32 bits from b, lower from c
+    return ((uint64) b << 32) | c;
+}
+```

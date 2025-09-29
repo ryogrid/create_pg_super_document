@@ -37,3 +37,20 @@ This function takes no parameters.
 - The function assumes that  has been properly set up by  before being called
 - The conditional compilation allows PostgreSQL installations to choose between using PostgreSQL's maintained timezone database or relying on the system's timezone data
 - This function is part of PostgreSQL's timezone handling infrastructure and is critical for timezone file operations
+
+## Simplified Source
+
+```c
+// Returns the timezone data directory path
+static const char *
+pg_TZDIR(void)
+{
+    #ifndef SYSTEMTZDIR
+        // Use PostgreSQL's timezone database
+        return tzdirpath;
+    #else
+        // Use system's timezone database
+        return SYSTEMTZDIR;
+    #endif
+}
+```

@@ -49,3 +49,74 @@ This function provides a centralized mechanism for checking object ownership acr
 - Widely used throughout PostgreSQL for DDL operations requiring object ownership
 - Returns true if the role owns the object or has equivalent privileges, false otherwise
 - Critical function for PostgreSQL's security model and privilege system
+
+## Simplified Source
+
+```c
+bool
+object_ownercheck(Oid classid, Oid objectid, Oid roleid)
+{
+    int cacheid;
+    Oid ownerId;
+
+    // Superusers bypass all permission checking
+    if (superuser_arg(roleid))
+        return true;
+
+    // For large objects, use the metadata catalog
+    if (classid == LargeObjectRelationId)
+        classid = LargeObjectMetadataRelationId;
+
+    cacheid = get_object_catcache_oid(classid);
+    if (cacheid != -1)
+    {
+        // Get the object's tuple from the syscache
+        HeapTuple tuple;
+
+        tuple = SearchSysCache1(cacheid, ObjectIdGetDatum(objectid));
+        if (!HeapTupleIsValid(tuple))
+            ereport(ERROR, "%s with OID %u does not exist",
+                   get_object_class_descr(classid), objectid);
+
+        ownerId = DatumGetObjectId(SysCacheGetAttrNotNull(cacheid, tuple,
+                                                         get_object_attnum_owner(classid)));
+        ReleaseSysCache(tuple);
+    }
+    else
+    {
+        // For catalogs without an appropriate syscache
+        Relation rel;
+        ScanKeyData entry[1];
+        SysScanDesc scan;
+        HeapTuple tuple;
+        bool isnull;
+
+        rel = table_open(classid, AccessShareLock);
+
+        ScanKeyInit(&entry[0],
+                   get_object_attnum_oid(classid),
+                   BTEqualStrategyNumber, F_OIDEQ,
+                   ObjectIdGetDatum(objectid));
+
+        scan = systable_beginscan(rel,
+                                 get_object_oid_index(classid), true,
+                                 NULL, 1, entry);
+
+        tuple = systable_getnext(scan);
+        if (!HeapTupleIsValid(tuple))
+            ereport(ERROR, "%s with OID %u does not exist",
+                   get_object_class_descr(classid), objectid);
+
+        ownerId = DatumGetObjectId(heap_getattr(tuple,
+                                               get_object_attnum_owner(classid),
+                                               RelationGetDescr(rel),
+                                               &isnull));
+        Assert(!isnull);
+
+        systable_endscan(scan);
+        table_close(rel, AccessShareLock);
+    }
+
+    return has_privs_of_role(roleid, ownerId);
+}
+```

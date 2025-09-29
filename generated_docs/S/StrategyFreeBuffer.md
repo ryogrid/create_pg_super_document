@@ -40,3 +40,28 @@ When adding a buffer to the free list, it becomes the new head (firstFreeBuffer)
 - Buffers added to the free list are immediately available for allocation by StrategyGetBuffer
 - The free list is implemented as a LIFO (Last In, First Out) structure for simplicity
 - Maintains both firstFreeBuffer and lastFreeBuffer pointers for efficient list management
+
+## Simplified Source
+
+```c
+void StrategyFreeBuffer(BufferDesc *buf)
+{
+    // Acquire lock to protect free list manipulation
+    SpinLockAcquire(&StrategyControl->buffer_strategy_lock);
+
+    // Only add buffer if it's not already in the free list
+    if (buf->freeNext == FREENEXT_NOT_IN_LIST) {
+        // Add buffer to front of free list
+        buf->freeNext = StrategyControl->firstFreeBuffer;
+
+        // If list was empty, this buffer becomes the last one too
+        if (buf->freeNext < 0)
+            StrategyControl->lastFreeBuffer = buf->buf_id;
+
+        // Update first buffer pointer
+        StrategyControl->firstFreeBuffer = buf->buf_id;
+    }
+
+    SpinLockRelease(&StrategyControl->buffer_strategy_lock);
+}
+```

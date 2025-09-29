@@ -35,3 +35,14 @@ The Integer node type is specifically designed to represent integer literals fou
 - Used extensively in parser and lexer for representing integer literals
 - The function is simple but essential for maintaining type safety in the node system
 - Located in src/backend/nodes/value.c as part of the core node manipulation functions
+
+## Simplified Source
+
+```c
+Integer *makeInteger(int i)
+{
+    Integer *v = makeNode(Integer);
+    v->ival = i;
+    return v;
+}
+```

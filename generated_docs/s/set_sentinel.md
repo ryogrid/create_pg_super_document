@@ -40,3 +40,23 @@ The sentinel is typically placed just after allocated memory blocks, creating a 
 - Valgrind integration ensures that any attempt to read or write the sentinel location (other than through debugging functions) will be detected
 - This function works in conjunction with `sentinel_ok` to provide comprehensive buffer overrun detection
 - Primarily used by PostgreSQL's memory context allocators to add debugging capabilities to memory allocations
+
+## Simplified Source
+
+```c
+static inline void
+set_sentinel(void *base, Size offset)
+{
+    char *ptr = (char *) base + offset;
+
+    VALGRIND_MAKE_MEM_UNDEFINED(ptr, 1);
+    *ptr = 0x7E;
+    VALGRIND_MAKE_MEM_NOACCESS(ptr, 1);
+}
+```
+
+**Simplified Explanation:**
+1. Calculate the target position by adding offset to base pointer
+2. Tell Valgrind the memory location is undefined (writable)
+3. Write the sentinel byte (0x7E) to that location
+4. Tell Valgrind the memory is no longer accessible to detect unauthorized access

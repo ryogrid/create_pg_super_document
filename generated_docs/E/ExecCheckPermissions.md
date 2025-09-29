@@ -49,3 +49,60 @@ The function includes extensive assertion checking to ensure consistency between
 - Returns true if all permissions are adequate, false otherwise
 - When ereport_on_violation is true, throws appropriate ACL errors instead of returning false
 - Critical for enforcing PostgreSQL's table-level access control security model
+
+## Simplified Source
+
+```c
+bool
+ExecCheckPermissions(List *rangeTable, List *rteperminfos,
+                     bool ereport_on_violation)
+{
+    bool result = true;
+
+    // Debug: Validate consistency between rangeTable and rteperminfos
+    #ifdef USE_ASSERT_CHECKING
+    Bitmapset *indexset = NULL;
+    foreach(l, rangeTable)
+    {
+        RangeTblEntry *rte = lfirst_node(RangeTblEntry, l);
+        if (rte->perminfoindex != 0)
+        {
+            // Only relation RTEs and view RTEs should have permission info
+            Assert(rte->rtekind == RTE_RELATION ||
+                   (rte->rtekind == RTE_SUBQUERY && rte->relkind == RELKIND_VIEW));
+
+            getRTEPermissionInfo(rteperminfos, rte);
+            Assert(!bms_is_member(rte->perminfoindex, indexset));
+            indexset = bms_add_member(indexset, rte->perminfoindex);
+        }
+    }
+    Assert(bms_num_members(indexset) == list_length(rteperminfos));
+    #endif
+
+    // Check permissions for each relation
+    foreach(l, rteperminfos)
+    {
+        RTEPermissionInfo *perminfo = lfirst_node(RTEPermissionInfo, l);
+
+        Assert(OidIsValid(perminfo->relid));
+        result = ExecCheckOneRelPerms(perminfo);
+
+        if (!result)
+        {
+            if (ereport_on_violation)
+            {
+                aclcheck_error(ACLCHECK_NO_PRIV,
+                              get_relkind_objtype(get_rel_relkind(perminfo->relid)),
+                              get_rel_name(perminfo->relid));
+            }
+            return false;
+        }
+    }
+
+    // Allow plugins to add custom permission checks
+    if (ExecutorCheckPerms_hook)
+        result = (*ExecutorCheckPerms_hook)(rangeTable, rteperminfos, ereport_on_violation);
+
+    return result;
+}
+```

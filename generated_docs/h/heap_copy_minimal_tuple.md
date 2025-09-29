@@ -44,3 +44,21 @@ The result is allocated in the current memory context and must be freed by the c
 - Used extensively in executor operations where tuples need to be preserved across operations
 - More efficient than constructing a new tuple from values since it performs a simple memory copy
 - Essential for operations that need to maintain tuple data beyond the lifetime of the original
+
+## Simplified Source
+
+```c
+MinimalTuple
+heap_copy_minimal_tuple(MinimalTuple mtup)
+{
+    MinimalTuple result;
+
+    // Allocate memory for the copy
+    result = (MinimalTuple) palloc(mtup->t_len);
+
+    // Copy all data from source to destination
+    memcpy(result, mtup, mtup->t_len);
+
+    return result;
+}
+```

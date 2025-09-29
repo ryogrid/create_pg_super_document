@@ -36,3 +36,31 @@ This function performs checksum verification for database pages during base back
 - The function is static, indicating it is only used within the basebackup.c module
 - Critical for ensuring data integrity during base backup operations
 - Handles the edge case where pages might be partially written during backup by checking LSN values
+
+## Simplified Source
+
+```c
+static bool verify_page_checksum(Page page, XLogRecPtr start_lsn, BlockNumber blkno,
+                                 uint16 *expected_checksum)
+{
+    PageHeader phdr;
+    uint16 checksum;
+
+    // Only check pages which have not been modified since backup start
+    // Skip new pages and recently modified pages to avoid false failures
+    if (PageIsNew(page) || PageGetLSN(page) >= start_lsn)
+        return true;
+
+    // Calculate the actual checksum for this page
+    checksum = pg_checksum_page(page, blkno);
+
+    // Compare with the stored checksum
+    phdr = (PageHeader) page;
+    if (phdr->pd_checksum == checksum)
+        return true;
+
+    // Verification failed - return the expected checksum for diagnostics
+    *expected_checksum = checksum;
+    return false;
+}
+```

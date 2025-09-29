@@ -36,3 +36,17 @@ The "thoroughly" aspect refers to the fact that after deletion, the node's next 
 - The function will assert/abort if the node is not actually a member of the specified list
 - After this operation, the node's next/prev pointers will be NULL, making it safe to check if a node is currently in any list
 - This is the safest way to remove a node when you want both validation and complete cleanup
+
+## Simplified Source
+
+```c
+static inline void
+dlist_delete_from_thoroughly(dlist_head *head, dlist_node *node)
+{
+    // Validate that node belongs to this list
+    dlist_member_check(head, node);
+
+    // Remove and thoroughly clean up the node
+    dlist_delete_thoroughly(node);
+}
+```

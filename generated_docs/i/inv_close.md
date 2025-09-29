@@ -38,3 +38,16 @@ The function is straightforward in its implementation, serving as the counterpar
 - After calling this function, the obj_desc pointer becomes invalid and should not be used
 - This is the proper way to clean up large object descriptors and prevent memory leaks
 - The function does not affect the actual large object data in the database, only the local descriptor
+
+## Simplified Source
+
+```c
+void inv_close(LargeObjectDesc *obj_desc)
+{
+    // Validate the descriptor pointer
+    Assert(PointerIsValid(obj_desc));
+
+    // Free the descriptor memory
+    pfree(obj_desc);
+}
+```

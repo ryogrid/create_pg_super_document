@@ -40,3 +40,15 @@ The function treats failure to load these files as a fatal error since they are 
 - The local case requires DatabasePath to be properly initialized before calling
 - Used during database startup, invalidation scenarios, and mapping updates
 - Part of PostgreSQL's critical system catalog access infrastructure
+
+## Simplified Source
+
+```c
+static void load_relmap_file(bool shared, bool lock_held)
+{
+    if (shared)
+        read_relmap_file(&shared_map, "global", lock_held, FATAL);
+    else
+        read_relmap_file(&local_map, DatabasePath, lock_held, FATAL);
+}
+```

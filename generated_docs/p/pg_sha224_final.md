@@ -43,3 +43,28 @@ The function implements the key difference between SHA-224 and SHA-256: while bo
 - The endianness handling ensures consistent hash output across different architectures
 - Part of PostgreSQL's cryptographic infrastructure, used for various security and integrity functions
 - After calling this function, the context cannot be reused and must be reinitialized for new hash operations
+
+## Simplified Source
+
+```c
+void pg_sha224_final(pg_sha224_ctx *context, uint8 *digest) {
+    // Only proceed if digest buffer is provided
+    if (digest != NULL) {
+        // Finalize the SHA-256 computation with padding
+        SHA256_Last(context);
+
+        // Convert to host byte order on little-endian systems
+        #ifndef WORDS_BIGENDIAN
+        for (int j = 0; j < 8; j++) {
+            REVERSE32(context->state[j], context->state[j]);
+        }
+        #endif
+
+        // Copy first 28 bytes (224 bits) to output digest
+        memcpy(digest, context->state, PG_SHA224_DIGEST_LENGTH);
+    }
+
+    // Securely clear context data
+    memset(context, 0, sizeof(pg_sha224_ctx));
+}
+```

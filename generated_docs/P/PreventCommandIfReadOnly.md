@@ -33,3 +33,18 @@ The function ensures consistency in error message wording across the codebase, a
 - Commonly used in sequence operations, large object functions, and utility command processing
 - Part of PostgreSQL's transaction isolation and read-only enforcement framework
 - Provides translator-friendly error messages with command name substitution
+
+## Simplified Source
+
+```c
+// Prevent command execution in read-only transactions
+void
+PreventCommandIfReadOnly(const char *cmdname)
+{
+    if (XactReadOnly)
+        ereport(ERROR,
+                (errcode(ERRCODE_READ_ONLY_SQL_TRANSACTION),
+                 errmsg("cannot execute %s in a read-only transaction",
+                        cmdname)));
+}
+```

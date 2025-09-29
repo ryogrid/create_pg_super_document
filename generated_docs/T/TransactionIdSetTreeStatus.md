@@ -51,3 +51,58 @@ This ensures that concurrent readers never see an inconsistent state where the m
 - For abort operations, the multi-phase complexity is not needed as there's no intermediate SUB_COMMITTED state for aborts
 - The function includes detailed comments with examples showing how transactions spanning pages p1, p2, p3 are handled
 - Performance consideration: Could potentially benefit from POSIX_FADV_WILLNEED hints for page prefetching
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionIdSetTreeStatus
+void TransactionIdSetTreeStatus(TransactionId xid, int nsubxids,
+                               TransactionId *subxids, XidStatus status, XLogRecPtr lsn) {
+    // Validate status is either committed or aborted
+    Assert(status == TRANSACTION_STATUS_COMMITTED || status == TRANSACTION_STATUS_ABORTED);
+
+    // Get the CLOG page number for the main transaction
+    int64 pageno = TransactionIdToPage(xid);
+
+    // Count how many subtransactions are on the same page as main transaction
+    int same_page_count = 0;
+    for (int i = 0; i < nsubxids; i++) {
+        if (TransactionIdToPage(subxids[i]) != pageno) {
+            break;
+        }
+        same_page_count++;
+    }
+
+    // Simple case: all transactions fit on one page
+    if (same_page_count == nsubxids) {
+        // Set main transaction and all subtransactions atomically
+        TransactionIdSetPageStatus(xid, nsubxids, subxids, status, lsn, pageno, true);
+    }
+    // Complex case: transactions span multiple pages
+    else {
+        // For commits, use three-phase approach to maintain atomicity
+        if (status == TRANSACTION_STATUS_COMMITTED) {
+            // Phase 1: Mark cross-page subtransactions as sub-committed
+            set_status_by_pages(nsubxids - same_page_count,
+                               subxids + same_page_count,
+                               TRANSACTION_STATUS_SUB_COMMITTED, lsn);
+        }
+
+        // Phase 2: Set main transaction and same-page subtransactions to final status
+        TransactionIdSetPageStatus(xid, same_page_count, subxids, status, lsn, pageno, false);
+
+        // Phase 3: Set cross-page subtransactions to final committed status
+        set_status_by_pages(nsubxids - same_page_count,
+                           subxids + same_page_count,
+                           status, lsn);
+    }
+}
+```
+
+Key simplifications made:
+- Removed extensive comments while preserving algorithm structure
+- Combined variable declarations with meaningful names
+- Simplified the loop logic for counting same-page transactions
+- Added clear phase descriptions for the multi-page commit algorithm
+- Preserved the essential three-phase commit logic for atomicity
+- Maintained error checking and assertions

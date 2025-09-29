@@ -45,3 +45,39 @@ The function handles NULL strategy inputs by returning IOCONTEXT_NORMAL, and inc
 - The BAS_NORMAL case is marked as unreachable because the current implementation of GetAccessStrategy() returns NULL for normal access patterns rather than creating a BAS_NORMAL strategy
 - This function is essential for PostgreSQL's I/O monitoring infrastructure, enabling detailed tracking of different operation types in system statistics
 - The mapping is used throughout the buffer management system to properly categorize I/O operations for performance monitoring and analysis
+
+## Simplified Source
+
+```c
+IOContext IOContextForStrategy(BufferAccessStrategy strategy)
+{
+    // Handle NULL strategy - use normal context
+    if (!strategy)
+        return IOCONTEXT_NORMAL;
+
+    // Map strategy type to corresponding I/O context
+    switch (strategy->btype) {
+        case BAS_NORMAL:
+            /*
+             * Currently GetAccessStrategy() returns NULL for BAS_NORMAL
+             * instead of creating a strategy object, so this case is
+             * unreachable in practice.
+             */
+            pg_unreachable();
+            return IOCONTEXT_NORMAL;
+
+        case BAS_BULKREAD:
+            return IOCONTEXT_BULKREAD;
+
+        case BAS_BULKWRITE:
+            return IOCONTEXT_BULKWRITE;
+
+        case BAS_VACUUM:
+            return IOCONTEXT_VACUUM;
+    }
+
+    // Should never reach here - unknown strategy type
+    elog(ERROR, "unrecognized BufferAccessStrategyType: %d", strategy->btype);
+    pg_unreachable();
+}
+```

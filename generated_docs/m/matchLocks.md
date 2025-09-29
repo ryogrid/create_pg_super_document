@@ -52,3 +52,61 @@ This function examines a relation's rewrite rules and returns those that match t
 - MERGE commands are incompatible with non-SELECT rules and will raise an error
 - The hasUpdate parameter helps callers determine if UPDATE rules are present, which may affect processing decisions
 - Rule filtering respects PostgreSQL's replication role system for selective rule application
+
+## Simplified Source
+
+```c
+static List *
+matchLocks(CmdType event, Relation relation, int varno,
+           Query *parsetree, bool *hasUpdate)
+{
+    RuleLock *rulelocks = relation->rd_rules;
+    List *matching_locks = NIL;
+
+    // Return empty list if no rules exist
+    if (rulelocks == NULL)
+        return NIL;
+
+    // For non-SELECT commands, check result relation matches
+    if (parsetree->commandType != CMD_SELECT) {
+        if (parsetree->resultRelation != varno)
+            return NIL;
+    }
+
+    // Iterate through all rules
+    for (int i = 0; i < rulelocks->numLocks; i++) {
+        RewriteRule *oneLock = rulelocks->rules[i];
+
+        // Track if any UPDATE rules exist
+        if (oneLock->event == CMD_UPDATE)
+            *hasUpdate = true;
+
+        // Apply replication role filtering for non-SELECT rules
+        if (oneLock->event != CMD_SELECT) {
+            // Skip disabled rules or wrong replication role
+            if (SessionReplicationRole == SESSION_REPLICATION_ROLE_REPLICA) {
+                if (oneLock->enabled == RULE_FIRES_ON_ORIGIN ||
+                    oneLock->enabled == RULE_DISABLED)
+                    continue;
+            } else {
+                if (oneLock->enabled == RULE_FIRES_ON_REPLICA ||
+                    oneLock->enabled == RULE_DISABLED)
+                    continue;
+            }
+
+            // MERGE doesn't support non-SELECT rules
+            if (parsetree->commandType == CMD_MERGE)
+                ereport(ERROR, "MERGE not supported for relations with rules");
+        }
+
+        // Add matching rules to result list
+        if (oneLock->event == event) {
+            if (parsetree->commandType != CMD_SELECT ||
+                rangeTableEntry_used((Node *) parsetree, varno, 0))
+                matching_locks = lappend(matching_locks, oneLock);
+        }
+    }
+
+    return matching_locks;
+}
+```

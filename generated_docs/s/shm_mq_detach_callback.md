@@ -38,3 +38,14 @@ The function is critical for maintaining system reliability in PostgreSQL's inte
 - Provides a layer of indirection between the DSM callback system and the shared message queue implementation
 - Essential for preventing deadlocks and ensuring proper cleanup in multi-process scenarios
 - The callback is invoked during both explicit DSM detachment and process termination cleanup
+
+## Simplified Source
+
+```c
+static void shm_mq_detach_callback(dsm_segment *seg, Datum arg)
+{
+    shm_mq *mq = (shm_mq *) DatumGetPointer(arg);
+
+    shm_mq_detach_internal(mq);
+}
+```

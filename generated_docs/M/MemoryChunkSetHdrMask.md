@@ -50,3 +50,28 @@ The function performs several validation checks to ensure the parameters are wit
 - Both chunk and block pointers must be MAXALIGN'd (aligned to maximum alignment boundary)
 - The block offset calculation assumes chunk comes after block in memory
 - This function is fundamental to PostgreSQL's memory chunk tracking system, enabling efficient memory management across different allocation strategies
+
+## Simplified Source
+
+```c
+static inline void MemoryChunkSetHdrMask(MemoryChunk *chunk, void *block,
+                                        Size value, MemoryContextMethodID methodid)
+{
+    // Calculate offset between chunk and its containing block
+    Size blockoffset = (char *) chunk - (char *) block;
+
+    // Validate all inputs are within expected ranges
+    Assert((char *) chunk >= (char *) block);                          // Chunk must come after block
+    Assert((blockoffset & MEMORYCHUNK_BLOCKOFFSET_MASK) == blockoffset); // Offset must fit in allocated bits
+    Assert(value <= MEMORYCHUNK_MAX_VALUE);                             // Value must fit in allocated bits
+    Assert((int) methodid <= MEMORY_CONTEXT_METHODID_MASK);            // Method ID must fit in allocated bits
+
+    // Pack all three values into a single 64-bit header mask:
+    // - Block offset shifted to its bit position
+    // - Value shifted to its bit position
+    // - Method ID in the low bits
+    chunk->hdrmask = (((uint64) blockoffset) << MEMORYCHUNK_BLOCKOFFSET_BASEBIT) |
+                     (((uint64) value) << MEMORYCHUNK_VALUE_BASEBIT) |
+                     methodid;
+}
+```

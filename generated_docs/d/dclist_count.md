@@ -36,3 +36,22 @@ This function provides efficient O(1) access to the number of elements in a doub
 - The const parameter indicates this is a read-only operation
 - Widely used throughout PostgreSQL for efficient list size queries
 - Essential for algorithms that need to know list size without traversing the entire list
+
+## Simplified Source
+
+```c
+// Simplified version of dclist_count
+static inline uint32 dclist_count(const dclist_head *head) {
+    // Verify consistency: empty list should have count 0
+    Assert(dlist_is_empty(&head->dlist) == (head->count == 0));
+
+    // Return the precomputed count for O(1) performance
+    return head->count;
+}
+```
+
+Key simplifications made:
+- Preserved the essential consistency assertion
+- Added descriptive comments explaining the O(1) optimization
+- Maintained the inline function for performance
+- Kept the const parameter for read-only semantics

@@ -57,3 +57,42 @@ The function operates by:
 - Uses heap_getattr to extract the first column value, which is cached in the SortTuple for efficient sorting
 - Part of PostgreSQL's external sorting infrastructure, handling the deserialization phase of spilled tuples
 - The reconstructed HeapTupleData is used temporarily to extract attribute values but is not stored permanently
+
+## Simplified Source
+
+```c
+static void readtup_heap(Tuplesortstate *state, SortTuple *stup,
+                         LogicalTape *tape, unsigned int len)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+
+    // Calculate tuple sizes
+    unsigned int tupbodylen = len - sizeof(int);
+    unsigned int tuplen = tupbodylen + MINIMAL_TUPLE_DATA_OFFSET;
+
+    // Allocate memory for the minimal tuple
+    MinimalTuple tuple = (MinimalTuple) tuplesort_readtup_alloc(state, tuplen);
+    char *tupbody = (char *) tuple + MINIMAL_TUPLE_DATA_OFFSET;
+
+    // Read tuple data from tape
+    tuple->t_len = tuplen;
+    LogicalTapeReadExact(tape, tupbody, tupbodylen);
+
+    // Read trailing length for random access support if needed
+    if (base->sortopt & TUPLESORT_RANDOMACCESS)
+        LogicalTapeReadExact(tape, &tuplen, sizeof(tuplen));
+
+    // Set up the SortTuple
+    stup->tuple = (void *) tuple;
+
+    // Extract first column value for sorting comparisons
+    HeapTupleData htup;
+    htup.t_len = tuple->t_len + MINIMAL_TUPLE_OFFSET;
+    htup.t_data = (HeapTupleHeader) ((char *) tuple - MINIMAL_TUPLE_OFFSET);
+
+    stup->datum1 = heap_getattr(&htup,
+                                base->sortKeys[0].ssup_attno,
+                                (TupleDesc) base->arg,
+                                &stup->isnull1);
+}
+```

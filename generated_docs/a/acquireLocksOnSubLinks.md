@@ -40,3 +40,28 @@ The function explicitly avoids recursing into Query nodes because AcquireRewrite
 - Specifically handles SubLink nodes while letting the walker handle other node types
 - The forUpdatePushedDown parameter is always passed as false when calling AcquireRewriteLocks from this function
 - Part of PostgreSQL's comprehensive locking strategy to ensure schema stability during query rewriting and execution
+
+## Simplified Source
+
+```c
+static bool
+acquireLocksOnSubLinks(Node *node, acquireLocksOnSubLinks_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, SubLink))
+    {
+        SubLink *sub = (SubLink *) node;
+
+        // Acquire rewrite locks on the subquery
+        AcquireRewriteLocks((Query *) sub->subselect,
+                           context->for_execute,
+                           false);
+        // Continue processing lefthand args of SubLink
+    }
+
+    // Don't recurse into Query nodes - already processed by AcquireRewriteLocks
+    return expression_tree_walker(node, acquireLocksOnSubLinks, context);
+}
+```

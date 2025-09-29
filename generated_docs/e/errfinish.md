@@ -52,3 +52,54 @@ Key responsibilities include:
 - Executes in ErrorContext to ensure sufficient memory for error processing
 - Handles error recursion through recursion_depth tracking
 - Always checks for interrupts after non-fatal error processing to allow query cancellation
+
+## Simplified Source
+
+```c
+void
+errfinish(const char *filename, int lineno, const char *funcname)
+{
+    ErrorData *edata = &errordata[errordata_stack_depth];
+    int elevel = edata->elevel;
+
+    // Set location information
+    set_stack_entry_location(edata, filename, lineno, funcname);
+
+    // Switch to ErrorContext for processing
+    MemoryContext oldcontext = MemoryContextSwitchTo(ErrorContext);
+
+    // Execute error context callbacks
+    for (ErrorContextCallback *econtext = error_context_stack;
+         econtext != NULL; econtext = econtext->previous)
+        econtext->callback(econtext->arg);
+
+    // Handle different error levels
+    if (elevel == ERROR) {
+        // Clean up state and longjmp to handler
+        InterruptHoldoffCount = 0;
+        QueryCancelHoldoffCount = 0;
+        CritSectionCount = 0;
+        recursion_depth--;
+        PG_RE_THROW();
+    }
+
+    // Emit error report
+    EmitErrorReport();
+
+    // Clean up and restore context
+    FreeErrorDataContents(edata);
+    errordata_stack_depth--;
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+
+    // Handle FATAL/PANIC levels
+    if (elevel == FATAL) {
+        proc_exit(1);
+    }
+    if (elevel >= PANIC) {
+        abort();
+    }
+
+    CHECK_FOR_INTERRUPTS();
+}
+```

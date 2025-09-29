@@ -39,3 +39,14 @@ This function is particularly useful for:
 - Different memory context implementations may calculate overhead differently
 - This function is read-only and does not modify the memory chunk or its context
 - Commonly used in memory accounting and debugging scenarios where precise memory usage tracking is required
+
+## Simplified Source
+
+```c
+Size GetMemoryChunkSpace(void *pointer)
+{
+    // Delegate to the memory context's get_chunk_space method
+    // This includes all overhead (headers, alignment, etc.)
+    return MCXT_METHOD(pointer, get_chunk_space)(pointer);
+}
+```

@@ -43,3 +43,57 @@ The function calculates an appropriate initial size for the memory tuple array b
 - Sets up exactly one read pointer initially, but the array can grow to accommodate multiple read pointers
 - Memory accounting begins immediately with USEMEM tracking the initial memtuples allocation
 - The backward scan capability and function pointers for tuple operations are not set here - they are configured by the calling tuplestore_begin_xxx functions
+
+## Simplified Source
+
+```c
+static Tuplestorestate *tuplestore_begin_common(int eflags, bool interXact, int maxKBytes)
+{
+    Tuplestorestate *state;
+
+    // Allocate and zero-initialize the main tuplestore state
+    state = (Tuplestorestate *) palloc0(sizeof(Tuplestorestate));
+
+    // Set basic configuration
+    state->status = TSS_INMEM;       // Start in memory-only mode
+    state->eflags = eflags;          // Execution flags (e.g., backward scan)
+    state->interXact = interXact;    // Survive transaction boundaries?
+    state->truncated = false;        // Not truncated initially
+
+    // Set up memory limits
+    state->allowedMem = maxKBytes * 1024L;
+    state->availMem = state->allowedMem;
+    state->myfile = NULL;            // No file initially
+
+    // Remember current contexts
+    state->context = CurrentMemoryContext;
+    state->resowner = CurrentResourceOwner;
+
+    // Initialize counters
+    state->memtupdeleted = 0;
+    state->memtupcount = 0;
+    state->tuples = 0;
+
+    // Calculate initial array size (must be > ALLOCSET_SEPARATE_THRESHOLD)
+    state->memtupsize = Max(16384 / sizeof(void *),
+                           ALLOCSET_SEPARATE_THRESHOLD / sizeof(void *) + 1);
+
+    // Allocate the tuple pointer array
+    state->growmemtuples = true;
+    state->memtuples = (void **) palloc(state->memtupsize * sizeof(void *));
+    USEMEM(state, GetMemoryChunkSpace(state->memtuples));
+
+    // Initialize single read pointer
+    state->activeptr = 0;
+    state->readptrcount = 1;
+    state->readptrsize = 8;  // Arbitrary initial size
+    state->readptrs = (TSReadPointer *) palloc(state->readptrsize * sizeof(TSReadPointer));
+
+    // Set up first read pointer
+    state->readptrs[0].eflags = eflags;
+    state->readptrs[0].eof_reached = false;
+    state->readptrs[0].current = 0;
+
+    return state;
+}
+```

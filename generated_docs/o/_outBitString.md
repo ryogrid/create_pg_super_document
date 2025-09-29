@@ -33,3 +33,18 @@ This function converts a BitString node into its textual representation by outpu
 - The outToken function handles escaping while preserving the 'b'/'x' prefix as required by nodeTokenType
 - Part of PostgreSQL's node serialization system used for debugging, logging, and inter-process communication
 - Bit strings represent binary or hexadecimal literal values in SQL queries
+
+## Simplified Source
+
+```c
+static void
+_outBitString(StringInfo str, const BitString *node)
+{
+    // Bit strings always start with 'b' (binary) or 'x' (hex)
+    // This is guaranteed by the lexer and required by nodeTokenType
+    Assert(node->bsval[0] == 'b' || node->bsval[0] == 'x');
+
+    // Output the bit string value, preserving the b/x prefix
+    outToken(str, node->bsval);
+}
+```

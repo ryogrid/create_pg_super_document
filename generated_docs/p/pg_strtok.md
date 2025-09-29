@@ -48,3 +48,64 @@ The function uses a global state pointer (pg_strtok_ptr) to track the current pa
 - Implements PostgreSQL-specific rules rather than configurable token delimiters
 - Critical component of the Node serialization/deserialization infrastructure
 - Designed to work with stringToNodeInternal's state management for re-entrant safety
+
+## Simplified Source
+
+```c
+const char *
+pg_strtok(int *length)
+{
+    const char *local_str;      // working pointer to string
+    const char *ret_str;        // start of token to return
+
+    local_str = pg_strtok_ptr;  // get current position
+
+    // Skip whitespace
+    while (*local_str == ' ' || *local_str == '\n' || *local_str == '\t')
+        local_str++;
+
+    // End of string?
+    if (*local_str == '\0')
+    {
+        *length = 0;
+        pg_strtok_ptr = local_str;
+        return NULL;            // no more tokens
+    }
+
+    // Start of next token
+    ret_str = local_str;
+
+    // Single character special tokens
+    if (*local_str == '(' || *local_str == ')' ||
+        *local_str == '{' || *local_str == '}')
+    {
+        local_str++;
+    }
+    else
+    {
+        // Normal token - scan until delimiter or special char
+        while (*local_str != '\0' &&
+               *local_str != ' ' && *local_str != '\n' &&
+               *local_str != '\t' &&
+               *local_str != '(' && *local_str != ')' &&
+               *local_str != '{' && *local_str != '}')
+        {
+            // Handle backslash escaping
+            if (*local_str == '\\' && local_str[1] != '\0')
+                local_str += 2;  // skip escaped character
+            else
+                local_str++;
+        }
+    }
+
+    *length = local_str - ret_str;
+
+    // Special case: "<>" becomes empty token
+    if (*length == 2 && ret_str[0] == '<' && ret_str[1] == '>')
+        *length = 0;
+
+    pg_strtok_ptr = local_str;  // update position for next call
+
+    return ret_str;
+}
+```

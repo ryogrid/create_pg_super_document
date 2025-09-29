@@ -41,3 +41,21 @@ This function is primarily used internally by other locking functions to standar
 - Essential utility for relation locking operations
 - Uses the SET_LOCKTAG_RELATION macro to populate the locktag structure
 - Part of the lock manager (lmgr) subsystem located in src/backend/storage/lmgr/lmgr.c:89-107
+
+## Simplified Source
+
+```c
+static inline void
+SetLocktagRelationOid(LOCKTAG *tag, Oid relid)
+{
+    Oid dbid;
+
+    // Determine database ID based on relation type
+    if (IsSharedRelation(relid))
+        dbid = InvalidOid;  // Shared relations accessible from all databases
+    else
+        dbid = MyDatabaseId;  // Regular relations are database-specific
+
+    SET_LOCKTAG_RELATION(*tag, dbid, relid);
+}
+```

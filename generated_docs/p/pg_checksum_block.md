@@ -39,3 +39,46 @@ The algorithm works in three phases:
 - The algorithm includes assertion checks to ensure proper page size alignment
 - Two additional rounds of zero mixing provide extra cryptographic strength
 - Final result combines all 32 partial checksums using XOR folding
+
+## Simplified Source
+
+```c
+static uint32 pg_checksum_block(const PGChecksummablePage *page)
+{
+    uint32 sums[N_SUMS];  // Array to hold parallel checksums
+    uint32 result = 0;
+    uint32 i, j;
+
+    // Verify page size matches our algorithm requirements
+    Assert(sizeof(PGChecksummablePage) == BLCKSZ);
+
+    // Initialize each partial checksum with a different base offset
+    // This ensures the parallel hash streams remain independent
+    memcpy(sums, checksumBaseOffsets, sizeof(checksumBaseOffsets));
+
+    // Main checksum calculation: process page data in parallel streams
+    // Each iteration processes N_SUMS uint32 values simultaneously
+    for (i = 0; i < (uint32) (BLCKSZ / (sizeof(uint32) * N_SUMS)); i++) {
+        for (j = 0; j < N_SUMS; j++) {
+            // Apply FNV-1a hash function to each parallel stream
+            CHECKSUM_COMP(sums[j], page->data[i][j]);
+        }
+    }
+
+    // Additional mixing: add two rounds of zero values
+    // This provides extra cryptographic strength and better avalanche effect
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < N_SUMS; j++) {
+            CHECKSUM_COMP(sums[j], 0);
+        }
+    }
+
+    // Combine all partial checksums using XOR folding
+    // This produces the final 32-bit checksum value
+    for (i = 0; i < N_SUMS; i++) {
+        result ^= sums[i];
+    }
+
+    return result;
+}
+```

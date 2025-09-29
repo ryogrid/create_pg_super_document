@@ -43,3 +43,61 @@ The function includes comprehensive compile-time assertions to ensure that all s
 - Contains compile-time assertions ensuring all digest types fit in the maximum buffer size
 - Must be called after pg_checksum_init and pg_checksum_update calls
 - After calling this function, the context should not be reused without re-initialization
+
+## Simplified Source
+
+```c
+int pg_checksum_final(pg_checksum_context *context, uint8 *output)
+{
+    int retval = 0;
+
+    // Compile-time checks that all digest sizes fit in PG_CHECKSUM_MAX_LENGTH
+    StaticAssertDecl(sizeof(pg_crc32c) <= PG_CHECKSUM_MAX_LENGTH, "CRC-32C digest too big");
+    StaticAssertDecl(PG_SHA224_DIGEST_LENGTH <= PG_CHECKSUM_MAX_LENGTH, "SHA224 digest too big");
+    StaticAssertDecl(PG_SHA256_DIGEST_LENGTH <= PG_CHECKSUM_MAX_LENGTH, "SHA256 digest too big");
+    StaticAssertDecl(PG_SHA384_DIGEST_LENGTH <= PG_CHECKSUM_MAX_LENGTH, "SHA384 digest too big");
+    StaticAssertDecl(PG_SHA512_DIGEST_LENGTH <= PG_CHECKSUM_MAX_LENGTH, "SHA512 digest too big");
+
+    switch (context->type) {
+        case CHECKSUM_TYPE_NONE:
+            break;
+
+        case CHECKSUM_TYPE_CRC32C:
+            FIN_CRC32C(context->raw_context.c_crc32c);
+            retval = sizeof(pg_crc32c);
+            memcpy(output, &context->raw_context.c_crc32c, retval);
+            break;
+
+        case CHECKSUM_TYPE_SHA224:
+            retval = PG_SHA224_DIGEST_LENGTH;
+            if (pg_cryptohash_final(context->raw_context.c_sha2, output, retval) < 0)
+                return -1;
+            pg_cryptohash_free(context->raw_context.c_sha2);
+            break;
+
+        case CHECKSUM_TYPE_SHA256:
+            retval = PG_SHA256_DIGEST_LENGTH;
+            if (pg_cryptohash_final(context->raw_context.c_sha2, output, retval) < 0)
+                return -1;
+            pg_cryptohash_free(context->raw_context.c_sha2);
+            break;
+
+        case CHECKSUM_TYPE_SHA384:
+            retval = PG_SHA384_DIGEST_LENGTH;
+            if (pg_cryptohash_final(context->raw_context.c_sha2, output, retval) < 0)
+                return -1;
+            pg_cryptohash_free(context->raw_context.c_sha2);
+            break;
+
+        case CHECKSUM_TYPE_SHA512:
+            retval = PG_SHA512_DIGEST_LENGTH;
+            if (pg_cryptohash_final(context->raw_context.c_sha2, output, retval) < 0)
+                return -1;
+            pg_cryptohash_free(context->raw_context.c_sha2);
+            break;
+    }
+
+    Assert(retval <= PG_CHECKSUM_MAX_LENGTH);
+    return retval;
+}
+```

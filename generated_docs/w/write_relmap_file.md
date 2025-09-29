@@ -56,3 +56,92 @@ The function follows a careful sequence: validates the mapping data, calculates 
 - File preservation prevents premature deletion by storage manager
 - Used during bootstrap, normal operation, and WAL replay scenarios
 - Part of PostgreSQL's transactional relation mapping infrastructure
+
+## Simplified Source
+
+```c
+static void
+write_relmap_file(RelMapFile *newmap, bool write_wal, bool send_sinval,
+                  bool preserve_files, Oid dbid, Oid tsid, const char *dbpath)
+{
+    int fd;
+    char mapfilename[MAXPGPATH];
+    char maptempfilename[MAXPGPATH];
+
+    // Verify exclusive lock is held
+    Assert(LWLockHeldByMeInMode(RelationMappingLock, LW_EXCLUSIVE));
+
+    // Set magic number and calculate CRC
+    newmap->magic = RELMAPPER_FILEMAGIC;
+    if (newmap->num_mappings < 0 || newmap->num_mappings > MAX_MAPPINGS)
+        elog(ERROR, "attempt to write bogus relation mapping");
+
+    INIT_CRC32C(newmap->crc);
+    COMP_CRC32C(newmap->crc, (char *) newmap, offsetof(RelMapFile, crc));
+    FIN_CRC32C(newmap->crc);
+
+    // Create file paths
+    snprintf(mapfilename, sizeof(mapfilename), "%s/%s", dbpath, RELMAPPER_FILENAME);
+    snprintf(maptempfilename, sizeof(maptempfilename), "%s/%s", dbpath, RELMAPPER_TEMP_FILENAME);
+
+    // Write to temporary file
+    fd = OpenTransientFile(maptempfilename, O_WRONLY | O_CREAT | O_TRUNC | PG_BINARY);
+    if (fd < 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not open file \"%s\": %m", maptempfilename)));
+
+    pgstat_report_wait_start(WAIT_EVENT_RELATION_MAP_WRITE);
+    if (write(fd, newmap, sizeof(RelMapFile)) != sizeof(RelMapFile)) {
+        if (errno == 0) errno = ENOSPC;
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not write file \"%s\": %m", maptempfilename)));
+    }
+    pgstat_report_wait_end();
+
+    if (CloseTransientFile(fd) != 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not close file \"%s\": %m", maptempfilename)));
+
+    // Write WAL record if requested
+    if (write_wal) {
+        xl_relmap_update xlrec;
+        XLogRecPtr lsn;
+
+        START_CRIT_SECTION();
+
+        xlrec.dbid = dbid;
+        xlrec.tsid = tsid;
+        xlrec.nbytes = sizeof(RelMapFile);
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) (&xlrec), MinSizeOfRelmapUpdate);
+        XLogRegisterData((char *) newmap, sizeof(RelMapFile));
+
+        lsn = XLogInsert(RM_RELMAP_ID, XLOG_RELMAP_UPDATE);
+        XLogFlush(lsn);
+    }
+
+    // Atomically rename temp file to permanent location
+    pgstat_report_wait_start(WAIT_EVENT_RELATION_MAP_REPLACE);
+    durable_rename(maptempfilename, mapfilename, ERROR);
+    pgstat_report_wait_end();
+
+    // Send invalidation message to other backends
+    if (send_sinval)
+        CacheInvalidateRelmap(dbid);
+
+    // Preserve files from deletion
+    if (preserve_files) {
+        for (int i = 0; i < newmap->num_mappings; i++) {
+            RelFileLocator rlocator;
+            rlocator.spcOid = tsid;
+            rlocator.dbOid = dbid;
+            rlocator.relNumber = newmap->mappings[i].mapfilenumber;
+            RelationPreserveStorage(rlocator, false);
+        }
+    }
+
+    if (write_wal)
+        END_CRIT_SECTION();
+}
+```

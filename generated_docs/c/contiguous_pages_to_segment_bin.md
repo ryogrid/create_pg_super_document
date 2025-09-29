@@ -36,3 +36,26 @@ The function uses bit manipulation to efficiently calculate the appropriate bin 
 - The result is capped at DSA_NUM_SEGMENT_BINS - 1 to ensure valid bin indices
 - Essential for the DSA's segment organization and allocation efficiency
 - Located in src/backend/utils/mmgr/dsa.c:119-131
+
+## Simplified Source
+
+```c
+static inline size_t
+contiguous_pages_to_segment_bin(size_t n)
+{
+    size_t bin;
+
+    if (n == 0)
+        bin = 0;
+    else
+        bin = pg_leftmost_one_pos_size_t(n) + 1;
+
+    return Min(bin, DSA_NUM_SEGMENT_BINS - 1);
+}
+```
+
+**Simplified Explanation:**
+1. Handle special case: if n=0, return bin 0
+2. For other values, find the position of the leftmost set bit and add 1
+3. Cap the result to the maximum bin number to ensure valid index
+4. This creates a logarithmic binning strategy for efficient segment organization

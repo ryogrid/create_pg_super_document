@@ -37,3 +37,15 @@ ScalarArrayOpExpr nodes represent operations like 'value = ANY(array)' or 'value
 - Only sets opfuncid if it's currently InvalidOid, avoiding redundant lookups
 - Essential for processing array comparison operations (ANY/ALL constructs)
 - Part of PostgreSQL's expression processing infrastructure for array operations
+
+## Simplified Source
+
+```c
+void
+set_sa_opfuncid(ScalarArrayOpExpr *opexpr)
+{
+    // Only set if not already set (avoid redundant lookups)
+    if (opexpr->opfuncid == InvalidOid)
+        opexpr->opfuncid = get_opcode(opexpr->opno);
+}
+```

@@ -46,3 +46,122 @@ Key operational aspects:
 - Maintains alignment requirements by copying small unaligned chunks to temporary aligned buffers
 - Automatically detects when receiver attaches and caches this state for performance
 - Returns SHM_MQ_SUCCESS on completion, SHM_MQ_WOULD_BLOCK if nowait and queue full, or SHM_MQ_DETACHED if queue disconnected
+
+## Simplified Source
+
+```c
+shm_mq_result shm_mq_sendv(shm_mq_handle *mqh, shm_mq_iovec *iov, int iovcnt,
+                           bool nowait, bool force_flush)
+{
+    shm_mq *mq = mqh->mqh_queue;
+    Size nbytes = 0;
+    int which_iov = 0;
+    Size offset;
+
+    Assert(mq->mq_sender == MyProc);
+
+    // Calculate total message size
+    for (int i = 0; i < iovcnt; ++i)
+        nbytes += iov[i].len;
+
+    // Prevent overwhelming the receiver
+    if (nbytes > MaxAllocSize)
+        ereport(ERROR, (errmsg("message too large: %zu bytes", nbytes)));
+
+    // First, send the length word
+    while (!mqh->mqh_length_word_complete)
+    {
+        Size bytes_written;
+        shm_mq_result res = shm_mq_send_bytes(mqh,
+                                             sizeof(Size) - mqh->mqh_partial_bytes,
+                                             ((char *) &nbytes) + mqh->mqh_partial_bytes,
+                                             nowait, &bytes_written);
+
+        if (res == SHM_MQ_DETACHED)
+        {
+            // Reset state for retry
+            mqh->mqh_partial_bytes = 0;
+            mqh->mqh_length_word_complete = false;
+            return res;
+        }
+
+        mqh->mqh_partial_bytes += bytes_written;
+        if (mqh->mqh_partial_bytes >= sizeof(Size))
+        {
+            mqh->mqh_partial_bytes = 0;
+            mqh->mqh_length_word_complete = true;
+        }
+
+        if (res != SHM_MQ_SUCCESS)
+            return res;
+    }
+
+    // Send the actual data from I/O vectors
+    offset = mqh->mqh_partial_bytes;
+    do
+    {
+        // Skip to the right I/O vector and offset
+        while (which_iov < iovcnt && offset >= iov[which_iov].len)
+        {
+            offset -= iov[which_iov].len;
+            which_iov++;
+        }
+
+        if (which_iov >= iovcnt)
+            break;
+
+        Size chunksize = iov[which_iov].len - offset;
+
+        // Handle alignment requirements for non-final chunks
+        if (which_iov + 1 < iovcnt && offset + MAXIMUM_ALIGNOF > iov[which_iov].len)
+        {
+            // Copy small unaligned data to aligned buffer
+            char tmpbuf[MAXIMUM_ALIGNOF];
+            int j = 0;
+            // [alignment copying logic omitted for brevity]
+            shm_mq_result res = shm_mq_send_bytes(mqh, j, tmpbuf, nowait, &bytes_written);
+        }
+        else
+        {
+            // Align chunk size for non-final chunks
+            if (which_iov + 1 < iovcnt)
+                chunksize = MAXALIGN_DOWN(chunksize);
+
+            shm_mq_result res = shm_mq_send_bytes(mqh, chunksize,
+                                                 &iov[which_iov].data[offset],
+                                                 nowait, &bytes_written);
+        }
+
+        if (res == SHM_MQ_DETACHED)
+        {
+            // Reset state for retry
+            mqh->mqh_length_word_complete = false;
+            mqh->mqh_partial_bytes = 0;
+            return res;
+        }
+
+        mqh->mqh_partial_bytes += bytes_written;
+        offset += bytes_written;
+
+        if (res != SHM_MQ_SUCCESS)
+            return res;
+
+    } while (mqh->mqh_partial_bytes < nbytes);
+
+    // Reset for next message
+    mqh->mqh_partial_bytes = 0;
+    mqh->mqh_length_word_complete = false;
+
+    // Notify receiver if needed (force_flush or >1/4 ring size written)
+    if (force_flush || mqh->mqh_send_pending > (mq->mq_ring_size >> 2))
+    {
+        shm_mq_inc_bytes_written(mq, mqh->mqh_send_pending);
+        PGPROC *receiver = mq->mq_receiver;
+        if (receiver != NULL)
+            SetLatch(&receiver->procLatch);
+        mqh->mqh_send_pending = 0;
+    }
+
+    return SHM_MQ_SUCCESS;
+}
+```

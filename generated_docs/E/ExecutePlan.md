@@ -53,3 +53,73 @@ The function maintains execution state and coordinates between the plan tree exe
 - The main execution loop continues until: no more tuples, tuple limit reached, or destination stops accepting tuples
 - Critical for query performance as it controls the fundamental tuple processing pipeline
 - Coordinates closely with the destination receiver to handle cases where the destination closes early
+
+## Simplified Source
+
+```c
+static void
+ExecutePlan(QueryDesc *queryDesc, CmdType operation, bool sendTuples,
+           uint64 numberTuples, ScanDirection direction, DestReceiver *dest)
+{
+    EState     *estate = queryDesc->estate;
+    PlanState  *planstate = queryDesc->planstate;
+    bool        use_parallel_mode;
+    TupleTableSlot *slot;
+    uint64      current_tuple_count = 0;
+
+    // Set scan direction
+    estate->es_direction = direction;
+
+    // Determine if parallel mode can be used
+    // Only for complete execution, not partial or already-executed queries
+    if (queryDesc->already_executed || numberTuples != 0)
+        use_parallel_mode = false;
+    else
+        use_parallel_mode = queryDesc->plannedstmt->parallelModeNeeded;
+
+    queryDesc->already_executed = true;
+    estate->es_use_parallel_mode = use_parallel_mode;
+
+    if (use_parallel_mode)
+        EnterParallelMode();
+
+    // Main execution loop
+    for (;;) {
+        // Reset expression context for each tuple
+        ResetPerTupleExprContext(estate);
+
+        // Get next tuple from plan tree
+        slot = ExecProcNode(planstate);
+
+        // No more tuples - end execution
+        if (TupIsNull(slot))
+            break;
+
+        // Remove junk attributes if junk filter exists
+        if (estate->es_junkFilter != NULL)
+            slot = ExecFilterJunk(estate->es_junkFilter, slot);
+
+        // Send tuple to destination if requested
+        if (sendTuples) {
+            if (!dest->receiveSlot(slot, dest))
+                break;  // Destination closed, stop processing
+        }
+
+        // Count processed tuples for SELECT operations
+        if (operation == CMD_SELECT)
+            (estate->es_processed)++;
+
+        // Check if we've reached the tuple limit
+        current_tuple_count++;
+        if (numberTuples && numberTuples == current_tuple_count)
+            break;
+    }
+
+    // Clean up resources if backward scanning not needed
+    if (!(estate->es_top_eflags & EXEC_FLAG_BACKWARD))
+        ExecShutdownNode(planstate);
+
+    if (use_parallel_mode)
+        ExitParallelMode();
+}
+```

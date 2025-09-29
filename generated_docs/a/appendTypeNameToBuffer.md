@@ -37,3 +37,36 @@ This function is designed to work even with TypeNames that don't correspond to a
 
 ## Notes and Other Information
 This is a static function internal to parse_type.c, designed to be the shared implementation for string conversion operations. It handles the complexity of different TypeName formats in a centralized location, ensuring consistent string representation across the codebase. The function carefully handles decorations like %TYPE and array bounds, which are important for accurate type representation in error messages and debugging output. The design allows it to work with invalid or incomplete TypeNames, making it robust for error reporting scenarios.
+
+## Simplified Source
+
+```c
+static void appendTypeNameToBuffer(const TypeName *typeName, StringInfo string)
+{
+    if (typeName->names != NIL)
+    {
+        // Handle user-specified type names (possibly schema-qualified)
+        ListCell *l;
+
+        foreach(l, typeName->names)
+        {
+            // Add dot separator between name components
+            if (l != list_head(typeName->names))
+                appendStringInfoChar(string, '.');
+            appendStringInfoString(string, strVal(lfirst(l)));
+        }
+    }
+    else
+    {
+        // Handle internally-specified type (by OID)
+        appendStringInfoString(string, format_type_be(typeName->typeOid));
+    }
+
+    // Add type decorations as needed
+    if (typeName->pct_type)
+        appendStringInfoString(string, "%TYPE");
+
+    if (typeName->arrayBounds != NIL)
+        appendStringInfoString(string, "[]");
+}
+```

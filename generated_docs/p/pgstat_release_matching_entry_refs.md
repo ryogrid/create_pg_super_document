@@ -47,4 +47,30 @@ If no hash table exists or if the match callback is NULL, the function handles t
 - Returns early if no hash table exists, making it safe to call in various contexts
 - The  parameter allows control over whether to preserve or discard uncommitted statistics data
 - Used as a building block for more specific release functions like database-specific or global cleanup
-- Located in 
+- Located in src/backend/utils/activity/pgstat_shmem.c:737-766
+
+## Simplified Source
+
+```c
+static void pgstat_release_matching_entry_refs(bool discard_pending, ReleaseMatchCB match,
+                                               Datum match_data)
+{
+    pgstat_entry_ref_hash_iterator i;
+    PgStat_EntryRefHashEntry *ent;
+
+    if (pgStatEntryRefHash == NULL)
+        return;
+
+    pgstat_entry_ref_hash_start_iterate(pgStatEntryRefHash, &i);
+
+    while ((ent = pgstat_entry_ref_hash_iterate(pgStatEntryRefHash, &i)) != NULL)
+    {
+        Assert(ent->entry_ref != NULL);
+
+        if (match && !match(ent, match_data))
+            continue;
+
+        pgstat_release_entry_ref(ent->key, ent->entry_ref, discard_pending);
+    }
+}
+``` 

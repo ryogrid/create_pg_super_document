@@ -34,3 +34,43 @@ The function performs several safety checks including ensuring the buffer is ind
 - Uses atomic operations to safely modify buffer state without locking
 - Debug builds can enable LBDEBUG to log buffer dirty operations
 - Only operates on local buffers (those with negative buffer IDs)
+
+## Simplified Source
+
+```c
+void MarkLocalBufferDirty(Buffer buffer)
+{
+    int bufid;
+    BufferDesc *bufHdr;
+    uint32 buf_state;
+
+    // Verify this is actually a local buffer
+    Assert(BufferIsLocal(buffer));
+
+#ifdef LBDEBUG
+    fprintf(stderr, "LB DIRTY %d\n", buffer);
+#endif
+
+    // Convert buffer to internal buffer ID (local buffers use negative IDs)
+    bufid = -buffer - 1;
+
+    // Ensure buffer has at least one reference
+    Assert(LocalRefCount[bufid] > 0);
+
+    // Get buffer descriptor
+    bufHdr = GetLocalBufferDescriptor(bufid);
+
+    // Read current buffer state atomically
+    buf_state = pg_atomic_read_u32(&bufHdr->state);
+
+    // Update statistics if this is first time marking buffer dirty
+    if (!(buf_state & BM_DIRTY))
+        pgBufferUsage.local_blks_dirtied++;
+
+    // Set dirty flag
+    buf_state |= BM_DIRTY;
+
+    // Write updated state back atomically
+    pg_atomic_unlocked_write_u32(&bufHdr->state, buf_state);
+}
+```

@@ -41,3 +41,28 @@ The function handles byte order conversion automatically based on the system's e
 - Context memory is always zeroed for security, regardless of whether a digest is requested
 - Byte order conversion is conditionally compiled based on WORDS_BIGENDIAN macro
 - Part of PostgreSQL's cryptographic hashing infrastructure for SHA-256 operations
+
+## Simplified Source
+
+```c
+void pg_sha256_final(pg_sha256_ctx *context, uint8 *digest) {
+    // Only proceed if digest buffer is provided
+    if (digest != NULL) {
+        // Finalize the SHA-256 computation with padding
+        SHA256_Last(context);
+
+        // Convert to host byte order on little-endian systems
+        #ifndef WORDS_BIGENDIAN
+        for (int j = 0; j < 8; j++) {
+            REVERSE32(context->state[j], context->state[j]);
+        }
+        #endif
+
+        // Copy the full 32-byte (256-bit) digest to output buffer
+        memcpy(digest, context->state, PG_SHA256_DIGEST_LENGTH);
+    }
+
+    // Securely clear context data
+    memset(context, 0, sizeof(pg_sha256_ctx));
+}
+```

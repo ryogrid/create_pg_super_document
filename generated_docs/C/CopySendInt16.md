@@ -35,3 +35,16 @@ The function is declared as static inline for performance optimization, as it's 
 - Network byte order (big-endian) ensures cross-platform compatibility of binary COPY data
 - Commonly used for sending field counts, attribute numbers, and other metadata in binary COPY format
 - Part of the binary COPY protocol implementation that handles type-specific data serialization
+
+## Simplified Source
+
+```c
+static inline void
+CopySendInt16(CopyToState cstate, int16 val)
+{
+    uint16 buf;
+
+    buf = pg_hton16((uint16) val);
+    CopySendData(cstate, &buf, sizeof(buf));
+}
+```

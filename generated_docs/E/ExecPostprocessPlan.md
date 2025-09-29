@@ -36,3 +36,28 @@ ExecPostprocessPlan performs final cleanup and completion tasks during executor 
 - Part of the executor's cleanup phase, called during ExecutorFinish
 - Handles cases where auxiliary operations need completion independent of main query results
 - Maintains transactional consistency by ensuring all planned modifications complete
+
+## Simplified Source
+
+```c
+static void
+ExecPostprocessPlan(EState *estate)
+{
+    // Ensure forward scan direction
+    estate->es_direction = ForwardScanDirection;
+
+    // Run auxiliary ModifyTable nodes to completion
+    foreach(ListCell *lc, estate->es_auxmodifytables) {
+        PlanState *ps = (PlanState *) lfirst(lc);
+
+        for (;;) {
+            // Reset per-tuple expression context
+            ResetPerTupleExprContext(estate);
+
+            TupleTableSlot *slot = ExecProcNode(ps);
+            if (TupIsNull(slot))
+                break;  // Node finished
+        }
+    }
+}
+```

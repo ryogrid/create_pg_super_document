@@ -35,3 +35,20 @@ This function is part of the tuplestore machinery specialized for handling HeapT
 - Memory usage tracking is automatically updated via USEMEM macro
 - Returns a void* pointer to maintain generic interface compatibility, though the actual return type is MinimalTuple
 - Part of the specialized routines for HeapTuple case, providing historical compatibility while using modern storage formats
+
+## Simplified Source
+
+```c
+static void *copytup_heap(Tuplestorestate *state, void *tup)
+{
+    MinimalTuple tuple;
+
+    // Convert HeapTuple to more efficient MinimalTuple format
+    tuple = minimal_tuple_from_heap_tuple((HeapTuple) tup);
+
+    // Track memory usage for the new tuple
+    USEMEM(state, GetMemoryChunkSpace(tuple));
+
+    return (void *) tuple;
+}
+```

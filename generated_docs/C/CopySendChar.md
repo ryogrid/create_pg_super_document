@@ -36,3 +36,13 @@ This function is a specialized convenience function that appends a single charac
 - Data is buffered and not immediately sent to maintain efficiency
 - Frequently used in text formatting functions for CSV and text output formats
 - The function is heavily utilized throughout the copy formatting process as evidenced by its many call sites
+
+## Simplified Source
+
+```c
+static void
+CopySendChar(CopyToState cstate, char c)
+{
+    appendStringInfoCharMacro(cstate->fe_msgbuf, c);
+}
+```

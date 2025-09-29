@@ -40,3 +40,92 @@ The function follows a careful algorithm: it iterates through each non-dropped c
 - Error messages refer to indesc as "returned" and outdesc as "expected" rowtype
 - Used primarily in tuple conversion scenarios where column order is preserved
 - Located in `src/backend/access/common/attmap.c:75-176`
+
+## Simplified Source
+
+```c
+AttrMap *build_attrmap_by_position(TupleDesc indesc, TupleDesc outdesc, const char *msg)
+{
+    AttrMap *attrMap;
+    int nincols, noutcols;
+    int n, i, j;
+    bool same = true;
+
+    // Create attribute map based on output descriptor length
+    n = outdesc->natts;
+    attrMap = make_attrmap(n);
+
+    j = 0;              // Next physical input attribute
+    nincols = noutcols = 0;  // Count non-dropped attributes
+
+    // Map output columns to input columns by position
+    for (i = 0; i < n; i++)
+    {
+        Form_pg_attribute out_att = TupleDescAttr(outdesc, i);
+
+        if (out_att->attisdropped)
+            continue;  // attrMap->attnums[i] already 0
+
+        noutcols++;
+
+        // Find next non-dropped input column
+        for (; j < indesc->natts; j++)
+        {
+            Form_pg_attribute in_att = TupleDescAttr(indesc, j);
+            if (in_att->attisdropped)
+                continue;
+
+            nincols++;
+
+            // Check type compatibility
+            if (out_att->atttypid != in_att->atttypid ||
+                (out_att->atttypmod != in_att->atttypmod && out_att->atttypmod >= 0))
+            {
+                ereport(ERROR,
+                        (errcode(ERRCODE_DATATYPE_MISMATCH),
+                         errmsg_internal("%s", _(msg)),
+                         errdetail("Returned type %s does not match expected type %s in column %d.",
+                                  format_type_with_typemod(in_att->atttypid, in_att->atttypmod),
+                                  format_type_with_typemod(out_att->atttypid, out_att->atttypmod),
+                                  noutcols)));
+            }
+
+            // Map this output column to input column (1-based)
+            attrMap->attnums[i] = (AttrNumber)(j + 1);
+            j++;
+            break;
+        }
+
+        if (attrMap->attnums[i] == 0)
+            same = false;  // Missing input column
+    }
+
+    // Check for excess input columns
+    for (; j < indesc->natts; j++)
+    {
+        if (!TupleDescAttr(indesc, j)->attisdropped)
+        {
+            nincols++;
+            same = false;
+        }
+    }
+
+    // Report column count mismatch
+    if (!same)
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg_internal("%s", _(msg)),
+                 errdetail("Number of returned columns (%d) does not match expected column count (%d).",
+                          nincols, noutcols)));
+
+    // Check if conversion is actually needed
+    if (check_attrmap_match(indesc, outdesc, attrMap))
+    {
+        // Perfect match - no runtime conversion needed
+        free_attrmap(attrMap);
+        return NULL;
+    }
+
+    return attrMap;
+}
+```

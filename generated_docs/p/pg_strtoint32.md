@@ -41,3 +41,12 @@ Unlike its safe counterpart, this function will throw an `ereport()` on invalid 
 - For error-safe parsing where exceptions should be avoided, use `pg_strtoint32_safe()` instead
 - Widely used throughout PostgreSQL for parsing integer values in various contexts including libpq message processing, replication, text search, and array utilities
 - Part of PostgreSQL's numeric utility functions for robust string-to-integer conversion
+
+## Simplified Source
+
+```c
+int32 pg_strtoint32(const char *s)
+{
+    return pg_strtoint32_safe(s, NULL);
+}
+```

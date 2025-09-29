@@ -31,3 +31,21 @@ This function takes no parameters.
 - After calling this function, any subsequent request for backend activity information will cause new snapshots to be read
 - The function safely handles cases where no memory was previously allocated (backendStatusSnapContext is NULL)
 - Part of PostgreSQL's statistics collection system for tracking backend process activity
+
+## Simplified Source
+
+```c
+void pgstat_clear_backend_activity_snapshot(void)
+{
+    // Release memory, if any was allocated
+    if (backendStatusSnapContext)
+    {
+        MemoryContextDelete(backendStatusSnapContext);
+        backendStatusSnapContext = NULL;
+    }
+
+    // Reset variables
+    localBackendStatusTable = NULL;
+    localNumBackends = 0;
+}
+```

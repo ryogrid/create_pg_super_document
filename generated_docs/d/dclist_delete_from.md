@@ -40,3 +40,19 @@ The function delegates the actual node removal to the underlying dlist_delete_fr
 - Widely used across PostgreSQL subsystems for cleanup operations in replication, statistics, memory management, and constraint handling
 - Part of PostgreSQL's intrusive list implementation that doesn't require separate memory allocation for list nodes
 - Does not check for count underflow, relying on the assertion to catch empty list scenarios
+
+## Simplified Source
+
+```c
+static inline void dclist_delete_from(dclist_head *head, dlist_node *node)
+{
+    // Ensure the list is not empty
+    Assert(head->count > 0);
+
+    // Delete the node from the underlying doubly-linked list
+    dlist_delete_from(&head->dlist, node);
+
+    // Decrement the count to maintain accuracy
+    head->count--;
+}
+```

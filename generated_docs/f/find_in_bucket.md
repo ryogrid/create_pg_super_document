@@ -45,3 +45,30 @@ This is a fundamental building block for hash table lookup operations, providing
 - Performs O(n) linear search where n is the number of items in the bucket chain
 - Uses the hash tables configured key comparison function through equal_keys()
 - Part of the core hash table lookup mechanism, working in conjunction with the hash function and bucket addressing
+
+## Simplified Source
+
+```c
+// Search for a key in a hash bucket chain
+static inline dshash_table_item *
+find_in_bucket(dshash_table *hash_table, const void *key, dsa_pointer item_pointer)
+{
+    // Traverse the linked list of items in this bucket
+    while (DsaPointerIsValid(item_pointer)) {
+        dshash_table_item *item;
+
+        // Get the actual item from the DSA pointer
+        item = dsa_get_address(hash_table->area, item_pointer);
+
+        // Check if this item's key matches what we're looking for
+        if (equal_keys(hash_table, key, ENTRY_FROM_ITEM(item))) {
+            return item;  // Found it!
+        }
+
+        // Move to next item in the chain
+        item_pointer = item->next;
+    }
+
+    return NULL;  // Not found in this bucket
+}
+```

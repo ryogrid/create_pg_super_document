@@ -45,3 +45,32 @@ Key cleanup operations performed:
 
 ## Notes and Other Information
 The function uses a while loop to iteratively free ExprContexts, with a comment noting that using repeated list_delete() operations might not be the most efficient approach. The cleanup is performed in a specific order: first ExprContexts (which may have shutdown callbacks), then JIT resources, then partition directories, and finally the memory context itself. This ordering ensures that any cleanup callbacks can still access memory that might be needed during the shutdown process. The function is not responsible for releasing non-memory resources like open relations or buffer pins - that cleanup must be handled elsewhere in the executor shutdown sequence.
+
+## Simplified Source
+
+```c
+void
+FreeExecutorState(EState *estate)
+{
+    // Free all ExprContexts with their shutdown callbacks
+    while (estate->es_exprcontexts) {
+        FreeExprContext((ExprContext *) linitial(estate->es_exprcontexts), true);
+        // FreeExprContext removes the list link for us
+    }
+
+    // Release JIT context if allocated
+    if (estate->es_jit) {
+        jit_release_context(estate->es_jit);
+        estate->es_jit = NULL;
+    }
+
+    // Destroy partition directory if allocated
+    if (estate->es_partition_directory) {
+        DestroyPartitionDirectory(estate->es_partition_directory);
+        estate->es_partition_directory = NULL;
+    }
+
+    // Delete the entire per-query memory context
+    MemoryContextDelete(estate->es_query_cxt);
+}
+```

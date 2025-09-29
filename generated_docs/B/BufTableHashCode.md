@@ -31,3 +31,12 @@ BufTableHashCode calculates the hash value for a given BufferTag using the share
 
 ## Notes and Other Information
 The hash computation is performed once and reused across multiple operations to optimize performance, since hash_any (the underlying hash function) can be computationally expensive. The hash code is essential for the partitioned locking scheme used in the buffer management system, allowing multiple processes to work on different buffer partitions concurrently without contention.
+
+## Simplified Source
+
+```c
+uint32 BufTableHashCode(BufferTag *tagPtr)
+{
+    return get_hash_value(SharedBufHash, (void *) tagPtr);
+}
+```

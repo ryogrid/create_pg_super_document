@@ -37,3 +37,19 @@ The function includes several assertions to validate the buffer state, ensuring 
 - Local buffer identifiers are negative numbers, and the function converts them to array indices using the formula: buffid = -buffer - 1
 - The function maintains the invariant that NLocalPinnedBuffers accurately reflects the number of buffers with non-zero reference counts
 - Assertions ensure data integrity and help catch programming errors during development and testing
+
+## Simplified Source
+
+```c
+void UnpinLocalBufferNoOwner(Buffer buffer)
+{
+    int buffid = -buffer - 1;
+
+    Assert(BufferIsLocal(buffer));
+    Assert(LocalRefCount[buffid] > 0);
+    Assert(NLocalPinnedBuffers > 0);
+
+    if (--LocalRefCount[buffid] == 0)
+        NLocalPinnedBuffers--;
+}
+```

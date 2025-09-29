@@ -45,3 +45,25 @@ Different read modes serve distinct purposes: normal mode for standard data acce
 - Buffer access strategies allow fine-tuning of replacement policies for bulk operations
 - All-zero pages are considered valid in normal mode through PageIsVerifiedExtended
 - Direct entry point for most specialized buffer access requirements in PostgreSQL
+
+## Simplified Source
+
+```c
+inline Buffer ReadBufferExtended(Relation reln, ForkNumber forkNum, BlockNumber blockNum,
+                                ReadBufferMode mode, BufferAccessStrategy strategy)
+{
+    Buffer buf;
+
+    // Reject attempts to read non-local temporary relations
+    if (RELATION_IS_OTHER_TEMP(reln))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot access temporary tables of other sessions")));
+
+    // Read the buffer and update pgstat counters
+    buf = ReadBuffer_common(reln, RelationGetSmgr(reln), 0,
+                           forkNum, blockNum, mode, strategy);
+
+    return buf;
+}
+```

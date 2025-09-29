@@ -55,3 +55,64 @@ Key behavioral aspects:
 - The exact/eofOK parameter combination allows fine-grained control over EOF behavior
 - Used as the foundation for all BufFile read operations, providing consistent behavior across the API
 - Optimizes performance by minimizing file I/O through intelligent buffer management
+
+## Simplified Source
+
+```c
+static size_t BufFileReadCommon(BufFile *file, void *ptr, size_t size,
+                                bool exact, bool eofOK)
+{
+    size_t start_size = size;
+    size_t nread = 0;
+    size_t nthistime;
+
+    // Ensure any pending writes are completed before reading
+    BufFileFlush(file);
+
+    while (size > 0)
+    {
+        // Check if we need to load more data into buffer
+        if (file->pos >= file->nbytes)
+        {
+            // Update file offset and reset buffer position
+            file->curOffset += file->pos;
+            file->pos = 0;
+            file->nbytes = 0;
+
+            // Try to load more data
+            BufFileLoadBuffer(file);
+            if (file->nbytes <= 0)
+                break;  // No more data available
+        }
+
+        // Calculate how much we can read from current buffer
+        nthistime = file->nbytes - file->pos;
+        if (nthistime > size)
+            nthistime = size;
+        Assert(nthistime > 0);
+
+        // Copy data from buffer to destination
+        memcpy(ptr, file->buffer.data + file->pos, nthistime);
+
+        // Update positions and counters
+        file->pos += nthistime;
+        ptr = (char *) ptr + nthistime;
+        size -= nthistime;
+        nread += nthistime;
+    }
+
+    // Check if exact read requirement was met
+    if (exact && (nread != start_size && !(nread == 0 && eofOK)))
+    {
+        ereport(ERROR,
+                errcode_for_file_access(),
+                file->name ?
+                errmsg("could not read from file set \"%s\": read only %zu of %zu bytes",
+                       file->name, nread, start_size) :
+                errmsg("could not read from temporary file: read only %zu of %zu bytes",
+                       nread, start_size));
+    }
+
+    return nread;
+}
+```

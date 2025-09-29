@@ -33,3 +33,13 @@ This inline function performs bounds checking on spinlock indices used in the se
 - Part of the defensive programming approach in the spinlock emulation system
 - The static inline declaration makes this a very low-overhead validation function
 - Called by various spinlock operations to ensure they operate on valid lock indices
+
+## Simplified Source
+
+```c
+static inline void s_check_valid(int lockndx)
+{
+    if (unlikely(lockndx <= 0 || lockndx > NUM_EMULATION_SEMAPHORES))
+        elog(ERROR, "invalid spinlock number: %d", lockndx);
+}
+```

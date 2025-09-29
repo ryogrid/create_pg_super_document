@@ -41,3 +41,14 @@ This is a critical function in PostgreSQL's executor system for lazy attribute m
 - The function uses 1-based attribute numbering (attnum)
 - Provides a fast path by checking tts_nvalid before calling the expensive internal function
 - Essential for performance in scenarios where only some attributes of a tuple are needed
+
+## Simplified Source
+
+```c
+static inline void
+slot_getsomeattrs(TupleTableSlot *slot, int attnum)
+{
+    if (slot->tts_nvalid < attnum)
+        slot_getsomeattrs_int(slot, attnum);
+}
+```

@@ -43,3 +43,19 @@ This conditional compilation ensures optimal performance on 64-bit platforms whi
 - When int64 is passed by reference (32-bit platforms), this function returns a reference to palloc'd space
 - Part of PostgreSQL's type conversion system that ensures consistent handling of data types across different architectures
 - Located in src/include/postgres.h:436-457
+
+## Simplified Source
+
+```c
+static inline Datum
+UInt64GetDatum(uint64 X)
+{
+#ifdef USE_FLOAT8_BYVAL
+    // 64-bit platforms: direct cast to Datum
+    return (Datum) X;
+#else
+    // 32-bit platforms: delegate to Int64GetDatum
+    return Int64GetDatum((int64) X);
+#endif
+}
+```

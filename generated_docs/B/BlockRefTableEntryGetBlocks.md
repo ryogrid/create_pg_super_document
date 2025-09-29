@@ -55,3 +55,87 @@ The implementation includes careful overflow handling since stop_blkno could be 
 - The bitmap format uses individual bits to represent block modification status
 - The offset array format stores actual block offsets within chunks for sparse modification patterns
 - This function is critical for incremental backup operations, determining exactly which blocks have been modified
+
+## Simplified Source
+
+```c
+int BlockRefTableEntryGetBlocks(BlockRefTableEntry *entry,
+                               BlockNumber start_blkno,
+                               BlockNumber stop_blkno,
+                               BlockNumber *blocks,
+                               int nblocks)
+{
+    uint32 start_chunkno;
+    uint32 stop_chunkno;
+    uint32 chunkno;
+    int nresults = 0;
+
+    Assert(entry != NULL);
+
+    // Calculate which chunks could contain blocks of interest
+    start_chunkno = start_blkno / BLOCKS_PER_CHUNK;
+    stop_chunkno = stop_blkno / BLOCKS_PER_CHUNK;
+    if ((stop_blkno % BLOCKS_PER_CHUNK) != 0)
+        ++stop_chunkno;
+    if (stop_chunkno > entry->nchunks)
+        stop_chunkno = entry->nchunks;
+
+    // Process each relevant chunk
+    for (chunkno = start_chunkno; chunkno < stop_chunkno; ++chunkno)
+    {
+        uint16 chunk_usage = entry->chunk_usage[chunkno];
+        BlockRefTableChunk chunk_data = entry->chunk_data[chunkno];
+        unsigned start_offset = 0;
+        unsigned stop_offset = BLOCKS_PER_CHUNK;
+
+        // Adjust offsets for partial chunks at range boundaries
+        if (chunkno == start_chunkno)
+            start_offset = start_blkno % BLOCKS_PER_CHUNK;
+        if (chunkno == stop_chunkno - 1)
+        {
+            Assert(stop_blkno > chunkno * BLOCKS_PER_CHUNK);
+            stop_offset = stop_blkno - (chunkno * BLOCKS_PER_CHUNK);
+            Assert(stop_offset <= BLOCKS_PER_CHUNK);
+        }
+
+        if (chunk_usage == MAX_ENTRIES_PER_CHUNK)
+        {
+            // Bitmap format: test each bit in range
+            for (unsigned i = start_offset; i < stop_offset; ++i)
+            {
+                uint16 w = chunk_data[i / BLOCKS_PER_ENTRY];
+
+                if ((w & (1 << (i % BLOCKS_PER_ENTRY))) != 0)
+                {
+                    BlockNumber blkno = chunkno * BLOCKS_PER_CHUNK + i;
+                    blocks[nresults++] = blkno;
+
+                    // Exit early if output buffer is full
+                    if (nresults == nblocks)
+                        return nresults;
+                }
+            }
+        }
+        else
+        {
+            // Offset array format: check each stored offset
+            for (unsigned i = 0; i < chunk_usage; ++i)
+            {
+                uint16 offset = chunk_data[i];
+
+                if (offset >= start_offset && offset < stop_offset)
+                {
+                    BlockNumber blkno = chunkno * BLOCKS_PER_CHUNK + offset;
+                    blocks[nresults++] = blkno;
+
+                    // Exit early if output buffer is full
+                    if (nresults == nblocks)
+                        return nresults;
+                }
+            }
+        }
+    }
+
+    return nresults;
+}
+```

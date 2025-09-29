@@ -39,3 +39,38 @@ The  function is the core implementation for printf-style formatting in StringIn
 - The API is noted as "ugly" due to C va_list limitations requiring va_start to be called by the caller
 - Critical for PostgreSQL's error reporting and message formatting infrastructure
 - Used extensively in error handling and logging throughout the codebase
+
+## Simplified Source
+
+```c
+int appendStringInfoVA(StringInfo str, const char *fmt, va_list args)
+{
+    int avail;
+    size_t nprinted;
+
+    Assert(str != NULL);
+
+    // If there's hardly any space, don't bother trying, just fail to make
+    // the caller enlarge the buffer first. We have to guess at how much to
+    // enlarge, since we're skipping the formatting work.
+    avail = str->maxlen - str->len;
+    if (avail < 16)
+        return 32;
+
+    nprinted = pvsnprintf(str->data + str->len, (size_t) avail, fmt, args);
+
+    if (nprinted < (size_t) avail) {
+        // Success. Note nprinted does not include trailing null.
+        str->len += (int) nprinted;
+        return 0;
+    }
+
+    // Restore the trailing null so that str is unmodified.
+    str->data[str->len] = '\0';
+
+    // Return pvsnprintf's estimate of the space needed.
+    // (Although this is given as a size_t, we know it will fit in int
+    // because it's not more than MaxAllocSize.)
+    return (int) nprinted;
+}
+```

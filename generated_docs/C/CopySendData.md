@@ -36,3 +36,13 @@ This function is the core data transmission function for COPY TO operations. It 
 - This function is static, meaning it's only accessible within the copyto.c file
 - The function is used as a building block by other copy functions like CopySendString and CopySendChar
 - Actual network transmission happens when the buffer is flushed, typically at row boundaries
+
+## Simplified Source
+
+```c
+static void
+CopySendData(CopyToState cstate, const void *databuf, int datasize)
+{
+    appendBinaryStringInfo(cstate->fe_msgbuf, databuf, datasize);
+}
+```

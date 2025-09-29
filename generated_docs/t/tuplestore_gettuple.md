@@ -63,3 +63,111 @@ Backward scanning requires special handling because tuples are variable-length a
 - File-based backward scans read trailing length words to determine tuple boundaries
 - Handles edge cases like seeking beyond file boundaries and deleted tuple ranges
 - Returns NULL when no more tuples are available in the requested direction
+
+## Simplified Source
+
+```c
+static void *
+tuplestore_gettuple(Tuplestorestate *state, bool forward, bool *should_free)
+{
+    TSReadPointer *readptr = &state->readptrs[state->activeptr];
+    unsigned int tuplen;
+    void       *tup;
+
+    Assert(forward || (readptr->eflags & EXEC_FLAG_BACKWARD));
+
+    switch (state->status) {
+        case TSS_INMEM:
+            *should_free = false;
+            if (forward) {
+                // Forward scan in memory
+                if (readptr->eof_reached)
+                    return NULL;
+                if (readptr->current < state->memtupcount) {
+                    return state->memtuples[readptr->current++];
+                }
+                readptr->eof_reached = true;
+                return NULL;
+            } else {
+                // Backward scan in memory
+                if (readptr->eof_reached) {
+                    readptr->current = state->memtupcount;
+                    readptr->eof_reached = false;
+                } else {
+                    if (readptr->current <= state->memtupdeleted) {
+                        Assert(!state->truncated);
+                        return NULL;
+                    }
+                    readptr->current--;
+                }
+                if (readptr->current <= state->memtupdeleted) {
+                    Assert(!state->truncated);
+                    return NULL;
+                }
+                return state->memtuples[readptr->current - 1];
+            }
+            break;
+
+        case TSS_WRITEFILE:
+            // Skip if already at EOF for forward scan
+            if (readptr->eof_reached && forward)
+                return NULL;
+
+            // Switch from writing to reading mode
+            BufFileTell(state->myfile, &state->writepos_file, &state->writepos_offset);
+            if (!readptr->eof_reached) {
+                if (BufFileSeek(state->myfile, readptr->file, readptr->offset, SEEK_SET) != 0)
+                    ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not seek in tuplestore temporary file")));
+            }
+            state->status = TSS_READFILE;
+            /* FALLTHROUGH */
+
+        case TSS_READFILE:
+            *should_free = true;
+            if (forward) {
+                // Forward scan from file
+                if ((tuplen = getlen(state, true)) != 0) {
+                    tup = READTUP(state, tuplen);
+                    return tup;
+                } else {
+                    readptr->eof_reached = true;
+                    return NULL;
+                }
+            }
+
+            // Backward scan from file - complex positioning logic
+            if (BufFileSeek(state->myfile, 0, -(long) sizeof(unsigned int), SEEK_CUR) != 0) {
+                readptr->eof_reached = false;
+                Assert(!state->truncated);
+                return NULL;
+            }
+            tuplen = getlen(state, false);
+
+            if (readptr->eof_reached) {
+                readptr->eof_reached = false;
+            } else {
+                // Back up to get previous tuple's ending length
+                if (BufFileSeek(state->myfile, 0, -(long) (tuplen + 2 * sizeof(unsigned int)), SEEK_CUR) != 0) {
+                    if (BufFileSeek(state->myfile, 0, -(long) (tuplen + sizeof(unsigned int)), SEEK_CUR) != 0)
+                        ereport(ERROR, (errcode_for_file_access(),
+                               errmsg("could not seek in tuplestore temporary file")));
+                    Assert(!state->truncated);
+                    return NULL;
+                }
+                tuplen = getlen(state, false);
+            }
+
+            // Position to read the tuple
+            if (BufFileSeek(state->myfile, 0, -(long) tuplen, SEEK_CUR) != 0)
+                ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not seek in tuplestore temporary file")));
+            tup = READTUP(state, tuplen);
+            return tup;
+
+        default:
+            elog(ERROR, "invalid tuplestore state");
+            return NULL;
+    }
+}
+```

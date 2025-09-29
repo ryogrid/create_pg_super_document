@@ -40,3 +40,16 @@ This function is part of PostgreSQL's internal SHA1 implementation, providing a 
 - The output digest is exactly 20 bytes (160 bits) as mandated by the SHA1 specification
 - This implementation handles both big-endian and little-endian architectures through conditional compilation
 - The function is thread-safe as it only operates on the provided context and output buffer without accessing global state
+
+## Simplified Source
+
+```c
+void pg_sha1_final(pg_sha1_ctx *ctx, uint8 *dest)
+{
+    // Apply SHA1 padding to complete the message
+    sha1_pad(ctx);
+
+    // Extract the final hash digest from context
+    sha1_result(dest, ctx);
+}
+```

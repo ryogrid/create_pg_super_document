@@ -33,3 +33,24 @@ InstrStartNode is called at the beginning of plan node execution to establish ba
 
 ## Notes and Other Information
 The function uses lazy time setting (INSTR_TIME_SET_CURRENT_LAZY) which only captures time if timing instrumentation is actually needed, providing performance optimization. The safety check for double-entry helps detect instrumentation bugs during development. Buffer and WAL usage snapshots are taken directly from global counters, allowing for accurate delta calculations when the node execution completes.
+
+## Simplified Source
+
+```c
+void
+InstrStartNode(Instrumentation *instr)
+{
+    // Set start time if timing needed (with double-call check)
+    if (instr->need_timer &&
+        !INSTR_TIME_SET_CURRENT_LAZY(instr->starttime))
+        elog(ERROR, "InstrStartNode called twice in a row");
+
+    // Capture buffer usage baseline
+    if (instr->need_bufusage)
+        instr->bufusage_start = pgBufferUsage;
+
+    // Capture WAL usage baseline
+    if (instr->need_walusage)
+        instr->walusage_start = pgWalUsage;
+}
+```

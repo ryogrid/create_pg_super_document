@@ -46,3 +46,46 @@ The function maintains two key data structures: registered_buffers array for buf
 - Memory is zero-initialized to ensure WAL data integrity since padding bytes are included in WAL records
 - Used primarily for complex operations that exceed standard buffer/data limits
 - The function maintains global counters max_registered_buffers and max_rdatas to track current capacity
+
+## Simplified Source
+
+```c
+void XLogEnsureRecordSpace(int max_block_id, int ndatas)
+{
+    int nbuffers;
+
+    // Must be called before entering a critical section
+    Assert(CritSectionCount == 0);
+
+    // Apply minimum values
+    if (max_block_id < XLR_NORMAL_MAX_BLOCK_ID)
+        max_block_id = XLR_NORMAL_MAX_BLOCK_ID;
+    if (ndatas < XLR_NORMAL_RDATAS)
+        ndatas = XLR_NORMAL_RDATAS;
+
+    // Check maximum limit
+    if (max_block_id > XLR_MAX_BLOCK_ID)
+        elog(ERROR, "maximum number of WAL record block references exceeded");
+
+    nbuffers = max_block_id + 1;
+
+    // Expand registered_buffers array if needed
+    if (nbuffers > max_registered_buffers)
+    {
+        registered_buffers = (registered_buffer *)
+            repalloc(registered_buffers, sizeof(registered_buffer) * nbuffers);
+
+        // Zero-initialize new entries for WAL data integrity
+        MemSet(&registered_buffers[max_registered_buffers], 0,
+               (nbuffers - max_registered_buffers) * sizeof(registered_buffer));
+        max_registered_buffers = nbuffers;
+    }
+
+    // Expand rdatas array if needed
+    if (ndatas > max_rdatas)
+    {
+        rdatas = (XLogRecData *) repalloc(rdatas, sizeof(XLogRecData) * ndatas);
+        max_rdatas = ndatas;
+    }
+}
+```

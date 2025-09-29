@@ -48,3 +48,71 @@ This function removes a complete page from the btree by first traversing up the 
 - Performs ancestor key adjustment only when the first entry (index 0) is removed
 - Triggers consolidation of the parent page to maintain btree balance
 - Assumes caller has already relocated any important keys from the page being removed
+
+## Simplified Source
+
+```c
+static void FreePageBtreeRemovePage(FreePageManager *fpm, FreePageBtree *btp)
+{
+    char *base = fmp_segment_base(fpm);
+    FreePageBtree *parent;
+    Size index;
+    Size first_page;
+
+    for (;;)
+    {
+        // Find parent page
+        parent = relptr_access(base, btp->hdr.parent);
+        if (parent == NULL)
+        {
+            // We are removing the root page
+            relptr_store(base, fpm->btree_root, (FreePageBtree *) NULL);
+            fpm->btree_depth = 0;
+            Assert(fpm->singleton_first_page == 0);
+            Assert(fpm->singleton_npages == 0);
+            return;
+        }
+
+        // If the parent contains only one item, we need to remove it as well
+        if (parent->hdr.nused > 1)
+            break;
+        FreePageBtreeRecycle(fpm, fmp_pointer_to_page(base, btp));
+        btp = parent;
+    }
+
+    // Find and remove the downlink
+    first_page = FreePageBtreeFirstKey(btp);
+    if (parent->hdr.magic == FREE_PAGE_LEAF_MAGIC)
+    {
+        index = FreePageBtreeSearchLeaf(parent, first_page);
+        Assert(index < parent->hdr.nused);
+        if (index < parent->hdr.nused - 1)
+            memmove(&parent->u.leaf_key[index],
+                    &parent->u.leaf_key[index + 1],
+                    sizeof(FreePageBtreeLeafKey)
+                    * (parent->hdr.nused - index - 1));
+    }
+    else
+    {
+        index = FreePageBtreeSearchInternal(parent, first_page);
+        Assert(index < parent->hdr.nused);
+        if (index < parent->hdr.nused - 1)
+            memmove(&parent->u.internal_key[index],
+                    &parent->u.internal_key[index + 1],
+                    sizeof(FreePageBtreeInternalKey)
+                    * (parent->hdr.nused - index - 1));
+    }
+    parent->hdr.nused--;
+    Assert(parent->hdr.nused > 0);
+
+    // Recycle the page
+    FreePageBtreeRecycle(fpm, fmp_pointer_to_page(base, btp));
+
+    // Adjust ancestor keys if needed
+    if (index == 0)
+        FreePageBtreeAdjustAncestorKeys(fpm, parent);
+
+    // Consider whether to consolidate the parent with a sibling
+    FreePageBtreeConsolidate(fpm, parent);
+}
+```

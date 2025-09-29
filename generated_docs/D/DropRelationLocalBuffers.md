@@ -42,3 +42,46 @@ The function iterates through all local buffers, identifies those belonging to t
 - Only operates on local buffers (temporary tables/indexes visible to current session)
 - Uses atomic operations to safely read and modify buffer state
 - Validates buffer tag matches before removal to ensure correctness
+
+## Simplified Source
+
+```c
+void DropRelationLocalBuffers(RelFileLocator rlocator, ForkNumber forkNum, BlockNumber firstDelBlock)
+{
+    int i;
+
+    for (i = 0; i < NLocBuffer; i++) {
+        BufferDesc *bufHdr = GetLocalBufferDescriptor(i);
+        LocalBufferLookupEnt *hresult;
+        uint32 buf_state;
+
+        buf_state = pg_atomic_read_u32(&bufHdr->state);
+
+        if ((buf_state & BM_TAG_VALID) &&
+            BufTagMatchesRelFileLocator(&bufHdr->tag, &rlocator) &&
+            BufTagGetForkNum(&bufHdr->tag) == forkNum &&
+            bufHdr->tag.blockNum >= firstDelBlock) {
+
+            if (LocalRefCount[i] != 0)
+                elog(ERROR, "block %u of %s is still referenced (local %u)",
+                     bufHdr->tag.blockNum,
+                     relpathbackend(BufTagGetRelFileLocator(&bufHdr->tag),
+                                   MyProcNumber,
+                                   BufTagGetForkNum(&bufHdr->tag)),
+                     LocalRefCount[i]);
+
+            // Remove entry from hashtable
+            hresult = (LocalBufferLookupEnt *)
+                hash_search(LocalBufHash, &bufHdr->tag, HASH_REMOVE, NULL);
+            if (!hresult)     /* shouldn't happen */
+                elog(ERROR, "local buffer hash table corrupted");
+
+            // Mark buffer invalid
+            ClearBufferTag(&bufHdr->tag);
+            buf_state &= ~BUF_FLAG_MASK;
+            buf_state &= ~BUF_USAGECOUNT_MASK;
+            pg_atomic_unlocked_write_u32(&bufHdr->state, buf_state);
+        }
+    }
+}
+```

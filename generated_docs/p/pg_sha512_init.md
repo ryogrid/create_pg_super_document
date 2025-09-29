@@ -41,3 +41,23 @@ This function must be called before any SHA-512 update or finalize operations. T
 - Bitcount is implemented as a 2-element 64-bit array to handle the 128-bit message length counter required by SHA-512
 - Part of PostgreSQL's cryptographic infrastructure supporting SHA-512 hashing operations
 - Must be paired with pg_sha512_update() calls and pg_sha512_final() to complete hash computation
+
+## Simplified Source
+
+```c
+void pg_sha512_init(pg_sha512_ctx *context)
+{
+    // Check if context pointer is valid
+    if (context == NULL)
+        return;
+
+    // Copy SHA-512 initial hash values to context state
+    memcpy(context->state, sha512_initial_hash_value, PG_SHA512_DIGEST_LENGTH);
+
+    // Clear the input buffer
+    memset(context->buffer, 0, PG_SHA512_BLOCK_LENGTH);
+
+    // Reset both bit counters to zero
+    context->bitcount[0] = context->bitcount[1] = 0;
+}
+```

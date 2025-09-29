@@ -37,3 +37,31 @@ When a read operation fails due to interruption or would block, the function set
 - Returns the number of bytes read, or <= 0 on error or when no data is available
 - The function extracts the Port structure from BIO app data to access PostgreSQL's connection context
 - Part of PostgreSQL's custom BIO implementation for secure socket communication
+
+## Simplified Source
+
+```c
+// BIO read callback that wraps secure_raw_read for OpenSSL
+static int
+my_sock_read(BIO *h, char *buf, int size)
+{
+    int res = 0;
+
+    if (buf != NULL) {
+        // Read from the secure socket
+        res = secure_raw_read(((Port *) BIO_get_app_data(h)), buf, size);
+
+        // Clear any previous retry flags
+        BIO_clear_retry_flags(h);
+
+        if (res <= 0) {
+            // Check if we should retry due to interruption or blocking
+            if (errno == EINTR || errno == EWOULDBLOCK || errno == EAGAIN) {
+                BIO_set_retry_read(h);
+            }
+        }
+    }
+
+    return res;
+}
+```

@@ -41,3 +41,67 @@ The function handles both leaf and internal B-tree pages, with different key str
 - Handles both leaf pages (FreePageBtreeLeafKey) and internal pages (FreePageBtreeInternalKey)
 - For internal page consolidation, parent pointers must be updated after key movement
 - Conservative consolidation strategy prevents thrashing between split and merge operations
+
+## Simplified Source
+
+```c
+static void FreePageBtreeConsolidate(FreePageManager *fpm, FreePageBtree *btp)
+{
+    char *base = fpm_segment_base(fpm);
+    FreePageBtree *np;
+    Size max;
+
+    // We only try to consolidate pages that are less than a third full
+    if (btp->hdr.magic == FREE_PAGE_LEAF_MAGIC)
+        max = FPM_ITEMS_PER_LEAF_PAGE;
+    else
+    {
+        Assert(btp->hdr.magic == FREE_PAGE_INTERNAL_MAGIC);
+        max = FPM_ITEMS_PER_INTERNAL_PAGE;
+    }
+    if (btp->hdr.nused >= max / 3)
+        return;
+
+    // If we can fit our right sibling's keys onto this page, consolidate
+    np = FreePageBtreeFindRightSibling(base, btp);
+    if (np != NULL && btp->hdr.nused + np->hdr.nused <= max)
+    {
+        if (btp->hdr.magic == FREE_PAGE_LEAF_MAGIC)
+        {
+            memcpy(&btp->u.leaf_key[btp->hdr.nused], &np->u.leaf_key[0],
+                   sizeof(FreePageBtreeLeafKey) * np->hdr.nused);
+            btp->hdr.nused += np->hdr.nused;
+        }
+        else
+        {
+            memcpy(&btp->u.internal_key[btp->hdr.nused], &np->u.internal_key[0],
+                   sizeof(FreePageBtreeInternalKey) * np->hdr.nused);
+            btp->hdr.nused += np->hdr.nused;
+            FreePageBtreeUpdateParentPointers(base, btp);
+        }
+        FreePageBtreeRemovePage(fpm, np);
+        return;
+    }
+
+    // If we can fit our keys onto our left sibling's page, consolidate
+    np = FreePageBtreeFindLeftSibling(base, btp);
+    if (np != NULL && btp->hdr.nused + np->hdr.nused <= max)
+    {
+        if (btp->hdr.magic == FREE_PAGE_LEAF_MAGIC)
+        {
+            memcpy(&np->u.leaf_key[np->hdr.nused], &btp->u.leaf_key[0],
+                   sizeof(FreePageBtreeLeafKey) * btp->hdr.nused);
+            np->hdr.nused += btp->hdr.nused;
+        }
+        else
+        {
+            memcpy(&np->u.internal_key[np->hdr.nused], &btp->u.internal_key[0],
+                   sizeof(FreePageBtreeInternalKey) * btp->hdr.nused);
+            np->hdr.nused += btp->hdr.nused;
+            FreePageBtreeUpdateParentPointers(base, np);
+        }
+        FreePageBtreeRemovePage(fpm, btp);
+        return;
+    }
+}
+```

@@ -48,3 +48,57 @@ The conversion process involves extracting all attributes from the input slot, c
 - Stores result as a virtual tuple using ExecStoreVirtualTuple
 - Extensively used throughout the executor for various tuple routing and conversion scenarios
 - Both input and output slots must have valid tuple descriptors and value arrays
+
+## Simplified Source
+
+```c
+TupleTableSlot *execute_attr_map_slot(AttrMap *attrMap,
+                                      TupleTableSlot *in_slot,
+                                      TupleTableSlot *out_slot)
+{
+    Datum *invalues, *outvalues;
+    bool *inisnull, *outisnull;
+    int outnatts;
+
+    // Sanity checks
+    Assert(in_slot->tts_tupleDescriptor != NULL &&
+           out_slot->tts_tupleDescriptor != NULL);
+    Assert(in_slot->tts_values != NULL && out_slot->tts_values != NULL);
+
+    outnatts = out_slot->tts_tupleDescriptor->natts;
+
+    // Extract all values from input slot
+    slot_getallattrs(in_slot);
+
+    // Clear output slot before conversion
+    ExecClearTuple(out_slot);
+
+    // Get direct access to slot value arrays
+    invalues = in_slot->tts_values;
+    inisnull = in_slot->tts_isnull;
+    outvalues = out_slot->tts_values;
+    outisnull = out_slot->tts_isnull;
+
+    // Map values according to attribute map
+    for (int i = 0; i < outnatts; i++)
+    {
+        int j = attrMap->attnums[i] - 1;  // Convert to 0-based indexing
+
+        if (j == -1)  // attrMap->attnums[i] == 0 means NULL column
+        {
+            outvalues[i] = (Datum) 0;
+            outisnull[i] = true;
+        }
+        else
+        {
+            outvalues[i] = invalues[j];
+            outisnull[i] = inisnull[j];
+        }
+    }
+
+    // Store result as virtual tuple
+    ExecStoreVirtualTuple(out_slot);
+
+    return out_slot;
+}
+```

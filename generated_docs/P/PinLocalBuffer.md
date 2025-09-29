@@ -41,3 +41,38 @@ The function also registers the buffer with the current resource owner for autom
 - Uses atomic operations for safe concurrent access to buffer state
 - Buffer ID calculation: bufid = -buffer - 1 (converts negative buffer ID to array index)
 - Could be optimized for cases where usage count adjustment isn't needed, but current unified approach is preferred
+
+## Simplified Source
+
+```c
+bool PinLocalBuffer(BufferDesc *buf_hdr, bool adjust_usagecount)
+{
+    uint32 buf_state;
+    Buffer buffer = BufferDescriptorGetBuffer(buf_hdr);
+    int bufid = -buffer - 1;  // Convert buffer ID to array index
+
+    // Read buffer state atomically
+    buf_state = pg_atomic_read_u32(&buf_hdr->state);
+
+    // If this is the first pin on this buffer
+    if (LocalRefCount[bufid] == 0) {
+        NLocalPinnedBuffers++;  // Increment global pinned buffer count
+
+        // Optionally increment usage count for LRU algorithm
+        if (adjust_usagecount &&
+            BUF_STATE_GET_USAGECOUNT(buf_state) < BM_MAX_USAGE_COUNT) {
+            buf_state += BUF_USAGECOUNT_ONE;
+            pg_atomic_unlocked_write_u32(&buf_hdr->state, buf_state);
+        }
+    }
+
+    // Increment this buffer's reference count
+    LocalRefCount[bufid]++;
+
+    // Register with resource owner for automatic cleanup
+    ResourceOwnerRememberBuffer(CurrentResourceOwner, BufferDescriptorGetBuffer(buf_hdr));
+
+    // Return whether buffer contains valid data
+    return buf_state & BM_VALID;
+}
+```

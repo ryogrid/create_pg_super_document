@@ -37,3 +37,26 @@ The function is designed to be safe for use in cleanup callbacks where the local
 - When sender detaches, receiver can read remaining messages before getting SHM_MQ_DETACHED
 - When receiver detaches, further send attempts return SHM_MQ_DETACHED immediately
 - Critical for preventing deadlocks in PostgreSQL's parallel processing architecture
+
+## Simplified Source
+
+```c
+static void shm_mq_detach_internal(shm_mq *mq)
+{
+    PGPROC *victim;
+
+    SpinLockAcquire(&mq->mq_mutex);
+    if (mq->mq_sender == MyProc)
+        victim = mq->mq_receiver;
+    else
+    {
+        Assert(mq->mq_receiver == MyProc);
+        victim = mq->mq_sender;
+    }
+    mq->mq_detached = true;
+    SpinLockRelease(&mq->mq_mutex);
+
+    if (victim != NULL)
+        SetLatch(&victim->procLatch);
+}
+```

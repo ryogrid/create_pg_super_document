@@ -36,3 +36,14 @@ The caller is responsible for ensuring that the numericStr parameter is a palloc
 - Part of PostgreSQL's value node system alongside makeInteger, makeString, and makeBitString
 - Critical for maintaining numeric precision during parsing and early processing stages
 - The string representation allows for later conversion to appropriate PostgreSQL numeric types without precision loss
+
+## Simplified Source
+
+```c
+Float *makeFloat(char *numericStr)
+{
+    Float *v = makeNode(Float);
+    v->fval = numericStr;
+    return v;
+}
+```

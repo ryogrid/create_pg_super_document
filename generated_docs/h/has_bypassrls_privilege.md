@@ -37,3 +37,26 @@ This function determines if a role has the BYPASSRLS privilege, which allows the
 - Superusers automatically have this privilege regardless of the rolbypassrls setting
 - Essential component of PostgreSQL's fine-grained security model
 - Allows privileged roles to see all data regardless of RLS policies
+
+## Simplified Source
+
+```c
+bool
+has_bypassrls_privilege(Oid roleid)
+{
+    bool result = false;
+    HeapTuple utup;
+
+    // Superusers bypass all permission checking
+    if (superuser_arg(roleid))
+        return true;
+
+    utup = SearchSysCache1(AUTHOID, ObjectIdGetDatum(roleid));
+    if (HeapTupleIsValid(utup))
+    {
+        result = ((Form_pg_authid) GETSTRUCT(utup))->rolbypassrls;
+        ReleaseSysCache(utup);
+    }
+    return result;
+}
+```

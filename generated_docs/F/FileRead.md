@@ -44,3 +44,18 @@ The function constructs an iovec structure from the provided buffer and amount p
 - Uses PostgreSQL's wait event reporting system to track I/O operations for monitoring and debugging
 - Returns the number of bytes actually read, or -1 on error following standard POSIX conventions
 - Part of PostgreSQL's VFD system which provides automatic file handle management and efficient resource usage
+
+## Simplified Source
+
+```c
+static inline ssize_t FileRead(File file, void *buffer, size_t amount, off_t offset,
+                               uint32 wait_event_info)
+{
+    struct iovec iov = {
+        .iov_base = buffer,
+        .iov_len = amount
+    };
+
+    return FileReadV(file, &iov, 1, offset, wait_event_info);
+}
+```

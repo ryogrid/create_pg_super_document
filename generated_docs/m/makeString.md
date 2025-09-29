@@ -41,3 +41,14 @@ The caller is responsible for ensuring that the str parameter is a palloc'd (Pos
 - Used extensively in parser functions for building ASTs from SQL statements
 - Enables string values to be stored in Lists and participate in node copying and serialization
 - Located in src/backend/nodes/value.c as part of the core value node creation infrastructure
+
+## Simplified Source
+
+```c
+String *makeString(char *str)
+{
+    String *v = makeNode(String);
+    v->sval = str;
+    return v;
+}
+```

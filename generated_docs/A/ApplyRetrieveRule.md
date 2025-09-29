@@ -59,3 +59,102 @@ This function implements view expansion by taking an ON SELECT rule and transfor
 - Creates dummy column names ("?column?") when view definitions are expanded with new columns
 - Propagates row security flags from the view query to the parent query
 - For INSERT operations on views as result relations, returns the query unchanged to rely on INSTEAD OF triggers
+
+## Simplified Source
+
+```c
+static Query *
+ApplyRetrieveRule(Query *parsetree,
+                  RewriteRule *rule,
+                  int rt_index,
+                  Relation relation,
+                  List *activeRIRs)
+{
+    Query      *rule_action;
+    RangeTblEntry *rte;
+    RowMarkClause *rc;
+    int        numCols;
+
+    // Basic validation
+    if (list_length(rule->actions) != 1)
+        elog(ERROR, "expected just one rule action");
+    if (rule->qual != NULL)
+        elog(ERROR, "cannot handle qualified ON SELECT rule");
+
+    // Check view access restrictions
+    if (unlikely((restrict_nonsystem_relation_kind & RESTRICT_RELKIND_VIEW) != 0 &&
+                 RelationGetRelid(relation) >= FirstNormalObjectId))
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("access to non-system view \"%s\" is restricted",
+                        RelationGetRelationName(relation))));
+
+    // Handle view as result relation
+    if (rt_index == parsetree->resultRelation)
+    {
+        if (parsetree->commandType == CMD_INSERT)
+            return parsetree;  // Let INSTEAD OF triggers handle it
+        else if (parsetree->commandType == CMD_UPDATE ||
+                 parsetree->commandType == CMD_DELETE ||
+                 parsetree->commandType == CMD_MERGE)
+        {
+            // Create copy of RTE for target relation
+            rte = rt_fetch(rt_index, parsetree->rtable);
+            RangeTblEntry *newrte = copyObject(rte);
+            parsetree->rtable = lappend(parsetree->rtable, newrte);
+            parsetree->resultRelation = list_length(parsetree->rtable);
+
+            // Update RETURNING list to reference new RTE
+            parsetree->returningList = copyObject(parsetree->returningList);
+            ChangeVarNodes((Node *) parsetree->returningList, rt_index,
+                           parsetree->resultRelation, 0);
+
+            // Add whole-row var for INSTEAD OF triggers
+            Var *var = makeWholeRowVar(rte, rt_index, 0, false);
+            TargetEntry *tle = makeTargetEntry((Expr *) var,
+                                               list_length(parsetree->targetList) + 1,
+                                               pstrdup("wholerow"),
+                                               true);
+            parsetree->targetList = lappend(parsetree->targetList, tle);
+        }
+    }
+
+    // Handle FOR UPDATE/SHARE clauses
+    rc = get_parse_rowmark(parsetree, rt_index);
+
+    // Get view query and acquire locks
+    rule_action = copyObject(linitial(rule->actions));
+    AcquireRewriteLocks(rule_action, true, (rc != NULL));
+
+    // Mark tables for locking if needed
+    if (rc != NULL)
+        markQueryForLocking(rule_action, (Node *) rule_action->jointree,
+                            rc->strength, rc->waitPolicy, true);
+
+    // Recursively expand nested views
+    rule_action = fireRIRrules(rule_action, activeRIRs);
+
+    // Propagate row security
+    parsetree->hasRowSecurity |= rule_action->hasRowSecurity;
+
+    // Convert RTE to subquery
+    rte = rt_fetch(rt_index, parsetree->rtable);
+    rte->rtekind = RTE_SUBQUERY;
+    rte->subquery = rule_action;
+    rte->security_barrier = RelationIsSecurityView(relation);
+
+    // Clear inappropriate fields
+    rte->tablesample = NULL;
+    rte->inh = false;
+
+    // Adjust column names if needed
+    numCols = ExecCleanTargetListLength(rule_action->targetList);
+    while (list_length(rte->eref->colnames) < numCols)
+    {
+        rte->eref->colnames = lappend(rte->eref->colnames,
+                                      makeString(pstrdup("?column?")));
+    }
+
+    return parsetree;
+}
+```

@@ -36,3 +36,23 @@ pg_sha256_init is the initialization function for SHA-256 hashing in PostgreSQL.
 - The bitcount is initialized to zero to track the total number of bits processed
 - Part of PostgreSQL's common cryptographic hash implementation used across the system
 - Must be called before pg_sha256_update and pg_sha256_final operations
+
+## Simplified Source
+
+```c
+void pg_sha256_init(pg_sha256_ctx *context)
+{
+    // Check if context pointer is valid
+    if (context == NULL)
+        return;
+
+    // Copy SHA-256 initial hash values to context state
+    memcpy(context->state, sha256_initial_hash_value, PG_SHA256_DIGEST_LENGTH);
+
+    // Clear the input buffer
+    memset(context->buffer, 0, PG_SHA256_BLOCK_LENGTH);
+
+    // Reset bit counter to zero
+    context->bitcount = 0;
+}
+```

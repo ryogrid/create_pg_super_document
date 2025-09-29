@@ -33,3 +33,17 @@ This function implements a comparator for use with quicksort algorithms, specifi
 - BlockNumber is typically a 32-bit unsigned integer representing database block positions
 - The function is used in both backend backup operations and WAL summary utilities
 - Proper sorting of block numbers can significantly improve performance for sequential I/O operations
+
+## Simplified Source
+
+```c
+static int compare_block_numbers(const void *a, const void *b)
+{
+    // Cast void pointers to BlockNumber pointers and dereference them
+    BlockNumber aa = *(BlockNumber *) a;
+    BlockNumber bb = *(BlockNumber *) b;
+
+    // Use PostgreSQL's unsigned 32-bit integer comparison function
+    return pg_cmp_u32(aa, bb);
+}
+```

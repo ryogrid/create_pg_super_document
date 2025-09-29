@@ -37,3 +37,56 @@ The function is crucial in the query rewrite system to determine the correct han
 - For MERGE operations, if there are only DO NOTHING actions, the function returns true to treat the view as trigger-updatable rather than generating errors
 - This check cannot be integrated into view_query_is_auto_updatable because having INSTEAD OF triggers is not an error condition - it is simply a different execution path
 - The function accesses the views trigdesc field to examine trigger flags like trig_insert_instead_row, trig_update_instead_row, and trig_delete_instead_row
+
+## Simplified Source
+
+```c
+bool view_has_instead_trigger(Relation view, CmdType event, List *mergeActionList)
+{
+    TriggerDesc *trigDesc = view->trigdesc;
+
+    switch (event)
+    {
+        case CMD_INSERT:
+            return (trigDesc && trigDesc->trig_insert_instead_row);
+
+        case CMD_UPDATE:
+            return (trigDesc && trigDesc->trig_update_instead_row);
+
+        case CMD_DELETE:
+            return (trigDesc && trigDesc->trig_delete_instead_row);
+
+        case CMD_MERGE:
+            // Check that every data-modifying action has a corresponding trigger
+            foreach_node(MergeAction, action, mergeActionList)
+            {
+                switch (action->commandType)
+                {
+                    case CMD_INSERT:
+                        if (!trigDesc || !trigDesc->trig_insert_instead_row)
+                            return false;
+                        break;
+                    case CMD_UPDATE:
+                        if (!trigDesc || !trigDesc->trig_update_instead_row)
+                            return false;
+                        break;
+                    case CMD_DELETE:
+                        if (!trigDesc || !trigDesc->trig_delete_instead_row)
+                            return false;
+                        break;
+                    case CMD_NOTHING:
+                        // No trigger required for DO NOTHING actions
+                        break;
+                    default:
+                        elog(ERROR, "unrecognized commandType: %d", action->commandType);
+                }
+            }
+            return true;  // All actions have triggers
+
+        default:
+            elog(ERROR, "unrecognized CmdType: %d", (int) event);
+    }
+
+    return false;
+}
+```

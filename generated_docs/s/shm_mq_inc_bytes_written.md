@@ -34,3 +34,19 @@ This function updates the queue's bytes_written counter to reflect data producti
 - Implements atomic counter increment using read-modify-write pattern instead of fetch-and-add for performance
 - Only called by the sender process, eliminating need for multi-writer synchronization
 - Essential for flow control mechanism that allows receiver to determine data availability
+
+## Simplified Source
+
+```c
+static void
+shm_mq_inc_bytes_written(shm_mq *mq, Size n)
+{
+    // Memory barrier ensures ring buffer writes complete before counter update
+    pg_write_barrier();
+
+    // Atomically update bytes written counter
+    // Uses read-modify-write instead of fetch-add for performance
+    pg_atomic_write_u64(&mq->mq_bytes_written,
+                        pg_atomic_read_u64(&mq->mq_bytes_written) + n);
+}
+```

@@ -39,3 +39,40 @@ The function follows a simple but effective strategy: avoid unnecessary I/O for 
 - Returns a PrefetchBufferResult structure indicating whether I/O was initiated and any relevant buffer information
 - Part of PostgreSQL's local buffer management system specifically designed for temporary relations
 - The negative buffer ID encoding (-hresult->id - 1) follows PostgreSQL's convention for local buffer identification
+
+## Simplified Source
+
+```c
+PrefetchBufferResult PrefetchLocalBuffer(SMgrRelation smgr, ForkNumber forkNum, BlockNumber blockNum)
+{
+    PrefetchBufferResult result = {InvalidBuffer, false};
+    BufferTag newTag;
+    LocalBufferLookupEnt *hresult;
+
+    // Create identity tag for the requested block
+    InitBufferTag(&newTag, &smgr->smgr_rlocator.locator, forkNum, blockNum);
+
+    // Initialize local buffer system on first use
+    if (LocalBufHash == NULL)
+        InitLocalBuffers();
+
+    // Check if block is already in local buffer cache
+    hresult = (LocalBufferLookupEnt *) hash_search(LocalBufHash, &newTag, HASH_FIND, NULL);
+
+    if (hresult) {
+        // Block already in cache - no I/O needed
+        result.recent_buffer = -hresult->id - 1;  // Convert to buffer ID
+    } else {
+#ifdef USE_PREFETCH
+        // Block not in cache - initiate prefetch if conditions are right
+        if ((io_direct_flags & IO_DIRECT_DATA) == 0 &&  // Skip if direct I/O enabled
+            smgrprefetch(smgr, forkNum, blockNum, 1))   // Prefetch one block
+        {
+            result.initiated_io = true;  // Mark that we started async I/O
+        }
+#endif  /* USE_PREFETCH */
+    }
+
+    return result;
+}
+```

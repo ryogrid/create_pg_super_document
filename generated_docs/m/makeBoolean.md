@@ -33,3 +33,14 @@ The Boolean node type is specifically designed to represent boolean literals (TR
 - Simple but essential for maintaining type consistency in PostgreSQL's node-based architecture
 - The underlying bool type follows standard C boolean semantics
 - Located in src/backend/nodes/value.c as part of the core value node creation functions
+
+## Simplified Source
+
+```c
+Boolean *makeBoolean(bool val)
+{
+    Boolean *v = makeNode(Boolean);
+    v->boolval = val;
+    return v;
+}
+```

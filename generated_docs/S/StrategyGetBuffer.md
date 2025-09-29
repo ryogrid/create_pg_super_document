@@ -52,3 +52,94 @@ The function ensures that the selected buffer is returned with its header spinlo
 - Background writer wakeup logic uses careful memory ordering to avoid race conditions
 - Strategy ring buffers are not counted in numBufferAllocs statistics
 - The clock sweep algorithm implements the classical buffer replacement policy with usage count management
+
+## Simplified Source
+
+```c
+BufferDesc *StrategyGetBuffer(BufferAccessStrategy strategy, uint32 *buf_state, bool *from_ring)
+{
+    BufferDesc *buf;
+    int bgwprocno;
+    int trycounter;
+    uint32 local_buf_state;
+
+    *from_ring = false;
+
+    // Try strategy ring buffer first
+    if (strategy != NULL) {
+        buf = GetBufferFromRing(strategy, buf_state);
+        if (buf != NULL) {
+            *from_ring = true;
+            return buf;
+        }
+    }
+
+    // Wake background writer if needed
+    bgwprocno = INT_ACCESS_ONCE(StrategyControl->bgwprocno);
+    if (bgwprocno != -1) {
+        StrategyControl->bgwprocno = -1;
+        SetLatch(&ProcGlobal->allProcs[bgwprocno].procLatch);
+    }
+
+    // Count buffer allocation requests
+    pg_atomic_fetch_add_u32(&StrategyControl->numBufferAllocs, 1);
+
+    // Try free list first
+    if (StrategyControl->firstFreeBuffer >= 0) {
+        while (true) {
+            // Get buffer from free list
+            SpinLockAcquire(&StrategyControl->buffer_strategy_lock);
+
+            if (StrategyControl->firstFreeBuffer < 0) {
+                SpinLockRelease(&StrategyControl->buffer_strategy_lock);
+                break;
+            }
+
+            buf = GetBufferDescriptor(StrategyControl->firstFreeBuffer);
+            StrategyControl->firstFreeBuffer = buf->freeNext;
+            buf->freeNext = FREENEXT_NOT_IN_LIST;
+
+            SpinLockRelease(&StrategyControl->buffer_strategy_lock);
+
+            // Check if buffer is usable
+            local_buf_state = LockBufHdr(buf);
+            if (BUF_STATE_GET_REFCOUNT(local_buf_state) == 0 &&
+                BUF_STATE_GET_USAGECOUNT(local_buf_state) == 0) {
+                if (strategy != NULL)
+                    AddBufferToRing(strategy, buf);
+                *buf_state = local_buf_state;
+                return buf;
+            }
+            UnlockBufHdr(buf, local_buf_state);
+        }
+    }
+
+    // Run clock sweep algorithm
+    trycounter = NBuffers;
+    for (;;) {
+        buf = GetBufferDescriptor(ClockSweepTick());
+
+        local_buf_state = LockBufHdr(buf);
+
+        if (BUF_STATE_GET_REFCOUNT(local_buf_state) == 0) {
+            if (BUF_STATE_GET_USAGECOUNT(local_buf_state) != 0) {
+                // Decrement usage count and continue
+                local_buf_state -= BUF_USAGECOUNT_ONE;
+                trycounter = NBuffers;
+            } else {
+                // Found usable buffer
+                if (strategy != NULL)
+                    AddBufferToRing(strategy, buf);
+                *buf_state = local_buf_state;
+                return buf;
+            }
+        } else if (--trycounter == 0) {
+            // All buffers pinned - error
+            UnlockBufHdr(buf, local_buf_state);
+            elog(ERROR, "no unpinned buffers available");
+        }
+
+        UnlockBufHdr(buf, local_buf_state);
+    }
+}
+```

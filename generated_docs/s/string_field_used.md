@@ -38,3 +38,28 @@ This function is essential for memory management within the GUC system. Before f
 - The function traverses the entire configuration stack to check for references
 - Part of the reference counting mechanism that ensures string values are not freed while still in use
 - Used primarily when updating string configuration values to determine if old values can be safely freed
+
+## Simplified Source
+
+```c
+static bool string_field_used(struct config_string *conf, char *strval)
+{
+    GucStack *stack;
+
+    // Check current variable value, reset value, and boot value
+    if (strval == *(conf->variable) ||
+        strval == conf->reset_val ||
+        strval == conf->boot_val)
+        return true;
+
+    // Check all stack entries for the string value
+    for (stack = conf->gen.stack; stack; stack = stack->prev)
+    {
+        if (strval == stack->prior.val.stringval ||
+            strval == stack->masked.val.stringval)
+            return true;
+    }
+
+    return false;
+}
+```

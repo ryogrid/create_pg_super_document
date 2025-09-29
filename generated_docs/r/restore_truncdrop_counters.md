@@ -40,3 +40,19 @@ This restoration ensures that if a transaction containing destructive operations
 - This is a critical component of PostgreSQL's transactional statistics system, ensuring that statistics remain consistent with the actual table state after rollbacks
 - Handles both main transaction aborts and subtransaction (savepoint) rollbacks uniformly
 - The simplicity of the function belies its importance in maintaining statistics integrity across complex transaction scenarios
+
+## Simplified Source
+
+```c
+static void restore_truncdrop_counters(PgStat_TableXactStatus *trans)
+{
+    // Only restore if truncate/drop operations occurred
+    if (trans->truncdropped)
+    {
+        // Restore all three counter types to pre-operation values
+        trans->tuples_inserted = trans->inserted_pre_truncdrop;
+        trans->tuples_updated = trans->updated_pre_truncdrop;
+        trans->tuples_deleted = trans->deleted_pre_truncdrop;
+    }
+}
+```

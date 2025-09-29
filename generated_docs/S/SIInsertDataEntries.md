@@ -55,3 +55,58 @@ The function handles arbitrarily large numbers of messages by breaking them into
 - Lock ordering is important: SInvalWriteLock is acquired first, then individual spinlocks for atomic operations
 - The function must handle the case where buffer cleanup might not free enough space, requiring multiple cleanup attempts
 - Process notification occurs after all messages are inserted to minimize the window where processes might see incomplete message sets
+
+## Simplified Source
+
+```c
+void SIInsertDataEntries(const SharedInvalidationMessage *data, int n)
+{
+    SISeg *segP = shmInvalBuffer;
+
+    // Process messages in batches to avoid holding locks too long
+    while (n > 0)
+    {
+        int nthistime = Min(n, WRITE_QUANTUM);
+        int numMsgs;
+        int max;
+        int i;
+
+        n -= nthistime;
+
+        LWLockAcquire(SInvalWriteLock, LW_EXCLUSIVE);
+
+        // Clean queue if buffer is full or exceeds threshold
+        for (;;)
+        {
+            numMsgs = segP->maxMsgNum - segP->minMsgNum;
+            if (numMsgs + nthistime > MAXNUMMESSAGES ||
+                numMsgs >= segP->nextThreshold)
+                SICleanupQueue(true, nthistime);
+            else
+                break;
+        }
+
+        // Insert new messages into circular buffer
+        max = segP->maxMsgNum;
+        while (nthistime-- > 0)
+        {
+            segP->buffer[max % MAXNUMMESSAGES] = *data++;
+            max++;
+        }
+
+        // Update maxMsgNum atomically using spinlock
+        SpinLockAcquire(&segP->msgnumLock);
+        segP->maxMsgNum = max;
+        SpinLockRelease(&segP->msgnumLock);
+
+        // Notify all processes about new messages
+        for (i = 0; i < segP->numProcs; i++)
+        {
+            ProcState *stateP = &segP->procState[segP->pgprocnos[i]];
+            stateP->hasMessages = true;
+        }
+
+        LWLockRelease(SInvalWriteLock);
+    }
+}
+```

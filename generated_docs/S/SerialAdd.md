@@ -54,3 +54,69 @@ The function handles two main scenarios:
 - Marks SLRU pages as dirty after writing to ensure proper persistence
 - An invalid minConflictCommitSeqNo indicates the transaction had no read-write conflicts out
 - Essential component of PostgreSQL's Serializable Snapshot Isolation (SSI) implementation
+
+## Simplified Source
+
+```c
+static void
+SerialAdd(TransactionId xid, SerCommitSeqNo minConflictCommitSeqNo)
+{
+    // Validate transaction ID and get target page
+    Assert(TransactionIdIsValid(xid));
+    int64 targetPage = SerialPage(xid);
+    LWLock *lock = SimpleLruGetBankLock(SerialSlruCtl, targetPage);
+
+    LWLockAcquire(SerialControlLock, LW_EXCLUSIVE);
+
+    // Check if xid is still relevant (not older than tailXid)
+    TransactionId tailXid = serialControl->tailXid;
+    if (!TransactionIdIsValid(tailXid) || TransactionIdPrecedes(xid, tailXid)) {
+        LWLockRelease(SerialControlLock);
+        return;  // Too old, no longer needed
+    }
+
+    // Determine if we need to initialize new pages
+    bool isNewPage;
+    int64 firstZeroPage;
+    if (serialControl->headPage < 0) {
+        // SLRU currently unused - zero entire range
+        firstZeroPage = SerialPage(tailXid);
+        isNewPage = true;
+    } else {
+        firstZeroPage = SerialNextPage(serialControl->headPage);
+        isNewPage = SerialPagePrecedesLogically(serialControl->headPage, targetPage);
+    }
+
+    // Update head tracking
+    if (!TransactionIdIsValid(serialControl->headXid) ||
+        TransactionIdFollows(xid, serialControl->headXid))
+        serialControl->headXid = xid;
+    if (isNewPage)
+        serialControl->headPage = targetPage;
+
+    // Initialize pages if needed
+    int slotno;
+    if (isNewPage) {
+        // Zero intervening pages
+        for (;;) {
+            lock = SimpleLruGetBankLock(SerialSlruCtl, firstZeroPage);
+            LWLockAcquire(lock, LW_EXCLUSIVE);
+            slotno = SimpleLruZeroPage(SerialSlruCtl, firstZeroPage);
+            if (firstZeroPage == targetPage)
+                break;
+            firstZeroPage = SerialNextPage(firstZeroPage);
+            LWLockRelease(lock);
+        }
+    } else {
+        LWLockAcquire(lock, LW_EXCLUSIVE);
+        slotno = SimpleLruReadPage(SerialSlruCtl, targetPage, true, xid);
+    }
+
+    // Store the conflict commit sequence number
+    SerialValue(slotno, xid) = minConflictCommitSeqNo;
+    SerialSlruCtl->shared->page_dirty[slotno] = true;
+
+    LWLockRelease(lock);
+    LWLockRelease(SerialControlLock);
+}
+```

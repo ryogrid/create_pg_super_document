@@ -54,3 +54,29 @@ This approach is particularly useful for table functions, system information fun
 - The created tuple is a MinimalTuple for space efficiency
 - Memory allocation occurs in the tuplestore's context
 - Maintains the same read pointer behavior as other tuplestore put functions
+
+## Simplified Source
+
+```c
+void tuplestore_putvalues(Tuplestorestate *state, TupleDesc tdesc,
+                          const Datum *values, const bool *isnull)
+{
+    MinimalTuple tuple;
+    MemoryContext oldcxt;
+
+    // Switch to tuplestore's memory context
+    oldcxt = MemoryContextSwitchTo(state->context);
+
+    // Create minimal tuple directly from values and null arrays
+    tuple = heap_form_minimal_tuple(tdesc, values, isnull);
+
+    // Track memory usage
+    USEMEM(state, GetMemoryChunkSpace(tuple));
+
+    // Store the tuple using the common storage routine
+    tuplestore_puttuple_common(state, (void *) tuple);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcxt);
+}
+```

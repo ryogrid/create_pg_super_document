@@ -40,3 +40,16 @@ The function is part of the workflow for establishing inter-process communicatio
 - Once obtained, the handle should be communicated to other processes that need to access the same shared memory segment
 - The receiving process uses dsm_attach() with this handle to map the same memory region
 - This is a simple accessor function that returns the handle field from the dsm_segment structure
+
+## Simplified Source
+
+```c
+dsm_handle
+dsm_segment_handle(dsm_segment *seg)
+{
+    return seg->handle;
+}
+```
+
+**Simplified Explanation:**
+This is a simple accessor function that returns the handle field from the dsm_segment structure. The handle uniquely identifies the shared memory segment and can be passed to other processes to allow them to attach to the same memory region using dsm_attach().

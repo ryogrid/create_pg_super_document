@@ -42,3 +42,36 @@ The `heap_reloptions` function is a central option parser that handles relation 
 - Regular heap tables and materialized views use the same option parsing via RELOPT_KIND_HEAP
 - The function returns NULL for unsupported relation kinds, ensuring type safety
 - This function is a key component in PostgreSQL's storage parameter system, allowing users to tune performance characteristics per relation type
+
+## Simplified Source
+```c
+/*
+ * Parse options for heaps, views and toast tables.
+ */
+bytea *
+heap_reloptions(char relkind, Datum reloptions, bool validate)
+{
+    StdRdOptions *rdopts;
+
+    switch (relkind)
+    {
+        case RELKIND_TOASTVALUE:
+            rdopts = (StdRdOptions *)
+                default_reloptions(reloptions, validate, RELOPT_KIND_TOAST);
+            if (rdopts != NULL)
+            {
+                /* adjust default-only parameters for TOAST relations */
+                rdopts->fillfactor = 100;
+                rdopts->autovacuum.analyze_threshold = -1;
+                rdopts->autovacuum.analyze_scale_factor = -1;
+            }
+            return (bytea *) rdopts;
+        case RELKIND_RELATION:
+        case RELKIND_MATVIEW:
+            return default_reloptions(reloptions, validate, RELOPT_KIND_HEAP);
+        default:
+            /* other relkinds are not supported */
+            return NULL;
+    }
+}
+```

@@ -39,3 +39,15 @@ Due to struct equivalence, this function can also be used for DistinctExpr and N
 - Only sets opfuncid if it's currently InvalidOid, avoiding redundant lookups
 - Part of PostgreSQL's expression processing infrastructure
 - Essential for operator execution planning and optimization
+
+## Simplified Source
+
+```c
+void
+set_opfuncid(OpExpr *opexpr)
+{
+    // Only set if not already set (avoid redundant lookups)
+    if (opexpr->opfuncid == InvalidOid)
+        opexpr->opfuncid = get_opcode(opexpr->opno);
+}
+```

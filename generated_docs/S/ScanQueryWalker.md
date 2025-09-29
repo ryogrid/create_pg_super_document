@@ -34,3 +34,24 @@ This function serves as a specialized tree walker designed to traverse expressio
 - Returns false to continue tree traversal (standard walker convention)
 - The acquire parameter is passed as a pointer since it needs to be forwarded through the walker framework
 - This function complements ScanQueryForLocks by handling SubLink subqueries that aren't in RTEs or CTEs
+
+## Simplified Source
+
+```c
+static bool
+ScanQueryWalker(Node *node, bool *acquire)
+{
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, SubLink)) {
+        SubLink *sub = (SubLink *) node;
+        // Process the subquery for locks
+        ScanQueryForLocks(castNode(Query, sub->subselect), *acquire);
+        // Continue processing lefthand args
+    }
+
+    // Don't recurse into Query nodes - ScanQueryForLocks handles them
+    return expression_tree_walker(node, ScanQueryWalker, (void *) acquire);
+}
+```

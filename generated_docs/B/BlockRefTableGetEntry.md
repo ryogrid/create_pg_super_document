@@ -47,3 +47,32 @@ This is a read-only operation that does not modify the table or create new entri
 - The BlockRefTableKey structure is zero-initialized to ensure consistent padding for hash operations
 - This function is commonly used during backup operations to check if a relation fork has modification tracking information
 - The returned BlockRefTableEntry pointer should not be freed by the caller, as it belongs to the hash table
+
+## Simplified Source
+
+```c
+BlockRefTableEntry *BlockRefTableGetEntry(BlockRefTable *brtab,
+                                          const RelFileLocator *rlocator,
+                                          ForkNumber forknum,
+                                          BlockNumber *limit_block)
+{
+    // Create zero-initialized key structure for hash lookup
+    BlockRefTableKey key = {{0}};
+    BlockRefTableEntry *entry;
+
+    Assert(limit_block != NULL);
+
+    // Build lookup key from relation locator and fork number
+    memcpy(&key.rlocator, rlocator, sizeof(RelFileLocator));
+    key.forknum = forknum;
+
+    // Perform hash table lookup
+    entry = blockreftable_lookup(brtab->hash, key);
+
+    // If entry found, set the limit block output parameter
+    if (entry != NULL)
+        *limit_block = entry->limit_block;
+
+    return entry;
+}
+```

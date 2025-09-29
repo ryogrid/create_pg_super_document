@@ -41,3 +41,25 @@ The function includes a runtime check to ensure the slot is actually a minimal t
 - The function includes an assertion-based safety check that will error if used with an incompatible slot type
 - Related to tts_minimal_store_tuple which handles the actual low-level storage mechanics
 - Part of PostgreSQL's tuple table slot system that provides type-specific optimizations for different tuple formats
+
+## Simplified Source
+
+```c
+TupleTableSlot *
+ExecStoreMinimalTuple(MinimalTuple mtup, TupleTableSlot *slot, bool shouldFree)
+{
+    // Basic sanity checks
+    Assert(mtup != NULL);
+    Assert(slot != NULL);
+    Assert(slot->tts_tupleDescriptor != NULL);
+
+    // Verify slot is the correct type
+    if (unlikely(!TTS_IS_MINIMALTUPLE(slot)))
+        elog(ERROR, "trying to store a minimal tuple into wrong type of slot");
+
+    // Store the tuple using the low-level function
+    tts_minimal_store_tuple(slot, mtup, shouldFree);
+
+    return slot;
+}
+```

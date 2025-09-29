@@ -45,3 +45,25 @@ The function serves as a critical safety mechanism in PostgreSQL's character pro
 - Complements pg_encoding_mblen() by adding buffer boundary protection
 - The INT_MAX return value allows callers to distinguish between actual character lengths and incomplete sequences
 - Performance consideration: adds minimal overhead over pg_encoding_mblen() while providing crucial safety
+
+## Simplified Source
+
+```c
+int
+pg_encoding_mblen_or_incomplete(int encoding, const char *mbstr,
+                                size_t remaining)
+{
+    // Check if we have enough bytes to safely determine character length
+    if (remaining < 1 ||
+        (encoding == PG_GB18030 && IS_HIGHBIT_SET(*mbstr) && remaining < 2))
+        return INT_MAX;  // Not enough bytes available
+
+    return pg_encoding_mblen(encoding, mbstr);
+}
+```
+
+**Simplified Explanation:**
+1. Check if buffer has at least 1 byte available
+2. For GB18030 encoding with high-bit characters, require at least 2 bytes
+3. If insufficient bytes, return INT_MAX (indicates incomplete character)
+4. Otherwise, call the standard length function to get actual character length

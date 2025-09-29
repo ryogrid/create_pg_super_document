@@ -48,3 +48,52 @@ Key responsibilities include:
 - Uses recursion_depth tracking to detect and handle error-during-error scenarios
 - Automatically selects appropriate SQL error codes based on error level
 - All error state allocations use ErrorContext for proper memory management
+
+## Simplified Source
+
+```c
+bool
+errstart(int elevel, const char *domain)
+{
+    // Check for error level promotion
+    if (elevel >= ERROR) {
+        if (CritSectionCount > 0)
+            elevel = PANIC;  // Critical section errors become PANIC
+
+        if (elevel == ERROR) {
+            // Convert ERROR to FATAL in specific conditions
+            if (PG_exception_stack == NULL || ExitOnAnyError || proc_exit_inprogress)
+                elevel = FATAL;
+        }
+
+        // Prevent downgrading stacked errors
+        for (int i = 0; i <= errordata_stack_depth; i++)
+            elevel = Max(elevel, errordata[i].elevel);
+    }
+
+    // Check if we should process this error
+    bool output_to_server = should_output_to_server(elevel);
+    bool output_to_client = should_output_to_client(elevel);
+    if (elevel < ERROR && !output_to_server && !output_to_client)
+        return false;
+
+    // Handle error recursion
+    if (recursion_depth++ > 0 && elevel >= ERROR) {
+        MemoryContextReset(ErrorContext);
+        if (in_error_recursion_trouble()) {
+            error_context_stack = NULL;
+            debug_query_string = NULL;
+        }
+    }
+
+    // Initialize error data
+    ErrorData *edata = get_error_stack_entry();
+    edata->elevel = elevel;
+    edata->output_to_server = output_to_server;
+    edata->output_to_client = output_to_client;
+    set_stack_entry_domain(edata, domain);
+
+    recursion_depth--;
+    return true;
+}
+```

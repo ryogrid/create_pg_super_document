@@ -41,4 +41,23 @@ The function constructs a SharedInvalidationMessage with the SHAREDINVALSMGR_ID 
 - The function is designed to handle the maximum ProcNumber of 2^23-1 due to the 3-byte storage limitation
 - Should be called from low-level smgr.c routines that execute during both WAL creation and replay
 - Essential for maintaining consistency when physical file operations occur that could leave stale file handles in other backends
+
+## Simplified Source
+
+```c
+void CacheInvalidateSmgr(RelFileLocatorBackend rlocator)
+{
+    SharedInvalidationMessage msg;
+
+    msg.sm.id = SHAREDINVALSMGR_ID;
+    msg.sm.backend_hi = rlocator.backend >> 16;
+    msg.sm.backend_lo = rlocator.backend & 0xffff;
+    msg.sm.rlocator = rlocator.locator;
+
+    // Ensure message is fully defined for debugging tools
+    VALGRIND_MAKE_MEM_DEFINED(&msg, sizeof(msg));
+
+    SendSharedInvalidMessages(&msg, 1);
+}
+```
 - The immediate sending (no queuing) ensures that file system operations are properly coordinated across all backends

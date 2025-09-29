@@ -45,3 +45,86 @@ This function is typically called from the rewriter during query planning, but c
 - For MERGE commands, checks each action type individually and reports errors for actions lacking appropriate triggers
 - The function never returns normally - it always throws an error using ereport() or elog()
 - Error messages are internationalized using the _() macro for detail messages
+
+## Simplified Source
+
+```c
+void error_view_not_updatable(Relation view, CmdType command,
+                             List *mergeActionList, const char *detail)
+{
+    TriggerDesc *trigDesc = view->trigdesc;
+
+    switch (command)
+    {
+        case CMD_INSERT:
+            ereport(ERROR,
+                errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("cannot insert into view \"%s\"", RelationGetRelationName(view)),
+                detail ? errdetail_internal("%s", _(detail)) : 0,
+                errhint("To enable inserting into the view, provide an INSTEAD OF INSERT trigger or an unconditional ON INSERT DO INSTEAD rule."));
+            break;
+
+        case CMD_UPDATE:
+            ereport(ERROR,
+                errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("cannot update view \"%s\"", RelationGetRelationName(view)),
+                detail ? errdetail_internal("%s", _(detail)) : 0,
+                errhint("To enable updating the view, provide an INSTEAD OF UPDATE trigger or an unconditional ON UPDATE DO INSTEAD rule."));
+            break;
+
+        case CMD_DELETE:
+            ereport(ERROR,
+                errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("cannot delete from view \"%s\"", RelationGetRelationName(view)),
+                detail ? errdetail_internal("%s", _(detail)) : 0,
+                errhint("To enable deleting from the view, provide an INSTEAD OF DELETE trigger or an unconditional ON DELETE DO INSTEAD rule."));
+            break;
+
+        case CMD_MERGE:
+            // For MERGE, check each action individually (MERGE doesn't support rules)
+            foreach_node(MergeAction, action, mergeActionList)
+            {
+                switch (action->commandType)
+                {
+                    case CMD_INSERT:
+                        if (!trigDesc || !trigDesc->trig_insert_instead_row)
+                            ereport(ERROR,
+                                errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                                errmsg("cannot insert into view \"%s\"", RelationGetRelationName(view)),
+                                detail ? errdetail_internal("%s", _(detail)) : 0,
+                                errhint("To enable inserting into the view using MERGE, provide an INSTEAD OF INSERT trigger."));
+                        break;
+
+                    case CMD_UPDATE:
+                        if (!trigDesc || !trigDesc->trig_update_instead_row)
+                            ereport(ERROR,
+                                errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                                errmsg("cannot update view \"%s\"", RelationGetRelationName(view)),
+                                detail ? errdetail_internal("%s", _(detail)) : 0,
+                                errhint("To enable updating the view using MERGE, provide an INSTEAD OF UPDATE trigger."));
+                        break;
+
+                    case CMD_DELETE:
+                        if (!trigDesc || !trigDesc->trig_delete_instead_row)
+                            ereport(ERROR,
+                                errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                                errmsg("cannot delete from view \"%s\"", RelationGetRelationName(view)),
+                                detail ? errdetail_internal("%s", _(detail)) : 0,
+                                errhint("To enable deleting from the view using MERGE, provide an INSTEAD OF DELETE trigger."));
+                        break;
+
+                    case CMD_NOTHING:
+                        // No error for DO NOTHING actions
+                        break;
+
+                    default:
+                        elog(ERROR, "unrecognized commandType: %d", action->commandType);
+                }
+            }
+            break;
+
+        default:
+            elog(ERROR, "unrecognized CmdType: %d", (int) command);
+    }
+}
+```

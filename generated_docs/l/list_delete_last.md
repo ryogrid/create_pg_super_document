@@ -43,3 +43,25 @@ The efficiency advantage comes from the fact that removing the last element does
 - Uses list_truncate() internally for the actual removal operation
 - Maintains list structure invariants through check_list_invariants()
 - Commonly used in parsing and rewrite rule processing where LIFO (Last In, First Out) access patterns are beneficial
+
+## Simplified Source
+
+```c
+List *list_delete_last(List *list)
+{
+    check_list_invariants(list);
+
+    if (list == NIL)
+        return NIL;  // Handle empty list case
+
+    // Special handling for single-element lists - free the entire structure
+    if (list_length(list) <= 1)
+    {
+        list_free(list);
+        return NIL;
+    }
+
+    // For multi-element lists, truncate to remove the last element
+    return list_truncate(list, list_length(list) - 1);
+}
+```

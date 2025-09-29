@@ -49,3 +49,60 @@ This distinction is important for the type system because length coercions prese
 - The function is crucial for PostgreSQL's type coercion system and optimization
 - Used primarily in type analysis and rule decompilation contexts
 - Located in src/backend/nodes/nodeFuncs.c:552-630
+
+## Simplified Source
+
+```c
+bool exprIsLengthCoercion(const Node *expr, int32 *coercedTypmod)
+{
+    // Initialize output parameter to default failure value
+    if (coercedTypmod != NULL)
+        *coercedTypmod = -1;
+
+    // Handle scalar-type length coercions (FuncExpr)
+    if (expr && IsA(expr, FuncExpr)) {
+        const FuncExpr *func = (const FuncExpr *) expr;
+        int nargs;
+        Const *second_arg;
+
+        // Must come from a coercion context
+        if (func->funcformat != COERCE_EXPLICIT_CAST &&
+            func->funcformat != COERCE_IMPLICIT_CAST)
+            return false;
+
+        // Must be 2-3 argument function with second arg as INT4 constant
+        nargs = list_length(func->args);
+        if (nargs < 2 || nargs > 3)
+            return false;
+
+        second_arg = (Const *) lsecond(func->args);
+        if (!IsA(second_arg, Const) ||
+            second_arg->consttype != INT4OID ||
+            second_arg->constisnull)
+            return false;
+
+        // Extract the typmod value
+        if (coercedTypmod != NULL)
+            *coercedTypmod = DatumGetInt32(second_arg->constvalue);
+
+        return true;
+    }
+
+    // Handle array-type length coercions (ArrayCoerceExpr)
+    if (expr && IsA(expr, ArrayCoerceExpr)) {
+        const ArrayCoerceExpr *acoerce = (const ArrayCoerceExpr *) expr;
+
+        // Must have a non-default typmod to be a length coercion
+        if (acoerce->resulttypmod < 0)
+            return false;
+
+        // Extract the typmod value
+        if (coercedTypmod != NULL)
+            *coercedTypmod = acoerce->resulttypmod;
+
+        return true;
+    }
+
+    return false;
+}
+```

@@ -30,3 +30,20 @@ The function works by repeatedly right-shifting the target bits and incrementing
 - The power calculation ensures bitset sizes are always powers of two, which enables efficient modulo operations using bitwise AND
 - This constraint supports the bloom filter's hash distribution strategy and avoids modulo bias effects
 - The function returns -1 initially and increments up to a maximum of 32
+
+## Simplified Source
+
+```c
+static int my_bloom_power(uint64 target_bitset_bits)
+{
+    int bloom_power = -1;
+
+    while (target_bitset_bits > 0 && bloom_power < 32)
+    {
+        bloom_power++;
+        target_bitset_bits >>= 1;
+    }
+
+    return bloom_power;
+}
+```

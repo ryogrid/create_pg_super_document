@@ -37,3 +37,15 @@ This straightforward approach reflects PostgreSQL's design where Float nodes sto
 - This string-based approach preserves the exact representation from the original SQL query text
 - Part of PostgreSQL's node serialization system for handling literal floating-point values from SQL queries
 - The design choice to store floats as strings helps maintain precision and original formatting
+
+## Simplified Source
+
+```c
+static void
+_outFloat(StringInfo str, const Float *node)
+{
+    // Float values are stored as strings to preserve exact representation
+    // Assume the value is already a valid numeric literal (no quoting needed)
+    appendStringInfoString(str, node->fval);
+}
+```

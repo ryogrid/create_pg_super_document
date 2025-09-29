@@ -39,3 +39,35 @@ The function is called internally by DestroyParallelContext to ensure all worker
 - Issues FATAL error if postmaster dies during shutdown, as safe cleanup becomes impossible
 - Runs with HOLD_INTERRUPTS/RESUME_INTERRUPTS in calling context for transaction safety
 - Handles edge case where workers may still be running when parallel context is being destroyed
+
+## Simplified Source
+
+```c
+static void WaitForParallelWorkersToExit(ParallelContext *pcxt)
+{
+    int i;
+
+    // Wait for each launched worker to completely shut down
+    for (i = 0; i < pcxt->nworkers_launched; ++i)
+    {
+        BgwHandleStatus status;
+
+        // Skip if no worker or handle exists
+        if (pcxt->worker == NULL || pcxt->worker[i].bgwhandle == NULL)
+            continue;
+
+        // Wait for background worker shutdown
+        status = WaitForBackgroundWorkerShutdown(pcxt->worker[i].bgwhandle);
+
+        // Check if postmaster died during shutdown
+        if (status == BGWH_POSTMASTER_DIED)
+            ereport(FATAL,
+                    (errcode(ERRCODE_ADMIN_SHUTDOWN),
+                     errmsg("postmaster exited during a parallel transaction")));
+
+        // Clean up the background worker handle
+        pfree(pcxt->worker[i].bgwhandle);
+        pcxt->worker[i].bgwhandle = NULL;
+    }
+}
+```

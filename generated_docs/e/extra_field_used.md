@@ -37,3 +37,50 @@ This function is essential for memory management in the GUC system, ensuring tha
 - Essential for preventing memory leaks and ensuring safe deallocation of extra data
 - Part of PostgreSQL's sophisticated GUC parameter management system
 - The function traverses both the current configuration state and the entire stack of previous states
+
+## Simplified Source
+
+```c
+static bool extra_field_used(struct config_generic *gconf, void *extra)
+{
+    GucStack *stack;
+
+    // Check if extra matches current extra field
+    if (extra == gconf->extra)
+        return true;
+
+    // Check reset_extra field for each GUC variable type
+    switch (gconf->vartype)
+    {
+        case PGC_BOOL:
+            if (extra == ((struct config_bool *) gconf)->reset_extra)
+                return true;
+            break;
+        case PGC_INT:
+            if (extra == ((struct config_int *) gconf)->reset_extra)
+                return true;
+            break;
+        case PGC_REAL:
+            if (extra == ((struct config_real *) gconf)->reset_extra)
+                return true;
+            break;
+        case PGC_STRING:
+            if (extra == ((struct config_string *) gconf)->reset_extra)
+                return true;
+            break;
+        case PGC_ENUM:
+            if (extra == ((struct config_enum *) gconf)->reset_extra)
+                return true;
+            break;
+    }
+
+    // Check all entries in the configuration stack
+    for (stack = gconf->stack; stack; stack = stack->prev)
+    {
+        if (extra == stack->prior.extra || extra == stack->masked.extra)
+            return true;
+    }
+
+    return false;
+}
+```

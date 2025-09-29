@@ -37,3 +37,37 @@ For BAS_NORMAL operations, it returns NULL to indicate standard buffer managemen
 - The ring size for BAS_BULKREAD is coordinated with SYNC_SCAN_REPORT_INTERVAL in access/heap/syncscan.c
 - Ring sizes are specified in buffer/README with detailed rationales for each choice
 - The object is allocated in the current memory context
+
+## Simplified Source
+
+```c
+BufferAccessStrategy GetAccessStrategy(BufferAccessStrategyType btype)
+{
+    int ring_size_kb;
+
+    // Map access strategy type to ring size
+    switch (btype)
+    {
+        case BAS_NORMAL:
+            // Normal operations use default buffer management
+            return NULL;
+
+        case BAS_BULKREAD:
+            ring_size_kb = 256;      // 256KB for bulk read operations
+            break;
+        case BAS_BULKWRITE:
+            ring_size_kb = 16 * 1024; // 16MB for bulk write operations
+            break;
+        case BAS_VACUUM:
+            ring_size_kb = 2048;     // 2MB for vacuum operations
+            break;
+
+        default:
+            elog(ERROR, "unrecognized buffer access strategy: %d", (int) btype);
+            return NULL;
+    }
+
+    // Create strategy with the determined ring size
+    return GetAccessStrategyWithSize(btype, ring_size_kb);
+}
+```

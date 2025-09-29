@@ -31,3 +31,24 @@ BufTableLookup performs a lookup operation in the shared buffer hashtable to fin
 
 ## Notes and Other Information
 The caller must hold at least a share lock on the BufMappingLock for the tags partition before calling this function to ensure thread-safe access to the hashtable. The function uses HASH_FIND mode to perform a read-only lookup without modifying the hashtable structure. The hash code parameter avoids redundant hash computation since the same hash value is typically needed for partition lock selection.
+
+## Simplified Source
+
+```c
+int BufTableLookup(BufferTag *tagPtr, uint32 hashcode)
+{
+    BufferLookupEnt *result;
+
+    result = (BufferLookupEnt *)
+        hash_search_with_hash_value(SharedBufHash,
+                                    tagPtr,
+                                    hashcode,
+                                    HASH_FIND,
+                                    NULL);
+
+    if (!result)
+        return -1;
+
+    return result->id;
+}
+```

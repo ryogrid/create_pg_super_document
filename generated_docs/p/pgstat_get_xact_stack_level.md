@@ -49,3 +49,33 @@ The function implements a lazy allocation strategy, only creating stack entries 
 - Stack entries are created on-demand rather than pre-allocated for all possible nesting levels
 - Essential for proper handling of nested transactions and savepoints in PostgreSQL's statistics system
 - The pending_drops list is initialized empty and populated as transactional drops occur
+
+## Simplified Source
+
+```c
+PgStat_SubXactStatus *pgstat_get_xact_stack_level(int nest_level)
+{
+    PgStat_SubXactStatus *xact_state;
+
+    // Check if current stack top matches the requested level
+    xact_state = pgStatXactStack;
+    if (xact_state == NULL || xact_state->nest_level != nest_level)
+    {
+        // Allocate new stack entry in transaction context
+        xact_state = (PgStat_SubXactStatus *)
+            MemoryContextAlloc(TopTransactionContext,
+                              sizeof(PgStat_SubXactStatus));
+
+        // Initialize the new entry
+        dclist_init(&xact_state->pending_drops);
+        xact_state->nest_level = nest_level;
+        xact_state->prev = pgStatXactStack;
+        xact_state->first = NULL;
+
+        // Update global stack pointer
+        pgStatXactStack = xact_state;
+    }
+
+    return xact_state;
+}
+```

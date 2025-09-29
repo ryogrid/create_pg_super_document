@@ -41,3 +41,34 @@ The function stores all k hash values in the caller-provided array, with each ha
 - The seed value from the filter ensures different hash distributions across different bloom filter instances
 - All hash values are constrained using mod_m to fit within the bitset size
 - The algorithm progressively modifies x and y values to generate subsequent hash functions: x += y, y += i
+
+## Simplified Source
+
+```c
+static void k_hashes(bloom_filter *filter, uint32 *hashes, unsigned char *elem, size_t len)
+{
+    uint64 hash;
+    uint32 x, y;
+    uint64 m;
+    int i;
+
+    // Use 64-bit hashing to get two independent 32-bit hashes
+    hash = DatumGetUInt64(hash_any_extended(elem, len, filter->seed));
+    x = (uint32) hash;
+    y = (uint32) (hash >> 32);
+    m = filter->m;
+
+    x = mod_m(x, m);
+    y = mod_m(y, m);
+
+    // Accumulate hashes
+    hashes[0] = x;
+    for (i = 1; i < filter->k_hash_funcs; i++)
+    {
+        x = mod_m(x + y, m);
+        y = mod_m(y + i, m);
+
+        hashes[i] = x;
+    }
+}
+```

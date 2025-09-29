@@ -44,3 +44,28 @@ The function uses PostgreSQL's system cache mechanism for efficient catalog look
 - Uses system cache for performance optimization
 - Critical for namespace/schema resolution in various PostgreSQL operations
 - Located in src/backend/utils/cache/lsyscache.c:1952-1978
+
+## Simplified Source
+
+```c
+// Get the namespace OID for a relation
+Oid
+get_rel_namespace(Oid relid)
+{
+    HeapTuple tp;
+
+    // Look up relation in system cache
+    tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (HeapTupleIsValid(tp))
+    {
+        Form_pg_class reltup = (Form_pg_class) GETSTRUCT(tp);
+        Oid result;
+
+        result = reltup->relnamespace;
+        ReleaseSysCache(tp);
+        return result;
+    }
+    else
+        return InvalidOid;
+}
+```

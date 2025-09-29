@@ -51,3 +51,20 @@ This initialization ensures the SHA-1 algorithm starts from the correct initial 
 - The initial values are mathematically significant and required for SHA-1 standard compliance
 - Safe to call multiple times on the same context - fully reinitializes the state
 - Forms part of the standard init/update/final pattern for hash computation
+
+## Simplified Source
+
+```c
+void pg_sha1_init(pg_sha1_ctx *ctx)
+{
+    // Clear the entire context structure
+    memset(ctx, 0, sizeof(pg_sha1_ctx));
+
+    // Initialize the five SHA-1 hash state variables with standard initial values
+    H(0) = 0x67452301;
+    H(1) = 0xefcdab89;
+    H(2) = 0x98badcfe;
+    H(3) = 0x10325476;
+    H(4) = 0xc3d2e1f0;
+}
+```

@@ -40,3 +40,22 @@ This design handles the case where multiple truncates might occur in the same su
 - This is part of PostgreSQL's transactional statistics system that ensures statistics remain consistent even when transactions containing destructive operations are rolled back
 - The saved values are used by `restore_truncdrop_counters` during transaction abort processing
 - Supports proper handling of nested subtransactions where truncate/drop operations may occur at different nesting levels
+
+## Simplified Source
+
+```c
+static void save_truncdrop_counters(PgStat_TableXactStatus *trans, bool is_drop)
+{
+    // Save counters if this is a drop operation OR first truncate in this subtransaction
+    if (!trans->truncdropped || is_drop)
+    {
+        // Save current counter values for potential rollback
+        trans->inserted_pre_truncdrop = trans->tuples_inserted;
+        trans->updated_pre_truncdrop = trans->tuples_updated;
+        trans->deleted_pre_truncdrop = trans->tuples_deleted;
+
+        // Mark that counters have been saved
+        trans->truncdropped = true;
+    }
+}
+```

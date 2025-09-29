@@ -37,3 +37,14 @@ The function is defined as a static inline function in the utility.h header file
 - It's frequently used in contexts where command names need to be displayed to users or logged
 - The inline nature of this function makes it very efficient for the frequent command name lookups required by PostgreSQL's internal systems
 - Located in src/include/tcop/utility.h at lines 102-106
+
+## Simplified Source
+
+```c
+// Simple utility function that gets command name from parse tree
+static inline const char *
+CreateCommandName(Node *parsetree)
+{
+    return GetCommandTagName(CreateCommandTag(parsetree));
+}
+```

@@ -42,3 +42,23 @@ This function helps ensure the correctness of PostgreSQL's optimization where ce
 - The consistency checks help ensure that relation cache state accurately reflects the WAL-skipping status
 - Related to the "RelFileLocatorSkippingWAL" functionality mentioned in the provided context
 - Critical for maintaining data consistency in PostgreSQL's transaction and recovery system
+
+## Simplified Source
+
+```c
+static void AssertPendingSyncConsistency(Relation relation)
+{
+    bool relcache_verdict =
+        RelationIsPermanent(relation) &&
+        ((relation->rd_createSubid != InvalidSubTransactionId &&
+          RELKIND_HAS_STORAGE(relation->rd_rel->relkind)) ||
+         relation->rd_firstRelfilelocatorSubid != InvalidSubTransactionId);
+
+    Assert(relcache_verdict == RelFileLocatorSkippingWAL(relation->rd_locator));
+
+    if (relation->rd_droppedSubid != InvalidSubTransactionId)
+        Assert(!relation->rd_isvalid &&
+               (relation->rd_createSubid != InvalidSubTransactionId ||
+                relation->rd_firstRelfilelocatorSubid != InvalidSubTransactionId));
+}
+```

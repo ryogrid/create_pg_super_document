@@ -38,6 +38,28 @@ This functionality is important for scenarios where a callback registration need
 
 ## Notes and Other Information
 - Both the function pointer and argument must match exactly for a callback to be removed
+
+## Simplified Source
+
+```c
+void cancel_on_dsm_detach(dsm_segment *seg, on_dsm_detach_callback function, Datum arg)
+{
+    slist_mutable_iter iter;
+
+    slist_foreach_modify(iter, &seg->on_detach)
+    {
+        dsm_segment_detach_callback *cb;
+
+        cb = slist_container(dsm_segment_detach_callback, node, iter.cur);
+        if (cb->function == function && cb->arg == arg)
+        {
+            slist_delete_current(&iter);
+            pfree(cb);
+            break;
+        }
+    }
+}
+```
 - Only the first matching callback is removed (the function breaks after finding a match)
 - The function uses safe iteration that allows list modification during traversal
 - Memory allocated for the callback structure is properly freed with pfree()

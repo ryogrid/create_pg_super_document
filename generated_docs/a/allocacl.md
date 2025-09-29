@@ -39,3 +39,38 @@ The function initializes the ACL as a one-dimensional array with no null values,
 
 ## Notes and Other Information
 The function always creates ACLs with dataoffset=0 since ACL arrays never contain null values, and ndim=1 since ACLs are always one-dimensional arrays. The lower bound is set to 1 following PostgreSQL's standard array indexing convention. This is a fundamental utility function used throughout the ACL system for creating new ACL structures.
+
+## Simplified Source
+
+```c
+static Acl *
+allocacl(int n)
+{
+    Acl    *new_acl;
+    Size    size;
+
+    if (n < 0)
+        elog(ERROR, "invalid size: %d", n);
+
+    size = ACL_N_SIZE(n);                    // Calculate memory needed
+    new_acl = (Acl *) palloc0(size);        // Allocate zero-filled memory
+    SET_VARSIZE(new_acl, size);              // Set varlena size header
+
+    // Initialize array metadata
+    new_acl->ndim = 1;                       // One-dimensional array
+    new_acl->dataoffset = 0;                 // No nulls in ACL arrays
+    new_acl->elemtype = ACLITEMOID;          // Element type is AclItem
+    ARR_LBOUND(new_acl)[0] = 1;             // Array starts at index 1
+    ARR_DIMS(new_acl)[0] = n;               // Array has n elements
+
+    return new_acl;
+}
+```
+
+**Simplified Explanation:**
+1. Validate that the requested size is not negative
+2. Calculate the total memory size needed for n ACL items
+3. Allocate zero-initialized memory using palloc0
+4. Set up the PostgreSQL varlena header with the size
+5. Initialize array metadata (1D array, no nulls, proper bounds)
+6. Return the initialized ACL structure

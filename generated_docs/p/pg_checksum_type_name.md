@@ -40,3 +40,28 @@ The function includes an assertion to catch invalid enumeration values during de
 - Returns "???" placeholder for unrecognized types in production builds
 - Widely used in backup and manifest generation contexts where checksum types need to be serialized
 - The returned strings are static and do not need to be freed by the caller
+
+## Simplified Source
+
+```c
+char *pg_checksum_type_name(pg_checksum_type type)
+{
+    switch (type) {
+        case CHECKSUM_TYPE_NONE:
+            return "NONE";
+        case CHECKSUM_TYPE_CRC32C:
+            return "CRC32C";
+        case CHECKSUM_TYPE_SHA224:
+            return "SHA224";
+        case CHECKSUM_TYPE_SHA256:
+            return "SHA256";
+        case CHECKSUM_TYPE_SHA384:
+            return "SHA384";
+        case CHECKSUM_TYPE_SHA512:
+            return "SHA512";
+    }
+
+    Assert(false);
+    return "???";
+}
+```

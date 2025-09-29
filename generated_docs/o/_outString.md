@@ -32,3 +32,21 @@ This function converts a String node into its textual representation by wrapping
 - The function manually adds double quotes around the string content
 - Part of PostgreSQL's node serialization system used for debugging, logging, and inter-process communication
 - The outToken function handles proper escaping of special characters within the string content
+
+## Simplified Source
+
+```c
+static void _outString(StringInfo str, const String *node)
+{
+    // Add opening quote
+    appendStringInfoChar(str, '"');
+
+    // Add escaped string content if not empty
+    // (outToken would convert empty string to "", but we already have quotes)
+    if (node->sval[0] != '\0')
+        outToken(str, node->sval);
+
+    // Add closing quote
+    appendStringInfoChar(str, '"');
+}
+```

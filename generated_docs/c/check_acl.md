@@ -36,3 +36,35 @@ The check_acl function performs structural validation of an ACL array to ensure 
 - Raises ERRCODE_NULL_VALUE_NOT_ALLOWED for arrays containing null values
 - Essential for maintaining ACL data integrity throughout the PostgreSQL system
 - Called by most ACL manipulation functions to ensure input validity
+
+## Simplified Source
+
+```c
+static void
+check_acl(const Acl *acl)
+{
+    // Check element type is correct
+    if (ARR_ELEMTYPE(acl) != ACLITEMOID)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("ACL array contains wrong data type")));
+
+    // Check array is one-dimensional
+    if (ARR_NDIM(acl) != 1)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("ACL arrays must be one-dimensional")));
+
+    // Check array has no null values
+    if (ARR_HASNULL(acl))
+        ereport(ERROR,
+                (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                 errmsg("ACL arrays must not contain null values")));
+}
+```
+
+**Simplified Explanation:**
+1. Verify the array contains ACLITEMOID elements (correct data type)
+2. Ensure the array is one-dimensional (not multi-dimensional)
+3. Check that no elements are null (ACLs don't allow nulls)
+4. If any check fails, raise an appropriate error with specific error code

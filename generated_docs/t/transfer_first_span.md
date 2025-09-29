@@ -43,3 +43,51 @@ The function safely removes the first span from the source fullness class and in
 - The function operates entirely on pointer manipulation without moving actual data
 - Used to implement allocation strategies that prefer spans with specific fullness characteristics
 - Essential for maintaining optimal allocation performance by keeping spans organized by utilization
+
+## Simplified Source
+
+```c
+static bool
+transfer_first_span(dsa_area *area,
+                    dsa_area_pool *pool, int fromclass, int toclass)
+{
+    dsa_pointer span_pointer;
+    dsa_area_span *span;
+    dsa_area_span *nextspan;
+
+    // Check if source list has any spans
+    span_pointer = pool->spans[fromclass];
+    if (!DsaPointerIsValid(span_pointer))
+        return false;
+
+    // Remove span from head of source list
+    span = dsa_get_address(area, span_pointer);
+    pool->spans[fromclass] = span->nextspan;
+    if (DsaPointerIsValid(span->nextspan))
+    {
+        nextspan = (dsa_area_span *) dsa_get_address(area, span->nextspan);
+        nextspan->prevspan = InvalidDsaPointer;
+    }
+
+    // Add span to head of target list
+    span->nextspan = pool->spans[toclass];
+    pool->spans[toclass] = span_pointer;
+    if (DsaPointerIsValid(span->nextspan))
+    {
+        nextspan = (dsa_area_span *) dsa_get_address(area, span->nextspan);
+        nextspan->prevspan = span_pointer;
+    }
+    span->fclass = toclass;
+
+    return true;
+}
+```
+
+**Simplified Explanation:**
+1. Check if the source fullness class has any spans (return false if empty)
+2. Remove the first span from the source class's linked list
+3. Update the next span's previous pointer (if it exists)
+4. Insert the span at the head of the target class's list
+5. Update the new next span's previous pointer (if it exists)
+6. Update the span's fullness class field to reflect new classification
+7. Return true to indicate successful transfer

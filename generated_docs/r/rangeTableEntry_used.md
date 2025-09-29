@@ -43,3 +43,20 @@ The function uses the rangeTableEntry_used_walker to perform the actual traversa
 - Essential for rule processing and query optimization
 - Uses query_or_expression_tree_walker instead of query_tree_walker to properly handle both Query nodes and expression trees
 - The function correctly manages sublevel counting to avoid false positives when checking references across query nesting boundaries
+
+## Simplified Source
+
+```c
+bool rangeTableEntry_used(Node *node, int rt_index, int sublevels_up) {
+    rangeTableEntry_used_context context;
+
+    // Set up context for tree walker
+    context.rt_index = rt_index;
+    context.sublevels_up = sublevels_up;
+
+    // Walk the tree to find references to the range table entry
+    return query_or_expression_tree_walker(node,
+                                          rangeTableEntry_used_walker,
+                                          (void *) &context, 0);
+}
+```

@@ -35,3 +35,21 @@ The function relies on the invariant that dest->nextmsg[subgroup] equals src->fi
 - The merge operation is O(1) as it only updates pointers, not copying actual message data
 - Part of PostgreSQL's cache invalidation system that manages message groups efficiently
 - The function always calls SetSubGroupToFollow to maintain proper group relationships and prevent pointer aliasing issues
+
+## Simplified Source
+
+```c
+static void AppendInvalidationMessageSubGroup(InvalidationMsgsGroup *dest,
+                                              InvalidationMsgsGroup *src,
+                                              int subgroup)
+{
+    // Verify messages are adjacent in the main array
+    Assert(dest->nextmsg[subgroup] == src->firstmsg[subgroup]);
+
+    // Merge by updating the destination's end pointer
+    dest->nextmsg[subgroup] = src->nextmsg[subgroup];
+
+    // Configure source to follow destination to prevent pointer conflicts
+    SetSubGroupToFollow(src, dest, subgroup);
+}
+```

@@ -44,3 +44,58 @@ The mapping mechanism is crucial - it creates an array where each position corre
 - The cleanMap array is allocated only when there are non-junk attributes (cleanLength > 0)
 - Uses virtual tuple table slot operations (TTSOpsVirtual) for efficiency when creating new slots
 - Part of PostgreSQL's junk attribute filtering system that allows internal executor attributes to be cleanly separated from user-visible results
+
+## Simplified Source
+
+```c
+JunkFilter *
+ExecInitJunkFilter(List *targetList, TupleTableSlot *slot)
+{
+    JunkFilter *junkfilter;
+    TupleDesc cleanTupType;
+    int cleanLength;
+    AttrNumber *cleanMap;
+
+    // Compute the tuple descriptor for the cleaned tuple
+    cleanTupType = ExecCleanTypeFromTL(targetList);
+
+    // Use the given slot, or make a new slot if we weren't given one
+    if (slot)
+        ExecSetSlotDescriptor(slot, cleanTupType);
+    else
+        slot = MakeSingleTupleTableSlot(cleanTupType, &TTSOpsVirtual);
+
+    // Calculate mapping between original and "clean" tuple attributes
+    cleanLength = cleanTupType->natts;
+    if (cleanLength > 0)
+    {
+        AttrNumber cleanResno;
+        ListCell *t;
+
+        cleanMap = (AttrNumber *) palloc(cleanLength * sizeof(AttrNumber));
+        cleanResno = 0;
+        foreach(t, targetList)
+        {
+            TargetEntry *tle = lfirst(t);
+
+            if (!tle->resjunk)
+            {
+                cleanMap[cleanResno] = tle->resno;
+                cleanResno++;
+            }
+        }
+        Assert(cleanResno == cleanLength);
+    }
+    else
+        cleanMap = NULL;
+
+    // Create and initialize the JunkFilter struct
+    junkfilter = makeNode(JunkFilter);
+    junkfilter->jf_targetList = targetList;
+    junkfilter->jf_cleanTupType = cleanTupType;
+    junkfilter->jf_cleanMap = cleanMap;
+    junkfilter->jf_resultSlot = slot;
+
+    return junkfilter;
+}
+```

@@ -36,3 +36,14 @@ The optimal number of hash functions minimizes the false positive probability of
 - The result is constrained to be between 1 and 10 hash functions for practical implementation
 - Using the optimal number of hash functions provides the best balance between computation cost and false positive rate
 - The function assumes accurate estimation of total_elems for optimal performance
+
+## Simplified Source
+
+```c
+static int optimal_k(uint64 bitset_bits, int64 total_elems)
+{
+    int k = rint(log(2.0) * bitset_bits / total_elems);
+
+    return Max(1, Min(k, MAX_HASH_FUNCS));
+}
+```

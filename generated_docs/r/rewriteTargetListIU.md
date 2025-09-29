@@ -59,3 +59,147 @@ The function also handles special column types:
 - For UPDATE operations, explicitly sets NULL values when no default exists
 - Properly handles junk attributes (ORDER BY, GROUP BY expressions) by assigning them resnos above real attributes
 - Integrates with VALUES RTE processing to track columns that become unused due to default replacement
+
+## Simplified Source
+
+```c
+static List *
+rewriteTargetListIU(List *targetList, CmdType commandType,
+                    OverridingKind override, Relation target_relation,
+                    RangeTblEntry *values_rte, int values_rte_index,
+                    Bitmapset **unused_values_attrnos)
+{
+    int numattrs = RelationGetNumberOfAttributes(target_relation);
+    TargetEntry **new_tles = palloc0(numattrs * sizeof(TargetEntry *));
+    List *new_tlist = NIL;
+    List *junk_tlist = NIL;
+    int next_junk_attrno = numattrs + 1;
+    Bitmapset *default_only_cols = NULL;
+
+    // Process input target list entries
+    foreach(temp, targetList) {
+        TargetEntry *old_tle = (TargetEntry *) lfirst(temp);
+
+        if (!old_tle->resjunk) {
+            // Normal attribute - store in array for processing
+            int attrno = old_tle->resno;
+            if (attrno < 1 || attrno > numattrs)
+                elog(ERROR, "bogus resno %d in targetlist", attrno);
+
+            Form_pg_attribute att_tup = TupleDescAttr(target_relation->rd_att,
+                                                      attrno - 1);
+
+            // Skip dropped attributes
+            if (att_tup->attisdropped)
+                continue;
+
+            // Merge with any prior assignment to same attribute
+            new_tles[attrno - 1] = process_matched_tle(old_tle,
+                                                       new_tles[attrno - 1],
+                                                       NameStr(att_tup->attname));
+        } else {
+            // Junk attribute - assign new resno and add to junk list
+            if (old_tle->resno != next_junk_attrno) {
+                old_tle = flatCopyTargetEntry(old_tle);
+                old_tle->resno = next_junk_attrno;
+            }
+            junk_tlist = lappend(junk_tlist, old_tle);
+            next_junk_attrno++;
+        }
+    }
+
+    // Process each attribute in the relation
+    for (int attrno = 1; attrno <= numattrs; attrno++) {
+        TargetEntry *new_tle = new_tles[attrno - 1];
+        Form_pg_attribute att_tup = TupleDescAttr(target_relation->rd_att,
+                                                  attrno - 1);
+
+        // Skip dropped attributes
+        if (att_tup->attisdropped)
+            continue;
+
+        // Determine if we need to apply default value
+        bool apply_default = ((new_tle == NULL && commandType == CMD_INSERT) ||
+                             (new_tle && new_tle->expr &&
+                              IsA(new_tle->expr, SetToDefault)));
+
+        if (commandType == CMD_INSERT) {
+            // Handle identity column constraints
+            if (att_tup->attidentity == ATTRIBUTE_IDENTITY_ALWAYS &&
+                !apply_default) {
+                if (override == OVERRIDING_USER_VALUE)
+                    apply_default = true;
+                else if (override != OVERRIDING_SYSTEM_VALUE) {
+                    // Check if VALUES column contains only DEFAULT
+                    int values_attrno = get_values_attrno(new_tle, values_rte_index);
+                    if (values_attrno && is_default_only_column(values_attrno,
+                                                              values_rte,
+                                                              &default_only_cols))
+                        apply_default = true;
+
+                    if (!apply_default)
+                        ereport(ERROR, "cannot insert non-DEFAULT into GENERATED ALWAYS");
+                }
+            }
+
+            // Handle generated columns
+            if (att_tup->attgenerated && !apply_default) {
+                int values_attrno = get_values_attrno(new_tle, values_rte_index);
+                if (values_attrno && is_default_only_column(values_attrno,
+                                                          values_rte,
+                                                          &default_only_cols))
+                    apply_default = true;
+
+                if (!apply_default)
+                    ereport(ERROR, "cannot insert non-DEFAULT into generated column");
+            }
+
+            // Track unused VALUES columns
+            if (values_attrno && apply_default && unused_values_attrnos)
+                *unused_values_attrnos = bms_add_member(*unused_values_attrnos,
+                                                        values_attrno);
+        }
+
+        if (commandType == CMD_UPDATE) {
+            // UPDATE constraints for identity and generated columns
+            if (att_tup->attidentity == ATTRIBUTE_IDENTITY_ALWAYS &&
+                new_tle && !apply_default)
+                ereport(ERROR, "identity column can only be updated to DEFAULT");
+
+            if (att_tup->attgenerated && new_tle && !apply_default)
+                ereport(ERROR, "generated column can only be updated to DEFAULT");
+        }
+
+        // Handle different column types
+        if (att_tup->attgenerated) {
+            // Generated columns handled in executor
+            new_tle = NULL;
+        } else if (apply_default) {
+            // Build default expression
+            Node *new_expr = build_column_default(target_relation, attrno);
+
+            if (!new_expr) {
+                if (commandType == CMD_INSERT)
+                    new_tle = NULL;  // Let planner insert NULL
+                else
+                    new_expr = coerce_null_to_domain(att_tup->atttypid,
+                                                     att_tup->atttypmod,
+                                                     att_tup->attcollation,
+                                                     att_tup->attlen,
+                                                     att_tup->attbyval);
+            }
+
+            if (new_expr)
+                new_tle = makeTargetEntry((Expr *) new_expr, attrno,
+                                          pstrdup(NameStr(att_tup->attname)),
+                                          false);
+        }
+
+        if (new_tle)
+            new_tlist = lappend(new_tlist, new_tle);
+    }
+
+    pfree(new_tles);
+    return list_concat(new_tlist, junk_tlist);
+}
+```

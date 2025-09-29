@@ -42,3 +42,25 @@ For performance optimization, built-in functions (those with OIDs less than Firs
 - Part of the broader plan invalidation system that ensures plan cache correctness
 - Critical for maintaining consistency when functions are modified after plans are cached
 - The dependency tracking enables automatic plan recompilation when dependent objects change
+
+## Simplified Source
+
+```c
+void
+record_plan_function_dependency(PlannerInfo *root, Oid funcid)
+{
+    // Skip built-in functions for performance
+    // Built-in functions have OIDs < FirstUnpinnedObjectId
+    if (funcid >= (Oid) FirstUnpinnedObjectId) {
+        PlanInvalItem *inval_item = makeNode(PlanInvalItem);
+
+        // Use PROCOID syscache (plancache.c expects this)
+        inval_item->cacheId = PROCOID;
+        inval_item->hashValue = GetSysCacheHashValue1(PROCOID,
+                                                     ObjectIdGetDatum(funcid));
+
+        // Add to global invalidation list
+        root->glob->invalItems = lappend(root->glob->invalItems, inval_item);
+    }
+}
+```

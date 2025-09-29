@@ -34,3 +34,15 @@ None - this function takes no parameters and returns a boolean value.
 - Part of the broader security context management system in PostgreSQL
 - Critical for maintaining proper RLS behavior in security-elevated contexts
 - Used in conjunction with other security restriction flags to provide comprehensive access control
+
+## Simplified Source
+```c
+/*
+ * InNoForceRLSOperation - are we ignoring FORCE ROW LEVEL SECURITY ?
+ */
+bool
+InNoForceRLSOperation(void)
+{
+    return (SecurityRestrictionContext & SECURITY_NOFORCE_RLS) != 0;
+}
+```

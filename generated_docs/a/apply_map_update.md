@@ -36,3 +36,35 @@ The  function is responsible for maintaining the relation-to-file mapping table 
 - Error handling includes checks for unmapped relations when add_okay is false and for exceeding the maximum mapping capacity
 - The linear search through existing mappings suggests this is optimized for small numbers of mappings rather than high-performance lookups
 - Part of PostgreSQL's relation mapping system that maintains the correspondence between logical relation identifiers and physical file numbers
+
+## Simplified Source
+
+```c
+static void
+apply_map_update(RelMapFile *map, Oid relationId, RelFileNumber fileNumber,
+                 bool add_okay)
+{
+    int32 i;
+
+    // Replace any existing mapping
+    for (i = 0; i < map->num_mappings; i++)
+    {
+        if (relationId == map->mappings[i].mapoid)
+        {
+            map->mappings[i].mapfilenumber = fileNumber;
+            return;
+        }
+    }
+
+    // Nope, need to add a new mapping
+    if (!add_okay)
+        elog(ERROR, "attempt to apply a mapping to unmapped relation %u",
+             relationId);
+    if (map->num_mappings >= MAX_MAPPINGS)
+        elog(ERROR, "ran out of space in relation map");
+
+    map->mappings[map->num_mappings].mapoid = relationId;
+    map->mappings[map->num_mappings].mapfilenumber = fileNumber;
+    map->num_mappings++;
+}
+```

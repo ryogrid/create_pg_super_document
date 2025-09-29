@@ -39,3 +39,22 @@ The caller must hold an exclusive lock on BufMappingLock for the tag's partition
 - If the hash table entry is not found, the function will raise an ERROR with the message "shared buffer hash table corrupted"
 - This function is part of the buffer management subsystem and is critical for maintaining consistency in the shared buffer pool
 - The function is located in src/backend/storage/buffer/buf_table.c at lines 148-161
+
+## Simplified Source
+
+```c
+void BufTableDelete(BufferTag *tagPtr, uint32 hashcode)
+{
+    BufferLookupEnt *result;
+
+    result = (BufferLookupEnt *)
+        hash_search_with_hash_value(SharedBufHash,
+                                    tagPtr,
+                                    hashcode,
+                                    HASH_REMOVE,
+                                    NULL);
+
+    if (!result)    /* shouldn't happen */
+        elog(ERROR, "shared buffer hash table corrupted");
+}
+```

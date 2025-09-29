@@ -41,3 +41,24 @@ The serialized format is designed to be efficiently parsed back into a Bitmapset
 - Part of PostgreSQL's efficient representation for sets of integers, commonly used for representing column sets, relation sets, and other discrete collections
 - The iteration pattern with bms_next_member() is the standard way to traverse bitmapset contents
 - Maintains compatibility with the broader node serialization/deserialization infrastructure
+
+## Simplified Source
+
+```c
+void outBitmapset(StringInfo str, const Bitmapset *bms)
+{
+    int x;
+
+    // Start with opening parenthesis and 'b' type indicator
+    appendStringInfoChar(str, '(');
+    appendStringInfoChar(str, 'b');
+
+    // Iterate through all set members in ascending order
+    x = -1;
+    while ((x = bms_next_member(bms, x)) >= 0)
+        appendStringInfo(str, " %d", x);
+
+    // End with closing parenthesis
+    appendStringInfoChar(str, ')');
+}
+```

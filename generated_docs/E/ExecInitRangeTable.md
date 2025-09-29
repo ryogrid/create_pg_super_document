@@ -46,3 +46,31 @@ The lazy initialization approach for relation opening helps optimize query start
 - The parallel arrays (es_relations, es_result_relations, es_rowmarks) are all indexed by range table index
 - Memory allocation uses palloc0 to ensure arrays are zero-initialized
 - The function supports both regular query execution and specialized contexts like COPY and logical replication
+
+## Simplified Source
+
+```c
+void
+ExecInitRangeTable(EState *estate, List *rangeTable, List *permInfos)
+{
+    // Remember the range table List as-is
+    estate->es_range_table = rangeTable;
+
+    // ... and the RTEPermissionInfo List too
+    estate->es_rteperminfos = permInfos;
+
+    // Set size of associated arrays
+    estate->es_range_table_size = list_length(rangeTable);
+
+    // Allocate an array to store an open Relation corresponding to each
+    // rangetable entry, and initialize entries to NULL. Relations are opened
+    // and stored here as needed.
+    estate->es_relations = (Relation *)
+        palloc0(estate->es_range_table_size * sizeof(Relation));
+
+    // es_result_relations and es_rowmarks are also parallel to
+    // es_range_table, but are allocated only if needed.
+    estate->es_result_relations = NULL;
+    estate->es_rowmarks = NULL;
+}
+```

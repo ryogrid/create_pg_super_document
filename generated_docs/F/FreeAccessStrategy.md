@@ -37,3 +37,15 @@ The function safely handles NULL input by checking the strategy pointer before a
 - Commonly used in cleanup paths of heap scans, bulk operations, and vacuum processes
 - Part of the buffer access strategy lifecycle management alongside GetAccessStrategyWithSize()
 - Essential for preventing memory leaks in long-running operations that use custom buffer strategies
+
+## Simplified Source
+
+```c
+void
+FreeAccessStrategy(BufferAccessStrategy strategy)
+{
+    // Don't crash if called on a "default" strategy
+    if (strategy != NULL)
+        pfree(strategy);
+}
+```
