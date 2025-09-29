@@ -48,7 +48,7 @@ class FunctionSimplificationOrchestrator:
                  function_list_file: str = 'experimental/function_call_hierarchy.txt',
                  max_parallel: int = DEFAULT_MAX_PARALLEL_COMMANDS,
                  functions_per_command: int = FUNCTIONS_PER_COMMAND,
-                 timeout_seconds: int = 300):
+                 timeout_seconds: int = 1200):
         """
         Initialize the orchestrator.
         
@@ -158,10 +158,43 @@ Iterate through each JSON object in the array above. For each object, perform th
 
 1.  **Retrieve Source**: Use `pg_symbol_source(function.name)`.
 2.  **Simplify Code**: Reduce complexity while preserving essential logic.
+Apply these simplification techniques:
+- Remove non-essential error handling (keep only critical checks)
+- Simplify complex conditions into clearer logic flow
+- Replace detailed memory operations with high-level comments
+- Use descriptive variable names instead of cryptic ones
+- Add brief explanatory comments for complex logic
+- Remove platform-specific code, focus on main logic path
+- Consolidate similar cases or branches
+- Target: 20-50% of original length while preserving essential algorithm
+
 3.  **Update Documentation**:
     - Read the file at `function.path`.
     - If "## Simplified Source" already exists, do nothing for this file.
     - Otherwise, append the new section to the file using the Write tool.
+
+## Important Guidelines at Simplification
+- Preserve the essential algorithm and logic flow
+- Don't oversimplify to lose important functionality
+- Maintain correctness - represent what the function actually does
+
+## Simplification Example
+
+```c
+ReturnType FunctionName(Parameters) {{
+    // Core logic step 1: Brief description
+    simplified_logic_1();
+
+    // Core logic step 2: Brief description
+    if (important_condition) {{
+        simplified_action();
+    }}
+
+    // Additional core logic steps...
+
+    return simplified_result;
+}}
+```
 
 ## Final Status Reporting
 After attempting to process ALL functions, you MUST output a single JSON array containing a result object for each function. The output must ONLY be the JSON array, enclosed in ```json ... ```.
