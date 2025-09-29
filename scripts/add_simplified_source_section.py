@@ -17,9 +17,9 @@ import re
 
 # --- Configuration ---
 # Default number of parallel claude commands to run
-DEFAULT_MAX_PARALLEL_COMMANDS = 3
+DEFAULT_MAX_PARALLEL_COMMANDS = 5
 # Number of functions to process in a single claude command
-FUNCTIONS_PER_COMMAND = 5
+FUNCTIONS_PER_COMMAND = 3
 # --- End Configuration ---
 
 # Configure logging
@@ -53,7 +53,7 @@ class FunctionSimplificationOrchestrator:
         Initialize the orchestrator.
         
         Args:
-            function_list_file: Path to file containing function name and doc path pairs (CSV format)
+            function_list_file: Path to file containing function names (one per line)
             max_parallel: Number of parallel Claude processes to run
             functions_per_command: Number of functions to process in a single Claude command
             timeout_seconds: Timeout for each Claude invocation
@@ -89,22 +89,20 @@ class FunctionSimplificationOrchestrator:
         }
     
     def _load_function_list(self) -> List[Dict[str, str]]:
-        """Load function name and path pairs from file (CSV format: name,path)."""
+        """Load function names from file and generate their corresponding doc paths."""
         if not self.function_list_file.exists():
             logging.error(f"Function list file not found: {self.function_list_file}")
             return []
         
         functions = []
         with open(self.function_list_file, 'r', encoding='utf-8') as f:
-            for i, line in enumerate(f):
-                if line.strip():
-                    parts = line.strip().split(',')
-                    if len(parts) == 2:
-                        functions.append({'name': parts[0].strip(), 'path': parts[1].strip()})
-                    else:
-                        logging.warning(f"Skipping malformed line {i+1} in {self.function_list_file}: {line.strip()}")
+            for line in f:
+                function_name = line.strip()
+                if function_name:
+                    doc_path = f'generated_docs/{get_first_alnum_char(function_name)}/{function_name}.md'
+                    functions.append({'name': function_name, 'path': doc_path})
 
-        logging.info(f"Loaded {len(functions)} functions from {self.function_list_file}")
+        logging.info(f"Loaded and generated paths for {len(functions)} functions from {self.function_list_file}")
         return functions
     
     def _check_simplified_source_exists(self, doc_path_str: str) -> bool:
@@ -132,7 +130,7 @@ class FunctionSimplificationOrchestrator:
 You will process a batch of {len(function_batch)} PostgreSQL functions based on the provided JSON data.
 
 ## Your Task
-For EACH function object in the JSON data below:
+For each function object in the JSON data below:
 1.  Use the `name` key for the function's name and the `path` key for its documentation file path.
 2.  Retrieve the function's source code.
 3.  Create a simplified, readable version.
@@ -140,8 +138,7 @@ For EACH function object in the JSON data below:
 5.  DO NOT create temporary files.
 6.  After processing all functions, provide a single JSON array summarizing the outcome for each function.
 
-## Function Batch to Process (JSON format)
-```json
+## Function Batch to Process (JSON format)```json
 {functions_json}
 ```
 
@@ -268,7 +265,7 @@ Start processing the batch now. Your final output should be only the JSON array.
                             json_str = json_match.group(1)
                             json_results = json.loads(json_str)
                         elif output.strip().startswith('['): # Fallback for raw JSON
-                            json_results = json.loads(output)
+                            json_results = json.loads(output.strip())
                         else:
                             raise json.JSONDecodeError("No JSON block found", output, 0)
                     except json.JSONDecodeError:
@@ -450,7 +447,7 @@ def main():
     
     parser = argparse.ArgumentParser(description='Simplify PostgreSQL function source code in parallel using MCP server')
     parser.add_argument('--input', default='experimental/function_call_hierarchy.txt',
-                       help='Input file with function names and markdown paths (CSV format: name,path)')
+                       help='Input file with function names (one per line)')
     parser.add_argument('--parallel', type=int, default=DEFAULT_MAX_PARALLEL_COMMANDS,
                        help=f'Number of parallel Claude processes (default: {DEFAULT_MAX_PARALLEL_COMMANDS})')
     parser.add_argument('--batch-size', type=int, default=FUNCTIONS_PER_COMMAND,
