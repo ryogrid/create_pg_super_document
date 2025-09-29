@@ -40,3 +40,60 @@ This function initializes the PrinttupAttrInfo array that contains cached inform
 - Uses portal formats array to determine the output format for each column
 - Format-specific setup ensures optimal performance by avoiding format checks during actual tuple output
 - Error reporting for unsupported format codes helps catch protocol violations
+
+## Simplified Source
+
+```c
+static void
+printtup_prepare_info(DR_printtup *myState, TupleDesc typeinfo, int numAttrs)
+{
+    int16 *formats = myState->portal->formats;
+    int i;
+
+    // Clean up any existing attribute info
+    if (myState->myinfo)
+        pfree(myState->myinfo);
+    myState->myinfo = NULL;
+
+    myState->attrinfo = typeinfo;
+    myState->nattrs = numAttrs;
+
+    if (numAttrs <= 0)
+        return;
+
+    // Allocate array for per-attribute information
+    myState->myinfo = (PrinttupAttrInfo *)
+        palloc0(numAttrs * sizeof(PrinttupAttrInfo));
+
+    // Set up output functions for each attribute
+    for (i = 0; i < numAttrs; i++)
+    {
+        PrinttupAttrInfo *thisState = myState->myinfo + i;
+        int16 format = (formats ? formats[i] : 0);
+        Form_pg_attribute attr = TupleDescAttr(typeinfo, i);
+
+        thisState->format = format;
+
+        if (format == 0)  // Text format
+        {
+            getTypeOutputInfo(attr->atttypid,
+                            &thisState->typoutput,
+                            &thisState->typisvarlena);
+            fmgr_info(thisState->typoutput, &thisState->finfo);
+        }
+        else if (format == 1)  // Binary format
+        {
+            getTypeBinaryOutputInfo(attr->atttypid,
+                                  &thisState->typsend,
+                                  &thisState->typisvarlena);
+            fmgr_info(thisState->typsend, &thisState->finfo);
+        }
+        else
+        {
+            ereport(ERROR,
+                   (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("unsupported format code: %d", format)));
+        }
+    }
+}
+```

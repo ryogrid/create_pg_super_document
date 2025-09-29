@@ -46,3 +46,13 @@ This function is designed to handle fairly low-level parsing failures that typic
 - Error handling strategy is determined by the error callback function stored in the context
 - Used extensively throughout the manifest parsing pipeline for consistent error reporting
 - The function is designed for low-level parse failures rather than high-level validation errors
+
+## Simplified Source
+
+```c
+static void
+json_manifest_parse_failure(JsonManifestParseContext *context, char *msg)
+{
+    context->error_cb(context, "could not parse backup manifest: %s", msg);
+}
+```

@@ -51,3 +51,37 @@ The algorithm ensures fairness by only granting locks to processes that don't co
 - Part of PostgreSQL's lock management subsystem's core wakeup protocol
 - Located in src/backend/storage/lmgr/proc.c:1711-1758
 - Critical for maintaining lock queue ordering and preventing both deadlocks and starvation
+
+## Simplified Source
+
+```c
+void ProcLockWakeup(LockMethod lockMethodTable, LOCK *lock)
+{
+    dclist_head *waitQueue = &lock->waitProcs;
+    LOCKMASK aheadRequests = 0;
+    dlist_mutable_iter miter;
+
+    if (dclist_is_empty(waitQueue))
+        return;
+
+    dclist_foreach_modify(miter, waitQueue)
+    {
+        PGPROC *proc = dlist_container(PGPROC, links, miter.cur);
+        LOCKMODE lockmode = proc->waitLockMode;
+
+        // Check if this process can be granted the lock
+        if ((lockMethodTable->conflictTab[lockmode] & aheadRequests) == 0 &&
+            !LockCheckConflicts(lockMethodTable, lockmode, lock, proc->waitProcLock))
+        {
+            // Grant the lock and wake up the process
+            GrantLock(lock, proc->waitProcLock, lockmode);
+            ProcWakeup(proc, PROC_WAIT_STATUS_OK);
+        }
+        else
+        {
+            // Track this request for conflict checking with later waiters
+            aheadRequests |= LOCKBIT_ON(lockmode);
+        }
+    }
+}
+```

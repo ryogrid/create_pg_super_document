@@ -44,3 +44,26 @@ This function is essential for MVCC visibility determinations and tuple modifica
 - The combo command ID mechanism allows transactions to exceed the normal 62-command limit
 - Cmax represents the command that deleted or updated the tuple
 - Located in src/backend/utils/time/combocid.c:118-152
+
+## Simplified Source
+
+```c
+CommandId HeapTupleHeaderGetCmax(HeapTupleHeader tup)
+{
+    CommandId cid = HeapTupleHeaderGetRawCommandId(tup);
+
+    Assert(!(tup->t_infomask & HEAP_MOVED));
+    Assert(CritSectionCount > 0 ||
+           TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetUpdateXid(tup)));
+
+    if (tup->t_infomask & HEAP_COMBOCID)
+        return GetRealCmax(cid);
+    else
+        return cid;
+}
+```
+
+This function:
+1. Gets the raw command ID from the tuple header
+2. Validates the tuple state with assertions
+3. Returns the real Cmax via GetRealCmax() if it's a combo CID, otherwise returns raw CID

@@ -46,3 +46,32 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
 - The caller is responsible for ensuring the buffer is locked if needed
 - For backward scans, special handling ensures the offset doesn't exceed the page's maximum offset number, accounting for potential tuple deletions since the last scan
 - This is an inline static function optimized for performance in heap scanning operations
+
+## Simplified Source
+
+```c
+static inline Page heapgettup_continue_page(HeapScanDesc scan, ScanDirection dir,
+                                           int *linesleft, OffsetNumber *lineoff)
+{
+    Page page;
+
+    Assert(scan->rs_inited);
+    Assert(BufferIsValid(scan->rs_cbuf));
+
+    // Get page from current buffer
+    page = BufferGetPage(scan->rs_cbuf);
+
+    if (ScanDirectionIsForward(dir)) {
+        // Forward: start from next offset after current
+        *lineoff = OffsetNumberNext(scan->rs_coffset);
+        *linesleft = PageGetMaxOffsetNumber(page) - (*lineoff) + 1;
+    } else {
+        // Backward: handle potential tuple deletions since last scan
+        *lineoff = Min(PageGetMaxOffsetNumber(page),
+                      OffsetNumberPrev(scan->rs_coffset));
+        *linesleft = *lineoff;
+    }
+
+    return page;
+}
+```

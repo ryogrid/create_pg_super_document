@@ -41,3 +41,42 @@ The function maintains the running checksum state in the context structure, accu
 - Must be called after pg_checksum_init and before pg_checksum_final
 - Supports processing data in arbitrary-sized chunks for memory efficiency
 - Widely used in backup operations where files are streamed rather than loaded entirely into memory
+
+## Simplified Source
+
+```c
+// Update checksum context with new input data
+int pg_checksum_update(pg_checksum_context *context, const uint8 *input, size_t len)
+{
+    switch (context->type) {
+        case CHECKSUM_TYPE_NONE:
+            // No processing needed
+            break;
+
+        case CHECKSUM_TYPE_CRC32C:
+            // Update CRC32C with new data
+            COMP_CRC32C(context->raw_context.c_crc32c, input, len);
+            break;
+
+        case CHECKSUM_TYPE_SHA224:
+        case CHECKSUM_TYPE_SHA256:
+        case CHECKSUM_TYPE_SHA384:
+        case CHECKSUM_TYPE_SHA512:
+            // Update SHA hash with new data
+            if (pg_cryptohash_update(context->raw_context.c_sha2, input, len) < 0)
+                return -1;
+            break;
+    }
+
+    return 0;
+}
+```
+
+**Key Points:**
+- Processes input data through the initialized checksum algorithm
+- Supports incremental/streaming checksum computation
+- CRC32C uses COMP_CRC32C macro for efficient computation
+- SHA variants delegate to cryptographic hash update function
+- Can be called multiple times to process data in chunks
+- Returns 0 on success, -1 on failure
+- Essential for memory-efficient processing of large files

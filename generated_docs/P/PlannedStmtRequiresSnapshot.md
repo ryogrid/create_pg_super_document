@@ -73,3 +73,36 @@ Transaction control statements (BEGIN, COMMIT, ROLLBACK) cannot have snapshots b
 - The function's logic balances correctness with performance by identifying statements that can safely execute without snapshots
 - New utility statement types should default to requiring snapshots unless explicitly exempted
 - Transaction control statements must be exempt to avoid snapshot conflicts at transaction boundaries
+
+## Simplified Source
+
+```c
+bool
+PlannedStmtRequiresSnapshot(PlannedStmt *pstmt)
+{
+    Node *utilityStmt = pstmt->utilityStmt;
+
+    // Non-utility statements (DML) always need a snapshot
+    if (utilityStmt == NULL)
+        return true;
+
+    // Most utility statements need a snapshot by default
+    // Only specific statements that must NOT or don't need snapshots are exempted
+
+    if (IsA(utilityStmt, TransactionStmt) ||       // Transaction control
+        IsA(utilityStmt, LockStmt) ||              // Locking
+        IsA(utilityStmt, VariableSetStmt) ||       // SET commands
+        IsA(utilityStmt, VariableShowStmt) ||      // SHOW commands
+        IsA(utilityStmt, ConstraintsSetStmt) ||    // Constraint settings
+        // Efficiency optimizations below
+        IsA(utilityStmt, FetchStmt) ||             // Cursor operations
+        IsA(utilityStmt, ListenStmt) ||            // Notification setup
+        IsA(utilityStmt, NotifyStmt) ||            // Send notifications
+        IsA(utilityStmt, UnlistenStmt) ||          // Stop listening
+        IsA(utilityStmt, CheckPointStmt))          // Administrative
+        return false;
+
+    // All other statements require a snapshot
+    return true;
+}
+```

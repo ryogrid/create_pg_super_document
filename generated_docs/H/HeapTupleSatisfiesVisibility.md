@@ -42,3 +42,38 @@ The function assumes that the heap tuple is valid and that the buffer is at leas
 
 ## Notes and Other Information
 This function is critical to PostgreSQL's MVCC implementation as it provides a unified interface for all visibility checks. The switch statement design allows for efficient dispatching to the appropriate visibility function while maintaining a clean separation of concerns for different snapshot types. The function may update hint bits as a performance optimization, caching visibility decisions in the tuple header to avoid repeated expensive visibility calculations.
+
+## Simplified Source
+
+```c
+bool
+HeapTupleSatisfiesVisibility(HeapTuple htup, Snapshot snapshot, Buffer buffer)
+{
+    // Dispatch to appropriate visibility function based on snapshot type
+    switch (snapshot->snapshot_type)
+    {
+        case SNAPSHOT_MVCC:
+            return HeapTupleSatisfiesMVCC(htup, snapshot, buffer);
+
+        case SNAPSHOT_SELF:
+            return HeapTupleSatisfiesSelf(htup, snapshot, buffer);
+
+        case SNAPSHOT_ANY:
+            return HeapTupleSatisfiesAny(htup, snapshot, buffer);
+
+        case SNAPSHOT_TOAST:
+            return HeapTupleSatisfiesToast(htup, snapshot, buffer);
+
+        case SNAPSHOT_DIRTY:
+            return HeapTupleSatisfiesDirty(htup, snapshot, buffer);
+
+        case SNAPSHOT_HISTORIC_MVCC:
+            return HeapTupleSatisfiesHistoricMVCC(htup, snapshot, buffer);
+
+        case SNAPSHOT_NON_VACUUMABLE:
+            return HeapTupleSatisfiesNonVacuumable(htup, snapshot, buffer);
+    }
+
+    return false;  // Should never reach here
+}
+```

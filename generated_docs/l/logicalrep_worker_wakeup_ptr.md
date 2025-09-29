@@ -37,3 +37,15 @@ The function performs a simple but critical operation: setting the worker's proc
 - Provides the fundamental inter-process communication primitive for logical replication
 - Essential for minimizing worker response latency in logical replication systems
 - Used extensively throughout the logical replication subsystem for worker coordination
+
+## Simplified Source
+
+```c
+void
+logicalrep_worker_wakeup_ptr(LogicalRepWorker *worker)
+{
+    Assert(LWLockHeldByMe(LogicalRepWorkerLock));
+
+    SetLatch(&worker->proc->procLatch);
+}
+```

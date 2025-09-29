@@ -37,3 +37,22 @@ This function takes no parameters.
 - Only affects pending deletions at the current nesting level or deeper
 - Works in conjunction with AtSubAbort_smgr for complete subtransaction cleanup handling
 - The function preserves the deletion schedule across subtransaction boundaries
+
+## Simplified Source
+
+```c
+void AtSubCommit_smgr(void)
+{
+    int nestLevel = GetCurrentTransactionNestLevel();
+    PendingRelDelete *pending;
+
+    // Iterate through all pending relation deletions
+    for (pending = pendingDeletes; pending != NULL; pending = pending->next)
+    {
+        // If this deletion belongs to current subtransaction or deeper,
+        // reassign it to the parent transaction level
+        if (pending->nestLevel >= nestLevel)
+            pending->nestLevel = nestLevel - 1;
+    }
+}
+```

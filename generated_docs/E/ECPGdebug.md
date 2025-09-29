@@ -34,3 +34,34 @@ ECPGdebug controls the debugging output level and destination stream for ECPG op
 - Universally used in ECPG test programs, typically called early in program initialization
 - Debug messages are controlled by simple_debug global variable
 - Located in src/interfaces/ecpg/ecpglib/misc.c at lines 204-231
+
+## Simplified Source
+
+```c
+void ECPGdebug(int n, FILE *dbgs)
+{
+    // Lock to prevent concurrent debug configuration changes
+    pthread_mutex_lock(&debug_init_mutex);
+    pthread_mutex_lock(&debug_mutex);
+
+    // Check for regression test mode (n > 100)
+    if (n > 100)
+    {
+        ecpg_internal_regression_mode = true;
+        simple_debug = n - 100;  // Use actual debug level minus 100
+    }
+    else
+        simple_debug = n;
+
+    // Set the debug output stream
+    debugstream = dbgs;
+
+    // Release debug_mutex before logging to avoid deadlock
+    pthread_mutex_unlock(&debug_mutex);
+
+    // Log the debug level change (still holding debug_init_mutex)
+    ecpg_log("ECPGdebug: set to %d\n", simple_debug);
+
+    pthread_mutex_unlock(&debug_init_mutex);
+}
+```

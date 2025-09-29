@@ -39,3 +39,25 @@ This function takes no parameters.
 - The  optimization suggests these contexts are typically initialized early and rarely need re-creation
 - Part of PostgreSQL's memory management strategy for statistics infrastructure
 - Memory contexts provide cleanup and organization for statistics-related allocations
+
+## Simplified Source
+
+```c
+static void
+pgstat_setup_memcxt(void)
+{
+    // Create shared reference context if it doesn't exist
+    if (unlikely(!pgStatSharedRefContext))
+        pgStatSharedRefContext =
+            AllocSetContextCreate(TopMemoryContext,
+                                "PgStat Shared Ref",
+                                ALLOCSET_SMALL_SIZES);
+
+    // Create entry reference hash context if it doesn't exist
+    if (unlikely(!pgStatEntryRefHashContext))
+        pgStatEntryRefHashContext =
+            AllocSetContextCreate(TopMemoryContext,
+                                "PgStat Shared Ref Hash",
+                                ALLOCSET_SMALL_SIZES);
+}
+```

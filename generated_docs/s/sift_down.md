@@ -49,3 +49,52 @@ This function is more complex than sift_up because it must handle two children a
 - Time complexity is O(log n) in the worst case (height of the heap)
 - Essential for maintaining heap invariants after removal operations and heap construction
 - More complex than sift_up due to the need to compare and select between two potential children
+
+## Simplified Source
+
+```c
+static void sift_down(binaryheap *heap, int node_off)
+{
+    bh_node_type node_val = heap->bh_nodes[node_off];
+
+    // Create a "hole" and move it down until heap property is satisfied
+    while (true)
+    {
+        int left_off = left_offset(node_off);
+        int right_off = right_offset(node_off);
+        int swap_off = 0;
+
+        // Check if left child is larger than current node
+        if (left_off < heap->bh_size &&
+            heap->bh_compare(node_val,
+                           heap->bh_nodes[left_off],
+                           heap->bh_arg) < 0)
+            swap_off = left_off;
+
+        // Check if right child is larger than current node
+        if (right_off < heap->bh_size &&
+            heap->bh_compare(node_val,
+                           heap->bh_nodes[right_off],
+                           heap->bh_arg) < 0)
+        {
+            // Choose the larger of the two children
+            if (!swap_off ||
+                heap->bh_compare(heap->bh_nodes[left_off],
+                               heap->bh_nodes[right_off],
+                               heap->bh_arg) < 0)
+                swap_off = right_off;
+        }
+
+        // If no child violates heap property, we're done
+        if (!swap_off)
+            break;
+
+        // Move the violating child up into the hole
+        heap->bh_nodes[node_off] = heap->bh_nodes[swap_off];
+        node_off = swap_off;
+    }
+
+    // Fill the hole with the original node value
+    heap->bh_nodes[node_off] = node_val;
+}
+```

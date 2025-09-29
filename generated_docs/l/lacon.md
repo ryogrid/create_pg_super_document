@@ -69,3 +69,53 @@ The function includes important optimizations:
 - The color parameter is actually an offset from the base color count to identify the specific LACON
 - Critical for implementing advanced regex features like (?=...), (?!...), (?<=...), (?<!...)
 - Performance optimized: uses shortest match for lookahead and cached state for lookbehind
+
+## Simplified Source
+
+```c
+static int lacon(struct vars *v, struct cnfa *pcnfa, chr *cp, color co)
+{
+    int n;
+    struct subre *sub;
+    struct dfa *d;
+    chr *end;
+    int satisfied;
+
+    // Protect against stack overflow in recursive calls
+    if (STACK_TOO_DEEP(v->re)) {
+        ERR(REG_ETOOBIG);
+        return 0;
+    }
+
+    // Extract LACON index from color
+    n = co - pcnfa->ncolors;
+    assert(n > 0 && n < v->g->nlacons && v->g->lacons != NULL);
+
+    // Get the lookaround constraint and its DFA
+    sub = &v->g->lacons[n];
+    d = getladfa(v, n);
+    if (d == NULL)
+        return 0;
+
+    if (LATYPE_IS_AHEAD(sub->latype)) {
+        // LOOKAHEAD: test if pattern matches forward from current position
+        // Use shortest() instead of longest() for better performance
+        end = shortest(v, d, cp, cp, v->stop, (chr **) NULL, (int *) NULL);
+
+        // Positive lookahead: satisfied if match found
+        // Negative lookahead: satisfied if no match found
+        satisfied = LATYPE_IS_POS(sub->latype) ? (end != NULL) : (end == NULL);
+    } else {
+        // LOOKBEHIND: test if pattern matches backward
+        // Use matchuntil() with caching to avoid O(N²) behavior
+        // when repeatedly testing lookbehind in an N-character string
+        satisfied = matchuntil(v, d, cp, &v->lblastcss[n], &v->lblastcp[n]);
+
+        // Negative lookbehind: invert the result
+        if (!LATYPE_IS_POS(sub->latype))
+            satisfied = !satisfied;
+    }
+
+    return satisfied;  // 1 if constraint satisfied, 0 if not
+}
+```

@@ -31,3 +31,12 @@ This function serves as a simple getter method that returns the current state of
 
 ## Notes and Other Information
 This is a simple accessor function that directly returns the state field from the SnapBuild structure. The state follows the SnapBuildState enumeration which typically includes states like SNAPBUILD_START, SNAPBUILD_FULL_SNAPSHOT, SNAPBUILD_CONSISTENT, etc. The function is widely used throughout the logical decoding system to determine whether the snapshot builder is ready to process different types of WAL records and whether consistent snapshots are available for transaction decoding.
+
+## Simplified Source
+
+```c
+SnapBuildState SnapBuildCurrentState(SnapBuild *builder)
+{
+    return builder->state;
+}
+```

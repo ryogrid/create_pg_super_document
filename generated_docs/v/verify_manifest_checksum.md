@@ -63,3 +63,69 @@ The function supports both incremental and non-incremental parsing modes, making
 - Part of PostgreSQL's backup verification infrastructure ensuring backup manifest integrity
 - Memory management includes proper cleanup of cryptohash contexts to prevent resource leaks
 - Critical security component for backup and restore operations, preventing use of corrupted manifests
+
+## Simplified Source
+
+```c
+static void
+verify_manifest_checksum(JsonManifestParseState *parse, const char *buffer,
+                         size_t size, pg_cryptohash_ctx *incr_ctx)
+{
+    JsonManifestParseContext *context = parse->context;
+    size_t i, number_of_newlines = 0;
+    size_t ultimate_newline = 0, penultimate_newline = 0;
+    pg_cryptohash_ctx *manifest_ctx;
+    uint8 manifest_checksum_actual[PG_SHA256_DIGEST_LENGTH];
+    uint8 manifest_checksum_expected[PG_SHA256_DIGEST_LENGTH];
+
+    // Find the last two newlines in the file
+    for (i = 0; i < size; ++i)
+    {
+        if (buffer[i] == '\n')
+        {
+            ++number_of_newlines;
+            penultimate_newline = ultimate_newline;
+            ultimate_newline = i;
+        }
+    }
+
+    // Validate file structure
+    if (number_of_newlines < 2)
+        json_manifest_parse_failure(parse->context, "expected at least 2 lines");
+    if (ultimate_newline != size - 1)
+        json_manifest_parse_failure(parse->context, "last line not newline-terminated");
+
+    // Initialize or use existing hash context
+    if (incr_ctx == NULL)
+    {
+        manifest_ctx = pg_cryptohash_create(PG_SHA256);
+        if (manifest_ctx == NULL)
+            context->error_cb(context, "out of memory");
+        if (pg_cryptohash_init(manifest_ctx) < 0)
+            context->error_cb(context, "could not initialize checksum of manifest");
+    }
+    else
+        manifest_ctx = incr_ctx;
+
+    // Compute checksum of all content except last line
+    if (pg_cryptohash_update(manifest_ctx, (const uint8 *) buffer, penultimate_newline + 1) < 0)
+        context->error_cb(context, "could not update checksum of manifest");
+    if (pg_cryptohash_final(manifest_ctx, manifest_checksum_actual,
+                           sizeof(manifest_checksum_actual)) < 0)
+        context->error_cb(context, "could not finalize checksum of manifest");
+
+    // Verify checksum against expected value
+    if (parse->manifest_checksum == NULL)
+        context->error_cb(parse->context, "manifest has no checksum");
+    if (strlen(parse->manifest_checksum) != PG_SHA256_DIGEST_LENGTH * 2 ||
+        !hexdecode_string(manifest_checksum_expected, parse->manifest_checksum,
+                         PG_SHA256_DIGEST_LENGTH))
+        context->error_cb(context, "invalid manifest checksum: \"%s\"",
+                         parse->manifest_checksum);
+    if (memcmp(manifest_checksum_actual, manifest_checksum_expected,
+               PG_SHA256_DIGEST_LENGTH) != 0)
+        context->error_cb(context, "manifest checksum mismatch");
+
+    pg_cryptohash_free(manifest_ctx);
+}
+```

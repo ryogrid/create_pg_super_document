@@ -41,3 +41,26 @@ The function includes a performance note indicating that the linear search might
 - Used primarily to prevent duplicate channel registrations and to filter relevant notifications
 - Returns a simple boolean indicating listening status for the specified channel
 - The function performs case-sensitive string matching for channel names
+
+## Simplified Source
+
+```c
+static bool
+IsListeningOn(const char *channel)
+{
+    ListCell *p;
+
+    // Iterate through all channels we're listening on
+    foreach(p, listenChannels)
+    {
+        char *lchan = (char *) lfirst(p);
+
+        // Return true if we find an exact match
+        if (strcmp(lchan, channel) == 0)
+            return true;
+    }
+
+    // Not found in our listen list
+    return false;
+}
+```

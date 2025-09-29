@@ -37,3 +37,36 @@ This function is almost the inverse of XLogArchiveCheckDone but differs in that 
 - Critical for backup operations to ensure all required WAL files are archived
 - The function assumes that missing WAL files have been successfully archived and deleted
 - Used primarily in backup completion logic to verify archival state
+
+## Simplified Source
+
+```c
+// Check if XLOG segment file is still unarchived
+bool XLogArchiveIsBusy(const char *xlog)
+{
+    char archiveStatusPath[MAXPGPATH];
+    struct stat stat_buf;
+
+    // First check for .done file - archiver completed
+    StatusFilePath(archiveStatusPath, xlog, ".done");
+    if (stat(archiveStatusPath, &stat_buf) == 0)
+        return false;  // Not busy, archival complete
+
+    // Check for .ready file - archiver still working
+    StatusFilePath(archiveStatusPath, xlog, ".ready");
+    if (stat(archiveStatusPath, &stat_buf) == 0)
+        return true;   // Busy, archival in progress
+
+    // Race condition check - recheck for .done
+    StatusFilePath(archiveStatusPath, xlog, ".done");
+    if (stat(archiveStatusPath, &stat_buf) == 0)
+        return false;  // Completed during our check
+
+    // Check if WAL file itself was removed by checkpoint
+    snprintf(archiveStatusPath, MAXPGPATH, XLOGDIR "/%s", xlog);
+    if (stat(archiveStatusPath, &stat_buf) != 0 && errno == ENOENT)
+        return false;  // File gone, assume archived
+
+    return true;  // File exists but no status - assume busy
+}
+```

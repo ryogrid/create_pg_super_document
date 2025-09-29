@@ -29,7 +29,7 @@ This function takes no parameters and operates on the global pg_tblspc directory
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AllocateDir](../A/AllocateDir.md)
-  - [ReadDir](../R/ReadDir.md)  
+  - [ReadDir](../R/ReadDir.md)
   - [get_dirent_type](../g/get_dirent_type.md)
   - snprintf
   - strspn
@@ -47,3 +47,35 @@ This function takes no parameters and operates on the global pg_tblspc directory
 - Real directories in pg_tblspc typically indicate failed cleanup of dropped databases/tablespaces
 - The function provides detailed error messages with hints for resolution when violations are found
 - This check is part of ensuring data consistency before allowing normal database operations
+
+## Simplified Source
+
+```c
+static void
+CheckTablespaceDirectory(void)
+{
+	DIR *dir;
+	struct dirent *de;
+
+	dir = AllocateDir("pg_tblspc");
+	while ((de = ReadDir(dir, "pg_tblspc")) != NULL)
+	{
+		char path[MAXPGPATH + 10];
+
+		// Skip non-numeric entries (not OIDs)
+		if (strspn(de->d_name, "0123456789") != strlen(de->d_name))
+			continue;
+
+		snprintf(path, sizeof(path), "pg_tblspc/%s", de->d_name);
+
+		// Check if entry is not a symbolic link
+		if (get_dirent_type(path, de, false, ERROR) != PGFILETYPE_LNK)
+			ereport(allow_in_place_tablespaces ? WARNING : PANIC,
+					(errcode(ERRCODE_DATA_CORRUPTED),
+					 errmsg("unexpected directory entry \"%s\" found in %s",
+							de->d_name, "pg_tblspc/"),
+					 errdetail("All directory entries in pg_tblspc/ should be symbolic links."),
+					 errhint("Remove those directories, or set \"allow_in_place_tablespaces\" to ON transiently to let recovery complete.")));
+	}
+}
+```

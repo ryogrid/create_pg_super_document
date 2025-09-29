@@ -36,3 +36,16 @@ The function checks two global variables: `pendingActions` (which tracks pending
 - The restriction ensures data consistency and prevents complex edge cases in distributed transactions
 - Location: src/backend/commands/async.c:836-860
 - Part of PostgreSQL's transaction management system for notification operations
+
+## Simplified Source
+
+```c
+void AtPrepare_Notify(void)
+{
+    // Check if there are any pending LISTEN/UNLISTEN/NOTIFY actions
+    if (pendingActions || pendingNotifies)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot PREPARE a transaction that has executed LISTEN, UNLISTEN, or NOTIFY")));
+}
+```

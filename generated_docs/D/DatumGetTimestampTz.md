@@ -36,3 +36,12 @@ DatumGetTimestampTz is an inline function that extracts a TimestampTz value from
 - Used in various contexts including recovery validation, authentication, JSON processing, and statistical functions
 - TimestampTz differs from Timestamp conceptually (includes timezone awareness) but has the same internal representation
 - Location: src/include/utils/timestamp.h:34-39
+
+## Simplified Source
+
+```c
+static inline TimestampTz DatumGetTimestampTz(Datum X)
+{
+    return (TimestampTz) DatumGetInt64(X);
+}
+```

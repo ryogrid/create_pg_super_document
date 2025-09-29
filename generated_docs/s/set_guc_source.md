@@ -47,3 +47,26 @@ This approach ensures that the guc_nondef_list always accurately reflects which 
 - The function handles both directions of source changes (default ↔ non-default) safely
 - This abstraction prevents bugs that could occur from forgetting to update list membership when changing source values
 - The function is part of the GUC system's internal bookkeeping and helps optimize operations that need to work with only non-default parameters
+
+## Simplified Source
+
+```c
+static void
+set_guc_source(struct config_generic *gconf, GucSource newsource)
+{
+    // Adjust guc_nondef_list membership based on source change
+    if (gconf->source == PGC_S_DEFAULT)
+    {
+        if (newsource != PGC_S_DEFAULT)
+            dlist_push_tail(&guc_nondef_list, &gconf->nondef_link);
+    }
+    else
+    {
+        if (newsource == PGC_S_DEFAULT)
+            dlist_delete(&gconf->nondef_link);
+    }
+
+    // Update the source field
+    gconf->source = newsource;
+}
+```

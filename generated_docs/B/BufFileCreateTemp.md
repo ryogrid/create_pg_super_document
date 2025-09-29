@@ -39,3 +39,29 @@ The function first calls PrepareTempTablespaces() to ensure temporary tablespace
 - The BufFile can automatically expand to multiple physical files when data exceeds size limits
 - Uses Assert to verify that file creation succeeded
 - The underlying temporary files are managed by PostgreSQL's file management system
+
+## Simplified Source
+
+```c
+// Create a new temporary BufFile
+BufFile *BufFileCreateTemp(bool interXact)
+{
+    BufFile *file;
+    File pfile;
+
+    // Ensure temp tablespaces are set up properly
+    // This prevents hard-to-detect bugs where temp files always
+    // go to default tablespace
+    PrepareTempTablespaces();
+
+    // Create the underlying temporary file
+    pfile = OpenTemporaryFile(interXact);
+    Assert(pfile >= 0);
+
+    // Wrap the File in a BufFile structure
+    file = makeBufFile(pfile);
+    file->isInterXact = interXact;
+
+    return file;
+}
+```

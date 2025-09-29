@@ -40,3 +40,66 @@ This operation is typically used during transaction cleanup phases to remove old
 - Includes DEBUG4 logging for troubleshooting cleanup operations
 - Automatically advances tail pointer over invalid entries for performance optimization
 - Performs opportunistic compression after cleanup to maintain array efficiency
+
+## Simplified Source
+
+```c
+// Remove all transaction IDs older than removeXid from KnownAssignedXids array
+static void KnownAssignedXidsRemovePreceding(TransactionId removeXid)
+{
+    ProcArrayStruct *pArray = procArray;
+    int count = 0;
+    int head, tail, i;
+
+    // Special case: clear entire array if removeXid is invalid
+    if (!TransactionIdIsValid(removeXid)) {
+        elog(DEBUG4, "removing all KnownAssignedXids");
+        pArray->numKnownAssignedXids = 0;
+        pArray->headKnownAssignedXids = pArray->tailKnownAssignedXids = 0;
+        return;
+    }
+
+    elog(DEBUG4, "prune KnownAssignedXids to %u", removeXid);
+
+    // Mark old entries as invalid (array is sorted, so we can stop early)
+    tail = pArray->tailKnownAssignedXids;
+    head = pArray->headKnownAssignedXids;
+
+    for (i = tail; i < head; i++) {
+        if (KnownAssignedXidsValid[i]) {
+            TransactionId knownXid = KnownAssignedXids[i];
+
+            // Stop when we reach newer transactions
+            if (TransactionIdFollowsOrEquals(knownXid, removeXid))
+                break;
+
+            // Mark as invalid unless it's a prepared transaction
+            if (!StandbyTransactionIdIsPrepared(knownXid)) {
+                KnownAssignedXidsValid[i] = false;
+                count++;
+            }
+        }
+    }
+
+    // Update count
+    pArray->numKnownAssignedXids -= count;
+    Assert(pArray->numKnownAssignedXids >= 0);
+
+    // Advance tail pointer past invalid entries
+    for (i = tail; i < head; i++) {
+        if (KnownAssignedXidsValid[i])
+            break;
+    }
+
+    if (i >= head) {
+        // Array is empty, reset pointers
+        pArray->headKnownAssignedXids = 0;
+        pArray->tailKnownAssignedXids = 0;
+    } else {
+        pArray->tailKnownAssignedXids = i;
+    }
+
+    // Compress array to remove gaps
+    KnownAssignedXidsCompress(KAX_PRUNE, true);
+}
+```

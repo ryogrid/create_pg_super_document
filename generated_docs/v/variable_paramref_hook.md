@@ -42,3 +42,56 @@ This hook function handles parameter references ($1, $2, etc.) when parameter ty
 - Sets paramtypmod to -1 (indicating no specific type modifier)
 - Used primarily for ad-hoc queries where parameter types are determined contextually
 - Memory is allocated in zero-filled blocks to ensure proper initialization
+
+## Simplified Source
+
+```c
+static Node *
+variable_paramref_hook(ParseState *pstate, ParamRef *pref)
+{
+    VarParamState *parstate = (VarParamState *) pstate->p_ref_hook_state;
+    int paramno = pref->number;
+    Oid *pptype;
+    Param *param;
+
+    // Check parameter number is valid
+    if (paramno <= 0 || paramno > INT_MAX / sizeof(Oid))
+        ereport(ERROR,
+            (errcode(ERRCODE_UNDEFINED_PARAMETER),
+             errmsg("there is no parameter $%d", paramno),
+             parser_errposition(pstate, pref->location)));
+
+    // Expand parameter array if necessary
+    if (paramno > *parstate->numParams)
+    {
+        if (*parstate->paramTypes)
+            *parstate->paramTypes = repalloc0_array(*parstate->paramTypes, Oid,
+                                                    *parstate->numParams, paramno);
+        else
+            *parstate->paramTypes = palloc0_array(Oid, paramno);
+        *parstate->numParams = paramno;
+    }
+
+    // Get pointer to this parameter's type slot
+    pptype = &(*parstate->paramTypes)[paramno - 1];
+
+    // Initialize to UNKNOWN if not seen before
+    if (*pptype == InvalidOid)
+        *pptype = UNKNOWNOID;
+
+    // JDBC compatibility: treat void parameters in procedure calls as unknown
+    if (*pptype == VOIDOID && pstate->p_expr_kind == EXPR_KIND_CALL_ARGUMENT)
+        *pptype = UNKNOWNOID;
+
+    // Create and return Param node
+    param = makeNode(Param);
+    param->paramkind = PARAM_EXTERN;
+    param->paramid = paramno;
+    param->paramtype = *pptype;
+    param->paramtypmod = -1;
+    param->paramcollid = get_typcollation(param->paramtype);
+    param->location = pref->location;
+
+    return (Node *) param;
+}
+```

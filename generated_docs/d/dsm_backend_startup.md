@@ -43,3 +43,38 @@ The function performs sanity checks on the control segment after attachment to e
 - Reports FATAL error if control segment sanity check fails, indicating serious corruption
 - Sets the global dsm_init_done flag to true to indicate DSM system is ready for use
 - Assumes dsm_control_handle is already set by postmaster startup process
+
+## Simplified Source
+
+```c
+static void dsm_backend_startup(void)
+{
+#ifdef EXEC_BACKEND
+    if (IsUnderPostmaster) {
+        void *control_address = NULL;
+
+        // Attach to the DSM control segment
+        Assert(dsm_control_handle != 0);
+        dsm_impl_op(DSM_OP_ATTACH, dsm_control_handle, 0,
+                    &dsm_control_impl_private, &control_address,
+                    &dsm_control_mapped_size, ERROR);
+        dsm_control = control_address;
+
+        // Verify the control segment is valid
+        if (!dsm_control_segment_sane(dsm_control, dsm_control_mapped_size)) {
+            // Clean up on corruption
+            dsm_impl_op(DSM_OP_DETACH, dsm_control_handle, 0,
+                        &dsm_control_impl_private, &control_address,
+                        &dsm_control_mapped_size, WARNING);
+
+            // Report fatal error - corrupted control segment is serious
+            ereport(FATAL,
+                    (errcode(ERRCODE_INTERNAL_ERROR),
+                     errmsg("dynamic shared memory control segment is not valid")));
+        }
+    }
+#endif
+
+    dsm_init_done = true;  // Mark DSM system as initialized
+}
+```

@@ -39,3 +39,66 @@ The function uses range checks for optimization, followed by searches through th
 - Handles snapshot overflow conditions by converting subtransaction XIDs to their parent XIDs
 - During recovery, all XIDs are stored in the subxip array with the xip array being empty
 - Critical for PostgreSQL's MVCC visibility rules and transaction isolation guarantees
+
+## Simplified Source
+
+```c
+bool
+XidInMVCCSnapshot(TransactionId xid, Snapshot snapshot)
+{
+    // Quick range check to eliminate most XIDs without array searches
+
+    // Any xid < xmin is not in-progress (too old)
+    if (TransactionIdPrecedes(xid, snapshot->xmin))
+        return false;
+
+    // Any xid >= xmax is in-progress (too new)
+    if (TransactionIdFollowsOrEquals(xid, snapshot->xmax))
+        return true;
+
+    // Handle different snapshot storage formats
+    if (!snapshot->takenDuringRecovery)
+    {
+        // Normal operation mode
+        if (!snapshot->suboverflowed)
+        {
+            // We have full subxact data, search subxact array first
+            if (pg_lfind32(xid, snapshot->subxip, snapshot->subxcnt))
+                return true;
+            // Not in subxacts, fall through to search main xip array
+        }
+        else
+        {
+            // Snapshot overflowed, convert subxact to top-level XID
+            xid = SubTransGetTopmostTransaction(xid);
+
+            // Recheck range after conversion (might now be < xmin)
+            if (TransactionIdPrecedes(xid, snapshot->xmin))
+                return false;
+        }
+
+        // Search the main XID array
+        if (pg_lfind32(xid, snapshot->xip, snapshot->xcnt))
+            return true;
+    }
+    else
+    {
+        // Recovery mode - all xids stored in subxip array, xip array is empty
+        if (snapshot->suboverflowed)
+        {
+            // Convert to top-level XID
+            xid = SubTransGetTopmostTransaction(xid);
+
+            // Recheck range after conversion
+            if (TransactionIdPrecedes(xid, snapshot->xmin))
+                return false;
+        }
+
+        // In recovery, search the subxip array (contains all XIDs)
+        if (pg_lfind32(xid, snapshot->subxip, snapshot->subxcnt))
+            return true;
+    }
+
+    return false;
+}
+```

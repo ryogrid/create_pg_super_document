@@ -40,3 +40,38 @@ The function operates within the reorder buffer framework, which is responsible 
 - Uses txn->final_lsn as report_location (beginning of commit record) and txn->end_lsn as write_location (end of record)
 - Ensures proper cleanup of error context stack after callback execution
 - Part of the logical decoding callback wrapper system that provides consistent error handling across different transaction events
+
+## Simplified Source
+
+```c
+static void commit_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                             XLogRecPtr commit_lsn)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    Assert(!ctx->fast_forward);
+
+    // Set up error handling context
+    state.ctx = ctx;
+    state.callback_name = "commit";
+    state.report_location = txn->final_lsn;  // beginning of commit record
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for transaction end
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = txn->end_lsn;  // points to end of record
+    ctx->end_xact = true;
+
+    // Call the actual plugin commit callback
+    ctx->callbacks.commit_cb(ctx, txn, commit_lsn);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```

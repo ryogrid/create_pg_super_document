@@ -55,3 +55,86 @@ Key operations performed:
 - The function clears the dirty flag only after successful completion of all writes
 - Critical for maintaining data integrity in buffered file operations
 - Handles edge cases like backwards seeks in dirty buffers by proper offset calculations
+
+## Simplified Source
+
+```c
+static void
+BufFileDumpBuffer(BufFile *file)
+{
+    int wpos = 0;
+    int bytestowrite;
+    File thisfile;
+
+    // Unlike loading, must dump whole buffer even across file boundaries
+    while (wpos < file->nbytes)
+    {
+        off_t availbytes;
+        instr_time io_start, io_time;
+
+        // Create new file if current file is at size limit
+        if (file->curOffset >= MAX_PHYSICAL_FILESIZE)
+        {
+            while (file->curFile + 1 >= file->numFiles)
+                extendBufFile(file);
+            file->curFile++;
+            file->curOffset = 0;
+        }
+
+        // Calculate how much to write to this file
+        bytestowrite = file->nbytes - wpos;
+        availbytes = MAX_PHYSICAL_FILESIZE - file->curOffset;
+
+        if ((off_t) bytestowrite > availbytes)
+            bytestowrite = (int) availbytes;
+
+        thisfile = file->files[file->curFile];
+
+        // Track I/O timing if enabled
+        if (track_io_timing)
+            INSTR_TIME_SET_CURRENT(io_start);
+        else
+            INSTR_TIME_SET_ZERO(io_start);
+
+        // Write data to file
+        bytestowrite = FileWrite(thisfile,
+                               file->buffer.data + wpos,
+                               bytestowrite,
+                               file->curOffset,
+                               WAIT_EVENT_BUFFILE_WRITE);
+        if (bytestowrite <= 0)
+            ereport(ERROR,
+                   (errcode_for_file_access(),
+                    errmsg("could not write to file \"%s\": %m",
+                           FilePathName(thisfile))));
+
+        // Update I/O timing statistics
+        if (track_io_timing)
+        {
+            INSTR_TIME_SET_CURRENT(io_time);
+            INSTR_TIME_ACCUM_DIFF(pgBufferUsage.temp_blk_write_time, io_time, io_start);
+        }
+
+        // Advance positions
+        file->curOffset += bytestowrite;
+        wpos += bytestowrite;
+
+        pgBufferUsage.temp_blks_written++;
+    }
+    file->dirty = false;
+
+    // Adjust position for logical file positioning
+    // (handle case where logical position < written data end)
+    file->curOffset -= (file->nbytes - file->pos);
+    if (file->curOffset < 0)    // handle segment crossing
+    {
+        file->curFile--;
+        Assert(file->curFile >= 0);
+        file->curOffset += MAX_PHYSICAL_FILESIZE;
+    }
+
+    // Reset buffer to empty state
+    file->pos = 0;
+    file->nbytes = 0;
+}
+```

@@ -31,8 +31,45 @@ This internal function iterates through all locks held by a specific transaction
 
 ## Notes and Other Information
 - Static function not exposed outside standby.c
-- Includes paranoid cleanup by setting xidentry->head to NULL after releasing all locks  
+- Includes paranoid cleanup by setting xidentry->head to NULL after releasing all locks
 - Logs detailed DEBUG4 messages for each lock being released
 - Contains assertion checks to detect inconsistencies between hash tables and lock manager
 - Part of the recovery lock management system that maintains consistency during WAL replay
 - Essential for preventing lock leaks when transactions complete during recovery
+
+## Simplified Source
+
+```c
+// Release all locks held by a transaction during recovery
+static void StandbyReleaseXidEntryLocks(RecoveryLockXidEntry *xidentry)
+{
+    RecoveryLockEntry *entry, *next;
+
+    // Walk through all locks held by this transaction
+    for (entry = xidentry->head; entry != NULL; entry = next) {
+        LOCKTAG locktag;
+
+        // Log the lock being released
+        elog(DEBUG4, "releasing recovery lock: xid %u db %u rel %u",
+             entry->key.xid, entry->key.dbOid, entry->key.relOid);
+
+        // Set up lock tag for this relation
+        SET_LOCKTAG_RELATION(locktag, entry->key.dbOid, entry->key.relOid);
+
+        // Release the AccessExclusive lock
+        if (!LockRelease(&locktag, AccessExclusiveLock, true)) {
+            elog(LOG, "RecoveryLockHash contains entry for lock no longer recorded by lock manager: "
+                      "xid %u database %u relation %u",
+                 entry->key.xid, entry->key.dbOid, entry->key.relOid);
+            Assert(false);
+        }
+
+        // Remove from hash table and move to next
+        next = entry->next;
+        hash_search(RecoveryLockHash, entry, HASH_REMOVE, NULL);
+    }
+
+    // Clear the head pointer for safety
+    xidentry->head = NULL;
+}
+```

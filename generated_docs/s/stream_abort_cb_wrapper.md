@@ -45,3 +45,46 @@ Unlike the start and stop wrappers, this function sets ctx->end_xact to true, in
 - The plugin callback receives the abort_lsn as an additional parameter
 - Part of PostgreSQL's logical replication streaming feature for handling transaction rollbacks
 - Critical for proper cleanup when large streaming transactions are aborted
+
+## Simplified Source
+
+```c
+static void stream_abort_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                                   XLogRecPtr abort_lsn)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    Assert(!ctx->fast_forward);
+    Assert(ctx->streaming);  // Only for streaming mode
+
+    // Set up error handling context
+    state.ctx = ctx;
+    state.callback_name = "stream_abort";
+    state.report_location = abort_lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for transaction abort
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = abort_lsn;
+    ctx->end_xact = true;
+
+    // Validate callback is available for streaming mode
+    if (ctx->callbacks.stream_abort_cb == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("logical streaming requires a %s callback",
+                        "stream_abort_cb")));
+
+    // Call the actual plugin stream abort callback
+    ctx->callbacks.stream_abort_cb(ctx, txn, abort_lsn);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```

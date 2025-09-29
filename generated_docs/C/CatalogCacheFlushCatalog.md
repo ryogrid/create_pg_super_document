@@ -40,3 +40,33 @@ The design avoids re-initializing cache structures during flush operations to pr
 - Includes debug logging to help trace catalog-specific cache flushes
 - Avoids cache re-initialization during flush to prevent loading-related complications
 - The function assumes that tuple descriptors of cacheable system tables do not change
+
+## Simplified Source
+
+```c
+// Flush all cache entries from a specific system catalog
+void CatalogCacheFlushCatalog(Oid catId)
+{
+    slist_iter iter;
+
+    CACHE_elog(DEBUG2, "CatalogCacheFlushCatalog called for %u", catId);
+
+    // Check each catalog cache
+    slist_foreach(iter, &CacheHdr->ch_caches)
+    {
+        CatCache *cache = slist_container(CatCache, cc_next, iter.cur);
+
+        // Does this cache store tuples from the target catalog?
+        if (cache->cc_reloid == catId)
+        {
+            // Flush all contents of this cache
+            ResetCatalogCache(cache, false);
+
+            // Notify other components via callbacks
+            CallSyscacheCallbacks(cache->id, 0);
+        }
+    }
+
+    CACHE_elog(DEBUG2, "end of CatalogCacheFlushCatalog call");
+}
+```

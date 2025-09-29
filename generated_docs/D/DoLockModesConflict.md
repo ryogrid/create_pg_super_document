@@ -36,3 +36,22 @@ The conflict determination is based on a pre-computed conflict matrix stored in 
 - This function provides a clean abstraction over the low-level conflict table access
 - Essential for deadlock detection and lock compatibility checking throughout PostgreSQL
 - The conflict table is initialized during system startup with predefined lock mode relationships
+
+## Simplified Source
+
+```c
+bool DoLockModesConflict(LOCKMODE mode1, LOCKMODE mode2)
+{
+    LockMethod lockMethodTable = LockMethods[DEFAULT_LOCKMETHOD];
+
+    if (lockMethodTable->conflictTab[mode1] & LOCKBIT_ON(mode2))
+        return true;
+
+    return false;
+}
+```
+
+This function checks if two lock modes conflict by:
+1. Getting the default lock method table
+2. Checking if mode1's conflict mask has the bit for mode2 set
+3. Returning true if they conflict, false otherwise

@@ -63,3 +63,69 @@ The function handles several special cases:
 - Sets conservative defaults for constraint fields (attnotnull=false, atthasdef=false, etc.)
 - Widely used throughout PostgreSQL for dynamic tuple descriptor construction
 - Critical component in function result type determination and table creation processes
+
+## Simplified Source
+
+```c
+void TupleDescInitEntry(TupleDesc desc,
+                        AttrNumber attributeNumber,
+                        const char *attributeName,
+                        Oid oidtypeid,
+                        int32 typmod,
+                        int attdim)
+{
+    HeapTuple tuple;
+    Form_pg_type typeForm;
+    Form_pg_attribute att;
+
+    // Sanity checks
+    Assert(PointerIsValid(desc));
+    Assert(attributeNumber >= 1);
+    Assert(attributeNumber <= desc->natts);
+    Assert(attdim >= 0);
+    Assert(attdim <= PG_INT16_MAX);
+
+    // Get attribute structure to initialize
+    att = TupleDescAttr(desc, attributeNumber - 1);
+
+    // Set basic attribute properties
+    att->attrelid = 0;  // dummy value
+    att->attcacheoff = -1;
+    att->atttypmod = typmod;
+    att->attnum = attributeNumber;
+    att->attndims = attdim;
+
+    // Handle attribute name
+    if (attributeName == NULL)
+        MemSet(NameStr(att->attname), 0, NAMEDATALEN);
+    else if (attributeName != NameStr(att->attname))
+        namestrcpy(&(att->attname), attributeName);
+
+    // Set default constraint values
+    att->attnotnull = false;
+    att->atthasdef = false;
+    att->atthasmissing = false;
+    att->attidentity = '\0';
+    att->attgenerated = '\0';
+    att->attisdropped = false;
+    att->attislocal = true;
+    att->attinhcount = 0;
+
+    // Look up type information in system catalog
+    tuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(oidtypeid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for type %u", oidtypeid);
+    typeForm = (Form_pg_type) GETSTRUCT(tuple);
+
+    // Copy type properties from catalog
+    att->atttypid = oidtypeid;
+    att->attlen = typeForm->typlen;
+    att->attbyval = typeForm->typbyval;
+    att->attalign = typeForm->typalign;
+    att->attstorage = typeForm->typstorage;
+    att->attcompression = InvalidCompressionMethod;
+    att->attcollation = typeForm->typcollation;
+
+    ReleaseSysCache(tuple);
+}
+```

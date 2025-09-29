@@ -53,3 +53,53 @@ The function ensures that notification operations are atomic with the transactio
 - All pending actions are processed atomically as part of the transaction commit
 - Location: src/backend/commands/async.c:968-1040
 - Critical for completing the two-phase notification commit protocol
+
+## Simplified Source
+
+```c
+void AtCommit_Notify(void)
+{
+    // Quick exit if no pending actions or notifications
+    if (!pendingActions && !pendingNotifies)
+        return;
+
+    if (Trace_notify)
+        elog(DEBUG1, "AtCommit_Notify");
+
+    // Process pending LISTEN/UNLISTEN actions
+    if (pendingActions != NULL) {
+        foreach(p, pendingActions->actions) {
+            ListenAction *actrec = (ListenAction *) lfirst(p);
+
+            switch (actrec->action) {
+                case LISTEN_LISTEN:
+                    Exec_ListenCommit(actrec->channel);
+                    break;
+                case LISTEN_UNLISTEN:
+                    Exec_UnlistenCommit(actrec->channel);
+                    break;
+                case LISTEN_UNLISTEN_ALL:
+                    Exec_UnlistenAllCommit();
+                    break;
+            }
+        }
+    }
+
+    // Unregister from listener array if no longer listening
+    if (amRegisteredListener && listenChannels == NIL)
+        asyncQueueUnregister();
+
+    // Signal backends about pending notifications
+    if (pendingNotifies != NULL)
+        SignalBackends();
+
+    // Advance queue tail if needed (cleanup old messages)
+    if (tryAdvanceTail) {
+        tryAdvanceTail = false;
+        asyncQueueAdvanceTail();
+    }
+
+    // Clean up transaction-local state
+    ClearPendingActionsAndNotifies();
+}
+```

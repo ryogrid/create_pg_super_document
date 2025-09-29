@@ -47,3 +47,55 @@ This function serves as the central dispatcher for PostgreSQL's node serializati
 - The serialized format is designed to be human-readable and parseable
 - [Complex](../C/Complex.md) nodes are wrapped in curly braces { } while simple scalar types are not
 - Used extensively in query plan visualization, debugging output, and inter-process communication
+
+## Simplified Source
+
+```c
+void outNode(StringInfo str, const void *obj)
+{
+    // Prevent stack overflow in deeply nested expressions
+    check_stack_depth();
+
+    if (obj == NULL) {
+        appendStringInfoString(str, "<>");
+        return;
+    }
+
+    // Handle list types directly
+    if (IsA(obj, List) || IsA(obj, IntList) || IsA(obj, OidList) || IsA(obj, XidList)) {
+        _outList(str, obj);
+        return;
+    }
+
+    // Handle scalar types without braces
+    if (IsA(obj, Integer)) {
+        _outInteger(str, (Integer *) obj);
+    } else if (IsA(obj, Float)) {
+        _outFloat(str, (Float *) obj);
+    } else if (IsA(obj, Boolean)) {
+        _outBoolean(str, (Boolean *) obj);
+    } else if (IsA(obj, String)) {
+        _outString(str, (String *) obj);
+    } else if (IsA(obj, BitString)) {
+        _outBitString(str, (BitString *) obj);
+    } else if (IsA(obj, Bitmapset)) {
+        outBitmapset(str, (Bitmapset *) obj);
+    } else {
+        // Handle complex node types with braces
+        appendStringInfoChar(str, '{');
+
+        switch (nodeTag(obj)) {
+            // Comprehensive switch statement handles all node types
+            #include "outfuncs.switch.c"
+
+            default:
+                // Warn but don't fail on unknown node types
+                elog(WARNING, "could not dump unrecognized node type: %d",
+                     (int) nodeTag(obj));
+                break;
+        }
+
+        appendStringInfoChar(str, '}');
+    }
+}
+```

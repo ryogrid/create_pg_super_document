@@ -33,3 +33,12 @@ This function releases locks on PostgreSQL statistics entries by calling LWLockR
 
 ## Notes and Other Information
 Works uniformly for both exclusive and shared locks. LWLockRelease() automatically determines the correct unlock operation. Must be paired with a corresponding lock acquisition to maintain proper lock semantics.
+
+## Simplified Source
+
+```c
+void pgstat_unlock_entry(PgStat_EntryRef *entry_ref)
+{
+    LWLockRelease(&entry_ref->shared_stats->lock);
+}
+```

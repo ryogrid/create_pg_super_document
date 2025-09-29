@@ -35,3 +35,18 @@ The function checks if the SLRU control structure has any LSN groups configured 
 - Only performs work if lsn_groups_per_page > 0, making it safe for SLRUs without LSN tracking
 - The zeroing covers all LSN groups for the entire page slot
 - This function helps maintain WAL consistency by ensuring clean LSN initialization
+
+## Simplified Source
+
+```c
+static void SimpleLruZeroLSNs(SlruCtl ctl, int slotno)
+{
+    SlruShared shared = ctl->shared;
+
+    // Zero all LSNs for this page slot if LSN tracking is enabled
+    if (shared->lsn_groups_per_page > 0) {
+        MemSet(&shared->group_lsn[slotno * shared->lsn_groups_per_page], 0,
+               shared->lsn_groups_per_page * sizeof(XLogRecPtr));
+    }
+}
+```

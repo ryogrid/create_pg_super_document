@@ -54,3 +54,49 @@ This function is designed to be called from multiple contexts: directly when loc
 - Updates global transaction completion counters for monitoring and statistics
 - The function assumes the transaction has already been committed or aborted in WAL
 - Designed to minimize shared memory updates when possible (e.g., only clearing vacuum flags if they were set)
+
+## Simplified Source
+
+```c
+static inline void ProcArrayEndTransactionInternal(PGPROC *proc, TransactionId latestXid)
+{
+    int pgxactoff = proc->pgxactoff;
+
+    // Verify exclusive lock is held
+    Assert(LWLockHeldByMeInMode(ProcArrayLock, LW_EXCLUSIVE));
+    Assert(TransactionIdIsValid(ProcGlobal->xids[pgxactoff]));
+    Assert(ProcGlobal->xids[pgxactoff] == proc->xid);
+
+    // Clear transaction IDs
+    ProcGlobal->xids[pgxactoff] = InvalidTransactionId;
+    proc->xid = InvalidTransactionId;
+    proc->vxid.lxid = InvalidLocalTransactionId;
+    proc->xmin = InvalidTransactionId;
+
+    // Reset transaction-related flags
+    proc->delayChkptFlags = 0;
+    proc->recoveryConflictPending = false;
+
+    // Clear vacuum state flags if set
+    if (proc->statusFlags & PROC_VACUUM_STATE_MASK)
+    {
+        proc->statusFlags &= ~PROC_VACUUM_STATE_MASK;
+        ProcGlobal->statusFlags[proc->pgxactoff] = proc->statusFlags;
+    }
+
+    // Clear subtransaction cache
+    if (proc->subxidStatus.count > 0 || proc->subxidStatus.overflowed)
+    {
+        ProcGlobal->subxidStates[pgxactoff].count = 0;
+        ProcGlobal->subxidStates[pgxactoff].overflowed = false;
+        proc->subxidStatus.count = 0;
+        proc->subxidStatus.overflowed = false;
+    }
+
+    // Update global completion tracking
+    MaintainLatestCompletedXid(latestXid);
+    TransamVariables->xactCompletionCount++;
+}
+```
+
+This function performs the internal cleanup when ending a transaction, clearing transaction IDs, resetting flags, and updating global completion tracking. It assumes exclusive ProcArrayLock is already held.

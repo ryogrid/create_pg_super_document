@@ -30,3 +30,12 @@ The `lrq_free` function is a simple wrapper around PostgreSQL's `pfree` function
 - Should always be called to clean up queues allocated with lrq_alloc
 - Implemented as static inline for minimal overhead
 - Does not perform any cleanup of queue contents - caller must ensure queue is properly drained before freeing
+
+## Simplified Source
+```c
+// Free an LSN read queue
+static inline void lrq_free(LsnReadQueue *lrq)
+{
+    pfree(lrq);  // Deallocate the queue memory
+}
+```

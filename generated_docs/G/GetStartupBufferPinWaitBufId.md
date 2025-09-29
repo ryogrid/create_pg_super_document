@@ -34,3 +34,18 @@ This function takes no parameters and returns an integer representing the buffer
 - This is part of PostgreSQL's Hot Standby buffer pin conflict resolution mechanism
 - Backends use this information to determine if they need to release buffer pins to resolve recovery conflicts
 - The function provides a lock-free way to check the startup process wait state
+
+## Simplified Source
+
+```c
+int GetStartupBufferPinWaitBufId(void)
+{
+    // Use volatile pointer to prevent compiler optimizations that could
+    // cache or reorder memory access
+    volatile PROC_HDR *procglobal = ProcGlobal;
+
+    // Return the buffer ID that the startup process is waiting on
+    // Returns -1 if not waiting on any buffer
+    return procglobal->startupBufferPinWaitBufId;
+}
+```

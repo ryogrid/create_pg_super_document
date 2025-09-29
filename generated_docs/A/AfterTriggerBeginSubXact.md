@@ -38,3 +38,42 @@ None - the function takes no parameters and determines the transaction level int
 - Per-subtransaction event contexts are created only when needed
 - The stack uses exponential growth strategy (doubling) for efficient memory management
 - All stack memory is allocated in TopTransactionContext for proper lifetime management
+
+## Simplified Source
+
+```c
+void
+AfterTriggerBeginSubXact(void)
+{
+    int my_level = GetCurrentTransactionNestLevel();
+
+    // Ensure transaction stack is large enough
+    while (my_level >= afterTriggers.maxtransdepth)
+    {
+        if (afterTriggers.maxtransdepth == 0)
+        {
+            // Initialize for 8 subtransaction levels
+            afterTriggers.trans_stack = (AfterTriggersTransData *)
+                MemoryContextAlloc(TopTransactionContext,
+                                 8 * sizeof(AfterTriggersTransData));
+            afterTriggers.maxtransdepth = 8;
+        }
+        else
+        {
+            // Double the stack size
+            int new_alloc = afterTriggers.maxtransdepth * 2;
+
+            afterTriggers.trans_stack = (AfterTriggersTransData *)
+                repalloc(afterTriggers.trans_stack,
+                         new_alloc * sizeof(AfterTriggersTransData));
+            afterTriggers.maxtransdepth = new_alloc;
+        }
+    }
+
+    // Save current trigger state on the stack
+    afterTriggers.trans_stack[my_level].state = NULL;
+    afterTriggers.trans_stack[my_level].events = afterTriggers.events;
+    afterTriggers.trans_stack[my_level].query_depth = afterTriggers.query_depth;
+    afterTriggers.trans_stack[my_level].firing_counter = afterTriggers.firing_counter;
+}
+```

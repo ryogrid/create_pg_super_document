@@ -46,3 +46,86 @@ The function uses atomic operations to maintain a lock-free linked list of proce
 - Memory barriers ensure proper ordering of operations across processes
 - Significantly reduces lock contention in high-throughput transaction scenarios
 - Part of PostgreSQL's performance optimization for concurrent transaction processing
+
+## Simplified Source
+
+```c
+static void ProcArrayGroupClearXid(PGPROC *proc, TransactionId latestXid)
+{
+    int pgprocno = GetNumberFromPGProc(proc);
+    PROC_HDR *procglobal = ProcGlobal;
+    uint32 nextidx, wakeidx;
+
+    Assert(TransactionIdIsValid(proc->xid));
+
+    // Add ourselves to the group list using atomic operations
+    proc->procArrayGroupMember = true;
+    proc->procArrayGroupMemberXid = latestXid;
+    nextidx = pg_atomic_read_u32(&procglobal->procArrayGroupFirst);
+
+    // Atomically insert ourselves at the head of the list
+    while (true)
+    {
+        pg_atomic_write_u32(&proc->procArrayGroupNext, nextidx);
+        if (pg_atomic_compare_exchange_u32(&procglobal->procArrayGroupFirst,
+                                          &nextidx, (uint32) pgprocno))
+            break;
+    }
+
+    // If we're not the leader (list wasn't empty), wait for leader to finish
+    if (nextidx != INVALID_PROC_NUMBER)
+    {
+        int extraWaits = 0;
+        pgstat_report_wait_start(WAIT_EVENT_PROCARRAY_GROUP_UPDATE);
+
+        // Wait until leader clears our XID
+        for (;;)
+        {
+            PGSemaphoreLock(proc->sem);
+            if (!proc->procArrayGroupMember)
+                break;
+            extraWaits++;
+        }
+        pgstat_report_wait_end();
+
+        // Fix semaphore count for absorbed wakeups
+        while (extraWaits-- > 0)
+            PGSemaphoreUnlock(proc->sem);
+        return;
+    }
+
+    // We are the leader - acquire lock and process all group members
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    // Atomically capture and reset the list
+    nextidx = pg_atomic_exchange_u32(&procglobal->procArrayGroupFirst,
+                                    INVALID_PROC_NUMBER);
+    wakeidx = nextidx;
+
+    // Clear XIDs for all group members
+    while (nextidx != INVALID_PROC_NUMBER)
+    {
+        PGPROC *nextproc = &allProcs[nextidx];
+        ProcArrayEndTransactionInternal(nextproc, nextproc->procArrayGroupMemberXid);
+        nextidx = pg_atomic_read_u32(&nextproc->procArrayGroupNext);
+    }
+
+    LWLockRelease(ProcArrayLock);
+
+    // Wake up all follower processes
+    while (wakeidx != INVALID_PROC_NUMBER)
+    {
+        PGPROC *nextproc = &allProcs[wakeidx];
+        wakeidx = pg_atomic_read_u32(&nextproc->procArrayGroupNext);
+        pg_atomic_write_u32(&nextproc->procArrayGroupNext, INVALID_PROC_NUMBER);
+
+        pg_write_barrier();  // Ensure writes are visible before continuing
+        nextproc->procArrayGroupMember = false;
+
+        if (nextproc != MyProc)
+            PGSemaphoreUnlock(nextproc->sem);
+    }
+}
+```
+
+This function implements group-based XID clearing to reduce lock contention. The first process becomes a leader that handles all pending requests, while followers wait on their semaphores.

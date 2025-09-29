@@ -44,3 +44,73 @@ The function performs comprehensive privilege checking for PostgreSQL namespaces
 - For missing namespaces, can either return 0 permissions (if is_missing provided) or throw ERRCODE_UNDEFINED_SCHEMA error
 - Automatically grants ACL_USAGE to members of pg_read_all_data or pg_write_all_data roles if not already granted
 - Function is static (internal to aclchk.c) and used primarily by the broader object permission checking infrastructure
+
+## Simplified Source
+
+```c
+static AclMode pg_namespace_aclmask_ext(Oid nsp_oid, Oid roleid,
+                                       AclMode mask, AclMaskHow how,
+                                       bool *is_missing)
+{
+    AclMode result;
+    HeapTuple tuple;
+    Datum aclDatum;
+    bool isNull;
+    Acl *acl;
+    Oid ownerId;
+
+    // Superusers bypass all permission checking
+    if (superuser_arg(roleid))
+        return mask;
+
+    // Special handling for temp namespaces
+    if (isTempNamespace(nsp_oid)) {
+        if (object_aclcheck_ext(DatabaseRelationId, MyDatabaseId, roleid,
+                               ACL_CREATE_TEMP, is_missing) == ACLCHECK_OK)
+            return mask & ACL_ALL_RIGHTS_SCHEMA;
+        else
+            return mask & ACL_USAGE;
+    }
+
+    // Get the schema's ACL from pg_namespace
+    tuple = SearchSysCache1(NAMESPACEOID, ObjectIdGetDatum(nsp_oid));
+    if (!HeapTupleIsValid(tuple)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return 0;
+        }
+        else
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_SCHEMA),
+                           errmsg("schema with OID %u does not exist", nsp_oid)));
+    }
+
+    ownerId = ((Form_pg_namespace) GETSTRUCT(tuple))->nspowner;
+
+    aclDatum = SysCacheGetAttr(NAMESPACEOID, tuple, Anum_pg_namespace_nspacl, &isNull);
+    if (isNull) {
+        // No ACL, so build default ACL
+        acl = acldefault(OBJECT_SCHEMA, ownerId);
+        aclDatum = (Datum) 0;
+    }
+    else {
+        // detoast ACL if necessary
+        acl = DatumGetAclP(aclDatum);
+    }
+
+    result = aclmask(acl, roleid, ownerId, mask, how);
+
+    // Clean up detoasted copy
+    if (acl && (Pointer) acl != DatumGetPointer(aclDatum))
+        pfree(acl);
+
+    ReleaseSysCache(tuple);
+
+    // Check for pg_read_all_data/pg_write_all_data role privileges
+    if (mask & ACL_USAGE && !(result & ACL_USAGE) &&
+        (has_privs_of_role(roleid, ROLE_PG_READ_ALL_DATA) ||
+         has_privs_of_role(roleid, ROLE_PG_WRITE_ALL_DATA)))
+        result |= ACL_USAGE;
+
+    return result;
+}
+```

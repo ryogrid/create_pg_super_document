@@ -56,3 +56,39 @@ The Windows implementation includes several safety measures:
 - **Performance**: Used extensively in I/O-intensive operations like WAL reading, SLRU page access, and backup operations where positioned reads are critical for performance.
 - **Thread Safety**: The Windows implementation uses OVERLAPPED I/O which allows for concurrent access, though the file position side effect must be considered in multi-threaded contexts.
 - **Size Limitations**: On Windows, reads are limited to 1GB per call to prevent integer overflow issues with the Windows API.
+
+## Simplified Source
+
+```c
+// Platform-independent positioned read function (Windows implementation shown)
+ssize_t pg_pread(int fd, void *buf, size_t size, off_t offset)
+{
+    OVERLAPPED overlapped = {0};
+    HANDLE handle;
+    DWORD result;
+
+    // Get Windows handle from file descriptor
+    handle = (HANDLE) _get_osfhandle(fd);
+    if (handle == INVALID_HANDLE_VALUE) {
+        errno = EBADF;
+        return -1;
+    }
+
+    // Limit size to prevent DWORD overflow (1GB max)
+    size = Min(size, 1024 * 1024 * 1024);
+
+    // Set up overlapped structure for positioned read
+    overlapped.Offset = offset;
+
+    // Perform the read operation
+    if (!ReadFile(handle, buf, size, &result, &overlapped)) {
+        if (GetLastError() == ERROR_HANDLE_EOF)
+            return 0;  // End of file
+
+        _dosmaperr(GetLastError());  // Map Windows error to errno
+        return -1;
+    }
+
+    return result;  // Return number of bytes read
+}
+```

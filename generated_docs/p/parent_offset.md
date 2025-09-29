@@ -30,3 +30,12 @@ This function implements the standard binary heap parent index calculation formu
 - The function assumes 0-based indexing where the root node is at index 0
 - For the root node (index 0), this function would return 0 due to integer division, but callers should not invoke this function with i=0 as the root has no parent
 - Used in binary heap implementations throughout PostgreSQL for efficient priority queue operations and heap maintenance
+
+## Simplified Source
+
+```c
+static inline uint64 parent_offset(uint64 i)
+{
+    return (i - 1) / 2;
+}
+```

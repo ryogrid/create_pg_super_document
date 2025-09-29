@@ -39,3 +39,13 @@ The function integrates with the object property data system to maintain consist
 - Used extensively in privilege checking and ownership validation operations
 - Essential for ALTER OWNER commands and access control list (ACL) operations
 - The returned attribute number corresponds to the column position in the system catalog table where the owner OID is stored
+
+## Simplified Source
+
+```c
+AttrNumber get_object_attnum_owner(Oid class_id)
+{
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+    return prop->attnum_owner;
+}
+```

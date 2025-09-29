@@ -30,3 +30,16 @@ This function stores the timestamp of the most recently processed commit or abor
 - Uses spinlock mechanism to ensure thread-safe updates to the shared recovery control structure
 - The timestamp is stored in recoveryLastXTime field of XLogRecoveryCtl
 - Critical for recovery coordination between the startup process and checkpointer process
+
+## Simplified Source
+
+```c
+static void
+SetLatestXTime(TimestampTz xtime)
+{
+	// Thread-safe update of recovery timestamp
+	SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+	XLogRecoveryCtl->recoveryLastXTime = xtime;
+	SpinLockRelease(&XLogRecoveryCtl->info_lck);
+}
+```

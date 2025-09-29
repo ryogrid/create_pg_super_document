@@ -55,3 +55,71 @@ The function includes special handling for system index access policies (IgnoreS
 - Converts scan key attribute numbers from heap column positions to index column positions
 - Part of PostgreSQL's specialized catalog access infrastructure for operations requiring ordered results
 - The ordered guarantee makes it suitable for operations like enum value processing and large object chunk access
+
+## Simplified Source
+
+```c
+SysScanDesc systable_beginscan_ordered(Relation heapRelation,
+                                       Relation indexRelation,
+                                       Snapshot snapshot,
+                                       int nkeys, ScanKey key)
+{
+    SysScanDesc sysscan;
+    int i;
+
+    // Check for REINDEX conflicts
+    if (ReindexIsProcessingIndex(RelationGetRelid(indexRelation)))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot access index \"%s\" while it is being reindexed",
+                        RelationGetRelationName(indexRelation))));
+
+    // Warn about IgnoreSystemIndexes violation
+    if (IgnoreSystemIndexes)
+        elog(WARNING, "using index \"%s\" despite IgnoreSystemIndexes",
+             RelationGetRelationName(indexRelation));
+
+    // Allocate and initialize scan descriptor
+    sysscan = (SysScanDesc) palloc(sizeof(SysScanDescData));
+
+    sysscan->heap_rel = heapRelation;
+    sysscan->irel = indexRelation;
+    sysscan->slot = table_slot_create(heapRelation, NULL);
+
+    // Handle snapshot
+    if (snapshot == NULL) {
+        Oid relid = RelationGetRelid(heapRelation);
+        snapshot = RegisterSnapshot(GetCatalogSnapshot(relid));
+        sysscan->snapshot = snapshot;
+    } else {
+        // Caller manages snapshot
+        sysscan->snapshot = NULL;
+    }
+
+    // Convert heap column numbers to index column numbers
+    for (i = 0; i < nkeys; i++) {
+        int j;
+
+        for (j = 0; j < IndexRelationGetNumberOfAttributes(indexRelation); j++) {
+            if (key[i].sk_attno == indexRelation->rd_index->indkey.values[j]) {
+                key[i].sk_attno = j + 1;
+                break;
+            }
+        }
+        if (j == IndexRelationGetNumberOfAttributes(indexRelation))
+            elog(ERROR, "column is not in index");
+    }
+
+    // Initialize index scan
+    sysscan->iscan = index_beginscan(heapRelation, indexRelation,
+                                     snapshot, nkeys, 0);
+    index_rescan(sysscan->iscan, key, nkeys, NULL, 0);
+    sysscan->scan = NULL;
+
+    // Set flag for transaction monitoring if needed
+    if (TransactionIdIsValid(CheckXidAlive))
+        bsysscan = true;
+
+    return sysscan;
+}
+```

@@ -42,3 +42,76 @@ BlockRefTableReaderGetBlocks retrieves block numbers of modified blocks from the
 - Automatically advances to next chunk when current chunk is exhausted
 - Handles empty chunks by consuming them without reading data from the underlying file
 - Must be called repeatedly until it returns 0 before advancing to the next relation
+
+## Simplified Source
+
+```c
+unsigned
+BlockRefTableReaderGetBlocks(BlockRefTableReader *reader,
+                            BlockNumber *blocks,
+                            int nblocks)
+{
+    unsigned blocks_found = 0;
+
+    Assert(nblocks > 0);
+
+    // Loop collecting blocks to return to caller
+    for (;;)
+    {
+        uint16 next_chunk_size;
+
+        // Process current chunk if we have one
+        if (reader->consumed_chunks > 0)
+        {
+            uint32 chunkno = reader->consumed_chunks - 1;
+            uint16 chunk_size = reader->chunk_size[chunkno];
+
+            if (chunk_size == MAX_ENTRIES_PER_CHUNK)
+            {
+                // Bitmap format: search for set bits
+                while (reader->chunk_position < BLOCKS_PER_CHUNK &&
+                       blocks_found < nblocks)
+                {
+                    uint16 chunkoffset = reader->chunk_position;
+                    uint16 w;
+
+                    w = reader->chunk_data[chunkoffset / BLOCKS_PER_ENTRY];
+                    if ((w & (1u << (chunkoffset % BLOCKS_PER_ENTRY))) != 0)
+                        blocks[blocks_found++] =
+                            chunkno * BLOCKS_PER_CHUNK + chunkoffset;
+                    ++reader->chunk_position;
+                }
+            }
+            else
+            {
+                // Offset list format: each entry is a 2-byte offset
+                while (reader->chunk_position < chunk_size &&
+                       blocks_found < nblocks)
+                {
+                    blocks[blocks_found++] = chunkno * BLOCKS_PER_CHUNK
+                        + reader->chunk_data[reader->chunk_position];
+                    ++reader->chunk_position;
+                }
+            }
+        }
+
+        // Return if we found enough blocks
+        if (blocks_found >= nblocks)
+            break;
+
+        // Break if no more chunks available
+        if (reader->consumed_chunks == reader->total_chunks)
+            break;
+
+        // Read next chunk and reset position
+        next_chunk_size = reader->chunk_size[reader->consumed_chunks];
+        if (next_chunk_size > 0)
+            BlockRefTableRead(reader, reader->chunk_data,
+                             next_chunk_size * sizeof(uint16));
+        ++reader->consumed_chunks;
+        reader->chunk_position = 0;
+    }
+
+    return blocks_found;
+}
+```

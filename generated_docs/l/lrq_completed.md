@@ -33,3 +33,13 @@ This counter is maintained internally by the queue management functions and is i
 - The returned value reflects operations that have finished and have their results ready
 - Complementary to lrq_inflight() - together they provide full visibility into queue state
 - Critical for non-blocking operation where the prefetcher needs to know when data is ready
+
+## Simplified Source
+
+```c
+// Get count of completed I/O operations ready for consumption
+static inline uint32 lrq_completed(LsnReadQueue *lrq)
+{
+    return lrq->completed;
+}
+```

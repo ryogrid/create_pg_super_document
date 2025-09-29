@@ -36,3 +36,35 @@ RemoveGXact is a static function in the two-phase commit system that manages the
 - Returns the removed GlobalTransaction to the freelist for memory reuse
 - Will throw an ERROR if the specified gxact is not found in the active array
 - This is an internal function (static) used only within the two-phase commit subsystem
+
+## Simplified Source
+
+```c
+static void
+RemoveGXact(GlobalTransaction gxact)
+{
+    int i;
+
+    Assert(LWLockHeldByMeInMode(TwoPhaseStateLock, LW_EXCLUSIVE));
+
+    // Find the transaction in the active array
+    for (i = 0; i < TwoPhaseState->numPrepXacts; i++)
+    {
+        if (gxact == TwoPhaseState->prepXacts[i])
+        {
+            // Remove from active array by compacting
+            TwoPhaseState->numPrepXacts--;
+            TwoPhaseState->prepXacts[i] = TwoPhaseState->prepXacts[TwoPhaseState->numPrepXacts];
+
+            // Return to freelist for reuse
+            gxact->next = TwoPhaseState->freeGXacts;
+            TwoPhaseState->freeGXacts = gxact;
+
+            return;
+        }
+    }
+
+    // Should never happen if caller is correct
+    elog(ERROR, "failed to find %p in GlobalTransaction array", gxact);
+}
+```

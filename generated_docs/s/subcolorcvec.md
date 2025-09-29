@@ -47,3 +47,92 @@ The  function is a key component of PostgreSQL's regex compilation system. It pr
 - Automatically expands the hicolormap when processing new character classes
 - Part of the regex compilation process that converts high-level character specifications into low-level NFA transitions
 - Uses bit manipulation for character class processing in the hicolormap
+
+## Simplified Source
+
+```c
+static void subcolorcvec(struct vars *v,
+                        struct cvec *cv,
+                        struct state *lp,
+                        struct state *rp)
+{
+    struct colormap *cm = v->cm;
+    color lastsubcolor = COLORLESS;
+    chr ch, from, to;
+    const chr *p;
+    int i;
+
+    // Process ordinary characters
+    for (p = cv->chrs, i = cv->nchrs; i > 0; p++, i--) {
+        ch = *p;
+        subcoloronechr(v, ch, lp, rp, &lastsubcolor);
+        NOERR();
+    }
+
+    // Process character ranges
+    for (p = cv->ranges, i = cv->nranges; i > 0; p += 2, i--) {
+        from = *p;
+        to = *(p + 1);
+
+        if (from <= MAX_SIMPLE_CHR) {
+            // Handle simple chars individually
+            chr lim = (to <= MAX_SIMPLE_CHR) ? to : MAX_SIMPLE_CHR;
+
+            while (from <= lim) {
+                color sco = subcolor(cm, from);
+                NOERR();
+
+                // Create arc only if subcolor changed
+                if (sco != lastsubcolor) {
+                    newarc(v->nfa, PLAIN, sco, lp, rp);
+                    NOERR();
+                    lastsubcolor = sco;
+                }
+                from++;
+            }
+        }
+
+        // Handle any remaining range above MAX_SIMPLE_CHR
+        if (from < to)
+            subcoloronerange(v, from, to, lp, rp, &lastsubcolor);
+        else if (from == to)
+            subcoloronechr(v, from, lp, rp, &lastsubcolor);
+        NOERR();
+    }
+
+    // Process character class if present
+    if (cv->cclasscode >= 0) {
+        int classbit;
+        color *pco;
+        int r, c;
+
+        // Expand hicolormap if needed for this character class
+        if (cm->classbits[cv->cclasscode] == 0) {
+            cm->classbits[cv->cclasscode] = cm->hiarraycols;
+            newhicolorcols(cm);
+            NOERR();
+        }
+
+        // Apply subcolorhi() and create arcs for relevant entries
+        classbit = cm->classbits[cv->cclasscode];
+        pco = cm->hicolormap;
+
+        for (r = 0; r < cm->hiarrayrows; r++) {
+            for (c = 0; c < cm->hiarraycols; c++) {
+                if (c & classbit) {
+                    color sco = subcolorhi(cm, pco);
+                    NOERR();
+
+                    // Create arc if subcolor changed
+                    if (sco != lastsubcolor) {
+                        newarc(v->nfa, PLAIN, sco, lp, rp);
+                        NOERR();
+                        lastsubcolor = sco;
+                    }
+                }
+                pco++;
+            }
+        }
+    }
+}
+```

@@ -39,3 +39,29 @@ The function handles different GUC variable types appropriately: for simple type
 - Works in conjunction with memory management functions to ensure proper reference counting
 - Part of the infrastructure that enables safe rollback of configuration changes
 - Only string and extra data fields require active cleanup; other types are cleaned up automatically
+
+## Simplified Source
+
+```c
+static void
+discard_stack_value(struct config_generic *gconf, config_var_value *val)
+{
+    switch (gconf->vartype)
+    {
+        case PGC_BOOL:
+        case PGC_INT:
+        case PGC_REAL:
+        case PGC_ENUM:
+            // No cleanup needed for scalar types
+            break;
+        case PGC_STRING:
+            // Free string value using proper memory management
+            set_string_field((struct config_string *) gconf,
+                           &(val->val.stringval),
+                           NULL);
+            break;
+    }
+    // Clear any extra data associated with this value
+    set_extra_field(gconf, &(val->extra), NULL);
+}
+```

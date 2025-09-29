@@ -40,3 +40,48 @@ Each conflict type has a specific explanation to help users understand the under
 - Provides user-friendly explanations for complex internal recovery conflict scenarios
 - Part of PostgreSQL's recovery conflict resolution and error reporting system
 - Used exclusively in standby server scenarios during WAL replay conflicts
+
+## Simplified Source
+
+```c
+static int errdetail_recovery_conflict(ProcSignalReason reason)
+{
+    // Map recovery conflict types to user-friendly error messages
+    switch (reason)
+    {
+        case PROCSIG_RECOVERY_CONFLICT_BUFFERPIN:
+            errdetail("User was holding shared buffer pin for too long.");
+            break;
+
+        case PROCSIG_RECOVERY_CONFLICT_LOCK:
+            errdetail("User was holding a relation lock for too long.");
+            break;
+
+        case PROCSIG_RECOVERY_CONFLICT_TABLESPACE:
+            errdetail("User was or might have been using tablespace that must be dropped.");
+            break;
+
+        case PROCSIG_RECOVERY_CONFLICT_SNAPSHOT:
+            errdetail("User query might have needed to see row versions that must be removed.");
+            break;
+
+        case PROCSIG_RECOVERY_CONFLICT_LOGICALSLOT:
+            errdetail("User was using a logical replication slot that must be invalidated.");
+            break;
+
+        case PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK:
+            errdetail("User transaction caused buffer deadlock with recovery.");
+            break;
+
+        case PROCSIG_RECOVERY_CONFLICT_DATABASE:
+            errdetail("User was connected to a database that must be dropped.");
+            break;
+
+        default:
+            // No error detail for unrecognized conflict types
+            break;
+    }
+
+    return 0;
+}
+```

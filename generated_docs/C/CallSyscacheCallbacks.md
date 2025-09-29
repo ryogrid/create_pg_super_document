@@ -47,3 +47,32 @@ The function uses the syscache_callback_links array to find the head of the call
 - Essential for coordinating cache invalidation across all PostgreSQL subsystems that depend on system catalog data
 - Callbacks are executed synchronously in the context of the invalidation event
 - The linked list design allows efficient addition of callbacks while maintaining call order during execution
+
+## Simplified Source
+
+```c
+// Invoke all registered callbacks for a system cache invalidation
+void CallSyscacheCallbacks(int cacheid, uint32 hashvalue)
+{
+    int i;
+
+    // Validate cache ID
+    if (cacheid < 0 || cacheid >= SysCacheSize)
+        elog(ERROR, "invalid cache ID: %d", cacheid);
+
+    // Walk the callback chain for this cache
+    i = syscache_callback_links[cacheid] - 1;
+    while (i >= 0)
+    {
+        struct SYSCACHECALLBACK *ccitem = syscache_callback_list + i;
+
+        Assert(ccitem->id == cacheid);
+
+        // Call the callback function
+        ccitem->function(ccitem->arg, cacheid, hashvalue);
+
+        // Move to next callback in chain
+        i = ccitem->link - 1;
+    }
+}
+```

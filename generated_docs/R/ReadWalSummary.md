@@ -37,3 +37,28 @@ The function uses PostgreSQL's File API for reading and includes proper error ha
 - Automatically updates the file position in the WalSummaryIO structure after each read
 - Throws an ERROR if the file read operation fails, providing the filename in the error message
 - This callback pattern allows the block reference table reader to be decoupled from specific file I/O implementations
+
+## Simplified Source
+
+```c
+int
+ReadWalSummary(void *wal_summary_io, void *data, int length)
+{
+    WalSummaryIO *io = wal_summary_io;
+    int nbytes;
+
+    // Read data from file at current position
+    nbytes = FileRead(io->file, data, length, io->filepos,
+                     WAIT_EVENT_WAL_SUMMARY_READ);
+
+    if (nbytes < 0)
+        ereport(ERROR,
+               (errcode_for_file_access(),
+                errmsg("could not read file \"%s\": %m",
+                       FilePathName(io->file))));
+
+    // Update file position for next read
+    io->filepos += nbytes;
+    return nbytes;
+}
+```

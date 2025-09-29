@@ -39,3 +39,26 @@ This function is critical for WAL logging operations and other scenarios where e
 - Essential for WAL logging to ensure buffer modifications are done under exclusive lock
 - Part of PostgreSQL's buffer locking verification infrastructure
 - Used in critical path operations where exclusive buffer access must be confirmed
+
+## Simplified Source
+
+```c
+bool BufferIsExclusiveLocked(Buffer buffer)
+{
+    BufferDesc *bufHdr;
+
+    // Get buffer descriptor based on buffer type
+    if (BufferIsLocal(buffer)) {
+        int bufid = -buffer - 1;
+        bufHdr = GetLocalBufferDescriptor(bufid);
+    } else {
+        bufHdr = GetBufferDescriptor(buffer - 1);
+    }
+
+    // Verify buffer is pinned
+    Assert(BufferIsPinned(buffer));
+
+    // Check if we hold exclusive lock
+    return LWLockHeldByMeInMode(BufferDescriptorGetContentLock(bufHdr), LW_EXCLUSIVE);
+}
+```

@@ -47,3 +47,41 @@ This capability is particularly important for cases like "EXPLAIN CREATE TABLE A
 - Returns NULL for utility statements that don't contain queries
 - Essential for proper query planning and lock acquisition for nested queries
 - Part of the utility command processing infrastructure that bridges utility and regular query processing
+
+## Simplified Source
+
+```c
+Query *UtilityContainsQuery(Node *parsetree)
+{
+    Query      *qry;
+
+    // Check the type of utility statement and extract the contained query
+    switch (nodeTag(parsetree))
+    {
+        case T_DeclareCursorStmt:
+            // Extract query from cursor declaration
+            qry = castNode(Query, ((DeclareCursorStmt *) parsetree)->query);
+            if (qry->commandType == CMD_UTILITY)
+                return UtilityContainsQuery(qry->utilityStmt);  // Recursive call
+            return qry;
+
+        case T_ExplainStmt:
+            // Extract query being explained
+            qry = castNode(Query, ((ExplainStmt *) parsetree)->query);
+            if (qry->commandType == CMD_UTILITY)
+                return UtilityContainsQuery(qry->utilityStmt);  // Recursive call
+            return qry;
+
+        case T_CreateTableAsStmt:
+            // Extract SELECT query for CREATE TABLE AS
+            qry = castNode(Query, ((CreateTableAsStmt *) parsetree)->query);
+            if (qry->commandType == CMD_UTILITY)
+                return UtilityContainsQuery(qry->utilityStmt);  // Recursive call
+            return qry;
+
+        default:
+            // Statement doesn't contain a plannable query
+            return NULL;
+    }
+}
+```

@@ -46,3 +46,48 @@ This function takes no parameters and returns a newly allocated OID.
 - **Bootstrap handling**: Behaves differently during initdb vs. normal operation to properly manage reserved OID ranges
 - **Thread safety**: Protected by `OidGenLock` to ensure atomic allocation in multi-process environment
 - **Recovery safety**: Explicitly prevents allocation during recovery mode to avoid conflicts with replay
+
+## Simplified Source
+
+```c
+Oid GetNewObjectId(void)
+{
+    Oid result;
+
+    // Safety check - no OID allocation during recovery
+    if (RecoveryInProgress())
+        elog(ERROR, "cannot assign OIDs during recovery");
+
+    // Get exclusive lock on OID generation
+    LWLockAcquire(OidGenLock, LW_EXCLUSIVE);
+
+    // Handle OID counter wraparound
+    if (TransamVariables->nextOid < FirstNormalObjectId) {
+        if (IsPostmasterEnvironment) {
+            // Normal mode: force to FirstNormalObjectId
+            TransamVariables->nextOid = FirstNormalObjectId;
+            TransamVariables->oidCount = 0;
+        } else {
+            // Bootstrap mode: check against FirstGenbkiObjectId
+            if (TransamVariables->nextOid < FirstGenbkiObjectId) {
+                TransamVariables->nextOid = FirstNormalObjectId;
+                TransamVariables->oidCount = 0;
+            }
+        }
+    }
+
+    // Prefetch more OIDs if we've run out
+    if (TransamVariables->oidCount == 0) {
+        XLogPutNextOid(TransamVariables->nextOid + VAR_OID_PREFETCH);
+        TransamVariables->oidCount = VAR_OID_PREFETCH;
+    }
+
+    // Get current OID and advance counters
+    result = TransamVariables->nextOid;
+    (TransamVariables->nextOid)++;
+    (TransamVariables->oidCount)--;
+
+    LWLockRelease(OidGenLock);
+    return result;
+}
+```

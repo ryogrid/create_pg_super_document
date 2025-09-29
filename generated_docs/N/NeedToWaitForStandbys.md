@@ -39,3 +39,27 @@ The function handles shutdown scenarios gracefully by escalating the error level
 - Essential for maintaining consistency in logical replication failover scenarios
 - Part of the broader mechanism that ensures logical replication can survive primary server failures
 - The function returns false immediately if not dealing with an active logical failover slot
+
+## Simplified Source
+
+```c
+static bool NeedToWaitForStandbys(XLogRecPtr flushed_lsn, uint32 *wait_event)
+{
+    int elevel = got_STOPPING ? ERROR : WARNING;
+    bool failover_slot;
+
+    // Check if current slot is a logical failover slot and replication is active
+    failover_slot = (replication_active && MyReplicationSlot->data.failover);
+
+    // Wait for standbys only if using failover slot and they haven't caught up
+    if (failover_slot && !StandbySlotsHaveCaughtup(flushed_lsn, elevel))
+    {
+        *wait_event = WAIT_EVENT_WAIT_FOR_STANDBY_CONFIRMATION;
+        return true;
+    }
+
+    // No waiting needed
+    *wait_event = 0;
+    return false;
+}
+```

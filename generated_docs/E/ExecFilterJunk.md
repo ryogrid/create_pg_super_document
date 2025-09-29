@@ -46,3 +46,54 @@ The mapping logic handles both regular attribute filtering and deleted column sc
 - Critical for ensuring that internal executor attributes don't leak into query results
 - The result slot is reused across calls for the same JunkFilter, improving performance
 - Part of PostgreSQL's mechanism for cleanly separating internal processing attributes from user-visible data
+
+## Simplified Source
+
+```c
+TupleTableSlot *ExecFilterJunk(JunkFilter *junkfilter, TupleTableSlot *slot)
+{
+    TupleTableSlot *resultSlot;
+    AttrNumber *cleanMap;
+    TupleDesc cleanTupType;
+    int cleanLength;
+    int i;
+    Datum *values;
+    bool *isnull;
+    Datum *old_values;
+    bool *old_isnull;
+
+    // Extract all values from the input tuple
+    slot_getallattrs(slot);
+    old_values = slot->tts_values;
+    old_isnull = slot->tts_isnull;
+
+    // Get filter configuration
+    cleanTupType = junkfilter->jf_cleanTupType;
+    cleanLength = cleanTupType->natts;
+    cleanMap = junkfilter->jf_cleanMap;
+    resultSlot = junkfilter->jf_resultSlot;
+
+    // Prepare the result slot
+    ExecClearTuple(resultSlot);
+    values = resultSlot->tts_values;
+    isnull = resultSlot->tts_isnull;
+
+    // Map values from old tuple to clean tuple
+    for (i = 0; i < cleanLength; i++) {
+        int j = cleanMap[i];
+
+        if (j == 0) {
+            // Deleted column - set to NULL
+            values[i] = (Datum) 0;
+            isnull[i] = true;
+        } else {
+            // Copy value from original position (1-based indexing)
+            values[i] = old_values[j - 1];
+            isnull[i] = old_isnull[j - 1];
+        }
+    }
+
+    // Return the filtered tuple as a virtual tuple
+    return ExecStoreVirtualTuple(resultSlot);
+}
+```

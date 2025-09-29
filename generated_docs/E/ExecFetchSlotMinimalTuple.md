@@ -41,3 +41,27 @@ The shouldFree parameter indicates memory ownership - false means the slot owns 
 - Commonly used in hash tables, sorting operations, and inter-process communication where space efficiency is important
 - Part of PostgreSQL's tuple slot abstraction system that provides different tuple representations optimized for different use cases
 - The function performs sanity checks to ensure the slot is not NULL and not empty
+
+## Simplified Source
+
+```c
+MinimalTuple ExecFetchSlotMinimalTuple(TupleTableSlot *slot, bool *shouldFree)
+{
+    // Verify slot is valid and contains data
+    Assert(slot != NULL);
+    Assert(!TTS_EMPTY(slot));
+
+    // Try to get minimal tuple directly from slot
+    if (slot->tts_ops->get_minimal_tuple) {
+        // Slot owns the tuple - caller should not free
+        if (shouldFree)
+            *shouldFree = false;
+        return slot->tts_ops->get_minimal_tuple(slot);
+    } else {
+        // Create a copy - caller owns and must free
+        if (shouldFree)
+            *shouldFree = true;
+        return slot->tts_ops->copy_minimal_tuple(slot);
+    }
+}
+```

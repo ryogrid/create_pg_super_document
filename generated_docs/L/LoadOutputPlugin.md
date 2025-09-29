@@ -34,3 +34,30 @@ The function follows a strict validation protocol where it checks for the presen
 - The function will terminate with ERROR if the plugin doesn't provide required callbacks
 - This is a static function only used within the logical replication subsystem
 - The plugin loading mechanism uses PostgreSQL's dynamic loading infrastructure
+
+## Simplified Source
+
+```c
+static void LoadOutputPlugin(OutputPluginCallbacks *callbacks, const char *plugin)
+{
+    LogicalOutputPluginInit plugin_init;
+
+    // Load the plugin's initialization function
+    plugin_init = (LogicalOutputPluginInit)
+        load_external_function(plugin, "_PG_output_plugin_init", false, NULL);
+
+    if (plugin_init == NULL)
+        elog(ERROR, "output plugins have to declare the _PG_output_plugin_init symbol");
+
+    // Initialize the plugin and let it fill the callback structure
+    plugin_init(callbacks);
+
+    // Validate that required callbacks are present
+    if (callbacks->begin_cb == NULL)
+        elog(ERROR, "output plugins have to register a begin callback");
+    if (callbacks->change_cb == NULL)
+        elog(ERROR, "output plugins have to register a change callback");
+    if (callbacks->commit_cb == NULL)
+        elog(ERROR, "output plugins have to register a commit callback");
+}
+```

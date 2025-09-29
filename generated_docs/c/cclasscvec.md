@@ -54,3 +54,84 @@ The function supports all standard POSIX character classes: alnum, alpha, blank,
 - Hard-wired XDIGIT definition uses ASCII hex digits regardless of locale
 - Provides comprehensive POSIX character class support for PostgreSQL's regex implementation
 - Memory allocation failure results in REG_ESPACE error
+
+## Simplified Source
+
+```c
+static struct cvec *cclasscvec(struct vars *v,
+                              enum char_classes cclasscode,
+                              int cases)
+{
+    struct cvec *cv = NULL;
+
+    // Remap lower/upper to alpha for case-insensitive matching
+    if (cases && (cclasscode == CC_LOWER || cclasscode == CC_UPPER))
+        cclasscode = CC_ALPHA;
+
+    // Handle different character classes
+    switch (cclasscode) {
+        // Locale-dependent classes (cached)
+        case CC_PRINT:
+            cv = pg_ctype_get_cache(pg_wc_isprint, cclasscode);
+            break;
+        case CC_ALNUM:
+            cv = pg_ctype_get_cache(pg_wc_isalnum, cclasscode);
+            break;
+        case CC_ALPHA:
+            cv = pg_ctype_get_cache(pg_wc_isalpha, cclasscode);
+            break;
+        case CC_WORD:
+            cv = pg_ctype_get_cache(pg_wc_isword, cclasscode);
+            break;
+        case CC_DIGIT:
+            cv = pg_ctype_get_cache(pg_wc_isdigit, cclasscode);
+            break;
+        case CC_PUNCT:
+            cv = pg_ctype_get_cache(pg_wc_ispunct, cclasscode);
+            break;
+        case CC_SPACE:
+            cv = pg_ctype_get_cache(pg_wc_isspace, cclasscode);
+            break;
+        case CC_LOWER:
+            cv = pg_ctype_get_cache(pg_wc_islower, cclasscode);
+            break;
+        case CC_UPPER:
+            cv = pg_ctype_get_cache(pg_wc_isupper, cclasscode);
+            break;
+        case CC_GRAPH:
+            cv = pg_ctype_get_cache(pg_wc_isgraph, cclasscode);
+            break;
+
+        // Hard-wired classes
+        case CC_ASCII:
+            cv = getcvec(v, 0, 1);
+            if (cv)
+                addrange(cv, 0, 0x7f);
+            break;
+        case CC_BLANK:
+            cv = getcvec(v, 2, 0);
+            addchr(cv, '\t');
+            addchr(cv, ' ');
+            break;
+        case CC_CNTRL:
+            cv = getcvec(v, 0, 2);
+            addrange(cv, 0x0, 0x1f);
+            addrange(cv, 0x7f, 0x9f);
+            break;
+        case CC_XDIGIT:
+            cv = getcvec(v, 0, 3);
+            if (cv) {
+                addrange(cv, '0', '9');
+                addrange(cv, 'a', 'f');
+                addrange(cv, 'A', 'F');
+            }
+            break;
+    }
+
+    // Handle memory allocation failure
+    if (cv == NULL)
+        ERR(REG_ESPACE);
+
+    return cv;
+}
+```

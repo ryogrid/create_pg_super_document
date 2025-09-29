@@ -40,3 +40,46 @@ The function validates that two-phase commit support is enabled and that the req
 - Uses txn->final_lsn as report_location (beginning of prepare record) and txn->end_lsn as write_location (end of record)
 - Similar to commit_cb_wrapper in structure but specifically handles the prepare phase of two-phase commits
 - Part of PostgreSQL's two-phase commit support in logical decoding, enabling proper handling of distributed transactions
+
+## Simplified Source
+
+```c
+static void prepare_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                              XLogRecPtr prepare_lsn)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    Assert(!ctx->fast_forward);
+    Assert(ctx->twophase);  // Only for two-phase commits
+
+    // Set up error handling context
+    state.ctx = ctx;
+    state.callback_name = "prepare";
+    state.report_location = txn->final_lsn;  // beginning of prepare record
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for transaction prepare
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = txn->end_lsn;  // points to end of record
+    ctx->end_xact = true;
+
+    // Validate callback is available for two-phase commits
+    if (ctx->callbacks.prepare_cb == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("logical replication at prepare time requires a %s callback",
+                        "prepare_cb")));
+
+    // Call the actual plugin prepare callback
+    ctx->callbacks.prepare_cb(ctx, txn, prepare_lsn);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```

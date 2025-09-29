@@ -41,3 +41,26 @@ The function formats this information into a comprehensive error context message
 - It constructs a temporary StringInfo buffer to format the error message, which is properly freed after use
 - The error message includes the ReadRecPtr LSN to pinpoint the exact location in the WAL where the error occurred
 - The formatted error context helps significantly in debugging WAL recovery issues by providing both the record location and its semantic meaning
+
+## Simplified Source
+
+```c
+static void
+rm_redo_error_callback(void *arg)
+{
+	XLogReaderState *record = (XLogReaderState *) arg;
+	StringInfoData buf;
+
+	// Build error description with record details
+	initStringInfo(&buf);
+	xlog_outdesc(&buf, record);
+	xlog_block_info(&buf, record);
+
+	// Set error context with LSN and description
+	errcontext("WAL redo at %X/%X for %s",
+			   LSN_FORMAT_ARGS(record->ReadRecPtr),
+			   buf.data);
+
+	pfree(buf.data);
+}
+```

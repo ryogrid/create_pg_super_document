@@ -57,3 +57,43 @@ The function is designed to be idempotent since EOXactListAdd() doesn't prevent 
 - If a relation has a non-zero reference count when it should be cleared, the function logs a WARNING instead of failing to prevent error-during-error-recovery loops
 - The function resets all subtransaction IDs regardless of the commit/abort status to ensure clean state
 - Reference count validation is only performed in assert-enabled builds for performance reasons
+
+## Simplified Source
+
+```c
+static void AtEOXact_cleanup(Relation relation, bool isCommit)
+{
+    bool clear_relcache = false;
+
+    // Assert reference count is correct (debug builds only)
+#ifdef USE_ASSERT_CHECKING
+    if (!IsBootstrapProcessingMode()) {
+        int expected_refcnt = relation->rd_isnailed ? 1 : 0;
+        Assert(relation->rd_refcnt == expected_refcnt);
+    }
+#endif
+
+    // Determine if relcache entry should be cleared
+    clear_relcache = (isCommit ?
+        relation->rd_droppedSubid != InvalidSubTransactionId :  // Clear dropped relations on commit
+        relation->rd_createSubid != InvalidSubTransactionId);   // Clear created relations on abort
+
+    // Reset all subtransaction IDs (always)
+    relation->rd_createSubid = InvalidSubTransactionId;
+    relation->rd_newRelfilelocatorSubid = InvalidSubTransactionId;
+    relation->rd_firstRelfilelocatorSubid = InvalidSubTransactionId;
+    relation->rd_droppedSubid = InvalidSubTransactionId;
+
+    // Clear relcache entry if appropriate
+    if (clear_relcache) {
+        if (RelationHasReferenceCountZero(relation)) {
+            RelationClearRelation(relation, false);
+            return;
+        } else {
+            // Warn about leaked references, but don't fail
+            elog(WARNING, "cannot remove relcache entry for \"%s\" because it has nonzero refcount",
+                 RelationGetRelationName(relation));
+        }
+    }
+}
+```

@@ -35,3 +35,29 @@ The function fails for MULE_INTERNAL encoding (which is unknown to gettext) and 
 - Returns true on success, false on failure
 - MULE_INTERNAL encoding is explicitly unsupported as gettext doesn't recognize it
 - Error logging is context-dependent to avoid memory allocation issues during early startup
+
+## Simplified Source
+
+```c
+static bool
+raw_pg_bind_textdomain_codeset(const char *domainname, int encoding)
+{
+    bool elog_ok = (CurrentMemoryContext != NULL);
+
+    // Check if encoding is valid and has gettext mapping
+    if (!PG_VALID_ENCODING(encoding) || pg_enc2gettext_tbl[encoding] == NULL)
+        return false;
+
+    // Try to bind the textdomain with the codeset
+    if (bind_textdomain_codeset(domainname, pg_enc2gettext_tbl[encoding]) != NULL)
+        return true;
+
+    // Handle failure - use appropriate error reporting method
+    if (elog_ok)
+        elog(LOG, "bind_textdomain_codeset failed");
+    else
+        write_stderr("bind_textdomain_codeset failed");
+
+    return false;
+}
+```

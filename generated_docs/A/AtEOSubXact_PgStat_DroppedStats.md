@@ -45,3 +45,54 @@ AtEOSubXact_PgStat_DroppedStats is the subtransaction counterpart to AtEOXact_Pg
 - Uses doubly-linked circular lists for efficient management of pending operations
 - Ensures all pending drops are processed by asserting the list is empty at completion
 - Requests garbage collection if objects couldn't be freed immediately
+
+## Simplified Source
+
+```c
+static void
+AtEOSubXact_PgStat_DroppedStats(PgStat_SubXactStatus *xact_state,
+                                bool isCommit, int nestDepth)
+{
+    PgStat_SubXactStatus *parent_xact_state;
+    dlist_mutable_iter iter;
+    int not_freed_count = 0;
+
+    // Early return if no pending drops
+    if (dclist_count(&xact_state->pending_drops) == 0)
+        return;
+
+    parent_xact_state = pgstat_get_xact_stack_level(nestDepth - 1);
+
+    // Process each pending drop operation
+    dclist_foreach_modify(iter, &xact_state->pending_drops)
+    {
+        PgStat_PendingDroppedStatsItem *pending =
+            dclist_container(PgStat_PendingDroppedStatsItem, node, iter.cur);
+        xl_xact_stats_item *it = &pending->item;
+
+        dclist_delete_from(&xact_state->pending_drops, &pending->node);
+
+        if (!isCommit && pending->is_create)
+        {
+            // Subtransaction abort: drop created stats objects
+            if (!pgstat_drop_entry(it->kind, it->dboid, it->objoid))
+                not_freed_count++;
+            pfree(pending);
+        }
+        else if (isCommit)
+        {
+            // Subtransaction commit: propagate drops to parent
+            dclist_push_tail(&parent_xact_state->pending_drops, &pending->node);
+        }
+        else
+        {
+            // Just free the pending item
+            pfree(pending);
+        }
+    }
+
+    Assert(dclist_count(&xact_state->pending_drops) == 0);
+    if (not_freed_count > 0)
+        pgstat_request_entry_refs_gc();
+}
+```

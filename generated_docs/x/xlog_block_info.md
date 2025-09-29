@@ -52,3 +52,40 @@ This information is crucial for understanding which database pages are affected 
 - Fork numbers distinguish between different files associated with a relation (main data, free space map, visibility map, etc.)
 - Block references are fundamental to PostgreSQL's WAL system, tracking exactly which pages are modified by each transaction
 - The output format provides sufficient detail to uniquely identify any database block affected by the WAL record
+
+## Simplified Source
+
+```c
+static void xlog_block_info(StringInfo buf, XLogReaderState *record)
+{
+    // Iterate through all block references in the WAL record
+    for (int block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++) {
+        RelFileLocator rlocator;
+        ForkNumber forknum;
+        BlockNumber blk;
+
+        // Try to get block reference information
+        if (!XLogRecGetBlockTagExtended(record, block_id, &rlocator, &forknum, &blk, NULL))
+            continue;  // Skip missing block references
+
+        // Format block reference info differently based on fork type
+        if (forknum != MAIN_FORKNUM) {
+            // Include fork number for non-main forks
+            appendStringInfo(buf, "; blkref #%d: rel %u/%u/%u, fork %u, blk %u",
+                           block_id,
+                           rlocator.spcOid, rlocator.dbOid, rlocator.relNumber,
+                           forknum, blk);
+        } else {
+            // Simpler format for main fork
+            appendStringInfo(buf, "; blkref #%d: rel %u/%u/%u, blk %u",
+                           block_id,
+                           rlocator.spcOid, rlocator.dbOid, rlocator.relNumber,
+                           blk);
+        }
+
+        // Add "FPW" indicator if this block has a full page write
+        if (XLogRecHasBlockImage(record, block_id))
+            appendStringInfoString(buf, " FPW");
+    }
+}
+```

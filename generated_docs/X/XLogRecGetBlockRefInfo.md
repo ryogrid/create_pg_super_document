@@ -50,3 +50,133 @@ The function is commonly used by WAL analysis tools like pg_waldump and pg_walin
 - Used extensively by PostgreSQL's WAL analysis and debugging tools
 - The function safely handles records with no block references
 - Fork names are displayed using the forkNames array for human readability
+
+## Simplified Source
+
+```c
+void XLogRecGetBlockRefInfo(XLogReaderState *record, bool pretty,
+                           bool detailed_format, StringInfo buf,
+                           uint32 *fpi_len)
+{
+    int block_id;
+
+    Assert(record != NULL);
+
+    if (detailed_format && pretty)
+        appendStringInfoChar(buf, '\n');
+
+    // Iterate through all block references in the record
+    for (block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++)
+    {
+        RelFileLocator rlocator;
+        ForkNumber forknum;
+        BlockNumber blk;
+
+        // Get block tag information
+        if (!XLogRecGetBlockTagExtended(record, block_id,
+                                       &rlocator, &forknum, &blk, NULL))
+            continue;
+
+        if (detailed_format)
+        {
+            // Detailed format: show comprehensive block information
+            if (pretty)
+                appendStringInfoChar(buf, '\t');
+            else if (block_id > 0)
+                appendStringInfoChar(buf, ' ');
+
+            appendStringInfo(buf,
+                           "blkref #%d: rel %u/%u/%u fork %s blk %u",
+                           block_id,
+                           rlocator.spcOid, rlocator.dbOid, rlocator.relNumber,
+                           forkNames[forknum], blk);
+
+            // Handle full-page image information
+            if (XLogRecHasBlockImage(record, block_id))
+            {
+                uint8 bimg_info = XLogRecGetBlock(record, block_id)->bimg_info;
+
+                // Update FPI length if requested
+                if (fpi_len)
+                    *fpi_len += XLogRecGetBlock(record, block_id)->bimg_len;
+
+                // Handle compressed images
+                if (BKPIMAGE_COMPRESSED(bimg_info))
+                {
+                    const char *method;
+
+                    // Determine compression method
+                    if ((bimg_info & BKPIMAGE_COMPRESS_PGLZ) != 0)
+                        method = "pglz";
+                    else if ((bimg_info & BKPIMAGE_COMPRESS_LZ4) != 0)
+                        method = "lz4";
+                    else if ((bimg_info & BKPIMAGE_COMPRESS_ZSTD) != 0)
+                        method = "zstd";
+                    else
+                        method = "unknown";
+
+                    appendStringInfo(buf,
+                                   " (FPW%s); hole: offset: %u, length: %u, "
+                                   "compression saved: %u, method: %s",
+                                   XLogRecBlockImageApply(record, block_id) ?
+                                   "" : " for WAL verification",
+                                   XLogRecGetBlock(record, block_id)->hole_offset,
+                                   XLogRecGetBlock(record, block_id)->hole_length,
+                                   BLCKSZ -
+                                   XLogRecGetBlock(record, block_id)->hole_length -
+                                   XLogRecGetBlock(record, block_id)->bimg_len,
+                                   method);
+                }
+                else
+                {
+                    // Uncompressed image
+                    appendStringInfo(buf,
+                                   " (FPW%s); hole: offset: %u, length: %u",
+                                   XLogRecBlockImageApply(record, block_id) ?
+                                   "" : " for WAL verification",
+                                   XLogRecGetBlock(record, block_id)->hole_offset,
+                                   XLogRecGetBlock(record, block_id)->hole_length);
+                }
+            }
+
+            if (pretty)
+                appendStringInfoChar(buf, '\n');
+        }
+        else
+        {
+            // Short format: minimal block information
+            if (forknum != MAIN_FORKNUM)
+            {
+                appendStringInfo(buf,
+                               ", blkref #%d: rel %u/%u/%u fork %s blk %u",
+                               block_id,
+                               rlocator.spcOid, rlocator.dbOid, rlocator.relNumber,
+                               forkNames[forknum], blk);
+            }
+            else
+            {
+                appendStringInfo(buf,
+                               ", blkref #%d: rel %u/%u/%u blk %u",
+                               block_id,
+                               rlocator.spcOid, rlocator.dbOid, rlocator.relNumber,
+                               blk);
+            }
+
+            // Handle FPI in short format
+            if (XLogRecHasBlockImage(record, block_id))
+            {
+                if (fpi_len)
+                    *fpi_len += XLogRecGetBlock(record, block_id)->bimg_len;
+
+                if (XLogRecBlockImageApply(record, block_id))
+                    appendStringInfoString(buf, " FPW");
+                else
+                    appendStringInfoString(buf, " FPW for WAL verification");
+            }
+        }
+    }
+
+    if (!detailed_format && pretty)
+        appendStringInfoChar(buf, '\n');
+}
+```

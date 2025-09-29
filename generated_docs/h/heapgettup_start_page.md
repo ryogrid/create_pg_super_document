@@ -41,3 +41,30 @@ This function initializes the scanning parameters for a heap page that's already
 - Returns the Page pointer extracted from the current buffer
 - Essential helper for tuple-by-tuple scanning as opposed to pagemode scanning
 - Used in conjunction with heapgettup for individual tuple iteration
+
+## Simplified Source
+
+```c
+static Page heapgettup_start_page(HeapScanDesc scan, ScanDirection dir,
+                                 int *linesleft, OffsetNumber *lineoff)
+{
+    Page page;
+
+    Assert(scan->rs_inited);
+    Assert(BufferIsValid(scan->rs_cbuf));
+
+    // Get page from current buffer
+    page = BufferGetPage(scan->rs_cbuf);
+
+    // Calculate total tuples on page
+    *linesleft = PageGetMaxOffsetNumber(page) - FirstOffsetNumber + 1;
+
+    // Set starting offset based on scan direction
+    if (ScanDirectionIsForward(dir))
+        *lineoff = FirstOffsetNumber;        // Start from beginning
+    else
+        *lineoff = (OffsetNumber) (*linesleft);  // Start from end
+
+    return page;
+}
+```

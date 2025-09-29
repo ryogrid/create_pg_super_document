@@ -39,3 +39,23 @@ SlruRecentlyUsed is an inline function that implements the LRU (Least Recently U
 - The bank-based organization helps distribute LRU counter management across multiple banks to reduce contention
 - Assert check ensures the slot is not empty before updating LRU information
 - Counter wrap-around protection helps maintain the relative ordering of page access times
+
+## Simplified Source
+
+```c
+static inline void SlruRecentlyUsed(SlruShared shared, int slotno)
+{
+    int bankno = SlotGetBankNumber(slotno);
+    int new_lru_count = shared->bank_cur_lru_count[bankno];
+
+    Assert(shared->page_status[slotno] != SLRU_PAGE_EMPTY);
+
+    // Only update if the counter has changed to avoid unnecessary work
+    // This optimization reduces counter wrap-around probability for frequently
+    // accessed pages and improves concurrent access performance
+    if (new_lru_count != shared->page_lru_count[slotno]) {
+        shared->bank_cur_lru_count[bankno] = ++new_lru_count;
+        shared->page_lru_count[slotno] = new_lru_count;
+    }
+}
+```

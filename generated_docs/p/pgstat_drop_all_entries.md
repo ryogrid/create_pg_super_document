@@ -37,3 +37,36 @@ None - this function takes no parameters.
 - Part of PostgreSQL's failure recovery and statistics reset infrastructure
 - Primarily used during error recovery scenarios
 - Location: src/backend/utils/activity/pgstat_shmem.c:971-992
+
+## Simplified Source
+
+```c
+void pgstat_drop_all_entries(void)
+{
+    dshash_seq_status hstat;
+    PgStatShared_HashEntry *ps;
+    uint64 not_freed_count = 0;
+
+    // Initialize hash table iteration with exclusive locking
+    dshash_seq_init(&hstat, pgStatLocal.shared_hash, true);
+
+    // Iterate through all entries in the hash table
+    while ((ps = dshash_seq_next(&hstat)) != NULL)
+    {
+        // Skip entries already marked as dropped
+        if (ps->dropped)
+            continue;
+
+        // Try to drop the entry, count failures
+        if (!pgstat_drop_entry_internal(ps, &hstat))
+            not_freed_count++;
+    }
+
+    // Clean up iterator
+    dshash_seq_term(&hstat);
+
+    // Request garbage collection if some entries couldn't be freed
+    if (not_freed_count > 0)
+        pgstat_request_entry_refs_gc();
+}
+```

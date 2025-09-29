@@ -42,3 +42,34 @@ The function first constructs a LOCALLOCKTAG and searches for a corresponding LO
 - Essential for preventing lock-related errors and ensuring proper lock semantics
 - The nLocks > 0 check ensures the lock is actually held (not just reserved)
 - Properly handles structure padding by zeroing the entire LOCALLOCKTAG
+
+## Simplified Source
+
+```c
+bool LockHeldByMe(const LOCKTAG *locktag, LOCKMODE lockmode, bool orstronger)
+{
+    LOCALLOCKTAG localtag;
+    LOCALLOCK *locallock;
+
+    // See if there is a LOCALLOCK entry for this lock and lockmode
+    MemSet(&localtag, 0, sizeof(localtag)); // must clear padding
+    localtag.lock = *locktag;
+    localtag.mode = lockmode;
+
+    locallock = (LOCALLOCK *) hash_search(LockMethodLocalHash, &localtag, HASH_FIND, NULL);
+
+    if (locallock && locallock->nLocks > 0)
+        return true;
+
+    if (orstronger) {
+        LOCKMODE slockmode;
+
+        for (slockmode = lockmode + 1; slockmode <= MaxLockMode; slockmode++) {
+            if (LockHeldByMe(locktag, slockmode, false))
+                return true;
+        }
+    }
+
+    return false;
+}
+```

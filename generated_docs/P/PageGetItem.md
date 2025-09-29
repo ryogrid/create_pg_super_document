@@ -41,3 +41,18 @@ This function is fundamental to PostgreSQL's storage layer and is used extensive
 - The function assumes the caller has already validated that the page and ItemId are valid
 - Used in both forward and backward page scans during query execution
 - Critical for maintaining data consistency during concurrent access
+
+## Simplified Source
+
+```c
+static inline Item
+PageGetItem(Page page, ItemId itemId)
+{
+    // Validate inputs
+    Assert(page);
+    Assert(ItemIdHasStorage(itemId));
+
+    // Calculate item location by adding offset to page base address
+    return (Item) (((char *) page) + ItemIdGetOffset(itemId));
+}
+```

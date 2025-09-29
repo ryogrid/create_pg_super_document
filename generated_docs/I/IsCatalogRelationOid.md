@@ -39,3 +39,18 @@ The function is designed to be extremely lightweight, performing no catalog acce
 - No catalog accesses are performed, making it safe for bootstrap and recovery scenarios
 - More efficient than catalog-based identification methods
 - The function is located in src/backend/catalog/catalog.c:120-151
+
+## Simplified Source
+
+```c
+bool IsCatalogRelationOid(Oid relid)
+{
+    // System catalogs have pinned OIDs below FirstUnpinnedObjectId
+    return (relid < (Oid) FirstUnpinnedObjectId);
+}
+```
+
+This function:
+1. Compares the relation OID against the FirstUnpinnedObjectId boundary
+2. Returns true if the OID is in the pinned range (system catalog)
+3. Relies on PostgreSQL's OID allocation strategy where system objects get pinned OIDs

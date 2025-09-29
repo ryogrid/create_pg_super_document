@@ -50,3 +50,28 @@ The tuple is always copied, so the caller doesn't need to preserve the original 
 - Memory allocation occurs in the tuplestore's context to ensure proper cleanup
 - Read pointer behavior is specifically designed to minimize repositioning overhead in Material and CTE scan nodes
 - This is the preferred interface when working with TupleTableSlots, avoiding manual tuple extraction
+
+## Simplified Source
+
+```c
+void tuplestore_puttupleslot(Tuplestorestate *state, TupleTableSlot *slot)
+{
+    MinimalTuple tuple;
+    MemoryContext oldcxt;
+
+    // Switch to tuplestore's memory context for proper allocation
+    oldcxt = MemoryContextSwitchTo(state->context);
+
+    // Extract tuple from slot and create minimal tuple
+    tuple = ExecCopySlotMinimalTuple(slot);
+
+    // Track memory usage for this tuple
+    USEMEM(state, GetMemoryChunkSpace(tuple));
+
+    // Store the tuple using common storage logic
+    tuplestore_puttuple_common(state, (void *) tuple);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcxt);
+}
+```

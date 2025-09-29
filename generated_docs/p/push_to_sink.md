@@ -40,3 +40,41 @@ The function is designed as a utility for cases where data cannot be read direct
 - Updates both the buffer content and maintains checksum state consistently
 - Part of the backup sink abstraction layer in PostgreSQL's base backup system
 - Located in src/backend/backup/basebackup.c:1950-1990
+
+## Simplified Source
+
+```c
+static void
+push_to_sink(bbsink *sink, pg_checksum_context *checksum_ctx,
+             size_t *bytes_done, void *data, size_t length)
+{
+    while (length > 0)
+    {
+        size_t bytes_to_copy;
+
+        // If data fits in remaining buffer space, copy and return
+        if (length < sink->bbs_buffer_length - *bytes_done)
+        {
+            memcpy(sink->bbs_buffer + *bytes_done, data, length);
+            *bytes_done += length;
+            return;
+        }
+
+        // Fill buffer to capacity and flush
+        bytes_to_copy = sink->bbs_buffer_length - *bytes_done;
+        memcpy(sink->bbs_buffer + *bytes_done, data, bytes_to_copy);
+
+        // Move to next chunk of data
+        data = ((char *) data) + bytes_to_copy;
+        length -= bytes_to_copy;
+
+        // Archive buffer contents and update checksum
+        bbsink_archive_contents(sink, sink->bbs_buffer_length);
+        if (pg_checksum_update(checksum_ctx, (uint8 *) sink->bbs_buffer,
+                               sink->bbs_buffer_length) < 0)
+            elog(ERROR, "could not update checksum");
+
+        *bytes_done = 0;  // Reset for next iteration
+    }
+}
+```

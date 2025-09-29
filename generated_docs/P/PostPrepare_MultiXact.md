@@ -42,3 +42,34 @@ This function handles the transfer of MultiXact state from the current backend p
 - Critical for maintaining MultiXact consistency across prepare/commit phases
 - Part of PostgreSQL's two-phase commit protocol
 - Located in src/backend/access/transam/multixact.c:1842-1890
+
+## Simplified Source
+
+```c
+void PostPrepare_MultiXact(TransactionId xid)
+{
+    MultiXactId myOldestMember;
+
+    // Transfer our OldestMemberMXactId to the prepared transaction slot
+    myOldestMember = OldestMemberMXactId[MyProcNumber];
+    if (MultiXactIdIsValid(myOldestMember))
+    {
+        ProcNumber dummyProcNumber = TwoPhaseGetDummyProcNumber(xid, false);
+
+        // Use lock to ensure atomic visibility of both changes
+        LWLockAcquire(MultiXactGenLock, LW_EXCLUSIVE);
+
+        OldestMemberMXactId[dummyProcNumber] = myOldestMember;
+        OldestMemberMXactId[MyProcNumber] = InvalidMultiXactId;
+
+        LWLockRelease(MultiXactGenLock);
+    }
+
+    // Reset visibility tracking (prepared transactions don't need it)
+    OldestVisibleMXactId[MyProcNumber] = InvalidMultiXactId;
+
+    // Clean up local MultiXact cache
+    MXactContext = NULL;
+    dclist_init(&MXactCache);
+}
+```

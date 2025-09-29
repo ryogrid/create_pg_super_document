@@ -45,3 +45,44 @@ The function does not protect against concurrent truncation, so callers must han
 - Uses read-only page access to avoid unnecessary locking overhead
 - Critical for MultiXact member access and wraparound prevention
 - Function is located at src/backend/access/transam/multixact.c:2880-2917
+
+## Simplified Source
+
+```c
+static bool find_multixact_start(MultiXactId multi, MultiXactOffset *result)
+{
+    MultiXactOffset offset;
+    int64 pageno;
+    int entryno;
+    int slotno;
+    MultiXactOffset *offptr;
+
+    Assert(MultiXactState->finishedStartup);
+
+    // Calculate which page and entry contains this MultiXactId
+    pageno = MultiXactIdToOffsetPage(multi);
+    entryno = MultiXactIdToOffsetEntry(multi);
+
+    // Write out dirty data so we can check physical page existence
+    SimpleLruWriteAll(MultiXactOffsetCtl, true);
+    SimpleLruWriteAll(MultiXactMemberCtl, true);
+
+    // Check if the page exists on disk
+    if (!SimpleLruDoesPhysicalPageExist(MultiXactOffsetCtl, pageno))
+        return false;
+
+    // Read the page in read-only mode (automatically acquires lock)
+    slotno = SimpleLruReadPage_ReadOnly(MultiXactOffsetCtl, pageno, multi);
+
+    // Get pointer to the page buffer and navigate to our entry
+    offptr = (MultiXactOffset *) MultiXactOffsetCtl->shared->page_buffer[slotno];
+    offptr += entryno;
+    offset = *offptr;
+
+    // Release the lock
+    LWLockRelease(SimpleLruGetBankLock(MultiXactOffsetCtl, pageno));
+
+    *result = offset;
+    return true;
+}
+```

@@ -46,3 +46,35 @@ This function takes no parameters and operates on the global reply_message buffe
 - This dispatcher pattern allows for clean separation of concerns between message reception and message-specific processing logic
 - The function is part of the critical path for replication feedback, making its reliability essential for proper replication operation
 - Future extensions to the replication protocol would likely involve adding new cases to this dispatcher function
+
+## Simplified Source
+
+```c
+static void ProcessStandbyMessage(void)
+{
+    char msgtype;
+
+    // Read the first byte to determine message type
+    msgtype = pq_getmsgbyte(&reply_message);
+
+    // Dispatch to appropriate handler based on message type
+    switch (msgtype) {
+        case 'r':
+            // Standard standby reply message (WAL position feedback)
+            ProcessStandbyReplyMessage();
+            break;
+
+        case 'h':
+            // Hot standby feedback message (transaction visibility info)
+            ProcessStandbyHSFeedbackMessage();
+            break;
+
+        default:
+            // Unknown message type - protocol violation
+            ereport(COMMERROR,
+                    (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                     errmsg("unexpected message type \"%c\"", msgtype)));
+            proc_exit(0);
+    }
+}
+```

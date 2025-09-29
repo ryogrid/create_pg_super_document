@@ -48,3 +48,70 @@ The function uses HeapTupleSatisfiesVacuum to determine the tuple's state and ex
 - Part of PostgreSQL's sophisticated concurrency control system
 - No known reason to call from index access methods, only heap access methods
 - Uses top-level transaction IDs to properly handle subtransactions in conflict detection
+
+## Simplified Source
+
+```c
+void HeapCheckForSerializableConflictOut(bool visible, Relation relation,
+                                        HeapTuple tuple, Buffer buffer,
+                                        Snapshot snapshot)
+{
+    TransactionId xid;
+    HTSV_Result htsvResult;
+
+    // Early exit if conflict checking not needed
+    if (!CheckForSerializableConflictOutNeeded(relation, snapshot))
+        return;
+
+    // Determine tuple state and extract relevant transaction ID
+    htsvResult = HeapTupleSatisfiesVacuum(tuple, TransactionXmin, buffer);
+
+    switch (htsvResult) {
+        case HEAPTUPLE_LIVE:
+            if (visible)
+                return;  // No conflict for visible live tuples
+            xid = HeapTupleHeaderGetXmin(tuple->t_data);
+            break;
+
+        case HEAPTUPLE_RECENTLY_DEAD:
+        case HEAPTUPLE_DELETE_IN_PROGRESS:
+            if (visible)
+                xid = HeapTupleHeaderGetUpdateXid(tuple->t_data);
+            else
+                xid = HeapTupleHeaderGetXmin(tuple->t_data);
+
+            if (TransactionIdPrecedes(xid, TransactionXmin)) {
+                Assert(!visible);
+                return;  // Too old to be a conflict
+            }
+            break;
+
+        case HEAPTUPLE_INSERT_IN_PROGRESS:
+            xid = HeapTupleHeaderGetXmin(tuple->t_data);
+            break;
+
+        case HEAPTUPLE_DEAD:
+            Assert(!visible);
+            return;
+
+        default:
+            elog(ERROR, "unrecognized return value from HeapTupleSatisfiesVacuum: %u",
+                 htsvResult);
+            xid = InvalidTransactionId;  // Silence compiler warning
+    }
+
+    Assert(TransactionIdIsValid(xid));
+    Assert(TransactionIdFollowsOrEquals(xid, TransactionXmin));
+
+    // Skip if it's our own transaction
+    if (TransactionIdEquals(xid, GetTopTransactionIdIfAny()))
+        return;
+
+    // Get top-level transaction and check for conflict
+    xid = SubTransGetTopmostTransaction(xid);
+    if (TransactionIdPrecedes(xid, TransactionXmin))
+        return;
+
+    CheckForSerializableConflictOut(relation, xid, snapshot);
+}
+```

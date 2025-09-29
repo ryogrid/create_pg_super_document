@@ -46,3 +46,45 @@ This function requires both streaming and two-phase commit support to be enabled
 - Part of PostgreSQL's logical replication streaming feature for two-phase commit transactions
 - Essential for proper handling of prepared transactions in streaming logical replication
 - Enables logical decoding plugins to handle the prepare phase of distributed transactions
+
+## Simplified Source
+
+```c
+static void stream_prepare_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn, XLogRecPtr prepare_lsn)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    // Validate streaming and two-phase commit modes are enabled
+    Assert(!ctx->fast_forward);
+    Assert(ctx->streaming);
+    Assert(ctx->twophase);
+
+    // Set up error context for better error reporting
+    state.ctx = ctx;
+    state.callback_name = "stream_prepare";
+    state.report_location = txn->final_lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for transaction prepare
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = txn->end_lsn;
+    ctx->end_xact = true;
+
+    // Verify stream_prepare_cb callback exists (required for streaming two-phase commits)
+    if (ctx->callbacks.stream_prepare_cb == NULL)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("logical streaming at prepare time requires a stream_prepare_cb callback")));
+
+    // Call the plugin's stream prepare callback
+    ctx->callbacks.stream_prepare_cb(ctx, txn, prepare_lsn);
+
+    // Restore previous error context
+    error_context_stack = errcallback.previous;
+}
+```

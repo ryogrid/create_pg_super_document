@@ -50,3 +50,50 @@ The detoasting process involves:
 - The tofree array tracks temporary detoasted values that need cleanup after tuple storage
 - More expensive than tstoreReceiveSlot_notoast but ensures complete tuple materialization
 - Cannot be used simultaneously with tuple conversion (Assert in startup ensures mutual exclusion)
+
+## Simplified Source
+
+```c
+static bool tstoreReceiveSlot_detoast(TupleTableSlot *slot, DestReceiver *self)
+{
+    TStoreState *myState = (TStoreState *) self;
+    TupleDesc typeinfo = slot->tts_tupleDescriptor;
+    int natts = typeinfo->natts;
+    int nfree = 0;
+    int i;
+    MemoryContext oldcxt;
+
+    // Ensure all attributes are materialized
+    slot_getallattrs(slot);
+
+    // Process each attribute, detoasting as needed
+    for (i = 0; i < natts; i++) {
+        Datum val = slot->tts_values[i];
+        Form_pg_attribute attr = TupleDescAttr(typeinfo, i);
+
+        // Check for toasted variable-length attributes
+        if (!attr->attisdropped && attr->attlen == -1 && !slot->tts_isnull[i]) {
+            if (VARATT_IS_EXTERNAL(DatumGetPointer(val))) {
+                // Detoast the external value
+                val = PointerGetDatum(detoast_external_attr(
+                    (struct varlena *) DatumGetPointer(val)));
+                myState->tofree[nfree++] = val;
+            }
+        }
+
+        myState->outvalues[i] = val;
+    }
+
+    // Store the processed tuple in the tuplestore
+    oldcxt = MemoryContextSwitchTo(myState->cxt);
+    tuplestore_putvalues(myState->tstore, typeinfo,
+                        myState->outvalues, slot->tts_isnull);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Clean up temporary detoasted values
+    for (i = 0; i < nfree; i++)
+        pfree(DatumGetPointer(myState->tofree[i]));
+
+    return true;
+}
+```

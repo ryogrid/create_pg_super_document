@@ -46,3 +46,50 @@ The function initializes all essential slot fields including the operations poin
 - Memory allocation uses palloc0 to zero-initialize all fields for safety
 - The slot's memory context is set to the current context at creation time
 - This is the foundational function for all slot creation in the PostgreSQL executor
+
+## Simplified Source
+
+```c
+TupleTableSlot *
+MakeTupleTableSlot(TupleDesc tupleDesc, const TupleTableSlotOps *tts_ops)
+{
+    Size basesz, allocsz;
+    TupleTableSlot *slot;
+
+    basesz = tts_ops->base_slot_size;
+
+    // Optimize memory allocation when tuple descriptor is fixed
+    if (tupleDesc)
+        allocsz = MAXALIGN(basesz) +
+                  MAXALIGN(tupleDesc->natts * sizeof(Datum)) +
+                  MAXALIGN(tupleDesc->natts * sizeof(bool));
+    else
+        allocsz = basesz;
+
+    slot = palloc0(allocsz);
+
+    // Initialize basic slot properties
+    *((const TupleTableSlotOps **) &slot->tts_ops) = tts_ops;
+    slot->type = T_TupleTableSlot;
+    slot->tts_flags |= TTS_FLAG_EMPTY;
+    if (tupleDesc != NULL)
+        slot->tts_flags |= TTS_FLAG_FIXED;
+    slot->tts_tupleDescriptor = tupleDesc;
+    slot->tts_mcxt = CurrentMemoryContext;
+    slot->tts_nvalid = 0;
+
+    // Set up optimized arrays when using fixed descriptor
+    if (tupleDesc != NULL)
+    {
+        slot->tts_values = (Datum *)(((char *) slot) + MAXALIGN(basesz));
+        slot->tts_isnull = (bool *)(((char *) slot) + MAXALIGN(basesz) +
+                                    MAXALIGN(tupleDesc->natts * sizeof(Datum)));
+        PinTupleDesc(tupleDesc);
+    }
+
+    // Call slot-type specific initialization
+    slot->tts_ops->init(slot);
+
+    return slot;
+}
+```

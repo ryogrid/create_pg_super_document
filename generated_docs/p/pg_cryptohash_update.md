@@ -46,3 +46,38 @@ The function performs input validation by checking for null context and then use
 - All algorithm-specific update functions follow the same signature pattern
 - Part of PostgreSQL's common cryptographic hash interface used throughout the system
 - The context must be properly initialized with pg_cryptohash_init before calling this function
+
+## Simplified Source
+
+```c
+int
+pg_cryptohash_update(pg_cryptohash_ctx *ctx, const uint8 *data, size_t len)
+{
+    if (ctx == NULL)
+        return -1;
+
+    switch (ctx->type)
+    {
+        case PG_MD5:
+            pg_md5_update(&ctx->data.md5, data, len);
+            break;
+        case PG_SHA1:
+            pg_sha1_update(&ctx->data.sha1, data, len);
+            break;
+        case PG_SHA224:
+            pg_sha224_update(&ctx->data.sha224, data, len);
+            break;
+        case PG_SHA256:
+            pg_sha256_update(&ctx->data.sha256, data, len);
+            break;
+        case PG_SHA384:
+            pg_sha384_update(&ctx->data.sha384, data, len);
+            break;
+        case PG_SHA512:
+            pg_sha512_update(&ctx->data.sha512, data, len);
+            break;
+    }
+
+    return 0;
+}
+```

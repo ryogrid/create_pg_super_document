@@ -42,3 +42,21 @@ This function is essential for proper cleanup of cryptographic operations and fo
 - The context becomes completely invalid after calling this function
 - Used extensively in error cleanup paths to ensure proper resource cleanup even when operations fail
 - Critical for security: prevents potential information disclosure through memory analysis attacks
+
+## Simplified Source
+
+```c
+// Securely free a cryptographic hash context
+void pg_cryptohash_free(pg_cryptohash_ctx *ctx)
+{
+    // Allow NULL pointer (safe to call)
+    if (ctx == NULL)
+        return;
+
+    // Securely clear all sensitive data in the context
+    explicit_bzero(ctx, sizeof(pg_cryptohash_ctx));
+
+    // Free the memory
+    FREE(ctx);
+}
+```

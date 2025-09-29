@@ -52,3 +52,69 @@ The function iterates through all block references in a WAL record, reads both t
 - Critical for ensuring data integrity during crash recovery and replication scenarios
 - The function uses global buffers (replay_image_masked, primary_image_masked) for page comparisons
 - Skips blocks where the page LSN is ahead of the current record's EndRecPtr (indicating recovery restart)
+
+## Simplified Source
+
+```c
+static void verifyBackupPageConsistency(XLogReaderState *record)
+{
+    RmgrData rmgr = GetRmgr(XLogRecGetRmid(record));
+    RelFileLocator rlocator;
+    ForkNumber forknum;
+    BlockNumber blkno;
+
+    // Skip if record has no block references
+    if (!XLogRecHasAnyBlockRefs(record))
+        return;
+
+    Assert((XLogRecGetInfo(record) & XLR_CHECK_CONSISTENCY) != 0);
+
+    // Check each block reference in the record
+    for (int block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++) {
+        Buffer buf;
+        Page page;
+
+        // Get block location information
+        if (!XLogRecGetBlockTagExtended(record, block_id, &rlocator, &forknum, &blkno, NULL))
+            continue;  // Skip if block reference doesn't exist
+
+        Assert(XLogRecHasBlockImage(record, block_id));
+
+        // Skip if page was already applied (would compare page with itself)
+        if (XLogRecBlockImageApply(record, block_id))
+            continue;
+
+        // Read current page from buffer
+        buf = XLogReadBufferExtended(rlocator, forknum, blkno, RBM_NORMAL_NO_LOG, InvalidBuffer);
+        if (!BufferIsValid(buf))
+            continue;
+
+        LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+        page = BufferGetPage(buf);
+
+        // Copy current page for comparison
+        memcpy(replay_image_masked, page, BLCKSZ);
+        UnlockReleaseBuffer(buf);
+
+        // Skip if page LSN is ahead of this record (recovery restart)
+        if (PageGetLSN(replay_image_masked) > record->EndRecPtr)
+            continue;
+
+        // Restore backup image from WAL record
+        if (!RestoreBlockImage(record, block_id, primary_image_masked))
+            ereport(ERROR, "failed to restore backup image");
+
+        // Apply masking if available (ignore hint bits, unused space, etc.)
+        if (rmgr.rm_mask != NULL) {
+            rmgr.rm_mask(replay_image_masked, blkno);
+            rmgr.rm_mask(primary_image_masked, blkno);
+        }
+
+        // Compare the two page images
+        if (memcmp(replay_image_masked, primary_image_masked, BLCKSZ) != 0) {
+            elog(FATAL, "inconsistent page found, rel %u/%u/%u, forknum %u, blkno %u",
+                 rlocator.spcOid, rlocator.dbOid, rlocator.relNumber, forknum, blkno);
+        }
+    }
+}
+```

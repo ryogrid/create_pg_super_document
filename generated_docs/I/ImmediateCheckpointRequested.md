@@ -35,3 +35,17 @@ None - the function takes no parameters and returns a boolean indicating the pre
 - Returns true only when CHECKPOINT_IMMEDIATE flag is set in pending requests
 - Part of the checkpoint prioritization system that allows immediate checkpoints to bypass normal timing constraints
 - Used primarily during checkpoint write delay calculations to determine if delays should be skipped
+
+## Simplified Source
+
+```c
+static bool ImmediateCheckpointRequested(void)
+{
+    volatile CheckpointerShmemStruct *cps = CheckpointerShmem;
+
+    // Check if immediate checkpoint flag is set (lockless read)
+    if (cps->ckpt_flags & CHECKPOINT_IMMEDIATE)
+        return true;
+    return false;
+}
+```

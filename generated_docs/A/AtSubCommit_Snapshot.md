@@ -36,3 +36,24 @@ The iteration stops when it encounters a snapshot with a level lower than the cu
 - Works with the ActiveSnapshot linked list structure
 - Critical for proper cleanup and ownership tracking in nested transactions
 - Ensures that useful snapshots persist beyond subtransaction boundaries
+
+## Simplified Source
+
+```c
+void AtSubCommit_Snapshot(int level)
+{
+    ActiveSnapshotElt *active;
+
+    // Relabel active snapshots from this subtransaction
+    // as belonging to the parent subtransaction
+    for (active = ActiveSnapshot; active != NULL; active = active->as_next)
+    {
+        // Stop when we reach snapshots from outer transaction levels
+        if (active->as_level < level)
+            break;
+
+        // Transfer ownership to parent by decrementing level
+        active->as_level = level - 1;
+    }
+}
+```

@@ -45,3 +45,49 @@ This function implements a coordinated shutdown of the WAL receiver process. It 
 - Implements proper synchronization using condition variables for clean shutdown
 - Waits indefinitely until the WAL receiver acknowledges shutdown by setting state to STOPPED
 - Critical for ensuring clean shutdown of streaming replication connections
+
+## Simplified Source
+
+```c
+void ShutdownWalRcv(void)
+{
+    WalRcvData *walrcv = WalRcv;
+    pid_t walrcvpid = 0;
+    bool stopped = false;
+
+    // Request walreceiver to stop based on current state
+    SpinLockAcquire(&walrcv->mutex);
+    switch (walrcv->walRcvState)
+    {
+        case WALRCV_STOPPED:
+            break;
+        case WALRCV_STARTING:
+            walrcv->walRcvState = WALRCV_STOPPED;
+            stopped = true;
+            break;
+        case WALRCV_STREAMING:
+        case WALRCV_WAITING:
+        case WALRCV_RESTARTING:
+            walrcv->walRcvState = WALRCV_STOPPING;
+            // fall through
+        case WALRCV_STOPPING:
+            walrcvpid = walrcv->pid;
+            break;
+    }
+    SpinLockRelease(&walrcv->mutex);
+
+    // Broadcast if already stopped
+    if (stopped)
+        ConditionVariableBroadcast(&walrcv->walRcvStoppedCV);
+
+    // Signal walreceiver process to terminate
+    if (walrcvpid != 0)
+        kill(walrcvpid, SIGTERM);
+
+    // Wait for walreceiver to acknowledge shutdown
+    ConditionVariablePrepareToSleep(&walrcv->walRcvStoppedCV);
+    while (WalRcvRunning())
+        ConditionVariableSleep(&walrcv->walRcvStoppedCV, WAIT_EVENT_WAL_RECEIVER_EXIT);
+    ConditionVariableCancelSleep();
+}
+```

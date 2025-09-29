@@ -44,3 +44,30 @@ This function is typically called when a PostgreSQL process finishes a temporary
 - Paired with set_ps_display_suffix for managing temporary process title modifications
 - Resets ps_buffer_nosuffix_len to 0, indicating no suffix is currently active
 - Commonly used in cleanup code paths and exception handlers to ensure process titles are properly restored
+
+## Simplified Source
+
+```c
+void set_ps_display_remove_suffix(void)
+{
+#ifndef PS_USE_NONE
+    // Check if process title updates are enabled
+    if (!update_ps_display_precheck())
+        return;
+
+    // Check if there's actually a suffix to remove
+    if (ps_buffer_nosuffix_len == 0)
+        return;    // No suffix was added
+
+    // Restore original title by truncating at original length
+    ps_buffer[ps_buffer_nosuffix_len] = '\0';
+    ps_buffer_cur_len = ps_buffer_nosuffix_len;
+    ps_buffer_nosuffix_len = 0;  // Reset suffix tracking
+
+    Assert(ps_buffer_cur_len == strlen(ps_buffer));
+
+    // Apply the restored title to the system
+    flush_ps_display();
+#endif  // not PS_USE_NONE
+}
+```

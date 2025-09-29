@@ -43,3 +43,40 @@ This transition is essential for ensuring that archive recovery can proceed safe
 - Critical for maintaining recovery consistency when switching from local WAL replay to archived WAL retrieval
 - The function ensures that minRecoveryPoint advances monotonically and is never set to a position earlier than already achieved
 - Located in src/backend/access/transam/xlog.c:6188-6225
+
+## Simplified Source
+
+```c
+void SwitchIntoArchiveRecovery(XLogRecPtr EndRecPtr, TimeLineID replayTLI)
+{
+    // Acquire exclusive lock on control file
+    LWLockAcquire(ControlFileLock, LW_EXCLUSIVE);
+
+    // Update control file state to archive recovery mode
+    ControlFile->state = DB_IN_ARCHIVE_RECOVERY;
+
+    // Update minimum recovery point if needed (ensure monotonic advance)
+    if (ControlFile->minRecoveryPoint < EndRecPtr)
+    {
+        ControlFile->minRecoveryPoint = EndRecPtr;
+        ControlFile->minRecoveryPointTLI = replayTLI;
+    }
+
+    // Update local copies for startup process
+    LocalMinRecoveryPoint = ControlFile->minRecoveryPoint;
+    LocalMinRecoveryPointTLI = ControlFile->minRecoveryPointTLI;
+
+    // Enable startup process to update its local tracking
+    updateMinRecoveryPoint = true;
+
+    // Persist control file changes to disk
+    UpdateControlFile();
+
+    // Update shared memory recovery state consistently
+    SpinLockAcquire(&XLogCtl->info_lck);
+    XLogCtl->SharedRecoveryState = RECOVERY_STATE_ARCHIVE;
+    SpinLockRelease(&XLogCtl->info_lck);
+
+    LWLockRelease(ControlFileLock);
+}
+```

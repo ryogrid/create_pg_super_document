@@ -33,3 +33,20 @@ This function generates the full file system path for backup history files by co
 
 ## Notes and Other Information
 The generated path follows the format: `{XLOGDIR}/{tli:08X}{high:08X}{low:08X}.{offset:08X}.backup` where XLOGDIR is the WAL directory path (typically 'pg_wal'). This function is essential for creating backup history files at the correct location within the PostgreSQL data directory structure, ensuring they can be found by recovery and cleanup processes.
+
+## Simplified Source
+
+```c
+// Generate full filesystem path for backup history file
+static inline void BackupHistoryFilePath(char *path, TimeLineID tli,
+                                        XLogSegNo logSegNo, XLogRecPtr startpoint,
+                                        int wal_segsz_bytes)
+{
+    // Format: XLOGDIR/timeline.high.low.offset.backup
+    snprintf(path, MAXPGPATH, XLOGDIR "/%08X%08X%08X.%08X.backup",
+             tli,
+             (uint32) (logSegNo / XLogSegmentsPerXLogId(wal_segsz_bytes)),     // high
+             (uint32) (logSegNo % XLogSegmentsPerXLogId(wal_segsz_bytes)),     // low
+             (uint32) (XLogSegmentOffset(startpoint, wal_segsz_bytes)));       // offset
+}
+```

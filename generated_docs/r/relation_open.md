@@ -53,3 +53,39 @@ The function is designed to work with any type of relation (tables, indexes, seq
 - The function automatically tracks access to temporary relations for transaction management
 - A "relation" in PostgreSQL context means any object with a pg_class entry, so callers should verify the relkind is appropriate for their use case
 - The function integrates with PostgreSQL's statistics system by initializing per-relation stats tracking
+
+## Simplified Source
+
+```c
+Relation
+relation_open(Oid relationId, LOCKMODE lockmode)
+{
+    Relation r;
+
+    Assert(lockmode >= NoLock && lockmode < MAX_LOCKMODES);
+
+    // Acquire lock before accessing relcache
+    if (lockmode != NoLock)
+        LockRelationOid(relationId, lockmode);
+
+    // Get relation from relcache
+    r = RelationIdGetRelation(relationId);
+
+    if (!RelationIsValid(r))
+        elog(ERROR, "could not open relation with OID %u", relationId);
+
+    // Verify lock is held (except in bootstrap mode)
+    Assert(lockmode != NoLock ||
+           IsBootstrapProcessingMode() ||
+           CheckRelationLockedByMe(r, AccessShareLock, true));
+
+    // Track temporary relation access
+    if (RelationUsesLocalBuffers(r))
+        MyXactFlags |= XACT_FLAGS_ACCESSEDTEMPNAMESPACE;
+
+    // Initialize statistics
+    pgstat_init_relation(r);
+
+    return r;
+}
+```

@@ -46,3 +46,24 @@ This callback mechanism ensures that temporary relations are cleaned up even in 
 - Proper transaction management is crucial since this runs during backend exit when the transaction state may be uncertain
 - Part of PostgreSQL's resource cleanup infrastructure that ensures temporary objects don't persist beyond their intended lifespan
 - The callback is typically registered during temporary namespace initialization to ensure cleanup occurs regardless of how the backend terminates
+
+## Simplified Source
+
+```c
+static void
+RemoveTempRelationsCallback(int code, Datum arg)
+{
+    if (OidIsValid(myTempNamespace)) // should always be true
+    {
+        // Need to ensure we have a usable transaction
+        AbortOutOfAnyTransaction();
+        StartTransactionCommand();
+        PushActiveSnapshot(GetTransactionSnapshot());
+
+        RemoveTempRelations(myTempNamespace);
+
+        PopActiveSnapshot();
+        CommitTransactionCommand();
+    }
+}
+```

@@ -53,3 +53,14 @@ Upon successful insertion, the slot's `tts_tid` (tuple identifier) and `tts_tabl
 - Bulk insert state optimization is essential for high-performance data loading operations like COPY
 - The function updates slot metadata but does not modify the slot's tuple data representation
 - Must be paired with `table_finish_bulk_insert()` when using bulk insert state
+
+## Simplified Source
+
+```c
+static inline void table_tuple_insert(Relation rel, TupleTableSlot *slot, CommandId cid,
+                                     int options, struct BulkInsertStateData *bistate)
+{
+    // Delegate to the table access method's specific implementation
+    rel->rd_tableam->tuple_insert(rel, slot, cid, options, bistate);
+}
+```

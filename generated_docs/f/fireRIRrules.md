@@ -59,3 +59,193 @@ The function modifies the parse tree in-place, potentially replacing simple tabl
 - Maintains hasRowSecurity and hasSubLinks flags throughout the query tree
 - Uses special handling for range table entries that are not referenced in the query
 - Skips materialized views to prevent inappropriate expansion during queries
+
+## Simplified Source
+
+```c
+static Query *
+fireRIRrules(Query *parsetree, List *activeRIRs)
+{
+    int origResultRelation = parsetree->resultRelation;
+    int rt_index;
+    ListCell *lc;
+
+    // Expand SEARCH and CYCLE clauses in CTEs
+    foreach(lc, parsetree->cteList)
+    {
+        CommonTableExpr *cte = lfirst_node(CommonTableExpr, lc);
+
+        if (cte->search_clause || cte->cycle_clause)
+        {
+            cte = rewriteSearchAndCycle(cte);
+            lfirst(lc) = cte;
+        }
+    }
+
+    // Process each range table entry for rule application
+    rt_index = 0;
+    while (rt_index < list_length(parsetree->rtable))
+    {
+        RangeTblEntry *rte;
+        Relation rel;
+        List *locks;
+        RuleLock *rules;
+        RewriteRule *rule;
+        int i;
+
+        ++rt_index;
+        rte = rt_fetch(rt_index, parsetree->rtable);
+
+        // Handle subqueries recursively
+        if (rte->rtekind == RTE_SUBQUERY)
+        {
+            rte->subquery = fireRIRrules(rte->subquery, activeRIRs);
+            parsetree->hasRowSecurity |= rte->subquery->hasRowSecurity;
+            continue;
+        }
+
+        // Skip non-relation RTEs
+        if (rte->rtekind != RTE_RELATION)
+            continue;
+
+        // Skip materialized views
+        if (rte->relkind == RELKIND_MATVIEW)
+            continue;
+
+        // Skip EXCLUDED pseudo-relation in INSERT ... ON CONFLICT
+        if (parsetree->onConflict &&
+            rt_index == parsetree->onConflict->exclRelIndex)
+            continue;
+
+        // Skip if table is not referenced in the query
+        if (rt_index != parsetree->resultRelation &&
+            !rangeTableEntry_used((Node *) parsetree, rt_index, 0))
+            continue;
+
+        // Skip new result relations introduced by ApplyRetrieveRule
+        if (rt_index == parsetree->resultRelation &&
+            rt_index != origResultRelation)
+            continue;
+
+        rel = table_open(rte->relid, NoLock);
+
+        // Collect applicable RIR rules (SELECT rules only)
+        rules = rel->rd_rules;
+        if (rules != NULL)
+        {
+            locks = NIL;
+            for (i = 0; i < rules->numLocks; i++)
+            {
+                rule = rules->rules[i];
+                if (rule->event != CMD_SELECT)
+                    continue;
+
+                locks = lappend(locks, rule);
+            }
+
+            // Apply rules if found, with recursion detection
+            if (locks != NIL)
+            {
+                if (list_member_oid(activeRIRs, RelationGetRelid(rel)))
+                    ereport(ERROR, /* infinite recursion detected */);
+
+                activeRIRs = lappend_oid(activeRIRs, RelationGetRelid(rel));
+
+                foreach(l, locks)
+                {
+                    rule = lfirst(l);
+                    parsetree = ApplyRetrieveRule(parsetree, rule, rt_index,
+                                                 rel, activeRIRs);
+                }
+
+                activeRIRs = list_delete_last(activeRIRs);
+            }
+        }
+
+        table_close(rel, NoLock);
+    }
+
+    // Recurse into CTE subqueries
+    foreach(lc, parsetree->cteList)
+    {
+        CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc);
+
+        cte->ctequery = (Node *)
+            fireRIRrules((Query *) cte->ctequery, activeRIRs);
+
+        parsetree->hasRowSecurity |= ((Query *) cte->ctequery)->hasRowSecurity;
+    }
+
+    // Process sublinks if present
+    if (parsetree->hasSubLinks)
+    {
+        fireRIRonSubLink_context context;
+
+        context.activeRIRs = activeRIRs;
+        context.hasRowSecurity = false;
+
+        query_tree_walker(parsetree, fireRIRonSubLink, (void *) &context,
+                         QTW_IGNORE_RC_SUBQUERIES);
+
+        parsetree->hasRowSecurity |= context.hasRowSecurity;
+    }
+
+    // Apply row-level security policies
+    rt_index = 0;
+    foreach(lc, parsetree->rtable)
+    {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc);
+        Relation rel;
+        List *securityQuals;
+        List *withCheckOptions;
+        bool hasRowSecurity;
+        bool hasSubLinks;
+
+        ++rt_index;
+
+        // Only normal relations can have RLS policies
+        if (rte->rtekind != RTE_RELATION ||
+            (rte->relkind != RELKIND_RELATION &&
+             rte->relkind != RELKIND_PARTITIONED_TABLE))
+            continue;
+
+        rel = table_open(rte->relid, NoLock);
+
+        // Get row security policies for this relation
+        get_row_security_policies(parsetree, rte, rt_index,
+                                 &securityQuals, &withCheckOptions,
+                                 &hasRowSecurity, &hasSubLinks);
+
+        if (securityQuals != NIL || withCheckOptions != NIL)
+        {
+            if (hasSubLinks)
+            {
+                // Handle sublinks in security policies with recursion detection
+                if (list_member_oid(activeRIRs, RelationGetRelid(rel)))
+                    ereport(ERROR, /* infinite recursion in policy */);
+
+                activeRIRs = lappend_oid(activeRIRs, RelationGetRelid(rel));
+
+                // Process sublinks in security quals
+                // ... (acquire locks and fire RIR rules)
+
+                activeRIRs = list_delete_last(activeRIRs);
+            }
+
+            // Add security quals to the RTE
+            rte->securityQuals = list_concat(securityQuals, rte->securityQuals);
+            parsetree->withCheckOptions = list_concat(withCheckOptions,
+                                                     parsetree->withCheckOptions);
+        }
+
+        if (hasRowSecurity)
+            parsetree->hasRowSecurity = true;
+        if (hasSubLinks)
+            parsetree->hasSubLinks = true;
+
+        table_close(rel, NoLock);
+    }
+
+    return parsetree;
+}
+```

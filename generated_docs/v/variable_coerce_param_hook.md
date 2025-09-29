@@ -43,3 +43,63 @@ This hook function is called during query parsing to coerce variable parameters 
 - Updates parameter location to the leftmost occurrence for better error reporting
 - Critical for type inference in ad-hoc queries where parameter types are not predetermined
 - Part of PostgreSQL's dynamic parameter type resolution system
+
+## Simplified Source
+
+```c
+static Node *
+variable_coerce_param_hook(ParseState *pstate, Param *param,
+                          Oid targetTypeId, int32 targetTypeMod,
+                          int location)
+{
+    if (param->paramkind == PARAM_EXTERN && param->paramtype == UNKNOWNOID)
+    {
+        VarParamState *parstate = (VarParamState *) pstate->p_ref_hook_state;
+        Oid *paramTypes = *parstate->paramTypes;
+        int paramno = param->paramid;
+
+        // Validate parameter number
+        if (paramno <= 0 || paramno > *parstate->numParams)
+            ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_PARAMETER),
+                 errmsg("there is no parameter $%d", paramno),
+                 parser_errposition(pstate, param->location)));
+
+        if (paramTypes[paramno - 1] == UNKNOWNOID)
+        {
+            // First time determining this parameter's type
+            paramTypes[paramno - 1] = targetTypeId;
+        }
+        else if (paramTypes[paramno - 1] == targetTypeId)
+        {
+            // Type matches previous determination
+        }
+        else
+        {
+            // Type conflict error
+            ereport(ERROR,
+                (errcode(ERRCODE_AMBIGUOUS_PARAMETER),
+                 errmsg("inconsistent types deduced for parameter $%d", paramno),
+                 errdetail("%s versus %s",
+                          format_type_be(paramTypes[paramno - 1]),
+                          format_type_be(targetTypeId)),
+                 parser_errposition(pstate, param->location)));
+        }
+
+        // Update parameter properties
+        param->paramtype = targetTypeId;
+        param->paramtypmod = -1;  // Force runtime type checking
+        param->paramcollid = get_typcollation(param->paramtype);
+
+        // Update location to leftmost occurrence
+        if (location >= 0 &&
+            (param->location < 0 || location < param->location))
+            param->location = location;
+
+        return (Node *) param;
+    }
+
+    // Let normal coercion handle other cases
+    return NULL;
+}
+```

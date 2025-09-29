@@ -42,3 +42,38 @@ The function sets up an error callback context that will provide detailed inform
 - Manages error context stack to provide meaningful error messages if the plugin callback fails
 - The LSN tracking allows clients to acknowledge receipt of changes up to a specific point, enabling efficient replication confirmation
 - Sets  to indicate this is not a transaction end event
+
+## Simplified Source
+
+```c
+static void change_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                             Relation relation, ReorderBufferChange *change)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    Assert(!ctx->fast_forward);
+
+    // Set up error handling context
+    state.ctx = ctx;
+    state.callback_name = "change";
+    state.report_location = change->lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = change->lsn;
+    ctx->end_xact = false;
+
+    // Call the actual plugin change callback
+    ctx->callbacks.change_cb(ctx, txn, relation, change);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```

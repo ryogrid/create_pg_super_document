@@ -35,3 +35,22 @@ The function is essential for determining the actual width (number of columns) o
 - Resjunk entries are commonly used for storing intermediate values like join keys, sort keys, or system columns that should not appear in query results
 - This count is crucial for creating proper tuple descriptors and determining the actual output width of queries
 - The function is located in execUtils.c, which contains various executor utility functions
+
+## Simplified Source
+
+```c
+int ExecCleanTargetListLength(List *targetlist)
+{
+    int len = 0;
+    ListCell *tl;
+
+    foreach(tl, targetlist)
+    {
+        TargetEntry *curTle = lfirst_node(TargetEntry, tl);
+
+        if (!curTle->resjunk)
+            len++;
+    }
+    return len;
+}
+```

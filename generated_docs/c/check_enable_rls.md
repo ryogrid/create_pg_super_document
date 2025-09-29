@@ -50,3 +50,52 @@ The function considers several factors:
 - The noError parameter allows callers to test RLS status without triggering errors, useful in error handling contexts
 - The RLS_NONE_ENV return value indicates environment-dependent decisions that may affect plan caching
 - Special handling exists for referential integrity checks through InNoForceRLSOperation context
+
+## Simplified Source
+
+```c
+int check_enable_rls(Oid relid, Oid checkAsUser, bool noError)
+{
+    Oid user_id = OidIsValid(checkAsUser) ? checkAsUser : GetUserId();
+    HeapTuple tuple;
+    Form_pg_class classform;
+    bool relrowsecurity;
+    bool relforcerowsecurity;
+    bool amowner;
+
+    // Built-in relations don't use RLS
+    if (relid < FirstNormalObjectId)
+        return RLS_NONE;
+
+    // Get relation's RLS flags from system catalog
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        return RLS_NONE;
+
+    classform = (Form_pg_class) GETSTRUCT(tuple);
+    relrowsecurity = classform->relrowsecurity;
+    relforcerowsecurity = classform->relforcerowsecurity;
+    ReleaseSysCache(tuple);
+
+    // No RLS if not enabled on relation
+    if (!relrowsecurity)
+        return RLS_NONE;
+
+    // Users with BYPASSRLS privilege bypass RLS
+    if (has_bypassrls_privilege(user_id))
+        return RLS_NONE_ENV;
+
+    // Table owners bypass RLS unless FORCE is set
+    amowner = object_ownercheck(RelationRelationId, relid, user_id);
+    if (amowner) {
+        if (!relforcerowsecurity || InNoForceRLSOperation())
+            return RLS_NONE_ENV;
+    }
+
+    // Check if user has disabled row_security GUC
+    if (!row_security && !noError)
+        ereport(ERROR, /* RLS policy would affect query */);
+
+    return RLS_ENABLED;
+}
+```

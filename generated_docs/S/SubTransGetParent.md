@@ -41,3 +41,35 @@ The function includes several important checks: it ensures the requested transac
 - The function automatically handles locking and unlocking of the appropriate SLRU page
 - Part of PostgreSQL's MVCC implementation for handling nested transaction status queries
 - Essential for determining transaction visibility and status in multi-level nested transactions
+
+## Simplified Source
+
+```c
+TransactionId SubTransGetParent(TransactionId xid)
+{
+    int64 pageno = TransactionIdToPage(xid);
+    int entryno = TransactionIdToEntry(xid);
+    int slotno;
+    TransactionId *ptr;
+    TransactionId parent;
+
+    // Validate transaction ID is not too old
+    Assert(TransactionIdFollowsOrEquals(xid, TransactionXmin));
+
+    // Bootstrap and frozen XIDs have no parent
+    if (!TransactionIdIsNormal(xid))
+        return InvalidTransactionId;
+
+    // Read the SLRU page containing this transaction's parent info
+    slotno = SimpleLruReadPage_ReadOnly(SubTransCtl, pageno, xid);
+    ptr = (TransactionId *) SubTransCtl->shared->page_buffer[slotno];
+    ptr += entryno;
+
+    parent = *ptr;
+
+    // Release the lock on the SLRU page
+    LWLockRelease(SimpleLruGetBankLock(SubTransCtl, pageno));
+
+    return parent;
+}
+```

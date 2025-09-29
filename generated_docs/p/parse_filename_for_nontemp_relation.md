@@ -53,3 +53,75 @@ The function is designed to distinguish actual relation files from stray files t
 - Returns `InvalidRelFileNumber` and `InvalidForkNumber` as sentinel values when parsing fails
 - This function is crucial for distinguishing relation files from other files that might exist in database directories
 - Located in src/backend/storage/file/reinit.c:380-453
+
+## Simplified Source
+
+```c
+// Parse PostgreSQL relation filename to extract components
+bool parse_filename_for_nontemp_relation(const char *name, RelFileNumber *relnumber,
+                                         ForkNumber *fork, unsigned *segno)
+{
+    unsigned long n, s;
+    ForkNumber f;
+    char *endp;
+
+    // Initialize output parameters to invalid values
+    *relnumber = InvalidRelFileNumber;
+    *fork = InvalidForkNumber;
+    *segno = 0;
+
+    // Must start with non-zero digit (reject leading zeros for uniqueness)
+    if (name[0] < '1' || name[0] > '9')
+        return false;
+
+    // Parse RelFileNumber (leading numeric part)
+    errno = 0;
+    n = strtoul(name, &endp, 10);
+    if (errno || name == endp || n <= 0 || n > PG_UINT32_MAX)
+        return false;
+    name = endp;
+
+    // Parse optional fork name (after underscore)
+    if (*name != '_')
+        f = MAIN_FORKNUM;  // No underscore = main fork
+    else {
+        int forkchar = forkname_chars(name + 1, &f);
+        if (forkchar <= 0)
+            return false;
+        name += forkchar + 1;
+    }
+
+    // Parse optional segment number (after dot)
+    if (*name != '.')
+        s = 0;  // No dot = segment 0
+    else {
+        // Reject leading zeros for segment numbers too
+        if (name[1] < '1' || name[1] > '9')
+            return false;
+
+        errno = 0;
+        s = strtoul(name + 1, &endp, 10);
+        if (errno || name + 1 == endp || s <= 0 || s > PG_UINT32_MAX)
+            return false;
+        name = endp;
+    }
+
+    // Must be at end of string now
+    if (*name != '\0')
+        return false;
+
+    // Set output parameters and return success
+    *relnumber = (RelFileNumber) n;
+    *fork = f;
+    *segno = (unsigned) s;
+    return true;
+}
+```
+
+**Key Points:**
+- Parses format: `<RelFileNumber>[_<ForkName>][.<SegmentNumber>]`
+- Rejects leading zeros to ensure unique string representations
+- Uses forkname_chars() to identify fork types (_fsm, _vm, _init, etc.)
+- Validates numeric ranges within PostgreSQL limits
+- Returns false for any invalid format, true with extracted components on success
+- Essential for distinguishing relation files from other files in database directories

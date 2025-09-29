@@ -35,3 +35,24 @@ The deallocation follows a careful order to ensure all memory is properly releas
 - Called during cleanup operations when tuple conversion is no longer needed
 - Part of the tuple conversion subsystem that handles schema mapping and data format transformation
 - The function assumes all pointers within the TupleConversionMap are valid; calling with a partially initialized or corrupted structure may cause issues
+
+## Simplified Source
+
+```c
+void free_conversion_map(TupleConversionMap *map)
+{
+    // Free the attribute mapping structure
+    free_attrmap(map->attrMap);
+
+    // Free the value and null indicator arrays
+    pfree(map->invalues);
+    pfree(map->inisnull);
+    pfree(map->outvalues);
+    pfree(map->outisnull);
+
+    // Free the conversion map structure itself
+    pfree(map);
+
+    // Note: indesc and outdesc are not freed - they are managed externally
+}
+```

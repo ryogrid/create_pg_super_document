@@ -35,3 +35,21 @@ The function iterates through the string character by character until it reaches
 - Used as a performance optimization by multi-byte clipping functions when they detect single-byte encoding
 - Also used by pgstat_clip_activity for activity string clipping in the statistics collector
 - The function handles null-terminated strings properly by stopping at the first null character
+
+## Simplified Source
+
+```c
+static int cliplen(const char *str, int len, int limit)
+{
+    int l = 0;
+
+    // Take minimum of provided length and limit
+    len = Min(len, limit);
+
+    // Count characters until limit or null terminator
+    while (l < len && str[l])
+        l++;
+
+    return l;
+}
+```

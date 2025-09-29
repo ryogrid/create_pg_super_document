@@ -53,3 +53,76 @@ This function takes no parameters but operates on global state:
 - This function is part of PostgreSQL's deadlock detection and resolution mechanism
 - The function calls `pgstat_report_deadlock()` to update statistics about deadlock occurrences
 - The function assumes that deadlock detection has already been performed and the `deadlockDetails` global array has been populated
+
+## Simplified Source
+
+```c
+void DeadLockReport(void)
+{
+    StringInfoData clientbuf;   // Error message for client
+    StringInfoData logbuf;      // Error message for server log
+    StringInfoData locktagbuf;  // Buffer for lock descriptions
+    int i;
+
+    // Initialize string buffers
+    initStringInfo(&clientbuf);
+    initStringInfo(&logbuf);
+    initStringInfo(&locktagbuf);
+
+    // Build "waits for" lines for client
+    for (i = 0; i < nDeadlockDetails; i++)
+    {
+        DEADLOCK_INFO *info = &deadlockDetails[i];
+        int nextpid;
+
+        // Determine next process in cycle
+        if (i < nDeadlockDetails - 1)
+            nextpid = info[1].pid;
+        else
+            nextpid = deadlockDetails[0].pid;  // Last waits for first
+
+        // Describe the lock being waited for
+        resetStringInfo(&locktagbuf);
+        DescribeLockTag(&locktagbuf, &info->locktag);
+
+        // Add newline between entries
+        if (i > 0)
+            appendStringInfoChar(&clientbuf, '\n');
+
+        // Format: "Process X waits for Y on Z; blocked by process W."
+        appendStringInfo(&clientbuf,
+                        _("Process %d waits for %s on %s; blocked by process %d."),
+                        info->pid,
+                        GetLockmodeName(info->locktag.locktag_lockmethodid,
+                                       info->lockmode),
+                        locktagbuf.data,
+                        nextpid);
+    }
+
+    // Copy client message to log buffer
+    appendBinaryStringInfo(&logbuf, clientbuf.data, clientbuf.len);
+
+    // Add query details to log buffer
+    for (i = 0; i < nDeadlockDetails; i++)
+    {
+        DEADLOCK_INFO *info = &deadlockDetails[i];
+
+        appendStringInfoChar(&logbuf, '\n');
+        appendStringInfo(&logbuf,
+                        _("Process %d: %s"),
+                        info->pid,
+                        pgstat_get_backend_current_activity(info->pid, false));
+    }
+
+    // Update deadlock statistics
+    pgstat_report_deadlock();
+
+    // Report the deadlock error
+    ereport(ERROR,
+           (errcode(ERRCODE_T_R_DEADLOCK_DETECTED),
+            errmsg("deadlock detected"),
+            errdetail_internal("%s", clientbuf.data),
+            errdetail_log("%s", logbuf.data),
+            errhint("See server log for query details.")));
+}
+```

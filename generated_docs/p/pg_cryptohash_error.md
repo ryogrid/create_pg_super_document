@@ -47,3 +47,25 @@ The function returns statically allocated, localized strings that describe the s
 - Contains an assertion to catch unexpected error states during development
 - Part of PostgreSQL's comprehensive error handling and reporting system for cryptographic operations
 - Error state is maintained in the context until the context is freed or reused
+
+## Simplified Source
+
+```c
+const char *
+pg_cryptohash_error(pg_cryptohash_ctx *ctx)
+{
+    if (ctx == NULL)
+        return _("out of memory");
+
+    switch (ctx->error)
+    {
+        case PG_CRYPTOHASH_ERROR_NONE:
+            return _("success");
+        case PG_CRYPTOHASH_ERROR_DEST_LEN:
+            return _("destination buffer too small");
+    }
+
+    Assert(false);
+    return _("success");
+}
+```

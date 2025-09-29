@@ -42,3 +42,55 @@ The function provides proper error handling for cryptographic hash initializatio
 - Must be called before pg_checksum_update and pg_checksum_final
 - Used extensively in backup, restore, and verification operations
 - Failure typically indicates memory allocation issues or cryptographic library problems
+
+## Simplified Source
+
+```c
+// Initialize checksum context for specified algorithm type
+int pg_checksum_init(pg_checksum_context *context, pg_checksum_type type)
+{
+    context->type = type;
+
+    switch (type) {
+        case CHECKSUM_TYPE_NONE:
+            // No initialization needed
+            break;
+
+        case CHECKSUM_TYPE_CRC32C:
+            INIT_CRC32C(context->raw_context.c_crc32c);
+            break;
+
+        case CHECKSUM_TYPE_SHA224:
+        case CHECKSUM_TYPE_SHA256:
+        case CHECKSUM_TYPE_SHA384:
+        case CHECKSUM_TYPE_SHA512:
+            {
+                // Create appropriate SHA context
+                pg_cryptohash_type hash_type = (type == CHECKSUM_TYPE_SHA224) ? PG_SHA224 :
+                                               (type == CHECKSUM_TYPE_SHA256) ? PG_SHA256 :
+                                               (type == CHECKSUM_TYPE_SHA384) ? PG_SHA384 :
+                                                                                PG_SHA512;
+
+                context->raw_context.c_sha2 = pg_cryptohash_create(hash_type);
+                if (context->raw_context.c_sha2 == NULL)
+                    return -1;
+
+                if (pg_cryptohash_init(context->raw_context.c_sha2) < 0) {
+                    pg_cryptohash_free(context->raw_context.c_sha2);
+                    return -1;
+                }
+            }
+            break;
+    }
+
+    return 0;
+}
+```
+
+**Key Points:**
+- Initializes checksum context for different algorithm types
+- CRC32C uses simple macro initialization
+- SHA variants require cryptographic hash context creation and initialization
+- Provides proper error handling with resource cleanup on failure
+- Returns 0 on success, -1 on failure
+- Must be called before pg_checksum_update and pg_checksum_final

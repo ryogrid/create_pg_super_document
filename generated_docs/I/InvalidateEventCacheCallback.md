@@ -37,3 +37,19 @@ The callback uses a simple but effective approach: if the cache is currently val
 - Automatically triggered by DDL operations on event triggers
 - Ensures cache consistency after catalog modifications
 - Simple design trades granularity for reliability and simplicity
+
+## Simplified Source
+
+```c
+static void InvalidateEventCacheCallback(Datum arg, int cacheid, uint32 hashvalue)
+{
+    // If cache is valid, immediately free memory to prevent leaks
+    if (EventTriggerCacheState == ETCS_VALID) {
+        MemoryContextReset(EventTriggerCacheContext);
+        EventTriggerCache = NULL;
+    }
+
+    // Always mark cache for rebuild
+    EventTriggerCacheState = ETCS_NEEDS_REBUILD;
+}
+```

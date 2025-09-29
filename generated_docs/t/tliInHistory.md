@@ -33,3 +33,23 @@ The function iterates through the provided list using PostgreSQL's foreach macro
 - Returns immediately upon finding the first match (short-circuit evaluation)
 - Commonly used during WAL recovery to validate timeline consistency
 - The function assumes the expectedTLEs list contains valid TimeLineHistoryEntry pointers
+
+## Simplified Source
+
+```c
+bool tliInHistory(TimeLineID tli, List *expectedTLEs)
+{
+    ListCell *cell;
+
+    // Search through each timeline history entry
+    foreach(cell, expectedTLEs)
+    {
+        // Check if this entry's timeline ID matches the target
+        if (((TimeLineHistoryEntry *) lfirst(cell))->tli == tli)
+            return true;
+    }
+
+    // Timeline ID not found in history
+    return false;
+}
+```

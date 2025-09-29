@@ -44,3 +44,53 @@ The function returns true for cache hits (when a valid cached entry exists) and 
 - The magic number check (0xdeadbeef) ensures cached pointers still point to valid statistics entries
 - Critical for performance optimization by reducing shared memory access frequency
 - The `PG_USED_FOR_ASSERTS_ONLY` annotation indicates variables used only in assertion builds
+
+## Simplified Source
+
+```c
+static bool
+pgstat_get_entry_ref_cached(PgStat_HashKey key, PgStat_EntryRef **entry_ref_p)
+{
+    bool found;
+    PgStat_EntryRefHashEntry *cache_entry;
+
+    // Always insert cache entry to avoid multiple lookups and handle OOM gracefully
+    cache_entry = pgstat_entry_ref_hash_insert(pgStatEntryRefHash, key, &found);
+
+    if (!found || !cache_entry->entry_ref)
+    {
+        // Cache miss - allocate new entry reference
+        PgStat_EntryRef *entry_ref;
+
+        cache_entry->entry_ref = entry_ref =
+            MemoryContextAlloc(pgStatSharedRefContext, sizeof(PgStat_EntryRef));
+
+        // Initialize new entry reference with NULL values
+        entry_ref->shared_stats = NULL;
+        entry_ref->shared_entry = NULL;
+        entry_ref->pending = NULL;
+
+        found = false;
+    }
+    else if (cache_entry->entry_ref->shared_stats == NULL)
+    {
+        // Entry exists but stats pointer is NULL - treat as cache miss
+        Assert(cache_entry->entry_ref->pending == NULL);
+        found = false;
+    }
+    else
+    {
+        // Cache hit - validate cached entry
+        PgStat_EntryRef *entry_ref PG_USED_FOR_ASSERTS_ONLY;
+
+        entry_ref = cache_entry->entry_ref;
+        Assert(entry_ref->shared_entry != NULL);
+        Assert(entry_ref->shared_stats != NULL);
+        Assert(entry_ref->shared_stats->magic == 0xdeadbeef);
+        Assert(pg_atomic_read_u32(&entry_ref->shared_entry->refcount) > 0);
+    }
+
+    *entry_ref_p = cache_entry->entry_ref;
+    return found;  // true for cache hit, false for cache miss
+}
+```

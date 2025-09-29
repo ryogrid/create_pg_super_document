@@ -39,3 +39,27 @@ The function requires that the buffer be pinned (to prevent it from being evicte
 - The function uses atomic operations to read the buffer state, ensuring thread safety
 - Local buffers (for temporary tables) and shared buffers are handled differently but use the same state checking mechanism
 - This is a lightweight operation that only reads the buffer state without modifying it
+
+## Simplified Source
+
+```c
+bool BufferIsDirty(Buffer buffer)
+{
+    BufferDesc *bufHdr;
+
+    // Handle local vs shared buffers
+    if (BufferIsLocal(buffer)) {
+        int bufid = -buffer - 1;
+        bufHdr = GetLocalBufferDescriptor(bufid);
+    } else {
+        bufHdr = GetBufferDescriptor(buffer - 1);
+    }
+
+    // Verify preconditions
+    Assert(BufferIsPinned(buffer));
+    Assert(LWLockHeldByMeInMode(BufferDescriptorGetContentLock(bufHdr), LW_EXCLUSIVE));
+
+    // Check if buffer is dirty
+    return pg_atomic_read_u32(&bufHdr->state) & BM_DIRTY;
+}
+```

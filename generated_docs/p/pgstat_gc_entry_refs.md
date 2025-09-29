@@ -48,4 +48,47 @@ Entries that meet the removal criteria are released using . After cleanup, the f
 - Uses atomic operations for thread-safe access to shared memory
 - The generation-based approach helps detect when entries have been reinitialized rather than just dropped
 - Updates the local reference age after successful cleanup to avoid unnecessary future GC attempts
-- Located in 
+- Located in src/backend/utils/activity/pgstat_shmem.c
+
+## Simplified Source
+
+```c
+static void
+pgstat_gc_entry_refs(void)
+{
+    pgstat_entry_ref_hash_iterator i;
+    PgStat_EntryRefHashEntry *ent;
+    uint64 curage;
+
+    // Get current GC request count from shared memory
+    curage = pg_atomic_read_u64(&pgStatLocal.shmem->gc_request_count);
+    Assert(curage != 0);
+
+    // Iterate through all entries in the local reference hash table
+    pgstat_entry_ref_hash_start_iterate(pgStatEntryRefHash, &i);
+    while ((ent = pgstat_entry_ref_hash_iterate(pgStatEntryRefHash, &i)) != NULL)
+    {
+        PgStat_EntryRef *entry_ref = ent->entry_ref;
+
+        // Verify entry integrity
+        Assert(!entry_ref->shared_stats ||
+               entry_ref->shared_stats->magic == 0xdeadbeef);
+
+        // Check if entry is still valid (not dropped and generation matches)
+        if (!entry_ref->shared_entry->dropped &&
+            pg_atomic_read_u32(&entry_ref->shared_entry->generation) ==
+            entry_ref->generation)
+            continue;  // Entry is still valid, keep it
+
+        // Cannot garbage collect entries with pending data
+        if (entry_ref->pending != NULL)
+            continue;
+
+        // Entry is stale - release it
+        pgstat_release_entry_ref(ent->key, entry_ref, false);
+    }
+
+    // Update local reference age to current GC count
+    pgStatSharedRefAge = curage;
+}
+``` 

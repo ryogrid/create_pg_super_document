@@ -46,3 +46,38 @@ The function works in conjunction with XLogReadAhead() which populates the inter
 - Uses decode_queue_head to track the next record to be returned
 - Updates state->record to point to the current record for use by legacy XLogRecXXX() macros
 - Error handling includes support for deferred error reporting from background operations
+
+## Simplified Source
+
+```c
+DecodedXLogRecord *XLogNextRecord(XLogReaderState *state, char **errormsg)
+{
+    // Release the previously returned record to free memory
+    XLogReleasePreviousRecord(state);
+
+    // Check if there are any records in the decode queue
+    if (state->decode_queue_head == NULL) {
+        *errormsg = NULL;
+
+        // Handle any deferred error messages
+        if (state->errormsg_deferred) {
+            if (state->errormsg_buf[0] != '\0')
+                *errormsg = state->errormsg_buf;
+            state->errormsg_deferred = false;
+        }
+
+        Assert(!XLogRecPtrIsInvalid(state->EndRecPtr));
+        return NULL;  // No records available
+    }
+
+    // Set this record as the current one for legacy compatibility
+    state->record = state->decode_queue_head;
+
+    // Update state pointers for historical XLogRecXXX() macros
+    state->ReadRecPtr = state->record->lsn;
+    state->EndRecPtr = state->record->next_lsn;
+
+    *errormsg = NULL;
+    return state->record;
+}
+```

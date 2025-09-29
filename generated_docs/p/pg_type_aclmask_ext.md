@@ -40,3 +40,96 @@ The function performs permission checking for PostgreSQL data types with special
 - The function handles the delegation chain: multirange → range → (possibly array element)
 - For missing types, can either return 0 permissions (if is_missing provided) or throw ERRCODE_UNDEFINED_OBJECT error
 - Function is static (internal to aclchk.c) and used primarily by the broader object permission checking infrastructure
+
+## Simplified Source
+
+```c
+static AclMode pg_type_aclmask_ext(Oid type_oid, Oid roleid, AclMode mask,
+                                  AclMaskHow how, bool *is_missing)
+{
+    AclMode result;
+    HeapTuple tuple;
+    Form_pg_type typeForm;
+    Datum aclDatum;
+    bool isNull;
+    Acl *acl;
+    Oid ownerId;
+
+    // Superusers bypass permission checks
+    if (superuser_arg(roleid))
+        return mask;
+
+    // Get the type's tuple from pg_type
+    tuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(type_oid));
+    if (!HeapTupleIsValid(tuple)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return 0;
+        }
+        else
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                           errmsg("type with OID %u does not exist", type_oid)));
+    }
+    typeForm = (Form_pg_type) GETSTRUCT(tuple);
+
+    // Array types delegate to their element types
+    if (IsTrueArrayType(typeForm)) {
+        Oid elttype_oid = typeForm->typelem;
+        ReleaseSysCache(tuple);
+
+        tuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(elttype_oid));
+        if (!HeapTupleIsValid(tuple)) {
+            if (is_missing != NULL) {
+                *is_missing = true;
+                return 0;
+            }
+            else
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                               errmsg("type with OID %u does not exist", elttype_oid)));
+        }
+        typeForm = (Form_pg_type) GETSTRUCT(tuple);
+    }
+
+    // Multirange types delegate to their range types
+    if (typeForm->typtype == TYPTYPE_MULTIRANGE) {
+        Oid rangetype = get_multirange_range(typeForm->oid);
+        ReleaseSysCache(tuple);
+
+        tuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(rangetype));
+        if (!HeapTupleIsValid(tuple)) {
+            if (is_missing != NULL) {
+                *is_missing = true;
+                return 0;
+            }
+            else
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                               errmsg("type with OID %u does not exist", rangetype)));
+        }
+        typeForm = (Form_pg_type) GETSTRUCT(tuple);
+    }
+
+    // Get type's owner and ACL
+    ownerId = typeForm->typowner;
+
+    aclDatum = SysCacheGetAttr(TYPEOID, tuple, Anum_pg_type_typacl, &isNull);
+    if (isNull) {
+        // No ACL, so build default ACL
+        acl = acldefault(OBJECT_TYPE, ownerId);
+        aclDatum = (Datum) 0;
+    }
+    else {
+        // detoast ACL if necessary
+        acl = DatumGetAclP(aclDatum);
+    }
+
+    result = aclmask(acl, roleid, ownerId, mask, how);
+
+    // Clean up detoasted copy
+    if (acl && (Pointer) acl != DatumGetPointer(aclDatum))
+        pfree(acl);
+
+    ReleaseSysCache(tuple);
+
+    return result;
+}
+```

@@ -33,3 +33,13 @@ The function increments the `blocks_read` counter for the specified SLRU instanc
 - Essential metric for SLRU performance monitoring and tuning decisions
 - Part of PostgreSQL's comprehensive buffer management statistics collection
 - Located in src/backend/utils/activity/pgstat_slru.c:77-82
+
+## Simplified Source
+
+```c
+void pgstat_count_slru_page_read(int slru_idx)
+{
+    // Increment the disk read counter for this SLRU
+    get_slru_entry(slru_idx)->blocks_read += 1;
+}
+```

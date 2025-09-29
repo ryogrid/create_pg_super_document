@@ -45,3 +45,33 @@ The function deliberately ignores security attributes when setting up the call h
 - The security bypass (true parameter to fmgr_info_cxt_security) is intentional to avoid double-wrapping
 - Each procedural language has its own call handler that interprets and executes functions in that language
 - The function assumes the language exists in pg_language and has a valid call handler
+
+## Simplified Source
+
+```c
+static void fmgr_info_other_lang(Oid functionId, FmgrInfo *finfo, HeapTuple procedureTuple)
+{
+    Form_pg_proc procedureStruct = (Form_pg_proc) GETSTRUCT(procedureTuple);
+    Oid language = procedureStruct->prolang;
+    HeapTuple languageTuple;
+    Form_pg_language languageStruct;
+    FmgrInfo plfinfo;
+
+    // Look up the language in pg_language catalog
+    languageTuple = SearchSysCache1(LANGOID, ObjectIdGetDatum(language));
+    if (!HeapTupleIsValid(languageTuple))
+        elog(ERROR, "cache lookup failed for language %u", language);
+
+    languageStruct = (Form_pg_language) GETSTRUCT(languageTuple);
+
+    // Get the language's call handler function
+    // Bypass security to get direct pointer to C function
+    fmgr_info_cxt_security(languageStruct->lanplcallfoid, &plfinfo,
+                           CurrentMemoryContext, true);
+
+    // Copy call handler address to target FmgrInfo
+    finfo->fn_addr = plfinfo.fn_addr;
+
+    ReleaseSysCache(languageTuple);
+}
+```

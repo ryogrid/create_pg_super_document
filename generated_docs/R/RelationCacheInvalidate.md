@@ -57,3 +57,85 @@ The function also handles SMgrRelation cleanup and optionally signals any in-pro
 - Designed to handle recursive invocation safely due to the two-phase design
 - Primarily used for SI message buffer overflow recovery, but also used by debug_discard_caches
 - Does not affect relations created in the current transaction, as they cannot be targets of cross-backend invalidation messages
+
+## Simplified Source
+
+```c
+// Invalidate and rebuild relation cache entries
+void RelationCacheInvalidate(bool debug_discard)
+{
+    HASH_SEQ_STATUS status;
+    RelIdCacheEnt *idhentry;
+    Relation relation;
+    List *rebuildFirstList = NIL;
+    List *rebuildList = NIL;
+    ListCell *l;
+    int i;
+
+    // Reload relation mapping data first
+    RelationMapInvalidateAll();
+
+    // Phase 1: Walk through all cached relations
+    hash_seq_init(&status, RelationIdCache);
+    while ((idhentry = (RelIdCacheEnt *) hash_seq_search(&status)) != NULL)
+    {
+        relation = idhentry->reldesc;
+
+        // Skip new-in-transaction relations
+        if (relation->rd_createSubid != InvalidSubTransactionId ||
+            relation->rd_firstRelfilelocatorSubid != InvalidSubTransactionId)
+            continue;
+
+        relcacheInvalsReceived++;
+
+        if (RelationHasReferenceCountZero(relation))
+        {
+            // Delete immediately if no references
+            Assert(!relation->rd_isnailed);
+            RelationClearRelation(relation, false);
+        }
+        else
+        {
+            // Update mapped relations' physical addresses
+            if (RelationIsMapped(relation))
+            {
+                RelationCloseSmgr(relation);
+                RelationInitPhysicalAddr(relation);
+            }
+
+            // Classify for rebuilding based on priority
+            if (RelationGetRelid(relation) == RelationRelationId)
+                rebuildFirstList = lcons(relation, rebuildFirstList);
+            else if (RelationGetRelid(relation) == ClassOidIndexId)
+                rebuildFirstList = lappend(rebuildFirstList, relation);
+            else if (relation->rd_isnailed)
+                rebuildList = lcons(relation, rebuildList);
+            else
+                rebuildList = lappend(rebuildList, relation);
+        }
+    }
+
+    // Close file descriptors but keep SMgrRelations
+    smgrreleaseall();
+
+    // Phase 2: Rebuild relations in priority order
+    foreach(l, rebuildFirstList)
+    {
+        relation = (Relation) lfirst(l);
+        RelationClearRelation(relation, true);
+    }
+    list_free(rebuildFirstList);
+
+    foreach(l, rebuildList)
+    {
+        relation = (Relation) lfirst(l);
+        RelationClearRelation(relation, true);
+    }
+    list_free(rebuildList);
+
+    // Signal in-progress RelationBuildDesc to restart
+    if (!debug_discard)
+        for (i = 0; i < in_progress_list_len; i++)
+            in_progress_list[i].invalidated = true;
+}
+```

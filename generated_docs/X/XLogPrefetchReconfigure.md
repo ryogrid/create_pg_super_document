@@ -37,3 +37,15 @@ This function takes no parameters.
 - Called from various assignment functions for prefetch-related GUC parameters
 - Part of PostgreSQL's configuration change notification system
 - Located in src/backend/access/transam/xlogprefetcher.c:340-350
+
+## Simplified Source
+
+```c
+void XLogPrefetchReconfigure(void)
+{
+    // Increment counter to signal configuration change
+    // Prefetcher instances check this counter to detect when
+    // they need to re-read GUC parameters
+    XLogPrefetchReconfigureCount++;
+}
+```

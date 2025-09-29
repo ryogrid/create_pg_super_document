@@ -44,3 +44,18 @@ The function is widely used throughout the heap access method and visibility che
 - Widely used in visibility checking and heap manipulation operations
 - Returns the result of MultiXactIdGetUpdateXid applied to the tuple's xmax and infomask
 - Does not perform hint bit validation - caller responsibility
+
+## Simplified Source
+
+```c
+TransactionId HeapTupleGetUpdateXid(HeapTupleHeader tuple)
+{
+    return MultiXactIdGetUpdateXid(HeapTupleHeaderGetRawXmax(tuple),
+                                   tuple->t_infomask);
+}
+```
+
+This simple wrapper function:
+1. Extracts the raw xmax value from the tuple header
+2. Passes it along with the infomask to MultiXactIdGetUpdateXid
+3. Returns the actual updating transaction ID

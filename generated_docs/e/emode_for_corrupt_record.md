@@ -39,3 +39,24 @@ The function maintains state via a static variable to track the last record posi
 - [Archive](../A/Archive.md) and streaming sources always report corruption at the original error level since these represent more serious issues
 - The function should only be called immediately before ereport() to avoid incorrectly suppressing future legitimate error messages
 - The suppression mechanism helps reduce log noise during normal recovery operations where temporary corruption in pg_wal files might be encountered
+
+## Simplified Source
+
+```c
+static int emode_for_corrupt_record(int emode, XLogRecPtr RecPtr)
+{
+    static XLogRecPtr lastComplaint = 0;
+
+    // Only suppress repeated complaints when reading from pg_wal with LOG level
+    if (readSource == XLOG_FROM_PG_WAL && emode == LOG)
+    {
+        // If we've already complained about this exact record, downgrade to DEBUG1
+        if (RecPtr == lastComplaint)
+            emode = DEBUG1;
+        else
+            lastComplaint = RecPtr;  // Remember this complaint for future suppression
+    }
+
+    return emode;
+}
+```

@@ -38,3 +38,15 @@ If the prepared transaction is later committed via COMMIT PREPARED, the system w
 - Critical for proper operation of distributed transactions and two-phase commit protocols
 - The prepared transaction's changes become visible only after COMMIT PREPARED, at which point normal invalidation messages are processed
 - Ensures ACID properties are maintained during the prepared state of two-phase transactions
+
+## Simplified Source
+
+```c
+void PostPrepare_Inval(void)
+{
+    // Act as if the transaction aborted to undo syscache changes
+    // This keeps us in sync with the outside world, which doesn't
+    // believe the transaction committed yet
+    AtEOXact_Inval(false);
+}
+```

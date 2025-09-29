@@ -48,3 +48,40 @@ The function returns NULL when no more matching tuples exist, indicating the end
 - The actual TID is stored in `scan->xs_heaptid` and a pointer to it is returned
 - This function focuses only on retrieving TIDs; actual heap tuple fetching is handled separately
 - Location: src/backend/access/index/indexam.c:574-631
+
+## Simplified Source
+
+```c
+ItemPointer index_getnext_tid(IndexScanDesc scan, ScanDirection direction)
+{
+    bool found;
+
+    // Validate scan state and check access method availability
+    SCAN_CHECKS;
+    CHECK_SCAN_PROCEDURE(amgettuple);
+    Assert(TransactionIdIsValid(RecentXmin));
+
+    // Call access method to get next matching index entry
+    found = scan->indexRelation->rd_indam->amgettuple(scan, direction);
+
+    // Reset safety flags immediately
+    scan->kill_prior_tuple = false;
+    scan->xs_heap_continue = false;
+
+    // Handle end of scan
+    if (!found) {
+        // Clean up table access resources
+        if (scan->xs_heapfetch)
+            table_index_fetch_reset(scan->xs_heapfetch);
+        return NULL;
+    }
+
+    Assert(ItemPointerIsValid(&scan->xs_heaptid));
+
+    // Update index usage statistics
+    pgstat_count_index_tuples(scan->indexRelation, 1);
+
+    // Return pointer to the TID we found
+    return &scan->xs_heaptid;
+}
+```

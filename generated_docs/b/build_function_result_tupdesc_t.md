@@ -42,3 +42,42 @@ Note that this function deliberately does not handle resolution of polymorphic t
 - Acts as a tuple-based interface to the more general build_function_result_tupdesc_d function
 - Used during function creation and result type analysis
 - Does not resolve polymorphic types - this must be handled separately if needed
+
+## Simplified Source
+
+```c
+TupleDesc build_function_result_tupdesc_t(HeapTuple procTuple)
+{
+    Form_pg_proc procform = (Form_pg_proc) GETSTRUCT(procTuple);
+    Datum proallargtypes;
+    Datum proargmodes;
+    Datum proargnames;
+    bool isnull;
+
+    // Only handle functions that return RECORD
+    if (procform->prorettype != RECORDOID)
+        return NULL;
+
+    // Check if function has OUT parameters (requires proallargtypes and proargmodes)
+    if (heap_attisnull(procTuple, Anum_pg_proc_proallargtypes, NULL) ||
+        heap_attisnull(procTuple, Anum_pg_proc_proargmodes, NULL))
+        return NULL;
+
+    // Extract argument metadata from pg_proc tuple
+    proallargtypes = SysCacheGetAttrNotNull(PROCOID, procTuple,
+                                            Anum_pg_proc_proallargtypes);
+    proargmodes = SysCacheGetAttrNotNull(PROCOID, procTuple,
+                                         Anum_pg_proc_proargmodes);
+    proargnames = SysCacheGetAttr(PROCOID, procTuple,
+                                  Anum_pg_proc_proargnames,
+                                  &isnull);
+    if (isnull)
+        proargnames = PointerGetDatum(NULL);
+
+    // Delegate actual tuple descriptor construction
+    return build_function_result_tupdesc_d(procform->prokind,
+                                           proallargtypes,
+                                           proargmodes,
+                                           proargnames);
+}
+```

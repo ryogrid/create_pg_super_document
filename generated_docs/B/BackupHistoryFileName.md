@@ -33,3 +33,20 @@ This function generates a standardized filename for backup history files, which 
 
 ## Notes and Other Information
 The generated filename follows the format:  where high and low represent the segment number split across XLogId boundaries, and offset represents the position within the segment. This naming convention ensures that backup history files are uniquely identifiable and can be sorted chronologically.
+
+## Simplified Source
+
+```c
+// Generate backup history filename from WAL coordinates
+static inline void BackupHistoryFileName(char *fname, TimeLineID tli,
+                                       XLogSegNo logSegNo, XLogRecPtr startpoint,
+                                       int wal_segsz_bytes)
+{
+    // Format: timeline.high.low.offset.backup
+    snprintf(fname, MAXFNAMELEN, "%08X%08X%08X.%08X.backup",
+             tli,
+             (uint32) (logSegNo / XLogSegmentsPerXLogId(wal_segsz_bytes)),    // high
+             (uint32) (logSegNo % XLogSegmentsPerXLogId(wal_segsz_bytes)),    // low
+             (uint32) (XLogSegmentOffset(startpoint, wal_segsz_bytes)));      // offset
+}
+```

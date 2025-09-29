@@ -48,3 +48,50 @@ The resulting lists maintain correspondence by position, making it easy to apply
 - Settings without '=' delimiter generate warnings but don't cause failures
 - The output lists are initialized to NIL and built incrementally
 - Designed for performance optimization in contexts like security definer functions where GUC arrays are processed repeatedly
+
+## Simplified Source
+
+```c
+void TransformGUCArray(ArrayType *array, List **names, List **values)
+{
+    // Validate input array
+    Assert(array != NULL);
+    Assert(ARR_ELEMTYPE(array) == TEXTOID);
+    Assert(ARR_NDIM(array) == 1);
+    Assert(ARR_LBOUND(array)[0] == 1);
+
+    *names = NIL;
+    *values = NIL;
+
+    // Process each array element
+    for (int i = 1; i <= ARR_DIMS(array)[0]; i++) {
+        Datum d;
+        bool isnull;
+        char *s, *name, *value;
+
+        // Extract array element
+        d = array_ref(array, 1, &i, -1, -1, false, TYPALIGN_INT, &isnull);
+
+        if (isnull)
+            continue;
+
+        s = TextDatumGetCString(d);
+
+        // Parse "name=value" format
+        ParseLongOption(s, &name, &value);
+        if (!value) {
+            ereport(WARNING,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("could not parse setting for parameter \"%s\"", name)));
+            pfree(name);
+            continue;
+        }
+
+        // Add to output lists
+        *names = lappend(*names, name);
+        *values = lappend(*values, value);
+
+        pfree(s);
+    }
+}
+```

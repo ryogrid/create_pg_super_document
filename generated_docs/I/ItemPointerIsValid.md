@@ -37,3 +37,12 @@ This function is critical for ensuring data integrity when working with heap tup
 - The function is widely used throughout the PostgreSQL codebase, particularly in heap access methods, index operations, and trigger execution
 - Returns true only if both conditions are met: the pointer is valid AND the position ID is non-zero
 - Essential for preventing segmentation faults and data corruption when accessing heap tuples and index entries
+
+## Simplified Source
+
+```c
+static inline bool ItemPointerIsValid(const ItemPointerData *pointer)
+{
+    return PointerIsValid(pointer) && pointer->ip_posid != 0;
+}
+```

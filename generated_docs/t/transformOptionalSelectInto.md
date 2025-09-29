@@ -43,3 +43,39 @@ The transformation ensures that SELECT INTO statements are properly converted to
 - The function safely handles set-operation trees by drilling down to the leftmost SelectStmt to find the INTO clause
 - After transformation, the original intoClause is removed to ensure transformSelectStmt can properly validate that INTO clauses don't appear in disallowed contexts
 - The is_select_into flag is set to true in the created CreateTableAsStmt to distinguish this case from explicit CREATE TABLE AS statements
+
+## Simplified Source
+
+```c
+static Query *
+transformOptionalSelectInto(ParseState *pstate, Node *parseTree)
+{
+    // Only process if it's a SELECT statement
+    if (IsA(parseTree, SelectStmt))
+    {
+        SelectStmt *stmt = (SelectStmt *) parseTree;
+
+        // Navigate to leftmost SELECT in set operations
+        while (stmt && stmt->op != SETOP_NONE)
+            stmt = stmt->larg;
+
+        // If this SELECT has an INTO clause, convert to CREATE TABLE AS
+        if (stmt->intoClause)
+        {
+            CreateTableAsStmt *ctas = makeNode(CreateTableAsStmt);
+
+            ctas->query = parseTree;
+            ctas->into = stmt->intoClause;
+            ctas->objtype = OBJECT_TABLE;
+            ctas->is_select_into = true;
+
+            // Remove the INTO clause to prevent later errors
+            stmt->intoClause = NULL;
+
+            parseTree = (Node *) ctas;
+        }
+    }
+
+    return transformStmt(pstate, parseTree);
+}
+```

@@ -43,3 +43,19 @@ The function works in conjunction with CreatePredXact to provide complete lifecy
 - Works with doubly-linked list operations for O(1) deallocation performance
 - Called during transaction cleanup and error recovery scenarios
 - Critical for maintaining the availability of serializable transaction slots in shared memory
+
+## Simplified Source
+
+```c
+static void ReleasePredXact(SERIALIZABLEXACT *sxact)
+{
+    // Validate the shared memory address
+    Assert(ShmemAddrIsValid(sxact));
+
+    // Remove from current list
+    dlist_delete(&sxact->xactLink);
+
+    // Return to available pool
+    dlist_push_tail(&PredXact->availableList, &sxact->xactLink);
+}
+```

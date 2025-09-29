@@ -37,3 +37,13 @@ The function serves as a wrapper around IsCatalogRelationOid, extracting the rel
 - More restrictive than IsSystemRelation - excludes toast tables of user relations
 - Used in contexts where the distinction between true system catalogs and user relation toast tables matters
 - The function is located in src/backend/catalog/catalog.c:103-119
+
+## Simplified Source
+
+```c
+bool IsCatalogRelation(Relation relation)
+{
+    // Delegate to OID-based version using relation's OID
+    return IsCatalogRelationOid(RelationGetRelid(relation));
+}
+```

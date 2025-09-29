@@ -48,4 +48,60 @@ The  function performs an atomic find-or-insert operation on a dynamic shared ha
 - The resize operation uses a restart mechanism with proper lock ordering to avoid deadlocks
 - Load factor is tracked per partition rather than globally to avoid contention
 - The returned entry pointer must be released using 
-- Includes the same locking and error handling semantics as 
+- Includes the same locking and error handling semantics as
+
+## Simplified Source
+
+```c
+void *dshash_find_or_insert(dshash_table *hash_table, const void *key, bool *found)
+{
+    dshash_hash hash;
+    size_t partition_index;
+    dshash_partition *partition;
+    dshash_table_item *item;
+
+    // Compute hash and determine partition
+    hash = hash_key(hash_table, key);
+    partition_index = PARTITION_FOR_HASH(hash);
+    partition = &hash_table->control->partitions[partition_index];
+
+    Assert(hash_table->control->magic == DSHASH_MAGIC);
+    ASSERT_NO_PARTITION_LOCKS_HELD_BY_ME(hash_table);
+
+restart:
+    // Acquire exclusive lock on partition
+    LWLockAcquire(PARTITION_LOCK(hash_table, partition_index), LW_EXCLUSIVE);
+    ensure_valid_bucket_pointers(hash_table);
+
+    // Search for existing item in bucket
+    item = find_in_bucket(hash_table, key, BUCKET_FOR_HASH(hash_table, hash));
+
+    if (item)
+    {
+        *found = true;
+    }
+    else
+    {
+        *found = false;
+
+        // Check if hash table is getting too full (load factor > 0.75)
+        if (partition->count > MAX_COUNT_PER_PARTITION(hash_table))
+        {
+            // Need to resize - release lock first to avoid deadlocks
+            LWLockRelease(PARTITION_LOCK(hash_table, partition_index));
+            resize(hash_table, hash_table->size_log2 + 1);
+            goto restart;
+        }
+
+        // Insert new item into bucket
+        item = insert_into_bucket(hash_table, key, &BUCKET_FOR_HASH(hash_table, hash));
+        item->hash = hash;
+
+        // Update partition counter for load factor tracking
+        ++partition->count;
+    }
+
+    // Return entry pointer (caller must call dshash_release_lock)
+    return ENTRY_FROM_ITEM(item);
+}
+``` 

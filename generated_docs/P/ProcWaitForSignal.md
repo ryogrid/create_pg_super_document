@@ -35,3 +35,19 @@ ProcWaitForSignal implements a generic inter-process signaling mechanism using P
 - Includes CHECK_FOR_INTERRUPTS() to handle pending signals and cancellations
 - The wait_event_info parameter enables monitoring of what the process is waiting for
 - Automatically exits if the postmaster dies (WL_EXIT_ON_PM_DEATH flag)
+
+## Simplified Source
+
+```c
+void ProcWaitForSignal(uint32 wait_event_info)
+{
+    // Wait for latch to be set or postmaster death
+    WaitLatch(MyLatch, WL_LATCH_SET | WL_EXIT_ON_PM_DEATH, 0, wait_event_info);
+
+    // Reset latch for next use
+    ResetLatch(MyLatch);
+
+    // Check for any pending interrupts
+    CHECK_FOR_INTERRUPTS();
+}
+```

@@ -53,3 +53,66 @@ The function handles pre-upgrade tuples as a special case and supports both cond
 
 ## Notes and Other Information
 This is a static helper function that serves as the common implementation for both MultiXactIdWait and ConditionalMultiXactIdWait. It's critical for PostgreSQL's tuple locking mechanism, ensuring proper synchronization when multiple transactions compete for tuple access. The function carefully avoids waiting on transactions from the same backend to prevent assertion failures and deadlocks. The remaining count is unreliable when the function returns false (in nowait mode).
+
+## Simplified Source
+
+```c
+static bool Do_MultiXactIdWait(MultiXactId multi, MultiXactStatus status,
+                              uint16 infomask, bool nowait,
+                              Relation rel, ItemPointer ctid, XLTW_Oper oper,
+                              int *remaining)
+{
+    bool result = true;
+    MultiXactMember *members;
+    int nmembers;
+    int remain = 0;
+
+    // Handle pre-pg_upgrade tuples
+    nmembers = HEAP_LOCKED_UPGRADED(infomask) ? -1 :
+        GetMultiXactIdMembers(multi, &members, false,
+                             HEAP_XMAX_IS_LOCKED_ONLY(infomask));
+
+    if (nmembers >= 0) {
+        for (int i = 0; i < nmembers; i++) {
+            TransactionId memxid = members[i].xid;
+            MultiXactStatus memstatus = members[i].status;
+
+            // Skip our own transaction
+            if (TransactionIdIsCurrentTransactionId(memxid)) {
+                remain++;
+                continue;
+            }
+
+            // Skip non-conflicting lock modes
+            if (!DoLockModesConflict(LOCKMODE_from_mxstatus(memstatus),
+                                   LOCKMODE_from_mxstatus(status))) {
+                if (remaining && TransactionIdIsInProgress(memxid))
+                    remain++;
+                continue;
+            }
+
+            // Wait for conflicting transaction
+            if (nowait) {
+                result = ConditionalXactLockTableWait(memxid);
+                if (!result)
+                    break;
+            } else {
+                XactLockTableWait(memxid, rel, ctid, oper);
+            }
+        }
+        pfree(members);
+    }
+
+    if (remaining)
+        *remaining = remain;
+
+    return result;
+}
+```
+
+This function:
+1. Gets all members of the MultiXact
+2. Skips members from the current transaction
+3. Checks for lock mode conflicts
+4. Waits for conflicting transactions (conditionally or unconditionally)
+5. Returns success/failure and count of remaining active members

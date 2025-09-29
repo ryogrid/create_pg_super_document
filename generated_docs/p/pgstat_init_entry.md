@@ -45,3 +45,35 @@ The function ensures atomicity by holding the dshash partition lock during initi
 - Callers must increase the reference count if they need a longer-lived reference to the entry
 - The dropped flag is explicitly set to false to indicate the entry is active
 - Memory is allocated using dsa_allocate0 which ensures zero-initialization
+
+## Simplified Source
+
+```c
+PgStatShared_Common *pgstat_init_entry(PgStat_Kind kind, PgStatShared_HashEntry *shhashent)
+{
+    dsa_pointer chunk;
+    PgStatShared_Common *shheader;
+
+    // Initialize reference count to 1 (valid/not dropped)
+    pg_atomic_init_u32(&shhashent->refcount, 1);
+
+    // Initialize generation to 0 (freshly created)
+    pg_atomic_init_u32(&shhashent->generation, 0);
+    shhashent->dropped = false;
+
+    // Allocate DSA memory based on statistics kind
+    chunk = dsa_allocate0(pgStatLocal.dsa, pgstat_get_kind_info(kind)->shared_size);
+    shheader = dsa_get_address(pgStatLocal.dsa, chunk);
+
+    // Set magic number for debugging
+    shheader->magic = 0xdeadbeef;
+
+    // Link new entry to hash entry
+    shhashent->body = chunk;
+
+    // Initialize lock for concurrent access
+    LWLockInitialize(&shheader->lock, LWTRANCHE_PGSTATS_DATA);
+
+    return shheader;
+}
+```

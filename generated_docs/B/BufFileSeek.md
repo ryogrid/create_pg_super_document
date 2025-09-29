@@ -57,3 +57,78 @@ The function optimizes for seeks within the current buffer by simply adjusting t
 - Supports negative offsets in relative seeks, with proper segment boundary handling
 - SEEK_END operations determine file size by checking the last segment
 - Invalid whence values trigger an elog(ERROR) and return EOF
+
+## Simplified Source
+
+```c
+int
+BufFileSeek(BufFile *file, int fileno, off_t offset, int whence)
+{
+    int     newFile;
+    off_t   newOffset;
+
+    switch (whence)
+    {
+        case SEEK_SET:
+            if (fileno < 0)
+                return EOF;
+            newFile = fileno;
+            newOffset = offset;
+            break;
+        case SEEK_CUR:
+            newFile = file->curFile;
+            newOffset = (file->curOffset + file->pos) + offset;
+            break;
+        case SEEK_END:
+            newFile = file->numFiles - 1;
+            newOffset = FileSize(file->files[file->numFiles - 1]);
+            if (newOffset < 0)
+                ereport(ERROR,
+                        (errcode_for_file_access(),
+                         errmsg("could not determine size of temporary file \"%s\" from BufFile \"%s\": %m",
+                                FilePathName(file->files[file->numFiles - 1]),
+                                file->name)));
+            break;
+        default:
+            elog(ERROR, "invalid whence: %d", whence);
+            return EOF;
+    }
+
+    while (newOffset < 0)
+    {
+        if (--newFile < 0)
+            return EOF;
+        newOffset += MAX_PHYSICAL_FILESIZE;
+    }
+
+    if (newFile == file->curFile &&
+        newOffset >= file->curOffset &&
+        newOffset <= file->curOffset + file->nbytes)
+    {
+        file->pos = (int) (newOffset - file->curOffset);
+        return 0;
+    }
+
+    BufFileFlush(file);
+
+    if (newFile == file->numFiles && newOffset == 0)
+    {
+        newFile--;
+        newOffset = MAX_PHYSICAL_FILESIZE;
+    }
+    while (newOffset > MAX_PHYSICAL_FILESIZE)
+    {
+        if (++newFile >= file->numFiles)
+            return EOF;
+        newOffset -= MAX_PHYSICAL_FILESIZE;
+    }
+    if (newFile >= file->numFiles)
+        return EOF;
+
+    file->curFile = newFile;
+    file->curOffset = newOffset;
+    file->pos = 0;
+    file->nbytes = 0;
+    return 0;
+}
+```

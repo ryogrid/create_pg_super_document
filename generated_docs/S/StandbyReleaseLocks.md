@@ -35,3 +35,27 @@ This function serves as a conditional lock release mechanism during WAL replay i
 - Ensures proper cleanup of both individual lock entries and transaction hash entries
 - Critical for maintaining lock consistency and preventing lock leaks during WAL replay
 - Works in conjunction with the recovery lock tracking system to manage lock state
+
+## Simplified Source
+
+```c
+static void StandbyReleaseLocks(TransactionId xid)
+{
+    RecoveryLockXidEntry *entry;
+
+    if (TransactionIdIsValid(xid))
+    {
+        // Release locks for specific transaction
+        if ((entry = hash_search(RecoveryLockXidHash, &xid, HASH_FIND, NULL)))
+        {
+            StandbyReleaseXidEntryLocks(entry);
+            hash_search(RecoveryLockXidHash, entry, HASH_REMOVE, NULL);
+        }
+    }
+    else
+    {
+        // Release all locks
+        StandbyReleaseAllLocks();
+    }
+}
+```

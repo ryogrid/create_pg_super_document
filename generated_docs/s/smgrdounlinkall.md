@@ -50,3 +50,49 @@ The isRedo parameter allows the function to handle cases during WAL replay where
 - Essential for relation drops, truncations, and other storage cleanup operations
 - Part of PostgreSQL's storage management and cleanup infrastructure
 - Located in src/backend/storage/smgr/smgr.c:462-534
+
+## Simplified Source
+
+```c
+void smgrdounlinkall(SMgrRelation *rels, int nrels, bool isRedo)
+{
+    int i = 0;
+    RelFileLocatorBackend *rlocators;
+    ForkNumber forknum;
+
+    // Early exit if no relations to process
+    if (nrels == 0)
+        return;
+
+    // Step 1: Drop all buffers without writing them
+    DropRelationsAllBuffers(rels, nrels);
+
+    // Step 2: Create locator array and close all forks
+    rlocators = palloc(sizeof(RelFileLocatorBackend) * nrels);
+    for (i = 0; i < nrels; i++) {
+        RelFileLocatorBackend rlocator = rels[i]->smgr_rlocator;
+        int which = rels[i]->smgr_which;
+
+        rlocators[i] = rlocator;
+
+        // Close all forks at storage manager level
+        for (forknum = 0; forknum <= MAX_FORKNUM; forknum++)
+            smgrsw[which].smgr_close(rels[i], forknum);
+    }
+
+    // Step 3: Send cache invalidation messages to other backends
+    for (i = 0; i < nrels; i++)
+        CacheInvalidateSmgr(rlocators[i]);
+
+    // Step 4: Delete the physical files
+    // Note: deletion failures are treated as warnings, not errors
+    for (i = 0; i < nrels; i++) {
+        int which = rels[i]->smgr_which;
+
+        for (forknum = 0; forknum <= MAX_FORKNUM; forknum++)
+            smgrsw[which].smgr_unlink(rlocators[i], forknum, isRedo);
+    }
+
+    pfree(rlocators);
+}
+```

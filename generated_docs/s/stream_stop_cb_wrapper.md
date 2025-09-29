@@ -43,3 +43,44 @@ Similar to stream_start_cb_wrapper, this function ensures proper error reporting
 - Updates write_location to the last LSN for replication progress tracking
 - Counterpart to stream_start_cb_wrapper, marking the end of transaction streaming
 - Part of PostgreSQL's logical replication streaming feature for handling large transactions
+
+## Simplified Source
+
+```c
+static void stream_stop_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn, XLogRecPtr last_lsn)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    // Validate streaming mode is enabled
+    Assert(!ctx->fast_forward);
+    Assert(ctx->streaming);
+
+    // Set up error context for better error reporting
+    state.ctx = ctx;
+    state.callback_name = "stream_stop";
+    state.report_location = last_lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for stream stop
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = last_lsn;  // Report last LSN for replication progress
+    ctx->end_xact = false;
+
+    // Verify stream_stop_cb callback exists (required in streaming mode)
+    if (ctx->callbacks.stream_stop_cb == NULL)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("logical streaming requires a stream_stop_cb callback")));
+
+    // Call the plugin's stream stop callback
+    ctx->callbacks.stream_stop_cb(ctx, txn);
+
+    // Restore previous error context
+    error_context_stack = errcallback.previous;
+}
+```

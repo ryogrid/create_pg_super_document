@@ -59,3 +59,55 @@ A critical requirement is that the caller must pre-zero the data area before cal
 - The infomask flags set by this function are essential for tuple interpretation during reading
 - Handles the complex coordination between null bitmap construction and data serialization
 - Part of the core tuple access subsystem used throughout PostgreSQL's storage engine
+
+## Simplified Source
+
+```c
+void heap_fill_tuple(TupleDesc tupleDesc,
+                     const Datum *values, const bool *isnull,
+                     char *data, Size data_size,
+                     uint16 *infomask, bits8 *bit)
+{
+    bits8 *bitP;
+    int bitmask;
+    int i;
+    int numberOfAttributes = tupleDesc->natts;
+
+#ifdef USE_ASSERT_CHECKING
+    char *start = data;  // Remember start position for size verification
+#endif
+
+    // Initialize null bitmap construction if bitmap is provided
+    if (bit != NULL)
+    {
+        bitP = &bit[-1];      // Point to beginning of bitmap
+        bitmask = HIGHBIT;    // Start with high bit
+    }
+    else
+    {
+        bitP = NULL;
+        bitmask = 0;
+    }
+
+    // Clear tuple characteristic flags before processing
+    *infomask &= ~(HEAP_HASNULL | HEAP_HASVARWIDTH | HEAP_HASEXTERNAL);
+
+    // Process each attribute in the tuple
+    for (i = 0; i < numberOfAttributes; i++)
+    {
+        Form_pg_attribute attr = TupleDescAttr(tupleDesc, i);
+
+        // Delegate per-attribute serialization to fill_val
+        fill_val(attr,
+                 bitP ? &bitP : NULL,    // Update bitmap pointer if needed
+                 &bitmask,               // Update bitmap mask
+                 &data,                  // Update data pointer as we write
+                 infomask,               // Update tuple flags as needed
+                 values ? values[i] : PointerGetDatum(NULL),  // Use value or NULL
+                 isnull ? isnull[i] : true);                  // Use null flag or default to NULL
+    }
+
+    // Verify we wrote exactly the expected amount of data
+    Assert((data - start) == data_size);
+}
+```

@@ -47,3 +47,19 @@ This function takes no parameters.
 - Transactions that need to modify relation mappings (such as VACUUM FULL or CLUSTER on system catalogs) cannot be prepared for two-phase commit
 - The error is raised with ERRCODE_FEATURE_NOT_SUPPORTED to clearly indicate this is an intentional limitation rather than a bug
 - Future PostgreSQL versions could potentially lift this restriction by implementing proper two-phase commit support for relation mapping changes
+
+## Simplified Source
+
+```c
+void AtPrepare_RelationMap(void)
+{
+    // Check if any relation mapping updates are pending or active
+    if (active_shared_updates.num_mappings != 0 ||
+        active_local_updates.num_mappings != 0 ||
+        pending_shared_updates.num_mappings != 0 ||
+        pending_local_updates.num_mappings != 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot PREPARE a transaction that modified relation mapping")));
+}
+```

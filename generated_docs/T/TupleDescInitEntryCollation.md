@@ -40,3 +40,20 @@ The function performs minimal validation and directly sets the attcollation fiel
 - Commonly used in conjunction with TupleDescInitEntry when building complex tuple descriptors
 - Essential for proper handling of collatable data types in PostgreSQL
 - No validation is performed on the collation OID itself - it's assumed to be valid
+
+## Simplified Source
+
+```c
+void TupleDescInitEntryCollation(TupleDesc desc,
+                                AttrNumber attributeNumber,
+                                Oid collationid)
+{
+    // Validate inputs
+    Assert(PointerIsValid(desc));
+    Assert(attributeNumber >= 1);
+    Assert(attributeNumber <= desc->natts);
+
+    // Set the collation for the specified attribute
+    TupleDescAttr(desc, attributeNumber - 1)->attcollation = collationid;
+}
+```

@@ -46,3 +46,48 @@ The function performs several critical tasks:
 - It requires that the output plugin provides a stream_change_cb callback, otherwise it raises an error
 - The function manages error context stack properly to ensure cleanup on both success and failure paths
 - Location tracking is updated to allow clients to provide up-to-date progress information
+
+## Simplified Source
+
+```c
+static void stream_change_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                                    Relation relation, ReorderBufferChange *change)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    Assert(!ctx->fast_forward);
+    Assert(ctx->streaming);  // Only for streaming mode
+
+    // Set up error handling context
+    state.ctx = ctx;
+    state.callback_name = "stream_change";
+    state.report_location = change->lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+
+    // Update location for client progress tracking
+    ctx->write_location = change->lsn;
+    ctx->end_xact = false;
+
+    // Validate callback is available for streaming mode
+    if (ctx->callbacks.stream_change_cb == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("logical streaming requires a %s callback",
+                        "stream_change_cb")));
+
+    // Call the actual plugin stream change callback
+    ctx->callbacks.stream_change_cb(ctx, txn, relation, change);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```

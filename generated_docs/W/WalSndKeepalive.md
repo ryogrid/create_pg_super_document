@@ -45,3 +45,31 @@ WalSndKeepalive constructs and sends a keepalive message to the standby server a
 - The waiting_for_ping_response flag prevents sending duplicate keepalive requests
 - Used for connection health monitoring and flow control in streaming replication
 - Located in src/backend/replication/walsender.c at lines 4076-4098
+
+## Simplified Source
+
+```c
+static void WalSndKeepalive(bool requestReply, XLogRecPtr writePtr)
+{
+    elog(DEBUG2, "sending replication keepalive");
+
+    // Build the keepalive message
+    resetStringInfo(&output_message);
+    pq_sendbyte(&output_message, 'k');  // Message type: keepalive
+
+    // Send WAL position (use writePtr if valid, otherwise sentPtr)
+    pq_sendint64(&output_message,
+                 XLogRecPtrIsInvalid(writePtr) ? sentPtr : writePtr);
+
+    // Send current timestamp and reply request flag
+    pq_sendint64(&output_message, GetCurrentTimestamp());
+    pq_sendbyte(&output_message, requestReply ? 1 : 0);
+
+    // Send the message wrapped in CopyData protocol
+    pq_putmessage_noblock('d', output_message.data, output_message.len);
+
+    // Set flag to track if we're waiting for a response
+    if (requestReply)
+        waiting_for_ping_response = true;
+}
+```

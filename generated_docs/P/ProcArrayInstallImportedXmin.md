@@ -46,3 +46,60 @@ If all checks pass, the function atomically installs the imported xmin into both
 - Used primarily in snapshot import scenarios where one transaction wants to adopt another's visibility rules
 - Essential for maintaining MVCC consistency when sharing snapshots between transactions
 - The installed xmin becomes the new lower bound for tuple visibility in the importing transaction
+
+## Simplified Source
+
+```c
+bool ProcArrayInstallImportedXmin(TransactionId xmin,
+                                  VirtualTransactionId *sourcevxid)
+{
+    bool result = false;
+    ProcArrayStruct *arrayP = procArray;
+    int index;
+
+    // Validate parameters
+    Assert(TransactionIdIsNormal(xmin));
+    if (!sourcevxid)
+        return false;
+
+    // Lock to prevent source transaction from ending
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Search for the source transaction
+    for (index = 0; index < arrayP->numProcs; index++)
+    {
+        int pgprocno = arrayP->pgprocnos[index];
+        PGPROC *proc = &allProcs[pgprocno];
+        int statusFlags = ProcGlobal->statusFlags[index];
+        TransactionId xid;
+
+        // Skip VACUUM processes
+        if (statusFlags & PROC_IN_VACUUM)
+            continue;
+
+        // Check if this is our source transaction
+        if (proc->vxid.procNumber != sourcevxid->procNumber)
+            continue;
+        if (proc->vxid.lxid != sourcevxid->localTransactionId)
+            continue;
+
+        // Verify same database
+        if (proc->databaseId != MyDatabaseId)
+            continue;
+
+        // Verify xmin coverage
+        xid = UINT32_ACCESS_ONCE(proc->xmin);
+        if (!TransactionIdIsNormal(xid) ||
+            !TransactionIdPrecedesOrEquals(xid, xmin))
+            continue;
+
+        // Install the imported xmin
+        MyProc->xmin = TransactionXmin = xmin;
+        result = true;
+        break;
+    }
+
+    LWLockRelease(ProcArrayLock);
+    return result;
+}
+```

@@ -38,3 +38,31 @@ The constructed filename follows the pattern: `XLOGDIR/summaries/TTTTTTTTSSSSSSS
 - Filename format encodes timeline and LSN range as hex values
 - Part of the WAL summary file access infrastructure
 - Located in src/backend/backup/walsummary.c:205-229
+
+## Simplified Source
+
+```c
+File OpenWalSummaryFile(WalSummaryFile *ws, bool missing_ok)
+{
+    char path[MAXPGPATH];
+    File file;
+
+    // Build the filename using timeline and LSN range
+    snprintf(path, MAXPGPATH,
+             XLOGDIR "/summaries/%08X%08X%08X%08X%08X.summary",
+             ws->tli,
+             LSN_FORMAT_ARGS(ws->start_lsn),
+             LSN_FORMAT_ARGS(ws->end_lsn));
+
+    // Open the file for reading
+    file = PathNameOpenFile(path, O_RDONLY);
+
+    // Handle errors based on missing_ok flag
+    if (file < 0 && (errno != EEXIST || !missing_ok))
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not open file \"%s\": %m", path)));
+
+    return file;
+}
+```

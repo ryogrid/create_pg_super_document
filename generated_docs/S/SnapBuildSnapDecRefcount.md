@@ -38,3 +38,29 @@ This function implements the decrement side of the reference counting mechanism 
 - Prevents freeing of copied snapshots (which require different cleanup)
 - Critical component of the snapshot lifecycle management system
 - Located in src/backend/replication/logical/snapbuild.c:467-498
+
+## Simplified Source
+
+```c
+void SnapBuildSnapDecRefcount(Snapshot snap)
+{
+    // Validate snapshot type and integrity
+    Assert(snap->snapshot_type == SNAPSHOT_HISTORIC_MVCC);
+    Assert(snap->curcid == FirstCommandId);
+    Assert(!snap->suboverflowed);
+    Assert(!snap->takenDuringRecovery);
+    Assert(snap->regd_count == 0);
+    Assert(snap->active_count > 0);
+
+    // Prevent freeing copied snapshots (different cleanup required)
+    if (snap->copied)
+        elog(ERROR, "cannot free a copied snapshot");
+
+    // Decrement reference count
+    snap->active_count--;
+
+    // Free snapshot when no more active references
+    if (snap->active_count == 0)
+        SnapBuildFreeSnapshot(snap);
+}
+```

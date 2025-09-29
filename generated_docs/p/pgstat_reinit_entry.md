@@ -41,3 +41,31 @@ This approach allows efficient reuse of hash table slots and DSA memory chunks w
 - Generation increment is crucial for cache invalidation - it notifies backends that their local references are stale
 - Only the actual statistical data is zeroed, not the common header structure
 - More efficient than full deallocation/reallocation cycle for frequently created/dropped objects
+
+## Simplified Source
+
+```c
+static PgStatShared_Common *
+pgstat_reinit_entry(PgStat_Kind kind, PgStatShared_HashEntry *shhashent)
+{
+    PgStatShared_Common *shheader;
+
+    // Get the shared entry address from DSA
+    shheader = dsa_get_address(pgStatLocal.dsa, shhashent->body);
+
+    // Mark as not dropped anymore - increment reference count
+    pg_atomic_fetch_add_u32(&shhashent->refcount, 1);
+
+    // Increment generation to invalidate any backend local references
+    // to the old data
+    pg_atomic_fetch_add_u32(&shhashent->generation, 1);
+    shhashent->dropped = false;
+
+    // Reinitialize content - clear the actual statistical data
+    Assert(shheader->magic == 0xdeadbeef);
+    memset(pgstat_get_entry_data(kind, shheader), 0,
+           pgstat_get_entry_len(kind));
+
+    return shheader;
+}
+```

@@ -55,3 +55,46 @@ This approach is particularly useful for extensions, procedural languages, or ot
 - Does not include built-in parameter validation like the other variants
 - Maintains compatibility with standard query ID generation and post-parse hooks
 - The setup callback is responsible for all parameter-related configuration
+
+## Simplified Source
+
+```c
+Query *parse_analyze_withcb(RawStmt *parseTree, const char *sourceText,
+                           ParserSetupHook parserSetup,
+                           void *parserSetupArg,
+                           QueryEnvironment *queryEnv)
+{
+    ParseState *pstate = make_parsestate(NULL);
+    Query      *query;
+    JumbleState *jstate = NULL;
+
+    // Source text is required (as of PostgreSQL 8.4)
+    Assert(sourceText != NULL);
+
+    // Set up the parse state with source text and query environment
+    pstate->p_sourcetext = sourceText;
+    pstate->p_queryEnv = queryEnv;
+
+    // Call the custom parser setup callback
+    (*parserSetup) (pstate, parserSetupArg);
+
+    // Transform the raw statement into a Query
+    query = transformTopLevelStmt(pstate, parseTree);
+
+    // Generate query ID if enabled
+    if (IsQueryIdEnabled())
+        jstate = JumbleQuery(query);
+
+    // Execute post-parse analysis hook if registered
+    if (post_parse_analyze_hook)
+        (*post_parse_analyze_hook) (pstate, query, jstate);
+
+    // Clean up parse state
+    free_parsestate(pstate);
+
+    // Report query ID for statistics
+    pgstat_report_query_id(query->queryId, false);
+
+    return query;
+}
+```

@@ -46,3 +46,22 @@ This mechanism is widely used throughout PostgreSQL's shared memory facilities t
 - This is a fundamental part of PostgreSQL's resource management for shared memory segments
 - Commonly used by higher-level shared memory facilities like shared message queues, shared file sets, and dynamic shared memory allocators
 - The Datum argument allows passing context-specific data to the callback function
+
+## Simplified Source
+
+```c
+void on_dsm_detach(dsm_segment *seg, on_dsm_detach_callback function, Datum arg)
+{
+    dsm_segment_detach_callback *cb;
+
+    // Allocate callback structure in persistent memory context
+    cb = MemoryContextAlloc(TopMemoryContext, sizeof(dsm_segment_detach_callback));
+    cb->function = function;
+    cb->arg = arg;
+
+    // Add to head of callback list (LIFO execution order)
+    slist_push_head(&seg->on_detach, &cb->node);
+}
+```
+
+This function registers a cleanup callback that will be executed when a DSM segment is detached. It creates a callback structure and adds it to the segment's callback list for automatic cleanup.

@@ -38,3 +38,13 @@ The function leverages the centralized object property system to maintain consis
 - Essential for managing initial privileges and extension object privileges
 - The returned attribute number corresponds to the column position in the system catalog table where the ACL array is stored
 - Some object types may not have ACL columns, in which case the function behavior depends on the object property configuration
+
+## Simplified Source
+
+```c
+AttrNumber get_object_attnum_acl(Oid class_id)
+{
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+    return prop->attnum_acl;
+}
+```

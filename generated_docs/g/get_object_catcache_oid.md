@@ -38,3 +38,13 @@ The function consults the object property metadata for the given class and retur
 - This enables efficient repeated access to catalog objects without repeated disk I/O
 - Part of PostgreSQL's broader object addressing and caching infrastructure
 - The function may return -1 or an invalid cache ID if no OID-based cache is available for the object class
+
+## Simplified Source
+
+```c
+int get_object_catcache_oid(Oid class_id)
+{
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+    return prop->oid_catcache_id;
+}
+```

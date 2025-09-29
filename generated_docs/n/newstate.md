@@ -47,3 +47,81 @@ The  function creates a new state for an NFA with sophisticated memory managemen
 - Each state gets a unique sequential number for identification
 - Properly initializes all state fields including ins/outs arrays and temporary pointers
 - Critical function called frequently during NFA construction for complex regex patterns
+
+## Simplified Source
+
+```c
+static struct state *newstate(struct nfa *nfa)
+{
+    struct state *s;
+
+    // Check for operation cancellation
+    INTERRUPT(nfa->v->re);
+
+    // First, try to reuse a state from the freelist
+    if (nfa->freestates != NULL) {
+        s = nfa->freestates;
+        nfa->freestates = s->next;
+    }
+    // Next, try to use space in current state batch
+    else if (nfa->lastsb != NULL && nfa->lastsbused < nfa->lastsb->nstates) {
+        s = &nfa->lastsb->s[nfa->lastsbused++];
+    }
+    // Finally, allocate a new state batch
+    else {
+        struct statebatch *newSb;
+        size_t nstates;
+
+        // Check space limit
+        if (nfa->v->spaceused >= REG_MAX_COMPILE_SPACE) {
+            NERR(REG_ETOOBIG);
+            return NULL;
+        }
+
+        // Calculate batch size (exponential growth up to limit)
+        nstates = (nfa->lastsb != NULL) ? nfa->lastsb->nstates * 2 : FIRSTSBSIZE;
+        if (nstates > MAXSBSIZE)
+            nstates = MAXSBSIZE;
+
+        // Allocate new batch
+        newSb = (struct statebatch *) MALLOC(STATEBATCHSIZE(nstates));
+        if (newSb == NULL) {
+            NERR(REG_ESPACE);
+            return NULL;
+        }
+
+        // Update space tracking and link batch
+        nfa->v->spaceused += STATEBATCHSIZE(nstates);
+        newSb->nstates = nstates;
+        newSb->next = nfa->lastsb;
+        nfa->lastsb = newSb;
+        nfa->lastsbused = 1;
+        s = &newSb->s[0];
+    }
+
+    // Initialize the new state
+    assert(nfa->nstates >= 0);
+    s->no = nfa->nstates++;
+    s->flag = 0;
+
+    if (nfa->states == NULL)
+        nfa->states = s;
+
+    s->nins = 0;
+    s->ins = NULL;
+    s->nouts = 0;
+    s->outs = NULL;
+    s->tmp = NULL;
+    s->next = NULL;
+
+    // Link into state list
+    if (nfa->slast != NULL) {
+        assert(nfa->slast->next == NULL);
+        nfa->slast->next = s;
+    }
+    s->prev = nfa->slast;
+    nfa->slast = s;
+
+    return s;
+}
+```

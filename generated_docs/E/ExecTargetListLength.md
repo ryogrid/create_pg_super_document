@@ -26,3 +26,13 @@ The comment indicates this function "used to be more complex, but fjoins are dea
 
 ## Notes and Other Information
 The function includes resjunk items in its count, which is important for callers that need to allocate structures (like tuple descriptors) that must account for all target list entries, not just the visible result columns. This differs from functions that might only count non-resjunk entries for result set sizing.
+
+## Simplified Source
+
+```c
+int ExecTargetListLength(List *targetlist)
+{
+    // This used to be more complex, but fjoins are dead
+    return list_length(targetlist);
+}
+```

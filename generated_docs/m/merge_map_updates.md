@@ -34,3 +34,20 @@ The  function serves as a bulk operation wrapper around . It iterates through al
 - Used during transaction completion and command completion to apply accumulated mapping changes
 - The function maintains the same error handling semantics as  through the  parameter
 - Part of PostgreSQL's transactional relation mapping system that ensures mapping changes are applied atomically
+
+## Simplified Source
+
+```c
+static void merge_map_updates(RelMapFile *map, const RelMapFile *updates, bool add_okay)
+{
+    int32 i;
+
+    for (i = 0; i < updates->num_mappings; i++)
+    {
+        apply_map_update(map,
+                        updates->mappings[i].mapoid,
+                        updates->mappings[i].mapfilenumber,
+                        add_okay);
+    }
+}
+```

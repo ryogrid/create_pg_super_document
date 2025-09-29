@@ -40,3 +40,52 @@ ECPGdisconnect handles the termination of PostgreSQL database connections in ECP
 - Part of ECPGs connection lifecycle management infrastructure
 - Uses ecpg_finish() to perform the actual connection cleanup and resource deallocation
 - Maintains SQLCA state for proper error reporting to the application
+
+## Simplified Source
+
+```c
+bool ECPGdisconnect(int lineno, const char *connection_name)
+{
+    struct sqlca_t *sqlca = ECPGget_sqlca();
+    struct connection *con;
+
+    // Check if SQLCA is available for error reporting
+    if (sqlca == NULL)
+    {
+        ecpg_raise(lineno, ECPG_OUT_OF_MEMORY,
+                   ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY, NULL);
+        return false;
+    }
+
+    // Lock connections list for thread safety
+    pthread_mutex_lock(&connections_mutex);
+
+    if (strcmp(connection_name, "ALL") == 0)
+    {
+        // Disconnect all connections
+        ecpg_init_sqlca(sqlca);
+        for (con = all_connections; con;)
+        {
+            struct connection *next_con = con->next;
+            ecpg_finish(con);  // Clean up this connection
+            con = next_con;
+        }
+    }
+    else
+    {
+        // Disconnect specific named connection
+        con = ecpg_get_connection_nr(connection_name);
+
+        if (!ecpg_init(con, connection_name, lineno))
+        {
+            pthread_mutex_unlock(&connections_mutex);
+            return false;
+        }
+        else
+            ecpg_finish(con);  // Clean up the connection
+    }
+
+    pthread_mutex_unlock(&connections_mutex);
+    return true;
+}
+```

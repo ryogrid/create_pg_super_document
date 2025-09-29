@@ -53,3 +53,64 @@ The function carefully preserves errno values from `readdir` operations and hand
 - Directory closing errors will override previous success states and return -1
 - The "." and ".." entries are always skipped as they are standard directory navigation entries
 - This function is commonly used in PostgreSQL utilities that need to validate directory states before performing operations like database initialization, backups, or upgrades
+
+## Simplified Source
+
+```c
+int pg_check_dir(const char *dir)
+{
+    int result = 1;
+    DIR *chkdir;
+    struct dirent *file;
+    bool dot_found = false;
+    bool mount_found = false;
+    int readdir_errno;
+
+    // Try to open the directory
+    chkdir = opendir(dir);
+    if (chkdir == NULL)
+        return (errno == ENOENT) ? 0 : -1;
+
+    // Examine each directory entry
+    while (errno = 0, (file = readdir(chkdir)) != NULL) {
+        // Skip current and parent directory entries
+        if (strcmp(".", file->d_name) == 0 || strcmp("..", file->d_name) == 0) {
+            continue;
+        }
+#ifndef WIN32
+        // Check for dot files (hidden files)
+        else if (file->d_name[0] == '.') {
+            dot_found = true;
+        }
+        // Check for lost+found directory (mount point indicator)
+        else if (strcmp("lost+found", file->d_name) == 0) {
+            mount_found = true;
+        }
+#endif
+        else {
+            // Found a regular file/directory - not empty
+            result = 4;
+            break;
+        }
+    }
+
+    // Check for readdir errors
+    if (errno)
+        result = -1;
+
+    // Close directory, preserving readdir errno on success
+    readdir_errno = errno;
+    if (closedir(chkdir))
+        result = -1;
+    else
+        errno = readdir_errno;
+
+    // Classify directory state based on findings
+    if (result == 1 && mount_found)
+        result = 3;  // Contains mount point
+    if (result == 1 && dot_found)
+        result = 2;  // Contains only dot files
+
+    return result;
+}
+```

@@ -42,3 +42,33 @@ This function creates an entry in the pg_shdepend catalog table to track depende
 - Pinned objects are excluded from dependency tracking as they are permanent system objects
 - The function opens pg_shdepend with RowExclusiveLock to ensure consistency during dependency recording
 - Located in src/backend/catalog/pg_shdepend.c:125-167
+
+## Simplified Source
+
+```c
+void recordSharedDependencyOn(ObjectAddress *depender,
+                             ObjectAddress *referenced,
+                             SharedDependencyType deptype)
+{
+    // Validate that SubIds are zero (required for pg_shdepend)
+    Assert(depender->objectSubId == 0);
+    Assert(referenced->objectSubId == 0);
+
+    // Skip during bootstrap (pg_shdepend may not exist)
+    if (IsBootstrapProcessingMode())
+        return;
+
+    // Open pg_shdepend catalog table
+    Relation sdepRel = table_open(SharedDependRelationId, RowExclusiveLock);
+
+    // Only record dependency if referenced object is not pinned
+    if (!IsPinnedObject(referenced->classId, referenced->objectId)) {
+        shdepAddDependency(sdepRel,
+                          depender->classId, depender->objectId, depender->objectSubId,
+                          referenced->classId, referenced->objectId,
+                          deptype);
+    }
+
+    table_close(sdepRel, RowExclusiveLock);
+}
+```

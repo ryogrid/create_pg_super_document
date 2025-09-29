@@ -31,3 +31,24 @@ AtPrepare_PgStat is part of PostgreSQL's two-phase commit protocol implementatio
 - Unlike regular transaction completion, prepare operations must preserve the statistics state rather than finalizing it
 - The function only handles relation statistics preparation; other statistics types may not require special preparation handling
 - This is part of PostgreSQL's distributed transaction support, allowing transactions to be prepared on multiple nodes before final commit
+
+## Simplified Source
+
+```c
+void AtPrepare_PgStat(void)
+{
+    PgStat_SubXactStatus *xact_state;
+
+    // Get the current transaction statistics state
+    xact_state = pgStatXactStack;
+    if (xact_state != NULL)
+    {
+        // Verify we're at the top-level transaction
+        Assert(xact_state->nest_level == 1);
+        Assert(xact_state->prev == NULL);
+
+        // Save relation statistics for the prepared transaction
+        AtPrepare_PgStat_Relations(xact_state);
+    }
+}
+```

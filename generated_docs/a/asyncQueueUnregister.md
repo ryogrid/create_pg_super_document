@@ -53,3 +53,48 @@ This function takes no parameters.
 - The function is safe to call even if the backend is not currently registered as a listener
 - Requires exclusive lock on NotifyQueueLock to maintain consistency of the shared listener list
 - Part of PostgreSQL's asynchronous notification system (LISTEN/NOTIFY)
+
+## Simplified Source
+
+```c
+static void
+asyncQueueUnregister(void)
+{
+    Assert(listenChannels == NIL);  // Caller must ensure no active channels
+
+    if (!amRegisteredListener)      // Nothing to do if not registered
+        return;
+
+    // Get exclusive lock to manipulate shared listener list
+    LWLockAcquire(NotifyQueueLock, LW_EXCLUSIVE);
+
+    // Mark our entry as invalid
+    QUEUE_BACKEND_PID(MyProcNumber) = InvalidPid;
+    QUEUE_BACKEND_DBOID(MyProcNumber) = InvalidOid;
+
+    // Remove from linked list
+    if (QUEUE_FIRST_LISTENER == MyProcNumber)
+    {
+        // We're first in the list
+        QUEUE_FIRST_LISTENER = QUEUE_NEXT_LISTENER(MyProcNumber);
+    }
+    else
+    {
+        // Find our predecessor and update its next pointer
+        for (ProcNumber i = QUEUE_FIRST_LISTENER; i != INVALID_PROC_NUMBER; i = QUEUE_NEXT_LISTENER(i))
+        {
+            if (QUEUE_NEXT_LISTENER(i) == MyProcNumber)
+            {
+                QUEUE_NEXT_LISTENER(i) = QUEUE_NEXT_LISTENER(MyProcNumber);
+                break;
+            }
+        }
+    }
+    QUEUE_NEXT_LISTENER(MyProcNumber) = INVALID_PROC_NUMBER;
+
+    LWLockRelease(NotifyQueueLock);
+
+    // Mark ourselves as no longer registered
+    amRegisteredListener = false;
+}
+```

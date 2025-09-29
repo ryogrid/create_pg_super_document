@@ -20,7 +20,7 @@ This static function serves as the unified backend for all index scan initializa
 ## Parameters / Member Variables
 - : The index relation to be scanned
 - : Number of scan keys (search conditions) for the scan
-- : Number of ordering specifications for the scan  
+- : Number of ordering specifications for the scan
 - : The snapshot for visibility checking (used for predicate locking)
 - : Parallel index scan descriptor for parallel query execution (can be NULL for non-parallel scans)
 - : Boolean flag indicating whether the snapshot is temporary
@@ -45,3 +45,35 @@ This static function serves as the unified backend for all index scan initializa
 - Supports both parallel and non-parallel scan initialization through optional parameters
 - Delegates actual scan setup to access method-specific ambeginscan function
 - Located in src/backend/access/index/indexam.c:310-351
+
+## Simplified Source
+
+```c
+static IndexScanDesc
+index_beginscan_internal(Relation indexRelation,
+                         int nkeys, int norderbys, Snapshot snapshot,
+                         ParallelIndexScanDesc pscan, bool temp_snap)
+{
+    IndexScanDesc scan;
+
+    // Validate relation and check that ambeginscan procedure exists
+    RELATION_CHECKS;
+    CHECK_REL_PROCEDURE(ambeginscan);
+
+    // Set up predicate locks for serializable isolation if needed
+    if (!(indexRelation->rd_indam->ampredlocks))
+        PredicateLockRelation(indexRelation, snapshot);
+
+    // Maintain reference count to prevent relation from being dropped
+    RelationIncrementReferenceCount(indexRelation);
+
+    // Delegate to access method's scan initialization
+    scan = indexRelation->rd_indam->ambeginscan(indexRelation, nkeys, norderbys);
+
+    // Initialize parallel scan information
+    scan->parallel_scan = pscan;
+    scan->xs_temp_snap = temp_snap;
+
+    return scan;
+}
+```

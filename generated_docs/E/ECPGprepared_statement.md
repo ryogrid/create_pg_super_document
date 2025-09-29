@@ -32,3 +32,16 @@ This function serves as a public API wrapper for retrieving prepared SQL stateme
 - This function is part of the ECPG library public API for prepared statement management
 - Returns the prepared statement text as a string, or NULL if not found
 - Widely used in ECPG test suite and generated embedded SQL code
+
+## Simplified Source
+
+```c
+char *ECPGprepared_statement(const char *connection_name, const char *name, int lineno)
+{
+    // lineno parameter kept for API compatibility but not used
+    (void) lineno;
+
+    // Get the connection and retrieve the prepared statement
+    return ecpg_prepared(name, ecpg_get_connection(connection_name));
+}
+```

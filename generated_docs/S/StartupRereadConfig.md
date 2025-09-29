@@ -36,3 +36,37 @@ This function takes no parameters.
 - Part of PostgreSQL's dynamic configuration management during recovery
 - Memory management includes proper cleanup of duplicated strings
 - Ensures configuration changes take effect without interrupting the recovery process unnecessarily
+
+## Simplified Source
+
+```c
+static void
+StartupRereadConfig(void)
+{
+	// Save current WAL receiver settings
+	char *conninfo = pstrdup(PrimaryConnInfo);
+	char *slotname = pstrdup(PrimarySlotName);
+	bool tempSlot = wal_receiver_create_temp_slot;
+	bool conninfoChanged;
+	bool slotnameChanged;
+	bool tempSlotChanged = false;
+
+	// Reload configuration
+	ProcessConfigFile(PGC_SIGHUP);
+
+	// Check for changes in critical settings
+	conninfoChanged = strcmp(conninfo, PrimaryConnInfo) != 0;
+	slotnameChanged = strcmp(slotname, PrimarySlotName) != 0;
+
+	// Check temp slot change only if no slot configured
+	if (!slotnameChanged && strcmp(PrimarySlotName, "") == 0)
+		tempSlotChanged = tempSlot != wal_receiver_create_temp_slot;
+
+	pfree(conninfo);
+	pfree(slotname);
+
+	// Restart WAL receiver if any critical setting changed
+	if (conninfoChanged || slotnameChanged || tempSlotChanged)
+		StartupRequestWalReceiverRestart();
+}
+```

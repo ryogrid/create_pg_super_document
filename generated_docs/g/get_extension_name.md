@@ -55,3 +55,41 @@ Unlike get_extension_oid, this function does not have a missing_ok parameter and
 - The returned string is allocated in the current memory context using PostgreSQL's memory management system
 - Part of PostgreSQL's extension management system and widely used for error reporting, logging, and object identification
 - Complementary function to get_extension_oid, providing bidirectional name/OID mapping for extensions
+
+## Simplified Source
+
+```c
+char *get_extension_name(Oid ext_oid)
+{
+    char *result;
+    Relation rel;
+    SysScanDesc scandesc;
+    HeapTuple tuple;
+    ScanKeyData entry[1];
+
+    // Open the pg_extension system catalog
+    rel = table_open(ExtensionRelationId, AccessShareLock);
+
+    // Set up scan key for extension OID
+    ScanKeyInit(&entry[0], Anum_pg_extension_oid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(ext_oid));
+
+    // Begin indexed scan using ExtensionOidIndexId
+    scandesc = systable_beginscan(rel, ExtensionOidIndexId, true, NULL, 1, entry);
+
+    // Get the matching tuple
+    tuple = systable_getnext(scandesc);
+
+    // Extract extension name if found, otherwise return NULL
+    if (HeapTupleIsValid(tuple))
+        result = pstrdup(NameStr(((Form_pg_extension) GETSTRUCT(tuple))->extname));
+    else
+        result = NULL;
+
+    // Clean up
+    systable_endscan(scandesc);
+    table_close(rel, AccessShareLock);
+
+    return result;  // Caller must pfree() this if not NULL
+}
+```

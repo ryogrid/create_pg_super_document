@@ -46,3 +46,31 @@ The function configures execution flags based on the randomAccess parameter to d
 - The maxKBytes parameter should typically be set to work_mem for optimal memory usage
 - Currently the only implemented tuplestore type, though the architecture supports other tuple formats
 - Extensively used in executor nodes, PL functions, triggers, and other components requiring temporary tuple storage
+
+## Simplified Source
+
+```c
+Tuplestorestate *
+tuplestore_begin_heap(bool randomAccess, bool interXact, int maxKBytes)
+{
+    Tuplestorestate *state;
+    int eflags;
+
+    // Set execution flags based on access pattern requirements
+    // randomAccess=true enables both backward and forward scanning
+    // randomAccess=false enables only forward scanning with rewind
+    eflags = randomAccess ?
+        (EXEC_FLAG_BACKWARD | EXEC_FLAG_REWIND) :
+        (EXEC_FLAG_REWIND);
+
+    // Initialize common tuplestore infrastructure
+    state = tuplestore_begin_common(eflags, interXact, maxKBytes);
+
+    // Install heap-specific tuple operation functions
+    state->copytup = copytup_heap;
+    state->writetup = writetup_heap;
+    state->readtup = readtup_heap;
+
+    return state;
+}
+```

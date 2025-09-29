@@ -34,3 +34,13 @@ This is part of PostgreSQL's multi-layered cache invalidation system, complement
 - Part of the comprehensive invalidation system that covers catcache, relcache, and snapshot invalidation
 - Less commonly used than catalog and relcache invalidation since most system catalogs have catcaches
 - Essential for ensuring consistency when catalog tables are modified but don't participate in the catcache system
+
+## Simplified Source
+
+```c
+static void RegisterSnapshotInvalidation(Oid dbId, Oid relId)
+{
+    // Add snapshot invalidation message to current command's message group
+    AddSnapshotInvalidationMessage(&transInvalInfo->CurrentCmdInvalidMsgs, dbId, relId);
+}
+```

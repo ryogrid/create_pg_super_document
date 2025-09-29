@@ -44,3 +44,33 @@ In parallel mode, the function is more restrictive and prevents any command that
 - Parallel mode has stricter rules than regular read-only mode due to the nature of parallel execution
 - CTEs that modify data are treated as write operations even when part of a SELECT statement
 - The function uses the namespace of relations to determine if they are temporary tables
+
+## Simplified Source
+
+```c
+static void ExecCheckXactReadOnly(PlannedStmt *plannedstmt)
+{
+    ListCell *l;
+
+    // Check each relation's permission requirements
+    foreach(l, plannedstmt->permInfos)
+    {
+        RTEPermissionInfo *perminfo = lfirst_node(RTEPermissionInfo, l);
+
+        // Skip if only SELECT permissions are required
+        if ((perminfo->requiredPerms & (~ACL_SELECT)) == 0)
+            continue;
+
+        // Skip temporary tables (allowed in read-only transactions)
+        if (isTempNamespace(get_rel_namespace(perminfo->relid)))
+            continue;
+
+        // Non-temp tables with write permissions not allowed in read-only mode
+        PreventCommandIfReadOnly(CreateCommandName((Node *) plannedstmt));
+    }
+
+    // In parallel mode, prevent any non-SELECT or modifying CTE commands
+    if (plannedstmt->commandType != CMD_SELECT || plannedstmt->hasModifyingCTE)
+        PreventCommandIfParallelMode(CreateCommandName((Node *) plannedstmt));
+}
+```

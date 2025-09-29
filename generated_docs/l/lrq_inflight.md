@@ -32,3 +32,13 @@ This counter is maintained internally by the queue management functions and refl
 - Used for monitoring queue load and making scheduling decisions in the WAL prefetcher
 - The returned value reflects operations that have been started but not yet completed
 - Critical for maintaining the maximum inflight limit specified during queue creation
+
+## Simplified Source
+
+```c
+// Get count of pending I/O operations currently in progress
+static inline uint32 lrq_inflight(LsnReadQueue *lrq)
+{
+    return lrq->inflight;
+}
+```

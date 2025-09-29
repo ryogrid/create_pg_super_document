@@ -39,3 +39,82 @@ CopyOneRowTo processes individual tuples during COPY TO operations by extracting
 
 ## Notes and Other Information
 The function distinguishes between binary and text formats, with binary format requiring length prefixes for each attribute and special encoding for NULL values (-1 length). Text format uses configurable delimiters and NULL representation strings. The function uses the appropriate output functions (text or binary) that were pre-configured during BeginCopyTo setup. Memory management is handled carefully by operating within the row context and resetting it at each call to prevent accumulation of temporary data across rows. The function handles CSV mode specially when in text format, applying proper quoting and escaping rules.
+
+## Simplified Source
+
+```c
+static void CopyOneRowTo(CopyToState cstate, TupleTableSlot *slot)
+{
+    bool need_delim = false;
+    FmgrInfo *out_functions = cstate->out_functions;
+    MemoryContext oldcontext;
+    ListCell *cur;
+    char *string;
+
+    // Reset memory context for this row
+    MemoryContextReset(cstate->rowcontext);
+    oldcontext = MemoryContextSwitchTo(cstate->rowcontext);
+
+    if (cstate->opts.binary)
+    {
+        // Binary format: send column count header
+        CopySendInt16(cstate, list_length(cstate->attnumlist));
+    }
+
+    // Extract all attributes from the slot
+    slot_getallattrs(slot);
+
+    // Process each attribute in the column list
+    foreach(cur, cstate->attnumlist)
+    {
+        int attnum = lfirst_int(cur);
+        Datum value = slot->tts_values[attnum - 1];
+        bool isnull = slot->tts_isnull[attnum - 1];
+
+        // Add delimiter for text format (except first column)
+        if (!cstate->opts.binary)
+        {
+            if (need_delim)
+                CopySendChar(cstate, cstate->opts.delim[0]);
+            need_delim = true;
+        }
+
+        if (isnull)
+        {
+            // Handle NULL values
+            if (!cstate->opts.binary)
+                CopySendString(cstate, cstate->opts.null_print_client);
+            else
+                CopySendInt32(cstate, -1);  // Binary NULL marker
+        }
+        else
+        {
+            if (!cstate->opts.binary)
+            {
+                // Text format: convert value to string
+                string = OutputFunctionCall(&out_functions[attnum - 1], value);
+                if (cstate->opts.csv_mode)
+                    CopyAttributeOutCSV(cstate, string,
+                                      cstate->opts.force_quote_flags[attnum - 1]);
+                else
+                    CopyAttributeOutText(cstate, string);
+            }
+            else
+            {
+                // Binary format: send length-prefixed binary data
+                bytea *outputbytes;
+                outputbytes = SendFunctionCall(&out_functions[attnum - 1], value);
+                CopySendInt32(cstate, VARSIZE(outputbytes) - VARHDRSZ);
+                CopySendData(cstate, VARDATA(outputbytes),
+                           VARSIZE(outputbytes) - VARHDRSZ);
+            }
+        }
+    }
+
+    // Send end-of-row marker
+    CopySendEndOfRow(cstate);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```

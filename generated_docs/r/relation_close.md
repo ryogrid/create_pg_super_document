@@ -49,3 +49,23 @@ The function is designed to be symmetric with the relation opening functions - i
 - Essential for proper resource management and preventing relation cache leaks
 - The lock release is conditional - passing NoLock allows keeping the lock for transaction-duration locking strategies
 - Used extensively throughout PostgreSQL for proper cleanup in both normal operations and error recovery paths
+
+## Simplified Source
+
+```c
+void relation_close(Relation relation, LOCKMODE lockmode)
+{
+    // Extract lock info before closing (relation becomes invalid after close)
+    LockRelId relid = relation->rd_lockInfo.lockRelId;
+
+    // Validate lock mode
+    Assert(lockmode >= NoLock && lockmode < MAX_LOCKMODES);
+
+    // Close the relation (handled by relcache)
+    RelationClose(relation);
+
+    // Release lock if requested
+    if (lockmode != NoLock)
+        UnlockRelationId(&relid, lockmode);
+}
+```

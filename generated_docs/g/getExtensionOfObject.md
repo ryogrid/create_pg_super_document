@@ -46,3 +46,48 @@ When such a dependency is found, the function returns the `refobjid`, which repr
 - Uses AccessShareLock when accessing the pg_depend catalog to ensure consistent reads
 - The DependDependerIndexId index is used to efficiently locate dependency records for the specified object
 - This function is essential for extension management operations and dependency tracking in PostgreSQL's extension system
+
+## Simplified Source
+
+```c
+Oid getExtensionOfObject(Oid classId, Oid objectId)
+{
+    Oid result = InvalidOid;
+    Relation depRel;
+    ScanKeyData key[2];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open the pg_depend system catalog
+    depRel = table_open(DependRelationId, AccessShareLock);
+
+    // Set up scan keys for classid and objid
+    ScanKeyInit(&key[0], Anum_pg_depend_classid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(classId));
+    ScanKeyInit(&key[1], Anum_pg_depend_objid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(objectId));
+
+    // Begin scanning with the index for efficiency
+    scan = systable_beginscan(depRel, DependDependerIndexId, true, NULL, 2, key);
+
+    // Scan through matching dependency records
+    while (HeapTupleIsValid((tup = systable_getnext(scan))))
+    {
+        Form_pg_depend depform = (Form_pg_depend) GETSTRUCT(tup);
+
+        // Check if this is an extension dependency
+        if (depform->refclassid == ExtensionRelationId &&
+            depform->deptype == DEPENDENCY_EXTENSION)
+        {
+            result = depform->refobjid;  // Found the extension OID
+            break;
+        }
+    }
+
+    // Clean up
+    systable_endscan(scan);
+    table_close(depRel, AccessShareLock);
+
+    return result;
+}
+```

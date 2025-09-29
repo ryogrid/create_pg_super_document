@@ -38,3 +38,23 @@ The function is essential for memory allocation planning when converting strings
 - This is a measurement function that doesn't modify any data - it only calculates space requirements
 - Critical for preventing buffer overflows in ICU string conversion operations
 - The returned length includes space for null termination when applicable
+
+## Simplified Source
+
+```c
+static size_t uchar_length(UConverter *converter, const char *str, int32_t len)
+{
+    UErrorCode status = U_ZERO_ERROR;
+    int32_t ulen;
+
+    // Call with NULL buffer to get required size
+    ulen = ucnv_toUChars(converter, NULL, 0, str, len, &status);
+
+    // U_BUFFER_OVERFLOW_ERROR is expected when measuring size
+    if (U_FAILURE(status) && status != U_BUFFER_OVERFLOW_ERROR)
+        ereport(ERROR,
+                (errmsg("%s failed: %s", "ucnv_toUChars", u_errorName(status))));
+
+    return ulen;
+}
+```

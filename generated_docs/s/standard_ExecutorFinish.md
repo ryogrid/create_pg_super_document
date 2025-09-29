@@ -37,3 +37,46 @@ The function operates within the query's memory context and includes comprehensi
 - Manages timing instrumentation for performance monitoring
 - Switches to per-query memory context for proper memory management
 - Sets es_finished flag to true to prevent re-execution
+
+## Simplified Source
+
+```c
+void standard_ExecutorFinish(QueryDesc *queryDesc)
+{
+    EState     *estate;
+    MemoryContext oldcontext;
+
+    // Basic validation
+    Assert(queryDesc != NULL);
+    estate = queryDesc->estate;
+    Assert(estate != NULL);
+    Assert(!(estate->es_top_eflags & EXEC_FLAG_EXPLAIN_ONLY));
+
+    // Ensure this is called exactly once per executor instance
+    Assert(!estate->es_finished);
+
+    // Switch to per-query memory context
+    oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // Start timing instrumentation if enabled
+    if (queryDesc->totaltime)
+        InstrStartNode(queryDesc->totaltime);
+
+    // Complete any remaining ModifyTable operations
+    ExecPostprocessPlan(estate);
+
+    // Execute queued AFTER triggers (unless skipped by flags)
+    if (!(estate->es_top_eflags & EXEC_FLAG_SKIP_TRIGGERS))
+        AfterTriggerEndQuery(estate);
+
+    // Stop timing instrumentation
+    if (queryDesc->totaltime)
+        InstrStopNode(queryDesc->totaltime, 0);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    // Mark executor as finished
+    estate->es_finished = true;
+}
+```

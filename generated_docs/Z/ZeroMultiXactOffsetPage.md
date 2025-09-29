@@ -42,3 +42,21 @@ The function assumes that the appropriate control lock (for MultiXactOffsetCtl) 
 - XLOG record generation is conditional based on the writeXlog parameter
 - Returns the slot number of the newly created page for caller use
 - Critical for both system initialization and runtime extension of MultiXact storage
+
+## Simplified Source
+
+```c
+static int ZeroMultiXactOffsetPage(int64 pageno, bool writeXlog)
+{
+    int slotno;
+
+    // Create a zeroed page in the MultiXact offset SLRU
+    slotno = SimpleLruZeroPage(MultiXactOffsetCtl, pageno);
+
+    // Optionally write XLOG record for crash recovery
+    if (writeXlog)
+        WriteMZeroPageXlogRec(pageno, XLOG_MULTIXACT_ZERO_OFF_PAGE);
+
+    return slotno;
+}
+```

@@ -48,3 +48,62 @@ The function is designed to be safe to call even when workers haven't finished c
 - Critical for transaction cleanup (called from AtEOXact_Parallel and AtEOSubXact_Parallel)
 - Uses uninterruptible section during final worker cleanup to ensure transaction consistency
 - Order of operations is crucial to prevent double-cleanup during error scenarios
+
+## Simplified Source
+
+```c
+void
+DestroyParallelContext(ParallelContext *pcxt)
+{
+    int i;
+
+    // Remove context from list first to prevent double-cleanup
+    dlist_delete(&pcxt->node);
+
+    // Terminate all workers and clean up error message queues
+    if (pcxt->worker != NULL)
+    {
+        for (i = 0; i < pcxt->nworkers_launched; ++i)
+        {
+            if (pcxt->worker[i].error_mqh != NULL)
+            {
+                TerminateBackgroundWorker(pcxt->worker[i].bgwhandle);
+                shm_mq_detach(pcxt->worker[i].error_mqh);
+                pcxt->worker[i].error_mqh = NULL;
+            }
+        }
+    }
+
+    // Detach shared memory segment if present
+    if (pcxt->seg != NULL)
+    {
+        dsm_detach(pcxt->seg);
+        pcxt->seg = NULL;
+    }
+
+    // Free private memory if present
+    if (pcxt->private_memory != NULL)
+    {
+        pfree(pcxt->private_memory);
+        pcxt->private_memory = NULL;
+    }
+
+    // Wait for all workers to exit (uninterruptible)
+    HOLD_INTERRUPTS();
+    WaitForParallelWorkersToExit(pcxt);
+    RESUME_INTERRUPTS();
+
+    // Free remaining resources
+    if (pcxt->worker != NULL)
+    {
+        pfree(pcxt->worker);
+        pcxt->worker = NULL;
+    }
+
+    pfree(pcxt->library_name);
+    pfree(pcxt->function_name);
+    pfree(pcxt);
+}
+```
+
+This function safely destroys a parallel context by first removing it from the global list, terminating workers, cleaning up shared memory, waiting for worker exit, and finally freeing all associated resources.

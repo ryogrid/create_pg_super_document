@@ -46,3 +46,34 @@ The function includes detailed logic for different cleanup scenarios:
 - Only frees the main structure if the JSONLEX_FREE_STRUCT flag is set
 - For incremental parsing contexts, it specifically frees additional components like `inc_state`, `partial_token.data`, `pstack` components (`prediction`, `fnames`, `fnull`)
 - The function includes a comment noting that cleanup may not be needed in certain scenarios, such as when a lex pointer was provided during object creation, need_escapes was false, json_errdetail() was not called, or when a memory context delete/reset is imminent in the backend environment.
+
+## Simplified Source
+
+```c
+void
+freeJsonLexContext(JsonLexContext *lex)
+{
+    // Free string value buffer if allocated
+    if (lex->flags & JSONLEX_FREE_STRVAL)
+        destroyStringInfo(lex->strval);
+
+    // Free error message buffer if allocated
+    if (lex->errormsg)
+        destroyStringInfo(lex->errormsg);
+
+    // Clean up incremental parsing structures
+    if (lex->incremental)
+    {
+        pfree(lex->inc_state->partial_token.data);
+        pfree(lex->inc_state);
+        pfree(lex->pstack->prediction);
+        pfree(lex->pstack->fnames);
+        pfree(lex->pstack->fnull);
+        pfree(lex->pstack);
+    }
+
+    // Free the main structure if allocated
+    if (lex->flags & JSONLEX_FREE_STRUCT)
+        pfree(lex);
+}
+```

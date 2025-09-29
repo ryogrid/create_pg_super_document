@@ -38,3 +38,32 @@ This approach avoids expensive division operations and provides optimal performa
 - Handles the full range of 64-bit unsigned integers (0 to 18,446,744,073,709,551,615)
 - Returns values in the range 1-20 (since a 64-bit unsigned int can have at most 20 decimal digits)
 - The UINT64CONST macro ensures proper constant handling across different platforms and compilers
+
+## Simplified Source
+
+```c
+static inline int
+decimalLength64(const uint64 v)
+{
+    int t;
+    static const uint64 PowersOfTen[] = {
+        UINT64CONST(1), UINT64CONST(10),
+        UINT64CONST(100), UINT64CONST(1000),
+        UINT64CONST(10000), UINT64CONST(100000),
+        UINT64CONST(1000000), UINT64CONST(10000000),
+        UINT64CONST(100000000), UINT64CONST(1000000000),
+        UINT64CONST(10000000000), UINT64CONST(100000000000),
+        UINT64CONST(1000000000000), UINT64CONST(10000000000000),
+        UINT64CONST(100000000000000), UINT64CONST(1000000000000000),
+        UINT64CONST(10000000000000000), UINT64CONST(100000000000000000),
+        UINT64CONST(1000000000000000000), UINT64CONST(10000000000000000000)
+    };
+
+    // Estimate decimal length using base-2 logarithm approximation
+    // 1233/4096 is a rational approximation of log₂(10) ≈ 3.32193
+    t = (pg_leftmost_one_pos64(v) + 1) * 1233 / 4096;
+
+    // Correct the estimate by checking against the actual power of ten
+    return t + (v >= PowersOfTen[t]);
+}
+```

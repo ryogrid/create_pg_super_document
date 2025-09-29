@@ -40,3 +40,37 @@ The resulting bitmapset provides an efficient representation for testing whether
 - Memory management includes proper cleanup of temporary strings and deconstructed array elements
 - Used specifically for processing the evttags column in pg_event_trigger system catalog
 - Part of the event trigger cache optimization system for fast command tag filtering
+
+## Simplified Source
+
+```c
+static Bitmapset *DecodeTextArrayToBitmapset(Datum array)
+{
+    ArrayType *arr = DatumGetArrayTypeP(array);
+    Datum *elems;
+    Bitmapset *bms;
+    int i;
+    int nelems;
+
+    // Validate array format: must be 1-D text array with no nulls
+    if (ARR_NDIM(arr) != 1 || ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != TEXTOID)
+        elog(ERROR, "expected 1-D text array");
+
+    // Deconstruct the array into individual text elements
+    deconstruct_array_builtin(arr, TEXTOID, &elems, NULL, &nelems);
+
+    // Convert each text element to CommandTag enum and add to bitmapset
+    for (bms = NULL, i = 0; i < nelems; ++i)
+    {
+        char *str = TextDatumGetCString(elems[i]);
+
+        bms = bms_add_member(bms, GetCommandTagEnum(str));
+        pfree(str);
+    }
+
+    // Clean up deconstructed array elements
+    pfree(elems);
+
+    return bms;
+}
+```

@@ -29,3 +29,14 @@ This function provides a simple interface for converting a uint32 value into its
 - Caller must ensure destination buffer has adequate space (at least 10 bytes for uint32 values)
 - Part of PostgreSQL's optimized number-to-string conversion utilities
 - Designed for performance in string concatenation scenarios where multiple numeric values are combined
+
+## Simplified Source
+
+```c
+char *pg_ultostr(char *str, uint32 value)
+{
+    int len = pg_ultoa_n(value, str);  // Convert number to string
+
+    return str + len;  // Return pointer to end of written string
+}
+```

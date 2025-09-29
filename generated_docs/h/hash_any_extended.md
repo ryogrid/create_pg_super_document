@@ -38,3 +38,13 @@ The function leverages `hash_bytes_extended` internally while handling the type 
 
 ## Notes and Other Information
 This function is extensively used in PostgreSQL's extended hash infrastructure, particularly for the "extended" variants of hash functions across different data types. It plays a crucial role in bloom filters, query jumbling for plan caching, and anywhere enhanced hash distribution is needed. The 64-bit output and seeding capability make it suitable for applications requiring resistance to hash collision attacks.
+
+## Simplified Source
+
+```c
+static inline Datum
+hash_any_extended(const unsigned char *k, int keylen, uint64 seed)
+{
+    return UInt64GetDatum(hash_bytes_extended(k, keylen, seed));
+}
+```

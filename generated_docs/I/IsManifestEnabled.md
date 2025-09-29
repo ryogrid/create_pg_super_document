@@ -32,3 +32,14 @@ IsManifestEnabled is a utility function that provides a simple boolean check to 
 - This is a static inline function, meaning it's only accessible within the backup_manifest.c file and will be inlined by the compiler for performance
 - The function serves as a clean abstraction layer that encapsulates the logic for determining manifest enablement
 - By always maintaining a manifest_info object regardless of user preference, the code avoids scattered NULL checks and maintains cleaner control flow
+
+## Simplified Source
+
+```c
+// Check if backup manifest generation is enabled
+static inline bool IsManifestEnabled(backup_manifest_info *manifest)
+{
+    // Manifest is enabled if buffile is not NULL
+    return (manifest->buffile != NULL);
+}
+```

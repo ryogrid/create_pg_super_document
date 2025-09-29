@@ -39,3 +39,54 @@ This function takes no parameters and operates on the current transaction's seri
 - Requires SerializablePredicateListLock in shared mode to safely iterate predicate locks
 - Includes assertions to ensure it's not called in parallel worker contexts during preparation
 - The TWOPHASE_RM_PREDICATELOCK_ID resource manager handles recovery of these records
+
+## Simplified Source
+
+```c
+void AtPrepare_PredicateLocks(void)
+{
+    SERIALIZABLEXACT *sxact;
+    TwoPhasePredicateRecord record;
+    TwoPhasePredicateXactRecord *xactRecord;
+    TwoPhasePredicateLockRecord *lockRecord;
+    dlist_iter iter;
+
+    sxact = MySerializableXact;
+    xactRecord = &(record.data.xactRecord);
+    lockRecord = &(record.data.lockRecord);
+
+    // Exit early if this isn't a serializable transaction
+    if (MySerializableXact == InvalidSerializableXact)
+        return;
+
+    // Create a transaction record with serializable transaction state
+    record.type = TWOPHASEPREDICATERECORD_XACT;
+    xactRecord->xmin = MySerializableXact->xmin;
+    xactRecord->flags = MySerializableXact->flags;
+
+    // Register the transaction record (excludes conflicts as they can change)
+    RegisterTwoPhaseRecord(TWOPHASE_RM_PREDICATELOCK_ID, 0,
+                           &record, sizeof(record));
+
+    // Walk through all predicate locks held by this transaction
+    LWLockAcquire(SerializablePredicateListLock, LW_SHARED);
+
+    // Verify we're not in parallel mode during preparation
+    Assert(!IsParallelWorker() && !ParallelContextActive());
+
+    dlist_foreach(iter, &sxact->predicateLocks)
+    {
+        PREDICATELOCK *predlock =
+            dlist_container(PREDICATELOCK, xactLink, iter.cur);
+
+        // Create a lock record for each predicate lock
+        record.type = TWOPHASEPREDICATERECORD_LOCK;
+        lockRecord->target = predlock->tag.myTarget->tag;
+
+        RegisterTwoPhaseRecord(TWOPHASE_RM_PREDICATELOCK_ID, 0,
+                               &record, sizeof(record));
+    }
+
+    LWLockRelease(SerializablePredicateListLock);
+}
+```

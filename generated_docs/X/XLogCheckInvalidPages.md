@@ -40,3 +40,38 @@ This function takes no parameters.
 - When  is true, invalid pages generate warnings instead of panic
 - The invalid_page_tab hash table is destroyed and reset to NULL after processing
 - This function is typically called near the end of recovery to ensure data consistency
+
+## Simplified Source
+
+```c
+void
+XLogCheckInvalidPages(void)
+{
+	HASH_SEQ_STATUS status;
+	xl_invalid_page *hentry;
+	bool foundone = false;
+
+	if (invalid_page_tab == NULL)
+		return;  // Nothing to check
+
+	// Scan through all remaining invalid page entries
+	hash_seq_init(&status, invalid_page_tab);
+
+	while ((hentry = (xl_invalid_page *) hash_seq_search(&status)) != NULL)
+	{
+		// Report each invalid page with details
+		report_invalid_page(WARNING, hentry->key.locator,
+				   hentry->key.forkno, hentry->key.blkno, hentry->present);
+		foundone = true;
+	}
+
+	// If any invalid pages found, log final message
+	if (foundone)
+		elog(ignore_invalid_pages ? WARNING : PANIC,
+			 "WAL contains references to invalid pages");
+
+	// Clean up the hash table
+	hash_destroy(invalid_page_tab);
+	invalid_page_tab = NULL;
+}
+```

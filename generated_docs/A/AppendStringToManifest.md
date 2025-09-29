@@ -44,3 +44,23 @@ This function is designed to be called throughout the manifest generation proces
 - Error handling includes specific error messages for checksum update failures
 - The function automatically tracks the total manifest size by incrementing `manifest->manifest_size` by the length of each appended string
 - Used extensively throughout the manifest generation process to build JSON content incrementally
+
+## Simplified Source
+
+```c
+static void
+AppendStringToManifest(backup_manifest_info *manifest, const char *s)
+{
+    int len = strlen(s);
+
+    Assert(manifest != NULL);
+    if (manifest->still_checksumming)
+    {
+        if (pg_cryptohash_update(manifest->manifest_ctx, (uint8 *) s, len) < 0)
+            elog(ERROR, "failed to update checksum of backup manifest: %s",
+                 pg_cryptohash_error(manifest->manifest_ctx));
+    }
+    BufFileWrite(manifest->buffile, s, len);
+    manifest->manifest_size += len;
+}
+```

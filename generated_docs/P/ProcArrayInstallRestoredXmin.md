@@ -45,3 +45,43 @@ The function requires exclusive ProcArrayLock access (unlike the shared lock use
 - The status flag copying ensures that vacuum processes correctly handle the restored xmin value
 - Essential for maintaining MVCC consistency during snapshot restoration operations
 - Updates both backend-local (MyProc) and global (ProcGlobal) status flag arrays for consistency
+
+## Simplified Source
+
+```c
+bool ProcArrayInstallRestoredXmin(TransactionId xmin, PGPROC *proc)
+{
+    bool result = false;
+    TransactionId xid;
+
+    Assert(TransactionIdIsNormal(xmin));
+    Assert(proc != NULL);
+
+    // Get exclusive lock to safely copy status flags
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    // Read the source transaction's xmin atomically
+    xid = UINT32_ACCESS_ONCE(proc->xmin);
+
+    // Verify source transaction is in same database and has valid xmin coverage
+    if (proc->databaseId == MyDatabaseId &&
+        TransactionIdIsNormal(xid) &&
+        TransactionIdPrecedesOrEquals(xid, xmin))
+    {
+        // Install the xmin value
+        MyProc->xmin = TransactionXmin = xmin;
+
+        // Copy status flags that affect vacuum interpretation
+        MyProc->statusFlags = (MyProc->statusFlags & ~PROC_XMIN_FLAGS) |
+                             (proc->statusFlags & PROC_XMIN_FLAGS);
+
+        // Update global status flags array
+        ProcGlobal->statusFlags[MyProc->pgxactoff] = MyProc->statusFlags;
+
+        result = true;
+    }
+
+    LWLockRelease(ProcArrayLock);
+    return result;
+}
+```

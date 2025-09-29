@@ -51,3 +51,61 @@ The function uses serialization through heavyweight locks to ensure notification
 - The function doesn't clear pendingNotifies - that's done by AtCommit_Notify
 - Location: src/backend/commands/async.c:861-967
 - Part of PostgreSQL's two-phase notification commit protocol
+
+## Simplified Source
+
+```c
+void PreCommit_Notify(void)
+{
+    // Quick exit if no pending actions or notifications
+    if (!pendingActions && !pendingNotifies)
+        return;
+
+    if (Trace_notify)
+        elog(DEBUG1, "PreCommit_Notify");
+
+    // Handle pending LISTEN/UNLISTEN actions
+    if (pendingActions != NULL) {
+        foreach(p, pendingActions->actions) {
+            ListenAction *actrec = (ListenAction *) lfirst(p);
+
+            switch (actrec->action) {
+                case LISTEN_LISTEN:
+                    Exec_ListenPreCommit();  // Register in listener array
+                    break;
+                case LISTEN_UNLISTEN:
+                case LISTEN_UNLISTEN_ALL:
+                    // No pre-commit action needed for unlisten operations
+                    break;
+            }
+        }
+    }
+
+    // Queue pending notifications
+    if (pendingNotifies) {
+        // Ensure we have a transaction ID before acquiring locks
+        (void) GetCurrentTransactionId();
+
+        // Serialize notification writers to maintain commit order
+        LockSharedObject(DatabaseRelationId, InvalidOid, 0, AccessExclusiveLock);
+
+        // Add notifications to the global queue page by page
+        ListCell *nextNotify = list_head(pendingNotifies->events);
+        while (nextNotify != NULL) {
+            LWLockAcquire(NotifyQueueLock, LW_EXCLUSIVE);
+
+            // Check for queue overflow (can still rollback at this point)
+            asyncQueueFillWarning();
+            if (asyncQueueIsFull())
+                ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                        errmsg("too many notifications in the NOTIFY queue")));
+
+            // Add entries and continue with next page
+            nextNotify = asyncQueueAddEntries(nextNotify);
+            LWLockRelease(NotifyQueueLock);
+        }
+
+        // Note: pendingNotifies will be cleared by AtCommit_Notify
+    }
+}
+```

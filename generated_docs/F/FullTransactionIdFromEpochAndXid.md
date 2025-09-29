@@ -37,3 +37,18 @@ The function performs a simple bit manipulation: it shifts the epoch left by 32 
 - Essential for transaction ID wraparound prevention in PostgreSQL
 - The epoch is incremented when the 32-bit transaction ID space wraps around
 - Used throughout the system to create full transaction identifiers from their component parts
+
+## Simplified Source
+
+```c
+static inline FullTransactionId
+FullTransactionIdFromEpochAndXid(uint32 epoch, TransactionId xid)
+{
+    FullTransactionId result;
+
+    // Combine epoch (high 32 bits) and xid (low 32 bits) into 64-bit value
+    result.value = ((uint64) epoch) << 32 | xid;
+
+    return result;
+}
+```

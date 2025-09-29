@@ -40,3 +40,17 @@ The returned string must be freed by the caller, as it represents a newly alloca
 
 ## Notes and Other Information
 This is a widely-used utility function throughout the PostgreSQL backend, particularly in error reporting contexts where a human-readable type name is needed. The function is robust against invalid TypeNames, which is crucial for error handling scenarios. The caller is responsible for freeing the returned string memory. This function serves as a public interface to the internal appendTypeNameToBuffer functionality, providing a clean API for string conversion operations.
+
+## Simplified Source
+
+```c
+char *
+TypeNameToString(const TypeName *typeName)
+{
+    StringInfoData string;
+
+    initStringInfo(&string);
+    appendTypeNameToBuffer(typeName, &string);
+    return string.data;
+}
+```

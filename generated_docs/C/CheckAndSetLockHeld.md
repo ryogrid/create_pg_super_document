@@ -39,3 +39,17 @@ Relation extension locks are special locks used when extending relations (adding
 - Part of PostgreSQL's debugging infrastructure to catch lock ordering violations
 - Helps enforce the constraint that relation extension locks should not be held simultaneously with other heavyweight locks
 - The function is inline for performance in debug builds since it's called frequently
+
+## Simplified Source
+
+```c
+// Track relation extension lock state for debugging
+static inline void CheckAndSetLockHeld(LOCALLOCK *locallock, bool acquired)
+{
+#ifdef USE_ASSERT_CHECKING
+    // Only track relation extension locks
+    if (LOCALLOCK_LOCKTAG(*locallock) == LOCKTAG_RELATION_EXTEND)
+        IsRelationExtensionLockHeld = acquired;
+#endif
+}
+```

@@ -36,3 +36,13 @@ This function is particularly useful in error recovery scenarios where validatio
 - Does not deallocate or modify other aspects of the XLogReaderState structure
 - Commonly used after page validation errors that may be recoverable
 - The function only affects error reporting state, not the actual WAL reading position or other operational state
+
+## Simplified Source
+
+```c
+void XLogReaderResetError(XLogReaderState *state)
+{
+    state->errormsg_buf[0] = '\0';
+    state->errormsg_deferred = false;
+}
+```

@@ -45,3 +45,13 @@ This function is typically used when the caller expects a specific amount of dat
 - It handles buffering internally, reading from the file's internal buffer when possible and loading more data as needed
 - Unlike BufFileReadMaybeEOF, this function does not tolerate EOF conditions - any EOF encountered before reading the full amount is treated as an error
 - Used in contexts where data integrity is critical and partial reads indicate corruption or protocol violations
+
+## Simplified Source
+
+```c
+void
+BufFileReadExact(BufFile *file, void *ptr, size_t size)
+{
+    BufFileReadCommon(file, ptr, size, true, false);
+}
+```

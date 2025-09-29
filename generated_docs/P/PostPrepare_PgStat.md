@@ -41,3 +41,30 @@ This function takes no parameters.
 - The function assumes single-level transaction nesting during PREPARE
 - Statistics snapshots are invalidated to prevent stale data usage
 - Part of PostgreSQL's transactional statistics subsystem
+
+## Simplified Source
+
+```c
+void PostPrepare_PgStat(void)
+{
+    PgStat_SubXactStatus *xact_state;
+
+    // Access current transaction statistics state
+    xact_state = pgStatXactStack;
+    if (xact_state != NULL)
+    {
+        // Validate we're at top-level transaction
+        Assert(xact_state->nest_level == 1);
+        Assert(xact_state->prev == NULL);
+
+        // Handle relation-specific statistics cleanup
+        PostPrepare_PgStat_Relations(xact_state);
+    }
+
+    // Clear the transaction stack
+    pgStatXactStack = NULL;
+
+    // Throw away any existing stats snapshot
+    pgstat_clear_snapshot();
+}
+```

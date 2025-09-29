@@ -49,3 +49,44 @@ The function includes a null check for the message callback since message handli
 - Logical messages enable custom application data to be replicated alongside regular DML operations
 - The prefix parameter allows applications to categorize or identify different types of logical messages
 - Message size and content are passed directly to the plugin for processing
+
+## Simplified Source
+
+```c
+static void message_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                              XLogRecPtr message_lsn, bool transactional,
+                              const char *prefix, Size message_size, const char *message)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    Assert(!ctx->fast_forward);
+
+    // Skip if no message callback is registered
+    if (ctx->callbacks.message_cb == NULL)
+        return;
+
+    // Set up error handling context
+    state.ctx = ctx;
+    state.callback_name = "message";
+    state.report_location = message_lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state
+    ctx->accept_writes = true;
+    ctx->write_xid = txn != NULL ? txn->xid : InvalidTransactionId;
+    ctx->write_location = message_lsn;
+    ctx->end_xact = false;
+
+    // Call the actual plugin message callback
+    ctx->callbacks.message_cb(ctx, txn, message_lsn, transactional, prefix,
+                             message_size, message);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```

@@ -47,3 +47,41 @@ The function performs two main operations:
 - The function is part of the subtransaction commit protocol and ensures portal consistency across transaction boundaries
 - Resource ownership transfer is critical for proper cleanup when the parent transaction eventually commits or aborts
 - The function is defined in src/backend/utils/mmgr/portalmem.c:943-978
+
+## Simplified Source
+
+```c
+void AtSubCommit_Portals(SubTransactionId mySubid,
+                        SubTransactionId parentSubid,
+                        int parentLevel,
+                        ResourceOwner parentXactOwner)
+{
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hentry;
+
+    // Iterate through all portals in the hash table
+    hash_seq_init(&status, PortalHashTable);
+
+    while ((hentry = (PortalHashEnt *) hash_seq_search(&status)) != NULL)
+    {
+        Portal portal = hentry->portal;
+
+        // If portal was created in this subtransaction,
+        // reassign it to parent
+        if (portal->createSubid == mySubid)
+        {
+            portal->createSubid = parentSubid;
+            portal->createLevel = parentLevel;
+
+            // Transfer resource ownership to parent
+            if (portal->resowner)
+                ResourceOwnerNewParent(portal->resowner, parentXactOwner);
+        }
+
+        // If portal was active in this subtransaction,
+        // update active subtransaction ID
+        if (portal->activeSubid == mySubid)
+            portal->activeSubid = parentSubid;
+    }
+}
+```

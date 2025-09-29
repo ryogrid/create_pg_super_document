@@ -36,3 +36,65 @@ This function takes no parameters and operates on the global CurrentTransactionS
 - The function includes protection against integer overflow and enforces PostgreSQL's limit on committed subtransactions
 - After successful copying, the function cleans up the child's XID array to prevent memory leaks and double-free scenarios
 - This is a critical component of PostgreSQL's nested transaction commit protocol
+
+## Simplified Source
+
+```c
+static void AtSubCommit_childXids(void)
+{
+    TransactionState s = CurrentTransactionState;
+    int new_nChildXids;
+
+    Assert(s->parent != NULL);
+
+    // Calculate total XIDs needed: parent's existing + our children + our XID
+    new_nChildXids = s->parent->nChildXids + s->nChildXids + 1;
+
+    // Expand parent's childXids array if necessary
+    if (s->parent->maxChildXids < new_nChildXids)
+    {
+        int new_maxChildXids;
+        TransactionId *new_childXids;
+
+        // Double the size needed (up to MaxAllocSize limit)
+        new_maxChildXids = Min(new_nChildXids * 2,
+                              (int) (MaxAllocSize / sizeof(TransactionId)));
+
+        if (new_maxChildXids < new_nChildXids)
+            ereport(ERROR,
+                    (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                     errmsg("maximum number of committed subtransactions (%d) exceeded",
+                            (int) (MaxAllocSize / sizeof(TransactionId)))));
+
+        // Allocate or reallocate in TopTransactionContext
+        if (s->parent->childXids == NULL)
+            new_childXids = MemoryContextAlloc(TopTransactionContext,
+                                              new_maxChildXids * sizeof(TransactionId));
+        else
+            new_childXids = repalloc(s->parent->childXids,
+                                    new_maxChildXids * sizeof(TransactionId));
+
+        s->parent->childXids = new_childXids;
+        s->parent->maxChildXids = new_maxChildXids;
+    }
+
+    // Copy our XID first (maintains chronological ordering)
+    s->parent->childXids[s->parent->nChildXids] =
+        XidFromFullTransactionId(s->fullTransactionId);
+
+    // Copy all our child XIDs after our XID
+    if (s->nChildXids > 0)
+        memcpy(&s->parent->childXids[s->parent->nChildXids + 1],
+               s->childXids,
+               s->nChildXids * sizeof(TransactionId));
+
+    s->parent->nChildXids = new_nChildXids;
+
+    // Clean up our array to prevent leaks and double-free
+    if (s->childXids != NULL)
+        pfree(s->childXids);
+    s->childXids = NULL;
+    s->nChildXids = 0;
+    s->maxChildXids = 0;
+}
+```

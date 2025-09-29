@@ -39,3 +39,25 @@ The function includes assertions to ensure it's only called in valid contexts:
 - Part of PostgreSQL's MVCC (Multi-Version Concurrency Control) system
 - The combo command ID mechanism allows transactions to exceed the normal 62-command limit
 - Located in src/backend/utils/time/combocid.c:104-117
+
+## Simplified Source
+
+```c
+CommandId HeapTupleHeaderGetCmin(HeapTupleHeader tup)
+{
+    CommandId cid = HeapTupleHeaderGetRawCommandId(tup);
+
+    Assert(!(tup->t_infomask & HEAP_MOVED));
+    Assert(TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetXmin(tup)));
+
+    if (tup->t_infomask & HEAP_COMBOCID)
+        return GetRealCmin(cid);
+    else
+        return cid;
+}
+```
+
+This function:
+1. Gets the raw command ID from the tuple header
+2. Validates that the tuple wasn't moved and Xmin is current transaction
+3. Returns the real Cmin via GetRealCmin() if it's a combo CID, otherwise returns raw CID

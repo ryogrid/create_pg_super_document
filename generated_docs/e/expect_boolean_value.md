@@ -39,3 +39,33 @@ The  function is a helper function used during compression specification parsing
 - Part of the internal implementation of the compression specification parsing system
 - Used specifically for parsing boolean-valued compression options like long-distance mode
 - Returns false when parse error occurs, but caller must check result->parse_error to distinguish between legitimate false value and parse failure
+
+## Simplified Source
+
+```c
+static bool
+expect_boolean_value(char *keyword, char *value, pg_compress_specification *result)
+{
+    if (value == NULL)
+        return true;
+
+    if (pg_strcasecmp(value, "yes") == 0)
+        return true;
+    if (pg_strcasecmp(value, "on") == 0)
+        return true;
+    if (pg_strcasecmp(value, "1") == 0)
+        return true;
+
+    if (pg_strcasecmp(value, "no") == 0)
+        return false;
+    if (pg_strcasecmp(value, "off") == 0)
+        return false;
+    if (pg_strcasecmp(value, "0") == 0)
+        return false;
+
+    result->parse_error =
+        psprintf(_("value for compression option \"%s\" must be a Boolean value"),
+                 keyword);
+    return false;
+}
+```

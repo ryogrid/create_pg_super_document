@@ -47,3 +47,52 @@ This function iterates through all attributes in a tuple descriptor and calculat
 - Used extensively in tuple formation throughout PostgreSQL access methods
 - Accounts for alignment padding required between attributes based on their data types
 - Part of PostgreSQL core tuple manipulation infrastructure
+
+## Simplified Source
+
+```c
+Size heap_compute_data_size(TupleDesc tupleDesc, const Datum *values, const bool *isnull)
+{
+    Size data_length = 0;
+    int i;
+    int numberOfAttributes = tupleDesc->natts;
+
+    // Iterate through all attributes in the tuple
+    for (i = 0; i < numberOfAttributes; i++)
+    {
+        Datum val;
+        Form_pg_attribute atti;
+
+        // Skip null attributes - they don't contribute to data size
+        if (isnull[i])
+            continue;
+
+        val = values[i];
+        atti = TupleDescAttr(tupleDesc, i);
+
+        // Case 1: Packable variable-length attribute that can use short header
+        if (ATT_IS_PACKABLE(atti) && VARATT_CAN_MAKE_SHORT(DatumGetPointer(val)))
+        {
+            // Use optimized short header size, no alignment needed
+            data_length += VARATT_CONVERTED_SHORT_SIZE(DatumGetPointer(val));
+        }
+        // Case 2: External expanded variable-length attribute needs flattening
+        else if (atti->attlen == -1 && VARATT_IS_EXTERNAL_EXPANDED(DatumGetPointer(val)))
+        {
+            // Align and add size needed to flatten the expanded object
+            data_length = att_align_nominal(data_length, atti->attalign);
+            data_length += EOH_get_flat_size(DatumGetEOHP(val));
+        }
+        // Case 3: Standard attribute with normal alignment and size
+        else
+        {
+            // Apply proper alignment for this attribute type
+            data_length = att_align_datum(data_length, atti->attalign, atti->attlen, val);
+            // Add the actual length of this attribute's data
+            data_length = att_addlength_datum(data_length, atti->attlen, val);
+        }
+    }
+
+    return data_length;
+}
+```

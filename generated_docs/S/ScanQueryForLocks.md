@@ -41,3 +41,64 @@ This function performs a comprehensive traversal of a Query structure to identif
 - Uses query_tree_walker with QTW_IGNORE_RC_SUBQUERIES flag to avoid double-processing RTEs and CTEs
 - The function is designed to work with raw query trees and handles the complexity of nested query structures
 - Supports both view-based subqueries (which have a relid) and regular subqueries
+
+## Simplified Source
+
+```c
+static void ScanQueryForLocks(Query *parsetree, bool acquire)
+{
+    ListCell   *lc;
+
+    // Should not be called on utility commands
+    Assert(parsetree->commandType != CMD_UTILITY);
+
+    // Process range table entries of current query level
+    foreach(lc, parsetree->rtable)
+    {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc);
+
+        switch (rte->rtekind)
+        {
+            case RTE_RELATION:
+                // Lock/unlock regular relations
+                if (acquire)
+                    LockRelationOid(rte->relid, rte->rellockmode);
+                else
+                    UnlockRelationOid(rte->relid, rte->rellockmode);
+                break;
+
+            case RTE_SUBQUERY:
+                // Lock/unlock view if this subquery was expanded from a view
+                if (OidIsValid(rte->relid))
+                {
+                    if (acquire)
+                        LockRelationOid(rte->relid, rte->rellockmode);
+                    else
+                        UnlockRelationOid(rte->relid, rte->rellockmode);
+                }
+                // Recursively process the subquery
+                ScanQueryForLocks(rte->subquery, acquire);
+                break;
+
+            default:
+                // Ignore other RTE types (functions, values, etc.)
+                break;
+        }
+    }
+
+    // Process common table expressions (CTEs)
+    foreach(lc, parsetree->cteList)
+    {
+        CommonTableExpr *cte = lfirst_node(CommonTableExpr, lc);
+        ScanQueryForLocks(castNode(Query, cte->ctequery), acquire);
+    }
+
+    // Process sublink subqueries (excluding RTEs and CTEs already processed)
+    if (parsetree->hasSubLinks)
+    {
+        query_tree_walker(parsetree, ScanQueryWalker,
+                          (void *) &acquire,
+                          QTW_IGNORE_RC_SUBQUERIES);
+    }
+}
+```

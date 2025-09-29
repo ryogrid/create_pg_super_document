@@ -51,3 +51,38 @@ The function must be called after pg_cryptohash_create() and before any pg_crypt
 - Must be called on a context created with pg_cryptohash_create() before any update operations
 - The generic version does not validate the context type beyond the switch statement
 - OpenSSL version handles the complexity of mapping PostgreSQL hash types to OpenSSL EVP functions
+
+## Simplified Source
+
+```c
+// Initialize a cryptographic hash context (generic version)
+int pg_cryptohash_init(pg_cryptohash_ctx *ctx)
+{
+    if (ctx == NULL)
+        return -1;
+
+    // Initialize based on hash algorithm type
+    switch (ctx->type) {
+        case PG_MD5:
+            pg_md5_init(&ctx->data.md5);
+            break;
+        case PG_SHA1:
+            pg_sha1_init(&ctx->data.sha1);
+            break;
+        case PG_SHA224:
+            pg_sha224_init(&ctx->data.sha224);
+            break;
+        case PG_SHA256:
+            pg_sha256_init(&ctx->data.sha256);
+            break;
+        case PG_SHA384:
+            pg_sha384_init(&ctx->data.sha384);
+            break;
+        case PG_SHA512:
+            pg_sha512_init(&ctx->data.sha512);
+            break;
+    }
+
+    return 0;  // Success
+}
+```

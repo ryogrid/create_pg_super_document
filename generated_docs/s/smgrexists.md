@@ -42,3 +42,14 @@ The function uses the storage manager switch (smgrsw) to call the appropriate ex
 - Commonly used before attempting file operations to avoid errors or to determine if initialization is needed
 - Part of the storage manager abstraction layer that allows different storage implementations
 - Located in src/backend/storage/smgr/smgr.c:398-410
+
+## Simplified Source
+
+```c
+bool smgrexists(SMgrRelation reln, ForkNumber forknum)
+{
+    return smgrsw[reln->smgr_which].smgr_exists(reln, forknum);
+}
+```
+
+This function checks if the physical file for a specific fork of a relation exists. It dispatches to the appropriate storage manager implementation via the smgrsw function table based on the relation's storage manager type.

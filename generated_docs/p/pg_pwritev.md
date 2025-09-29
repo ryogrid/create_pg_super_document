@@ -44,3 +44,48 @@ Like its read counterpart pg_preadv, this function includes important platform-s
 - Error handling: Returns -1 on error for the first buffer, or partial write count if error occurs on subsequent buffers
 - The fallback implementation handles partial writes correctly by checking if fewer bytes were written than requested
 - Used by higher-level PostgreSQL I/O functions that require vectored write operations
+
+## Simplified Source
+
+```c
+static inline ssize_t pg_pwritev(int fd, const struct iovec *iov, int iovcnt, off_t offset)
+{
+#if HAVE_DECL_PWRITEV
+    // On systems with native pwritev support
+
+    // Optimization: use pwrite() for single iovec to avoid kernel overhead
+    if (iovcnt == 1)
+        return pwrite(fd, iov[0].iov_base, iov[0].iov_len, offset);
+    else
+        return pwritev(fd, iov, iovcnt, offset);  // Use native pwritev
+
+#else
+    // Fallback implementation for systems without pwritev
+
+    ssize_t sum = 0;
+    ssize_t part;
+
+    // Iterate through each iovec and write individually
+    for (int i = 0; i < iovcnt; ++i) {
+        part = pg_pwrite(fd, iov[i].iov_base, iov[i].iov_len, offset);
+
+        if (part < 0) {
+            // Error occurred
+            if (i == 0)
+                return -1;      // First write failed - return error
+            else
+                return sum;     // Some data written - return partial count
+        }
+
+        sum += part;            // Accumulate bytes written
+        offset += part;         // Advance file offset
+
+        // Check for partial write
+        if ((size_t) part < iov[i].iov_len)
+            return sum;         // Partial write - return what we got
+    }
+
+    return sum;  // All iovecs written successfully
+#endif
+}
+```

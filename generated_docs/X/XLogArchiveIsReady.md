@@ -33,3 +33,22 @@ This function provides a direct way to determine if a WAL file is currently in t
 - Specifically checks only for archival queue status (.ready files)
 - Used in WAL cleanup operations to identify files pending archival
 - Simple boolean check with no side effects or file creation
+
+## Simplified Source
+
+```c
+bool XLogArchiveIsReady(const char *xlog)
+{
+    char archiveStatusPath[MAXPGPATH];
+    struct stat stat_buf;
+
+    // Build path to .ready status file
+    StatusFilePath(archiveStatusPath, xlog, ".ready");
+
+    // Check if .ready file exists
+    if (stat(archiveStatusPath, &stat_buf) == 0)
+        return true;
+
+    return false;
+}
+```

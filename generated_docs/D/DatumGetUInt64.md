@@ -41,3 +41,19 @@ This function is commonly used in hash functions, partitioning operations, and o
 - Essential for operations requiring the full 64-bit unsigned range (0 to 18,446,744,073,709,551,615)
 - Used extensively in hash functions that need to combine multiple hash values
 - The implementation ensures optimal performance on both 32-bit and 64-bit platforms
+
+## Simplified Source
+
+```c
+static inline uint64
+DatumGetUInt64(Datum X)
+{
+#ifdef USE_FLOAT8_BYVAL
+    // On 64-bit platforms: 64-bit values passed by value
+    return (uint64) X;
+#else
+    // On 32-bit platforms: 64-bit values passed by reference
+    return *((uint64 *) DatumGetPointer(X));
+#endif
+}
+```

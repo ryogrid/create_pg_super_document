@@ -35,3 +35,14 @@ The function serves as a thin wrapper around the table access method's implement
 - Part of the table access method abstraction layer introduced to support pluggable storage engines
 - The actual implementation is delegated to the specific table access method via a function pointer
 - Used primarily during index operations to manage resource lifecycle
+
+## Simplified Source
+
+```c
+static inline void
+table_index_fetch_reset(struct IndexFetchTableData *scan)
+{
+    // Delegate to table access method's reset implementation
+    scan->rel->rd_tableam->index_fetch_reset(scan);
+}
+```

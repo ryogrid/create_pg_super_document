@@ -52,3 +52,67 @@ The function implements a sophisticated batching mechanism that reads and locks 
 - Critical sections protect the WAL logging and LSN setting operations
 - CHECK_FOR_INTERRUPTS() allows for query cancellation during large operations
 - When page_std is true, unused space between pd_lower and pd_upper is excluded from WAL records
+
+## Simplified Source
+
+```c
+void log_newpage_range(Relation rel, ForkNumber forknum,
+                      BlockNumber startblk, BlockNumber endblk,
+                      bool page_std)
+{
+    int flags = REGBUF_FORCE_IMAGE;
+    if (page_std)
+        flags |= REGBUF_STANDARD;
+
+    // Prepare for batched WAL logging
+    XLogEnsureRecordSpace(XLR_MAX_BLOCK_ID - 1, 0);
+
+    BlockNumber blkno = startblk;
+    while (blkno < endblk)
+    {
+        Buffer bufpack[XLR_MAX_BLOCK_ID];
+        int nbufs = 0;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Collect a batch of pages (up to XLR_MAX_BLOCK_ID)
+        while (nbufs < XLR_MAX_BLOCK_ID && blkno < endblk)
+        {
+            Buffer buf = ReadBufferExtended(rel, forknum, blkno, RBM_NORMAL, NULL);
+            LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+
+            // Skip completely empty pages (preserve their empty state)
+            if (!PageIsNew(BufferGetPage(buf)))
+                bufpack[nbufs++] = buf;
+            else
+                UnlockReleaseBuffer(buf);
+            blkno++;
+        }
+
+        if (nbufs == 0)
+            break;  // All remaining blocks were empty
+
+        // Write WAL record for this batch
+        XLogBeginInsert();
+        START_CRIT_SECTION();
+
+        for (int i = 0; i < nbufs; i++)
+        {
+            MarkBufferDirty(bufpack[i]);
+            XLogRegisterBuffer(i, bufpack[i], flags);
+        }
+
+        XLogRecPtr recptr = XLogInsert(RM_XLOG_ID, XLOG_FPI);
+
+        // Set LSN and release buffers
+        for (int i = 0; i < nbufs; i++)
+        {
+            PageSetLSN(BufferGetPage(bufpack[i]), recptr);
+            UnlockReleaseBuffer(bufpack[i]);
+        }
+        END_CRIT_SECTION();
+    }
+}
+```
+
+This function logs full page images of a range of blocks to WAL for crash recovery. It processes pages in batches, skips empty pages, and ensures proper locking and LSN management.

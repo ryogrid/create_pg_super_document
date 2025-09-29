@@ -42,3 +42,47 @@ The function ensures that two-phase commit support is enabled and validates that
 - Provides additional context through prepare_end_lsn and prepare_time parameters to help plugins understand the transaction's lifecycle
 - Completes the two-phase commit workflow alternatives: prepare -> commit_prepared OR prepare -> rollback_prepared
 - Essential for maintaining consistency in distributed transaction scenarios where some participants cannot commit
+
+## Simplified Source
+
+```c
+static void rollback_prepared_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                                        XLogRecPtr prepare_end_lsn,
+                                        TimestampTz prepare_time)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    Assert(!ctx->fast_forward);
+    Assert(ctx->twophase);  // Only for two-phase commits
+
+    // Set up error handling context
+    state.ctx = ctx;
+    state.callback_name = "rollback_prepared";
+    state.report_location = txn->final_lsn;  // beginning of rollback record
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for transaction end
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = txn->end_lsn;  // points to end of record
+    ctx->end_xact = true;
+
+    // Validate callback is available for two-phase commits
+    if (ctx->callbacks.rollback_prepared_cb == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("logical replication at prepare time requires a %s callback",
+                        "rollback_prepared_cb")));
+
+    // Call the actual plugin rollback prepared callback
+    ctx->callbacks.rollback_prepared_cb(ctx, txn, prepare_end_lsn, prepare_time);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+}
+```

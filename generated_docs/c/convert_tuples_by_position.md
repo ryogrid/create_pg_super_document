@@ -37,3 +37,46 @@ The function returns  if no runtime conversion is needed (descriptors are physic
 - The map references the provided tuple descriptors, so they must remain valid for the map's lifetime
 - Memory allocation occurs in the caller's memory context
 - Position 0 in the invalues/inisnull arrays is reserved for NULL values
+
+## Simplified Source
+
+```c
+TupleConversionMap *
+convert_tuples_by_position(TupleDesc indesc, TupleDesc outdesc, const char *msg)
+{
+    TupleConversionMap *map;
+    int n;
+    AttrMap *attrMap;
+
+    // Check compatibility and build attribute mapping by position
+    attrMap = build_attrmap_by_position(indesc, outdesc, msg);
+
+    if (attrMap == NULL)
+    {
+        // No conversion needed - descriptors are physically compatible
+        return NULL;
+    }
+
+    // Allocate and initialize the conversion map
+    map = (TupleConversionMap *) palloc(sizeof(TupleConversionMap));
+    map->indesc = indesc;
+    map->outdesc = outdesc;
+    map->attrMap = attrMap;
+
+    // Preallocate workspace arrays for output values
+    n = outdesc->natts + 1;  // +1 for NULL entry
+    map->outvalues = (Datum *) palloc(n * sizeof(Datum));
+    map->outisnull = (bool *) palloc(n * sizeof(bool));
+
+    // Preallocate workspace arrays for input values
+    n = indesc->natts + 1;   // +1 for NULL entry
+    map->invalues = (Datum *) palloc(n * sizeof(Datum));
+    map->inisnull = (bool *) palloc(n * sizeof(bool));
+
+    // Initialize NULL entry at position 0
+    map->invalues[0] = (Datum) 0;
+    map->inisnull[0] = true;
+
+    return map;
+}
+```

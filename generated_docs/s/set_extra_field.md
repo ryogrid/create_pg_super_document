@@ -40,3 +40,20 @@ This function is part of the internal GUC infrastructure that manages additional
 - Works in conjunction with  to ensure proper reference counting
 - Part of PostgreSQL's sophisticated configuration parameter management system
 - Essential for preventing memory leaks when updating extra data fields
+
+## Simplified Source
+
+```c
+static void
+set_extra_field(struct config_generic *gconf, void **field, void *newval)
+{
+    void *oldval = *field;
+
+    // Assign the new value
+    *field = newval;
+
+    // Free old value if it exists and isn't referenced elsewhere
+    if (oldval && !extra_field_used(gconf, oldval))
+        guc_free(oldval);
+}
+```

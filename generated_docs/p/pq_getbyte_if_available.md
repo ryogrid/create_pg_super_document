@@ -33,3 +33,47 @@ pq_getbyte_if_available provides a non-blocking alternative to pq_getbyte for sc
 - Does not use the buffer refill mechanism (pq_recvbuf) for new data
 - Essential for replication and other time-sensitive operations
 - Handles the complexity of non-blocking socket operations including proper errno interpretation
+
+## Simplified Source
+
+```c
+int pq_getbyte_if_available(unsigned char *c)
+{
+    int r;
+
+    Assert(PqCommReadingMsg);
+
+    // First check if we have data in the buffer
+    if (PqRecvPointer < PqRecvLength) {
+        *c = PqRecvBuffer[PqRecvPointer++];
+        return 1;
+    }
+
+    // Set socket to non-blocking mode for immediate return
+    socket_set_nonblocking(true);
+
+    errno = 0;
+
+    // Try to read one byte directly from socket
+    r = secure_read(MyProcPort, c, 1);
+    if (r < 0) {
+        // Handle non-blocking socket conditions
+        if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
+            r = 0;  // No data available
+        else {
+            // Real error occurred
+            if (errno != 0)
+                ereport(COMMERROR,
+                        (errcode_for_socket_access(),
+                         errmsg("could not receive data from client: %m")));
+            r = EOF;
+        }
+    }
+    else if (r == 0) {
+        // Connection closed by client
+        r = EOF;
+    }
+
+    return r;
+}
+```

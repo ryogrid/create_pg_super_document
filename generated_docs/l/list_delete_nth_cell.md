@@ -51,3 +51,69 @@ The deletion operation has O(n) time complexity proportional to the distance fro
 - Includes extensive memory debugging features with Valgrind support and memory wiping options
 - Part of PostgreSQL's generic List API located in src/backend/nodes/list.c
 - Essential for dynamic list manipulation throughout the PostgreSQL system
+
+## Simplified Source
+
+```c
+List *
+list_delete_nth_cell(List *list, int n)
+{
+    check_list_invariants(list);
+
+    Assert(n >= 0 && n < list->length);
+
+    // If deleting the last element, free the entire list
+    if (list->length == 1)
+    {
+        list_free(list);
+        return NIL;
+    }
+
+#ifndef DEBUG_LIST_MEMORY_USAGE
+    // Normal mode: shift remaining elements in place
+    memmove(&list->elements[n], &list->elements[n + 1],
+            (list->length - 1 - n) * sizeof(ListCell));
+    list->length--;
+#else
+    // Debug mode: allocate new memory to detect use-after-free bugs
+    {
+        ListCell *newelems;
+        int newmaxlen = list->length - 1;
+
+        // Allocate new array in same memory context
+        newelems = (ListCell *)
+            MemoryContextAlloc(GetMemoryChunkContext(list),
+                             newmaxlen * sizeof(ListCell));
+
+        // Copy elements before deletion point
+        memcpy(newelems, list->elements, n * sizeof(ListCell));
+
+        // Copy elements after deletion point
+        memcpy(&newelems[n], &list->elements[n + 1],
+               (list->length - 1 - n) * sizeof(ListCell));
+
+        // Free old elements array if dynamically allocated
+        if (list->elements != list->initial_elements)
+            pfree(list->elements);
+        else
+        {
+            // Clear or mark initial elements inaccessible
+#ifdef CLOBBER_FREED_MEMORY
+            wipe_mem(list->initial_elements,
+                     list->max_length * sizeof(ListCell));
+#else
+            VALGRIND_MAKE_MEM_NOACCESS(list->initial_elements,
+                                      list->max_length * sizeof(ListCell));
+#endif
+        }
+
+        list->elements = newelems;
+        list->max_length = newmaxlen;
+        list->length--;
+        check_list_invariants(list);
+    }
+#endif
+
+    return list;
+}
+```

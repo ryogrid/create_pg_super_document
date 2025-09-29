@@ -37,3 +37,31 @@ This dual approach ensures that both cached relations and relations currently be
 - Maintains statistics through the relcacheInvalsReceived counter
 - Handles the special case of relations currently being built through the in_progress_list mechanism
 - The caller is responsible for determining that the relation belongs to the current database or is a shared relation before calling this function
+
+## Simplified Source
+
+```c
+// Invalidate a specific relation cache entry for SI flush messages
+void RelationCacheInvalidateEntry(Oid relationId)
+{
+    Relation relation;
+
+    // Look up the relation in the cache
+    RelationIdCacheLookup(relationId, relation);
+
+    if (PointerIsValid(relation))
+    {
+        // If cached, flush it and update statistics
+        relcacheInvalsReceived++;
+        RelationFlushRelation(relation);
+    }
+    else
+    {
+        // If not cached but being built, mark as invalidated
+        int i;
+        for (i = 0; i < in_progress_list_len; i++)
+            if (in_progress_list[i].reloid == relationId)
+                in_progress_list[i].invalidated = true;
+    }
+}
+```

@@ -38,3 +38,78 @@ The cleanup process involves two main phases: first, it clears all incoming arcs
 
 ## Notes and Other Information
 The function includes important state tracking for optimization: if the cleared state set was a POSTSTATE (success state), it updates  to remember the furthest successful match position. Similarly, for NOPROGRESS states, it updates . This tracking helps the regex engine make decisions about backtracking and match validation. The function assumes the caller will handle initialization of the state set's internal state representation after the arc cleanup is complete.
+
+## Simplified Source
+
+```c
+static struct sset *getvacant(struct vars *v, struct dfa *d, chr *cp, chr *start)
+{
+    int i;
+    struct sset *ss;
+    struct sset *p;
+    struct arcp ap;
+    color co;
+
+    // Get a candidate state set to reuse
+    ss = pickss(v, d, cp, start);
+    if (ss == NULL)
+        return NULL;
+    assert(!(ss->flags & LOCKED));
+
+    // Clear out all incoming arcs (including self-referential ones)
+    ap = ss->ins;
+    while ((p = ap.ss) != NULL) {
+        co = ap.co;
+        // Remove the outgoing arc from the source state
+        p->outs[co] = NULL;
+        ap = p->inchain[co];
+        p->inchain[co].ss = NULL;  // Clear chain link
+    }
+    ss->ins.ss = NULL;  // Clear incoming arc list
+
+    // Remove this state from the incoming arc chains of target states
+    for (i = 0; i < d->ncolors; i++) {
+        p = ss->outs[i];  // Target state for this color
+        assert(p != ss);  // No self-references
+        if (p == NULL)
+            continue;
+
+        // Remove ss from p's incoming arc chain
+        if (p->ins.ss == ss && p->ins.co == i) {
+            // ss is first in chain - update head
+            p->ins = ss->inchain[i];
+        } else {
+            // ss is somewhere in the chain - find and remove it
+            struct arcp lastap = {NULL, 0};
+
+            assert(p->ins.ss != NULL);
+            for (ap = p->ins; ap.ss != NULL && !(ap.ss == ss && ap.co == i);
+                 ap = ap.ss->inchain[ap.co]) {
+                lastap = ap;
+            }
+            assert(ap.ss != NULL);
+            lastap.ss->inchain[lastap.co] = ss->inchain[i];
+        }
+
+        // Clear outgoing arc and chain
+        ss->outs[i] = NULL;
+        ss->inchain[i].ss = NULL;
+    }
+
+    // Update tracking for optimization purposes
+
+    // Track furthest success state position
+    if ((ss->flags & POSTSTATE) && ss->lastseen != d->lastpost &&
+        (d->lastpost == NULL || d->lastpost < ss->lastseen)) {
+        d->lastpost = ss->lastseen;
+    }
+
+    // Track furthest no-progress state position
+    if ((ss->flags & NOPROGRESS) && ss->lastseen != d->lastnopr &&
+        (d->lastnopr == NULL || d->lastnopr < ss->lastseen)) {
+        d->lastnopr = ss->lastseen;
+    }
+
+    return ss;  // Return cleaned state set ready for reuse
+}
+```

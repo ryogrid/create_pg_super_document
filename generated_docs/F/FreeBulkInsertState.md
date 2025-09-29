@@ -37,3 +37,20 @@ The cleanup process involves three key steps: releasing any active buffer that m
 - Safely handles the case where current_buf is InvalidBuffer (no buffer currently held)
 - The function releases both the buffer resource and the access strategy before freeing the structure
 - Typically called in cleanup paths and error handling routines to ensure proper resource management
+
+## Simplified Source
+
+```c
+void FreeBulkInsertState(BulkInsertState bistate)
+{
+    // Release any currently held buffer
+    if (bistate->current_buf != InvalidBuffer)
+        ReleaseBuffer(bistate->current_buf);
+
+    // Free the access strategy
+    FreeAccessStrategy(bistate->strategy);
+
+    // Deallocate the state structure
+    pfree(bistate);
+}
+```

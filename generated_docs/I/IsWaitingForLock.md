@@ -31,3 +31,17 @@ This function takes no parameters and returns a boolean value indicating the loc
 - The lockAwaited variable is set by the lock manager when a process starts waiting and cleared when the wait ends
 - This function provides a clean interface to check lock wait status without exposing the internal lockAwaited variable
 - Used primarily in Hot Standby scenarios for recovery conflict detection and resolution
+
+## Simplified Source
+
+```c
+bool IsWaitingForLock(void)
+{
+    // Check if the current process is waiting for a lock
+    // lockAwaited is a global variable set by the lock manager
+    if (lockAwaited == NULL)
+        return false;  // Not waiting for any lock
+
+    return true;  // Currently waiting for a lock
+}
+```

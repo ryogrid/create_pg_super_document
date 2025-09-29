@@ -27,3 +27,19 @@ This function is called at the end of each transaction to update database-level 
 - The function uses counters rather than simple boolean flags because the reporting message to the statistics collector might not be sent immediately
 - Parallel worker transactions are excluded from counting to prevent duplicate statistics reporting
 - This is part of PostgreSQL's statistics collection system that tracks database activity for performance monitoring and analysis
+
+## Simplified Source
+
+```c
+void AtEOXact_PgStat_Database(bool isCommit, bool parallel)
+{
+    // Skip parallel workers to avoid double-counting
+    if (!parallel) {
+        // Track transaction outcomes with counters
+        if (isCommit)
+            pgStatXactCommit++;
+        else
+            pgStatXactRollback++;
+    }
+}
+```

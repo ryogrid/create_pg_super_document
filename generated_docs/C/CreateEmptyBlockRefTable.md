@@ -37,3 +37,24 @@ This function takes no parameters.
 - Memory management differs between frontend and backend: backend version tracks the memory context explicitly
 - The BlockRefTable structure encapsulates a hash table while hiding implementation details from callers
 - This is typically the first function called when working with block reference tables
+
+## Simplified Source
+
+```c
+BlockRefTable *CreateEmptyBlockRefTable(void)
+{
+    // Allocate memory for the block reference table structure
+    BlockRefTable *brtab = palloc(sizeof(BlockRefTable));
+
+    // Create hash table with 4096 initial capacity
+    // (sized for typical database with hundreds of relation forks)
+#ifdef FRONTEND
+    brtab->hash = blockreftable_create(4096, NULL);
+#else
+    brtab->mcxt = CurrentMemoryContext;
+    brtab->hash = blockreftable_create(brtab->mcxt, 4096, NULL);
+#endif
+
+    return brtab;
+}
+```

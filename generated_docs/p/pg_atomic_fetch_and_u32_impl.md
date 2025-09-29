@@ -36,3 +36,15 @@ The function is marked as `static inline` to encourage compiler optimization thr
 - The function is typically accessed through higher-level atomic operation wrappers
 - Provides full memory barrier semantics as per GCC sync builtin behavior
 - Requires underlying hardware support for atomic bitwise operations on 32-bit values
+
+## Simplified Source
+
+```c
+static inline uint32
+pg_atomic_fetch_and_u32_impl(volatile pg_atomic_uint32 *ptr, uint32 and_)
+{
+    // Use GCC sync builtin for atomic fetch-and-AND operation
+    // Returns the original value before the AND operation
+    return __sync_fetch_and_and(&ptr->value, and_);
+}
+```

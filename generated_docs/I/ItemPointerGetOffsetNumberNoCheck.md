@@ -36,3 +36,14 @@ Like other NoCheck functions, this is designed for performance-critical scenario
 - Returns an OffsetNumber type representing the tuple position within a page
 - Used extensively in tuple comparison and manipulation functions
 - OffsetNumber values typically start from 1 (not 0) for valid tuples
+
+## Simplified Source
+
+```c
+// Get offset number from ItemPointer without validation
+static inline OffsetNumber
+ItemPointerGetOffsetNumberNoCheck(const ItemPointerData *pointer)
+{
+    return pointer->ip_posid;
+}
+```

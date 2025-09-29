@@ -38,3 +38,26 @@ This approach is significantly faster than repeated division by 10, making it su
 - This algorithm is based on bit manipulation techniques from Stanford's computer graphics research
 - The function handles the full range of 32-bit unsigned integers (0 to 4,294,967,295)
 - Returns values in the range 1-10 (since a 32-bit unsigned int can have at most 10 decimal digits)
+
+## Simplified Source
+
+```c
+static inline int decimalLength32(const uint32 v)
+{
+    int t;
+    static const uint32 PowersOfTen[] = {
+        1, 10, 100,
+        1000, 10000, 100000,
+        1000000, 10000000, 100000000,
+        1000000000
+    };
+
+    // Fast approximation of base-10 logarithm using bit position
+    // Formula: log₁₀(v) ≈ log₂(v) / log₂(10)
+    // Where log₂(10) ≈ 3.32193 ≈ 1233/4096
+    t = (pg_leftmost_one_pos32(v) + 1) * 1233 / 4096;
+
+    // Adjust if our approximation was too low
+    return t + (v >= PowersOfTen[t]);
+}
+```

@@ -49,3 +49,48 @@ Memory context management is handled differently between frontend and backend en
 - This is a core function for incremental backup functionality, as it builds the map of modified blocks
 - The zero-initialized key structure ensures consistent padding for hash table operations
 - Frontend compilation excludes memory context management code since it's not available in frontend utilities
+
+## Simplified Source
+
+```c
+void
+BlockRefTableMarkBlockModified(BlockRefTable *brtab,
+                              const RelFileLocator *rlocator,
+                              ForkNumber forknum,
+                              BlockNumber blknum)
+{
+    BlockRefTableEntry *brtentry;
+    BlockRefTableKey key = {{0}};  // Zero-initialize for consistent hashing
+    bool found;
+
+#ifndef FRONTEND
+    // Switch to table's memory context for allocations
+    MemoryContext oldcontext = MemoryContextSwitchTo(brtab->mcxt);
+#endif
+
+    // Build lookup key for hash table
+    memcpy(&key.rlocator, rlocator, sizeof(RelFileLocator));
+    key.forknum = forknum;
+
+    // Find or create entry for this relation fork
+    brtentry = blockreftable_insert(brtab->hash, key, &found);
+
+    if (!found)
+    {
+        // Initialize new entry
+        brtentry->limit_block = InvalidBlockNumber;  // Higher than any legal block
+        brtentry->nchunks = 0;
+        brtentry->chunk_size = NULL;
+        brtentry->chunk_usage = NULL;
+        brtentry->chunk_data = NULL;
+    }
+
+    // Mark the specific block as modified
+    BlockRefTableEntryMarkBlockModified(brtentry, forknum, blknum);
+
+#ifndef FRONTEND
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+#endif
+}
+```

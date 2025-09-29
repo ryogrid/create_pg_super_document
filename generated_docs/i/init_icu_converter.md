@@ -45,3 +45,38 @@ This function takes no parameters and returns void.
 - The global icu_converter variable is used to store the initialized converter for reuse
 - This function is critical for ICU-based internationalization features in PostgreSQL
 - The converter remains valid for the lifetime of the backend process
+
+## Simplified Source
+
+```c
+static void
+init_icu_converter(void)
+{
+    const char *icu_encoding_name;
+    UErrorCode status;
+    UConverter *conv;
+
+    // Return early if already initialized
+    if (icu_converter)
+        return;
+
+    // Get ICU-compatible encoding name for current database encoding
+    icu_encoding_name = get_encoding_name_for_icu(GetDatabaseEncoding());
+    if (!icu_encoding_name)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("encoding \"%s\" not supported by ICU",
+                        pg_encoding_to_char(GetDatabaseEncoding()))));
+
+    // Create ICU converter
+    status = U_ZERO_ERROR;
+    conv = ucnv_open(icu_encoding_name, &status);
+    if (U_FAILURE(status))
+        ereport(ERROR,
+                (errmsg("could not open ICU converter for encoding \"%s\": %s",
+                        icu_encoding_name, u_errorName(status))));
+
+    // Store globally for reuse
+    icu_converter = conv;
+}
+```

@@ -52,3 +52,102 @@ The function assumes it's safe to update opcode information in-place and may mod
 - Updates expression nodes in-place, which is acceptable during the set_plan_references phase
 - Part of PostgreSQL's plan finalization process that converts planner data structures into executable plans
 - The grouping_map processing is specifically for handling GROUPING() expressions in queries with grouping sets
+
+## Simplified Source
+
+```c
+static void
+fix_expr_common(PlannerInfo *root, Node *node)
+{
+    // Handle aggregate function nodes
+    if (IsA(node, Aggref))
+    {
+        record_plan_function_dependency(root,
+                                       ((Aggref *) node)->aggfnoid);
+    }
+    // Handle window function nodes
+    else if (IsA(node, WindowFunc))
+    {
+        record_plan_function_dependency(root,
+                                       ((WindowFunc *) node)->winfnoid);
+    }
+    // Handle regular function calls
+    else if (IsA(node, FuncExpr))
+    {
+        record_plan_function_dependency(root,
+                                       ((FuncExpr *) node)->funcid);
+    }
+    // Handle operator expressions
+    else if (IsA(node, OpExpr))
+    {
+        set_opfuncid((OpExpr *) node);
+        record_plan_function_dependency(root,
+                                       ((OpExpr *) node)->opfuncid);
+    }
+    // Handle DISTINCT expressions
+    else if (IsA(node, DistinctExpr))
+    {
+        set_opfuncid((OpExpr *) node);  // Same structure as OpExpr
+        record_plan_function_dependency(root,
+                                       ((DistinctExpr *) node)->opfuncid);
+    }
+    // Handle NULLIF expressions
+    else if (IsA(node, NullIfExpr))
+    {
+        set_opfuncid((OpExpr *) node);  // Same structure as OpExpr
+        record_plan_function_dependency(root,
+                                       ((NullIfExpr *) node)->opfuncid);
+    }
+    // Handle scalar array operator expressions (ANY/ALL)
+    else if (IsA(node, ScalarArrayOpExpr))
+    {
+        ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) node;
+
+        set_sa_opfuncid(saop);
+        record_plan_function_dependency(root, saop->opfuncid);
+
+        // Record additional function dependencies if present
+        if (OidIsValid(saop->hashfuncid))
+            record_plan_function_dependency(root, saop->hashfuncid);
+
+        if (OidIsValid(saop->negfuncid))
+            record_plan_function_dependency(root, saop->negfuncid);
+    }
+    // Handle constant values
+    else if (IsA(node, Const))
+    {
+        Const *con = (Const *) node;
+
+        // Track regclass references for dependency tracking
+        if (ISREGCLASSCONST(con))
+            root->glob->relationOids =
+                lappend_oid(root->glob->relationOids,
+                           DatumGetObjectId(con->constvalue));
+    }
+    // Handle GROUPING() function expressions
+    else if (IsA(node, GroupingFunc))
+    {
+        GroupingFunc *g = (GroupingFunc *) node;
+        AttrNumber *grouping_map = root->grouping_map;
+
+        Assert(grouping_map || g->cols == NIL);
+
+        if (grouping_map)
+        {
+            ListCell *lc;
+            List *cols = NIL;
+
+            // Map grouping references to column indices
+            foreach(lc, g->refs)
+            {
+                cols = lappend_int(cols, grouping_map[lfirst_int(lc)]);
+            }
+
+            Assert(!g->cols || equal(cols, g->cols));
+
+            if (!g->cols)
+                g->cols = cols;
+        }
+    }
+}
+```

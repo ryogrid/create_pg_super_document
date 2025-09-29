@@ -41,3 +41,54 @@ After creating the base relation, the function manages TOAST table creation when
 - Automatically creates TOAST tables when necessary for the target relation
 - For materialized views, stores the view query definition after creating the physical relation
 - Uses command counter increments strategically to ensure object visibility during the creation process
+
+## Simplified Source
+
+```c
+static ObjectAddress create_ctas_internal(List *attrList, IntoClause *into)
+{
+    CreateStmt *create = makeNode(CreateStmt);
+    bool is_matview;
+    char relkind;
+    Datum toast_options;
+    static char *validnsps[] = HEAP_RELOPT_NAMESPACES;
+    ObjectAddress intoRelationAddr;
+
+    // Determine if this is a materialized view or regular table
+    is_matview = (into->viewQuery != NULL);
+    relkind = is_matview ? RELKIND_MATVIEW : RELKIND_RELATION;
+
+    // Build a synthetic CREATE TABLE statement
+    create->relation = into->rel;
+    create->tableElts = attrList;
+    create->inhRelations = NIL;
+    create->ofTypename = NULL;
+    create->constraints = NIL;
+    create->options = into->options;
+    create->oncommit = into->onCommit;
+    create->tablespacename = into->tableSpaceName;
+    create->if_not_exists = false;
+    create->accessMethod = into->accessMethod;
+
+    // Create the physical relation
+    intoRelationAddr = DefineRelation(create, relkind, InvalidOid, NULL, NULL);
+
+    // Ensure the relation is visible for TOAST table creation
+    CommandCounterIncrement();
+
+    // Set up TOAST table if needed
+    toast_options = transformRelOptions((Datum) 0, create->options, "toast",
+                                      validnsps, true, false);
+    (void) heap_reloptions(RELKIND_TOASTVALUE, toast_options, true);
+    NewRelationCreateToastTable(intoRelationAddr.objectId, toast_options);
+
+    // For materialized views, store the view definition
+    if (is_matview) {
+        Query *query = (Query *) copyObject(into->viewQuery);
+        StoreViewQuery(intoRelationAddr.objectId, query, false);
+        CommandCounterIncrement();
+    }
+
+    return intoRelationAddr;
+}
+```

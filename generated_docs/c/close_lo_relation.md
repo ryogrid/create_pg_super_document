@@ -33,3 +33,32 @@ This function handles the cleanup of large object relation references at transac
 - Resets global variables lo_heap_r and lo_index_r to NULL in both cases
 - Uses NoLock when closing relations since locks are released during transaction end
 - Resource ownership is temporarily switched to TopTransactionResourceOwner during cleanup
+
+## Simplified Source
+
+```c
+void
+close_lo_relation(bool isCommit)
+{
+    if (lo_heap_r || lo_index_r)
+    {
+        // Only close explicitly if committing; abort cleanup handles it otherwise
+        if (isCommit)
+        {
+            ResourceOwner currentOwner;
+
+            currentOwner = CurrentResourceOwner;
+            CurrentResourceOwner = TopTransactionResourceOwner;
+
+            if (lo_index_r)
+                index_close(lo_index_r, NoLock);
+            if (lo_heap_r)
+                table_close(lo_heap_r, NoLock);
+
+            CurrentResourceOwner = currentOwner;
+        }
+        lo_heap_r = NULL;
+        lo_index_r = NULL;
+    }
+}
+```

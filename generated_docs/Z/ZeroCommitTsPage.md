@@ -36,3 +36,21 @@ The function assumes that the commit timestamp control lock is already held by t
 - The function returns the slot number where the page was allocated in the SLRU buffer
 - The actual page write to disk is deferred and managed by the SLRU subsystem
 - XLOG record generation is conditional based on the writeXlog parameter, allowing flexibility for different usage contexts (normal operation vs. recovery)
+
+## Simplified Source
+```c
+// Initialize a commit timestamp page to zeroes in shared memory
+static int ZeroCommitTsPage(int64 pageno, bool writeXlog)
+{
+    int slotno;
+
+    // Zero the page in the SLRU buffer
+    slotno = SimpleLruZeroPage(CommitTsCtl, pageno);
+
+    // Optionally write an XLOG record for crash recovery
+    if (writeXlog)
+        WriteZeroPageXlogRec(pageno);
+
+    return slotno;  // Return the buffer slot number
+}
+```

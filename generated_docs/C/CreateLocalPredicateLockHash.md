@@ -40,3 +40,25 @@ This function takes no parameters.
 - Part of PostgreSQL's Serializable Snapshot Isolation (SSI) implementation
 - The local hash table is destroyed when the transaction ends, either through normal commit/abort or process termination
 - Essential for performance as it avoids the need to scan global structures for every predicate lock operation
+
+## Simplified Source
+
+```c
+static void CreateLocalPredicateLockHash(void)
+{
+    HASHCTL hash_ctl;
+
+    // Ensure hash table doesn't already exist
+    Assert(LocalPredicateLockHash == NULL);
+
+    // Configure hash table parameters
+    hash_ctl.keysize = sizeof(PREDICATELOCKTARGETTAG);
+    hash_ctl.entrysize = sizeof(LOCALPREDICATELOCK);
+
+    // Create the backend-local hash table
+    LocalPredicateLockHash = hash_create("Local predicate lock",
+                                         max_predicate_locks_per_xact,
+                                         &hash_ctl,
+                                         HASH_ELEM | HASH_BLOBS);
+}
+```

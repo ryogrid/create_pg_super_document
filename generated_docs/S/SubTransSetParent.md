@@ -42,3 +42,36 @@ The function performs validation to ensure the parent transaction ID is valid an
 - Part of PostgreSQL's MVCC implementation for handling nested transactions
 - The function can be called multiple times for the same subtransaction but should always set the same parent
 - Uses Simple LRU (SLRU) buffer management for efficient page-based storage
+
+## Simplified Source
+
+```c
+void SubTransSetParent(TransactionId xid, TransactionId parent)
+{
+    int64 pageno = TransactionIdToPage(xid);
+    int entryno = TransactionIdToEntry(xid);
+    int slotno;
+    LWLock *lock;
+    TransactionId *ptr;
+
+    Assert(TransactionIdIsValid(parent));
+    Assert(TransactionIdFollows(xid, parent));
+
+    lock = SimpleLruGetBankLock(SubTransCtl, pageno);
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    slotno = SimpleLruReadPage(SubTransCtl, pageno, true, xid);
+    ptr = (TransactionId *) SubTransCtl->shared->page_buffer[slotno];
+    ptr += entryno;
+
+    // Set the parent if not already set
+    if (*ptr != parent)
+    {
+        Assert(*ptr == InvalidTransactionId);
+        *ptr = parent;
+        SubTransCtl->shared->page_dirty[slotno] = true;
+    }
+
+    LWLockRelease(lock);
+}
+```

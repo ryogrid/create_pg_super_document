@@ -43,3 +43,28 @@ The function returns true if a visible tuple was found, false otherwise. Multipl
 - HOT chains may require multiple tuple fetches, though MVCC snapshots typically limit this to one visible tuple
 - The function handles both successful tuple retrieval and cases where only dead tuples are found
 - Location: src/backend/access/index/indexam.c:632-672
+
+## Simplified Source
+
+```c
+bool index_fetch_heap(IndexScanDesc scan, TupleTableSlot *slot)
+{
+    bool all_dead = false;
+    bool found;
+
+    // Fetch the heap tuple at the TID from the index scan
+    found = table_index_fetch_tuple(scan->xs_heapfetch, &scan->xs_heaptid,
+                                    scan->xs_snapshot, slot,
+                                    &scan->xs_heap_continue, &all_dead);
+
+    // Update statistics if tuple was found
+    if (found)
+        pgstat_count_heap_fetch(scan->indexRelation);
+
+    // Mark dead tuples for cleanup (except during recovery)
+    if (!scan->xactStartedInRecovery)
+        scan->kill_prior_tuple = all_dead;
+
+    return found;
+}
+```

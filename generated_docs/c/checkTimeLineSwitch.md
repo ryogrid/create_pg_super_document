@@ -51,3 +51,36 @@ If any of these constraints are violated, the function calls  to immediately hal
 - Timeline branching typically occurs during failover situations or when performing point-in-time recovery
 - The minimum recovery point constraint is particularly important for maintaining consistency in standby servers
 - Timeline history validation helps prevent recovery down invalid or corrupted timeline branches
+
+## Simplified Source
+
+```c
+static void checkTimeLineSwitch(XLogRecPtr lsn, TimeLineID newTLI,
+                               TimeLineID prevTLI, TimeLineID replayTLI)
+{
+    // Check that the record agrees on what the current (old) timeline is
+    if (prevTLI != replayTLI)
+        ereport(PANIC, "unexpected previous timeline ID %u (current timeline ID %u) in checkpoint record",
+                prevTLI, replayTLI);
+
+    // The new timeline must be valid and not decrease
+    // It should be in our expected timeline history
+    if (newTLI < replayTLI || !tliInHistory(newTLI, expectedTLEs))
+        ereport(PANIC, "unexpected timeline ID %u (after %u) in checkpoint record",
+                newTLI, replayTLI);
+
+    // Check minimum recovery point constraint
+    // If we haven't reached min recovery point yet, and we're about to
+    // switch to a timeline greater than the min recovery point's timeline,
+    // we could never reach the min recovery point on the correct timeline
+    if (!XLogRecPtrIsInvalid(minRecoveryPoint) &&
+        lsn < minRecoveryPoint &&
+        newTLI > minRecoveryPointTLI)
+        ereport(PANIC,
+                "unexpected timeline ID %u in checkpoint record, "
+                "before reaching minimum recovery point %X/%X on timeline %u",
+                newTLI, LSN_FORMAT_ARGS(minRecoveryPoint), minRecoveryPointTLI);
+
+    // All checks passed - timeline switch is safe
+}
+```

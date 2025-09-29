@@ -31,3 +31,40 @@ PrepareRedoRemove is the cleanup counterpart to PrepareRedoAdd, responsible for 
 
 ## Notes and Other Information
 The function requires exclusive access to TwoPhaseStateLock and can only be called during recovery (RecoveryInProgress must be true). It gracefully handles cases where the transaction entry doesn't exist, which is expected during normal WAL replay scenarios. When a matching entry is found, it verifies the inredo flag is set (confirming it was added during recovery) before proceeding with cleanup. The function performs both memory cleanup via RemoveGXact and optional disk cleanup via RemoveTwoPhaseFile depending on the ondisk flag. Location: src/backend/access/transam/twophase.c:2572-2623
+
+## Simplified Source
+
+```c
+void PrepareRedoRemove(TransactionId xid, bool giveWarning)
+{
+    GlobalTransaction gxact = NULL;
+    int i;
+    bool found = false;
+
+    Assert(LWLockHeldByMeInMode(TwoPhaseStateLock, LW_EXCLUSIVE));
+    Assert(RecoveryInProgress());
+
+    // Find the transaction in the prepared transaction array
+    for (i = 0; i < TwoPhaseState->numPrepXacts; i++)
+    {
+        gxact = TwoPhaseState->prepXacts[i];
+
+        if (gxact->xid == xid)
+        {
+            Assert(gxact->inredo);
+            found = true;
+            break;
+        }
+    }
+
+    // Return if transaction not found (expected during WAL replay)
+    if (!found)
+        return;
+
+    // Clean up files and remove transaction
+    elog(DEBUG2, "removing 2PC data for transaction %u", xid);
+    if (gxact->ondisk)
+        RemoveTwoPhaseFile(xid, giveWarning);
+    RemoveGXact(gxact);
+}
+```

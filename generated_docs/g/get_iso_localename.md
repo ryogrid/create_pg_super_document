@@ -51,3 +51,63 @@ The function handles locale names in the format  and converts them to Unix-style
 - The conversion assumes locale names use only ASCII characters
 - Designed to work with PostgreSQL's case-insensitive message catalog filesystem
 - Critical for proper locale support on Windows platforms where locale names may differ from Unix standards
+
+## Simplified Source
+
+```c
+static char *
+get_iso_localename(const char *winlocname)
+{
+    wchar_t wc_locale_name[LOCALE_NAME_MAX_LENGTH];
+    wchar_t buffer[LOCALE_NAME_MAX_LENGTH];
+    static char iso_lc_messages[LOCALE_NAME_MAX_LENGTH];
+    char *period;
+    int len;
+    int ret_val;
+
+    // Strip codepage suffix (e.g., ".1252") as GetLocaleInfoEx doesn't handle it
+    period = strchr(winlocname, '.');
+    if (period != NULL)
+        len = period - winlocname;
+    else
+        len = pg_mbstrlen(winlocname);
+
+    // Convert to wide character format
+    memset(wc_locale_name, 0, sizeof(wc_locale_name));
+    memset(buffer, 0, sizeof(buffer));
+    MultiByteToWideChar(CP_ACP, 0, winlocname, len, wc_locale_name,
+                        LOCALE_NAME_MAX_LENGTH);
+
+    // Try direct match with LOCALE_SNAME
+    ret_val = GetLocaleInfoEx(wc_locale_name, LOCALE_SNAME, (LPWSTR) &buffer,
+                              LOCALE_NAME_MAX_LENGTH);
+    if (!ret_val)
+    {
+        // Search system locales for match
+        wchar_t *argv[3];
+        argv[0] = wc_locale_name;
+        argv[1] = buffer;
+        argv[2] = (wchar_t *) &ret_val;
+        EnumSystemLocalesEx(search_locale_enum, LOCALE_WINDOWS, (LPARAM) argv, NULL);
+    }
+
+    if (ret_val)
+    {
+        size_t rc;
+        char *hyphen;
+
+        // Convert back to multibyte
+        rc = wchar2char(iso_lc_messages, buffer, sizeof(iso_lc_messages), NULL);
+        if (rc == -1 || rc == sizeof(iso_lc_messages))
+            return NULL;
+
+        // Replace hyphen with underscore for Unix-style format
+        hyphen = strchr(iso_lc_messages, '-');
+        if (hyphen)
+            *hyphen = '_';
+        return iso_lc_messages;
+    }
+
+    return NULL;
+}
+```

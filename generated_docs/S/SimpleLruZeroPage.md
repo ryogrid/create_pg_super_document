@@ -54,3 +54,45 @@ The function performs several key operations:
 - Memory barriers are not required due to the ControlLock being held during execution
 - The function includes assertions to verify proper page states and lock holding
 - Statistics are updated to track the number of pages that have been zeroed
+
+## Simplified Source
+
+```c
+int SimpleLruZeroPage(SlruCtl ctl, int64 pageno)
+{
+    SlruShared shared = ctl->shared;
+    int slotno;
+
+    // Verify exclusive lock is held on the bank
+    Assert(LWLockHeldByMeInMode(SimpleLruGetBankLock(ctl, pageno), LW_EXCLUSIVE));
+
+    // Find a suitable buffer slot for the page
+    slotno = SlruSelectLRUPage(ctl, pageno);
+
+    // Verify slot is in valid state for reuse
+    Assert(shared->page_status[slotno] == SLRU_PAGE_EMPTY ||
+           (shared->page_status[slotno] == SLRU_PAGE_VALID &&
+            !shared->page_dirty[slotno]) ||
+           shared->page_number[slotno] == pageno);
+
+    // Mark the slot as containing this page
+    shared->page_number[slotno] = pageno;
+    shared->page_status[slotno] = SLRU_PAGE_VALID;
+    shared->page_dirty[slotno] = true;
+    SlruRecentlyUsed(shared, slotno);
+
+    // Zero out the entire page buffer
+    MemSet(shared->page_buffer[slotno], 0, BLCKSZ);
+
+    // Initialize LSN values to zero
+    SimpleLruZeroLSNs(ctl, slotno);
+
+    // Update latest page number atomically
+    pg_atomic_write_u64(&shared->latest_page_number, pageno);
+
+    // Update statistics
+    pgstat_count_slru_page_zeroed(shared->slru_stats_idx);
+
+    return slotno;
+}
+```

@@ -36,3 +36,13 @@ The function returns an int64 value, though the comment notes that the actual va
 - The page calculation is essential for the SLRU-based storage system used for commit timestamps
 - The function assumes that transaction IDs are distributed sequentially across pages
 - Location: src/backend/access/transam/commit_ts.c:72-76
+
+## Simplified Source
+```c
+// Calculate which page contains the commit timestamp for a transaction ID
+static inline int64 TransactionIdToCTsPage(TransactionId xid)
+{
+    // Divide transaction ID by transactions per page to get page number
+    return xid / (int64) COMMIT_TS_XACTS_PER_PAGE;
+}
+```

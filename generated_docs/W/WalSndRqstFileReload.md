@@ -34,3 +34,32 @@ This function takes no parameters.
 - Only active WAL senders (those with pid != 0) are signaled for reload
 - The needreload flag is checked by WAL sender processes during their normal operation cycle
 - This is part of the WAL shipping mechanism in PostgreSQL replication
+
+## Simplified Source
+
+```c
+void
+WalSndRqstFileReload(void)
+{
+    int i;
+
+    // Iterate through all WAL sender slots
+    for (i = 0; i < max_wal_senders; i++)
+    {
+        WalSnd *walsnd = &WalSndCtl->walsnds[i];
+
+        SpinLockAcquire(&walsnd->mutex);
+
+        // Skip inactive WAL senders
+        if (walsnd->pid == 0)
+        {
+            SpinLockRelease(&walsnd->mutex);
+            continue;
+        }
+
+        // Set reload flag for active WAL sender
+        walsnd->needreload = true;
+        SpinLockRelease(&walsnd->mutex);
+    }
+}
+```

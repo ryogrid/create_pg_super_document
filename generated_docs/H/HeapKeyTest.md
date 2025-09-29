@@ -49,3 +49,42 @@ This function is a critical component of PostgreSQL's tuple scanning mechanism, 
 - NULL handling is strict - both NULL scan keys and NULL attribute values cause immediate failure
 - Collation support is provided through FunctionCall2Coll for proper string comparisons
 - This function is fundamental to PostgreSQL's query execution engine and is called frequently during table scans
+
+## Simplified Source
+
+```c
+static inline bool
+HeapKeyTest(HeapTuple tuple, TupleDesc tupdesc, int nkeys, ScanKey keys)
+{
+    // Test each scan key against the tuple
+    for (int i = 0; i < nkeys; i++)
+    {
+        ScanKey key = &keys[i];
+
+        // Fail if scan key is marked as NULL
+        if (key->sk_flags & SK_ISNULL)
+            return false;
+
+        // Get attribute value from tuple
+        bool isnull;
+        Datum attr_value = heap_getattr(tuple, key->sk_attno, tupdesc, &isnull);
+
+        // Fail if attribute is NULL
+        if (isnull)
+            return false;
+
+        // Call comparison function with collation
+        Datum result = FunctionCall2Coll(&key->sk_func,
+                                        key->sk_collation,
+                                        attr_value,
+                                        key->sk_argument);
+
+        // Fail if comparison returns false
+        if (!DatumGetBool(result))
+            return false;
+    }
+
+    // All tests passed
+    return true;
+}
+```

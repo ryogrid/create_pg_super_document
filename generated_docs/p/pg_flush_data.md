@@ -46,3 +46,85 @@ The function respects the enableFsync setting and returns early if fsync operati
 - Uses different error levels based on the severity and recoverability of failures
 - The function is a performance optimization hint - failures are generally non-fatal
 - Part of PostgreSQL's advanced I/O management system for better write performance
+
+## Simplified Source
+
+```c
+void pg_flush_data(int fd, off_t offset, off_t nbytes)
+{
+    // Skip if fsync is disabled
+    if (!enableFsync)
+        return;
+
+    // Try Linux sync_file_range (preferred method)
+    #if defined(HAVE_SYNC_FILE_RANGE)
+    {
+        static bool not_implemented_by_kernel = false;
+        if (not_implemented_by_kernel)
+            return;
+
+        // Start writeback without waiting for completion
+        int rc = sync_file_range(fd, offset, nbytes, SYNC_FILE_RANGE_WRITE);
+        if (rc != 0) {
+            if (rc == EINTR)
+                goto retry;
+
+            // Handle systems without sync_file_range support
+            if (errno == ENOSYS) {
+                not_implemented_by_kernel = true;
+                ereport(WARNING, "sync_file_range not supported");
+            } else {
+                ereport(WARNING, "could not flush dirty data");
+            }
+        }
+        return;
+    }
+    #endif
+
+    // Try mmap/msync approach (Unix systems)
+    #if !defined(WIN32) && defined(MS_ASYNC)
+    {
+        // Get file size if flushing entire file
+        if (offset == 0 && nbytes == 0) {
+            nbytes = lseek(fd, 0, SEEK_END);
+            if (nbytes < 0) {
+                ereport(WARNING, "could not determine file size");
+                return;
+            }
+        }
+
+        // Align to page boundaries
+        static int pagesize = 0;
+        if (pagesize == 0)
+            pagesize = sysconf(_SC_PAGESIZE);
+
+        if (pagesize > 0)
+            nbytes = (nbytes / pagesize) * pagesize;
+
+        if (nbytes <= 0)
+            return;
+
+        // Map file region and trigger writeback
+        if (nbytes <= SSIZE_MAX) {
+            void *p = mmap(NULL, nbytes, PROT_READ, MAP_SHARED, fd, offset);
+            if (p != MAP_FAILED) {
+                msync(p, nbytes, MS_ASYNC);  // Start async writeback
+                munmap(p, nbytes);           // Clean up mapping
+                return;
+            }
+        }
+    }
+    #endif
+
+    // Fallback: posix_fadvise (has side effects)
+    #if defined(USE_POSIX_FADVISE) && defined(POSIX_FADV_DONTNEED)
+    {
+        // Tell OS not to cache this range (triggers writeback)
+        int rc = posix_fadvise(fd, offset, nbytes, POSIX_FADV_DONTNEED);
+        if (rc != 0) {
+            ereport(WARNING, "could not flush dirty data");
+        }
+    }
+    #endif
+}
+```

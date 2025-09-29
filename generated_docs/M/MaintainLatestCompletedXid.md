@@ -42,3 +42,27 @@ The function includes several assertions to ensure it's called in the correct co
 - Maintains consistency of the global latestCompletedXid for snapshot generation
 - Part of PostgreSQL's core MVCC infrastructure for transaction visibility
 - The latestCompletedXid is used by snapshot generation to determine which transactions are definitely completed
+
+## Simplified Source
+
+```c
+static void MaintainLatestCompletedXid(TransactionId latestXid)
+{
+    FullTransactionId cur_latest = TransamVariables->latestCompletedXid;
+
+    // Verify function called in correct context
+    Assert(FullTransactionIdIsValid(cur_latest));
+    Assert(!RecoveryInProgress());
+    Assert(LWLockHeldByMe(ProcArrayLock));
+
+    // Update if provided XID is newer than current latest
+    if (TransactionIdPrecedes(XidFromFullTransactionId(cur_latest), latestXid)) {
+        TransamVariables->latestCompletedXid =
+            FullXidRelativeTo(cur_latest, latestXid);
+    }
+
+    // Ensure result is valid (except during bootstrap)
+    Assert(IsBootstrapProcessingMode() ||
+           FullTransactionIdIsNormal(TransamVariables->latestCompletedXid));
+}
+```

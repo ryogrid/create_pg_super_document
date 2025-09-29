@@ -38,3 +38,20 @@ This function is part of the internal GUC (Grand Unified Configuration) infrastr
 - The function ensures memory safety by checking references before freeing old values
 - Part of PostgreSQL's sophisticated configuration parameter management system
 - Handles the complexity of shared string values across different GUC states and stack levels
+
+## Simplified Source
+
+```c
+static void
+set_string_field(struct config_string *conf, char **field, char *newval)
+{
+    char *oldval = *field;
+
+    // Assign the new value
+    *field = newval;
+
+    // Free old value if it exists and isn't referenced elsewhere
+    if (oldval && !string_field_used(conf, oldval))
+        guc_free(oldval);
+}
+```

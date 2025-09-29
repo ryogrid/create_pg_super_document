@@ -35,3 +35,20 @@ The function also sets an appropriate wait event to help with monitoring and deb
 - The function provides a centralized decision point for determining when WAL senders should wait, helping coordinate replication timing
 - The wait event setting is crucial for monitoring tools and debugging, as it allows identification of the specific reason for waiting
 - The function plays a key role in logical replication failover scenarios where coordination between multiple standbys is critical
+
+## Simplified Source
+
+```c
+static bool NeedToWaitForWal(XLogRecPtr target_lsn, XLogRecPtr flushed_lsn, uint32 *wait_event)
+{
+    // Check if we need to wait for WALs to be flushed to disk
+    if (target_lsn > flushed_lsn)
+    {
+        *wait_event = WAIT_EVENT_WAL_SENDER_WAIT_FOR_WAL;
+        return true;
+    }
+
+    // Check if standby slots have caught up to the flushed position
+    return NeedToWaitForStandbys(flushed_lsn, wait_event);
+}
+```

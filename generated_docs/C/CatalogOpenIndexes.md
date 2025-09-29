@@ -36,3 +36,23 @@ The function leverages shared infrastructure with execUtils.c for opening and cl
 - The ri_RangeTableIndex is set to 0 as a dummy value since system catalog operations do not use range tables
 - Triggers are disabled (ri_TrigDesc = NULL) for system catalog index operations
 - This is part of PostgreSQL's internal catalog maintenance infrastructure and should not be used for user table operations
+
+## Simplified Source
+
+```c
+CatalogIndexState CatalogOpenIndexes(Relation heapRel)
+{
+    ResultRelInfo *resultRelInfo;
+
+    // Create a minimal ResultRelInfo structure for catalog index operations
+    resultRelInfo = makeNode(ResultRelInfo);
+    resultRelInfo->ri_RangeTableIndex = 0;        // dummy value
+    resultRelInfo->ri_RelationDesc = heapRel;     // the catalog relation
+    resultRelInfo->ri_TrigDesc = NULL;            // no triggers for catalog ops
+
+    // Open all indexes associated with this catalog relation
+    ExecOpenIndices(resultRelInfo, false);
+
+    return resultRelInfo;  // This becomes the CatalogIndexState
+}
+```

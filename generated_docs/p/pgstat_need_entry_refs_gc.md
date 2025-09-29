@@ -37,4 +37,27 @@ The function first verifies that the entry reference hash table exists, then rea
 - Returns false if the entry reference hash table doesn't exist
 - Contains an assertion to ensure  has been properly initialized
 - The comparison between local age and shared counter provides an efficient way to detect when cleanup is needed
-- Located in 
+- Located in src/backend/utils/activity/pgstat_shmem.c
+
+## Simplified Source
+
+```c
+static bool
+pgstat_need_entry_refs_gc(void)
+{
+    uint64 curage;
+
+    // Return false if no entry reference hash exists
+    if (!pgStatEntryRefHash)
+        return false;
+
+    // Verify shared reference age was initialized
+    Assert(pgStatSharedRefAge != 0);
+
+    // Get current GC request count from shared memory
+    curage = pg_atomic_read_u64(&pgStatLocal.shmem->gc_request_count);
+
+    // GC needed if local age differs from current count
+    return pgStatSharedRefAge != curage;
+}
+```

@@ -42,3 +42,15 @@ This function accesses the line pointer array (pd_linp) in a page header to retu
 - Essential for all access methods (heap, B-tree, hash, GIN, GiST, SP-GiST, BRIN)
 - Line pointers enable indirection, allowing tuples to be moved within a page without changing external references
 - The function performs no bounds checking - callers must ensure offsetNumber is valid
+
+## Simplified Source
+
+```c
+static inline ItemId
+PageGetItemId(Page page, OffsetNumber offsetNumber)
+{
+    // Get the page header and access the line pointer array
+    // Convert 1-based offset to 0-based array index
+    return &((PageHeader) page)->pd_linp[offsetNumber - 1];
+}
+```

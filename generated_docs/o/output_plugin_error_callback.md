@@ -25,7 +25,7 @@ The function formats error context messages that help administrators and develop
   - errcontext
 - Called from (representative examples):
   - [startup_cb_wrapper](../s/startup_cb_wrapper.md)
-  - [shutdown_cb_wrapper](../s/shutdown_cb_wrapper.md)  
+  - [shutdown_cb_wrapper](../s/shutdown_cb_wrapper.md)
   - [begin_cb_wrapper](../b/begin_cb_wrapper.md)
   - [commit_cb_wrapper](../c/commit_cb_wrapper.md)
   - [begin_prepare_cb_wrapper](../b/begin_prepare_cb_wrapper.md)
@@ -53,3 +53,25 @@ The function formats error context messages that help administrators and develop
 - This callback is used extensively throughout all logical replication plugin wrapper functions
 - Static function used internally within the logical replication subsystem
 - Critical for debugging logical replication plugin issues in production environments
+
+## Simplified Source
+
+```c
+static void output_plugin_error_callback(void *arg)
+{
+    LogicalErrorCallbackState *state = (LogicalErrorCallbackState *) arg;
+
+    // Provide error context with LSN information if available
+    if (state->report_location != InvalidXLogRecPtr)
+        errcontext("slot \"%s\", output plugin \"%s\", in the %s callback, associated LSN %X/%X",
+                   NameStr(state->ctx->slot->data.name),
+                   NameStr(state->ctx->slot->data.plugin),
+                   state->callback_name,
+                   LSN_FORMAT_ARGS(state->report_location));
+    else
+        errcontext("slot \"%s\", output plugin \"%s\", in the %s callback",
+                   NameStr(state->ctx->slot->data.name),
+                   NameStr(state->ctx->slot->data.plugin),
+                   state->callback_name);
+}
+```

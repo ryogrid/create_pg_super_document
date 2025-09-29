@@ -36,3 +36,41 @@ compute_remaining_iovec(struct iovec *destination,
 
 ## Notes and Other Information
 This function is crucial for implementing robust vectored I/O in PostgreSQL, particularly in the storage manager (smgr) subsystem where large multi-page reads and writes need to handle partial transfers gracefully. The function returns the number of remaining iovecs after adjustment, with a return value of 0 indicating that all data has been transferred. It includes assertions to detect kernel behavior that violates expected I/O semantics (such as transferring more data than requested). The function enables PostgreSQL to retry I/O operations reliably when dealing with signals, resource constraints, or other conditions that might cause partial transfers.
+
+## Simplified Source
+
+```c
+int compute_remaining_iovec(struct iovec *destination,
+                           const struct iovec *source,
+                           int iovcnt,
+                           size_t transferred)
+{
+    Assert(iovcnt > 0);
+
+    // Skip over iovecs that were completely transferred
+    while (source->iov_len <= transferred) {
+        transferred -= source->iov_len;  // Subtract this iovec's size
+        source++;                        // Move to next iovec
+        iovcnt--;                       // One fewer iovec remaining
+
+        // Check if all iovecs were processed
+        if (iovcnt == 0) {
+            // We should have transferred exactly what was requested
+            Assert(transferred == 0);
+            return 0;  // All done
+        }
+    }
+
+    // Copy remaining iovecs to destination array
+    if (source != destination) {
+        memmove(destination, source, sizeof(*source) * iovcnt);
+    }
+
+    // Adjust the first remaining iovec for partial transfer
+    Assert(destination->iov_len > transferred);
+    destination->iov_base = (char *) destination->iov_base + transferred;
+    destination->iov_len -= transferred;
+
+    return iovcnt;  // Number of iovecs still to process
+}
+```

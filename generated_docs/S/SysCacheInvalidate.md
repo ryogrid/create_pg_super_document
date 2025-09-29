@@ -33,3 +33,22 @@ SysCacheInvalidate removes cached entries from a system catalog cache that match
 - Performs bounds checking on cacheId to prevent invalid cache access
 - Part of PostgreSQL's distributed cache invalidation system for maintaining consistency
 - Located in src/backend/utils/cache/syscache.c:699-722
+
+## Simplified Source
+
+```c
+// Invalidate system cache entries by hash value
+void SysCacheInvalidate(int cacheId, uint32 hashValue)
+{
+    // Validate cache ID bounds
+    if (cacheId < 0 || cacheId >= SysCacheSize)
+        elog(ERROR, "invalid cache ID: %d", cacheId);
+
+    // Skip if cache not initialized yet
+    if (!PointerIsValid(SysCache[cacheId]))
+        return;
+
+    // Delegate to catalog cache invalidation
+    CatCacheInvalidate(SysCache[cacheId], hashValue);
+}
+```

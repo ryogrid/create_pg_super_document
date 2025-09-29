@@ -37,3 +37,19 @@ This validation function is critical for maintaining data integrity and preventi
 - There are other functions with the same name in different files (e.g., indexam.c) that validate different relation types
 - The error reporting is comprehensive, providing both the relation name and details about the unsupported relation kind
 - This function is part of PostgreSQL's defense-in-depth approach to type safety and data integrity
+
+## Simplified Source
+
+```c
+static inline void
+validate_relation_kind(Relation r)
+{
+    // Check if relation is a sequence
+    if (r->rd_rel->relkind != RELKIND_SEQUENCE)
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("\"%s\" is not a sequence",
+                        RelationGetRelationName(r)),
+                 errdetail_relkind_not_supported(r->rd_rel->relkind)));
+}
+```

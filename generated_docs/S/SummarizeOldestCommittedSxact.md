@@ -52,3 +52,36 @@ The function handles race conditions where another backend might have already cl
 - Part of the SSI memory management and cleanup subsystem
 - Uses SLRU for long-term storage of summarized conflict information
 - Located in src/backend/storage/lmgr/predicate.c:1493-1547
+
+## Simplified Source
+
+```c
+static void SummarizeOldestCommittedSxact(void)
+{
+    SERIALIZABLEXACT *sxact;
+
+    LWLockAcquire(SerializableFinishedListLock, LW_EXCLUSIVE);
+
+    // Handle race condition - check if list is empty
+    if (dlist_is_empty(FinishedSerializableTransactions))
+    {
+        LWLockRelease(SerializableFinishedListLock);
+        return;
+    }
+
+    // Get oldest committed transaction from finished list
+    sxact = dlist_head_element(SERIALIZABLEXACT, finishedLink,
+                               FinishedSerializableTransactions);
+    dlist_delete_thoroughly(&sxact->finishedLink);
+
+    // Add to SLRU summary if it's a valid read-write transaction
+    if (TransactionIdIsValid(sxact->topXid) && !SxactIsReadOnly(sxact))
+        SerialAdd(sxact->topXid, SxactHasConflictOut(sxact)
+                  ? sxact->SeqNo.earliestOutConflictCommit : InvalidSerCommitSeqNo);
+
+    // Clean up and release all associated structures
+    ReleaseOneSerializableXact(sxact, false, true);
+
+    LWLockRelease(SerializableFinishedListLock);
+}
+```

@@ -33,3 +33,14 @@ This static function implements the actual mechanism for waking up the logical r
 - SIGUSR1 is the standard signal used by PostgreSQL for inter-process communication
 - This function is typically called when subscription workers exit or when transactions that modify subscriptions commit
 - The launcher process must have a signal handler registered for SIGUSR1 to properly respond to the wakeup
+
+## Simplified Source
+
+```c
+static void
+ApplyLauncherWakeup(void)
+{
+    if (LogicalRepCtx->launcher_pid != 0)
+        kill(LogicalRepCtx->launcher_pid, SIGUSR1);
+}
+```

@@ -40,3 +40,59 @@ This function performs essential page preparation for pagemode scanning, a Postg
 - Handles hot standby visibility complexities where page-level PD_ALL_VISIBLE flag cannot be fully trusted
 - Uses likely() macros to hint compiler about common execution paths
 - Essential component of PostgreSQL's pagemode scanning optimization that significantly improves sequential scan performance
+
+## Simplified Source
+
+```c
+void
+heap_prepare_pagescan(TableScanDesc sscan)
+{
+    HeapScanDesc scan = (HeapScanDesc) sscan;
+    Buffer buffer = scan->rs_cbuf;
+    BlockNumber block = scan->rs_cblock;
+    Snapshot snapshot = scan->rs_base.rs_snapshot;
+    Page page;
+    int lines;
+    bool all_visible;
+    bool check_serializable;
+
+    // Validate buffer and pagemode flags
+    Assert(BufferGetBlockNumber(buffer) == block);
+    Assert(scan->rs_base.rs_flags & SO_ALLOW_PAGEMODE);
+
+    // Prune dead tuples and repair fragmentation
+    heap_page_prune_opt(scan->rs_base.rs_rd, buffer);
+
+    // Lock buffer to examine tuple visibility
+    LockBuffer(buffer, BUFFER_LOCK_SHARE);
+
+    page = BufferGetPage(buffer);
+    lines = PageGetMaxOffsetNumber(page);
+
+    // Check if all tuples are visible (optimization)
+    all_visible = PageIsAllVisible(page) && !snapshot->takenDuringRecovery;
+    check_serializable = CheckForSerializableConflictOutNeeded(scan->rs_base.rs_rd, snapshot);
+
+    // Collect visible tuples using optimized paths
+    if (likely(all_visible))
+    {
+        if (likely(!check_serializable))
+            scan->rs_ntuples = page_collect_tuples(scan, snapshot, page, buffer,
+                                                  block, lines, true, false);
+        else
+            scan->rs_ntuples = page_collect_tuples(scan, snapshot, page, buffer,
+                                                  block, lines, true, true);
+    }
+    else
+    {
+        if (likely(!check_serializable))
+            scan->rs_ntuples = page_collect_tuples(scan, snapshot, page, buffer,
+                                                  block, lines, false, false);
+        else
+            scan->rs_ntuples = page_collect_tuples(scan, snapshot, page, buffer,
+                                                  block, lines, false, true);
+    }
+
+    LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+}
+```

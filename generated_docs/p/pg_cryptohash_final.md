@@ -48,3 +48,68 @@ The function acts as a dispatcher, calling the appropriate algorithm-specific fi
 - Required minimum buffer sizes: MD5 (16 bytes), SHA-1 (20 bytes), SHA-224 (28 bytes), SHA-256 (32 bytes), SHA-384 (48 bytes), SHA-512 (64 bytes)
 - The context becomes invalid after finalization and should not be reused without reinitialization
 - Part of PostgreSQL's streaming hash interface used for incremental hash calculations
+
+## Simplified Source
+
+```c
+int
+pg_cryptohash_final(pg_cryptohash_ctx *ctx, uint8 *dest, size_t len)
+{
+    if (ctx == NULL)
+        return -1;
+
+    switch (ctx->type)
+    {
+        case PG_MD5:
+            if (len < MD5_DIGEST_LENGTH)
+            {
+                ctx->error = PG_CRYPTOHASH_ERROR_DEST_LEN;
+                return -1;
+            }
+            pg_md5_final(&ctx->data.md5, dest);
+            break;
+        case PG_SHA1:
+            if (len < SHA1_DIGEST_LENGTH)
+            {
+                ctx->error = PG_CRYPTOHASH_ERROR_DEST_LEN;
+                return -1;
+            }
+            pg_sha1_final(&ctx->data.sha1, dest);
+            break;
+        case PG_SHA224:
+            if (len < PG_SHA224_DIGEST_LENGTH)
+            {
+                ctx->error = PG_CRYPTOHASH_ERROR_DEST_LEN;
+                return -1;
+            }
+            pg_sha224_final(&ctx->data.sha224, dest);
+            break;
+        case PG_SHA256:
+            if (len < PG_SHA256_DIGEST_LENGTH)
+            {
+                ctx->error = PG_CRYPTOHASH_ERROR_DEST_LEN;
+                return -1;
+            }
+            pg_sha256_final(&ctx->data.sha256, dest);
+            break;
+        case PG_SHA384:
+            if (len < PG_SHA384_DIGEST_LENGTH)
+            {
+                ctx->error = PG_CRYPTOHASH_ERROR_DEST_LEN;
+                return -1;
+            }
+            pg_sha384_final(&ctx->data.sha384, dest);
+            break;
+        case PG_SHA512:
+            if (len < PG_SHA512_DIGEST_LENGTH)
+            {
+                ctx->error = PG_CRYPTOHASH_ERROR_DEST_LEN;
+                return -1;
+            }
+            pg_sha512_final(&ctx->data.sha512, dest);
+            break;
+    }
+
+    return 0;
+}
+```

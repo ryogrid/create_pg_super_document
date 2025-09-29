@@ -38,3 +38,49 @@ The function clears the XID, virtual XID, xmin, and subtransaction information f
 - Increments xactCompletionCount to prevent problematic snapshot reuse
 - Could potentially be optimized with atomic variables, but 2PC overhead makes this unnecessary
 - May be combined with subsequent ProcArrayRemove() in future optimizations
+
+## Simplified Source
+
+```c
+void ProcArrayClearTransaction(PGPROC *proc)
+{
+    int pgxactoff;
+
+    // Need exclusive lock to update completion count and maintain consistency
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    pgxactoff = proc->pgxactoff;
+
+    // Clear transaction identifiers from both global and process arrays
+    ProcGlobal->xids[pgxactoff] = InvalidTransactionId;
+    proc->xid = InvalidTransactionId;
+
+    // Clear virtual transaction ID and related fields
+    proc->vxid.lxid = InvalidLocalTransactionId;
+    proc->xmin = InvalidTransactionId;
+    proc->recoveryConflictPending = false;
+
+    // Verify process state is clean
+    Assert(!(proc->statusFlags & PROC_VACUUM_STATE_MASK));
+    Assert(!proc->delayChkptFlags);
+
+    // Increment completion count to prevent problematic snapshot reuse
+    // (GetSnapshotData omits current transaction, so this prevents
+    // reusing stale snapshots that might not count prepared transaction)
+    TransamVariables->xactCompletionCount++;
+
+    // Clear subtransaction cache if present
+    Assert(ProcGlobal->subxidStates[pgxactoff].count == proc->subxidStatus.count &&
+           ProcGlobal->subxidStates[pgxactoff].overflowed == proc->subxidStatus.overflowed);
+
+    if (proc->subxidStatus.count > 0 || proc->subxidStatus.overflowed)
+    {
+        ProcGlobal->subxidStates[pgxactoff].count = 0;
+        ProcGlobal->subxidStates[pgxactoff].overflowed = false;
+        proc->subxidStatus.count = 0;
+        proc->subxidStatus.overflowed = false;
+    }
+
+    LWLockRelease(ProcArrayLock);
+}
+```

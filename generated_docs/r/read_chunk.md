@@ -37,3 +37,14 @@ The function returns  if the exact number of bytes requested was successfully re
 - The function verifies that exactly  bytes were read, which helps detect file corruption
 - Used during PostgreSQL startup to restore previously saved statistics data
 - Marked as , indicating it's only used within the same source file
+
+## Simplified Source
+
+```c
+static bool read_chunk(FILE *fpin, void *ptr, size_t len)
+{
+    // Read 'len' bytes from file into buffer 'ptr'
+    // Return true if exactly 'len' bytes were read, false otherwise
+    return fread(ptr, 1, len, fpin) == len;
+}
+```

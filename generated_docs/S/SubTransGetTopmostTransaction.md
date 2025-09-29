@@ -41,3 +41,32 @@ Due to SUBTRANS log truncation, the function may return an intermediate subtrans
 - The function stops traversal at TransactionXmin boundary to avoid accessing truncated data
 - Used extensively in PostgreSQL's concurrency control mechanisms
 - Part of the critical path for transaction visibility and conflict resolution in multi-level nested transactions
+
+## Simplified Source
+
+```c
+TransactionId SubTransGetTopmostTransaction(TransactionId xid)
+{
+    TransactionId parentXid = xid, previousXid = xid;
+
+    // Can't ask about stuff that might not be around anymore
+    Assert(TransactionIdFollowsOrEquals(xid, TransactionXmin));
+
+    while (TransactionIdIsValid(parentXid)) {
+        previousXid = parentXid;
+        if (TransactionIdPrecedes(parentXid, TransactionXmin))
+            break;
+        parentXid = SubTransGetParent(parentXid);
+
+        // By convention the parent xid gets allocated first, so should always
+        // precede the child xid. Anything else points to a corrupted data
+        // structure that could lead to an infinite loop, so exit.
+        if (!TransactionIdPrecedes(parentXid, previousXid))
+            elog(ERROR, "pg_subtrans contains invalid entry: xid %u points to parent xid %u",
+                 previousXid, parentXid);
+    }
+
+    Assert(TransactionIdIsValid(previousXid));
+    return previousXid;
+}
+```

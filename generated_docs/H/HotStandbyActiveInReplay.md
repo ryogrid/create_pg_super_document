@@ -33,3 +33,16 @@ This function takes no parameters and returns a boolean value indicating Hot Sta
 - Must only be called from startup process or non-postmaster environments
 - More efficient than HotStandbyActive() in appropriate contexts due to lack of spinlock overhead
 - Part of PostgreSQL's Hot Standby infrastructure for enabling read-only queries during recovery
+
+## Simplified Source
+
+```c
+static bool HotStandbyActiveInReplay(void)
+{
+    // Ensure called only from startup process or non-postmaster environment
+    Assert(AmStartupProcess() || !IsPostmasterEnvironment);
+
+    // Return local Hot Standby state (no spinlock needed)
+    return LocalHotStandbyActive;
+}
+```

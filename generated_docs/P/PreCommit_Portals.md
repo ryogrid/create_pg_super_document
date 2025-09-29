@@ -45,3 +45,67 @@ The function also enforces constraints such as preventing PREPARE TRANSACTION wh
 - Enforces that no pinned portals exist during commit (except auto-held ones)
 - Properly manages resource owners and snapshots to prevent resource leaks
 - Critical for maintaining PostgreSQL's transaction isolation and cursor management
+
+## Simplified Source
+
+```c
+bool PreCommit_Portals(bool isPrepare)
+{
+    bool result = false;
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hentry;
+
+    hash_seq_init(&status, PortalHashTable);
+
+    while ((hentry = (PortalHashEnt *) hash_seq_search(&status)) != NULL) {
+        Portal portal = hentry->portal;
+
+        // Check for improperly pinned portals
+        if (portal->portalPinned && !portal->autoHeld)
+            elog(ERROR, "cannot commit while a portal is pinned");
+
+        // Handle active portals (e.g., VACUUM, procedure commits)
+        if (portal->status == PORTAL_ACTIVE) {
+            // Clean up resources but preserve the portal
+            if (portal->holdSnapshot) {
+                if (portal->resowner)
+                    UnregisterSnapshotFromOwner(portal->holdSnapshot, portal->resowner);
+                portal->holdSnapshot = NULL;
+            }
+            portal->resowner = NULL;
+            portal->portalSnapshot = NULL;
+            continue;
+        }
+
+        // Handle holdable cursors created in current transaction
+        if ((portal->cursorOptions & CURSOR_OPT_HOLD) &&
+            portal->createSubid != InvalidSubTransactionId &&
+            portal->status == PORTAL_READY) {
+
+            // Reject PREPARE TRANSACTION with holdable cursors
+            if (isPrepare)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                        errmsg("cannot PREPARE a transaction that has created a cursor WITH HOLD")));
+
+            // Convert to materialized form for persistence
+            HoldPortal(portal);
+            result = true;
+        }
+        // Skip portals from previous transactions
+        else if (portal->createSubid == InvalidSubTransactionId) {
+            continue;
+        }
+        // Drop all non-holdable portals from current transaction
+        else {
+            PortalDrop(portal, true);
+            result = true;
+        }
+
+        // Restart iteration due to potential hash table changes from user code
+        hash_seq_term(&status);
+        hash_seq_init(&status, PortalHashTable);
+    }
+
+    return result;
+}
+```

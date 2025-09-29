@@ -40,3 +40,24 @@ The new context is created as a child of the parent's CurTransactionContext, est
 - Memory allocated in the subtransaction context is automatically managed based on subtransaction outcome
 - Essential for PostgreSQL's savepoint and exception handling mechanisms
 - The function switches to the new context as the active memory context for subsequent allocations
+
+## Simplified Source
+
+```c
+static void
+AtSubStart_Memory(void)
+{
+    TransactionState s = CurrentTransactionState;
+
+    Assert(CurTransactionContext != NULL);
+
+    // Create subtransaction memory context as child of parent's context
+    CurTransactionContext = AllocSetContextCreate(CurTransactionContext,
+                                                 "CurTransactionContext",
+                                                 ALLOCSET_DEFAULT_SIZES);
+    s->curTransactionContext = CurTransactionContext;
+
+    // Make the new context active for memory allocations
+    MemoryContextSwitchTo(CurTransactionContext);
+}
+```

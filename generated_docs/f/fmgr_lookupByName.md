@@ -35,3 +35,20 @@ This lookup method is slower than Oid-based lookup but is necessary when only th
 - Can handle duplicate function names in the builtin table, which may exist for different argument combinations
 - Part of PostgreSQL's Function Manager (fmgr) subsystem responsible for function call dispatch
 - Used primarily when function names are known but Oids are not available, such as during internal function resolution
+
+## Simplified Source
+
+```c
+static const FmgrBuiltin *fmgr_lookupByName(const char *name)
+{
+    int i;
+
+    // Linear search through builtin function array
+    for (i = 0; i < fmgr_nbuiltins; i++) {
+        if (strcmp(name, fmgr_builtins[i].funcName) == 0)
+            return fmgr_builtins + i;
+    }
+
+    return NULL; // Function not found
+}
+```

@@ -32,3 +32,22 @@ This function modifies the file mode in a stat structure to treat symbolic links
 - Ensures that symlinked directories are backed up as actual directories with their contents
 - The pathbuf parameter is currently unused but maintained for interface consistency
 - Uses PostgreSQL's standard directory creation mode for the converted entry
+
+## Simplified Source
+
+```c
+// Convert symbolic link stat entry to directory entry for backup purposes
+static void convert_link_to_directory(const char *pathbuf, struct stat *statbuf)
+{
+    // If the file is a symbolic link, change its mode to look like a directory
+    if (S_ISLNK(statbuf->st_mode))
+        statbuf->st_mode = S_IFDIR | pg_dir_create_mode;
+}
+```
+
+**Key Points:**
+- Modifies stat structure to treat symlinks as directories during backup
+- Essential for backing up tablespace symlinks as actual directories
+- Uses S_ISLNK() to check if file is a symbolic link
+- Sets directory mode with PostgreSQL's standard creation permissions
+- pathbuf parameter currently unused but kept for interface consistency

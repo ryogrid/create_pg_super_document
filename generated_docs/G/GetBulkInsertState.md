@@ -45,3 +45,26 @@ This function takes no parameters and returns a BulkInsertState object with the 
 - The BAS_BULKWRITE strategy helps optimize buffer replacement during bulk operations
 - This is typically used in conjunction with heap_insert and related bulk insertion functions
 - The state object helps coordinate buffer management across multiple insert operations
+
+## Simplified Source
+
+```c
+BulkInsertState GetBulkInsertState(void)
+{
+    BulkInsertState bistate;
+
+    // Allocate memory for the bulk insert state
+    bistate = (BulkInsertState) palloc(sizeof(BulkInsertStateData));
+
+    // Set up bulk write strategy for optimized buffer management
+    bistate->strategy = GetAccessStrategy(BAS_BULKWRITE);
+
+    // Initialize buffer and block tracking to invalid values
+    bistate->current_buf = InvalidBuffer;
+    bistate->next_free = InvalidBlockNumber;
+    bistate->last_free = InvalidBlockNumber;
+    bistate->already_extended_by = 0;
+
+    return bistate;
+}
+```

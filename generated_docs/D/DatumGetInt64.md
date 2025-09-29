@@ -41,3 +41,18 @@ This abstraction allows the same code to work correctly across different platfor
 - The USE_FLOAT8_BYVAL flag is typically defined on 64-bit platforms where pointers are 64 bits
 - This design ensures optimal performance on each platform while maintaining code portability
 - Used extensively for timestamp, interval, and large integer operations in PostgreSQL
+
+## Simplified Source
+
+```c
+static inline int64 DatumGetInt64(Datum X)
+{
+#ifdef USE_FLOAT8_BYVAL
+    // On 64-bit platforms: int64 is passed by value
+    return (int64) X;
+#else
+    // On 32-bit platforms: int64 is passed by reference
+    return *((int64 *) DatumGetPointer(X));
+#endif
+}
+```

@@ -41,3 +41,44 @@ The rationale is that if there are many active backends, introducing a small del
 - The function can handle concurrent modifications to the process array gracefully by checking for invalid entries
 - This is part of PostgreSQL's commit performance optimization strategy, where batching multiple commits can improve I/O efficiency
 - The function assumes that backends blocked on locks are not contributing to system load and excludes them from the count
+
+## Simplified Source
+
+```c
+bool MinimumActiveBackends(int min)
+{
+    ProcArrayStruct *arrayP = procArray;
+    int count = 0;
+    int index;
+
+    // Quick short-circuit if no minimum is specified
+    if (min == 0)
+        return true;
+
+    // Note: Don't acquire ProcArrayLock for speed
+    // Slightly racy but OK since only used for heuristics
+    for (index = 0; index < arrayP->numProcs; index++)
+    {
+        int pgprocno = arrayP->pgprocnos[index];
+        PGPROC *proc = &allProcs[pgprocno];
+
+        // Handle potential garbage due to lack of locking
+        if (pgprocno == -1)
+            continue;           // Skip deleted entries
+        if (proc == MyProc)
+            continue;           // Don't count myself
+        if (proc->xid == InvalidTransactionId)
+            continue;           // Skip if no XID assigned
+        if (proc->pid == 0)
+            continue;           // Don't count prepared transactions
+        if (proc->waitLock != NULL)
+            continue;           // Don't count if blocked on lock
+
+        count++;
+        if (count >= min)
+            break;              // Early exit optimization
+    }
+
+    return count >= min;
+}
+```

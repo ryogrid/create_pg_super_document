@@ -42,3 +42,24 @@ The function prints a single line with multiple metrics separated by commas, sho
 - The metrics help understand transaction visibility checking performance
 - Typically called during process cleanup or debugging scenarios
 - Output format is designed for easy parsing and analysis of cache behavior patterns
+
+## Simplified Source
+
+```c
+static void DisplayXidCache(void)
+{
+    // Print XID cache effectiveness statistics to stderr
+    fprintf(stderr,
+            "XidCache: xmin: %ld, known: %ld, myxact: %ld, latest: %ld, "
+            "mainxid: %ld, childxid: %ld, knownassigned: %ld, nooflo: %ld, slow: %ld\n",
+            xc_by_recent_xmin,     // Cache hits by recent xmin
+            xc_by_known_xact,      // Cache hits by known transactions
+            xc_by_my_xact,         // Cache hits by current transaction
+            xc_by_latest_xid,      // Cache hits by latest XID
+            xc_by_main_xid,        // Cache hits by main transaction ID
+            xc_by_child_xid,       // Cache hits by child transaction ID
+            xc_by_known_assigned,  // Cache hits by known assigned XIDs
+            xc_no_overflow,        // Non-overflow cache operations
+            xc_slow_answer);       // Slow lookup operations
+}
+```

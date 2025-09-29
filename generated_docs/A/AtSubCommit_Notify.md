@@ -37,3 +37,68 @@ This function takes no parameters and operates on global state variables.
 - Uses assertion to verify that pendingNotifies are at the expected nesting level
 - Part of PostgreSQL's subtransaction management system for asynchronous notifications
 - Located in src/backend/commands/async.c:1691-1760
+
+## Simplified Source
+
+```c
+void AtSubCommit_Notify(void)
+{
+    int my_level = GetCurrentTransactionNestLevel();
+
+    // Handle pending LISTEN/UNLISTEN actions
+    if (pendingActions != NULL &&
+        pendingActions->nestingLevel >= my_level)
+    {
+        if (pendingActions->upper == NULL ||
+            pendingActions->upper->nestingLevel < my_level - 1)
+        {
+            // Simple case: just reparent to parent
+            --pendingActions->nestingLevel;
+        }
+        else
+        {
+            // Complex case: merge with parent's actions
+            ActionList *childPendingActions = pendingActions;
+            pendingActions = pendingActions->upper;
+
+            // Don't eliminate duplicates for actions (see queue_listen())
+            pendingActions->actions =
+                list_concat(pendingActions->actions,
+                           childPendingActions->actions);
+            pfree(childPendingActions);
+        }
+    }
+
+    // Handle pending NOTIFY events
+    if (pendingNotifies != NULL &&
+        pendingNotifies->nestingLevel >= my_level)
+    {
+        Assert(pendingNotifies->nestingLevel == my_level);
+
+        if (pendingNotifies->upper == NULL ||
+            pendingNotifies->upper->nestingLevel < my_level - 1)
+        {
+            // Simple case: just reparent to parent
+            --pendingNotifies->nestingLevel;
+        }
+        else
+        {
+            // Complex case: merge with parent's notifications
+            NotificationList *childPendingNotifies = pendingNotifies;
+            ListCell *l;
+
+            pendingNotifies = pendingNotifies->upper;
+
+            // Insert child events into parent, eliminating duplicates
+            foreach(l, childPendingNotifies->events)
+            {
+                Notification *childn = (Notification *) lfirst(l);
+
+                if (!AsyncExistsPendingNotify(childn))
+                    AddEventToPendingNotifies(childn);
+            }
+            pfree(childPendingNotifies);
+        }
+    }
+}
+```

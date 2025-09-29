@@ -33,3 +33,13 @@ The function simply increments the `blocks_hit` counter for the specified SLRU i
 - This metric is often used in conjunction with read counters to calculate hit ratios
 - Part of PostgreSQL's comprehensive buffer management statistics collection
 - Located in src/backend/utils/activity/pgstat_slru.c:65-70
+
+## Simplified Source
+
+```c
+void pgstat_count_slru_page_hit(int slru_idx)
+{
+    // Increment the cache hit counter for this SLRU
+    get_slru_entry(slru_idx)->blocks_hit += 1;
+}
+```

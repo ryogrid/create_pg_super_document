@@ -41,3 +41,37 @@ All errors reported through this function are classified as data corruption erro
 - Uses errmsg_internal rather than errmsg, indicating these are internal system errors
 - The callback_arg parameter is currently unused but provides extensibility for future context-specific error handling
 - This callback pattern allows the block reference table reader to report errors in a standardized way without being tightly coupled to PostgreSQL's error system
+
+## Simplified Source
+
+```c
+void
+ReportWalSummaryError(void *callback_arg, char *fmt, ...)
+{
+    StringInfoData buf;
+    va_list ap;
+    int needed;
+
+    // Initialize string buffer for error message
+    initStringInfo(&buf);
+
+    // Format message with automatic buffer expansion
+    for (;;)
+    {
+        va_start(ap, fmt);
+        needed = appendStringInfoVA(&buf, fmt, ap);
+        va_end(ap);
+
+        if (needed == 0)
+            break;  // Message fit in buffer
+
+        // Expand buffer and retry
+        enlargeStringInfo(&buf, needed);
+    }
+
+    // Report error as data corruption
+    ereport(ERROR,
+           errcode(ERRCODE_DATA_CORRUPTED),
+           errmsg_internal("%s", buf.data));
+}
+```

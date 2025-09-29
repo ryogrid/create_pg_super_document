@@ -37,3 +37,20 @@ The shared state is maintained in the `FixedParallelState` structure, which is a
 - Part of the parallel worker WAL coordination mechanism
 - Critical for maintaining WAL consistency across parallel operations
 - The `mutex` field in `FixedParallelState` provides the necessary synchronization
+
+## Simplified Source
+
+```c
+void ParallelWorkerReportLastRecEnd(XLogRecPtr last_xlog_end)
+{
+    FixedParallelState *fps = MyFixedParallelState;
+
+    Assert(fps != NULL);
+
+    // Thread-safe update of shared WAL end position
+    SpinLockAcquire(&fps->mutex);
+    if (fps->last_xlog_end < last_xlog_end)
+        fps->last_xlog_end = last_xlog_end;
+    SpinLockRelease(&fps->mutex);
+}
+```

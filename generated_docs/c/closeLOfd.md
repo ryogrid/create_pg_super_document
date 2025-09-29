@@ -42,3 +42,26 @@ The function prioritizes crash prevention over memory leak prevention by nullify
 - Used by both explicit close operations (be_lo_close) and automatic cleanup during transaction end
 - The comment "Better a leak than a crash" reflects PostgreSQL's philosophy of prioritizing stability
 - Essential part of the large object resource management system, ensuring proper cleanup regardless of how the close is initiated
+
+## Simplified Source
+
+```c
+static void
+closeLOfd(int fd)
+{
+    LargeObjectDesc *lobj;
+
+    // Get the large object descriptor and clear the slot to prevent double-free
+    lobj = cookies[fd];
+    cookies[fd] = NULL;
+
+    // Clean up snapshot if present
+    if (lobj->snapshot)
+        UnregisterSnapshotFromOwner(lobj->snapshot, TopTransactionResourceOwner);
+
+    // Close the large object
+    inv_close(lobj);
+}
+```
+
+This function safely closes a large object file descriptor by first clearing the cookies array slot to prevent double-free errors, then cleaning up any associated snapshot and finally closing the large object.

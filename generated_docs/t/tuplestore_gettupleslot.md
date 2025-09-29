@@ -43,3 +43,38 @@ The function internally calls `tuplestore_gettuple` to retrieve the actual tuple
 - The function handles memory management automatically based on the `should_free` flag from `tuplestore_gettuple`
 - Widely used throughout PostgreSQL's executor for various scan operations and window functions
 - Critical for performance in operations that need to read tuples from materialized results
+
+## Simplified Source
+
+```c
+bool
+tuplestore_gettupleslot(Tuplestorestate *state, bool forward,
+                       bool copy, TupleTableSlot *slot)
+{
+    MinimalTuple tuple;
+    bool should_free;
+
+    // Get the next tuple from the tuplestore
+    tuple = (MinimalTuple) tuplestore_gettuple(state, forward, &should_free);
+
+    if (tuple)
+    {
+        // If copy requested and tuple isn't already copied, make a copy
+        if (copy && !should_free)
+        {
+            tuple = heap_copy_minimal_tuple(tuple);
+            should_free = true;
+        }
+
+        // Store the tuple in the slot
+        ExecStoreMinimalTuple(tuple, slot, should_free);
+        return true;
+    }
+    else
+    {
+        // No tuple available - clear the slot
+        ExecClearTuple(slot);
+        return false;
+    }
+}
+```

@@ -34,3 +34,13 @@ This function checks if a PostgreSQL data type supports collation by examining w
 - [Numeric](../N/Numeric.md) types, boolean, and other non-text types generally are not collatable
 - Used extensively in parser and catalog operations to validate collation clauses
 - The function is defined in `src/backend/utils/cache/lsyscache.c:3081-3096`
+
+## Simplified Source
+
+```c
+bool type_is_collatable(Oid typid)
+{
+    // Check if the type has a valid collation OID
+    return OidIsValid(get_typcollation(typid));
+}
+```

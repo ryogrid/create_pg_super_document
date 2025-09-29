@@ -42,3 +42,16 @@ This function is commonly used during bootstrap operations and WAL replay when s
 - Provides the primary public interface for SLRU page writing in PostgreSQL subsystems like CLOG, commit timestamps, multixact, and subtransaction status
 - Requires the appropriate bank lock to be held by the caller (inherited requirement from SlruInternalWritePage)
 - Part of PostgreSQL's transaction status management infrastructure
+
+## Simplified Source
+```c
+// Public wrapper for writing an SLRU page to disk
+void SimpleLruWritePage(SlruCtl ctl, int slotno)
+{
+    // Verify the slot contains valid data
+    Assert(ctl->shared->page_status[slotno] != SLRU_PAGE_EMPTY);
+
+    // Write the page using internal function (no flush data)
+    SlruInternalWritePage(ctl, slotno, NULL);
+}
+```

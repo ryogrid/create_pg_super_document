@@ -44,3 +44,24 @@ This function is essential for maintaining data structure integrity during devel
 - The function enforces the Bitmapset invariant that trailing zero words are not allowed
 - Returns true for NULL input, as NULL is the canonical representation of an empty set
 - Extensively used throughout the bitmapset module to validate inputs in debug builds
+
+## Simplified Source
+
+```c
+static bool bms_is_valid_set(const Bitmapset *a)
+{
+    // NULL is the correct representation of an empty set
+    if (a == NULL)
+        return true;
+
+    // Check the node tag is set correctly (detects freed pointers)
+    if (!IsA(a, Bitmapset))
+        return false;
+
+    // Trailing zero words are not allowed (key invariant)
+    if (a->words[a->nwords - 1] == 0)
+        return false;
+
+    return true;
+}
+```

@@ -40,3 +40,43 @@ AtEOXact_PgStat_DroppedStats manages the cleanup of statistics entries for datab
 - Tracks objects that couldn't be freed and requests garbage collection if needed
 - Each pending item contains information about the object kind, database OID, object OID, and whether it was a create operation
 - The function ensures transactional consistency by only processing appropriate operations based on the transaction outcome
+
+## Simplified Source
+
+```c
+static void AtEOXact_PgStat_DroppedStats(PgStat_SubXactStatus *xact_state, bool isCommit)
+{
+    dlist_mutable_iter iter;
+    int not_freed_count = 0;
+
+    // Early exit if no pending operations
+    if (dclist_count(&xact_state->pending_drops) == 0)
+        return;
+
+    // Process each pending stats operation
+    dclist_foreach_modify(iter, &xact_state->pending_drops) {
+        PgStat_PendingDroppedStatsItem *pending =
+            dclist_container(PgStat_PendingDroppedStatsItem, node, iter.cur);
+        xl_xact_stats_item *item = &pending->item;
+
+        if (isCommit && !pending->is_create) {
+            // On commit: drop stats for objects that were deleted
+            if (!pgstat_drop_entry(item->kind, item->dboid, item->objoid))
+                not_freed_count++;
+        }
+        else if (!isCommit && pending->is_create) {
+            // On abort: drop stats for objects that were created
+            if (!pgstat_drop_entry(item->kind, item->dboid, item->objoid))
+                not_freed_count++;
+        }
+
+        // Clean up the pending item
+        dclist_delete_from(&xact_state->pending_drops, &pending->node);
+        pfree(pending);
+    }
+
+    // Request garbage collection if some entries couldn't be freed
+    if (not_freed_count > 0)
+        pgstat_request_entry_refs_gc();
+}
+```

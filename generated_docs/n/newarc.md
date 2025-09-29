@@ -44,3 +44,39 @@ The function also includes an interrupt check point to allow for operation cance
 - The duplicate checking algorithm chooses the shorter chain (from->nouts vs to->nins) for efficiency
 - This function is static and only used within the regex NFA compilation module
 - The function serves as a key interrupt point for long-running regex compilation operations
+
+## Simplified Source
+
+```c
+static void newarc(struct nfa *nfa,
+                  int t,
+                  color co,
+                  struct state *from,
+                  struct state *to)
+{
+    struct arc *a;
+
+    assert(from != NULL && to != NULL);
+
+    // Check for operation cancellation
+    INTERRUPT(nfa->v->re);
+
+    // Check for duplicate arc using shorter chain for efficiency
+    if (from->nouts <= to->nins) {
+        // Search outgoing arcs from source state
+        for (a = from->outs; a != NULL; a = a->outchain) {
+            if (a->to == to && a->co == co && a->type == t)
+                return; // Duplicate found, don't create
+        }
+    } else {
+        // Search incoming arcs to destination state
+        for (a = to->ins; a != NULL; a = a->inchain) {
+            if (a->from == from && a->co == co && a->type == t)
+                return; // Duplicate found, don't create
+        }
+    }
+
+    // No duplicate found, create the arc
+    createarc(nfa, t, co, from, to);
+}
+```

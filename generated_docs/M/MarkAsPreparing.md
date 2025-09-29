@@ -40,3 +40,72 @@ MarkAsPreparing is a core function in PostgreSQL's two-phase commit protocol tha
 - Uses TwoPhaseStateLock for thread-safe access to shared state
 - Returns the allocated GlobalTransaction structure for further processing
 - Sets the ondisk flag to false initially (transaction not yet persisted)
+
+## Simplified Source
+
+```c
+GlobalTransaction MarkAsPreparing(TransactionId xid, const char *gid,
+                                  TimestampTz prepared_at, Oid owner, Oid databaseid)
+{
+    GlobalTransaction gxact;
+    int i;
+
+    // Validate GID length
+    if (strlen(gid) >= GIDSIZE)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("transaction identifier \"%s\" is too long", gid)));
+
+    // Check if prepared transactions are enabled
+    if (max_prepared_xacts == 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("prepared transactions are disabled"),
+                 errhint("Set \"max_prepared_transactions\" to a nonzero value.")));
+
+    // Register exit hook on first call
+    if (!twophaseExitRegistered)
+    {
+        before_shmem_exit(AtProcExit_Twophase, 0);
+        twophaseExitRegistered = true;
+    }
+
+    LWLockAcquire(TwoPhaseStateLock, LW_EXCLUSIVE);
+
+    // Check for conflicting GID in existing prepared transactions
+    for (i = 0; i < TwoPhaseState->numPrepXacts; i++)
+    {
+        gxact = TwoPhaseState->prepXacts[i];
+        if (strcmp(gxact->gid, gid) == 0)
+        {
+            ereport(ERROR,
+                    (errcode(ERRCODE_DUPLICATE_OBJECT),
+                     errmsg("transaction identifier \"%s\" is already in use", gid)));
+        }
+    }
+
+    // Get a free GlobalTransaction from the freelist
+    if (TwoPhaseState->freeGXacts == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_OUT_OF_MEMORY),
+                 errmsg("maximum number of prepared transactions reached"),
+                 errhint("Increase \"max_prepared_transactions\" (currently %d).",
+                         max_prepared_xacts)));
+
+    gxact = TwoPhaseState->freeGXacts;
+    TwoPhaseState->freeGXacts = gxact->next;
+
+    // Initialize the GlobalTransaction structure
+    MarkAsPreparingGuts(gxact, xid, gid, prepared_at, owner, databaseid);
+
+    gxact->ondisk = false;
+
+    // Add to the active prepared transactions array
+    Assert(TwoPhaseState->numPrepXacts < max_prepared_xacts);
+    TwoPhaseState->prepXacts[TwoPhaseState->numPrepXacts++] = gxact;
+
+    LWLockRelease(TwoPhaseStateLock);
+
+    return gxact;
+}
+```

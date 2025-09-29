@@ -36,3 +36,13 @@ The function serves as a clean API boundary between the cache invalidation logic
 - The function is a thin wrapper that provides a clean interface while delegating the complex shared memory operations to SIInsertDataEntries
 - Invalidation messages are critical for maintaining data consistency in a multi-process database system where each backend maintains its own caches
 - The function is declared in src/include/storage/sinval.h and implemented in src/backend/storage/ipc/sinval.c
+
+## Simplified Source
+
+```c
+void
+SendSharedInvalidMessages(const SharedInvalidationMessage *msgs, int n)
+{
+    SIInsertDataEntries(msgs, n);
+}
+```

@@ -29,3 +29,33 @@ This function is specifically designed for use during recovery mode to confirm i
 - Returns false immediately if two-phase commit is disabled (max_prepared_xacts <= 0)
 - Uses ReadTwoPhaseFile with the 'missing_ok' parameter set to true, allowing graceful handling of non-existent files
 - Memory allocated for the file buffer is properly freed after validation
+
+## Simplified Source
+
+```c
+bool
+StandbyTransactionIdIsPrepared(TransactionId xid)
+{
+	char *buf;
+	TwoPhaseFileHeader *hdr;
+	bool result;
+
+	Assert(TransactionIdIsValid(xid));
+
+	// Early exit if two-phase commit disabled
+	if (max_prepared_xacts <= 0)
+		return false;
+
+	// Read and validate two-phase file
+	buf = ReadTwoPhaseFile(xid, true);
+	if (buf == NULL)
+		return false;
+
+	// Check if transaction ID matches
+	hdr = (TwoPhaseFileHeader *) buf;
+	result = TransactionIdEquals(hdr->xid, xid);
+	pfree(buf);
+
+	return result;
+}
+```

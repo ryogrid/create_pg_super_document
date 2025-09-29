@@ -42,5 +42,29 @@ The  function determines the total number of blocks in a specified fork of a sto
 - The function uses a caching mechanism to avoid repeated system calls for the same relation
 - Returns InvalidBlockNumber if the relation doesn't exist or an error occurs
 - Widely used throughout PostgreSQL for buffer management, relation operations, and storage management
-- The cached value is stored in  for future use
+- The cached value is stored in for future use
 - Located in src/backend/storage/smgr/smgr.c:655-678
+
+## Simplified Source
+
+```c
+BlockNumber smgrnblocks(SMgrRelation reln, ForkNumber forknum)
+{
+    BlockNumber result;
+
+    // Check cache first for performance
+    result = smgrnblocks_cached(reln, forknum);
+    if (result != InvalidBlockNumber)
+        return result;
+
+    // If not cached, get the real value from storage manager
+    result = smgrsw[reln->smgr_which].smgr_nblocks(reln, forknum);
+
+    // Cache the result for future queries
+    reln->smgr_cached_nblocks[forknum] = result;
+
+    return result;
+}
+```
+
+This function calculates the number of blocks in a relation fork. It first checks for a cached value, and if not found, queries the storage manager and caches the result for future use.

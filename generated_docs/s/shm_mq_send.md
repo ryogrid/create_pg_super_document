@@ -38,3 +38,20 @@ The function handles the common case where the message data is stored in a singl
 - Returns shm_mq_result indicating success, queue full, or detached state
 - For sending multiple non-contiguous buffers in a single message, use shm_mq_sendv directly
 - The force_flush parameter is useful when immediate delivery is critical for correctness
+
+## Simplified Source
+
+```c
+shm_mq_result shm_mq_send(shm_mq_handle *mqh, Size nbytes, const void *data,
+                          bool nowait, bool force_flush)
+{
+    shm_mq_iovec iov;
+
+    // Construct a single I/O vector for the data
+    iov.data = data;
+    iov.len = nbytes;
+
+    // Delegate to vectorized send function
+    return shm_mq_sendv(mqh, &iov, 1, nowait, force_flush);
+}
+```

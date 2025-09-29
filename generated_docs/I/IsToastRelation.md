@@ -37,3 +37,17 @@ The function will not return true for TOAST tables belonging to other sessions' 
 - Used primarily in heap operations, logical replication, and cache invalidation scenarios
 - Part of PostgreSQL's TOAST system architecture for handling large attribute values
 - Located in src/backend/catalog/catalog.c at lines 175-194
+
+## Simplified Source
+
+```c
+bool IsToastRelation(Relation relation)
+{
+    // Check if relation belongs to a pg_toast namespace
+    // This is equivalent to checking if it's a TOAST relation because:
+    // - User relations cannot be created in pg_toast namespaces
+    // - Relations cannot be moved into/out of pg_toast namespaces
+    // - Other sessions' temp table TOAST relations are handled separately
+    return IsToastNamespace(RelationGetNamespace(relation));
+}
+```

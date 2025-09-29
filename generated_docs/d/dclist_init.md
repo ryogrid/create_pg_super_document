@@ -38,3 +38,14 @@ This function initializes a doubly-linked count list data structure. A dclist is
 - Previous state is discarded without cleanup - caller must handle any necessary cleanup
 - dclist provides O(1) count operations compared to standard dlist which requires O(n) traversal
 - Widely used throughout PostgreSQL for managing collections where element count is frequently needed
+
+## Simplified Source
+
+```c
+static inline void
+dclist_init(dclist_head *head)
+{
+    dlist_init(&head->dlist);
+    head->count = 0;
+}
+```

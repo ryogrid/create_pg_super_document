@@ -38,3 +38,15 @@ The function uses ProcessMessageSubGroupMulti macro to pass arrays of messages f
 - The provided function is typically SendSharedInvalidMessages for efficient transmission to shared memory
 - Part of PostgreSQL's invalidation message processing system for maintaining cache coherency
 - Used primarily when sending accumulated invalidation messages to other backends via shared memory
+
+## Simplified Source
+
+```c
+static void
+ProcessInvalidationMessagesMulti(InvalidationMsgsGroup *group,
+                                 void (*func) (const SharedInvalidationMessage *msgs, int n))
+{
+    ProcessMessageSubGroupMulti(group, CatCacheMsgs, func(msgs, n));
+    ProcessMessageSubGroupMulti(group, RelCacheMsgs, func(msgs, n));
+}
+```

@@ -41,3 +41,25 @@ The function is called lazily by other functions (BaseBackupAddTarget and BaseBa
 - Uses TopMemoryContext to ensure target list persists across memory contexts
 - Called automatically when needed, no manual initialization required
 - Part of PostgreSQL's extensible backup target architecture
+
+## Simplified Source
+
+```c
+static void initialize_target_list(void)
+{
+    BaseBackupTargetType *ttype = builtin_backup_targets;
+    MemoryContext oldcontext;
+
+    // Switch to TopMemoryContext to ensure list persists
+    oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+
+    // Add all built-in target types to the global list
+    while (ttype->name != NULL) {
+        BaseBackupTargetTypeList = lappend(BaseBackupTargetTypeList, ttype);
+        ++ttype;
+    }
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```

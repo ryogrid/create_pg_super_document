@@ -34,3 +34,12 @@ The function provides a quick way to determine transaction state regarding snaps
 - The `exportedSnapshots` is a static module-level List that tracks exported snapshots for the current transaction
 - Used primarily for transaction state management and cleanup operations
 - Simple boolean check with no side effects or complex logic
+
+## Simplified Source
+
+```c
+bool XactHasExportedSnapshots(void)
+{
+    return (exportedSnapshots != NIL);
+}
+```

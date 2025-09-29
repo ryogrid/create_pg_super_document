@@ -75,3 +75,107 @@ For incremental backups, the function outputs the exact list of blocks that need
 - The truncation length calculation ensures proper reconstruction by indicating the minimum file size required
 - Handles complex edge cases like files being deleted and recreated between backups
 - The function assumes that WAL replay during recovery will handle any inconsistencies from files that were modified after backup start
+
+## Simplified Source
+
+```c
+// Determine how to backup a file: fully or incrementally with specific blocks
+FileBackupMethod GetFileBackupMethod(IncrementalBackupInfo *ib, const char *path,
+                                     Oid dboid, Oid spcoid, RelFileNumber relfilenumber,
+                                     ForkNumber forknum, unsigned segno, size_t size,
+                                     unsigned *num_blocks_required,
+                                     BlockNumber *relative_block_numbers,
+                                     unsigned *truncation_block_length)
+{
+    BlockNumber limit_block, start_blkno, stop_blkno;
+    RelFileLocator rlocator;
+    BlockRefTableEntry *brtentry;
+    unsigned nblocks;
+
+    // Validate that we're in incremental backup mode
+    Assert(ib->buf.data == NULL);
+    Assert(OidIsValid(spcoid) && RelFileNumberIsValid(relfilenumber));
+
+    // If file size is invalid or not block-aligned, backup fully
+    if ((size % BLCKSZ) != 0 || size / BLCKSZ > RELSEG_SIZE)
+        return BACK_UP_FILE_FULLY;
+
+    // Free-space maps aren't properly WAL-logged, always backup fully
+    if (forknum == FSM_FORKNUM)
+        return BACK_UP_FILE_FULLY;
+
+    // Check if file existed in prior backup
+    if (backup_file_lookup(ib->manifest_files, path) == NULL) {
+        char *ipath = GetIncrementalFilePath(dboid, spcoid, relfilenumber, forknum, segno);
+        if (backup_file_lookup(ib->manifest_files, ipath) == NULL)
+            return BACK_UP_FILE_FULLY;
+    }
+
+    // Check if entire database was created since last backup
+    rlocator.spcOid = spcoid;
+    rlocator.dbOid = dboid;
+    rlocator.relNumber = 0;
+    if (BlockRefTableGetEntry(ib->brtab, &rlocator, MAIN_FORKNUM, &limit_block) != NULL)
+        return BACK_UP_FILE_FULLY;
+
+    // Look up block reference table entry for this specific relation
+    rlocator.relNumber = relfilenumber;
+    brtentry = BlockRefTableGetEntry(ib->brtab, &rlocator, forknum, &limit_block);
+
+    // If no entry exists, no WAL-logged changes occurred
+    if (brtentry == NULL) {
+        if (size == 0)  // Empty files should be backed up fully
+            return BACK_UP_FILE_FULLY;
+        *num_blocks_required = 0;
+        *truncation_block_length = size / BLCKSZ;
+        return BACK_UP_FILE_INCREMENTALLY;
+    }
+
+    // If limit block is before this segment, backup fully
+    if (limit_block <= segno * RELSEG_SIZE)
+        return BACK_UP_FILE_FULLY;
+
+    // Calculate block number range for this segment
+    start_blkno = segno * RELSEG_SIZE;
+    stop_blkno = start_blkno + (size / BLCKSZ);
+
+    // Detect overflow in block number calculations
+    if (start_blkno / RELSEG_SIZE != segno || stop_blkno < start_blkno)
+        ereport(ERROR, ...);
+
+    // Get list of modified blocks in this segment
+    nblocks = BlockRefTableEntryGetBlocks(brtentry, start_blkno, stop_blkno,
+                                          relative_block_numbers, RELSEG_SIZE);
+
+    // If >90% of blocks changed, backup fully (optimization threshold)
+    if (nblocks * BLCKSZ > size * 0.9)
+        return BACK_UP_FILE_FULLY;
+
+    // Sort block numbers and convert to relative offsets
+    qsort(relative_block_numbers, nblocks, sizeof(BlockNumber), compare_block_numbers);
+    if (start_blkno != 0) {
+        for (unsigned i = 0; i < nblocks; ++i)
+            relative_block_numbers[i] -= start_blkno;
+    }
+
+    *num_blocks_required = nblocks;
+
+    // Calculate truncation length for reconstruction
+    *truncation_block_length = size / BLCKSZ;
+    if (BlockNumberIsValid(limit_block)) {
+        unsigned relative_limit = limit_block - segno * RELSEG_SIZE;
+        if (*truncation_block_length < relative_limit)
+            *truncation_block_length = relative_limit;
+    }
+
+    return BACK_UP_FILE_INCREMENTALLY;
+}
+```
+
+**Key Points:**
+- Decides between full backup vs incremental backup with specific blocks
+- Validates file properties and handles special cases (FSM forks, new files)
+- Uses block reference table to find which blocks changed since last backup
+- Falls back to full backup when >90% of blocks would be included
+- Outputs sorted list of relative block numbers for incremental backup
+- Calculates truncation length for proper file reconstruction

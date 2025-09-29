@@ -40,3 +40,53 @@ The algorithm handles overlapping summary files correctly and can detect the exa
 - Timeline-agnostic - caller should filter by timeline beforehand
 - Essential for validating incremental backup prerequisites
 - Located in src/backend/backup/walsummary.c:138-204
+
+## Simplified Source
+
+```c
+bool
+WalSummariesAreComplete(List *wslist, XLogRecPtr start_lsn,
+                       XLogRecPtr end_lsn, XLogRecPtr *missing_lsn)
+{
+    XLogRecPtr current_lsn = start_lsn;
+    ListCell *lc;
+
+    // Handle empty list case
+    if (wslist == NIL)
+    {
+        *missing_lsn = InvalidXLogRecPtr;
+        return false;
+    }
+
+    // Sort summaries by start LSN for sequential processing
+    wslist = list_copy(wslist);
+    list_sort(wslist, ListComparatorForWalSummaryFiles);
+
+    // Check each summary file for continuous coverage
+    foreach(lc, wslist)
+    {
+        WalSummaryFile *ws = lfirst(lc);
+
+        // Check for gap between summaries
+        if (ws->start_lsn > current_lsn)
+        {
+            // Found a gap in coverage
+            break;
+        }
+
+        // Extend coverage if this summary goes beyond current position
+        if (ws->end_lsn > current_lsn)
+        {
+            current_lsn = ws->end_lsn;
+
+            // Check if we've reached the required end LSN
+            if (current_lsn >= end_lsn)
+                return true;  // Complete coverage achieved
+        }
+    }
+
+    // Coverage is incomplete - indicate where it stops
+    *missing_lsn = current_lsn;
+    return false;
+}
+```

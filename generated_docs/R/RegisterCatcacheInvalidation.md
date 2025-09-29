@@ -39,3 +39,14 @@ When called, the function adds the invalidation message to the CurrentCmdInvalid
 - Invalidation messages are organized by transaction and command boundaries for proper rollback semantics
 - The cacheId parameter corresponds to specific catalog caches (pg_class, pg_attribute, etc.)
 - [Hash](../H/Hash.md) values enable efficient lookup and invalidation of specific cache entries rather than wholesale cache clearing
+
+## Simplified Source
+
+```c
+static void RegisterCatcacheInvalidation(int cacheId, uint32 hashValue, Oid dbId)
+{
+    // Add invalidation message to current command's message group
+    AddCatcacheInvalidationMessage(&transInvalInfo->CurrentCmdInvalidMsgs,
+                                   cacheId, hashValue, dbId);
+}
+```

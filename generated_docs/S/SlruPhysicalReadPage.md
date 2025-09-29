@@ -52,3 +52,59 @@ The function is designed to never call ereport(ERROR) directly since callers may
 - Manages transient file descriptors efficiently - files are not kept open between operations
 - Critical path for all SLRU read operations in PostgreSQL's transaction status subsystems
 - Error information is stored in static variables for later reporting by SlruReportIOError
+
+## Simplified Source
+
+```c
+static bool SlruPhysicalReadPage(SlruCtl ctl, int64 pageno, int slotno)
+{
+    SlruShared shared = ctl->shared;
+
+    // Calculate file segment and page within segment
+    int64 segno = pageno / SLRU_PAGES_PER_SEGMENT;
+    int rpageno = pageno % SLRU_PAGES_PER_SEGMENT;
+    off_t offset = rpageno * BLCKSZ;
+
+    // Build file path for this segment
+    char path[MAXPGPATH];
+    SlruFileName(ctl, path, segno);
+
+    // Open the file for reading
+    int fd = OpenTransientFile(path, O_RDONLY | PG_BINARY);
+    if (fd < 0) {
+        // During recovery, missing files are OK - return zeros
+        if (errno != ENOENT || !InRecovery) {
+            slru_errcause = SLRU_OPEN_FAILED;
+            slru_errno = errno;
+            return false;
+        }
+
+        ereport(LOG, "file \"%s\" doesn't exist, reading as zeroes", path);
+        MemSet(shared->page_buffer[slotno], 0, BLCKSZ);
+        return true;
+    }
+
+    // Read the page data with wait event tracking
+    errno = 0;
+    pgstat_report_wait_start(WAIT_EVENT_SLRU_READ);
+
+    if (pg_pread(fd, shared->page_buffer[slotno], BLCKSZ, offset) != BLCKSZ) {
+        pgstat_report_wait_end();
+        slru_errcause = SLRU_READ_FAILED;
+        slru_errno = errno;
+        CloseTransientFile(fd);
+        return false;
+    }
+
+    pgstat_report_wait_end();
+
+    // Close file and check for errors
+    if (CloseTransientFile(fd) != 0) {
+        slru_errcause = SLRU_CLOSE_FAILED;
+        slru_errno = errno;
+        return false;
+    }
+
+    return true;
+}
+```

@@ -36,3 +36,26 @@ The function performs a hash table lookup using HASH_FIND to locate the SMgrRela
 - The optimization prevents unnecessary hash table churn when releasing relations that aren't currently open
 - Thread-safe as it only performs read operations on the hash table before calling smgrrelease()
 - Located in src/backend/storage/smgr/smgr.c:379-397
+
+## Simplified Source
+
+```c
+// Release resources for RelFileLocator if it's open (optimized version)
+void smgrreleaserellocator(RelFileLocatorBackend rlocator)
+{
+    SMgrRelation reln;
+
+    // Nothing to do if hash table not initialized
+    if (SMgrRelationHash == NULL)
+        return;
+
+    // Look up relation in hash table (don't create if missing)
+    reln = (SMgrRelation) hash_search(SMgrRelationHash,
+                                      &rlocator,
+                                      HASH_FIND, NULL);
+
+    // If found, release it
+    if (reln != NULL)
+        smgrrelease(reln);
+}
+```

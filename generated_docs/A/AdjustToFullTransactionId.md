@@ -30,3 +30,13 @@ The function is safe to use as long as the transaction has not yet reached COMMI
 - The comment warns that not all callers properly limit their calls to the safe window before COMMIT/ROLLBACK PREPARED
 - Critical for maintaining transaction ID integrity across epoch boundaries in prepared transactions
 - Used internally within twophase.c for state file operations
+
+## Simplified Source
+
+```c
+static inline FullTransactionId AdjustToFullTransactionId(TransactionId xid)
+{
+    Assert(TransactionIdIsValid(xid));
+    return FullTransactionIdFromAllowableAt(ReadNextFullTransactionId(), xid);
+}
+```

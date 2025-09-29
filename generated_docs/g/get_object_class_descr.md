@@ -41,3 +41,13 @@ The function is commonly used in error reporting, logging, and user-facing messa
 - The returned string is typically a simple noun describing the object class (e.g., "relation", "function", "type")
 - Essential for generating user-friendly error messages and log entries that reference catalog objects
 - The function assumes the class_id corresponds to a valid, known catalog class
+
+## Simplified Source
+
+```c
+const char *get_object_class_descr(Oid class_id)
+{
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+    return prop->class_descr;
+}
+```

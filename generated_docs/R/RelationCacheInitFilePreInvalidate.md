@@ -42,3 +42,27 @@ The design handles the case where files might not exist (if no backend has start
 - The lock prevents concurrent write_relcache_init_file from installing stale data
 - Handles both local database init files and shared catalog init files
 - File location: src/backend/utils/cache/relcache.c:6766-6790
+
+## Simplified Source
+
+```c
+void
+RelationCacheInitFilePreInvalidate(void)
+{
+    char localinitfname[MAXPGPATH];
+    char sharedinitfname[MAXPGPATH];
+
+    if (DatabasePath)
+        snprintf(localinitfname, sizeof(localinitfname), "%s/%s",
+                 DatabasePath, RELCACHE_INIT_FILENAME);
+    snprintf(sharedinitfname, sizeof(sharedinitfname), "global/%s",
+             RELCACHE_INIT_FILENAME);
+
+    LWLockAcquire(RelCacheInitLock, LW_EXCLUSIVE);
+
+    // Remove files, allowing ENOENT but reporting other errors
+    if (DatabasePath)
+        unlink_initfile(localinitfname, ERROR);
+    unlink_initfile(sharedinitfname, ERROR);
+}
+```

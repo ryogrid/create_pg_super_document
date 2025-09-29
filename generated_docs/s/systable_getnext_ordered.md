@@ -40,3 +40,26 @@ The function operates by calling index_getnext_slot() to retrieve the next tuple
 - Includes special handling for concurrent transaction aborts during logical streaming
 - The returned HeapTuple should not be freed by the caller as it references slot memory
 - Part of the ordered scanning API that complements the basic systable_getnext() function
+
+## Simplified Source
+
+```c
+HeapTuple systable_getnext_ordered(SysScanDesc sysscan, ScanDirection direction)
+{
+    HeapTuple htup = NULL;
+
+    // Get next tuple from index scan in specified direction
+    Assert(sysscan->irel);
+    if (index_getnext_slot(sysscan->iscan, direction, sysscan->slot))
+        htup = ExecFetchSlotHeapTuple(sysscan->slot, false, NULL);
+
+    // Check for lossy index conditions (not supported for catalog scans)
+    if (htup && sysscan->iscan->xs_recheck)
+        elog(ERROR, "system catalog scans with lossy index conditions are not implemented");
+
+    // Handle concurrent transaction aborts during logical replication
+    HandleConcurrentAbort();
+
+    return htup;
+}
+```

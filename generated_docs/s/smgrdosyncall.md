@@ -38,6 +38,34 @@ This bulk approach is more efficient because it can optimize I/O operations acro
 - Optimized for bulk synchronization operations, significantly faster than individual relation syncing
 - Essential for ensuring data durability, especially during checkpoint operations
 - Handles all fork types (main, FSM, VM, init) for each relation
-- Only syncs forks that actually exist, avoiding unnecessary I/O for non-existent forks  
+- Only syncs forks that actually exist, avoiding unnecessary I/O for non-existent forks
 - Part of PostgreSQL's write-ahead logging and checkpoint mechanism for crash recovery
 - Located in src/backend/storage/smgr/smgr.c:426-461
+
+## Simplified Source
+
+```c
+void smgrdosyncall(SMgrRelation *rels, int nrels)
+{
+    if (nrels == 0)
+        return;
+
+    // First, flush all dirty buffers for all relations
+    FlushRelationsAllBuffers(rels, nrels);
+
+    // Then sync the physical files for each relation and fork
+    for (int i = 0; i < nrels; i++)
+    {
+        int which = rels[i]->smgr_which;
+
+        for (ForkNumber forknum = 0; forknum <= MAX_FORKNUM; forknum++)
+        {
+            // Only sync forks that actually exist
+            if (smgrsw[which].smgr_exists(rels[i], forknum))
+                smgrsw[which].smgr_immedsync(rels[i], forknum);
+        }
+    }
+}
+```
+
+This function provides optimized bulk synchronization of multiple relations to persistent storage. It first flushes all dirty buffers, then syncs each existing fork of each relation using the storage manager interface.

@@ -46,3 +46,54 @@ The function iterates through all catalog caches, identifies those that contain 
 - Handles both shared and database-specific catalog caches appropriately
 - Does not require the tuple to actually be present in cache - prepares invalidation even for potential future cache entries
 - Called for any tuple in a system relation, even if no catalog caches exist for that relation
+
+## Simplified Source
+
+```c
+void PrepareToInvalidateCacheTuple(Relation relation,
+                                  HeapTuple tuple,
+                                  HeapTuple newtuple,
+                                  void (*function) (int, uint32, Oid))
+{
+    slist_iter iter;
+    Oid reloid;
+
+    CACHE_elog(DEBUG2, "PrepareToInvalidateCacheTuple: called");
+
+    // Validate inputs
+    Assert(RelationIsValid(relation));
+    Assert(HeapTupleIsValid(tuple));
+    Assert(PointerIsValid(function));
+    Assert(CacheHdr != NULL);
+
+    reloid = RelationGetRelid(relation);
+
+    // For each catalog cache, check if it contains tuples from this relation
+    slist_foreach(iter, &CacheHdr->ch_caches) {
+        CatCache *ccp = slist_container(CatCache, cc_next, iter.cur);
+        uint32 hashvalue;
+        Oid dbid;
+
+        // Skip caches that don't contain tuples from this relation
+        if (ccp->cc_reloid != reloid)
+            continue;
+
+        // Initialize cache if needed
+        if (ccp->cc_tupdesc == NULL)
+            CatalogCacheInitializeCache(ccp);
+
+        // Compute hash value for the tuple and register for invalidation
+        hashvalue = CatalogCacheComputeTupleHashValue(ccp, ccp->cc_nkeys, tuple);
+        dbid = ccp->cc_relisshared ? (Oid) 0 : MyDatabaseId;
+        (*function)(ccp->id, hashvalue, dbid);
+
+        // For updates, also process new tuple if hash differs
+        if (newtuple) {
+            uint32 newhashvalue;
+            newhashvalue = CatalogCacheComputeTupleHashValue(ccp, ccp->cc_nkeys, newtuple);
+            if (newhashvalue != hashvalue)
+                (*function)(ccp->id, newhashvalue, dbid);
+        }
+    }
+}
+```

@@ -42,3 +42,30 @@ The caller is responsible for ensuring that the imported snapshot comes from a s
 - The caller must validate that the source snapshot is from a compatible serializable transaction
 - Used primarily for snapshot sharing between processes and parallel query execution
 - Part of PostgreSQL's Serializable Snapshot Isolation (SSI) implementation
+
+## Simplified Source
+
+```c
+void SetSerializableTransactionSnapshot(Snapshot snapshot,
+                                      VirtualTransactionId *sourcevxid,
+                                      int sourcepid)
+{
+    // Ensure we're using serializable isolation
+    Assert(IsolationIsSerializable());
+
+    // Parallel workers don't need to set up serializable context here
+    // (it's handled by AttachSerializableXact later)
+    if (IsParallelWorker())
+        return;
+
+    // READ ONLY DEFERRABLE transactions can't import snapshots
+    // because they need to wait for safe snapshots
+    if (XactReadOnly && XactDeferrable)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("a snapshot-importing transaction must not be READ ONLY DEFERRABLE")));
+
+    // Set up the serializable transaction using the imported snapshot
+    (void) GetSerializableTransactionSnapshotInt(snapshot, sourcevxid, sourcepid);
+}
+```

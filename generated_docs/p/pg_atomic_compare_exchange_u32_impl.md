@@ -45,3 +45,31 @@ The implementation uses a spinlock embedded within the atomic variable's structu
 - The spinlock approach ensures portability across all architectures supported by PostgreSQL
 - The function is defined in src/backend/port/atomics.c as part of PostgreSQL's atomic operations abstraction layer
 - Performance-critical code should prefer hardware-accelerated atomic operations when available, as this spinlock-based fallback has higher overhead
+
+## Simplified Source
+
+```c
+bool pg_atomic_compare_exchange_u32_impl(volatile pg_atomic_uint32 *ptr,
+                                          uint32 *expected, uint32 newval)
+{
+    bool ret;
+
+    // Acquire spinlock to ensure atomicity
+    SpinLockAcquire((slock_t *) &ptr->sema);
+
+    // Check if current value matches expected value
+    ret = (ptr->value == *expected);
+
+    // Update expected with actual current value
+    *expected = ptr->value;
+
+    // If values matched, update to new value
+    if (ret)
+        ptr->value = newval;
+
+    // Release spinlock
+    SpinLockRelease((slock_t *) &ptr->sema);
+
+    return ret;
+}
+```

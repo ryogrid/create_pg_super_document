@@ -40,3 +40,21 @@ This callback is selected when `tstoreStartupReceiver` determines that a target 
 - Provides format flexibility for cases where the executor output format differs from the desired storage format
 - More expensive than tstoreReceiveSlot_notoast but less complex than tstoreReceiveSlot_detoast
 - The attribute mapping handles dropped columns, type differences, and column reordering
+
+## Simplified Source
+
+```c
+static bool
+tstoreReceiveSlot_tupmap(TupleTableSlot *slot, DestReceiver *self)
+{
+    TStoreState *myState = (TStoreState *) self;
+
+    // Convert tuple using attribute mapping
+    execute_attr_map_slot(myState->tupmap->attrMap, slot, myState->mapslot);
+
+    // Store the converted tuple
+    tuplestore_puttupleslot(myState->tstore, myState->mapslot);
+
+    return true;
+}
+```

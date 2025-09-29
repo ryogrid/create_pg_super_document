@@ -39,3 +39,41 @@ CreateBlockRefTableReader initializes a new BlockRefTableReader structure that p
 - The error_filename pointer is stored directly without copying, requiring caller to maintain its validity
 - Returns a fully initialized reader ready for sequential entry processing
 - Memory is allocated using palloc0 to ensure zero-initialization of the reader structure
+
+## Simplified Source
+
+```c
+BlockRefTableReader *
+CreateBlockRefTableReader(io_callback_fn read_callback,
+                         void *read_callback_arg,
+                         char *error_filename,
+                         report_error_fn error_callback,
+                         void *error_callback_arg)
+{
+    BlockRefTableReader *reader;
+    uint32 magic;
+
+    // Initialize reader structure with zero-filled memory
+    reader = palloc0(sizeof(BlockRefTableReader));
+
+    // Set up I/O and error handling callbacks
+    reader->buffer.io_callback = read_callback;
+    reader->buffer.io_callback_arg = read_callback_arg;
+    reader->error_filename = error_filename;
+    reader->error_callback = error_callback;
+    reader->error_callback_arg = error_callback_arg;
+
+    // Initialize CRC calculation for integrity checking
+    INIT_CRC32C(reader->buffer.crc);
+
+    // Verify file format by checking magic number
+    BlockRefTableRead(reader, &magic, sizeof(uint32));
+    if (magic != BLOCKREFTABLE_MAGIC)
+        error_callback(error_callback_arg,
+                      "file \"%s\" has wrong magic number: expected %u, found %u",
+                      error_filename,
+                      BLOCKREFTABLE_MAGIC, magic);
+
+    return reader;
+}
+```

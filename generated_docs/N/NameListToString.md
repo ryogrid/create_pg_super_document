@@ -46,3 +46,34 @@ The function builds the output string by iterating through each element in the l
 - The function will terminate with an ERROR if it encounters a node type other than String or A_Star
 - Memory for the returned string is allocated in the current memory context and should be managed accordingly
 - The dot notation used matches PostgreSQL's standard qualified name syntax (schema.table.column)
+
+## Simplified Source
+
+```c
+char *
+NameListToString(const List *names)
+{
+    StringInfoData string;
+    ListCell   *l;
+
+    initStringInfo(&string);
+
+    foreach(l, names)
+    {
+        Node *name = (Node *) lfirst(l);
+
+        if (l != list_head(names))
+            appendStringInfoChar(&string, '.');
+
+        if (IsA(name, String))
+            appendStringInfoString(&string, strVal(name));
+        else if (IsA(name, A_Star))
+            appendStringInfoChar(&string, '*');
+        else
+            elog(ERROR, "unexpected node type in name list: %d",
+                 (int) nodeTag(name));
+    }
+
+    return string.data;
+}
+```

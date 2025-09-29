@@ -38,3 +38,32 @@ This function is useful when you already have a list of WAL summaries and need t
 - Filtering criteria are inclusive - summaries that overlap with the specified range are included
 - Part of PostgreSQL's incremental backup infrastructure
 - Located in src/backend/backup/walsummary.c:100-137
+
+## Simplified Source
+
+```c
+List *FilterWalSummaries(List *wslist, TimeLineID tli,
+                        XLogRecPtr start_lsn, XLogRecPtr end_lsn)
+{
+    List *result = NIL;
+    ListCell *lc;
+
+    // Loop through each WAL summary in the input list
+    foreach(lc, wslist) {
+        WalSummaryFile *ws = lfirst(lc);
+
+        // Apply filtering criteria - skip if doesn't match
+        if (tli != 0 && tli != ws->tli)
+            continue;
+        if (!XLogRecPtrIsInvalid(start_lsn) && start_lsn > ws->end_lsn)
+            continue;
+        if (!XLogRecPtrIsInvalid(end_lsn) && end_lsn < ws->start_lsn)
+            continue;
+
+        // Add matching summary to result list
+        result = lappend(result, ws);
+    }
+
+    return result;
+}
+```

@@ -33,3 +33,13 @@ This function takes no parameters.
 - The query_depth counter enables proper nesting of queries and subqueries within the trigger system
 - Must be paired with AfterTriggerEndQuery to properly manage the query stack depth
 - Called from various execution contexts including COPY operations, TRUNCATE, executor startup, and logical replication
+
+## Simplified Source
+
+```c
+void AfterTriggerBeginQuery(void)
+{
+    // Increase the query stack depth
+    afterTriggers.query_depth++;
+}
+```

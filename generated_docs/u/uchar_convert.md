@@ -41,3 +41,25 @@ The function wraps ICU's ucnv_toUChars() function with PostgreSQL-style error ha
 - Critical for enabling ICU-based collation and string operations in PostgreSQL
 - Buffer overflow protection relies on proper size calculation beforehand
 - The converted string in the destination buffer is ready for use with ICU string functions
+
+## Simplified Source
+
+```c
+static int32_t uchar_convert(UConverter *converter, UChar *dest, int32_t destlen,
+                             const char *src, int32_t srclen)
+{
+    UErrorCode status = U_ZERO_ERROR;
+    int32_t ulen;
+
+    // Convert source string to Unicode using ICU converter
+    status = U_ZERO_ERROR;
+    ulen = ucnv_toUChars(converter, dest, destlen, src, srclen, &status);
+
+    // Report any conversion errors
+    if (U_FAILURE(status))
+        ereport(ERROR,
+                (errmsg("%s failed: %s", "ucnv_toUChars", u_errorName(status))));
+
+    return ulen;
+}
+```

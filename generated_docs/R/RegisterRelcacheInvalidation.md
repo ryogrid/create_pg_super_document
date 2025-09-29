@@ -41,3 +41,23 @@ The function is part of PostgreSQL's cache invalidation system and ensures that 
 - Uses GetCurrentCommandId(true) as a "quick hack" to ensure proper command-end processing
 - The RelcacheInitFileInval flag triggers physical removal of cached init files at transaction commit
 - Database-specific invalidations also invalidate the shared init file for simplicity
+
+## Simplified Source
+
+```c
+static void RegisterRelcacheInvalidation(Oid dbId, Oid relId)
+{
+    // Add invalidation message to current command's message group
+    AddRelcacheInvalidationMessage(&transInvalInfo->CurrentCmdInvalidMsgs, dbId, relId);
+
+    // Ensure CommandCounterIncrement will call CommandEndInvalidationMessages
+    // This hack is needed because relcache invalidation can happen outside
+    // typical system catalog updates
+    (void) GetCurrentCommandId(true);
+
+    // If relation is cached in init file or invalidating all relations,
+    // mark init file for removal at commit
+    if (relId == InvalidOid || RelationIdIsInInitFile(relId))
+        transInvalInfo->RelcacheInitFileInval = true;
+}
+```

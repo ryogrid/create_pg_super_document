@@ -39,3 +39,24 @@ This mechanism enables responsive synchronous replication by ensuring that apply
 - Critical for synchronous replication performance, particularly with remote_apply synchronous_commit levels
 - The function is non-blocking and simply signals the WAL receiver; the actual reply sending happens in the main WAL receiver loop
 - Thread-safe design allows safe calling from different processes in the PostgreSQL multi-process architecture
+
+## Simplified Source
+
+```c
+void WalRcvForceReply(void)
+{
+    Latch *latch;
+
+    // Set flag to force immediate reply to primary
+    WalRcv->force_reply = true;
+
+    // Safely get the latch pointer (might not be atomic)
+    SpinLockAcquire(&WalRcv->mutex);
+    latch = WalRcv->latch;
+    SpinLockRelease(&WalRcv->mutex);
+
+    // Wake up the WAL receiver process if it exists
+    if (latch)
+        SetLatch(latch);
+}
+```

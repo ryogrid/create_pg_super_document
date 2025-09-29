@@ -44,3 +44,39 @@ The function requires that the caller holds an appropriate lock on the relation 
 - The catalog update triggers shared invalidation messages to ensure all backends update their relation caches
 - [Command](../C/Command.md) counter increment ensures the updated state is visible within the same transaction
 - This function is essential for the materialized view refresh mechanism in PostgreSQL
+
+## Simplified Source
+
+```c
+void SetMatViewPopulatedState(Relation relation, bool newstate)
+{
+    Relation pgrel;
+    HeapTuple tuple;
+
+    // Verify this is a materialized view
+    Assert(relation->rd_rel->relkind == RELKIND_MATVIEW);
+
+    // Open pg_class catalog with exclusive lock for update
+    pgrel = table_open(RelationRelationId, RowExclusiveLock);
+
+    // Find the tuple for this relation in pg_class
+    tuple = SearchSysCacheCopy1(RELOID,
+                                ObjectIdGetDatum(RelationGetRelid(relation)));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u",
+             RelationGetRelid(relation));
+
+    // Update the relispopulated flag
+    ((Form_pg_class) GETSTRUCT(tuple))->relispopulated = newstate;
+
+    // Update the catalog tuple - this triggers shared invalidation messages
+    CatalogTupleUpdate(pgrel, &tuple->t_self, tuple);
+
+    // Clean up resources
+    heap_freetuple(tuple);
+    table_close(pgrel, RowExclusiveLock);
+
+    // Advance command counter to make change visible locally
+    CommandCounterIncrement();
+}
+```

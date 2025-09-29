@@ -40,3 +40,28 @@ This function takes no parameters and returns a boolean value indicating whether
 - Performs complete signal cleanup and state transitions when promotion is triggered
 - Called frequently during recovery to ensure responsive promotion handling
 - Located at src/backend/access/transam/xlogrecovery.c:4434-4454
+
+## Simplified Source
+
+```c
+static bool CheckForStandbyTrigger(void)
+{
+    // Check if promotion was already triggered locally
+    if (LocalPromoteIsTriggered)
+        return true;
+
+    // Check for external promotion signals
+    if (IsPromoteSignaled() && CheckPromoteSignal()) {
+        ereport(LOG, "received promote request");
+
+        // Clean up signal files and update state
+        RemovePromoteSignalFiles();
+        ResetPromoteSignaled();
+        SetPromoteIsTriggered();
+
+        return true;
+    }
+
+    return false;
+}
+```

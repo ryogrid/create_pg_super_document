@@ -40,3 +40,27 @@ The function includes the same optional filtering capability for running workers
 - Used primarily for subscription-wide operations like cleanup and transaction-end processing
 - The returned list contains pointers to workers in shared memory, so callers must be careful about memory context and locking
 - Critical for ensuring complete cleanup when subscriptions are dropped or during transaction boundaries
+
+## Simplified Source
+
+```c
+List *
+logicalrep_workers_find(Oid subid, bool only_running)
+{
+    int i;
+    List *res = NIL;
+
+    Assert(LWLockHeldByMe(LogicalRepWorkerLock));
+
+    // Search for all workers for a given subscription id
+    for (i = 0; i < max_logical_replication_workers; i++)
+    {
+        LogicalRepWorker *w = &LogicalRepCtx->workers[i];
+
+        if (w->in_use && w->subid == subid && (!only_running || w->proc))
+            res = lappend(res, w);
+    }
+
+    return res;
+}
+```

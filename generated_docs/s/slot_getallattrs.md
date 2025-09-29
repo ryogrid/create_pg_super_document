@@ -44,3 +44,14 @@ This is particularly useful when multiple attributes need to be accessed, as it 
 - After calling this function, direct array access via slot->tts_values[attno-1] and slot->tts_isnull[attno-1] is safe
 - Commonly used in operations that need to process entire tuples such as COPY, tuple comparison, and tuple serialization
 - The function uses the tuple descriptor's natts field to determine how many attributes to materialize
+
+## Simplified Source
+
+```c
+static inline void slot_getallattrs(TupleTableSlot *slot)
+{
+    // Force materialization of all attributes in the slot
+    // by calling slot_getsomeattrs with the total attribute count
+    slot_getsomeattrs(slot, slot->tts_tupleDescriptor->natts);
+}
+```

@@ -35,3 +35,12 @@ DatumGetObjectId performs a simple type cast from a Datum to an Oid (Object Iden
 - Part of the family of DatumGet* conversion functions that provide type-safe extraction from Datum values
 - The function assumes the input Datum actually contains a valid Oid value - no type checking is performed
 - Commonly used in conjunction with PG_GETARG_OID macro for extracting OID arguments from PostgreSQL functions
+
+## Simplified Source
+
+```c
+static inline Oid DatumGetObjectId(Datum X)
+{
+    return (Oid) X;  // Direct type cast from Datum to Oid
+}
+```

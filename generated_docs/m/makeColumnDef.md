@@ -51,3 +51,36 @@ The function sets up a basic column definition that can be further customized by
 - Sets location to -1 (unknown source location)
 - Declared in src/include/nodes/makefuncs.h at line 76
 - Commonly used in DDL operations, table creation, and schema manipulation
+
+## Simplified Source
+
+```c
+ColumnDef *makeColumnDef(const char *colname, Oid typeOid, int32 typmod, Oid collOid)
+{
+    ColumnDef *n = makeNode(ColumnDef);
+
+    // Set basic column properties
+    n->colname = pstrdup(colname);
+    n->typeName = makeTypeNameFromOid(typeOid, typmod);
+    n->collOid = collOid;
+
+    // Initialize inheritance and locality flags
+    n->inhcount = 0;
+    n->is_local = true;
+    n->is_not_null = false;
+    n->is_from_type = false;
+
+    // Initialize storage and default settings
+    n->storage = 0;
+    n->raw_default = NULL;
+    n->cooked_default = NULL;
+    n->collClause = NULL;
+
+    // Initialize constraint and option lists
+    n->constraints = NIL;
+    n->fdwoptions = NIL;
+    n->location = -1;
+
+    return n;
+}
+```

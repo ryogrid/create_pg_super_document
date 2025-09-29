@@ -52,3 +52,46 @@ Key responsibilities include:
 - Handles both transactional and non-transactional messages appropriately
 - The txn parameter can be NULL for non-transactional messages, and the function handles this case by setting write_xid to InvalidTransactionId
 - Manages error context stack properly to ensure cleanup on both success and failure paths
+
+## Simplified Source
+
+```c
+static void stream_message_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                                    XLogRecPtr message_lsn, bool transactional,
+                                    const char *prefix, Size message_size, const char *message)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    // Validate streaming mode is enabled
+    Assert(!ctx->fast_forward);
+    Assert(ctx->streaming);
+
+    // Early return if optional callback not provided
+    if (ctx->callbacks.stream_message_cb == NULL)
+        return;
+
+    // Set up error context for better error reporting
+    state.ctx = ctx;
+    state.callback_name = "stream_message";
+    state.report_location = message_lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for message processing
+    ctx->accept_writes = true;
+    ctx->write_xid = txn != NULL ? txn->xid : InvalidTransactionId;
+    ctx->write_location = message_lsn;
+    ctx->end_xact = false;
+
+    // Call the plugin's stream message callback
+    ctx->callbacks.stream_message_cb(ctx, txn, message_lsn, transactional, prefix,
+                                   message_size, message);
+
+    // Restore previous error context
+    error_context_stack = errcallback.previous;
+}
+```

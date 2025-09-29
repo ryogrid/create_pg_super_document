@@ -39,3 +39,37 @@ The function uses an explicit switch statement that lists every backend type, en
 - The explicit switch statement design ensures compiler warnings when new backend types are added
 - When adding new backend types, developers should also consider updating pgstat_tracks_io_object() and pgstat_tracks_io_op()
 - Located in src/backend/utils/activity/pgstat_io.c:319-358
+
+## Simplified Source
+
+```c
+bool pgstat_tracks_io_bktype(BackendType bktype)
+{
+    // Returns false for backend types that don't track I/O
+    switch (bktype)
+    {
+        case B_INVALID:
+        case B_ARCHIVER:
+        case B_LOGGER:
+        case B_WAL_RECEIVER:
+        case B_WAL_WRITER:
+        case B_WAL_SUMMARIZER:
+            return false;
+
+        // Returns true for backend types that do track I/O
+        case B_AUTOVAC_LAUNCHER:
+        case B_AUTOVAC_WORKER:
+        case B_BACKEND:
+        case B_BG_WORKER:
+        case B_BG_WRITER:
+        case B_CHECKPOINTER:
+        case B_SLOTSYNC_WORKER:
+        case B_STANDALONE_BACKEND:
+        case B_STARTUP:
+        case B_WAL_SENDER:
+            return true;
+    }
+
+    return false;
+}
+```

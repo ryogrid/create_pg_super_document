@@ -43,3 +43,55 @@ The function is commonly used by PostgreSQL processes to indicate their current 
 - Maintains internal state variables (ps_buffer_cur_len, ps_buffer_nosuffix_len) for proper suffix management
 - The space separator is added automatically - callers should not include leading spaces in the suffix
 - Used extensively throughout PostgreSQL for showing wait states, replication status, and other transient process activities
+
+## Simplified Source
+
+```c
+void set_ps_display_suffix(const char *suffix)
+{
+#ifndef PS_USE_NONE
+    size_t len;
+
+    // Check if process title updates are enabled
+    if (!update_ps_display_precheck())
+        return;
+
+    // Handle existing suffix - overwrite or record original length
+    if (ps_buffer_nosuffix_len > 0)
+        ps_buffer_cur_len = ps_buffer_nosuffix_len;  // Remove existing suffix
+    else
+        ps_buffer_nosuffix_len = ps_buffer_cur_len;  // Remember original length
+
+    len = strlen(suffix);
+
+    // Check if we have enough space for " " + suffix + "\0"
+    if (ps_buffer_cur_len + len + 1 >= ps_buffer_size)
+    {
+        // Not enough space - truncate if possible
+        if (ps_buffer_cur_len < ps_buffer_size - 1)
+        {
+            // Add space separator
+            ps_buffer[ps_buffer_cur_len++] = ' ';
+
+            // Copy as much of suffix as will fit
+            memcpy(ps_buffer + ps_buffer_cur_len, suffix,
+                   ps_buffer_size - ps_buffer_cur_len - 1);
+            ps_buffer[ps_buffer_size - 1] = '\0';
+            ps_buffer_cur_len = ps_buffer_size - 1;
+        }
+    }
+    else
+    {
+        // Enough space - add space and full suffix
+        ps_buffer[ps_buffer_cur_len++] = ' ';
+        memcpy(ps_buffer + ps_buffer_cur_len, suffix, len + 1);
+        ps_buffer_cur_len = ps_buffer_cur_len + len;
+    }
+
+    Assert(strlen(ps_buffer) == ps_buffer_cur_len);
+
+    // Apply the new title to the system
+    flush_ps_display();
+#endif  // not PS_USE_NONE
+}
+```

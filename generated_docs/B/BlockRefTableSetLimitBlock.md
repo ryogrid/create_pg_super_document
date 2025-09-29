@@ -46,3 +46,39 @@ The function operates by:
 - The BlockRefTableKey structure is zero-initialized to ensure consistent padding
 - This operation can potentially free memory by removing tracking information for blocks beyond the limit
 - The function is commonly used during WAL summarization to maintain accurate relation size information
+
+## Simplified Source
+
+```c
+void
+BlockRefTableSetLimitBlock(BlockRefTable *brtab,
+                          const RelFileLocator *rlocator,
+                          ForkNumber forknum,
+                          BlockNumber limit_block)
+{
+    BlockRefTableEntry *brtentry;
+    BlockRefTableKey key = {{0}};  // Zero-initialize for consistent hashing
+    bool found;
+
+    // Build lookup key for hash table
+    memcpy(&key.rlocator, rlocator, sizeof(RelFileLocator));
+    key.forknum = forknum;
+
+    // Find or create entry for this relation fork
+    brtentry = blockreftable_insert(brtab->hash, key, &found);
+
+    if (!found)
+    {
+        // Initialize new entry with the limit block
+        brtentry->limit_block = limit_block;
+        brtentry->nchunks = 0;
+        brtentry->chunk_size = NULL;
+        brtentry->chunk_usage = NULL;
+        brtentry->chunk_data = NULL;
+        return;
+    }
+
+    // Update existing entry and clean up blocks beyond limit
+    BlockRefTableEntrySetLimitBlock(brtentry, limit_block);
+}
+```

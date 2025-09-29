@@ -44,3 +44,37 @@ This function creates a record of a possible unsafe conflict between a read-only
 - Adds the conflict to possibleUnsafeConflicts lists rather than regular conflict lists
 - Part of PostgreSQL's serializable snapshot isolation safe snapshot optimization
 - Located in src/backend/storage/lmgr/predicate.c:666-690
+
+## Simplified Source
+
+```c
+static void SetPossibleUnsafeConflict(SERIALIZABLEXACT *roXact,
+                                      SERIALIZABLEXACT *activeXact)
+{
+    RWConflict conflict;
+
+    // Validate parameters
+    Assert(roXact != activeXact);
+    Assert(SxactIsReadOnly(roXact));
+    Assert(!SxactIsReadOnly(activeXact));
+
+    // Check if conflict pool has available entries
+    if (dlist_is_empty(&RWConflictPool->availableList))
+        ereport(ERROR,
+                (errcode(ERRCODE_OUT_OF_MEMORY),
+                 errmsg("not enough elements in RWConflictPool to record a potential read/write conflict"),
+                 errhint("You might need to run fewer transactions at a time or increase \"max_connections\".")));
+
+    // Allocate conflict structure from pool
+    conflict = dlist_head_element(RWConflictData, outLink, &RWConflictPool->availableList);
+    dlist_delete(&conflict->outLink);
+
+    // Set up conflict relationship
+    conflict->sxactOut = activeXact;
+    conflict->sxactIn = roXact;
+
+    // Add to both transactions' conflict lists
+    dlist_push_tail(&activeXact->possibleUnsafeConflicts, &conflict->outLink);
+    dlist_push_tail(&roXact->possibleUnsafeConflicts, &conflict->inLink);
+}
+```

@@ -44,3 +44,17 @@ This function takes no parameters.
 - Ensures clean state by resetting both the timeout and the expiration flag
 - Typically called when transitioning between startup phases or when disabling progress reporting
 - Located in startup.c:309-322
+
+## Simplified Source
+
+```c
+void disable_startup_progress_timeout(void)
+{
+    // Feature is disabled
+    if (log_startup_progress_interval == 0)
+        return;
+
+    disable_timeout(STARTUP_PROGRESS_TIMEOUT, false);
+    startup_progress_timer_expired = false;
+}
+```

@@ -35,3 +35,18 @@ This function is called during the prepare phase of two-phase commit transaction
 - Critical for maintaining MultiXact consistency in distributed transactions
 - Part of PostgreSQL's two-phase commit protocol
 - Located in src/backend/access/transam/multixact.c:1828-1841
+
+## Simplified Source
+
+```c
+void AtPrepare_MultiXact(void)
+{
+    // Get the oldest member MultiXact ID for this process
+    MultiXactId myOldestMember = OldestMemberMXactId[MyProcNumber];
+
+    // Only save state if we have a valid MultiXact ID
+    if (MultiXactIdIsValid(myOldestMember))
+        RegisterTwoPhaseRecord(TWOPHASE_RM_MULTIXACT_ID, 0,
+                               &myOldestMember, sizeof(MultiXactId));
+}
+```

@@ -36,3 +36,15 @@ The function is called after all manifest content has been processed through bbs
 - Part of the base backup infrastructure ensuring proper cleanup and finalization of manifest operations
 - The actual finalization behavior depends on the specific sink implementation (compression, networking, file I/O, etc.)
 - Critical for maintaining data integrity and proper resource management during backup manifest transmission
+
+## Simplified Source
+
+```c
+static inline void bbsink_end_manifest(bbsink *sink)
+{
+    Assert(sink != NULL);
+
+    // Delegate to the sink-specific manifest finalization
+    sink->bbs_ops->end_manifest(sink);
+}
+```

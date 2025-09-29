@@ -45,3 +45,63 @@ BlockRefTableReaderNextRelation sequentially processes entries in a serialized b
 - Uses zero-filled entry as sentinel to detect end-of-file condition
 - CRC calculation excludes the 4-byte CRC value itself to maintain consistency
 - Caller must call BlockRefTableReaderGetBlocks until it returns 0 before calling this function again
+
+## Simplified Source
+
+```c
+bool
+BlockRefTableReaderNextRelation(BlockRefTableReader *reader,
+                               RelFileLocator *rlocator,
+                               ForkNumber *forknum,
+                               BlockNumber *limit_block)
+{
+    BlockRefTableSerializedEntry sentry;
+    BlockRefTableSerializedEntry zentry = {{0}};  // Sentinel for end-of-file
+
+    // Ensure all chunks from previous relation were consumed
+    Assert(reader->total_chunks == reader->consumed_chunks);
+
+    // Read next serialized entry from file
+    BlockRefTableRead(reader, &sentry,
+                     sizeof(BlockRefTableSerializedEntry));
+
+    // Check if we've reached the end-of-file sentinel
+    if (memcmp(&sentry, &zentry, sizeof(BlockRefTableSerializedEntry)) == 0)
+    {
+        pg_crc32c expected_crc;
+        pg_crc32c actual_crc;
+
+        // Calculate expected CRC (excluding the CRC value itself)
+        expected_crc = reader->buffer.crc;
+        FIN_CRC32C(expected_crc);
+
+        // Read actual CRC from file
+        BlockRefTableRead(reader, &actual_crc, sizeof(pg_crc32c));
+
+        // Verify file integrity
+        if (!EQ_CRC32C(expected_crc, actual_crc))
+            reader->error_callback(reader->error_callback_arg,
+                                  "file \"%s\" has wrong checksum: expected %08X, found %08X",
+                                  reader->error_filename, expected_crc, actual_crc);
+
+        return false;  // End of file reached
+    }
+
+    // Read chunk size array for this relation
+    if (reader->chunk_size != NULL)
+        pfree(reader->chunk_size);
+    reader->chunk_size = palloc(sentry.nchunks * sizeof(uint16));
+    BlockRefTableRead(reader, reader->chunk_size,
+                     sentry.nchunks * sizeof(uint16));
+
+    // Set up state for reading chunks
+    reader->total_chunks = sentry.nchunks;
+    reader->consumed_chunks = 0;
+
+    // Return relation information to caller
+    memcpy(rlocator, &sentry.rlocator, sizeof(RelFileLocator));
+    *forknum = sentry.forknum;
+    *limit_block = sentry.limit_block;
+    return true;
+}
+```

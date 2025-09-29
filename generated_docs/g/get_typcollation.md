@@ -41,3 +41,34 @@ This function is widely used throughout PostgreSQL's parser, optimizer, and exec
 - Part of PostgreSQL's comprehensive collation support system introduced in version 9.1
 - Declared in src/include/utils/lsyscache.h as part of the public API
 - Works in conjunction with type_is_collatable() to determine if a type supports collation
+
+## Simplified Source
+
+```c
+Oid get_typcollation(Oid typid)
+{
+    HeapTuple tp;
+
+    // Look up the type in the system cache
+    tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp))
+    {
+        // Extract the pg_type structure from the tuple
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        Oid result;
+
+        // Get the collation OID from the type structure
+        result = typtup->typcollation;
+
+        // Release the cache entry
+        ReleaseSysCache(tp);
+        return result;
+    }
+    else
+    {
+        // Type not found - return invalid OID
+        return InvalidOid;
+    }
+}
+```

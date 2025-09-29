@@ -56,3 +56,53 @@ The function is designed as a support routine for heap_getattr() and is only cal
 - The function provides the bridge between PostgreSQL's internal tuple representation and the SQL-level system column interface
 - Part of the core tuple access API used throughout PostgreSQL's query processing system
 - The tableoid attribute is particularly important for inheritance and partitioning features
+
+## Simplified Source
+
+```c
+Datum heap_getsysattr(HeapTuple tup, int attnum, TupleDesc tupleDesc, bool *isnull)
+{
+    Datum result;
+
+    Assert(tup);
+
+    // System attributes are never NULL
+    *isnull = false;
+
+    switch (attnum)
+    {
+        case SelfItemPointerAttributeNumber:
+            // ctid - tuple's physical location
+            result = PointerGetDatum(&(tup->t_self));
+            break;
+
+        case MinTransactionIdAttributeNumber:
+            // xmin - inserting transaction ID
+            result = TransactionIdGetDatum(HeapTupleHeaderGetRawXmin(tup->t_data));
+            break;
+
+        case MaxTransactionIdAttributeNumber:
+            // xmax - deleting/updating transaction ID
+            result = TransactionIdGetDatum(HeapTupleHeaderGetRawXmax(tup->t_data));
+            break;
+
+        case MinCommandIdAttributeNumber:
+        case MaxCommandIdAttributeNumber:
+            // cmin/cmax - both aliases for the same field
+            result = CommandIdGetDatum(HeapTupleHeaderGetRawCommandId(tup->t_data));
+            break;
+
+        case TableOidAttributeNumber:
+            // tableoid - OID of the containing table
+            result = ObjectIdGetDatum(tup->t_tableOid);
+            break;
+
+        default:
+            elog(ERROR, "invalid attnum: %d", attnum);
+            result = 0;  // keep compiler quiet
+            break;
+    }
+
+    return result;
+}
+```

@@ -47,3 +47,14 @@ The function acts as a wrapper around the table access method's finish_bulk_inse
 - Commonly used in operations like COPY, CREATE TABLE AS, materialized view refresh, and table rewrites
 - Failure to call this function after bulk operations may leave the table access method in an inconsistent state
 - The function performs no operation if the table access method doesn't provide a finish_bulk_insert implementation
+
+## Simplified Source
+
+```c
+static inline void table_finish_bulk_insert(Relation rel, int options)
+{
+    // Optional callback for table access method cleanup
+    if (rel->rd_tableam && rel->rd_tableam->finish_bulk_insert)
+        rel->rd_tableam->finish_bulk_insert(rel, options);
+}
+```

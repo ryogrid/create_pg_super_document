@@ -41,3 +41,24 @@ This function takes no parameters.
 - The `pgStatSharedRefAge` is set from the garbage collection request count to track when the cache might need refreshing
 - Essential for the local caching mechanism that improves performance when repeatedly accessing the same statistics entries
 - The Assert ensures that the garbage collection counter has been properly initialized (non-zero)
+
+## Simplified Source
+
+```c
+static void
+pgstat_setup_shared_refs(void)
+{
+    // Quick return if hash table already exists (common case)
+    if (likely(pgStatEntryRefHash != NULL))
+        return;
+
+    // Create the entry reference hash table
+    pgStatEntryRefHash =
+        pgstat_entry_ref_hash_create(pgStatEntryRefHashContext,
+                                    PGSTAT_ENTRY_REF_HASH_SIZE, NULL);
+
+    // Record current GC request count as baseline for cache invalidation
+    pgStatSharedRefAge = pg_atomic_read_u64(&pgStatLocal.shmem->gc_request_count);
+    Assert(pgStatSharedRefAge != 0);
+}
+```

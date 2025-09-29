@@ -38,3 +38,21 @@ Since TAR_BLOCK_SIZE is a power of 2, the TYPEALIGN macro can use bitwise operat
 - Used throughout PostgreSQL's tar-related functionality including base backups, WAL methods, and pg_dump
 - The calculation ensures proper tar archive format compliance by maintaining block alignment
 - Returns 0 if the input length is already aligned to TAR_BLOCK_SIZE
+
+## Simplified Source
+
+```c
+// Calculate padding bytes needed to align tar entries to block boundaries
+static inline size_t tarPaddingBytesRequired(size_t len)
+{
+    // Use TYPEALIGN to round up to TAR_BLOCK_SIZE boundary, then subtract
+    // original length to get padding bytes needed
+    return TYPEALIGN(TAR_BLOCK_SIZE, len) - len;
+}
+```
+
+**Key Points:**
+- Aligns tar archive entries to TAR_BLOCK_SIZE boundaries (typically 512 bytes)
+- Uses efficient TYPEALIGN macro since TAR_BLOCK_SIZE is power of 2
+- Returns difference between aligned size and original length
+- Returns 0 if already aligned

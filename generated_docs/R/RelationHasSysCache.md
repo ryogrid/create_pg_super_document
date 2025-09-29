@@ -31,3 +31,27 @@ RelationHasSysCache efficiently determines if a relation is backed by a system c
 - Used primarily by snapshot management and invalidation systems
 - Complements RelationInvalidatesSnapshotsOnly() for determining relation caching behavior
 - Located in src/backend/utils/cache/syscache.c:746-770
+
+## Simplified Source
+
+```c
+bool RelationHasSysCache(Oid relid)
+{
+    int low = 0;
+    int high = SysCacheRelationOidSize - 1;
+
+    // Binary search through sorted relation OID array
+    while (low <= high) {
+        int middle = low + (high - low) / 2;
+
+        if (SysCacheRelationOid[middle] == relid)
+            return true;
+        if (SysCacheRelationOid[middle] < relid)
+            low = middle + 1;
+        else
+            high = middle - 1;
+    }
+
+    return false;
+}
+```

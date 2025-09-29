@@ -52,3 +52,45 @@ Key responsibilities include:
 - The function properly manages error context stack to ensure cleanup on both success and failure paths
 - Location tracking is updated to allow clients to provide up-to-date progress information
 - Unlike single-table operations, truncate can be more complex due to its multi-relation nature
+
+## Simplified Source
+
+```c
+static void stream_truncate_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+                                     int nrelations, Relation relations[],
+                                     ReorderBufferChange *change)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    // Validate streaming mode is enabled
+    Assert(!ctx->fast_forward);
+    Assert(ctx->streaming);
+
+    // Early return if optional callback not provided
+    if (!ctx->callbacks.stream_truncate_cb)
+        return;
+
+    // Set up error context for better error reporting
+    state.ctx = ctx;
+    state.callback_name = "stream_truncate";
+    state.report_location = change->lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for truncate operation
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = change->lsn;  // Report change LSN for replication progress
+    ctx->end_xact = false;
+
+    // Call the plugin's stream truncate callback
+    ctx->callbacks.stream_truncate_cb(ctx, txn, nrelations, relations, change);
+
+    // Restore previous error context
+    error_context_stack = errcallback.previous;
+}
+```

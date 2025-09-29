@@ -30,3 +30,13 @@ The function is straightforward, simply returning the reader pointer that was st
 - The returned XLogReaderState pointer is the same one that was passed to XLogPrefetcherAllocate during initialization
 - Used by WAL recovery code when it needs direct access to the reader state for processing records
 - The function assumes the prefetcher parameter is valid and non-NULL (no defensive checks are performed)
+
+## Simplified Source
+
+```c
+XLogReaderState *XLogPrefetcherGetReader(XLogPrefetcher *prefetcher)
+{
+    // Return the reader associated with this prefetcher
+    return prefetcher->reader;
+}
+```

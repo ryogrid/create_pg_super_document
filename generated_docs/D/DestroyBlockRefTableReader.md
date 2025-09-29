@@ -32,3 +32,19 @@ DestroyBlockRefTableReader performs complete cleanup of a BlockRefTableReader st
 - Does not attempt to close or cleanup I/O resources (handled by callback functions)
 - Essential for preventing memory leaks in applications using block reference table readers
 - Simple cleanup function with no return value or error conditions
+
+## Simplified Source
+
+```c
+void DestroyBlockRefTableReader(BlockRefTableReader *reader)
+{
+    // Free the chunk_size array if it was allocated
+    if (reader->chunk_size != NULL) {
+        pfree(reader->chunk_size);
+        reader->chunk_size = NULL;  // Prevent double-free
+    }
+
+    // Free the reader structure itself
+    pfree(reader);
+}
+```

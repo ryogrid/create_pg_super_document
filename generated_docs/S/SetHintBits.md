@@ -50,3 +50,32 @@ The function implements sophisticated logic to ensure data consistency:
 - Special handling exists for HEAP_MOVED_IN/HEAP_MOVED_OFF entries from pre-9.0 VACUUM FULL operations
 - The LSN interlock mechanism prevents race conditions between WAL flushing and hint bit setting
 - Hint bits are a performance optimization and their absence does not affect correctness, only performance
+
+## Simplified Source
+
+```c
+static inline void SetHintBits(HeapTupleHeader tuple, Buffer buffer,
+                              uint16 infomask, TransactionId xid)
+{
+    if (TransactionIdIsValid(xid)) {
+        // Get commit LSN for the transaction
+        XLogRecPtr commitLSN = TransactionIdGetCommitLSN(xid);
+
+        // Check if commit record is flushed and buffer LSN ordering
+        if (BufferIsPermanent(buffer) && XLogNeedsFlush(commitLSN) &&
+            BufferGetLSNAtomic(buffer) < commitLSN) {
+            // Not safe to set hint bit yet
+            return;
+        }
+    }
+
+    // Safe to set hint bits
+    tuple->t_infomask |= infomask;
+    MarkBufferDirtyHint(buffer, true);
+}
+```
+
+This function safely sets hint bits by:
+1. Checking if the transaction's commit record is flushed to disk
+2. Ensuring proper LSN ordering for durability
+3. Setting the hint bits and marking the buffer dirty when safe

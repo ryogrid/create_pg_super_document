@@ -47,3 +47,39 @@ The function allocates memory for a fake relation cache entry and initializes ke
 - The lock relation ID setup is somewhat bogus since relNumber may differ from the relation's OID, but this doesn't matter in practice during recovery
 - Assumes the relation is permanent (not temporary) since temp relations are not processed during recovery or WAL-skipped file syncing
 - Sets up a non-pinned SMgrRelation reference to avoid cleanup complications on errors
+
+## Simplified Source
+
+```c
+Relation CreateFakeRelcacheEntry(RelFileLocator rlocator)
+{
+    FakeRelCacheEntry fakeentry;
+    Relation rel;
+
+    // Allocate the entire structure in one block
+    fakeentry = palloc0(sizeof(FakeRelCacheEntryData));
+    rel = (Relation) fakeentry;
+
+    // Set up basic relation information
+    rel->rd_rel = &fakeentry->pgc;
+    rel->rd_locator = rlocator;
+
+    // Not a temp relation (recovery/syncing never deals with temp rels)
+    rel->rd_backend = INVALID_PROC_NUMBER;
+
+    // Must be a permanent table
+    rel->rd_rel->relpersistence = RELPERSISTENCE_PERMANENT;
+
+    // Use relation number as name since actual name is unknown
+    sprintf(RelationGetRelationName(rel), "%u", rlocator.relNumber);
+
+    // Set up lock relation ID (somewhat bogus but works for recovery)
+    rel->rd_lockInfo.lockRelId.dbId = rlocator.dbOid;
+    rel->rd_lockInfo.lockRelId.relId = rlocator.relNumber;
+
+    // Set up storage manager reference (non-pinned)
+    rel->rd_smgr = smgropen(rlocator, INVALID_PROC_NUMBER);
+
+    return rel;
+}
+```

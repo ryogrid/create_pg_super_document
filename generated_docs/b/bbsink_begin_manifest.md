@@ -35,3 +35,15 @@ This inline function serves as a wrapper to begin the backup manifest generation
 - Called as part of the backup completion process to generate manifest metadata
 - Works in conjunction with other manifest-related functions to create comprehensive backup metadata
 - Essential for backup verification and integrity checking in PostgreSQL's backup system
+
+## Simplified Source
+
+```c
+static inline void bbsink_begin_manifest(bbsink *sink)
+{
+    Assert(sink != NULL);
+
+    // Delegate to the sink-specific manifest initialization
+    sink->bbs_ops->begin_manifest(sink);
+}
+```

@@ -44,3 +44,73 @@ The function is designed to handle concurrent database modifications gracefully 
 - Handles concurrent file truncation by returning partial data and letting caller handle the situation
 - Designed to work with PostgreSQL's buffer management and page checksum system
 - Located in src/backend/backup/basebackup.c:1847-1949
+
+## Simplified Source
+
+```c
+static off_t
+read_file_data_into_buffer(bbsink *sink, const char *readfilename, int fd,
+                          off_t offset, size_t length, BlockNumber blkno,
+                          bool verify_checksum, int *checksum_failures)
+{
+    off_t cnt;
+    int i;
+    char *page;
+
+    // Read data from file into buffer
+    cnt = basebackup_read_file(fd, sink->bbs_buffer,
+                              Min(sink->bbs_buffer_length, length),
+                              offset, readfilename, true);
+
+    // Skip checksum verification if not requested or length not block-aligned
+    if (!verify_checksum || (cnt % BLCKSZ) != 0)
+        return cnt;
+
+    // Verify checksum for each block
+    for (i = 0; i < cnt / BLCKSZ; i++)
+    {
+        int reread_cnt;
+        uint16 expected_checksum;
+
+        page = sink->bbs_buffer + BLCKSZ * i;
+
+        // Check if page checksum is valid
+        if (verify_page_checksum(page, sink->bbs_state->startptr, blkno + i,
+                                &expected_checksum))
+            continue;
+
+        // Retry on first failure (handle concurrent torn writes)
+        reread_cnt = basebackup_read_file(fd, sink->bbs_buffer + BLCKSZ * i,
+                                         BLCKSZ, offset + BLCKSZ * i,
+                                         readfilename, false);
+        if (reread_cnt == 0)
+        {
+            // File was truncated concurrently
+            cnt = BLCKSZ * i;
+            break;
+        }
+
+        // Check again after retry
+        if (verify_page_checksum(page, sink->bbs_state->startptr, blkno + i,
+                                &expected_checksum))
+            continue;
+
+        // Report persistent checksum failure
+        (*checksum_failures)++;
+        if (*checksum_failures <= 5)
+            ereport(WARNING,
+                   (errmsg("checksum verification failed in "
+                          "file \"%s\", block %u: calculated "
+                          "%X but expected %X",
+                          readfilename, blkno + i, expected_checksum,
+                          ((PageHeader) page)->pd_checksum)));
+        if (*checksum_failures == 5)
+            ereport(WARNING,
+                   (errmsg("further checksum verification "
+                          "failures in file \"%s\" will not "
+                          "be reported", readfilename)));
+    }
+
+    return cnt;
+}
+```

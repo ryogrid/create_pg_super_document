@@ -48,3 +48,67 @@ The function dynamically adjusts prefetching behavior based on the  setting and 
 - When  is set very low, some blocks referenced in the current record may not be prefetched
 - Statistics are computed periodically based on the amount of WAL processed, not on every call
 - The function is critical for recovery performance in PostgreSQL systems with high I/O workloads
+
+## Simplified Source
+
+```c
+XLogRecord *XLogPrefetcherReadRecord(XLogPrefetcher *prefetcher, char **errmsg)
+{
+    DecodedXLogRecord *record;
+    XLogRecPtr replayed_up_to;
+
+    // Check if prefetching configuration changed and reconfigure if needed
+    if (unlikely(XLogPrefetchReconfigureCount != prefetcher->reconfigure_count))
+    {
+        uint32 max_distance, max_inflight;
+
+        // Free existing streaming read resources
+        if (prefetcher->streaming_read)
+            lrq_free(prefetcher->streaming_read);
+
+        // Configure based on whether prefetching is enabled
+        if (RecoveryPrefetchEnabled())
+        {
+            max_inflight = maintenance_io_concurrency;
+            max_distance = max_inflight * XLOGPREFETCHER_DISTANCE_MULTIPLIER;
+        }
+        else
+        {
+            max_inflight = 1;
+            max_distance = 1;
+        }
+
+        // Allocate new streaming read with updated parameters
+        prefetcher->streaming_read = lrq_alloc(max_distance, max_inflight,
+                                               (uintptr_t) prefetcher,
+                                               XLogPrefetcherNextBlock);
+        prefetcher->reconfigure_count = XLogPrefetchReconfigureCount;
+    }
+
+    // Release previous record and update completion tracking
+    replayed_up_to = XLogReleasePreviousRecord(prefetcher->reader);
+    XLogPrefetcherCompleteFilters(prefetcher, replayed_up_to);
+    lrq_complete_lsn(prefetcher->streaming_read, replayed_up_to);
+
+    // Start prefetching if nothing is queued yet
+    if (!XLogReaderHasQueuedRecordOrError(prefetcher->reader))
+    {
+        lrq_prefetch(prefetcher->streaming_read);
+    }
+
+    // Read the next record
+    record = XLogNextRecord(prefetcher->reader, errmsg);
+    if (!record)
+        return NULL;
+
+    // Clean up prefetcher state for low concurrency scenarios
+    if (record == prefetcher->record)
+        prefetcher->record = NULL;
+
+    // Compute statistics periodically
+    if (unlikely(record->lsn >= prefetcher->next_stats_shm_lsn))
+        XLogPrefetcherComputeStats(prefetcher);
+
+    return &record->header;
+}
+```

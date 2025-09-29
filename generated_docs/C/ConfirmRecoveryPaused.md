@@ -37,3 +37,19 @@ This design separates the pause request (handled by SetRecoveryPause) from the p
 - Only transitions from RECOVERY_PAUSE_REQUESTED to RECOVERY_PAUSED, ignoring other states
 - Called at safe points during recovery where pausing is appropriate
 - Location: src/backend/access/transam/xlogrecovery.c:3110-3130
+
+## Simplified Source
+
+```c
+static void ConfirmRecoveryPaused(void)
+{
+    // Atomically update recovery pause state
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+
+    // Only confirm if pause was requested
+    if (XLogRecoveryCtl->recoveryPauseState == RECOVERY_PAUSE_REQUESTED)
+        XLogRecoveryCtl->recoveryPauseState = RECOVERY_PAUSED;
+
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+}
+```

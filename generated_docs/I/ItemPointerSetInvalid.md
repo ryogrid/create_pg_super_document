@@ -40,3 +40,19 @@ This function is commonly used during tuple deletion, cleanup operations, error 
 - The invalid state can be tested using ItemPointerIsValid()
 - Commonly used when clearing tuple slot references and during vacuum operations
 - Important for maintaining data integrity during transaction processing
+
+## Simplified Source
+
+```c
+static inline void ItemPointerSetInvalid(ItemPointerData *pointer)
+{
+    // Validate input pointer
+    Assert(PointerIsValid(pointer));
+
+    // Set block ID to invalid
+    BlockIdSet(&pointer->ip_blkid, InvalidBlockNumber);
+
+    // Set position to invalid
+    pointer->ip_posid = InvalidOffsetNumber;
+}
+```

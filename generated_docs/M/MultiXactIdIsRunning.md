@@ -42,3 +42,44 @@ The function is used primarily in heap tuple visibility checks and transaction c
 - Could be optimized further by walking the PGPROC array only once for all members, but current implementation assumes nmembers is typically small
 - Critical for heap tuple visibility determination and vacuum operations
 - [Result](../R/Result.md) stability guarantee: a false result will never change to true since no new members can be added to existing MultiXactIds
+
+## Simplified Source
+
+```c
+bool MultiXactIdIsRunning(MultiXactId multi, bool isLockOnly)
+{
+    MultiXactMember *members;
+    int nmembers;
+
+    // Get all members of this MultiXact
+    nmembers = GetMultiXactIdMembers(multi, &members, false, isLockOnly);
+
+    if (nmembers <= 0)
+        return false;
+
+    // Fast path: check if any member is from current transaction
+    for (int i = 0; i < nmembers; i++) {
+        if (TransactionIdIsCurrentTransactionId(members[i].xid)) {
+            pfree(members);
+            return true;
+        }
+    }
+
+    // Check if any member transaction is still in progress
+    for (int i = 0; i < nmembers; i++) {
+        if (TransactionIdIsInProgress(members[i].xid)) {
+            pfree(members);
+            return true;
+        }
+    }
+
+    pfree(members);
+    return false;
+}
+```
+
+This function:
+1. Gets all member transactions of the MultiXact
+2. Quickly checks if any member belongs to the current transaction
+3. Checks each member to see if it's still running in the process array
+4. Returns true if any member is found to be running

@@ -31,3 +31,19 @@ This static function handles the filesystem cleanup of two-phase commit state fi
 - Uses PostgreSQL's standard error reporting mechanism (ereport) with WARNING level for file access errors
 - File path construction is delegated to TwoPhaseFilePath for consistency with other file operations
 - Critical for preventing accumulation of stale 2PC state files after transaction completion
+
+## Simplified Source
+
+```c
+static void RemoveTwoPhaseFile(TransactionId xid, bool giveWarning)
+{
+    char path[MAXPGPATH];
+
+    TwoPhaseFilePath(path, xid);
+    if (unlink(path))
+        if (errno != ENOENT || giveWarning)
+            ereport(WARNING,
+                    (errcode_for_file_access(),
+                     errmsg("could not remove file \"%s\": %m", path)));
+}
+```

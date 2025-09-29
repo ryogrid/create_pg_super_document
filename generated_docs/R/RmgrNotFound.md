@@ -32,3 +32,14 @@ The function uses ereport() to emit an ERROR level message, which will abort the
 - The error message specifically suggests adding the required extension to shared_preload_libraries
 - This is a critical part of WAL recovery error handling that helps users identify missing custom resource manager extensions
 - The function is designed to provide actionable guidance for resolving the error condition
+
+## Simplified Source
+
+```c
+void RmgrNotFound(RmgrId rmid)
+{
+    ereport(ERROR,
+            (errmsg("resource manager with ID %d not registered", rmid),
+             errhint("Include the extension module that implements this resource manager in \"shared_preload_libraries\".")));
+}
+```

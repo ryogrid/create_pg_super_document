@@ -42,3 +42,69 @@ This function takes no parameters and operates on global transaction state.
 - The function operates under the SerializableXactHashLock to ensure consistency when examining conflict structures
 - Error codes ERRCODE_T_R_SERIALIZATION_FAILURE are used to signal serialization failures to applications
 - The prepareSeqNo assignment and SXACT_FLAG_PREPARED setting at the end mark this transaction as committed in the serialization conflict graph
+
+## Simplified Source
+
+```c
+void PreCommit_CheckForSerializationFailure(void)
+{
+    // Early exit if not a serializable transaction
+    if (MySerializableXact == InvalidSerializableXact)
+        return;
+
+    Assert(IsolationIsSerializable());
+
+    LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+
+    // Check if we've been marked for death by another transaction
+    if (SxactIsDoomed(MySerializableXact) &&
+        !SxactIsPartiallyReleased(MySerializableXact)) {
+        LWLockRelease(SerializableXactHashLock);
+        ereport(ERROR, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                errmsg("could not serialize access due to read/write dependencies among transactions"),
+                errdetail_internal("Reason code: Canceled on identification as a pivot, during commit attempt."),
+                errhint("The transaction might succeed if retried.")));
+    }
+
+    // Look for dangerous conflict structures (triangular patterns)
+    dlist_foreach(near_iter, &MySerializableXact->inConflicts) {
+        RWConflict nearConflict = dlist_container(RWConflictData, inLink, near_iter.cur);
+
+        // Skip if the near conflict has already committed or been doomed
+        if (!SxactIsCommitted(nearConflict->sxactOut) &&
+            !SxactIsDoomed(nearConflict->sxactOut)) {
+
+            // Check for far conflicts that complete the dangerous structure
+            dlist_foreach(far_iter, &nearConflict->sxactOut->inConflicts) {
+                RWConflict farConflict = dlist_container(RWConflictData, inLink, far_iter.cur);
+
+                if (farConflict->sxactOut == MySerializableXact ||
+                    (!SxactIsCommitted(farConflict->sxactOut) &&
+                     !SxactIsReadOnly(farConflict->sxactOut) &&
+                     !SxactIsDoomed(farConflict->sxactOut))) {
+
+                    // Found dangerous structure - handle it
+                    if (SxactIsPrepared(nearConflict->sxactOut)) {
+                        // Can't kill prepared transaction, so we abort instead
+                        LWLockRelease(SerializableXactHashLock);
+                        ereport(ERROR, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                                errmsg("could not serialize access due to read/write dependencies among transactions"),
+                                errdetail_internal("Reason code: Canceled on commit attempt with conflict in from prepared pivot."),
+                                errhint("The transaction might succeed if retried.")));
+                    }
+
+                    // Mark pivot transaction for rollback
+                    nearConflict->sxactOut->flags |= SXACT_FLAG_DOOMED;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Mark this transaction as prepared in the conflict graph
+    MySerializableXact->prepareSeqNo = ++(PredXact->LastSxactCommitSeqNo);
+    MySerializableXact->flags |= SXACT_FLAG_PREPARED;
+
+    LWLockRelease(SerializableXactHashLock);
+}
+```

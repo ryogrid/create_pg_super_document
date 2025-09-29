@@ -34,3 +34,20 @@ This function takes no parameters.
 - Memory is allocated in TopTransactionContext or subtransaction-specific contexts
 - No explicit memory freeing is performed, avoiding potential memory management issues
 - Used during both normal commit and abort processing to clean up notification state
+
+## Simplified Source
+
+```c
+static void
+ClearPendingActionsAndNotifies(void)
+{
+    /*
+     * Everything's allocated in either TopTransactionContext or the context
+     * for the subtransaction to which it corresponds. So, there's nothing to
+     * do here except reset the pointers; the space will be reclaimed when the
+     * contexts are deleted.
+     */
+    pendingActions = NULL;
+    pendingNotifies = NULL;
+}
+```

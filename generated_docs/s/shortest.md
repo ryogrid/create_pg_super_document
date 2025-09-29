@@ -50,3 +50,118 @@ The `shortest` function implements shortest-preferred matching for DFA-based reg
 - Handles complex boundary conditions between min/max positions
 - Supports both coldstart optimization and hitStop tracking
 - Critical for non-greedy quantifiers and minimal matching patterns in PostgreSQL regex engine
+
+## Simplified Source
+
+```c
+static chr *shortest(struct vars *v, struct dfa *d, chr *start, chr *min, chr *max,
+                    chr **coldp, int *hitstopp)
+{
+    chr *cp;
+    chr *realmin = (min == v->stop) ? min : min + 1;
+    chr *realmax = (max == v->stop) ? max : max + 1;
+    color co;
+    struct sset *css;
+    struct sset *ss;
+    struct colormap *cm = d->cm;
+
+    // Initialize output parameters
+    if (coldp != NULL)
+        *coldp = NULL;
+    if (hitstopp != NULL)
+        *hitstopp = 0;
+
+    // Fast path: handle backreferences to known strings
+    if (d->backno >= 0) {
+        assert((size_t) d->backno < v->nmatch);
+        if (v->pmatch[d->backno].rm_so >= 0) {
+            cp = dfa_backref(v, d, start, min, max, true);
+            if (cp != NULL && coldp != NULL)
+                *coldp = start;
+            return cp;
+        }
+    }
+
+    // Fast path: handle MATCHALL NFAs (patterns that match any sequence)
+    if (d->cnfa->flags & MATCHALL) {
+        size_t nchr = min - start;
+
+        // Check bounds against min/max match lengths
+        if (d->cnfa->maxmatchall != DUPINF && nchr > d->cnfa->maxmatchall)
+            return NULL;
+        if ((max - start) < d->cnfa->minmatchall)
+            return NULL;
+        if (nchr < d->cnfa->minmatchall)
+            min = start + d->cnfa->minmatchall;
+
+        if (coldp != NULL)
+            *coldp = start;
+        return min;
+    }
+
+    // Initialize DFA state
+    css = initialize(v, d, start);
+    if (css == NULL)
+        return NULL;
+    cp = start;
+
+    // Handle startup character/boundary
+    if (cp == v->start) {
+        co = d->cnfa->bos[(v->eflags & REG_NOTBOL) ? 0 : 1];  // Beginning of string
+    } else {
+        co = GETCOLOR(cm, *(cp - 1));  // Get color of previous character
+    }
+
+    css = miss(v, d, css, co, cp, start);
+    if (css == NULL)
+        return NULL;
+    css->lastseen = cp;
+    ss = css;
+
+    // Main scanning loop - process each character
+    while (cp < realmax) {
+        co = GETCOLOR(cm, *cp);  // Get color of current character
+        ss = css->outs[co];      // Get next state
+
+        if (ss == NULL) {
+            // Handle state transition miss
+            ss = miss(v, d, css, co, cp + 1, start);
+            if (ss == NULL)
+                break;  // No valid transition
+        }
+
+        cp++;
+        ss->lastseen = cp;
+        css = ss;
+
+        // SHORTEST-PREFERRED: exit as soon as we have a valid match
+        if ((ss->flags & POSTSTATE) && cp >= realmin)
+            break;  // Found shortest match!
+    }
+
+    if (ss == NULL)
+        return NULL;
+
+    // Report coldstart information for optimization
+    if (coldp != NULL)
+        *coldp = lastcold(v, d);
+
+    // Handle end-of-match positioning
+    if ((ss->flags & POSTSTATE) && cp > min) {
+        assert(cp >= realmin);
+        cp--;  // Back up to actual match end
+    } else if (cp == v->stop && max == v->stop) {
+        // Handle end-of-string boundary
+        co = d->cnfa->eos[(v->eflags & REG_NOTEOL) ? 0 : 1];
+        ss = miss(v, d, css, co, cp, start);
+        if ((ss == NULL || !(ss->flags & POSTSTATE)) && hitstopp != NULL)
+            *hitstopp = 1;
+    }
+
+    // Final validation
+    if (ss == NULL || !(ss->flags & POSTSTATE))
+        return NULL;
+
+    return cp;  // Return end position of shortest match
+}
+```

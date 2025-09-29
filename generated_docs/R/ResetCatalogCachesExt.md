@@ -37,3 +37,24 @@ The function supports both normal cache invalidation operations and debug mode o
 - Provides debug logging at DEBUG2 level to help with cache-related debugging
 - The debug_discard parameter controls whether in-progress cache builds are preserved during reset
 - Critical component of PostgreSQL's cache consistency and invalidation system
+
+## Simplified Source
+
+```c
+// Reset all catalog caches in the system
+void ResetCatalogCachesExt(bool debug_discard)
+{
+    slist_iter iter;
+
+    CACHE_elog(DEBUG2, "ResetCatalogCaches called");
+
+    // Iterate through all catalog caches and reset each one
+    slist_foreach(iter, &CacheHdr->ch_caches)
+    {
+        CatCache *cache = slist_container(CatCache, cc_next, iter.cur);
+        ResetCatalogCache(cache, debug_discard);
+    }
+
+    CACHE_elog(DEBUG2, "end of ResetCatalogCaches call");
+}
+```

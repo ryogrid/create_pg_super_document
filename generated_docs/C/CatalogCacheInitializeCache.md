@@ -60,3 +60,81 @@ The function validates that cache key columns are NOT NULL, as required for reli
 - C collation is enforced for all cache keys to ensure consistent behavior
 - Debug logging helps track cache initialization and key setup
 - The cc_tupdesc field being set marks the cache as fully initialized
+
+## Simplified Source
+
+```c
+static void CatalogCacheInitializeCache(CatCache *cache)
+{
+    Relation relation;
+    MemoryContext oldcxt;
+    TupleDesc tupdesc;
+    int i;
+
+    // Open the target relation for reading metadata
+    relation = table_open(cache->cc_reloid, AccessShareLock);
+
+    // Switch to cache memory context for persistent allocations
+    Assert(CacheMemoryContext != NULL);
+    oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+
+    // Copy the relation's tuple descriptor permanently
+    tupdesc = CreateTupleDescCopyConstr(RelationGetDescr(relation));
+
+    // Save relation name and shared status
+    cache->cc_relname = pstrdup(RelationGetRelationName(relation));
+    cache->cc_relisshared = RelationGetForm(relation)->relisshared;
+
+    // Return to caller's memory context and close relation
+    MemoryContextSwitchTo(oldcxt);
+    table_close(relation, AccessShareLock);
+
+    CACHE_elog(DEBUG2, "CatalogCacheInitializeCache: %s, %d keys",
+               cache->cc_relname, cache->cc_nkeys);
+
+    // Initialize key information for each cache key
+    for (i = 0; i < cache->cc_nkeys; ++i)
+    {
+        Oid keytype;
+        RegProcedure eqfunc;
+
+        if (cache->cc_keyno[i] > 0)
+        {
+            // Regular column - get type from tuple descriptor
+            Form_pg_attribute attr = TupleDescAttr(tupdesc, cache->cc_keyno[i] - 1);
+            keytype = attr->atttypid;
+            Assert(attr->attnotnull); // Cache keys must be NOT NULL
+        }
+        else
+        {
+            // Special case: keyno[i] == 0 means OID column
+            if (cache->cc_keyno[i] < 0)
+                elog(FATAL, "sys attributes are not supported in caches");
+            keytype = OIDOID;
+        }
+
+        // Get hash and equality functions for this key type
+        GetCCHashEqFuncs(keytype,
+                         &cache->cc_hashfunc[i],
+                         &eqfunc,
+                         &cache->cc_fastequal[i]);
+
+        // Set up function manager info for equality function
+        fmgr_info_cxt(eqfunc,
+                      &cache->cc_skey[i].sk_func,
+                      CacheMemoryContext);
+
+        // Initialize scan key attributes
+        cache->cc_skey[i].sk_attno = cache->cc_keyno[i];
+        cache->cc_skey[i].sk_strategy = BTEqualStrategyNumber;
+        cache->cc_skey[i].sk_subtype = InvalidOid;
+        cache->cc_skey[i].sk_collation = C_COLLATION_OID;
+
+        CACHE_elog(DEBUG2, "CatalogCacheInitializeCache %s %d %p",
+                   cache->cc_relname, i, cache);
+    }
+
+    // Mark cache as fully initialized
+    cache->cc_tupdesc = tupdesc;
+}
+```

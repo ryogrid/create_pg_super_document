@@ -44,3 +44,38 @@ The caller is responsible for setting the `handle` field after creation, as this
 - Caller must initialize the `handle` field after creation
 - Integrates with PostgreSQL's resource owner system for proper cleanup
 - Located in src/backend/storage/ipc/dsm.c:1201-1236
+
+## Simplified Source
+
+```c
+static dsm_segment *dsm_create_descriptor(void)
+{
+    dsm_segment *seg;
+
+    // Ensure resource owner can track another segment
+    if (CurrentResourceOwner)
+        ResourceOwnerEnlarge(CurrentResourceOwner);
+
+    // Allocate segment descriptor in persistent memory context
+    seg = MemoryContextAlloc(TopMemoryContext, sizeof(dsm_segment));
+
+    // Add to global segment list
+    dlist_push_head(&dsm_segment_list, &seg->node);
+
+    // Initialize descriptor fields (caller must set seg->handle)
+    seg->control_slot = INVALID_CONTROL_SLOT;
+    seg->impl_private = NULL;
+    seg->mapped_address = NULL;
+    seg->mapped_size = 0;
+
+    // Associate with current resource owner for cleanup tracking
+    seg->resowner = CurrentResourceOwner;
+    if (CurrentResourceOwner)
+        ResourceOwnerRememberDSM(CurrentResourceOwner, seg);
+
+    // Initialize detach callback list
+    slist_init(&seg->on_detach);
+
+    return seg;
+}
+```

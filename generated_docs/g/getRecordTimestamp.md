@@ -47,3 +47,40 @@ The function checks the resource manager ID (rmid) and operation info to determi
 - This is a static function, only accessible within the xlogrecovery.c file
 - The function is essential for point-in-time recovery (PITR) functionality
 - Supports both regular and prepared transaction commits/aborts
+
+## Simplified Source
+
+```c
+static bool
+getRecordTimestamp(XLogReaderState *record, TimestampTz *recordXtime)
+{
+	uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+	uint8 xact_info = info & XLOG_XACT_OPMASK;
+	uint8 rmid = XLogRecGetRmid(record);
+
+	// Check for restore point record
+	if (rmid == RM_XLOG_ID && info == XLOG_RESTORE_POINT)
+	{
+		*recordXtime = ((xl_restore_point *) XLogRecGetData(record))->rp_time;
+		return true;
+	}
+
+	// Check for transaction commit records
+	if (rmid == RM_XACT_ID && (xact_info == XLOG_XACT_COMMIT ||
+							   xact_info == XLOG_XACT_COMMIT_PREPARED))
+	{
+		*recordXtime = ((xl_xact_commit *) XLogRecGetData(record))->xact_time;
+		return true;
+	}
+
+	// Check for transaction abort records
+	if (rmid == RM_XACT_ID && (xact_info == XLOG_XACT_ABORT ||
+							   xact_info == XLOG_XACT_ABORT_PREPARED))
+	{
+		*recordXtime = ((xl_xact_abort *) XLogRecGetData(record))->xact_time;
+		return true;
+	}
+
+	return false;
+}
+```

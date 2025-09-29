@@ -49,3 +49,18 @@ The function performs basic validation checks ensuring the sink is valid and the
 - Part of the base backup manifest transmission mechanism that ensures backup integrity
 - The actual processing behavior depends on the specific sink implementation (compression, forwarding, etc.)
 - Used during the manifest transmission phase after all archive files have been processed
+
+## Simplified Source
+
+```c
+static inline void bbsink_manifest_contents(bbsink *sink, size_t len)
+{
+    Assert(sink != NULL);
+
+    // Validate data length is positive and within buffer bounds
+    Assert(len > 0 && len <= sink->bbs_buffer_length);
+
+    // Delegate to sink-specific manifest processing
+    sink->bbs_ops->manifest_contents(sink, len);
+}
+```

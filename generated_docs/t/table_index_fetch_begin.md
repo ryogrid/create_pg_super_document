@@ -38,3 +38,14 @@ The returned IndexFetchTableData structure maintains state and provides context 
 - Used extensively in index scanning operations across various parts of the system
 - Provides abstraction layer allowing different storage engines to implement their own tuple fetching strategies
 - Essential for index-based query execution patterns
+
+## Simplified Source
+
+```c
+static inline IndexFetchTableData *
+table_index_fetch_begin(Relation rel)
+{
+    // Delegate to the table access method's implementation
+    return rel->rd_tableam->index_fetch_begin(rel);
+}
+```

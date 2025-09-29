@@ -47,3 +47,40 @@ The function is designed to be efficient for repeated queries of the same transa
 - The caching strategy is conservative - only caches final states to prevent inconsistencies
 - Special transaction IDs like Bootstrap and Frozen are treated as permanently committed for system consistency
 - Forms part of PostgreSQL's MVCC (Multi-Version Concurrency Control) implementation
+
+## Simplified Source
+
+```c
+static XidStatus TransactionLogFetch(TransactionId transactionId)
+{
+    XidStatus xidstatus;
+    XLogRecPtr xidlsn;
+
+    // Check single-item cache first
+    if (TransactionIdEquals(transactionId, cachedFetchXid))
+        return cachedFetchXidStatus;
+
+    // Handle special permanent transaction IDs
+    if (!TransactionIdIsNormal(transactionId))
+    {
+        if (TransactionIdEquals(transactionId, BootstrapTransactionId) ||
+            TransactionIdEquals(transactionId, FrozenTransactionId))
+            return TRANSACTION_STATUS_COMMITTED;
+        return TRANSACTION_STATUS_ABORTED;
+    }
+
+    // Get transaction status from commit log
+    xidstatus = TransactionIdGetStatus(transactionId, &xidlsn);
+
+    // Cache only stable states (committed/aborted)
+    if (xidstatus != TRANSACTION_STATUS_IN_PROGRESS &&
+        xidstatus != TRANSACTION_STATUS_SUB_COMMITTED)
+    {
+        cachedFetchXid = transactionId;
+        cachedFetchXidStatus = xidstatus;
+        cachedCommitLSN = xidlsn;
+    }
+
+    return xidstatus;
+}
+```

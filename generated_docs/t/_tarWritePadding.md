@@ -35,3 +35,33 @@ This function ensures TAR format compliance by padding file data with zero bytes
 - Uses assertions to ensure buffer capacity is sufficient for single-operation padding
 - Padding is always with zero bytes as required by TAR format specification
 - Works in conjunction with _tarWriteHeader to create properly formatted TAR archives
+
+## Simplified Source
+
+```c
+// Write zero-byte padding to align TAR entries to block boundaries
+static void _tarWritePadding(bbsink *sink, int len)
+{
+    int pad = tarPaddingBytesRequired(len);
+
+    /*
+     * Buffer should be large enough for single-operation padding.
+     * TAR_BLOCK_SIZE is typically 512 bytes.
+     */
+    Assert(sink->bbs_buffer_length >= TAR_BLOCK_SIZE);
+    Assert(pad <= TAR_BLOCK_SIZE);
+
+    if (pad > 0) {
+        // Fill buffer with zeros and write to sink
+        MemSet(sink->bbs_buffer, 0, pad);
+        bbsink_archive_contents(sink, pad);
+    }
+}
+```
+
+**Key Points:**
+- Calculates padding needed using tarPaddingBytesRequired()
+- Fills sink buffer with zero bytes for required padding length
+- Ensures TAR format compliance by aligning to TAR_BLOCK_SIZE boundaries
+- Uses assertions to verify buffer capacity for single-operation write
+- Only writes padding if actually needed (pad > 0)

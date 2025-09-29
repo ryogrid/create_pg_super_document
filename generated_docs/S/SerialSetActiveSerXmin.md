@@ -43,3 +43,42 @@ The function maintains the serial control structure's consistency by properly ma
 - Special handling during recovery allows backwards movement of xmin, which is normally prohibited
 - The function uses exclusive locking on SerialControlLock to ensure atomic updates to the serial control structure
 - Part of PostgreSQL's serializable snapshot isolation implementation for maintaining transaction conflict information
+
+## Simplified Source
+
+```c
+static void SerialSetActiveSerXmin(TransactionId xid)
+{
+    LWLockAcquire(SerialControlLock, LW_EXCLUSIVE);
+
+    // No active transactions - invalidate xid values
+    if (!TransactionIdIsValid(xid))
+    {
+        serialControl->tailXid = InvalidTransactionId;
+        serialControl->headXid = InvalidTransactionId;
+        LWLockRelease(SerialControlLock);
+        return;
+    }
+
+    // Recovery mode - allow xmin to move backwards
+    if (RecoveryInProgress())
+    {
+        Assert(serialControl->headPage < 0);
+        if (!TransactionIdIsValid(serialControl->tailXid) ||
+            TransactionIdPrecedes(xid, serialControl->tailXid))
+        {
+            serialControl->tailXid = xid;
+        }
+        LWLockRelease(SerialControlLock);
+        return;
+    }
+
+    // Normal operation - xmin should only move forward
+    Assert(!TransactionIdIsValid(serialControl->tailXid) ||
+           TransactionIdFollows(xid, serialControl->tailXid));
+
+    serialControl->tailXid = xid;
+
+    LWLockRelease(SerialControlLock);
+}
+```

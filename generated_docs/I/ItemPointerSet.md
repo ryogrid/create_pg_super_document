@@ -39,3 +39,20 @@ The function performs validation through assertions and delegates the actual blo
 - Fundamental building block for tuple identification throughout PostgreSQL
 - Used extensively in heap access methods, index operations, and tuple manipulation
 - Part of the core storage abstraction layer that enables PostgreSQL's MVCC implementation
+
+## Simplified Source
+
+```c
+static inline void
+ItemPointerSet(ItemPointerData *pointer, BlockNumber blockNumber, OffsetNumber offNum)
+{
+    // Validate the pointer is not NULL
+    Assert(PointerIsValid(pointer));
+
+    // Set the block identifier component
+    BlockIdSet(&pointer->ip_blkid, blockNumber);
+
+    // Set the offset number within the block
+    pointer->ip_posid = offNum;
+}
+```

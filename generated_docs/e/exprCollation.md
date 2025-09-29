@@ -50,3 +50,158 @@ This comprehensive function analyzes any PostgreSQL expression node to determine
 - JSON expressions have complex collation rules depending on whether coercion is applied
 - The function includes comprehensive coverage of all PostgreSQL expression node types as of the current version
 - Critical for query planning, index operations, and proper string comparison semantics
+
+## Simplified Source
+
+```c
+Oid exprCollation(const Node *expr)
+{
+    Oid coll;
+
+    if (!expr)
+        return InvalidOid;
+
+    switch (nodeTag(expr))
+    {
+        // Basic expression types - extract collation from specific field
+        case T_Var:
+            coll = ((const Var *) expr)->varcollid;
+            break;
+        case T_Const:
+            coll = ((const Const *) expr)->constcollid;
+            break;
+        case T_Param:
+            coll = ((const Param *) expr)->paramcollid;
+            break;
+
+        // Function and operator expressions
+        case T_Aggref:
+            coll = ((const Aggref *) expr)->aggcollid;
+            break;
+        case T_WindowFunc:
+            coll = ((const WindowFunc *) expr)->wincollid;
+            break;
+        case T_FuncExpr:
+            coll = ((const FuncExpr *) expr)->funccollid;
+            break;
+        case T_OpExpr:
+        case T_DistinctExpr:
+        case T_NullIfExpr:
+            coll = ((const OpExpr *) expr)->opcollid;
+            break;
+
+        // Boolean expressions have no collation
+        case T_BoolExpr:
+        case T_ScalarArrayOpExpr:
+        case T_NullTest:
+        case T_BooleanTest:
+        case T_CurrentOfExpr:
+            coll = InvalidOid;
+            break;
+
+        // Subqueries - get collation from first target column
+        case T_SubLink:
+            {
+                const SubLink *sublink = (const SubLink *) expr;
+                if (sublink->subLinkType == EXPR_SUBLINK ||
+                    sublink->subLinkType == ARRAY_SUBLINK)
+                {
+                    Query *qtree = (Query *) sublink->subselect;
+                    if (!qtree || !IsA(qtree, Query))
+                        elog(ERROR, "cannot get collation for untransformed sublink");
+                    TargetEntry *tent = linitial_node(TargetEntry, qtree->targetList);
+                    coll = exprCollation((Node *) tent->expr);
+                }
+                else
+                    coll = InvalidOid;
+            }
+            break;
+
+        case T_SubPlan:
+            {
+                const SubPlan *subplan = (const SubPlan *) expr;
+                if (subplan->subLinkType == EXPR_SUBLINK ||
+                    subplan->subLinkType == ARRAY_SUBLINK)
+                    coll = subplan->firstColCollation;
+                else
+                    coll = InvalidOid;
+            }
+            break;
+
+        // Type coercion expressions
+        case T_RelabelType:
+            coll = ((const RelabelType *) expr)->resultcollid;
+            break;
+        case T_CoerceViaIO:
+            coll = ((const CoerceViaIO *) expr)->resultcollid;
+            break;
+        case T_ArrayCoerceExpr:
+            coll = ((const ArrayCoerceExpr *) expr)->resultcollid;
+            break;
+        case T_CoerceToDomain:
+            coll = ((const CoerceToDomain *) expr)->resultcollid;
+            break;
+
+        // Explicit collation
+        case T_CollateExpr:
+            coll = ((const CollateExpr *) expr)->collOid;
+            break;
+
+        // Conditional expressions
+        case T_CaseExpr:
+            coll = ((const CaseExpr *) expr)->casecollid;
+            break;
+        case T_CoalesceExpr:
+            coll = ((const CoalesceExpr *) expr)->coalescecollid;
+            break;
+        case T_MinMaxExpr:
+            coll = ((const MinMaxExpr *) expr)->minmaxcollid;
+            break;
+
+        // Recursive cases
+        case T_NamedArgExpr:
+            coll = exprCollation((Node *) ((const NamedArgExpr *) expr)->arg);
+            break;
+        case T_AlternativeSubPlan:
+            coll = exprCollation((Node *) linitial(((const AlternativeSubPlan *) expr)->subplans));
+            break;
+        case T_InferenceElem:
+            coll = exprCollation((Node *) ((const InferenceElem *) expr)->expr);
+            break;
+        case T_PlaceHolderVar:
+            coll = exprCollation((Node *) ((const PlaceHolderVar *) expr)->phexpr);
+            break;
+
+        // Composite types have no collation
+        case T_RowExpr:
+        case T_FieldStore:
+        case T_ConvertRowtypeExpr:
+            coll = InvalidOid;
+            break;
+
+        // Special cases with specific logic
+        case T_SQLValueFunction:
+            if (((const SQLValueFunction *) expr)->type == NAMEOID)
+                coll = C_COLLATION_OID;
+            else
+                coll = InvalidOid;
+            break;
+
+        case T_XmlExpr:
+            if (((const XmlExpr *) expr)->op == IS_XMLSERIALIZE)
+                coll = DEFAULT_COLLATION_OID;
+            else
+                coll = InvalidOid;
+            break;
+
+        // Additional cases for arrays, JSON, etc.
+        // ... (many more cases handled similarly)
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(expr));
+            coll = InvalidOid;
+            break;
+    }
+    return coll;
+}
+```

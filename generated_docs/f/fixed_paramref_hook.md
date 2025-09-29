@@ -39,3 +39,33 @@ This hook function is called during query parsing to resolve parameter reference
 - Automatically determines parameter collation from the parameter type
 - Error reporting includes parser position information for better user experience
 - Part of PostgreSQL's prepared statement parameter handling infrastructure
+
+## Simplified Source
+
+```c
+static Node *fixed_paramref_hook(ParseState *pstate, ParamRef *pref)
+{
+    FixedParamState *parstate = (FixedParamState *) pstate->p_ref_hook_state;
+    int paramno = pref->number;
+    Param *param;
+
+    // Validate parameter number and type
+    if (paramno <= 0 || paramno > parstate->numParams ||
+        !OidIsValid(parstate->paramTypes[paramno - 1]))
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_PARAMETER),
+                 errmsg("there is no parameter $%d", paramno),
+                 parser_errposition(pstate, pref->location)));
+
+    // Create Param node with fixed type information
+    param = makeNode(Param);
+    param->paramkind = PARAM_EXTERN;
+    param->paramid = paramno;
+    param->paramtype = parstate->paramTypes[paramno - 1];  // Use predetermined type
+    param->paramtypmod = -1;  // No specific type modifier
+    param->paramcollid = get_typcollation(param->paramtype);
+    param->location = pref->location;
+
+    return (Node *) param;
+}
+```

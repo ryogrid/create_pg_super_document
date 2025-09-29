@@ -36,3 +36,71 @@ This function checks if a relation is shared across the entire database cluster 
 - Shared catalogs include: pg_authid, pg_auth_members, pg_database, pg_db_role_setting, pg_parameter_acl, pg_replication_origin, pg_shdepend, pg_shdescription, pg_shseclabel, pg_subscription, pg_tablespace
 - This is a performance-critical function used in locking and cache invalidation operations
 - The hard-coded approach avoids the complexity of scanning pg_class during critical locking operations
+
+## Simplified Source
+
+```c
+bool IsSharedRelation(Oid relationId)
+{
+    // These are the shared catalogs (look for BKI_SHARED_RELATION)
+    if (relationId == AuthIdRelationId ||
+        relationId == AuthMemRelationId ||
+        relationId == DatabaseRelationId ||
+        relationId == DbRoleSettingRelationId ||
+        relationId == ParameterAclRelationId ||
+        relationId == ReplicationOriginRelationId ||
+        relationId == SharedDependRelationId ||
+        relationId == SharedDescriptionRelationId ||
+        relationId == SharedSecLabelRelationId ||
+        relationId == SubscriptionRelationId ||
+        relationId == TableSpaceRelationId)
+        return true;
+
+    // These are their indexes
+    if (relationId == AuthIdOidIndexId ||
+        relationId == AuthIdRolnameIndexId ||
+        relationId == AuthMemMemRoleIndexId ||
+        relationId == AuthMemRoleMemIndexId ||
+        relationId == AuthMemOidIndexId ||
+        relationId == AuthMemGrantorIndexId ||
+        relationId == DatabaseNameIndexId ||
+        relationId == DatabaseOidIndexId ||
+        relationId == DbRoleSettingDatidRolidIndexId ||
+        relationId == ParameterAclOidIndexId ||
+        relationId == ParameterAclParnameIndexId ||
+        relationId == ReplicationOriginIdentIndex ||
+        relationId == ReplicationOriginNameIndex ||
+        relationId == SharedDependDependerIndexId ||
+        relationId == SharedDependReferenceIndexId ||
+        relationId == SharedDescriptionObjIndexId ||
+        relationId == SharedSecLabelObjectIndexId ||
+        relationId == SubscriptionNameIndexId ||
+        relationId == SubscriptionObjectIndexId ||
+        relationId == TablespaceNameIndexId ||
+        relationId == TablespaceOidIndexId)
+        return true;
+
+    // These are their toast tables and toast indexes
+    if (relationId == PgAuthidToastTable ||
+        relationId == PgAuthidToastIndex ||
+        relationId == PgDatabaseToastTable ||
+        relationId == PgDatabaseToastIndex ||
+        relationId == PgDbRoleSettingToastTable ||
+        relationId == PgDbRoleSettingToastIndex ||
+        relationId == PgParameterAclToastTable ||
+        relationId == PgParameterAclToastIndex ||
+        relationId == PgReplicationOriginToastTable ||
+        relationId == PgReplicationOriginToastIndex ||
+        relationId == PgShdescriptionToastTable ||
+        relationId == PgShdescriptionToastIndex ||
+        relationId == PgShseclabelToastTable ||
+        relationId == PgShseclabelToastIndex ||
+        relationId == PgSubscriptionToastTable ||
+        relationId == PgSubscriptionToastIndex ||
+        relationId == PgTablespaceToastTable ||
+        relationId == PgTablespaceToastIndex)
+        return true;
+
+    return false;
+}
+```

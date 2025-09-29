@@ -43,3 +43,57 @@ The function operates recursively, ensuring that all child nodes are properly pr
 - Special handling exists for Param nodes to track parameter normalization requirements
 - The function emits warnings but continues processing for unrecognized node types, making it resilient to new node types
 - This is a key component of PostgreSQL's query plan caching mechanism, enabling efficient identification of equivalent queries with different literal values
+
+## Simplified Source
+
+```c
+static void
+_jumbleNode(JumbleState *jstate, Node *node)
+{
+    Node *expr = node;
+
+    if (expr == NULL)
+        return;
+
+    // Guard against stack overflow in complex expressions
+    check_stack_depth();
+
+    // Always emit the node's type tag first
+    JUMBLE_FIELD(type);
+
+    // Handle different node types
+    switch (nodeTag(expr))
+    {
+        #include "queryjumblefuncs.switch.c"  // Generated switch cases
+
+        case T_List:
+        case T_IntList:
+        case T_OidList:
+        case T_XidList:
+            _jumbleList(jstate, expr);
+            break;
+
+        default:
+            // Log warning but continue processing
+            elog(WARNING, "unrecognized node type: %d", (int) nodeTag(expr));
+            break;
+    }
+
+    // Special handling for specific node types
+    switch (nodeTag(expr))
+    {
+        case T_Param:
+            {
+                Param *p = (Param *) node;
+
+                // Track highest external parameter ID for normalization
+                if (p->paramkind == PARAM_EXTERN &&
+                    p->paramid > jstate->highest_extern_param_id)
+                    jstate->highest_extern_param_id = p->paramid;
+            }
+            break;
+        default:
+            break;
+    }
+}
+```

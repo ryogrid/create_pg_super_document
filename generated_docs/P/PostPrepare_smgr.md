@@ -36,3 +36,23 @@ This function takes no parameters.
 - The function assumes that all pending deletion information has already been serialized to the 2PC state file
 - After this function executes, the pendingDeletes list is empty and ready for new transactions
 - This is a critical step in ensuring proper resource management during distributed transactions
+
+## Simplified Source
+
+```c
+void PostPrepare_smgr(void)
+{
+    PendingRelDelete *pending;
+    PendingRelDelete *next;
+
+    // Iterate through all pending relation deletions
+    for (pending = pendingDeletes; pending != NULL; pending = next)
+    {
+        next = pending->next;
+        pendingDeletes = next;
+
+        // Free the list entry (data already saved in 2PC state file)
+        pfree(pending);
+    }
+}
+```

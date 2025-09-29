@@ -45,3 +45,69 @@ This function retrieves the missing value for a table column (attribute) when th
 - Cache entries are stored in TopMemoryContext to persist across transactions
 - Handles both fixed-length and variable-length data types appropriately
 - Part of PostgreSQL ADD COLUMN with DEFAULT optimization, allowing new columns to avoid rewriting existing data
+
+## Simplified Source
+
+```c
+Datum getmissingattr(TupleDesc tupleDesc, int attnum, bool *isnull)
+{
+    Form_pg_attribute att;
+
+    Assert(attnum <= tupleDesc->natts);
+    Assert(attnum > 0);
+
+    att = TupleDescAttr(tupleDesc, attnum - 1);
+
+    if (att->atthasmissing)
+    {
+        AttrMissing *attrmiss;
+
+        Assert(tupleDesc->constr);
+        Assert(tupleDesc->constr->missing);
+
+        attrmiss = tupleDesc->constr->missing + (attnum - 1);
+
+        if (attrmiss->am_present)
+        {
+            missing_cache_key key;
+            missing_cache_key *entry;
+            bool found;
+            MemoryContext oldctx;
+
+            *isnull = false;
+
+            // By-value attributes don't need caching
+            if (att->attbyval)
+                return attrmiss->am_value;
+
+            // Initialize cache if needed
+            if (missing_cache == NULL)
+                init_missing_cache();
+
+            // Set up cache key
+            if (att->attlen > 0)
+                key.len = att->attlen;
+            else
+                key.len = VARSIZE_ANY(attrmiss->am_value);
+            key.value = attrmiss->am_value;
+
+            // Look up or create cache entry
+            entry = hash_search(missing_cache, &key, HASH_ENTER, &found);
+
+            if (!found)
+            {
+                // Cache miss - create persistent copy
+                oldctx = MemoryContextSwitchTo(TopMemoryContext);
+                entry->value = datumCopy(attrmiss->am_value, false, att->attlen);
+                MemoryContextSwitchTo(oldctx);
+            }
+
+            return entry->value;
+        }
+    }
+
+    // No missing value defined
+    *isnull = true;
+    return PointerGetDatum(NULL);
+}
+```

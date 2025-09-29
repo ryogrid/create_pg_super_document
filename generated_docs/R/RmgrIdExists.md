@@ -31,3 +31,14 @@ This function validates the existence of a resource manager by checking if the s
 
 ## Notes and Other Information
 The function provides a lightweight way to validate resource manager IDs before performing operations that assume the resource manager exists. It's commonly used as a guard condition in resource manager initialization, cleanup, and consistency checking operations. The validation relies on the convention that registered resource managers have non-NULL rm_name fields in the RmgrTable.
+
+## Simplified Source
+
+```c
+static inline bool RmgrIdExists(RmgrId rmid)
+{
+    // Check if resource manager ID has a valid name in the table
+    // Non-NULL rm_name indicates a registered resource manager
+    return RmgrTable[rmid].rm_name != NULL;
+}
+```

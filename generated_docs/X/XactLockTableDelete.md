@@ -38,3 +38,18 @@ This explicit lock management is crucial for proper subtransaction handling in P
 - Part of PostgreSQL's hierarchical transaction management that supports savepoints and nested transactions
 - The explicit lock release ensures that other transactions waiting on the subtransaction can immediately detect its completion
 - Helps prevent lock table bloat by removing unnecessary lock entries for completed subtransactions
+
+## Simplified Source
+
+```c
+void XactLockTableDelete(TransactionId xid)
+{
+    LOCKTAG tag;
+
+    // Create lock tag for this transaction ID
+    SET_LOCKTAG_TRANSACTION(tag, xid);
+
+    // Release the exclusive lock on this transaction
+    LockRelease(&tag, ExclusiveLock, false);
+}
+```

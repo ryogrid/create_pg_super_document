@@ -39,3 +39,32 @@ The  function is a helper function used during compression specification parsing
 - Function is declared static, limiting its scope to the compression.c source file
 - Part of the internal implementation of the compression specification parsing system
 - Used specifically for parsing integer-valued compression options like compression level and worker count
+
+## Simplified Source
+
+```c
+static int
+expect_integer_value(char *keyword, char *value, pg_compress_specification *result)
+{
+    int     ivalue;
+    char   *ivalue_endp;
+
+    if (value == NULL)
+    {
+        result->parse_error =
+            psprintf(_("compression option \"%s\" requires a value"),
+                     keyword);
+        return -1;
+    }
+
+    ivalue = strtol(value, &ivalue_endp, 10);
+    if (ivalue_endp == value || *ivalue_endp != '\0')
+    {
+        result->parse_error =
+            psprintf(_("value for compression option \"%s\" must be an integer"),
+                     keyword);
+        return -1;
+    }
+    return ivalue;
+}
+```

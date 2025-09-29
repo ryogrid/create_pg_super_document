@@ -46,3 +46,47 @@ The function operates in different modes depending on the standby state. In earl
 - Updates latestObservedXid and advances nextXid to maintain consistency
 - Essential for ensuring standby transactions see the correct set of running transactions
 - The function handles the sequential nature of PostgreSQL's transaction ID assignment
+
+## Simplified Source
+
+```c
+void RecordKnownAssignedTransactionIds(TransactionId xid)
+{
+    // Validate inputs and standby state
+    Assert(standbyState >= STANDBY_INITIALIZED);
+    Assert(TransactionIdIsValid(xid));
+    Assert(TransactionIdIsValid(latestObservedXid));
+
+    // Debug logging
+    elog(DEBUG4, "record known xact %u latestObservedXid %u", xid, latestObservedXid);
+
+    // Only process if this XID is newer than what we've seen
+    if (TransactionIdFollows(xid, latestObservedXid)) {
+        TransactionId next_expected_xid;
+
+        // Extend SUBTRANS for all intermediate XIDs
+        // This handles gaps in XID sequence due to unobserved assignments
+        next_expected_xid = latestObservedXid;
+        while (TransactionIdPrecedes(next_expected_xid, xid)) {
+            TransactionIdAdvance(next_expected_xid);
+            ExtendSUBTRANS(next_expected_xid);
+        }
+        Assert(next_expected_xid == xid);
+
+        // If KnownAssignedXids machinery isn't ready, just update latestObservedXid
+        if (standbyState <= STANDBY_INITIALIZED) {
+            latestObservedXid = xid;
+            return;
+        }
+
+        // Add all intermediate XIDs to KnownAssignedXids array
+        next_expected_xid = latestObservedXid;
+        TransactionIdAdvance(next_expected_xid);
+        KnownAssignedXidsAdd(next_expected_xid, xid, false);
+
+        // Update tracking variables
+        latestObservedXid = xid;
+        AdvanceNextFullTransactionIdPastXid(latestObservedXid);
+    }
+}
+```

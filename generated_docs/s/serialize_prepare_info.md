@@ -35,3 +35,57 @@ This function sets up the necessary function lookup information for serializing 
 - Handles memory management by freeing old function info before allocating new
 - Part of PostgreSQL's tuple serialization system for EXPLAIN command output
 - Includes error handling for unsupported format codes
+
+## Simplified Source
+
+```c
+static void serialize_prepare_info(SerializeDestReceiver *receiver,
+                                  TupleDesc typeinfo, int nattrs)
+{
+    // Clean up any old function info
+    if (receiver->finfos)
+        pfree(receiver->finfos);
+    receiver->finfos = NULL;
+
+    // Store tuple descriptor info
+    receiver->attrinfo = typeinfo;
+    receiver->nattrs = nattrs;
+
+    // Early exit if no attributes
+    if (nattrs <= 0)
+        return;
+
+    // Allocate function info array
+    receiver->finfos = (FmgrInfo *) palloc0(nattrs * sizeof(FmgrInfo));
+
+    // Set up function info for each attribute
+    for (int i = 0; i < nattrs; i++)
+    {
+        FmgrInfo *finfo = receiver->finfos + i;
+        Form_pg_attribute attr = TupleDescAttr(typeinfo, i);
+        Oid typoutput;
+        Oid typsend;
+        bool typisvarlena;
+
+        if (receiver->format == 0)
+        {
+            // Text format: get type output function
+            getTypeOutputInfo(attr->atttypid, &typoutput, &typisvarlena);
+            fmgr_info(typoutput, finfo);
+        }
+        else if (receiver->format == 1)
+        {
+            // Binary format: get type send function
+            getTypeBinaryOutputInfo(attr->atttypid, &typsend, &typisvarlena);
+            fmgr_info(typsend, finfo);
+        }
+        else
+        {
+            // Unsupported format
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("unsupported format code: %d", receiver->format)));
+        }
+    }
+}
+```

@@ -47,3 +47,53 @@ The callback formats human-readable error messages that include the specific tup
 - Uses gettext_noop for internationalization support of error messages
 - Provides tuple-level granularity in error reporting with block and offset numbers
 - Essential for debugging lock contention and deadlock scenarios in PostgreSQL
+
+## Simplified Source
+
+```c
+static void XactLockTableWaitErrorCb(void *arg)
+{
+    XactLockTableWaitInfo *info = (XactLockTableWaitInfo *) arg;
+
+    // We would like to print schema name too, but that would require a syscache lookup
+    if (info->oper != XLTW_None &&
+        ItemPointerIsValid(info->ctid) && RelationIsValid(info->rel)) {
+        const char *cxt;
+
+        switch (info->oper) {
+            case XLTW_Update:
+                cxt = gettext_noop("while updating tuple (%u,%u) in relation \"%s\"");
+                break;
+            case XLTW_Delete:
+                cxt = gettext_noop("while deleting tuple (%u,%u) in relation \"%s\"");
+                break;
+            case XLTW_Lock:
+                cxt = gettext_noop("while locking tuple (%u,%u) in relation \"%s\"");
+                break;
+            case XLTW_LockUpdated:
+                cxt = gettext_noop("while locking updated version (%u,%u) of tuple in relation \"%s\"");
+                break;
+            case XLTW_InsertIndex:
+                cxt = gettext_noop("while inserting index tuple (%u,%u) in relation \"%s\"");
+                break;
+            case XLTW_InsertIndexUnique:
+                cxt = gettext_noop("while checking uniqueness of tuple (%u,%u) in relation \"%s\"");
+                break;
+            case XLTW_FetchUpdated:
+                cxt = gettext_noop("while rechecking updated tuple (%u,%u) in relation \"%s\"");
+                break;
+            case XLTW_RecheckExclusionConstr:
+                cxt = gettext_noop("while checking exclusion constraint on tuple (%u,%u) in relation \"%s\"");
+                break;
+
+            default:
+                return;
+        }
+
+        errcontext(cxt,
+                   ItemPointerGetBlockNumber(info->ctid),
+                   ItemPointerGetOffsetNumber(info->ctid),
+                   RelationGetRelationName(info->rel));
+    }
+}
+```

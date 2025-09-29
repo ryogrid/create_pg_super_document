@@ -36,3 +36,25 @@ None - this function takes no parameters and checks the current backend's state.
 - Part of the hot standby recovery conflict resolution system
 - Helps identify which backends need to be canceled to resolve recovery conflicts
 - The function handles timing edge cases where the startup process might have been unblocked between the time the interrupt was sent and when this function is called
+
+## Simplified Source
+
+```c
+bool HoldingBufferPinThatDelaysRecovery(void)
+{
+    // Get the buffer ID that the startup process is waiting for
+    int bufid = GetStartupBufferPinWaitBufId();
+
+    // Handle race conditions: if startup process was already woken up
+    // or if we get multiple/inappropriate interrupts, bufid will be < 0
+    if (bufid < 0)
+        return false;
+
+    // Check if this backend has any pins on the buffer that startup is waiting for
+    // Note: GetPrivateRefCount takes bufid+1 due to internal indexing
+    if (GetPrivateRefCount(bufid + 1) > 0)
+        return true;
+
+    return false;
+}
+```

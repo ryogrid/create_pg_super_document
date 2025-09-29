@@ -46,3 +46,27 @@ This function takes no parameters.
 - The timeout will repeatedly trigger `startup_progress_timeout_handler()` at configured intervals
 - Default progress interval is 10 seconds (10000ms) as defined by `log_startup_progress_interval`
 - Located in startup.c:323-342 with explanatory comment about setting timestamp and enabling timeout
+
+## Simplified Source
+
+```c
+void enable_startup_progress_timeout(void)
+{
+    TimestampTz fin_time;
+
+    // Feature is disabled
+    if (log_startup_progress_interval == 0)
+        return;
+
+    // Record start time for this phase
+    startup_progress_phase_start_time = GetCurrentTimestamp();
+
+    // Calculate when first timeout should occur
+    fin_time = TimestampTzPlusMilliseconds(startup_progress_phase_start_time,
+                                          log_startup_progress_interval);
+
+    // Enable recurring timeout for progress reporting
+    enable_timeout_every(STARTUP_PROGRESS_TIMEOUT, fin_time,
+                        log_startup_progress_interval);
+}
+```

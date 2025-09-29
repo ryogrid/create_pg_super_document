@@ -17,7 +17,7 @@ ReachedEndOfBackup is a callback function invoked by PerformWalRecovery() when t
 
 The function performs several important control file updates:
 1. **Consistency Point Update**: Updates minRecoveryPoint to ensure the database won't start at an earlier, potentially inconsistent point
-2. **Backup State Cleanup**: Resets backup-related control file fields (backupStartPoint, backupEndPoint, backupEndRequired) to indicate the backup recovery process is complete  
+2. **Backup State Cleanup**: Resets backup-related control file fields (backupStartPoint, backupEndPoint, backupEndRequired) to indicate the backup recovery process is complete
 3. **Control File Persistence**: Writes the updated control file to disk to make the changes durable
 
 This function is critical for ensuring that recovery from base backups completes properly and that the database cannot be started in an inconsistent state if recovery is interrupted and restarted.
@@ -41,3 +41,29 @@ This function is critical for ensuring that recovery from base backups completes
 - Critical for base backup recovery consistency - prevents starting at inconsistent points
 - The function handles the case where minRecoveryPoint might already be ahead (from previous recovery attempts)
 - Located in src/backend/access/transam/xlog.c:6226-6262
+
+## Simplified Source
+
+```c
+void
+ReachedEndOfBackup(XLogRecPtr EndRecPtr, TimeLineID tli)
+{
+	// Update control file when backup recovery is complete
+	LWLockAcquire(ControlFileLock, LW_EXCLUSIVE);
+
+	// Advance minRecoveryPoint if needed for consistency
+	if (ControlFile->minRecoveryPoint < EndRecPtr)
+	{
+		ControlFile->minRecoveryPoint = EndRecPtr;
+		ControlFile->minRecoveryPointTLI = tli;
+	}
+
+	// Clear backup-related fields
+	ControlFile->backupStartPoint = InvalidXLogRecPtr;
+	ControlFile->backupEndPoint = InvalidXLogRecPtr;
+	ControlFile->backupEndRequired = false;
+
+	UpdateControlFile();
+	LWLockRelease(ControlFileLock);
+}
+```

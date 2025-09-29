@@ -46,3 +46,31 @@ The function centralizes the knowledge of which slot type is appropriate for eac
 - The Assert statement ensures that only supported relation kinds (VIEW, PARTITIONED_TABLE) reach the final branch
 - This function is part of the table access method (tableam) abstraction layer introduced to support pluggable storage engines
 - The choice of slot type affects performance and memory usage patterns for tuple operations
+
+## Simplified Source
+
+```c
+const TupleTableSlotOps *
+table_slot_callbacks(Relation relation)
+{
+    const TupleTableSlotOps *tts_cb;
+
+    // Use table access method's slot callbacks if available
+    if (relation->rd_tableam)
+        tts_cb = relation->rd_tableam->slot_callbacks(relation);
+    else if (relation->rd_rel->relkind == RELKIND_FOREIGN_TABLE)
+    {
+        // For FDWs, use heap tuple slots for backward compatibility
+        tts_cb = &TTSOpsHeapTuple;
+    }
+    else
+    {
+        // For views and partitioned tables, use virtual slots
+        Assert(relation->rd_rel->relkind == RELKIND_VIEW ||
+               relation->rd_rel->relkind == RELKIND_PARTITIONED_TABLE);
+        tts_cb = &TTSOpsVirtual;
+    }
+
+    return tts_cb;
+}
+```

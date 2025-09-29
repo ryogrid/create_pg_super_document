@@ -39,3 +39,26 @@ The  function performs the inverse operation of  by converting a  enumeration va
 - Returns "???" as a fallback to satisfy compiler requirements, though this should never be reached in normal operation
 - Primarily used for error reporting, logging, and user interface display purposes
 - Located in src/common/compression.c for use by both backend and frontend code
+
+## Simplified Source
+
+```c
+const char *get_compress_algorithm_name(pg_compress_algorithm algorithm)
+{
+    switch (algorithm) {
+        case PG_COMPRESSION_NONE:
+            return "none";
+        case PG_COMPRESSION_GZIP:
+            return "gzip";
+        case PG_COMPRESSION_LZ4:
+            return "lz4";
+        case PG_COMPRESSION_ZSTD:
+            return "zstd";
+        // No default case to catch missing algorithm values at compile time
+    }
+
+    // Should never be reached - indicates unknown algorithm
+    Assert(false);
+    return "???";  // Fallback for compiler
+}
+```

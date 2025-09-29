@@ -45,3 +45,27 @@ This function is essential for memory management in the serializable snapshot is
 - Uses PG_USED_FOR_ASSERTS_ONLY macro for the rmtarget variable to avoid unused variable warnings in non-debug builds
 - Part of PostgreSQL's memory management strategy for the SSI (Serializable Snapshot Isolation) system
 - The hash value parameter optimization avoids recomputing the hash during removal operations
+
+## Simplified Source
+
+```c
+static void
+RemoveTargetIfNoLongerUsed(PREDICATELOCKTARGET *target, uint32 targettaghash)
+{
+    PREDICATELOCKTARGET *rmtarget PG_USED_FOR_ASSERTS_ONLY;
+
+    // Must hold the predicate list lock
+    Assert(LWLockHeldByMe(SerializablePredicateListLock));
+
+    // Can't remove target if it still has predicate locks
+    if (!dlist_is_empty(&target->predicateLocks))
+        return;
+
+    // Remove the target from the hash table since it's no longer used
+    rmtarget = hash_search_with_hash_value(PredicateLockTargetHash,
+                                         &target->tag,
+                                         targettaghash,
+                                         HASH_REMOVE, NULL);
+    Assert(rmtarget == target);
+}
+```

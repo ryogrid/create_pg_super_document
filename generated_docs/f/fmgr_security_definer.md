@@ -49,3 +49,93 @@ The security-definer mechanism allows functions to execute with the privileges o
 - Not re-entrant due to flinfo manipulation, but fcinfo itself isn't re-entrant either
 - Critical component for PostgreSQL's function security and configuration system
 - Manages statistics collection for wrapped function execution
+
+## Simplified Source
+
+```c
+extern Datum fmgr_security_definer(PG_FUNCTION_ARGS)
+{
+    Datum result;
+    struct fmgr_security_definer_cache *volatile fcache;
+    FmgrInfo *save_flinfo;
+    Oid save_userid;
+    int save_sec_context;
+    volatile int save_nestlevel;
+    PgStat_FunctionCallUsage fcusage;
+
+    // Initialize cache on first call
+    if (!fcinfo->flinfo->fn_extra) {
+        HeapTuple tuple;
+        Form_pg_proc procedureStruct;
+
+        // Allocate and initialize cache
+        fcache = MemoryContextAllocZero(fcinfo->flinfo->fn_mcxt, sizeof(*fcache));
+
+        // Set up actual function info
+        fmgr_info_cxt_security(fcinfo->flinfo->fn_oid, &fcache->flinfo,
+                               fcinfo->flinfo->fn_mcxt, true);
+
+        // Get function metadata from pg_proc
+        tuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(fcinfo->flinfo->fn_oid));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for function %u", fcinfo->flinfo->fn_oid);
+
+        procedureStruct = (Form_pg_proc) GETSTRUCT(tuple);
+
+        // Set user ID for security definer functions
+        if (procedureStruct->prosecdef)
+            fcache->userid = procedureStruct->proowner;
+
+        // Extract and transform configuration parameters
+        Datum datum = SysCacheGetAttr(PROCOID, tuple, Anum_pg_proc_proconfig, &isnull);
+        if (!isnull) {
+            // Process configuration array and create handles
+            // ... (configuration processing code) ...
+        }
+
+        ReleaseSysCache(tuple);
+        fcinfo->flinfo->fn_extra = fcache;
+    } else {
+        fcache = fcinfo->flinfo->fn_extra;
+    }
+
+    // Save current security context
+    GetUserIdAndSecContext(&save_userid, &save_sec_context);
+    if (fcache->configNames != NIL)
+        save_nestlevel = NewGUCNestLevel();
+
+    // Switch to function owner's privileges if needed
+    if (OidIsValid(fcache->userid))
+        SetUserIdAndSecContext(fcache->userid,
+                               save_sec_context | SECURITY_LOCAL_USERID_CHANGE);
+
+    // Apply configuration parameters
+    // ... (GUC setting code) ...
+
+    // Execute function with proper error handling
+    save_flinfo = fcinfo->flinfo;
+    PG_TRY();
+    {
+        fcinfo->flinfo = &fcache->flinfo;
+        pgstat_init_function_usage(fcinfo, &fcusage);
+        result = FunctionCallInvoke(fcinfo);
+        pgstat_end_function_usage(&fcusage, /* completion check */);
+    }
+    PG_CATCH();
+    {
+        fcinfo->flinfo = save_flinfo;
+        // Cleanup and re-throw
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    // Restore original context
+    fcinfo->flinfo = save_flinfo;
+    if (fcache->configNames != NIL)
+        AtEOXact_GUC(true, save_nestlevel);
+    if (OidIsValid(fcache->userid))
+        SetUserIdAndSecContext(save_userid, save_sec_context);
+
+    return result;
+}
+```

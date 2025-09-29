@@ -105,3 +105,69 @@ The function ensures proper cleanup while maintaining referential integrity and 
 - The function handles four different subtransaction ID fields, each representing different aspects of relation lifecycle within subtransactions
 - When transferring ownership to parent subtransaction, the function preserves the relation state for potential cleanup at higher transaction levels
 - Safe removal of relcache entries only occurs when reference counts are zero to prevent dangling pointers
+
+## Simplified Source
+
+```c
+static void
+AtEOSubXact_cleanup(Relation relation, bool isCommit,
+                    SubTransactionId mySubid, SubTransactionId parentSubid)
+{
+    // Handle relations created in current subtransaction
+    if (relation->rd_createSubid == mySubid)
+    {
+        Assert(relation->rd_droppedSubid == mySubid ||
+               relation->rd_droppedSubid == InvalidSubTransactionId);
+
+        if (isCommit && relation->rd_droppedSubid == InvalidSubTransactionId)
+        {
+            // Transfer to parent subtransaction
+            relation->rd_createSubid = parentSubid;
+        }
+        else if (RelationHasReferenceCountZero(relation))
+        {
+            // Safe to remove - clear all subtransaction IDs
+            relation->rd_createSubid = InvalidSubTransactionId;
+            relation->rd_newRelfilelocatorSubid = InvalidSubTransactionId;
+            relation->rd_firstRelfilelocatorSubid = InvalidSubTransactionId;
+            relation->rd_droppedSubid = InvalidSubTransactionId;
+            RelationClearRelation(relation, false);
+            return;
+        }
+        else
+        {
+            // Leaked reference - transfer to parent with warning
+            relation->rd_createSubid = parentSubid;
+            elog(WARNING, "cannot remove relcache entry for \"%s\" because it has nonzero refcount",
+                 RelationGetRelationName(relation));
+        }
+    }
+
+    // Update new relfilelocator subtransaction tracking
+    if (relation->rd_newRelfilelocatorSubid == mySubid)
+    {
+        if (isCommit)
+            relation->rd_newRelfilelocatorSubid = parentSubid;
+        else
+            relation->rd_newRelfilelocatorSubid = InvalidSubTransactionId;
+    }
+
+    // Update first relfilelocator subtransaction tracking
+    if (relation->rd_firstRelfilelocatorSubid == mySubid)
+    {
+        if (isCommit)
+            relation->rd_firstRelfilelocatorSubid = parentSubid;
+        else
+            relation->rd_firstRelfilelocatorSubid = InvalidSubTransactionId;
+    }
+
+    // Update dropped subtransaction tracking
+    if (relation->rd_droppedSubid == mySubid)
+    {
+        if (isCommit)
+            relation->rd_droppedSubid = parentSubid;
+        else
+            relation->rd_droppedSubid = InvalidSubTransactionId;
+    }
+}
+```

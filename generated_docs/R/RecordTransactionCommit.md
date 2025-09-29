@@ -56,3 +56,133 @@ This function takes no parameters but works with numerous local variables:
 - The function coordinates with multiple PostgreSQL subsystems: WAL, CLOG, statistics, invalidation messages, and replication
 - Returns InvalidTransactionId for transactions without assigned XIDs, otherwise returns the latest XID in the transaction tree
 - Essential for PostgreSQL's ACID properties and crash recovery mechanisms
+
+## Simplified Source
+
+```c
+static TransactionId RecordTransactionCommit(void)
+{
+    TransactionId xid = GetTopTransactionIdIfAny();
+    bool markXidCommitted = TransactionIdIsValid(xid);
+    TransactionId latestXid = InvalidTransactionId;
+    int nrels, nchildren, ndroppedstats = 0, nmsgs = 0;
+    RelFileLocator *rels;
+    TransactionId *children;
+    xl_xact_stats_item *droppedstats = NULL;
+    SharedInvalidationMessage *invalMessages = NULL;
+    bool RelcacheInitFileInval = false;
+    bool wrote_xlog;
+
+    // Log pending invalidations for logical decoding
+    if (XLogLogicalInfoActive())
+        LogLogicalInvalidations();
+
+    // Gather data needed for commit record
+    nrels = smgrGetPendingDeletes(true, &rels);
+    nchildren = xactGetCommittedChildren(&children);
+    ndroppedstats = pgstat_get_transactional_drops(true, &droppedstats);
+    if (XLogStandbyInfoActive())
+        nmsgs = xactGetCommittedInvalidationMessages(&invalMessages,
+                                                     &RelcacheInitFileInval);
+    wrote_xlog = (XactLastRecEnd != 0);
+
+    if (!markXidCommitted)
+    {
+        // Transaction without XID - limited processing
+        if (nrels != 0 || ndroppedstats != 0)
+            elog(ERROR, "cannot commit a transaction that deleted files but has no xid");
+
+        Assert(nchildren == 0);
+
+        // Handle invalidation messages for standby servers
+        if (nmsgs != 0)
+        {
+            LogStandbyInvalidations(nmsgs, invalMessages, RelcacheInitFileInval);
+            wrote_xlog = true;
+        }
+
+        if (!wrote_xlog)
+            goto cleanup;
+    }
+    else
+    {
+        // Transaction with XID - full commit processing
+        bool replorigin = (replorigin_session_origin != InvalidRepOriginId &&
+                          replorigin_session_origin != DoNotReplicateId);
+
+        // Enter critical section to prevent checkpoint interference
+        Assert((MyProc->delayChkptFlags & DELAY_CHKPT_START) == 0);
+        START_CRIT_SECTION();
+        MyProc->delayChkptFlags |= DELAY_CHKPT_START;
+
+        // Write commit record to WAL
+        XactLogCommitRecord(GetCurrentTransactionStopTimestamp(),
+                           nchildren, children, nrels, rels,
+                           ndroppedstats, droppedstats,
+                           nmsgs, invalMessages,
+                           RelcacheInitFileInval,
+                           MyXactFlags,
+                           InvalidTransactionId, NULL);
+
+        // Handle replication origin advancement
+        if (replorigin)
+            replorigin_session_advance(replorigin_session_origin_lsn,
+                                      XactLastRecEnd);
+
+        // Record commit timestamp
+        if (!replorigin || replorigin_session_origin_timestamp == 0)
+            replorigin_session_origin_timestamp = GetCurrentTransactionStopTimestamp();
+
+        TransactionTreeSetCommitTsData(xid, nchildren, children,
+                                      replorigin_session_origin_timestamp,
+                                      replorigin_session_origin);
+    }
+
+    // Decide between synchronous and asynchronous commit
+    if ((wrote_xlog && markXidCommitted &&
+         synchronous_commit > SYNCHRONOUS_COMMIT_OFF) ||
+        forceSyncCommit || nrels > 0)
+    {
+        // Synchronous commit path
+        XLogFlush(XactLastRecEnd);
+
+        if (markXidCommitted)
+            TransactionIdCommitTree(xid, nchildren, children);
+    }
+    else
+    {
+        // Asynchronous commit path
+        XLogSetAsyncXactLSN(XactLastRecEnd);
+
+        if (markXidCommitted)
+            TransactionIdAsyncCommitTree(xid, nchildren, children, XactLastRecEnd);
+    }
+
+    // Exit critical section
+    if (markXidCommitted)
+    {
+        MyProc->delayChkptFlags &= ~DELAY_CHKPT_START;
+        END_CRIT_SECTION();
+    }
+
+    // Calculate latest XID for return value
+    latestXid = TransactionIdLatest(xid, nchildren, children);
+
+    // Wait for synchronous replication if required
+    if (wrote_xlog && markXidCommitted)
+        SyncRepWaitForLSN(XactLastRecEnd, true);
+
+    // Update commit tracking variables
+    XactLastCommitEnd = XactLastRecEnd;
+    XactLastRecEnd = 0;
+
+cleanup:
+    // Clean up allocated memory
+    if (rels)
+        pfree(rels);
+    if (ndroppedstats)
+        pfree(droppedstats);
+
+    return latestXid;
+}
+```

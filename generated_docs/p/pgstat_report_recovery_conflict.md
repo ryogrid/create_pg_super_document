@@ -38,3 +38,46 @@ This function is responsible for tracking and recording various types of recover
 - Must be called under the postmaster (not in single-user mode)
 - Database conflicts are intentionally not counted due to immediate database information removal during replication
 - Each conflict type corresponds to a specific counter in the database statistics entry
+
+## Simplified Source
+
+```c
+void pgstat_report_recovery_conflict(int reason)
+{
+    PgStat_StatDBEntry *dbentry;
+
+    // Only track if we're under postmaster and statistics tracking is enabled
+    Assert(IsUnderPostmaster);
+    if (!pgstat_track_counts)
+        return;
+
+    // Get database statistics entry for current database
+    dbentry = pgstat_prep_database_pending(MyDatabaseId);
+
+    // Increment appropriate conflict counter based on reason
+    switch (reason)
+    {
+        case PROCSIG_RECOVERY_CONFLICT_DATABASE:
+            // Database conflicts not counted - info dropped on replication
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_TABLESPACE:
+            dbentry->conflict_tablespace++;
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_LOCK:
+            dbentry->conflict_lock++;
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_SNAPSHOT:
+            dbentry->conflict_snapshot++;
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_BUFFERPIN:
+            dbentry->conflict_bufferpin++;
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_LOGICALSLOT:
+            dbentry->conflict_logicalslot++;
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK:
+            dbentry->conflict_startup_deadlock++;
+            break;
+    }
+}
+```

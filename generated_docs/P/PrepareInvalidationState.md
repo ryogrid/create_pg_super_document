@@ -50,3 +50,46 @@ None (void function)
 - Prevents cache consistency issues by enforcing that parent transactions have no pending messages when subtransactions start
 - The message array management ensures that invalidation messages are properly partitioned by transaction level
 - Uses TopTransactionContext to ensure invalidation state survives for the entire transaction
+
+## Simplified Source
+
+```c
+static void PrepareInvalidationState(void)
+{
+    TransInvalidationInfo *myInfo;
+
+    // Check if we already have state for current transaction level
+    if (transInvalInfo != NULL &&
+        transInvalInfo->my_level == GetCurrentTransactionNestLevel())
+        return;
+
+    // Allocate new invalidation state in transaction context
+    myInfo = (TransInvalidationInfo *)
+        MemoryContextAllocZero(TopTransactionContext, sizeof(TransInvalidationInfo));
+    myInfo->parent = transInvalInfo;
+    myInfo->my_level = GetCurrentTransactionNestLevel();
+
+    // Handle nested transaction setup
+    if (transInvalInfo != NULL) {
+        // Verify we're creating a deeper nesting level
+        Assert(myInfo->my_level > transInvalInfo->my_level);
+
+        // Parent must not have unprocessed messages
+        if (NumMessagesInGroup(&transInvalInfo->CurrentCmdInvalidMsgs) != 0)
+            elog(ERROR, "cannot start a subtransaction when there are unprocessed inval messages");
+
+        // Set up message array indices to follow parent arrays
+        SetGroupToFollow(&myInfo->PriorCmdInvalidMsgs, &transInvalInfo->CurrentCmdInvalidMsgs);
+        SetGroupToFollow(&myInfo->CurrentCmdInvalidMsgs, &myInfo->PriorCmdInvalidMsgs);
+    } else {
+        // Clear any leftover array pointers from prior transaction
+        InvalMessageArrays[CatCacheMsgs].msgs = NULL;
+        InvalMessageArrays[CatCacheMsgs].maxmsgs = 0;
+        InvalMessageArrays[RelCacheMsgs].msgs = NULL;
+        InvalMessageArrays[RelCacheMsgs].maxmsgs = 0;
+    }
+
+    // Set as current invalidation state
+    transInvalInfo = myInfo;
+}
+```

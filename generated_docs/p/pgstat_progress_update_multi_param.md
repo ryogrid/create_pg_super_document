@@ -44,3 +44,29 @@ All array indices are validated to ensure they fall within the valid range, and 
 - Commonly used when transitioning between operation phases where multiple progress counters need simultaneous updates
 - Essential for maintaining logical consistency in progress reporting for complex operations
 - The arrays must have at least `nparam` elements to avoid buffer overruns
+
+## Simplified Source
+
+```c
+void pgstat_progress_update_multi_param(int nparam, const int *index, const int64 *val)
+{
+    volatile PgBackendStatus *beentry = MyBEEntry;
+    int i;
+
+    // Early return if conditions aren't met for progress tracking
+    if (!beentry || !pgstat_track_activities || nparam == 0)
+        return;
+
+    // Begin atomic write transaction
+    PGSTAT_BEGIN_WRITE_ACTIVITY(beentry);
+
+    // Update all specified parameters atomically
+    for (i = 0; i < nparam; ++i) {
+        Assert(index[i] >= 0 && index[i] < PGSTAT_NUM_PROGRESS_PARAM);
+        beentry->st_progress_param[index[i]] = val[i];
+    }
+
+    // End atomic write transaction
+    PGSTAT_END_WRITE_ACTIVITY(beentry);
+}
+```

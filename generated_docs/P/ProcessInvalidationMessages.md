@@ -40,3 +40,20 @@ The function uses the ProcessMessageSubGroup macro to iterate through each messa
 - The provided function is typically LocalExecuteInvalidationMessage or a similar message handler
 - Part of PostgreSQL's invalidation message processing system for maintaining cache coherency
 - Used primarily during transaction state transitions to apply accumulated invalidations
+
+## Simplified Source
+
+```c
+static void
+ProcessInvalidationMessages(InvalidationMsgsGroup *group,
+                           void (*func)(SharedInvalidationMessage *msg))
+{
+    // Process catalog cache messages first
+    ProcessMessageSubGroup(group, CatCacheMsgs, func(msg));
+
+    // Then process relation cache messages
+    ProcessMessageSubGroup(group, RelCacheMsgs, func(msg));
+}
+```
+
+This function applies a given function to all invalidation messages in a group, processing catalog cache messages before relation cache messages to ensure proper invalidation ordering.

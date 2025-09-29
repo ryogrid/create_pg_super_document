@@ -29,3 +29,34 @@ This function calculates the total file size needed for an incremental backup fi
 - Total file size = header size + (BLCKSZ * number of blocks)
 - This is a key component in PostgreSQL's incremental backup size estimation
 - Used during backup operations to determine storage requirements before file creation
+
+## Simplified Source
+
+```c
+// Calculate total size needed for incremental backup file with specified blocks
+extern size_t GetIncrementalFileSize(unsigned num_blocks_required)
+{
+    size_t result;
+
+    // Prevent overflow - blocks must not exceed segment size
+    Assert(num_blocks_required <= RELSEG_SIZE);
+
+    /*
+     * Total size = header + block data
+     * Header contains: magic number, truncation block length, block count,
+     * and array of block numbers (rounded to BLCKSZ boundary)
+     * Block data section: BLCKSZ * number of blocks
+     */
+    result = GetIncrementalHeaderSize(num_blocks_required);
+    result += BLCKSZ * num_blocks_required;
+
+    return result;
+}
+```
+
+**Key Points:**
+- Calculates total size for incremental backup file: header + data
+- Header size computed by GetIncrementalHeaderSize() includes metadata and block numbers
+- Data section size is simply BLCKSZ × number of blocks
+- Includes overflow protection via assertion check
+- Essential for storage estimation before creating incremental backup files

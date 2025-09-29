@@ -44,3 +44,36 @@ Importantly, list1 is destructively modified while list2 remains unchanged. Howe
 - Widely used throughout PostgreSQL for combining query elements, path lists, constraint lists, and other collections
 - More efficient than iteratively appending elements from list2 to list1
 - The function may return a different pointer than the input list1 if memory reallocation occurs
+
+## Simplified Source
+
+```c
+List *list_concat(List *list1, const List *list2)
+{
+    int new_len;
+
+    // Handle NIL cases
+    if (list1 == NIL)
+        return list_copy(list2);
+    if (list2 == NIL)
+        return list1;
+
+    // Ensure both lists are the same type
+    Assert(list1->type == list2->type);
+
+    // Calculate new total length
+    new_len = list1->length + list2->length;
+
+    // Expand list1's storage if needed
+    if (new_len > list1->max_length)
+        enlarge_list(list1, new_len);
+
+    // Copy all elements from list2 to end of list1
+    memcpy(&list1->elements[list1->length], &list2->elements[0],
+           list2->length * sizeof(ListCell));
+    list1->length = new_len;
+
+    check_list_invariants(list1);
+    return list1;
+}
+```

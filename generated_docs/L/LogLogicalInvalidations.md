@@ -51,3 +51,44 @@ This function takes no parameters as it operates on global transaction state.
 - Invalidation messages are categorized and processed separately for catalog cache and relation cache invalidations
 - This is part of PostgreSQL's logical replication infrastructure, ensuring that cache invalidations are properly replicated to maintain consistency across logical subscribers
 - The function is declared in src/include/utils/inval.h and is part of the cache invalidation subsystem
+
+## Simplified Source
+
+```c
+void LogLogicalInvalidations(void)
+{
+    xl_xact_invals xlrec;
+    InvalidationMsgsGroup *group;
+    int nmsgs;
+
+    // Quick exit if no invalidation messages exist
+    if (transInvalInfo == NULL)
+        return;
+
+    // Get current command's invalidation messages
+    group = &transInvalInfo->CurrentCmdInvalidMsgs;
+    nmsgs = NumMessagesInGroup(group);
+
+    if (nmsgs > 0)
+    {
+        // Prepare WAL record structure
+        memset(&xlrec, 0, MinSizeOfXactInvals);
+        xlrec.nmsgs = nmsgs;
+
+        // Begin WAL record insertion
+        XLogBeginInsert();
+        XLogRegisterData((char *) (&xlrec), MinSizeOfXactInvals);
+
+        // Register catalog cache invalidation messages
+        ProcessMessageSubGroupMulti(group, CatCacheMsgs,
+            XLogRegisterData((char *) msgs, n * sizeof(SharedInvalidationMessage)));
+
+        // Register relation cache invalidation messages
+        ProcessMessageSubGroupMulti(group, RelCacheMsgs,
+            XLogRegisterData((char *) msgs, n * sizeof(SharedInvalidationMessage)));
+
+        // Insert the complete WAL record
+        XLogInsert(RM_XACT_ID, XLOG_XACT_INVALIDATIONS);
+    }
+}
+```

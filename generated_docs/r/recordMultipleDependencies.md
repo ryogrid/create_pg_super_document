@@ -55,3 +55,100 @@ This function provides an optimized way to record multiple dependency relationsh
 - Opens indexes lazily only when actually needed for insertion
 - Uses efficient tuple slot management with proper cleanup
 - Optimized for cases where multiple objects depend on the same set of referenced objects
+
+## Simplified Source
+
+```c
+void recordMultipleDependencies(const ObjectAddress *depender,
+                               const ObjectAddress *referenced,
+                               int nreferenced,
+                               DependencyType behavior)
+{
+    // Early returns for edge cases
+    if (nreferenced <= 0)
+        return;
+
+    if (IsBootstrapProcessingMode())
+        return;
+
+    // Open pg_depend table
+    Relation dependDesc = table_open(DependRelationId, RowExclusiveLock);
+
+    // Calculate batch size and allocate slots
+    int max_slots = Min(nreferenced,
+                       MAX_CATALOG_MULTI_INSERT_BYTES / sizeof(FormData_pg_depend));
+    TupleTableSlot **slot = palloc(sizeof(TupleTableSlot *) * max_slots);
+
+    CatalogIndexState indstate = NULL;
+    int slot_stored_count = 0;
+    int slot_init_count = 0;
+
+    // Process each referenced object
+    for (int i = 0; i < nreferenced; i++, referenced++) {
+        // Skip pinned objects (no dependency tracking needed)
+        if (isObjectPinned(referenced))
+            continue;
+
+        // Initialize slot if needed
+        if (slot_init_count < max_slots) {
+            slot[slot_stored_count] = MakeSingleTupleTableSlot(
+                RelationGetDescr(dependDesc), &TTSOpsHeapTuple);
+            slot_init_count++;
+        }
+
+        ExecClearTuple(slot[slot_stored_count]);
+
+        // Fill tuple slot with dependency data
+        slot[slot_stored_count]->tts_values[Anum_pg_depend_refclassid - 1] =
+            ObjectIdGetDatum(referenced->classId);
+        slot[slot_stored_count]->tts_values[Anum_pg_depend_refobjid - 1] =
+            ObjectIdGetDatum(referenced->objectId);
+        slot[slot_stored_count]->tts_values[Anum_pg_depend_refobjsubid - 1] =
+            Int32GetDatum(referenced->objectSubId);
+        slot[slot_stored_count]->tts_values[Anum_pg_depend_deptype - 1] =
+            CharGetDatum((char) behavior);
+        slot[slot_stored_count]->tts_values[Anum_pg_depend_classid - 1] =
+            ObjectIdGetDatum(depender->classId);
+        slot[slot_stored_count]->tts_values[Anum_pg_depend_objid - 1] =
+            ObjectIdGetDatum(depender->objectId);
+        slot[slot_stored_count]->tts_values[Anum_pg_depend_objsubid - 1] =
+            Int32GetDatum(depender->objectSubId);
+
+        // Mark all values as not null
+        memset(slot[slot_stored_count]->tts_isnull, false,
+               slot[slot_stored_count]->tts_tupleDescriptor->natts * sizeof(bool));
+
+        ExecStoreVirtualTuple(slot[slot_stored_count]);
+        slot_stored_count++;
+
+        // Batch insert when slots are full
+        if (slot_stored_count == max_slots) {
+            if (indstate == NULL)
+                indstate = CatalogOpenIndexes(dependDesc);
+
+            CatalogTuplesMultiInsertWithInfo(dependDesc, slot,
+                                           slot_stored_count, indstate);
+            slot_stored_count = 0;
+        }
+    }
+
+    // Insert remaining tuples
+    if (slot_stored_count > 0) {
+        if (indstate == NULL)
+            indstate = CatalogOpenIndexes(dependDesc);
+
+        CatalogTuplesMultiInsertWithInfo(dependDesc, slot,
+                                       slot_stored_count, indstate);
+    }
+
+    // Cleanup
+    if (indstate != NULL)
+        CatalogCloseIndexes(indstate);
+
+    table_close(dependDesc, RowExclusiveLock);
+
+    for (int i = 0; i < slot_init_count; i++)
+        ExecDropSingleTupleTableSlot(slot[i]);
+    pfree(slot);
+}
+```

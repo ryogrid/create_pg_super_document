@@ -42,3 +42,45 @@ This function takes no parameters.
 - Part of the logical replication failover infrastructure
 - Function is static and only accessible within the slotsync.c file
 - Validates that synchronized slots are logical slots and not active
+
+## Simplified Source
+
+```c
+static void update_synced_slots_inactive_since(void)
+{
+    TimestampTz now = 0;
+
+    // Only update during standby mode (not needed on primary)
+    if (!StandbyMode)
+        return;
+
+    // Ensure slot sync machinery is properly shut down
+    Assert((SlotSyncCtx->pid == InvalidPid) && !SlotSyncCtx->syncing);
+
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+    // Iterate through all replication slots
+    for (int i = 0; i < max_replication_slots; i++)
+    {
+        ReplicationSlot *s = &ReplicationSlotCtl->replication_slots[i];
+
+        // Process only synchronized slots
+        if (s->in_use && s->data.synced)
+        {
+            Assert(SlotIsLogical(s));
+            Assert(s->active_pid == 0);  // Must not be active
+
+            // Get current timestamp (same for all slots)
+            if (now == 0)
+                now = GetCurrentTimestamp();
+
+            // Update inactive_since timestamp atomically
+            SpinLockAcquire(&s->mutex);
+            s->inactive_since = now;
+            SpinLockRelease(&s->mutex);
+        }
+    }
+
+    LWLockRelease(ReplicationSlotControlLock);
+}
+```

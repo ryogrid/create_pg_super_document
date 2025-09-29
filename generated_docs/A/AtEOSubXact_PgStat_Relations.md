@@ -44,3 +44,77 @@ For aborts: Applies the attempted actions to the top-level statistics as dead tu
 - Uses Assert statements to validate transaction nesting level consistency
 - Memory is managed within TopTransactionContext for automatic cleanup
 - Truncate/drop operations require special handling to maintain statistics consistency across transaction boundaries
+
+## Simplified Source
+
+```c
+void
+AtEOSubXact_PgStat_Relations(PgStat_SubXactStatus *xact_state, bool isCommit, int nestDepth)
+{
+    PgStat_TableXactStatus *trans;
+    PgStat_TableXactStatus *next_trans;
+
+    // Process each table transaction in this subtransaction
+    for (trans = xact_state->first; trans != NULL; trans = next_trans)
+    {
+        PgStat_TableStatus *tabstat;
+
+        next_trans = trans->next;
+        Assert(trans->nest_level == nestDepth);
+        tabstat = trans->parent;
+        Assert(tabstat->trans == trans);
+
+        if (isCommit)
+        {
+            // Subtransaction commit: propagate counts upward
+            if (trans->upper && trans->upper->nest_level == nestDepth - 1)
+            {
+                if (trans->truncdropped)
+                {
+                    // Propagate truncate/drop status and replace counters
+                    save_truncdrop_counters(trans->upper, false);
+                    trans->upper->tuples_inserted = trans->tuples_inserted;
+                    trans->upper->tuples_updated = trans->tuples_updated;
+                    trans->upper->tuples_deleted = trans->tuples_deleted;
+                }
+                else
+                {
+                    // Accumulate counters
+                    trans->upper->tuples_inserted += trans->tuples_inserted;
+                    trans->upper->tuples_updated += trans->tuples_updated;
+                    trans->upper->tuples_deleted += trans->tuples_deleted;
+                }
+                tabstat->trans = trans->upper;
+                pfree(trans);
+            }
+            else
+            {
+                // No immediate parent: relink to appropriate level
+                PgStat_SubXactStatus *upper_xact_state;
+
+                upper_xact_state = pgstat_get_xact_stack_level(nestDepth - 1);
+                trans->next = upper_xact_state->first;
+                upper_xact_state->first = trans;
+                trans->nest_level = nestDepth - 1;
+            }
+        }
+        else
+        {
+            // Subtransaction abort: update top-level counts
+            restore_truncdrop_counters(trans);
+
+            // Count attempted actions regardless of commit/abort
+            tabstat->counts.tuples_inserted += trans->tuples_inserted;
+            tabstat->counts.tuples_updated += trans->tuples_updated;
+            tabstat->counts.tuples_deleted += trans->tuples_deleted;
+
+            // Inserted/updated tuples become dead
+            tabstat->counts.delta_dead_tuples +=
+                trans->tuples_inserted + trans->tuples_updated;
+
+            tabstat->trans = trans->upper;
+            pfree(trans);
+        }
+    }
+}
+```

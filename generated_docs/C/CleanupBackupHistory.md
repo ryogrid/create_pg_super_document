@@ -36,3 +36,39 @@ This function takes no parameters.
 - The function retries creation of .ready files for backup history files where XLogArchiveNotify failed previously
 - It's called during WAL management operations to maintain directory cleanliness
 - The function is safe to call repeatedly as it only removes files that have been confirmed as archived
+
+## Simplified Source
+
+```c
+// Remove archived backup history files from WAL directory
+static void CleanupBackupHistory(void)
+{
+    DIR *xldir;
+    struct dirent *xlde;
+    char path[MAXPGPATH + sizeof(XLOGDIR)];
+
+    // Open the WAL directory
+    xldir = AllocateDir(XLOGDIR);
+
+    // Scan all files in the directory
+    while ((xlde = ReadDir(xldir, XLOGDIR)) != NULL) {
+        // Check if this is a backup history file
+        if (IsBackupHistoryFileName(xlde->d_name)) {
+            // Check if file has been successfully archived
+            if (XLogArchiveCheckDone(xlde->d_name)) {
+                elog(DEBUG2, "removing WAL backup history file \"%s\"",
+                     xlde->d_name);
+
+                // Build full path and remove the file
+                snprintf(path, sizeof(path), XLOGDIR "/%s", xlde->d_name);
+                unlink(path);
+
+                // Clean up archive notification files
+                XLogArchiveCleanup(xlde->d_name);
+            }
+        }
+    }
+
+    FreeDir(xldir);
+}
+```

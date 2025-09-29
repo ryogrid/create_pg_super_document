@@ -47,3 +47,55 @@ The function only supports API version 1 functions and will error on unrecognize
 - The function assumes C-language functions always have non-null prosrc and probin values
 - Memory management includes freeing temporary strings after use
 - Only supports function API version 1, which is the current standard
+
+## Simplified Source
+
+```c
+static void fmgr_info_C_lang(Oid functionId, FmgrInfo *finfo, HeapTuple procedureTuple)
+{
+    CFuncHashTabEntry *hashentry;
+    PGFunction user_fn;
+    const Pg_finfo_record *inforec;
+
+    // Check if function is already cached
+    hashentry = lookup_C_func(procedureTuple);
+    if (hashentry) {
+        user_fn = hashentry->user_fn;
+        inforec = hashentry->inforec;
+    } else {
+        // Extract function info from pg_proc tuple
+        Datum prosrcattr = SysCacheGetAttrNotNull(PROCOID, procedureTuple,
+                                                  Anum_pg_proc_prosrc);
+        char *prosrcstring = TextDatumGetCString(prosrcattr);
+
+        Datum probinattr = SysCacheGetAttrNotNull(PROCOID, procedureTuple,
+                                                  Anum_pg_proc_probin);
+        char *probinstring = TextDatumGetCString(probinattr);
+
+        // Load the external function from shared library
+        void *libraryhandle;
+        user_fn = load_external_function(probinstring, prosrcstring, true,
+                                         &libraryhandle);
+
+        // Get function information record
+        inforec = fetch_finfo_record(libraryhandle, prosrcstring);
+
+        // Cache for future use
+        record_C_func(procedureTuple, user_fn, inforec);
+
+        pfree(prosrcstring);
+        pfree(probinstring);
+    }
+
+    // Set function address based on API version
+    switch (inforec->api_version) {
+        case 1:
+            finfo->fn_addr = user_fn;
+            break;
+        default:
+            elog(ERROR, "unrecognized function API version: %d",
+                 inforec->api_version);
+            break;
+    }
+}
+```

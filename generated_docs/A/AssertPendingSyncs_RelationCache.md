@@ -49,3 +49,63 @@ This function takes no parameters.
 - It dynamically allocates and reallocates memory for the relations array as needed
 - Only processes relations that are actually locked by the current transaction
 - The function is critical for maintaining data integrity in PostgreSQL's WAL-skipping optimizations
+
+## Simplified Source
+
+```c
+void AssertPendingSyncs_RelationCache(void)
+{
+    HASH_SEQ_STATUS status;
+    LOCALLOCK *locallock;
+    Relation *rels;
+    int maxrels;
+    int nrels;
+    RelIdCacheEnt *idhentry;
+    int i;
+
+    // Set up transaction snapshot for consistent view
+    PushActiveSnapshot(GetTransactionSnapshot());
+
+    // Initialize relations array
+    maxrels = 1;
+    rels = palloc(maxrels * sizeof(*rels));
+    nrels = 0;
+
+    // Iterate through all locks held by current transaction
+    hash_seq_init(&status, GetLockMethodLocalHash());
+    while ((locallock = (LOCALLOCK *) hash_seq_search(&status)) != NULL) {
+        Oid relid;
+        Relation r;
+
+        // Skip locks that aren't held or aren't relation locks
+        if (locallock->nLocks <= 0)
+            continue;
+        if ((LockTagType) locallock->tag.lock.locktag_type != LOCKTAG_RELATION)
+            continue;
+
+        // Get relation ID and open the relation
+        relid = ObjectIdGetDatum(locallock->tag.lock.locktag_field2);
+        r = RelationIdGetRelation(relid);
+        if (!RelationIsValid(r))
+            continue;
+
+        // Expand array if needed
+        if (nrels >= maxrels) {
+            maxrels *= 2;
+            rels = repalloc(rels, maxrels * sizeof(*rels));
+        }
+        rels[nrels++] = r;
+    }
+
+    // Check consistency for all cached relations
+    hash_seq_init(&status, RelationIdCache);
+    while ((idhentry = (RelIdCacheEnt *) hash_seq_search(&status)) != NULL)
+        AssertPendingSyncConsistency(idhentry->reldesc);
+
+    // Clean up: close all opened relations
+    for (i = 0; i < nrels; i++)
+        RelationClose(rels[i]);
+
+    PopActiveSnapshot();
+}
+```

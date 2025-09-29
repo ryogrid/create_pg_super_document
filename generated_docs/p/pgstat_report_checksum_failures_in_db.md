@@ -38,3 +38,38 @@ This function is responsible for tracking checksum validation failures that occu
 - Records both cumulative failure count and timestamp of last failure
 - Uses locked access to ensure thread-safe updates to shared statistics
 - Essential for monitoring database corruption and data integrity issues
+
+## Simplified Source
+
+```c
+// Report checksum failures to database statistics system
+void pgstat_report_checksum_failures_in_db(Oid dboid, int failurecount)
+{
+    PgStat_EntryRef *entry_ref;
+    PgStatShared_Database *sharedent;
+
+    if (!pgstat_track_counts)
+        return;
+
+    /*
+     * Update shared stats directly - checksum failures should be rare
+     * enough that direct updates are acceptable
+     */
+    entry_ref = pgstat_get_entry_ref_locked(PGSTAT_KIND_DATABASE, dboid,
+                                           InvalidOid, false);
+
+    sharedent = (PgStatShared_Database *) entry_ref->shared_stats;
+    sharedent->stats.checksum_failures += failurecount;
+    sharedent->stats.last_checksum_failure = GetCurrentTimestamp();
+
+    pgstat_unlock_entry(entry_ref);
+}
+```
+
+**Key Points:**
+- Records checksum validation failures in database statistics
+- Updates both failure count and timestamp of last failure
+- Uses locked access to shared statistics for thread safety
+- Only operates when statistics tracking is enabled
+- Direct updates acceptable due to rarity of checksum failures
+- Essential for monitoring data integrity and corruption detection

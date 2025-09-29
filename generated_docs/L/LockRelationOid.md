@@ -49,3 +49,34 @@ The function handles recursive locking scenarios where code might act on tables 
 - Handles recursive table access scenarios properly
 - Part of the lock manager (lmgr) subsystem located in src/backend/storage/lmgr/lmgr.c:108-150
 - Critical for maintaining consistency in PostgreSQL's relation access
+
+## Simplified Source
+
+```c
+void LockRelationOid(Oid relid, LOCKMODE lockmode)
+{
+    LOCKTAG     tag;
+    LOCALLOCK  *locallock;
+    LockAcquireResult res;
+
+    // Set up the lock tag for the relation using its OID
+    SetLocktagRelationOid(&tag, relid);
+
+    // Acquire the lock (not session lock, not dontWait, reportMemoryError=true)
+    res = LockAcquireExtended(&tag, lockmode, false, false, true, &locallock);
+
+    /*
+     * Process invalidation messages if we didn't already have this lock.
+     * This ensures any stale relcache entries are updated before use.
+     * Skip if lock was already held in same mode (LOCKACQUIRE_ALREADY_CLEAR).
+     */
+    if (res != LOCKACQUIRE_ALREADY_CLEAR)
+    {
+        // Process any pending invalidation messages
+        AcceptInvalidationMessages();
+
+        // Mark this lock as having processed invalidations
+        MarkLockClear(locallock);
+    }
+}
+```

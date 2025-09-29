@@ -41,3 +41,26 @@ This mechanism allows other backends to track the progress of WAL insertion and 
 - When holding all locks, only the last lock's position is updated with the real value
 - Essential for other backends to determine when it's safe to proceed with WAL-dependent operations
 - The insertingAt value is used by LWLockWaitForVar to implement efficient waiting mechanisms
+
+## Simplified Source
+
+```c
+static void WALInsertLockUpdateInsertingAt(XLogRecPtr insertingAt)
+{
+    if (holdingAllLocks)
+    {
+        // When holding all locks, update only the last lock's position
+        // (others are set to maximum values per WALInsertLockAcquireExclusive design)
+        LWLockUpdateVar(&WALInsertLocks[NUM_XLOGINSERT_LOCKS - 1].l.lock,
+                        &WALInsertLocks[NUM_XLOGINSERT_LOCKS - 1].l.insertingAt,
+                        insertingAt);
+    }
+    else
+    {
+        // Normal case: update this backend's specific lock position
+        LWLockUpdateVar(&WALInsertLocks[MyLockNo].l.lock,
+                        &WALInsertLocks[MyLockNo].l.insertingAt,
+                        insertingAt);
+    }
+}
+```

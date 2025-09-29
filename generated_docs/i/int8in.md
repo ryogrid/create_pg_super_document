@@ -35,3 +35,15 @@ The function utilizes  to perform the actual string-to-integer conversion with p
 - Error handling for invalid input strings is delegated to 
 - The function follows PostgreSQL's standard input function pattern using the PG_FUNCTION_ARGS calling convention
 - Located in src/backend/utils/adt/int8.c, which contains all arithmetic and conversion routines for 64-bit integers
+
+## Simplified Source
+
+```c
+Datum int8in(PG_FUNCTION_ARGS)
+{
+    char *num = PG_GETARG_CSTRING(0);
+
+    // Convert string to int64 with error handling
+    PG_RETURN_INT64(pg_strtoint64_safe(num, fcinfo->context));
+}
+```

@@ -41,3 +41,17 @@ The  function is responsible for releasing the lightweight lock (LWLock) that wa
 - Essential for preventing resource leaks and deadlocks in multi-process environments
 - Should be called as quickly as possible to minimize lock contention
 - Used extensively throughout PostgreSQL's statistics and caching subsystems
+
+## Simplified Source
+
+```c
+void dshash_release_lock(dshash_table *hash_table, void *entry)
+{
+    dshash_table_item *item = ITEM_FROM_ENTRY(entry);
+    size_t partition_index = PARTITION_FOR_HASH(item->hash);
+
+    Assert(hash_table->control->magic == DSHASH_MAGIC);
+
+    LWLockRelease(PARTITION_LOCK(hash_table, partition_index));
+}
+```

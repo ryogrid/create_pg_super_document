@@ -37,3 +37,16 @@ The returned string points to an internal buffer that remains valid until the fi
 - The pathname remains valid only while the file remains open in the VFD system
 - This function is commonly used in error reporting and logging to provide meaningful file information
 - Part of PostgreSQL's abstraction layer over operating system file operations
+
+## Simplified Source
+
+```c
+char *FilePathName(File file)
+{
+    // Ensure the file descriptor is valid
+    Assert(FileIsValid(file));
+
+    // Return the filename from the virtual file descriptor cache
+    return VfdCache[file].fileName;
+}
+```

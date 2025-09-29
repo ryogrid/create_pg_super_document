@@ -66,3 +66,252 @@ Key behaviors include:
 - The function includes comprehensive logging and maintains source tracking for debugging purposes
 - In standby mode, it manages the promotion trigger checking and graceful transition to read-only mode
 - Handles recovery pause states and ensures proper cleanup of resources during state transitions
+
+## Simplified Source
+
+```c
+static XLogPageReadResult WaitForWALToBecomeAvailable(XLogRecPtr RecPtr, bool randAccess,
+                                                     bool fetching_ckpt, XLogRecPtr tliRecPtr,
+                                                     TimeLineID replayTLI, XLogRecPtr replayLSN,
+                                                     bool nonblocking)
+{
+    static TimestampTz last_fail_time = 0;
+    TimestampTz now;
+    bool streaming_reply_sent = false;
+
+    // Initialize source state
+    if (!InArchiveRecovery)
+        currentSource = XLOG_FROM_PG_WAL;
+    else if (currentSource == XLOG_FROM_ANY || (!StandbyMode && currentSource == XLOG_FROM_STREAM))
+    {
+        lastSourceFailed = false;
+        currentSource = XLOG_FROM_ARCHIVE;
+    }
+
+    // Main state machine loop
+    for (;;)
+    {
+        XLogSource oldSource = currentSource;
+        bool startWalReceiver = false;
+
+        // Handle failures and advance state machine
+        if (lastSourceFailed)
+        {
+            if (nonblocking)
+                return XLREAD_WOULDBLOCK;
+
+            switch (currentSource)
+            {
+                case XLOG_FROM_ARCHIVE:
+                case XLOG_FROM_PG_WAL:
+                    // Check for promotion trigger
+                    if (StandbyMode && CheckForStandbyTrigger())
+                    {
+                        XLogShutdownWalRcv();
+                        return XLREAD_FAIL;
+                    }
+                    if (!StandbyMode)
+                        return XLREAD_FAIL;
+
+                    // Move to streaming
+                    currentSource = XLOG_FROM_STREAM;
+                    startWalReceiver = true;
+                    break;
+
+                case XLOG_FROM_STREAM:
+                    Assert(StandbyMode);
+                    XLogShutdownWalRcv();
+
+                    // Rescan timelines if needed
+                    if (recoveryTargetTimeLineGoal == RECOVERY_TARGET_TIMELINE_LATEST)
+                    {
+                        if (rescanLatestTimeLine(replayTLI, replayLSN))
+                        {
+                            currentSource = XLOG_FROM_ARCHIVE;
+                            break;
+                        }
+                    }
+
+                    // Sleep before retrying
+                    now = GetCurrentTimestamp();
+                    if (!TimestampDifferenceExceeds(last_fail_time, now, wal_retrieve_retry_interval))
+                    {
+                        long wait_time = wal_retrieve_retry_interval -
+                                       TimestampDifferenceMilliseconds(last_fail_time, now);
+
+                        elog(LOG, "waiting for WAL to become available at %X/%X", LSN_FORMAT_ARGS(RecPtr));
+
+                        KnownAssignedTransactionIdsIdleMaintenance();
+                        WaitLatch(&XLogRecoveryCtl->recoveryWakeupLatch,
+                                WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                                wait_time, WAIT_EVENT_RECOVERY_RETRIEVE_RETRY_INTERVAL);
+                        ResetLatch(&XLogRecoveryCtl->recoveryWakeupLatch);
+
+                        HandleStartupProcInterrupts();
+                    }
+                    last_fail_time = now;
+                    currentSource = XLOG_FROM_ARCHIVE;
+                    break;
+            }
+        }
+        else if (currentSource == XLOG_FROM_PG_WAL)
+        {
+            // Prefer archive over pg_wal
+            if (InArchiveRecovery)
+                currentSource = XLOG_FROM_ARCHIVE;
+        }
+
+        // Try to read from chosen source
+        lastSourceFailed = false;
+
+        switch (currentSource)
+        {
+            case XLOG_FROM_ARCHIVE:
+            case XLOG_FROM_PG_WAL:
+                Assert(!WalRcvStreaming());
+
+                // Close old file and reset state
+                if (readFile >= 0)
+                {
+                    close(readFile);
+                    readFile = -1;
+                }
+                if (randAccess)
+                    curFileTLI = 0;
+
+                // Try to read file
+                readFile = XLogFileReadAnyTLI(readSegNo, DEBUG2,
+                                            currentSource == XLOG_FROM_ARCHIVE ? XLOG_FROM_ANY : currentSource);
+                if (readFile >= 0)
+                    return XLREAD_SUCCESS;
+
+                lastSourceFailed = true;
+                break;
+
+            case XLOG_FROM_STREAM:
+                {
+                    bool havedata;
+                    Assert(StandbyMode);
+
+                    // Handle WAL receiver restart
+                    if (pendingWalRcvRestart && !startWalReceiver)
+                    {
+                        XLogShutdownWalRcv();
+                        if (recoveryTargetTimeLineGoal == RECOVERY_TARGET_TIMELINE_LATEST)
+                            rescanLatestTimeLine(replayTLI, replayLSN);
+                        startWalReceiver = true;
+                    }
+                    pendingWalRcvRestart = false;
+
+                    // Start WAL receiver if needed
+                    if (startWalReceiver && PrimaryConnInfo && strcmp(PrimaryConnInfo, "") != 0)
+                    {
+                        XLogRecPtr ptr;
+                        TimeLineID tli;
+
+                        if (fetching_ckpt)
+                        {
+                            ptr = RedoStartLSN;
+                            tli = RedoStartTLI;
+                        }
+                        else
+                        {
+                            ptr = RecPtr;
+                            tli = tliOfPointInHistory(tliRecPtr, expectedTLEs);
+
+                            if (curFileTLI > 0 && tli < curFileTLI)
+                                elog(ERROR, "timeline inconsistency detected");
+                        }
+
+                        curFileTLI = tli;
+                        SetInstallXLogFileSegmentActive();
+                        RequestXLogStreaming(tli, ptr, PrimaryConnInfo, PrimarySlotName, wal_receiver_create_temp_slot);
+                        flushedUpto = 0;
+                    }
+
+                    // Check if WAL receiver is active
+                    if (!WalRcvStreaming())
+                    {
+                        lastSourceFailed = true;
+                        break;
+                    }
+
+                    // Check for new data
+                    if (RecPtr < flushedUpto)
+                        havedata = true;
+                    else
+                    {
+                        XLogRecPtr latestChunkStart;
+                        flushedUpto = GetWalRcvFlushRecPtr(&latestChunkStart, &receiveTLI);
+
+                        if (RecPtr < flushedUpto && receiveTLI == curFileTLI)
+                        {
+                            havedata = true;
+                            if (latestChunkStart <= RecPtr)
+                            {
+                                XLogReceiptTime = GetCurrentTimestamp();
+                                SetCurrentChunkStartTime(XLogReceiptTime);
+                            }
+                        }
+                        else
+                            havedata = false;
+                    }
+
+                    if (havedata)
+                    {
+                        // Open file if needed
+                        if (readFile < 0)
+                        {
+                            if (!expectedTLEs)
+                                expectedTLEs = readTimeLineHistory(recoveryTargetTLI);
+                            readFile = XLogFileRead(readSegNo, PANIC, receiveTLI, XLOG_FROM_STREAM, false);
+                            Assert(readFile >= 0);
+                        }
+                        else
+                        {
+                            readSource = XLOG_FROM_STREAM;
+                            XLogReceiptSource = XLOG_FROM_STREAM;
+                            return XLREAD_SUCCESS;
+                        }
+                        break;
+                    }
+
+                    if (nonblocking)
+                        return XLREAD_WOULDBLOCK;
+
+                    // Check for trigger
+                    if (CheckForStandbyTrigger())
+                    {
+                        lastSourceFailed = true;
+                        break;
+                    }
+
+                    // Send replication status
+                    if (!streaming_reply_sent)
+                    {
+                        WalRcvForceReply();
+                        streaming_reply_sent = true;
+                    }
+
+                    // Background maintenance and wait
+                    KnownAssignedTransactionIdsIdleMaintenance();
+                    XLogPrefetcherComputeStats(xlogprefetcher);
+
+                    WaitLatch(&XLogRecoveryCtl->recoveryWakeupLatch,
+                            WL_LATCH_SET | WL_EXIT_ON_PM_DEATH,
+                            -1L, WAIT_EVENT_RECOVERY_WAL_STREAM);
+                    ResetLatch(&XLogRecoveryCtl->recoveryWakeupLatch);
+                    break;
+                }
+        }
+
+        // Handle recovery pause
+        if (((volatile XLogRecoveryCtlData *) XLogRecoveryCtl)->recoveryPauseState != RECOVERY_NOT_PAUSED)
+            recoveryPausesHere(false);
+
+        HandleStartupProcInterrupts();
+    }
+
+    return XLREAD_FAIL;
+}
+```

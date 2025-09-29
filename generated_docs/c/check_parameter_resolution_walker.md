@@ -44,3 +44,52 @@ If inconsistencies are found, appropriate errors are reported with precise locat
 - Generates specific error codes: ERRCODE_UNDEFINED_PARAMETER and ERRCODE_AMBIGUOUS_PARAMETER
 - Handles both regular expression trees and Query substructures recursively
 - Part of PostgreSQL's variable parameter type resolution and validation framework
+
+## Simplified Source
+
+```c
+static bool
+check_parameter_resolution_walker(Node *node, ParseState *pstate)
+{
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Param))
+    {
+        Param *param = (Param *) node;
+
+        if (param->paramkind == PARAM_EXTERN)
+        {
+            VarParamState *parstate = (VarParamState *) pstate->p_ref_hook_state;
+            int paramno = param->paramid;
+
+            // Check parameter number is valid
+            if (paramno <= 0 || paramno > *parstate->numParams)
+                ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_PARAMETER),
+                     errmsg("there is no parameter $%d", paramno),
+                     parser_errposition(pstate, param->location)));
+
+            // Check parameter type matches expected type
+            if (param->paramtype != (*parstate->paramTypes)[paramno - 1])
+                ereport(ERROR,
+                    (errcode(ERRCODE_AMBIGUOUS_PARAMETER),
+                     errmsg("could not determine data type of parameter $%d", paramno),
+                     parser_errposition(pstate, param->location)));
+        }
+        return false;
+    }
+
+    if (IsA(node, Query))
+    {
+        // Recurse into subqueries
+        return query_tree_walker((Query *) node,
+                                check_parameter_resolution_walker,
+                                (void *) pstate, 0);
+    }
+
+    // Recurse into expression trees
+    return expression_tree_walker(node, check_parameter_resolution_walker,
+                                 (void *) pstate);
+}
+```

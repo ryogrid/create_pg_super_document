@@ -42,3 +42,33 @@ This function is automatically invoked during transaction commit or abort to ens
 - Memory allocated for the snapshot context is properly freed to prevent memory leaks
 - The  flag is reset at the end of the function to handle forced cleanup scenarios
 - This is a critical function for ensuring statistics consistency across transaction boundaries
+
+## Simplified Source
+
+```c
+void pgstat_clear_snapshot(void)
+{
+    // Ensure statistics system is operational
+    pgstat_assert_is_up();
+
+    // Clear snapshot validity flags
+    memset(&pgStatLocal.snapshot.fixed_valid, 0,
+           sizeof(pgStatLocal.snapshot.fixed_valid));
+
+    // Reset snapshot data
+    pgStatLocal.snapshot.stats = NULL;
+    pgStatLocal.snapshot.mode = PGSTAT_FETCH_CONSISTENCY_NONE;
+
+    // Free allocated memory context if exists
+    if (pgStatLocal.snapshot.context) {
+        MemoryContextDelete(pgStatLocal.snapshot.context);
+        pgStatLocal.snapshot.context = NULL;
+    }
+
+    // Clear backend activity snapshot for historical compatibility
+    pgstat_clear_backend_activity_snapshot();
+
+    // Reset forced cleanup flag
+    force_stats_snapshot_clear = false;
+}
+```

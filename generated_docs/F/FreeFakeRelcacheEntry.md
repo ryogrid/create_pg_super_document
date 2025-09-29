@@ -39,3 +39,14 @@ The function simply calls pfree() on the fake relation pointer, which deallocate
 - The function assumes the fake relation was allocated as a single block, which is how CreateFakeRelcacheEntry() allocates it
 - Should only be called on relations created by CreateFakeRelcacheEntry(), not on regular relation cache entries
 - The function is straightforward and performs no validation or cleanup beyond freeing the memory
+
+## Simplified Source
+
+```c
+void FreeFakeRelcacheEntry(Relation fakerel)
+{
+    pfree(fakerel);
+}
+```
+
+This is a simple cleanup function that frees memory allocated for a fake relation cache entry. It takes a Relation pointer and calls pfree() to deallocate the memory.

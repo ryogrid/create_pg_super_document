@@ -45,3 +45,42 @@ The function handles all three categories of buffer usage (shared, local, and te
 - The difference calculation assumes that 'add' contains values greater than or equal to 'sub'
 - Essential for parallel query execution where statistics from multiple workers need to be aggregated
 - Located in src/backend/executor/instrument.c:248-277
+
+## Simplified Source
+
+```c
+void BufferUsageAccumDiff(BufferUsage *dst,
+                         const BufferUsage *add,
+                         const BufferUsage *sub)
+{
+    // Accumulate shared buffer statistics: dst += (add - sub)
+    dst->shared_blks_hit += add->shared_blks_hit - sub->shared_blks_hit;
+    dst->shared_blks_read += add->shared_blks_read - sub->shared_blks_read;
+    dst->shared_blks_dirtied += add->shared_blks_dirtied - sub->shared_blks_dirtied;
+    dst->shared_blks_written += add->shared_blks_written - sub->shared_blks_written;
+
+    // Accumulate local buffer statistics
+    dst->local_blks_hit += add->local_blks_hit - sub->local_blks_hit;
+    dst->local_blks_read += add->local_blks_read - sub->local_blks_read;
+    dst->local_blks_dirtied += add->local_blks_dirtied - sub->local_blks_dirtied;
+    dst->local_blks_written += add->local_blks_written - sub->local_blks_written;
+
+    // Accumulate temporary buffer statistics
+    dst->temp_blks_read += add->temp_blks_read - sub->temp_blks_read;
+    dst->temp_blks_written += add->temp_blks_written - sub->temp_blks_written;
+
+    // Accumulate timing statistics using specialized macros
+    INSTR_TIME_ACCUM_DIFF(dst->shared_blk_read_time,
+                          add->shared_blk_read_time, sub->shared_blk_read_time);
+    INSTR_TIME_ACCUM_DIFF(dst->shared_blk_write_time,
+                          add->shared_blk_write_time, sub->shared_blk_write_time);
+    INSTR_TIME_ACCUM_DIFF(dst->local_blk_read_time,
+                          add->local_blk_read_time, sub->local_blk_read_time);
+    INSTR_TIME_ACCUM_DIFF(dst->local_blk_write_time,
+                          add->local_blk_write_time, sub->local_blk_write_time);
+    INSTR_TIME_ACCUM_DIFF(dst->temp_blk_read_time,
+                          add->temp_blk_read_time, sub->temp_blk_read_time);
+    INSTR_TIME_ACCUM_DIFF(dst->temp_blk_write_time,
+                          add->temp_blk_write_time, sub->temp_blk_write_time);
+}
+```

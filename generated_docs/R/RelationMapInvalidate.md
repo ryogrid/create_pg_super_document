@@ -35,3 +35,24 @@ The  function is part of PostgreSQL's shared invalidation system, responsible fo
 - Handles both shared and local relation mapping files depending on the parameter
 - Essential for maintaining data consistency when relation mappings change and need to be propagated to all active backends
 - Works in conjunction with the shared invalidation message system to ensure all processes have up-to-date relation mappings
+
+## Simplified Source
+
+```c
+// Handle SI cache flush messages by reloading relation mapping files
+void RelationMapInvalidate(bool shared)
+{
+    if (shared)
+    {
+        // Reload shared map only if currently valid
+        if (shared_map.magic == RELMAPPER_FILEMAGIC)
+            load_relmap_file(true, false);
+    }
+    else
+    {
+        // Reload local map only if currently valid
+        if (local_map.magic == RELMAPPER_FILEMAGIC)
+            load_relmap_file(false, false);
+    }
+}
+```

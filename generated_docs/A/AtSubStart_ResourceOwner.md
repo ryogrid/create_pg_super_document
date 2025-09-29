@@ -29,3 +29,23 @@ This function takes no parameters.
 - The resource owner hierarchy ensures that subtransaction resources are properly nested under their parent transaction
 - The "SubTransaction" label is used for debugging and identification purposes
 - Critical for maintaining PostgreSQL's nested transaction model and resource cleanup guarantees
+
+## Simplified Source
+
+```c
+static void
+AtSubStart_ResourceOwner(void)
+{
+    TransactionState s = CurrentTransactionState;
+
+    Assert(s->parent != NULL);
+
+    // Create subtransaction resource owner as child of parent's owner
+    s->curTransactionOwner =
+        ResourceOwnerCreate(s->parent->curTransactionOwner,
+                           "SubTransaction");
+
+    CurTransactionResourceOwner = s->curTransactionOwner;
+    CurrentResourceOwner = s->curTransactionOwner;
+}
+```

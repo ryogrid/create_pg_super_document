@@ -26,7 +26,7 @@ The function ensures proper error reporting by setting up an error context stack
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBuffer](../R/ReorderBuffer.md)
-  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)  
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
   - [LogicalErrorCallbackState](../L/LogicalErrorCallbackState.md)
   - [output_plugin_error_callback](../o/output_plugin_error_callback.md)
@@ -42,3 +42,44 @@ The function ensures proper error reporting by setting up an error context stack
 - Configures output state including accept_writes=true and current transaction ID
 - Updates write_location for replication progress tracking
 - Part of PostgreSQL's logical replication streaming feature for handling large transactions
+
+## Simplified Source
+
+```c
+static void stream_start_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn, XLogRecPtr first_lsn)
+{
+    LogicalDecodingContext *ctx = cache->private_data;
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    // Validate streaming mode is enabled
+    Assert(!ctx->fast_forward);
+    Assert(ctx->streaming);
+
+    // Set up error context for better error reporting
+    state.ctx = ctx;
+    state.callback_name = "stream_start";
+    state.report_location = first_lsn;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for streaming transaction
+    ctx->accept_writes = true;
+    ctx->write_xid = txn->xid;
+    ctx->write_location = first_lsn;  // Report first LSN for replication progress
+    ctx->end_xact = false;
+
+    // Verify stream_start_cb callback exists (required in streaming mode)
+    if (ctx->callbacks.stream_start_cb == NULL)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("logical streaming requires a stream_start_cb callback")));
+
+    // Call the plugin's stream start callback
+    ctx->callbacks.stream_start_cb(ctx, txn);
+
+    // Restore previous error context
+    error_context_stack = errcallback.previous;
+}
+```

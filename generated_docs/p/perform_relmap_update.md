@@ -44,3 +44,42 @@ The function ensures atomicity and consistency by using RelationMappingLock to p
 - Uses write_relmap_file with full WAL logging, invalidation, and file preservation
 - Part of PostgreSQL's transactional relation mapping commit protocol
 - Called during transaction end-of-transaction processing
+
+## Simplified Source
+
+```c
+static void perform_relmap_update(bool shared, const RelMapFile *updates)
+{
+    RelMapFile newmap;
+
+    // Acquire exclusive lock to prevent concurrent updates
+    LWLockAcquire(RelationMappingLock, LW_EXCLUSIVE);
+
+    // Re-read the mapping file to capture any recent changes
+    load_relmap_file(shared, true);
+
+    // Copy current mappings to local variable for modification
+    if (shared)
+        memcpy(&newmap, &shared_map, sizeof(RelMapFile));
+    else
+        memcpy(&newmap, &local_map, sizeof(RelMapFile));
+
+    // Apply the pending updates to the local copy
+    merge_map_updates(&newmap, updates, allowSystemTableMods);
+
+    // Write the updated mappings to disk with full WAL logging
+    write_relmap_file(&newmap, true, true, true,
+                      (shared ? InvalidOid : MyDatabaseId),
+                      (shared ? GLOBALTABLESPACE_OID : MyDatabaseTableSpace),
+                      (shared ? "global" : DatabasePath));
+
+    // Update in-memory mappings after successful disk write
+    if (shared)
+        memcpy(&shared_map, &newmap, sizeof(RelMapFile));
+    else
+        memcpy(&local_map, &newmap, sizeof(RelMapFile));
+
+    // Release the lock
+    LWLockRelease(RelationMappingLock);
+}
+```

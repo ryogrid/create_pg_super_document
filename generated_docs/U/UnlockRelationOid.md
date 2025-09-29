@@ -41,3 +41,18 @@ This function unlocks a relation lock identified by a relation OID and lock mode
 - Commonly used in catalog operations, namespace lookups, and autovacuum processes
 - Part of PostgreSQL's lock manager subsystem located in src/backend/storage/lmgr/lmgr.c
 - Widely used throughout the codebase due to the prevalence of OID-based relation identification
+
+## Simplified Source
+
+```c
+void UnlockRelationOid(Oid relid, LOCKMODE lockmode)
+{
+    LOCKTAG     tag;
+
+    // Set up the lock tag for the relation using its OID
+    SetLocktagRelationOid(&tag, relid);
+
+    // Release the lock (false indicates this is not a session lock)
+    LockRelease(&tag, lockmode, false);
+}
+```

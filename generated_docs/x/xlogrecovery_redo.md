@@ -9,7 +9,8 @@ xlogrecovery_redo handles specific XLOG resource manager record types that are d
 ## Definition
 
 ```c
-struct dirent *de;
+static void
+xlogrecovery_redo(XLogReaderState *record, TimeLineID replayTLI)
 ```
 ## Detailed Description
 xlogrecovery_redo is a specialized function that processes XLOG resource manager records that require special handling during WAL recovery. Unlike regular WAL records that are processed by their respective resource managers, these records are handled directly in the recovery subsystem because they relate to recovery control operations.
@@ -45,3 +46,55 @@ The function performs validation of record payloads and updates global recovery 
 - Debug messages are logged for backup-related operations to aid in recovery monitoring
 - Record validation includes checking overwritten LSN consistency for overwrite contrecord types
 - The replayTLI parameter is currently unused but maintains interface consistency
+
+## Simplified Source
+
+```c
+static void xlogrecovery_redo(XLogReaderState *record, TimeLineID replayTLI)
+{
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+    XLogRecPtr lsn = record->EndRecPtr;
+
+    Assert(XLogRecGetRmid(record) == RM_XLOG_ID);
+
+    if (info == XLOG_OVERWRITE_CONTRECORD) {
+        // Handle overwritten continuation record
+        xl_overwrite_contrecord xlrec;
+
+        memcpy(&xlrec, XLogRecGetData(record), sizeof(xl_overwrite_contrecord));
+
+        // Verify LSN consistency
+        if (xlrec.overwritten_lsn != record->overwrittenRecPtr)
+            elog(FATAL, "mismatching overwritten LSN %X/%X -> %X/%X",
+                 LSN_FORMAT_ARGS(xlrec.overwritten_lsn),
+                 LSN_FORMAT_ARGS(record->overwrittenRecPtr));
+
+        // Clear recovery state - we've safely skipped the aborted record
+        abortedRecPtr = InvalidXLogRecPtr;
+        missingContrecPtr = InvalidXLogRecPtr;
+
+        ereport(LOG, "successfully skipped missing contrecord at %X/%X, overwritten at %s",
+                LSN_FORMAT_ARGS(xlrec.overwritten_lsn),
+                timestamptz_to_str(xlrec.overwrite_time));
+
+        // Mark record as verified (only verify once)
+        record->overwrittenRecPtr = InvalidXLogRecPtr;
+    }
+    else if (info == XLOG_BACKUP_END) {
+        // Handle backup end record
+        XLogRecPtr startpoint;
+
+        memcpy(&startpoint, XLogRecGetData(record), sizeof(startpoint));
+
+        if (backupStartPoint == startpoint) {
+            // This is the backup end we're waiting for
+            elog(DEBUG1, "end of backup record reached");
+            backupEndPoint = lsn;  // Mark where backup ended
+        } else {
+            // Different backup, keep waiting
+            elog(DEBUG1, "saw end-of-backup record for backup starting at %X/%X, waiting for %X/%X",
+                 LSN_FORMAT_ARGS(startpoint), LSN_FORMAT_ARGS(backupStartPoint));
+        }
+    }
+}
+```

@@ -42,3 +42,32 @@ A key aspect of this function is its handling of the bsysscan flag, which is use
 - Manages the global bsysscan flag used for bootstrap scan coordination
 - The sysscan descriptor itself is freed, so it cannot be used after this call
 - Part of the ordered scanning API that provides proper resource management for index-based catalog scans
+
+## Simplified Source
+
+```c
+void systable_endscan_ordered(SysScanDesc sysscan)
+{
+    // Clean up tuple slot if it exists
+    if (sysscan->slot)
+    {
+        ExecDropSingleTupleTableSlot(sysscan->slot);
+        sysscan->slot = NULL;
+    }
+
+    // End the index scan (index relation must exist)
+    Assert(sysscan->irel);
+    index_endscan(sysscan->iscan);
+
+    // Unregister snapshot if we registered one
+    if (sysscan->snapshot)
+        UnregisterSnapshot(sysscan->snapshot);
+
+    // Reset bootstrap scan flag if transaction monitoring is active
+    if (TransactionIdIsValid(CheckXidAlive))
+        bsysscan = false;
+
+    // Free the scan descriptor
+    pfree(sysscan);
+}
+```

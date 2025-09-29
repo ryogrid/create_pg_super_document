@@ -54,3 +54,121 @@ The function also updates the reader state by tracking the latest validated page
 - Updates state->latestPagePtr and state->latestPageTLI to track progression
 - Long headers are mandatory on the first page of each WAL segment
 - Returns boolean indicating validation success/failure with detailed error reporting
+
+## Simplified Source
+
+```c
+bool XLogReaderValidatePageHeader(XLogReaderState *state, XLogRecPtr recptr, char *phdr)
+{
+    XLogSegNo segno;
+    int32 offset;
+    XLogPageHeader hdr = (XLogPageHeader) phdr;
+
+    Assert((recptr % XLOG_BLCKSZ) == 0);
+
+    XLByteToSeg(recptr, segno, state->segcxt.ws_segsize);
+    offset = XLogSegmentOffset(recptr, state->segcxt.ws_segsize);
+
+    // Check magic number
+    if (hdr->xlp_magic != XLOG_PAGE_MAGIC)
+    {
+        char fname[MAXFNAMELEN];
+        XLogFileName(fname, state->seg.ws_tli, segno, state->segcxt.ws_segsize);
+        report_invalid_record(state,
+                            "invalid magic number %04X in WAL segment %s, LSN %X/%X, offset %u",
+                            hdr->xlp_magic, fname, LSN_FORMAT_ARGS(recptr), offset);
+        return false;
+    }
+
+    // Check info bits are valid
+    if ((hdr->xlp_info & ~XLP_ALL_FLAGS) != 0)
+    {
+        char fname[MAXFNAMELEN];
+        XLogFileName(fname, state->seg.ws_tli, segno, state->segcxt.ws_segsize);
+        report_invalid_record(state,
+                            "invalid info bits %04X in WAL segment %s, LSN %X/%X, offset %u",
+                            hdr->xlp_info, fname, LSN_FORMAT_ARGS(recptr), offset);
+        return false;
+    }
+
+    // Handle long header validation
+    if (hdr->xlp_info & XLP_LONG_HEADER)
+    {
+        XLogLongPageHeader longhdr = (XLogLongPageHeader) hdr;
+
+        // Check system identifier
+        if (state->system_identifier && longhdr->xlp_sysid != state->system_identifier)
+        {
+            report_invalid_record(state,
+                                "WAL file is from different database system: "
+                                "WAL file database system identifier is %llu, "
+                                "pg_control database system identifier is %llu",
+                                (unsigned long long) longhdr->xlp_sysid,
+                                (unsigned long long) state->system_identifier);
+            return false;
+        }
+
+        // Check segment size
+        if (longhdr->xlp_seg_size != state->segcxt.ws_segsize)
+        {
+            report_invalid_record(state,
+                                "WAL file is from different database system: "
+                                "incorrect segment size in page header");
+            return false;
+        }
+
+        // Check block size
+        if (longhdr->xlp_xlog_blcksz != XLOG_BLCKSZ)
+        {
+            report_invalid_record(state,
+                                "WAL file is from different database system: "
+                                "incorrect XLOG_BLCKSZ in page header");
+            return false;
+        }
+    }
+    else if (offset == 0)
+    {
+        // First page must have long header
+        char fname[MAXFNAMELEN];
+        XLogFileName(fname, state->seg.ws_tli, segno, state->segcxt.ws_segsize);
+        report_invalid_record(state,
+                            "invalid info bits %04X in WAL segment %s, LSN %X/%X, offset %u",
+                            hdr->xlp_info, fname, LSN_FORMAT_ARGS(recptr), offset);
+        return false;
+    }
+
+    // Check page address matches expected location
+    if (hdr->xlp_pageaddr != recptr)
+    {
+        char fname[MAXFNAMELEN];
+        XLogFileName(fname, state->seg.ws_tli, segno, state->segcxt.ws_segsize);
+        report_invalid_record(state,
+                            "unexpected pageaddr %X/%X in WAL segment %s, LSN %X/%X, offset %u",
+                            LSN_FORMAT_ARGS(hdr->xlp_pageaddr), fname,
+                            LSN_FORMAT_ARGS(recptr), offset);
+        return false;
+    }
+
+    // Check timeline consistency (TLI should not go backwards)
+    if (recptr > state->latestPagePtr)
+    {
+        if (hdr->xlp_tli < state->latestPageTLI)
+        {
+            char fname[MAXFNAMELEN];
+            XLogFileName(fname, state->seg.ws_tli, segno, state->segcxt.ws_segsize);
+            report_invalid_record(state,
+                                "out-of-sequence timeline ID %u (after %u) in "
+                                "WAL segment %s, LSN %X/%X, offset %u",
+                                hdr->xlp_tli, state->latestPageTLI, fname,
+                                LSN_FORMAT_ARGS(recptr), offset);
+            return false;
+        }
+    }
+
+    // Update state with latest valid page
+    state->latestPagePtr = recptr;
+    state->latestPageTLI = hdr->xlp_tli;
+
+    return true;
+}
+```

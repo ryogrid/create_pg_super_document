@@ -56,3 +56,43 @@ The function also supports cases where tupleDesc is NULL for relations not expec
 - Critical for SQL NULL handling throughout the PostgreSQL query execution system
 - Used extensively in index operations, constraint checking, and query evaluation
 - Part of the core tuple access interface used by virtually all tuple-processing code
+
+## Simplified Source
+
+```c
+bool heap_attisnull(HeapTuple tup, int attnum, TupleDesc tupleDesc)
+{
+    // Allow NULL tupledesc for relations without missing values
+    Assert(!tupleDesc || attnum <= tupleDesc->natts);
+
+    // Check if attribute number exceeds tuple's attribute count
+    if (attnum > (int) HeapTupleHeaderGetNatts(tup->t_data)) {
+        if (tupleDesc && TupleDescAttr(tupleDesc, attnum - 1)->atthasmissing)
+            return false;  // Has missing value default
+        else
+            return true;   // Truly missing
+    }
+
+    // Handle regular attributes (attnum > 0)
+    if (attnum > 0) {
+        if (HeapTupleNoNulls(tup))
+            return false;  // Optimization: no nulls in tuple
+        return att_isnull(attnum - 1, tup->t_data->t_bits);
+    }
+
+    // Handle system attributes (never null)
+    switch (attnum) {
+        case TableOidAttributeNumber:
+        case SelfItemPointerAttributeNumber:
+        case MinTransactionIdAttributeNumber:
+        case MinCommandIdAttributeNumber:
+        case MaxTransactionIdAttributeNumber:
+        case MaxCommandIdAttributeNumber:
+            break;  // System attributes are never null
+        default:
+            elog(ERROR, "invalid attnum: %d", attnum);
+    }
+
+    return false;
+}
+```

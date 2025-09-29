@@ -40,3 +40,30 @@ This approach allows the serializable transaction to remain visible for conflict
 - The transaction ID parameter is currently unused but maintains interface consistency
 - Local predicate lock hash destruction is safe since global predicate lock state is preserved
 - After this function, the preparing backend is no longer associated with the serializable transaction
+
+## Simplified Source
+
+```c
+void PostPrepare_PredicateLocks(TransactionId xid)
+{
+    // Return early if not in a serializable transaction
+    if (MySerializableXact == InvalidSerializableXact)
+        return;
+
+    // Verify transaction is properly prepared
+    Assert(SxactIsPrepared(MySerializableXact));
+
+    // Clear process identifiers from serializable transaction
+    // (SERIALIZABLEXACT structure stays for conflict detection)
+    MySerializableXact->pid = 0;
+    MySerializableXact->pgprocno = INVALID_PROC_NUMBER;
+
+    // Destroy local predicate lock hash table
+    hash_destroy(LocalPredicateLockHash);
+    LocalPredicateLockHash = NULL;
+
+    // Reset local transaction state
+    MySerializableXact = InvalidSerializableXact;
+    MyXactDidWrite = false;
+}
+```

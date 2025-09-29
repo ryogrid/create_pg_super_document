@@ -39,3 +39,28 @@ This function takes no parameters but works with transaction state and memory co
 - Helps prevent memory leaks in scenarios with many trivial subtransactions (e.g., PL/pgSQL exception blocks)
 - Works in conjunction with the overall subtransaction commit mechanism
 - Essential for maintaining proper memory context hierarchy during nested transaction operations
+
+## Simplified Source
+
+```c
+static void AtSubCommit_Memory(void)
+{
+    TransactionState s = CurrentTransactionState;
+
+    Assert(s->parent != NULL);
+
+    // Switch back to parent transaction's memory context
+    CurTransactionContext = s->parent->curTransactionContext;
+    MemoryContextSwitchTo(CurTransactionContext);
+
+    // Optimization: if subtransaction context is empty, delete it
+    // to avoid memory leak in trivial subtransactions
+    if (MemoryContextIsEmpty(s->curTransactionContext))
+    {
+        MemoryContextDelete(s->curTransactionContext);
+        s->curTransactionContext = NULL;
+    }
+    // Note: Non-empty contexts are preserved as their data
+    // will be needed when parent transaction commits
+}
+```

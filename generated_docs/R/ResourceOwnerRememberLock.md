@@ -37,3 +37,28 @@ The function operates in three states:
 - MAX_RESOWNER_LOCKS is set to 15 based on testing with pg_dump, which showed most resource owners need fewer than 9 locks
 - The function includes an assertion that locallock is not NULL but does not validate the ResourceOwner
 - Once overflow occurs, the function becomes very lightweight, only incrementing a counter
+
+## Simplified Source
+
+```c
+void ResourceOwnerRememberLock(ResourceOwner owner, LOCALLOCK *locallock)
+{
+    Assert(locallock != NULL);
+
+    // Check if we've already overflowed the cache
+    if (owner->nlocks > MAX_RESOWNER_LOCKS)
+        return;  // Already overflowed - just increment below
+
+    // If we still have space, store the lock in the array
+    if (owner->nlocks < MAX_RESOWNER_LOCKS)
+        owner->locks[owner->nlocks] = locallock;
+    else
+    {
+        // We're at the overflow point - don't store the lock
+        // The else block is empty in the original code
+    }
+
+    // Always increment the counter (tracks total, even beyond cache size)
+    owner->nlocks++;
+}
+```

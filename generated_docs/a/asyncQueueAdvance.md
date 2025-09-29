@@ -45,3 +45,32 @@ The function implements the queue's page-based storage model where each page has
 - The page jump detection is crucial for queue management and cleanup operations
 - Part of the low-level queue management infrastructure for PostgreSQL's LISTEN/NOTIFY system
 - Assert statement ensures that entry length never exceeds page size
+
+## Simplified Source
+
+```c
+static bool
+asyncQueueAdvance(volatile QueuePosition *position, int entryLength)
+{
+    int64 pageno = QUEUE_POS_PAGE(*position);
+    int offset = QUEUE_POS_OFFSET(*position);
+    bool pageJump = false;
+
+    // Move forward by the length of the entry we just processed
+    offset += entryLength;
+    Assert(offset <= QUEUE_PAGESIZE);
+
+    // Check if there's room for another minimal entry on this page
+    // If not, advance to the next page
+    if (offset + QUEUEALIGN(AsyncQueueEntryEmptySize) > QUEUE_PAGESIZE)
+    {
+        pageno++;
+        offset = 0;
+        pageJump = true;
+    }
+
+    // Update the position with new page/offset
+    SET_QUEUE_POS(*position, pageno, offset);
+    return pageJump;
+}
+```

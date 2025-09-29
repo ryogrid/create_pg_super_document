@@ -41,3 +41,21 @@ This is a core utility function that provides efficient hex encoding without mem
 - Part of PostgreSQL's core encoding utilities, heavily used in backup and manifest operations
 - Produces lowercase hexadecimal output (uses 'abcdef' not 'ABCDEF')
 - No null termination of output string - caller responsible if needed
+
+## Simplified Source
+
+```c
+uint64
+hex_encode(const char *src, size_t len, char *dst)
+{
+    const char *end = src + len;
+
+    while (src < end)
+    {
+        *dst++ = hextbl[(*src >> 4) & 0xF];
+        *dst++ = hextbl[*src & 0xF];
+        src++;
+    }
+    return (uint64) len * 2;
+}
+```

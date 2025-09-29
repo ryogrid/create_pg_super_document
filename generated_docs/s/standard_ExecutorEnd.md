@@ -37,3 +37,44 @@ The function enforces that ExecutorFinish was previously called (except for EXPL
 - Releases all executor-allocated memory through FreeExecutorState
 - Critical for preventing memory leaks in long-running database sessions
 - Introduced validation for ExecutorFinish call in PostgreSQL 9.1
+
+## Simplified Source
+
+```c
+void standard_ExecutorEnd(QueryDesc *queryDesc)
+{
+    EState     *estate;
+    MemoryContext oldcontext;
+
+    // Basic validation
+    Assert(queryDesc != NULL);
+    estate = queryDesc->estate;
+    Assert(estate != NULL);
+
+    // Ensure ExecutorFinish was called (except for EXPLAIN-only mode)
+    Assert(estate->es_finished ||
+           (estate->es_top_eflags & EXEC_FLAG_EXPLAIN_ONLY));
+
+    // Switch to per-query memory context for plan cleanup
+    oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // Terminate the execution plan
+    ExecEndPlan(queryDesc->planstate, estate);
+
+    // Clean up snapshots
+    UnregisterSnapshot(estate->es_snapshot);
+    UnregisterSnapshot(estate->es_crosscheck_snapshot);
+
+    // Switch back before destroying context
+    MemoryContextSwitchTo(oldcontext);
+
+    // Free all executor state and memory
+    FreeExecutorState(estate);
+
+    // Reset QueryDesc fields to safe state
+    queryDesc->tupDesc = NULL;
+    queryDesc->estate = NULL;
+    queryDesc->planstate = NULL;
+    queryDesc->totaltime = NULL;
+}
+```

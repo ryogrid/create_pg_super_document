@@ -39,3 +39,82 @@ This function takes no parameters.
 - Employs PERFORM_DELETION_INTERNAL and PERFORM_DELETION_QUIETLY flags for automatic drops
 - Includes assertion checking to verify that dropped tables are properly marked as deleted
 - Truncation occurs before dropping to ensure all dependencies are properly resolved
+
+## Simplified Source
+
+```c
+void PreCommit_on_commit_actions(void)
+{
+    ListCell *l;
+    List *oids_to_truncate = NIL;
+    List *oids_to_drop = NIL;
+
+    // Scan all on-commit entries and categorize actions
+    foreach(l, on_commits) {
+        OnCommitItem *oc = (OnCommitItem *) lfirst(l);
+
+        // Skip entries already marked for deletion in this transaction
+        if (oc->deleting_subid != InvalidSubTransactionId)
+            continue;
+
+        switch (oc->oncommit) {
+            case ONCOMMIT_NOOP:
+            case ONCOMMIT_PRESERVE_ROWS:
+                // No action needed
+                break;
+
+            case ONCOMMIT_DELETE_ROWS:
+                // Only truncate if transaction accessed temp namespace
+                if ((MyXactFlags & XACT_FLAGS_ACCESSEDTEMPNAMESPACE))
+                    oids_to_truncate = lappend_oid(oids_to_truncate, oc->relid);
+                break;
+
+            case ONCOMMIT_DROP:
+                oids_to_drop = lappend_oid(oids_to_drop, oc->relid);
+                break;
+        }
+    }
+
+    // First: truncate tables marked for row deletion
+    if (oids_to_truncate != NIL)
+        heap_truncate(oids_to_truncate);
+
+    // Second: drop tables marked for complete removal
+    if (oids_to_drop != NIL) {
+        ObjectAddresses *targetObjects = new_object_addresses();
+
+        // Build object addresses for all tables to drop
+        foreach(l, oids_to_drop) {
+            ObjectAddress object;
+
+            object.classId = RelationRelationId;
+            object.objectId = lfirst_oid(l);
+            object.objectSubId = 0;
+
+            Assert(!object_address_present(&object, targetObjects));
+            add_exact_object_address(&object, targetObjects);
+        }
+
+        // Ensure we have a valid snapshot for potential toast table access
+        PushActiveSnapshot(GetTransactionSnapshot());
+
+        // Perform automatic deletion with cascade behavior
+        performMultipleDeletions(targetObjects, DROP_CASCADE,
+                                PERFORM_DELETION_INTERNAL | PERFORM_DELETION_QUIETLY);
+
+        PopActiveSnapshot();
+
+#ifdef USE_ASSERT_CHECKING
+        // Verify that all dropped tables are properly marked as deleted
+        foreach(l, on_commits) {
+            OnCommitItem *oc = (OnCommitItem *) lfirst(l);
+
+            if (oc->oncommit != ONCOMMIT_DROP)
+                continue;
+
+            Assert(oc->deleting_subid != InvalidSubTransactionId);
+        }
+#endif
+    }
+}
+```

@@ -47,3 +47,72 @@ Key behaviors include:
 - Returns -1 when insufficient data is available and wait_for_wal is false
 - Uses WALReadRaiseError to handle read errors, ensuring proper error propagation
 - File location: src/backend/access/transam/xlogutils.c:885-1019
+
+## Simplified Source
+
+```c
+static int read_local_xlog_page_guts(XLogReaderState *state, XLogRecPtr targetPagePtr,
+                                    int reqLen, XLogRecPtr targetRecPtr,
+                                    char *cur_page, bool wait_for_wal)
+{
+    XLogRecPtr read_upto, loc;
+    TimeLineID tli, currTLI;
+    int count;
+    WALReadError errinfo;
+
+    loc = targetPagePtr + reqLen;
+
+    // Main loop: wait for WAL data to become available
+    while (1) {
+        // Determine how much WAL we can currently read
+        if (!RecoveryInProgress())
+            read_upto = GetFlushRecPtr(&currTLI);  // Normal operation
+        else
+            read_upto = GetXLogReplayRecPtr(&currTLI);  // Recovery mode
+
+        tli = currTLI;
+
+        // Handle timeline changes (important for cascading standbys)
+        XLogReadDetermineTimeline(state, targetPagePtr, reqLen, tli);
+
+        if (state->currTLI == currTLI) {
+            // We're on the current timeline
+            if (loc <= read_upto)
+                break;  // Data is available
+
+            // Not enough data yet
+            if (!wait_for_wal) {
+                // Mark end of WAL reached for no-wait callers
+                ReadLocalXLogPageNoWaitPrivate *private_data =
+                    (ReadLocalXLogPageNoWaitPrivate *) state->private_data;
+                private_data->end_of_wal = true;
+                break;
+            }
+
+            // Wait a bit and check for interrupts
+            CHECK_FOR_INTERRUPTS();
+            pg_usleep(1000L);
+        } else {
+            // We're on a historical timeline - limit to switch point
+            read_upto = state->currTLIValidUntil;
+            tli = state->currTLI;
+            break;  // No need to wait for historical data
+        }
+    }
+
+    // Calculate how much to read
+    if (targetPagePtr + XLOG_BLCKSZ <= read_upto) {
+        count = XLOG_BLCKSZ;  // Read full block
+    } else if (targetPagePtr + reqLen > read_upto) {
+        return -1;  // Not enough data available
+    } else {
+        count = read_upto - targetPagePtr;  // Read what's available
+    }
+
+    // Perform the actual WAL read
+    if (!WALRead(state, cur_page, targetPagePtr, count, tli, &errinfo))
+        WALReadRaiseError(&errinfo);
+
+    return count;  // Return number of bytes read
+}
+```

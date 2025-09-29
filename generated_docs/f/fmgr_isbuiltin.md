@@ -35,3 +35,24 @@ The function uses a precomputed index array (fmgr_builtin_oid_index) that maps O
 - Returns NULL for non-builtin functions, which allows the caller to fall back to catalog lookups
 - The lookup is O(1) time complexity due to the precomputed index array
 - Part of PostgreSQL's Function Manager (fmgr) subsystem responsible for function call dispatch
+
+## Simplified Source
+
+```c
+static const FmgrBuiltin *fmgr_isbuiltin(Oid id)
+{
+    uint16 index;
+
+    // Quick check: return NULL if OID is beyond builtin range
+    if (id > fmgr_last_builtin_oid)
+        return NULL;
+
+    // Look up function using precomputed index array
+    index = fmgr_builtin_oid_index[id];
+    if (index == InvalidOidBuiltinMapping)
+        return NULL;
+
+    // Return pointer to builtin function metadata
+    return &fmgr_builtins[index];
+}
+```

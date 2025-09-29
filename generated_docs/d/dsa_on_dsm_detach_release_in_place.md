@@ -37,3 +37,14 @@ The function simply extracts the memory address from the Datum parameter and cal
 - The place parameter must contain the exact memory address where the DSA area was originally created
 - Provides automatic resource management for DSA areas embedded within DSM segments
 - Ensures proper cleanup even if the application doesn't explicitly release the DSA area
+
+## Simplified Source
+
+```c
+void dsa_on_dsm_detach_release_in_place(dsm_segment *segment, Datum place)
+{
+    dsa_release_in_place(DatumGetPointer(place));
+}
+```
+
+This is a simple callback function that releases in-place DSA areas when their containing DSM segment is detached. It extracts the memory address from the Datum parameter and delegates to dsa_release_in_place for cleanup.

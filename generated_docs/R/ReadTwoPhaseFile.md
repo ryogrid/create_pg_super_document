@@ -46,3 +46,95 @@ ReadTwoPhaseFile is responsible for securely reading two-phase commit state file
 - CRC32C checksum validation ensures data integrity
 - Returns palloc'd buffer that caller must free
 - Critical for recovery operations and prepared transaction processing
+
+## Simplified Source
+
+```c
+static char *ReadTwoPhaseFile(TransactionId xid, bool missing_ok)
+{
+    char path[MAXPGPATH];
+    char *buf;
+    TwoPhaseFileHeader *hdr;
+    int fd;
+    struct stat stat;
+    uint32 crc_offset;
+    pg_crc32c calc_crc, file_crc;
+    int r;
+
+    // Construct file path
+    TwoPhaseFilePath(path, xid);
+
+    // Open file
+    fd = OpenTransientFile(path, O_RDONLY | PG_BINARY);
+    if (fd < 0)
+    {
+        if (missing_ok && errno == ENOENT)
+            return NULL;
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not open file \"%s\": %m", path)));
+    }
+
+    // Check file size constraints
+    if (fstat(fd, &stat))
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not stat file \"%s\": %m", path)));
+
+    if (stat.st_size < (MAXALIGN(sizeof(TwoPhaseFileHeader)) +
+                        MAXALIGN(sizeof(TwoPhaseRecordOnDisk)) +
+                        sizeof(pg_crc32c)) ||
+        stat.st_size > MaxAllocSize)
+        ereport(ERROR, (errcode(ERRCODE_DATA_CORRUPTED),
+                       errmsg_plural("incorrect size of file \"%s\": %lld byte",
+                                    "incorrect size of file \"%s\": %lld bytes",
+                                    (long long int) stat.st_size, path,
+                                    (long long int) stat.st_size)));
+
+    // Verify CRC alignment
+    crc_offset = stat.st_size - sizeof(pg_crc32c);
+    if (crc_offset != MAXALIGN(crc_offset))
+        ereport(ERROR, (errcode(ERRCODE_DATA_CORRUPTED),
+                       errmsg("incorrect alignment of CRC offset for file \"%s\"",
+                              path)));
+
+    // Read entire file
+    buf = (char *) palloc(stat.st_size);
+    pgstat_report_wait_start(WAIT_EVENT_TWOPHASE_FILE_READ);
+    r = read(fd, buf, stat.st_size);
+    if (r != stat.st_size)
+    {
+        if (r < 0)
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not read file \"%s\": %m", path)));
+        else
+            ereport(ERROR, (errmsg("could not read file \"%s\": read %d of %lld",
+                                   path, r, (long long int) stat.st_size)));
+    }
+    pgstat_report_wait_end();
+
+    CloseTransientFile(fd);
+
+    // Validate file format
+    hdr = (TwoPhaseFileHeader *) buf;
+    if (hdr->magic != TWOPHASE_MAGIC)
+        ereport(ERROR, (errcode(ERRCODE_DATA_CORRUPTED),
+                       errmsg("invalid magic number stored in file \"%s\"", path)));
+
+    if (hdr->total_len != stat.st_size)
+        ereport(ERROR, (errcode(ERRCODE_DATA_CORRUPTED),
+                       errmsg("invalid size stored in file \"%s\"", path)));
+
+    // Verify CRC checksum
+    INIT_CRC32C(calc_crc);
+    COMP_CRC32C(calc_crc, buf, crc_offset);
+    FIN_CRC32C(calc_crc);
+
+    file_crc = *((pg_crc32c *) (buf + crc_offset));
+
+    if (!EQ_CRC32C(calc_crc, file_crc))
+        ereport(ERROR, (errcode(ERRCODE_DATA_CORRUPTED),
+                       errmsg("calculated CRC checksum does not match value stored in file \"%s\"",
+                              path)));
+
+    return buf;
+}
+```

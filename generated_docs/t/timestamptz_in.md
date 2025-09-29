@@ -60,3 +60,64 @@ The `timestamptz_in` function is the input function for the timestamptz data typ
 - The function processes various datetime formats and extracts timezone information
 - Error handling includes detailed error context through DateTimeErrorExtra structure
 - Timezone conversion is handled through the tz parameter in tm2timestamp
+
+## Simplified Source
+
+```c
+Datum timestamptz_in(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+    int32 typmod = PG_GETARG_INT32(2);
+    Node *escontext = fcinfo->context;
+    TimestampTz result;
+    fsec_t fsec;
+    struct pg_tm tt, *tm = &tt;
+    int tz;
+    int dtype;
+    int nf;
+    int dterr;
+    char *field[MAXDATEFIELDS];
+    int ftype[MAXDATEFIELDS];
+    char workbuf[MAXDATELEN + MAXDATEFIELDS];
+    DateTimeErrorExtra extra;
+
+    // Parse the input string into datetime fields
+    dterr = ParseDateTime(str, workbuf, sizeof(workbuf), field, ftype, MAXDATEFIELDS, &nf);
+    if (dterr == 0)
+        dterr = DecodeDateTime(field, ftype, nf, &dtype, tm, &fsec, &tz, &extra);
+
+    if (dterr != 0)
+    {
+        DateTimeParseError(dterr, &extra, str, "timestamp with time zone", escontext);
+        PG_RETURN_NULL();
+    }
+
+    // Handle different datetime types
+    switch (dtype)
+    {
+        case DTK_DATE:
+            if (tm2timestamp(tm, fsec, &tz, &result) != 0)
+                ereturn(escontext, (Datum) 0,
+                    (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                     errmsg("timestamp out of range: \"%s\"", str)));
+            break;
+        case DTK_EPOCH:
+            result = SetEpochTimestamp();
+            break;
+        case DTK_LATE:
+            TIMESTAMP_NOEND(result);
+            break;
+        case DTK_EARLY:
+            TIMESTAMP_NOBEGIN(result);
+            break;
+        default:
+            elog(ERROR, "unexpected dtype %d while parsing timestamptz \"%s\"", dtype, str);
+            TIMESTAMP_NOEND(result);
+    }
+
+    // Apply type modifier adjustments
+    AdjustTimestampForTypmod(&result, typmod, escontext);
+
+    PG_RETURN_TIMESTAMPTZ(result);
+}
+```

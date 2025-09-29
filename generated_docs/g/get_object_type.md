@@ -38,3 +38,21 @@ This function determines the ObjectType for a database object identified by its 
 - Part of the object address infrastructure used throughout PostgreSQL's catalog system
 - The function helps distinguish between different types of relations (tables, views, indexes, etc.) for more precise error reporting
 - Used extensively in privilege checking and object management operations
+
+## Simplified Source
+
+```c
+ObjectType get_object_type(Oid class_id, Oid object_id)
+{
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+
+    // Special handling for table-like objects to get precise type
+    if (prop->objtype == OBJECT_TABLE) {
+        // Get specific relation kind (table, view, index, etc.)
+        return get_relkind_objtype(get_rel_relkind(object_id));
+    }
+    else {
+        return prop->objtype;
+    }
+}
+```

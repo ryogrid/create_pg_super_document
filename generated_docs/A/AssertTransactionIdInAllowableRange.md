@@ -37,3 +37,29 @@ The implementation carefully avoids acquiring locks that might cause deadlocks, 
 - The assertion logic accepts XIDs that are less than or equal to nextXid (rather than strictly less than) to account for timing issues with concurrent transaction ID assignment
 - Cannot definitively establish correctness due to the dynamic nature of transaction ID ranges, but can detect clear violations
 - Designed to be callable from contexts where XidGenLock is already held or where lock nesting is not permitted
+
+## Simplified Source
+
+```c
+void AssertTransactionIdInAllowableRange(TransactionId xid)
+{
+    TransactionId oldest_xid;
+    TransactionId next_xid;
+
+    // Basic validation
+    Assert(TransactionIdIsValid(xid));
+
+    // Allow bootstrap and frozen transaction IDs
+    if (!TransactionIdIsNormal(xid))
+        return;
+
+    // Use memory barrier for lock-free access to shared variables
+    pg_memory_barrier();
+    oldest_xid = TransamVariables->oldestXid;
+    next_xid = XidFromFullTransactionId(TransamVariables->nextXid);
+
+    // Assert xid is within allowable range
+    Assert(TransactionIdFollowsOrEquals(xid, oldest_xid) ||
+           TransactionIdPrecedesOrEquals(xid, next_xid));
+}
+```

@@ -44,3 +44,12 @@ The function is designed for scenarios where the full 64-bit transaction ID is n
 - The function maintains consistency with the global transaction ID allocation system
 - Used extensively in autovacuum and cleanup operations where only the XID portion is needed
 - Helps bridge between 64-bit full transaction ID system and legacy 32-bit XID usage
+
+## Simplified Source
+```c
+// Get just the 32-bit XID part of the next transaction ID
+static inline TransactionId ReadNextTransactionId(void)
+{
+    return XidFromFullTransactionId(ReadNextFullTransactionId());
+}
+```

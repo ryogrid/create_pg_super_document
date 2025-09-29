@@ -31,3 +31,13 @@ The function is called after invalidation message processing is complete to allo
 - This function must be called in conjunction with RelationCacheInitFilePreInvalidate to ensure proper lock management
 - Part of the relation cache invalidation mechanism that maintains consistency between cached relation data and the actual system catalogs
 - The lock release ensures that relation cache initialization file operations are properly synchronized across multiple backends
+
+## Simplified Source
+
+```c
+void
+RelationCacheInitFilePostInvalidate(void)
+{
+    LWLockRelease(RelCacheInitLock);
+}
+```

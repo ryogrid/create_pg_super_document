@@ -56,3 +56,26 @@ The function ensures proper initialization and, in the OpenSSL version, integrat
 - The OpenSSL version clears any previous OpenSSL errors before creating the new context
 - Context must be initialized with pg_cryptohash_init() before use
 - Contexts should be freed with pg_cryptohash_free() when no longer needed
+
+## Simplified Source
+
+```c
+// Allocate and initialize a cryptographic hash context (generic version)
+pg_cryptohash_ctx *pg_cryptohash_create(pg_cryptohash_type type)
+{
+    pg_cryptohash_ctx *ctx;
+
+    // Note: Always allocate space for largest hash type
+    // This simplifies memory management vs. allocating exact size
+    ctx = ALLOC(sizeof(pg_cryptohash_ctx));
+    if (ctx == NULL)
+        return NULL;  // Out of memory
+
+    // Initialize the context
+    memset(ctx, 0, sizeof(pg_cryptohash_ctx));
+    ctx->type = type;
+    ctx->error = PG_CRYPTOHASH_ERROR_NONE;
+
+    return ctx;
+}
+```

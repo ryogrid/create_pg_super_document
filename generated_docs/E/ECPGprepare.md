@@ -46,3 +46,30 @@ The `ECPGprepare` function is the primary entry point for preparing SQL statemen
 - Widely used throughout ECPG test suites and real applications
 - Part of the ECPG library's public interface for prepared statement management
 - Delegates the actual preparation work to prepare_common after handling connection and duplicate checking logic
+
+## Simplified Source
+
+```c
+bool ECPGprepare(int lineno, const char *connection_name, const bool questionmarks,
+                 const char *name, const char *variable)
+{
+    struct connection *con;
+    struct prepared_statement *this, *prev;
+
+    // questionmarks parameter is kept for API compatibility but unused
+    (void) questionmarks;
+
+    // Get and initialize the database connection
+    con = ecpg_get_connection(connection_name);
+    if (!ecpg_init(con, connection_name, lineno))
+        return false;
+
+    // Check if a prepared statement with this name already exists
+    this = ecpg_find_prepared_statement(name, con, &prev);
+    if (this && !deallocate_one(lineno, ECPG_COMPAT_PGSQL, con, prev, this))
+        return false;
+
+    // Delegate to common preparation logic
+    return prepare_common(lineno, con, name, variable);
+}
+```

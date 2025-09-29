@@ -32,3 +32,18 @@ The function extracts the relnamespace field from the pg_class tuple and passes 
 - Part of a family of catalog utility functions that work with both open relations and pg_class tuples
 - The relnamespace field is accessed directly from the tuple structure
 - Located in src/backend/catalog/catalog.c at lines 195-211
+
+## Simplified Source
+
+```c
+bool IsToastClass(Form_pg_class reltuple)
+{
+    Oid relnamespace = reltuple->relnamespace;
+    return IsToastNamespace(relnamespace);
+}
+```
+
+This function:
+1. Extracts the namespace OID from the pg_class tuple
+2. Delegates to IsToastNamespace to check if it's a TOAST namespace
+3. Provides an efficient way to check TOAST status without opening the relation

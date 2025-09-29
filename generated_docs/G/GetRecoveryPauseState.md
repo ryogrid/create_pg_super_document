@@ -41,3 +41,19 @@ This function serves as the primary interface for checking the pause state from 
 - The spinlock ensures that the state read is atomic and consistent
 - Part of the public interface for recovery pause functionality
 - Location: src/backend/access/transam/xlogrecovery.c:3070-3089
+
+## Simplified Source
+
+```c
+RecoveryPauseState GetRecoveryPauseState(void)
+{
+    RecoveryPauseState state;
+
+    // Acquire spinlock to safely read shared recovery state
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+    state = XLogRecoveryCtl->recoveryPauseState;
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    return state;
+}
+```
