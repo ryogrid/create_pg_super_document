@@ -15,6 +15,13 @@ from typing import List, Dict, Optional, Set
 import logging
 import re
 
+# --- Configuration ---
+# Default number of parallel claude commands to run
+DEFAULT_MAX_PARALLEL_COMMANDS = 3
+# Number of functions to process in a single claude command
+FUNCTIONS_PER_COMMAND = 5
+# --- End Configuration ---
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -37,20 +44,23 @@ def get_first_alnum_char(text: str) -> str:
     return "_" # Default directory if no alphanumeric character is found
 
 class FunctionSimplificationOrchestrator:
-    def __init__(self, 
+    def __init__(self,
                  function_list_file: str = 'experimental/function_call_hierarchy.txt',
-                 max_parallel: int = 3,
+                 max_parallel: int = DEFAULT_MAX_PARALLEL_COMMANDS,
+                 functions_per_command: int = FUNCTIONS_PER_COMMAND,
                  timeout_seconds: int = 300):
         """
         Initialize the orchestrator.
         
         Args:
-            function_list_file: Path to file containing function names (one per line)
+            function_list_file: Path to file containing function name and doc path pairs (CSV format)
             max_parallel: Number of parallel Claude processes to run
+            functions_per_command: Number of functions to process in a single Claude command
             timeout_seconds: Timeout for each Claude invocation
         """
         self.function_list_file = Path(function_list_file)
         self.max_parallel = max_parallel
+        self.functions_per_command = functions_per_command
         self.timeout_seconds = timeout_seconds
         
         # Load function list
@@ -65,8 +75,8 @@ class FunctionSimplificationOrchestrator:
         
         # Queue for functions to process
         self.work_queue = queue.Queue()
-        for func in self.functions:
-            self.work_queue.put(func)
+        for func_info in self.functions:
+            self.work_queue.put(func_info)
         
         # Statistics
         self.start_time = None
@@ -78,24 +88,30 @@ class FunctionSimplificationOrchestrator:
             'in_progress': 0
         }
     
-    def _load_function_list(self) -> List[str]:
-        """Load function names from file."""
+    def _load_function_list(self) -> List[Dict[str, str]]:
+        """Load function name and path pairs from file (CSV format: name,path)."""
         if not self.function_list_file.exists():
             logging.error(f"Function list file not found: {self.function_list_file}")
             return []
         
-        with open(self.function_list_file, 'r') as f:
-            functions = [line.strip() for line in f if line.strip()]
-        
+        functions = []
+        with open(self.function_list_file, 'r', encoding='utf-8') as f:
+            for i, line in enumerate(f):
+                if line.strip():
+                    parts = line.strip().split(',')
+                    if len(parts) == 2:
+                        functions.append({'name': parts[0].strip(), 'path': parts[1].strip()})
+                    else:
+                        logging.warning(f"Skipping malformed line {i+1} in {self.function_list_file}: {line.strip()}")
+
         logging.info(f"Loaded {len(functions)} functions from {self.function_list_file}")
         return functions
     
-    def _check_simplified_source_exists(self, function_name: str) -> bool:
+    def _check_simplified_source_exists(self, doc_path_str: str) -> bool:
         """
         Check if simplified source section already exists in the markdown file.
         """
-        doc_path = Path(f'generated_docs/{get_first_alnum_char(function_name)}/{function_name}.md')
-        
+        doc_path = Path(doc_path_str)
         if not doc_path.exists():
             return False
         
@@ -104,25 +120,32 @@ class FunctionSimplificationOrchestrator:
             return '## Simplified Source' in content
         except Exception:
             return False
-    
-    def _build_prompt(self, function_name: str) -> str:
-        """
-        Build the combined prompt for Claude that includes both main task and subagent logic.
-        """
-        doc_path = f'generated_docs/{get_first_alnum_char(function_name)}/{function_name}.md'
-    
-        prompt = f"""# Function Soource Code Simplification Task
 
-You are processing the PostgreSQL function: **{function_name}**
+    def _build_prompt(self, function_batch: List[Dict[str, str]]) -> str:
+        """
+        Build the combined prompt for Claude to process a batch of functions.
+        """
+        functions_json = json.dumps(function_batch, indent=2)
+
+        prompt = f"""# Batch Function Source Code Simplification Task
+
+You will process a batch of {len(function_batch)} PostgreSQL functions based on the provided JSON data.
 
 ## Your Task
-1. Retrieve the source code for this function
-2. Create a simplified, readable version that preserves essential logic
-3. Directly append the simplified version to the existing documentation file
-4. Complete the task without creating any temporary files
+For EACH function object in the JSON data below:
+1.  Use the `name` key for the function's name and the `path` key for its documentation file path.
+2.  Retrieve the function's source code.
+3.  Create a simplified, readable version.
+4.  Directly append this simplified version to the specified documentation file.
+5.  DO NOT create temporary files.
+6.  After processing all functions, provide a single JSON array summarizing the outcome for each function.
+
+## Function Batch to Process (JSON format)
+```json
+{functions_json}
+```
 
 ## Available MCP Server Tools
-
 You have access to the following MCP server functions for PostgreSQL symbol information:
 
 - **pg_symbol_source(symbol_name)**: Retrieve the complete source code for a symbol
@@ -131,228 +154,201 @@ You have access to the following MCP server functions for PostgreSQL symbol info
 - **pg_references_from(symbol_name)**: List symbols referenced by the given symbol
 - **pg_references_to(symbol_name)**: List symbols that reference the given symbol
 
-These are available through the MCP server configured in your environment.
+## Processing Loop
+Iterate through each JSON object in the array above. For each object, perform the simplification task.
 
-## Processing Steps
+### For each `function` object (`{{ "name": "...", "path": "..." }}`):
 
-### Step 1: Retrieve Source Code
-- Use MCP tool: `pg_symbol_source("{function_name}")`
-- Verify this is a function (not struct/typedef/etc.)
-- The tool will return the complete source code from the PostgreSQL codebase
+1.  **Retrieve Source**: Use `pg_symbol_source(function.name)`.
+2.  **Simplify Code**: Reduce complexity while preserving essential logic.
+3.  **Update Documentation**:
+    - Read the file at `function.path`.
+    - If "## Simplified Source" already exists, do nothing for this file.
+    - Otherwise, append the new section to the file using the Write tool.
 
-### Step 2: Simplify the Code
-Apply these simplification techniques:
-- Remove non-essential error handling (keep only critical checks)
-- Simplify complex conditions into clearer logic flow
-- Replace detailed memory operations with high-level comments
-- Use descriptive variable names instead of cryptic ones
-- Add brief explanatory comments for complex logic
-- Remove platform-specific code, focus on main logic path
-- Consolidate similar cases or branches
+## Final Status Reporting
+After attempting to process ALL functions, you MUST output a single JSON array containing a result object for each function. The output must ONLY be the JSON array, enclosed in ```json ... ```.
 
-Target: 20-50% of original length while preserving essential algorithm
-
-### Step 3: Update Documentation File Directly
-1. Check if documentation exists at: `{doc_path}`
-2. If file doesn't exist, create it with a basic header
-3. Read the existing content
-4. Check if "## Simplified Source" section already exists - if so, print "ALREADY_PROCESSED: {function_name}" and stop
-5. Append the new section "## Simplified Source" with the simplified code directly to the file
-6. Use the Write tool to update the file
-
-## Output Format
-
-Append this section directly to `{doc_path}`:
-
-```markdown
-## Simplified Source
-
-```c
-// Simplified version of {function_name}
-ReturnType {function_name}(Parameters) {{
-    // Core logic step 1: Brief description
-    simplified_logic_1();
-    
-    // Core logic step 2: Brief description  
-    if (important_condition) {{
-        simplified_action();
-    }}
-    
-    // Additional core logic steps...
-    
-    return simplified_result;
-}}
+### Required JSON Output Format
+```json
+[
+  {{
+    "function": "function_name_from_input",
+    "status": "COMPLETED"
+  }},
+  {{
+    "function": "another_function_name",
+    "status": "NOT_FOUND",
+    "details": "Symbol not found using pg_symbol_source."
+  }}
+]
 ```
 
-Key simplifications made:
-- [List major simplifications made]
-- [e.g., "Removed detailed error handling for clarity"]
-- [e.g., "Consolidated multiple similar branches"]
-- [e.g., "Abstracted low-level memory operations"]
-```
+### Possible `status` values:
+- `COMPLETED`: Successfully added the simplified source.
+- `ALREADY_PROCESSED`: The "## Simplified Source" section was already present.
+- `NOT_A_FUNCTION`: The symbol is not a function.
+- `NOT_FOUND`: The symbol was not found.
+- `MCP_ERROR`: An MCP tool error occurred.
+- `WRITE_ERROR`: A file writing error occurred.
 
-## Important Guidelines
-- Preserve the essential algorithm and logic flow
-- Don't oversimplify to lose important functionality  
-- Maintain correctness - represent what the function actually does
-- Use consistent formatting throughout
-- If the symbol is not a function, print "NOT_A_FUNCTION: {function_name}" and stop
-- If MCP tools are not accessible, print "MCP_ERROR: {function_name}" and stop
-- **DO NOT create any temporary files - directly update the markdown file**
-
-## Completion Confirmation
-When successfully completed, print: "COMPLETED: {function_name}"
-This confirms the simplified source has been added to the documentation.
-
-## Error Handling
-- If pg_symbol_source returns an error or empty result, try pg_symbol_document as fallback
-- If the symbol is not found in any tool, print "NOT_FOUND: {function_name}" and stop
-- If any error occurs during file writing, print "WRITE_ERROR: {function_name}" and stop
-
-Start processing now for function: {function_name}"""
-        
+Start processing the batch now. Your final output should be only the JSON array.
+"""
         return prompt
-    
+
     def _process_function(self, worker_id: int):
         """
-        Worker thread that processes functions from the queue.
+        Worker thread that processes functions from the queue in batches.
         """
         while True:
             try:
-                # Get next function from queue (with timeout to check for completion)
+                # 1. Get a batch of functions from the queue
+                function_batch = []
                 try:
-                    function_name = self.work_queue.get(timeout=1)
+                    while len(function_batch) < self.functions_per_command:
+                        func_info = self.work_queue.get_nowait()
+                        function_batch.append(func_info)
                 except queue.Empty:
-                    # Check if we're done
-                    if self.work_queue.empty() and len(self.in_progress) == 0:
+                    pass
+
+                if not function_batch:
+                    if self.work_queue.empty() and not self.in_progress:
                         break
+                    time.sleep(1)
                     continue
+
+                # 2. Filter out functions that are already processed
+                unprocessed_batch = []
+                for func_info in function_batch:
+                    if self._check_simplified_source_exists(func_info['path']):
+                        with self.lock:
+                            self.skipped.append(func_info['name'])
+                            self.stats['skipped'] += 1
+                        logging.info(f"[Worker {worker_id}] ⊘ Already processed: {func_info['name']}")
+                        self.work_queue.task_done()
+                    else:
+                        unprocessed_batch.append(func_info)
                 
-                # Check if already processed
-                if self._check_simplified_source_exists(function_name):
-                    with self.lock:
-                        self.skipped.append(function_name)
-                        self.stats['skipped'] += 1
-                    logging.info(f"[Worker {worker_id}] ⊘ Already processed: {function_name}")
-                    self.work_queue.task_done()
+                if not unprocessed_batch:
                     continue
-                
-                # Update status
+
+                # 3. Process the remaining batch
                 with self.lock:
-                    self.in_progress[worker_id] = function_name
-                    self.stats['in_progress'] = len(self.in_progress)
+                    self.in_progress[worker_id] = [f['name'] for f in unprocessed_batch]
+                    self.stats['in_progress'] += len(unprocessed_batch)
                 
-                logging.info(f"[Worker {worker_id}] Starting: {function_name}")
+                logging.info(f"[Worker {worker_id}] Starting batch of {len(unprocessed_batch)}: {', '.join([f['name'] for f in unprocessed_batch])}")
                 
-                # Build prompt
-                prompt = self._build_prompt(function_name)
+                prompt = self._build_prompt(unprocessed_batch)
                 
-                # Run Claude with MCP server access
                 try:
                     result = subprocess.run(
-                        [
-                            'claude',
-                            '--allowedTools', 'mcp,Read,Write',  # Enable MCP server access and file operations
-                            '-p', prompt,
-                            '--model', 'claude-sonnet-4-20250514',
-                            '--permission-mode', 'bypassPermissions',
-                        ],
-                        capture_output=True,
-                        text=True,
-                        timeout=self.timeout_seconds,
-                        cwd=str(Path.cwd())
+                        ['claude', '--allowedTools', 'mcp,Read,Write', '-p', prompt, '--model', 'claude-sonnet-4-20250514', '--permission-mode', 'bypassPermissions'],
+                        capture_output=True, text=True, timeout=self.timeout_seconds, cwd=str(Path.cwd()), encoding='utf-8'
                     )
                     
-                    # Check output for status messages
                     output = result.stdout + result.stderr
-                    
-                    if "COMPLETED:" in output:
-                        # Verify the file was actually updated
-                        if self._check_simplified_source_exists(function_name):
-                            with self.lock:
-                                self.completed.append(function_name)
-                                self.stats['completed'] += 1
-                            logging.info(f"[Worker {worker_id}] ✓ Completed: {function_name}")
+
+                    # 4. Check for session/rate limit errors globally
+                    if "Session limit reached" in output or "Rate limit exceeded" in output:
+                        logging.warning(f"[Worker {worker_id}] ✗ Session/Rate limit hit. Re-queueing batch and sleeping.")
+                        with self.lock:
+                            for func_info in unprocessed_batch:
+                                self.failed.append((func_info['name'], "Session/Rate limit"))
+                                self.stats['failed'] += 1
+                                self.work_queue.put(func_info) # Requeue
+                        time.sleep(3600)
+                        continue
+
+                    # 5. Find, parse, and process the JSON output
+                    json_results = []
+                    try:
+                        json_match = re.search(r"```json\s*([\s\S]*?)\s*```", output, re.MULTILINE)
+                        if json_match:
+                            json_str = json_match.group(1)
+                            json_results = json.loads(json_str)
+                        elif output.strip().startswith('['): # Fallback for raw JSON
+                            json_results = json.loads(output)
                         else:
+                            raise json.JSONDecodeError("No JSON block found", output, 0)
+                    except json.JSONDecodeError:
+                        logging.error(f"[Worker {worker_id}] ✗ Failed to decode JSON for batch. Output: {output[:200]}...")
+                        with self.lock:
+                            for func_info in unprocessed_batch:
+                                self.failed.append((func_info['name'], "Invalid/No JSON output"))
+                                self.stats['failed'] += 1
+                        continue # Move to the next batch
+
+                    # 6. Record results based on the parsed JSON
+                    results_map = {item['function']: item for item in json_results}
+                    for func_info in unprocessed_batch:
+                        func_name = func_info['name']
+                        doc_path = func_info['path']
+                        
+                        if func_name not in results_map:
                             with self.lock:
-                                self.failed.append((function_name, "File not updated"))
+                                self.failed.append((func_name, "Missing from result JSON"))
                                 self.stats['failed'] += 1
-                            logging.warning(f"[Worker {worker_id}] ✗ Failed (file not updated): {function_name}")
-                    
-                    elif "ALREADY_PROCESSED:" in output:
-                        with self.lock:
-                            self.skipped.append(function_name)
-                            self.stats['skipped'] += 1
-                        logging.info(f"[Worker {worker_id}] ⊘ Already had simplified source: {function_name}")
-                    
-                    elif "NOT_A_FUNCTION:" in output:
-                        with self.lock:
-                            self.skipped.append(function_name)
-                            self.stats['skipped'] += 1
-                        logging.info(f"[Worker {worker_id}] ⊘ Not a function: {function_name}")
-                    
-                    elif "NOT_FOUND:" in output:
-                        with self.lock:
-                            self.failed.append((function_name, "Symbol not found"))
-                            self.stats['failed'] += 1
-                        logging.warning(f"[Worker {worker_id}] ✗ Symbol not found: {function_name}")
-                    
-                    elif "MCP_ERROR:" in output or "WRITE_ERROR:" in output:
-                        error_type = "MCP error" if "MCP_ERROR:" in output else "Write error"
-                        with self.lock:
-                            self.failed.append((function_name, error_type))
-                            self.stats['failed'] += 1
-                        logging.error(f"[Worker {worker_id}] ✗ {error_type}: {function_name}")
-                    
-                    elif "Session limit reached" in output or "Rate limit exceeded" in output:
-                        with self.lock:
-                            self.failed.append((function_name, "Session/Rate limit"))
-                            self.stats['failed'] += 1
-                            logging.warning(f"[Worker {worker_id}] ✗ Failed ({output}): {function_name}")
-                        time.sleep(3600)  # Sleep for an hour before retrying
-                        self.work_queue.put(function_name)  # Requeue the function
-                    else:
-                        with self.lock:
-                                self.failed.append((function_name, "Unknown error"))
+                            logging.warning(f"[Worker {worker_id}] ✗ {func_name} missing from result JSON.")
+                            continue
+
+                        res = results_map[func_name]
+                        status = res.get('status', 'UNKNOWN')
+                        details = res.get('details', '')
+
+                        if status == 'COMPLETED':
+                            if self._check_simplified_source_exists(doc_path):
+                                with self.lock:
+                                    self.completed.append(func_name)
+                                    self.stats['completed'] += 1
+                                logging.info(f"[Worker {worker_id}] ✓ Completed: {func_name}")
+                            else:
+                                with self.lock:
+                                    self.failed.append((func_name, "File not updated despite 'COMPLETED' status"))
+                                    self.stats['failed'] += 1
+                                logging.warning(f"[Worker {worker_id}] ✗ Failed (file not updated): {func_name}")
+                        elif status in ['ALREADY_PROCESSED', 'NOT_A_FUNCTION']:
+                            with self.lock:
+                                self.skipped.append(func_name)
+                                self.stats['skipped'] += 1
+                            logging.info(f"[Worker {worker_id}] ⊘ Skipped ({status}): {func_name}")
+                        else: # NOT_FOUND, MCP_ERROR, WRITE_ERROR, etc.
+                            with self.lock:
+                                self.failed.append((func_name, f"{status}: {details}"))
                                 self.stats['failed'] += 1
-                                logging.warning(f"[Worker {worker_id}] ✗ Failed (unknown): {function_name} {output[:100]}...")
-                    
+                            logging.warning(f"[Worker {worker_id}] ✗ Failed ({status}): {func_name}")
+
                 except subprocess.TimeoutExpired:
+                    logging.error(f"[Worker {worker_id}] ✗ Timeout on batch: {[f['name'] for f in unprocessed_batch]}")
                     with self.lock:
-                        self.failed.append((function_name, "Timeout"))
-                        self.stats['failed'] += 1
-                    logging.error(f"[Worker {worker_id}] ✗ Timeout: {function_name}")
+                        for func_info in unprocessed_batch:
+                            self.failed.append((func_info['name'], "Timeout"))
+                            self.stats['failed'] += 1
                 
                 except Exception as e:
+                    logging.error(f"[Worker {worker_id}] ✗ Error on batch {[f['name'] for f in unprocessed_batch]}: {e}")
                     with self.lock:
-                        self.failed.append((function_name, str(e)))
-                        self.stats['failed'] += 1
-                    logging.error(f"[Worker {worker_id}] ✗ Error processing {function_name}: {e}")
+                        for func_info in unprocessed_batch:
+                            self.failed.append((func_info['name'], str(e)))
+                            self.stats['failed'] += 1
                 
                 finally:
-                    # Remove from in-progress
                     with self.lock:
                         if worker_id in self.in_progress:
+                            self.stats['in_progress'] -= len(unprocessed_batch)
                             del self.in_progress[worker_id]
-                        self.stats['in_progress'] = len(self.in_progress)
                     
-                    # Mark queue task as done
-                    self.work_queue.task_done()
+                    for _ in unprocessed_batch:
+                        self.work_queue.task_done()
                     
-                    # Report progress periodically
                     total_processed = self.stats['completed'] + self.stats['failed'] + self.stats['skipped']
-                    if total_processed % 5 == 0:
-                        self._report_progress()
+                    if total_processed % 5 == 0: self._report_progress()
+                    if total_processed % 20 == 0: self._report_summary()
                     
-                    # Detailed summary every 20 functions
-                    if total_processed % 20 == 0:
-                        self._report_summary()
-                    
-                    # Rate limiting
                     time.sleep(2)
                     
             except Exception as e:
-                logging.error(f"[Worker {worker_id}] Unexpected error: {e}")
+                logging.error(f"[Worker {worker_id}] Unexpected error in main loop: {e}")
                 time.sleep(5)
     
     def _report_progress(self):
@@ -365,20 +361,12 @@ Start processing now for function: {function_name}"""
             logging.info(f"[Progress Update - {processed}/{self.stats['total']} ({percentage:.1f}%)]")
             logging.info(f"Completed: {self.stats['completed']}, Failed: {self.stats['failed']}, Skipped: {self.stats['skipped']}, In Progress: {self.stats['in_progress']}")
             
-            # Show recently completed
             if self.completed:
-                recent = self.completed[-5:]
-                logging.info("Recently completed:")
-                for func in recent:
-                    logging.info(f"  ✓ {func}")
-            
-            # Show recent failures
+                logging.info(f"Recently completed: {', '.join(self.completed[-5:])}")
             if self.failed:
                 recent_failed = self.failed[-3:]
                 logging.info("Recent failures:")
-                for func, reason in recent_failed:
-                    logging.info(f"  ✗ {func}: {reason}")
-            
+                for func, reason in recent_failed: logging.info(f"  ✗ {func}: {reason}")
             logging.info(f"{'='*60}\n")
     
     def _report_summary(self):
@@ -387,23 +375,21 @@ Start processing now for function: {function_name}"""
             elapsed = time.time() - self.start_time if self.start_time else 0
             elapsed_str = f"{int(elapsed // 60)}m {int(elapsed % 60)}s"
             
-            logging.info(f"\n{'='*70}")
-            logging.info(f"[SUMMARY REPORT]")
-            logging.info(f"{'='*70}")
+            logging.info(f"\n{'='*70}\n[SUMMARY REPORT]\n{'='*70}")
             processed = self.stats['completed'] + self.stats['failed'] + self.stats['skipped']
             logging.info(f"Total Progress: {processed}/{self.stats['total']}")
-            logging.info(f"Success Rate: {self.stats['completed']}/{processed - self.stats['skipped']} (excluding skipped)")
+            success_denominator = processed - self.stats['skipped']
+            if success_denominator > 0:
+                logging.info(f"Success Rate: {self.stats['completed']}/{success_denominator} (excluding skipped)")
             logging.info(f"Elapsed Time: {elapsed_str}")
             
-            if elapsed > 0:
+            if elapsed > 0 and processed > 0:
                 rate = processed / (elapsed / 60)
                 logging.info(f"Processing Rate: {rate:.1f} functions/minute")
-                
                 remaining = self.stats['total'] - processed
                 if rate > 0:
                     eta_minutes = remaining / rate
                     logging.info(f"Estimated Time Remaining: {int(eta_minutes)}m")
-            
             logging.info(f"{'='*70}\n")
     
     def run(self):
@@ -414,21 +400,14 @@ Start processing now for function: {function_name}"""
         logging.info(f"Starting Function Simplification with MCP Server")
         logging.info(f"Total functions: {self.stats['total']}")
         logging.info(f"Parallel workers: {self.max_parallel}")
-        logging.info(f"Timeout per function: {self.timeout_seconds}s")
+        logging.info(f"Functions per command: {self.functions_per_command}")
+        logging.info(f"Timeout per batch: {self.timeout_seconds}s")
         logging.info(f"{'='*70}\n")
         
-        # Start worker threads
-        workers = []
-        for i in range(self.max_parallel):
-            worker = threading.Thread(target=self._process_function, args=(i,))
-            worker.start()
-            workers.append(worker)
+        workers = [threading.Thread(target=self._process_function, args=(i,)) for i in range(self.max_parallel)]
+        for worker in workers: worker.start()
+        for worker in workers: worker.join()
         
-        # Wait for all workers to complete
-        for worker in workers:
-            worker.join()
-        
-        # Final report
         self._final_report()
     
     def _final_report(self):
@@ -436,9 +415,7 @@ Start processing now for function: {function_name}"""
         elapsed = time.time() - self.start_time
         elapsed_str = f"{int(elapsed // 60)}m {int(elapsed % 60)}s"
         
-        logging.info(f"\n{'='*70}")
-        logging.info(f"[FINAL REPORT]")
-        logging.info(f"{'='*70}")
+        logging.info(f"\n{'='*70}\n[FINAL REPORT]\n{'='*70}")
         total_processed = self.stats['completed'] + self.stats['failed'] + self.stats['skipped']
         logging.info(f"Total functions processed: {total_processed}/{self.stats['total']}")
         logging.info(f"Successfully simplified: {self.stats['completed']}")
@@ -446,29 +423,25 @@ Start processing now for function: {function_name}"""
         logging.info(f"Skipped (already processed or not functions): {self.stats['skipped']}")
         logging.info(f"Total time: {elapsed_str}")
         
-        if total_processed - self.stats['skipped'] > 0:
-            success_rate = (self.stats['completed'] / (total_processed - self.stats['skipped'])) * 100
+        success_denominator = total_processed - self.stats['skipped']
+        if success_denominator > 0:
+            success_rate = (self.stats['completed'] / success_denominator) * 100
             logging.info(f"Success rate (excluding skipped): {success_rate:.1f}%")
         
         if self.failed:
             logging.info("\nFailed functions:")
-            for func, reason in self.failed:
-                logging.info(f"  - {func}: {reason}")
+            for func, reason in self.failed: logging.info(f"  - {func}: {reason}")
         
-        # Save results to file
         results = {
             'completed': self.completed,
             'failed': [{'function': f, 'reason': r} for f, r in self.failed],
-            'skipped': self.skipped,
-            'stats': self.stats,
-            'elapsed_seconds': elapsed
+            'skipped': self.skipped, 'stats': self.stats, 'elapsed_seconds': elapsed
         }
         
         with open('simplification_results.json', 'w') as f:
             json.dump(results, f, indent=2)
         
-        logging.info(f"\nResults saved to simplification_results.json")
-        logging.info(f"{'='*70}")
+        logging.info(f"\nResults saved to simplification_results.json\n{'='*70}")
 
 
 def main():
@@ -477,17 +450,20 @@ def main():
     
     parser = argparse.ArgumentParser(description='Simplify PostgreSQL function source code in parallel using MCP server')
     parser.add_argument('--input', default='experimental/function_call_hierarchy.txt',
-                       help='Input file with function names (one per line)')
-    parser.add_argument('--parallel', type=int, default=3,
-                       help='Number of parallel Claude processes')
+                       help='Input file with function names and markdown paths (CSV format: name,path)')
+    parser.add_argument('--parallel', type=int, default=DEFAULT_MAX_PARALLEL_COMMANDS,
+                       help=f'Number of parallel Claude processes (default: {DEFAULT_MAX_PARALLEL_COMMANDS})')
+    parser.add_argument('--batch-size', type=int, default=FUNCTIONS_PER_COMMAND,
+                       help=f'Number of functions to process per Claude command (default: {FUNCTIONS_PER_COMMAND})')
     parser.add_argument('--timeout', type=int, default=300,
-                       help='Timeout in seconds for each function')
+                       help='Timeout in seconds for each function batch (default: 300)')
     
     args = parser.parse_args()
     
     orchestrator = FunctionSimplificationOrchestrator(
         function_list_file=args.input,
         max_parallel=args.parallel,
+        functions_per_command=args.batch_size,
         timeout_seconds=args.timeout
     )
     
